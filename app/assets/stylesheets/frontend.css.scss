@@ -1,7 +1,14 @@
+html,
 body{
   h1,h2,h3{font-family: 'Fenix', serif;}
   background:#f0f0f0;
   height: 100%;
+}
+
+.content{
+  padding: 15px 0px;
+  height: 100%;
+  
 }
 
 .shadow{ 
@@ -51,25 +58,28 @@ body{
 /* Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  /* Negative indent footer by its height */
-  margin: 0 auto -100px;
-  /* Pad bottom by footer height */
-  padding: 0 0 100px;
+  height: auto;
+  margin: 0 auto -70px;
+  padding: 15px 0 70px;
+  
+  
+  
+  
 }
 
 /* Set the fixed height of the footer here */
 #footer {
-  height: 100px;
-  background-color: #F0F0F0;
+  /* extra 30 pixels to even out padding */
+  height: 70px;
+  /*background-color: #38A6ED;*/
   background-image:url('footer.svg');
   background-repeat:no-repeat;
   background-size: 100%;
+  background-position:top;
   .footer{
     color:white !important;
     text-align:center;
-    margin-top:44px;
+    /*margin-top:24px;*/
   }
   
 }
@@ -77,62 +87,60 @@ body{
 
 
 /* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) { 
-  .full-width-top{ padding:10px 15px 10px 15px !important;}
-  #wrap {
-    margin: 0 auto -90px;
-    padding: 0 0 90px;
-  }
-
-  /* Set the fixed height of the footer here */
-  #footer {
-    height: 90px;
-    background-size: 100%;
-    .footer{
-      margin-top:44px;
-    }
-  }
-}
-
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  .full-width-top{ padding:13px 15px 13px 15px !important;}
-  #wrap {
-    margin: 0 auto -120px;
-    padding: 0 0 120px;
-  }
-
-  /* Set the fixed height of the footer here */
-  #footer {
-    height: 120px;
-    background-size: 100%;
-    .footer{
-      margin-top:60px;;
-    }
-  }
-  
-}
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  .shadow{ 
-    h1{font-size:62px;}
-  }
-  .full-width-top{ padding:20px 15px 20px 15px !important;}
-  #wrap {
-    margin: 0 auto -155px;
-    padding: 0 0 155px;
-  }
-
-  /* Set the fixed height of the footer here */
-  #footer {
-    height: 155px;
-    background-size: 100%;
-    .footer{
-      margin-top:100px;;
-    }
-  }
-}
+//@media (min-width: 768px) { 
+//  .full-width-top{ padding:10px 15px 10px 15px !important;}
+//  #wrap {
+//    margin: 0 auto -150px;
+//    padding: 0 0 150px;
+//  }
+//
+//  /* Set the fixed height of the footer here */
+//  #footer {
+//    height: 150px;
+//
+//    .footer{
+//      margin-top:44px;
+//    }
+//  }
+//}
+//
+///* Medium devices (desktops, 992px and up) */
+//@media (min-width: 992px) {
+//  .full-width-top{ padding:13px 15px 13px 15px !important;}
+//  #wrap {
+//    margin: 0 auto -120px;
+//    padding: 0 0 120px;
+//  }
+//
+//  /* Set the fixed height of the footer here */
+//  #footer {
+//    height: 160px;
+//    .footer{
+//      margin-top:60px;;
+//    }
+//  }
+//  
+//}
+//
+///* Large devices (large desktops, 1200px and up) */
+//@media (min-width: 1200px) {
+//  .shadow{ 
+//    h1{font-size:62px;}
+//  }
+//  .full-width-top{ padding:20px 15px 20px 15px !important;}
+//  #wrap {
+//    margin: 0 auto -150px;
+//    padding: 0 0 150px;
+//  }
+//
+//  /* Set the fixed height of the footer here */
+//  #footer {
+//    height: 180px;
+//    .footer{
+//      margin-top:100px;;
+//    }
+//  }
+//}
 
 .green {
   background-color: #43B44E !important;

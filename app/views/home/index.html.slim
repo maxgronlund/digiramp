@@ -1,41 +1,40 @@
-#wrap
-  .content
 
-    .full-width-top
-      .row
-        .col-xs-6
-          = image_tag 'logo.svg', class: 'img-responsive'
-        .col-xs-6
-          .pull-right
-    .hidden-xs
-      .full-width-sign-up
-        .container
-          == render 'shared/sign_up'
-              
-    .container
-      .row
-        .col-sm-8
-          .jumbotron
-            .shadow
-              h1 Manage and Distribute Digital Music
-            .row
-              .col-xs-12
-                .pull-right
-                  'Get you account now 
-                  '&nbsp;
-                  =link_to 'Sign up', '#', class: 'btn btn-default btn-lg btn-orange'
-                  br
+#wrap
+  .full-width-top
+    .row
+      .col-xs-6
+        = image_tag 'logo.svg', class: 'img-responsive'
+      .col-xs-6
+        .pull-right
+  .hidden-xs
+    .full-width-sign-up
+      .container
+        == render 'shared/sign_up'
+            
+  .container
+    .row
+      .col-sm-8
+        .jumbotron
+          .shadow
+            h1 Manage and Distribute Digital Music
+          .row
+            .col-xs-12
+              .pull-right
+                'Get you account now 
+                '&nbsp;
+                =link_to 'Sign up', '#', class: 'btn btn-default btn-lg btn-orange'
+                br
+      
+      .col-sm-4
+        == render 'shared/log_in'
         
-        .col-sm-4
-          == render 'shared/log_in'
-          
-      .row
-        .col-sm-4
-          = render 'box1'
-        .col-sm-4
-          = render 'box2'
-        .col-sm-4
-          = render 'box3'
+    .row
+      .col-sm-4
+        = render 'box1'
+      .col-sm-4
+        = render 'box2'
+      .col-sm-4
+        = render 'box3'
   
 #footer
   .container
