@@ -4,7 +4,7 @@ set :deploy_user, 'deploy'
 #
 # setup repo details
 set :scm, :git
-set :repo_url, 'https://github.com/maxgronlund/digiramp'
+set :repo_url, 'https://github.com/maxgronlund/digiramp.git'
 
 # setup rvm.
 set :rbenv_type, :system
