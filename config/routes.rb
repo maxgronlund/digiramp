@@ -7,6 +7,7 @@ Digiramp::Application.routes.draw do
   root 'home#index'
   
   resources :sign_up
+  mount Ckeditor::Engine => '/ckeditor'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
