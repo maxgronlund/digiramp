@@ -57,6 +57,8 @@ gem 'id3_tags'
 gem 'jquery-fileupload-rails'
 gem 'icheck-rails'
 
+gem "font-awesome-rails"
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
