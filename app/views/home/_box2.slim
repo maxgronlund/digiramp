@@ -1,9 +1,8 @@
 .panel.panel-default
   .panel-heading.red
     h3 class="panel-title"
-      i class= 'fa fa-folder-o '
+      i class= 'fa fa-cloud-upload'
       '&nbsp;
-      'Organize
+      =link_to @home.box_2_title, @home.box_2_link
   .panel-body
-   'Securely store and access catalogs, collections, media, digital assets, legal and administrative data online – selectively share your content with authorized parties.
-        
+    =link_to @home.box_2_body, @home.box_2_link

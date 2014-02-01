@@ -43,28 +43,28 @@
               .panel.panel-default
                 .panel-heading.green
                   h3 class="panel-title"
-                    =f.input :box_1_title
+                    =f.input :box_1_title, label: false
                 .panel-body
-                  =f.input :box_1_link
-                  =f.input :box_1_body, :input_html => {:style=>"height: 250px;"}
+                  =f.input :box_1_link, label: false, placeholder: 'Link'
+                  =f.input :box_1_body, label: false, :input_html => {:style=>"height: 250px;"}
 
       
             .col-sm-4
               .panel.panel-default
                 .panel-heading.red
                   h3 class="panel-title"
-                    =f.input :box_2_title
+                    =f.input :box_2_title, label: false
                 .panel-body
-                  =f.input :box_2_link
-                  =f.input :box_2_body, :input_html => {:style=>"height: 250px;"}
+                  =f.input :box_2_link, label: false, placeholder: 'Link'
+                  =f.input :box_2_body, label: false, :input_html => {:style=>"height: 250px;"}
             .col-sm-4
               .panel.panel-default
                 .panel-heading.orange
                   h3 class="panel-title"
-                    =f.input :box_3_title
+                    =f.input :box_3_title, label: false
                 .panel-body
-                  =f.input :box_3_link
-                  =f.input :box_3_body, :input_html => {:style=>"height: 250px;"}
+                  =f.input :box_3_link, label: false, placeholder: 'Link'
+                  =f.input :box_3_body, label: false, :input_html => {:style=>"height: 250px;"}
               .pull-right  
                 = f.submit 'Save', class: 'btn btn-lg btn-green'
   
