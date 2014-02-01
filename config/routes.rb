@@ -1,10 +1,17 @@
 Digiramp::Application.routes.draw do
+  
+  get "accounts/index"
+#  get "admin/index"
+  get "admin" => "admin#index", :as => :admin_index
+  resources :homes
+
   get "home/index"
+  root to: "home#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+
   
   resources :sign_up
   mount Ckeditor::Engine => '/ckeditor'
@@ -52,9 +59,10 @@ Digiramp::Application.routes.draw do
   #   resources :photos, concerns: :toggleable
 
   # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  namespace :admin do
+    # Directs /admin/products/* to Admin::ProductsController
+    # (app/controllers/admin/products_controller.rb)
+    resources :homes, only: [:edit, :update]
+    resources :accounts, only: [:index]
+  end
 end

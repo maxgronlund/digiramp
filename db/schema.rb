@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124225022) do
+ActiveRecord::Schema.define(version: 20140201121706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -361,6 +361,21 @@ ActiveRecord::Schema.define(version: 20140124225022) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean  "user_tag"
+  end
+
+  create_table "homes", force: true do |t|
+    t.text     "big_banner_text"
+    t.string   "box_1_title"
+    t.text     "box_1_body"
+    t.string   "box_1_link"
+    t.string   "box_2_title"
+    t.text     "box_2_body"
+    t.string   "box_2_link"
+    t.string   "box_3_title"
+    t.text     "box_3_body"
+    t.string   "box_3_link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "import_ipis", force: true do |t|

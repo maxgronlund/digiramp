@@ -1,0 +1,19 @@
+.row-fluid
+  - flash.each do |name, msg|
+    div class="alert alert-#{name}"
+      button type="button" class="close" data-dismiss="alert" ×
+      h4 = msg[:title] rescue nil
+      = msg[:body] rescue nil
+  
+
+/-if target && target.errors.any? 
+/  .alert.alert-error    
+/    = link_to 'x', '#', :class => 'close', :'data-dismiss' => 'alert'
+/    .errorExplanation
+/    h5 "#{pluralize(target.errors.count, 'error')}" prohibited this record from being saved:</h2>
+/    ul
+/      -target.errors.full_messages.each do |msg|
+/        li = msg 
+/     
+
+

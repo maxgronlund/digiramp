@@ -1,0 +1,50 @@
+= simple_form_for [:admin, @home] do |f|
+  - if @home.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@home.errors.count, "error")} prohibited this home from being saved:"
+      ul
+        - @home.errors.full_messages.each do |message|
+          li = message
+  .row
+    .col-sm-8
+      b Banner text
+      .jumbotron
+        .shadow
+          h1 =f.input :big_banner_text, label: false
+        .row
+          .col-xs-12
+            .pull-right
+              'Get you account now 
+              '&nbsp;
+              =link_to 'Sign up', '#', class: 'btn btn-default btn-lg btn-orange'
+              br
+  .row
+    .col-sm-4
+      .panel.panel-default
+        .panel-heading.green
+          h3 class="panel-title"
+            =f.input :box_1_title
+        .panel-body
+          =f.input :box_1_link
+          =f.input :box_1_body
+
+      
+      
+    .col-sm-4
+      =f.input :box_2_title
+      =f.input :box_2_body
+      =f.input :box_2_link
+    .col-sm-4
+      =f.input :box_3_title
+      =f.input :box_3_body
+      =f.input :box_3_link
+  
+#footer
+  .container
+    .footer
+      .row
+        .col-sm-12
+          '©2014 All rights reserved  
+  
+  .pull-right 
+    = f.submit 'Save', class: 'btn btn-primary'

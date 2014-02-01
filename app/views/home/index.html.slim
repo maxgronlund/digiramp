@@ -1,5 +1,6 @@
 
 #wrap
+  /== render 'shared/frontend_navbar'
   .full-width-top
     .row
       .col-xs-6
@@ -16,7 +17,7 @@
       .col-sm-8
         .jumbotron
           .shadow
-            h1 Manage and Distribute Digital Music
+            h1 = @home.big_banner_text
           .row
             .col-xs-12
               .pull-right

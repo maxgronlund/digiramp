@@ -1,0 +1,83 @@
+
+#wrap
+  == render 'admin/shared/navbar', page: 'edit'
+
+            
+  .container
+    .row
+      .col-sm-12
+        ==render 'admin/shared/messages'
+
+        = simple_form_for [:admin, @home] do |f|
+          - if @home.errors.any?
+            #error_explanation
+              h2 = "#{pluralize(@home.errors.count, "error")} prohibited this home from being saved:"
+              ul
+                - @home.errors.full_messages.each do |message|
+                  li = message
+          .row
+            .col-sm-8
+              .jumbotron
+                .shadow
+                  h1 =f.input :big_banner_text, label: false
+                .row
+                  .col-xs-12
+                    .pull-right
+                      'Get you account now 
+                      '&nbsp;
+                      =link_to 'Sign up', '#', class: 'btn btn-default btn-lg btn-orange'
+                      br
+            .col-sm-4
+              .panel.panel-default
+                .panel-heading.blue
+                  h3 class="panel-title"
+                    'Log In
+                .panel-body
+                  '&nbsp;
+                  br
+                  br
+                  br
+                  
+          .row
+            .col-sm-4
+              .panel.panel-default
+                .panel-heading.green
+                  h3 class="panel-title"
+                    =f.input :box_1_title
+                .panel-body
+                  =f.input :box_1_link
+                  =f.input :box_1_body, :input_html => {:style=>"height: 250px;"}
+
+      
+            .col-sm-4
+              .panel.panel-default
+                .panel-heading.red
+                  h3 class="panel-title"
+                    =f.input :box_2_title
+                .panel-body
+                  =f.input :box_2_link
+                  =f.input :box_2_body, :input_html => {:style=>"height: 250px;"}
+            .col-sm-4
+              .panel.panel-default
+                .panel-heading.orange
+                  h3 class="panel-title"
+                    =f.input :box_3_title
+                .panel-body
+                  =f.input :box_3_link
+                  =f.input :box_3_body, :input_html => {:style=>"height: 250px;"}
+              .pull-right  
+                = f.submit 'Save', class: 'btn btn-lg btn-green'
+  
+#footer
+  .container
+    .footer
+      .row
+        .col-sm-12
+          '©2014 All rights reserved  
+  
+
+            
+        
+
+
+
