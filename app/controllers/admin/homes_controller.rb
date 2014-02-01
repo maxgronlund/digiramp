@@ -1,6 +1,6 @@
 class Admin::HomesController < ApplicationController
   #before_action :set_home, only: [:show, :edit, :update, :destroy]
-  layout 'admin'
+  #layout 'admin'
 
 
 
