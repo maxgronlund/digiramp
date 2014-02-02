@@ -20,7 +20,7 @@
         /li class="#{page == 'home' ? 'active' : ''}"
         /  =link_to 'Home', root_path
         li class="#{page == 'features' ? 'active' : ''}"
-          =link_to 'Features', features_index_path
+          =link_to 'Features', features_index_path , 'data-no-turbolink'=>true
         li class="#{page == 'solutions' ? 'active' : ''}"
           =link_to 'Solutions', solutions_index_path
         li class="#{page == 'about' ? 'active' : ''}"

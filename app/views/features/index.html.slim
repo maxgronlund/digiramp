@@ -38,13 +38,12 @@
             
   .container
     = @feature.title
-    /==render 'admin/shared/messages'
     .row
       .col-sm-6
-        == render 'features/video'
+        == render 'shared/video', video: @video1
       .col-sm-6
-        h3 Taste sweet video
-        'Topping pastry cake. Tiramisu danish tart candy powder macaroon. Tiramisu marzipan chocolate bar bear claw. Halvah marzipan topping bonbon sweet cookie bonbon croissant. Danish candy chupa chups chocolate cake marshmallow marzipan bonbon. Bear claw sesame snaps candy dessert. Brownie sweet marshmallow
+        h3 = @video1.title
+        = @video1.body
 
   
 #footer

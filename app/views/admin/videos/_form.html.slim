@@ -1,22 +1,31 @@
-.padded
-  = simple_form_for [:admin, @video_blog, @video] do |f|
-    = f.error_notification
-  
-    .inputs
-      .row-fluid
-        .span6
-          = f.input :title, :input_html => { class: 'span12'}
-          = f.input :body, :input_html => { class: 'span12', style: " height: 120px;"}
+
+= simple_form_for [:admin, @video_blog, @video] do |f|
+  = f.error_notification
+
+  .inputs
+    .row
+      .col-sm-6
+        br
+        == render 'shared/video', video: @video
           
-          = f.input :thumb, label: 'Teaser image 1012x632 pixels'
-          /= f.input :ogv_video
-          = f.input :mp4_video, label: 'mp4 video dimentions 1012x632pixels'
-          /= f.input :webm_video
-          /= f.input :video_width_in_pixels
-          /= f.input :video_height_in_pixels
-          
-          
-  
-    .form-actions
-      = f.submit 'Save', class: 'btn btn-default', id: "submit_link"
+      
+      .col-sm-6
+        = f.input :title, :input_html => { class: 'span12'}
+        = f.input :body, :input_html => { class: 'span12', style: " height: 120px;"}
+        
+        = f.input :thumb
+        /= f.input :ogv_video
+        = f.input :mp4_360_p
+        = f.input :mp4_720_p
+        = f.input :webm_360_p
+        = f.input :webm_720_p
+        /= f.input :webm_video
+        /= f.input :video_width_in_pixels
+        /= f.input :video_height_in_pixels
+        
+        
+
+
+  .pull-right
+    = f.submit 'Save', class: 'btn btn-lg btn-green', id: "submit_link"
   

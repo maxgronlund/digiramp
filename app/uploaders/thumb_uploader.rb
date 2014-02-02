@@ -8,7 +8,7 @@ class ThumbUploader < CarrierWave::Uploader::Base
   end
   
   def default_url
-    "/assets/fallback/video/" + [version_name, "thumb.jpg"].compact.join('_')
+    "/assets/fallback/video/" + [version_name, "thumb.png"].compact.join('_')
   end
   
 

@@ -62,23 +62,24 @@
               tr
                 /th User
                 th Title
-                th Body
-                th Manage
+                th Videos
+                th 
+                  .pull-right
+                    'Manage
             tbody
               -@video_blogs.each do |video_blog|
                 tr
                   td 
                     b=video_blog.title
-                  td =video_blog.body
                   td 
-                    .label.label-gray
-                      =video_blog.videos.size
+                    =video_blog.videos.size
                   td 
-                    = link_to 'Show', admin_video_blog_path(video_blog), class: 'btn btn-default'
-                    '&nbsp;
-                    = link_to 'Edit', admin_video_blog_path(video_blog), class: 'btn btn-primary'
-                    '&nbsp;
-                    = link_to 'Delete', admin_video_blog_path(video_blog), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+                    .pull-right
+                      = link_to 'Show', admin_video_blog_path(video_blog), class: 'btn btn-default' , 'data-no-turbolink'=>true
+                      /'&nbsp;
+                      /= link_to 'Edit', admin_video_blog_path(video_blog), class: 'btn btn-primary'
+                      '&nbsp;
+                      = link_to 'Delete', admin_video_blog_path(video_blog), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
 
           
         hr  

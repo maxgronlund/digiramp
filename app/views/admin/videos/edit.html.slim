@@ -1,31 +1,46 @@
-==render 'shared/navbar'
-==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: ""} 
-.main-content
-  .container-fluid
-    .row-fluid
-      .area-top.clearfix
-        .pull-left.header
-          h3 class="title"
-            i class="icon-film"
-            'Edit video
+/==render 'shared/navbar'
+/==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: ""} 
+/.main-content
+/  .container-fluid
+/    .row-fluid
+/      .area-top.clearfix
+/        .pull-left.header
+/          h3 class="title"
+/            i class="icon-film"
+/            'Edit video
+/
+/          h5
+/            'Edit the video from the #{@video_blog.title} collection
+/
+/
+/      ==render 'shared/breadcrumbs'
+/      
+/      .container-fluid.padded
+/        ==render 'shared/messages'
+/        .box
+/          .box-header
+/            span class="title"Info and files
+/          .box-content
+/            == render 'form'
+/
+/
+/    
+#wrap
+  == render 'admin/shared/navbar', page: 'manage'
 
-          h5
-            'Edit the video from the #{@video_blog.title} collection
+            
+  .container
+    .row
+      .col-sm-12
+        ==render 'admin/shared/messages'
+    == render 'form'
+    .row
+      .col-sm-12
 
 
-      ==render 'shared/breadcrumbs'
-      
-      .container-fluid.padded
-        ==render 'shared/messages'
-        .box
-          .box-header
-            span class="title"Info and files
-          .box-content
-            == render 'form'
 
-
-    
-    
+  
+== render 'shared/footer'    
 
 
 
