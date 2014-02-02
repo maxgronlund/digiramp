@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201121706) do
+ActiveRecord::Schema.define(version: 20140202181533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -312,6 +312,18 @@ ActiveRecord::Schema.define(version: 20140201121706) do
   end
 
   add_index "documents", ["documentable_id", "documentable_type"], name: "index_documents_on_documentable_id_and_documentable_type", using: :btree
+
+  create_table "features", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "video1_id"
+    t.integer  "video2_id"
+    t.integer  "video3_id"
+    t.integer  "video4_id"
+    t.integer  "video5_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false

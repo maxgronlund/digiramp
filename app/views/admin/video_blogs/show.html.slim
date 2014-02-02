@@ -1,0 +1,90 @@
+/==render 'shared/navbar'
+/==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: ""} 
+/.main-content
+/  .container-fluid
+/    .row-fluid
+/      .area-top.clearfix
+/        .pull-left.header
+/          h3 class="title"
+/            i class="icon-group"
+/             =@video_blog.title
+/
+/          h5
+/            'Uploaded videos
+/
+/
+/
+/      ==render 'shared/breadcrumbs'
+/      
+/      .container-fluid.padded
+/        ==render 'shared/messages'
+/        =simple_format @video_blog.body
+/        .row-fluid
+/          .box
+/            .box-header
+/              span class="title" Video Collections
+/              ul class="box-toolbar"
+/                li
+/                 = link_to 'Upload Video', new_admin_video_blog_video_path(@video_blog), class: 'btn btn-blue btn-mini'
+/                li
+/                  span class="label label-blue" #{@video_blog.videos.size}
+/        
+/            .box-content
+/              table class="table table-normal"
+/                thead
+/                  tr
+/                    th Title
+/                    th Description
+/                    th &nbsp;
+/                tbody
+/                  -@video_blog.videos.each do |video|
+/                    tr
+/                      td =link_to video.title, admin_video_blog_video_path(@video_blog, video)
+/                      td =video.body
+/                      td
+/                        .right
+/                          =render 'admin/shared/button_link', locals: {path: admin_video_blog_video_path(@video_blog, video), icon: 'icon-user',  label: 'Show'}
+/                          =render 'admin/shared/button_link', locals: {path: edit_admin_video_blog_video_path(@video_blog, video), icon: 'icon-edit',  label: 'Edit'}
+/                          =render 'admin/shared/button_link', locals: {path: admin_video_blog_video_path(@video_blog, video), icon: 'icon-trash',  label: 'Delete'}
+/                
+/        .form-actions
+/          = link_to 'Edit', edit_admin_video_blog_path(@video_blog), class: 'btn btn-default'
+/          '&nbsp;
+  
+#wrap
+  == render 'admin/shared/navbar', page: 'manage'
+
+            
+  .container
+    .row
+      .col-sm-12
+        h3 =@video_blog.title
+        = @video_blog.body
+    .row
+      .col-sm-12
+        ==render 'admin/shared/messages'
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                /th User
+                th Title
+                th Body
+                th Manage
+            tbody
+              -@video_blog.videos.each do |video|
+                tr
+                  td =link_to video.title, admin_video_blog_video_path(@video_blog, video)
+                  td =debug video
+                  td
+                    .pull-right
+                      /=render 'admin/shared/button_link', locals: {path: admin_video_blog_video_path(@video_blog, video), icon: 'icon-user',  label: 'Show'}
+                      /=render 'admin/shared/button_link', locals: {path: edit_admin_video_blog_video_path(@video_blog, video), icon: 'icon-edit',  label: 'Edit'}
+                      /=render 'admin/shared/button_link', locals: {path: admin_video_blog_video_path(@video_blog, video), icon: 'icon-trash',  label: 'Delete'}
+  
+#footer
+  .container
+    .footer
+      .row
+        .col-sm-12
+          '©2014 All rights reserved

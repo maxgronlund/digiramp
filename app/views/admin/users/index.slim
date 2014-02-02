@@ -26,7 +26,7 @@
                       '&nbsp;
                       = link_to 'Edit', edit_admin_user_path( user), class: 'btn btn-primary'
                       '&nbsp;
-                      = link_to 'Delete', admin_user_path( user), class: 'btn btn-warning'
+                      = link_to 'Delete', admin_user_path( user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
                   /td
                   /  .pull-right
                   /    = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'

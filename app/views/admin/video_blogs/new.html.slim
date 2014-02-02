@@ -1,0 +1,29 @@
+==render 'shared/navbar'
+==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: ""} 
+.main-content
+  .container-fluid
+    .row-fluid
+      .area-top.clearfix
+        .pull-left.header
+          h3 class="title"
+            i class="icon-film"
+            'New video collection
+
+          h5
+            'Create a new collection of videos
+
+
+        
+      ==render 'shared/breadcrumbs'
+      
+      .container-fluid.padded
+        ==render 'shared/messages'
+        .box
+          .box-header
+            span class="title"New video collection
+          .box-content
+            == render 'form'
+
+
+
+

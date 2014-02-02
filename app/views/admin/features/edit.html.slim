@@ -1,0 +1,129 @@
+
+#wrap
+  == render 'admin/shared/navbar', page: 'edit-pages'
+
+            
+  .container
+    .row
+      .col-sm-12
+        ==render 'admin/shared/messages'
+
+        = form_for @feature do |f|
+          - if @feature.errors.any?
+            #error_explanation
+              h2 = "#{pluralize(@feature.errors.count, "error")} prohibited this feature from being saved:"
+              ul
+                - @feature.errors.full_messages.each do |message|
+                  li = message
+
+          .field
+            = f.label :title
+            = f.text_field :title
+          .field
+            = f.label :body
+            = f.text_area :body
+          .field
+            = f.label :video1_id
+            = f.number_field :video1_id
+          .field
+            = f.label :video2_id
+            = f.number_field :video2_id
+          .field
+            = f.label :video3_id
+            = f.number_field :video3_id
+          .field
+            = f.label :video4_id
+            = f.number_field :video4_id
+          .field
+            = f.label :video5_id
+            = f.number_field :video5_id
+          .actions = f.submit 'Save'
+
+        /= simple_form_for [:admin, @home] do |f|
+        /  - if @home.errors.any?
+        /    #error_explanation
+        /      h2 = "#{pluralize(@home.errors.count, "error")} prohibited this home from being saved:"
+        /      ul
+        /        - @home.errors.full_messages.each do |message|
+        /          li = message
+        /  .row
+        /    .col-sm-8
+        /      .jumbotron
+        /        .shadow
+        /          h1 =f.input :big_banner_text, label: false
+        /        .row
+        /          .col-xs-12
+        /            .pull-right
+        /              'Get you account now 
+        /              '&nbsp;
+        /              =link_to 'Sign up', '#', class: 'btn btn-default btn-lg btn-orange'
+        /              br
+        /    .col-sm-4
+        /      .panel.panel-default
+        /        .panel-heading.blue
+        /          h3 class="panel-title"
+        /            'Log In
+        /        .panel-body
+        /          '&nbsp;
+        /          br
+        /          br
+        /          br
+        /          
+        /  .row
+        /    .col-sm-4
+        /      .panel.panel-default
+        /        .panel-heading.green
+        /          h3 class="panel-title"
+        /            =f.input :box_1_title, label: false
+        /        .panel-body
+        /          =f.input :box_1_link, label: false, placeholder: 'Link'
+        /          =f.input :box_1_body, label: false, :input_html => {:style=>"height: 250px;"}
+        /
+        /
+        /    .col-sm-4
+        /      .panel.panel-default
+        /        .panel-heading.red
+        /          h3 class="panel-title"
+        /            =f.input :box_2_title, label: false
+        /        .panel-body
+        /          =f.input :box_2_link, label: false, placeholder: 'Link'
+        /          =f.input :box_2_body, label: false, :input_html => {:style=>"height: 250px;"}
+        /    .col-sm-4
+        /      .panel.panel-default
+        /        .panel-heading.orange
+        /          h3 class="panel-title"
+        /            =f.input :box_3_title, label: false
+        /        .panel-body
+        /          =f.input :box_3_link, label: false, placeholder: 'Link'
+        /          =f.input :box_3_body, label: false, :input_html => {:style=>"height: 250px;"}
+        /      .pull-right  
+        /        = f.submit 'Save', class: 'btn btn-lg btn-green'
+  
+#footer
+  .container
+    .footer
+      .row
+        .col-sm-12
+          '©2014 All rights reserved  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

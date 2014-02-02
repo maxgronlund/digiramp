@@ -1,8 +1,23 @@
 Digiramp::Application.routes.draw do
   
-  get "accounts/index"
-#  get "admin/index"
+  
+
+  resources :features
+
+  #get "investors/index"
+  #get "about/index"
+  #get "solutions/index"
+  #get "features/index"
+  #get "accounts/index"
+
   get "admin" => "admin#index", :as => :admin_index
+  
+  get "investors" => "investors#index", :as => :investors_index
+  get "features" => "features#index", :as => :features_index
+  get "about" => "about#index", :as => :about_index
+  get "solutions" => "solutions#index", :as => :solutions_index
+  #get "features" => "features#index", :as => :features_index
+  
   resources :homes
 
   get "home/index"
@@ -71,7 +86,11 @@ Digiramp::Application.routes.draw do
     # Directs /admin/products/* to Admin::ProductsController
     # (app/controllers/admin/products_controller.rb)
     resources :accounts
+    resources :features
     resources :homes, only: [:edit, :update]
     resources :users
+    resources :video_blogs do
+      resources :videos
+    end
   end
 end

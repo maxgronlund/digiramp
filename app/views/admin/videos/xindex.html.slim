@@ -1,0 +1,37 @@
+/- content_for :head do
+/  title Videos
+/
+/.container
+/  .content
+/    ==render 'shared/messages', target: nil
+/    h1 Listing  Videos
+/    table class="table table-striped"
+/      thead
+/        tr
+/          th Title
+/          th Body
+/          th Thumb
+/          th Ogv_video
+/          th Mp4_video
+/          th Manage
+/      tbody 
+/        -@videos.each do |video|
+/          tr
+/            td =video.title
+/            td =video.body
+/            td =video.thumb
+/            td =video.ogv_video
+/            td =video.mp4_video
+/            td 
+/              =link_to 'Show', video_path(video)
+/              '&nbsp;
+/              =link_to 'Edit', edit_video_path(video)
+/              '&nbsp;
+/              =link_to 'Delete', video_path(video), data: { confirm: 'Are you sure?' } , :method => :delete
+/
+/    br
+/    .form-actions
+/      = link_to 'Back', "javascript: history.go(-1)", class: 'btn'
+/      '&nbsp;
+/      = link_to 'New Video', new_video_path, class: 'btn'
+/

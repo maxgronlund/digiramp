@@ -1,0 +1,54 @@
+/h1 Listing features
+/
+/table
+/  tr
+/    th Title
+/    th Body
+/    th Video1
+/    th Video2
+/    th Video3
+/    th Video4
+/    th Video5
+/    th
+/    th
+/    th
+/
+/  - @features.each do |feature|
+/    tr
+/      td = feature.title
+/      td = feature.body
+/      td = feature.video1_id
+/      td = feature.video2_id
+/      td = feature.video3_id
+/      td = feature.video4_id
+/      td = feature.video5_id
+/      td = link_to 'Show', feature
+/      td = link_to 'Edit', edit_feature_path(feature)
+/      td = link_to 'Destroy', feature, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Feature', new_feature_path
+
+
+#wrap
+  .full-width-top
+    == render 'shared/navbar', page: 'features'
+
+            
+  .container
+    = @feature.title
+    /==render 'admin/shared/messages'
+    .row
+      .col-sm-6
+        == render 'features/video'
+      .col-sm-6
+        'bar
+
+  
+#footer
+  .container
+    .footer
+      .row
+        .col-sm-12
+          '©2014 All rights reserved

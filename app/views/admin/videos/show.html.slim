@@ -1,0 +1,33 @@
+/==render 'shared/navbar'
+/==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: ""} 
+/.main-content
+.container-fluid
+  .row-fluid
+    .area-top.clearfix
+      .pull-left.header
+        h3 class="title"
+          i class="icon-film"
+          '&nbsp; #{@video.title}
+
+        h5
+          '&nbsp;
+
+
+
+    ==render 'shared/breadcrumbs'
+    
+    .container-fluid.padded
+      ==render 'shared/messages'
+      
+      /video src="#{@video.mp4_video}" width="320" height="240"
+      video width="1012" height="632" src="#{@video.mp4_video}" type="video/mp4"  id="player1" poster="#{@video.thumb_url :preview}" controls="controls" preload="none"
+
+      br
+      
+      =simple_format @video.body
+      br
+      = link_to 'Back to videos', admin_video_blog_path(@video_blog), class: 'btn btn-default'
+        /'&nbsp;
+        /= link_to 'Upload Video', new_admin_video_blog_video_path(@video_blog), class: 'btn btn-default'
+        
+

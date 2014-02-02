@@ -13,7 +13,7 @@ class Admin::HomesController < ApplicationController
     @home = Home.find(params[:id])
     @home.update(home_params)
     flash[:info] = { title: "Success", body: "Public front page updated" }
-    redirect_to edit_admin_home_path(1) 
+    redirect_to edit_admin_home_path(@home) 
   end
 
 

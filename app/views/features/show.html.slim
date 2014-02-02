@@ -1,0 +1,27 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @feature.title
+p
+  strong Body:
+  = @feature.body
+p
+  strong Video1:
+  = @feature.video1_id
+p
+  strong Video2:
+  = @feature.video2_id
+p
+  strong Video3:
+  = @feature.video3_id
+p
+  strong Video4:
+  = @feature.video4_id
+p
+  strong Video5:
+  = @feature.video5_id
+
+= link_to 'Edit', edit_feature_path(@feature)
+'|
+= link_to 'Back', features_path

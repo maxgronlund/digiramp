@@ -1,0 +1,59 @@
+==render 'shared/navbar'
+==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: ""} 
+.main-content
+  .container-fluid
+    .row-fluid
+      .area-top.clearfix
+        .pull-left.header
+          h3 class="title"
+            i class="icon-film"
+            'New video
+
+          h5
+            'Add a new video to the collection
+
+
+        
+      ==render 'shared/breadcrumbs'
+      
+      .container-fluid.padded
+        ==render 'shared/messages'
+        .box
+          .box-header
+            span class="title"Info and files
+          .box-content
+            == render 'form'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/== render 'shared/top', :locals => { selected: 'admin', title: "New Video" }
+/  
+/.container
+/  .content
+/    ==render 'shared/messages', :target => @video
+/    h1 New Video
+/    
+/    == render 'form'
+/
+/
+
+
+
