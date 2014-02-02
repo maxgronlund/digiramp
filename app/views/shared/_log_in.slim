@@ -4,21 +4,19 @@
       'Log In
   .panel-body
 
-    = simple_form_for sign_up_index_path( User.new )  do |f|
+    = simple_form_for(  :sessions, :url => sessions_path ) do |f|
+    
       .input-group
         span class="input-group-addon" @
-        = f.input_field :email,input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+        = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
       br
       .input-group
         span class="input-group-addon" 
           i class= 'fa fa-lock'
         = f.input_field :password, placeholder: 'Password', autocomplete: :off
-      
-        /= f.input :password, input_html: {autocomplete: :off}, placeholder: 'Email'
-      
-      = f.hidden_field :role , value: 'cuctomer'
+
       .pull-right
         br
         = f.submit 'Log in', class: 'btn btn-green btn-lg'
         
-        
+    /    

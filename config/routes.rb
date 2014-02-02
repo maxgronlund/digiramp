@@ -7,6 +7,14 @@ Digiramp::Application.routes.draw do
 
   get "home/index"
   root to: "home#index"
+  get "sign_up/index"
+  get "login/index"
+  resources :sessions
+  resources :password_resets
+  
+  #get 'signup', to: 'users#new', as: 'signup'
+  get 'login', to: 'sessions#new', as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -62,7 +70,8 @@ Digiramp::Application.routes.draw do
   namespace :admin do
     # Directs /admin/products/* to Admin::ProductsController
     # (app/controllers/admin/products_controller.rb)
+    resources :accounts
     resources :homes, only: [:edit, :update]
-    resources :accounts, only: [:index]
+    resources :users
   end
 end

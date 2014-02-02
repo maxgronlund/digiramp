@@ -1,1 +1,36 @@
-= debug @accounts
+
+
+ 
+
+
+#wrap
+  == render 'admin/shared/navbar', page: 'accounts'
+
+            
+  .container
+    .row
+      .col-sm-12
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Account
+                th Members
+                th Expires
+                th Manage
+            tbody
+              -@accounts.each do |account|
+                tr
+                  td = account.title
+                  td = account.users_count + 1
+                  td = account.expiration_date
+                  td
+                    .pull-right
+                      = link_to 'Show', admin_account_path( account), class: 'btn btn-default'
+                      '&nbsp;
+                      = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'
+                      '&nbsp;
+                      = link_to 'Delete', admin_account_path( account), class: 'btn btn-warning'
+          
+          
+        == paginate(@accounts)

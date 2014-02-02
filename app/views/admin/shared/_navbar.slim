@@ -8,19 +8,30 @@
         span class="icon-bar"
         span class="icon-bar"
 
-      a class="navbar-brand" href="#{admin_index_path}" Admin
+      a class="navbar-brand" href="#{root_path}" Home
 
 
     .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
       ul class="nav navbar-nav"
-        li class="active"
-          a href="#{admin_accounts_path}" Accounts
+        li class="#{page == 'admin' ? 'active' : ''}"
+          =link_to 'Admin', admin_index_path
+        /li class="activex"
+        /  =link_to 'Accounts', admin_accounts_path
+        /  /a href="#{admin_accounts_path}" Accounts
         /li
         /  a href="#" Link
-          
-        li class="dropdown"
+        li class="dropdown #{page == 'accounts' ? 'active' : ''}"
           a href="#" class="dropdown-toggle" data-toggle="dropdown"
-            'Edit <b class="caret"></b>
+            'Accounts <b class="caret"></b>
+          ul class="dropdown-menu"
+            li = link_to 'View All', admin_accounts_path
+            li = link_to 'Create', new_admin_account_path 
+        li class="#{page == 'users' ? 'active' : ''}"
+          =link_to 'Users', admin_users_path
+        
+        li class="dropdown #{page == 'edit-pages' ? 'active' : ''}"
+          a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            'Pages <b class="caret"></b>
           ul class="dropdown-menu"
             li
               = link_to 'Front page', edit_admin_home_path(1)

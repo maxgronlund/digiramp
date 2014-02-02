@@ -92,19 +92,6 @@ ActiveRecord::Schema.define(version: 20140201121706) do
 
   add_index "activity_logs", ["account_id"], name: "index_activity_logs_on_account_id", using: :btree
 
-  create_table "administrations", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "account_id"
-    t.integer  "account_catalog_id"
-    t.date     "expires"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "administrations", ["account_catalog_id"], name: "index_administrations_on_account_catalog_id", using: :btree
-  add_index "administrations", ["account_id"], name: "index_administrations_on_account_id", using: :btree
-  add_index "administrations", ["user_id"], name: "index_administrations_on_user_id", using: :btree
-
   create_table "albums", force: true do |t|
     t.string   "title"
     t.string   "poster"
@@ -732,19 +719,6 @@ ActiveRecord::Schema.define(version: 20140201121706) do
     t.string   "media_type"
     t.integer  "video_width_in_pixels"
     t.integer  "video_height_in_pixels"
-    t.integer  "track_count"
-    t.integer  "disk_number"
-    t.integer  "disk_count"
-    t.string   "album_artist"
-    t.string   "album_title"
-    t.string   "grouping"
-    t.string   "composer"
-    t.string   "comment"
-    t.boolean  "compilation"
-    t.integer  "year"
-    t.integer  "bitrate"
-    t.integer  "samplerate"
-    t.integer  "channels"
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -826,8 +800,6 @@ ActiveRecord::Schema.define(version: 20140201121706) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.integer  "current_account_id"
-    t.string   "first_name"
-    t.string   "last_name"
   end
 
   create_table "video_blogs", force: true do |t|
@@ -837,25 +809,6 @@ ActiveRecord::Schema.define(version: 20140201121706) do
     t.datetime "updated_at", null: false
     t.string   "identifier"
   end
-
-  create_table "video_email_campains", force: true do |t|
-    t.string   "title"
-    t.string   "by"
-    t.string   "logo"
-    t.string   "link_to_contact"
-    t.string   "webm"
-    t.string   "ogg"
-    t.string   "mp4"
-    t.string   "star_rating_image"
-    t.text     "caption_text"
-    t.string   "email_layout"
-    t.string   "footer_image"
-    t.integer  "account_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "video_email_campains", ["account_id"], name: "index_video_email_campains_on_account_id", using: :btree
 
   create_table "videos", force: true do |t|
     t.string   "title"

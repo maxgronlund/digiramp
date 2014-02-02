@@ -1,0 +1,36 @@
+#wrap
+  == render 'admin/shared/navbar', page: 'users'
+
+            
+  .container
+    .row
+      .col-sm-12
+        ==render 'admin/shared/messages'
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                /th User
+                th Name
+                th Email
+                th Manage
+            tbody
+              -@users.each do |user|
+                tr
+                  /td = debug user
+                  td = user.name
+                  td = user.email
+                  td
+                    .pull-right
+                      = link_to 'Show', admin_user_path( user ), class: 'btn btn-default'
+                      '&nbsp;
+                      = link_to 'Edit', edit_admin_user_path( user), class: 'btn btn-primary'
+                      '&nbsp;
+                      = link_to 'Delete', admin_user_path( user), class: 'btn btn-warning'
+                  /td
+                  /  .pull-right
+                  /    = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'
+              
+          
+        hr  
+        == paginate(@users)
