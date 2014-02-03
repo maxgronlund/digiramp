@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140202221432) do
+ActiveRecord::Schema.define(version: 20140203003705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -839,6 +839,7 @@ ActiveRecord::Schema.define(version: 20140202221432) do
     t.string   "mp4_720_p"
     t.string   "webm_360_p"
     t.string   "webm_720_p"
+    t.string   "identifyer"
   end
 
   add_index "videos", ["song_id"], name: "index_videos_on_song_id", using: :btree
