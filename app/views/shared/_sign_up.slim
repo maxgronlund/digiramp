@@ -7,11 +7,13 @@
         = f.input_field :email,input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
     .col-sm-3
       .input-group
-        span class="input-group-addon" @
+        span class="input-group-addon"
+          i class= 'fa fa-key'
         = f.input_field :password, placeholder: 'Password', autocomplete: :off
     .col-sm-3
       .input-group
-        span class="input-group-addon" @
+        span class="input-group-addon" 
+          i class= 'fa fa-key'
         = f.input_field :password_confirmation, placeholder: 'Password confirmation', autocomplete: :off
         = f.hidden_field :role , value: 'cuctomer'
     .col-sm-3
