@@ -28,8 +28,8 @@
         li class="#{page == 'investors' ? 'active' : ''}"
           =link_to 'Investors', investors_index_path
         li
-          /= user_signed_in?
-          = link_to 'logout',  logout_path
+          -if  user_signed_in?
+            = link_to 'logout',  logout_path
         
        
 

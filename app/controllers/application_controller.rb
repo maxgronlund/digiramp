@@ -19,6 +19,27 @@ class ApplicationController < ActionController::Base
     current_user != nil
   end
   
+  def admin_only
+    logger.debug '----------------------------------------------------------------'
+    logger.debug current_user.inspect
+    logger.debug '----------------------------------------------------------------'
+    unless  user_signed_in?  && current_user.super?
+      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+    end
+    #user_signed_in?
+    #raise ActionController::RoutingError.new('Not Found')
+    #render text: "422 Not Found", status: 422
+  end
   
+  def zaap_cokkies
+    cookies[:auth_token] = nil
+    session[:user_id]    = nil
+  end
+  
+#private
+#  
+#  def check_authorization
+#      raise User::NotAuthorized unless current_user.admin?
+#  end
   
 end
