@@ -8,13 +8,10 @@ class SessionsController < ApplicationController
   def create
     
     user = User.where(email: params[:sessions][:email]).first
-    logger.debug '----------------------------------------------------------------'
-    logger.debug user.inspect
-    logger.debug '----------------------------------------------------------------'
 
-    if user && user.authenticate(params[:password])
+
+    if user && user.authenticate(params[:sessions][:password])
       flash[:info] = { title: "Success", body: "You are logged in" }
-      #MessageWorker.perform_in 2.seconds, "Logged in!"
       
       if params[:remember_me]
         cookies.permanent[:auth_token] = user.auth_token
@@ -22,15 +19,15 @@ class SessionsController < ApplicationController
         cookies[:auth_token] = user.auth_token  
       end
       
-      #redirect_to user_path( user)
-      redirect_to root_path
+      
+      redirect_to account_path(user.current_account_id)
 
     else
       #, notice: "Email or password is invalid! If you don't have an account? Please contact us"
       #redirect_to login_index_path
       flash[:danger] = { title: "Error", body: "You are not logged in" }
-      destroy
-      #redirect_to root_path
+      
+      redirect_to root_path
     end
   end
 

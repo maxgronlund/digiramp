@@ -2,6 +2,7 @@ Digiramp::Application.routes.draw do
   
   
 
+  resources :accounts, only: [:show]
   resources :features
 
   #get "investors/index"
@@ -37,6 +38,7 @@ Digiramp::Application.routes.draw do
 
   
   resources :sign_up
+  resources :users
   mount Ckeditor::Engine => '/ckeditor'
 
   # Example of regular route:
