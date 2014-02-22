@@ -1,2 +1,59 @@
-h1 SellingPoints#selling_point_2
-p Find me in app/views/selling_points/selling_point_2.html.slim
+
+#wrap
+  .full-width-top
+    == render 'shared/navbar', page: 'home'
+  -unless current_user
+    .hidden-xs
+      .full-width-sign-up
+        .container
+          == render 'shared/sign_up'
+            
+  .container
+    ==render 'admin/shared/messages'
+    .row
+      .col-sm-6
+        h1 =@selling_point_2_top.title
+        =@selling_point_2_top.body
+      .col-sm-6
+        -if can_edit?
+          '&nbsp;
+          -session[:return_url] = request.url
+          = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_2_top), class: 'btn btn-primary btn-lg'
+      
+
+    .row
+      .col-sm-12
+        hr
+    .row
+      .col-sm-3
+        = image_tag @selling_point_2_right.image_url(:size_570x320), class: "img-responsive"
+      .col-sm-3
+         h3 = @selling_point_2_right.title
+         = @selling_point_2_right.body
+         -if can_edit?
+           div.pull-right
+          
+            -session[:return_url] = request.url
+            = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_2_right), class: 'btn btn-primary btn-lg'
+            
+      /--------------------------------------------      
+      .col-sm-3
+        = image_tag @selling_point_2_left.image_url(:size_570x320), class: "img-responsive"
+      .col-sm-3
+         h3 = @selling_point_2_left.title
+         = @selling_point_2_left.body
+         -if can_edit?
+           div.pull-right
+          
+            -session[:return_url] = request.url
+            = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_2_left), class: 'btn btn-primary btn-lg'
+           
+
+
+  
+#footer
+  .container
+    .footer
+      .row
+        .col-sm-12
+          '©2014 All rights reserved

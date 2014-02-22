@@ -8,7 +8,9 @@
         span class="icon-bar"
         span class="icon-bar"
 
-      a class="navbar-brand" href="#{root_path}" Home
+      = link_to root_path do
+        .navbar-brand
+          = image_tag('logo-noname.svg')
 
 
     .collapse.navbar-collapse id="bs-example-navbar-collapse-1"

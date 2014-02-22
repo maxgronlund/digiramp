@@ -5,11 +5,15 @@
    
   .container
     .row
-      .col-sm-12
+      .col-sm-6
          h1 = @new_recording.title
          = @new_recording.body
-         br
-         br
+      .col-sm-6
+        -if can_edit?
+          '&nbsp;
+          -session[:return_url] = request.url
+          = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @new_recording), class: 'btn btn-primary btn-lg'
+        
     ==render 'admin/shared/messages'
     
     ==render @section if @section
