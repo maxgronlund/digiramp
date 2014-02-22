@@ -19,7 +19,7 @@
         hr
     .row
       .col-sm-3
-        = image_tag @upload_recording.image, class: "img-responsive"
+        = image_tag @upload_recording.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
         h3 = @upload_recording.title
         = @upload_recording.body
@@ -31,7 +31,7 @@
           = link_to 'edit', edit_admin_blog_blog_post_path(@recording_blog, @upload_recording), class: 'btn btn-lg btn-primary'
         hr
       .col-sm-3
-        = image_tag @import_content.image, class: "img-responsive"
+        = image_tag @import_content.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
         h3 = @import_content.title
         = @import_content.body
@@ -47,7 +47,7 @@
     .row
       br
       .col-sm-3
-        = image_tag @upload_content.image, class: "img-responsive"
+        = image_tag @upload_content.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
         h3 = @upload_content.title
         = @upload_content.body
@@ -60,7 +60,7 @@
         hr
       
       .col-sm-3
-        = image_tag @import_content.image, class: "img-responsive"
+        = image_tag @import_content.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
         h3 = @import_content.title
         = @import_content.body
