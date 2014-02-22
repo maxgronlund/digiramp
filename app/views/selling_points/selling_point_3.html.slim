@@ -29,7 +29,7 @@
         = image_tag @selling_point_3_right.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
          h3 = @selling_point_3_right.title
-         = @selling_point_3_right.body
+         = simple_format @selling_point_3_right.body
          -if can_edit?
            div.pull-right
           
@@ -41,7 +41,7 @@
         = image_tag @selling_point_3_left.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
          h3 = @selling_point_3_left.title
-         = @selling_point_3_left.body
+         = simple_format @selling_point_3_left.body
          -if can_edit?
            div.pull-right
           

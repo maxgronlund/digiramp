@@ -13,7 +13,7 @@
     .row
       .col-sm-6
         h1 =@selling_point_2_top.title
-        =@selling_point_2_top.body
+        = simple_format @selling_point_2_top.body
       .col-sm-6
         -if can_edit?
           '&nbsp;
@@ -41,7 +41,7 @@
         = image_tag @selling_point_2_left.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
          h3 = @selling_point_2_left.title
-         = @selling_point_2_left.body
+         = simple_format @selling_point_2_left.body
          -if can_edit?
            div.pull-right
           
