@@ -1,6 +1,5 @@
 class Admin::BlogPostsController < ApplicationController
   
-  
   #respond_to :html, :xml, :json
   #before_filter :admin_only
   before_filter :find_blog_post, only: [ :edit, :update, :destroy, :crop, :crop_update, :show]
@@ -15,11 +14,7 @@ class Admin::BlogPostsController < ApplicationController
 
   def edit
      @blog = Blog.find(params[:blog_id])
-     #@bread_crumbs = [
-     #     {path:"#{admin_index_path}", title: "Digiramp Admin", icon: "icon-home"},
-     #     {path:"#{admin_blogs_path}", title: "Blogs", icon: "icon-list"},
-     #     {path:"#{admin_blog_path @blog }", title: "#{@blog.title}", icon: "icon-list"}
-     # ]
+
   end
   
   def show
@@ -30,17 +25,13 @@ class Admin::BlogPostsController < ApplicationController
   def create
     @blog = Blog.find(params[:blog_id])
     if @blog_post = @blog.blog_posts.create(blog_post_params)
-      if params[:blog_post][:image]
-        redirect_to crop_admin_blog_blog_post_path(@blog_post.blog, @blog_post, :version => :size_62x62)
-      else
+      #if params[:blog_post][:image]
+      #  redirect_to crop_admin_blog_blog_post_path(@blog_post.blog, @blog_post, :version => :size_62x62)
+      #else
         redirect_to admin_blog_path(@blog_post.blog)
-      end
+        #end
     else
-      @bread_crumbs = [
-        {path:"#{admin_index_path}", title: "Digiramp Admin", icon: "icon-home"},
-        {path:"#{admin_blogs_path}", title: "Blogs", icon: "icon-list"},
-        {path:"#{admin_blogs_path}", title: "Blogs", icon: "icon-list"}
-      ]
+
       render :new
     end
   end
@@ -49,18 +40,14 @@ class Admin::BlogPostsController < ApplicationController
     @blog = Blog.find(params[:blog_id])
     if @blog_post.update(blog_post_params)
     #if params[:blog_post][:image] && params[:blog_post][:remove_image] != '1'
-      if params[:blog_post][:image]
-        redirect_to crop_admin_blog_blog_post_path(@blog_post.blog, @blog_post, :version => :size_62x62)
-      else
+      #if params[:blog_post][:image]
+      #  redirect_to crop_admin_blog_blog_post_path(@blog_post.blog, @blog_post, :version => :size_62x62)
+      #else
         flash[:info] = { title: "Success", body: "#{@blog_post.title}  updated" }
         redirect_to_return_url admin_blog_path(@blog_post.blog)
-      end
+        #end
     else
-       @bread_crumbs = [
-            {path:"#{admin_index_path}", title: "Digiramp Admin", icon: "icon-home"},
-            {path:"#{admin_blogs_path}", title: "Blogs", icon: "icon-list"},
-            {path:"#{admin_blog_path @blog }", title: "#{@blog.title}", icon: "icon-list"}
-        ]
+
       render :edit
     end
   end
