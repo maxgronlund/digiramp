@@ -10,8 +10,9 @@ Digiramp::Application.configure do
   config.eager_load = false
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  config.consider_all_requests_local        = true
+  config.action_controller.perform_caching  = true
+  config.cache_store                        = :dalli_store
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -26,4 +27,20 @@ Digiramp::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  
+  
 end
+
+
+ActionMailer::Base.smtp_settings = {
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :domain => "localhost:3000",
+    :authentication => :plain,
+    :user_name => "info-digiramp",
+    :password => "GnoDg4jq7Wm"
+}
+
+
+ENV["MAIL_USERNAME"] = 'info@digiramp.org'
+ENV["MAIL_PASSWORD"] = 'IS5pleyu'

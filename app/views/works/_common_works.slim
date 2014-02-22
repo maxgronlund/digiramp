@@ -1,0 +1,11 @@
+
+  
+  
+  
+.table-responsive
+  table class="table table-hover"
+    tbody
+      -@common_works.each do |common_work|
+        == render 'works/common_work', common_work: common_work
+      
+

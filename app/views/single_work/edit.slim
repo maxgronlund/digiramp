@@ -1,0 +1,26 @@
+-session[:return_url] = request.url
+#wrap
+  .full-width-top.account
+    == render 'accounts/shared/navbar', page: 'home'
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    .row
+      .col-sm-6
+        h1 = @new_single_work.title
+        = @new_single_work.body
+      -if can_edit?
+        .col-sm-6
+          = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @new_single_work), class: 'btn btn-primary btn-lg'
+    hr
+    = simple_form_for [@account, @common_work], url: url_for(action: 'update', controller: 'single_work'), method: 'post' do |f|
+      == render 'form', f: f
+
+
+#footer
+  .container
+    .footer
+      .row
+        .col-sm-12
+          '©2014 All rights reserved

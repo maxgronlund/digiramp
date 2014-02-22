@@ -1,0 +1,32 @@
+/== render 'shared/top', :locals => { selected: 'admin', title: "#{@blog_post.title}" }
+/  
+/.container
+/  .content
+/    ==render 'shared/messages', :target => @blog_post
+/    
+/    h1 #{@blog_post.title} <small>By #{@blog_post.author}</smal>
+/    '#{link_to( 'Posted ' + @blog_post.created_at.strftime("%m/%d/%Y") + ' under ' + @blog_post.blog.title, admin_blog_path(@blog))}
+/    hr
+/    .row
+/      .span6
+/        =@blog_post.body
+/      .span6
+/        =image_tag( @blog_post.image_url :bootstrap6)
+/        br
+/        i=@blog_post.image_title
+/    br
+/    .form-actions
+/      = link_to 'Back', "javascript: history.go(-1)", class: 'btn'
+/      '&nbsp;
+/      = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @blog_post), class: 'btn'
+/
+
+
+
+== render 'shared/clean_canvas/navbar' , page: 'Page'
+#aboutus
+  .container
+    .section_header 
+      = render "page/#{@blog_post.layout}", blog_post: @blog_post
+
+/9=debug @blog_post.layout

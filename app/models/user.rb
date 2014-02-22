@@ -10,10 +10,11 @@ class User < ActiveRecord::Base
   mount_uploader :image, AvatarUploader
   include ImageCrop
   
-  has_one :account #!!! <<<<<<<<<<< OLD STUFF HAS TO BE REMOVED
+  has_one :account #
   #has_many :account_users
   
   has_one :dashboard
+  
   
   has_many :account_users
   has_many :accounts, :through => :account_users  

@@ -14,4 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap/bootstrap
+//= require jquery_nested_form
+//= require simple
+//= require wysihtml5-0.4.0pre
+//= require super_simple_wysiwyg
+
 // require_tree .
+
+
+
+
+
+

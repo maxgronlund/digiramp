@@ -1,5 +1,5 @@
 .row  
-  = simple_form_for sign_up_index_path( User.new )  do |f|
+  = simple_form_for(User.new)    do |f|
 
     .col-sm-3
       .input-group
@@ -18,4 +18,4 @@
         = f.hidden_field :role , value: 'cuctomer'
     .col-sm-3
       '&nbsp;
-      = f.submit 'Sign Up', class: 'btn btn-orange btn-lg'
+      = f.submit 'Sign Up', class: 'btn btn-orange btn-lg', id: 'sign_up_form_button'

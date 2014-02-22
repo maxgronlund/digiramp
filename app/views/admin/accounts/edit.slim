@@ -1,0 +1,19 @@
+
+
+
+ 
+
+
+#wrap
+  == render 'admin/shared/navbar', page: 'accounts'
+
+            
+  .container
+    .row
+      .col-sm-12
+        
+        =simple_form_for [:admin, @account] do |f|
+          =f.input :fax
+          =f.input :description, label: false
+          = f.submit 'Save', class: 'btn btn-primary btn-lg'
+     

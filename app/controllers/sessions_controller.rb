@@ -22,7 +22,9 @@ class SessionsController < ApplicationController
       if current_user && current_user.super?
         redirect_to admin_index_path
       else
-        redirect_to account_path(user.current_account_id)
+        user.account.visits += 1
+        user.account.save!
+        redirect_to account_path(user.account)
       end
 
     else

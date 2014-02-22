@@ -1,9 +1,30 @@
+require 'sidekiq/web'
+
 Digiramp::Application.routes.draw do
   
   
 
-  resources :accounts, only: [:show]
+  
+  resources :accounts, only: [:show] do
+    resources :works
+    get "add_content/index"
+    resources :single_work  do
+      post 'update'
+      get 'show'
+      get 'edit'
+      get 'description'
+      get 'lyrics'
+      get 'recordings'
+      get 'ipis'
+      get 'users'
+    end
+    resources :upload_recordings, only: [:new, :edit]
+    resources :common_works
+    #get "upload_recording/new"
+    #get "upload_recording/edit"
+  end
   resources :features
+  resources :single_work_steps
 
   #get "investors/index"
   #get "about/index"
@@ -94,5 +115,12 @@ Digiramp::Application.routes.draw do
     resources :video_blogs do
       resources :videos
     end
+    
+    resources :blogs do
+      resources :blog_posts
+    end
   end
+  
+  mount Sidekiq::Web, at: "/sidekiq"
+  
 end

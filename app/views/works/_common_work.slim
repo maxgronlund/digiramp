@@ -1,0 +1,13 @@
+-cache (common_work) do
+  tr
+    /td = debug user
+    td = common_work.title
+    td 
+    td
+      .pull-right
+        = link_to 'Show', account_work_path(@account, common_work), class: 'btn btn-default'
+        '&nbsp;
+        = link_to 'Edit', edit_account_work_path(@account, common_work), class: 'btn btn-primary'
+        '&nbsp;
+        = link_to 'Delete', account_work_path(@account, common_work), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+  

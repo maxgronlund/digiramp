@@ -1,0 +1,11 @@
+.row
+  .col-sm-6
+    = f.input :title, :input_html => {  placeholder: "Title"}
+    = f.input :audio_file
+    = f.input :isrc_code, label: 'ISRC Code'
+  .col-sm-6
+    = f.input :artists, :input_html => {  style: "height: 120px;", placeholder: "Artists"}
+    = f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
+  .col-sm-12
+    .pull-right
+      = f.link_to_remove 'Remove', class: 'btn btn-danger'

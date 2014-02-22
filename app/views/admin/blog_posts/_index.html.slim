@@ -1,0 +1,16 @@
+ul id="blog-posts" data-update-url="#{sort_admin_blog_blog_posts_url(@blog)}"
+  -@blog.blog_posts.order("position").each do |blog_post|
+    = content_tag_for :li, blog_post do
+      .row-fluid
+        .span2
+          i class="icon-resize-vertical"
+          =image_tag( blog_post.image_url :size_62x62)
+        .span6
+          h5=blog_post.title
+        .span4
+          .edit-right
+            =render 'admin/shared/button_link', locals: {path: admin_blog_blog_post_path(@blog, blog_post), icon: 'icon-user',  label: 'Show'}
+            =render 'admin/shared/button_link', locals: {path: edit_admin_blog_blog_post_path(@blog, blog_post), icon: 'icon-edit',  label: 'Edit'}
+            =render 'admin/shared/button_link', locals: {path: admin_blog_blog_post_path(@blog, blog_post), icon: 'icon-trash',  label: 'Delete'}
+.form-actions
+  = link_to 'New Post', new_admin_blog_blog_post_path(@blog), class: 'btn btn-default'

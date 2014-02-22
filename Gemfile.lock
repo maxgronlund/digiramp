@@ -94,6 +94,7 @@ GEM
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
     daemons (1.1.9)
+    dalli (2.7.0)
     database_cleaner (1.2.0)
     diff-lcs (1.2.5)
     domain_name (0.5.15)
@@ -225,6 +226,8 @@ GEM
     redis (3.0.7)
     redis-namespace (1.4.1)
       redis (~> 3.0.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec-core (2.14.7)
     rspec-expectations (2.14.4)
       diff-lcs (>= 1.1.3, < 2.0)
@@ -300,6 +303,12 @@ GEM
     tilt (1.4.1)
     timers (1.1.0)
     tins (0.13.1)
+    transloadit (1.1.1)
+      multi_json
+      rest-client
+    transloadit-rails (1.1.1)
+      railties (>= 3)
+      transloadit (>= 1.1.1)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -345,6 +354,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   country_select
   cucumber-rails
+  dalli
   database_cleaner
   factory_girl
   headless
@@ -375,6 +385,7 @@ DEPENDENCIES
   slim-rails
   taglib-ruby
   thin
+  transloadit-rails
   turbolinks
   uglifier (>= 1.3.0)
   unicorn

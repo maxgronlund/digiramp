@@ -58,6 +58,12 @@ gem 'id3_tags'
 gem 'jquery-fileupload-rails'
 gem 'icheck-rails'
 
+
+#=====================================
+# Marilyn
+gem 'dalli'
+gem 'transloadit-rails'
+
 #gem "font-awesome-rails" <<------- not working on all devices ;-(
 
 

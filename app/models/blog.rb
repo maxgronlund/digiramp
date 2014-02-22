@@ -12,6 +12,11 @@ class Blog < ActiveRecord::Base
   def self.add_content; Blog.where(identifier: 'Add Content').first_or_create(identifier: 'Add Content', title: 'Add Content' ) end
   def self.import_wizard; Blog.where(identifier: 'Import Wizard').first_or_create(identifier: 'Import Wizard', title: 'Import Wizard' ) end
   
+  
+  def self.welcome; Blog.where(identifier: 'Welcome').first_or_create(identifier: 'Welcome', title: 'Welcome' ) end
+  def self.add_content; Blog.where(identifier: 'Add Content').first_or_create(identifier: 'Add Content', title: 'Add Content' ) end
+  def self.works; Blog.where(identifier: 'Works').first_or_create(identifier: 'Works', title: 'Works' ) end
+  def self.add_recording; Blog.where(identifier: 'Add Recording').first_or_create(identifier: 'Add Recording', title: 'Add Recording' ) end
 
 
 end

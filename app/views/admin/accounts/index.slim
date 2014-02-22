@@ -26,6 +26,8 @@
                   td = account.expiration_date
                   td
                     .pull-right
+                      = link_to 'Go To', account_path( account), class: 'btn btn-default'
+                      '&nbsp;
                       = link_to 'Show', admin_account_path( account), class: 'btn btn-default'
                       '&nbsp;
                       = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'

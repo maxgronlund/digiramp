@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140203003705) do
+ActiveRecord::Schema.define(version: 20140219222625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 20140203003705) do
     t.integer  "documents_count",    default: 0, null: false
     t.date     "expiration_date"
     t.integer  "administrator_id"
+    t.integer  "visits",             default: 0
+    t.integer  "works_cache_key",    default: 0
   end
 
   add_index "accounts", ["administrator_id"], name: "index_accounts_on_administrator_id", using: :btree
@@ -257,8 +259,8 @@ ActiveRecord::Schema.define(version: 20140203003705) do
   create_table "common_works", force: true do |t|
     t.string   "title"
     t.string   "iswc_code"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "ascap_work_id"
     t.integer  "account_id"
     t.integer  "common_works_import_id"
@@ -268,6 +270,8 @@ ActiveRecord::Schema.define(version: 20140203003705) do
     t.text     "description"
     t.text     "alternative_titles"
     t.integer  "recording_preview_id"
+    t.string   "step",                   default: "created"
+    t.text     "lyrics"
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree
@@ -812,7 +816,11 @@ ActiveRecord::Schema.define(version: 20140203003705) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.integer  "current_account_id"
+    t.string   "avatar_url"
+    t.integer  "account_id"
   end
+
+  add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
 
   create_table "video_blogs", force: true do |t|
     t.string   "title"

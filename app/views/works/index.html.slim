@@ -1,0 +1,52 @@
+
+-cache([ @account.id, @account.works_cache_key, params[:page]]) do
+  #wrap
+    .full-width-top.account
+      == render 'accounts/shared/navbar', page: 'home'
+  
+              
+    .container
+      ==render 'admin/shared/messages'
+      
+      /==render @section
+      .row
+        .col-sm-12
+          h2 = @manage_works.title
+          = @manage_works.body
+          .hidden-xs
+            == paginate(@common_works)
+          .visible-xs
+            br
+            .btn-group.btn-group-sm
+              = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination'
+              = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
+            br
+            br
+          
+        .col-sm-12
+          == render 'works/common_works'
+          hr  
+          .hidden-xs
+            == paginate(@common_works)
+          .visible-xs
+            .btn-group
+              = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination'
+              = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
+
+        .col-sm-4
+  
+          
+      .row
+        .col-sm-4
+      
+        .col-sm-4
+      
+        .col-sm-4
+  
+    
+  #footer
+    .container
+      .footer
+        .row
+          .col-sm-12
+            '©2014 All rights reserved

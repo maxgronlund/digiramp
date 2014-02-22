@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = @account.users.new
+    #@user = @account.users.new
   end
 
   def edit
@@ -30,23 +30,29 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    
     if @user.save
-      @user.signup_confirmation
-      flash[:info] = { title: "Success", body: "#{@user.name} joined #{@user.account.title} as #{@user.role}" }
+      @account = Account.create(title: @user.email, user_id: @user.id)
+      AccountUser.create(user_id: @user.id, account_id: @account.id, role: 'Administrator')
+      @user.account_id = @account.id
+      @user.current_account_id = @account.id
+      @user.save!
+      flash[:info] = { title: "Success", body: "you are signed up" }
       
-      #@user.activity_events.create! \
-      #  activity_log_id: @account.activity_log.id,
-      #  user_id: current_user.id,
-      #  title: "Signed up #{@user.name}",
-      #  r: true,
-      #  activity_url: account_user_path( @account, @user)
-      # 
-      ##UserMailer.delay.signup_confirmation(@account, @user)
-      redirect_to users_path(@user)
-
+      # signout if you was signed in as another user
+      cookies.delete(:auth_token)
+      sign_in
+      redirect_to account_path(@account)
     else
       flash[:error] = { title: "Error", body: "Something went wrong, please check Password. Password confirmation and email" }
-      redirect_to new_user_path(@user)
+      redirect_to root_path
+    end
+  end
+  
+  
+  def sign_in
+    if @user && @user.authenticate(@user.password)
+      cookies[:auth_token] = @user.auth_token
     end
   end
 

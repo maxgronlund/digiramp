@@ -1,0 +1,35 @@
+= simple_form_for [:admin, @blog], html: {class: 'fill-up'}  do |f|
+  = f.error_notification
+
+  .row-fluid.inputs
+    .span6
+      ul class="padded separate-sections"
+        li class="input"
+          = f.input :title, placeholder: 'Blog Title'
+        -if current_user_is_max?
+          li class="input"
+            = f.input :identifier, label: 'identifier (only for static frontend pages)'
+        li class="input"
+          = f.input :body, :input_html => { style: " height: 120px;", placeholder: "Short description of the subject for the blog"}
+
+    .span6
+      ul class="padded separate-sections"
+        li class="input"
+          = f.input :layout , :include_blank => false , :collection => Blog::LAYOUTS, label: 'page layout'
+          
+        /li class="input"
+        /  = f.input :use_raw_text, label: false, :inline_label => 'Use Simple Format'
+          
+          /.row-fluid
+          /  .span2
+          /    /input class="iButton-icons boolean optional" type="checkbox" checked="checked" id="blog_use_raw_text" value="1" 
+          /    = f.input :use_raw_text
+          /  .span10
+          /    '&nbsp; WYSIWYG HTML Editor
+          
+
+        
+  .form-actions
+    /= link_to 'Back', "javascript: history.go(-1)", class: 'btn'
+    /'&nbsp;
+    = f.submit 'Save', class: 'btn btn-default', id: "submit_link"

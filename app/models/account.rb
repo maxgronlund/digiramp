@@ -1,9 +1,9 @@
 class Account < ActiveRecord::Base
   
-  
+  belongs_to :user
   
   after_create :init_activity_log
-  after_create :assign_permissions
+  #after_create :assign_permissions
   #after_create :validate_expiration_date
   
   has_one :activity_log
@@ -48,13 +48,13 @@ class Account < ActiveRecord::Base
   def assign_permissions
     
     
-    case account_type
-      
-    when 'supervisor'
-      SetPermissionsTo.supervisor administrators_account_user
-    when 'catalog owner'
-      SetPermissionsTo.catalog_owner administrators_account_user
-    end
+    #case account_type
+    #  
+    #when 'supervisor'
+    #  SetPermissionsTo.supervisor administrators_account_user
+    #when 'catalog owner'
+    #  SetPermissionsTo.catalog_owner administrators_account_user
+    #end
     
   end
   

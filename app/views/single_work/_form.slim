@@ -1,0 +1,14 @@
+= f.error_notification
+= f.hidden_field :account_id, value: @account.id
+= f.hidden_field :step, value: 'created'
+.row
+  .col-sm-6
+    = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
+    = f.input :alternative_titles, :input_html => {  style: "height: 120px;", placeholder: "Alternative Titles"}
+    
+  .col-sm-6
+    = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "ISWC Code"}
+    = f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
+
+.pull-right
+  = f.submit 'Next', class: 'btn btn-primary btn-lg'

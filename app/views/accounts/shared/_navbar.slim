@@ -1,0 +1,36 @@
+.navbar.navbar-default role="navigation"
+  .container-fluid 
+    .navbar-header
+      button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        span class="sr-only"
+          Toggle navigation
+        span class="icon-bar"
+        span class="icon-bar"
+        span class="icon-bar"
+
+      /a class="navbar-brand" href="#{root_path}" Home
+      /.navbar-brand
+      /  'Digiramp
+      = link_to root_path do
+        .navbar-brand
+          = image_tag('logo.svg')
+    .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
+      ul class="nav navbar-nav"
+        /li class="#{page == 'home' ? 'active' : ''}"
+        /  =link_to 'Home', root_path
+        li class="#{page == 'features' ? 'active' : ''}"
+          =link_to 'Works', account_works_path(@account) 
+        /li class="#{page == 'solutions' ? 'active' : ''}"
+        /  =link_to 'Rights', solutions_index_path
+        /li class="#{page == 'about' ? 'active' : ''}"
+        /  =link_to 'Promote', about_index_path
+        /li class="#{page == 'investors' ? 'active' : ''}"
+        /  =link_to 'Collect', investors_index_path
+      ul class="nav navbar-nav navbar-right"
+        li
+          = link_to 'Home', account_path(current_user.account) 
+        
+        li
+          -if  user_signed_in?
+            = link_to 'logout',  logout_path
+        

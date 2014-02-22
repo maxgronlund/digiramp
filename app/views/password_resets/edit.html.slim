@@ -1,0 +1,88 @@
+
+#wrap
+  .full-width-top
+    == render 'shared/navbar', page: 'home'
+  .hidden-xs
+    .full-width-sign-up
+      .container
+        /== render 'shared/sign_up'
+            
+  .container
+    ==render 'admin/shared/messages'
+    .row
+      .col-sm-4
+        
+
+      .col-sm-4
+        .panel.panel-default
+          .panel-heading.blue
+            h3 class="panel-title"
+              i class= 'fa fa-lock'
+              '&nbsp;
+              'Reset Password
+          .panel-body
+
+            = simple_form_for(  @user, :url => password_reset_path(params[:id]) ) do |f|
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-key'
+                = f.input_field :password, placeholder: 'Password', autocomplete: :off
+              br
+              
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-key'
+                = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+
+              .pull-right
+                br
+                = f.submit 'Resend', class: 'btn btn-green btn-lg'
+
+        
+
+  
+#footer
+  .container
+    .footer
+      .row
+        .col-sm-12
+          '©2014 All rights reserved
+
+
+
+
+
+
+
+
+
+
+/.container
+/  .span4.offset4
+/    .padded
+/      div class="login box" style="margin-top: 80px;"
+/  
+/        .box-header
+/          span class="title" Reset Password
+/  
+/        .box-content.padded
+/
+/          =form_for @user, :url => password_reset_path(params[:id]) do |f| 
+/            -if @user.errors.any? 
+/              .error_messages
+/                h2 Form is invalid
+/                ul
+/                  -for message in @user.errors.full_messages
+/                    li
+/                      = message
+/          
+/            .field
+/              = f.label :password
+/              = f.password_field :password
+/            .field
+/              = f.label :password_confirmation 
+/              = f.password_field :password_confirmation 
+/          
+/            .actions
+/              = f.submit "Update password", class: 'btn btn-blue'
+          

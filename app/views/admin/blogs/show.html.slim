@@ -1,0 +1,35 @@
+/==render 'shared/navbar'
+/==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: ""} 
+/.main-content
+/  .container-fluid
+/    .row-fluid
+/      .area-top.clearfix
+/        .pull-left.header
+/          h3 class="title"
+/            i class="icon-group"
+/            =@blog.title
+/
+/          h5
+/            'Management of #{@blog.title}
+/
+/      ==render 'shared/breadcrumbs'
+/      
+/      .container-fluid.padded
+/        ==render 'shared/messages'
+/        .row-fluid
+/          .box
+/            .box-header
+/              span class="title" Drag'n  drop to order posts
+/              ul class="box-toolbar"
+/                li
+/                  =link_to 'Edit', edit_admin_blog_path(@blog), class: 'btn btn-mini btn-primary'
+/                li
+/                  span class="label label-blue" #{@blog.blog_posts.size}
+/          
+/            .box-content.padded
+/              == render 'admin/blog_posts/index'
+/            
+/                    
+/
+
+= debug @blog
