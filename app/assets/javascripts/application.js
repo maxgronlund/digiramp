@@ -18,7 +18,6 @@
 //= require simple
 //= require wysihtml5-0.4.0pre
 //= require super_simple_wysiwyg
-
 // require_tree .
 
 

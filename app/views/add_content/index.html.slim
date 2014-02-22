@@ -22,7 +22,7 @@
         = image_tag @upload_recording.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
         h3 = @upload_recording.title
-        = @upload_recording.body
+        = simple_format @upload_recording.body
         br
         br
         = link_to 'Begin', new_account_upload_recording_path( @account), class: 'btn btn-default btn-lg', id: 'upload_recording'
@@ -34,7 +34,7 @@
         = image_tag @import_content.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
         h3 = @import_content.title
-        = @import_content.body
+        = simple_format @import_content.body
         br
         br
         = link_to 'Begin', new_account_single_work_path( @account), class: 'btn btn-default btn-lg'
@@ -50,7 +50,7 @@
         = image_tag @upload_content.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
         h3 = @upload_content.title
-        = @upload_content.body
+        = simple_format @upload_content.body
         br
         br
         = link_to 'Begin', new_account_single_work_path( @account), class: 'btn btn-default btn-lg', id: 'create_work_from_scratch'
@@ -63,7 +63,7 @@
         = image_tag @import_content.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
         h3 = @import_content.title
-        = @import_content.body
+        = simple_format @import_content.body
         br
         br
         = link_to 'Begin', new_account_single_work_path( @account), class: 'btn btn-default btn-lg'

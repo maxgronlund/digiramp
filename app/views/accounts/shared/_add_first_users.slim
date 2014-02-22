@@ -3,7 +3,7 @@
   /= image_tag @add_users.image_url(:size_570x320), class: "img-responsive"
 .col-sm-3
    h3 = @add_users.title
-   = @add_users.body
+   = simple_format @add_users.body
    br
    br
    = link_to 'Add Users', account_add_content_index_path( @account), class: 'btn btn-default btn-lg', id: 'add_content'

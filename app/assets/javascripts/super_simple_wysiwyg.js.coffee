@@ -1,10 +1,12 @@
 ready = ->    
 
-  editor = new wysihtml5.Editor("common_work_lyrics", 
+  editor = new wysihtml5.Editor("wysihtml5_editor", 
     toolbar:        "toolbar",
     parserRules:    wysihtml5ParserRules,
-    useLineBreaks:  false
+    useLineBreaks:  true
   )
+  
+
 
   
 $(document).ready(ready)

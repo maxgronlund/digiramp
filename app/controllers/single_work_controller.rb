@@ -15,7 +15,7 @@ class SingleWorkController < ApplicationController
   def create
     @common_work = CommonWork.new(common_work_params)
     if @common_work.save
-      redirect_to account_single_work_description_path(@account, @common_work)
+      redirect_to account_single_work_lyrics_path(@account, @common_work)
       
     else
       render :new
@@ -34,8 +34,7 @@ class SingleWorkController < ApplicationController
       case @common_work.step
       when 'created'
         redirect_to account_single_work_lyrics_path(@account, @common_work)
-      #when 'described'
-      #  redirect_to account_single_work_recordings_path(@account, @common_work)
+
       when 'lyrics added'
         redirect_to account_single_work_recordings_path(@account, @common_work)
       when 'recordings added'
@@ -50,18 +49,18 @@ class SingleWorkController < ApplicationController
   end
   
   
-  def description
-    @add_description = add_description
-    @common_work      = CommonWork.find(params[:single_work_id])
-  end
+  #def description
+  #  @add_description = add_description
+  #  @common_work      = CommonWork.find(params[:single_work_id])
+  #end
   
   def recordings
-    @add_recording = add_recording
+    @add_recording  = add_recording
     @common_work    = CommonWork.find(params[:single_work_id])
   end
   
   def lyrics
-    @add_lytics = add_recording
+    @add_lytics     = add_lytics
     @common_work    = CommonWork.find(params[:single_work_id])
   end
   
@@ -91,10 +90,6 @@ class SingleWorkController < ApplicationController
             .first_or_create(identifier: 'New Single Work', blog_id: @blog.id, title: 'New Single Work', body: 'Add one Common Work') 
   end
   
-  def add_description
-    BlogPost.where(identifier: 'Add Description', blog_id: @blog.id)\
-            .first_or_create(identifier: 'Add Description', blog_id: @blog.id, title: 'Add Description', body: 'Improve the search') 
-  end
   
   def add_lytics
     BlogPost.where(identifier: 'Add Lyrics', blog_id: @blog.id)\
