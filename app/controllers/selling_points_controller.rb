@@ -25,7 +25,7 @@ class SellingPointsController < ApplicationController
                                          .first_or_create(identifier: 'Selling Point 3 Top', blog_id: @blog.id, title: 'Selling Point 3 Top', body: 'Add content to manage')
                                          
     @selling_point_3_right     = BlogPost.where(identifier: 'Selling Point 3 Right', blog_id: @blog.id)\
-                                         .first_or_create(identifier: 'Selling Point 2 Right', blog_id: @blog.id, title: 'Selling Point 3 Right', body: 'Add content to manage')
+                                         .first_or_create(identifier: 'Selling Point 3 Right', blog_id: @blog.id, title: 'Selling Point 3 Right', body: 'Add content to manage')
     @selling_point_3_left     = BlogPost.where(identifier: 'Selling Point 3 Left', blog_id: @blog.id)\
                                          .first_or_create(identifier: 'Selling Point 3 Left', blog_id: @blog.id, title: 'Selling Point 3 Left', body: 'Add content to manage')
   end
