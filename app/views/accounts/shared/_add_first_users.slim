@@ -1,5 +1,6 @@
 .col-sm-3
-  = image_tag @add_users.image_url(:size_570x320), class: "img-responsive"
+  =link_to image_tag( @add_users.image_url(:size_570x320), class: "img-responsive"), account_add_content_index_path( @account)
+  /= image_tag @add_users.image_url(:size_570x320), class: "img-responsive"
 .col-sm-3
    h3 = @add_users.title
    = @add_users.body
