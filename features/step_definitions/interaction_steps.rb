@@ -18,11 +18,6 @@ Then(/^I'm filling "(.*?)" with "(.*?)"$/) do |placeholder, content|
 end
 
 
-Then(/^I'm filling the "(.*?)" in the ckeditor with "(.*?)"$/) do |input_id, content|
-  browser = page.driver.browser
-  browser.execute_script("CKEDITOR.instances['#{input_id}'].setData('#{content}');")
-end
-
 
 Then(/^Does it look right\?$/) do
   ask('does that look right?')
