@@ -80,3 +80,17 @@ Digiramp::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 end
+
+
+ActionMailer::Base.smtp_settings = {
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :domain => "assets-manager.com",
+    :authentication => :plain,
+    :user_name => "info-digiramp",
+    :password => "GnoDg4jq7Wm"
+}
+
+
+ENV["MAIL_USERNAME"] = 'info@digiramp.org'
+ENV["MAIL_PASSWORD"] = 'IS5pleyu'
