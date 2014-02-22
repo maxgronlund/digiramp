@@ -5,6 +5,9 @@ Digiramp::Application.routes.draw do
   
 
   
+  get "selling_points/selling_point_1"
+  get "selling_points/selling_point_2"
+  get "selling_points/selling_point_3"
   resources :accounts, only: [:show] do
     resources :works
     get "add_content/index"
@@ -18,7 +21,7 @@ Digiramp::Application.routes.draw do
       get 'ipis'
       get 'users'
     end
-    resources :upload_recordings, only: [:new, :edit]
+    resources :upload_recordings, only: [:new, :edit, :create]
     resources :common_works
     #get "upload_recording/new"
     #get "upload_recording/edit"
@@ -60,7 +63,7 @@ Digiramp::Application.routes.draw do
   
   resources :sign_up
   resources :users
-  mount Ckeditor::Engine => '/ckeditor'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

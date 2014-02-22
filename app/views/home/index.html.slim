@@ -2,29 +2,31 @@
 #wrap
   .full-width-top
     == render 'shared/navbar', page: 'home'
-  .hidden-xs
-    .full-width-sign-up
-      .container
-        == render 'shared/sign_up'
+  -unless current_user
+    .hidden-xs
+      .full-width-sign-up
+        .container
+          == render 'shared/sign_up'
             
   .container
     ==render 'admin/shared/messages'
-    .row
-      .col-sm-8
-        .jumbotron
-          .shadow
-            h1 = @home.big_banner_text
-          .row
-            .col-xs-12
-              .pull-right
-                'Get you account now 
-                '&nbsp;
-                =link_to 'Sign up', '#', class: 'btn btn-default btn-lg btn-orange'
-                br
-      
-      .col-sm-4
-        == render 'shared/log_in'
+    -unless current_user
+      .row
+        .col-sm-8
+          .jumbotron
+            .shadow
+              h1 = @home.big_banner_text
+            .row
+              .col-xs-12
+                .pull-right
+                  'Get you account now 
+                  '&nbsp;
+                  =link_to 'Sign up', '#', class: 'btn btn-default btn-lg btn-orange'
+                  br
         
+        .col-sm-4
+          == render 'shared/log_in'
+          
     .row
       .col-sm-4
         = render 'box1'

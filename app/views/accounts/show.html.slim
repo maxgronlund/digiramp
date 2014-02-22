@@ -4,9 +4,15 @@
 
             
   .container
+    .row
+      .col-sm-12
+        h1 =@account_header.title
+        =@account_header.body
+        hr
     ==render 'admin/shared/messages'
     
-    ==render @section if @section
+    ==render @section_left if @section_left
+    ==render @section_right if @section_right
     .row
       .col-sm-6
 

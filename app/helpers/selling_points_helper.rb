@@ -1,0 +1,2 @@
+module SellingPointsHelper
+end

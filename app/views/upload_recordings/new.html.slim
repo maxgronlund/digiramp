@@ -2,13 +2,20 @@
   .full-width-top.account
     == render 'accounts/shared/navbar', page: 'home'
 
-            
+   
   .container
+    .row
+      .col-sm-12
+         h1 = @new_recording.title
+         = @new_recording.body
+         br
+         br
     ==render 'admin/shared/messages'
     
     ==render @section if @section
     .row
       .col-sm-6
+        == render 'form'
 
       
       .col-sm-4
@@ -28,3 +35,5 @@
       .row
         .col-sm-12
           '©2014 All rights reserved
+
+
