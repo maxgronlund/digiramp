@@ -36,6 +36,7 @@ set(:config_files, %w(
   monit
   unicorn.rb
   unicorn_init.sh
+  sidekiq_init.sh
 ))
 
 # which config files should be made executable after copying
@@ -86,3 +87,4 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
 end
 
+#RAILS_ENV=production bundle exec sidekiq
