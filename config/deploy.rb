@@ -87,4 +87,3 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
 end
 
-#RAILS_ENV=production bundle exec sidekiq
