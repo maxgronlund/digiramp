@@ -1,0 +1,16 @@
+.col-sm-3
+  =image_tag blog_post.image_url(:size_570x320), class: "img-responsive"
+.col-sm-3
+  h3 = blog_post.title
+  i = blog_post.author
+  b = blog_post.teaser
+  br
+  = blog_post.body
+  br
+  = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, blog_post), class: 'btn btn-primary'
+  '&nbsp;
+  = link_to 'Delete',admin_blog_blog_post_path(@blog, blog_post), method: :delete ,\
+                                                                  data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-warning',\
+                                                                  id: "delete_blog_post_#{blog_post.id}"
+  br
+  br

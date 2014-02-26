@@ -1,6 +1,6 @@
 class Admin::VideoBlogsController < ApplicationController
   respond_to :html, :xml, :json
-  #before_filter :admin_only
+  before_filter :admin_only
   before_filter :find_video_blog, only: [:show, :edit, :update, :destroy]
   
   
@@ -45,9 +45,8 @@ private
   end
 
   def video_blog_params
-    if can_edit?
-      params.require(:video_blog).permit!
-    end
+    params.require(:video_blog).permit!  if current_user.can_edit?
+
   end
 
 end

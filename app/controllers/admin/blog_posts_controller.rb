@@ -1,10 +1,8 @@
 class Admin::BlogPostsController < ApplicationController
   
-  #respond_to :html, :xml, :json
-  #before_filter :admin_only
+  before_filter :admins_only
   before_filter :find_blog_post, only: [ :edit, :update, :destroy, :crop, :crop_update, :show]
-  #skip_before_filter :verify_authenticity_token, :only => [:sort, :destroy]
-  #layout "core_admin"
+
   
   def new
     @blog = Blog.find(params[:blog_id])
@@ -88,9 +86,7 @@ private
   end
   
   def blog_post_params
-    if current_user.role == 'super'
-      params.require(:blog_post).permit!
-    end
+    params.require(:blog_post).permit! if current_user.can_edit?
   end
 
 

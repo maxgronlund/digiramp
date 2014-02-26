@@ -1,4 +1,4 @@
-
+-session[:return_url] = request.url
 #wrap
   .full-width-top
     == render 'shared/navbar', page: 'home'
@@ -13,12 +13,13 @@
     .row
       .col-sm-6
         h1 =@selling_point_3_top.title
-        =@selling_point_3_top.body
+        =simple_format @selling_point_3_top.body
       .col-sm-6
         -if can_edit?
-          '&nbsp;
-          -session[:return_url] = request.url
-          = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_3_top), class: 'btn btn-primary btn-lg'
+          .pull-right
+            = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_3_top), class: 'btn btn-primary'
+            br
+            br
       
 
     .row
@@ -31,23 +32,20 @@
          h3 = @selling_point_3_right.title
          = simple_format @selling_point_3_right.body
          -if can_edit?
-           div.pull-right
-          
-            -session[:return_url] = request.url
-            = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_3_right), class: 'btn btn-primary btn-lg'
-            
-      /--------------------------------------------      
+           .pull-right
+              = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_3_right), class: 'btn btn-primary'
+              br
+              br  
       .col-sm-3
         = image_tag @selling_point_3_left.image_url(:size_570x320), class: "img-responsive"
       .col-sm-3
          h3 = @selling_point_3_left.title
          = simple_format @selling_point_3_left.body
          -if can_edit?
-           div.pull-right
-          
-            -session[:return_url] = request.url
-            = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_3_left), class: 'btn btn-primary btn-lg'
-           
+           .pull-right
+              = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_3_left), class: 'btn btn-primary'
+              br
+              br
 
 
   

@@ -1,35 +1,28 @@
-/==render 'shared/navbar'
-/==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: ""} 
-/.main-content
-/  .container-fluid
-/    .row-fluid
-/      .area-top.clearfix
-/        .pull-left.header
-/          h3 class="title"
-/            i class="icon-group"
-/            =@blog.title
-/
-/          h5
-/            'Management of #{@blog.title}
-/
-/      ==render 'shared/breadcrumbs'
-/      
-/      .container-fluid.padded
-/        ==render 'shared/messages'
-/        .row-fluid
-/          .box
-/            .box-header
-/              span class="title" Drag'n  drop to order posts
-/              ul class="box-toolbar"
-/                li
-/                  =link_to 'Edit', edit_admin_blog_path(@blog), class: 'btn btn-mini btn-primary'
-/                li
-/                  span class="label label-blue" #{@blog.blog_posts.size}
-/          
-/            .box-content.padded
-/              == render 'admin/blog_posts/index'
-/            
-/                    
-/
+-session[:return_url] = request.url
+#wrap
+  == render 'admin/shared/navbar', page: 'manage'
 
-= debug @blog
+            
+  .container
+    .row
+      .col-sm-12
+        h2 =@blog.title
+        = @blog.body
+
+        .pull-right
+          = link_to 'Edit Title', edit_admin_blog_path(@blog), class: 'btn btn-primary'
+          
+        
+    == render 'admin/shared/messages'
+    -@blog_posts.each do |blog_post|
+      .row
+        = render 'blog_post', blog_post: blog_post[0] if blog_post[0]
+        = render 'blog_post', blog_post: blog_post[1] if blog_post[1]
+        .col-sm-12
+          hr
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to 'New Post', new_admin_blog_blog_post_path(@blog), class: 'btn btn-primary'
+        
+        

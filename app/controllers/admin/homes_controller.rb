@@ -2,7 +2,7 @@ class Admin::HomesController < ApplicationController
   #before_action :set_home, only: [:show, :edit, :update, :destroy]
   #layout 'admin'
 
-
+  before_filter :admins_only
 
   # GET /homes/1/edit
   def edit
@@ -25,6 +25,6 @@ class Admin::HomesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def home_params
-      params.require(:home).permit!
+      params.require(:home).permit! if current_user.can_edit?
     end
 end

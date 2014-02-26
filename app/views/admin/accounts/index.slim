@@ -1,13 +1,7 @@
-
-
- 
-
-
 #wrap
-  == render 'admin/shared/navbar', page: 'accounts'
-
-            
+  == render 'admin/shared/navbar', page: 'accounts'       
   .container
+    ==render 'admin/shared/messages'
     .row
       .col-sm-12
         .table-responsive
@@ -17,12 +11,14 @@
                 th Account
                 th Members
                 th Expires
-                th Manage
+                th 
             tbody
               -@accounts.each do |account|
                 tr
                   td = account.title
                   td = account.users_count + 1
+                  /td class="#{'expired' if account.expiration_date < Date.current }"
+                  /  = account.expiration_date
                   td = account.expiration_date
                   td
                     .pull-right
@@ -30,9 +26,11 @@
                       '&nbsp;
                       = link_to 'Show', admin_account_path( account), class: 'btn btn-default'
                       '&nbsp;
-                      = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'
+                      = link_to 'Edit', edit_admin_account_path( account), class: 'btn btn-primary'
                       '&nbsp;
-                      = link_to 'Delete', admin_account_path( account), class: 'btn btn-warning'
+                      = link_to 'Delete', admin_account_path( account), method: :delete ,\
+                                                                        data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-warning',\
+                                                                        id: "delete_account_#{account.id}"
           
           
         == paginate(@accounts)

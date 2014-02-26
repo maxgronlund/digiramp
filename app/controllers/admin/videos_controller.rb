@@ -2,7 +2,7 @@ class Admin::VideosController < ApplicationController
   respond_to :html, :xml, :json
   
   before_filter :find_video, only: [ :edit, :update, :destroy, :crop, :crop_update, :show]
-
+  before_filter :admins_only
   
   def new
     @video_blog = VideoBlog.find(params[:video_blog_id])
@@ -51,7 +51,7 @@ private
   end
   
   def video_params
-    params.require(:video).permit!
+    params.require(:video).permit!  if current_user.can_edit?
   end
   
 

@@ -27,6 +27,9 @@
         /li class="#{page == 'investors' ? 'active' : ''}"
         /  =link_to 'Collect', investors_index_path
       ul class="nav navbar-nav navbar-right"
+        -if can_edit?
+          li
+            = link_to 'Admin', admin_index_path
         li
           = link_to 'Home', account_path(current_user.account) 
         

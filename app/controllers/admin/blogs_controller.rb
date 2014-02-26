@@ -6,32 +6,30 @@ class Admin::BlogsController < ApplicationController
   #layout "core_admin"
   def index
     @blogs = Blog.all
-    @bread_crumbs = [
-        {path:"#{admin_index_path}", title: "Digiramp Admin", icon: "icon-home"}
-    ]
-
   end
   
   def show
-    @bread_crumbs = [
-        {path:"#{admin_index_path}", title: "Digiramp Admin", icon: "icon-home"},
-        {path:"#{admin_blogs_path}", title: "Blogs", icon: "icon-list"}
-    ]
+    posts = @blog.blog_posts.order("position")
+    
+    @blog_posts = [[]]
+    index = 0
+    posts.each_with_index do |post, post_index|
+      @blog_posts[index] << post
+      if post_index % 2 == 1
+        index += 1
+        @blog_posts[index] = []
+      end
+    end
+
   end
 
   def new
     @blog = Blog.new
-    @bread_crumbs = [
-        {path:"#{admin_index_path}", title: "Digiramp Admin", icon: "icon-home"},
-        {path:"#{admin_blogs_path}", title: "Blogs", icon: "icon-list"}
-    ]
+
   end
 
   def edit
-    @bread_crumbs = [
-        {path:"#{admin_index_path}", title: "Digiramp Admin", icon: "icon-home"},
-        {path:"#{admin_blogs_path}", title: "Blogs", icon: "icon-list"}
-    ]
+
   end
 
   def create
@@ -40,11 +38,7 @@ class Admin::BlogsController < ApplicationController
       flash[:info] = { title: "Success", body: "#{@blog.title} Created" }
       redirect_to admin_blogs_path
     else
-      @bread_crumbs = [
-          {path:"#{admin_index_path}", title: "Digiramp Admin", icon: "icon-home"},
-          {path:"#{admin_blogs_path}", title: "Blogs", icon: "icon-list"}
-      ]
-      render :new
+der :new
     end
     
   end
@@ -54,10 +48,6 @@ class Admin::BlogsController < ApplicationController
       flash[:info] = { title: "Success", body: "#{@blog.title} updated" }
       redirect_to admin_blogs_path
     else
-      @bread_crumbs = [
-          {path:"#{admin_index_path}", title: "Digiramp Admin", icon: "icon-home"},
-          {path:"#{admin_blogs_path}", title: "Blogs", icon: "icon-list"}
-      ]
       render :edit
     end
     #redirect_to session[:go_to_after_update] || admin_blogs_path
@@ -76,9 +66,8 @@ private
   end
 
   def blog_params
-    if can_edit?
-      params.require(:blog).permit!
-    end
+    params.require(:blog).permit!  if current_user.can_edit?
+
   end
 
 end

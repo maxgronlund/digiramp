@@ -50,6 +50,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :there_is_access_to_the_account
   
+  def admins_only
+    forbidden unless current_user.can_edit?
+  end
+  helper_method :admins_only
+  
   def account_belongs_to_current_user
     @account.user_id == current_user.id
   end

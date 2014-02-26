@@ -1,61 +1,12 @@
-/==render 'shared/navbar'
-/==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: "video_blogs"} 
-/.main-content
-/  .container-fluid
-/    .row-fluid
-/      .area-top.clearfix
-/        .pull-left.header
-/          h3 class="title"
-/            i class="icon-film"
-/            'Video collections
-/
-/          h5
-/            'Used internal on the site
-/    ==render 'shared/breadcrumbs'
-/    .container-fluid.padded
-/      ==render 'shared/messages'
-/      .row-fluid
-/        .box
-/          .box-header
-/            span class="title" Video Collections
-/            ul class="box-toolbar"
-/              li
-/                =link_to 'Create new video collection', new_admin_video_blog_path, class: 'btn btn-blue btn-mini'
-/              li
-/                span class="label label-blue" #{@video_blogs.size}
-/    
-/          .box-content
-/            table class="table table-normal"
-/              thead
-/                tr
-/                  th Title
-/                  th Description
-/                  th Videos
-/                  th &nbsp;
-/                    
-/              tbody
-/                -@video_blogs.each do |video_blog|
-/                  tr
-/                    td =video_blog.title
-/                    td =video_blog.body
-/                    td 
-/                      .label.label-gray
-/                        =video_blog.videos.size
-/                    td
-/                      .right
-/                        =render 'admin/shared/button_link', locals: {path: admin_video_blog_path(video_blog), icon: 'icon-user',  label: 'Show'}
-/                        =render 'admin/shared/button_link', locals: {path: edit_admin_video_blog_path(video_blog), icon: 'icon-edit',  label: 'Edit'}
-/                        =render 'admin/shared/button_link', locals: {path: admin_video_blog_path(video_blog), icon: 'icon-trash',  label: 'Delete'} unless video_blog.identifier == 'support'
-/                    
-/ 
 #wrap
   == render 'admin/shared/navbar', page: 'manage'
 
             
   .container
+    ==render 'admin/shared/messages'
     .row
       .col-sm-12
-        ==render 'admin/shared/messages'
+        
         .table-responsive
           table class="table table-hover"
             thead

@@ -1,1 +1,84 @@
-'admin of account
+-administrator = User.find(@account.administrator_id) if User.exists?(@account.administrator_id)
+#wrap
+  == render 'admin/shared/navbar', page: 'accounts'       
+  .container
+    ==render 'admin/shared/messages'
+    .row
+      .col-sm-6
+        h2 = @account.title
+        = simple_format @account.description
+      .col-sm-6
+        .pull-right
+          = link_to 'Edit', edit_admin_account_path(@account), class: 'btn btn-primary'
+    .row
+      .col-sm-6
+        .table-responsive
+          table class="table table-hover"
+            tbody
+              tr
+                td Account Type:
+                td = @account.account_type.upcase
+              tr
+                td Expires:
+                td class="#{'expired' if @account.expiration_date < Date.current }"
+                  = @account.expiration_date
+              tr
+                td Contact Email:
+                td = @account.contact_email
+              tr
+                td Users:
+                td = @account.account_users.size
+              tr
+                td Visits:
+                td = @account.visits
+              
+                
+              tr
+                td Administrator:
+                td 
+                  -if administrator  
+                    = administrator.email  
+                  -else
+                    .expired
+                      'No administrator
+      .col-sm-6
+        .table-responsive
+          table class="table table-hover"
+            tbody
+              tr
+                td Fax:
+                td = @account.fax
+              tr
+                td Country:
+                td  = @account.country
+              tr
+                td Street Address:
+                td  = @account.street_address
+              tr
+                td Postal code
+                td = @account.postal_code
+              tr
+                td Contact First Name:
+                td  = @account.contact_first_name
+              tr
+                td Contact Last Name:
+                td  = @account.contact_last_name
+
+    .row
+      .col-sm-12
+        hr
+      .col-sm-6
+        h3 Users
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Email
+                th Role
+                th 
+            tbody
+              -@account.account_users.each do |account_user|
+                tr
+                  td = account_user.user.email
+                  td = account_user.role
+    

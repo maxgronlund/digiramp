@@ -39,7 +39,7 @@ class Account < ActiveRecord::Base
   #has_many :documents, as: :documentable, dependent: :destroy
   validates_presence_of :title
   
-  ACCOUNT_TYPES = [ 'catalog owner', 'representative', 'supervisor', 'administrator']
+  ACCOUNT_TYPES = [ 'catalog owner', 'representative', 'supervisor', 'administrator', 'free account']
   
   def videos
     self.recordings.where(media_type: 'Video').order(:title)

@@ -1,54 +1,29 @@
-==render 'shared/navbar'
-==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: "blogs"} 
-.main-content
-  .container-fluid
-    .row-fluid
-      .area-top.clearfix
-        .pull-left.header
-          h3 class="title"
-            i class="icon-list"
-            'Blogs
-
-          h5
-            'Management of Blogs
-
-
-        
-      ==render 'shared/breadcrumbs'
-      .container-fluid.padded
-        ==render 'shared/messages'
-        .row-fluid
-          .box
-            .box-header
-              span class="title" Blogs
-              ul class="box-toolbar"
-                li
-                  span class="label label-blue" #{@blogs.size}
-          
-            .box-content
-              table id="blogs"
-                thead
-                  tr
-                    th Title
-                    /th identifier
-                    th Posts
-                    th Admin
-                    /td Admin
-                tbody 
-                  -@blogs.each do |blog|
-                    tr
-                      td =blog.title
-                      td =blog.blog_posts.size
-                      /td =blog.identifier
-                      /td =blog.body
-                      td 
-                        .right
-                          =render 'admin/shared/button_link', locals: {path: page_path(blog.id), icon: 'icon-list-alt',  label: 'Show as Page'}
-                          =render 'admin/shared/button_link', locals: {path: admin_blog_path(blog), icon: 'icon-resize-vertical',  label: 'Show'}
-                          =render 'admin/shared/button_link', locals: {path: edit_admin_blog_path(blog), icon: 'icon-edit',  label: 'Edit'}
-                          =render 'admin/shared/button_link', locals: {path: admin_blog_path(blog), icon: 'icon-trash',  label: 'Delete'}
-                
+#wrap
+  == render 'admin/shared/navbar', page: 'manage'       
+  .container
+    .row
+      .col-sm-12
+        h3 Blogs
+        .table-responsive
+          table class="table table-hover"
+            tbody
+            
+              -@blogs.each do |blog|
+                tr
+                  td =blog.title
+                  td =blog.blog_posts.size
+                  td 
+                    .pull-right
+                      =link_to 'Show', admin_blog_path(blog), class: 'btn btn-default'
+                      '&nbsp;
+                      =link_to 'Edit Title', edit_admin_blog_path(blog), class: 'btn btn-primary'
+                      '&nbsp;
+                      =link_to 'Delete', admin_blog_path(blog), method: :delete ,\
+                                                                data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-warning',\
+                                                                id: "delete_blog_#{blog.id}"
+              
         /br
-        .form-actions
-          = link_to 'New Blog', new_admin_blog_path, class: 'btn btn-default'
+        .col-sm-12
+          .pull-right
+            = link_to 'New Blog', new_admin_blog_path, class: 'btn btn-primary'
         

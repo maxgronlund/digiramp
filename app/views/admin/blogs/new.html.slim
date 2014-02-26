@@ -1,29 +1,5 @@
-==render 'shared/navbar'
-==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: ""} 
-.main-content
-  .container-fluid
-    .row-fluid
-      .area-top.clearfix
-        .pull-left.header
-          h3 class="title"
-            i class="icon-group"
-            'New Blog
-
-          h5
-            'Edit layout and html style
-
-
-        
-      ==render 'shared/breadcrumbs'
-      .container-fluid.padded
-        ==render 'shared/messages'
-        .row-fluid
-          .box
-            .box-header
-              span class="title" Blog
-              ul class="box-toolbar"
-                li
-                  span class="label label-blue" x
-          
-            .box-content.padded
-              == render 'form'
+#wrap
+  == render 'admin/shared/navbar', page: 'manage'
+  .container
+    == render 'admin/shared/messages'
+    == render 'form'

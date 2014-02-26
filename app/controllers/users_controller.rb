@@ -7,8 +7,6 @@ class UsersController < ApplicationController
   
   def index
     @users = User.all
-    #@users = @account.users.order('lower(name) asc')
-    #@users = @account.account_users
 
   end
 
@@ -18,35 +16,45 @@ class UsersController < ApplicationController
   end
 
   def new
-    #@user = @account.users.new
+
   end
 
   def edit
-    #@user   = User.find(params[:id])
-    @bread_crumbs = [
-      {path:"#{user_path( @user)}", title: "Home", icon: "icon-home"}
-    ]
+
   end
 
   def create
-    @user = User.new(user_params)
-    
-    if @user.save
-      @account = Account.create(title: @user.email, user_id: @user.id)
-      AccountUser.create(user_id: @user.id, account_id: @account.id, role: 'Administrator')
-      @user.account_id = @account.id
-      @user.current_account_id = @account.id
-      @user.save!
-      flash[:info] = { title: "Success", body: "you are signed up" }
+    #if User.where(email: params[:user][:email]).nil?
+      @user = User.new(user_params)
       
-      # signout if you was signed in as another user
-      cookies.delete(:auth_token)
-      sign_in
-      redirect_to account_path(@account)
-    else
-      flash[:error] = { title: "Error", body: "Something went wrong, please check Password. Password confirmation and email" }
-      redirect_to root_path
-    end
+      if @user.save!
+        @account = Account.create(title: @user.email, 
+                                  user_id: @user.id, 
+                                  expiration_date: Date.current()>>3,
+                                  administrator_id: @user.id,
+                                  contact_email: @user.email,
+                                  visits: 1,
+                                  account_type: 'free account' )
+                                  
+        AccountUser.create(user_id: @user.id, account_id: @account.id, role: 'Administrator')
+        
+        @user.account_id          = @account.id
+        @user.current_account_id  = @account.id
+        @user.save!
+        flash[:info] = { title: "Success", body: "you are signed up" }
+        
+        # signout if you was signed in as another user
+        cookies.delete(:auth_token)
+        sign_in
+        redirect_to account_path(@account)
+      else
+        flash[:error] = { title: "Error", body: "Something went wrong, please check Password. Password confirmation and email, you might already have an account?" }
+        redirect_to root_path
+      end
+    #else
+    #  flash[:error] = { title: "Error", body: "A user with that email is already signed up" }
+    #  redirect_to root_path
+    #end
   end
   
   
@@ -90,9 +98,7 @@ class UsersController < ApplicationController
 private
 
   def user_params
-    #if can_edit?
-      params.require(:user).permit!
-    #end
+    params.require(:user).permit!
   end
   
   def find_user
