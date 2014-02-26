@@ -14,23 +14,24 @@
                 th 
             tbody
               -@accounts.each do |account|
-                tr
-                  td = account.title
-                  td = account.users_count + 1
-                  /td class="#{'expired' if account.expiration_date < Date.current }"
-                  /  = account.expiration_date
-                  td = account.expiration_date
-                  td
-                    .pull-right
-                      = link_to 'Go To', account_path( account), class: 'btn btn-default'
-                      '&nbsp;
-                      = link_to 'Show', admin_account_path( account), class: 'btn btn-default'
-                      '&nbsp;
-                      = link_to 'Edit', edit_admin_account_path( account), class: 'btn btn-primary'
-                      '&nbsp;
-                      = link_to 'Delete', admin_account_path( account), method: :delete ,\
-                                                                        data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-warning',\
-                                                                        id: "delete_account_#{account.id}"
-          
+                -cache (account) do
+                  tr
+                    td = account.title
+                    td = account.account_users.size
+                    /td class="#{'expired' if account.expiration_date < Date.current }"
+                    /  = account.expiration_date
+                    td = account.expiration_date
+                    td
+                      .pull-right
+                        = link_to 'Go To', account_path( account), class: 'btn btn-default'
+                        '&nbsp;
+                        = link_to 'Show', admin_account_path( account), class: 'btn btn-default'
+                        '&nbsp;
+                        = link_to 'Edit', edit_admin_account_path( account), class: 'btn btn-primary'
+                        '&nbsp;
+                        = link_to 'Delete', admin_account_path( account), method: :delete ,\
+                                                                          data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-warning',\
+                                                                          id: "delete_account_#{account.id}"
+                  
           
         == paginate(@accounts)
