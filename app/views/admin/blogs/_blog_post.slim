@@ -5,7 +5,7 @@
   i = blog_post.author
   b = blog_post.teaser
   br
-  = blog_post.body
+  = simple_format blog_post.body
   br
   = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, blog_post), class: 'btn btn-primary'
   '&nbsp;
