@@ -1,139 +1,44 @@
-html,
-body{
-  h1,h2,h3{font-family: 'Fenix', serif;}
-  /*background:#f0f0f0;*/
-  height: 100%;
-  background-image: image-url('whitenoise-361x370.png'); 
-  font-size: 16px;
-  
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require bootstrap/bootstrap
+ *= require bootstrap-theme-override
+ *= require home
+ *= require shared
+ *= require accounts
+ *= require glyphicons
+ *= require font-awesome
+ *= require wysiwyg
+ * require_tree .
+*/
+.ping{
+  font-size:30px;
 }
 
-.form-control {
-  font-size: 18px;
+.wysihtml5-command-active {
+  font-weight: bold;
 }
 
+.mobile_pagination{
 
+  color: #428bca !important;
+  text-decoration: none;
+  font-size: 16px !important;
 
-
-.content{
-  padding: 15px 0px;
-  height: 100%;
-  
-}
-
-.shadow{ 
-  text-shadow: 0px 2px #177AA5 !important;
-    h1{margin-top:0px !important;}
-}
-
-.full-width-top{
-  padding:5px 15px 5px 15px !important;
-
-  margin-top:-15px;
-  padding:5px;
-  width:100%;
-  
-  background-image: -webkit-linear-gradient(top, #69B9EB 0%, #38A6ED 100%);
-  background-image: linear-gradient(to bottom, #69B9EB 0%, #38A6ED 100%);
-  background-repeat: repeat-x;
-  border-color: #dcdcdc;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff69B9EB', endColorstr='#ff38A6ED', GradientType=0);
-  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1);
-          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1);
-
-  
-  
-  
-  
-  border-bottom-style:solid;
-  /*background-color:#1264AE;*/
-  border-color:#888;
-  border-width:1px;
-}
-
-.full-width-sign-up{
-  margin-top:1px;
-  padding:0 15px;
-  width:100%;
-  background-image: -webkit-linear-gradient(top, #F8F8F8 0%, #E6E6E6 100%);
-  background-image: linear-gradient(to bottom, #F8F8F8 0%, #E6E6E6 100%);
-  background-repeat: repeat-x;
-  border-color: #dcdcdc;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffBCBEC0', endColorstr='#ff9D9FA2', GradientType=0);
-  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1);
-          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1);
-  border-bottom-bottom:solid;
-  border-color:#FFF;
-  border-width:1px;
 }
 
 
-
-/* Wrapper for page content to push down footer */
-#wrap {
-  min-height: 100%;
-  height: auto;
-  margin: 0 auto -60px;
-  padding: 15px 0 60px;
+.btn-top-margin{
+  margin-top:8px;
 }
-
-/* Set the fixed height of the footer here */
-#footer {
-  /* extra 30 pixels to even out padding */
-  height: 60px;
-  /*background-color: #38A6ED;*/
-  
-  background-image: image-url('footer.svg'); 
-
-
-  background-repeat:no-repeat;
-  background-size: 100%;
-  background-position:top;
-  .footer{
-    color:white !important;
-    text-align:center;
-  } 
-}
-
-.green { background-color: #43B44E !important;}
-.orange {background-color: #F4922D !important;}
-.red { background-color: #C65864 !important;}
-.blue {background-color: #38A6ED !important;}
-
-.full-width-top{
-  font-family: 'Fenix', serif;
-  font-size:26px;
-  a:hover{color:white; }
-  .navbar{
-    margin-bottom: 0px;
-    li a {
-      color: #FFF;
-      
-    }
-    li a:hover{color: #CCD;}
-  
-  }
-  .navbar-default {
-    margin-left:-15px;
-    margin-right:-15px;
-    margin-top:0px;
-    
-    color:white;
-    background-color:transparent !important;
-    background-image:none !important;
-    border-color:transparent !important;
-    .active {
-      a{
-        color: #DDD;
-        background-color:transparent !important;
-      }
-      a:hover{color: #DDD;}
-    }
-  }
-  .navbar-brand{ img{height:50px; margin-top:-14px;}}
-  .navbar-collapse, .navbar-default .navbar-form {border-color: transparent;}
-}
-
 
 
 
