@@ -10,22 +10,22 @@
             
   .container
     ==render 'admin/shared/messages'
-    -unless current_user
-      .row
-        .col-sm-8
-          .jumbotron
-            .shadow
-              h1 = @home.big_banner_text
-            .row
-              .col-xs-12
-                .pull-right
-                  'Get you account now 
-                  '&nbsp;
-                  =link_to 'Sign up', '#', class: 'btn btn-default btn-lg btn-orange'
-                  br
-        
-        .col-sm-4
-          == render 'shared/log_in'
+    
+    .row
+      .col-sm-12
+        .jumbotron
+          h1 = @home.big_banner_text
+          /.row
+          /  .col-xs-12
+          /    .pull-right
+          /      'Get you account now 
+          /      '&nbsp;
+          /      =link_to 'Sign up', '#', class: 'btn btn-custom btn-lg'
+          /      br
+      
+    /.col-sm-4
+    /-unless current_user
+    /== render 'shared/log_in'
           
     .row
       .col-sm-4
