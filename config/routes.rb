@@ -48,6 +48,7 @@ Digiramp::Application.routes.draw do
   get "home/index"
   root to: "home#index"
   get "sign_up/index"
+  get "login/new"
   get "login/index"
   resources :sessions
   resources :password_resets
