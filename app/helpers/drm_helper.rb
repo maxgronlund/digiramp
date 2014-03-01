@@ -1,0 +1,2 @@
+module DrmHelper
+end

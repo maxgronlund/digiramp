@@ -32,16 +32,14 @@
       /    =link_to 'Investors', investors_index_path
       -if  user_signed_in?
         ul class="nav navbar-nav navbar-right"
-          li = link_to 'HOME', account_path(current_user.current_account_id)
+          li = link_to current_user.current_account.title.upcase, account_path(current_user.current_account)
+          li = link_to current_user.name.upcase, user_path(current_user)
           li = link_to 'LOG OUT',  logout_path
       -else
         ul class="nav navbar-nav navbar-right"
           li  = link_to 'LOG IN',  login_new_path
           
         
-       
-
-
 
 
 

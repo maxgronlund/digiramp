@@ -16,7 +16,7 @@ class AccountsController < ApplicationController
     end
 
     @account_users  = @account.account_users.order('role asc')
-    if @account_users.size < 1
+    if @account_users.size < 2
       @add_first_users  = BlogPost.where(identifier: 'Add Users', blog_id: @blog.id).
                                   first_or_create(identifier: 'Add Users', blog_id: @blog.id, title: 'Add Users') 
     end

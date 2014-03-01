@@ -1,0 +1,13 @@
+-session[:return_url] = request.url
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'account'
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    
+    .row
+      .col-sm-12
+        h1 = @collect.title
+        = simple_format @collect.body

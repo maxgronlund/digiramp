@@ -20,6 +20,7 @@ class Blog < ActiveRecord::Base
   
   def self.account_users; Blog.where(identifier: 'Account Users').first_or_create(identifier: 'Account Users', title: 'Account Users' ) end
   def self.assets; Blog.where(identifier: 'Assets').first_or_create(identifier: 'Assets', title: 'Assets' ) end
-
-
+  def self.collect; Blog.where(identifier: 'Collect').first_or_create(identifier: 'Collect', title: 'Collect' ) end
+  def self.promotion; Blog.where(identifier: 'Promotion').first_or_create(identifier: 'Promotion', title: 'Promotion' ) end
+  def self.drm; Blog.where(identifier: 'DRM').first_or_create(identifier: 'DRM', title: 'DRM' ) end
 end
