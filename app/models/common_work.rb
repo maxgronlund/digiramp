@@ -64,45 +64,51 @@ class CommonWork < ActiveRecord::Base
     instruments
   end
   
-  def to_csv
-    
-    csv_string = CSV.generate do |csv|
-      # common work info
-      csv << ["COMMON WORK", "ID: #{self.id}"]
-      csv << ["Title", "Alternative titles", "Description", "ISWC code", "ASCAP work id"]
-      csv << [self.title, self.alternative_titles, self.description, self.iswc_code, self.ascap_work_id]
-      
-      #ipi's info
-      csv << []
-      csv << []
-      csv << ["IPI'S"]
-      csv << ["Common work id", "IPI code", "CAE code", "Full name", "Address", "Email", "Phone number", "Role", "Controlled", "Terrirory", "Share", "Mech owned", "Mech Collected", "Perf owned", "Perf collected", "Notes"]
-      self.ipis. each do |ipi|
-        csv << [self.id, ipi.ipi_code, ipi.cae_code, ipi.full_name, ipi.address, ipi.email, ipi.phone_number, ipi.territory, ipi.share, ipi.mech_owned, ipi.mech_collected, ipi.perf_owned, ipi.notes ]
-      end
-      
-      #recordings info
-      csv << []
-      csv << []
-      csv << ["RECORDINGS"]
-      csv << ["Common work id", "Title", "ISRC", "Artists", "lyrics", "BPM", "Duration hh:mm:ss", "instrumental y/n", "Release date mm/dd/yyyy", "Description", "Explicit", "200% clearance y/n", "Copyright", "Available mm/dd/yyyy", "UPC"]
-       self.recordings. each do |recording|
-          csv << [self.id, recording.title, recording.isrc_code, recording.artists, recording.lyrics, recording.bpm, recording.duration, "#{recording.instrumental ? 'y':'n'}", recording.release_date, recording.description,  "#{recording.explicit ? 'y':'n'}", "#{recording.description ? 'y':'n'}", recording.copyright, recording.available_date, recording.upc_code ]
-        end
-      
-    end
-    csv_string
-  end
+  #def to_csv
+  #  
+  #  csv_string = CSV.generate do |csv|
+  #    # common work info
+  #    csv << ["COMMON WORK", "ID: #{self.id}"]
+  #    csv << ["Title", "Alternative titles", "Description", "ISWC code", "ASCAP work id"]
+  #    csv << [self.title, self.alternative_titles, self.description, self.iswc_code, self.ascap_work_id]
+  #    
+  #    #ipi's info
+  #    csv << []
+  #    csv << []
+  #    csv << ["IPI'S"]
+  #    csv << ["Common work id", "IPI code", "CAE code", "Full name", "Address", "Email", "Phone number", "Role", "Controlled", "Terrirory", "Share", "Mech owned", "Mech Collected", "Perf owned", "Perf collected", "Notes"]
+  #    self.ipis. each do |ipi|
+  #      csv << [self.id, ipi.ipi_code, ipi.cae_code, ipi.full_name, ipi.address, ipi.email, ipi.phone_number, ipi.territory, ipi.share, ipi.mech_owned, ipi.mech_collected, ipi.perf_owned, ipi.notes ]
+  #    end
+  #    
+  #    #recordings info
+  #    csv << []
+  #    csv << []
+  #    csv << ["RECORDINGS"]
+  #    csv << ["Common work id", "Title", "ISRC", "Artists", "lyrics", "BPM", "Duration hh:mm:ss", "instrumental y/n", "Release date mm/dd/yyyy", "Description", "Explicit", "200% clearance y/n", "Copyright", "Available mm/dd/yyyy", "UPC"]
+  #     self.recordings. each do |recording|
+  #        csv << [self.id, recording.title, recording.isrc_code, recording.artists, recording.lyrics, recording.bpm, recording.duration, "#{recording.instrumental ? 'y':'n'}", recording.release_date, recording.description,  "#{recording.explicit ? 'y':'n'}", "#{recording.description ? 'y':'n'}", recording.copyright, recording.available_date, recording.upc_code ]
+  #      end
+  #    
+  #  end
+  #  csv_string
+  #end
   
   def audio_preview
     Recording.find(self.recording_preview_id).audio_file_url if Recording.exists?(self.recording_preview_id)
   end
   
+  def self.account_search(account, params)
+    common_works = account.common_works
+    if params.present?
+      common_works = common_works.where("common_works.title @@ :q or common_works.lyrics @@ :q or common_works.alternative_titles @@ :q or common_works.iswc_code @@ :q or common_works.description @@ :q", q: params[:query]) if params[:query].present?
+      #users = users.where(:site_id => params[:site]) if params[:site].present?
+      #users = users.where(:role => params[:role]) if params[:role].present?
+    end
+    common_works
+  end
+  
 
-  
-  
-  
-  
 private
   #def update_counter_cache
   #  self.content_type = document.file.content_type
@@ -118,55 +124,6 @@ private
     end
   end
   
-  
-  
-  #"title"
-  #"iswc_code"
-  #"created_at",             
-  #"updated_at",             
-  #"ascap_work_id"
-  #"account_id"
-  #"common_works_import_id"
-  #"audio_file"
-  #"content_type"
-  #"file_size"
-  #"description"
-  #"alternative_titles"
-  
 
-
-  #after_create :init
-  #
-  #def init
-  #  scrape_ascap if creation_type == "ascap"
-  #end
-  #
-  #def scrape_ascap
-  #  scrape = Scraper::AscapScraper::Iswc[work_id: self.ascap_work_id]
-  #  merge_with_scrape! scrape
-  #end
-  #
-  #def merge_with_scrape! scrape
-  #  if scrape
-  #    self.title = scrape.work_title
-  #    self.alternative_titles = scrape.alternative_titles
-  #    #self.title_type_code = scrape.work_title_type_code
-  #    self.save
-  #
-  #    #scrape.interested_parties.each do |interested_party|
-  #    #
-  #    #  #import_ipi = ImportIpi.find_or_create_by_ascap_party_id(account_id: account_id)
-  #    #
-  #    #
-  #    #  import_ipi = ImportIpi.find_or_create_by_ipi_code interested_party
-  #    #  #import_ipi.account_id = account_id
-  #    #  #import_ipi.save
-  #    #
-  #    #
-  #    #
-  #    #  Ipi.create(import_ipi_id: import_ipi.id, common_work_id: id, full_name: import_ipi.full_name)
-  #    #end
-  #  end
-  #end
   
 end
