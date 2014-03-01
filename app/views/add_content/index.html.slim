@@ -1,6 +1,6 @@
 -session[:return_url] = request.url
 #wrap
-  .full-width-top.account
+  .full-width-top
     == render 'accounts/shared/navbar', page: 'home'
 
             
@@ -18,65 +18,69 @@
       .col-sm-12
         hr
     .row
-      .col-sm-3
-        = image_tag @upload_recording.image_url(:size_570x320), class: "img-responsive"
-      .col-sm-3
-        h3 = @upload_recording.title
-        = simple_format @upload_recording.body
-        br
-        br
-        = link_to 'Begin', new_account_upload_recording_path( @account), class: 'btn btn-default btn-lg', id: 'upload_recording'
-        -if can_edit?
-          '&nbsp;
-          = link_to 'edit', edit_admin_blog_blog_post_path(@recording_blog, @upload_recording), class: 'btn btn-lg btn-primary'
+      .col-sm-6
+        .row
+          .col-sm-6
+            = image_tag @upload_recording.image_url(:size_570x320), class: "img-responsive"
+          .col-sm-6
+            h3 = @upload_recording.title
+            = simple_format @upload_recording.body
+            br
+            .pull-right
+              -if can_edit?
+                = link_to 'edit', edit_admin_blog_blog_post_path(@recording_blog, @upload_recording), class: 'btn btn-lg btn-default'
+                '&nbsp;
+              = link_to 'Begin', new_account_upload_recording_path( @account), class: 'btn btn-primary btn-lg', id: 'upload_recording'
+        
         hr
-      .col-sm-3
-        = image_tag @import_content.image_url(:size_570x320), class: "img-responsive"
-      .col-sm-3
-        h3 = @import_content.title
-        = simple_format @import_content.body
-        br
-        br
-        = link_to 'Begin', new_account_single_work_path( @account), class: 'btn btn-default btn-lg'
-        -if can_edit?
-          '&nbsp;
-          = link_to 'Edit', edit_admin_blog_blog_post_path(@work_blog, @import_content), class: 'btn btn-lg btn-primary'
+      .col-sm-6
+        .row
+          .col-sm-6
+            = image_tag @import_content.image_url(:size_570x320), class: "img-responsive"
+          .col-sm-6
+            h3 = @import_content.title
+            = simple_format @import_content.body
+            br
+            .pull-right
+              -if can_edit?
+                = link_to 'Edit', edit_admin_blog_blog_post_path(@work_blog, @import_content), class: 'btn btn-lg btn-default'
+                '&nbsp;
+              = link_to 'Begin', new_account_single_work_path( @account), class: 'btn btn-primary btn-lg'
+        
         hr
         
     /--------------------------------------------------------    
     .row
-      br
-      .col-sm-3
-        = image_tag @upload_content.image_url(:size_570x320), class: "img-responsive"
-      .col-sm-3
-        h3 = @upload_content.title
-        = simple_format @upload_content.body
-        br
-        br
-        = link_to 'Begin', new_account_single_work_path( @account), class: 'btn btn-default btn-lg', id: 'create_work_from_scratch'
-        -if can_edit?
-          '&nbsp;
-          = link_to 'edit', edit_admin_blog_blog_post_path(@work_blog, @upload_content), class: 'btn btn-lg btn-primary'
+      .col-sm-6
+        .row
+          .col-sm-6
+            = image_tag @upload_content.image_url(:size_570x320), class: "img-responsive"
+          .col-sm-6
+            h3 = @upload_content.title
+            = simple_format @upload_content.body
+            br
+            .pull-right
+              -if can_edit?
+                = link_to 'Edit', edit_admin_blog_blog_post_path(@work_blog, @upload_content), class: 'btn btn-lg btn-default'
+                '&nbsp;
+              = link_to 'Begin', new_account_single_work_path( @account), class: 'btn btn-primary btn-lg'
         hr
-      
-      .col-sm-3
-        = image_tag @import_content.image_url(:size_570x320), class: "img-responsive"
-      .col-sm-3
-        h3 = @import_content.title
-        = simple_format @import_content.body
-        br
-        br
-        = link_to 'Begin', new_account_single_work_path( @account), class: 'btn btn-default btn-lg'
-        -if can_edit?
-          '&nbsp;
-          = link_to 'Edit', edit_admin_blog_blog_post_path(@work_blog, @import_content), class: 'btn btn-lg btn-primary'
+      .col-sm-6
+        .row
+          .col-sm-6
+            = image_tag @import_content.image_url(:size_570x320), class: "img-responsive"
+          .col-sm-6
+            h3 = @import_content.title
+            = simple_format @import_content.body
+            br
+            .pull-right
+              -if can_edit?
+                = link_to 'Edit', edit_admin_blog_blog_post_path(@work_blog, @import_content), class: 'btn btn-lg btn-default'
+                '&nbsp;
+              = link_to 'Begin', new_account_single_work_path( @account), class: 'btn btn-primary btn-lg'
+            
         hr
-    .row
-      .col-sm-4
-    
-      .col-sm-4
-    
-      .col-sm-4
+
 
   
 #footer

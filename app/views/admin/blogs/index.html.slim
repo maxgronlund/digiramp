@@ -1,8 +1,12 @@
 #wrap
-  == render 'admin/shared/navbar', page: 'manage'       
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'blog'
+
+            
   .container
     .row
       .col-sm-12
+        ==render 'admin/shared/messages'     
         h3 Blogs
         .table-responsive
           table class="table table-hover"

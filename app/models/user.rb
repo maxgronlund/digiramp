@@ -139,22 +139,22 @@ class User < ActiveRecord::Base
     self.role == 'super'
   end
   
-  def admin_or_super?
-    true
-    #!!! do some permissions here
-    #begin
-    #  account_user = AccountUser.find(user.current_account_id)
-    #  return account_user.admin_or_super?
-    #rescue
-    #  return false
-    #end
-  end
+  #def admin_or_super?
+  #
+  #  #!!! do some permissions here
+  #  #begin
+  #  #  account_user = AccountUser.find(user.current_account_id)
+  #  #  return account_user.admin_or_super?
+  #  #rescue
+  #  #  return false
+  #  #end
+  #end
   
   def can_administrate account
-    
     return true if account.id == self.account_id
     return true if user_role_on( account) == 'Administrator'
-    
+    return true if self.super?
+    false
   end
   
   def user_role_on account

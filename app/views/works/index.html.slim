@@ -1,4 +1,4 @@
-
+-session[:return_url] = request.url
 #wrap
   .full-width-top
     == render 'accounts/shared/navbar', page: 'works'
@@ -9,9 +9,15 @@
       
       /==render @section
       .row
-        .col-sm-12
+        .col-sm-6
           h2 = @manage_works.title
           = @manage_works.body
+        .col-sm-6
+          -if can_edit?
+            .pull-right
+              =link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @manage_works), class: 'btn btn-primary'
+      .row
+        .col-sm-12
           .hidden-xs
             == paginate(@common_works)
           .visible-xs
@@ -21,7 +27,7 @@
               = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
             br
             br
-          
+      .row    
         .col-sm-12
           == render 'works/common_works'
           hr  

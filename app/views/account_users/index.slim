@@ -1,0 +1,30 @@
+-session[:return_url] = request.url
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'home'
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    
+    .row
+      .col-sm-12
+        h1 = @title_and_body.title
+        = simple_format @title_and_body.body
+    .row
+      .col-sm-12
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Name
+                th Email
+                th Role 
+                th
+            tbody
+              -@account.account_users.each do |account_user|
+              
+                tr == render 'account_users/shared/account_user', account_user: account_user
+        
+        .pull-right
+          = link_to 'Invite Users', '#', class: 'btn btn-primary btn-lg'

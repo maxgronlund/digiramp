@@ -6,12 +6,28 @@
             
   .container
     ==render 'admin/shared/messages'
+    
     .row
       .col-sm-12
         -if @welcome
           ==render 'accounts/shared/welcome' 
         -else     
           h1 = @account.title
+          .row
+            .col-sm-6
+              == render 'accounts/shared/badge_buttons/users'
+            .col-sm-6
+              == render 'accounts/shared/badge_buttons/assets'
+          .row
+            .col-sm-6
+              == render 'accounts/shared/badge_buttons/collect'
+            .col-sm-6
+              == render 'accounts/shared/badge_buttons/promote'
+          .row
+            .col-sm-6
+              == render 'accounts/shared/badge_buttons/rights'
+            /.col-sm-6
+            /  == render 'accounts/shared/badge_buttons/promote'
         hr
     
     
@@ -20,7 +36,7 @@
     
     /=debug @account
     
-    ==render 'accounts/shared/account_users'    if @show_users
+   
     /==render @section_right if @section_right
     .row
       .col-sm-6

@@ -43,9 +43,10 @@
         
     
   hr
-  = link_to 'Back',  admin_blog_path(@blog), class: 'btn btn-default'
-  '&nbsp;
-  = f.submit 'Save', class: 'btn btn-default', id: "submit_link"
+  .pull-right
+    = link_to 'Back to Block',  admin_blog_path(@blog), class: 'btn btn-default btn-lg'
+    '&nbsp;
+    = f.submit 'Save', class: 'btn btn-primary btn-lg', id: "submit_link"
 
 
 

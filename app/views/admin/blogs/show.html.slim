@@ -1,19 +1,20 @@
 -session[:return_url] = request.url
 #wrap
-  == render 'admin/shared/navbar', page: 'manage'
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'admin'
 
             
   .container
     .row
       .col-sm-12
+        ==render 'admin/shared/messages'
         h2 =@blog.title
         = @blog.body
 
         .pull-right
-          = link_to 'Edit Title', edit_admin_blog_path(@blog), class: 'btn btn-primary'
+          = link_to 'Edit Blog Title', edit_admin_blog_path(@blog), class: 'btn btn-primary'
           
         
-    == render 'admin/shared/messages'
     -@blog_posts.each do |blog_post|
       .row
         = render 'blog_post', blog_post: blog_post[0] if blog_post[0]
@@ -23,6 +24,8 @@
     .row
       .col-sm-12
         .pull-right
-          = link_to 'New Post', new_admin_blog_blog_post_path(@blog), class: 'btn btn-primary'
+          = link_to 'Back to Blogs', admin_blogs_path,  class: 'btn btn-default btn-lg'
+          '&nbsp;
+          = link_to 'New Post', new_admin_blog_blog_post_path(@blog), class: 'btn btn-primary btn-lg'
         
         

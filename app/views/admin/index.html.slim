@@ -8,9 +8,24 @@
       .col-sm-12
         ==render 'admin/shared/messages'
     .row
-      .col-sm-8
-        h3 Administrators
-      .col-sm-8
-        = link_to 'Sidekiq', 'http://localhost:3000/sidekiq/queues', class: 'btn btn-lg btn-default'
+      .col-sm-6
+        == render 'admin/shared/badge_buttons/accounts'
+      .col-sm-6
+        == render 'admin/shared/badge_buttons/new_account'
+    .row
+      .col-sm-6
+        == render 'admin/shared/badge_buttons/users'
+      .col-sm-6
+        == render 'admin/shared/badge_buttons/administrators'
+    .row
+      .col-sm-6
+        == render 'admin/shared/badge_buttons/blogs'
+      /.col-sm-6
+      /  == render 'admin/shared/badge_buttons/administrators'
+      
+      /.col-sm-6
+      /  == render 'admin/shared/badge_buttons/users'
+      /.col-sm-8
+      /  = link_to 'Sidekiq', 'http://localhost:3000/sidekiq/queues', class: 'btn btn-lg btn-default'
     
   

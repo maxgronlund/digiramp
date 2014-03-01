@@ -1,8 +1,13 @@
 #wrap
-  == render 'admin/shared/navbar', page: 'manage'
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'admin'
+
+            
   .container
-    == render 'admin/shared/messages'
-    == render 'form'
+    .row
+      .col-sm-12
+        ==render 'admin/shared/messages'
+        == render 'form'
   
 
     

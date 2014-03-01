@@ -1,0 +1,30 @@
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'users'
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    
+    .row
+      .col-sm-6
+        =simple_form_for [@account, @account_user] do |f|
+          = f.hidden_field :account_id, value: @account.id
+          = f.input :role,  collection: @roles,     as: :radio_buttons, label: "Permission"
+          = f.input :email
+          = f.input :invitation_message
+          
+          .pull-right
+            =f.submit 'Save', class: 'btn btn-primary btn-lg'
+      /.col-sm-6
+      /  h3 =@administrator.title
+      /  =@administrator.body
+      /  -if can_edit?
+      /    .pull-right
+      /      = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @administrator), class: 'btn btn-primary'
+      /  br
+      /  h3 = @client.title
+      /  = @client.body
+      /  -if can_edit?
+      /    .pull-right
+      /      = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @client), class: 'btn btn-primary'

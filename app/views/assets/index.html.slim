@@ -1,0 +1,50 @@
+-session[:return_url] = request.url
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'home'
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    
+    .row
+      .col-sm-12
+        h1 = @assets.title
+    .row
+      .col-sm-6
+        == render 'assets/shared/badge_buttons/add_music'
+      .col-sm-6
+        == render 'assets/shared/badge_buttons/works'
+    /.row
+    /  .col-sm-6
+    /    == render 'accounts/shared/badge_buttons/assets'
+    hr
+    
+    
+    
+    
+    /=debug @account
+    
+   
+    /==render @section_right if @section_right
+    .row
+      .col-sm-6
+
+      
+      .col-sm-4
+
+        
+    .row
+      .col-sm-4
+    
+      .col-sm-4
+    
+      .col-sm-4
+
+  
+#footer
+  .container
+    .footer
+      .row
+        .col-sm-12
+          '©2014 All rights reserved

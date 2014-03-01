@@ -58,11 +58,11 @@ class AccountUser < ActiveRecord::Base
   #  #end
   #end
   
-  def get_role_for user
-    if account.administrator_id == user.id
-      return 'Administrator'
-    else
-      return self.role
-    end
-  end
+  #def get_role_for user
+  #  if account.administrator_id == user.id
+  #    return 'Administrator'
+  #  else
+  #    return self.role
+  #  end
+  #end
 end
