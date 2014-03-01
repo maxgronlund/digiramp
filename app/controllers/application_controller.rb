@@ -60,8 +60,7 @@ class ApplicationController < ActionController::Base
   end
   
   def user_is_an_account_user
-    # TO DO
-    false
+    AccountUser.where(user_id: current_user.id, account_id: @account.id).first
   end
   
   def forbidden
@@ -78,8 +77,8 @@ private
       @account = Account.find(params[:account_id])
     end
     return true if account_belongs_to_current_user
-    return true if user_is_an_account_user
     return true if current_user.role == 'admin' || current_user.role == 'super'
+    return true if user_is_an_account_user
     @account = nil
     false
   end

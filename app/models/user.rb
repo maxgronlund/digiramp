@@ -37,6 +37,8 @@ class User < ActiveRecord::Base
   
   ROLES = ["super", "cuctomer"]
   
+  scope :supers,      ->    { where( role: 'super' ).order("email asc")  }
+  
   ## !!!! should be depricated! Moved to AccountUser
   def can? action, id_name_or_record, _account_id
     return true
@@ -148,31 +150,45 @@ class User < ActiveRecord::Base
     #end
   end
   
-  def has_permission_for? action, permitted_model_id_name, _account_id
-
-    if permitted_model_type = PermittedModelType.where(id_name: permitted_model_id_name).first
-      account_user  = AccountUser.where(user_id: self.id, account_id: _account_id).first
-      return account_user && account_user.has_permission_for?( action, permitted_model_type.id )
-    end
-
-    return false
+  def can_administrate account
+    
+    return true if account.id == self.account_id
+    return true if user_role_on( account) == 'Administrator'
     
   end
+  
+  def user_role_on account
+    if account_user = AccountUser.where(user_id: self.id, account_id: account.id).first
+      return account_user.role
+    end
+    'no access'
+  end
+  
+  #def has_permission_for? action, permitted_model_id_name, _account_id
+  #
+  #  if permitted_model_type = PermittedModelType.where(id_name: permitted_model_id_name).first
+  #    account_user  = AccountUser.where(user_id: self.id, account_id: _account_id).first
+  #    return account_user && account_user.has_permission_for?( action, permitted_model_type.id )
+  #  end
+  #
+  #  return false
+  #  
+  #end
   
 
 
 private
   
-  def has_permission_for_record? action, record
-    ## This could be rewritten to a single sql query
-    permissions
-    .where(permissionable_type: record.class.to_s, permissionable_id: record.id)
-    .each do |permission|
-      return true if permission.permitted_actions.exists?(permitted_action: action)
-    end
-    
-    false
-  end
+  #def has_permission_for_record? action, record
+  #  ## This could be rewritten to a single sql query
+  #  permissions
+  #  .where(permissionable_type: record.class.to_s, permissionable_id: record.id)
+  #  .each do |permission|
+  #    return true if permission.permitted_actions.exists?(permitted_action: action)
+  #  end
+  #  
+  #  false
+  #end
   
   #def has_permission_for_model? action, id_name_or_record, _account_id
   #  if record_class = get_record_class(id_name_or_record)

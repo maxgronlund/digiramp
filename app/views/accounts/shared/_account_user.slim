@@ -1,0 +1,10 @@
+-cache (account_user) do
+  -user = account_user.user
+  td = user.name
+  td = user.email
+  td = account_user.role
+  td 
+    .pull-right
+      = link_to 'Edit', '#', class: 'btn btn-default'
+      '&nbsp;
+      = link_to 'Remove', account_account_user_path(@account, account_user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'

@@ -107,6 +107,8 @@ class Account < ActiveRecord::Base
     end
     return account_user 
   end
+  
+  
     
   
 private

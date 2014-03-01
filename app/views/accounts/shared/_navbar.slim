@@ -16,10 +16,14 @@
           = image_tag('logo.svg')
     .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
       ul class="nav navbar-nav"
+        -if can_edit?
+          li
+            = link_to 'ADMIN', admin_index_path
+        
         /li class="#{page == 'home' ? 'active' : ''}"
         /  =link_to 'Home', root_path
-        li class="#{page == 'features' ? 'active' : ''}"
-          =link_to 'Works', account_works_path(@account) 
+        li class="#{page == 'works' ? 'active' : ''}"
+          =link_to 'WORKS', account_works_path(@account) 
         /li class="#{page == 'solutions' ? 'active' : ''}"
         /  =link_to 'Rights', solutions_index_path
         /li class="#{page == 'about' ? 'active' : ''}"
@@ -27,13 +31,8 @@
         /li class="#{page == 'investors' ? 'active' : ''}"
         /  =link_to 'Collect', investors_index_path
       ul class="nav navbar-nav navbar-right"
-        -if can_edit?
-          li
-            = link_to 'Admin', admin_index_path
+        li class="#{page == 'home' ? 'active' : ''}"
+          = link_to 'HOME', account_path(current_user.current_account_id)
         li
-          = link_to 'Home', account_path(current_user.account) 
-        
-        li
-          -if  user_signed_in?
-            = link_to 'logout',  logout_path
+          = link_to 'LOGOUT',  logout_path
         

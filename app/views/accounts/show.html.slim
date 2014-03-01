@@ -1,18 +1,27 @@
+-session[:return_url] = request.url
 #wrap
   .full-width-top
     == render 'accounts/shared/navbar', page: 'home'
 
             
   .container
+    ==render 'admin/shared/messages'
     .row
       .col-sm-12
-        h1 =@account_header.title
-        =@account_header.body
+        -if @welcome
+          ==render 'accounts/shared/welcome' 
+        -else     
+          h1 = @account.title
         hr
-    ==render 'admin/shared/messages'
     
-    ==render @section_left if @section_left
-    ==render @section_right if @section_right
+    
+    ==render 'accounts/shared/add_content'      if @add_content
+    ==render 'accounts/shared/add_first_users'  if @add_first_users
+    
+    /=debug @account
+    
+    ==render 'accounts/shared/account_users'    if @show_users
+    /==render @section_right if @section_right
     .row
       .col-sm-6
 

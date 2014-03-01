@@ -13,6 +13,12 @@
         .navbar-brand
           = image_tag('logo.svg')
     .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
+      ul class="nav navbar-nav"
+        -if can_edit?
+          li
+            = link_to 'ADMIN', admin_index_path
+
+          
       /ul class="nav navbar-nav"
       /  /li class="#{page == 'home' ? 'active' : ''}"
       /  /  =link_to 'Home', root_path
@@ -26,13 +32,8 @@
       /    =link_to 'Investors', investors_index_path
       -if  user_signed_in?
         ul class="nav navbar-nav navbar-right"
-          -if can_edit?
-            li
-              = link_to 'ADMIN', admin_index_path
-          li
-            = link_to 'HOME', account_path(current_user.account) 
-          li
-              = link_to 'LOG OUT',  logout_path
+          li = link_to 'HOME', account_path(current_user.current_account_id)
+          li = link_to 'LOG OUT',  logout_path
       -else
         ul class="nav navbar-nav navbar-right"
           li  = link_to 'LOG IN',  login_new_path

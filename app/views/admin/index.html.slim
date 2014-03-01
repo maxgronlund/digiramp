@@ -1,10 +1,15 @@
-
 #wrap
-  == render 'admin/shared/navbar', page: 'admin'
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'admin'
 
             
   .container
     .row
+      .col-sm-12
+        ==render 'admin/shared/messages'
+    .row
+      .col-sm-8
+        h3 Administrators
       .col-sm-8
         = link_to 'Sidekiq', 'http://localhost:3000/sidekiq/queues', class: 'btn btn-lg btn-default'
     

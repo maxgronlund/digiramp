@@ -1,1 +1,9 @@
-=debug @user
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'users'
+
+            
+  .container
+    .row
+      .col-sm-12
+        =debug @user

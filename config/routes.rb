@@ -9,6 +9,7 @@ Digiramp::Application.routes.draw do
   get "selling_points/selling_point_2"
   get "selling_points/selling_point_3"
   resources :accounts, only: [:show] do
+    resources :account_users
     resources :works
     get "add_content/index"
     resources :single_work  do

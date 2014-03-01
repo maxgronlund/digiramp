@@ -1,20 +1,23 @@
 
-#wrap
+#wrap.dark
   .full-width-top
     == render 'shared/navbar', page: 'home'
-  -unless current_user
-    .hidden-xs
-      .full-width-sign-up
-        .container
-          == render 'shared/sign_up'
-            
+  /-unless current_user
+  /  .hidden-xs
+  /    .full-width-sign-up
+  /      .container
+  /        == render 'shared/sign_up'
+  /          
   .container
     /==render 'admin/shared/messages'
     
     .row
-      .col-sm-4
+      .col-sm-6
         
         == render 'shared/log_in'
+        
+      .col-sm-6
+        == render 'shared/sign_up'
 
   
 #footer

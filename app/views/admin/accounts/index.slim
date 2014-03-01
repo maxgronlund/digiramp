@@ -1,9 +1,11 @@
 #wrap
-  == render 'admin/shared/navbar', page: 'accounts'       
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'accounts'
+
   .container
-    ==render 'admin/shared/messages'
     .row
       .col-sm-12
+        ==render 'admin/shared/messages'
         .table-responsive
           table class="table table-hover"
             thead
@@ -11,6 +13,7 @@
                 th Account
                 th Members
                 th Expires
+                th Visits
                 th 
             tbody
               -@accounts.each do |account|
@@ -20,7 +23,9 @@
                     td = account.account_users.size
                     /td class="#{'expired' if account.expiration_date < Date.current }"
                     /  = account.expiration_date
-                    td = account.expiration_date
+                    td  class="#{'expired' if account.expiration_date < Date.current }"
+                      = account.expiration_date
+                    td = account.visits
                     td
                       .pull-right
                         = link_to 'Go To', account_path( account), class: 'btn btn-default'
