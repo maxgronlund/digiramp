@@ -1,7 +1,7 @@
 -administrator = User.find(@account.administrator_id) if User.exists?(@account.administrator_id)
 #wrap
   .full-width-top
-    == render 'admin/shared/navbar', page: 'accounts'
+    == render 'admin/shared/navbar', page: 'admin'
           
   .container
     ==render 'admin/shared/messages'

@@ -1,1 +1,16 @@
-= debug @user
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'profile'
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    .row
+      .col-sm-6
+        = debug @user
+      .col-sm-6
+        ul
+          li Subscription plan
+          li Accounts
+          li Personal messages
+          li Edit personal info

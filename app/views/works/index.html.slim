@@ -1,7 +1,7 @@
 -session[:return_url] = request.url
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'works'
+    == render 'accounts/shared/navbar', page: 'account'
   -cache([ @account.id, @account.works_cache_key, params[:page]]) do 
               
     .container

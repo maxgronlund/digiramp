@@ -114,9 +114,9 @@ class User < ActiveRecord::Base
   def current_account
     
     return  Account.find(self.current_account_id) if  Account.exists?(self.current_account_id)
-    account_user = AccountUser.where(user_id: self.id).first
-    
-    return Account.find(account_user.account_id) if account_user
+    #account_user = AccountUser.where(user_id: self.id).first
+    #
+    #return Account.find(account_user.account_id) if account_user
     
   end
   

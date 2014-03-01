@@ -50,8 +50,12 @@
         /    
 
       ul class="nav navbar-nav navbar-right"
-        li = link_to 'HOME', account_path(current_user.current_account_id)
-        li = link_to 'LOGOUT',  logout_path
+        li class="#{page == 'account' ? 'active' : ''}"
+          = link_to current_user.current_account.title.upcase, account_path(current_user.current_account)
+        li class="#{page == 'profile' ? 'active' : ''}"
+          = link_to current_user.name.upcase, user_path(current_user)
+        li
+          = link_to 'LOGOUT',  logout_path
       
 
 
