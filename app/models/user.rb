@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   has_secure_password
   
+  include PgSearch
+  pg_search_scope :search_user, against: [:name, :email, :profile]
+  
   validates_uniqueness_of :email
   validates_presence_of :password, :on => :create
   before_create { generate_token(:auth_token) }
@@ -177,7 +180,7 @@ class User < ActiveRecord::Base
   
   def self.search( query)
     if query.present?
-      return User.where("name @@ :q or email @@ :q", q: query)
+      return User.search_user(query)
     else
       return all
     end
