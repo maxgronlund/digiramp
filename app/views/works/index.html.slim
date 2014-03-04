@@ -2,8 +2,8 @@
 #wrap
   .full-width-top
     == render 'accounts/shared/navbar', page: 'account'
-  -cache([ @account.id, @account.works_cache_key, params]) do 
-              
+  /-cache([ @account.id, @account.works_cache_key, params]) do 
+  .do           
     .container
       ==render 'admin/shared/messages'
       
