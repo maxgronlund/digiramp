@@ -1,6 +1,6 @@
 class CommonWork < ActiveRecord::Base
   include PgSearch
-  pg_search_scope :search, against: [:title, :lyrics, :alternative_titles, :iswc_code, :description ]
+  pg_search_scope :search, against: [:title, :lyrics, :alternative_titles, :iswc_code, :description ], :using => [:tsearch]
   
   belongs_to :account
   belongs_to :ascap_import

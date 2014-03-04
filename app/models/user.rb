@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
   
   include PgSearch
-  pg_search_scope :search_user, against: [:name, :email, :profile]
+  pg_search_scope :search_user, against: [:name, :email, :profile], :using => [:tsearch]
   
   validates_uniqueness_of :email
   validates_presence_of :password, :on => :create

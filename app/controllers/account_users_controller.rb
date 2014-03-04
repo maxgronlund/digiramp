@@ -25,12 +25,14 @@ class AccountUsersController < ApplicationController
     
     if @user = User.where(email: params[:account_user][:email]).first
       account_user = AccountUser.create!(account_id: @account.id, user_id: @user.id, role: params[:account_user][:role], invitation_message: params[:account_user][:invitation_message])
-      #@user.invite_existing_user_to_account @account
+      flash[:info] = { title: "User invited", body: "successfully invited user with email: #{ params[:account_user][:email]}" }
       redirect_to account_account_users_path @account
     else
-      @user = User.create( email: params[:account_user][:email], name: params[:account_user][:email], current_account_id: @account.id, password: 'qLp8GtNwlx7WVBY3Xj9QTDi5PR', password_confirmation: 'qLp8GtNwlx7WVBY3Xj9QTDi5PR')
-      account_user = AccountUser.create(account_id: @account.id, user_id: @user.id, role: params[:account_user][:role], invitation_message: params[:account_user][:invitation_message])
-      @user.signed_up_and_invited_to @account.id, params[:account_user][:invitation_message]
+      flash[:danger] = { title: "User is not a member", body: "Please ask the person you are about to invite to sign up for an account" }
+      redirect_to account_account_users_path @account
+     # @user = User.create( email: params[:account_user][:email], name: params[:account_user][:email], current_account_id: @account.id, password: 'qLp8GtNwlx7WVBY3Xj9QTDi5PR', password_confirmation: 'qLp8GtNwlx7WVBY3Xj9QTDi5PR')
+     # account_user = AccountUser.create(account_id: @account.id, user_id: @user.id, role: params[:account_user][:role], invitation_message: params[:account_user][:invitation_message])
+     # @user.signed_up_and_invited_to @account.id, params[:account_user][:invitation_message]
     end
     #
     #if params[:account_user][:permitted_models_attributes]
