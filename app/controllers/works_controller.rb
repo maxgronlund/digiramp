@@ -6,7 +6,7 @@ class WorksController < ApplicationController
     @manage_works  = BlogPost.where(identifier: 'Manage Works', blog_id: @blog.id).first_or_create(identifier: 'Manage Works', blog_id: @blog.id, title: 'Manage Works') 
     
     
-    @common_works = CommonWork.account_search(@account, params[:search]).order('title asc').page(params[:page]).per(32)
+    @common_works = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
     #@common_works  = @account.common_works.order('title asc').page(params[:page]).per(32)
   end
 

@@ -6,6 +6,21 @@
     .row
       .col-sm-12
         ==render 'admin/shared/messages'
+
+    .row
+        = form_tag admin_users_path, :method => 'get' do
+          .col-sm-6
+            br
+            = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string'
+          .col-sm-6
+            br
+            = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+            '&nbsp;
+            = link_to 'Show All',admin_users_path, class: 'btn btn-default btn-lg'
+            
+            
+            
+            
         .table-responsive
           table class="table table-hover"
             thead

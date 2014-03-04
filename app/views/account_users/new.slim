@@ -12,7 +12,7 @@
           = f.hidden_field :account_id, value: @account.id
           = f.input :role,  collection: @roles,     as: :radio_buttons, label: "Permission"
           = f.input :email
-          = f.input :invitation_message
+          /= f.input :invitation_message
           
           .pull-right
             =f.submit 'Save', class: 'btn btn-primary btn-lg'

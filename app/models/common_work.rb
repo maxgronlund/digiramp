@@ -98,10 +98,10 @@ class CommonWork < ActiveRecord::Base
     Recording.find(self.recording_preview_id).audio_file_url if Recording.exists?(self.recording_preview_id)
   end
   
-  def self.account_search(account, params)
+  def self.account_search(account, query)
     common_works = account.common_works
-    if params.present?
-      common_works = common_works.where("common_works.title @@ :q or common_works.lyrics @@ :q or common_works.alternative_titles @@ :q or common_works.iswc_code @@ :q or common_works.description @@ :q", q: params[:query]) if params[:query].present?
+    if query.present?
+      common_works = common_works.where("common_works.title @@ :q or common_works.lyrics @@ :q or common_works.alternative_titles @@ :q or common_works.iswc_code @@ :q or common_works.description @@ :q", q: query) 
       #users = users.where(:site_id => params[:site]) if params[:site].present?
       #users = users.where(:role => params[:role]) if params[:role].present?
     end

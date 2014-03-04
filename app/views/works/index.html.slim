@@ -20,7 +20,7 @@
           = form_tag account_works_path(@account), :method => 'get' do
             .col-sm-6
               br
-              = text_field_tag "search[query]", "", :class => 'search-query form-control', :placeholder => 'Search string'
+              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string'
             .col-sm-6
               br
               = submit_tag 'Search', class: 'btn btn-primary btn-lg'

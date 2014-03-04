@@ -175,6 +175,14 @@ class User < ActiveRecord::Base
   #  
   #end
   
+  def self.search( query)
+    if query.present?
+      return User.where("name @@ :q or email @@ :q", q: query)
+    else
+      return all
+    end
+  end
+  
 
 
 private
