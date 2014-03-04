@@ -1,4 +1,5 @@
 class CommonWork < ActiveRecord::Base
+  include PgSearch
   
   belongs_to :account
   belongs_to :ascap_import
@@ -17,7 +18,8 @@ class CommonWork < ActiveRecord::Base
   before_save :update_audio_file_attributes
   
   
-  
+  pg_search_scope :search, against: [:title, :lyrics, :alternative_titles, :iswc_code, :description ]
+  #title @@ :q or lyrics @@ :q or alternative_titles @@ :q or iswc_code @@ :q or description
 
   #before_save :check_title
   
@@ -101,9 +103,15 @@ class CommonWork < ActiveRecord::Base
   def self.account_search(account, query)
     common_works = account.common_works
     if query.present?
-      common_works = common_works.where("title @@ :q or lyrics @@ :q or alternative_titles @@ :q or iswc_code @@ :q or description @@ :q", q: query) 
-      #users = users.where(:site_id => params[:site]) if params[:site].present?
-      #users = users.where(:role => params[:role]) if params[:role].present?
+      logger.debug '----------------------------------------------------------------'
+      logger.debug query
+      logger.debug '----------------------------------------------------------------'
+      
+     common_works = common_works.search(query)
+
+      
+      
+      #common_works = common_works.where("title @@ :q or lyrics @@ :q or alternative_titles @@ :q or iswc_code @@ :q or description @@ :q", q: query) 
     end
     common_works
   end
