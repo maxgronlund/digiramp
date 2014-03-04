@@ -1,0 +1,11 @@
+.row
+  .col-sm-12
+    .hidden-xs
+      -links = breadcrumbs[:links]
+      ol class="breadcrumb"
+        - links.each do |k, v|
+          li
+            = link_to k.upcase , v
+        li class="active" 
+          = breadcrumbs[:current].upcase
+              

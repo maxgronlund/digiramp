@@ -24,4 +24,5 @@ class Blog < ActiveRecord::Base
   def self.promotion; Blog.where(identifier: 'Promotion').first_or_create(identifier: 'Promotion', title: 'Promotion' ) end
   def self.drm; Blog.where(identifier: 'DRM').first_or_create(identifier: 'DRM', title: 'DRM' ) end
   def self.customers; Blog.where(identifier: 'Customers').first_or_create(identifier: 'Customers', title: 'Customers' ) end
+  def self.recordings; Blog.where(identifier: 'Recordings').first_or_create(identifier: 'Recordings', title: 'Recordings' ) end
 end

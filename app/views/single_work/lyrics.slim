@@ -3,7 +3,11 @@
   .full-width-top
     == render 'accounts/shared/navbar', page: 'account'
   .container
-    ==render 'admin/shared/messages'
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            'create content'.to_sym => account_add_content_index_path(@account),\
+                                                            }, current:  @add_lytics.title}
     .row
       .col-sm-6
         h1 = @add_lytics.title

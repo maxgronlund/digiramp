@@ -7,7 +7,7 @@ class Admin::BlogPostsController < ApplicationController
   def new
     @blog = Blog.find(params[:blog_id])
     @blog_post = @blog.blog_posts.new
-    respond_with(:admin, @blog_post)
+    
   end
 
   def edit

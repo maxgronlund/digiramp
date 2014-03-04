@@ -15,6 +15,7 @@ Digiramp::Application.routes.draw do
     resources :customers, only: [:index]
     resources :drm, only: [:index]
     resources :promotion, only: [:index]
+    resources :recordings, only: [:index, :show]
     resources :works
     resources :assets, only: [:index]
     get "add_content/index"
@@ -29,7 +30,9 @@ Digiramp::Application.routes.draw do
       get 'users'
     end
     resources :upload_recordings, only: [:new, :edit, :create]
-    resources :common_works
+    resources :common_works do
+      resources :recordings
+    end
     #get "upload_recording/new"
     #get "upload_recording/edit"
   end

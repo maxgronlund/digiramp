@@ -6,8 +6,10 @@
   .do           
     .container
       ==render 'admin/shared/messages'
-      
-      /==render @section
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              }, current: 'works'}
+
       .row
         .col-sm-6
           h2 = @manage_works.title

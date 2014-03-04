@@ -1,0 +1,9 @@
+.row
+  .col-sm-12
+    h3 Recordings
+    /= debug recordings.first
+    .table-responsive
+      table class="table table-hover"
+        tbody
+          - recordings.each do |recording|
+            == render 'recordings/recording', recording: recording

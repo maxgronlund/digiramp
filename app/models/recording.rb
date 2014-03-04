@@ -1,4 +1,9 @@
 class Recording < ActiveRecord::Base
+  
+  include PgSearch
+  pg_search_scope :search, against: [:title, :artists, :lyrics, :production_company, :isrc_code ], :using => [:tsearch]
+  
+  
   #require 'taglib'
   #scope :none, where("1 = 0")
   scope :none, -> { where(color: "1 = 0") }
@@ -193,6 +198,14 @@ class Recording < ActiveRecord::Base
   #    self.save
   #  end
   #end
+  
+  def self.account_search(account, query)
+    recordings = account.recordings
+    if query.present?
+     recordings = recordings.search(query)
+    end
+    recordings
+  end
   
 private
   #def update_counter_cache

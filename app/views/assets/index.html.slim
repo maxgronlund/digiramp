@@ -6,6 +6,8 @@
             
   .container
     ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            }, current: 'assets'}
     
     .row
       .col-sm-12
@@ -15,6 +17,9 @@
         == render 'assets/shared/badge_buttons/add_music'
       .col-sm-6
         == render 'assets/shared/badge_buttons/works'
+    .row
+      .col-sm-6
+        == render 'assets/shared/badge_buttons/recordings'
     /.row
     /  .col-sm-6
     /    == render 'accounts/shared/badge_buttons/assets'

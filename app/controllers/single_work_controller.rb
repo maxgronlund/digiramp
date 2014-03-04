@@ -4,6 +4,7 @@ class SingleWorkController < ApplicationController
   
   def show
     @common_work      = CommonWork.find(params[:id])
+    redirect_to account_work_path( @account, @common_work)
   end
   
   

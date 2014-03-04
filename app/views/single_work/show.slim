@@ -1,34 +1,36 @@
--session[:return_url] = request.url
-#wrap
-  .full-width-top
-    == render 'accounts/shared/navbar', page: 'account'
+'na
 
-            
-  .container
-    ==render 'admin/shared/messages'
-    /.row
-    /  .col-sm-6
-    /    h1 = @add_description.title
-    /    = @add_description.body
-    /  -if can_edit?
-    /    .col-sm-6
-    /      = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @add_description), class: 'btn btn-primary btn-lg'
-    hr
-    ==render 'admin/shared/messages'
-    .row
-      .col-sm-6
-        =debug @common_work
-      .col-sm-6
-        =debug @common_work.recordings
-
-            
-            
-
-          
-
-#footer
-  .container
-    .footer
-      .row
-        .col-sm-12
-          '©2014 All rights reserved
+/-session[:return_url] = request.url
+/#wrap
+/  .full-width-top
+/    == render 'accounts/shared/navbar', page: 'account'
+/
+/            
+/  .container
+/    ==render 'admin/shared/messages'
+/    /.row
+/    /  .col-sm-6
+/    /    h1 = @add_description.title
+/    /    = @add_description.body
+/    /  -if can_edit?
+/    /    .col-sm-6
+/    /      = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @add_description), class: 'btn btn-primary btn-lg'
+/    hr
+/    ==render 'admin/shared/messages'
+/    .row
+/      .col-sm-6
+/        =debug @common_work
+/      .col-sm-6
+/        =debug @common_work.recordings
+/
+/            
+/            
+/
+/          
+/
+/#footer
+/  .container
+/    .footer
+/      .row
+/        .col-sm-12
+/          '©2014 All rights reserved

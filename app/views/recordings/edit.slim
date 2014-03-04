@@ -1,0 +1,52 @@
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'account'
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            recordings: account_recordings_path(@account), \
+                                                            @recording.title.to_sym => account_common_work_recording_path(@account, @recording.common_work, @recording), \
+                                                            }, current: 'edit'}
+    .row
+      .col-sm-12
+        h2 Edit Recording
+        /= @manage_works.body
+      .col-sm-12
+        = simple_form_for [@account, @common_work, @recording] do |f|
+          = f.hidden_field :account_id, value: @account.id
+          = f.hidden_field :common_work_id, value: @common_work.id
+          .row
+            .col-sm-6
+              
+              = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
+              = f.input :audio_file
+              = f.input :isrc_code, label: 'ISRC Code',:input_html => {  placeholder: "ISRC Code"}
+              = f.input :artists, :input_html => {  style: "height: 120px;", placeholder: "Artists"}
+              /= f.input :lyrics, :input_html => {  style: "height: 120px;", placeholder: "Lyrics"}
+            .col-sm-6
+              
+              b Description
+              br
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+           
+              =f.input :description, label: false, :input_html => {  style: "height: 360px;", placeholder: "Description", id: 'wysihtml5_editor'}
+
+          .row
+            .col-sm-12
+              .pull-right
+                = f.submit 'Save', class: 'btn btn-primary btn-lg'
+
+
+  
+#footer
+  .container
+    .footer
+      .row
+        .col-sm-12
+          '©2014 All rights reserved

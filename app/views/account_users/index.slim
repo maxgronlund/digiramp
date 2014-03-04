@@ -6,7 +6,7 @@
             
   .container
     ==render 'admin/shared/messages'
-    
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account) }, current: 'users'}
     .row
       .col-sm-12
         h1 = @title_and_body.title
