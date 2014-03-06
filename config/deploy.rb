@@ -36,7 +36,6 @@ set(:config_files, %w(
   monit
   unicorn.rb
   unicorn_init.sh
-  sidekiq.yml
   sidekiq_init.sh
 ))
 
