@@ -24,7 +24,7 @@
       .col-sm-6
         .row
           .col-sm-6
-            =link_to image_tag( @upload_recording.image_url(:size_570x320),  class: "img-responsive"), new_account_recording_path( @account), 'data-no-turbolink' => true
+            =link_to image_tag( @upload_recording.image_url(:size_570x320),  class: "img-responsive"), new_account_upload_recording_path( @account), 'data-no-turbolink' => true
           .col-sm-6
             h3 = @upload_recording.title
             = simple_format @upload_recording.body
@@ -33,7 +33,7 @@
               -if can_edit?
                 = link_to 'edit', edit_admin_blog_blog_post_path(@recording_blog, @upload_recording), class: 'btn btn-lg btn-default'
                 '&nbsp;
-              = link_to 'Begin', new_account_recording_path( @account), class: 'btn btn-primary btn-lg', id: 'upload_recording', 'data-no-turbolink' => true
+              = link_to 'Begin', new_account_upload_recording_path( @account), class: 'btn btn-primary btn-lg', id: 'upload_recording', 'data-no-turbolink' => true
         
         hr
       .col-sm-6

@@ -15,6 +15,7 @@
         .col-sm-6
           h2 = @manage_recordings.title
           = @manage_recordings.body
+          == render 'sm'
         .col-sm-6
           -if can_edit?
             .pull-right
@@ -61,6 +62,11 @@
                             = link_to 'Edit', edit_account_common_work_recording_path(@account, recording.common_work, recording), class: 'btn btn-primary'
                             '&nbsp;
                             = link_to 'Delete', account_common_work_recording_path(@account, recording.common_work, recording), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+                          -else
+                            = link_to 'Show', account_recording_path(@account, recording), class: 'btn btn-default'
+                            '&nbsp;
+                            = link_to 'Delete', account_common_work_recording_path(@account, CommonWork.first, recording), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+                            
                           
           hr  
           .hidden-xs

@@ -19,6 +19,8 @@
 //= require simple
 //= require wysihtml5-0.4.0pre
 //= require super_simple_wysiwyg
+//= require soundmanager2
+//= require inlineplayer
 // require_tree .
 
 

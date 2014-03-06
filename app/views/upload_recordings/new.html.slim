@@ -1,43 +1,36 @@
+/-session[:return_url] = request.url
+/=debug @recordings
+= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' 
 #wrap
   .full-width-top
     == render 'accounts/shared/navbar', page: 'account'
-
-            
+        
   .container
+    
     == render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             assets: account_assets_path(@account), \
                                                             'create content'.to_sym => account_add_content_index_path(@account),\
                                                             }, current:  @new_recording.title}
     .row
-      .col-sm-6
-         h1 = @new_recording.title
-         = @new_recording.body
-      .col-sm-6
-        -if can_edit?
-          '&nbsp;
-          -session[:return_url] = request.url
-          = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @new_recording), class: 'btn btn-primary btn-lg'
-      .col-sm-12
-        hr
-    ==render 'admin/shared/messages'
-    
-    ==render @section if @section
-    .row
-      .col-sm-6
-        /== render 'form'
-        == render 'transloadit'
-
+      .col-sm-4
       
       .col-sm-4
+        h1 Upload Recording
+        /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+        = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create', :controller => 'upload_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+          = transloadit :waveform_to_s3 
+          /= form.label      :file, 'File to upload' 
+          = f.file_field :file , class: 'btn btn-default'
+          hr
+          .pull-right
+            = f.submit 'Save', class: 'btn btn-primary btn-lg'
 
+
+        = transloadit_jquerify :recording, :wait => true
         
-    .row
       .col-sm-4
     
-      .col-sm-4
-    
-      .col-sm-4
 
   
 #footer

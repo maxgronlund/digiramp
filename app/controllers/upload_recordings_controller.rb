@@ -11,12 +11,12 @@ class UploadRecordingsController < ApplicationController
   
   def create
     
-    Rails.logger.info("PARAMS: #{params[:transloadit].inspect}")
-    
-    @recording = Recording.new(audio_upload: params[:transloadit], account_id: params[:account_id])
+    logger.debug("PARAMS: #{params[:transloadit].inspect}")
+    @recording = Recording.new(audio_upload: params[:transloadit], account_id: @account.id, title: params[:title])
+    @recording.title =  @recording.audio_upload[:uploads][0][:name]
     @recording.save!
     
-    redirect_to account_upload_recording_path(@account, @recording)
+    redirect_to account_recording_path(@account, @recording )
   end
 
   def edit
