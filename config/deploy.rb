@@ -16,7 +16,7 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :keep_releases, 5
 
 # files we want symlinking to specific entries in shared
-set :linked_files, %w{config/database.yml config/application.yml config/sidekiq.yml}
+set :linked_files, %w{config/database.yml config/application.yml}
 
 # dirs we want symlinking to shared
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
@@ -66,14 +66,14 @@ set(:symlinks, [
     source: "monit",
     link: "/etc/monit/conf.d/{{full_app_name}}.conf"
   },
-  #{
-  #  source: "sidekiq_init.sh",
-  #  link: "/etc/nginx/sites-enabled/sidekiq_{{full_app_name}}"
-  #}
   {
     source: "sidekiq_init.sh",
-    link: "/etc/init.d/sidekiq_{{full_app_name}}"
+    link: "/etc/nginx/sites-enabled/sidekiq_{{full_app_name}}"
   }
+  #{
+  #  source: "sidekiq_init.sh",
+  #  link: "/etc/init.d/sidekiq_{{full_app_name}}"
+  #}
 ])
 
 # this:
