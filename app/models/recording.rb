@@ -1,5 +1,6 @@
 class Recording < ActiveRecord::Base
   
+  serialize :audio_upload, Hash
   include PgSearch
   pg_search_scope :search, against: [:title, :artists, :lyrics, :production_company, :isrc_code ], :using => [:tsearch]
   
@@ -28,12 +29,12 @@ class Recording < ActiveRecord::Base
   has_many :documents, as: :documentable, dependent: :destroy
   has_many :activity_events, as: :activity_eventable
   
-  mount_uploader :poster, PosterUploader
-  include ImageCrop
+  #mount_uploader :poster, PosterUploader
+  #include ImageCrop
   
-  mount_uploader :mp4_video, Mp4Uploader
-  mount_uploader :ogv_video, OgvUploader
-  mount_uploader :webm_video, WebmUploader
+  #mount_uploader :mp4_video, Mp4Uploader
+  #mount_uploader :ogv_video, OgvUploader
+  #mount_uploader :webm_video, WebmUploader
   
   #validates :title, :presence => true
   
@@ -41,13 +42,16 @@ class Recording < ActiveRecord::Base
   #scope video,        ->    { where(media_type: 'Video')}
   #scope recording,    ->    { where(media_type: 'Recording')}
     
-  mount_uploader :audio_file, AudioFileUploader
+  #mount_uploader :audio_file, AudioFileUploader
   #process_in_background :audio_file
   
-  before_save :update_audio_file_attributes
+  #before_save :update_audio_file_attributes
   #after_create :check_for_title_and_common_work
-  after_create :try_extract_id3_tags
-  after_create :check_title
+  #after_create :try_extract_id3_tags
+  #after_create :check_title
+  def file
+    
+  end
   
   def catalog_ids=(ids) 
     

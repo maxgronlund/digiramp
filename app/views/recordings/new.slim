@@ -1,0 +1,31 @@
+-session[:return_url] = request.url
+/=debug @recordings
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'account'
+        
+  .container
+    = javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' 
+    .row
+      .col-sm-4
+      
+      .col-sm-4
+        h1 Upload Recording
+        = simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+          = transloadit :waveform_to_s3 
+          /= form.label      :file, 'File to upload' 
+          = f.file_field :file , class: 'btn btn-default'
+          hr
+          .pull-right
+            = f.submit 'Save', class: 'btn btn-primary btn-lg'
+
+
+        = transloadit_jquerify :recording, :wait => true
+        
+      .col-sm-4
+    
+
+
+
+
+

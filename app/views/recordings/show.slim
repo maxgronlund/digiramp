@@ -3,29 +3,38 @@
 #wrap
   .full-width-top
     == render 'accounts/shared/navbar', page: 'account'
-  /-cache([ @account.id, @account.works_cache_key, params]) do 
   .do           
     .container
-      ==render 'admin/shared/messages'
+      == render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               assets: account_assets_path(@account), \
                                                               recordings: account_recordings_path(@account), \
-                                                              }, current: @recording.title}
-      h3 =@recording.title
-      hr    
-      h4 Artvork
-      hr
-      h4 Video
-      hr                                                 
-      h4 IPI's
-      hr
-      h4 Usage
-      hr
-      h4 Documents
-      hr
-      h4 Catalogs
-      hr
-       = link_to 'Edit', edit_account_common_work_recording_path(@recording.account, @recording.common_work, @recording), class: 'btn btn-primary'
+                                                              }, current: ''}
+      /h3 =@recording.title
+      = debug @recording[:audio_upload]
+      .row
+        .col-sm-12
+          h1 =  @recording[:audio_upload][:uploads][0][:name]
+          = @recording[:audio_upload][:results][:mp3][0][:url]
+        .col-sm-12
+          .thumbnail
+            = image_tag @recording[:audio_upload][:results][:waveform][0][:url]
+
+      = debug @recording[:audio_upload][:results][:mp3][0][:meta]
+      /hr    
+      /h4 Artvork
+      /hr
+      /h4 Video
+      /hr                                                 
+      /h4 IPI's
+      /hr
+      /h4 Usage
+      /hr
+      /h4 Documents
+      /hr
+      /h4 Catalogs
+      /hr
+      / = link_to 'Edit', edit_account_common_work_recording_path(@recording.account, @recording.common_work, @recording), class: 'btn btn-primary'
 
       /.row
       /  .col-sm-6

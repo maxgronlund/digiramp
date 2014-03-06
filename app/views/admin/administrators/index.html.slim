@@ -1,0 +1,49 @@
+
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'users'
+   
+  .container
+    .row
+      .col-sm-12
+        ==render 'admin/shared/messages'
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path \
+                                                                }, current: 'super users'}
+    .row
+      .col-sm-12
+        h1 DigiRAMP Super Users
+            
+            
+            
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                /th User
+                th Name
+                th Email
+                th 
+            tbody
+              -@admins.each do |user|
+                -cache (user) do
+                  tr
+                    /td = debug user
+                    td = user.name
+                    td = user.email
+                    td
+                      .pull-right
+                        = link_to 'Show', admin_user_path( user ), class: 'btn btn-default'
+                        '&nbsp;
+                        = link_to 'Edit', edit_admin_user_path( user), class: 'btn btn-primary'
+                        '&nbsp;
+                        -unless (user.email == 'max@synthmax.dk') || (user.email == 'peter@digiramp.org')
+                          = link_to 'Delete', admin_user_path( user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+                        -else
+                          = link_to 'Delete', admin_user_path( user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning disabled'
+                    /td
+                    /  .pull-right
+                    /    = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'
+              
+          
+        hr  

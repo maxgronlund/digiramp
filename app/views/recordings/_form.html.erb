@@ -1,0 +1,12 @@
+<%= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' %>
+
+<h1>Upload Recording</h1>
+<%= form_for [ @account, @recording ],  :html => { :id => 'recording' } do |form| %>
+  <%= transloadit :waveform_to_s3 %>
+  <%= form.label      :file, 'File to upload' %>
+  <%= form.file_field :file %>
+  <br/>
+  <%= form.submit %>
+<% end %>
+
+<%= transloadit_jquerify :recording, :wait => true %>

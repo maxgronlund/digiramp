@@ -1,0 +1,9 @@
+
+<%= form_for  [@account, @recording], :html => { :id => 'upload' } do |form| %>
+  <%= transloadit :waveform_to_s3 %>
+  <%= form.label      :file, 'File to upload' %>
+  <%= form.file_field :file %>
+  <%= form.submit %>
+<% end %>
+
+<%= transloadit_jquerify :upload, :wait => true %>

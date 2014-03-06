@@ -1,0 +1,8 @@
+= debug @upload[:audio_upload]
+
+= debug @upload[:audio_upload][:uploads][0][:name]
+= debug @upload[:audio_upload][:results][:mp3][0][:url]
+
+= image_tag @upload[:audio_upload][:results][:waveform][0][:url]
+
+= debug @upload[:audio_upload][:results][:mp3][0][:meta]

@@ -3,8 +3,12 @@ require 'sidekiq/web'
 Digiramp::Application.routes.draw do
   
 
+  resources :uploads
+  
 
 
+  #get "uploads/new"
+  #get "uploads/create"
   get "selling_points/selling_point_1"
   get "selling_points/selling_point_2"
   get "selling_points/selling_point_3"
@@ -15,7 +19,7 @@ Digiramp::Application.routes.draw do
     resources :customers, only: [:index]
     resources :drm, only: [:index]
     resources :promotion, only: [:index]
-    resources :recordings, only: [:index, :show]
+    resources :recordings 
     resources :works
     resources :assets, only: [:index]
     get "add_content/index"
@@ -29,6 +33,7 @@ Digiramp::Application.routes.draw do
       get 'ipis'
       get 'users'
     end
+
     resources :upload_recordings, only: [:new, :edit, :create]
     resources :common_works do
       resources :recordings
@@ -123,6 +128,7 @@ Digiramp::Application.routes.draw do
     # Directs /admin/products/* to Admin::ProductsController
     # (app/controllers/admin/products_controller.rb)
     resources :accounts
+    resources :administrators
     resources :features
     resources :homes, only: [:edit, :update]
     resources :users

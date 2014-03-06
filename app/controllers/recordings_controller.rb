@@ -1,4 +1,5 @@
 class RecordingsController < ApplicationController
+  include Transloadit::Rails::ParamsDecoder
   before_filter :there_is_access_to_the_account
   
   def index
@@ -14,13 +15,34 @@ class RecordingsController < ApplicationController
   end
 
   def show
-    @common_work    = CommonWork.find(params[:common_work_id])
+    #@common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
   end
   
   def edit
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
+  end
+  
+  def new
+    
+    #@new_recording    = BlogPost.where(identifier: 'New Recording', blog_id: @blog.id).first_or_create(identifier: 'New Recording', blog_id: @blog.id, title: 'New Recording', body: 'New recording')
+    @recording        = Recording.new
+    
+  end
+  
+  def create
+    logger.debug("PARAMS: #{params[:transloadit].inspect}")
+    @recording = Recording.new(audio_upload: params[:transloadit], account_id: @account.id)
+    @recording.save!
+    
+    redirect_to account_recording_path(@account, @recording )
+    #Rails.logger.info("PARAMS: #{params[:transloadit].inspect}")
+    #
+    #@recording = Recording.new(audio_upload: params[:transloadit])
+    #@recording.save!
+    #
+    #redirect_to recording_path(@recording)
   end
   
   def update

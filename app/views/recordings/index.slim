@@ -55,11 +55,12 @@
                       td 
                       td
                         .pull-right
-                          = link_to 'Show', account_common_work_recording_path(@account, recording.common_work, recording), class: 'btn btn-default'
-                          '&nbsp;
-                          = link_to 'Edit', edit_account_common_work_recording_path(@account, recording.common_work, recording), class: 'btn btn-primary'
-                          '&nbsp;
-                          = link_to 'Delete', account_common_work_recording_path(@account, recording.common_work, recording), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+                          -if recording.common_work
+                            = link_to 'Show', account_common_work_recording_path(@account, recording.common_work, recording), class: 'btn btn-default'
+                            '&nbsp;
+                            = link_to 'Edit', edit_account_common_work_recording_path(@account, recording.common_work, recording), class: 'btn btn-primary'
+                            '&nbsp;
+                            = link_to 'Delete', account_common_work_recording_path(@account, recording.common_work, recording), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
                           
           hr  
           .hidden-xs

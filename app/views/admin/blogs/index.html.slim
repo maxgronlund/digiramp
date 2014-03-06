@@ -6,7 +6,9 @@
   .container
     .row
       .col-sm-12
-        ==render 'admin/shared/messages'     
+        ==render 'admin/shared/messages'    
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path \
+                                                                }, current: 'blogs'} 
         h3 Blogs
         .table-responsive
           table class="table table-hover"

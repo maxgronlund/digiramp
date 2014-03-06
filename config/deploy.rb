@@ -16,7 +16,7 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :keep_releases, 5
 
 # files we want symlinking to specific entries in shared
-set :linked_files, %w{config/database.yml config/application.yml}
+set :linked_files, %w{config/database.yml config/application.yml config/sidekiq.yml}
 
 # dirs we want symlinking to shared
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
@@ -36,13 +36,14 @@ set(:config_files, %w(
   monit
   unicorn.rb
   unicorn_init.sh
+  sidekiq.yml
   sidekiq_init.sh
 ))
 
 # which config files should be made executable after copying
 # by deploy:setup_config
 set(:executable_config_files, %w(
-  unicorn_init.sh
+  unicorn_init.sh sidekiq_init.sh
 ))
 
 
@@ -68,8 +69,12 @@ set(:symlinks, [
   },
   {
     source: "sidekiq_init.sh",
-    link: "/etc/init.d/sidekiq_{{full_app_name}}"
+    link: "/etc/nginx/sites-enabled/sidekiq_{{full_app_name}}"
   }
+  #{
+  #  source: "sidekiq_init.sh",
+  #  link: "/etc/init.d/sidekiq_{{full_app_name}}"
+  #}
 ])
 
 # this:

@@ -61,9 +61,11 @@ gem 'icheck-rails'
 #=====================================
 # Marilyn
 gem 'dalli'
-gem 'transloadit-rails'
+#gem 'transloadit-rails'
 #gem 'texticle', require: 'texticle/rails'
 gem 'pg_search'
+gem 'transloadit-rails'
+#gem 'jquery-ui-rails'
 
 #gem "font-awesome-rails" <<------- not working on all devices ;-(
 

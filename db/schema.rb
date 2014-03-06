@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140304222751) do
+ActiveRecord::Schema.define(version: 20140306120635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -735,6 +735,7 @@ ActiveRecord::Schema.define(version: 20140304222751) do
     t.string   "media_type"
     t.integer  "video_width_in_pixels"
     t.integer  "video_height_in_pixels"
+    t.text     "audio_upload"
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -800,6 +801,12 @@ ActiveRecord::Schema.define(version: 20140304222751) do
   end
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
+
+  create_table "uploads", force: true do |t|
+    t.text     "audio_upload"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
