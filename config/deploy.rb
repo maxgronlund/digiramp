@@ -88,6 +88,8 @@ namespace :deploy do
   before :deploy, "deploy:run_tests"
   # compile assets locally then rsync
   after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
+  # start up sidekiq
+
   after :finishing, 'deploy:cleanup'
 end
 
