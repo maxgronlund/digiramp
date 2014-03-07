@@ -20,12 +20,17 @@
     .row
       .col-sm-6
         == render 'admin/shared/badge_buttons/blogs'
+    .row
+      .col-sm-12
+        hr
+        h3 Super features
+        = link_to 'Sidekiq', 'http://localhost:3000/sidekiq/queues', class: 'btn btn-lg btn-default'
       /.col-sm-6
       /  == render 'admin/shared/badge_buttons/administrators'
       
       /.col-sm-6
       /  == render 'admin/shared/badge_buttons/users'
       /.col-sm-8
-      /  = link_to 'Sidekiq', 'http://localhost:3000/sidekiq/queues', class: 'btn btn-lg btn-default'
+      /  
     
   

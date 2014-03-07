@@ -1,10 +1,10 @@
-require 'sidekiq/web'
 
 Digiramp::Application.routes.draw do
   
 
   resources :uploads
-  
+  require 'sidekiq/web'
+  #require 'admin_constraint'
 
 
   #get "uploads/new"
@@ -19,7 +19,17 @@ Digiramp::Application.routes.draw do
     resources :customers, only: [:index]
     resources :drm, only: [:index]
     resources :promotion, only: [:index]
-    resources :recordings 
+    
+    resources :recordings do
+      get 'upload_completed'
+      post 'add_genre'
+      get 'add_mood'
+      get 'add_instruments'
+      get 'add_lyrics'
+      get 'add_description'
+      get 'add_more_meta_data'
+      get 'overview'
+    end
     resources :works
     resources :assets, only: [:index]
     get "add_content/index"
@@ -141,6 +151,20 @@ Digiramp::Application.routes.draw do
     end
   end
   
-  mount Sidekiq::Web, at: "/sidekiq"
+
+  
+  #admin_constraint = lambda do |request|
+  #  request.session[:init] = true # Starts up the session so we can access values from it later.
+  #  
+  #end
+  
+  #mount Sidekiq::Web => '/sidekiq', :constraints => AdminConstraint.new
+  
+  mount Sidekiq::Web, at: "/sidekiq", constraints: lambda { |request| 
+                                                             false unless request.session[:user_id]
+                                                             return false unless User.exists?(request.session[:user_id])
+                                                             user = User.find( request.session[:user_id])
+                                                             user && user.super?
+                                                          }
   
 end

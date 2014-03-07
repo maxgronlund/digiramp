@@ -49,8 +49,10 @@ class Recording < ActiveRecord::Base
   #after_create :check_for_title_and_common_work
   #after_create :try_extract_id3_tags
   #after_create :check_title
+  
+  CATEGORY = ["super", "cuctomer"]
+  
   def file
-    
   end
   
   def catalog_ids=(ids) 
@@ -81,7 +83,10 @@ class Recording < ActiveRecord::Base
   
   def extract_id3_tags_from_audio_file
     
-    id3_tags = Id3Tags.read_tags_from self.audio_file.current_path
+    path = self.audio_upload[:uploads][0][:url]
+    
+    #id3_tags = Id3Tags.read_tags_from self.audio_file.current_path
+    id3_tags = Id3Tags.read_tags_from path
 
     if id3_tags[:cover_art]
       cover_art_store_path = Rails.root.join("public", "uploads", "tmp", "id3covers")
@@ -209,6 +214,47 @@ class Recording < ActiveRecord::Base
      recordings = recordings.search(query)
     end
     recordings
+  end
+  
+  def update_completeness
+
+    
+    self.completeness_in_pct = 20
+    
+    if self.has_title     
+      self.completeness_in_pct += 10 
+    end             # 30  
+    if self.isrc_code     
+      self.completeness_in_pct += 5 end              # 35
+    if self.description   
+      self.completeness_in_pct += 15 
+    end             # 50
+    if self.has_lyrics && self.lyrics 
+      self.completeness_in_pct += 10 
+    end # 60
+    if self.artists       
+      self.completeness_in_pct += 10 end             # 70
+    if self.instrumental  
+      self.completeness_in_pct += 5 
+    end              # 75
+    if self.explicit      
+      self.completeness_in_pct += 5 
+    end              # 80   
+    if self.release_date  
+      self.completeness_in_pct += 5 
+    end              # 85
+    if self.duration      
+      self.completeness_in_pct += 5 
+    end              # 90 
+    if self.bpm           
+      self.completeness_in_pct += 10 
+    end             # 100
+    self.save!
+    
+    # Album
+    # quality of common work
+    # artwork
+
   end
   
 private

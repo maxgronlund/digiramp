@@ -11,7 +11,8 @@
       .input-group
         span class="input-group-addon" @
         = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
-      br
+      .remember-me
+        = f.input :remember_me, as: :boolean, input_html: { value: '1' }
       .input-group
         span class="input-group-addon" 
           i class= 'fa fa-key'

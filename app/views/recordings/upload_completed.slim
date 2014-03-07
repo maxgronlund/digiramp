@@ -1,0 +1,57 @@
+-session[:return_url] = request.url
+/=debug @recordings
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'account'
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              recordings: account_recordings_path(@account), \
+                                                              }, current: ''}
+      
+      
+
+      .row
+        .col-sm-12
+          h3 =@upload_completed.title
+          .thumbnail
+            = image_tag @recording.thumbnail
+        .col-sm-6
+          /h1 =  @recording.audio_upload[:uploads][0][:name]
+          
+          ul class="graphic"
+            li
+              a href="#{@recording.mp3}" = @recording.title
+          h1 =@recording.title
+        .col-sm-6
+          
+          = @upload_completed.body
+          
+      .row
+        .col-sm-4
+          = render 'recordings/badge_buttons/popular_music'
+        .col-sm-4
+          = render 'recordings/badge_buttons/cinematic'
+        .col-sm-4
+          = render 'recordings/badge_buttons/classical'
+      .row
+        .col-sm-4
+          = render 'recordings/badge_buttons/ethnic_world'
+        .col-sm-4
+          = render 'recordings/badge_buttons/jazz'
+        .col-sm-4
+          = render 'recordings/badge_buttons/other' 
+      .row
+        .col-sm-12
+          hr
+          .pull-right
+            =link_to "No thanks I'm done", '#', class: 'btn btn-default btn-lg'
+          
+            
+ 
+          
+          
+          
+        

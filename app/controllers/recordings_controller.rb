@@ -17,6 +17,10 @@ class RecordingsController < ApplicationController
   def show
     #@common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
+    #logger.debug '------------------------------------------------'
+    #logger.debug @recording[:audio_upload][:results][:mp3].size
+    #logger.debug '------------------------------------------------'
+    @recording.update_completeness
   end
   
   def edit
@@ -36,7 +40,9 @@ class RecordingsController < ApplicationController
     @recording = Recording.new(audio_upload: params[:transloadit], account_id: @account.id)
     @recording.save!
     
-    redirect_to account_recording_path(@account, @recording )
+    #@recording.extract_id3_tags_from_audio_file
+    
+    redirect_to account_recording_upload_completed(@account, @recording )
     #Rails.logger.info("PARAMS: #{params[:transloadit].inspect}")
     #
     #@recording = Recording.new(audio_upload: params[:transloadit])
@@ -66,9 +72,7 @@ class RecordingsController < ApplicationController
   end
   
   def destroy
-    logger.debug '----------------------------------------------------------------'
-    logger.debug 'destroy'
-    logger.debug '----------------------------------------------------------------'
+    
     #@common_work    = CommonWork.find(params[:id])
     #@common_work.destroy
     #@account.works_cache_key += 1
@@ -78,6 +82,77 @@ class RecordingsController < ApplicationController
     @recording = Recording.find(params[:id])
     @recording.destroy
     redirect_to_return_url account_recordings_path( @account)
+  end
+  
+  def upload_completed
+    @recording      = Recording.find(params[:recording_id])
+    @blog           = Blog.recordings
+    @upload_completed = BlogPost.where(identifier: 'Upload Completed', blog_id: @blog.id)\
+                                .first_or_create(identifier: 'Upload Completed', blog_id:\
+                                @blog.id, title: 'Upload Completed', body: 'To better find your recording it would be great if you could put in a category')
+                                
+    @popular_music = BlogPost.where(identifier: 'Popular Music', blog_id: @blog.id)\
+                                .first_or_create(identifier: 'Popular Music', blog_id:\
+                                @blog.id, title: 'Popular Music', body: 'Pop Rock')
+                                
+                                
+    @cinematic = BlogPost.where(identifier: 'Cinematic', blog_id: @blog.id)\
+                               .first_or_create(identifier: 'Cinematic', blog_id:\
+                               @blog.id, title: 'Cinematic', body: 'For film')
+                                
+                                
+    @ethnic_world = BlogPost.where(identifier: 'Ethnic/World', blog_id: @blog.id)\
+                               .first_or_create(identifier: 'Ethnic/World', blog_id:\
+                               @blog.id, title: 'Ethnic/World', body: '')
+                                
+                                
+    @jazz = BlogPost.where(identifier: 'Jazz', blog_id: @blog.id)\
+                               .first_or_create(identifier: 'Jazz', blog_id:\
+                               @blog.id, title: 'Jazz', body: '')
+                                
+                                
+    @classical = BlogPost.where(identifier: 'Classical', blog_id: @blog.id)\
+                               .first_or_create(identifier: 'Classical', blog_id:\
+                               @blog.id, title: 'Classical', body: '')
+                                
+                                
+    @other = BlogPost.where(identifier: 'Other', blog_id: @blog.id)\
+                               .first_or_create(identifier: 'Other', blog_id:\
+                               @blog.id, title: 'Other', body: '')
+  end
+
+  def add_genre
+    logger.debug '------------------------------------------------'
+    logger.debug params
+    logger.debug '------------------------------------------------'
+    
+    @recording      = Recording.find(params[:recording_id])
+    @recording.category = params[:recording][:category]
+    @recording.save
+     
+  end
+
+
+  def add_mood
+
+  end
+
+  def add_instruments
+
+  end
+
+  def add_lyrics
+
+  end
+  def add_description
+
+  end
+
+  def add_more_meta_data
+
+  end
+  def overview
+
   end
   
 private

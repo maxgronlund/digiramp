@@ -13,6 +13,9 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:sessions][:password])
       flash[:info] = { title: "Success", body: "You are logged in" }
       
+      logger.debug '***************************************************************'
+      logger.debug params
+      logger.debug params[:remember_me]
       if params[:remember_me]
         cookies.permanent[:auth_token] = user.auth_token
       else
@@ -20,6 +23,7 @@ class SessionsController < ApplicationController
       end
       
       if current_user && current_user.super?
+        session[:user_id] = current_user.id
         redirect_to admin_index_path
       else
         user.account.visits += 1
@@ -39,6 +43,7 @@ class SessionsController < ApplicationController
   def destroy
     #session[:user_id] = nil
     cookies.delete(:auth_token)
+    reset_session
     redirect_to root_url, notice: "Logged out!"
   end
   
