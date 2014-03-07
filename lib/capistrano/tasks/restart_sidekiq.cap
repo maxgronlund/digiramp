@@ -2,7 +2,7 @@ namespace :deploy do
   desc 'Restart sidekiq'
   task :restart_sidekiq do
     on roles(:app), in: :sequence, wait: 5 do
-      sudo "stop start"
+      sudo "/etc/init.d/sidekiq_#{fetch(:full_app_name)} restart"
     end
   end
 end
