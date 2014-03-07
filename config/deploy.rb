@@ -89,7 +89,7 @@ namespace :deploy do
   # compile assets locally then rsync
   after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   # start up sidekiq
-  before :deploy, "deploy:restart_sidekiq"
+  after :deploy, "deploy:restart_sidekiq"
 
   after :finishing, 'deploy:cleanup'
 end
