@@ -1,6 +1,6 @@
 namespace :deploy do
   desc 'Restart sidekiq'
-  task :restart do
+  task :restart_sidekiq do
     on roles(:app), in: :sequence, wait: 5 do
       sudo "stop restart"
     end
