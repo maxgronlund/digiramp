@@ -89,47 +89,71 @@ class RecordingsController < ApplicationController
     @blog           = Blog.recordings
     @upload_completed = BlogPost.where(identifier: 'Upload Completed', blog_id: @blog.id)\
                                 .first_or_create(identifier: 'Upload Completed', blog_id:\
-                                @blog.id, title: 'Upload Completed', body: 'To better find your recording it would be great if you could put in a category')
+                                @blog.id, title: 'Upload Completed', body: 'Please provide some basic informations so we can find your recording for you')
                                 
+    
+  end
+  
+  def select_category
+    @recording              = Recording.find(params[:recording_id])
+    
+    if params[:recording]
+      @recording.title        = params[:recording][:title]
+      @recording.has_lyrics   = params[:recording][:has_lyrics]
+      @recording.explicit     = params[:recording][:explicit]
+      @recording.save
+    end
+    
+     
+    
+    @blog               = Blog.recordings
+    @select_category    = BlogPost.where(identifier: 'Select Category', blog_id: @blog.id)\
+                               .first_or_create(identifier: 'Select Category', blog_id:\
+                               @blog.id, title: 'Select Category', body: '')
+                               
+                               
     @popular_music = BlogPost.where(identifier: 'Popular Music', blog_id: @blog.id)\
                                 .first_or_create(identifier: 'Popular Music', blog_id:\
                                 @blog.id, title: 'Popular Music', body: 'Pop Rock')
-                                
-                                
+     
+     
     @cinematic = BlogPost.where(identifier: 'Cinematic', blog_id: @blog.id)\
                                .first_or_create(identifier: 'Cinematic', blog_id:\
                                @blog.id, title: 'Cinematic', body: 'For film')
-                                
-                                
+     
+     
     @ethnic_world = BlogPost.where(identifier: 'Ethnic/World', blog_id: @blog.id)\
                                .first_or_create(identifier: 'Ethnic/World', blog_id:\
                                @blog.id, title: 'Ethnic/World', body: '')
-                                
-                                
+     
+     
     @jazz = BlogPost.where(identifier: 'Jazz', blog_id: @blog.id)\
                                .first_or_create(identifier: 'Jazz', blog_id:\
                                @blog.id, title: 'Jazz', body: '')
-                                
-                                
+     
+     
     @classical = BlogPost.where(identifier: 'Classical', blog_id: @blog.id)\
                                .first_or_create(identifier: 'Classical', blog_id:\
                                @blog.id, title: 'Classical', body: '')
-                                
-                                
+     
+     
     @other = BlogPost.where(identifier: 'Other', blog_id: @blog.id)\
                                .first_or_create(identifier: 'Other', blog_id:\
                                @blog.id, title: 'Other', body: '')
   end
 
   def add_genre
-    logger.debug '------------------------------------------------'
-    logger.debug params
-    logger.debug '------------------------------------------------'
-    
     @recording      = Recording.find(params[:recording_id])
-    @recording.category = params[:recording][:category]
-    @recording.save
-     
+    if params[:recording]
+      @recording.category = params[:recording][:category]
+      @recording.save
+    end
+    @blog               = Blog.recordings
+    @add_genre          = BlogPost.where(identifier: 'Add Genre', blog_id: @blog.id)\
+                               .first_or_create(identifier: 'Add Genre', blog_id:\
+                               @blog.id, title: 'Add Genre', body: '')
+
+    
   end
 
 

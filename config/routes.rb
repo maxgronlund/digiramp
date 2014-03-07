@@ -22,7 +22,10 @@ Digiramp::Application.routes.draw do
     
     resources :recordings do
       get 'upload_completed'
+      post 'select_category'
+      get 'select_category'
       post 'add_genre'
+      get 'add_genre'
       get 'add_mood'
       get 'add_instruments'
       get 'add_lyrics'

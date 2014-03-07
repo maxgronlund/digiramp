@@ -1,1 +1,20 @@
+-session[:return_url] = request.url
+/=debug @recordings
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'account'
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            recordings: account_recordings_path(@account), \
+                                                            }, current: @recording.title}
+                                                            
+    .row
+      .col-sm-12
+        h3 = @add_genre.title
+      .col-sm-6
+        = @add_genre.body
+    == render "recordings/categories/#{@recording.category}"
+
 = debug @recording.category
