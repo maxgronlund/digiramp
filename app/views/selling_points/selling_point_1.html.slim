@@ -2,57 +2,46 @@
 #wrap
   .full-width-top
     == render 'shared/navbar', page: 'home'
-  
-  .container
-    ==render 'admin/shared/messages'
-    .row
-      .col-sm-6
-        h1 =@selling_point_1_top.title
-        = simple_format @selling_point_1_top.body
-      .col-sm-6
-        -if can_edit?
-          .pull-right
-            = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_1_top), class: 'btn btn-primary'
-
-      
-    .row
-      .col-sm-12
-        hr
+  -cache ([request.url, Admin.cached_find(1)]) do  
+    .container
+      .row
+        .col-sm-6
+          h1 =@selling_point_1_top.title
+          = simple_format @selling_point_1_top.body
+        .col-sm-6
+          -if can_edit?
+            .pull-right
+              = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_1_top), class: 'btn btn-primary'
+    
         
-    .row
-      .col-sm-3
-        = image_tag @selling_point_1_right.image_url(:size_570x320), class: "img-responsive"
-      .col-sm-3
-         h3 = @selling_point_1_right.title
-         = simple_format @selling_point_1_right.body
-         -if can_edit?
-           .pull-right
-              = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_1_right), class: 'btn btn-primary'
-              br
-              br
-
-      .col-sm-3
-        = image_tag @selling_point_1_left.image_url(:size_570x320), class: "img-responsive"
-      .col-sm-3
-         h3 = @selling_point_1_left.title
-         = simple_format @selling_point_1_left.body
-         -if can_edit?
-           .pull-right
-              = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_1_left), class: 'btn btn-primary'
-              br
-              br
-           
-
-  /-unless current_user
-  /  .hidden-xs
-  /    .full-width-sign-up
-  /      .container
-  /        == render 'shared/sign_up_horizontal'
-  /          
-  
-#footer
-  .container
-    .footer
       .row
         .col-sm-12
-          '©2014 All rights reserved
+          hr
+          
+      .row
+        .col-sm-3
+          = image_tag @selling_point_1_right.image_url(:size_570x320), class: "img-responsive"
+        .col-sm-3
+           h3 = @selling_point_1_right.title
+           = simple_format @selling_point_1_right.body
+           -if can_edit?
+             .pull-right
+                = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_1_right), class: 'btn btn-primary'
+                br
+                br
+    
+        .col-sm-3
+          = image_tag @selling_point_1_left.image_url(:size_570x320), class: "img-responsive"
+        .col-sm-3
+           h3 = @selling_point_1_left.title
+           = simple_format @selling_point_1_left.body
+           -if can_edit?
+             .pull-right
+                = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @selling_point_1_left), class: 'btn btn-primary'
+                br
+                br
+             
+   
+  
+-cache (['footer', Admin.cached_find(1)]) do      
+  =render 'shared/footer'

@@ -2,35 +2,39 @@
   .full-width-top
     == render 'admin/shared/navbar', page: 'admin'
 
-            
-  .container
-    .row
-      .col-sm-12
-        ==render 'admin/shared/messages'
-    .row
-      .col-sm-6
-        == render 'admin/shared/badge_buttons/accounts'
-      .col-sm-6
-        == render 'admin/shared/badge_buttons/new_account'
-    .row
-      .col-sm-6
-        == render 'admin/shared/badge_buttons/users'
-      .col-sm-6
-        == render 'admin/shared/badge_buttons/administrators'
-    .row
-      .col-sm-6
-        == render 'admin/shared/badge_buttons/blogs'
-    .row
-      .col-sm-12
-        hr
-        h3 Super features
-        = link_to 'Sidekiq', 'http://localhost:3000/sidekiq/queues', class: 'btn btn-lg btn-default'
-      /.col-sm-6
-      /  == render 'admin/shared/badge_buttons/administrators'
-      
-      /.col-sm-6
-      /  == render 'admin/shared/badge_buttons/users'
-      /.col-sm-8
-      /  
+  -cache ([request.url, Admin.cached_find(1).version]) do               
+    .container
+      .row
+        .col-sm-12
+          ==render 'admin/shared/messages'
+      .row
+        .col-sm-6
+          == render 'admin/shared/badge_buttons/accounts'
+        .col-sm-6
+          == render 'admin/shared/badge_buttons/new_account'
+      .row
+        .col-sm-6
+          == render 'admin/shared/badge_buttons/users'
+        .col-sm-6
+          == render 'admin/shared/badge_buttons/administrators'
+      .row
+        .col-sm-6
+          == render 'admin/shared/badge_buttons/blogs'
+      .row
+        .col-sm-12
+          hr
+          h3 Super features
+          = link_to 'Sidekiq', 'http://localhost:3000/sidekiq/queues', class: 'btn btn-lg btn-default'
+          '&nbsp;
+          = link_to 'Flush Cache', admin_flush_cache_path, class: 'btn btn-lg btn-default'
+        /.col-sm-6
+        /  == render 'admin/shared/badge_buttons/administrators'
+        
+        /.col-sm-6
+        /  == render 'admin/shared/badge_buttons/users'
+        /.col-sm-8
+        /  
     
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
   

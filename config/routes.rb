@@ -64,7 +64,9 @@ Digiramp::Application.routes.draw do
   #get "features/index"
   #get "accounts/index"
 
-  get "admin" => "admin#index", :as => :admin_index
+  get "admin"       => "admin#index", :as => :admin_index
+  get "flush_cache" => "admin#flush_cache", :as => :admin_flush_cache
+
   
   get "investors" => "investors#index", :as => :investors_index
   get "features" => "features#index", :as => :features_index
@@ -153,6 +155,8 @@ Digiramp::Application.routes.draw do
     resources :blogs do
       resources :blog_posts
     end
+    
+    
   end
   
 

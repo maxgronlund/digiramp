@@ -31,6 +31,10 @@ class AccountsController < ApplicationController
     end
   end
   
+  def edit
+    
+  end
+  
   
   
   

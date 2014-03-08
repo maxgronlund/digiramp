@@ -1,0 +1,18 @@
+
+=simple_form_for @account do |f|
+  .row
+    .col-sm-6
+      =f.input :title
+      =f.input :description, :input_html => {  style: "height: 360px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
+      
+    .col-sm-6
+      =f.input :contact_first_name
+      =f.input :contact_last_name
+      =f.input :contact_email
+      =f.input :fax
+      =f.input :country, as: :text, :input_html => {  style: "height: 36px;"}
+      =f.input :street_address
+      =f.input :city
+      =f.input :state
+      =f.input :postal_code
+      = f.submit 'Save', class: 'btn btn-primary btn-lg'

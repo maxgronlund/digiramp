@@ -1,0 +1,16 @@
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'account' 
+  
+  .container
+    .row
+      .col-sm-6
+        h3 Edit #{@account.title}
+    == render 'form'
+
+  
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+        
+       

@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    
+    @blog = Blog.user_account
 
   end
 

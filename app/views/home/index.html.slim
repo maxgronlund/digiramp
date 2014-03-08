@@ -7,37 +7,32 @@
   /    .full-width-sign-up
   /      .container
   /        == render 'shared/sign_up'
-  /          
-  .container
-    ==render 'admin/shared/messages'
-    
-    .row
-      .col-sm-12
-        .jumbotron
-          h1 = @home.big_banner_text
-          /.row
-          /  .col-xs-12
-          /    .pull-right
-          /      'Get you account now 
-          /      '&nbsp;
-          /      =link_to 'Sign up', '#', class: 'btn btn-custom btn-lg'
-          /      br
-      
-    /.col-sm-4
-    /-unless current_user
-    /== render 'shared/log_in'
-          
-    .row
-      .col-sm-4
-        = render 'box1'
-      .col-sm-4
-        = render 'box2'
-      .col-sm-4
-        = render 'box3'
-  
-#footer
-  .container
-    .footer
+  /  
+  -cache ([request.url, Admin.cached_find(1).version]) do       
+    .container
       .row
         .col-sm-12
-          '©2014 All rights reserved
+          .jumbotron
+            h1 = @home.big_banner_text
+            /.row
+            /  .col-xs-12
+            /    .pull-right
+            /      'Get you account now 
+            /      '&nbsp;
+            /      =link_to 'Sign up', '#', class: 'btn btn-custom btn-lg'
+            /      br
+        
+      /.col-sm-4
+      /-unless current_user
+      /== render 'shared/log_in'
+            
+      .row
+        .col-sm-4
+          = render 'box1'
+        .col-sm-4
+          = render 'box2'
+        .col-sm-4
+          = render 'box3'
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

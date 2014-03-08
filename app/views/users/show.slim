@@ -1,3 +1,4 @@
+- accounts_i_can_access = BlogPost.get_post( 'Accounts I can access' , @blog )
 #wrap
   .full-width-top
     == render 'accounts/shared/navbar', page: 'profile'
@@ -7,10 +8,22 @@
     ==render 'admin/shared/messages'
     .row
       .col-sm-6
-        = debug @user
+        h3 =accounts_i_can_access.title
+        hr
+        b = link_to @user.account.title, account_path(@user.account)
+        hr
+        - @user.account_users.each do |account_user|
+          -account = account_user.account
+          =link_to account.title, account_path(account)
+          hr
       .col-sm-6
-        ul
-          li Subscription plan
-          li Accounts
-          li Personal messages
-          li Edit personal info
+        h3 My account
+        b 
+          = link_to @user.account.title, account_path(@user.account)
+        br
+        = link_to 'Edit',edit_account_path(@user.account)
+        /ul
+        /  li Subscription plan
+        /  li Accounts
+        /  li Personal messages
+        /  li Edit personal info
