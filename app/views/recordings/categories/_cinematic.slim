@@ -1,6 +1,24 @@
-= simple_form_for [ @account, @recording ], :url => url_for(:action => 'add_genre', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
-  = f.hidden_field :category, value: 'cinematic'
-  
-  h4 = @cinematic.title
-  = f.submit "", :type => :image, :src => "#{@cinematic.image_url(:size_570x320)}", class: 'img-responsive'
-  
+.row
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'Foreign Cinema'
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'Musicals'
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'Original Score'
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'Soundtrack'
+.row
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'TV Soundtrack'
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'Sound effects'
+  .col-sm-6
+
+.row
+  .col-sm-12
+    = simple_form_for [ @account, @recording ], :url => url_for(:action => 'select_category', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+      = f.hidden_field :category, value: 'none'
+      .pull-right
+        = f.submit "Back", class: 'btn btn-primary btn-lg'
+        '&nbsp;
+        =link_to "Cancel", account_recordings_path(@account), class: 'btn btn-default btn-lg'

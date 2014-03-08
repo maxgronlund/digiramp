@@ -1,0 +1,11 @@
+- post = BlogPost.get_post( "#{category}" , @blog )  
+= simple_form_for [ @account, @recording ], :url => url_for(:action => 'add_mood', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+  = f.hidden_field :category, value: category
+  
+  h4 = post.title
+  = f.submit "", :type => :image, :src => "#{post.image_url(:size_570x320)}", class: 'img-responsive'
+  -if can_edit?
+    .pull-right
+      =link_to 'Edit', edit_admin_blog_blog_post_path(@blog, post)
+  hr
+  

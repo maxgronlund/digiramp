@@ -18,7 +18,8 @@ class UploadRecordingsController < ApplicationController
     @recording.title      =  @recording.audio_upload[:uploads][0][:name]
     @recording.mp3        = @recording.audio_upload[:results][:mp3][0][:url]
     @recording.thumbnail  = @recording.audio_upload[:results][:waveform][0][:url]
-    #@recording.save!
+    @recording.category   = 'none'
+    @recording.save!
     
     #@recording.extract_id3_tags_from_audio_file
     

@@ -1,5 +1,5 @@
 -session[:return_url] = request.url
-- select_category = BlogPost.get_post( 'Select Category' , @blog )
+- add_mood = BlogPost.get_post( 'Add Mood' , @blog )
 #wrap
   .full-width-top
     == render 'accounts/shared/navbar', page: 'account'
@@ -15,20 +15,8 @@
 
       .row
         .col-sm-12
-          h3 =select_category.title 
-          =simple_format select_category.body
+          h3 =add_mood.title 
+          =simple_format add_mood.body
           -if can_edit?
             .pull-right
-              =link_to 'Edit',  edit_admin_blog_blog_post_path(@blog, select_category), class: 'btn btn-default'
-          
-
-      -begin
-        == render "recordings/categories/#{@recording.category}" 
-      -rescue
-        == render "recordings/categories/none" 
-      
- 
-          
-          
-          
-        
+              =link_to 'Edit',  edit_admin_blog_blog_post_path(@blog, add_mood), class: 'btn btn-default'

@@ -1,0 +1,27 @@
+.row
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'Adult Contemporary'
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'Britpop'
+  .col-sm-3
+    = render 'recordings/shared/badge', category: 'Pop/Rock'
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'Soft Rock'
+.row
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'Teen Pop'
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'French Pop'
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'German Pop'
+  .col-sm-3
+    = render 'recordings/shared/badge2', category: 'Japan Pop'
+
+.row
+  .col-sm-12
+    = simple_form_for [ @account, @recording ], :url => url_for(:action => 'select_category', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+      = f.hidden_field :category, value: 'popular_music'
+      .pull-right
+        = f.submit "Back", class: 'btn btn-primary btn-lg'
+        '&nbsp;
+        =link_to "Cancel", account_recordings_path(@account), class: 'btn btn-default btn-lg'

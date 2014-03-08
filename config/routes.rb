@@ -26,6 +26,7 @@ Digiramp::Application.routes.draw do
       get 'select_category'
       post 'add_genre'
       get 'add_genre'
+      post 'add_mood'
       get 'add_mood'
       get 'add_instruments'
       get 'add_lyrics'

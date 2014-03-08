@@ -38,6 +38,7 @@ class RecordingsController < ApplicationController
   def create
     logger.debug("PARAMS: #{params[:transloadit].inspect}")
     @recording = Recording.new(audio_upload: params[:transloadit], account_id: @account.id)
+    @recording.category = 'none'
     @recording.save!
     
     #@recording.extract_id3_tags_from_audio_file
@@ -95,70 +96,42 @@ class RecordingsController < ApplicationController
   end
   
   def select_category
-    @recording              = Recording.find(params[:recording_id])
+    @blog               = Blog.recordings
+    @recording          = Recording.find(params[:recording_id])
     
+
     if params[:recording]
-      @recording.title        = params[:recording][:title]
-      @recording.has_lyrics   = params[:recording][:has_lyrics]
-      @recording.explicit     = params[:recording][:explicit]
+      @recording.title        = params[:recording][:title]      if params[:recording][:title]
+      @recording.has_lyrics   = params[:recording][:has_lyrics] if params[:recording][:has_lyrics]
+      @recording.explicit     = params[:recording][:explicit]   if params[:recording][:explicit]
+      @recording.category     = params[:recording][:category]   if params[:recording][:category]
       @recording.save
     end
     
-     
-    
-    @blog               = Blog.recordings
-    @select_category    = BlogPost.where(identifier: 'Select Category', blog_id: @blog.id)\
-                               .first_or_create(identifier: 'Select Category', blog_id:\
-                               @blog.id, title: 'Select Category', body: '')
-                               
-                               
-    @popular_music = BlogPost.where(identifier: 'Popular Music', blog_id: @blog.id)\
-                                .first_or_create(identifier: 'Popular Music', blog_id:\
-                                @blog.id, title: 'Popular Music', body: 'Pop Rock')
-     
-     
-    @cinematic = BlogPost.where(identifier: 'Cinematic', blog_id: @blog.id)\
-                               .first_or_create(identifier: 'Cinematic', blog_id:\
-                               @blog.id, title: 'Cinematic', body: 'For film')
-     
-     
-    @ethnic_world = BlogPost.where(identifier: 'Ethnic/World', blog_id: @blog.id)\
-                               .first_or_create(identifier: 'Ethnic/World', blog_id:\
-                               @blog.id, title: 'Ethnic/World', body: '')
-     
-     
-    @jazz = BlogPost.where(identifier: 'Jazz', blog_id: @blog.id)\
-                               .first_or_create(identifier: 'Jazz', blog_id:\
-                               @blog.id, title: 'Jazz', body: '')
-     
-     
-    @classical = BlogPost.where(identifier: 'Classical', blog_id: @blog.id)\
-                               .first_or_create(identifier: 'Classical', blog_id:\
-                               @blog.id, title: 'Classical', body: '')
-     
-     
-    @other = BlogPost.where(identifier: 'Other', blog_id: @blog.id)\
-                               .first_or_create(identifier: 'Other', blog_id:\
-                               @blog.id, title: 'Other', body: '')
   end
 
   def add_genre
+    @blog           = Blog.recordings
     @recording      = Recording.find(params[:recording_id])
     if params[:recording]
       @recording.category = params[:recording][:category]
       @recording.save
     end
     @blog               = Blog.recordings
-    @add_genre          = BlogPost.where(identifier: 'Add Genre', blog_id: @blog.id)\
-                               .first_or_create(identifier: 'Add Genre', blog_id:\
-                               @blog.id, title: 'Add Genre', body: '')
+    
 
     
   end
 
 
   def add_mood
-
+    @blog           = Blog.recordings
+    @recording      = Recording.find(params[:recording_id])
+    if params[:recording]
+      @recording.category = params[:recording][:category]
+      @recording.save
+    end
+    @blog               = Blog.recordings
   end
 
   def add_instruments

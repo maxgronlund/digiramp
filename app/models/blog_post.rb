@@ -7,4 +7,8 @@ class BlogPost < ActiveRecord::Base
   mount_uploader :image, ArtworkUploader
   include ImageCrop
   LAYOUTS = %w[layout_6_6  layout_4_8 layout_3_9 layout_12]
+  
+  def self.get_post( identity , blog )
+    BlogPost.where(identifier: identity, blog_id: blog.id).first_or_create(identifier: identity, blog_id: blog.id, title: identity, body: '')
+  end
 end
