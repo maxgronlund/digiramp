@@ -16,23 +16,38 @@ class AccountsController < ApplicationController
     end
 
     @account_users  = @account.account_users.order('role asc')
-    if @account_users.size < 2
+    if @account_users.size == 0
       @add_first_users  = BlogPost.where(identifier: 'Add Users', blog_id: @blog.id).
                                   first_or_create(identifier: 'Add Users', blog_id: @blog.id, title: 'Add Users') 
     end
     
     @show_users = current_user.can_administrate( @account) && @account_users.size > 1
     
+    # this hould be updated
     if current_user.current_account_id != @account.id
       current_user.current_account_id = @account.id
       current_user.save!
       @account.visits += 1
       @account.save!
     end
+    
+    
+    
+    
   end
   
   def edit
     
+  end
+  
+  def update
+
+    @account.update_attributes(account_params)
+    redirect_to account_path( @account)
+  end
+  
+  def account_params
+    params.require(:account).permit!
   end
   
   

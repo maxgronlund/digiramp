@@ -4,5 +4,5 @@
       = link_to account_works_path(@account), class: 'btn btn-success' do
         .fa.fa-music
   .col-sm-6
-    h3 WORKS
-    'Manage Music music content. 
+    h3 =@works.title
+    =@works.body

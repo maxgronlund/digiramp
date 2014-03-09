@@ -17,13 +17,11 @@
           table class="table table-hover"
             thead
               tr
-                th Name
-                th Email
-                th Role 
+                th User
+                th Permissions
                 th
             tbody
-              -@account.account_users.each do |account_user|
-              
+              -@account.account_users.order('id asc').each do |account_user|
                 tr == render 'account_users/shared/account_user', account_user: account_user
         
         .pull-right

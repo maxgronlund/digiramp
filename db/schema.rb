@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140308102126) do
+ActiveRecord::Schema.define(version: 20140309212240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,9 +31,15 @@ ActiveRecord::Schema.define(version: 20140308102126) do
     t.integer  "account_id"
     t.integer  "user_id"
     t.string   "role"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.text     "invitation_message"
+    t.boolean  "access_to_all_recordings",   default: false
+    t.boolean  "access_to_all_common_works", default: false
+    t.boolean  "access_to_all_rights",       default: false
+    t.boolean  "access_to_all_documents",    default: false
+    t.boolean  "access_to_collect",          default: false
+    t.integer  "version",                    default: 0
   end
 
   add_index "account_users", ["account_id"], name: "index_account_users_on_account_id", using: :btree
@@ -61,6 +67,7 @@ ActiveRecord::Schema.define(version: 20140308102126) do
     t.integer  "administrator_id"
     t.integer  "visits",             default: 0
     t.integer  "works_cache_key",    default: 0
+    t.string   "logo"
   end
 
   add_index "accounts", ["administrator_id"], name: "index_accounts_on_administrator_id", using: :btree

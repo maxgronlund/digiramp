@@ -6,7 +6,7 @@
             
   .container
     ==render 'admin/shared/messages'
-    -cache ([request.url, Admin.cached_find(1).version]) do 
+    -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account)]) do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               }, current: 'assets'}
       
@@ -14,14 +14,20 @@
         .col-sm-12
           h1 = @assets.title
       .row
-        .col-sm-6
-          == render 'assets/shared/badge_buttons/add_music'
-        .col-sm-6
-          == render 'assets/shared/badge_buttons/works'
-      .row
-        .col-sm-6
-          == render 'assets/shared/badge_buttons/recordings'
-
+        -if current_user.can_manage 'add_music', @account
+          .col-sm-6
+            == render 'assets/shared/badge_buttons/add_music'
+            
+        -if current_user.can_manage 'access works', @account
+          .col-sm-6
+            == render 'assets/shared/badge_buttons/works'
+            
+        -if current_user.can_manage 'access recordings', @account
+          .col-sm-6
+            == render 'assets/shared/badge_buttons/recordings'
+        -if current_user.can_manage 'documents', @account
+          .col-sm-6
+            == render 'assets/shared/badge_buttons/documents'
       hr
 
       .row

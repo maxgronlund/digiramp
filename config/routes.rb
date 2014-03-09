@@ -13,7 +13,7 @@ Digiramp::Application.routes.draw do
   get "selling_points/selling_point_2"
   get "selling_points/selling_point_3"
   
-  resources :accounts, only: [:show, :edit] do
+  resources :accounts, only: [:show, :edit, :update] do
     resources :account_users
     resources :collects, only: [:index]
     resources :customers, only: [:index]
@@ -171,7 +171,7 @@ Digiramp::Application.routes.draw do
   mount Sidekiq::Web, at: "/sidekiq", constraints: lambda { |request| 
                                                              false unless request.session[:user_id]
                                                              return false unless User.exists?(request.session[:user_id])
-                                                             user = User.find( request.session[:user_id])
+                                                             user = User.cached_find( request.session[:user_id])
                                                              user && user.super?
                                                           }
   

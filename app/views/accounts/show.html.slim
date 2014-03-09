@@ -6,28 +6,42 @@
     ==render 'admin/shared/messages'
     ==render 'accounts/shared/add_content'      if @add_content
     ==render 'accounts/shared/add_first_users'  if @add_first_users
-    -cache ([request.url, Admin.cached_find(1).version]) do
+    -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account)]) do
       .row
         .col-sm-12
           -if @welcome
             ==render 'accounts/shared/welcome' 
-          -else     
-            h1 = @account.title
+          -else  
             .row
               .col-sm-6
-                == render 'accounts/shared/badge_buttons/users'
+                h1 = @account.title
               .col-sm-6
-                == render 'accounts/shared/badge_buttons/assets'
+                .pull-right
+                  = image_tag @account.logo_url
             .row
-              .col-sm-6
-                == render 'accounts/shared/badge_buttons/collect'
-              .col-sm-6
-                == render 'accounts/shared/badge_buttons/promote'
-            .row
-              .col-sm-6
-                == render 'accounts/shared/badge_buttons/rights'
-              .col-sm-6
-                == render 'accounts/shared/badge_buttons/customers'
+              -if current_user.can_manage 'users', @account
+                .col-sm-6
+                  == render 'accounts/shared/badge_buttons/users' 
+                  
+              -if current_user.can_manage 'assets', @account
+                .col-sm-6
+                  == render 'accounts/shared/badge_buttons/assets'
+                  
+              -if current_user.can_manage 'collect', @account
+                .col-sm-6
+                  == render 'accounts/shared/badge_buttons/collect'
+                  
+              -if current_user.can_manage 'promotion', @account
+                .col-sm-6
+                  == render 'accounts/shared/badge_buttons/promote'
+                  
+              -if current_user.can_manage 'rights', @account
+                .col-sm-6
+                  == render 'accounts/shared/badge_buttons/rights'
+                  
+              -if current_user.can_manage 'customer relations', @account
+                .col-sm-6
+                  == render 'accounts/shared/badge_buttons/customers'
           hr
       
 

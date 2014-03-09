@@ -41,6 +41,8 @@ class Account < ActiveRecord::Base
   
   ACCOUNT_TYPES = [ 'catalog owner', 'representative', 'supervisor', 'administrator', 'free account']
   
+  mount_uploader :logo, LogoUploader
+  
   def videos
     self.recordings.where(media_type: 'Video').order(:title)
   end
@@ -97,7 +99,8 @@ class Account < ActiveRecord::Base
   #end
   
   def account_administrator
-    User.find(self.administrator_id) if User.exists?(self.administrator_id)
+    
+    User.cached_find(self.administrator_id)
   end
   
   def administrators_account_user

@@ -11,11 +11,14 @@ class AccountUsersController < ApplicationController
   end
   
   def show
-    
+    @blog = Blog.account_users
+    @client_permissions  = BlogPost.where(identifier: 'Client Permissions', blog_id: @blog.id)
+                                         .first_or_create(identifier: 'Client Permissions', blog_id: @blog.id, title: 'Client Permissions', body: 'What this client can access')
+    @account_user = AccountUser.find(params[:id])
   end
   
   def new
-    @account_user = @account.account_users.new
+    @account_user = @account.account_users.new(role: "Client")
     @roles = AccountUser::ROLES
     @roles.delete("Account Owner")
 
@@ -24,9 +27,9 @@ class AccountUsersController < ApplicationController
   def create
     
     if @user = User.where(email: params[:account_user][:email]).first
-      account_user = AccountUser.create!(account_id: @account.id, user_id: @user.id, role: params[:account_user][:role], invitation_message: params[:account_user][:invitation_message])
+      @account_user = AccountUser.create!(account_id: @account.id, user_id: @user.id, role: params[:account_user][:role], invitation_message: params[:account_user][:invitation_message])
       flash[:info] = { title: "User invited", body: "successfully invited user with email: #{ params[:account_user][:email]}" }
-      redirect_to account_account_users_path @account
+      redirect_to @account_user.client?   ?  account_account_user_path( @account , @account_user) : account_account_users_path( @account)
     else
       flash[:danger] = { title: "User is not a member", body: "Please ask the person you are about to invite to sign up for an account" }
       redirect_to account_account_users_path @account
@@ -34,6 +37,8 @@ class AccountUsersController < ApplicationController
      # account_user = AccountUser.create(account_id: @account.id, user_id: @user.id, role: params[:account_user][:role], invitation_message: params[:account_user][:invitation_message])
      # @user.signed_up_and_invited_to @account.id, params[:account_user][:invitation_message]
     end
+    
+    
     #
     #if params[:account_user][:permitted_models_attributes]
     #  params[:account_user][:permitted_models_attributes].each do |pma|
@@ -54,13 +59,10 @@ class AccountUsersController < ApplicationController
   end
 
   def edit
-    logger.debug '----------------------------------------------------------------'
-    logger.debug @account.title
-    logger.debug params
-    logger.debug '----------------------------------------------------------------'
+    
     @account_user = AccountUser.find(params[:id])
     @roles = AccountUser::ROLES
-    @roles.delete("Account Owner")
+    @roles.delete("Account Owner") #unless current_user.super?
     
     @blog = Blog.account_users
     @administrator  = BlogPost.where(identifier: 'Administrator', blog_id: @blog.id)
@@ -71,24 +73,18 @@ class AccountUsersController < ApplicationController
   end
   
   def update
-    logger.debug '----------------------------------------------------------------'
-    logger.debug 'update'
-    logger.debug @account.title
-    logger.debug '----------------------------------------------------------------'
+    
     @account_user = AccountUser.find(params[:id])
+    params[:account_user][:version] = @account_user.version + 1
     @account_user.update(account_user_params)
     
-    #if params[:account_user][:permitted_models_attributes]
-    #  params[:account_user][:permitted_models_attributes].each do |pma|
-    #    attributes = pma[1]
-    #    permitted_model = PermittedModel.find(attributes[:id])
-    #    attributes.delete("id")
-    #    
-    #    permitted_model.update(attributes)
-    #  end
-    #end
-    #
-    redirect_to_return_url account_account_users_path(@account)
+    # administrator has full permissions
+    if @account_user.administrator?
+      session[:return_url] = account_account_users_path( @account )
+    end
+
+    redirect_to_return_url account_account_user_path(@account, @account_user)
+    
     
   end
   

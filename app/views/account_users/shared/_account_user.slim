@@ -1,8 +1,30 @@
 -cache (account_user) do
   -user = account_user.user
-  td = user.name
-  td = user.email
-  td = account_user.role
+  td 
+    = user.name
+    -unless user.name == user.email
+      br
+      = user.email
+  td 
+    b = account_user.role
+    -if account_user.client?
+      -if account_user.access_to_all_recordings
+        br
+        'Access to Recordings
+      -if account_user.access_to_all_common_works
+        br
+        'Access to Common Works
+      -if account_user.access_to_all_rights
+        br
+        'Access to Rights
+        
+      -if account_user.access_to_all_documents
+        br
+        'Access to Documents
+        
+      -if account_user.access_to_collect
+        br
+        'Access to Finantial Informations
   td
      -unless account_user.role  == 'Account Owner'
       .pull-right

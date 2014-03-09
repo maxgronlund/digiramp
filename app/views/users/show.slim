@@ -9,19 +9,70 @@
     .row
       .col-sm-6
         h3 =accounts_i_can_access.title
-        hr
-        b = link_to @user.account.title, account_path(@user.account)
-        hr
-        - @user.account_users.each do |account_user|
-          -account = account_user.account
-          =link_to account.title, account_path(account)
-          hr
+        
+        .table-responsive
+          table class="table table-hover"
+           thead
+             tr
+               th Account
+               th Role 
+           tbody
+             tr 
+               td = link_to @user.account.title, account_path(@user.account)
+               td Account Owner
+
+           - @user.account_users.each do |account_user|
+             tr
+               -account = account_user.account
+               td =link_to account.title, account_path(account)
+               td = account_user.role
+
       .col-sm-6
-        h3 My account
-        b 
-          = link_to @user.account.title, account_path(@user.account)
-        br
-        = link_to 'Edit',edit_account_path(@user.account)
+        -user_account = @user.account
+        h3 Account Info
+        = image_tag user_account.logo_url
+        h4 = user_account.title
+        = simple_format user_account.description
+        
+        .table-responsive
+          table class="table"
+            tr
+              td Name:
+              td 
+                = user_account.contact_first_name
+                '&nbsp;
+                = user_account.contact_last_name
+            tr
+              td Email:
+              td = user_account.contact_email
+            tr
+              td Fax:
+              td = user_account.fax
+            tr
+              td Country:
+              td = user_account.country
+            tr
+              td Street Address:
+              td = user_account.street_address
+            tr
+              td City:
+              td = user_account.city
+            tr
+              td State:
+              td = user_account.state
+            tr
+              td Postal Code:
+              td = user_account.postal_code
+
+          
+        /= debug user_account
+        .row
+          .col-xs-12
+            .pull-right
+              = link_to 'Edit Account Info',edit_account_path(@user.account), class: 'btn btn-primary'
+              
+        hr
+        h3 User Info
         /ul
         /  li Subscription plan
         /  li Accounts

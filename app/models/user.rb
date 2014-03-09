@@ -42,6 +42,8 @@ class User < ActiveRecord::Base
   
   scope :supers,      ->    { where( role: 'super' ).order("email asc")  }
   
+  after_commit :flush_cache
+  
   ## !!!! should be depricated! Moved to AccountUser
   def can? action, id_name_or_record, _account_id
     return true
@@ -117,9 +119,13 @@ class User < ActiveRecord::Base
   def current_account
     
     return  Account.find(self.current_account_id) if  Account.exists?(self.current_account_id)
-    #account_user = AccountUser.where(user_id: self.id).first
-    #
-    #return Account.find(account_user.account_id) if account_user
+    if current_account = Account.where(user_id: self.id).first
+      save!
+      return current_account
+    else
+      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+    end
+    
     
   end
   
@@ -142,6 +148,58 @@ class User < ActiveRecord::Base
     self.role == 'super'
   end
   
+  def can_access_recordings? account
+    if account_user = AccountUser.cached_find( id, account.id)
+      return true if account_user.access_to_all_recordings
+    end
+    false
+  end
+  
+  def can_access_common_works? account
+    if account_user = AccountUser.cached_find( id, account.id)
+      return true if account_user.access_to_all_common_works
+    end
+    false
+  end
+  
+  def can_manage asset, account
+    return true if role             == 'super'
+    return true if account.user_id  == id
+    
+    if account_user = AccountUser.cached_find( id, account.id)
+      case asset
+      when 'users'
+        return account_user.can_administrate?
+      when 'assets'
+        return account_user.can_access_assets?
+      when 'collect'
+        return account_user.can_collect?
+      when 'promotion'
+        return account_user.can_administrate?
+      when 'documents'
+        return account_user.has_access_to_all_documents? 
+      when 'rights'
+        return account_user.has_access_to_all_rights?
+      when 'add_music'
+        return account_user.can_administrate?
+      when 'access works'
+        return account_user.has_access_to_all_common_works?
+      when 'access recordings'
+        return account_user.access_to_all_recordings
+      end
+    end
+    false
+  end
+  
+  def permission_cache_for account
+    if account_user = AccountUser.cached_find( id, account.id)
+      return account_user.version
+    end
+    0
+  end
+  
+  
+  
   #def admin_or_super?
   #
   #  #!!! do some permissions here
@@ -161,7 +219,7 @@ class User < ActiveRecord::Base
   end
   
   def user_role_on account
-    if account_user = AccountUser.where(user_id: self.id, account_id: account.id).first
+    if account_user = AccountUser.cached_find( id, account.id)
       return account_user.role
     end
     'no access'
@@ -186,9 +244,20 @@ class User < ActiveRecord::Base
     end
   end
   
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
+  
+  
+  
 
 
 private
+
+  def flush_cache
+    Rails.cache.delete([self.class.name, id])
+  end
+
   
   #def has_permission_for_record? action, record
   #  ## This could be rewritten to a single sql query

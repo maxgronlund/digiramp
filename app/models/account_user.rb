@@ -16,6 +16,8 @@ class AccountUser < ActiveRecord::Base
   ## account_user.has_permission_for_model? "r", "Recording", account_id
   
   ROLES = ["Account Owner", "Administrator", "Client"]
+  
+  after_commit :flush_cache
 
   #def admin_or_super?;  admin? || super?              end
   #def super?;           role == 'super'               end
@@ -27,6 +29,56 @@ class AccountUser < ActiveRecord::Base
   #
   def email
     
+  end
+  
+  def client?
+    role == 'Client'
+  end
+  
+  def administrator?
+    role == 'Administrator'
+  end
+  
+  def owner?
+    role == 'Account Owner'
+  end
+  
+  def can_administrate?
+    administrator? || owner?
+  end
+  
+  def name
+    user.name ||= user.email
+  end
+  
+  def can_access_assets?
+    access_to_all_recordings || access_to_all_common_works
+  end
+  
+  def can_collect?
+    access_to_collect || administrator?
+  end
+  
+  def has_access_to_all_documents? 
+    access_to_all_documents || administrator?
+  end
+  
+  def has_access_to_all_rights?
+    access_to_all_rights || administrator?
+  end
+  
+  def has_access_to_all_common_works?
+    access_to_all_common_works || administrator?
+  end
+  
+  def self.cached_find(user_id, account_id)
+    Rails.cache.fetch([name, user_id, account_id]) { AccountUser.where(user_id: user_id, account_id: account_id).first }
+  end
+
+private
+
+  def flush_cache
+    Rails.cache.delete([self.class.name, user_id, account_id])
   end
   
   #def has_permission_for? action, permitted_model_id
