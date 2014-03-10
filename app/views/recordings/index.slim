@@ -57,7 +57,7 @@
                       td
                         .pull-right
                           -if recording.common_work
-                            = link_to 'Show', account_common_work_recording_path(@account, recording.common_work, recording), class: 'btn btn-default'
+                            = link_to 'Show', account_common_work_recording_path(@account, recording.common_work, recording), 'data-no-turbolink' => true , class: 'btn btn-default'
                             '&nbsp;
                             = link_to 'Edit', edit_account_common_work_recording_path(@account, recording.common_work, recording), class: 'btn btn-primary'
                             '&nbsp;

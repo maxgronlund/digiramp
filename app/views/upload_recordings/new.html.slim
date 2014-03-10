@@ -16,19 +16,21 @@
       .col-sm-4
       
       .col-sm-4
-        h1 Upload Recording
-        /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
-        = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create', :controller => 'upload_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
-          = transloadit :waveform_to_s3 
-          /= form.label      :file, 'File to upload' 
-          = f.file_field :file , class: 'btn btn-default'
-          hr
-          .pull-right
-            = f.submit 'Save', class: 'btn btn-primary btn-lg'
-
-
-        = transloadit_jquerify :recording, :wait => true
-        
+        .panel
+          .panel-body
+            h1 Upload Recording
+            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+            = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create', :controller => 'upload_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+              = transloadit :waveform_to_s3 
+              /= form.label      :file, 'File to upload' 
+              = f.file_field :file , class: 'btn btn-default'
+              hr
+              .pull-right
+                = f.submit 'Save', class: 'btn btn-primary btn-lg'
+            
+            
+            = transloadit_jquerify :recording, :wait => true
+            
       .col-sm-4
     
 
