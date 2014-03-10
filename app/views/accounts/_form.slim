@@ -4,7 +4,13 @@
   .row
     .col-sm-6
       =f.input :title
-      =f.input :description, :input_html => {  style: "height: 360px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
+      div id="toolbar" class="wysihtml5-toolbar"
+        a data-wysihtml5-command="bold" Bold
+        '&nbsp; 
+        a data-wysihtml5-command="italic" Italic
+      
+      =f.input :description, label: false, :input_html => {  style: "height: 360px;", placeholder: "Description", id: 'wysihtml5_editor'}
+      /=f.input :description, :input_html => {  style: "height: 360px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
       =f.input :logo, label: 'Logo 170x50 Pixels (png with transparency is best)'
       
     .col-sm-6

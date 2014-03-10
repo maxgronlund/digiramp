@@ -27,14 +27,18 @@
           
       .row
         .col-sm-6
-          = simple_form_for [ @account, @recording ], :url => url_for(:action => 'select_category', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
-            = f.input :title
-            = f.input :has_lyrics, label: 'This recording has lyrics'
-            = f.input :explicit
-            .pull-right
-              = f.submit "Save", class: 'btn btn-primary btn-lg'
+          .panel
+            .panel-body
+              = simple_form_for [ @account, @recording ], :url => url_for(:action => 'select_category', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+                = f.input :title
+                = f.input :has_lyrics, label: 'This recording has lyrics'
+                = f.input :explicit
+                .pull-right
+                  = f.submit "Save", class: 'btn btn-primary btn-lg'
         .col-sm-6
-          = @upload_completed.body
+          .panel
+            .panel-body
+              = @upload_completed.body
   
             /h4 = @cinematic.title
             /= f.submit "", :type => :image, :src => "#{@cinematic.image_url(:size_570x320)}", class: 'img-responsive'

@@ -1,0 +1,36 @@
+
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'profile'
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    .row
+      .col-sm-12
+        h1 Edit User Profile
+        hr
+    
+    = simple_form_for @user do |f|
+      .row
+        .col-sm-6
+          = f.input :name
+          = f.input :email
+          = f.input :password, autocomplete: :off
+          = f.input :password_confirmation, autocomplete: :off
+        .col-sm-6
+          = f.input :image
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
+          
+          =f.input :profile, label: false, :input_html => {  style: "height: 360px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+          = debug @user
+        .col-sm-12
+          .pull-right
+            = f.submit 'Save', class: 'btn btn-primary'
+
+      
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'  
