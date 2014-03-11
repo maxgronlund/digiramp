@@ -47,6 +47,9 @@ class Account < ActiveRecord::Base
   mount_uploader :logo, LogoUploader
   after_commit :flush_cache
   
+  include PgSearch
+  pg_search_scope :search_account, against: [:title, :description, :contact_first_name, :contact_last_name, :contact_email, :fax], :using => [:tsearch]
+  
   def has_no_name?
     title == Account::SECRET_NAME
   end
@@ -160,6 +163,14 @@ class Account < ActiveRecord::Base
     self.save
   end
   
+  def self.search( query)
+    if query.present?
+      return Account.search_account(query)
+    else
+      return all
+    end
+  end
+  
   
   
     
@@ -168,6 +179,7 @@ private
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])
+    Admin.cached_find(1).raise_accounts_version
   end
 
   def init_activity_log

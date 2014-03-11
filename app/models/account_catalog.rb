@@ -1,9 +1,9 @@
 class AccountCatalog < ActiveRecord::Base
   belongs_to :account
   has_many :catalog_items, dependent: :destroy
-  has_many :administrations, dependent: :destroy
+  #has_many :administrations, dependent: :destroy
   
-  has_many :administrations
+  #has_many :administrations
   has_many :users, through: :administrations
   
   

@@ -39,7 +39,7 @@ class UsersController < ApplicationController
                                   visits: 1,
                                   account_type: Account::ACCOUNT_TYPES[:not_confirmed],
                                   )
-        @account.save(validate: false)                       
+        @account.save(validate: false)                     
         AccountUser.create(user_id: @user.id, account_id: @account.id, role: 'Administrator')
         
         @user.account_id          = @account.id
@@ -75,8 +75,9 @@ class UsersController < ApplicationController
   end
 
   def update
+    
     if @user.update(user_params)
-      flash[:info] = { title: "Success", body: "#{@user.name} successfully updatet" }
+      #flash[:info] = { title: "Success", body: "#{@user.name} successfully updatet" }
       #@user.activity_events.create! \
       #  activity_log_id: @account.activity_log.id,
       #  user_id: current_user.id,
@@ -112,6 +113,13 @@ class UsersController < ApplicationController
   end
   
 private
+
+  def remove_password_fields_if_blank!(user_params)
+    if user_params[:password].blank? and user_params[:password_confirmation].blank?
+      user_params.delete :password
+      user_params.delete :password_confirmation
+    end
+  end
 
   def user_params
     params.require(:user).permit!

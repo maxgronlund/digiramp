@@ -15,5 +15,6 @@
 
     =simple_form_for @account.user do |f|
       = f.hidden_field :show_welcome_message, value: false
+      = f.hidden_field :name, value: @account.user.name
       .pull-right
         = f.submit 'Done', class: 'btn btn-primary btn-lg'

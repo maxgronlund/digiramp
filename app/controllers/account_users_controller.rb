@@ -82,7 +82,7 @@ class AccountUsersController < ApplicationController
   end
   
   def destroy
-    account_user = AccountUser.cached_find(params[:id], params[:account_id])
+    account_user = AccountUser.find_by_cached_id(params[:id])
     account_user.destroy
     
     logger.debug '-----------------------------------------'

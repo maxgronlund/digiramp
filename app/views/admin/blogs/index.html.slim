@@ -14,7 +14,7 @@
           table class="table table-hover"
             tbody
             
-              -@blogs.each do |blog|
+              -@blogs.order(:title).each do |blog|
                 tr
                   td =blog.title
                   td =blog.blog_posts.size

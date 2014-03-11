@@ -1,12 +1,13 @@
 #wrap
   .full-width-top
-    == render 'admin/shared/navbar', page: 'accounts'
+    == render 'admin/shared/navbar', page: 'admin'
 
             
   .container
     .row
       .col-sm-12
         ==render 'admin/shared/messages'   
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, accounts: admin_accounts_path, @account.title.to_sym => admin_account_path(@account) }, current: 'edit'}
 
             
   .container

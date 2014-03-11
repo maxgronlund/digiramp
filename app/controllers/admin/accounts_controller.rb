@@ -3,7 +3,7 @@ class Admin::AccountsController < ApplicationController
   before_filter :admins_only
   
   def index
-    @accounts = Account.order('lower(title) ASC').page(params[:page]).per(14)
+    @accounts = Account.search(params[:query]).order('lower(title) ASC').page(params[:page]).per(14)
   end
   
   def show
@@ -20,7 +20,9 @@ class Admin::AccountsController < ApplicationController
   
   def update
     @account = Account.cached_find(params[:id])
+    params[:account][:rec_cache_version] = @account.rec_cache_version + 1 
     @account.update_attributes(account_params)
+    
     redirect_to admin_account_path( @account)
   end
   
