@@ -12,18 +12,30 @@ class Blog < ActiveRecord::Base
   def self.import_wizard; Blog.where(identifier: 'Import Wizard').first_or_create(identifier: 'Import Wizard', title: 'Import Wizard' ) end
   
   
-  def self.welcome; Blog.where(identifier: 'Welcome').first_or_create(identifier: 'Welcome', title: 'Welcome' ) end
+  #def self.welcome; Blog.where(identifier: 'Welcome').first_or_create(identifier: 'Welcome', title: 'Welcome' ) end
   def self.add_content; Blog.where(identifier: 'Add Content').first_or_create(identifier: 'Add Content', title: 'Add Content' ) end
   def self.works; Blog.where(identifier: 'Works').first_or_create(identifier: 'Works', title: 'Works' ) end
   def self.add_recording; Blog.where(identifier: 'Add Recording').first_or_create(identifier: 'Add Recording', title: 'Add Recording' ) end
   def self.selling_points; Blog.where(identifier: 'Selling Points').first_or_create(identifier: 'Selling Points', title: 'Selling Points' ) end
   
-  def self.account_users; Blog.where(identifier: 'Account Users').first_or_create(identifier: 'Account Users', title: 'Account Users' ) end
+  #def self.account_users; Blog.where(identifier: 'Account Users').first_or_create(identifier: 'Account Users', title: 'Account Users' ) end
   def self.assets; Blog.where(identifier: 'Assets').first_or_create(identifier: 'Assets', title: 'Assets' ) end
   def self.collect; Blog.where(identifier: 'Collect').first_or_create(identifier: 'Collect', title: 'Collect' ) end
   def self.promotion; Blog.where(identifier: 'Promotion').first_or_create(identifier: 'Promotion', title: 'Promotion' ) end
   def self.drm; Blog.where(identifier: 'DRM').first_or_create(identifier: 'DRM', title: 'DRM' ) end
   def self.customers; Blog.where(identifier: 'Customers').first_or_create(identifier: 'Customers', title: 'Customers' ) end
   def self.recordings; Blog.where(identifier: 'Recordings').first_or_create(identifier: 'Recordings', title: 'Recordings' ) end
-  def self.user_account; Blog.where(identifier: 'User Account').first_or_create(identifier: 'User Account', title: 'User Account' ) end
+  #def self.user_account; Blog.where(identifier: 'User Account').first_or_create(identifier: 'User Account', title: 'User Account' ) end
+  
+  
+  def self.cached_find(identity)
+    Rails.cache.fetch([name, identity ]) {  Blog.where(identifier: identity)\
+                                                .first_or_create(identifier: identity, title: identity, body: '') }
+  end
+  
+private
+
+  def flush_cache
+    Rails.cache.delete([self.class.name, identity])
+  end
 end

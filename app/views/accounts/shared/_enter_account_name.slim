@@ -1,8 +1,6 @@
-h1 =@welcome.title
-=@welcome.body
+== render 'shared/page_title', locals: {blog: Blog.cached_find('Welcome'), blog_post: 'Enter Account Name'}
 
 =simple_form_for @account do |f|
-
   .row
     .col-sm-6
       =f.input :title

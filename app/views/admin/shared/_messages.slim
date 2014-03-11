@@ -2,7 +2,7 @@
   div class="alert alert-#{name}"
     button type="button" class="close" data-dismiss="alert" ×
     h4 = msg[:title] rescue nil
-    = msg[:body] rescue nil
+    =simple_format msg[:body] rescue nil
     
 
 /-if target && target.errors.any? 

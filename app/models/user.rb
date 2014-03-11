@@ -118,12 +118,15 @@ class User < ActiveRecord::Base
   
   def current_account
     
-    return  Account.find(self.current_account_id) if  Account.exists?(self.current_account_id)
-    if current_account = Account.where(user_id: self.id).first
-      save!
-      return current_account
-    else
-      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+    begin
+      return  Account.cached_find(self.current_account_id)
+    rescue
+      if current_account = Account.where(user_id: self.id).first
+        save!
+        return current_account
+      else
+        render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+      end
     end
     
     
@@ -225,16 +228,7 @@ class User < ActiveRecord::Base
     'no access'
   end
   
-  #def has_permission_for? action, permitted_model_id_name, _account_id
-  #
-  #  if permitted_model_type = PermittedModelType.where(id_name: permitted_model_id_name).first
-  #    account_user  = AccountUser.where(user_id: self.id, account_id: _account_id).first
-  #    return account_user && account_user.has_permission_for?( action, permitted_model_type.id )
-  #  end
-  #
-  #  return false
-  #  
-  #end
+
   
   def self.search( query)
     if query.present?
@@ -248,14 +242,23 @@ class User < ActiveRecord::Base
     Rails.cache.fetch([name, id]) { find(id) }
   end
   
+  def self.cached_find_by_auth_token( auth_token)
+    Rails.cache.fetch([name, auth_token]) { User.find_by_auth_token( auth_token)  }
+  end
   
-  
+  def flush_auth_token_cache auth_token
+    Rails.cache.delete([self.class.name, auth_token])
+  end
 
 
 private
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])
+    AccountUser.where(user_id: id).each do |account_user|
+      account_user.touch
+    end
+    #Rails.cache.delete([self.class.name, id,  cookies[:auth_token] ]) 
   end
 
   

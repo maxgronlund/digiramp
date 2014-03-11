@@ -6,13 +6,10 @@
             
   .container
     ==render 'admin/shared/messages'
-    -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account)]) do
+    -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account), current_user.role]) do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               }, current: 'assets'}
-      
-      .row
-        .col-sm-12
-          h1 = @assets.title
+      == render 'shared/page_title', locals: {blog: @blog, blog_post: 'Assets'}
       .row
         -if current_user.can_manage 'add_music', @account
           .col-sm-6

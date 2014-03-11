@@ -1,34 +1,28 @@
 -session[:return_url] = request.url
-- select_category = BlogPost.get_post( 'Select Category' , @blog )
+
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'account'
-  .do           
-    .container
-      == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              assets: account_assets_path(@account), \
-                                                              recordings: account_recordings_path(@account), \
-                                                              }, current: @recording.title}
-      
-      
+    == render 'accounts/shared/navbar', page: 'account'         
+  .container
+    /-cache ([request.url, current_user.role, Admin.first.version, @recording.category  ]) do
 
-      .row
-        .col-sm-12
-          h3 =select_category.title 
-          =simple_format select_category.body
-          -if can_edit?
-            .pull-right
-              =link_to 'Edit',  edit_admin_blog_blog_post_path(@blog, select_category), class: 'btn btn-default'
-          
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            recordings: account_recordings_path(@account), \
+                                                            }, current: @recording.title}
+    
+    
+    
 
-      -begin
-        == render "recordings/categories/#{@recording.category}" 
-      -rescue
-        == render "recordings/categories/none" 
-      
- 
-          
+    == render 'shared/page_title', locals: {blog: @blog, blog_post: 'Select Category}
+    -begin
+      == render "recordings/categories/#{@recording.category}" 
+    -rescue
+      == render "recordings/categories/none" 
+    
+    
+            
           
           
         

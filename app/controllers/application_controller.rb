@@ -7,10 +7,8 @@ class ApplicationController < ActionController::Base
   
   def current_user
     begin
-
-      @current_user ||= User.find_by_auth_token( cookies[:auth_token]) if cookies[:auth_token]
+      @current_user ||= User.cached_find_by_auth_token( cookies[:auth_token] ) if cookies[:auth_token]
     rescue
-
       cookies.delete(:auth_token)
     end
   end
@@ -60,7 +58,7 @@ class ApplicationController < ActionController::Base
   end
   
   def user_is_an_account_user
-    AccountUser.where(user_id: current_user.id, account_id: @account.id).first
+    AccountUser.cached_find(user_id: current_user.id, account_id: @account.id)
   end
   
   def forbidden
@@ -72,9 +70,9 @@ private
   def access_to_account
     return false if current_user == nil
     begin
-      @account = Account.find(params[:id])
+      @account = Account.cached_find(params[:id])
     rescue
-      @account = Account.find(params[:account_id])
+      @account = Account.cached_find(params[:account_id])
     end
     return true if account_belongs_to_current_user
     return true if current_user.role == 'admin' || current_user.role == 'super'

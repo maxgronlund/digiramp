@@ -39,9 +39,12 @@ class Account < ActiveRecord::Base
   #has_many :documents, as: :documentable, dependent: :destroy
   validates_presence_of :title
   
-  ACCOUNT_TYPES = [ 'catalog owner', 'representative', 'supervisor', 'administrator', 'free account']
+  #ACCOUNT_TYPES = [ 'catalog owner', 'representative', 'supervisor', 'administrator', 'free account', 'not confirmed']
+  
+  ACCOUNT_TYPES = { catalog_owner: 'catalog owner', free_account: 'free account', not_confirmed: 'not confirmed' } 
   
   mount_uploader :logo, LogoUploader
+  after_commit :flush_cache
   
   def videos
     self.recordings.where(media_type: 'Video').order(:title)
@@ -98,23 +101,48 @@ class Account < ActiveRecord::Base
   #  AccountUser.where(user_id: self.administrator_id, account_id: self.id ).first
   #end
   
-  def account_administrator
-    
-    User.cached_find(self.administrator_id)
-  end
+  #def account_administrator
+  #  begin
+  #    return User.cached_find(administrator_id)
+  #  rescue
+  #    administrator_id = User.supers.first
+  #    save!
+  #    return  User.cached_find(administrator_id)
+  #  end
+  #end
   
   def administrators_account_user
 
-    unless account_user = AccountUser.where(user_id: self.administrator_id, account_id: self.id ).first
+    unless account_user = AccountUser.cashed_find(user_id: self.administrator_id, account_id: self.id )
       account_user = AccountUser.create(user_id: self.administrator_id, account_id: self.id ) if account_administrator
     end
     return account_user 
   end
   
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
+
+  def has_a_name
+    begin
+      User.cached_find(user_id).name == User.cached_find(user_id).email
+    rescue
+      user_id = User.supers.first
+      name  << ' user deleted'
+      save!
+    end
+    return false
+  end
+  
+  
   
     
   
 private
+
+  def flush_cache
+    Rails.cache.delete([self.class.name, id])
+  end
 
   def init_activity_log
     ActivityLog.create!(account_id: id) unless ActivityLog.exists?(account_id: id)

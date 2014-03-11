@@ -170,9 +170,13 @@ Digiramp::Application.routes.draw do
   
   mount Sidekiq::Web, at: "/sidekiq", constraints: lambda { |request| 
                                                              false unless request.session[:user_id]
-                                                             return false unless User.exists?(request.session[:user_id])
-                                                             user = User.cached_find( request.session[:user_id])
-                                                             user && user.super?
+                                                             #return false unless User.exists?(request.session[:user_id])
+                                                             begin
+                                                               user = User.cached_find( request.session[:user_id])
+                                                               user && user.super?
+                                                             rescue
+                                                               false
+                                                             end
                                                           }
   
 end

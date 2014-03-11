@@ -1,9 +1,96 @@
+
+- accounts_i_can_access = BlogPost.cached_find( 'Accounts I can access' , Blog.cached_find('User Account') )
+- user_account = Account.cached_find(@user.account_id)
+
 #wrap
   .full-width-top
-    == render 'admin/shared/navbar', page: 'users'
-
-            
+    == render 'accounts/shared/navbar', page: 'admin'     
   .container
+    ==render 'admin/shared/messages'
     .row
-      .col-sm-12
-        =debug @user
+      .col-sm-6
+        .panel
+          .panel-body
+            h3 #{@user.name } has access to the following accounts
+            .table-responsive
+              table class="table table-hover"
+               thead
+                 tr
+                   th Account
+                   th Role 
+               tbody
+                 /tr
+                 /  
+                 /  td = link_to user_account.title, account_path(user_account)
+                 /  td Account Owner
+            
+                 - @user.account_users.each do |account_user|
+                   tr
+                     -account = Account.cached_find(account_user.account_id)
+                     td =link_to account.title, account_path(account)
+                     td = account_user.role
+            
+      .col-sm-6
+        .panel
+          .panel-body
+            /-user_account = @user.account
+            h3 Account Info
+            .thumbnail
+              = image_tag user_account.logo_url
+            h4 = user_account.title
+            = simple_format user_account.description
+            
+            .table-responsive
+              table class="table"
+                tr
+                  td Name:
+                  td 
+                    = user_account.contact_first_name
+                    '&nbsp;
+                    = user_account.contact_last_name
+                tr
+                  td Email:
+                  td = user_account.contact_email
+                tr
+                  td Fax:
+                  td = user_account.fax
+                tr
+                  td Country:
+                  td = user_account.country
+                tr
+                  td Street Address:
+                  td = user_account.street_address
+                tr
+                  td City:
+                  td = user_account.city
+                tr
+                  td State:
+                  td = user_account.state
+                tr
+                  td Postal Code:
+                  td = user_account.postal_code
+            
+              
+
+            .row
+              .col-xs-12
+                .pull-right
+                  = link_to 'Edit Account Info',edit_account_path(user_account), class: 'btn btn-primary'
+                  
+        .panel
+          .panel-body    
+            h3 User Profile
+            .row
+              .col-sm-6
+                .thumbnail
+                  = image_tag @user.image_url(:avatar_170x170)
+            = simple_format @user.profile
+            .pull-right
+              = link_to 'Edit', edit_user_path( @user ), class: 'btn btn-primary'
+        /ul
+        /  li Subscription plan
+        /  li Accounts
+        /  li Personal messages
+        /  li Edit personal info
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'  

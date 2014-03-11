@@ -1,25 +1,16 @@
--session[:return_url] = request.url
-/=debug @recordings
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'account'
-  /-cache([ @account.id, @account.works_cache_key, params]) do 
-  .do           
-    .container
-      ==render 'admin/shared/messages'
+    == render 'accounts/shared/navbar', page: 'account'         
+  .container
+    ==render 'admin/shared/messages'
+    -cache ([request.url, @account.rec_cache_version, current_user.role  ]) do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               assets: account_assets_path(@account), \
                                                               }, current: 'recordings'}
+                                                              
 
-      .row
-        .col-sm-6
-          h2 = @manage_recordings.title
-          = @manage_recordings.body
-          /== render 'sm'
-        .col-sm-6
-          -if can_edit?
-            .pull-right
-              =link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @manage_recordings), class: 'btn btn-primary'
+      
+      == render 'shared/page_title', locals: {blog: @blog, blog_post: 'Manage Recordings'}
       .row
         = form_tag account_recordings_path(@account), :method => 'get' do
           .col-sm-6
@@ -75,12 +66,8 @@
             .btn-group
               = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
               = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
-
-  
+      
+      
     
-#footer
-  .container
-    .footer
-      .row
-        .col-sm-12
-          '©2014 All rights reserved
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

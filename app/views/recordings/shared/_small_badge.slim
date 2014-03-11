@@ -1,4 +1,4 @@
-- post = BlogPost.get_post( "#{category}" , @blog )  
+- post = BlogPost.cached_find( "#{category}" , @blog )  
 = simple_form_for [ @account, @recording ], :url => url_for(:action => 'add_mood', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
   = f.hidden_field :category, value: category
   

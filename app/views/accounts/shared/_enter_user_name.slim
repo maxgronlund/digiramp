@@ -1,0 +1,9 @@
+-session[:return_url] = request.url
+
+== render 'shared/page_title', locals: {blog: Blog.cached_find('Welcome'), blog_post: 'Enter User Name'}
+
+=simple_form_for @account.user do |f|
+  .row
+    .col-sm-6
+      =f.input :name
+      = f.submit 'Save', class: 'btn btn-primary btn-lg'

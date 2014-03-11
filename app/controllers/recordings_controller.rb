@@ -4,7 +4,7 @@ class RecordingsController < ApplicationController
   
   def index
     @blog               = Blog.recordings
-    @manage_recordings  = BlogPost.where(identifier: 'Manage Recordings', blog_id: @blog.id).first_or_create(identifier: 'Manage Recordings', blog_id: @blog.id, title: 'Manage Recordings') 
+    
     
     #@recordings         = @account.recordings
     @recordings         = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
@@ -88,10 +88,10 @@ class RecordingsController < ApplicationController
   def upload_completed
     @recording      = Recording.find(params[:recording_id])
     @blog           = Blog.recordings
-    @upload_completed = BlogPost.where(identifier: 'Upload Completed', blog_id: @blog.id)\
-                                .first_or_create(identifier: 'Upload Completed', blog_id:\
-                                @blog.id, title: 'Upload Completed', body: 'Please provide some basic informations so we can find your recording for you')
-                                
+    #@upload_completed = BlogPost.where(identifier: 'Upload Completed', blog_id: @blog.id)\
+    #                            .first_or_create(identifier: 'Upload Completed', blog_id:\
+    #                            @blog.id, title: 'Upload Completed', body: 'Please provide some basic informations so we can find your recording for you')
+    #                            
     
   end
   

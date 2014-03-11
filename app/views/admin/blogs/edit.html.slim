@@ -9,7 +9,8 @@
         ==render 'admin/shared/messages'
         == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
                                                                 blogs: admin_blogs_path, \
-                                                                }, current: 'edit'}
+                                                                }, current: @blog.identifier}
+                                        
         == render 'form'
   
 

@@ -23,10 +23,10 @@
             = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create', :controller => 'upload_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
               = transloadit :waveform_to_s3 
               /= form.label      :file, 'File to upload' 
-              = f.file_field :file , class: 'btn btn-default'
+              = f.file_field :file
               hr
               .pull-right
-                = f.submit 'Save', class: 'btn btn-primary btn-lg'
+                = f.submit 'Upload', class: 'btn btn-primary btn-lg'
             
             
             = transloadit_jquerify :recording, :wait => true

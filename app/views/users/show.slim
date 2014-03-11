@@ -1,9 +1,9 @@
-- accounts_i_can_access = BlogPost.get_post( 'Accounts I can access' , @blog )
+- accounts_i_can_access = BlogPost.cached_find( 'Accounts I can access' , Blog.cached_find('User Account') )
+- user_account = Account.cached_find(@user.account_id)
+/@blog = 
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'profile'
-
-            
+    == render 'accounts/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
     .row
@@ -18,20 +18,21 @@
                    th Account
                    th Role 
                tbody
-                 tr 
-                   td = link_to @user.account.title, account_path(@user.account)
+                 tr
+                   
+                   td = link_to user_account.title, account_path(user_account)
                    td Account Owner
             
                - @user.account_users.each do |account_user|
                  tr
-                   -account = account_user.account
+                   -account = Account.cached_find(account_user.account_id)
                    td =link_to account.title, account_path(account)
                    td = account_user.role
             
       .col-sm-6
         .panel
           .panel-body
-            -user_account = @user.account
+            /-user_account = @user.account
             h3 Account Info
             .thumbnail
               = image_tag user_account.logo_url
@@ -73,7 +74,7 @@
             .row
               .col-xs-12
                 .pull-right
-                  = link_to 'Edit Account Info',edit_account_path(@user.account), class: 'btn btn-primary'
+                  = link_to 'Edit Account Info',edit_account_path(user_account), class: 'btn btn-primary'
                   
         .panel
           .panel-body    

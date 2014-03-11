@@ -1,16 +1,18 @@
 -session[:return_url] = request.url
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'home'
+    == render 'accounts/shared/navbar', page: 'account'
 
             
   .container
     ==render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account) }, current: 'users'}
-    .row
-      .col-sm-12
-        h1 = @title_and_body.title
-        = simple_format @title_and_body.body
+    
+
+                                         
+                                         
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Users with access to the account'}
+
     .row
       .col-sm-12
         .panel

@@ -4,17 +4,14 @@ class AccountUsersController < ApplicationController
   #respond_to :html, :xml, :json
 
   def index
-    @blog = Blog.account_users
-    @title_and_body  = BlogPost.where(identifier: 'Page Title and Body', blog_id: @blog.id)
-                                         .first_or_create(identifier: 'Page Title and Body', blog_id: @blog.id, title: 'Users', body: 'Users with access to the account')
     
   end
   
   def show
-    @blog = Blog.account_users
-    @client_permissions  = BlogPost.where(identifier: 'Client Permissions', blog_id: @blog.id)
-                                         .first_or_create(identifier: 'Client Permissions', blog_id: @blog.id, title: 'Client Permissions', body: 'What this client can access')
-    @account_user = AccountUser.find(params[:id])
+    #@blog = Blog.cached_find('Account Users')
+    #@client_permissions  = BlogPost.where(identifier: 'Client Permissions', blog_id: @blog.id)
+    #                                     .first_or_create(identifier: 'Client Permissions', blog_id: @blog.id, title: 'Client Permissions', body: 'What this client can access')
+    @account_user = AccountUser.find_by_cached_id(params[:id])
   end
   
   def new
@@ -60,21 +57,17 @@ class AccountUsersController < ApplicationController
 
   def edit
     
-    @account_user = AccountUser.find(params[:id])
+    @account_user = AccountUser.find_by_cached_id(params[:id])
     @roles = AccountUser::ROLES
     @roles.delete("Account Owner") #unless current_user.super?
     
-    @blog = Blog.account_users
-    @administrator  = BlogPost.where(identifier: 'Administrator', blog_id: @blog.id)
-                                         .first_or_create(identifier: 'Administrator', blog_id: @blog.id, title: 'Administrator', body: 'Administrators has global access to all content')
-    @client  = BlogPost.where(identifier: 'Client', blog_id: @blog.id)
-                                         .first_or_create(identifier: 'Client', blog_id: @blog.id, title: 'Client', body: 'You will grand client permission on a pr asset basis')
+   
     
   end
   
   def update
     
-    @account_user = AccountUser.find(params[:id])
+    @account_user = AccountUser.find_by_cached_id(params[:id])
     params[:account_user][:version] = @account_user.version + 1
     @account_user.update(account_user_params)
     
@@ -89,13 +82,15 @@ class AccountUsersController < ApplicationController
   end
   
   def destroy
-    account_user = AccountUser.find(params[:id])
+    account_user = AccountUser.find_by_cached_id(params[:id])
     account_user.destroy
     
     flash[:info] = { title: "User removed", body: "the user has no more access to this account" }
     redirect_to_return_url account_path(@account)
     #redirect_to :back
   end
+  
+  
 private
 
   #def invite( account, user, role )

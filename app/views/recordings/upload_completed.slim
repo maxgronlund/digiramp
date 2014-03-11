@@ -4,16 +4,18 @@
   .do           
     .container
       == render 'admin/shared/messages'
+      
+      - upload_completed = BlogPost.cached_find( 'Upload Completed' , @blog )
+      
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               assets: account_assets_path(@account), \
                                                               recordings: account_recordings_path(@account), \
-                                                              }, current: @upload_completed.title}
+                                                              }, current: upload_completed.title}
       
       
-
+      == render 'shared/page_title', locals: {blog: @blog, blog_post: 'Upload Completed'}
       .row
         .col-sm-12
-          h3 =@upload_completed.title
           .thumbnail
             = image_tag @recording.thumbnail
         .col-sm-12
@@ -31,6 +33,7 @@
             .panel-body
               = simple_form_for [ @account, @recording ], :url => url_for(:action => 'select_category', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
                 = f.input :title
+                = f.input :isrc_code, hint: 'fogb', label: 'ISRC Code',:input_html => {  placeholder: "ISRC Code"}
                 = f.input :has_lyrics, label: 'This recording has lyrics'
                 = f.input :explicit
                 .pull-right
@@ -38,7 +41,7 @@
         .col-sm-6
           .panel
             .panel-body
-              = @upload_completed.body
+              = upload_completed.body
   
             /h4 = @cinematic.title
             /= f.submit "", :type => :image, :src => "#{@cinematic.image_url(:size_570x320)}", class: 'img-responsive'

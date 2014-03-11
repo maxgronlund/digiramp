@@ -7,7 +7,7 @@ class Admin::AccountsController < ApplicationController
   end
   
   def show
-     @account = Account.find(params[:id])
+     @account = Account.cached_find(params[:id])
   end
   
   def new
@@ -15,17 +15,17 @@ class Admin::AccountsController < ApplicationController
   end
   
   def edit
-    @account = Account.find(params[:id])
+    @account = Account.cached_find(params[:id])
   end
   
   def update
-    @account = Account.find(params[:id])
+    @account = Account.cached_find(params[:id])
     @account.update_attributes(account_params)
-    redirect_to edit_admin_account_path( @account)
+    redirect_to admin_account_path( @account)
   end
   
   def destroy
-    @account = Account.find(params[:id])
+    @account = Account.cached_find(params[:id])
     flash[:info] = { title: "Success", body: "Account #{@account.title} deleted" }
     @account.destroy
     redirect_to admin_accounts_path

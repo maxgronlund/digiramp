@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140309212240) do
+ActiveRecord::Schema.define(version: 20140310223222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,13 +64,12 @@ ActiveRecord::Schema.define(version: 20140309212240) do
     t.integer  "users_count",        default: 0, null: false
     t.integer  "documents_count",    default: 0, null: false
     t.date     "expiration_date"
-    t.integer  "administrator_id"
     t.integer  "visits",             default: 0
     t.integer  "works_cache_key",    default: 0
     t.string   "logo"
+    t.integer  "rec_cache_version",  default: 0
   end
 
-  add_index "accounts", ["administrator_id"], name: "index_accounts_on_administrator_id", using: :btree
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
 
   create_table "activity_events", force: true do |t|

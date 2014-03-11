@@ -1,5 +1,5 @@
 -session[:return_url] = request.url
-- add_mood = BlogPost.get_post( 'Add Mood' , @blog )
+- add_mood = BlogPost.cached_find( 'Add Mood' , @blog )
 #wrap
   .full-width-top
     == render 'accounts/shared/navbar', page: 'account'

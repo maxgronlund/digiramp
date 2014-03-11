@@ -11,7 +11,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @blog = Blog.user_account
 
   end
 
@@ -25,30 +24,39 @@ class UsersController < ApplicationController
 
   def create
     #if User.where(email: params[:user][:email]).nil?
-      @user = User.new(user_params)
       
-      if @user.save!
+      params[:user][:name]  = params[:user][:email]
+      params[:user][:role]  = 'cuctomer'
+      @user = User.new(user_params)
+      blog              = Blog.cached_find('Sign Up')
+      if @user.save
+       
+        
         @account = Account.create(title: @user.email, 
                                   user_id: @user.id, 
-                                  expiration_date: Date.current()>>3,
-                                  administrator_id: @user.id,
+                                  expiration_date: Date.current()>>1,
                                   contact_email: @user.email,
                                   visits: 1,
-                                  account_type: 'free account' )
+                                  account_type: Account::ACCOUNT_TYPES[:not_confirmed] )
                                   
         AccountUser.create(user_id: @user.id, account_id: @account.id, role: 'Administrator')
         
         @user.account_id          = @account.id
         @user.current_account_id  = @account.id
         @user.save!
-        flash[:info] = { title: "Success", body: "you are signed up" }
+        
+        blog              = Blog.cached_find('Sign Up')
+        blog_post         = BlogPost.cached_find('Sucess', blog)
+        flash[:success]   = { title: blog_post.title, body: blog_post.body }
         
         # signout if you was signed in as another user
         cookies.delete(:auth_token)
         sign_in
         redirect_to account_path(@account)
       else
-        flash[:error] = { title: "Error", body: "Something went wrong, please check Password. Password confirmation and email, you might already have an account?" }
+        blog_post         = BlogPost.cached_find('Error', blog)
+        flash[:error]   = { title: blog_post.title, body: blog_post.body }
+        #flash[:error] = { title: "Error", body: "Something went wrong, please check Password. Password confirmation and email, you might already have an account?" }
         redirect_to root_path
       end
     #else
@@ -73,7 +81,13 @@ class UsersController < ApplicationController
       #  title: "Updated #{@user.name}",
       #  r: true,
       #  activity_url: account_user_path( @account, @user)
-      redirect_to user_path(@user)
+      account = Account.cached_find(@user.account_id)
+      account.rec_cache_version += 1 
+      account.save! 
+      
+      @user.flush_auth_token_cache(cookies[:auth_token])
+
+      redirect_to_return_url user_path(@user)
     else
       flash[:error] = { title: "Error", body: "Check if password and password confirmation matched" }
       redirect_to edit_user_path( @user)
@@ -105,9 +119,7 @@ private
     @user = User.cached_find(params[:id])
   end
   
-  #def find_account
-  #  @account = Account.find(params[:account_id])
-  #end
+
   
   #def add_roles
   #  @roles = AccountUser::ROLES

@@ -42,6 +42,11 @@ class SessionsController < ApplicationController
 
   def destroy
     #session[:user_id] = nil
+    begin 
+      user = User.cached_find_by_auth_token( cookies[:auth_token] )
+      user.flush_auth_token_cache(cookies[:auth_token])
+    rescue
+    end
     cookies.delete(:auth_token)
     reset_session
     redirect_to root_url, notice: "Logged out!"

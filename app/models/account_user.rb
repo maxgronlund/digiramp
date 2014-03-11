@@ -74,11 +74,18 @@ class AccountUser < ActiveRecord::Base
   def self.cached_find(user_id, account_id)
     Rails.cache.fetch([name, user_id, account_id]) { AccountUser.where(user_id: user_id, account_id: account_id).first }
   end
+  
+  def self.find_by_cached_id(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
+  
+
 
 private
 
   def flush_cache
     Rails.cache.delete([self.class.name, user_id, account_id])
+    Rails.cache.delete([self.class.name, id])
   end
   
   #def has_permission_for? action, permitted_model_id

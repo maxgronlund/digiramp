@@ -52,6 +52,16 @@ class Recording < ActiveRecord::Base
   
   CATEGORY = ["super", "cuctomer"]
   
+  after_commit :expire_account_rec_cash
+  
+  
+  def expire_account_rec_cash
+    
+    account.rec_cache_version += 1
+    account.save!
+
+  end
+  
   def file
   end
   

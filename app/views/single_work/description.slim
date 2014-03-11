@@ -4,14 +4,9 @@
     == render 'accounts/shared/navbar', page: 'account'
   .container
     ==render 'admin/shared/messages'
-    .row
-      .col-sm-6
-        h1 = @add_description.title
-        = @add_description.body
-      -if can_edit?
-        .col-sm-6
-          = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @add_description), class: 'btn btn-primary btn-lg'
-    hr
+    
+    == render 'shared/page_title', locals: {blog: @blog, blog_post: @add_description}
+
     ==render 'admin/shared/messages'
     = simple_form_for [@account, @common_work], url: url_for(action: 'update', controller: 'single_work'), method: 'post' do |f|
       = f.error_notification

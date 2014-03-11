@@ -1,7 +1,7 @@
 -session[:return_url] = account_account_users_path( @account )
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'users'
+    == render 'accounts/shared/navbar', page: 'account'
 
             
   .container
@@ -9,17 +9,19 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             users: account_account_users_path(@account), \
                                                             }, current: @account_user.user.name}
-    .row
-      .col-sm-8
-        h1 Permission for #{@account_user.name}
-
-      .col-sm-4
-
-        .pull-right
-          = link_to 'Edit', edit_admin_blog_blog_post_path( @blog, @client_permissions), class: 'btn btn-primary btn-lg'
-    .row 
-      .col-sm-12
-        hr
+    /.row
+    /  .col-sm-8
+    /    h1 Permission for #{@account_user.name}
+    /
+    /  .col-sm-4
+    /
+    /    .pull-right
+    /      = link_to 'Edit', edit_admin_blog_blog_post_path( @blog, @client_permissions), class: 'btn btn-primary btn-lg'
+    /.row 
+    /  .col-sm-12
+    /    hr
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Account Users'), blog_post: 'Client Permissions'}
+    
     .row
       .col-sm-6
         .panel
@@ -35,9 +37,9 @@
               hr
               .pull-right
                 =f.submit 'Save', class: 'btn btn-primary btn-lg'
-      .col-sm-6
-        h3 = @client_permissions.title
-        = simple_format @client_permissions.body
+      /.col-sm-6
+      /  h3 = @client_permissions.title
+      /  = simple_format @client_permissions.body
         /h3 =@administrator.title
         /=@administrator.body
         /-if can_edit?
