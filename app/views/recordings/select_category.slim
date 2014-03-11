@@ -15,7 +15,7 @@
     
     
 
-    == render 'shared/page_title', locals: {blog: @blog, blog_post: 'Select Category}
+    == render 'shared/page_title', locals: {blog: @blog, blog_post: 'Select Category'}
     -begin
       == render "recordings/categories/#{@recording.category}" 
     -rescue
