@@ -1,7 +1,7 @@
 -session[:return_url] = request.url
 
 == render 'shared/page_title', locals: {blog: Blog.cached_find('Welcome'), blog_post: 'Enter User Name'}
-
+-@account.user.name = ''
 =simple_form_for @account.user do |f|
   .row
     .col-sm-6

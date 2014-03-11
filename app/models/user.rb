@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   
   validates_uniqueness_of :email
   validates_presence_of :password, :on => :create
+  validates_presence_of :name, :on => :update
   before_create { generate_token(:auth_token) }
   #before_destroy :delete_accounts
   
@@ -38,7 +39,8 @@ class User < ActiveRecord::Base
   has_many :administrations
   has_many :account_catalogs, through: :administrations
   
-  ROLES = ["super", "cuctomer"]
+  ROLES       = ["super", "cuctomer"]
+  SECRET_NAME = "RGeiHK8yUB6a"
   
   scope :supers,      ->    { where( role: 'super' ).order("email asc")  }
   

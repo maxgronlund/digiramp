@@ -1,9 +1,19 @@
-h1 =@welcome.title
-=@welcome.body
+-blog = Blog.cached_find('Welcome')
+== render 'shared/page_title', locals: {blog: blog, blog_post: 'Welcome'}
 
-=simple_form_for @account do |f|
+-blog_post = BlogPost.cached_find('Introduction', blog)
 
-  .row
-    .col-sm-6
-      =f.input :title
-      = f.submit 'Save', class: 'btn btn-primary btn-lg'
+.row
+  .col-sm-6
+    h3 = blog_post.title
+    
+    .img-responsive
+      = image_tag blog_post.image_url
+    br
+    =simple_format blog_post.body
+
+
+    =simple_form_for @account.user do |f|
+      = f.hidden_field :show_welcome_message, value: false
+      .pull-right
+        = f.submit 'Done', class: 'btn btn-primary btn-lg'

@@ -4,5 +4,5 @@
       = link_to account_collects_path(@account), class: 'btn btn-success' do
         .fa.fa-money
   .col-sm-6
-    h3 COLLECT
+    h3 = link_to 'COLLECT',  account_collects_path(@account)
     'PRO's and ...

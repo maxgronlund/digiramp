@@ -1,5 +1,5 @@
 == render 'shared/page_title', locals: {blog: Blog.cached_find('Welcome'), blog_post: 'Enter Account Name'}
-
+-@account.title = ''
 =simple_form_for @account do |f|
   .row
     .col-sm-6

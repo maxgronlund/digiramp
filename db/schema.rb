@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140310223222) do
+ActiveRecord::Schema.define(version: 20140311085442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -832,8 +832,8 @@ ActiveRecord::Schema.define(version: 20140310223222) do
     t.string   "password_digest"
     t.boolean  "admin"
     t.string   "role"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "image"
     t.text     "crop_params"
     t.text     "profile"
@@ -843,6 +843,7 @@ ActiveRecord::Schema.define(version: 20140310223222) do
     t.integer  "current_account_id"
     t.string   "avatar_url"
     t.integer  "account_id"
+    t.boolean  "show_welcome_message",   default: true
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

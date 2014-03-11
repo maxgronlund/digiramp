@@ -4,5 +4,5 @@
       = link_to account_assets_path(@account), class: 'btn  btn-info' do
         .fa.fa-folder 
   .col-sm-6
-    h3 ASSETS
+    h3 = link_to 'ASSETS', account_assets_path(@account)
     'Recordings, Documents, Footage ..

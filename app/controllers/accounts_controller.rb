@@ -3,14 +3,17 @@ class AccountsController < ApplicationController
 
   def show
     
-    #change this based on the account state
+
     
-    if @account.rec_cache_version == 0
+    #if @account.rec_cache_version == 0
+    if @account.has_no_name?
       @account_status = 'enter_account_name'
-      
-    elsif @account.has_a_name
-      #@enter_user_name   = BlogPost.cached_find('Enter User Name', blog)
+      @account.raise_cache_version
+    elsif @account.owner_has_no_name?
       @account_status = 'enter_user_name'
+      @account.raise_cache_version
+    elsif @account.show_welcome_message?
+      @account_status = 'welcome'
     else
       @account_status = 'dashboard'
     end
@@ -54,14 +57,14 @@ class AccountsController < ApplicationController
   def update
     params[:account][:rec_cache_version] = @account.rec_cache_version + 1    
     @account.update_attributes(account_params)
-    redirect_to account_path( @account)
+    redirect_to_return_url account_path( @account)
   end
   
   def account_params
     params.require(:account).permit!
   end
+
+ 
   
-  
-  
-  
+
 end

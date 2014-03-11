@@ -4,5 +4,5 @@
       = link_to account_customers_path(@account), class: 'btn  btn-default' do
         .fa.fa-phone
   .col-sm-6
-    h3 CUSTOMERS
+    h3 = link_to 'CUSTOMERS',  account_customers_path(@account)
     'Supervisors, Representatives ..

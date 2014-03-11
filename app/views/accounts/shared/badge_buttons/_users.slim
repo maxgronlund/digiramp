@@ -4,5 +4,5 @@
       = link_to account_account_users_path(@account), class: 'btn btn-default' do
         .fa.fa-group
   .col-sm-6
-    h3 USERS
+    h3 = link_to 'USERS',  account_account_users_path(@account)
     'Manage users invited to participate on #{@account.title}

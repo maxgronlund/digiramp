@@ -11,14 +11,14 @@ class BlogPost < ActiveRecord::Base
   
 
   
-  def self.cached_find(identity , blog)
-    Rails.cache.fetch([name, identity , blog.id]) { BlogPost.where(identifier: identity, blog_id: blog.id)\
-                                                             .first_or_create(identifier: identity, blog_id: blog.id, title: identity, body: '') }
+  def self.cached_find(identifier , blog)
+    Rails.cache.fetch([name, identifier , blog.id]) { BlogPost.where(identifier: identifier, blog_id: blog.id)\
+                                                             .first_or_create(identifier: identifier, blog_id: blog.id, title: identifier, body: '') }
   end
   
 private
 
   def flush_cache
-    Rails.cache.delete([self.class.name, identity, blog.id])
+    Rails.cache.delete([self.class.name, identifier, blog.id])
   end
 end

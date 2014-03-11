@@ -37,14 +37,35 @@ class Account < ActiveRecord::Base
   
   #has_many :recording_imports, dependent: :destroy
   #has_many :documents, as: :documentable, dependent: :destroy
-  validates_presence_of :title
+  validates_presence_of :title, :on => :update
   
   #ACCOUNT_TYPES = [ 'catalog owner', 'representative', 'supervisor', 'administrator', 'free account', 'not confirmed']
   
   ACCOUNT_TYPES = { catalog_owner: 'catalog owner', free_account: 'free account', not_confirmed: 'not confirmed' } 
+  SECRET_NAME = "opjeKDV79Ml4"
   
   mount_uploader :logo, LogoUploader
   after_commit :flush_cache
+  
+  def has_no_name?
+    title == Account::SECRET_NAME
+  end
+  
+  def owner_has_no_name?
+    account_owner.name == User::SECRET_NAME
+  end
+  
+  def show_welcome_message?
+    account_owner.show_welcome_message
+  end
+  
+  def account_owner
+    begin
+      User.cached_find(user_id)
+    rescue
+      User.supers.first
+    end
+  end
   
   def videos
     self.recordings.where(media_type: 'Video').order(:title)
@@ -132,6 +153,11 @@ class Account < ActiveRecord::Base
       save!
     end
     return false
+  end
+  
+  def raise_cache_version
+    self.rec_cache_version += 1  
+    self.save
   end
   
   

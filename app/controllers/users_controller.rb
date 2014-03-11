@@ -25,25 +25,26 @@ class UsersController < ApplicationController
   def create
     #if User.where(email: params[:user][:email]).nil?
       
-      params[:user][:name]  = params[:user][:email]
+      params[:user][:name]  = User::SECRET_NAME
       params[:user][:role]  = 'cuctomer'
       @user = User.new(user_params)
       blog              = Blog.cached_find('Sign Up')
       if @user.save
        
         
-        @account = Account.create(title: @user.email, 
+        @account = Account.new(title: Account::SECRET_NAME, 
                                   user_id: @user.id, 
                                   expiration_date: Date.current()>>1,
                                   contact_email: @user.email,
                                   visits: 1,
-                                  account_type: Account::ACCOUNT_TYPES[:not_confirmed] )
-                                  
+                                  account_type: Account::ACCOUNT_TYPES[:not_confirmed],
+                                  )
+        @account.save(validate: false)                       
         AccountUser.create(user_id: @user.id, account_id: @account.id, role: 'Administrator')
         
         @user.account_id          = @account.id
         @user.current_account_id  = @account.id
-        @user.save!
+        @user.save
         
         blog              = Blog.cached_find('Sign Up')
         blog_post         = BlogPost.cached_find('Sucess', blog)
@@ -52,6 +53,7 @@ class UsersController < ApplicationController
         # signout if you was signed in as another user
         cookies.delete(:auth_token)
         sign_in
+        @user.account.raise_cache_version
         redirect_to account_path(@account)
       else
         blog_post         = BlogPost.cached_find('Error', blog)
@@ -90,7 +92,7 @@ class UsersController < ApplicationController
       redirect_to_return_url user_path(@user)
     else
       flash[:error] = { title: "Error", body: "Check if password and password confirmation matched" }
-      redirect_to edit_user_path( @user)
+      redirect_to_return_url edit_user_path( @user)
     end
     
   end

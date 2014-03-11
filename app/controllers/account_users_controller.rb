@@ -82,8 +82,11 @@ class AccountUsersController < ApplicationController
   end
   
   def destroy
-    account_user = AccountUser.find_by_cached_id(params[:id])
+    account_user = AccountUser.cached_find(params[:id], params[:account_id])
     account_user.destroy
+    
+    logger.debug '-----------------------------------------'
+    logger.debug session[:return_url]
     
     flash[:info] = { title: "User removed", body: "the user has no more access to this account" }
     redirect_to_return_url account_path(@account)

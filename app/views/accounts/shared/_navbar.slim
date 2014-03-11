@@ -31,10 +31,13 @@
         /li class="#{page == 'investors' ? 'active' : ''}"
         /  =link_to 'Collect', investors_index_path
       ul class="nav navbar-nav navbar-right"
-        li class="#{page == 'account' ? 'active' : ''}"
-          = link_to current_user.current_account.title.upcase, account_path(current_user.current_account)
-        li class="#{page == 'profile' ? 'active' : ''}"
-          = link_to current_user.name.upcase, user_path(current_user)
+        -unless current_user.current_account.title == Account::SECRET_NAME
+          li class="#{page == 'account' ? 'active' : ''}"
+            = link_to current_user.current_account.title.upcase, account_path(current_user.current_account) 
+            
+        -unless current_user.name == User::SECRET_NAME
+          li class="#{page == 'profile' ? 'active' : ''}"
+            = link_to current_user.name.upcase, user_path(current_user)
         li
           = link_to 'LOGOUT',  logout_path
         

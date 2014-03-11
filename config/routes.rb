@@ -20,6 +20,8 @@ Digiramp::Application.routes.draw do
     resources :drm, only: [:index]
     resources :promotion, only: [:index]
     
+    resources :leave_accounts
+    
     resources :recordings do
       get 'upload_completed'
       post 'select_category'
