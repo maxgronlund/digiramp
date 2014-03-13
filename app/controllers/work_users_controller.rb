@@ -44,16 +44,17 @@ class WorkUsersController < ApplicationController
   def get_persona
     persona = User.where(email: params[:work_user][:email]).first
     unless persona
-      flash[:danger] = { title: "User is not a member", body: "Please ask the person you are about to invite to sign up for an account" }
+      flash[:danger] = { title: "User not a member", body: "Please ask the person you are about to invite to sign up for an account" }
       return nil
     end
     
-    unless account_user = AccountUser.where(user_id: persona.id, account_id: @account.id)
-      
+    unless AccountUser.where(user_id: persona.id, account_id: @account.id).first
+      flash[:danger] = { title: "User not an client", body: "Please add the user as an client to your account first" }
+      return nil
     end
     
     if WorkUser.where(user_id: persona.id, common_work_id: @common_work.id).first
-      flash[:danger] = { title: "User is already added", body: "Please edit the persons permissions instead" }
+      flash[:danger] = { title: "User already added", body: "Please edit the persons permissions instead" }
       return nil
     end
      persona
