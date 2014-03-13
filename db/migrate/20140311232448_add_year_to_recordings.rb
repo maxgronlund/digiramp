@@ -7,7 +7,6 @@ class AddYearToRecordings < ActiveRecord::Migration
     add_column :recordings, :album_name,      :text, default: ''
     add_column :recordings, :genre,           :text, default: ''
     add_column :recordings, :artist,          :text, default: ''
-    add_column :recordings, :comment,         :text, default: ''
     add_column :recordings, :performer,       :text, default: ''
     add_column :recordings, :band,            :string, default: ''
     add_column :recordings, :disc,            :string, default: ''
