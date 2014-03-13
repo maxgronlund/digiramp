@@ -213,6 +213,8 @@ class User < ActiveRecord::Base
     0
   end
   
+
+  
   
   
   #def admin_or_super?

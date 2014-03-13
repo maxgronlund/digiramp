@@ -12,6 +12,20 @@ class WorksController < ApplicationController
     @common_work    = CommonWork.cached_find(params[:id])
     
     if @common_work.is_accessible_by current_user
+      if current_user.can_administrate @account
+        @user_can_access_shared_with          = true
+        @user_can_access_files                = true
+        @user_can_access_legal_documents      = true
+        @user_can_access_financial_documents  = true
+        @user_can_access_ipis                 = true
+      else
+        work_user = WorkUser.where(user_id: current_user.id, common_work_id: @common_work.id).first
+        @user_can_access_files                = work_user.access_files
+        @user_can_access_legal_documents      = work_user.access_legal_documents
+        @user_can_access_financial_documents  = work_user.access_financial_documents
+        @user_can_access_ipis                 = work_user.access_ipis
+      end
+
       render :show
     else
       render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false

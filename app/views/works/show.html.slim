@@ -1,3 +1,5 @@
+-@work_user        
+-@can_administrate 
 #wrap
   .full-width-top
     == render 'accounts/shared/navbar', page: 'account'
@@ -33,7 +35,11 @@
           .panel-body
             == render 'recordings/index', recordings: @common_work.recordings
         
-        == render 'works/shared/personas' if current_user.can_administrate @account
+        == render 'works/shared/personas'             if @user_can_access_shared_with 
+        == render 'works/shared/files'                if @user_can_access_files
+        == render 'works/shared/legal_documents'      if @user_can_access_legal_documents
+        == render 'works/shared/financial_documents'  if @user_can_access_financial_documents
+        == render 'works/shared/ipis'                 if @user_can_access_ipis
         
         
         
