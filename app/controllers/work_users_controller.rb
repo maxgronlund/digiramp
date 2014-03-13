@@ -48,6 +48,10 @@ class WorkUsersController < ApplicationController
       return nil
     end
     
+    unless account_user = AccountUser.where(user_id: persona.id, account_id: @account.id)
+      
+    end
+    
     if WorkUser.where(user_id: persona.id, common_work_id: @common_work.id).first
       flash[:danger] = { title: "User is already added", body: "Please edit the persons permissions instead" }
       return nil

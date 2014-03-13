@@ -1,6 +1,7 @@
 class AddYearToRecordings < ActiveRecord::Migration
   def change
     remove_column :recordings, :duration, :date
+    remove_column :recordings, :year,
     add_column :recordings, :year,            :string, default: 1001
     add_column :recordings, :duration,        :decimal, default: 0.0
     add_column :recordings, :album_name,      :text, default: ''
