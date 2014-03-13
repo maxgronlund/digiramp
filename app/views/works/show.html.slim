@@ -23,21 +23,26 @@
         
     .row
       .col-sm-6
-        = simple_format @common_work.lyrics
+        .panel
+          .panel-body
+            h3 Lyrics
+            .text-center
+              = simple_format @common_work.lyrics
       .col-sm-6
-        = debug @common_work
-    == render 'recordings/index', recordings: @common_work.recordings
-
-      .col-sm-4
-        = link_to 'edit', edit_account_work_path(@account, @common_work)
-
+        .panel
+          .panel-body
+            == render 'recordings/index', recordings: @common_work.recordings
+        
+        == render 'works/shared/personas' if current_user.can_administrate @account
+        
+        
         
     .row
-      .col-sm-4
-    
-      .col-sm-4
-    
-      .col-sm-4
+      .col-sm-12
+        hr
+        .pull-right
+          = link_to 'edit', edit_account_work_path(@account, @common_work), class: 'btn btn-primary btn-lg'
+        
 
   
 #footer

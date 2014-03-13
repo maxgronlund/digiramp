@@ -39,7 +39,10 @@ class RecordingsController < ApplicationController
     logger.debug("PARAMS: #{params[:transloadit].inspect}")
     @recording = Recording.new(audio_upload: params[:transloadit], account_id: @account.id)
     @recording.category = 'none'
+    
     @recording.save!
+    
+   
     
     #@recording.extract_id3_tags_from_audio_file
     
@@ -88,12 +91,23 @@ class RecordingsController < ApplicationController
   def upload_completed
     @recording      = Recording.find(params[:recording_id])
     @blog           = Blog.recordings
-    #@upload_completed = BlogPost.where(identifier: 'Upload Completed', blog_id: @blog.id)\
-    #                            .first_or_create(identifier: 'Upload Completed', blog_id:\
-    #                            @blog.id, title: 'Upload Completed', body: 'Please provide some basic informations so we can find your recording for you')
-    #                            
+    @recording.extract_metadata
+    #@recording.apply_common_work
     
+    if @recording.common_work.nil? && !CommonWork.account_search(@account, @recording.title).empty? 
+      # If the common_work is not set and there is common_works with the same name as the recording
+      redirect_to edit_account_recording_common_work_path(@account, @recording)
+    elsif @recording.common_work.nil?
+      # else if the common_work is not set and there is no common_works with the same title
+      common_work = CommonWork.create(account_id: @recording.account_id, title: @recording.title, lyrics: @recording.lyrics)
+      @recording.common_work_id = common_work.id
+      @recording.save!
+    end                        
   end
+  
+  
+  
+  
   
   def select_category
     @blog               = Blog.recordings

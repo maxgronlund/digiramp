@@ -4,7 +4,7 @@
 
 .row
   .col-sm-6
-    h3 =blog_post.title
+    h1 =blog_post.title
     = simple_format blog_post.body
   .col-sm-6
     -if can_edit?

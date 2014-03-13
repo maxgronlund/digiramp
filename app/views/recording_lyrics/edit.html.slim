@@ -1,0 +1,33 @@
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'profile'     
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            recordings: account_recordings_path(@account), \
+                                                            "#{@recording.title}" => account_recording_path(@account, @recording), \
+                                                            }, current: 'Confirm Mata Data'}
+    .row
+      .col-sm-12
+        h1 Lyrics
+        hr
+    = simple_form_for [ @account, @recording ], :url => url_for(:action => 'update', :controller => 'recording_lyrics'), :method => 'put',  :html => { :id => 'recording' } do |f| 
+      .row
+        .col-sm-6
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
+          
+          =f.input :lyrics, label: false, :input_html => {  style: "height: 460px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
+       
+      .row
+        .col-sm-12
+          .pull-right
+            = f.submit "Save", class: 'btn btn-primary btn-lg'
+
+
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'  

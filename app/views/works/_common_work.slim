@@ -5,7 +5,7 @@
     td 
     td
       .pull-right
-        = link_to 'Show', account_work_path(@account, common_work), class: 'btn btn-default'
+        = link_to 'Show', account_work_path(@account, common_work), 'data-no-turbolink' => true, class: 'btn btn-default'
         '&nbsp;
         = link_to 'Edit', edit_account_work_path(@account, common_work), class: 'btn btn-primary'
         '&nbsp;

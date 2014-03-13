@@ -1,0 +1,16 @@
+.panel
+  .panel-body
+    h3 Common Works I have Access to
+    .table-responsive
+      table class="table table-hover"
+        tbody
+          -WorkUser.where(user_id: @user.id).each do |work_user|
+            -common_work = work_user.common_work
+            -cache (['shared',common_work]) do
+              tr
+                /td = debug user
+                td = common_work.title
+                td 
+                td
+                  .pull-right
+                    = link_to 'Show', account_work_path(common_work.account, common_work), 'data-no-turbolink' => true, class: 'btn btn-default'

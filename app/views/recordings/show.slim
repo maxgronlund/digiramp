@@ -17,10 +17,11 @@
           .col-sm-12
             /h1 =  @recording.audio_upload[:uploads][0][:name]
             h1 =@recording.title
-            -url =  @recording[:audio_upload][:results][:mp3][0][:url]
-            ul class="graphic"
-              li
-                a href="#{url}" =@recording.title
+            /-url =  @recording[:audio_upload][:results][:mp3][0][:url]
+            -if @recording.mp3
+              ul class="graphic"
+                li
+                  a href="#{@recording.mp3}" =@recording.title
              
             
             

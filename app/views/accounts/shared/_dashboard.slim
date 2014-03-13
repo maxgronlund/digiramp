@@ -5,13 +5,15 @@
     .pull-right
       = image_tag @account.logo_url
 .row
-  -if current_user.can_manage 'users', @account
-    .col-sm-6
-      == render 'accounts/shared/badge_buttons/users' 
+  
       
   -if current_user.can_manage 'assets', @account
     .col-sm-6
       == render 'accounts/shared/badge_buttons/assets'
+  
+  -if current_user.can_manage 'users', @account
+    .col-sm-6
+      == render 'accounts/shared/badge_buttons/users'
       
   -if current_user.can_manage 'collect', @account
     .col-sm-6

@@ -1,0 +1,13 @@
+=simple_form_for [@account, @common_work, @work_user] do |f|
+  = f.hidden_field :account_id, value: @account.id
+  = f.hidden_field :common_work_id, value: @common_work.id
+  = f.input :email
+  = f.input :can_edit, label: 'Can Edit Work'
+  hr
+  'What the invited user has access to
+  = f.input :access_files
+  = f.input :access_legal_documents
+  = f.input :access_financial_documents
+  = f.input :access_ipis
+  .pull-right
+    =f.submit 'Save', class: 'btn btn-primary btn-lg'

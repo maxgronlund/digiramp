@@ -1,0 +1,39 @@
+.panel
+  .panel-body
+    b Metadata
+    /= upload_completed.body
+    .table-responsive
+      table class="table"
+        - if @recording.duration   != 0.0 
+          == render 'recordings/shared/meta_line' , locals: {title: 'Duration', data: @recording.duration}
+        
+        - if @recording.bpm   != 0 
+          == render 'recordings/shared/meta_line' , locals: {title: 'BPM', data: @recording.bpm}
+        
+        - if @recording.album_name   != '' 
+          == render 'recordings/shared/meta_line' , locals: {title: 'Album Name', data: @recording.album_name}
+        
+        - if @recording.year   != ''
+          == render 'recordings/shared/meta_line' , locals: {title: 'Year', data: @recording.year}
+        - if @recording.genre   != ''
+          == render 'recordings/shared/meta_line' , locals: {title: 'Genre', data: @recording.genre}
+
+        - if @recording.artist   != ''
+          == render 'recordings/shared/meta_line' , locals: {title: 'Artist', data: @recording.artist}
+        
+        - if @recording.performer   != ''
+          == render 'recordings/shared/meta_line' , locals: {title: 'Performer', data: @recording.performer}
+        
+        - if @recording.band   != ''
+          == render 'recordings/shared/meta_line' , locals: {title: 'Band', data: @recording.band}
+        
+        - if @recording.disc   != ''
+          == render 'recordings/shared/meta_line' , locals: {title: 'Disc', data: @recording.disc}
+        
+        - if @recording.track   != ''
+          == render 'recordings/shared/meta_line' , locals: {title: 'Track', data: @recording.track}
+    hr    
+      .pull-right
+         = link_to 'Edit', '#', class: 'btn btn-primary btn-lg'
+        
+                      

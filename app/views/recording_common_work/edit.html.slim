@@ -1,0 +1,35 @@
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'profile'     
+  .container
+    ==render 'admin/shared/messages'
+   
+    .row
+      .col-sm-12
+        h1 Select Common Work
+        = @common_works.size == 1 ? 'There is a common works with the same title' : 'There are some common works with the same title'
+
+        hr
+        - @common_works.each do |common_work|
+          .panel
+            .panel-body
+              h3 = common_work.title
+              hr
+              .table-responsive
+                table class="table"
+                  -if common_work.iswc_code
+                    tr
+                      td 
+                        .pull-right
+                          'ISWC
+                      td = common_work.iswc_code
+              /=debug common_work
+              = simple_form_for [ @account, @recording ], :url => url_for(:action => 'update', :controller => 'recording_common_work'), :method => 'put',  :html => { :id => 'recording' } do |f| 
+                = f.hidden_field :common_work_id, value: common_work.id
+              
+                .pull-right
+                  = f.submit "Select", class: 'btn btn-primary btn-lg'
+
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'  

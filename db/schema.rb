@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140311165925) do
+ActiveRecord::Schema.define(version: 20140312205806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -717,15 +717,14 @@ ActiveRecord::Schema.define(version: 20140311165925) do
     t.text     "artists"
     t.text     "lyrics"
     t.integer  "bpm"
-    t.time     "duration"
     t.boolean  "instrumental"
     t.date     "release_date"
     t.text     "description"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "account_id"
     t.boolean  "explicit"
-    t.integer  "documents_count",        default: 0, null: false
+    t.integer  "documents_count",        default: 0,      null: false
     t.string   "audio_file"
     t.string   "content_type"
     t.string   "file_size"
@@ -755,6 +754,16 @@ ActiveRecord::Schema.define(version: 20140311165925) do
     t.string   "category"
     t.string   "mp3"
     t.string   "thumbnail"
+    t.string   "year",                   default: "1001"
+    t.decimal  "duration",               default: 0.0
+    t.text     "album_name",             default: ""
+    t.text     "genre",                  default: ""
+    t.text     "artist",                 default: ""
+    t.text     "comment",                default: ""
+    t.text     "performer",              default: ""
+    t.string   "band",                   default: ""
+    t.string   "disc",                   default: ""
+    t.string   "track",                  default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -879,5 +888,23 @@ ActiveRecord::Schema.define(version: 20140311165925) do
 
   add_index "videos", ["song_id"], name: "index_videos_on_song_id", using: :btree
   add_index "videos", ["video_blog_id"], name: "index_videos_on_video_blog_id", using: :btree
+
+  create_table "work_users", force: true do |t|
+    t.integer  "common_work_id"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.string   "email"
+    t.boolean  "can_edit",                   default: false
+    t.boolean  "access_files",               default: false
+    t.boolean  "access_legal_documents",     default: false
+    t.boolean  "access_financial_documents", default: false
+    t.boolean  "access_ipis",                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "work_users", ["account_id"], name: "index_work_users_on_account_id", using: :btree
+  add_index "work_users", ["common_work_id"], name: "index_work_users_on_common_work_id", using: :btree
+  add_index "work_users", ["user_id"], name: "index_work_users_on_user_id", using: :btree
 
 end

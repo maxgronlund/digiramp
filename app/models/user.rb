@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   
   
   has_many :account_users, dependent: :destroy
+  has_many :work_users, dependent: :destroy
   has_many :accounts, :through => :account_users  
   has_many :bugs, dependent: :destroy
   
@@ -163,6 +164,15 @@ class User < ActiveRecord::Base
   def can_access_common_works? account
     if account_user = AccountUser.cached_find( id, account.id)
       return true if account_user.access_to_all_common_works
+    end
+    false
+  end
+  
+  def can_administrate account
+    return true if can_edit?
+    if account_user = AccountUser.cached_find( id, account.id)
+      return true if account_user.role = "Administrator"
+      return true if account_user.role = "Account Owner"
     end
     false
   end

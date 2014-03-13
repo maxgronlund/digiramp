@@ -13,9 +13,9 @@
                                                             'create content'.to_sym => account_add_content_index_path(@account),\
                                                             }, current:  @new_recording.title}
     .row
-      .col-sm-4
+      .col-sm-3
       
-      .col-sm-4
+      .col-sm-6
         .panel
           .panel-body
             h1 Upload Recording
@@ -31,7 +31,7 @@
             
             = transloadit_jquerify :recording, :wait => true
             
-      .col-sm-4
+      .col-sm-3
     
 
   

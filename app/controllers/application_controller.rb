@@ -58,7 +58,11 @@ class ApplicationController < ActionController::Base
   end
   
   def user_is_an_account_user
-    AccountUser.cached_find(user_id: current_user.id, account_id: @account.id)
+    logger.debug '---------------------------------------------'
+    logger.debug current_user.id
+    logger.debug @account.id
+    logger.debug '---------------------------------------------'
+    AccountUser.cached_find(current_user.id, @account.id)
   end
   
   def forbidden

@@ -1,0 +1,52 @@
+#wrap
+  .full-width-top
+    == render 'accounts/shared/navbar', page: 'profile'     
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            recordings: account_recordings_path(@account), \
+                                                            "#{@recording.title}" => account_recording_path(@account, @recording), \
+                                                            }, current: 'Confirm Mata Data'}
+    .row
+      .col-sm-12
+        h1 Please Confirm Meta Data
+        hr
+    = simple_form_for [ @account, @recording ], :url => url_for(:action => 'update', :controller => 'recording_meta_data'), :method => 'put',  :html => { :id => 'recording' } do |f| 
+      .row
+        .col-sm-6
+          = f.input :title
+          = f.input :artist
+          = f.input :band
+          = f.input :year
+          = f.input :isrc_code, label: 'ISRC Code',:input_html => {  placeholder: "ISRC Code"}
+          
+          
+          
+          
+        
+        
+        .col-sm-6
+          .row
+            .col-sm-4
+              = f.input :bpm 
+            .col-sm-4
+              = f.input :disc
+            .col-sm-4
+              = f.input :track
+          = f.input :clearance, label: '200% clearance'
+          = f.input :explicit
+          = f.input :instrumental
+          /= f.input :lyrics
+          = f.input :description
+          = f.input :album_name
+          = f.input :genre
+      .row
+        .col-sm-12
+          .pull-right
+            = f.submit "Save", class: 'btn btn-primary btn-lg'
+
+
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'  

@@ -1,13 +1,19 @@
+
+
+-if recording.mp3
+  ul class="graphic"
+    li
+      a href="#{recording.mp3}" =recording.title
 /-cache (recording) do
-.do
-  tr
-    /td = debug user
-    td = recording.title
-    td 
-    td
-      .pull-right
-        /= link_to 'Show', account_work_path(@account, common_work), class: 'btn btn-default'
-        /'&nbsp;
-        /= link_to 'Edit', edit_account_work_path(@account, common_work), class: 'btn btn-primary'
-        /'&nbsp;
-        /= link_to 'Delete', account_work_path(@account, common_work), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+/.do
+/  tr
+/    /td = debug user
+/    td = recording.title
+/    td 
+/    td
+/      .pull-right
+/        /= link_to 'Show', account_work_path(@account, common_work), class: 'btn btn-default'
+/        /'&nbsp;
+/        /= link_to 'Edit', edit_account_work_path(@account, common_work), class: 'btn btn-primary'
+/        /'&nbsp;
+/        /= link_to 'Delete', account_work_path(@account, common_work), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'

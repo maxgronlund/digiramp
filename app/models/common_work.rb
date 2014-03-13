@@ -14,10 +14,11 @@ class CommonWork < ActiveRecord::Base
   
   has_many :activity_events, as: :activity_eventable
   has_many :documents,       as: :documentable, dependent: :destroy
+  has_many :work_users, dependent: :destroy
   
   #mount_uploader :audio_file, AudioFileUploader
   before_save :update_audio_file_attributes
-  
+  after_commit :flush_cache
   
   
   #title @@ :q or lyrics @@ :q or alternative_titles @@ :q or iswc_code @@ :q or description
@@ -109,11 +110,25 @@ class CommonWork < ActiveRecord::Base
     common_works
   end
   
+  def is_accessible_by user
+    return true  if user.can_manage 'access works', account
+    return true
+    
+  end
+  
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
+
 
 private
   #def update_counter_cache
   #  self.content_type = document.file.content_type
   #end
+  
+  def flush_cache
+    Rails.cache.delete([self.class.name, id])
+  end
 
   def update_audio_file_attributes
     if audio_file.present? && audio_file_changed?

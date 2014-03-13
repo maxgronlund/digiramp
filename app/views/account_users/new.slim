@@ -28,3 +28,5 @@
       /  -if can_edit?
       /    .pull-right
       /      = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @client), class: 'btn btn-primary'
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

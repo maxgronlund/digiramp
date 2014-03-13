@@ -22,6 +22,10 @@ Digiramp::Application.routes.draw do
     
     resources :leave_accounts
     
+    resources :recording_common_work, only: [:edit, :update]
+    resources :recording_meta_data, only: [:edit, :update]
+    resources :recording_lyrics, only: [:edit, :update]
+    
     resources :recordings do
       get 'upload_completed'
       post 'select_category'
@@ -35,8 +39,16 @@ Digiramp::Application.routes.draw do
       get 'add_description'
       get 'add_more_meta_data'
       get 'overview'
+      
+      
+      #resources :meta_datas, only: [:edit, :update]
+    end
+    
+    resources :common_works do
+      resources :work_users
     end
     resources :works
+    
     resources :assets, only: [:index]
     get "add_content/index"
     resources :single_work  do

@@ -13,9 +13,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:sessions][:password])
       flash[:info] = { title: "Success", body: "You are logged in" }
       
-      logger.debug '***************************************************************'
-      logger.debug params
-      logger.debug params[:remember_me]
+      
       if params[:remember_me]
         cookies.permanent[:auth_token] = user.auth_token
       else
@@ -26,9 +24,13 @@ class SessionsController < ApplicationController
         session[:user_id] = current_user.id
         redirect_to admin_index_path
       else
-        user.account.visits += 1
-        user.account.save!
-        redirect_to account_path(user.account)
+        account = Account.cached_find(user.account_id)
+        logger.debug '***************************************************************'
+        logger.debug account.inspect
+        logger.debug '***************************************************************'
+        account.visits += 1
+        account.save!
+        redirect_to account_path(account)
       end
 
     else

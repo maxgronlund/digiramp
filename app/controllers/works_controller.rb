@@ -3,15 +3,19 @@ class WorksController < ApplicationController
   
   def index
     @blog          = Blog.works
-    @manage_works  = BlogPost.where(identifier: 'Manage Works', blog_id: @blog.id).first_or_create(identifier: 'Manage Works', blog_id: @blog.id, title: 'Manage Works') 
-    
-    
-    @common_works = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
-    #@common_works  = @account.common_works.order('title asc').page(params[:page]).per(32)
+    @manage_works  = BlogPost.cached_find('Manage Works' , @blog)
+    @common_works  = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
   end
 
   def show
-    @common_work    = CommonWork.find(params[:id])
+    
+    @common_work    = CommonWork.cached_find(params[:id])
+    
+    if @common_work.is_accessible_by current_user
+      render :show
+    else
+      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+    end
   end
   
   def edit
@@ -19,7 +23,7 @@ class WorksController < ApplicationController
   end
   
   def update
-    @common_work    = CommonWork.find(params[:id])
+    @common_work    = CommonWork.cached_find(params[:id])
     @account.works_cache_key += 1
     @account.save
     if @common_work.update_attributes(common_work_params)
@@ -30,7 +34,7 @@ class WorksController < ApplicationController
   end
   
   def destroy
-    @common_work    = CommonWork.find(params[:id])
+    @common_work    = CommonWork.cached_find(params[:id])
     @common_work.destroy
     @account.works_cache_key += 1
     @account.save
