@@ -2,13 +2,12 @@
 -session[:return_url] = request.url
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'account' 
+    == render 'admin/shared/navbar', page: 'account' 
   
   .container
     ==render 'admin/shared/messages'
 
-    /-cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account), @account.rec_cache_version,'dfs']) do
-    .do
+    -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account), @account.rec_cache_version, @account_status]) do
       == render "accounts/shared/#{@account_status}"
          
       

@@ -4,10 +4,13 @@
 
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'profile'     
+    == render 'admin/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
-   
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name}
+                                                            
+                                                            
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Dashboard'}
     .row
       .col-sm-6  
         == render 'users/shared/accounts_with_access', user_account: user_account  

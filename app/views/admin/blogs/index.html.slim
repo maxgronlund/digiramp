@@ -9,27 +9,30 @@
         ==render 'admin/shared/messages'    
         == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path \
                                                                 }, current: 'blogs'} 
-        h3 Blogs
-        .table-responsive
-          table class="table table-hover"
-            tbody
+                    
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Blogs'}
+        .panel
+          .panel-body
+            .table-responsive
+              table class="table table-hover"
+                tbody
+                
+                  -@blogs.order(:title).each do |blog|
+                    tr
+                      td =blog.title
+                      td =blog.blog_posts.size
+                      td 
+                        .pull-right
+                          =link_to 'Show', admin_blog_path(blog), class: 'btn btn-default'
+                          '&nbsp;
+                          =link_to 'Edit Title', edit_admin_blog_path(blog), class: 'btn btn-primary'
+                          '&nbsp;
+                          =link_to 'Delete', admin_blog_path(blog), method: :delete ,\
+                                                                    data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-warning',\
+                                                                    id: "delete_blog_#{blog.id}"
+                  
+            /br
+            .col-sm-12
+              .pull-right
+                = link_to 'New Blog', new_admin_blog_path, class: 'btn btn-primary btn-lg'
             
-              -@blogs.order(:title).each do |blog|
-                tr
-                  td =blog.title
-                  td =blog.blog_posts.size
-                  td 
-                    .pull-right
-                      =link_to 'Show', admin_blog_path(blog), class: 'btn btn-default'
-                      '&nbsp;
-                      =link_to 'Edit Title', edit_admin_blog_path(blog), class: 'btn btn-primary'
-                      '&nbsp;
-                      =link_to 'Delete', admin_blog_path(blog), method: :delete ,\
-                                                                data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-warning',\
-                                                                id: "delete_blog_#{blog.id}"
-              
-        /br
-        .col-sm-12
-          .pull-right
-            = link_to 'New Blog', new_admin_blog_path, class: 'btn btn-primary'
-        

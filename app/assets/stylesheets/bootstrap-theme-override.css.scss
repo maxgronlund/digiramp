@@ -29,7 +29,7 @@
   h1{
     color: #AF8F25;
     /*text-shadow: -1px -1px #000 !important;*/
-    text-shadow: -1px -1px 1px #000, -1px -1px 1px #000;
+    /*text-shadow: -1px -1px 1px #000, -1px -1px 1px #000;*/
 
     
   }
@@ -90,10 +90,6 @@
 }
 
 
-
-
-
-
 .form-control{ height:45px;}
 .input-group-addon{ 
   height: 45px; 
@@ -102,6 +98,7 @@
   
 }
 
+/*
 .panel-default{
   border-color: #000;
   background-color:#272F3A;
@@ -126,7 +123,46 @@
 } 
 
 
+*/
 
+
+.panel{
+  /*
+  background-color: #1A242E;
+  color:#ddd;
+  */
+  background-color:#E3E3E3;
+  background: image-url('noisebg.png');
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+  background-repeat-x: initial;
+  background-repeat-y: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgb(216,216,220); 
+   /*background: url(../images/img-noise-361x370.png) repeat-x fixed center bottom;*/
+  color:#474747;
+  h3{
+      text-transform: uppercase;
+      color:#6d6d6d;
+      text-shadow: #fff 0 1px 0;
+    }
+}
+
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+padding: 8px;
+line-height: 1.428571429;
+vertical-align: top;
+border-top: 1px solid #545E77;
+}
+
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+  background-color: #E3E3E3;
+}
 
 
 

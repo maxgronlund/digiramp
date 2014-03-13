@@ -5,52 +5,58 @@
   .container
     .row
       .col-sm-12
-        ==render 'admin/shared/messages'
+        == render 'admin/shared/messages'
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: 'accounts'}
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'All DigiRAMP Accounts'}
     -cache([request.url, Admin.cached_find(1).accounts_version]) do  
       .row
         .col-sm-12
-          = form_tag admin_accounts_path, :method => 'get' do
-            .row
-              .col-sm-6
-                br
-                = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search'
-              .col-sm-6
-                br
-                = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-                '&nbsp;
-                = link_to 'Show All',admin_accounts_path, class: 'btn btn-default btn-lg'
-          hr     
-          .table-responsive
-            table class="table table-hover"
-              thead
-                tr
-                  th Account
-                  th Members
-                  th Expires
-                  th Visits
-                  th 
-              tbody
-                -@accounts.each do |account|
-                  -cache(account) do
+          .panel
+            .panel-body
+              = form_tag admin_accounts_path, :method => 'get' do
+                .row
+                  .col-sm-6
+                    br
+                    = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search'
+                  .col-sm-6
+                    br
+                    = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                    '&nbsp;
+                    = link_to 'Show All',admin_accounts_path, class: 'btn btn-default btn-lg'
+              hr
+              .table-responsive
+                table class="table table-hover"
+                  thead
                     tr
-                      td = account.title
-                      td = account.account_users.size
-                      /td class="#{'expired' if account.expiration_date < Date.current }"
-                      /  = account.expiration_date
-                      td  class="#{'expired' if account.expiration_date < Date.current }"
-                        = account.expiration_date
-                      td = account.visits
-                      td
-                        .pull-right
-                          = link_to 'Go To', account_path( account), class: 'btn btn-default'
-                          '&nbsp;
-                          = link_to 'Info', admin_account_path( account), class: 'btn btn-default'
-                          '&nbsp;
-                          = link_to 'Edit', edit_admin_account_path( account), class: 'btn btn-primary'
-                          '&nbsp;
-                          = link_to 'Delete', admin_account_path( account), method: :delete ,\
-                                                                            data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-warning',\
-                                                                            id: "delete_account_#{account.id}"
-                    
-            
-          == paginate(@accounts)
+                      th Account
+                      th Members
+                      th Expires
+                      th Visits
+                      th 
+                  tbody
+                    -@accounts.each do |account|
+                      -cache(account) do
+                        tr
+                          td = account.title
+                          td = account.account_users.size
+                          /td class="#{'expired' if account.expiration_date < Date.current }"
+                          /  = account.expiration_date
+                          td  class="#{'expired' if account.expiration_date < Date.current }"
+                            = account.expiration_date
+                          td = account.visits
+                          td
+                            .pull-right
+                              = link_to 'Go To', account_path( account), class: 'btn btn-default'
+                              '&nbsp;
+                              = link_to 'Info', admin_account_path( account), class: 'btn btn-default'
+                              '&nbsp;
+                              = link_to edit_admin_account_path( account) do
+                                .btn.btn-primary
+                                  i class="fa fa-pencil"
+                              '&nbsp;
+                              = link_to admin_account_path( account), method: :delete ,data: {confirm: 'Are you sure?'} ,id: "delete_account_#{account.id}" do
+                                .btn.btn-danger
+                                  i class="fa fa-times"
+                        
+                
+              == paginate(@accounts)

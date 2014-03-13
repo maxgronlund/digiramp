@@ -1,13 +1,21 @@
 html,
 body{
-  h1,h2,h3,h4,h5,h6{font-family: 'Cinzel', serif;}
+  /*h1,h2,h3,h4,h5,h6{font-family: 'Cinzel', serif;}*/
   height: 100%;
   font-size: 16px;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-color:#E8E8E8;
+  background-color:#CCC;
+  background: image-url('noisebg.png');
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+  background-repeat-x: initial;
+  background-repeat-y: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgb(238, 238, 238); 
+   /*background: url(../images/img-noise-361x370.png) repeat-x fixed center bottom;*/
+  color:#474747;
 }
 
 .green { background-color: #43B44E !important;}
@@ -39,6 +47,7 @@ body{
 .btn-top-margin{
   margin-top:8px;
 }
+
 
 
 .content{
@@ -99,14 +108,13 @@ body{
   border-color:#C5A12A;
   border-width:1px;
 
-  font-family: 'Fenix', serif;
   font-size:26px;
   a:hover{color:white; }
   .navbar{
     margin-bottom: 0px;
     li a {
       color: #FFF;
-      font-family: 'Cinzel', serif;
+      /*font-family: 'Cinzel', serif;*/
       font-size:20px;
     }
     li a:hover{color: #CCD;}
@@ -157,6 +165,49 @@ body{
 .form-control {
   font-size: 18px !important;
 }
+
+.page-title{
+  h1{
+    margin-top: 8px;
+    text-transform:uppercase;
+    -webkit-font-smoothing: antialiased;
+    color: #6d6d6d;
+    /*background: url(../images/theme/gradient.png) repeat-x fixed center bottom;*/
+    text-shadow: #fff 0 1px 0;   
+  }
+  p{color:#fff !important;}
+     
+}
+
+.breadcrumb{
+  
+}
+
+.breadcrumb{
+  margin-bottom: 8px;
+  padding: 8px 0px;
+  background-color: transparent;
+  a{ color: #AF8F25;}
+  border-radius: 0px; 
+  
+}
+
+.full-width-top .navbar li {
+  font-weight:400;
+  a{color:#E6E6E6;}
+  a:hover{color: #fff;}
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #fff;
+}
+
+
+
 
 /*
 input[type="file"]::-webkit-file-upload-button, button {

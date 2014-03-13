@@ -12,6 +12,9 @@
                                                                 blogs: admin_blogs_path, \
                                                                 @blog.title.to_sym => admin_blog_path(@blog), \
                                                                 }, current: @blog_post.title}
-    == render 'form'
+    
+    .panel
+      .panel-body
+        == render 'form'
 
         

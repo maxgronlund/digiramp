@@ -1,7 +1,7 @@
 -session[:return_url] = request.url
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'account'
+    == render 'admin/shared/navbar', page: 'account'
 
             
   .container
@@ -19,14 +19,14 @@
           .panel-body
             .table-responsive
               table class="table table-hover"
-                thead
-                  tr
-                    th User
-                    th Permissions
-                    th
+                /thead
+                /  tr
+                /    th User
+                /    th Permissions
+                /    th
                 tbody
                   -@account.account_users.order('id asc').each do |account_user|
                     tr == render 'account_users/shared/account_user', account_user: account_user
             
             .pull-right
-              = link_to 'Invite Users', new_account_account_user_path(@account), class: 'btn btn-primary btn-lg'
+              = link_to 'Invite Users', new_account_account_user_path(@account), class: 'btn btn-success btn-lg'

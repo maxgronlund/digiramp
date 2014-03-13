@@ -1,11 +1,34 @@
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'profile'     
+    == render 'admin/shared/navbar', page: 'profile'     
   
   .container
-    .row
-      .col-sm-6
-        h3 Edit #{@account.title}
+    -blog      = Blog.add_content
+    -blog_post = BlogPost.cached_find('Create Content' , blog)
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_path(@account.user), \
+                                                            }, current:  'edit'}
+
+    /== render 'shared/page_title', locals: {blog: blog, blog_post: 'Create Content'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Edit Account'}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     == render 'form'
 
   

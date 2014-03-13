@@ -5,49 +5,51 @@
   .container
     .row
       .col-sm-12
-        ==render 'admin/shared/messages'
-
+        == render 'admin/shared/messages'
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: 'users'}
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'All DigiRAMP Users'}
     .row
       .col-sm-12
-        = form_tag admin_users_path, :method => 'get' do
-          .col-sm-6
-            br
-            = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search'
-          .col-sm-6
-            br
-            = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-            '&nbsp;
-            = link_to 'Show All',admin_users_path, class: 'btn btn-default btn-lg'
-            
-            
-            
-            
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                /th User
-                th Name
-                th Email
-                th 
-            tbody
-              -@users.each do |user|
-                -cache (user) do
+        .panel
+          .panel-body
+            = form_tag admin_users_path, :method => 'get' do
+              .row
+                .col-sm-6
+                  br
+                  = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search'
+                .col-sm-6
+                  br
+                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                  '&nbsp;
+                  = link_to 'Show All',admin_users_path, class: 'btn btn-default btn-lg'
+              hr
+
+            .table-responsive
+              table class="table table-hover"
+                thead
                   tr
-                    /td = debug user
-                    td = user.name
-                    td = user.email
-                    td
-                      .pull-right
-                        = link_to 'Show', admin_user_path( user ), class: 'btn btn-default'
-                        '&nbsp;
-                        = link_to 'Edit', edit_admin_user_path( user), class: 'btn btn-primary'
-                        '&nbsp;
-                        = link_to 'Delete', admin_user_path( user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
-                    /td
-                    /  .pull-right
-                    /    = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'
+                    /th User
+                    th Name
+                    th Email
+                    th 
+                tbody
+                  -@users.each do |user|
+                    -cache (user) do
+                      tr
+                        /td = debug user
+                        td = user.name
+                        td = user.email
+                        td
+                          .pull-right
+                            = link_to 'Show', admin_user_path( user ), class: 'btn btn-default'
+                            '&nbsp;
+                            = link_to 'Edit', edit_admin_user_path( user), class: 'btn btn-primary'
+                            '&nbsp;
+                            = link_to 'Delete', admin_user_path( user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+                        /td
+                        /  .pull-right
+                        /    = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'
+                  
               
-          
-        hr  
-        == paginate(@users)
+            hr  
+            == paginate(@users)

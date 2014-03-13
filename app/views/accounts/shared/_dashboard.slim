@@ -1,9 +1,33 @@
+/.row
+/  .col-sm-6
+/    h1 = @account.title
+/  .col-sm-6
+/    .pull-right
+/      = image_tag @account.logo_url
+      
+
+
+- blog = Blog.cached_find( 'Dashboard' )
+- blog_post = BlogPost.cached_find( 'Dashboard' , blog )
+
 .row
   .col-sm-6
-    h1 = @account.title
+    .page-title
+      h1 
+        =@account.title
+        -if can_edit?
+          '&nbsp;
+          = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+             i class="fa fa-pencil"
+    = simple_format blog_post.body
   .col-sm-6
-    .pull-right
-      = image_tag @account.logo_url
+    
+      
+  .col-sm-12
+    hr
+    
+    
+    
 .row
   
       

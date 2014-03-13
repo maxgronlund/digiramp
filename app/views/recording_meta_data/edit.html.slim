@@ -1,6 +1,6 @@
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'profile'     
+    == render 'admin/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \

@@ -4,11 +4,16 @@
 
 .row
   .col-sm-6
-    h1 =blog_post.title
+    .page-title
+      h1 
+        =blog_post.title
+        -if can_edit?
+          '&nbsp;
+          = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+             i class="fa fa-pencil"
     = simple_format blog_post.body
   .col-sm-6
-    -if can_edit?
-      .pull-right
-        = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-primary btn-lg'
+    
+      
   .col-sm-12
     hr

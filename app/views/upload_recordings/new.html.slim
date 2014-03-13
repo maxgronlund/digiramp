@@ -3,7 +3,7 @@
 = javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' 
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'account'
+    == render 'admin/shared/navbar', page: 'account'
         
   .container
     
@@ -11,14 +11,17 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             assets: account_assets_path(@account), \
                                                             'create content'.to_sym => account_add_content_index_path(@account),\
-                                                            }, current:  @new_recording.title}
+                                                            }, current:  'upload recording'}
+                                                            
+
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Upload Recording To Extract'}
     .row
       .col-sm-3
       
       .col-sm-6
         .panel
           .panel-body
-            h1 Upload Recording
+            h3 SELECT FILE
             /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
             = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create', :controller => 'upload_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
               = transloadit :waveform_to_s3 

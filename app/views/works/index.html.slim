@@ -1,23 +1,19 @@
 -session[:return_url] = request.url
 #wrap
   .full-width-top
-    == render 'accounts/shared/navbar', page: 'account'
-  /-cache([ @account.id, @account.works_cache_key, params]) do 
-  .do           
+    == render 'admin/shared/navbar', page: 'account'
+  -cache([ @account.id, @account.works_cache_key, params]) do 
+         
     .container
       ==render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               assets: account_assets_path(@account), \
                                                               }, current: 'works'}
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'Manage Works'}
 
-      .row
-        .col-sm-6
-          h2 = @manage_works.title
-          = @manage_works.body
-        .col-sm-6
-          -if can_edit?
-            .pull-right
-              =link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @manage_works), class: 'btn btn-primary'
+
       .row
           = form_tag account_works_path(@account), :method => 'get' do
             .col-sm-6

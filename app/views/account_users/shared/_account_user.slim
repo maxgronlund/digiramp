@@ -28,6 +28,11 @@
   td
      -unless account_user.role  == 'Account Owner'
       .pull-right
-        = link_to 'Edit', edit_account_account_user_path(@account, account_user), class: 'btn btn-default'
+        = link_to edit_account_account_user_path(@account, account_user) do
+          .btn.btn-primary
+            i class="fa fa-pencil"
+        
         '&nbsp;
-        = link_to 'Remove', account_account_user_path(@account, account_user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+        = link_to account_account_user_path(@account, account_user), data: { confirm: 'Are you sure?' } , :method => :delete do
+          .btn.btn-danger
+            i class="fa fa-times"

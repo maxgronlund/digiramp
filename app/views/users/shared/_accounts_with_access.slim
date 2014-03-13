@@ -3,11 +3,14 @@
 
 .panel
   .panel-body
-    h3 =blog_post.title
+    h3 
+      =blog_post.title
+      -if can_edit?
+        '&nbsp;
+        = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+          i class="fa fa-pencil"
     = simple_format blog_post.body
-    -if can_edit?
-      .pull-right
-        = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-primary btkn-lg'
+    
     
     .table-responsive
       table class="table table-hover"

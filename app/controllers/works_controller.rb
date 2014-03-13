@@ -2,8 +2,7 @@ class WorksController < ApplicationController
   before_filter :there_is_access_to_the_account
   
   def index
-    @blog          = Blog.works
-    @manage_works  = BlogPost.cached_find('Manage Works' , @blog)
+    
     @common_works  = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
   end
 

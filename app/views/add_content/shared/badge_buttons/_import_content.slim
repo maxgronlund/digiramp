@@ -1,0 +1,19 @@
+-blog_post = BlogPost.cached_find('Import Content' , blog)
+.row
+  .col-sm-6
+    .icon-badge
+      = link_to account_add_content_index_path(@account), class: 'btn  btn-warning' do
+        .fa.fa-cloud-download
+  .col-sm-6
+    h3 
+      =link_to blog_post.title, account_add_content_index_path(@account)
+      -if can_edit?
+        '&nbsp;
+        = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+           i class="fa fa-pencil"
+    = simple_format blog_post.body
+    /.pull-right
+    /  .next
+    /    = link_to new_account_upload_recording_path( @account), id: 'upload_recording', 'data-no-turbolink' => true do
+    /      i class="fa fa-arrow-circle-right"
+
