@@ -14,30 +14,29 @@
         -body = link_to @common_work.title, account_work_path(@account, @common_work)
         == render 'shared/page_title_text', locals: {title: @recording.title, body: body}
         .col-sm-6
-          /=debug @recording
-        
+
       == render 'shared/line'
-        
-          
-        /-if can_edit?
-        /  .col-sm-2
-        /    .pull-right
-        /      = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-primary btn-lg'
+
         .col-sm-12
 
       .row
         .col-sm-12
           .thumbnail
-            = image_tag @recording.waveform
+            .wavewrapper
+              .playhead
+              = image_tag @recording.waveform, class: 'waveform img-responsive'
+            
+
         .col-sm-12
-          /= debug @recording.audio_upload[:uploads][0][:meta][:beats_per_minute]
-          ul class="graphic"
-            li
-              a href="#{@recording.mp3}" = @recording.title
-          /h1 =@recording.title
+          dev id="digiramp_player" class="#{@recording.mp3}"
+          
+          .progress
+            div class="progress-bar load-position" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"
+              '0%
+          
+          == link_to 'Play', '#', class: 'btn btn-default', id: 'play-button'
           hr
 
-          
           
       .row
         .col-sm-6
@@ -48,7 +47,7 @@
             .panel-body
               b I'm having an ISRC for this recording
               .pull-right
-                = link_to "Add", '#', class: 'btn btn-default btn-lg'
+                = link_to "Add", '#', class: 'btn btn-default btn-lg', id: 'play-button'
               /= simple_form_for [ @account, @recording ], :url => url_for(:action => 'select_category', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
               /  = f.input :title
               /  = f.input :isrc_code, hint: 'fogb', label: 'ISRC Code',:input_html => {  placeholder: "ISRC Code"}
