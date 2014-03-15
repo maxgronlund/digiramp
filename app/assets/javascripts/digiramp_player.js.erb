@@ -1,0 +1,92 @@
+//soundManager.setup({
+//  //url: "<%= asset_path('flash')%>",
+//
+//  flashVersion: 8, // optional: shiny features (default = 8)
+//  // optional: ignore Flash where possible, use 100% HTML5 mode
+//  // preferFlash: false,
+//  onready: function() {
+//    alert('called');
+//    
+//    // Ready to use; soundManager.createSound() etc. can now be called.
+//  }
+//});
+
+soundManager.setup({
+  // disable or enable debug output
+  debugMode: false,
+  // use HTML5 audio for MP3/MP4, if available
+  preferFlash: false,
+  useFlashBlock: true,
+  // path to directory containing SM2 SWF
+  url: '../../swf/',
+  // optional: enable MPEG-4/AAC support (requires flash 9)
+  flashVersion: 9
+});
+
+// ----
+
+soundManager.onready(function() {
+
+  
+  if($('#digiramp_player')[0]){
+    
+    // show the play-button
+    $('#play-button').css("visibility","visible");
+    // set playhead height
+    $('.playhead').css("height",$('.waveform').height());
+    
+
+    // the sound
+    var mySound = soundManager.createSound({
+      id: 'aSound',
+      url: $('#digiramp_player').attr('class'),
+    });
+    
+    
+    // progress bar
+    mySound.load({
+      
+      whileloading: function() {
+        var loaded = (this.bytesLoaded / this.bytesTotal) * 100;
+        pos_om_pct = loaded.toString();
+        var pos = parseInt(pos_om_pct, 10)
+        pos += '%';
+        
+        $('.progress-bar.load-position').css("width",pos);
+        $('.progress-bar.load-position').html(pos);
+       }
+    });
+    
+
+    // palybutton toogle
+    var playing = false;
+    $( "#play-button" ).click(function() {
+      playing = !playing;
+      // play
+      if(playing){
+        mySound.play({
+          whileplaying: function() {
+            
+            playhead_pos = this.position / this.durationEstimate;
+            pos = playhead_pos * waveform_width;
+
+            var waveform_width = $('.waveform').width();
+
+            $('.playhead').css("margin-left",playhead_pos * waveform_width);
+            $('.playhead').css("height",$('.waveform').height());
+            //$( ".playhead" ).animate({ "left": "-=5px" }, "slow" );
+            //$( ".playhead" ).animate({ "left": "300px" }, "slow" );
+          }
+        });
+      }else{
+        
+        // stop
+        mySound.pause();
+      }
+      
+    });
+  };
+});
+
+
+
