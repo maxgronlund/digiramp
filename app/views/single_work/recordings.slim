@@ -9,28 +9,56 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             assets: account_assets_path(@account), \
                                                             'create content'.to_sym => account_add_content_index_path(@account),\
-                                                            }, current:  @add_recording.title}
-    .row
-      .col-sm-6
-        h1 = @add_recording.title
-        = @add_recording.body
-      -if can_edit?
-        .col-sm-6
-          = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @add_recording), class: 'btn btn-primary btn-lg'
-    hr
+                                                            }, current:  'recordings'}
+    /.row
+    /  .col-sm-6
+    /    h1 = @add_recording.title
+    /    = @add_recording.body
+    /  -if can_edit?
+    /    .col-sm-6
+    /      = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @add_recording), class: 'btn btn-primary btn-lg'
+    /
     ==render 'admin/shared/messages'
-    = simple_nested_form_for [@account, @common_work], url: url_for(action: 'update', controller: 'single_work'), method: 'post' do |f|
-      = f.error_notification
-      = f.hidden_field :account_id, value: @account.id
-      = f.hidden_field :step, value: 'recordings added'
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Recordings'} 
+    .row
       
-      = f.fields_for :recordings
-      
-      hr
-      = f.link_to_add 'Add recording', :recordings, :class => 'btn btn-default btn-lg'
-      
+      .col-sm-6
+        .panel
+          .panel-body
+            h3 SELECT FILE
+            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+            = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create_recording', :controller => 'single_work'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+              = transloadit :recording_with_thumbs 
+              /= form.label      :file, 'File to upload' 
+              = f.file_field :file
+              hr
+              .pull-right
+                = f.submit 'Upload', class: 'btn btn-primary btn-lg'
+            
+            
+            = transloadit_jquerify :recording, :wait => true
+            
 
-        
+    
+            
+      .col-sm-6
+    .row
+      .col-sm-12
+        -@common_work.recordings.each do |recording|
+          = debug recording
+      
+    /= simple_nested_form_for [@account, @common_work], url: url_for(action: 'update', controller: 'single_work'), method: 'post' do |f|
+    /  = f.error_notification
+    /  = f.hidden_field :account_id, value: @account.id
+    /  = f.hidden_field :step, value: 'recordings added'
+    /  
+    /  = f.fields_for :recordings
+    /  
+    /  hr
+    /  = f.link_to_add 'Add recording', :recordings, :class => 'btn btn-default btn-lg'
+    /  
+    /
+    /    
       
       
       .col-sm-12

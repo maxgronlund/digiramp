@@ -1,5 +1,6 @@
--@work_user        
--@can_administrate 
+-session[:return_url] = request.url
+/-@work_user        
+/-@can_administrate 
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
@@ -14,26 +15,33 @@
     .row
       .col-sm-6
         h3 =@common_work.title
+        'ISWC Code: 
+        '&nbsp;
+        = @common_work.iswc_code
       .col-sm-6
-        .pull-right
-          'ISWC Code: 
-          '&nbsp;
-          = @common_work.iswc_code
+        .hidden-xs
+          .pull-right
+            br
+            = link_to edit_account_work_path(@account, @common_work) do
+              .btn.btn-primary.btn-lg
+                i class="fa fa-pencil"
+          
       .col-sm-12
         hr
       
         
     .row
+      
+      .col-sm-6
+        .panel
+          .panel-body
+            == render 'works/shared/recordings', recordings: @common_work.recordings
       .col-sm-6
         .panel
           .panel-body
             h3 Lyrics
             .text-center
               = simple_format @common_work.lyrics
-      .col-sm-6
-        .panel
-          .panel-body
-            == render 'recordings/index', recordings: @common_work.recordings
         
         == render 'works/shared/personas'             if @user_can_access_shared_with 
         == render 'works/shared/files'                if @user_can_access_files
@@ -42,18 +50,11 @@
         == render 'works/shared/ipis'                 if @user_can_access_ipis
         
         
-        
-    .row
-      .col-sm-12
-        hr
-        .pull-right
-          = link_to 'edit', edit_account_work_path(@account, @common_work), class: 'btn btn-primary btn-lg'
-        
-
-  
-#footer
-  .container
-    .footer
+    .visible-xs   
       .row
         .col-sm-12
-          '©2014 All rights reserved
+          hr
+          .pull-right
+            = link_to 'edit', edit_account_work_path(@account, @common_work), class: 'btn btn-primary btn-lg'
+        
+

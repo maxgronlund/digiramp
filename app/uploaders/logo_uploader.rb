@@ -36,8 +36,16 @@ class LogoUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   version :default do
     #process :resize_to_fit => [200, 113]
-    resize_and_pad(170, 50,:transparent,'Center')
-    process :convert => 'png'
+    #resize_and_pad(340, 96,:transparent,'Center')
+    #process :convert => 'png'
+    process :resize_to_fit => [600, 600]
+  end
+  
+  version :small do
+    #process :resize_to_fit => [200, 113]
+    #resize_and_pad(170, 48,:transparent,'Center')
+    #process :convert => 'png'
+    process :resize_to_fit => [150, 150]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

@@ -1,21 +1,22 @@
 
 .panel
   .panel-body
-    /-user_account = @user.account
-    h3 Account Info
-    .thumbnail
-      = image_tag user_account.logo_url
+    .row
+      .col-sm-6
+        h3 Account Info
+      .col-sm-6
+        = image_tag user_account.logo_url(:default), class: 'img-responsive'
     h4 = user_account.title
     = simple_format user_account.description
     
     .table-responsive
       table class="table"
         tr
-          td Name:
-          td 
-            = user_account.contact_first_name
-            '&nbsp;
-            = user_account.contact_last_name
+          td First Name:
+          td = user_account.contact_first_name
+        tr
+          td Last Name
+          td = user_account.contact_last_name
         tr
           td Email:
           td = user_account.contact_email
@@ -43,4 +44,6 @@
     .row
       .col-xs-12
         .pull-right
-          = link_to 'Edit Account Info',edit_account_path(user_account), class: 'btn btn-primary btn-lg'
+          /= link_to 'Edit Account Info',edit_account_path(user_account), class: 'btn btn-primary btn-lg'
+          = link_to  edit_account_path(user_account), class: 'btn btn-primary btn-lg', id: 'edit_account_info' do
+            i class='fa fa-pencil'

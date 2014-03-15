@@ -29,10 +29,10 @@
      -unless account_user.role  == 'Account Owner'
       .pull-right
         = link_to edit_account_account_user_path(@account, account_user) do
-          .btn.btn-primary
+          .btn.btn-primary.btn-lg
             i class="fa fa-pencil"
         
         '&nbsp;
         = link_to account_account_user_path(@account, account_user), data: { confirm: 'Are you sure?' } , :method => :delete do
-          .btn.btn-danger
+          .btn.btn-danger.btn-lg
             i class="fa fa-times"

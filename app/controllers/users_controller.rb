@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   def update
     
     if @user.update(user_params)
-      #flash[:info] = { title: "Success", body: "#{@user.name} successfully updatet" }
+      flash[:info] = { title: "Success", body: "#{@user.name} successfully updatet" }
       #@user.activity_events.create! \
       #  activity_log_id: @account.activity_log.id,
       #  user_id: current_user.id,

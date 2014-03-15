@@ -7,7 +7,7 @@
   .container
     ==render 'admin/shared/messages'
     -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account)]) do
-      -blog = Blog.add_content
+      -blog = Blog.cached_find('Add Content')
       -blog_post = BlogPost.cached_find('Create Content' , blog)
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               assets: account_assets_path(@account), \

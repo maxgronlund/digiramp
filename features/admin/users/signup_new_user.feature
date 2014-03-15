@@ -1,6 +1,6 @@
 #cucumber features/admin/users/signup_new_user.feature -r features
 
-@admin_site
+#@admin_site
 #
 #Feature: As an guest I can sign up
 #

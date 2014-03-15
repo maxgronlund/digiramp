@@ -3,8 +3,7 @@
     -if @recording.lyrics.nil?     
       .pull-right
         = link_to 'Add Lyrics', '#', class: 'btn btn-primary btn-lg'
-    -else  
-      
-          b Lyrics
-          hr
-          = simple_format @recording.lyrics
+    -else
+      .text-center
+        = simple_format @recording.lyrics
+        hr

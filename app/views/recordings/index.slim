@@ -11,7 +11,7 @@
                                                               
 
       
-      == render 'shared/page_title', locals: {blog: @blog, blog_post: 'Manage Recordings'}
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Recordings'), blog_post: 'Manage Recordings'}
       .row
         = form_tag account_recordings_path(@account), :method => 'get' do
           .col-sm-6
@@ -22,53 +22,64 @@
             = submit_tag 'Search', class: 'btn btn-primary btn-lg'
             '&nbsp;
             = link_to 'Show All',account_recordings_path(@account), class: 'btn btn-default btn-lg'
-            
+      br
+      br    
       .row
         .col-sm-12
-          .hidden-xs
-            == paginate(@recordings)
-          .visible-xs
-            br
-            .btn-group.btn-group-sm
-              = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
-              = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
-            br
-            br
-      .row    
-        .col-sm-12
-          .table-responsive
-            table class="table table-hover"
-              tbody
-                - @recordings.each do |recording|
-                  /-cache (recording) do
-                  .do
-                    tr
-                      /td = debug user
-                      td = recording.title
-                      td 
-                      td
-                        .pull-right
-                          -if recording.common_work
-                            = link_to 'Show', account_common_work_recording_path(@account, recording.common_work, recording), 'data-no-turbolink' => true , class: 'btn btn-default'
-                            '&nbsp;
-                            = link_to 'Edit', edit_account_common_work_recording_path(@account, recording.common_work, recording), class: 'btn btn-primary'
-                            '&nbsp;
-                            = link_to 'Delete', account_common_work_recording_path(@account, recording.common_work, recording), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
-                          -else
-                            = link_to 'Show', account_recording_path(@account, recording), 'data-no-turbolink' => true, class: 'btn btn-default'
-                            '&nbsp;
-                            = link_to 'Delete', account_common_work_recording_path(@account, CommonWork.first, recording), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
-                            
-                          
-          hr  
-          .hidden-xs
-            == paginate(@recordings)
-          .visible-xs
-            .btn-group
-              = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
-              = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
-      
-      
+          .panel
+            .panel-body
+              
+              .hidden-xs
+                == paginate(@recordings)
+              .visible-xs
+                br
+                .btn-group.btn-group-sm
+                  = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
+                  = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+                br
+                br
+            
+              
+              .table-responsive
+                table class="table table-hover"
+                  tbody
+                    - @recordings.each do |recording|
+                      /-cache (recording) do
+                      .do
+                        tr
+                          td = link_to recording.title, account_common_work_recording_path(@account, recording.common_work, recording), 'data-no-turbolink' => true 
+                          td
+                            .img-responsive
+                              = link_to image_tag( recording.thumbnail), account_common_work_recording_path(@account, recording.common_work, recording), 'data-no-turbolink' => true 
+                  
+                          td 
+                          td
+                            .pull-right
+                              -if recording.common_work
+                                = link_to edit_account_common_work_recording_path(@account, recording.common_work, recording) do
+                                  .btn.btn-primary
+                                    i class='fa fa-pencil'
+                                '&nbsp;
+                                = link_to account_common_work_recording_path(@account, recording.common_work, recording), data: { confirm: 'Are you sure?' } , :method => :delete do
+                                  .btn.btn-danger
+                                    i class="fa fa-times"
+
+                              -else
+                                = link_to account_common_work_recording_path(@account, CommonWork.first, recording), data: { confirm: 'Are you sure?' } , :method => :delete do
+                                  .btn.btn-danger
+                                    i class="fa fa-times"
+
+                                
+                              
+               
+              .hidden-xs
+                == paginate(@recordings)
+              .visible-xs
+                .btn-group
+                  = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
+                  = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+            
+            
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

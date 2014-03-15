@@ -1,13 +1,16 @@
--cache (common_work) do
+-cache (common_work.updated_at) do
   tr
     /td = debug user
-    td = common_work.title
+    td = link_to common_work.title, account_work_path(@account, common_work), 'data-no-turbolink' => true
     td 
     td
       .pull-right
-        = link_to 'Show', account_work_path(@account, common_work), 'data-no-turbolink' => true, class: 'btn btn-default'
+        = link_to edit_account_work_path(@account, common_work) do 
+          .btn.btn-primary
+            i class="fa fa-pencil"
         '&nbsp;
-        = link_to 'Edit', edit_account_work_path(@account, common_work), class: 'btn btn-primary'
-        '&nbsp;
-        = link_to 'Delete', account_work_path(@account, common_work), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+        = link_to account_work_path(@account, common_work), data: { confirm: 'Are you sure?' } , :method => :delete do
+          .btn.btn-danger
+            i class="fa fa-times"
+  
   

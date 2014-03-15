@@ -5,7 +5,8 @@
     .container
       == render 'admin/shared/messages'
       
-      - blog_post = BlogPost.cached_find( 'Upload Completed' , @blog )
+      - blog = Blog.cached_find('Recordings')
+      - blog_post = BlogPost.cached_find( 'Upload Completed' , blog )
       
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               assets: account_assets_path(@account), \
@@ -21,23 +22,23 @@
             = simple_format blog_post.body
             
         .col-sm-4
-          -if @common_works
-            = debug @common_works
-          
-          = link_to "No thanks I'm done", edit_admin_blog_blog_post_path(@blog, blog_post), class: 'btn btn-default btn-lg'
+          /-if @common_works
+          /  = debug @common_works
+          /
+          = link_to "No thanks I'm done",'#', class: 'btn btn-default btn-lg'
           br
           br
           
-        -if can_edit?
-          .col-sm-2
-            .pull-right
-              = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, blog_post), class: 'btn btn-primary btn-lg'
-        .col-sm-12
+        /-if can_edit?
+        /  .col-sm-2
+        /    .pull-right
+        /      = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-primary btn-lg'
+        /.col-sm-12
 
       .row
         .col-sm-12
           .thumbnail
-            = image_tag @recording.thumbnail
+            = image_tag @recording.waveform
         .col-sm-12
           /= debug @recording.audio_upload[:uploads][0][:meta][:beats_per_minute]
           ul class="graphic"
@@ -60,7 +61,7 @@
             .panel-body
               b I'm having an ISRC for this recording
               .pull-right
-                = link_to "Add", edit_admin_blog_blog_post_path(@blog, blog_post), class: 'btn btn-default btn-lg'
+                = link_to "Add", '#', class: 'btn btn-default btn-lg'
               /= simple_form_for [ @account, @recording ], :url => url_for(:action => 'select_category', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
               /  = f.input :title
               /  = f.input :isrc_code, hint: 'fogb', label: 'ISRC Code',:input_html => {  placeholder: "ISRC Code"}

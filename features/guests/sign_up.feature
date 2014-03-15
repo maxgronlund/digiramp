@@ -17,17 +17,21 @@ Feature: As an guest I can sign up
     When I click on the link "LOG IN"
     Then I can fill in the sign up form
     When I click on the button "Sign Up"
-    Then I can see "Enter Account Name"
+    Then I can see "ENTER ACCOUNT NAME"
     Then Im filling in the account name with Johns Music
     When I click on the button "Save"
     Then Im filling in the user name with John Smith
     When I click on the button "Save"
-    Then I can see "Welcome"
+    Then I can see "WELCOME"
     When I click on the button "Done"
     #When I click on the link "Add Content"
-    Then I can see "Accounts I can access"
+    Then I can see "ASSETS"
+    Then I can see "USERS"
+    When I click on the link "DASHBOARD" 
+    
+    Then I can see "ACCOUNTS"
     Then I can see "Johns Fine Music"
-    When I click on the link "Edit Account Info" 
+    Then I click on a link with id "edit_account_info" 
     Then I can fill in the account info
     When I click on the button "Save"
     Then I can see "John"
@@ -39,8 +43,8 @@ Feature: As an guest I can sign up
     Then I can see "Los Angeles"
     Then I can see "Calefornia"
     Then I can see "500600"
-    When I click on the link "Edit"
-    Then I can see "Edit User Profile"
+    Then I click on a link with id "edit_user_profile" 
+    Then I can see "EDIT USER PROFILE"
     When I click on the button "Save"
     Then I can see "Success"
     Then I can see "Burbank Bulleward"

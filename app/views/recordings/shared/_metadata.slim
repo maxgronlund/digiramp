@@ -1,6 +1,6 @@
 .panel
   .panel-body
-    b Metadata
+
     /= upload_completed.body
     .table-responsive
       table class="table"
@@ -34,6 +34,8 @@
           == render 'recordings/shared/meta_line' , locals: {title: 'Track', data: @recording.track}
     hr    
       .pull-right
-         = link_to 'Edit', '#', class: 'btn btn-primary btn-lg'
-        
+         = link_to  '#' do
+          .btn.btn-primary.btn-lg
+            i class="fa fa-pencil"
+          
                       

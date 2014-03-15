@@ -53,6 +53,7 @@ Digiramp::Application.routes.draw do
     get "add_content/index"
     resources :single_work  do
       post 'update'
+      post 'create_recording'
       get 'show'
       get 'edit'
       get 'description'

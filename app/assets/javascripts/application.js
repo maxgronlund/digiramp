@@ -12,15 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
-// require jquery.ui.all
 //= require turbolinks
 //= require bootstrap/bootstrap
 //= require jquery_nested_form
 //= require simple
 //= require wysihtml5-0.4.0pre
-//= require super_simple_wysiwyg
 //= require soundmanager2
 //= require inlineplayer
+//= requiry jquery.transloadit2-v2-latest
+//= require super_simple_wysiwyg
 // require_tree .
 
 

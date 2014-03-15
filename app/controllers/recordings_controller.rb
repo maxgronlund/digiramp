@@ -3,7 +3,7 @@ class RecordingsController < ApplicationController
   before_filter :there_is_access_to_the_account
   
   def index
-    @blog               = Blog.recordings
+    #@blog               = Blog.recordings
     
     
     #@recordings         = @account.recordings
@@ -15,7 +15,7 @@ class RecordingsController < ApplicationController
   end
 
   def show
-    #@common_work    = CommonWork.find(params[:common_work_id])
+    @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
     #logger.debug '------------------------------------------------'
     #logger.debug @recording[:audio_upload][:results][:mp3].size
@@ -29,24 +29,38 @@ class RecordingsController < ApplicationController
   end
   
   def new
-    
-    #@new_recording    = BlogPost.where(identifier: 'New Recording', blog_id: @blog.id).first_or_create(identifier: 'New Recording', blog_id: @blog.id, title: 'New Recording', body: 'New recording')
-    @recording        = Recording.new
-    
+    @common_work    = CommonWork.cached_find(params[:common_work_id])
+    @recording      = Recording.new
   end
   
   def create
-    logger.debug("PARAMS: #{params[:transloadit].inspect}")
-    @recording = Recording.new(audio_upload: params[:transloadit], account_id: @account.id)
-    @recording.category = 'none'
-    
+    @common_work          = CommonWork.cached_find(params[:common_work_id])
+    @recording            = Recording.new(audio_upload: params[:transloadit], account_id: @account.id, title: params[:title], common_work_id: @common_work.id)
+    @recording.title      =  @recording.audio_upload[:uploads][0][:name]
+    @recording.mp3        = @recording.audio_upload[:results][:mp3][0][:url]
+    @recording.waveform   = @recording.audio_upload[:results][:waveform][0][:url]
+    @recording.thumbnail  = @recording.audio_upload[:results][:thumbnail][0][:url]
+    @recording.category   = 'none'
     @recording.save!
+    @recording.extract_metadata
+    @recording.update_completeness
     
-   
+    redirect_to account_work_path(@account, @common_work )
     
-    #@recording.extract_id3_tags_from_audio_file
     
-    redirect_to account_recording_upload_completed(@account, @recording )
+    
+    
+    
+    
+    #@recording = Recording.new(audio_upload: params[:transloadit], account_id: @account.id)
+    #@recording.category = 'none'
+    #@recording.save!
+    #
+    #
+    #
+    #
+    #
+    #redirect_to account_recording_upload_completed(@account, @recording )
     #Rails.logger.info("PARAMS: #{params[:transloadit].inspect}")
     #
     #@recording = Recording.new(audio_upload: params[:transloadit])
@@ -90,10 +104,8 @@ class RecordingsController < ApplicationController
   
   def upload_completed
     @recording      = Recording.find(params[:recording_id])
-    @blog           = Blog.recordings
     @recording.extract_metadata
-    #@recording.apply_common_work
-    
+
     if @recording.common_work.nil? && !CommonWork.account_search(@account, @recording.title).empty? 
       # If the common_work is not set and there is common_works with the same name as the recording
       redirect_to edit_account_recording_common_work_path(@account, @recording)
@@ -112,7 +124,6 @@ class RecordingsController < ApplicationController
   def select_category
     @blog               = Blog.recordings
     @recording          = Recording.find(params[:recording_id])
-    
 
     if params[:recording]
       @recording.title        = params[:recording][:title]      if params[:recording][:title]

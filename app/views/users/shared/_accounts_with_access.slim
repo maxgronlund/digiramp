@@ -33,4 +33,6 @@
             td = account_user.role
             td 
               .pull-right
-                = link_to 'Leave', account_leave_account_path(user_account, account_user) , data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+                = link_to account_leave_account_path(user_account, account_user) , data: { confirm: 'Are you sure?' } , :method => :delete do
+                  .btn.btn-danger.btn-lg
+                    i class="fa fa-times"

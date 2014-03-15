@@ -1,6 +1,7 @@
 /-session[:return_url] = request.url
 /=debug @recordings
 /= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' 
+
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
@@ -24,7 +25,7 @@
             h3 SELECT FILE
             /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
             = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create', :controller => 'upload_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
-              = transloadit :waveform_to_s3 
+              = transloadit :recording_with_thumbs 
               /= form.label      :file, 'File to upload' 
               = f.file_field :file
               hr

@@ -12,9 +12,13 @@
                 = work_user.email
                 br
                 br
-                = link_to 'Edit', edit_account_common_work_work_user_path(@account, @common_work, work_user), class: 'btn btn-default'
+                = link_to edit_account_common_work_work_user_path(@account, @common_work, work_user) do
+                  .btn.btn-primary.btn-lg
+                    i class="fa fa-pencil"
                 '&nbsp;
-                = link_to 'Remove', account_common_work_work_user_path(@account, @common_work, work_user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+                = link_to  account_common_work_work_user_path(@account, @common_work, work_user), data: { confirm: 'Are you sure?' } , :method => :delete do
+                  .btn.btn-danger.btn-lg
+                    i class="fa fa-times"
               td
                 -if work_user.can_edit
                   '√ Edit

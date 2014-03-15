@@ -4,6 +4,7 @@
     
       .row
         .col-sm-6
+          
           =f.input :title
           div id="toolbar" class="wysihtml5-toolbar"
             a data-wysihtml5-command="bold" Bold
@@ -12,6 +13,8 @@
           
           =f.input :description, label: false, :input_html => {  style: "height: 360px;", placeholder: "Description", id: 'wysihtml5_editor'}
           /=f.input :description, :input_html => {  style: "height: 360px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
+          .thumbnail
+            = image_tag @account.logo_url(:default)
           =f.input :logo, label: 'Logo 170x50 Pixels (png with transparency is best)'
           
         .col-sm-6

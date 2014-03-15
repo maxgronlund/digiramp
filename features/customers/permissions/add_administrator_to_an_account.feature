@@ -15,7 +15,7 @@ Feature: As an account owner I can add and remove administrators to an account
     When I click on the link "LOG IN"
     Then I can fill in the sign up form
     And click on the Sign Up button
-    Then Does it look right?
+    #Then Does it look right?
     When I go to the add content page
     Then I can select to create a work from a recording
     Then Does it look right?

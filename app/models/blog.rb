@@ -4,7 +4,7 @@ class Blog < ActiveRecord::Base
   LAYOUTS = %w[layout_3_9 layout_4_8 layout_4_4_4 layout_6_6 layout_8_4 layout_9_3 layout_12 badges3 ]
   validates_presence_of :title
 
-  def self.home; Blog.where(identifier: 'Homepage Content').first_or_create(identifier: 'Homepage Content', title: 'Homepage Content' ) end
+  #def self.home; Blog.where(identifier: 'Homepage Content').first_or_create(identifier: 'Homepage Content', title: 'Homepage Content' ) end
   def self.about; Blog.where(identifier: 'About Page Content').first_or_create(identifier: 'About Page Content', title: 'About Content' ) end
   def self.pricing; Blog.where(identifier: 'Pricing Page Content').first_or_create(identifier: 'Pricing Page Content', title: 'Pricing Content' ) end
   def self.help; Blog.where(identifier: 'Help').first_or_create(identifier: 'Help', title: 'Help', layout:  'layout_3_9') end
@@ -13,8 +13,8 @@ class Blog < ActiveRecord::Base
   
   
   #def self.welcome; Blog.where(identifier: 'Welcome').first_or_create(identifier: 'Welcome', title: 'Welcome' ) end
-  def self.add_content; Blog.where(identifier: 'Add Content').first_or_create(identifier: 'Add Content', title: 'Add Content' ) end
-  def self.works; Blog.where(identifier: 'Works').first_or_create(identifier: 'Works', title: 'Works' ) end
+  #def self.add_content; Blog.where(identifier: 'Add Content').first_or_create(identifier: 'Add Content', title: 'Add Content' ) end
+  #def self.works; Blog.where(identifier: 'Works').first_or_create(identifier: 'Works', title: 'Works' ) end
   def self.add_recording; Blog.where(identifier: 'Add Recording').first_or_create(identifier: 'Add Recording', title: 'Add Recording' ) end
   def self.selling_points; Blog.where(identifier: 'Selling Points').first_or_create(identifier: 'Selling Points', title: 'Selling Points' ) end
   
@@ -24,7 +24,7 @@ class Blog < ActiveRecord::Base
   def self.promotion; Blog.where(identifier: 'Promotion').first_or_create(identifier: 'Promotion', title: 'Promotion' ) end
   def self.drm; Blog.where(identifier: 'DRM').first_or_create(identifier: 'DRM', title: 'DRM' ) end
   def self.customers; Blog.where(identifier: 'Customers').first_or_create(identifier: 'Customers', title: 'Customers' ) end
-  def self.recordings; Blog.where(identifier: 'Recordings').first_or_create(identifier: 'Recordings', title: 'Recordings' ) end
+  #def self.recordings; Blog.where(identifier: 'Recordings').first_or_create(identifier: 'Recordings', title: 'Recordings' ) end
 
   
   
@@ -40,3 +40,8 @@ private
     Rails.cache.delete([self.class.name, identity])
   end
 end
+
+
+# delete '
+# Homepage Content
+# About Page Content

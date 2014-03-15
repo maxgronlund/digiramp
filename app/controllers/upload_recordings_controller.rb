@@ -11,18 +11,16 @@ class UploadRecordingsController < ApplicationController
   
   def create
     
-    logger.debug("PARAMS: #{params[:transloadit].inspect}")
+    #logger.debug("PARAMS: #{params[:transloadit].inspect}")
     @recording = Recording.new(audio_upload: params[:transloadit], account_id: @account.id, title: params[:title])
     
     
     @recording.title      =  @recording.audio_upload[:uploads][0][:name]
     @recording.mp3        = @recording.audio_upload[:results][:mp3][0][:url]
-    @recording.thumbnail  = @recording.audio_upload[:results][:waveform][0][:url]
+    @recording.waveform   = @recording.audio_upload[:results][:waveform][0][:url]
+    @recording.thumbnail  = @recording.audio_upload[:results][:thumbnail][0][:url]
     @recording.category   = 'none'
     @recording.save!
-    
-    #@recording.extract_id3_tags_from_audio_file
-    
     @recording.update_completeness
     
     redirect_to account_recording_upload_completed_path(@account, @recording )
