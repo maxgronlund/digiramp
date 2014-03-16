@@ -2,6 +2,7 @@
 Digiramp::Application.routes.draw do
   
 
+  
   resources :uploads
   require 'sidekiq/web'
   #require 'admin_constraint'
@@ -66,6 +67,8 @@ Digiramp::Application.routes.draw do
     resources :upload_recordings, only: [:new, :edit, :create]
     resources :common_works do
       resources :recordings
+      resources :audio_file,    only: [:edit, :update]
+      resources :lyrics,        only: [:edit, :update]
     end
     #get "upload_recording/new"
     #get "upload_recording/edit"

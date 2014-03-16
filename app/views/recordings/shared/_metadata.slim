@@ -32,10 +32,6 @@
         
         - if @recording.track   != ''
           == render 'recordings/shared/meta_line' , locals: {title: 'Track', data: @recording.track}
-    hr    
-      .pull-right
-         = link_to  '#' do
-          .btn.btn-primary.btn-lg
-            i class="fa fa-pencil"
+    
           
                       

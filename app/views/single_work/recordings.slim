@@ -21,7 +21,7 @@
     ==render 'admin/shared/messages'
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Recordings'} 
     .row
-      
+      .col-sm-3
       .col-sm-6
         .panel
           .panel-body
@@ -33,6 +33,7 @@
               = f.file_field :file
               hr
               .pull-right
+                = link_to 'Skip', '#'
                 = f.submit 'Upload', class: 'btn btn-primary btn-lg'
             
             
@@ -41,7 +42,7 @@
 
     
             
-      .col-sm-6
+      .col-sm-3
     .row
       .col-sm-12
         -@common_work.recordings.each do |recording|

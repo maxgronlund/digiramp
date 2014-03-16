@@ -23,7 +23,6 @@
         .panel
           .panel-body
             h3 SELECT FILE
-            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
             = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create', :controller => 'upload_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
               = transloadit :recording_with_thumbs 
               /= form.label      :file, 'File to upload' 
@@ -39,11 +38,7 @@
     
 
   
-#footer
-  .container
-    .footer
-      .row
-        .col-sm-12
-          '©2014 All rights reserved
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
 
 

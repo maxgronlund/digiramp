@@ -13,20 +13,12 @@
       .row
         -body = link_to @common_work.title, account_work_path(@account, @common_work)
         == render 'shared/page_title_text', locals: {title: @recording.title, body: body}
-        .col-sm-6
 
       == render 'shared/line'
 
-        .col-sm-12
-
-      .row
-        .col-sm-12
-          .duration.pull-right
-            = @recording.duration
-
-            
+      .row 
         .col-sm-12  
-          .thumbnail
+          .thumbnail.gray
             .wavewrapper
               .playhead
               = image_tag @recording.waveform, class: 'waveform img-responsive'
@@ -38,40 +30,46 @@
           .progress
             div class="progress-bar load-position" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"
               '0%
+      .row
+        .col-sm-4
           table
             tr
               td
                 i class="player-button fa fa-fast-backward" id="back-button"
               td
                 #play-button
+        .col-sm-4
+          .duration
+            = @recording.duration
+        .col-sm-4
+          -if @can_edit
+            .pull-right
+               = link_to  edit_account_common_work_audio_file_path(@account, @common_work, @recording) do
+                .btn.btn-primary.btn-lg
+                  i class="fa fa-pencil"
+                    '&nbsp;
+                    'Edit
 
-          hr
-
-          
+      == render 'shared/line'
       .row
         .col-sm-6
-          
-              
-          == render 'recordings/shared/lyrics'
-          .panel
-            .panel-body
-              b I'm having an ISRC for this recording
-              .pull-right
-                = link_to "Add", '#', class: 'btn btn-default btn-lg', id: 'play-button'
-              /= simple_form_for [ @account, @recording ], :url => url_for(:action => 'select_category', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
-              /  = f.input :title
-              /  = f.input :isrc_code, hint: 'fogb', label: 'ISRC Code',:input_html => {  placeholder: "ISRC Code"}
-              /  = f.input :has_lyrics, label: 'This recording has lyrics'
-              /  = f.input :explicit
-              /  .pull-right
-              /    = f.submit "Save", class: 'btn btn-primary btn-lg'
+          == render 'recordings/shared/metadata'
+        .col-sm-6 
+          == render 'recordings/shared/lyrics' unless @recording.instrumental
+          /.panel
+          /  .panel-body
+          /    b I'm having an ISRC for this recording
+          /    .pull-right
+          /      = link_to "Add", '#', class: 'btn btn-default btn-lg', id: 'play-button'
+
           
             
 
-        .col-sm-6
-          == render 'recordings/shared/metadata'
-                      
+        
+      
+      
 
+          
               
     
 -cache (['footer', Admin.cached_find(1).version]) do      

@@ -16,4 +16,5 @@
     /    = @add_genre.body
     == render "recordings/categories/#{@recording.category}"
 
-/= debug @recording.category
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

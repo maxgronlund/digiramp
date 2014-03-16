@@ -18,7 +18,7 @@
 //= require simple
 //= require wysihtml5-0.4.0pre
 //= require soundmanager2
-// require inlineplayer
+//= require inlineplayer
 //= require digiramp_player
 //= require digiramp_wrapper
 //= requiry jquery.transloadit2-v2-latest

@@ -20,3 +20,6 @@
           -if can_edit?
             .pull-right
               =link_to 'Edit',  edit_admin_blog_blog_post_path(@blog, add_mood), class: 'btn btn-default'
+              
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

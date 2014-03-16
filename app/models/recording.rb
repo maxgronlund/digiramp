@@ -52,15 +52,16 @@ class Recording < ActiveRecord::Base
   
   #CATEGORY = ["super", "cuctomer"]
   
-  after_commit :expire_account_rec_cash
+  #after_commit :expire_account_rec_cash
+  after_commit :flush_cache
   
   
-  def expire_account_rec_cash
-    
-    account.rec_cache_version += 1
-    account.save!
-
-  end
+  #def expire_account_rec_cash
+  #  
+  #  account.rec_cache_version += 1
+  #  account.save!
+  #
+  #end
   
   def file
   end
@@ -176,9 +177,41 @@ class Recording < ActiveRecord::Base
     self.disc         = meta[:disc]                       unless meta[:disc].nil?            
     self.track        = meta[:track]                      unless meta[:track].nil?    
     
-    #logger.debug '********************************************************'
-    #logger.debug self.duration
-    #logger.debug '********************************************************'
+    
+    
+    
+    
+    # dont override metadata extracted
+    #temp_duration         = meta[:duration].to_f.round(2)     unless meta[:duration].nil?  
+    #temp_lyrics           = meta[:lyrics].gsub(/\//, '<br>')  unless meta[:lyrics].nil? 
+    #temp_bpm              = meta[:beats_per_minute].to_i      unless meta[:beats_per_minute].nil?
+    #temp_album_name       = meta[:album].to_s                 unless meta[:album].nil?           
+    #temp_year             = meta[:year]                       unless meta[:year].nil?            
+    #temp_genre            = meta[:genre]                      unless meta[:genre].nil?           
+    #temp_artist           = meta[:artist]                     unless meta[:artist].nil?          
+    #temp_comment          = meta[:comment]                    unless meta[:comment].nil?         
+    #temp_performer        = meta[:performer]                  unless meta[:performer].nil?       
+    #temp_title            = meta[:title]                      unless meta[:title].nil?           
+    #temp_band             = meta[:band]                       unless meta[:band].nil?            
+    #temp_disc             = meta[:disc]                       unless meta[:disc].nil?            
+    #temp_track            = meta[:track]                      unless meta[:track].nil?    
+    #
+    #
+    #self.duration         = temp_duration     if self.duration.to_s == 0   && temp_duration  
+    #self.lyrics           = temp_lyrics       if self.lyrics.to_s == ''    && temp_lyrics     
+    #self.bpm              = temp_bpm          if self.bpm.to_s == ''       && temp_bpm        
+    #self.album_name       = temp_album_name   if self.album_name.to_s == ''&& temp_album_name 
+    #self.year             = temp_year         if self.year.to_s == ''      && temp_year       
+    #self.genre            = temp_genre        if self.genre.to_s == ''     && temp_genre      
+    #self.artist           = temp_artist       if self.artist.to_s == ''    && temp_artist     
+    #self.comment          = temp_comment      if self.comment.to_s == ''   && temp_comment    
+    #self.performer        = temp_performer    if self.performer.to_s == '' && temp_performer  
+    #self.title            = temp_title        if self.title.to_s == ''     && temp_title      
+    #self.band             = temp_band         if self.band.to_s == ''      && temp_band       
+    #self.disc             = temp_disc         if self.disc.to_s == ''      && temp_disc       
+    #self.track            = temp_track        if self.track.to_s == ''     && temp_track  
+    
+
     save!       
   end
   
@@ -191,10 +224,20 @@ class Recording < ActiveRecord::Base
   #    
   #end
   
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
+  
 private
   #def update_counter_cache
   #  self.content_type = document.file.content_type
   #end
+  
+  def flush_cache
+    account.rec_cache_version += 1
+    account.save!
+    Rails.cache.delete([self.class.name, id])
+  end
   
   def update_audio_file_attributes
     if audio_file.present? && audio_file_changed?

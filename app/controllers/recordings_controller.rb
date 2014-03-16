@@ -17,9 +17,7 @@ class RecordingsController < ApplicationController
   def show
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
-    #logger.debug '------------------------------------------------'
-    #logger.debug @recording[:audio_upload][:results][:mp3].size
-    #logger.debug '------------------------------------------------'
+    @can_edit       = true
     @recording.update_completeness
   end
   
@@ -36,7 +34,7 @@ class RecordingsController < ApplicationController
   def create
     @common_work          = CommonWork.cached_find(params[:common_work_id])
     @recording            = Recording.new(audio_upload: params[:transloadit], account_id: @account.id, title: params[:title], common_work_id: @common_work.id)
-    @recording.title      =  @recording.audio_upload[:uploads][0][:name]
+    @recording.title      = @recording.audio_upload[:uploads][0][:name]
     @recording.mp3        = @recording.audio_upload[:results][:mp3][0][:url]
     @recording.waveform   = @recording.audio_upload[:results][:waveform][0][:url]
     @recording.thumbnail  = @recording.audio_upload[:results][:thumbnail][0][:url]
@@ -47,26 +45,6 @@ class RecordingsController < ApplicationController
     
     redirect_to account_work_path(@account, @common_work )
     
-    
-    
-    
-    
-    
-    #@recording = Recording.new(audio_upload: params[:transloadit], account_id: @account.id)
-    #@recording.category = 'none'
-    #@recording.save!
-    #
-    #
-    #
-    #
-    #
-    #redirect_to account_recording_upload_completed(@account, @recording )
-    #Rails.logger.info("PARAMS: #{params[:transloadit].inspect}")
-    #
-    #@recording = Recording.new(audio_upload: params[:transloadit])
-    #@recording.save!
-    #
-    #redirect_to recording_path(@recording)
   end
   
   def update
@@ -74,7 +52,14 @@ class RecordingsController < ApplicationController
     @recording      = Recording.find(params[:id])
     
     if @recording.update_attributes(recording_params)
-      redirect_to :back
+      #redirect_to edit_account_common_work_audio_file_path(@account, @common_work, @recording)
+      if @recording.instrumental
+         #redirect_to account_common_work_recording_path @account, @common_work, @recording
+         redirect_to edit_account_common_work_lyric_path @account, @common_work, @recording
+      else
+        redirect_to account_common_work_recording_path(@account, @common_work, @recording)
+      end
+      
     else
       redirect_to :back
     end
@@ -88,6 +73,7 @@ class RecordingsController < ApplicationController
     #  render :edit
     #end
   end
+
   
   def destroy
     

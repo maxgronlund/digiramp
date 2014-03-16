@@ -22,12 +22,26 @@
             .col-sm-6
               
               = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
-              = f.input :audio_file
+              = transloadit :recording_with_thumbs 
+              //= f.file_field :file
+              /= f.input :audio_file
               = f.input :isrc_code, label: 'ISRC Code',:input_html => {  placeholder: "ISRC Code"}
               = f.input :artists, :input_html => {  style: "height: 120px;", placeholder: "Artists"}
+              = f.input :performer, :input_html => {  style: "height: 120px;", placeholder: "Performer"}
+              .row
+                .col-sm-6
+                  = f.input :instrumental
+                  = f.input :explicit
+                .col-sm-6
+                  = f.input :year
+              .row
+                .col-sm-6
+                  =f.input :disc
+                .col-sm-6
+                  =f.input :track
               /= f.input :lyrics, :input_html => {  style: "height: 120px;", placeholder: "Lyrics"}
             .col-sm-6
-              
+              = f.input :band
               b Description
               br
               div id="toolbar" class="wysihtml5-toolbar"
@@ -35,18 +49,43 @@
                 '&nbsp; 
                 a data-wysihtml5-command="italic" Italic
            
-              =f.input :description, label: false, :input_html => {  style: "height: 360px;", placeholder: "Description", id: 'wysihtml5_editor'}
-
+              =f.input :description, label: false, :input_html => {  style: "height: 350px;", placeholder: "Description", id: 'wysihtml5_editor'}
+              .row
+                .col-sm-6
+                  =f.input :bpm
+                .col-sm-6
+              
+        
           .row
             .col-sm-12
+              hr
               .pull-right
-                = f.submit 'Save', class: 'btn btn-primary btn-lg'
+                = link_to 'Back', edit_account_common_work_audio_file_path(@account, @common_work, @recording), class: 'btn btn-default btn-lg'
+                '&nbsp;
+                /-if @recording.instrumental
+                /  = link_to 'Skip', account_common_work_recording_path( @account, @common_work, @recording), class: 'btn btn-default btn-lg'
+                /-else
+                /  = link_to 'Skip', edit_account_common_work_lyric_path( @account, @common_work, @recording), class: 'btn btn-default btn-lg'
+                  
+                '&nbsp;
+                = f.submit 'Next', class: 'btn btn-primary btn-lg'
+                
+         
+        /= transloadit_jquerify :recording, :wait => true
+        /= simple_form_for [ @account, @common_work, @recording ], :url => url_for(:action => 'update', :controller => 'recordings'), :method => 'put',  :html => { :id => 'recording' } do |f| 
+        /  = transloadit :recording_with_thumbs 
+        /  = f.hidden_field :common_work_id, value: @common_work.id
+        /  = f.file_field :file
+        /  = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
+        /  hr
+        /  .pull-right
+        /    = f.submit 'Upload', class: 'btn btn-primary btn-lg'
+        /
+        /
+        /= transloadit_jquerify :recording, :wait => true
 
 
   
-#footer
-  .container
-    .footer
-      .row
-        .col-sm-12
-          '©2014 All rights reserved
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
