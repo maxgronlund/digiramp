@@ -17,7 +17,9 @@ soundManager.onready(function() {
   if ($('#digiramp_player')[0]) {
 
     // show the play-button
-    $('#play-button').css("visibility", "visible");
+    //$("#back-button").html('<i class="player-button fa fa-play"></i>');
+    $("#play-button").html('<i class="player-button fa fa-play"></i>');
+    
 
     // set playhead height
     $('.playhead').css("height", $('.waveform').height());
@@ -31,7 +33,6 @@ soundManager.onready(function() {
       id: 'aSound',
       url: $('#digiramp_player').attr('class'),
     });
-
 
     // progress bar
     mySound.load({
@@ -49,6 +50,8 @@ soundManager.onready(function() {
     var playing = false;
     var durationEstimate = 100;
     $("#play-button").click(function() {
+      // change to pause button
+      $("#play-button").html('<i class="player-button fa fa-pause""></i>');
       playing = !playing;
       // play
       if (playing) {
@@ -60,34 +63,37 @@ soundManager.onready(function() {
 
             var waveform_width = $('.waveform').width();
 
-            //$('.playhead').css("margin-left", playhead_pos * waveform_width);
-            
-            $( ".playhead" ).animate({
-                marginLeft: playhead_pos * waveform_width,
-            
-              }, 250 );
-            $('.playhead').css("height", $('.waveform').height());
-            
-            
-            $('.playhead').css("height", $('.waveform').height());
-
+            $('.playhead').css("margin-left", playhead_pos * waveform_width);
+            $('.playhead').css("height", $('.waveform').height());            // <<<< optimize this
             $(".duration").text(convertTimeToString(this.position * 0.001));
-
+          },
+          onfinish: function() {
+            playing = false;
+            $("#play-button").html('<i class="player-button fa fa-play""></i>');
+            mySound.setPosition(0);
+            $('.playhead').css("margin-left", 0); 
+            $(".duration").text(convertTimeToString(this.position * 0.001));
           }
+          
         });
       } else {
         // stop
         mySound.pause();
-      }
+        // change back to play button
+        $("#play-button").html('<i class="player-button fa fa-play""></i>');
+      };
+    });
+    
+    // detect mouse click on back button
+    $("#back-button").click(function(event) {
+      mySound.setPosition(0);
     });
 
-    // detect mouse down
+    // detect mouse click
     $(".waveform").click(function(event) {
-      mySound.pause();
       var offset = $(".waveform").offset();
       gotoSoundPosition = positionInPercent(event.pageX - offset.left);
       mySound.setPosition(durationEstimate * gotoSoundPosition);
-      mySound.play();
     });
   };
 });
