@@ -83,9 +83,11 @@ soundManager.onready(function() {
 
     // detect mouse down
     $(".waveform").click(function(event) {
+      mySound.pause();
       var offset = $(".waveform").offset();
       gotoSoundPosition = positionInPercent(event.pageX - offset.left);
       mySound.setPosition(durationEstimate * gotoSoundPosition);
+      mySound.play();
     });
   };
 });
