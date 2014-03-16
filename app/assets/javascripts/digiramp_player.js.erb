@@ -1,15 +1,3 @@
-//soundManager.setup({
-//  //url: "<%= asset_path('flash')%>",
-//
-//  flashVersion: 8, // optional: shiny features (default = 8)
-//  // optional: ignore Flash where possible, use 100% HTML5 mode
-//  // preferFlash: false,
-//  onready: function() {
-//    alert('called');
-//    
-//    // Ready to use; soundManager.createSound() etc. can now be called.
-//  }
-//});
 
 soundManager.setup({
   // disable or enable debug output
@@ -23,70 +11,101 @@ soundManager.setup({
   flashVersion: 9
 });
 
-// ----
-
 soundManager.onready(function() {
 
-  
-  if($('#digiramp_player')[0]){
-    
+
+  if ($('#digiramp_player')[0]) {
+
     // show the play-button
-    $('#play-button').css("visibility","visible");
+    $('#play-button').css("visibility", "visible");
+
     // set playhead height
-    $('.playhead').css("height",$('.waveform').height());
-    
+    $('.playhead').css("height", $('.waveform').height());
+
+    // set the duration
+    var duration = convertTimeToString($(".duration").html())
+    $(".duration").text(duration);
 
     // the sound
     var mySound = soundManager.createSound({
       id: 'aSound',
       url: $('#digiramp_player').attr('class'),
     });
-    
-    
+
+
     // progress bar
     mySound.load({
-      
       whileloading: function() {
         var loaded = (this.bytesLoaded / this.bytesTotal) * 100;
         pos_om_pct = loaded.toString();
         var pos = parseInt(pos_om_pct, 10)
         pos += '%';
-        
-        $('.progress-bar.load-position').css("width",pos);
+        $('.progress-bar.load-position').css("width", pos);
         $('.progress-bar.load-position').html(pos);
-       }
+      }
     });
-    
 
     // palybutton toogle
     var playing = false;
-    $( "#play-button" ).click(function() {
+    var durationEstimate = 100;
+    $("#play-button").click(function() {
       playing = !playing;
       // play
-      if(playing){
+      if (playing) {
         mySound.play({
           whileplaying: function() {
-            
+            durationEstimate = this.durationEstimate
             playhead_pos = this.position / this.durationEstimate;
             pos = playhead_pos * waveform_width;
 
             var waveform_width = $('.waveform').width();
 
-            $('.playhead').css("margin-left",playhead_pos * waveform_width);
-            $('.playhead').css("height",$('.waveform').height());
-            //$( ".playhead" ).animate({ "left": "-=5px" }, "slow" );
-            //$( ".playhead" ).animate({ "left": "300px" }, "slow" );
+            //$('.playhead').css("margin-left", playhead_pos * waveform_width);
+            
+            $( ".playhead" ).animate({
+                marginLeft: playhead_pos * waveform_width,
+            
+              }, 250 );
+            $('.playhead').css("height", $('.waveform').height());
+            
+            
+            $('.playhead').css("height", $('.waveform').height());
+
+            $(".duration").text(convertTimeToString(this.position * 0.001));
+
           }
         });
-      }else{
-        
+      } else {
         // stop
         mySound.pause();
       }
-      
+    });
+
+    // detect mouse down
+    $(".waveform").click(function(event) {
+      var offset = $(".waveform").offset();
+      gotoSoundPosition = positionInPercent(event.pageX - offset.left);
+      mySound.setPosition(durationEstimate * gotoSoundPosition);
     });
   };
 });
 
+function convertTimeToString(timeFloat) {
+  var hours = parseInt(timeFloat / 3600);
+  var minutes = parseInt(timeFloat / 60) - hours
+  var seconds = parseInt(timeFloat) - (minutes * 60)
+  var msec = parseInt(timeFloat * 100) - (parseInt(timeFloat) * 100)
+  var timeString = convertToTwoDigitString(hours) + ':' + convertToTwoDigitString(minutes) + ':' + convertToTwoDigitString(seconds) + ':' + convertToTwoDigitString(msec)
+  return (timeString);
+}
 
+function convertToTwoDigitString(inInt) {
+  if (inInt < 10) {
+    return ("0" + parseInt(inInt));
+  }
+  return (inInt);
+}
 
+function positionInPercent(mousePosX) {
+  return(mousePosX/$(".waveform").width());
+}

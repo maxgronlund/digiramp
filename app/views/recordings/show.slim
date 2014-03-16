@@ -21,11 +21,16 @@
 
       .row
         .col-sm-12
+          .duration.pull-right
+            = @recording.duration
+
+            
+        .col-sm-12  
           .thumbnail
             .wavewrapper
               .playhead
               = image_tag @recording.waveform, class: 'waveform img-responsive'
-            
+              
 
         .col-sm-12
           dev id="digiramp_player" class="#{@recording.mp3}"
