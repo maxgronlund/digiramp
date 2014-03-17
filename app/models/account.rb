@@ -33,6 +33,8 @@ class Account < ActiveRecord::Base
   
   has_many :music_oppertunity_submitions
   
+  has_many :customers
+  
 
   
   #has_many :recording_imports, dependent: :destroy

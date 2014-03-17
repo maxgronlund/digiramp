@@ -17,8 +17,24 @@ class RecordingsController < ApplicationController
   def show
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
-    @can_edit       = true
-    @recording.update_completeness
+    @can_edit       = false
+    
+    if @common_work.is_accessible_by current_user
+      if current_user.can_administrate @account
+        @can_edit       = true
+      #else
+      #  work_user = WorkUser.where(user_id: current_user.id, common_work_id: @common_work.id).first
+      #  @user_can_access_files                = work_user.access_files
+      #  @user_can_access_legal_documents      = work_user.access_legal_documents
+      #  @user_can_access_financial_documents  = work_user.access_financial_documents
+      #  @user_can_access_ipis                 = work_user.access_ipis
+      end
+    else
+      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+    end
+    
+    
+    
   end
   
   def edit
@@ -52,6 +68,7 @@ class RecordingsController < ApplicationController
     @recording      = Recording.find(params[:id])
     
     if @recording.update_attributes(recording_params)
+      @recording.update_completeness
       #redirect_to edit_account_common_work_audio_file_path(@account, @common_work, @recording)
       if @recording.instrumental
          redirect_to account_common_work_recording_path(@account, @common_work, @recording)

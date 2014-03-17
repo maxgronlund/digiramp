@@ -3,8 +3,8 @@
     == render 'admin/shared/navbar', page: 'profile'     
   
   .container
-    -blog      = Blog.add_content
-    -blog_post = BlogPost.cached_find('Create Content' , blog)
+    /-blog      = Blog.cached_find('Add Content')
+    /-blog_post = BlogPost.cached_find('Create Content' , blog)
     == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_path(@account.user), \
                                                             }, current:  'edit'}
 

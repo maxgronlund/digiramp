@@ -1,10 +1,10 @@
-- blog = Blog.cached_find('Customers')
-- blog_post = BlogPost.cached_find('Customers', blog)
+- blog = Blog.cached_find('Promotion')
+- blog_post = BlogPost.cached_find('Public Playlist', blog)
 .row
   .col-sm-6
     .icon-badge
-      = link_to admin_blogs_path, class: 'btn btn-warning btn-default' do
-        .fa.fa-phone
+      = link_to admin_blogs_path, class: 'btn btn-warning btn-info' do
+        .fa.fa-list 
   .col-sm-6
     h3 
       =blog_post.title
@@ -13,8 +13,3 @@
         = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
            i class="fa fa-pencil"
     = blog_post.body
-
-
-
-
-

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140316234741) do
+ActiveRecord::Schema.define(version: 20140317154345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,15 +59,16 @@ ActiveRecord::Schema.define(version: 20140316234741) do
     t.string   "city"
     t.string   "state"
     t.string   "postal_code"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "users_count",        default: 0, null: false
-    t.integer  "documents_count",    default: 0, null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "users_count",            default: 0, null: false
+    t.integer  "documents_count",        default: 0, null: false
     t.date     "expiration_date"
-    t.integer  "visits",             default: 0
-    t.integer  "works_cache_key",    default: 0
+    t.integer  "visits",                 default: 0
+    t.integer  "works_cache_key",        default: 0
     t.string   "logo"
-    t.integer  "rec_cache_version",  default: 0
+    t.integer  "rec_cache_version",      default: 0
+    t.integer  "customer_cache_version", default: 0
   end
 
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
@@ -314,6 +315,18 @@ ActiveRecord::Schema.define(version: 20140316234741) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "customers", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.text     "note"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "customers", ["account_id"], name: "index_customers_on_account_id", using: :btree
 
   create_table "documents", force: true do |t|
     t.string   "title"

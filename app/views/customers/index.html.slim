@@ -1,13 +1,70 @@
 -session[:return_url] = request.url
 #wrap
   .full-width-top
-    == render 'admin/shared/navbar', page: 'account'
-
-            
+    == render 'admin/shared/navbar', page: 'account'         
   .container
-    ==render 'admin/shared/messages'
-    
     .row
       .col-sm-12
-        h1 = @customers.title
-        = simple_format @customers.body
+        ==render 'admin/shared/messages'
+    
+    -cache ([request.url, @account.customer_cache_version, current_user.role  ]) do
+      /.do
+      .row
+        .col-sm-12
+          == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account) \
+                                                        }, current: 'customers'}
+          == render 'shared/page_title', locals: {blog: Blog.cached_find('Customers'), blog_post: 'Manage Customers'}
+      .row
+        col-sm-12
+          .panel
+            .panel-body
+              = form_tag admin_users_path, :method => 'get' do
+                .row
+                  .col-sm-6
+                    br
+                    = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search'
+                  .col-sm-6
+                    br
+                    = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                    '&nbsp;
+                    = link_to 'Show All',admin_users_path, class: 'btn btn-default btn-lg'
+                hr
+          
+              .table-responsive
+                table class="table table-hover"
+                  thead
+                    tr
+                      /th User
+                      th Name
+                      th Email
+                      th Phone
+                      th
+                  tbody
+                    - @customers.order('name asc').each do |customer|
+                      tr
+                        td = link_to customer.name , account_customer_path( @account, customer )
+                        td = link_to customer.email, account_customer_path( @account, customer )
+                        td = link_to customer.phone, account_customer_path( @account, customer )
+                        td
+                          .pull-right
+                            = link_to account_customer_path(@account, customer) do
+                              .btn.btn-default
+                                i class='fa fa-eye'
+                            '&nbsp;
+                            = link_to edit_account_customer_path(@account, customer) do
+                              .btn.btn-primary
+                                i class='fa fa-pencil'
+                            '&nbsp;
+                            = link_to account_customer_path(@account, customer), data: { confirm: 'Are you sure?' } , method: :delete do
+                              .btn.btn-danger
+                                i class="fa fa-times"
+      .row
+        .col-sm-12
+          hr
+          .pull-right
+            = link_to 'New Customer', new_account_customer_path( @account ) , class: 'btn btn-primary btn-lg'
+            
+                        
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
