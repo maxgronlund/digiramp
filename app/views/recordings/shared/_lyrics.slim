@@ -1,9 +1,9 @@
 .panel
   .panel-body
-    -if @recording.lyrics.nil?     
-      .pull-right
-        = link_to 'Add Lyrics', '#', class: 'btn btn-primary btn-lg'
-    -else
-      .text-center
-        = simple_format @recording.lyrics
-        hr
+    /-if @recording.lyrics.nil?     
+    /  .pull-right
+    /    = link_to 'Add Lyrics', edit_account_common_work_lyric_path( @account, @common_work, @recording), class: 'btn btn-primary btn-lg'
+    /-else
+    .text-center
+      = simple_format @recording.lyrics
+      hr

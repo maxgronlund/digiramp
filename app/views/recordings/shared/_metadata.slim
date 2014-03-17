@@ -5,7 +5,7 @@
     .table-responsive
       table class="table"
         - if @recording.duration   != 0.0 
-          == render 'recordings/shared/meta_line' , locals: {title: 'Duration', data: @recording.duration}
+          == render 'recordings/shared/meta_line' , locals: {title: 'Duration', data: @recording.duration_string}
         
         - if @recording.bpm   != 0 
           == render 'recordings/shared/meta_line' , locals: {title: 'BPM', data: @recording.bpm}

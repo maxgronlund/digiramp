@@ -224,6 +224,18 @@ class Recording < ActiveRecord::Base
   #    
   #end
   
+  def duration_string
+
+      hours   = (self.duration / 3600).to_i
+      minutes = (self.duration / 60).to_i - hours
+      seconds = self.duration.to_i - (minutes * 60)
+      msec    = (self.duration * 100).to_i - (self.duration.to_i * 100)
+      timeString = convertToTwoDigitString(hours) + ':' + convertToTwoDigitString(minutes) + ':' + convertToTwoDigitString(seconds) + ':' + convertToTwoDigitString(msec)
+      return timeString
+
+
+  end
+  
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
@@ -232,6 +244,13 @@ private
   #def update_counter_cache
   #  self.content_type = document.file.content_type
   #end
+  
+  def convertToTwoDigitString inInt
+    if inInt < 10 
+      return "0" + inInt.to_s;
+    end
+    inInt.to_s
+  end
   
   def flush_cache
     account.rec_cache_version += 1

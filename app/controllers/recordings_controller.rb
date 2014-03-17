@@ -54,10 +54,9 @@ class RecordingsController < ApplicationController
     if @recording.update_attributes(recording_params)
       #redirect_to edit_account_common_work_audio_file_path(@account, @common_work, @recording)
       if @recording.instrumental
-         #redirect_to account_common_work_recording_path @account, @common_work, @recording
-         redirect_to edit_account_common_work_lyric_path @account, @common_work, @recording
+         redirect_to account_common_work_recording_path(@account, @common_work, @recording)
       else
-        redirect_to account_common_work_recording_path(@account, @common_work, @recording)
+        redirect_to edit_account_common_work_lyric_path @account, @common_work, @recording
       end
       
     else
