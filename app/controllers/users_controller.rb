@@ -67,7 +67,7 @@ class UsersController < ApplicationController
   def update
     
     if @user.update(user_params)
-      flash[:info] = { title: "Success", body: "#{@user.name} successfully updatet" }
+      flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} successfully updatet" }
       #@user.activity_events.create! \
       #  activity_log_id: @account.activity_log.id,
       #  user_id: current_user.id,
@@ -95,7 +95,7 @@ class UsersController < ApplicationController
       title: "Deleted #{@user.name}",
       r: true,
       activity_url: account_users_path( @account)
-    flash[:info] = { title: "Success", body: "#{@user.name} is deleted" } 
+    flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} is deleted" } 
     @user.destroy
     #go_to = session[:go_to_after_edit] || account_users_path(@account)
     session[:go_to_after_edit]  = nil

@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
   
   def update
     if @user.update(user_params)
-      flash[:info] = { title: "Success", body: "User updated" }
+      flash[:info] = { title: "SUCCESS: ", body: "User updated" }
     else
       flash[:danger] = { title: "Error", body: "User not updated" }
     end

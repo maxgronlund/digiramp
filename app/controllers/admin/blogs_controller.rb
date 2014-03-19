@@ -35,7 +35,7 @@ class Admin::BlogsController < ApplicationController
   def create
     @blog = Blog.new(blog_params)
     if @blog.save
-      flash[:info] = { title: "Success", body: "#{@blog.title} Created" }
+      flash[:info] = { title: "SUCCESS: ", body: "#{@blog.title} Created" }
       redirect_to admin_blogs_path
     else
 der :new
@@ -45,7 +45,7 @@ der :new
 
   def update
     if @blog.update(blog_params)
-      flash[:info] = { title: "Success", body: "#{@blog.title} updated" }
+      flash[:info] = { title: "SUCCESS: ", body: "#{@blog.title} updated" }
       redirect_to admin_blogs_path
     else
       render :edit
@@ -54,7 +54,7 @@ der :new
   end
 
   def destroy
-    flash[:info] = { title: "Success", body: "#{@blog.title} deleted" }
+    flash[:info] = { title: "SUCCESS: ", body: "#{@blog.title} deleted" }
     @blog.destroy
     redirect_to admin_blogs_path
     #redirect_to admin_blogs_path

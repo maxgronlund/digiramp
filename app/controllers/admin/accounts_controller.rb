@@ -28,7 +28,7 @@ class Admin::AccountsController < ApplicationController
   
   def destroy
     @account = Account.cached_find(params[:id])
-    flash[:info] = { title: "Success", body: "Account #{@account.title} deleted" }
+    flash[:info] = { title: "SUCCESS: ", body: "Account #{@account.title} deleted" }
     @account.destroy
     redirect_to admin_accounts_path
   end

@@ -29,7 +29,7 @@ class PasswordResetsController < ApplicationController
       redirect_to new_password_reset_path, :alert => "Password &crarr; 
         reset has expired."
     elsif @user.update(user_params)
-      flash[:info] = { title: "Success", body: "Your password has been reset" }
+      flash[:info] = { title: "SUCCESS: ", body: "Your password has been reset" }
       cookies.permanent[:auth_token]  = nil
       cookies[:auth_token]            = @user.auth_token  
       

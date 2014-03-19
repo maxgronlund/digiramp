@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
 
 
     if user && user.authenticate(params[:sessions][:password])
-      flash[:info] = { title: "Success", body: "You are logged in" }
+      flash[:info] = { title: "SUCCESS: ", body: "You are logged in" }
       
       
       if params[:remember_me]

@@ -7,7 +7,7 @@ class Admin::FeaturesController < ApplicationController
   def update
     @feature = Feature.front
     if @feature.update(feature_params)
-      flash[:info] = { title: "Success", body: "Features page updated" }
+      flash[:info] = { title: "SUCCESS: ", body: "Features page updated" }
     else
       flash[:danger] = { title: "Error", body: "Features page not updated" }
     end

@@ -23,7 +23,7 @@ class SignUpController < ApplicationController
       @user.name        = email
       
       if@user.save!
-        flash[:info]      = { title: "Success", body: "You are signed up"}
+        flash[:info]      = { title: "SUCCESS: ", body: "You are signed up"}
         go_to = login_index_path
       else
         account.destroy
