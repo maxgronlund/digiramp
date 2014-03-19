@@ -5,7 +5,7 @@ class Admin::BlogsController < ApplicationController
   #skip_before_filter :verify_authenticity_token, :only => [:destroy]
   #layout "core_admin"
   def index
-    @blogs = Blog.all
+    @blogs = Blog.blog_search(params[:query]).order('title asc').page(params[:page]).per(12)
   end
   
   def show

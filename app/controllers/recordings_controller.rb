@@ -3,15 +3,7 @@ class RecordingsController < ApplicationController
   before_filter :there_is_access_to_the_account
   
   def index
-    #@blog               = Blog.recordings
-    
-    
-    #@recordings         = @account.recordings
-    @recordings         = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
-    #
-    #
-    #@common_works = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
-    ##@common_works  = @account.common_works.order('title asc').page(params[:page]).per(32)
+    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
   end
 
   def show

@@ -11,6 +11,19 @@
                                                                 }, current: 'blogs'} 
                     
         == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Blogs'}
+        .row
+          = form_tag admin_blogs_path, :method => 'get' do
+            .col-sm-6
+              br
+              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string'
+            .col-sm-6
+              br
+              = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+              '&nbsp;
+              = link_to 'Show All',admin_blogs_path, class: 'btn btn-default btn-lg'
+        br
+        
+        
         .panel
           .panel-body
             .table-responsive
@@ -25,7 +38,7 @@
                   -@blogs.order(:title).each do |blog|
                     -cache(blog) do
                      tr
-                       td =blog.title
+                       td =link_to blog.title, admin_blog_path(blog)
                        td =blog.blog_posts.size
                        td 
                          .pull-right
@@ -38,7 +51,16 @@
                                                                      id: "delete_blog_#{blog.id}"
                   
             /br
-            .col-sm-12
+            .col-sm-6
+              .hidden-xs
+                == paginate(@blogs)
+              .visible-xs
+                br
+                .btn-group.btn-group-sm
+                  = link_to_previous_page @blogs, '« Prev Page', class: 'btn btn-default mobile_pagination'
+                  = link_to_next_page @blogs, 'Next Page »', class: 'btn btn-default mobile_pagination'
+                
+            .col-sm-6
               .pull-right
                 = link_to 'New Blog', new_admin_blog_path, class: 'btn btn-primary btn-lg'
             
