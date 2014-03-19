@@ -1,11 +1,18 @@
-= simple_form_for [@account, @customer] do |f|
+= simple_form_for [@account, @account_user] do |f|
+  = f.hidden_field :account_id, value: @account.id
   .panel
     .panel-body
       .row
         .col-sm-6
-          =f.input :name
-          =f.input :email
-          =f.input :phone
+          = f.input :name
+          = f.input :email
+          = f.input :phone
+          hr
+          /= f.input :access_to_all_recordings
+          /= f.input :access_to_all_common_works
+          /= f.input :access_to_all_rights
+          /= f.input :access_to_all_documents
+          /= f.input :access_to_collect
         .col-sm-6
           b Note
           br

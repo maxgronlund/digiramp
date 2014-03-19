@@ -13,7 +13,7 @@
     ==render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account_user.account.title.to_sym => account_path(@account_user.account), \
                                                             users: account_account_users_path(@account_user.account), \
-                                                            }, current: @account_user.user.name}
+                                                            }, current: @account_user.get_name}
                                                             
     == render 'shared/page_title', locals: {blog: blog, blog_post: 'Set Role'}
     .row

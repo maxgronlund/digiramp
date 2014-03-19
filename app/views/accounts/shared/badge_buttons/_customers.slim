@@ -1,9 +1,9 @@
 - blog = Blog.cached_find('Customers')
-- blog_post = BlogPost.cached_find('Customers', blog)
+- blog_post = BlogPost.cached_find('CUSTOMERS', blog)
 .row
   .col-sm-6
     .icon-badge
-      = link_to account_customers_path(@account), class: 'btn btn-warning btn-default' do
+      = link_to account_customers_path(@account), class: 'btn btn-default' do
         .fa.fa-phone
   .col-sm-6
     h3 

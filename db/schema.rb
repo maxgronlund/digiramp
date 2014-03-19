@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140317154345) do
+ActiveRecord::Schema.define(version: 20140318001509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,10 @@ ActiveRecord::Schema.define(version: 20140317154345) do
     t.boolean  "access_to_all_documents",    default: false
     t.boolean  "access_to_collect",          default: false
     t.integer  "version",                    default: 0
+    t.string   "phone",                      default: ""
+    t.string   "name",                       default: ""
+    t.text     "note",                       default: ""
+    t.string   "email",                      default: ""
   end
 
   add_index "account_users", ["account_id"], name: "index_account_users_on_account_id", using: :btree
@@ -59,16 +63,17 @@ ActiveRecord::Schema.define(version: 20140317154345) do
     t.string   "city"
     t.string   "state"
     t.string   "postal_code"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "users_count",            default: 0, null: false
-    t.integer  "documents_count",        default: 0, null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "users_count",            default: 0,    null: false
+    t.integer  "documents_count",        default: 0,    null: false
     t.date     "expiration_date"
     t.integer  "visits",                 default: 0
     t.integer  "works_cache_key",        default: 0
     t.string   "logo"
     t.integer  "rec_cache_version",      default: 0
     t.integer  "customer_cache_version", default: 0
+    t.boolean  "activated",              default: true
   end
 
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
@@ -316,17 +321,21 @@ ActiveRecord::Schema.define(version: 20140317154345) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "customers", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "phone"
-    t.text     "note"
+  create_table "customer_events", force: true do |t|
+    t.string   "event_type"
+    t.string   "action_type"
+    t.string   "title"
+    t.text     "body"
+    t.boolean  "folow_up"
+    t.date     "follow_up_date"
     t.integer  "account_id"
+    t.integer  "account_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "customers", ["account_id"], name: "index_customers_on_account_id", using: :btree
+  add_index "customer_events", ["account_id"], name: "index_customer_events_on_account_id", using: :btree
+  add_index "customer_events", ["account_user_id"], name: "index_customer_events_on_account_user_id", using: :btree
 
   create_table "documents", force: true do |t|
     t.string   "title"
@@ -868,6 +877,7 @@ ActiveRecord::Schema.define(version: 20140317154345) do
     t.string   "avatar_url"
     t.integer  "account_id"
     t.boolean  "show_welcome_message",   default: true
+    t.boolean  "activated",              default: true
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

@@ -44,18 +44,18 @@ gem 'watir'
 gem 'watir-webdriver'
 gem 'nokogiri'
 gem 'headless'
-gem 'linguistics'
+#gem 'linguistics'
 gem 'levenshtein'
 gem 'chosen-rails', '0.12.0'
 gem 'bootstrap-editable-rails'
 gem 'jQuery-Validation-Engine-rails'
 gem 'sinatra', require: false
 gem "nested_form"
-gem 'private_pub'
-gem "taglib-ruby"
-gem 'id3_tags'
-gem 'jquery-fileupload-rails'
-gem 'icheck-rails'
+#gem 'private_pub'
+#gem "taglib-ruby"
+#gem 'id3_tags'
+#gem 'jquery-fileupload-rails'
+#gem 'icheck-rails'
 
 
 #=====================================
@@ -65,6 +65,7 @@ gem 'dalli'
 #gem 'texticle', require: 'texticle/rails'
 gem 'pg_search'
 gem 'transloadit-rails'
+gem 'uuidtools'
 #gem 'jquery-ui-rails'
 
 #gem "font-awesome-rails" <<------- not working on all devices ;-(

@@ -1,13 +1,14 @@
 -cache (account_user) do
-  -user = account_user.user
+
+  /-user = account_user.user
   td 
-    = user.name
-    -unless user.name == user.email
+    = account_user.get_name
+    -unless account_user.get_name == account_user.email
       br
-      = user.email
+      = account_user.email
   td 
     b = account_user.role
-    -if account_user.client?
+    -if account_user.associate? 
       -if account_user.access_to_all_recordings
         br
         'Access to Recordings

@@ -1,0 +1,19 @@
+- blog = Blog.cached_find('Customers')      
+- post = BlogPost.cached_find( "Invite To Work" , blog )
+
+= simple_form_for [ @account, @account_user, @customer_event ], :url => url_for(:action => 'create', :controller => 'customer_events'), :method => 'post',  :html => { :id => 'customer_event' } do |f| 
+  = f.hidden_field :account_id, value: @account.id
+  = f.hidden_field :account_user_id, value: @account_user.id
+  = f.hidden_field :event_type, value: CustomerEvent::EVENT_TYPES[:invite_to_common_work]
+  .row
+    .col-sm-6
+      = f.submit "", :type => :image, :src => "#{post.image_url(:size_570x320)}", class: 'img-responsive'
+
+    .col-sm-6
+      h3 
+        = link_to post.title, '#'
+        -if can_edit?
+          '&nbsp;
+          = link_to edit_admin_blog_blog_post_path(blog, post) do
+             i class="fa fa-pencil"
+      =post.body  

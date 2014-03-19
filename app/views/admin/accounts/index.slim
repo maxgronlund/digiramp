@@ -46,16 +46,16 @@
                           td = account.visits
                           td
                             .pull-right
-                              = link_to 'Go To', account_path( account), class: 'btn btn-default'
+                              = link_to 'Go To', account_path( account), class: 'btn btn-default btn-lg'
                               '&nbsp;
-                              = link_to 'Info', admin_account_path( account), class: 'btn btn-default'
+                              = link_to 'Info', admin_account_path( account), class: 'btn btn-default btn-lg'
                               '&nbsp;
                               = link_to edit_admin_account_path( account) do
-                                .btn.btn-primary
+                                .btn.btn-primary.btn-lg
                                   i class="fa fa-pencil"
                               '&nbsp;
                               = link_to admin_account_path( account), method: :delete ,data: {confirm: 'Are you sure?'} ,id: "delete_account_#{account.id}" do
-                                .btn.btn-danger
+                                .btn.btn-danger.btn-lg
                                   i class="fa fa-times"
                         
                 

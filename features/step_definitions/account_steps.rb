@@ -11,3 +11,11 @@ Then(/^I can fill in the account info$/) do
   
   
 end
+
+Given(/^"(.*?)" is prepared and the account owner name is "(.*?)" with the email "(.*?)" and the password "(.*?)" and the role "(.*?)"$/) do |title, name, email, password, role|
+   create_account( title, name, email, password, role)
+end
+
+Given(/^these account users is added as associate to$/) do |associate_users_table|
+   create_associate_users associate_users_table.raw
+end

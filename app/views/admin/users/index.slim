@@ -31,6 +31,8 @@
                     /th User
                     th Name
                     th Email
+                    th Role
+                    th Activated
                     th 
                 tbody
                   -@users.each do |user|
@@ -39,6 +41,8 @@
                         /td = debug user
                         td = user.name
                         td = user.email
+                        td = user.role
+                        th = user.activated ? '√' : ''
                         td
                           .pull-right
                             = link_to 'Show', admin_user_path( user ), class: 'btn btn-default'

@@ -1,0 +1,33 @@
+/= form_for @customer_event do |f|
+/  - if @customer_event.errors.any?
+/    #error_explanation
+/      h2 = "#{pluralize(@customer_event.errors.count, "error")} prohibited this customer_event from being saved:"
+/      ul
+/        - @customer_event.errors.full_messages.each do |message|
+/          li = message
+/
+/  .field
+/    = f.label :event_type
+/    = f.text_field :event_type
+/  .field
+/    = f.label :action_type
+/    = f.text_field :action_type
+/  .field
+/    = f.label :title
+/    = f.text_field :title
+/  .field
+/    = f.label :body
+/    = f.text_area :body
+/  .field
+/    = f.label :folow_up
+/    = f.check_box :folow_up
+/  .field
+/    = f.label :follow_up_date
+/    = f.date_select :follow_up_date
+/  .field
+/    = f.label :account
+/    = f.text_field :account
+/  .field
+/    = f.label :customer
+/    = f.text_field :customer
+/  .actions = f.submit 'Save'

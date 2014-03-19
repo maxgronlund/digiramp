@@ -2,28 +2,31 @@ class Account < ActiveRecord::Base
   
   belongs_to :user
   
-  after_create :init_activity_log
+  
   #after_create :assign_permissions
   #after_create :validate_expiration_date
   
-  has_one :activity_log
-  has_many :account_catalogs, dependent: :destroy
-  has_many :activity_events, as: :activity_eventable
   
-  has_many :invites
   has_many :playlists
-  has_many :songs
-  
-  has_many :common_works_imports
   has_many :common_works
-  has_many :import_ipis
-  has_many :notifications
-  
+  has_many :customers
+  has_many :customer_event
   has_many :recordings
-  has_many :representatives, dependent: :destroy
-  has_many :albums
-  has_many :documents, dependent: :destroy
-  has_many :music_opportunities
+  
+  #has_many :representatives, dependent: :destroy
+  #has_many :albums
+  #has_many :documents, dependent: :destroy
+  #has_many :music_opportunities
+  #has_many :music_oppertunity_submitions
+  #has_many :notifications
+  #has_many :common_works_imports
+  #has_many :songs
+  #has_one :activity_log
+  #has_many :account_catalogs, dependent: :destroy
+  #has_many :activity_events, as: :activity_eventable
+  #has_many :invites
+  #has_many :import_ipis
+  #after_create :init_activity_log
   
   
   #belongs_to :user
@@ -31,9 +34,11 @@ class Account < ActiveRecord::Base
   has_many :account_users, dependent: :destroy
   has_many :users, :through => :account_users
   
-  has_many :music_oppertunity_submitions
   
-  has_many :customers
+  
+  before_destroy :delete_user
+  
+  
   
 
   
@@ -51,6 +56,9 @@ class Account < ActiveRecord::Base
   
   include PgSearch
   pg_search_scope :search_account, against: [:title, :description, :contact_first_name, :contact_last_name, :contact_email, :fax], :using => [:tsearch]
+  
+  scope :activated,  ->  { where( activated: true).order("title asc")  }
+  
   
   def has_no_name?
     title == Account::SECRET_NAME
@@ -172,10 +180,7 @@ class Account < ActiveRecord::Base
       return all
     end
   end
-  
-  
-  
-    
+
   
 private
 
@@ -184,9 +189,16 @@ private
     Admin.cached_find(1).raise_accounts_version
   end
 
-  def init_activity_log
-    ActivityLog.create!(account_id: id) unless ActivityLog.exists?(account_id: id)
-  end
+  #def init_activity_log
+  #  ActivityLog.create!(account_id: id) unless ActivityLog.exists?(account_id: id)
+  #end
   
+  def delete_user
+    if User.exists?(user_id)
+      user.destroy
+    end
+    account_users = AccountUser.where(account_id: id)
+    account_users.delete_all
+  end
   
 end

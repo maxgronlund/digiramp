@@ -8,11 +8,11 @@ class AdminController < ApplicationController
   
   def flush_cache
     admin = Admin.first
-    logger.debug '--------------------------------------------------------------'
+    #logger.debug '--------------------------------------------------------------'
     admin.version += 1
     admin.save!
-    logger.debug admin.version
-    logger.debug '--------------------------------------------------------------'
+    #logger.debug admin.version
+    #logger.debug '--------------------------------------------------------------'
     admin.flush_cache
     redirect_to :back
   end

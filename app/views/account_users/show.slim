@@ -8,7 +8,7 @@
     ==render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             users: account_account_users_path(@account), \
-                                                            }, current: @account_user.user.name}
+                                                            }, current: @account_user.get_name}
     /.row
     /  .col-sm-8
     /    h1 Permission for #{@account_user.name}
@@ -20,7 +20,7 @@
     /.row 
     /  .col-sm-12
     /    hr
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Account Users'), blog_post: 'Client Permissions'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Account Users'), blog_post: 'Permissions'}
     
     .row
       .col-sm-6

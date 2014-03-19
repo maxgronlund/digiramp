@@ -13,7 +13,8 @@
     = simple_form_for [:admin,  @user] do |f|
       .row
         .col-sm-6
-          = f.input :account_id
+          - if current_user.can_edit?
+            = f.input :account_id , :include_blank => true, :collection => Account.all , label: 'Account'
           = f.input :name
           = f.input :email
           = f.input :password, autocomplete: :off

@@ -1,28 +1,5 @@
-/p#notice = notice
-/
-/p
-/  strong Name:
-/  = @customer.name
-/p
-/  strong Email:
-/  = @customer.email
-/p
-/  strong Phone:
-/  = @customer.phone
-/p
-/  strong Note:
-/  = @customer.note
-/p
-/  strong Account:
-/  = @customer.account
-/
-/= link_to 'Edit', edit_customer_path(@customer)
-/'|
-/= link_to 'Back', customers_path
+
 -session[:return_url] = request.url
-/- user_account = Account.cached_find(@customer.account_id)
-
-
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'     
@@ -31,11 +8,16 @@
     /== render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @customer.name}
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                     customers: account_customers_path(@account), \
-                                                  }, current: @customer.name}                                                        
+                                                  }, current: @account_user.name}                                                        
                                                             
     .row
-      /-body = link_to @common_work.title, account_work_path(@account, @common_work)
-      == render 'shared/page_title_text', locals: {title: @customer.name, body: ''}
+      /=debug @account_user.user.account
+      .col-sm-8
+        == render 'shared/page_title_text', locals: {title: @account_user.get_name, body: ''}
+      .col-sm-4
+        = link_to 'Edit Customer', edit_account_customer_path(@account, @account_user), class: 'btn btn-default btn-lg'
+        '&nbsp;
+        = link_to 'New Activity', new_account_customer_customer_event_path(@account, @account_user), class: 'btn btn-primary btn-lg'
 
     == render 'shared/line'
     .row
@@ -51,20 +33,27 @@
                       td 
                         .pull-right
                           'Email:
-                      td = @customer.email
+                      td = @account_user.email
                     tr
                       td 
                         .pull-right
                           'Phone:
-                      td = @customer.phone
+                      td = @account_user.get_phone
                 
               .col-sm-6
                 b Note
-                = simple_format @customer.note
+                = simple_format @account_user.note
+    
+    
 
 
-
-
+    .row
+      .col-sm-12
+        .panel
+          .panel-body
+            h3 Activities
+            - @account_user.customer_events.each do |customer_event|
+              = debug customer_event.event_type
 
 
 

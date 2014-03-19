@@ -5,6 +5,8 @@ Digiramp::Application.routes.draw do
   
   
 
+  
+
   resources :uploads
   require 'sidekiq/web'
   #require 'admin_constraint'
@@ -18,7 +20,9 @@ Digiramp::Application.routes.draw do
   
   resources :accounts, only: [:show, :edit, :update] do
     resources :account_users
-    resources :customers
+    resources :customers do
+      resources :customer_events
+    end
     resources :collects, only: [:index]
     resources :customers, only: [:index]
     resources :drm, only: [:index]

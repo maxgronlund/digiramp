@@ -1,6 +1,7 @@
 class AccountUser < ActiveRecord::Base
   belongs_to :account
   belongs_to :user
+  has_many :customer_events
   
   #after_create :init_permissions
   #has_many :permitted_models, dependent: :destroy
@@ -15,7 +16,10 @@ class AccountUser < ActiveRecord::Base
   ## Usage:
   ## account_user.has_permission_for_model? "r", "Recording", account_id
   
-  ROLES = ["Account Owner", "Administrator", "Client"]
+  ROLES = ["Account Owner", "Administrator", "Client", "Associate"]
+  
+  include PgSearch
+  pg_search_scope :search_account_user, against: [:name, :email, :note, :phone], :using => [:tsearch]
   
   after_commit :flush_cache
 
@@ -27,8 +31,39 @@ class AccountUser < ActiveRecord::Base
   #def guest?;           role == 'guest' || role.nil?  end # Until role is set to :guest by default
   #def supervisor?;      role == 'supervisor'          end
   #
-  def email
-    
+  
+  scope :editors,  ->  { where.not( role: 'Client').order("name asc")  }
+  scope :clients,  ->  { where( role: 'Client').order("name asc")  }
+  
+
+
+  
+  def mount_user
+    if user_id == -1
+      secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
+      
+      new_user = User.where(account_id: account_id, email: email)
+                     .first_or_create(account_id: account_id, 
+                                       name: get_name, 
+                                       email: email, 
+                                       role: 'cuctomer',
+                                       password: secret_temp_password,
+                                       password_confirmation: secret_temp_password, 
+                                       activated: false)
+      self.user_id = new_user.id
+      self.save!
+    end
+  end
+  
+  
+  
+  def get_email
+    return email unless email == ''
+    return user.email
+  end
+  
+  def associate?
+    role == 'Associate'
   end
   
   def client?
@@ -47,8 +82,17 @@ class AccountUser < ActiveRecord::Base
     administrator? || owner?
   end
   
-  def name
-    user.name ||= user.email
+  def get_name
+    return name       unless name.to_s == ''
+    if user
+      return user.name  unless user.name.to_s == ''
+      return user.email
+    end
+    return email
+  end
+  
+  def get_phone
+    phone
   end
   
   def can_access_assets?
@@ -78,6 +122,16 @@ class AccountUser < ActiveRecord::Base
   def self.find_by_cached_id(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
+
+  def self.search( query)
+    if query.present?
+      return AccountUser.search_account_user(query)
+    else
+      return all
+    end
+  end
+  
+
   
 
 

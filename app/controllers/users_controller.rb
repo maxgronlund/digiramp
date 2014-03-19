@@ -31,20 +31,8 @@ class UsersController < ApplicationController
       blog              = Blog.cached_find('Sign Up')
       if @user.save
        
-        
-        @account = Account.new(title: Account::SECRET_NAME, 
-                                  user_id: @user.id, 
-                                  expiration_date: Date.current()>>1,
-                                  contact_email: @user.email,
-                                  visits: 1,
-                                  account_type: Account::ACCOUNT_TYPES[:not_confirmed],
-                                  )
-        @account.save(validate: false)                     
-        AccountUser.create(user_id: @user.id, account_id: @account.id, role: 'Administrator')
-        
-        @user.account_id          = @account.id
-        @user.current_account_id  = @account.id
-        @user.save
+        @account = User.create_a_new_account_for_the @user
+       
         
         blog              = Blog.cached_find('Sign Up')
         blog_post         = BlogPost.cached_find('Sucess', blog)
@@ -66,6 +54,8 @@ class UsersController < ApplicationController
     #  redirect_to root_path
     #end
   end
+  
+  
   
   
   def sign_in

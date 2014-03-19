@@ -1,13 +1,13 @@
-#cucumber features/guests/sign_up.feature -r features
+# cucumber features/guests/sign_up.feature -r features
 
 @admin_site
 
-Feature: As an guest I can sign up
+Feature: I can sign up when I have no account
 
   
   Background:
     Given digiramp is prepared
-    Given there is an administrator
+    Given "DigiRAMP" is prepared and the account owner name is "Boss" with the email "digi@ramp.com" and the password "joker" and the role "super"
     
   
   @javascript  

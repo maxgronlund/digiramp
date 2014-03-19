@@ -1,3 +1,10 @@
+# a user can be created by someone else than the user
+# E:G: an other user can add the user as a client to his account.
+# In that case there is send no notification to the user
+# and the user is marked as not signed up
+# account users with the role 'Client' can not se the accounts where they are clients
+
+
 class User < ActiveRecord::Base
   has_secure_password
   
@@ -14,7 +21,7 @@ class User < ActiveRecord::Base
   mount_uploader :image, AvatarUploader
   include ImageCrop
   
-  has_one :account #
+  has_one :account
   #has_many :account_users
   
   has_one :dashboard
@@ -47,6 +54,8 @@ class User < ActiveRecord::Base
   
   after_commit :flush_cache
   
+  
+  
   ## !!!! should be depricated! Moved to AccountUser
   def can? action, id_name_or_record, _account_id
     return true
@@ -60,42 +69,44 @@ class User < ActiveRecord::Base
     UserMailer.delay.password_reset(self)
   end 
   
-  def invite_existing_user_to_account invited_to_account
-    
-    options = { user: self, account: invited_to_account}
-    UserMailer.delay.invite_existing_user_to_account options
-    
-  end
-  
-  def invite_to_account( account_id , invitation_message)
-    generate_token(:password_reset_token)
-    self.password_reset_sent_at = Time.zone.now
-    save!
-    UserMailer.delay.invite_to_account(self.id, account_id, invitation_message)
-  end
 
-  def send_signup_confirmation
-    generate_token(:password_reset_token)
-    self.password_reset_sent_at = Time.zone.now
-    save!
-    UserMailer.delay.signup_confirmation(self)
+  
+  def invite_existing_user_to_account account_id , invitation_message
+    UserMailer.delay.invite_existing_user_to_account self.id, account_id, invitation_message
   end
   
-  def new_account_and_user_confirmation  invited_to_account
+  def invite_new_user_to_account( account_id , invitation_message)
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
     save!
-    options = { user: self, account: invited_to_account}
-    UserMailer.delay.new_account_and_user_confirmation options
+    logger.debug '-----------------------------------------------------------------------------'
+    logger.debug invitation_message
+    logger.debug '-----------------------------------------------------------------------------'
+    UserMailer.delay.invite_new_user_to_account(self.id, account_id, invitation_message)
   end
-  
-  def signed_up_and_invited_to account_id, invitation_massage
-
-    generate_token(:password_reset_token)
-    self.password_reset_sent_at = Time.zone.now
-    save!
-    UserMailer.delay.signup_confirmation self.id, account_id, invitation_massage 
-  end
+  #
+  #def send_signup_confirmation
+  #  generate_token(:password_reset_token)
+  #  self.password_reset_sent_at = Time.zone.now
+  #  save!
+  #  UserMailer.delay.signup_confirmation(self)
+  #end
+  #
+  #def new_account_and_user_confirmation  invited_to_account
+  #  generate_token(:password_reset_token)
+  #  self.password_reset_sent_at = Time.zone.now
+  #  save!
+  #  options = { user: self, account: invited_to_account}
+  #  UserMailer.delay.new_account_and_user_confirmation options
+  #end
+  #
+  #def signed_up_and_invited_to account_id, invitation_massage
+  #
+  #  generate_token(:password_reset_token)
+  #  self.password_reset_sent_at = Time.zone.now
+  #  save!
+  #  UserMailer.delay.signup_confirmation self.id, account_id, invitation_massage 
+  #end
 
   def asseccible_recordings
     recordings = []
@@ -262,6 +273,23 @@ class User < ActiveRecord::Base
   
   def flush_auth_token_cache auth_token
     Rails.cache.delete([self.class.name, auth_token])
+  end
+  
+  def self.create_a_new_account_for_the user
+    @account = Account.new(title: Account::SECRET_NAME, 
+                              user_id: user.id, 
+                              expiration_date: Date.current()>>1,
+                              contact_email: user.email,
+                              visits: 1,
+                              account_type: Account::ACCOUNT_TYPES[:not_confirmed],
+                              )
+    @account.save(validate: false)                     
+    AccountUser.create(user_id: user.id, account_id: @account.id, role: 'Account Owner')
+    
+    user.account_id          = @account.id
+    user.current_account_id  = @account.id
+    user.save
+    @account
   end
 
 

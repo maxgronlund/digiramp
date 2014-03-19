@@ -11,7 +11,7 @@
 
                                          
                                          
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Users with access to the account'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Account users'}
 
     .row
       .col-sm-12
@@ -25,8 +25,8 @@
                 /    th Permissions
                 /    th
                 tbody
-                  -@account.account_users.order('id asc').each do |account_user|
+                  -@account.account_users.editors.each do |account_user|
                     tr == render 'account_users/shared/account_user', account_user: account_user
-            
+            hr
             .pull-right
-              = link_to 'Invite Users', new_account_account_user_path(@account), class: 'btn btn-success btn-lg'
+              = link_to 'Invite User', new_account_account_user_path(@account), class: 'btn btn-success btn-lg'

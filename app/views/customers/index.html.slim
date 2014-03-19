@@ -7,8 +7,8 @@
       .col-sm-12
         ==render 'admin/shared/messages'
     
-    -cache ([request.url, @account.customer_cache_version, current_user.role  ]) do
-      /.do
+    /-cache ([request.url, @account.customer_cache_version, current_user.role  ]) do
+    .do
       .row
         .col-sm-12
           == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account) \
@@ -18,7 +18,7 @@
         col-sm-12
           .panel
             .panel-body
-              = form_tag admin_users_path, :method => 'get' do
+              = form_tag account_customers_path(@account), :method => 'get' do
                 .row
                   .col-sm-6
                     br
@@ -27,7 +27,9 @@
                     br
                     = submit_tag 'Search', class: 'btn btn-primary btn-lg'
                     '&nbsp;
-                    = link_to 'Show All',admin_users_path, class: 'btn btn-default btn-lg'
+                    = link_to 'Show All', account_customers_path(@account), class: 'btn btn-default btn-lg'
+                    .pull-right
+                      = link_to 'New Customer', new_account_customer_path( @account ) , class: 'btn btn-success btn-lg'
                 hr
           
               .table-responsive
@@ -35,34 +37,36 @@
                   thead
                     tr
                       /th User
+                      /th
                       th Name
                       th Email
                       th Phone
                       th
                   tbody
-                    - @customers.order('name asc').each do |customer|
+                    -@account.account_users.order('name asc').each do |account_user|
                       tr
-                        td = link_to customer.name , account_customer_path( @account, customer )
-                        td = link_to customer.email, account_customer_path( @account, customer )
-                        td = link_to customer.phone, account_customer_path( @account, customer )
+                        /d class="img-responsive" 
+                        / =image_tag avatar_url(account_user.user)
+                        td = link_to account_user.get_name , account_customer_path( @account, account_user )
+                        td = link_to account_user.get_email, account_customer_path( @account, account_user )
+                        td = link_to account_user.get_phone, account_customer_path( @account, account_user )
                         td
                           .pull-right
-                            = link_to account_customer_path(@account, customer) do
-                              .btn.btn-default
+                            = link_to account_customer_path(@account, account_user) do
+                              .btn.btn-default.btn-lg
                                 i class='fa fa-eye'
                             '&nbsp;
-                            = link_to edit_account_customer_path(@account, customer) do
-                              .btn.btn-primary
+                            = link_to edit_account_customer_path(@account, account_user) do
+                              .btn.btn-primary.btn-lg
                                 i class='fa fa-pencil'
                             '&nbsp;
-                            = link_to account_customer_path(@account, customer), data: { confirm: 'Are you sure?' } , method: :delete do
-                              .btn.btn-danger
+                            = link_to account_customer_path(@account, account_user), data: { confirm: 'Are you sure?' } , method: :delete, id: "delete_customer_#{account_user.id.to_s}" do
+                              .btn.btn-danger.btn-lg
                                 i class="fa fa-times"
       .row
         .col-sm-12
           hr
-          .pull-right
-            = link_to 'New Customer', new_account_customer_path( @account ) , class: 'btn btn-primary btn-lg'
+          
             
                         
     

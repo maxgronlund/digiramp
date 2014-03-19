@@ -2,6 +2,14 @@ class AccountUsersController < ApplicationController
 
   before_filter :there_is_access_to_the_account
   #respond_to :html, :xml, :json
+  
+  #after_create :mount_user
+  #
+  #def mount_user
+  #  logger.debug '============================================'
+  #  logger.debug 'mount user'
+  #  logger.debug '============================================'
+  #end
 
   def index
     
@@ -18,24 +26,59 @@ class AccountUsersController < ApplicationController
     @account_user = @account.account_users.new(role: "Client")
     @roles = AccountUser::ROLES
     @roles.delete("Account Owner")
-
+    @roles.delete("Client")
+    
+  end
+  
+  def create_user
+    # dont activate accounts for new users if their role is 'Client'
+    activated = params[:account_user][:role] == 'Client' ? false : true
+    # make a temporary password
+    secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
+    # create the user
+    @user = User.create( email: params[:account_user][:email], 
+                         name: params[:account_user][:email], 
+                         #current_account_id: @account.id, 
+                         password: secret_temp_password, 
+                         password_confirmation: secret_temp_password,
+                         activated: activated)
+    
+    
+  end
+  
+  def create_account_for user
+    # forget about the expiration date
+    account = Account.create( title: user.email, 
+                              account_type: Account::ACCOUNT_TYPES[:free_account], 
+                              contact_email: user.email, 
+                              user_id: user.id,
+                              expiration_date: Date.current()>>1)
   end
 
   def create
     
     if @user = User.where(email: params[:account_user][:email]).first
-      @account_user = AccountUser.create!(account_id: @account.id, user_id: @user.id, role: params[:account_user][:role], invitation_message: params[:account_user][:invitation_message])
-      flash[:info] = { title: "User invited", body: "successfully invited user with email: #{ params[:account_user][:email]}" }
-      redirect_to @account_user.client?   ?  account_account_user_path( @account , @account_user) : account_account_users_path( @account)
+      create_account_user_for_existing @user
+      @user.invite_existing_user_to_account( @account.id, params[:account_user][:invitation_message])  if @user.activated
     else
-      flash[:danger] = { title: "User is not a member", body: "Please ask the person you are about to invite to sign up for an account" }
-      redirect_to account_account_users_path @account
-     # @user = User.create( email: params[:account_user][:email], name: params[:account_user][:email], current_account_id: @account.id, password: 'qLp8GtNwlx7WVBY3Xj9QTDi5PR', password_confirmation: 'qLp8GtNwlx7WVBY3Xj9QTDi5PR')
-     # account_user = AccountUser.create(account_id: @account.id, user_id: @user.id, role: params[:account_user][:role], invitation_message: params[:account_user][:invitation_message])
-     # @user.signed_up_and_invited_to @account.id, params[:account_user][:invitation_message]
+      # there is no use so there is no account
+      # so create a user first
+      @user                     = create_user
+      @user_account             = create_account_for @user
+      @user.current_account_id  = @user_account.id
+      @user.save!
+      @user.invite_new_user_to_account( @account.id, params[:account_user][:invitation_message]) if @user.activated
+
     end
+    # go ahead and create the account user
+    @account_user = AccountUser.create!(account_id: @account.id, 
+                                        user_id: @user.id, 
+                                        role: params[:account_user][:role], 
+                                        invitation_message: params[:account_user][:invitation_message],
+                                        email: @user.email,
+                                        name: @user.name)
     
-    
+    redirect_to @account_user.associate?   ?  account_account_user_path( @account , @account_user) : account_account_users_path( @account)
     #
     #if params[:account_user][:permitted_models_attributes]
     #  params[:account_user][:permitted_models_attributes].each do |pma|
@@ -54,18 +97,28 @@ class AccountUsersController < ApplicationController
     #flash[:info] = { title: "User invited", body: "successfully invited user with email: #{ params[:account_user][:email]}" }
     #redirect_to session[:last_prefering_page]
   end
+  
+  def create_account_user_for_existing user
+    if params[:account_user][:role] == 'Client'
+      redirect_to :back
+    end
+    flash[:info] = { title: "User invited", body: "An invitation is send to: #{ params[:account_user][:email]}" }
+    @user.invite_existing_user_to_account( @account.id , 'Welcome to the party')
+  end
 
   def edit
     
     @account_user = AccountUser.find_by_cached_id(params[:id])
     @roles = AccountUser::ROLES
     @roles.delete("Account Owner") #unless current_user.super?
-    
-   
-    
+    @roles.delete("Client")
+
   end
   
   def update
+    logger.debug '-----------------------------------------'
+    logger.debug 'time to send an email'
+    logger.debug '-----------------------------------------'
     
     @account_user = AccountUser.find_by_cached_id(params[:id])
     params[:account_user][:version] = @account_user.version + 1
@@ -85,8 +138,8 @@ class AccountUsersController < ApplicationController
     account_user = AccountUser.find_by_cached_id(params[:id])
     account_user.destroy
     
-    logger.debug '-----------------------------------------'
-    logger.debug session[:return_url]
+    
+
     
     flash[:info] = { title: "User removed", body: "the user has no more access to this account" }
     redirect_to_return_url account_path(@account)

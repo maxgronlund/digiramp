@@ -58,10 +58,6 @@ class ApplicationController < ActionController::Base
   end
   
   def user_is_an_account_user
-    logger.debug '---------------------------------------------'
-    logger.debug current_user.id
-    logger.debug @account.id
-    logger.debug '---------------------------------------------'
     AccountUser.cached_find(current_user.id, @account.id)
   end
   
@@ -72,16 +68,21 @@ class ApplicationController < ActionController::Base
   
 private
   def access_to_account
+    
     return false if current_user == nil
+    
+    #account_id = params[:id] || params[:account_id]
     begin
       @account = Account.cached_find(params[:id])
     rescue
       @account = Account.cached_find(params[:account_id])
     end
     return true if account_belongs_to_current_user
-    return true if current_user.role == 'admin' || current_user.role == 'super'
     return true if user_is_an_account_user
+    return true if current_user.role == 'super'
     @account = nil
+    #account_belongs_to_current_user.current_account_id = current_user.account_id
+    #account_belongs_to_current_user.save
     false
   end
   

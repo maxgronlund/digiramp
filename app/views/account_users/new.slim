@@ -12,19 +12,27 @@
     /== render 'shared/page_title', locals: {blog: blog, blog_post: 'Set Role'}
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Account Users'), blog_post: 'Invite User'}
     .row
+      .col-sm-3
       .col-sm-6
         .panel
           .panel-body
-            h3 INVITE USER AS
+            h3 INVITE USER
             hr
             =simple_form_for [@account, @account_user] do |f|
               = f.hidden_field :account_id, value: @account.id
               = f.input :role,  collection: @roles,     as: :radio_buttons, label: false
               = f.input :email, label: 'Email for the user to invite'
-              /= f.input :invitation_message
+              
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+          
+              =f.input :invitation_message, label: false, :input_html => {  style: "height: 280px;", placeholder: "Invitation message", id: 'wysihtml5_editor'}
+    
               
               .pull-right
-                =f.submit 'Save', class: 'btn btn-primary btn-lg'
+                =f.submit 'Send', class: 'btn btn-primary btn-lg'
       /.col-sm-6
       /  h3 =@administrator.title
       /  =@administrator.body

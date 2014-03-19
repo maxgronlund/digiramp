@@ -1,0 +1,7 @@
+<h1>Invitation From DigiRAMP</h1>
+
+<p> 
+  <%=simple_format @message%>
+</p>
+
+<a href="http://assets-manager.com/<%= edit_password_reset_path(@user.password_reset_token) %>">Access Here</a>

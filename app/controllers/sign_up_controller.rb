@@ -15,12 +15,15 @@ class SignUpController < ApplicationController
       @user   = User.create(user_params)
       role = params['/sign_up']['role']
       account = Account.create( title: email, account_type: role, contact_email: email, user_id: @user.id)
-      AccountUser.where( account_id: account.id, user_id: @user.id).first_or_create( account_id: account.id, user_id: @user.id, role: role)
+      AccountUser.where( account_id: account.id, user_id: @user.id).first_or_create(  account_id: account.id, 
+                                                                                      user_id: @user.id, 
+                                                                                      role: AccountUser::ROLES[0],
+                                                                                       expiration_date: Date.current()>>1)
       
       @user.name        = email
       
       if@user.save!
-        flash[:info]      = { title: "Success", body: "You are signed up as #{params['/sign_up']['role']}" }
+        flash[:info]      = { title: "Success", body: "You are signed up"}
         go_to = login_index_path
       else
         account.destroy

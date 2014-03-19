@@ -1,0 +1,28 @@
+-session[:return_url] = request.url
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+        
+  .container
+    
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            customers: account_customers_path(@account), \
+                                                            @account_user.get_name.to_sym => account_customer_path(@account, @account_user), \
+                                                            }, current: 'New Activity'}
+                                                            
+
+                                                            
+
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Customers'), blog_post: 'New Activity'}
+    /== render 'form'
+    .row
+      .col-sm-6
+        == render 'customer_events/events/private_playlist'
+      .col-sm-6
+        == render 'customer_events/events/invite_to_common_work'
+        
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+    
