@@ -7,7 +7,8 @@ soundManager.setup({
   // path to directory containing SM2 SWF
   url: '../../swf/',
   // optional: enable MPEG-4/AAC support (requires flash 9)
-  flashVersion: 9
+  flashVersion: 9,
+  html5PollingInterval: 100
 });
 
 soundManager.onready(function() {
@@ -15,19 +16,11 @@ soundManager.onready(function() {
   if ($('#load-player')[0]) {
     //console.log( '-----------------------------------------' );
     var digiramp_player = [];
-    //digiramp_player.push(new digirampPlayer(0));
-    
-    
-    $( ".player" ).each(function( index ) {
-      console.log( index );
-      digiramp_player.push(new digirampPlayer(index));
-      
-    });
-    
-    
-    
-    
 
+    $( ".player" ).each(function( index ) {
+      id = $(this).attr('id');
+      digiramp_player.push(new digirampPlayer(id));
+    });
 
   };
 });
@@ -53,15 +46,33 @@ function positionInPercent(waweform, mousePosX) {
 }
 
 
-
+function createSound(sm_sound_id, digiramp_player, progress_bar){
+  
+  
+  var smSound = soundManager.createSound({
+    id: sm_sound_id,
+    url: $(digiramp_player).attr('class'),
+  });
+  
+  // progress bar
+  smSound.load({
+    whileloading: function() {
+      var loaded = (this.bytesLoaded / this.bytesTotal) * 100;
+      var pos = loaded.toString() + '%';
+      $(progress_bar).css("width", pos);
+      //console.log(pos);
+      //$(progress_bar).html(pos);
+    }
+  });
+  return smSound;
+}
 
 
 
 
 function digirampPlayer(i){
-  var player_index = parseInt(i)
-  var player_button   = "#play_button_"     + player_index;
-                                            
+  var player_index    = parseInt(i)
+  var player_button   = "#play_button_"     + player_index;                                 
   var player_head     = "#playhead_"        + player_index;
   var progress_bar    = "#load_bar_"        + player_index + ".progress-bar.load-position";
   var possition_tag   = "#position_"        + player_index + ".position";
@@ -71,13 +82,14 @@ function digirampPlayer(i){
   var waveform        = "#waveform_"        + player_index;
   var sm_sound_id     = "sound_"            + player_index;
   var playing         = false;
+  var smSound         = null;
   //var no_sound        = true;
   
-  // when a player is colapsed: stop it
+
+  // when a player colapses: stop it
   $(".multi_player").on('hide.bs.collapse', function (event) {
-    expanded_index = $(this).attr('index')
-    if(expanded_index == player_index){
-      
+    colapsed_index = $(this).attr('index')
+    if(colapsed_index == player_index){
       smSound.pause();
       // show the play-button
       $(player_button).html("<i class='player-button fa fa-play'></i>");
@@ -85,6 +97,19 @@ function digirampPlayer(i){
     }
   });
   
+  // when a player expandes for the first time: load sound
+  $(".multi_player").on('show.bs.collapse', function (event) {
+    expanded_index = $(this).attr('index')
+    if( smSound == null && expanded_index == player_index){
+      // only load one time
+      smSound = createSound(sm_sound_id, digiramp_player, progress_bar);
+    };
+  });
+  
+
+  if ($(".just-load")[0]) {
+    smSound = createSound(sm_sound_id, digiramp_player, progress_bar);
+  }
   
   // show the play-button
   $(player_button).html("<i class='player-button fa fa-play'></i>");
@@ -93,67 +118,50 @@ function digirampPlayer(i){
   $(player_head).css("height", $(waveform).height());
 
   // set the duration
-  var duration_string = convertTimeToString($(possition_tag).html())
+  var duration_string = convertTimeToString('0')
   $(possition_tag).text(duration_string);
   
-  // the sound
-  var smSound = soundManager.createSound({
-    id: sm_sound_id,
-    url: $(digiramp_player).attr('class'),
-  });
 
-  // progress bar
-  smSound.load({
-    whileloading: function() {
-      var loaded = (this.bytesLoaded / this.bytesTotal) * 100;
-      pos_om_pct = loaded.toString();
-      var pos = parseInt(pos_om_pct, 10)
-      pos += '%';
-      
-      $(progress_bar).css("width", pos);
-      $(progress_bar).html(pos);
-    }
-  });
 
-  // palybutton toogle
-  var playing = false;
   var durationEstimate = 100;
   $(player_button).click(function() {
-    // change to pause button
-    $(player_button).html('<i class="player-button fa fa-pause""></i>');
-    playing = !playing;
-    // play
-    if (playing) {
-      smSound.play({
-        whileplaying: function() {
-          
-          // move playhead
-          durationEstimate = this.durationEstimate
-          playhead_pos = this.position / this.durationEstimate;
-          pos = playhead_pos * waveform_width;
+    if(smSound != null){
+      // change to pause button
+      $(player_button).html('<i class="player-button fa fa-pause""></i>');
+      playing = !playing;
+      // play
+      if (playing) {
+        smSound.play({
+          whileplaying: function() {
+            // move playhead
+            durationEstimate = this.durationEstimate
+            playhead_pos = this.position / this.durationEstimate;
+            pos = playhead_pos * waveform_width;
 
-          var waveform_width = $(waveform).width();
+            var waveform_width = $(waveform).width();
 
-          $(player_head).css("margin-left", playhead_pos * waveform_width);
-          $('.playhead').css("height", $(waveform).height());            // <<<< make this react on window resize instead
+            $(player_head).css("margin-left", playhead_pos * waveform_width);
+            $('.playhead').css("height", $(waveform).height());            // <<<< make this react on window resize instead
           
-          $(possition_tag).text(convertTimeToString(this.position * 0.001));
-        },
-        onfinish: function() {
-          playing = false;
-          $(play_button).html('<i class="player-button fa fa-play""></i>');
-          smSound.setPosition(0);
-          $(player_head).css("margin-left", 0); 
-          $(possition_tag).text(convertTimeToString(this.position * 0.001));
-        }
+            $(possition_tag).text(convertTimeToString(this.position * 0.001));
+          },
+          onfinish: function() {
+            playing = false;
+            $(play_button).html('<i class="player-button fa fa-play""></i>');
+            smSound.setPosition(0);
+            $(player_head).css("margin-left", 0); 
+            $(possition_tag).text(convertTimeToString(this.position * 0.001));
+          }
         
-      });
-    } else {
-      // stop
-      smSound.pause();
-      // change back to play button
-      $(play_button).html('<i class="player-button fa fa-play""></i>');
+        });
+      } else {
+        // stop
+        smSound.pause();
+        // change back to play button
+        $(play_button).html('<i class="player-button fa fa-play""></i>');
+      };
     };
+    
   });
   
   // detect mouse click on back button
@@ -171,5 +179,6 @@ function digirampPlayer(i){
     smSound.setPosition(gotoSoundPosition);
   });
 } 
+
 
 

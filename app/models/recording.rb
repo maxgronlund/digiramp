@@ -2,32 +2,32 @@ class Recording < ActiveRecord::Base
   
   serialize :audio_upload, Hash
   include PgSearch
-  pg_search_scope :search, against: [:title, :artists, :lyrics, :production_company, :isrc_code ], :using => [:tsearch]
+  pg_search_scope :search, against: [:title, :artists, :lyrics, :production_company, :isrc_code, :genre, :artist, :bpm ], :using => [:tsearch]
   
   
   #require 'taglib'
   #scope :none, where("1 = 0")
-  scope :none, -> { where(color: "1 = 0") }
+  #scope :none, -> { where(color: "1 = 0") }
   
   belongs_to :account
   belongs_to :common_work
-  belongs_to :song
-  belongs_to :album
+  #belongs_to :song
+  #belongs_to :album
   
-  has_many :genre_tags
-  has_many :genres, through: :genre_tags
-  
-  has_many :mood_tags
-  has_many :moods, through: :mood_tags
-  
-  has_many :instrument_tags
-  has_many :instruments, through: :instrument_tags
-  
-  has_many :account_catalogs
-  has_many :catalogs, through: :account_catalogs
-  
-  has_many :documents, as: :documentable, dependent: :destroy
-  has_many :activity_events, as: :activity_eventable
+  #has_many :genre_tags
+  #has_many :genres, through: :genre_tags
+  #
+  #has_many :mood_tags
+  #has_many :moods, through: :mood_tags
+  #
+  #has_many :instrument_tags
+  #has_many :instruments, through: :instrument_tags
+  #
+  #has_many :account_catalogs
+  #has_many :catalogs, through: :account_catalogs
+  #
+  #has_many :documents, as: :documentable, dependent: :destroy
+  #has_many :activity_events, as: :activity_eventable
   
   #mount_uploader :poster, PosterUploader
   #include ImageCrop

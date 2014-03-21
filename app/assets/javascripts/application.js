@@ -20,7 +20,6 @@
 //= require soundmanager2
 //= require inlineplayer
 //= require digiramp_player
-// require digiramp_wrapper
 //= requiry jquery.transloadit2-v2-latest
 //= require super_simple_wysiwyg
 // require recordings

@@ -15,25 +15,35 @@
         == render 'shared/page_title_text', locals: {title: @recording.title, body: body}
 
       == render 'shared/line'
-      .player
-      == render 'players/waveworm_player', locals: {index: 0, recording: @recording}
+      -index = @recording.id
+      div class="player" id="#{index}"
+      .just-load
+      == render 'players/digramp_player', locals: {index: index , recording: @recording}
       == render 'shared/line'
       .row
         .col-sm-6
           == render 'recordings/shared/metadata'
         .col-sm-6 
-          == render 'recordings/shared/lyrics' unless @recording.instrumental
+          == render 'recordings/shared/lyrics' unless @recording.instrumental || @recording.lyrics.to_s == ''
           /.panel
           /  .panel-body
           /    b I'm having an ISRC for this recording
           /    .pull-right
           /      = link_to "Add", '#', class: 'btn btn-default btn-lg', id: 'play-button'
 
-          
-            
-
-        
+      -if @can_edit
+        .row
+          .col-sm-12
+            hr
+            .pull-right
+               = link_to  edit_account_common_work_audio_file_path(@account, @common_work, @recording) do
+                .btn.btn-primary.btn-lg
+                  i class="fa fa-pencil" 
+                  '&nbsp;Edit    
+             
       
+         
+       
       
 
           
