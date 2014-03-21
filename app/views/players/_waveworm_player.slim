@@ -27,16 +27,18 @@
         td
           div class="play-button" id="play_button_#{index}"
           
-  .col-sm-4
-    div class="position" id="position_#{index}"
-      '0
-    /= recording.duration
-  .col-sm-4
-  
-    /-if @can_edit
-    /  .pull-right
-    /     = link_to  edit_account_common_work_audio_file_path(recording.account, recording.common_work, recording) do
-    /      .btn.btn-primary.btn-lg
-    /        i class="fa fa-pencil"
-    /          '&nbsp;
-    /          'Edit
+  .col-sm-8
+    .row
+      .col-xs-6
+        div class="position" id="position_#{index}"
+          '0
+        /= recording.duration
+      .col-xs-6
+      
+        -if @can_edit
+          .pull-right
+             = link_to  edit_account_common_work_audio_file_path(recording.account, recording.common_work, recording) do
+              .btn.btn-primary.btn-lg
+                i class="fa fa-pencil"
+                  '&nbsp;
+                  'Edit
