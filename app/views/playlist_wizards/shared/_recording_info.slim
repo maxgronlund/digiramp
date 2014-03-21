@@ -1,44 +1,8 @@
 - index     = locals[:index]
 - recording = locals[:recording]
 
-
 div id="load-player"
-
 div id="recording_#{index.to_s}" class="multi_player panel-collapse collapse" index="#{index}"
-  
   .panel-body
     == render 'players/digramp_player', locals: {index: index, recording: recording}
-    /.row 
-    /  .col-sm-12  
-    /    .thumbnail.gray
-    /      .wavewrapper
-    /        div class="playhead"
-    /        = image_tag recording.waveform, class: 'waveform img-responsive'
-    /        
-    /
-    /  .col-sm-12
-    /    div id="digiramp_player" class="#{recording.mp3}"
-    /    
-    /    .progress
-    /      div class="progress-bar load-position" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"
-    /        '0%
-    /
-    /.row
-    /  .col-sm-4
-    /    table
-    /      tr
-    /        td
-    /          i class="player-button fa fa-fast-backward" id="back-button"
-    /        td
-    /          div id="play-button"
-    /  .col-sm-4
-    /    .duration
-    /      = recording.duration
-    /  .col-sm-4
-    /    /-if @can_edit
-    /    /  .pull-right
-    /    /     = link_to  edit_account_common_work_audio_file_path(recording.account, recording.common_work, recording) do
-    /    /      .btn.btn-primary.btn-lg
-    /    /        i class="fa fa-pencil"
-    /    /          '&nbsp;
-    /    /          'Edit
+    

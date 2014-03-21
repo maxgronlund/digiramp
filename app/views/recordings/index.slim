@@ -55,7 +55,6 @@
                           h4 class="panel-title"
                             a data-toggle="collapse" data-parent="#accordion" href="#recording_#{index.to_s}"
                               .row
-                                
                                 .btn.btn-default.btn-lg.col-sm-4
                                   = recording.title
                                 .col-sm-3
@@ -80,7 +79,10 @@
                                     .label.label-default
                                       'BPM: #{recording.bpm}
                    
-                      == render 'playlist_wizards/shared/recording_info', locals: { recording: recording, index: index}
+                      div id="load-player"
+                      div id="recording_#{index.to_s}" class="multi_player panel-collapse collapse" index="#{index}"
+                        .panel-body
+                          == render 'players/digramp_player', locals: {index: index, recording: recording}
                     hr        
                   
                      
