@@ -15,41 +15,8 @@
         == render 'shared/page_title_text', locals: {title: @recording.title, body: body}
 
       == render 'shared/line'
-
-      .row 
-        .col-sm-12  
-          .thumbnail.gray
-            .wavewrapper
-              .playhead
-              = image_tag @recording.waveform, class: 'waveform img-responsive'
-              
-
-        .col-sm-12
-          dev id="digiramp_player" class="#{@recording.mp3}"
-          
-          .progress
-            div class="progress-bar load-position" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"
-              '0%
-      .row
-        .col-sm-4
-          table
-            tr
-              td
-                i class="player-button fa fa-fast-backward" id="back-button"
-              td
-                #play-button
-        .col-sm-4
-          .duration
-            = @recording.duration
-        .col-sm-4
-          -if @can_edit
-            .pull-right
-               = link_to  edit_account_common_work_audio_file_path(@account, @common_work, @recording) do
-                .btn.btn-primary.btn-lg
-                  i class="fa fa-pencil"
-                    '&nbsp;
-                    'Edit
-
+      .player
+      == render 'players/waveworm_player', locals: {index: 0, recording: @recording}
       == render 'shared/line'
       .row
         .col-sm-6

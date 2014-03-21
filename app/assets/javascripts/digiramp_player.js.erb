@@ -1,4 +1,3 @@
-
 soundManager.setup({
   // disable or enable debug output
   debugMode: false,
@@ -13,88 +12,23 @@ soundManager.setup({
 
 soundManager.onready(function() {
 
-
-  if ($('#digiramp_player')[0]) {
-
-    // show the play-button
-    //$("#back-button").html('<i class="player-button fa fa-play"></i>');
-    $("#play-button").html('<i class="player-button fa fa-play"></i>');
+  if ($('#load-player')[0]) {
+    //console.log( '-----------------------------------------' );
+    var digiramp_player = [];
+    //digiramp_player.push(new digirampPlayer(0));
     
-
-    // set playhead height
-    $('.playhead').css("height", $('.waveform').height());
-
-    // set the duration
-    //var duration = convertTimeToString($(".duration").html())
-    //$(".duration").text(duration);
-
-    // the sound
-    var mySound = soundManager.createSound({
-      id: 'aSound',
-      url: $('#digiramp_player').attr('class'),
-    });
-
-    // progress bar
-    mySound.load({
-      whileloading: function() {
-        var loaded = (this.bytesLoaded / this.bytesTotal) * 100;
-        pos_om_pct = loaded.toString();
-        var pos = parseInt(pos_om_pct, 10)
-        pos += '%';
-        $('.progress-bar.load-position').css("width", pos);
-        $('.progress-bar.load-position').html(pos);
-      }
-    });
-
-    // palybutton toogle
-    var playing = false;
-    var durationEstimate = 100;
-    $("#play-button").click(function() {
-      // change to pause button
-      $("#play-button").html('<i class="player-button fa fa-pause""></i>');
-      playing = !playing;
-      // play
-      if (playing) {
-        mySound.play({
-          whileplaying: function() {
-            durationEstimate = this.durationEstimate
-            playhead_pos = this.position / this.durationEstimate;
-            pos = playhead_pos * waveform_width;
-
-            var waveform_width = $('.waveform').width();
-
-            $('.playhead').css("margin-left", playhead_pos * waveform_width);
-            $('.playhead').css("height", $('.waveform').height());            // <<<< optimize this
-            $(".duration").text(convertTimeToString(this.position * 0.001));
-          },
-          onfinish: function() {
-            playing = false;
-            $("#play-button").html('<i class="player-button fa fa-play""></i>');
-            mySound.setPosition(0);
-            $('.playhead').css("margin-left", 0); 
-            $(".duration").text(convertTimeToString(this.position * 0.001));
-          }
-          
-        });
-      } else {
-        // stop
-        mySound.pause();
-        // change back to play button
-        $("#play-button").html('<i class="player-button fa fa-play""></i>');
-      };
+    
+    $( ".player" ).each(function( index ) {
+      console.log( index );
+      digiramp_player.push(new digirampPlayer(index));
+      
     });
     
-    // detect mouse click on back button
-    $("#back-button").click(function(event) {
-      mySound.setPosition(0);
-    });
+    
+    
+    
 
-    // detect mouse click
-    $(".waveform").click(function(event) {
-      var offset = $(".waveform").offset();
-      gotoSoundPosition = positionInPercent(event.pageX - offset.left);
-      mySound.setPosition(durationEstimate * gotoSoundPosition);
-    });
+
   };
 });
 
@@ -114,6 +48,128 @@ function convertToTwoDigitString(inInt) {
   return (inInt);
 }
 
-function positionInPercent(mousePosX) {
-  return(mousePosX/$(".waveform").width());
+function positionInPercent(waweform, mousePosX) {
+  return(mousePosX/$(waweform).width());
 }
+
+
+
+
+
+
+
+function digirampPlayer(i){
+  var player_index = parseInt(i)
+  var player_button   = "#play_button_"     + player_index;
+                                            
+  var player_head     = "#playhead_"        + player_index;
+  var progress_bar    = "#load_bar_"        + player_index + ".progress-bar.load-position";
+  var possition_tag   = "#position_"        + player_index + ".position";
+  var digiramp_player = "#digiramp_player_" + player_index;
+  var back_button     = "#back_button_"     + player_index;
+  var play_button     = "#play_button_"     + player_index;
+  var waveform        = "#waveform_"        + player_index;
+  var sm_sound_id     = "sound_"            + player_index;
+  var playing         = false;
+  //var no_sound        = true;
+  
+  // when a player is colapsed: stop it
+  $(".multi_player").on('hide.bs.collapse', function (event) {
+    expanded_index = $(this).attr('index')
+    if(expanded_index == player_index){
+      
+      smSound.pause();
+      // show the play-button
+      $(player_button).html("<i class='player-button fa fa-play'></i>");
+      playing         = false;
+    }
+  });
+  
+  
+  // show the play-button
+  $(player_button).html("<i class='player-button fa fa-play'></i>");
+  
+  // set playhead height
+  $(player_head).css("height", $(waveform).height());
+
+  // set the duration
+  var duration_string = convertTimeToString($(possition_tag).html())
+  $(possition_tag).text(duration_string);
+  
+  // the sound
+  var smSound = soundManager.createSound({
+    id: sm_sound_id,
+    url: $(digiramp_player).attr('class'),
+  });
+
+  // progress bar
+  smSound.load({
+    whileloading: function() {
+      var loaded = (this.bytesLoaded / this.bytesTotal) * 100;
+      pos_om_pct = loaded.toString();
+      var pos = parseInt(pos_om_pct, 10)
+      pos += '%';
+      
+      $(progress_bar).css("width", pos);
+      $(progress_bar).html(pos);
+    }
+  });
+
+  // palybutton toogle
+  var playing = false;
+  var durationEstimate = 100;
+  $(player_button).click(function() {
+    // change to pause button
+    $(player_button).html('<i class="player-button fa fa-pause""></i>');
+    playing = !playing;
+    // play
+    if (playing) {
+      smSound.play({
+        whileplaying: function() {
+          
+          // move playhead
+          durationEstimate = this.durationEstimate
+          playhead_pos = this.position / this.durationEstimate;
+          pos = playhead_pos * waveform_width;
+
+          var waveform_width = $(waveform).width();
+
+          $(player_head).css("margin-left", playhead_pos * waveform_width);
+          $('.playhead').css("height", $(waveform).height());            // <<<< make this react on window resize instead
+          
+          $(possition_tag).text(convertTimeToString(this.position * 0.001));
+        },
+        onfinish: function() {
+          playing = false;
+          $(play_button).html('<i class="player-button fa fa-play""></i>');
+          smSound.setPosition(0);
+          $(player_head).css("margin-left", 0); 
+          $(possition_tag).text(convertTimeToString(this.position * 0.001));
+        }
+        
+      });
+    } else {
+      // stop
+      smSound.pause();
+      // change back to play button
+      $(play_button).html('<i class="player-button fa fa-play""></i>');
+    };
+  });
+  
+  // detect mouse click on back button
+  $(back_button).click(function(event) {
+    smSound.setPosition(0);
+  });
+
+  // detect mouse click
+  $(waveform).click(function(event) {
+    //alert(waveform);
+    var offset = $(waveform).offset();
+    gotoSoundPosition = positionInPercent(waveform, event.pageX - offset.left);
+    gotoSoundPosition *= durationEstimate;
+    ///alert(event.pageX);
+    smSound.setPosition(gotoSoundPosition);
+  });
+} 
+
+

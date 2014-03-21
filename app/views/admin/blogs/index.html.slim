@@ -36,19 +36,26 @@
                 tbody
                   
                   -@blogs.order(:title).each do |blog|
-                    -cache(blog) do
+                    -cache([Admin.cached_find(1).version, blog.id, blog.version]) do
                      tr
-                       td =link_to blog.title, admin_blog_path(blog)
-                       td =blog.blog_posts.size
+                       td 
+                         =link_to blog.title, admin_blog_path(blog), class: "btn btn-default btn-lg"
+                       td 
+                         h4 =blog.blog_posts.size
                        td 
                          .pull-right
-                           =link_to 'Show', admin_blog_path(blog), class: 'btn btn-default'
+                           = link_to admin_blog_path(blog) do
+                             .btn.btn-default.btn-lg
+                               i class='fa fa-eye'
                            '&nbsp;
-                           =link_to 'Edit Title', edit_admin_blog_path(blog), class: 'btn btn-primary'
+                           = link_to edit_admin_blog_path(blog) do
+                             .btn.btn-primary.btn-lg
+                               i class='fa fa-pencil'
                            '&nbsp;
-                           =link_to 'Delete', admin_blog_path(blog), method: :delete ,\
-                                                                     data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-warning',\
-                                                                     id: "delete_blog_#{blog.id}"
+                           = link_to  admin_blog_path(blog, page: params[:page]), data: { confirm: 'Are you sure?' } , :method => :delete do
+                             .btn.btn-danger.btn-lg
+                               i class="fa fa-times"
+                   
                   
             /br
             .col-sm-6

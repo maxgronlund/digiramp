@@ -6,7 +6,7 @@ class CustomersController < ApplicationController
   # GET /customers.json
   def index
     #@customers = Customer.all
-    @customers = AccountUser.search(params[:query]).order('lower(name) ASC').page(params[:page]).per(14)
+    @account_users = AccountUser.account_search(@account, params[:query]).order('lower(name) ASC').page(params[:page]).per(14)
   end
 
   # GET /customers/1
@@ -31,10 +31,9 @@ class CustomersController < ApplicationController
   def create
     
     params[:account_user][:role] = "Client"
-    #@account_user = AccountUser.new(account_user_params)
+    
     
     unless @account_user = AccountUser.where(email: params[:account_user][:email], account_id: @account.id ).first
-
        @account_user =  AccountUser.create( email: params[:account_user][:email], 
                                            name: params[:account_user][:name], 
                                            role: 'Client', 
@@ -50,7 +49,8 @@ class CustomersController < ApplicationController
       flash[:danger] = { title: "Error", body: "User is already added to account" }
     end
     @account.customer_cache_version += 1
-    redirect_to account_customers_path @account
+    
+    redirect_to new_account_customer_customer_event_path( @account, @account_user)
     
   end
 

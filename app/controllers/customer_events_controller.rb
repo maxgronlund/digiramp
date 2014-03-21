@@ -28,8 +28,32 @@ class CustomerEventsController < ApplicationController
   def create
     @account_user     = AccountUser.find_by_cached_id(params[:customer_id])
     @customer_event   = CustomerEvent.create(customer_event_params)
-
-    redirect_to account_customer_path(@account, @account_user)
+    
+    case @customer_event.event_type
+      
+    when 'Private Playlist'
+      # create a playlist
+      playlist = Playlist.create(account_id: @account.id,
+                                 title: "Playlist for #{@account_user.get_name}")
+      # make a PlaylistKey 
+      secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
+      playlist_key = PlaylistKey.create(playlist_id: playlist.id,
+                                        user_id: @account_user.user_id,
+                                        account_id: @account.id,
+                                        password_protection: true,
+                                        password: secret_temp_password,
+                                        expires: false,
+                                        expiration_date: Date.current()>>1,
+                                        page_link: 'google.com'
+                                        )
+      
+      # go to the playlist wizard
+      # use the key as ID
+      # account/id/playlist_wizard/key_id
+      redirect_to edit_account_playlist_wizard_path(@account, playlist_key)
+    else
+      redirect_to account_customer_path(@account, @account_user)
+    end
     
   end
 

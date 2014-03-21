@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140319005754) do
+ActiveRecord::Schema.define(version: 20140320001315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,10 +195,11 @@ ActiveRecord::Schema.define(version: 20140319005754) do
   create_table "blogs", force: true do |t|
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "layout"
     t.string   "identifier"
+    t.integer  "version",    default: 0
   end
 
   create_table "bugs", force: true do |t|
@@ -707,6 +708,23 @@ ActiveRecord::Schema.define(version: 20140319005754) do
   add_index "playlist_items", ["playlist_id"], name: "index_playlist_items_on_playlist_id", using: :btree
   add_index "playlist_items", ["playlist_itemable_id", "playlist_itemable_type"], name: "by_playlist_itemable_id_and_type", using: :btree
 
+  create_table "playlist_keys", force: true do |t|
+    t.integer  "playlist_id"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.boolean  "password_protection"
+    t.string   "password"
+    t.string   "page_link"
+    t.boolean  "expires"
+    t.date     "expiration_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "playlist_keys", ["account_id"], name: "index_playlist_keys_on_account_id", using: :btree
+  add_index "playlist_keys", ["playlist_id"], name: "index_playlist_keys_on_playlist_id", using: :btree
+  add_index "playlist_keys", ["user_id"], name: "index_playlist_keys_on_user_id", using: :btree
+
   create_table "playlists", force: true do |t|
     t.integer  "account_id"
     t.string   "title"
@@ -787,6 +805,7 @@ ActiveRecord::Schema.define(version: 20140319005754) do
     t.string   "disc",                   default: ""
     t.string   "track",                  default: ""
     t.string   "waveform",               default: ""
+    t.integer  "cache_version",          default: 0
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

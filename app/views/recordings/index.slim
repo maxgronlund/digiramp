@@ -16,7 +16,7 @@
         = form_tag account_recordings_path(@account), :method => 'get' do
           .col-sm-6
             br
-            = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string'
+            = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string', value: params[:query]
           .col-sm-6
             br
             = submit_tag 'Search', class: 'btn btn-primary btn-lg'
@@ -42,36 +42,41 @@
               
               .table-responsive
                 table class="table table-hover"
+                  thead
+                    tr
+                      th Title
                   tbody
                     - @recordings.each do |recording|
-                      /-cache (recording) do
-                      .do
+                      -cache([Admin.cached_find(1).version, recording.id, recording.cache_version]) do
+                        /-cache (recording) do
                         tr
-                          td = link_to recording.title, account_common_work_recording_path(@account, recording.common_work, recording), 'data-no-turbolink' => true 
-                          td
+                          td = link_to recording.title, account_common_work_recording_path(@account, recording.common_work, recording), class: 'btn btn-default btn-lg', 'data-no-turbolink' => true
+                          
+                          
+                          td class="hidden-xs hidden-sm"
                             .img-responsive
                               = link_to image_tag( recording.thumbnail), account_common_work_recording_path(@account, recording.common_work, recording), 'data-no-turbolink' => true 
-                  
+                      
                           td 
                           td
                             .pull-right
                               -if recording.common_work
                                 = link_to edit_account_common_work_recording_path(@account, recording.common_work, recording) do
-                                  .btn.btn-primary
+                                  .btn.btn-primary.btn-lg
                                     i class='fa fa-pencil'
                                 '&nbsp;
                                 = link_to account_common_work_recording_path(@account, recording.common_work, recording), data: { confirm: 'Are you sure?' } , :method => :delete do
-                                  .btn.btn-danger
+                                  .btn.btn-danger.btn-lg
                                     i class="fa fa-times"
-
+                      
                               -else
                                 = link_to account_common_work_recording_path(@account, CommonWork.first, recording), data: { confirm: 'Are you sure?' } , :method => :delete do
-                                  .btn.btn-danger
+                                  .btn.btn-danger.btn-lg
                                     i class="fa fa-times"
-
+                      
                                 
                               
-               
+                     
               .hidden-xs
                 == paginate(@recordings)
               .visible-xs

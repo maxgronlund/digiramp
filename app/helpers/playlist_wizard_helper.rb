@@ -1,0 +1,2 @@
+module PlaylistWizardHelper
+end

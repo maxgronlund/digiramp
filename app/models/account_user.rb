@@ -123,11 +123,12 @@ class AccountUser < ActiveRecord::Base
     Rails.cache.fetch([name, id]) { find(id) }
   end
 
-  def self.search( query)
+  def self.account_search(account, query)
+    account_users = account.account_users
     if query.present?
-      return AccountUser.search_account_user(query)
+      return account_users.search_account_user(query)
     else
-      return all
+      return account_users
     end
   end
   

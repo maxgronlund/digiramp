@@ -18,8 +18,12 @@ When(/^I go the the backend users page$/) do
    visit "/admin/users"
 end
 
-When(/^I go to the account "(.*?)"$/) do |title|
-  account = Account.where(title: title).first
+When(/^I go to the account "(.*?)"$/) do |account_title|
+  account = Account.where(title: account_title).first
   visit "/accounts/#{account.id}"
 end
 
+When(/^I go to the Customer page for "(.*?)"$/) do |account_title|
+  account = Account.where(title: account_title).first
+  visit "/accounts/#{account.id}/customers"
+end

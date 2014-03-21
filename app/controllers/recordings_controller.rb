@@ -47,6 +47,7 @@ class RecordingsController < ApplicationController
     @recording.waveform   = @recording.audio_upload[:results][:waveform][0][:url]
     @recording.thumbnail  = @recording.audio_upload[:results][:thumbnail][0][:url]
     @recording.category   = 'none'
+    @recording.cache_version += 1
     @recording.save!
     @recording.extract_metadata
     @recording.update_completeness
@@ -58,7 +59,7 @@ class RecordingsController < ApplicationController
   def update
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
-    
+    params[:recording][:version] = @recording.cache_version + 1
     if @recording.update_attributes(recording_params)
       @recording.update_completeness
       #redirect_to edit_account_common_work_audio_file_path(@account, @common_work, @recording)
@@ -93,7 +94,7 @@ class RecordingsController < ApplicationController
     
     @recording = Recording.find(params[:id])
     @recording.destroy
-    redirect_to_return_url account_recordings_path( @account)
+    redirect_to_return_url account_recordings_path( @account, page: params[:page])
   end
   
   def upload_completed
@@ -107,6 +108,7 @@ class RecordingsController < ApplicationController
       # else if the common_work is not set and there is no common_works with the same title
       common_work = CommonWork.create(account_id: @recording.account_id, title: @recording.title, lyrics: @recording.lyrics)
       @recording.common_work_id = common_work.id
+      @recording.cache_version += 1
       @recording.save!
     end                        
   end
@@ -124,6 +126,7 @@ class RecordingsController < ApplicationController
       @recording.has_lyrics   = params[:recording][:has_lyrics] if params[:recording][:has_lyrics]
       @recording.explicit     = params[:recording][:explicit]   if params[:recording][:explicit]
       @recording.category     = params[:recording][:category]   if params[:recording][:category]
+      @recording.cache_version += 1
       @recording.save
     end
     
@@ -134,6 +137,7 @@ class RecordingsController < ApplicationController
     @recording      = Recording.find(params[:recording_id])
     if params[:recording]
       @recording.category = params[:recording][:category]
+      @recording.cache_version += 1
       @recording.save
     end
     @blog               = Blog.recordings
@@ -148,6 +152,7 @@ class RecordingsController < ApplicationController
     @recording      = Recording.find(params[:recording_id])
     if params[:recording]
       @recording.category = params[:recording][:category]
+      @recording.cache_version += 1
       @recording.save
     end
     @blog               = Blog.recordings

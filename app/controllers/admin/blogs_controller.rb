@@ -44,9 +44,10 @@ der :new
   end
 
   def update
+    params[:blog][:version] = @blog.version + 1
     if @blog.update(blog_params)
       flash[:info] = { title: "SUCCESS: ", body: "#{@blog.title} updated" }
-      redirect_to admin_blogs_path
+      redirect_to admin_blogs_path(page: params[:page])
     else
       render :edit
     end
@@ -56,7 +57,7 @@ der :new
   def destroy
     flash[:info] = { title: "SUCCESS: ", body: "#{@blog.title} deleted" }
     @blog.destroy
-    redirect_to admin_blogs_path
+    redirect_to admin_blogs_path(page: params[:page])
     #redirect_to admin_blogs_path
   end
   

@@ -72,11 +72,16 @@ private
     return false if current_user == nil
     
     #account_id = params[:id] || params[:account_id]
-    begin
-      @account = Account.cached_find(params[:id])
-    rescue
+    if params[:account_id]
       @account = Account.cached_find(params[:account_id])
+    else
+      @account = Account.cached_find(params[:id])
     end
+    #begin
+    #  @account = Account.cached_find(params[:id])
+    #rescue
+    #  @account = Account.cached_find(params[:account_id])
+    #end
     return true if account_belongs_to_current_user
     return true if user_is_an_account_user
     return true if current_user.role == 'super'

@@ -7,6 +7,10 @@ Digiramp::Application.routes.draw do
 
   
 
+  #get "playlist_wizard/new"
+  #get "playlist_wizard/show"
+  #get "playlist_wizard/index"
+  #get "playlist_wizard/edit"
   resources :uploads
   require 'sidekiq/web'
   #require 'admin_constraint'
@@ -27,6 +31,12 @@ Digiramp::Application.routes.draw do
     resources :customers, only: [:index]
     resources :drm, only: [:index]
     resources :promotion, only: [:index]
+    resources :playlists do
+      resources :playlist_keys
+    end
+    
+    resources :playlist_wizards
+
     
     resources :leave_accounts
     
