@@ -40,46 +40,45 @@
           .panel-body.digiramp_player
             div class="panel-group" id="accordion"
               - @recordings.each do |recording|
-                /-cache(['digiramp_player', Admin.cached_find(1).version, recording.id, recording.cache_version])
-                .do
-                  -index = recording.id
-                  div class="player" id="#{index}"
-                  
-                  div class="panel panel-default"
-                    .row
-                      .col-sm-12
-                        h4 class="panel-title"
-                          a data-toggle="collapse" data-parent="#accordion" href="#recording_#{index.to_s}"
-                            .row
-                              .btn.btn-default.btn-lg.col-sm-4
-                                = recording.title
-                              .col-sm-3
-                                -if recording.genre.to_s != ''
-                                  .label.label-success
-                                    'Genre: #{recording.genre}
+                /-cache(['digiramp_player', Admin.cached_find(1).version, recording.id, recording.cache_version]) do
+                -index = recording.id
+                div class="player" id="#{index}"
+                div class="panel panel-default"
+                  .row
+                    .col-sm-12
+                      h4 class="panel-title"
+                        a data-toggle="collapse" data-parent="#accordion" href="#recording_#{index.to_s}" class="#{index}"
+                          .row
+                            .btn.btn-default.btn-lg.col-sm-4
+                              = recording.title
+                            .col-sm-3
+                              -if recording.genre.to_s != ''
+                                .label.label-success
+                                  'Genre: #{recording.genre}
 
-                                -if recording.artists.to_s != ''
-                                  .label.label-primary
-                                    'Artists: #{recording.artists}
-                              .col-sm-3
-                                - if recording.instrumental
-                                  .label.label-warning
-                                    'Instrumental
+                              -if recording.artists.to_s != ''
+                                .label.label-primary
+                                  'Artists: #{recording.artists}
+                            .col-sm-3
+                              - if recording.instrumental
+                                .label.label-warning
+                                  'Instrumental
 
-                                - if recording.explicit
-                                  .label.label-danger
-                                    'Explicit
+                              - if recording.explicit
+                                .label.label-danger
+                                  'Explicit
 
-                              .col-sm-2
-                                - if recording.bpm
-                                  .label.label-default
-                                    'BPM: #{recording.bpm}
-                 
-                    div id="load-player"
-                    div id="recording_#{index.to_s}" class="multi_player panel-collapse collapse" index="#{index}"
-                      .panel-body
-                        == render 'players/digramp_player', locals: {index: index, recording: recording}
-                  hr        
+                            .col-sm-2
+                              - if recording.bpm
+                                .label.label-default
+                                  'BPM: #{recording.bpm}
+                
+                  div id="load-player"
+                  div id="recording_#{index.to_s}" class="multi_player panel-collapse collapse" index="#{index}"
+                    .panel-body
+                      == render 'players/digramp_player', locals: {index: index, recording: recording}
+                hr        
+              
 
 
 

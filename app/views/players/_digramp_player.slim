@@ -34,22 +34,23 @@ div class="index" id="{index}"
           td
             div class="position" id="position_#{index}"
   .col-sm-6
-     -if @show_more
-       .pull-right
-         '&nbsp;
-         =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) do
-           .btn.btn-primary.btn-lg
-             i class="fa fa-eye"
-             '&nbsp;
-             'Show more
-     -elsif @add_to_playlist
-       .pull-right
-         '&nbsp;
-         =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) do
-           .btn.btn-success.btn-lg
-             i class="fa fa-plus-circle"
-             
-             
+    .pull-right
+      -if @show_more
+        =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) do
+          .btn.btn-default.btn-lg
+            i class="fa fa-eye"
+      -elsif @add_to_playlist
+        '&nbsp;
+        =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) do
+          .btn.btn-success.btn-lg
+            i class="fa fa-plus-circle"
+      -if @can_delete
+        '&nbsp;
+        =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) , data: { confirm: 'Are you sure?' } , method: :delete do
+          .btn.btn-danger.btn-lg
+            i class="fa fa-minus-circle"
+              
+              
   
   
           
