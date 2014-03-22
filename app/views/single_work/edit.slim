@@ -7,15 +7,16 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             assets: account_assets_path(@account), \
                                                             'create content'.to_sym => account_add_content_index_path(@account),\
-                                                            }, current:  @new_single_work.title}
-    .row
-      .col-sm-6
-        h1 = @new_single_work.title
-        = @new_single_work.body
-      -if can_edit?
-        .col-sm-6
-          = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @new_single_work), class: 'btn btn-primary btn-lg'
-    hr
+                                                            }, current:  @common_work.title}
+    /.row
+    /  .col-sm-6
+    /    h1 = @common_work.title
+    /    = @common_work.body
+    /  -if can_edit?
+    /    .col-sm-6
+    /      = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @common_work), class: 'btn btn-primary btn-lg'
+    /hr
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Edit Work'} 
     = simple_form_for [@account, @common_work], url: url_for(action: 'update', controller: 'single_work'), method: 'post' do |f|
       == render 'form', f: f
 

@@ -17,6 +17,7 @@ class WorksController < ApplicationController
         @user_can_access_legal_documents      = true
         @user_can_access_financial_documents  = true
         @user_can_access_ipis                 = true
+        @can_delete     = true
       else
         work_user = WorkUser.where(user_id: current_user.id, common_work_id: @common_work.id).first
         @user_can_access_files                = work_user.access_files
@@ -24,7 +25,8 @@ class WorksController < ApplicationController
         @user_can_access_financial_documents  = work_user.access_financial_documents
         @user_can_access_ipis                 = work_user.access_ipis
       end
-
+      @show_more      = true
+      
       render :show
     else
       render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
