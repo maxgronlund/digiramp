@@ -20,6 +20,7 @@ soundManager.onready(function() {
     $( ".player" ).each(function( index ) {
       id = $(this).attr('id');
       digiramp_player.push(new digirampPlayer(id));
+      
     });
 
   };
@@ -83,6 +84,7 @@ function digirampPlayer(i){
   var sm_sound_id     = "sound_"            + player_index;
   var playing         = false;
   var smSound         = null;
+  
   //var no_sound        = true;
   
 

@@ -11,8 +11,10 @@ class AdminController < ApplicationController
     #logger.debug '--------------------------------------------------------------'
     admin.version += 1
     admin.save!
-    #logger.debug admin.version
-    #logger.debug '--------------------------------------------------------------'
+    Account.all.each do |account|
+      account.rec_cache_version +=1
+      account.save!
+    end
     admin.flush_cache
     redirect_to :back
   end

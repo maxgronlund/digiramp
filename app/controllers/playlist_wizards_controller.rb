@@ -14,8 +14,9 @@ class PlaylistWizardsController < ApplicationController
   end
 
   def edit
-    @playlist_key = PlaylistKey.find(params[:id])
-    @recordings   = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(12)
+    @playlist_key     = PlaylistKey.find(params[:id])
+    @recordings       = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(12)
+    @add_to_playlist  = true
   end
 
 end

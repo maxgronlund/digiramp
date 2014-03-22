@@ -5,47 +5,24 @@
     .container
       == render 'admin/shared/messages'
       
-      - blog = Blog.cached_find('Recordings')
-      - blog_post = BlogPost.cached_find( 'Upload Completed' , blog )
+      
       
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               assets: account_assets_path(@account), \
                                                               recordings: account_recordings_path(@account), \
-                                                              }, current: blog_post.title}
+                                                              }, current: 'Upload Completed'}
       
       
-      .row
-        
-        .col-sm-6
-          .alert.alert-success
-            h3 =blog_post.title
-            = simple_format blog_post.body
-            
-        .col-sm-4
-          /-if @common_works
-          /  = debug @common_works
-          /
-          = link_to "No thanks I'm done",'#', class: 'btn btn-default btn-lg'
-          br
-          br
-          
-        /-if can_edit?
-        /  .col-sm-2
-        /    .pull-right
-        /      = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-primary btn-lg'
-        /.col-sm-12
-
+      - blog = Blog.cached_find('Add Content')
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Completed'}
       .row
         .col-sm-12
-          .thumbnail
-            = image_tag @recording.waveform
-        .col-sm-12
-          /= debug @recording.audio_upload[:uploads][0][:meta][:beats_per_minute]
-          ul class="graphic"
-            li
-              a href="#{@recording.mp3}" = @recording.title
-          /h1 =@recording.title
-          hr
+          .panel.digiramp_player
+            .panel-body
+              -index = @recording.id
+              div class="player" id="#{index}"
+              .just-load
+              == render 'players/digramp_player', locals: {index: index , recording: @recording}
 
           
           
@@ -53,24 +30,49 @@
         .col-sm-6
           .panel
             .panel-body
-              b Title
               h3 = @recording.title if @recording.title
+              hr
               
-          == render 'recordings/shared/lyrics'
-          .panel
-            .panel-body
-              b I'm having an ISRC for this recording
+              - blog_post = BlogPost.cached_find( 'Completeness' , blog )
+              b   
+                = blog_post.title
+                
+                -if can_edit?
+                  '&nbsp;
+                  = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                     i class="fa fa-pencil"
+              br  
+              - complete =  @recording.completeness_in_pct.to_s + '%'
+              .progress
+                div class="progress-bar load-position" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: #{complete};"
+                   =complete
+              = blog_post.body
+              hr
               .pull-right
-                = link_to "Add", '#', class: 'btn btn-default btn-lg'
-              /= simple_form_for [ @account, @recording ], :url => url_for(:action => 'select_category', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
-              /  = f.input :title
-              /  = f.input :isrc_code, hint: 'fogb', label: 'ISRC Code',:input_html => {  placeholder: "ISRC Code"}
-              /  = f.input :has_lyrics, label: 'This recording has lyrics'
-              /  = f.input :explicit
-              /  .pull-right
-              /    = f.submit "Save", class: 'btn btn-primary btn-lg'
-          
-            
+                = link_to "No thanks I'm done", account_recordings_path(@account), class: 'btn btn-default btn-lg'
+                '&nbsp;
+                = link_to "Continue", edit_account_common_work_recording_path(@account, @recording.common_work, @recording), class: 'btn btn-primary btn-lg'
+              
+              
+              
+              
+              
+              
+          == render 'recordings/shared/lyrics' if @recording.lyrics.to_s != ''
+          /.panel
+          /  .panel-body
+          /    b I'm having an ISRC for this recording
+          /    .pull-right
+          /      = link_to "Add", '#', class: 'btn btn-default btn-lg'
+          /    /= simple_form_for [ @account, @recording ], :url => url_for(:action => 'select_category', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+          /    /  = f.input :title
+          /    /  = f.input :isrc_code, hint: 'fogb', label: 'ISRC Code',:input_html => {  placeholder: "ISRC Code"}
+          /    /  = f.input :has_lyrics, label: 'This recording has lyrics'
+          /    /  = f.input :explicit
+          /    /  .pull-right
+          /    /    = f.submit "Save", class: 'btn btn-primary btn-lg'
+          /
+          /  
 
         .col-sm-6
           == render 'recordings/shared/metadata'

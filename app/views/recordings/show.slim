@@ -18,7 +18,8 @@
       -index = @recording.id
       div class="player" id="#{index}"
       .just-load
-      == render 'players/digramp_player', locals: {index: index , recording: @recording}
+      .digiramp_player
+        == render 'players/digramp_player', locals: {index: index , recording: @recording}
       == render 'shared/line'
       .row
         .col-sm-6

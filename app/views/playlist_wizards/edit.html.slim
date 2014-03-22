@@ -40,7 +40,8 @@
           .panel-body.digiramp_player
             div class="panel-group" id="accordion"
               - @recordings.each do |recording|
-                -cache(['digiramp_player', Admin.cached_find(1).version, recording.id, recording.cache_version])
+                /-cache(['digiramp_player', Admin.cached_find(1).version, recording.id, recording.cache_version])
+                .do
                   -index = recording.id
                   div class="player" id="#{index}"
                   
