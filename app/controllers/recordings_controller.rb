@@ -3,19 +3,21 @@ class RecordingsController < ApplicationController
   before_filter :there_is_access_to_the_account
   
   def index
-    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
+    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(3)
     @show_more      = true
     @can_delete     = true
+    @can_edit       = true
   end
 
   def show
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
-    @can_edit       = false
+   
     
     if @common_work.is_accessible_by current_user
       if current_user.can_administrate @account
         @can_edit       = true
+        
       #else
       #  work_user = WorkUser.where(user_id: current_user.id, common_work_id: @common_work.id).first
       #  @user_can_access_files                = work_user.access_files
