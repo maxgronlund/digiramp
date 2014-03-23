@@ -91,10 +91,10 @@ class UpdateCompletenesOnRecordings < ActiveRecord::Migration
     remove_column :recordings, :cache_version
     add_column    :recordings, :cache_version,  :integer,                 default: 0
     
-    Recording.all.each do |recording|
-      recording.cache_version = recording.cache_version_temp
-      recording.update_completeness
-    end
+    #Recording.all.each do |recording|
+    #  recording.cache_version = recording.cache_version_temp
+    #  recording.update_completeness
+    #end
 
     #remove_column  :recordings, :cache_version_temp
 
