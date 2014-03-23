@@ -80,7 +80,7 @@ class UpdateCompletenesOnRecordings < ActiveRecord::Migration
       end
       
       if recording.cache_version.nil?
-        recording.description = 0
+        recording.cache_version = 0
       end
       recording.update_completeness
     end
