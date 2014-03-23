@@ -1,0 +1,10 @@
+.row
+  .col-sm-6
+    = simple_form_for [:admin, @genre] do |f|
+      = f.input :title
+      = f.input :category,  collection: @categories,  as: :radio_buttons, label: false
+      = f.input :user_tag
+       
+      hr
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary btn-lg'

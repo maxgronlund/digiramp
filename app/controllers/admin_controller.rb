@@ -15,6 +15,15 @@ class AdminController < ApplicationController
       account.rec_cache_version +=1
       account.save!
     end
+    Recording.all.each do |recording|
+      recording.cache_version +=1
+      if recording.title.nil? || recording.title.empty?
+        logger.debug '--------------- >>>>>>>>>>>>>>>   EMPTY <<<<<<<<<<<<<<<<<<-------------------------'
+        recording.destroy
+      else
+        recording.save!
+      end
+    end
     admin.flush_cache
     redirect_to :back
   end

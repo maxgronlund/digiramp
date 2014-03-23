@@ -1,0 +1,23 @@
+
+
+- if params[:genre_category]
+  == render 'shared/page_title', locals: {blog: blog, blog_post: 'Select Genre'} 
+  .row
+    .col-sm-6
+      h3 = params[:genre_category].gsub('_', ' ').upcase
+    .col-sm-5
+      -if @disable_more_genres
+        .text-danger
+          h3 You have reached the maximum of 4 Genre
+      -else
+        h3 You have added #{@added_genge_tags} of 4 Genre
+  .row
+    .col-sm-12
+      == render "recordings/categories/category", blog: blog
+- else
+  == render 'shared/page_title', locals: {blog: blog, blog_post: 'Select Category'} 
+  .row
+    -Genre::GENRE_CATEGORY.each do |genre_category|
+      .col-sm-3
+        = render 'recordings/shared/badge', category: 'popular_music', locals: {blog: blog, identifyer: genre_category, submit: "genre_category"}
+  

@@ -11,3 +11,6 @@
       .col-sm-12
         h1 = @drm.title
         = simple_format @drm.body
+        
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

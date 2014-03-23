@@ -32,11 +32,9 @@
               =f.input :lyrics, label: false, :input_html => {  style: "height: 360px;", placeholder: "Lyrics", id: 'wysihtml5_editor', class: 'align-center'}
               hr
               .pull-right
-                = link_to 'Back', edit_account_common_work_recording_path( @account, @common_work, @recording), class: 'btn btn-default btn-lg'
+                = link_to 'Skip', edit_account_common_work_recording_path( @account, @common_work, @recording), class: 'btn btn-default btn-lg'
                 '&nbsp;
-                = link_to 'Skip', account_common_work_recording_path( @account, @common_work, @recording), class: 'btn btn-default btn-lg'
-                '&nbsp;
-                = f.submit 'Next', class: 'btn btn-primary btn-lg'
+                = f.submit 'Save', class: 'btn btn-primary btn-lg'
             
             
 

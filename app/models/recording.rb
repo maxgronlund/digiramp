@@ -2,8 +2,8 @@ class Recording < ActiveRecord::Base
   
   serialize :audio_upload, Hash
   include PgSearch
-  pg_search_scope :search, against: [:title, :artists, :lyrics, :production_company, :isrc_code, :genre, :artist, :bpm ], :using => [:tsearch]
-  
+  pg_search_scope :search, against: [:title, :artists, :lyrics, :production_company, :isrc_code, :genre, :artist, :bpm, :description ], :using => [:tsearch]
+  validates :title, :presence => true
   
   #require 'taglib'
   #scope :none, where("1 = 0")
@@ -11,6 +11,20 @@ class Recording < ActiveRecord::Base
   
   belongs_to :account
   belongs_to :common_work
+  
+  
+  
+  #has_many :genre_tags
+  #has_many :genres, through: :genre_tags
+  has_many :genre_tags, as: :genre_tagable
+  
+  mount_uploader :cover_art, ThumbUploader
+  
+  VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken" ]
+  
+  
+  
+  
   #belongs_to :song
   #belongs_to :album
   
@@ -36,7 +50,7 @@ class Recording < ActiveRecord::Base
   #mount_uploader :ogv_video, OgvUploader
   #mount_uploader :webm_video, WebmUploader
   
-  #validates :title, :presence => true
+  
   
   #before_create :update_counter_cache
   #scope video,        ->    { where(media_type: 'Video')}
@@ -79,23 +93,23 @@ class Recording < ActiveRecord::Base
 
   end
   
-  def duration_text
-    duration.try(:strftime, "%H:%M:%S")
-  end
-  
-  def duration_text=(duration)
-    self.duration = Time.zone.parse(duration) if duration.present?
-  end
+  #def duration_text
+  #  duration.try(:strftime, "%H:%M:%S")
+  #end
+  #
+  #def duration_text=(duration)
+  #  self.duration = Time.zone.parse(duration) if duration.present?
+  #end
   
   def docs
     Document.where(documentable_id: self.id, documentable_type: 'Recording')
   end
   
   
-  def extract_id3_tags_from_audio_file
-   
-
-  end
+  #def extract_id3_tags_from_audio_file
+  # 
+  #
+  #end
   
   #def check_common_work
   #  if common_work_id.nil?
@@ -115,42 +129,69 @@ class Recording < ActiveRecord::Base
   
   def update_completeness
 
+    self.completeness_in_pct = 0
     
-    self.completeness_in_pct = 20
-    
-    if self.has_title     
+            # 30  
+    unless self.isrc_code.empty? 
+      self.completeness_in_pct += 5 
+    end
+    unless self.description.empty?      
       self.completeness_in_pct += 10 
-    end             # 30  
-    if self.isrc_code     
-      self.completeness_in_pct += 5 end              # 35
-    if self.description   
-      self.completeness_in_pct += 15 
+      logger.debug 'has description'
     end             # 50
-    if self.has_lyrics && self.lyrics 
+    if self.has_lyrics && !self.lyrics.empty?   
       self.completeness_in_pct += 10 
-    end # 60
-    if self.artists       
-      self.completeness_in_pct += 10 end             # 70
-    if self.instrumental  
+    else 
+      self.completeness_in_pct += 10 
+    end
+    unless self.artists.empty?       
+      self.completeness_in_pct += 10 
+    end 
+    unless self.genre.empty?       
+      self.completeness_in_pct += 10 
+    end  
+    
+    unless self.year.empty?       
+      self.completeness_in_pct += 10 
+    end 
+    
+    unless self.artists.empty?       
+      self.completeness_in_pct += 10 
+    end 
+    
+    unless self.performer.empty?       
+      self.completeness_in_pct += 10 
+    end  
+    
+    unless self.band.empty?       
       self.completeness_in_pct += 5 
-    end              # 75
-    if self.explicit      
-      self.completeness_in_pct += 5 
-    end              # 80   
-    if self.release_date  
-      self.completeness_in_pct += 5 
-    end              # 85
-    if self.duration      
+    end            # 70
+    #if self.instrumental.empty?   
+    #  self.completeness_in_pct += 10 
+    #end              # 75
+    #unless self.explicit.empty?      
+    #  self.completeness_in_pct += 10 
+    #end              # 80   
+    #unless self.release_date.empty?   
+    #  self.completeness_in_pct += 10 
+    #end              # 85
+    unless self.duration == 0   
       self.completeness_in_pct += 5 
     end              # 90 
-    if self.bpm           
-      self.completeness_in_pct += 10 
+    unless self.bpm == 0           
+      self.completeness_in_pct += 5 
     end             # 100
-    self.save!
+    self.save!(validate: false)
     
     # Album
     # quality of common work
     # artwork
+
+  end
+  
+  def in_good_condition?
+    
+    self.completeness_in_pct > 30
 
   end
   
@@ -253,6 +294,7 @@ private
   end
   
   def flush_cache
+    logger.debug '-------------------------------------- FLUSH CACHE --------------------------------------------'
     account.rec_cache_version += 1
     account.save!
     Rails.cache.delete([self.class.name, id])

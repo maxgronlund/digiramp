@@ -7,6 +7,7 @@ Digiramp::Application.routes.draw do
 
   
 
+
   #get "playlist_wizard/new"
   #get "playlist_wizard/show"
   #get "playlist_wizard/index"
@@ -60,11 +61,11 @@ Digiramp::Application.routes.draw do
       
       
       #resources :meta_datas, only: [:edit, :update]
+      
+      resources :genres
     end
     
-    resources :common_works do
-      resources :work_users
-    end
+
     resources :works
     
     resources :assets, only: [:index]
@@ -83,9 +84,12 @@ Digiramp::Application.routes.draw do
 
     resources :upload_recordings, only: [:new, :edit, :create]
     resources :common_works do
-      resources :recordings
+      resources :recordings do
+        resources :genre_tags
+      end
       resources :audio_file,    only: [:edit, :update]
       resources :lyrics,        only: [:edit, :update]
+      resources :work_users
     end
     #get "upload_recording/new"
     #get "upload_recording/edit"
@@ -181,6 +185,7 @@ Digiramp::Application.routes.draw do
     resources :accounts
     resources :administrators
     resources :features
+    resources :genres
     resources :homes, only: [:edit, :update]
     resources :users
     resources :video_blogs do

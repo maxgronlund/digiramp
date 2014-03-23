@@ -82,7 +82,8 @@
 
 
 
-
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
 /= debug @playlist_key
 /- @account.recordings.each do |recording|
 /  =debug recording.id

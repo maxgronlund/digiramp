@@ -3,10 +3,12 @@ class RecordingsController < ApplicationController
   before_filter :there_is_access_to_the_account
   
   def index
-    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(3)
+    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(16)
     @show_more      = true
-    @can_delete     = true
-    @can_edit       = true
+    if current_user.can_administrate @account
+      @can_delete     = true
+      @can_edit       = true
+    end
   end
 
   def show
@@ -36,6 +38,9 @@ class RecordingsController < ApplicationController
   def edit
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
+    if params[:genre_category]
+      redirect_to account_common_work_recording_genre_tags_path(@account, @common_work, @recording, genre_category: params[:genre_category])
+    end
   end
   
   def new
@@ -63,16 +68,30 @@ class RecordingsController < ApplicationController
   def update
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
-    params[:recording][:version] = @recording.cache_version + 1
+    params[:recording][:cache_version] = @recording.cache_version + 1
+    
+    if @genre_category = params[:recording][:genre_category]
+      params[:recording].delete :genre_category
+    end
+    
+    
+    
+    
     if @recording.update_attributes(recording_params)
       @recording.update_completeness
-      #redirect_to edit_account_common_work_audio_file_path(@account, @common_work, @recording)
-      if @recording.instrumental
-         redirect_to account_common_work_recording_path(@account, @common_work, @recording)
+      if @genre_category
+        redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording,genre_category: @genre_category )
       else
-        redirect_to edit_account_common_work_lyric_path @account, @common_work, @recording
+        redirect_to account_common_work_recording_path(@account, @common_work, @recording,genre_category: @genre_category )
       end
-      
+      #if @genre_category
+      #  redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording,genre_category: @genre_category )
+      #elsif @recording.instrumental
+      #   redirect_to account_common_work_recording_path(@account, @common_work, @recording)
+      #else
+      #  redirect_to edit_account_common_work_lyric_path @account, @common_work, @recording
+      #end
+      #
     else
       redirect_to :back
     end

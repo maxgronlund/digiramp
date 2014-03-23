@@ -8,7 +8,7 @@ class ThumbUploader < CarrierWave::Uploader::Base
   end
   
   def default_url
-    "/assets/fallback/video/" + [version_name, "thumb.png"].compact.join('_')
+    "/assets/fallback/" + [version_name, "thumb.png"].compact.join('_')
   end
   
 
@@ -24,6 +24,11 @@ class ThumbUploader < CarrierWave::Uploader::Base
     process :resize_to_fit => [1012, 632]
     #resize_and_pad(1012, 632,:transparent,'Center')
     #process :convert => 'png'
+  end
+  
+  version :cover_thumb do
+    resize_and_pad(128, 128,:transparent,'Center')
+    process :convert => 'png'
   end
   
   def extension_white_list

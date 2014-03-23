@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320001315) do
+ActiveRecord::Schema.define(version: 20140323091722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -384,7 +384,6 @@ ActiveRecord::Schema.define(version: 20140320001315) do
 
   create_table "genre_tags", force: true do |t|
     t.integer  "genre_id"
-    t.integer  "recording_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "genre_tagable_id"
@@ -393,13 +392,13 @@ ActiveRecord::Schema.define(version: 20140320001315) do
 
   add_index "genre_tags", ["genre_id"], name: "index_genre_tags_on_genre_id", using: :btree
   add_index "genre_tags", ["genre_tagable_id", "genre_tagable_type"], name: "by_genre_tagable_id_and_type", using: :btree
-  add_index "genre_tags", ["recording_id"], name: "index_genre_tags_on_recording_id", using: :btree
 
   create_table "genres", force: true do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.boolean  "user_tag"
+    t.string   "category",   default: "other"
   end
 
   create_table "homes", force: true do |t|
@@ -753,23 +752,23 @@ ActiveRecord::Schema.define(version: 20140320001315) do
   create_table "recordings", force: true do |t|
     t.integer  "common_work_id"
     t.string   "title"
-    t.string   "isrc_code"
-    t.text     "artists"
-    t.text     "lyrics"
-    t.integer  "bpm"
-    t.boolean  "instrumental"
+    t.string   "isrc_code",              default: ""
+    t.text     "artists",                default: ""
+    t.text     "lyrics",                 default: ""
+    t.integer  "bpm",                    default: 0
+    t.boolean  "instrumental",           default: false
     t.date     "release_date"
-    t.text     "description"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.text     "description",            default: ""
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "account_id"
-    t.boolean  "explicit"
-    t.integer  "documents_count",        default: 0,      null: false
+    t.boolean  "explicit",               default: false
+    t.integer  "documents_count",        default: 0,       null: false
     t.string   "audio_file"
     t.string   "content_type"
     t.string   "file_size"
     t.integer  "song_id"
-    t.boolean  "clearance"
+    t.boolean  "clearance",              default: false
     t.string   "poster"
     t.text     "crop_params"
     t.string   "audio_file_tmp"
@@ -781,17 +780,17 @@ ActiveRecord::Schema.define(version: 20140320001315) do
     t.string   "webm_video"
     t.string   "version"
     t.string   "copyright"
-    t.string   "production_company"
+    t.string   "production_company",     default: ""
     t.date     "available_date"
-    t.string   "upc_code"
+    t.string   "upc_code",               default: ""
     t.string   "media_type"
     t.integer  "video_width_in_pixels"
     t.integer  "video_height_in_pixels"
     t.text     "audio_upload"
-    t.boolean  "has_title"
-    t.boolean  "has_lyrics"
-    t.integer  "completeness_in_pct"
-    t.string   "category"
+    t.boolean  "has_title",              default: false
+    t.boolean  "has_lyrics",             default: false
+    t.integer  "completeness_in_pct",    default: 0
+    t.string   "category",               default: ""
     t.string   "mp3"
     t.string   "thumbnail"
     t.string   "year",                   default: "1001"
@@ -806,6 +805,9 @@ ActiveRecord::Schema.define(version: 20140320001315) do
     t.string   "track",                  default: ""
     t.string   "waveform",               default: ""
     t.integer  "cache_version",          default: 0
+    t.string   "genre_category",         default: "other"
+    t.string   "cover_art"
+    t.string   "vocal",                  default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

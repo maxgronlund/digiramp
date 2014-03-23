@@ -32,15 +32,7 @@
           /    .pull-right
           /      = link_to "Add", '#', class: 'btn btn-default btn-lg', id: 'play-button'
 
-      -if @can_edit
-        .row
-          .col-sm-12
-            hr
-            .pull-right
-               = link_to  edit_account_common_work_audio_file_path(@account, @common_work, @recording) do
-                .btn.btn-primary.btn-lg
-                  i class="fa fa-pencil" 
-                  '&nbsp;Edit    
+      
              
       
          

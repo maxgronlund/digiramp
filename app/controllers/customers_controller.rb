@@ -62,7 +62,6 @@ class CustomersController < ApplicationController
   end
 
   def destroy
-    logger.debug '====================== DESTROY ======================================'
     user = @account_user.user
     flash[:info] = { title: "Info", body: "#{@account_user.user.email} is deleted" }
     @account_user.destroy

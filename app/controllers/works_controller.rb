@@ -17,7 +17,8 @@ class WorksController < ApplicationController
         @user_can_access_legal_documents      = true
         @user_can_access_financial_documents  = true
         @user_can_access_ipis                 = true
-        @can_delete     = true
+        @can_delete                           = true
+        @can_edit                             = true
       else
         work_user = WorkUser.where(user_id: current_user.id, common_work_id: @common_work.id).first
         @user_can_access_files                = work_user.access_files

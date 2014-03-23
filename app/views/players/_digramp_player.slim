@@ -18,12 +18,12 @@ div class="index" id="{index}"
 
   .col-sm-12
     dev id="digiramp_player_#{index}" class="#{recording.mp3}"
-    
-    .progress
-      div class="progress-bar load-position" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" id="load_bar_#{index}"
-          '&nbsp;
+    .thin
+      .progress
+        div class="progress-bar load-position" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" id="load_bar_#{index}"
+            '&nbsp;
 .row
-  .col-sm-6
+  .col-sm-8
     .play-controlls
       table
         tr
@@ -33,7 +33,10 @@ div class="index" id="{index}"
             div class="play-button" id="play_button_#{index}"
           td
             div class="position" id="position_#{index}"
-  .col-sm-6
+          /td = simple_format recording.description
+
+    
+  .col-sm-4
     .pull-right
       -if @show_more
         =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) do
