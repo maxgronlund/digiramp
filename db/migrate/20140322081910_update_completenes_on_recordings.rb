@@ -96,7 +96,7 @@ class UpdateCompletenesOnRecordings < ActiveRecord::Migration
       recording.update_completeness
     end
 
-    remove_column  :recordings, :cache_version_temp
+    #remove_column  :recordings, :cache_version_temp
 
   end
 end
