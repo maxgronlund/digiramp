@@ -8,7 +8,8 @@ class ThumbUploader < CarrierWave::Uploader::Base
   end
   
   def default_url
-    "/assets/fallback/" + [version_name, "thumb.png"].compact.join('_')
+    ActionController::Base.helpers.asset_path("fallback/" + [version_name, "thumb.png"].compact.join('_'))
+    #"/assets/fallback/" + [version_name, "thumb.png"].compact.join('_')
   end
   
 
