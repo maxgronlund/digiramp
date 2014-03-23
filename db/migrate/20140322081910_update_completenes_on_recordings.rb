@@ -15,13 +15,16 @@ class UpdateCompletenesOnRecordings < ActiveRecord::Migration
     change_column :recordings, :has_lyrics, :boolean,                    default: false
     change_column :recordings, :completeness_in_pct, :integer,           default: 0
     change_column :recordings, :category,  :string,                      default: ''
-    add_column    :recordings, :cache_version_temp,  :integer,           default: 0
+    remove_column :recordings, :cache_version
+    add_column    :recordings, :cache_version,  :integer,                 default: 0
+    add_column    :recordings, :cover_art, :string
+    #add_column    :recordings, :cache_version_temp,  :integer,           default: 0
 
 
     
     Recording.all.each do |recording|
       
-      recording.cache_version_temp = recording.cache_version.to_i
+      #recording.cache_version_temp = recording.cache_version.to_i
       
       if recording.isrc_code.nil?
         recording.isrc_code = ''
@@ -79,9 +82,9 @@ class UpdateCompletenesOnRecordings < ActiveRecord::Migration
         recording.category = ''
       end
       
-      if recording.cache_version.nil?
-        recording.cache_version = 0
-      end
+      #if recording.cache_version.nil?
+      #  recording.cache_version = 0
+      #end
       recording.update_completeness
     end
     
