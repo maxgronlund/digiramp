@@ -55,7 +55,7 @@ class RecordingsController < ApplicationController
     @recording.mp3        = @recording.audio_upload[:results][:mp3][0][:url]
     @recording.waveform   = @recording.audio_upload[:results][:waveform][0][:url]
     @recording.thumbnail  = @recording.audio_upload[:results][:thumbnail][0][:url]
-    @recording.category   = 'none'
+    #@recording.category   = 'none'
     @recording.cache_version += 1
     @recording.save!
     @recording.extract_metadata
@@ -148,7 +148,7 @@ class RecordingsController < ApplicationController
       @recording.title        = params[:recording][:title]      if params[:recording][:title]
       @recording.has_lyrics   = params[:recording][:has_lyrics] if params[:recording][:has_lyrics]
       @recording.explicit     = params[:recording][:explicit]   if params[:recording][:explicit]
-      @recording.category     = params[:recording][:category]   if params[:recording][:category]
+      #@recording.category     = params[:recording][:category]   if params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
     end
@@ -159,7 +159,7 @@ class RecordingsController < ApplicationController
     @blog           = Blog.recordings
     @recording      = Recording.find(params[:recording_id])
     if params[:recording]
-      @recording.category = params[:recording][:category]
+      #@recording.category = params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
     end
@@ -174,7 +174,7 @@ class RecordingsController < ApplicationController
     @blog           = Blog.recordings
     @recording      = Recording.find(params[:recording_id])
     if params[:recording]
-      @recording.category = params[:recording][:category]
+      #@recording.category = params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
     end

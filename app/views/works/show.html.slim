@@ -30,20 +30,34 @@
         hr
       
         
-    == render 'works/shared/recordings'
+    /== render 'works/shared/recordings'
     .row
-      .col-sm-6
+      .col-sm-12
         .panel
-          .panel-body
-            h3 Lyrics
-            .text-center
-              = simple_format @common_work.lyrics
-        
-        == render 'works/shared/personas'             if @user_can_access_shared_with 
-        == render 'works/shared/files'                if @user_can_access_files
-        == render 'works/shared/legal_documents'      if @user_can_access_legal_documents
-        == render 'works/shared/financial_documents'  if @user_can_access_financial_documents
-        == render 'works/shared/ipis'                 if @user_can_access_ipis
+          .panel-body.digiramp_player
+            div class="panel-group" id="accordion"
+              - @common_work.recordings.each do |recording|
+                == render 'recordings/recording', recording: recording
+    .row
+      -unless @common_work.lyrics.empty?
+        .col-sm-6
+          .panel
+            .panel-body
+              h3 original lyric
+              .text-center
+                = simple_format @common_work.lyrics
+      -unless @common_work.description.empty?
+        .col-sm-6
+          .panel
+            .panel-body
+              h3 Description
+              = simple_format @common_work.description
+          
+    == render 'works/shared/personas'             if @user_can_access_shared_with 
+    == render 'works/shared/files'                if @user_can_access_files
+    == render 'works/shared/legal_documents'      if @user_can_access_legal_documents
+    == render 'works/shared/financial_documents'  if @user_can_access_financial_documents
+    == render 'works/shared/ipis'                 if @user_can_access_ipis
         
         
     .visible-xs   

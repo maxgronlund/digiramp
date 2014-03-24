@@ -6,12 +6,12 @@ class Account < ActiveRecord::Base
   #after_create :assign_permissions
   #after_create :validate_expiration_date
   
-  
-  has_many :playlists
-  has_many :common_works
+  has_many :attachments, dependent: :destroy
+  has_many :playlists, dependent: :destroy
+  has_many :common_works, dependent: :destroy
   has_many :customers
   has_many :customer_event
-  has_many :recordings
+  has_many :recordings, dependent: :destroy
   
   #has_many :representatives, dependent: :destroy
   #has_many :albums

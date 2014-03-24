@@ -3,17 +3,21 @@ class CommonWork < ActiveRecord::Base
   pg_search_scope :search, against: [:title, :lyrics, :alternative_titles, :iswc_code, :description ], :using => [:tsearch]
   
   belongs_to :account
-  belongs_to :ascap_import
-  belongs_to :common_work_import
+  #belongs_to :ascap_import
+  #belongs_to :common_work_import
   
   has_many :recordings, dependent: :destroy
   accepts_nested_attributes_for  :recordings, allow_destroy: true
   
   
+  
+  has_many :attachments, as: :attachable
+  
+  
   has_many :ipis,       dependent: :destroy
   
-  has_many :activity_events, as: :activity_eventable
-  has_many :documents,       as: :documentable, dependent: :destroy
+  #has_many :activity_events, as: :activity_eventable
+  #has_many :documents,       as: :documentable, dependent: :destroy
   has_many :work_users, dependent: :destroy
   
   #mount_uploader :audio_file, AudioFileUploader
@@ -66,6 +70,18 @@ class CommonWork < ActiveRecord::Base
     end
     instruments.uniq!
     instruments
+  end
+  
+  def files
+    self.attachments.files
+  end
+  
+  def legal_documents
+    self.attachments.legal_documents
+  end
+  
+  def financial_documents
+    self.attachments.financial_documents
   end
   
   #def to_csv

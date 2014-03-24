@@ -1,0 +1,25 @@
+-session[:return_url] = request.url
+- add_mood = BlogPost.cached_find( 'Add Mood' , @blog )
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              recordings: account_recordings_path(@account), \
+                                                              }, current: @recording.title}
+      
+      
+
+      .row
+        .col-sm-12
+          h3 =add_mood.title 
+          =simple_format add_mood.body
+          -if can_edit?
+            .pull-right
+              =link_to 'Edit',  edit_admin_blog_blog_post_path(@blog, add_mood), class: 'btn btn-default'
+              
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

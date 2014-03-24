@@ -1,0 +1,15 @@
+= simple_form_for [ @account, @attachable, @attachment] do |f|
+  = f.hidden_field :account_id, value: @account.id
+  = f.hidden_field :attachable_id, value: @attachable.id
+  = f.hidden_field :attachable_type, value: @attachable.class
+  = f.hidden_field :file_type, value: @file_type
+  
+  = f.input :file
+  = f.input :title
+  = f.input :body, label: 'Description'
+
+  hr
+  .pull-right
+    = link_to "Cancel", @back, class: 'btn btn-default btn-lg'
+    '&nbsp;
+    = f.submit 'Upload', class: 'btn btn-primary btn-lg'

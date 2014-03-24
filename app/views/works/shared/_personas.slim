@@ -1,43 +1,50 @@
-.panel
-  .panel-body
-    h3 People with access
-    .table-responsive
-      table class="table table-hover"
-        tbody
-          -@common_work.work_users.each do |work_user|
-            tr
-              td 
-                b = work_user.user.name
-                br
-                = work_user.email
-                br
-                br
-                = link_to edit_account_common_work_work_user_path(@account, @common_work, work_user) do
-                  .btn.btn-primary.btn-lg
-                    i class="fa fa-pencil"
-                '&nbsp;
-                = link_to  account_common_work_work_user_path(@account, @common_work, work_user), data: { confirm: 'Are you sure?' } , :method => :delete do
-                  .btn.btn-danger.btn-lg
-                    i class="fa fa-times"
-              td
-                -if work_user.can_edit
-                  '√ Edit
-                  br
-
-                -if  work_user.access_files
-                  '√ Access Files
-                  br
-                -if  work_user.access_legal_documents
-                  '√ Access Legal Documents
-                  br
-                -if  work_user.access_financial_documents
-                  '√ Access Financial Documents
-                  br
-                -if  work_user.access_ipis
-                  '√ Access IPI
-                  br
-              
-                
-    hr
-    .pull-right
-      == link_to 'Invite Users', new_account_common_work_work_user_path(@account, @common_work), class: 'btn btn-primary btn-lg'
+.row
+  .col-sm-12
+    .panel
+      .panel-body
+        h3 People with access
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Name
+                th Email
+                th Permissions
+                th
+                th
+            tbody
+              -@common_work.work_users.each do |work_user|
+                tr
+                  td  = work_user.user.name
+                  td = work_user.email
+                  td
+                    -if work_user.can_edit
+                      '√ Edit
+                      br
+    
+                    -if  work_user.access_files
+                      '√ Access Files
+                      br
+                    -if  work_user.access_legal_documents
+                      '√ Access Legal Documents
+                      br
+                    -if  work_user.access_financial_documents
+                      '√ Access Financial Documents
+                      br
+                    -if  work_user.access_ipis
+                      '√ Access IPI
+                      br
+                    td
+                      .pull-right
+                        = link_to edit_account_common_work_work_user_path(@account, @common_work, work_user) do
+                          .btn.btn-primary.btn-lg
+                            i class="fa fa-pencil"
+                        '&nbsp;
+                        = link_to  account_common_work_work_user_path(@account, @common_work, work_user), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times"
+                        
+                    
+        hr
+        .pull-right
+          == link_to 'Invite Users', new_account_common_work_work_user_path(@account, @common_work), class: 'btn btn-primary btn-lg'

@@ -8,6 +8,8 @@ Digiramp::Application.routes.draw do
   
 
 
+  #get "attachments/new"
+  #get "attachments/edit"
   #get "playlist_wizard/new"
   #get "playlist_wizard/show"
   #get "playlist_wizard/index"
@@ -45,22 +47,25 @@ Digiramp::Application.routes.draw do
     resources :recording_meta_data, only: [:edit, :update]
     resources :recording_lyrics, only: [:edit, :update]
     
+    
     resources :recordings do
       get 'upload_completed'
-      post 'select_category'
-      get 'select_category'
-      post 'add_genre'
-      get 'add_genre'
-      post 'add_mood'
-      get 'add_mood'
-      get 'add_instruments'
-      get 'add_lyrics'
-      get 'add_description'
-      get 'add_more_meta_data'
-      get 'overview'
+      #post 'select_category'
+      #get 'select_category'
+      #post 'add_genre'
+      #get 'add_genre'
+      #post 'add_mood'
+      #get 'add_mood'
+      #get 'add_instruments'
+      #get 'add_lyrics'
+      #get 'add_description'
+      #get 'add_more_meta_data'
+      #get 'overview'
       
       
       #resources :meta_datas, only: [:edit, :update]
+      
+      get 'audio_file'
       
       resources :genres
     end
@@ -84,10 +89,18 @@ Digiramp::Application.routes.draw do
 
     resources :upload_recordings, only: [:new, :edit, :create]
     resources :common_works do
+      resources :attachments do
+        member do
+          get :download
+        end
+        
+      end
+      resources :audio_files
       resources :recordings do
         resources :genre_tags
+        
       end
-      resources :audio_file,    only: [:edit, :update]
+      #resources :audio_file,    only: [:edit, :update]
       resources :lyrics,        only: [:edit, :update]
       resources :work_users
     end

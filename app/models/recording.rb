@@ -2,7 +2,7 @@ class Recording < ActiveRecord::Base
   
   serialize :audio_upload, Hash
   include PgSearch
-  pg_search_scope :search, against: [:title, :artists, :lyrics, :production_company, :isrc_code, :genre, :artist, :bpm, :description ], :using => [:tsearch]
+  pg_search_scope :search, against: [:title, :artists, :lyrics, :production_company, :isrc_code, :genre, :artist, :bpm, :description, :vocal ], :using => [:tsearch]
   validates :title, :presence => true
   
   #require 'taglib'
@@ -20,7 +20,7 @@ class Recording < ActiveRecord::Base
   
   mount_uploader :cover_art, ThumbUploader
   
-  VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken" ]
+  VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
   
   
   
@@ -139,7 +139,7 @@ class Recording < ActiveRecord::Base
       self.completeness_in_pct += 10 
       logger.debug 'has description'
     end             # 50
-    if self.has_lyrics && !self.lyrics.empty?   
+    if self.vocal != 'Instrumental' && !self.lyrics.empty?   
       self.completeness_in_pct += 10 
     else 
       self.completeness_in_pct += 10 
@@ -151,7 +151,7 @@ class Recording < ActiveRecord::Base
       self.completeness_in_pct += 10 
     end  
     
-    unless self.year.empty?       
+    unless self.year != 1001       
       self.completeness_in_pct += 10 
     end 
     

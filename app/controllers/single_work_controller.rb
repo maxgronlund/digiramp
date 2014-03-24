@@ -56,7 +56,7 @@ class SingleWorkController < ApplicationController
     @recording.mp3        = @recording.audio_upload[:results][:mp3][0][:url]
     @recording.waveform   = @recording.audio_upload[:results][:waveform][0][:url]
     @recording.thumbnail  = @recording.audio_upload[:results][:thumbnail][0][:url]
-    @recording.category   = 'none'
+    #@recording.category   = 'none'
     @recording.save!
     
     @recording.save!

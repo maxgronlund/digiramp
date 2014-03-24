@@ -2,14 +2,14 @@ class UploadRecordingsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   
   before_filter :there_is_access_to_the_account
-  before_filter :get_blog
+  #before_filter :get_blog
   def new
     
     #@new_recording    = BlogPost.where(identifier: 'New Recording', blog_id: @blog.id).first_or_create(identifier: 'New Recording', blog_id: @blog.id, title: 'New Recording', body: 'New recording')
     @recording        = Recording.new
   end
   
-  def create
+  def update
     
     #logger.debug("PARAMS: #{params[:transloadit].inspect}")
     @recording = Recording.new(audio_upload: params[:transloadit], account_id: @account.id, title: params[:title])
@@ -19,7 +19,7 @@ class UploadRecordingsController < ApplicationController
     @recording.mp3        = @recording.audio_upload[:results][:mp3][0][:url]
     @recording.waveform   = @recording.audio_upload[:results][:waveform][0][:url]
     @recording.thumbnail  = @recording.audio_upload[:results][:thumbnail][0][:url]
-    @recording.category   = 'none'
+    #@recording.category   = 'none'
     @recording.save!
     @recording.update_completeness
     
@@ -31,7 +31,7 @@ class UploadRecordingsController < ApplicationController
   def edit
   end
   
-  def get_blog
-    @blog   = Blog.add_recording
-  end
+  #def get_blog
+  #  @blog   = Blog.add_recording
+  #end
 end

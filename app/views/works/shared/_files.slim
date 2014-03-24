@@ -1,4 +1,35 @@
 .panel
   .panel-body
     h3 Files
+    .table-responsive
+      table class="table"
+        thead
+          tr
+            th Name
+            th Description
+            th File Name
+            th
+        tbody
+          - @common_work.files.each do |file|
+            tr
+              td = file.title
+              td = file.body
+              td = Pathname.new(file.file_url).basename if file.file_url
+              td 
+                .pull-right
+                  - if file.file_url
+                    = link_to download_account_common_work_attachment_path(@account, @common_work, file) do
+                     .btn.btn-info.btn-lg
+                       i class="fa fa-cloud-download"
+                    '&nbsp;
+                  = link_to edit_account_common_work_attachment_path(@account, @common_work, file) do
+                   .btn.btn-primary.btn-lg
+                     i class="fa fa-pencil"
+                  '&nbsp;
+                  = link_to account_common_work_attachment_path(@account, @common_work, file), data: { confirm: 'Are you sure?' } , :method => :delete do
+                   .btn.btn-danger.btn-lg
+                     i class="fa fa-times "
+
     hr
+    .pull-right
+      = link_to 'Upload File', new_account_common_work_attachment_path(@account, @common_work, file_type: 'file'), class: 'btn btn-primary btn-lg'

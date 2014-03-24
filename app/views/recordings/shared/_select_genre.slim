@@ -13,7 +13,7 @@
         h3 You have added #{@added_genge_tags} of 4 Genre
   .row
     .col-sm-12
-      == render "recordings/categories/category", blog: blog
+      == render "recordings/shared/category", blog: blog
 - else
   == render 'shared/page_title', locals: {blog: blog, blog_post: 'Select Category'} 
   .row

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140323091722) do
+ActiveRecord::Schema.define(version: 20140324211449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,21 @@ ActiveRecord::Schema.define(version: 20140323091722) do
     t.datetime "updated_at",   null: false
     t.string   "search_query"
   end
+
+  create_table "attachments", force: true do |t|
+    t.integer  "account_id"
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
+    t.string   "file"
+    t.string   "title"
+    t.string   "file_type"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "attachments", ["account_id"], name: "index_attachments_on_account_id", using: :btree
+  add_index "attachments", ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type", using: :btree
 
   create_table "blog_posts", force: true do |t|
     t.string   "title"
@@ -752,68 +767,45 @@ ActiveRecord::Schema.define(version: 20140323091722) do
   create_table "recordings", force: true do |t|
     t.integer  "common_work_id"
     t.string   "title"
-    t.string   "isrc_code",              default: ""
-    t.text     "artists",                default: ""
-    t.text     "lyrics",                 default: ""
-    t.integer  "bpm",                    default: 0
-    t.boolean  "instrumental",           default: false
-    t.date     "release_date"
-    t.text     "description",            default: ""
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.string   "isrc_code",           default: ""
+    t.text     "artists",             default: ""
+    t.text     "lyrics",              default: ""
+    t.integer  "bpm",                 default: 0
+    t.text     "description",         default: ""
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "account_id"
-    t.boolean  "explicit",               default: false
-    t.integer  "documents_count",        default: 0,       null: false
-    t.string   "audio_file"
-    t.string   "content_type"
+    t.boolean  "explicit",            default: false
+    t.integer  "documents_count",     default: 0,      null: false
     t.string   "file_size"
-    t.integer  "song_id"
-    t.boolean  "clearance",              default: false
-    t.string   "poster"
-    t.text     "crop_params"
-    t.string   "audio_file_tmp"
-    t.integer  "album_id"
-    t.boolean  "extract_id3_tags"
-    t.string   "track_number"
-    t.string   "ogv_video"
-    t.string   "mp4_video"
-    t.string   "webm_video"
+    t.boolean  "clearance",           default: false
     t.string   "version"
     t.string   "copyright"
-    t.string   "production_company",     default: ""
+    t.string   "production_company",  default: ""
     t.date     "available_date"
-    t.string   "upc_code",               default: ""
-    t.string   "media_type"
-    t.integer  "video_width_in_pixels"
-    t.integer  "video_height_in_pixels"
+    t.string   "upc_code",            default: ""
     t.text     "audio_upload"
-    t.boolean  "has_title",              default: false
-    t.boolean  "has_lyrics",             default: false
-    t.integer  "completeness_in_pct",    default: 0
-    t.string   "category",               default: ""
+    t.integer  "completeness_in_pct", default: 0
     t.string   "mp3"
     t.string   "thumbnail"
-    t.string   "year",                   default: "1001"
-    t.decimal  "duration",               default: 0.0
-    t.text     "album_name",             default: ""
-    t.text     "genre",                  default: ""
-    t.text     "artist",                 default: ""
-    t.text     "comment",                default: ""
-    t.text     "performer",              default: ""
-    t.string   "band",                   default: ""
-    t.string   "disc",                   default: ""
-    t.string   "track",                  default: ""
-    t.string   "waveform",               default: ""
-    t.integer  "cache_version",          default: 0
-    t.string   "genre_category",         default: "other"
+    t.string   "year",                default: "1001"
+    t.decimal  "duration",            default: 0.0
+    t.text     "album_name",          default: ""
+    t.text     "genre",               default: ""
+    t.text     "artist",              default: ""
+    t.text     "comment",             default: ""
+    t.text     "performer",           default: ""
+    t.string   "band",                default: ""
+    t.string   "disc",                default: ""
+    t.string   "track",               default: ""
+    t.string   "waveform",            default: ""
+    t.integer  "cache_version",       default: 0
     t.string   "cover_art"
-    t.string   "vocal",                  default: ""
+    t.string   "vocal",               default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
-  add_index "recordings", ["album_id"], name: "index_recordings_on_album_id", using: :btree
   add_index "recordings", ["common_work_id"], name: "index_recordings_on_common_work_id", using: :btree
-  add_index "recordings", ["song_id"], name: "index_recordings_on_song_id", using: :btree
 
   create_table "representatives", force: true do |t|
     t.integer  "user_id"

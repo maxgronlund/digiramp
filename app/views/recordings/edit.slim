@@ -20,6 +20,8 @@
     = link_to 'Add genres', account_common_work_recording_genre_tags_path(@account, @common_work, @recording), class: 'btn btn-default btn-lg'
     '&nbsp;
     = link_to 'Edit Lyrics', edit_account_common_work_lyric_path( @account, @common_work, @recording), class: 'btn btn-default btn-lg'
+    '&nbsp;
+    = link_to 'Upload Recording', edit_account_common_work_audio_file_path(@account, @common_work, @recording), class: 'btn btn-default btn-lg'
     hr
     == render 'form'
     

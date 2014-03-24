@@ -16,12 +16,12 @@
       .col-sm-6
         .panel
           .panel-body
-            h3 Description
+            h3 DESCRIPTION
             = simple_format @account.description
 
         .panel
           .panel-body
-            h3 Info
+            h3 INFO
             .table-responsive
               table class="table table-hover"
                 tbody
@@ -38,6 +38,42 @@
                   tr
                     td Visits:
                     td = @account.visits
+                    
+        .panel
+          .panel-body
+            h3 ASSETS
+            .table-responsive
+              table class="table table-hover"
+                tbody
+                  tr
+                    td Works:
+                    td = @account.common_works.size
+                    td
+                      .pull-right
+                        = link_to '#' do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times-circle"
+                  tr
+                    td Recordings:
+                    td = @account.recordings.size
+                    td
+                      .pull-right
+                        = link_to '#' do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times-circle"
+                  tr
+                    td Documents:
+                    td 
+                    td
+                      .pull-right
+                        = link_to '#' do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times-circle"
+                  tr
+                    td Storage:
+                    td 
+                    td
+          
                   
         
            
@@ -47,7 +83,7 @@
 
         .panel
           .panel-body
-            h3 Address
+            h3 ADDRESS
             .table-responsive
               table class="table table-hover"
                 tbody
@@ -73,7 +109,7 @@
                     
         .panel
           .panel-body
-            h3 Users
+            h3 USERS
             .table-responsive
               table class="table table-hover"
                 thead
@@ -91,7 +127,11 @@
       .col-sm-12
         hr
         .pull-right
+          = link_to 'Go to Account', account_path(@account), class: 'btn btn-default btn-lg'
+          '&nbsp;
           = link_to 'Edit Account', edit_admin_account_path(@account), class: 'btn btn-primary btn-lg'
+          '&nbsp;
+          = link_to 'Delete Account', '#', class: 'btn btn-danger btn-lg'
         
         
       

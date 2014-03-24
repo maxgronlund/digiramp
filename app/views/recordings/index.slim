@@ -45,92 +45,69 @@
             .panel-body.digiramp_player
               div class="panel-group" id="accordion"
                 - @recordings.each do |recording|
-                  -cache(['digiramp_player', Admin.cached_find(1).version, recording.id, recording.cache_version, @can_edit]) do
-                    -index = recording.id
-                    div class="player" id="#{index}"
-                    div class="panel panel-default"
-                      .panel-player
-                        .row
-                          .col-sm-12
-                            .panel-title
-                              a data-toggle="collapse" data-parent="#accordion" href="#recording_#{index.to_s}" class="#{index}"
-                                .row
-                                  .col-sm-4
-                                    .bg-recording-title
-                                      h4 = recording.title
-                                      
-                                    /img src="#{recording.cover_art_url(:cover_thumb)}" alt="alternate #{recording.title}" width="128" height="128" style="float:left;"
-                                    = image_tag recording.cover_art_url(:cover_thumb), width: "128", height: "128", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
-                                    -if recording.explicit
-                                      .pull-left
-                                        .label.label-danger
-                                          'explicit
-                                        '&nbsp;
-                                    -if recording.clearance
-                                      .pull-left
-                                        .label.label-success
-                                          '200% Clerance
-                                        '&nbsp;
-                                    br
-                                    i = simple_format recording.description
-                                  .col-sm-8
-                                    table class="table"
-                                      thead
-                                        tr
-                                          th Genre
-                                          th Instr
-                                          th Vocal
-                                      tbody
-                                        tr
-                                          td
-                                            ul
-                                              
-                                              -recording.genre_tags.each do |genre_tag|
-                                                li = genre_tag.genre.title
-                                          td √
-                                          td = recording.vocal
-                        
-                                /.btn.btn-default.btn-lg.col-sm-4
-                                /  = recording.title
-                                /- if recording.in_good_condition?
-                                /  .col-sm-3
-                                /    -if recording.genre.to_s != ''
-                                /      .label.label-success
-                                /        'Genre: #{recording.genre}
-                                /  
-                                /    -if recording.artists.to_s != ''
-                                /      .label.label-primary
-                                /        'Artists: #{recording.artists}
-                                /  .col-sm-3
-                                /    - if recording.instrumental
-                                /      .label.label-warning
-                                /        'Instrumental
-                                /  
-                                /    - if recording.explicit
-                                /      .label.label-danger
-                                /        'Explicit
-                                /  
-                                /  .col-sm-2
-                                /    - if recording.bpm
-                                /      .label.label-default
-                                /        'BPM: #{recording.bpm}
-                                /-else
-                                /  .col-sm-3
-                                /    .bg-danger
-                                /      'Low Completness
-                                /    
-                                /  .col-sm-3
-                                /    - complete =  recording.completeness_in_pct.to_s + '%'
-                                /    .progress
-                                /      div class="progress-bar load-position" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: #{complete};"
-                                /         =complete
-                                /  .col-sm-2
-                    
-                      div id="load-player"
-                      div id="recording_#{index.to_s}" class="multi_player panel-collapse collapse" index="#{index}"
-                        .panel-body
-                          == render 'players/digramp_player', locals: {index: index, recording: recording}
-                            
+                  == render 'recordings/recording', recording: recording
+                  /-cache(['digiramp_player', Admin.cached_find(1).version, recording.id, recording.cache_version, @can_edit]) do
+                  /  -index = recording.id
+                  /  div class="player" id="#{index}"
+                  /  div class="panel panel-default"
+                  /    .panel-player
+                  /      .row
+                  /        .col-sm-12
+                  /          .panel-title
+                  /            a data-toggle="collapse" data-parent="#accordion" href="#recording_#{index.to_s}" class="#{index}"
+                  /              .row
+                  /                .col-sm-4
+                  /                  .bg-recording-title
+                  /                    h4 = recording.title
+                  /                    
+                  /                  /img src="#{recording.cover_art_url(:cover_thumb)}" alt="alternate #{recording.title}" width="128" height="128" style="float:left;"
+                  /                  = image_tag recording.cover_art_url(:cover_thumb), width: "128", height: "128", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
+                  /                  -if recording.explicit
+                  /                    .pull-left
+                  /                      .label.label-danger
+                  /                        'explicit
+                  /                      '&nbsp;
+                  /                  -if recording.clearance
+                  /                    .pull-left
+                  /                      .label.label-success
+                  /                        '200% Clerance
+                  /                      '&nbsp;
+                  /                  
+                  /                  br
+                  /                  i = simple_format recording.description
+                  /                .col-sm-8
+                  /                  .table-responsive
+                  /                    table class="table"
+                  /                      thead
+                  /                        tr
+                  /                          th Genre
+                  /                          th Instruments
+                  /                          th Vocal
+                  /                          th Tempo
+                  /                          th Moods
+                  /                      tbody
+                  /                        tr
+                  /                          td
+                  /                            ul
+                  /                              
+                  /                              -recording.genre_tags.each do |genre_tag|
+                  /                                li = genre_tag.genre.title
+                  /                          td 
+                  /                          td
+                  /                            -unless  recording.vocal.empty?
+                  /                              .pull-left
+                  /                                .label.label-info
+                  /                                  = recording.vocal
+                  /                          td 
+                  /                          td
+                  /                    
+                  /
+                  /  
+                  /    div id="load-player"
+                  /    div id="recording_#{index.to_s}" class="multi_player panel-collapse collapse" index="#{index}"
+                  /      .panel-body
+                  /        == render 'players/digramp_player', locals: {index: index, recording: recording}
+                  /          
                     
                    
               .hidden-xs

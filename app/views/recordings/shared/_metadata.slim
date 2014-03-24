@@ -13,7 +13,7 @@
         - if @recording.album_name   != '' 
           == render 'recordings/shared/meta_line' , locals: {title: 'Album Name', data: @recording.album_name}
         
-        - if @recording.year   != ''
+        - if @recording.year   != '1001'
           == render 'recordings/shared/meta_line' , locals: {title: 'Year', data: @recording.year}
         - if @recording.genre   != ''
           == render 'recordings/shared/meta_line' , locals: {title: 'Genre', data: @recording.genre}
