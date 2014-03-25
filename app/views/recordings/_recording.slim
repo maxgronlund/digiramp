@@ -11,6 +11,8 @@
                 .col-sm-4
                   .bg-recording-title
                     h4 = recording.title
+                    i By: 
+                    = recording.artist
                     
                   /img src="#{recording.cover_art_url(:cover_thumb)}" alt="alternate #{recording.title}" width="128" height="128" style="float:left;"
                   = image_tag recording.cover_art_url(:cover_thumb), width: "128", height: "128", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
@@ -26,7 +28,7 @@
                       '&nbsp;
                   
                   br
-                  i = simple_format recording.description
+                  i = simple_format recording.comment
                 .col-sm-8
                   .table-responsive
                     table class="table"

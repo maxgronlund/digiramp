@@ -1,0 +1,26 @@
+= debug @transloadets
+
+/- @uploads.each do |upload|
+/  = debug upload
+/  hr
+/  br
+/  br
+/ 
+
+
+/- @uploads[:results][:thumbnail].each_with_index do |thumbnail, index|
+/  = debug thumbnail[:meta]
+/
+/- @uploads[:results][:waveform].each_with_index do |waveform, index|
+/  = debug waveform[:url]
+
+/- @uploads[:results][:mp3].each_with_index do |mp3, index|
+/  = debug mp3[:url]
+
+
+/-@recordings.each do |recording|
+/  = debug recording[:mp3][:url]
+/  = debug recording[:mp3][:meta]
+/  = debug recording[:waveform][:url]
+/  = debug recording[:thumbnail][:url]
+/  hr

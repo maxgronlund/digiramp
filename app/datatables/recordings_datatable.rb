@@ -44,7 +44,7 @@ class RecordingsDatatable < Datatable
       
       result = {
         title: title,
-        description: h(recording.description),
+        description: h(recording.comment),
         artists: h(recording.artists),
         isrc_code: h(recording.isrc_code),
         bpm: h(recording.bpm),

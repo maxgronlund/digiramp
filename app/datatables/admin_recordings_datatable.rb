@@ -38,7 +38,7 @@ class AdminRecordingsDatatable < Datatable
       release_date = recording.release_date.strftime('%Y - %-m - %-d') if recording.release_date
       [
         link_to(recording.title, "/admin/recordings/#{recording.id}"),
-        h(recording.description),
+        h(recording.comment),
         h(recording.artists),
         h(recording.isrc_code),
         h(recording.bpm),

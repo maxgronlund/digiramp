@@ -33,33 +33,33 @@ div class="index" id="{index}"
             div class="play-button" id="play_button_#{index}"
           td
             div class="position" id="position_#{index}"
-          /td = simple_format recording.description
 
+
+  -if recording.common_work
+    .col-sm-4
+      .pull-right
+        -if @show_more
+          =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) do
+            .btn.btn-default.btn-lg
+              i class="fa fa-eye"
+        -elsif @add_to_playlist
+          '&nbsp;
+          =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) do
+            .btn.btn-success.btn-lg
+              i class="fa fa-plus-circle"
+        
+        -if @can_edit
+          '&nbsp;
+          =link_to edit_account_common_work_recording_path(recording.account, recording.common_work, recording)
+            .btn.btn-primary.btn-lg
+              i class="fa fa-pencil"
     
-  .col-sm-4
-    .pull-right
-      -if @show_more
-        =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) do
-          .btn.btn-default.btn-lg
-            i class="fa fa-eye"
-      -elsif @add_to_playlist
-        '&nbsp;
-        =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) do
-          .btn.btn-success.btn-lg
-            i class="fa fa-plus-circle"
-      
-      -if @can_edit
-        '&nbsp;
-        =link_to edit_account_common_work_recording_path(recording.account, recording.common_work, recording)
-          .btn.btn-primary.btn-lg
-            i class="fa fa-pencil"
-
-      -if @can_delete
-        '&nbsp;
-        =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) , data: { confirm: 'Are you sure?' } , method: :delete do
-          .btn.btn-danger.btn-lg
-            i class="fa fa-minus-circle"
-              
+        -if @can_delete
+          '&nbsp;
+          =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) , data: { confirm: 'Are you sure?' } , method: :delete do
+            .btn.btn-danger.btn-lg
+              i class="fa fa-minus-circle"
+                
               
   
   

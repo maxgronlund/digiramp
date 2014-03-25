@@ -22,11 +22,11 @@
       .col-sm-6
         .panel
           .panel-body
-            h3 SELECT FILE
+            h3 SELECT FILES
             = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create', :controller => 'upload_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
               = transloadit :recording_with_thumbs 
               /= form.label      :file, 'File to upload' 
-              = f.file_field :file
+              = f.file_field :file, multiple: true
               hr
               .pull-right
                 = f.submit 'Upload', class: 'btn btn-primary btn-lg'

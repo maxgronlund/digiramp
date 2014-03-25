@@ -33,6 +33,24 @@ class Admin::AccountsController < ApplicationController
     redirect_to admin_accounts_path
   end
   
+  def delete_common_works
+    @account = Account.cached_find(params[:account_id])
+    @account.common_works.delete_all
+    redirect_to :back
+  end
+  
+  def delete_recordings
+    @account = Account.cached_find(params[:account_id])
+    @account.recordings.delete_all
+    redirect_to :back
+  end
+  
+  def delete_documents
+    @account = Account.cached_find(params[:account_id])
+    @account.attachments.delete_all
+    redirect_to :back
+  end
+  
   private 
   
   def account_params

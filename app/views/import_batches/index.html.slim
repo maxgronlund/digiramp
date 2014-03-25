@@ -1,0 +1,53 @@
+-session[:return_url] = request.url
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'         
+  .container
+    /==render 'admin/shared/messages'
+    /-cache ([request.url, @account.rec_cache_version, current_user.role  ]) do
+    .do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              'create content'.to_sym => account_add_content_index_path(@account),\
+                                                              
+                                                              }, current: 'import batches'}
+
+      
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Import Batch'), blog_post: 'Import Batches'}
+    .row
+      .col-sm-12
+        .panel
+          .panel-body
+              .table-responsive
+              
+                table class="table table-hover"
+                  thead
+                    tr
+                      th Date
+                      th Recordings
+                      th
+                  tbody
+                    - @import_batches.order('created_at desc').each do |import_batch|
+                      tr
+                        td = import_batch.created_at 
+                        td = import_batch.recordings_count
+                        td
+                          .pull-right
+                            = link_to account_import_batch_path(@account, import_batch) do
+                              .btn.btn-primary.btn-lg
+                                i class="fa fa-eye"
+                            '&nbsp;
+                            = link_to account_import_batch_path(@account, import_batch), data: { confirm: 'Are you sure?' } , method: :delete do
+                              .btn.btn-danger.btn-lg
+                                i class="fa fa-times"
+                            
+                   
+                        
+                         
+                  
+                 
+           
+            
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

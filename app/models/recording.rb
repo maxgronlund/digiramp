@@ -2,7 +2,7 @@ class Recording < ActiveRecord::Base
   
   serialize :audio_upload, Hash
   include PgSearch
-  pg_search_scope :search, against: [:title, :artists, :lyrics, :production_company, :isrc_code, :genre, :artist, :bpm, :description, :vocal ], :using => [:tsearch]
+  pg_search_scope :search, against: [:title, :lyrics, :production_company, :isrc_code, :genre, :artist, :bpm, :comment, :vocal ], :using => [:tsearch]
   validates :title, :presence => true
   
   #require 'taglib'
@@ -11,6 +11,7 @@ class Recording < ActiveRecord::Base
   
   belongs_to :account
   belongs_to :common_work
+  belongs_to :import_batch
   
   
   
@@ -135,46 +136,36 @@ class Recording < ActiveRecord::Base
     unless self.isrc_code.empty? 
       self.completeness_in_pct += 5 
     end
-    unless self.description.empty?      
+    unless self.comment.to_s == ''
       self.completeness_in_pct += 10 
       logger.debug 'has description'
     end             # 50
-    if self.vocal != 'Instrumental' && !self.lyrics.empty?   
+    if self.vocal != 'Instrumental' && !self.lyrics.to_s == ''
       self.completeness_in_pct += 10 
     else 
       self.completeness_in_pct += 10 
     end
-    unless self.artists.empty?       
-      self.completeness_in_pct += 10 
-    end 
-    unless self.genre.empty?       
+
+    unless self.genre.to_s == ''
       self.completeness_in_pct += 10 
     end  
     
-    unless self.year != 1001       
+    #unless self.empty?
+    #  self.completeness_in_pct += 10 
+    #end 
+    
+    unless self.artist.to_s == ''
       self.completeness_in_pct += 10 
     end 
     
-    unless self.artists.empty?       
-      self.completeness_in_pct += 10 
-    end 
-    
-    unless self.performer.empty?       
+    unless self.performer.to_s == ''
       self.completeness_in_pct += 10 
     end  
     
-    unless self.band.empty?       
+    unless self.band.to_s == ''
       self.completeness_in_pct += 5 
     end            # 70
-    #if self.instrumental.empty?   
-    #  self.completeness_in_pct += 10 
-    #end              # 75
-    #unless self.explicit.empty?      
-    #  self.completeness_in_pct += 10 
-    #end              # 80   
-    #unless self.release_date.empty?   
-    #  self.completeness_in_pct += 10 
-    #end              # 85
+
     unless self.duration == 0   
       self.completeness_in_pct += 5 
     end              # 90 
@@ -197,63 +188,34 @@ class Recording < ActiveRecord::Base
   
   def extract_metadata
     
-    return if audio_upload == ''
-    return if audio_upload[:uploads].nil?
-    return if audio_upload[:uploads][0].nil?
-    return if audio_upload[:uploads][0][:meta].nil?
-    meta        = audio_upload[:uploads][0][:meta]
-    
+    begin
+      #upload = 
+      logger.debug '-------------------------------------------------------'
+      meta =   audio_upload[:uploads].first[:meta]
 
-    self.duration     = meta[:duration].to_f.round(2)     unless meta[:duration].nil?  
-    self.lyrics       = meta[:lyrics].gsub(/\//, '<br>')  unless meta[:lyrics].nil? 
-    self.bpm          = meta[:beats_per_minute].to_i      unless meta[:beats_per_minute].nil?
-    self.album_name   = meta[:album].to_s                 unless meta[:album].nil?           
-    self.year         = meta[:year]                       unless meta[:year].nil?            
-    self.genre        = meta[:genre]                      unless meta[:genre].nil?           
-    self.artist       = meta[:artist]                     unless meta[:artist].nil?          
-    self.comment      = meta[:comment]                    unless meta[:comment].nil?         
-    self.performer    = meta[:performer]                  unless meta[:performer].nil?       
-    self.title        = meta[:title]                      unless meta[:title].nil?           
-    self.band         = meta[:band]                       unless meta[:band].nil?            
-    self.disc         = meta[:disc]                       unless meta[:disc].nil?            
-    self.track        = meta[:track]                      unless meta[:track].nil?    
+      self.duration     = meta[:duration].to_f.round(2)     unless meta[:duration].nil?  
+      self.lyrics       = meta[:lyrics].gsub(/\//, '<br>')  unless meta[:lyrics].nil? 
+      self.bpm          = meta[:beats_per_minute].to_i      unless meta[:beats_per_minute].nil?
+      self.album_name   = meta[:album].to_s                 unless meta[:album].nil?           
+      self.year         = meta[:year]                       unless meta[:year].nil?            
+      self.genre        = meta[:genre]                      unless meta[:genre].nil?           
+      self.artist       = meta[:artist]                     unless meta[:artist].nil?          
+      self.comment      = meta[:comment]                    unless meta[:comment].nil?         
+      self.performer    = meta[:performer]                  unless meta[:performer].nil?       
+      self.title        = meta[:title]                      unless meta[:title].nil?           
+      self.band         = meta[:band]                       unless meta[:band].nil?            
+      self.disc         = meta[:disc]                       unless meta[:disc].nil?            
+      self.track        = meta[:track]                      unless meta[:track].nil?    
+      self.save! 
+      logger.debug '-------------------------------------------------------'
+      logger.debug self.comment
+      logger.debug '-------------------------------------------------------'
+    rescue
+      
+    end
+ 
     
-    
-    
-    
-    
-    # dont override metadata extracted
-    #temp_duration         = meta[:duration].to_f.round(2)     unless meta[:duration].nil?  
-    #temp_lyrics           = meta[:lyrics].gsub(/\//, '<br>')  unless meta[:lyrics].nil? 
-    #temp_bpm              = meta[:beats_per_minute].to_i      unless meta[:beats_per_minute].nil?
-    #temp_album_name       = meta[:album].to_s                 unless meta[:album].nil?           
-    #temp_year             = meta[:year]                       unless meta[:year].nil?            
-    #temp_genre            = meta[:genre]                      unless meta[:genre].nil?           
-    #temp_artist           = meta[:artist]                     unless meta[:artist].nil?          
-    #temp_comment          = meta[:comment]                    unless meta[:comment].nil?         
-    #temp_performer        = meta[:performer]                  unless meta[:performer].nil?       
-    #temp_title            = meta[:title]                      unless meta[:title].nil?           
-    #temp_band             = meta[:band]                       unless meta[:band].nil?            
-    #temp_disc             = meta[:disc]                       unless meta[:disc].nil?            
-    #temp_track            = meta[:track]                      unless meta[:track].nil?    
-    #
-    #
-    #self.duration         = temp_duration     if self.duration.to_s == 0   && temp_duration  
-    #self.lyrics           = temp_lyrics       if self.lyrics.to_s == ''    && temp_lyrics     
-    #self.bpm              = temp_bpm          if self.bpm.to_s == ''       && temp_bpm        
-    #self.album_name       = temp_album_name   if self.album_name.to_s == ''&& temp_album_name 
-    #self.year             = temp_year         if self.year.to_s == ''      && temp_year       
-    #self.genre            = temp_genre        if self.genre.to_s == ''     && temp_genre      
-    #self.artist           = temp_artist       if self.artist.to_s == ''    && temp_artist     
-    #self.comment          = temp_comment      if self.comment.to_s == ''   && temp_comment    
-    #self.performer        = temp_performer    if self.performer.to_s == '' && temp_performer  
-    #self.title            = temp_title        if self.title.to_s == ''     && temp_title      
-    #self.band             = temp_band         if self.band.to_s == ''      && temp_band       
-    #self.disc             = temp_disc         if self.disc.to_s == ''      && temp_disc       
-    #self.track            = temp_track        if self.track.to_s == ''     && temp_track  
-    
-
-    save!       
+  
   end
   
   #def apply_common_work

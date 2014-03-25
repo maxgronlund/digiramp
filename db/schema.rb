@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140324211449) do
+ActiveRecord::Schema.define(version: 20140325162909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -431,6 +431,15 @@ ActiveRecord::Schema.define(version: 20140324211449) do
     t.datetime "updated_at"
   end
 
+  create_table "import_batches", force: true do |t|
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "recordings_count", default: 0
+  end
+
+  add_index "import_batches", ["account_id"], name: "index_import_batches_on_account_id", using: :btree
+
   create_table "import_ipis", force: true do |t|
     t.string   "ipi_code"
     t.string   "role_code"
@@ -766,21 +775,21 @@ ActiveRecord::Schema.define(version: 20140324211449) do
 
   create_table "recordings", force: true do |t|
     t.integer  "common_work_id"
-    t.string   "title"
+    t.string   "title",               default: "no title"
     t.string   "isrc_code",           default: ""
-    t.text     "artists",             default: ""
+    t.text     "artist",              default: ""
     t.text     "lyrics",              default: ""
     t.integer  "bpm",                 default: 0
-    t.text     "description",         default: ""
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.text     "comment",             default: ""
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "account_id"
     t.boolean  "explicit",            default: false
-    t.integer  "documents_count",     default: 0,      null: false
+    t.integer  "documents_count",     default: 0,          null: false
     t.string   "file_size"
     t.boolean  "clearance",           default: false
     t.string   "version"
-    t.string   "copyright"
+    t.string   "copyright",           default: ""
     t.string   "production_company",  default: ""
     t.date     "available_date"
     t.string   "upc_code",            default: ""
@@ -788,12 +797,10 @@ ActiveRecord::Schema.define(version: 20140324211449) do
     t.integer  "completeness_in_pct", default: 0
     t.string   "mp3"
     t.string   "thumbnail"
-    t.string   "year",                default: "1001"
+    t.string   "year",                default: ""
     t.decimal  "duration",            default: 0.0
     t.text     "album_name",          default: ""
     t.text     "genre",               default: ""
-    t.text     "artist",              default: ""
-    t.text     "comment",             default: ""
     t.text     "performer",           default: ""
     t.string   "band",                default: ""
     t.string   "disc",                default: ""
@@ -802,10 +809,12 @@ ActiveRecord::Schema.define(version: 20140324211449) do
     t.integer  "cache_version",       default: 0
     t.string   "cover_art"
     t.string   "vocal",               default: ""
+    t.integer  "import_batch_id"
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
   add_index "recordings", ["common_work_id"], name: "index_recordings_on_common_work_id", using: :btree
+  add_index "recordings", ["import_batch_id"], name: "index_recordings_on_import_batch_id", using: :btree
 
   create_table "representatives", force: true do |t|
     t.integer  "user_id"

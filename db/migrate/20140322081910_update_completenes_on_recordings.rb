@@ -46,8 +46,8 @@ class UpdateCompletenesOnRecordings < ActiveRecord::Migration
         recording.instrumental = false
       end
       
-      if recording.description.nil?
-        recording.description = ''
+      if recording.comment.nil?
+        recording.comment = ''
       end
       
       if recording.explicit.nil?

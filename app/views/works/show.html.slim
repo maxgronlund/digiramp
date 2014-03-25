@@ -39,14 +39,14 @@
               - @common_work.recordings.each do |recording|
                 == render 'recordings/recording', recording: recording
     .row
-      -unless @common_work.lyrics.empty?
+      -unless @common_work.lyrics.to_s == ''
         .col-sm-6
           .panel
             .panel-body
               h3 original lyric
               .text-center
                 = simple_format @common_work.lyrics
-      -unless @common_work.description.empty?
+      -unless @common_work.description.to_s == ''
         .col-sm-6
           .panel
             .panel-body

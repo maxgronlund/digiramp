@@ -2,18 +2,6 @@
 Digiramp::Application.routes.draw do
   
 
-  
-  
-
-  
-
-
-  #get "attachments/new"
-  #get "attachments/edit"
-  #get "playlist_wizard/new"
-  #get "playlist_wizard/show"
-  #get "playlist_wizard/index"
-  #get "playlist_wizard/edit"
   resources :uploads
   require 'sidekiq/web'
   #require 'admin_constraint'
@@ -26,7 +14,11 @@ Digiramp::Application.routes.draw do
   get "selling_points/selling_point_3"
   
   resources :accounts, only: [:show, :edit, :update] do
+
     resources :account_users
+    resources :documents
+    resources :import_batches, only: [:index, :show, :destroy]
+
     resources :customers do
       resources :customer_events
     end
@@ -39,8 +31,6 @@ Digiramp::Application.routes.draw do
     end
     
     resources :playlist_wizards
-
-    
     resources :leave_accounts
     
     resources :recording_common_work, only: [:edit, :update]
@@ -49,7 +39,7 @@ Digiramp::Application.routes.draw do
     
     
     resources :recordings do
-      get 'upload_completed'
+      get 'delete_all'
       #post 'select_category'
       #get 'select_category'
       #post 'add_genre'
@@ -70,7 +60,7 @@ Digiramp::Application.routes.draw do
       resources :genres
     end
     
-
+    #resources :upload_completed
     resources :works
     
     resources :assets, only: [:index]
@@ -195,7 +185,11 @@ Digiramp::Application.routes.draw do
   namespace :admin do
     # Directs /admin/products/* to Admin::ProductsController
     # (app/controllers/admin/products_controller.rb)
-    resources :accounts
+    resources :accounts do
+      get 'delete_common_works'
+      get 'delete_recordings'
+      get 'delete_documents'
+    end
     resources :administrators
     resources :features
     resources :genres

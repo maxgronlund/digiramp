@@ -107,7 +107,7 @@ class CommonWork < ActiveRecord::Base
   #    csv << ["RECORDINGS"]
   #    csv << ["Common work id", "Title", "ISRC", "Artists", "lyrics", "BPM", "Duration hh:mm:ss", "instrumental y/n", "Release date mm/dd/yyyy", "Description", "Explicit", "200% clearance y/n", "Copyright", "Available mm/dd/yyyy", "UPC"]
   #     self.recordings. each do |recording|
-  #        csv << [self.id, recording.title, recording.isrc_code, recording.artists, recording.lyrics, recording.bpm, recording.duration, "#{recording.instrumental ? 'y':'n'}", recording.release_date, recording.description,  "#{recording.explicit ? 'y':'n'}", "#{recording.description ? 'y':'n'}", recording.copyright, recording.available_date, recording.upc_code ]
+  #        csv << [self.id, recording.title, recording.isrc_code, recording.artists, recording.lyrics, recording.bpm, recording.duration, "#{recording.instrumental ? 'y':'n'}", recording.release_date, recording.comment,  "#{recording.explicit ? 'y':'n'}", "#{recording.comment ? 'y':'n'}", recording.copyright, recording.available_date, recording.upc_code ]
   #      end
   #    
   #  end
@@ -116,6 +116,16 @@ class CommonWork < ActiveRecord::Base
   
   def audio_preview
     Recording.find(self.recording_preview_id).audio_file_url if Recording.exists?(self.recording_preview_id)
+  end
+  
+  def self.attach recording, account_id
+    common_work = CommonWork.create(title: recording.title, 
+                                    description: recording.comment, 
+                                    lyrics: recording.lyrics, 
+                                    account_id: account_id)
+                                    
+    recording.common_work_id = common_work.id
+    recording.save!
   end
   
   def self.account_search(account, query)

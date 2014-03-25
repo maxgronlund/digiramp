@@ -6,6 +6,10 @@ class Attachment < ActiveRecord::Base
   
   mount_uploader :file, DocumentUploader
   
+  include PgSearch
+  pg_search_scope :search, against: [:title, :file_type ], :using => [:tsearch]
+  
+  
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
@@ -17,6 +21,13 @@ class Attachment < ActiveRecord::Base
   
   FILE_TYPES = ["file", "legal_document", "financial_document" ]
 
+  def self.account_search(account, query)
+    attachments = account.attachments
+    if query.present?
+     attachments = attachments.search(query)
+    end
+    attachments
+  end
   
 private
   def flush_cache

@@ -1,0 +1,34 @@
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'         
+  .container
+    ==render 'admin/shared/messages'
+    /-cache ([request.url, @account.rec_cache_version, current_user.role  ]) do
+    .do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              'create content'.to_sym => account_add_content_index_path(@account),\
+                                                              'import batches'.to_sym => account_import_batches_path(@account),\
+                                                              }, current: 'show'}
+                                                              
+
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Import Batch'), blog_post: 'Import Batch'}
+
+      .row
+        .col-sm-12
+          .panel
+            .panel-body.digiramp_player
+              div class="panel-group" id="accordion"
+                - @recordings.each do |recording|
+                  /= debug recording
+                  == render 'recordings/recording', recording: recording
+                         
+                    
+                   
+             
+            
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
