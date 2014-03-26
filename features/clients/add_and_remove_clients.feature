@@ -30,9 +30,10 @@ Feature: When I'm signed in to my account I can manage clients
     
     When I click on the link "New Customer"
     Then I can see "NEW CUSTOMER"
-    Then I am creating a customer with the email "new@customer.com" the name "New Customer" and the phone " 500 12 45 78"
+    Then I am creating a customer with the email "max@digiramp.org" the name "New Customer" and the phone " 500 12 45 78"
     Then I can see "A new customer is added to your account"
-    Then I can see "new@customer.com"
+    When I click on the link "CUSTOMERS"
+    Then I can see "max@digiramp.org"
 
   
   @javascript  
@@ -67,6 +68,7 @@ Feature: When I'm signed in to my account I can manage clients
     Then I can see "NEW CUSTOMER"
     Then I am creating a customer with the email "jo@hn.com" the name "John my best Customer" and the phone " 500 12 45 78"
     Then I can see "A new customer is added to your account"
+    When I click on the link "CUSTOMERS"
     Then I can see "John my best Customer"
   
 
@@ -76,9 +78,10 @@ Feature: When I'm signed in to my account I can manage clients
     When I am on the MANAGE CUSTOMERS page for "DigiRAMP"
     When I click on the link "New Customer"
     Then I can see "NEW CUSTOMER"
-    Then I am creating a customer with the email "new@customer.com" the name "New Customer" and the phone " 500 12 45 78"
+    Then I am creating a customer with the email "max@digiramp.org" the name "New Customer" and the phone " 500 12 45 78"
     Then I can see "A new customer is added to your account"
-    Then I can see "new@customer.com"
+    When I click on the link "CUSTOMERS"
+    Then I can see "max@digiramp.org"
 
   
   @javascript  
@@ -101,6 +104,7 @@ Feature: When I'm signed in to my account I can manage clients
     Then I can see "NEW CUSTOMER"
     Then I am creating a customer with the email "jo@hn.com" the name "John my best Customer" and the phone " 500 12 45 78"
     Then I can see "A new customer is added to your account"
+    When I click on the link "CUSTOMERS"
     Then I can see "John my best Customer"
     
     #Then Does it look right?

@@ -1,4 +1,5 @@
--cache(['digiramp_player', Admin.cached_find(1).version, recording.id, recording.cache_version, @can_edit]) do
+/-cache(['digiramp_player', Admin.cached_find(1).version, recording.id, recording.cache_version, @can_edit]) do
+.do
   -index = recording.id
   div class="player" id="#{index}"
   div class="panel panel-default"

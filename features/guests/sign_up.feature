@@ -36,7 +36,7 @@ Feature: I can sign up when I have no account
     When I click on the button "Save"
     Then I can see "John"
     Then I can see "Smith"
-    Then I can see "info@johnsmit.com"
+    Then I can see "max@digiramp.org"
     Then I can see "500 123 456"
     Then I can see "US"
     Then I can see "Burbank Bulleward"
@@ -46,7 +46,7 @@ Feature: I can sign up when I have no account
     Then I click on a link with id "edit_user_profile" 
     Then I can see "EDIT USER PROFILE"
     When I click on the button "Save"
-    Then I can see "Success"
+    Then I can see "SUCCESS"
     Then I can see "Burbank Bulleward"
     Then I click on a link with id "Johns Fine Music" 
     

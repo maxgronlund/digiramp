@@ -11,7 +11,7 @@
 
     .col-sm-6
       h3 
-        = link_to post.title, '#'
+        = post.title
         -if can_edit?
           '&nbsp;
           = link_to edit_admin_blog_blog_post_path(blog, post) do

@@ -1,6 +1,6 @@
 class PlaylistItem < ActiveRecord::Base
   belongs_to :playlist
-  #belongs_to :playlist_itemable, polymorphic: true
+  belongs_to :playlist_itemable, polymorphic: true
   #has_many :activity_events, as: :activity_eventable
   #has_many :comments, as: :commentable
   #serialize :crop_params, Hash

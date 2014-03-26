@@ -44,7 +44,7 @@ div class="index" id="{index}"
               i class="fa fa-eye"
         -elsif @add_to_playlist
           '&nbsp;
-          =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) do
+          =link_to new_account_playlist_playlist_item_path(@account, @add_to_playlist, recording: recording) do
             .btn.btn-success.btn-lg
               i class="fa fa-plus-circle"
         

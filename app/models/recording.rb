@@ -19,6 +19,7 @@ class Recording < ActiveRecord::Base
   #has_many :genres, through: :genre_tags
   has_many :genre_tags, as: :genre_tagable
   
+  
   mount_uploader :cover_art, ThumbUploader
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]

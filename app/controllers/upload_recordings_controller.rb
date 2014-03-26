@@ -4,29 +4,10 @@ class UploadRecordingsController < ApplicationController
   before_filter :there_is_access_to_the_account
   #before_filter :get_blog
   def new
-
     @recording        = Recording.new
   end
   
-  #def update
-  #  
-  #  #logger.debug("PARAMS: #{params[:transloadit].inspect}")
-  #  @recording = Recording.new(audio_upload: params[:transloadit], account_id: @account.id, title: 'new')
-  #  
-  #  
-  #  @recording.title      =  @recording.audio_upload[:uploads][0][:name]
-  #  @recording.mp3        = @recording.audio_upload[:results][:mp3][0][:url]
-  #  @recording.waveform   = @recording.audio_upload[:results][:waveform][0][:url]
-  #  @recording.thumbnail  = @recording.audio_upload[:results][:thumbnail][0][:url]
-  #  #@recording.category   = 'none'
-  #  @recording.save!
-  #  @recording.update_completeness
-  #  
-  #  #redirect_to account_recording_upload_completed_path(@account, @recording )
-  #  
-  #  #redirect_to account_recording_path(@account, @recording )
-  #end
-  
+
   
   def create
     
@@ -44,10 +25,16 @@ class UploadRecordingsController < ApplicationController
   
 
   def edit
+    @recording              = Recording.cached_find(params[:id])
+    @common_work            = CommonWork.cached_find(params[:common_work_id])
   end
   
   def update
-    
+    flash[:info]            = { title: "SUCCESS: ", body: "Audio file uploaded" }
+    @recording              = Recording.cached_find(params[:id])
+    @common_work            = CommonWork.cached_find(params[:common_work_id])
+    transloadets            = TransloaditParser.update(@recording, params[:transloadit] )
+    redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording )
   end
   
   #def get_blog
