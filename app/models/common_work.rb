@@ -149,7 +149,7 @@ class CommonWork < ActiveRecord::Base
   def self.to_csv
     CSV.generate do |csv|
       #csv << column_names
-      csv << ['Id', 'Title', 'Alternative Titles', 'Description', 'ISWC', 'Recording Id\'s' ]
+      csv << ['Account Id', 'Id', 'Title', 'Alternative Titles', 'Description', 'ISWC', 'Recording Id\'s' ]
       all.each do |common_work|
         recording_ids = ''
         common_work.recordings.each do |recording|
@@ -157,7 +157,8 @@ class CommonWork < ActiveRecord::Base
           recording_ids << ','
         end
         
-        csv << [  common_work.id.to_s, 
+        csv << [  common_work.account_id.to_s, 
+                  common_work.id.to_s,
                   common_work.title, 
                   common_work.alternative_titles,
                   common_work.description.to_s.squish,

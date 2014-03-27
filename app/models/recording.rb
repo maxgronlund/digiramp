@@ -1,6 +1,8 @@
 class Recording < ActiveRecord::Base
   
   serialize :audio_upload, Hash
+  
+  
   include PgSearch
   pg_search_scope :search, against: [:title, :lyrics, :production_company, :isrc_code, :genre, :artist, :bpm, :comment, :vocal ], :using => [:tsearch]
   validates :title, :presence => true
@@ -247,7 +249,29 @@ class Recording < ActiveRecord::Base
     CSV.generate do |csv|
 
       #csv << column_names
-      csv << ['Account Id','Recording Id', 'Work ID', 'Title', 'ISRC Code', 'Artist', 'Performer', 'Band', 'Year', 'Album Name', 'Vocal', 'Genre', 'Mood', 'Instruments', 'Disc', 'Track', 'BPM', 'Comment', 'Explicit', 'Clearance', 'Copyright', 'Production Company'  ]
+      csv << ['Account Id',
+              'Recording Id', 
+              'Work ID', 
+              'Title', 
+              'ISRC Code', 
+              'Artist', 
+              'Performer', 
+              'Band', 
+              'Year', 
+              #'Album Name'
+              'Vocal',
+              'Genre', 
+              'Mood', 
+              'Instruments', 
+              'Disc', 
+              'Track', 
+              'BPM', 
+              #'Comment',
+              'Explicit', 
+              'Clearance', 
+              'Copyright', 
+              'Production Company'  
+            ]
       
       all.each do |recording|
         
@@ -256,7 +280,7 @@ class Recording < ActiveRecord::Base
           genre << genre_tag.genre.title
           genre << ','
         end
-        
+
         csv << [  recording.account_id, 
                   recording.id, 
                   recording.common_work_id,
@@ -264,17 +288,17 @@ class Recording < ActiveRecord::Base
                   recording.isrc_code,
                   recording.artist.to_s.squish,
                   recording.performer.to_s.squish,
-                  recording.band,
+                  recording.band.to_s.squish,
                   recording.year,
-                  recording.album_name,
+                  #recording.album_name.to_s.squish
                   recording.vocal,
-                  recording.genre,
+                  genre,
                   '',
                   '',
                   recording.disc,
                   recording.track,
                   recording.bpm,
-                  recording.comment.to_s.squish,
+                  #recording.comment.to_s.squish,
                   recording.explicit,
                   recording.clearance,
                   recording.copyright.to_s.squish,
