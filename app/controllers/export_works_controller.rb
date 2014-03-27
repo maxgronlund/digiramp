@@ -6,7 +6,5 @@ class ExportWorksController < ApplicationController
       format.csv { render text: @works.to_csv }
     end
   end
-  
-  
-  
+
 end

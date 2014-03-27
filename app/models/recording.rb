@@ -191,8 +191,8 @@ class Recording < ActiveRecord::Base
     
     begin
       #upload = 
-      logger.debug '-------------------------------------------------------'
-      meta =   audio_upload[:uploads].first[:meta]
+
+      meta              =   audio_upload[:uploads].first[:meta]
 
       self.duration     = meta[:duration].to_f.round(2)     unless meta[:duration].nil?  
       self.lyrics       = meta[:lyrics].gsub(/\//, '<br>')  unless meta[:lyrics].nil? 
@@ -208,9 +208,7 @@ class Recording < ActiveRecord::Base
       self.disc         = meta[:disc]                       unless meta[:disc].nil?            
       self.track        = meta[:track]                      unless meta[:track].nil?    
       self.save! 
-      logger.debug '-------------------------------------------------------'
-      logger.debug self.comment
-      logger.debug '-------------------------------------------------------'
+
     rescue
       
     end
@@ -243,6 +241,91 @@ class Recording < ActiveRecord::Base
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
+  
+  
+  def self.to_csv
+    CSV.generate do |csv|
+
+      #csv << column_names
+      csv << ['Account Id','Recording Id', 'Work ID', 'Title', 'ISRC Code', 'Artist', 'Performer', 'Band', 'Year', 'Album Name', 'Vocal', 'Genre', 'Mood', 'Instruments', 'Disc', 'Track', 'BPM', 'Comment', 'Explicit', 'Clearance', 'Copyright', 'Production Company'  ]
+      
+      all.each do |recording|
+        
+        genre = ''
+        recording.genre_tags.each do |genre_tag|
+          genre << genre_tag.genre.title
+          genre << ','
+        end
+        
+        csv << [  recording.account_id, 
+                  recording.id, 
+                  recording.common_work_id,
+                  recording.title,
+                  recording.isrc_code,
+                  recording.artist.to_s.squish,
+                  recording.performer.to_s.squish,
+                  recording.band,
+                  recording.year,
+                  recording.album_name,
+                  recording.vocal,
+                  recording.genre,
+                  '',
+                  '',
+                  recording.disc,
+                  recording.track,
+                  recording.bpm,
+                  recording.comment.to_s.squish,
+                  recording.explicit,
+                  recording.clearance,
+                  recording.copyright.to_s.squish,
+                  recording.production_company
+                
+                ]
+      end
+
+    end
+  end
+  
+  
+  #   common_work_id"
+  #   title",               default: "no title"
+  #   isrc_code",           default: ""
+  #   artist",              default: ""
+  #   lyrics",              default: ""
+  #   bpm",                 default: 0
+  #   comment",             default: ""
+  #   created_at",                               null: false
+  #   updated_at",                               null: false
+  #   account_id"
+  #   explicit",            default: false
+  #   documents_count",     default: 0,          null: false
+  #   file_size"
+  #   clearance",           default: false
+  #   version"
+  #   copyright",           default: ""
+  #   production_company",  default: ""
+  #   available_date"
+  #   upc_code",            default: ""
+  #   audio_upload"
+  #   completeness_in_pct", default: 0
+  #   mp3"
+  #   thumbnail"
+  #   year",                default: ""
+  #   duration",            default: 0.0
+  #   album_name",          default: ""
+  #   genre",               default: ""
+  #   performer",           default: ""
+  #   band",                default: ""
+  #   disc",                default: ""
+  #   track",               default: ""
+  #   waveform",            default: ""
+  #   cache_version",       default: 0
+  #   cover_art"
+  #   vocal",               default: ""
+  
+  
+  
+  
   
 private
   #def update_counter_cache
