@@ -18,6 +18,8 @@ Digiramp::Application.routes.draw do
 
     resources :account_users
     resources :documents
+    resources :export_recordings, only: [:index]
+    resources :export_works, only: [:index]
     resources :import_batches, only: [:index, :show, :destroy]
 
     resources :customers do
