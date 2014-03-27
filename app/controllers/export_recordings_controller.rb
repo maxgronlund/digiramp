@@ -1,0 +1,2 @@
+class ExportRecordingsController < ApplicationController
+end

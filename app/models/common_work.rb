@@ -145,6 +145,41 @@ class CommonWork < ActiveRecord::Base
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
+  
+  def self.to_csv
+    CSV.generate do |csv|
+      #csv << column_names
+      #all.each do |common_work|
+      #  csv << common_work.attributes.values_at(*column_names)
+      #end
+      
+
+      #csv << column_names
+      csv << ['Id', 'Title', 'Alternative Titles', 'Description', 'ISWC', 'Recording Id\'s' ]
+      
+      all.each do |common_work|
+        
+        recording_ids = ''
+        
+        puts common_work.description.to_s.squish
+        
+        common_work.recordings.each do |recording|
+          recording_ids << recording.id.to_s
+          recording_ids << ','
+        end
+        
+        csv << [  common_work.id.to_s, 
+                  common_work.title, 
+                  common_work.alternative_titles,
+                  common_work.description.to_s.squish,
+                  common_work.iswc_code,
+                  recording_ids 
+                
+                ]
+      end
+
+    end
+  end
 
 
 private

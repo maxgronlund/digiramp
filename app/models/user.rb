@@ -291,6 +291,28 @@ class User < ActiveRecord::Base
     user.save
     @account
   end
+  
+  def self.to_csv
+    CSV.generate do |csv|
+
+      #csv << column_names
+      csv << ['Id','Name', 'Email', 'Role', 'Account Id', 'Activated' ]
+      
+      all.each do |user|
+        csv << [  user.id.to_s, 
+                  user.name, 
+                  user.email,
+                  user.role,
+                  #user.profile.to_s.squish,
+                  user.account_id.to_s,
+                  user.activated.to_s
+                ]
+      end
+
+    end
+  end
+  
+  
 
 
 private

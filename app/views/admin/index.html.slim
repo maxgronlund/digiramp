@@ -32,6 +32,8 @@
           = link_to 'Flush Cache', admin_flush_cache_path, class: 'btn btn-lg btn-default'
           '&nbsp;
           = link_to 'Edit Home', edit_admin_home_path(1), class: 'btn btn-lg btn-default'
+          '&nbsp;
+          = link_to 'Export Users', admin_export_users_path(format: "csv"), class: 'btn btn-lg btn-default'
         /.col-sm-6
         /  == render 'admin/shared/badge_buttons/administrators'
         

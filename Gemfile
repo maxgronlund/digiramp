@@ -67,13 +67,14 @@ gem 'pg_search'
 gem 'transloadit-rails'
 gem 'uuidtools'
 #gem 'jquery-ui-rails'
-
+gem "rails-erd"
 #gem "font-awesome-rails" <<------- not working on all devices ;-(
 
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
+  
 end
 
 # For cucumber

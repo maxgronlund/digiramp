@@ -195,6 +195,7 @@ Digiramp::Application.routes.draw do
       get 'delete_documents'
     end
     resources :administrators
+    resources :export_users, only: [:index]
     resources :features
     resources :genres
     resources :homes, only: [:edit, :update]
