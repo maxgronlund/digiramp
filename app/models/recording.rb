@@ -25,6 +25,7 @@ class Recording < ActiveRecord::Base
   mount_uploader :cover_art, ThumbUploader
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
+  TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
   
   
   
@@ -266,6 +267,7 @@ class Recording < ActiveRecord::Base
               'Disc', 
               'Track', 
               'BPM', 
+              'Tempo',
               #'Comment',
               'Explicit', 
               'Clearance', 
@@ -298,6 +300,7 @@ class Recording < ActiveRecord::Base
                   recording.disc,
                   recording.track,
                   recording.bpm,
+                  recording.tempo,
                   #recording.comment.to_s.squish,
                   recording.explicit,
                   recording.clearance,
@@ -310,42 +313,72 @@ class Recording < ActiveRecord::Base
     end
   end
   
+  def self.import_csv(csv_file)
+    CSV.foreach(csv_file.path, headers: true) do |row|
+      
+      
+      recording_row = row.to_hash
+      
+      begin
+        #recording = Recording.find(recording_row["Recording Id"].to_id)
+        recording = Recording.cached_find(recording_row["Recording Id"].to_i)
+        
+       
+        recording.account_id            = recording_row["Account Id"].to_i                unless recording_row["Account Id"].to_s.empty?
+        recording.common_work_id        = recording_row["Work ID"].to_i                   unless recording_row["Work ID"].to_s.empty?
+        recording.title                 = recording_row["Title"].to_s                     unless recording_row["Title"].to_s.empty?
+        recording.isrc_code             = recording_row["ISRC Code"].to_s                 unless recording_row["ISRC Code"].to_s.empty?
+        recording.artist                = recording_row["Artist"].to_s                    unless recording_row["Artist"].to_s.empty?
+        recording.performer             = recording_row["Performer"].to_s                 unless recording_row["Performer"].to_s.empty?
+        recording.band                  = recording_row["Band"].to_s                      unless recording_row["Band"].to_s.empty?
+        recording.year                  = recording_row["Year"].to_s                      unless recording_row["Year"].to_s.empty?
+        recording.album_name            = recording_row["Album Name"].to_s                unless recording_row["Album Name"].to_s.empty?
+        recording.vocal                 = recording_row["Vocal"].to_s                     unless recording_row["Vocal"].to_s.empty?
+        recording.genre                 = recording_row["Genre"].to_s                     unless recording_row["Genre"].to_s.empty?
+        recording.mood                  = recording_row["Mood"].to_s                      unless recording_row["Mood"].to_s.empty?
+        recording.instruments           = recording_row["Instruments"].to_s               unless recording_row["Instruments"].to_s.empty?
+        recording.disc                  = recording_row["Disc"].to_s                      unless recording_row["Disc"].to_s.empty?
+        recording.track                 = recording_row["Track"].to_s                     unless recording_row["Track"].to_s.empty?
+        recording.bpm                   = recording_row["BPM"].to_i                       unless recording_row["BPM"].to_s.empty?
+        recording.explicit              = recording_row["Explicit"].to_s       == 'true'  unless recording_row["Explicit"].to_s.empty?
+        recording.clearance             = recording_row["Clearance"].to_s      == 'true'  unless recording_row["Clearance"].to_s.empty?
+        recording.copyright             = recording_row["Copyright"].to_s                 unless recording_row["Copyright"].to_s.empty?
+        recording.production_company    = recording_row["Production Company"].to_s        unless recording_row["Production Company"].to_s.empty?
+
+        recording.cache_version += 1
+        recording.save!
+        recording.extract_genres
+        #logger.debug '----------------------------------------------------------------'
+        #logger.debug recording.artist
+        #logger.debug '----------------------------------------------------------------'
+      rescue
+      end
+
+        
+    end
+  end
   
-  #   common_work_id"
-  #   title",               default: "no title"
-  #   isrc_code",           default: ""
-  #   artist",              default: ""
-  #   lyrics",              default: ""
-  #   bpm",                 default: 0
-  #   comment",             default: ""
-  #   created_at",                               null: false
-  #   updated_at",                               null: false
-  #   account_id"
-  #   explicit",            default: false
-  #   documents_count",     default: 0,          null: false
-  #   file_size"
-  #   clearance",           default: false
-  #   version"
-  #   copyright",           default: ""
-  #   production_company",  default: ""
-  #   available_date"
-  #   upc_code",            default: ""
-  #   audio_upload"
-  #   completeness_in_pct", default: 0
-  #   mp3"
-  #   thumbnail"
-  #   year",                default: ""
-  #   duration",            default: 0.0
-  #   album_name",          default: ""
-  #   genre",               default: ""
-  #   performer",           default: ""
-  #   band",                default: ""
-  #   disc",                default: ""
-  #   track",               default: ""
-  #   waveform",            default: ""
-  #   cache_version",       default: 0
-  #   cover_art"
-  #   vocal",               default: ""
+  
+  def extract_genres
+    self.genre.split(',').each do |genre|
+      logger.debug '----------------------------------------------------------------'
+
+      
+      extracted_genre = Genre.where(title: genre.strip).first_or_create(title: genre.strip, user_tag: true, category: 'user_tag')
+      
+      GenreTag.where( genre_id: extracted_genre.id, 
+                      genre_tagable_type: self.class.to_s, 
+                      genre_tagable_id: self.id)
+                      .first_or_create(
+                        genre_id: extracted_genre.id, 
+                        genre_tagable_type: self.class.to_s, 
+                        genre_tagable_id: self.id
+                     )
+      
+      
+      logger.debug '----------------------------------------------------------------'
+    end
+  end
   
   
   

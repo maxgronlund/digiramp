@@ -12,7 +12,7 @@
                 .col-sm-4
                   .bg-recording-title
                     h4 = recording.title
-                    i By: 
+                    i Artist: 
                     = recording.artist
                     
                   /img src="#{recording.cover_art_url(:cover_thumb)}" alt="alternate #{recording.title}" width="128" height="128" style="float:left;"
@@ -39,7 +39,7 @@
                           th Instruments
                           th Vocal
                           th Tempo
-                          th Moods
+                          th Mood
                       tbody
                         tr
                           td
@@ -47,14 +47,21 @@
                               
                               -recording.genre_tags.each do |genre_tag|
                                 li = genre_tag.genre.title
-                          td 
+                          td = recording.instruments
                           td
                             -unless  recording.vocal.empty?
                               .pull-left
                                 .label.label-info
                                   = recording.vocal
                           td 
-                          td
+                            -unless recording.bpm == 0 || recording.bpm.nil?
+                              i BPM:&nbsp;
+                              =recording.bpm 
+                              br
+                            -unless recording.tempo.empty?
+                              i Tempo:&nbsp;
+                              =recording.tempo 
+                          td =recording.mood 
                     
   
   

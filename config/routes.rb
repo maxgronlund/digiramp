@@ -20,7 +20,8 @@ Digiramp::Application.routes.draw do
     resources :documents
     resources :export_recordings, only: [:index]
     resources :export_works, only: [:index]
-    resources :import_batches, only: [:index, :show, :destroy]
+    resources :export_import_batches, only: [:index, :show, :edit]
+    resources :import_batches, only: [:index, :show, :destroy, :edit, :update]
 
     resources :customers do
       resources :customer_events

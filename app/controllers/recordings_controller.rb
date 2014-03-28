@@ -93,7 +93,7 @@ class RecordingsController < ApplicationController
       #end
       #
     else
-      redirect_to :back
+      redirect_to_return_url account_common_work_recording_path(@account, @common_work, @recording)
     end
     
     

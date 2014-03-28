@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140325162909) do
+ActiveRecord::Schema.define(version: 20140328181108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -436,6 +436,8 @@ ActiveRecord::Schema.define(version: 20140325162909) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "recordings_count", default: 0
+    t.string   "title",            default: "import batch"
+    t.string   "csv_file"
   end
 
   add_index "import_batches", ["account_id"], name: "index_import_batches_on_account_id", using: :btree
@@ -810,6 +812,9 @@ ActiveRecord::Schema.define(version: 20140325162909) do
     t.string   "cover_art"
     t.string   "vocal",               default: ""
     t.integer  "import_batch_id"
+    t.string   "mood",                default: ""
+    t.string   "instruments",         default: ""
+    t.string   "tempo",               default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
