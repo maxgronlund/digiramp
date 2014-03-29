@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328181108) do
+ActiveRecord::Schema.define(version: 20140329195418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -348,10 +348,12 @@ ActiveRecord::Schema.define(version: 20140328181108) do
     t.integer  "account_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "playlist_key_id"
   end
 
   add_index "customer_events", ["account_id"], name: "index_customer_events_on_account_id", using: :btree
   add_index "customer_events", ["account_user_id"], name: "index_customer_events_on_account_user_id", using: :btree
+  add_index "customer_events", ["playlist_key_id"], name: "index_customer_events_on_playlist_key_id", using: :btree
 
   create_table "documents", force: true do |t|
     t.string   "title"

@@ -11,20 +11,23 @@ class CustomerEventsController < ApplicationController
   # GET /customer_events/1
   # GET /customer_events/1.json
   def show
+    
+    @account_user     = AccountUser.find_by_cached_id(params[:customer_id])
+    @customer_event   = CustomerEvent.cached_find(params[:id])
+
   end
 
-  # GET /customer_events/new
+
   def new
     @account_user       = AccountUser.find_by_cached_id(params[:customer_id])
     @customer_event     = CustomerEvent.new
   end
 
-  # GET /customer_events/1/edit
+
   def edit
   end
 
-  # POST /customer_events
-  # POST /customer_events.json
+
   def create
     @account_user     = AccountUser.find_by_cached_id(params[:customer_id])
     @customer_event   = CustomerEvent.create(customer_event_params)
@@ -46,6 +49,10 @@ class CustomerEventsController < ApplicationController
                                         expiration_date: Date.current()>>1,
                                         page_link: 'google.com'
                                         )
+                                        
+                                        
+      @customer_event.playlist_key_id = playlist_key.id
+      @customer_event.save!
       
       # go to the playlist wizard
       # use the key as ID

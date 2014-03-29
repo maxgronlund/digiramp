@@ -6,40 +6,62 @@
             
   .container
     ==render 'admin/shared/messages'
-    -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account), current_user.role]) do
+    /-cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account), current_user.role]) do
+    .do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               }, current: 'assets'}
       == render 'shared/page_title', locals: {blog: @blog, blog_post: 'Assets'}
+      
+      
+      
+      
       .row
         -if current_user.can_manage 'add_music', @account
           .col-sm-6
-            == render 'assets/shared/badge_buttons/add_music'
+            == render 'assets/shared/badge_button', locals: { \
+                                                        blog_post: 'ADD MUSIC', \
+                                                        link: account_add_content_index_path(@account), \
+                                                        css_class: 'btn btn-primary', \
+                                                        icon: 'fa fa-cloud-upload' \
+                                                      }
+  
             
         -if current_user.can_manage 'access works', @account
           .col-sm-6
-            == render 'assets/shared/badge_buttons/works'
+            == render 'assets/shared/badge_button', locals: { \
+                                                        blog_post: 'WORKS', \
+                                                        link: account_works_path(@account), \
+                                                        css_class: 'btn btn-success', \
+                                                        icon: 'fa fa-music' \
+                                                      }
+
             
         -if current_user.can_manage 'access recordings', @account
+
+            
           .col-sm-6
-            == render 'assets/shared/badge_buttons/recordings'
+            == render 'assets/shared/badge_button', locals: { \
+                                                        blog_post: 'RECORDINGS', \
+                                                        link: account_recordings_path(@account), \
+                                                        css_class: 'btn btn-warning', \
+                                                        icon: 'fa fa-headphones' \
+                                                      }
+                                                      
+
         -if current_user.can_manage 'documents', @account
           .col-sm-6
-            == render 'assets/shared/badge_buttons/documents'
-      hr
+           == render 'assets/shared/badge_button', locals: { \
+                                                       blog_post: 'DOCUMENTS', \
+                                                       link: account_documents_path(@account), \
+                                                       css_class: 'btn btn-danger', \
+                                                       icon: 'fa fa-folder-o' \
+                                                     }
 
-      .row
-        .col-sm-6
-      
-        
-        .col-sm-4
-      
-          
-      .row
-        .col-sm-4
-      
-        .col-sm-4
-      
-        .col-sm-4
+
+
+
+
+
       
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

@@ -1,4 +1,4 @@
-class UserAccountsController < ApplicationController
+class SharedAssetsController < ApplicationController
   def index
     access = false
     begin 

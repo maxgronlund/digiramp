@@ -1,0 +1,5 @@
+-recording = Recording.cached_find(playlist_item.playlist_itemable_id) rescue [] 
+
+-if recording
+  .panel.panel-default
+    == render 'players/playlist_player', recording: recording

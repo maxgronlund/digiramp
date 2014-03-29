@@ -5,6 +5,7 @@ Digiramp::Application.routes.draw do
 
   
   
+
   resources :uploads
   require 'sidekiq/web'
   #require 'admin_constraint'
@@ -25,7 +26,7 @@ Digiramp::Application.routes.draw do
     resources :export_import_batches, only: [:index, :show, :edit]
     resources :export_import_batch_works, only: [:show]
     resources :import_batches, only: [:index, :show, :destroy, :edit, :update]
-
+    resources :private_playlists
     resources :customers do
       resources :customer_events
     end
@@ -150,6 +151,7 @@ Digiramp::Application.routes.draw do
   resources :sign_up
   resources :users do
     resources :user_accounts, only: [:index]
+    resources :shared_assets, only: [:index]
   end
 
 

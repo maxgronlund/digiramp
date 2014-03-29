@@ -23,7 +23,7 @@ class AccountUsersController < ApplicationController
   end
   
   def new
-    @account_user = @account.account_users.new(role: "Client")
+    @account_user = @account.account_users.new(role: "Associate")
     @roles = AccountUser::ROLES
     @roles.delete("Account Owner")
     @roles.delete("Client")
@@ -37,7 +37,7 @@ class AccountUsersController < ApplicationController
     secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
     # create the user
     @user = User.create( email: params[:account_user][:email], 
-                         name: params[:account_user][:email], 
+                         name:  params[:account_user][:email], 
                          #current_account_id: @account.id, 
                          password: secret_temp_password, 
                          password_confirmation: secret_temp_password,
@@ -56,46 +56,49 @@ class AccountUsersController < ApplicationController
   end
 
   def create
+    # missing email
+    if params[:account_user][:email].to_s == ""
+      flash[:danger] = { title: "Email can't be blank", body: "" }
+      redirect_to new_account_account_user_path( @account )
     
-    if @user = User.where(email: params[:account_user][:email]).first
-      create_account_user_for_existing @user
-      @user.invite_existing_user_to_account( @account.id, params[:account_user][:invitation_message])  if @user.activated
+    #  invalid email
+    elsif /^\S+@\S+\.\S+$/.match(params[:account_user][:email]).nil?
+      flash[:danger] = { title: "Invalid email", body: "" }
+      redirect_to new_account_account_user_path( @account )
+      
     else
-      # there is no use so there is no account
-      # so create a user first
-      @user                     = create_user
-      @user_account             = create_account_for @user
-      @user.current_account_id  = @user_account.id
-      @user.save!
-      @user.invite_new_user_to_account( @account.id, params[:account_user][:invitation_message]) if @user.activated
-
+      # existing user
+      if @user = User.where(email: params[:account_user][:email]).first
+        create_account_user_for_existing @user
+        @user.invite_existing_user_to_account( @account.id, params[:account_user][:invitation_message])  if @user.activated
+      else
+        # there is no use so there is no account
+        # so create a user first
+        @user                     = create_user
+        @user_account             = create_account_for @user
+        @user.current_account_id  = @user_account.id
+        @user.save!
+        @user.invite_new_user_to_account( @account.id, params[:account_user][:invitation_message]) if @user.activated
+      
+      end
+      # try to create an account user
+      begin
+        # go ahead and create the account user
+        @account_user = AccountUser.create!(account_id: @account.id, 
+                                            user_id: @user.id, 
+                                            role: params[:account_user][:role], 
+                                            invitation_message: params[:account_user][:invitation_message],
+                                            email: @user.email,
+                                            name: @user.name)
+        
+        redirect_to @account_user.associate?   ?  account_account_user_path( @account , @account_user) : account_account_users_path( @account)
+      # the account user was alreaddy created
+      rescue
+        flash[:danger] = { title: "User already invited", body: "" }
+        redirect_to new_account_account_user_path( @account )
+      end
+      
     end
-    # go ahead and create the account user
-    @account_user = AccountUser.create!(account_id: @account.id, 
-                                        user_id: @user.id, 
-                                        role: params[:account_user][:role], 
-                                        invitation_message: params[:account_user][:invitation_message],
-                                        email: @user.email,
-                                        name: @user.name)
-    
-    redirect_to @account_user.associate?   ?  account_account_user_path( @account , @account_user) : account_account_users_path( @account)
-    #
-    #if params[:account_user][:permitted_models_attributes]
-    #  params[:account_user][:permitted_models_attributes].each do |pma|
-    #    attributes = pma[1]
-    #    attributes.delete("id")
-    #  
-    #    permitted_model   = PermittedModel.where(permitted_model_type_id: attributes[:permitted_model_type_id], account_user_id: account_user.id).first
-    #    permitted_model.c = attributes[:c]
-    #    permitted_model.r = attributes[:r]
-    #    permitted_model.u = attributes[:u]
-    #    permitted_model.d = attributes[:d]
-    #    permitted_model.save!
-    #  end
-    #end
-    #
-    #flash[:info] = { title: "User invited", body: "successfully invited user with email: #{ params[:account_user][:email]}" }
-    #redirect_to session[:last_prefering_page]
   end
   
   def create_account_user_for_existing user

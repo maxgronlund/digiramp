@@ -1,0 +1,2 @@
+module SharedAssetsHelper
+end

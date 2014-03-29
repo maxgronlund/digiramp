@@ -8,7 +8,7 @@
     /== render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @customer.name}
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                     customers: account_customers_path(@account), \
-                                                  }, current: @account_user.name}                                                        
+                                                  }, current: @account_user.user.name}                                                        
                                                             
     .row
       /=debug @account_user.user.account
@@ -48,12 +48,17 @@
 
 
     .row
-      .col-sm-12
-        .panel
-          .panel-body
-            h3 Activities
-            - @account_user.customer_events.each do |customer_event|
-              = debug customer_event.event_type
+      .col-sm-6
+        h3 Activities
+        
+        - @account_user.customer_events.order('created_at desc').each do |customer_event|
+          .panel
+            .panel-body
+              h3 = customer_event.event_type
+              'Created: #{customer_event.created_at.strftime("%d %b %Y")}
+              .pull-right
+                = link_to 'View', account_customer_customer_event_path( @account, @account_user, customer_event), class: 'btn btn-primary btn-lg'
+              
 
 
 

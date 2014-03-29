@@ -1,5 +1,5 @@
 - session[:return_url] = request.url
-/- user_account = Account.cached_find(@user.account_id)
+- user_account = Account.cached_find(@user.account_id)
 
 
 #wrap
@@ -20,9 +20,33 @@
                                                     css_class: 'btn btn-primary', \
                                                     icon: 'fa fa-tachometer' \
                                                   }
-      /.col-sm-6  
-      /  == render 'users/shared/accounts_with_access', user_account: user_account  
-      /  == render 'users/shared/shared_common_works'
+                                                  
+      .col-sm-6
+        == render 'users/shared/badge_button', locals: { \
+                                                    blog_post: 'PROFILE', \
+                                                    link: edit_user_path(@user), \
+                                                    css_class: 'btn btn-success', \
+                                                    icon: 'fa fa-user' \
+                                                  }
+
+                                                  
+      .col-sm-6
+        == render 'users/shared/badge_button', locals: { \
+                                                    blog_post: 'ACCOUNT', \
+                                                    link: edit_account_path(user_account), \
+                                                    css_class: 'btn btn-warning', \
+                                                    icon: 'fa fa-pencil' \
+                                                  }
+      .col-sm-6
+        == render 'users/shared/badge_button', locals: { \
+                                                    blog_post: 'SHARED', \
+                                                    link: user_shared_assets_path(@user), \
+                                                    css_class: 'btn btn-danger', \
+                                                    icon: 'fa fa-share' \
+                                                  }
+         
+        /== render 'users/shared/accounts_with_access', user_account: user_account  
+        /== render 'users/shared/shared_common_works'
       /   
       /.col-sm-6  
       /  == render 'users/shared/account_info', user_account: user_account  

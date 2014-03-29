@@ -1,4 +1,4 @@
--cache(['digiramp_player', Admin.cached_find(1).version, recording.id, recording.cache_version, @can_edit]) do
+-cache(['digiramp_player', Admin.cached_find(1).version, recording.id, recording.cache_version, @can_edit, @add_to_playlist]) do
   /.do
   -index = recording.id
   div class="player" id="#{index}"
@@ -11,7 +11,10 @@
               .row
                 .col-sm-4
                   .bg-recording-title
-                    h4 = recording.title
+                    h4 
+                      i class="fa fa-play"
+                      '&nbsp;
+                      =recording.title
                     i Artist: 
                     = recording.artist
                     

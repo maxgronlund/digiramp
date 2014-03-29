@@ -1,0 +1,45 @@
+- session[:return_url] = request.url
+- user_account = Account.cached_find(@user.account_id)
+
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'profile'     
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name}
+                                                            
+                                                            
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Dashboard'}
+    
+    
+    
+    
+    
+    
+    
+    .panel
+      .panel-body
+        h3 Common Works I have Access to
+        .table-responsive
+          table class="table table-hover"
+            tbody
+              -WorkUser.where(user_id: @user.id).each do |work_user|
+                -common_work = work_user.common_work
+                -cache (['shared',common_work]) do
+                  tr
+                    /td = debug user
+                    td = common_work.title
+                    td 
+                    td
+                      .pull-right
+                        = link_to 'Show', account_work_path(common_work.account, common_work), 'data-no-turbolink' => true, class: 'btn btn-default'
+                        
+                        
+                        
+                        
+                        
+                        
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'  
