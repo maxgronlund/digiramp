@@ -29,7 +29,7 @@
             = simple_form_for [@account, @import_batch] do |f|
             
               = f.input :title
-              = f.input :csv_file, label: 'CSV File'
+              = f.input :csv_file, label: 'Recordings CSV File'
               hr
               .pull-right
                 = f.submit 'Save', class: 'btn btn-primary btn-lg'

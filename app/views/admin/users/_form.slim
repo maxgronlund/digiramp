@@ -1,36 +1,23 @@
-= simple_form_for [:admin, @user]   do |f|
+= simple_form_for [:admin,  @user] do |f|
   = f.error_notification
-  .row-fluid.inputs
-    .span3
+  .row
+    .col-sm-6
+      - if current_user.can_edit?
+        = f.input :account_id , :include_blank => true, :collection => Account.all , label: 'Account'
+        -unless (@user.email == 'max@synthmax.dk') || (@user.email == 'peter@digiramp.org')
+          = f.input :role, collection: User::ROLES
+      = f.input :name
+      = f.input :email
+      = f.input :password, autocomplete: :off
+      = f.input :password_confirmation, autocomplete: :off
+    .col-sm-6
+      = f.input :image
+      div id="toolbar" class="wysihtml5-toolbar"
+        a data-wysihtml5-command="bold" Bold
+        '&nbsp; 
+        a data-wysihtml5-command="italic" Italic
       
-      ul class="padded separate-sections"
-        li class="input"
-          = image_tag(@user.image_url(:avatar_270x270), :class =>"img-polaroid")
-          =f.input :image
-        /-if current_user.super?
-        /  li class="input"
-        /    = f.association :account, label_method: :title, input_html: { class: 'chzn-select' }
-    .span3
-      ul class="padded separate-sections"
-      
-        li class="input"
-          = f.input :name
-        li class="input"
-          = f.input :email
-        li class="input"
-          = f.input :password
-        li class="input"
-          = f.input :password_confirmation
-        
-        
-        /li class="input"
-        /  = f.input :role , :include_blank => true, input_html: { class: 'chzn-select' } , :collection => @roles unless( current_user.id == @user.id )
-
-        
-    /.span6
-    /  ul class="padded separate-sections"  
-    /    li class="input"
-    /      =f.input :profile, :input_html => { style: " height: 240px;", placeholder: "Profile"}, label: 'Profile'
-
-  .form-actions
-    = f.submit 'Save', class: 'btn btn-blue'
+      =f.input :profile, label: false, :input_html => {  style: "height: 360px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary btn-lg'

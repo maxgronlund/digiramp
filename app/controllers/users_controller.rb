@@ -3,12 +3,11 @@ class UsersController < ApplicationController
   #before_filter :account
   before_filter :find_user, only: [:show, :edit, :update, :destroy]
   #before_filter :add_roles, only: [:show, :new, :edit]
+  #before_filter :there_is_access_to_the_account
   
-  
-  def index
-    @users = User.all
-
-  end
+  #def index
+  #  @users = User.all
+  #end
 
   def show
 
@@ -65,7 +64,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    
+    @account = @user.account
     if @user.update(user_params)
       flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} successfully updatet" }
       #@user.activity_events.create! \
@@ -82,7 +81,7 @@ class UsersController < ApplicationController
 
       redirect_to_return_url user_path(@user)
     else
-      flash[:error] = { title: "Error", body: "Check if password and password confirmation matched" }
+      flash[:danger] = { title: "Error", body: "Check if password and password confirmation matched" }
       redirect_to_return_url edit_user_path( @user)
     end
     
@@ -112,12 +111,25 @@ private
   end
 
   def user_params
-    params.require(:user).permit!
+    if current_user && current_user.can_edit?
+      params.require(:user).permit! 
+    else
+      params.require(:user).permit(:name, :email, :image, :crop_params, :password, :password_confirmation, :profile, :commit, :show_welcome_message)
+    end 
   end
+          
+  
+  
   
   def find_user
-    @user = User.cached_find(params[:id])
+    if current_user
+      @user = User.cached_find(params[:id])
+    else
+      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+    end
   end
+  
+  
   
 
   

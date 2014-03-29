@@ -25,9 +25,6 @@ class SessionsController < ApplicationController
         redirect_to admin_index_path
       else
         account = Account.cached_find(user.account_id)
-        logger.debug '***************************************************************'
-        logger.debug account.inspect
-        logger.debug '***************************************************************'
         account.visits += 1
         account.save!
         redirect_to account_path(account)

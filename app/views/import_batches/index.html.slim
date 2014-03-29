@@ -23,13 +23,17 @@
                 table class="table table-hover"
                   thead
                     tr
+                      th Title
                       th Date
                       th Recordings
                       th
                   tbody
                     - @import_batches.order('created_at desc').each do |import_batch|
                       tr
-                        td = import_batch.created_at 
+                        td 
+                          b = link_to import_batch.title,  account_import_batch_path(@account, import_batch)
+                        td = import_batch.created_at.strftime("%d %b %Y") 
+                        
                         td = import_batch.recordings_count
                         td
                           .pull-right

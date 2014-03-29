@@ -1,0 +1,37 @@
+-blog       = Blog.cached_find('User Badges')
+-post       = BlogPost.cached_find(locals[:blog_post], blog)
+-title      = post.title
+-body       = post.body
+-link       = locals[:link]
+-css_class  = locals[:css_class]
+-icon       = locals[:icon]
+
+.row
+  .visible-xs
+    .col-sm-6
+      
+      h3 
+        = link_to title,  link
+        -if can_edit?
+          '&nbsp;
+          = link_to edit_admin_blog_blog_post_path(blog, post) do
+             i class="fa fa-pencil"
+    .col-sm-6
+      .icon-badge
+        = link_to link, class: css_class do
+          div class=icon
+      = body
+      hr
+  .hidden-xs
+    .col-sm-6
+      .icon-badge
+        = link_to link, class: css_class do
+          div class=icon
+    .col-sm-6
+      h3 
+        = link_to title,  link
+        -if can_edit?
+          '&nbsp;
+          = link_to edit_admin_blog_blog_post_path(blog, post) do
+             i class="fa fa-pencil"
+      = body

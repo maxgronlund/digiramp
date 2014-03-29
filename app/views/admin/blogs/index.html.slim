@@ -7,10 +7,11 @@
     .row
       .col-sm-12
         ==render 'admin/shared/messages'    
-        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path \
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                                content: admin_content_index_path, \
                                                                 }, current: 'blogs'} 
                     
-        == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Blogs'}
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Admin Blogs'}
         .row
           = form_tag admin_blogs_path, :method => 'get' do
             .col-sm-6

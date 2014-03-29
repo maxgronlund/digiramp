@@ -3,6 +3,8 @@ Digiramp::Application.routes.draw do
   
 
 
+  
+  
   resources :uploads
   require 'sidekiq/web'
   #require 'admin_constraint'
@@ -21,6 +23,7 @@ Digiramp::Application.routes.draw do
     resources :export_recordings, only: [:index]
     resources :export_works, only: [:index]
     resources :export_import_batches, only: [:index, :show, :edit]
+    resources :export_import_batch_works, only: [:show]
     resources :import_batches, only: [:index, :show, :destroy, :edit, :update]
 
     resources :customers do
@@ -113,8 +116,10 @@ Digiramp::Application.routes.draw do
   #get "features/index"
   #get "accounts/index"
 
-  get "admin"       => "admin#index", :as => :admin_index
+  get "admin"         => "admin#index",       :as => :admin_index
+
   get "flush_cache" => "admin#flush_cache", :as => :admin_flush_cache
+
 
   
   get "investors" => "investors#index", :as => :investors_index
@@ -143,7 +148,9 @@ Digiramp::Application.routes.draw do
 
   
   resources :sign_up
-  resources :users
+  resources :users do
+    resources :user_accounts, only: [:index]
+  end
 
 
   # Example of regular route:
@@ -198,6 +205,8 @@ Digiramp::Application.routes.draw do
       get 'delete_documents'
     end
     resources :administrators
+    get "engine_room"   => "engine_room#index", :as => :engine_room_index
+    get "content"   => "content#index", :as => :content_index
     resources :export_users, only: [:index]
     resources :features
     resources :genres

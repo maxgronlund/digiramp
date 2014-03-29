@@ -1,5 +1,5 @@
 class Admin::BlogsController < ApplicationController
-  respond_to :html, :xml, :json
+  #respond_to :html, :xml, :json
   before_filter :admin_only
   before_filter :find_blog, only: [:edit, :update, :destroy, :show]
   #skip_before_filter :verify_authenticity_token, :only => [:destroy]

@@ -348,9 +348,7 @@ class Recording < ActiveRecord::Base
         recording.cache_version += 1
         recording.save!
         recording.extract_genres
-        #logger.debug '----------------------------------------------------------------'
-        #logger.debug recording.artist
-        #logger.debug '----------------------------------------------------------------'
+
       rescue
       end
 

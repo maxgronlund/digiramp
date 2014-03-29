@@ -1,38 +1,38 @@
-- blog      = Blog.cached_find('User Account')
-- blog_post = BlogPost.cached_find( 'Accounts I can access' , blog )
-
-.panel
-  .panel-body
-    h3 
-      =blog_post.title
-      -if can_edit?
-        '&nbsp;
-        = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
-          i class="fa fa-pencil"
-    = simple_format blog_post.body
-    
-    
-    .table-responsive
-      table class="table table-hover"
-       thead
-         tr
-           th Account
-           th Role 
-           th
-       tbody
-         tr
-           
-           td = link_to user_account.title, account_path(user_account), id: "#{user_account.title}"
-           td Account Owner
-    
-       - @user.account_users.each do |account_user|
-         -unless account_user.account_id == @user.account_id
-          tr
-            -account = Account.cached_find(account_user.account_id)
-            td =link_to account.title, account_path(account), id: "#{account.title}"
-            td = account_user.role
-            td 
-              .pull-right
-                = link_to account_leave_account_path(user_account, account_user) , data: { confirm: 'Are you sure?' } , :method => :delete do
-                  .btn.btn-danger.btn-lg
-                    i class="fa fa-times"
+/- blog      = Blog.cached_find('User Account')
+/- blog_post = BlogPost.cached_find( 'Accounts I can access' , blog )
+/
+/.panel
+/  .panel-body
+/    h3 
+/      =blog_post.title
+/      -if can_edit?
+/        '&nbsp;
+/        = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+/          i class="fa fa-pencil"
+/    = simple_format blog_post.body
+/    
+/    
+/    .table-responsive
+/      table class="table table-hover"
+/       thead
+/         tr
+/           th Account
+/           th Role 
+/           th
+/       tbody
+/         tr
+/           
+/           td = link_to user_account.title, account_path(user_account), id: "#{user_account.title}"
+/           td Account Owner
+/    
+/       - @user.account_users.each do |account_user|
+/         -unless account_user.account_id == @user.account_id
+/          tr
+/            -account = Account.cached_find(account_user.account_id)
+/            td =link_to account.title, account_path(account), id: "#{account.title}"
+/            td = account_user.role
+/            td 
+/              .pull-right
+/                = link_to account_leave_account_path(user_account, account_user) , data: { confirm: 'Are you sure?' } , :method => :delete do
+/                  .btn.btn-danger.btn-lg
+/                    i class="fa fa-times"

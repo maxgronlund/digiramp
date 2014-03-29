@@ -1,0 +1,27 @@
+-account = locals[:account]
+-account_user = locals[:account_user]
+
+.col-sm-6
+  
+  h3 =link_to account.title, account_path(account), id: "#{account.title}"
+  = account.description
+
+.col-sm-6
+  
+
+  h4 Role: #{account_user.role}
+  -if account_user.role == 'Associate'
+    ul
+      -if account_user.access_to_all_recordings 
+        li Access to Recordings
+      -if account_user.access_to_all_common_works
+        li Access to Works
+      -if account_user.access_to_all_rights
+        li Access to Rights
+      -if account_user.access_to_all_documents
+        li Access to Documents
+      -if account_user.access_to_collect
+        li Access to Collect
+.col-sm-12
+  /= debug account_user
+  hr

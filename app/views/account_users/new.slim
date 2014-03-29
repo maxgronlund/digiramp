@@ -1,3 +1,4 @@
+- session[:return_url] = request.url
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'users'
@@ -10,14 +11,17 @@
                                                             }, current: 'invite user'}
                                                             
     /== render 'shared/page_title', locals: {blog: blog, blog_post: 'Set Role'}
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Account Users'), blog_post: 'Invite User'}
+    -blog = Blog.cached_find('Account Users')
+    == render 'shared/page_title', locals: {blog:   blog, blog_post: 'Invite User'}
     .row
-      .col-sm-3
       .col-sm-6
         .panel
           .panel-body
-            h3 INVITE USER
-            hr
+            == render 'shared/simple_post', locals: { post_identifyer: 'Add As', blog: blog}
+        
+      .col-sm-6
+        .panel
+          .panel-body
             =simple_form_for [@account, @account_user] do |f|
               = f.hidden_field :account_id, value: @account.id
               = f.input :role,  collection: @roles,     as: :radio_buttons, label: false
