@@ -5,36 +5,36 @@
                
   .container
     ==render 'admin/shared/messages'
-    /-cache ([request.url, @account.rec_cache_version, current_user.role  ]) do
-    .do
+    -cache (['content', Admin.cached_find(1).version]) do
+      /.do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
 
       
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Manage Content'} 
-    .row
-      .col-sm-6
-        == render 'shared/badge_button', locals: { \
-                                                    blog_post: 'EXPORT USERS', \
-                                                    link: admin_export_users_path(format: "csv"), \
-                                                    css_class: 'btn btn-info', \
-                                                    icon: 'fa fa-cloud-download' \
-                                                  }
-      .col-sm-6
-        == render 'shared/badge_button', locals: { \
-                                                    blog_post: 'BLOGS', \
-                                                    link: admin_blogs_path, \
-                                                    css_class: 'btn btn-primary', \
-                                                    icon: 'fa fa-comments' \
-                                                  }
-      .col-sm-6
-        == render 'shared/badge_button', locals: { \
-                                                    blog_post: 'TAGS', \
-                                                    link: admin_genres_path, \
-                                                    css_class: 'btn btn-warning', \
-                                                    icon: 'fa fa-tags' \
-                                                  }
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Manage Content'} 
+      .row
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'EXPORT USERS', \
+                                                      link: admin_export_users_path(format: "csv"), \
+                                                      css_class: 'btn btn-info', \
+                                                      icon: 'fa fa-cloud-download' \
+                                                    }
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'BLOGS', \
+                                                      link: admin_blogs_path, \
+                                                      css_class: 'btn btn-primary', \
+                                                      icon: 'fa fa-comments' \
+                                                    }
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'TAGS', \
+                                                      link: admin_genres_path, \
+                                                      css_class: 'btn btn-warning', \
+                                                      icon: 'fa fa-tags' \
+                                                    }
+        
       
-  
 
 
   

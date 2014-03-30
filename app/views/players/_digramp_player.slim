@@ -10,10 +10,8 @@ div class="index" id="{index}"
 .row 
   .col-sm-12  
     .thumbnail.gray
-      .wavewrapper
-      
-        div class="playhead" id="playhead_#{index}" 
-        = image_tag recording.waveform, class: 'waveform img-responsive', id: "waveform_#{index}"
+      div class="playhead" id="playhead_#{index}" 
+      = image_tag recording.waveform, class: 'waveform', id: "waveform_#{index}"
         
 
   .col-sm-12

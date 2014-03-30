@@ -1,7 +1,23 @@
 
 
-.bg-recording-title
-  h4 = recording.title
+.bg-recording-title.playlist
+  .row
+    .col-sm-12
+      .pull-left
+        i class="player-button fa fa-play" id="back_button_#{0}"
+      h4 = recording.title
+      'Artist
+      '&nbsp;
+      = recording.artist
+      
+  .row
+    .col-sm-12
+      hr
+      .thumbnail
+        = image_tag recording.waveform, class: 'waveform'
+    
+  /.row 
+  /    = debug recording
 
 
 

@@ -3,7 +3,7 @@
 - blog_post = BlogPost.cached_find( locals[:blog_post] , blog )
 
 .row
-  .col-sm-6
+  .col-sm-8
     .page-title
       h1 
         =blog_post.title
@@ -12,7 +12,7 @@
           = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
              i class="fa fa-pencil"
     = simple_format blog_post.body
-  .col-sm-6
+  .col-sm-4
     
       
   .col-sm-12
