@@ -5,7 +5,7 @@
                
   .container
     ==render 'admin/shared/messages'
-    -cache (['content', Admin.cached_find(1).version]) do
+    -cache (['content', Admin.cached_find(1).version, current_user.uuid]) do
       /.do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
 

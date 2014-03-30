@@ -1,5 +1,4 @@
 - blog       = locals[:blog] 
-- blog_post = Blog.cached_find( locals[:blog_post] )
 - blog_post = BlogPost.cached_find( locals[:blog_post] , blog )
 
 .row
