@@ -9,7 +9,9 @@
     -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account), current_user.role]) do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               }, current: 'assets'}
-      == render 'shared/page_title', locals: {blog: @blog, blog_post: 'Assets'}
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Assets'), blog_post: 'Assets'}
       
       
       
