@@ -6,7 +6,9 @@ html
   = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css", media: "all"
   = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
   /= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Cinzel|Junge'
-  
+  = javascript_include_tag "application", "data-turbolinks-track" => true
+  = javascript_include_tag "assets.transloadit.com/js/jquery.transloadit2-v2-latest.js" => true
+  = javascript_include_tag "//cdn.sublimevideo.net/js/w21x4dlf.js"
   
   
   /<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
@@ -21,8 +23,6 @@ html
 body
   = yield
   
-  = javascript_include_tag "application", "data-turbolinks-track" => true
-  = javascript_include_tag "assets.transloadit.com/js/jquery.transloadit2-v2-latest.js" => true
-  = javascript_include_tag "//cdn.sublimevideo.net/js/w21x4dlf.js"
+  
   
 
