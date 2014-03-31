@@ -14,7 +14,7 @@ soundManager.setup({
 soundManager.onready(function() {
 
   if ($('#load-player')[0]) {
-    //console.log( '-----------------------------------------' );
+    
     var digiramp_player = [];
 
     $( ".player" ).each(function( index ) {
@@ -81,6 +81,7 @@ function digirampPlayer(i){
   var back_button     = "#back_button_"     + player_index;
   var play_button     = "#play_button_"     + player_index;
   var waveform        = "#waveform_"        + player_index;
+  var expand_colapse  = "#expand_colapse_"  + player_index;
   var sm_sound_id     = "sound_"            + player_index;
   var playing         = false;
   var smSound         = null;
@@ -90,8 +91,10 @@ function digirampPlayer(i){
 
   // when a player colapses: stop it
   $(".multi_player").on('hide.bs.collapse', function (event) {
+    
     colapsed_index = $(this).attr('index')
     if(colapsed_index == player_index){
+      $(expand_colapse).html("<i class='fa fa-angle-double-down'></i>");
       smSound.pause();
       // show the play-button
       $(player_button).html("<i class='player-button fa fa-play'></i>");
@@ -101,10 +104,15 @@ function digirampPlayer(i){
   
   // when a player expandes for the first time: load sound
   $(".multi_player").on('show.bs.collapse', function (event) {
+   
     expanded_index = $(this).attr('index')
-    if( smSound == null && expanded_index == player_index){
+    if( expanded_index == player_index){
+       $(expand_colapse).html("<i class='fa fa-angle-double-up'></i>");
       // only load one time
-      smSound = createSound(sm_sound_id, digiramp_player, progress_bar);
+      if( smSound == null){
+        smSound = createSound(sm_sound_id, digiramp_player, progress_bar);
+      }
+      
     };
   });
   

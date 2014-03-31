@@ -10,51 +10,63 @@
               .row
                 .col-sm-4
                   .bg-recording-title
-                    h4 
-                      i class="fa fa-angle-double-down "
+                    .pull-left
+                      h4
+                        div id="expand_colapse_#{index.to_s}"
+                          i class="fa fa-angle-double-down "
+                        
+                    h4
                       '&nbsp;
                       =recording.title
                     i Artist: 
                     = recording.artist
                     
                   /img src="#{recording.cover_art_url(:cover_thumb)}" alt="alternate #{recording.title}" width="128" height="128" style="float:left;"
-                  = image_tag recording.cover_art_url(:cover_thumb), width: "128", height: "128", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
+                  = image_tag recording.cover_art_url(:cover_thumb), width: "92", height: "92", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
+                  
                   -if recording.explicit
                     .pull-left
                       .label.label-danger
                         'explicit
                       '&nbsp;
+                      br
                   -if recording.clearance
                     .pull-left
                       .label.label-success
                         '200% Clerance
                       '&nbsp;
-                  
-                  br
-                  i = simple_format recording.comment
+                      br
+                  -unless  recording.vocal.empty?
+                    .pull-left
+                      .label.label-info
+                        = recording.vocal  
+                      '&nbsp;
+                      br 
+
                 .col-sm-8
+                  .comment
+                    i = simple_format recording.comment
                   .table-responsive
                     table class="table"
                       thead
                         tr
+                          /th
                           th Genre
                           th Instruments
-                          th Vocal
+                          //th Vocal
                           th Tempo
                           th Mood
                       tbody
                         tr
+                          
+                                  
                           td
                             ul
                               
                               -recording.genre_tags.each do |genre_tag|
                                 li = genre_tag.genre.title
                           td = recording.instruments
-                          td
-                            -unless  recording.vocal.empty?
-                              .pull-left
-                                .label.label-info
-                                  = recording.vocal
+                          
                           td 
                             -unless recording.bpm == 0 || recording.bpm.nil?
                               i BPM:&nbsp;

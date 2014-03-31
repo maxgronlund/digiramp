@@ -4,7 +4,27 @@ class Recording < ActiveRecord::Base
   
   
   include PgSearch
-  pg_search_scope :search, against: [:title, :lyrics, :production_company, :isrc_code, :genre, :artist, :bpm, :comment, :vocal ], :using => [:tsearch]
+  pg_search_scope :search, against: [ :title, 
+                                      :lyrics, 
+                                      :production_company, 
+                                      :isrc_code, 
+                                      :genre, 
+                                      :artist, 
+                                      :bpm, 
+                                      :comment, 
+                                      :vocal, 
+                                      :isrc_code,
+                                      :copyright,
+                                      :production_company,
+                                      :upc_code,
+                                      :year,
+                                      :album_name,
+                                      :performer,
+                                      :band,
+                                      :mood,
+                                      :instruments,
+                                      :tempo 
+                                    ], :using => [:tsearch]
   validates :title, :presence => true
   
   #require 'taglib'
