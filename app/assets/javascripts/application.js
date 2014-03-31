@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-// require turbolinks
+//= require turbolinks
 //= require bootstrap/bootstrap
 //= require jquery_nested_form
 //= require simple

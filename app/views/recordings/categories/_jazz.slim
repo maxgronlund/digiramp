@@ -1,6 +1,0 @@
-/= simple_form_for [ @account, @recording ], :url => url_for(:action => 'add_genre', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
-/  = f.hidden_field :category, value: 'jazz'
-/  
-/  h4 = @jazz.title
-/  = f.submit "Jazz", :type => :image, :src => "#{@jazz.image_url(:size_570x320)}", class: 'img-responsive'
-/  
