@@ -44,7 +44,7 @@
                   - @catalog.catalog_items.where(catalog_itemable_type: 'Recording').order('catalog_itemable_type asc').each do |catalog_item|
                     == render catalog_item.catalog_itemable_type.downcase, catalog_item: catalog_item
           .pull-right    
-            = link_to 'Add Assets', '#', class: 'btn btn-primary btn-lg'         
+            = link_to 'Add Assets', account_add_catalog_asset_path(@account, @catalog), class: 'btn btn-primary btn-lg'         
 
   
     
