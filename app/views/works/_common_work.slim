@@ -1,6 +1,6 @@
 -cache ([common_work.id, common_work.updated_at]) do
   tr
-    td = link_to common_work.title, account_work_path(@account, common_work), 'data-no-turbolink' => true
+    td = link_to common_work.title, account_work_path(@account, common_work)
     td 
     td
       .pull-right

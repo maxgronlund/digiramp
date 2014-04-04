@@ -1,4 +1,6 @@
+
 soundManager.setup({
+ 
   // disable or enable debug output
   debugMode: false,
   // use HTML5 audio for MP3/MP4, if available
@@ -11,20 +13,52 @@ soundManager.setup({
   html5PollingInterval: 100
 });
 
-soundManager.onready(function() {
 
+function recreateSoundManager() {
+
+  if( window.soundManager.ok() ){
+    window.soundManager.stopAll();
+    loadDigirampPlayer();
+    
+  }
+
+}
+
+soundManager.onready(function() {
+  loadDigirampPlayer();
+  
+});
+
+function loadDigirampPlayer(){
+
+  
   if ($('#load-player')[0]) {
     
-    var digiramp_player = [];
+    var account_id = 0;
+    if ($('.account_id')[0]) {
+      account_id = $('.account_id').attr('id');
+    }
+    
+    var catalog_id = 0;
+    if ($('.catalog_id')[0]) {
+      catalog_id = $('.catalog_id').attr('id');
+    }
+    
+    var add_recordings_to_catalog_id = 0;
+    if ($('.add_recordings_to_catalog')[0]) {
+      add_recordings_to_catalog_id = $('.add_recordings_to_catalog').attr('id');
+    }
 
+    var digiramp_player = [];
     $( ".player" ).each(function( index ) {
       id = $(this).attr('id');
-      digiramp_player.push(new digirampPlayer(id));
-      
+      digiramp_player.push(new digirampPlayer(id, account_id, catalog_id, add_recordings_to_catalog_id));
     });
-
   };
-});
+  
+  
+}
+
 
 function convertTimeToString(timeFloat) {
   var hours = parseInt(timeFloat / 3600);
@@ -69,9 +103,7 @@ function createSound(sm_sound_id, digiramp_player, progress_bar){
 }
 
 
-
-
-function digirampPlayer(i){
+function digirampPlayer(i, account_id, catalog_id, add_recordings_to_catalog_id){
   var player_index    = parseInt(i)
   var player_button   = "#play_button_"     + player_index;                                 
   var player_head     = "#playhead_"        + player_index;
@@ -86,9 +118,6 @@ function digirampPlayer(i){
   var playing         = false;
   var smSound         = null;
   
-  //var no_sound        = true;
-  
-
   // when a player colapses: stop it
   $(".multi_player").on('hide.bs.collapse', function (event) {
     
@@ -131,7 +160,6 @@ function digirampPlayer(i){
   var duration_string = convertTimeToString('0')
   $(possition_tag).text(duration_string);
   
-
 
   var durationEstimate = 100;
   $(player_button).click(function() {
@@ -182,12 +210,14 @@ function digirampPlayer(i){
   // detect mouse click
   $(waveform).click(function(event) {
     //alert(waveform);
-    var offset = $(waveform).offset();
+    var offset        = $(waveform).offset();
     gotoSoundPosition = positionInPercent(waveform, event.pageX - offset.left);
     gotoSoundPosition *= durationEstimate;
     ///alert(event.pageX);
     smSound.setPosition(gotoSoundPosition);
   });
+  // add buttons to player based on permissions
+  $.getScript("/accounts/" + account_id + "/recording_permissions/" + player_index + '?catalog=' + catalog_id + '&add_recordings_to_catalog=' + add_recordings_to_catalog_id );
 } 
 
 

@@ -101,6 +101,7 @@ class UsersController < ApplicationController
     redirect_to :back
   end
   
+  
 private
 
   def remove_password_fields_if_blank!(user_params)

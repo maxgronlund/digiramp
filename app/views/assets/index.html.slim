@@ -33,8 +33,7 @@
                                                         blog_post: 'WORKS', \
                                                         link: account_works_path(@account), \
                                                         css_class: 'btn btn-success', \
-                                                        icon: 'fa fa-music', \
-                                                        data_no_turbolink: true \
+                                                        icon: 'fa fa-music'\
                                                       }
 
             
@@ -46,8 +45,7 @@
                                                         blog_post: 'RECORDINGS', \
                                                         link: account_recordings_path(@account), \
                                                         css_class: 'btn btn-warning', \
-                                                        icon: 'fa fa-headphones', \
-                                                        data_no_turbolink: true \
+                                                        icon: 'fa fa-headphones'\
                                                       }
                                                       
 
@@ -60,6 +58,16 @@
                                                        icon: 'fa fa-folder-o' \
                                                      }
 
+
+
+        -if true
+          .col-sm-6
+           == render 'assets/shared/badge_button', locals: { \
+                                                       blog_post: 'CATALOGS', \
+                                                       link: account_catalogs_path(@account), \
+                                                       css_class: 'btn btn-info', \
+                                                       icon: 'fa fa-list-ul' \
+                                                     }
 
 
 

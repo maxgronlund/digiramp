@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140330095709) do
+ActiveRecord::Schema.define(version: 20140402220216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,8 +74,10 @@ ActiveRecord::Schema.define(version: 20140330095709) do
     t.integer  "rec_cache_version",      default: 0
     t.integer  "customer_cache_version", default: 0
     t.boolean  "activated",              default: true
+    t.integer  "default_catalog_id"
   end
 
+  add_index "accounts", ["default_catalog_id"], name: "index_accounts_on_default_catalog_id", using: :btree
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
 
   create_table "activity_events", force: true do |t|
@@ -235,24 +237,22 @@ ActiveRecord::Schema.define(version: 20140330095709) do
   add_index "bugs", ["user_id"], name: "index_bugs_on_user_id", using: :btree
 
   create_table "catalog_items", force: true do |t|
-    t.integer  "account_catalog_id"
+    t.integer  "catalog_id"
     t.string   "catalog_itemable_type"
     t.integer  "catalog_itemable_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
 
-  add_index "catalog_items", ["account_catalog_id"], name: "index_catalog_items_on_account_catalog_id", using: :btree
+  add_index "catalog_items", ["catalog_id"], name: "index_catalog_items_on_catalog_id", using: :btree
   add_index "catalog_items", ["catalog_itemable_id"], name: "index_catalog_items_on_catalog_itemable_id", using: :btree
 
   create_table "catalogs", force: true do |t|
     t.string   "title"
     t.text     "body"
-    t.integer  "representative_account_id"
     t.integer  "account_id"
-    t.date     "expiration"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "catalogs", ["account_id"], name: "index_catalogs_on_account_id", using: :btree
@@ -307,9 +307,11 @@ ActiveRecord::Schema.define(version: 20140330095709) do
     t.integer  "recording_preview_id"
     t.string   "step",                   default: "created"
     t.text     "lyrics"
+    t.integer  "catalog_id"
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree
+  add_index "common_works", ["catalog_id"], name: "index_common_works_on_catalog_id", using: :btree
   add_index "common_works", ["common_works_import_id"], name: "index_common_works_on_common_works_import_id", using: :btree
 
   create_table "common_works_imports", force: true do |t|
@@ -908,6 +910,7 @@ ActiveRecord::Schema.define(version: 20140330095709) do
     t.boolean  "show_welcome_message",   default: true
     t.boolean  "activated",              default: true
     t.string   "uuid",                   default: ""
+    t.integer  "curent_catalog_id"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

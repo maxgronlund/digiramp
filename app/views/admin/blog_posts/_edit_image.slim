@@ -3,39 +3,5 @@
   -unless (@blog_post.image_url :size_423x228) == "/assets/images/fallback/size_423x228_artwork.png"
     .span4
       =image_tag( @blog_post.image_url :size_423x228)
-    /.span4
-    /  h5 Select a size to crop
-    /  =link_to '32x32', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_62x62), 'data-no-turbolink' => true, id: "submit_link" 
-    /  br 
-    /  =link_to '302x174', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_302x174), 'data-no-turbolink' => true, id: "submit_link" 
-    /  br
-    /  =link_to '370x272', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_370x272), 'data-no-turbolink' => true, id: "submit_link" 
-    /  br            
-    /  =link_to '423x228', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_423x228), 'data-no-turbolink' => true, id: "submit_link" 
-    /  br            
-    /  =link_to '423x228', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_423x228), 'data-no-turbolink' => true, id: "submit_link" 
-    /  br            
-    /  =link_to '481x430', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_481x430), 'data-no-turbolink' => true, id: "submit_link" 
-    /  br       
-    /  =link_to '470x346', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_470x346), 'data-no-turbolink' => true, id: "submit_link" 
-    /
-    /.span4
-    /  h5 &nbsp;
-    /              
-    /  =link_to '481x430', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_481x430), 'data-no-turbolink' => true, id: "submit_link"
-    /  br            
-    /  =link_to '470x346', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_470x346), 'data-no-turbolink' => true, id: "submit_link" 
-    /  br            
-    /  =link_to '570x320', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_570x320), 'data-no-turbolink' => true, id: "submit_link"
-    /  br            
-    /  =link_to '600x400', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_600x400), 'data-no-turbolink' => true, id: "submit_link"
-    /  br            
-    /  =link_to '770x567', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_770x567), 'data-no-turbolink' => true, id: "submit_link"
-    /  br
-    /  =link_to '870x489', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_870x489), 'data-no-turbolink' => true, id: "submit_link"
-    /  br
-    /  =link_to '1170x377', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_1170x377), 'data-no-turbolink' => true, id: "submit_link"
-    /  br            
-    /  =link_to '302x174', crop_admin_blog_blog_post_path(@blog, @blog_post, :version => :size_302x174), 'data-no-turbolink' => true, id: "submit_link"
-      
+
       

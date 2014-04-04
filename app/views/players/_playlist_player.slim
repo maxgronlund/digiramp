@@ -2,14 +2,22 @@
 
 .bg-recording-title.playlist
   .row
-    .col-sm-12
+    .col-sm-8
       .pull-left
         i class="player-button fa fa-play" id="back_button_#{0}"
       h4 = recording.title
       'Artist
       '&nbsp;
       = recording.artist
-      
+    .col-sm-4
+      .pull-right
+        .btn.btn-info.btn-lg
+          i class="fa fa-comments-o "
+        '&nbsp;
+        = link_to '#' do
+          .btn.btn-warning.btn-lg
+            i class="fa fa-heart-o"
+          '&nbsp;
   .row
     .col-sm-12
       hr

@@ -93,6 +93,7 @@ class Recording < ActiveRecord::Base
   
   #after_commit :expire_account_rec_cash
   after_commit :flush_cache
+  before_destroy :remove_from_catalogs
   
   
   #def expire_account_rec_cash
@@ -101,6 +102,8 @@ class Recording < ActiveRecord::Base
   #  account.save!
   #
   #end
+  
+  
   
   def file
   end
@@ -415,10 +418,14 @@ private
   end
   
   def flush_cache
-    logger.debug '-------------------------------------- FLUSH CACHE --------------------------------------------'
     account.rec_cache_version += 1
     account.save!
     Rails.cache.delete([self.class.name, id])
+  end
+  
+  def remove_from_catalogs
+    catalog_items = CatalogItem.where(catalog_itemable_id: self.id, catalog_itemable_type: self.class.name)
+    catalog_items.delete_all
   end
   
   def update_audio_file_attributes

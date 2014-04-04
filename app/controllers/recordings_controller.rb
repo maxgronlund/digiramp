@@ -3,12 +3,12 @@ class RecordingsController < ApplicationController
   before_filter :there_is_access_to_the_account
   
   def index
-    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(16)
+    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
     @show_more      = true
-    if current_user.can_administrate @account
-      @can_delete     = true
-      @can_edit       = true
-    end
+    #if current_user.can_administrate @account
+    #  @can_delete     = true
+    #  @can_edit       = true
+    #end
   end
 
   def show

@@ -3,23 +3,23 @@ Digiramp::Application.routes.draw do
   
 
 
-  
-  
 
+  get "permissions/index"
   resources :uploads
   require 'sidekiq/web'
   #require 'admin_constraint'
 
-
-  #get "uploads/new"
-  #get "uploads/create"
   get "selling_points/selling_point_1"
   get "selling_points/selling_point_2"
   get "selling_points/selling_point_3"
   
   resources :accounts, only: [:show, :edit, :update] do
-
+    resources :add_catalog_assets, only: [:show]
     resources :account_users
+    resources :catalogs do
+      get "catalog_recordings/add_all"
+      resources :catalog_recordings, only: [:index, :new, :destroy, :show] 
+    end
     resources :documents
     resources :export_recordings, only: [:index]
     resources :export_works, only: [:index]
@@ -33,6 +33,7 @@ Digiramp::Application.routes.draw do
     resources :collects, only: [:index]
     resources :customers, only: [:index]
     resources :drm, only: [:index]
+    resources :recording_permissions
     resources :promotion, only: [:index]
     resources :playlists do
       resources :playlist_keys
@@ -130,7 +131,7 @@ Digiramp::Application.routes.draw do
   #get "features" => "features#index", :as => :features_index
   
   resources :homes
-
+  
   get "home/index"
   root to: "home#index"
   get "sign_up/index"

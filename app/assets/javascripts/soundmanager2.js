@@ -5901,7 +5901,7 @@ function SoundManager(smURL, smID) {
   };
 
   winOnLoad = function() {
-
+    
     // catch edge case of initComplete() firing after window.load()
     windowLoaded = true;
     event.remove(window, 'load', winOnLoad);

@@ -1,5 +1,6 @@
-- blog       = locals[:blog] 
-- blog_post = BlogPost.cached_find( locals[:blog_post] , blog )
+- blog        = locals[:blog] 
+- blog_post   = BlogPost.cached_find( locals[:blog_post] , blog )
+- insert     = locals[:insert]
 
 .row
   .col-sm-8
@@ -12,7 +13,7 @@
              i class="fa fa-pencil"
     = simple_format blog_post.body
   .col-sm-4
-    
+    == render insert if insert
       
   .col-sm-12
     hr

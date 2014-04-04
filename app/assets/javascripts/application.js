@@ -17,12 +17,13 @@
 //= require jquery_nested_form
 //= require simple
 //= require wysihtml5-0.4.0pre
-//= require soundmanager2
-//= require inlineplayer
+//= require soundmanager2-nodebug-jsmin
+// require inlineplayer
 //= require digiramp_player
 //= requiry jquery.transloadit2-v2-latest
 //= require super_simple_wysiwyg
-// require recordings
+//= require recordings
+//= require permissions
 // require_tree .
 
 

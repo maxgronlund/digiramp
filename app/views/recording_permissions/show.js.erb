@@ -1,0 +1,15 @@
+<% if @remove_recording_from_catalog %>
+  $("<%= @remove_recording_from_catalog %>").prepend('<%=j render("recording_permissions/remove_recording_from_catalog") %>');
+
+<% end %>
+<% if @add_recording_to_catalog %>
+  $("<%= @add_recording_to_catalog %>").prepend('<%=j render("recording_permissions/add_recording_to_catalog") %>');
+<% end %>
+
+<% if @show_more %>
+  $("<%= @show_more %>").prepend('<%=j render("recording_permissions/show_more") %>');
+<% end %>
+
+<% if @manage_recording %>
+  $("<%= @manage_recording %>").prepend('<%=j render("recording_permissions/manage_recording") %>');
+<% end %>

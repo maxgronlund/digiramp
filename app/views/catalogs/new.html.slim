@@ -1,0 +1,58 @@
+-session[:return_url] = request.url
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  /-cache([ @account.id, @account.works_cache_key, params]) do  
+  .do   
+    .container
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              }, current: 'new catalog'}
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'New Catalog'}
+
+
+      /.row
+      /    = form_tag account_works_path(@account), :method => 'get' do
+      /      .col-sm-6
+      /        br
+      /        = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
+      /      .col-sm-6
+      /        br
+      /        = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+      /        '&nbsp;
+      /        = link_to 'Show All',account_works_path(@account), class: 'btn btn-default btn-lg'
+      /        
+      /        
+      /    
+      /        
+      /br
+      /br
+      .row
+        .col-sm-3
+        .col-sm-6
+          .panel
+            .panel-body
+              =simple_form_for [@account, @catalog] do |f|
+                =f.hidden_field :account_id, value: @account.id
+                =f.input :title
+                /=f.input :body, label: 'Description'
+                br
+                b Description
+                br
+                div id="toolbar" class="wysihtml5-toolbar"
+                  a data-wysihtml5-command="bold" Bold
+                  '&nbsp; 
+                  a data-wysihtml5-command="italic" Italic
+                =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Description", id: 'wysihtml5_editor'}
+                hr
+                .pull-right
+                  =f.submit 'Save', class: 'btn btn-primary btn-lg'
+    
+
+  
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

@@ -1,0 +1,2 @@
+module CatalogRecordingsHelper
+end

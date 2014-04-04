@@ -13,6 +13,7 @@ class Account < ActiveRecord::Base
   has_many :customer_event
   has_many :recordings, dependent: :destroy
   has_many :import_batches
+  has_many :catalogs, dependent: :destroy
   
   #has_many :representatives, dependent: :destroy
   #has_many :albums

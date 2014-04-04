@@ -1,0 +1,49 @@
+-session[:return_url] = request.url
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  /-cache([ @account.id, @account.works_cache_key, params]) do  
+  .do   
+    .container
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              }, current: 'catalogs'}
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalogs'}
+
+
+      .row
+        .col-sm-12
+          .panel
+            .panel-body
+              .table-responsive
+                table class="table table-hover"
+                  tbody
+                    - @catalogs.each do |catalog|
+                      tr
+                        td = link_to catalog.title, account_catalog_path( @account, catalog), class: 'btn btn-default btn-lg'
+                        
+                        td
+                          .pull-right
+                            = link_to edit_account_catalog_path( @account, catalog) do
+                              .btn.btn-warning.btn-lg
+                                i class="fa fa-pencil"
+                            '&nbsp;
+                            /-unless catalog.id == @account.default_catalog_id
+                            = link_to account_catalog_path( @account, catalog) , data: { confirm: 'Are you sure?' } , method: :delete do
+                              .btn.btn-danger.btn-lg
+                                i class="fa fa-minus-circle"
+                      
+                      
+              == render 'shared/line'
+              .pull-right
+                = link_to 'New Catalog', new_account_catalog_path(@account), class: 'btn btn-primary btn-lg'
+              
+    
+
+  
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

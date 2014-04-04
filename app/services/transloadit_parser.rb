@@ -123,12 +123,17 @@ class TransloaditParser
                                           waveform:         transloaded[:waveform],
                                           thumbnail:        transloaded[:thumbnail],
                                           account_id:       account_id, 
-                                          import_batch_id:  import_batch.id
+                                          import_batch_id:  import_batch.id,
+                                          audio_upload:     transloaded
                                        )
       recording.update_completeness
       recordings << recording
       CommonWork.attach( recording, account_id)
       
+      
+      Rails.logger.debug '----------------------------------------------------------------'
+      Rails.logger.debug recording.audio_upload
+      Rails.logger.debug '----------------------------------------------------------------'
       
     end
     

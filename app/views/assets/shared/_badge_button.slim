@@ -18,23 +18,15 @@
              i class="fa fa-pencil"
     .col-sm-6
       .icon-badge
-        -if locals[:data_no_turbolink]
-          = link_to link, class: css_class, 'data-no-turbolink' => true do
-            div class=icon
-        -else
-          = link_to link, class: css_class do
-            div class=icon
+        = link_to link, class: css_class do
+          div class=icon
       = body
       hr
   .hidden-xs
     .col-sm-6
       .icon-badge
-        -if locals[:data_no_turbolink]
-          = link_to link, class: css_class, 'data-no-turbolink' => true do
-            div class=icon
-        -else
-          = link_to link, class: css_class do
-            div class=icon
+        = link_to link, class: css_class do
+          div class=icon
     .col-sm-6
       h3 
         = link_to title,  link
