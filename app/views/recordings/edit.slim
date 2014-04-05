@@ -23,7 +23,7 @@
     '&nbsp;
     = link_to 'Edit Lyrics', edit_account_common_work_lyric_path( @account, @common_work, @recording), class: 'btn btn-default btn-lg'
     '&nbsp;
-    = link_to 'Upload Recording', edit_account_common_work_audio_file_path(@account, @common_work, @recording), class: 'btn btn-default btn-lg'
+    = link_to 'Upload Recording', edit_account_common_work_audio_file_path(@account, @common_work, @recording), class: 'btn btn-default btn-lg' , 'data-no-turbolink'=>true
     hr
     == render 'form'
     
