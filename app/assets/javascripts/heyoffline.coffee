@@ -160,6 +160,3 @@ class @Heyoffline extends Helpers
     @destroyElements()
     @options.onOffline.call @ if @options.onOffline
 
-new Heyoffline
-  monitorFields: false
-  elements: ['.monitoredFields']
