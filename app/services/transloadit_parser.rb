@@ -95,6 +95,7 @@ class TransloaditParser
                                         import_batch_id:   import_batch.id,
                                         audio_upload:      transloaded
                                        )
+      recording.extract_genres                                 
       recording.update_completeness
       recordings << recording
       CommonWork.attach( recording, account_id)

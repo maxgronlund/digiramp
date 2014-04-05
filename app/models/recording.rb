@@ -380,12 +380,9 @@ class Recording < ActiveRecord::Base
   
   def extract_genres
     self.genre.split(',').each do |genre|
-      
-      
+
       extracted_genre = Genre.where(title: genre.strip).first_or_create(title: genre.strip, user_tag: true, category: 'user_tag')
-      
-      
-      
+
       GenreTag.where( genre_id: extracted_genre.id, 
                       genre_tagable_type: self.class.to_s, 
                       genre_tagable_id: self.id)
