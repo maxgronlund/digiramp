@@ -7,6 +7,66 @@ class Genre < ActiveRecord::Base
   pg_search_scope :search_genre, against: [:title, :category], :using => [:tsearch]
   
   GENRE_CATEGORY = ["Popular Music", "Cinematic", "Classical", "Ethnic World", "Jazz", "Other"]
+  ITUNES_CATEGORY = [
+                      "Blues",
+                      "Comedy",
+                      "Classical",
+                      "Country",
+                      "Electronic",
+                      "Holiday",
+                      "Opera",
+                      "Jazz",
+                      "Latino",
+                      "New Age",
+                      "Pop",
+                      "R&B/Soul",
+                      "Soundtrack",
+                      "Dance",
+                      "Hip-Hop/Rap",
+                      "World",
+                      "Alternative",
+                      "Rock",
+                      "Christian & Gospel",
+                      "Vocal",
+                      "Easy Listening",
+                      "J-Pop",
+                      "Enka",
+                      "Anime",
+                      "Kayokyoku",
+                      "Fitness & Workout",
+                      "K-Pop",
+                      "Karaoke",
+                      "Instrumental",
+                      "Brazilian"]
+                      
+                      
+                      
+  INGROOVES_CATEGORY =   [
+                        "Adult Contemporary",
+                        "Audio Books",
+                        "Blues", 
+                        "Children's Music", 
+                        "Christian", 
+                        "Classical", 
+                        "Comedy", 
+                        "Country", 
+                        "Easy Listening",
+                        "Educational",
+                        "Electronic",
+                        "Folk",
+                        "Industrial",
+                        "Jazz",
+                        "Latin",
+                        "Oldies",
+                        "Pop",
+                        "R&B/Soul",
+                        "Rap/Hip-Hop",
+                        "Reggae",
+                        "Rock",
+                        "Soundtrack",
+                        "Spoken Word",
+                        "World"
+                      ]
   
   
   scope :popular_music, -> { where(category: 'Popular Music')}

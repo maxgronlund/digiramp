@@ -1,10 +1,30 @@
 .row
-  .col-sm-6
-    = simple_form_for [:admin, @genre] do |f|
-      = f.input :title
-      = f.input :category,  collection: Genre::GENRE_CATEGORY,  as: :radio_buttons, label: false
-      = f.input :user_tag
-       
+  = simple_form_for [:admin, @genre] do |f|
+    .col-sm-4
+      .panel
+        .panel-body
+          b DigiRAMP
+          hr
+          = f.input :title, label: 'Genre'
+          = f.input :category,  collection: Genre::GENRE_CATEGORY,  as: :radio_buttons, label: false
+          = f.input :user_tag
+    .col-sm-4
+      .panel
+        .panel-body
+          b INgrooves
+          hr
+          = f.input :ingrooves_genre, label: 'Genre'
+          = f.input :ingrooves_category, collection: Genre::INGROOVES_CATEGORY,  label: 'Category'
+    .col-sm-4
+      .panel
+        .panel-body
+          b iTunes
+          hr
+          = f.input :itunes_genre, label: 'Genre'
+          = f.input :itunes_category, collection: Genre::ITUNES_CATEGORY,  label: 'Category'
+    .col-sm-12   
       hr
       .pull-right
+        = link_to 'Music styles on Wikipedia', "http://en.wikipedia.org/wiki/List_of_music_styles", class: 'btn btn-default btn-lg'
+        '&nbsp;
         = f.submit 'Save', class: 'btn btn-primary btn-lg'
