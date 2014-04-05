@@ -11,50 +11,53 @@ class TransloaditParser
     transloadets = []
     
     
-    
-    # thumbnail
-    uploads[:results][:thumbnail].each do |thumbnail|
-      transloadets << {thumbnail: thumbnail[:url]}
+    begin
+      # thumbnail
+      uploads[:results][:thumbnail].each do |thumbnail|
+        transloadets << {thumbnail: thumbnail[:url]}
+      end
+      
+      # waveform
+      uploads[:results][:waveform].each_with_index do |waveform, index|
+        transloadets[index][:waveform] = waveform[:url]
+      end
+      # metadata
+      uploads[:results][:mp3].each_with_index do |mp3, index|
+        transloadets[index][:mp3] = mp3[:url]
+      end
+      
+      uploads[:uploads].each_with_index do |upload, index|
+        meta =  upload[:meta]
+        #puts meta
+        transloadets[index][:genre]     = meta[:genre]
+        transloadets[index][:track]     = meta[:track]
+        transloadets[index][:disc]      = meta[:disc]
+        transloadets[index][:band]      = meta[:band]
+        transloadets[index][:title]     = meta[:title]
+        transloadets[index][:lyrics]    = meta[:lyrics]
+        transloadets[index][:performer] = meta[:performer]
+        transloadets[index][:comment]   = meta[:comment]
+        transloadets[index][:artist]    = meta[:artist]
+        transloadets[index][:year]      = meta[:year]
+        transloadets[index][:album]     = meta[:album]
+        transloadets[index][:bpm]       = meta[:beats_per_minute]
+      end
+      
+      
+      uploads[:results][:mp3].each_with_index do |mp3, index|
+        transloadets[index][:original_file_name] = mp3[:name]
+      end
+      
+      uploads[:results][:mp3].each_with_index do |mp3, index|
+        transloadets[index][:original_name] = mp3[:original_basename]
+      end
+      
+      uploads[:results][:mp3].each_with_index do |mp3, index|
+        transloadets[index][:mp3] = mp3[:url]
+      end
+    rescue
     end
     
-    # waveform
-    uploads[:results][:waveform].each_with_index do |waveform, index|
-      transloadets[index][:waveform] = waveform[:url]
-    end
-    # metadata
-    uploads[:results][:mp3].each_with_index do |mp3, index|
-      transloadets[index][:mp3] = mp3[:url]
-    end
-    
-    uploads[:uploads].each_with_index do |upload, index|
-      meta =  upload[:meta]
-      #puts meta
-      transloadets[index][:genre]     = meta[:genre]
-      transloadets[index][:track]     = meta[:track]
-      transloadets[index][:disc]      = meta[:disc]
-      transloadets[index][:band]      = meta[:band]
-      transloadets[index][:title]     = meta[:title]
-      transloadets[index][:lyrics]    = meta[:lyrics]
-      transloadets[index][:performer] = meta[:performer]
-      transloadets[index][:comment]   = meta[:comment]
-      transloadets[index][:artist]    = meta[:artist]
-      transloadets[index][:year]      = meta[:year]
-      transloadets[index][:album]     = meta[:album]
-      transloadets[index][:bpm]       = meta[:beats_per_minute]
-    end
-    
-    
-    uploads[:results][:mp3].each_with_index do |mp3, index|
-      transloadets[index][:original_file_name] = mp3[:name]
-    end
-    
-    uploads[:results][:mp3].each_with_index do |mp3, index|
-      transloadets[index][:original_name] = mp3[:original_basename]
-    end
-    
-    uploads[:results][:mp3].each_with_index do |mp3, index|
-      transloadets[index][:mp3] = mp3[:url]
-    end
     
     transloadets
   end
