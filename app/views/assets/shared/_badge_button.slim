@@ -20,7 +20,7 @@
       .icon-badge
         = link_to link, class: css_class do
           div class=icon
-      = body
+      = simple_format body
       hr
   .hidden-xs
     .col-sm-6
@@ -34,4 +34,4 @@
           '&nbsp;
           = link_to edit_admin_blog_blog_post_path(blog, post) do
              i class="fa fa-pencil"
-      = body
+      = simple_format body
