@@ -30,7 +30,8 @@
         hr
       
         
-    /== render 'works/shared/recordings'
+
+    
     .row
       .col-sm-12
         .panel
@@ -38,6 +39,11 @@
             div class="panel-group" id="accordion"
               - @common_work.recordings.each do |recording|
                 == render 'recordings/recording', recording: recording
+            -if current_user.can_administrate @account
+              .pull-right
+                = link_to "Add Recording", new_account_common_work_recording_path(@account, @common_work), \
+                          'data-no-turbolink'=>true, \
+                          class: 'btn btn-primary btn-lg'
     .row
       -unless @common_work.lyrics.to_s == ''
         .col-sm-6
