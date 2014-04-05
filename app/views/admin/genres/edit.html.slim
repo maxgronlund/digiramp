@@ -3,6 +3,16 @@
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
   .container
+    ==render 'admin/shared/messages'
+
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                            content: admin_content_index_path, \
+                                                            tags: admin_tags_path, \
+                                                            genre: admin_genres_path, \
+                                                            }, current: @genre.title}
+
+      
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Edit Genre'}
     = render 'form'
 
   /.container

@@ -9,6 +9,7 @@
       .col-sm-12
         ==render 'admin/shared/messages'
         == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                                content: admin_content_index_path, \
                                                                 blogs: admin_blogs_path, \
                                                                 @blog.title.to_sym => admin_blog_path(@blog), \
                                                                 }, current: @blog_post.title}
