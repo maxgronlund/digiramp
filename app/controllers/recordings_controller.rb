@@ -37,6 +37,10 @@ class RecordingsController < ApplicationController
   def edit
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
+    
+    @recording.genre = @recording.genre_tags_as_csv_string
+    
+    #@recording.copy_genre_tags_in_to_genre_string
     if params[:genre_category]
       redirect_to account_common_work_recording_genre_tags_path(@account, @common_work, @recording, genre_category: params[:genre_category])
     end
@@ -68,8 +72,7 @@ class RecordingsController < ApplicationController
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
     params[:recording][:cache_version] = @recording.cache_version + 1
-    
-    
+
     if @genre_category = params[:recording][:genre_category]
       params[:recording].delete :genre_category
     end

@@ -24,7 +24,6 @@
 //= require super_simple_wysiwyg
 //= require recordings
 //= require permissions
-//= require heyoffline
 // require_tree .
 
 

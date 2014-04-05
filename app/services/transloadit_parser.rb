@@ -28,6 +28,11 @@ class TransloaditParser
       
       uploads[:uploads].each_with_index do |upload, index|
         meta =  upload[:meta]
+        
+        # remove curupted iTunes info
+        comment = meta[:comment].to_s 
+        comment = '' if comment.include?('(iTunSMPB)')
+        
         transloadets[index][:title]     = meta[:title].to_s 
         transloadets[index][:duration]  = meta[:duration].to_f.round(2)
         transloadets[index][:lyrics]    = meta[:lyrics].to_s.gsub(/\//, '<br>')
@@ -36,7 +41,7 @@ class TransloaditParser
         transloadets[index][:year]      = meta[:year].to_s 
         transloadets[index][:genre]     = meta[:genre].to_s 
         transloadets[index][:artist]    = meta[:artist].to_s 
-        transloadets[index][:comment]   = meta[:comment].to_s 
+        transloadets[index][:comment]   = comment 
         transloadets[index][:performer] = meta[:performer].to_s 
         transloadets[index][:band]      = meta[:band].to_s 
         transloadets[index][:disc]      = meta[:disc].to_s 
@@ -68,16 +73,12 @@ class TransloaditParser
     
     recordings = []
     transloadets.each do |transloaded|
-      title = 'na'
-      title = transloaded[:title]           unless transloaded[:title].to_s == ''
-      title = transloaded[:original_name]   unless title.to_s == 'na'
-      title = title.gsub(/(^\d{2}\s)/, '')  unless title.to_s == 'na'
-      recording =   Recording.create!(  title:             title, 
+      recording =   Recording.create!(  title:             extract_title_from( transloaded ), 
                                         duration:          transloaded[:duration],
                                         artist:            transloaded[:artist],
-                                        lyrics:            transloaded[:lyrics],
+                                        lyrics:            sanitize_lyrics( transloaded[:lyrics] ),
                                         bpm:               transloaded[:bpm],
-                                        comment:           transloaded[:comment],
+                                        comment:           sanitize_comment( transloaded[:comment] ),
                                         year:              transloaded[:year],
                                         album_name:        transloaded[:album],
                                         genre:             transloaded[:genre],
@@ -105,19 +106,39 @@ class TransloaditParser
   
   end
   
+  def self.extract_title_from transloaded
+    title = transloaded[:title].to_s
+    title = transloaded[:original_name]   if title.to_s == ''
+    sanitize_title( title )
+  end
+  
+  def self.sanitize_title title
+    title.gsub(/(^\d{2}\s)/, '')
+  end
+  
+  def self.sanitize_comment comment
+    comment  = '' if comment.include? '(iTunSMPB)'
+    comment
+  end
+  
+  def self.sanitize_lyrics lyrics
+    lyrics.gsub(/\//, '<br>') 
+  end
+  
   def self.write_recording recording, transloadet
-    recording.title             = transloadet[:title]       if recording.title.to_s       == ''
-    recording.artist            = transloadet[:artist]      if recording.artist.to_s      == ''
-    recording.lyrics            = transloadet[:lyrics]      if recording.lyrics.to_s      == ''
-    recording.bpm               = transloadet[:bpm]         if recording.bpm.to_s         == ''
-    recording.comment           = transloadet[:comment]     if recording.comment.to_s     == ''
-    recording.year              = transloadet[:year]        if recording.year.to_s        == ''
-    recording.album_name        = transloadet[:album]       if recording.album_name.to_s  == ''
-    recording.genre             = transloadet[:genre]       if recording.genre.to_s       == ''
-    recording.performer         = transloadet[:performer]   if recording.performer.to_s   == ''
-    recording.band              = transloadet[:band]        if recording.band.to_s        == ''
-    recording.disc              = transloadet[:disc]        if recording.disc.to_s        == ''
-    recording.track             = transloadet[:track]       if recording.track.to_s       == ''
+    
+    recording.title             = sanitize_title( transloadet[:title] )       #if recording.title.to_s       == ''
+    recording.artist            = transloadet[:artist]                        #if recording.artist.to_s      == ''
+    recording.lyrics            = sanitize_lyrics( transloadet[:lyrics] )     #if recording.lyrics.to_s      == ''
+    recording.bpm               = transloadet[:bpm]                           #if recording.bpm.to_s         == ''
+    recording.comment           = sanitize_comment( transloadet[:comment] )   #if recording.comment.to_s     == ''
+    recording.year              = transloadet[:year]                          #if recording.year.to_s        == ''
+    recording.album_name        = transloadet[:album]                         #if recording.album_name.to_s  == ''
+    recording.genre             = transloadet[:genre]                         #if recording.genre.to_s       == ''
+    recording.performer         = transloadet[:performer]                     #if recording.performer.to_s   == ''
+    recording.band              = transloadet[:band]                          #if recording.band.to_s        == ''
+    recording.disc              = transloadet[:disc]                          #if recording.disc.to_s        == ''
+    recording.track             = transloadet[:track]                         #if recording.track.to_s       == ''
     #recording.copyright:       = transloaded[:copyright],
     #recording.composer:        = transloaded[:composer],
     recording.mp3               = transloadet[:mp3]

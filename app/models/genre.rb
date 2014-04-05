@@ -9,12 +9,12 @@ class Genre < ActiveRecord::Base
   GENRE_CATEGORY = ["Popular Music", "Cinematic", "Classical", "Ethnic World", "Jazz", "Other"]
   
   
-  scope :popular_music, -> { where(category: 'popular_music')}
-  scope :cinematic,     -> { where(category: 'cinematic')}
-  scope :classical,     -> { where(category: 'classical')}
-  scope :ethnic_world,  -> { where(category: 'ethnic_world')}
-  scope :jazz,          -> { where(category: 'jazz')}
-  scope :other,         -> { where(category: 'other')}
+  scope :popular_music, -> { where(category: 'Popular Music')}
+  scope :cinematic,     -> { where(category: 'Cinematic')}
+  scope :classical,     -> { where(category: 'Classical')}
+  scope :ethnic_world,  -> { where(category: 'Ethnic World')}
+  scope :jazz,          -> { where(category: 'Jazz')}
+  scope :other,         -> { where(category: 'Other')}
   
   
     

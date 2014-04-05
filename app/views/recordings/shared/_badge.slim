@@ -1,10 +1,10 @@
 
 - blog = locals[:blog]
-- post = BlogPost.cached_find( locals[:identifyer][1] , blog )  
+- post = BlogPost.cached_find( locals[:identifyer] , blog )  
 
 
 = simple_form_for [ @account, @common_work, @recording ] do |f| 
-  = f.hidden_field locals[:submit].to_sym, value: locals[:identifyer][0]
+  = f.hidden_field locals[:submit].to_sym, value: locals[:identifyer]
   
   h4 
     = post.title

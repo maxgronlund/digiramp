@@ -10,22 +10,30 @@
       //= f.file_field :file
       /= f.input :audio_file
       = f.input :isrc_code, label: 'ISRC Code',:input_html => {  placeholder: "ISRC Code"}
-      = f.input :artist, :input_html => {  style: "height: 120px;", placeholder: "Artist"}
-      = f.input :performer, :input_html => {  style: "height: 120px;", placeholder: "Performer"}
+      = f.input :artist, :input_html => {  style: "height: 80px;", placeholder: "Artist"}
+      = f.input :performer, :input_html => {  style: "height: 80px;", placeholder: "Performer"}
+      = f.input :composer
       .row
         .col-sm-6
-          /= f.input :instrumental
-          = f.input :explicit
-        .col-sm-6
           = f.input :year
+          /= f.input :instrumental
+         
+        .col-sm-6
+         
       .row
         .col-sm-6
           =f.input :disc
         .col-sm-6
           =f.input :track
+      
       /= f.input :lyrics, :input_html => {  style: "height: 120px;", placeholder: "Lyrics"}
     .col-sm-6
-      = f.input :clearance, label: '200% clearance'
+      .row
+        .col-sm-6
+          = f.input :clearance, label: '200% clearance'
+        .col-sm-6
+           = f.input :explicit
+      = f.input :copyright
       = f.input :band
       = f.input :vocal,   collection: Recording::VOCAL
       b Description
@@ -35,15 +43,17 @@
         '&nbsp; 
         a data-wysihtml5-command="italic" Italic
    
-      =f.input :comment, label: false, :input_html => {  style: "height: 350px;", placeholder: "Description", id: 'wysihtml5_editor'}
+      =f.input :comment, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
       /=f.input :genre
       .row
         .col-sm-6
           =f.input :bpm
-          =f.input :tempo,   collection: Recording::TEMPO
+          
           =f.input :duration
         .col-sm-6
+          =f.input :tempo,   collection: Recording::TEMPO
           =f.input :genre
+          
   hr
   .pull-right  
     = f.submit 'Save', class: 'btn btn-primary btn-lg'

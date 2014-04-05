@@ -4,6 +4,7 @@
   == render 'shared/page_title', locals: {blog: blog, blog_post: 'Select Genre'} 
   .row
     .col-sm-6
+      /h3 = params[:genre_category].gsub('_', ' ').upcase
       h3 = params[:genre_category].gsub('_', ' ').upcase
     .col-sm-5
       -if @disable_more_genres
@@ -19,5 +20,10 @@
   .row
     -Genre::GENRE_CATEGORY.each do |genre_category|
       .col-sm-3
-        = render 'recordings/shared/badge', category: 'popular_music', locals: {blog: blog, identifyer: genre_category, submit: "genre_category"}
+        = render 'recordings/shared/badge', category: 'popular_music', \
+                                            locals: \
+                                            { blog: blog, \
+                                              identifyer: genre_category.gsub('_', ' ').titleize, \
+                                              submit: "genre_category" \
+                                            }
   

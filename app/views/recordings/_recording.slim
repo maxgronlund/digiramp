@@ -57,14 +57,11 @@
                           th Tempo
                           th Mood
                       tbody
-                        tr
-                          
-                                  
+                        tr        
                           td
-                            ul
-                              
-                              -recording.genre_tags.each do |genre_tag|
-                                li = genre_tag.genre.title
+                            -recording.genre_tags.first(5).each do |genre_tag|
+                              = genre_tag.genre.title
+                              br
                           td = recording.instruments
                           
                           td 

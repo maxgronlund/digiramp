@@ -1,7 +1,7 @@
 
-
--all_genre_ids  = eval("Genre.#{params[:genre_category]}.ids")
--blog_post      = BlogPost.cached_find(params[:genre_category], blog)
+- genre_category = params[:genre_category].gsub(' ', '_').downcase
+- all_genre_ids  = eval("Genre.#{genre_category}.ids")
+- blog_post      = BlogPost.cached_find(params[:genre_category], blog)
 
 - selected_genre_ids = []
 - @recording.genre_tags.each do |genre_tag|

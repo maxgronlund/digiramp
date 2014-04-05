@@ -218,18 +218,16 @@ class Recording < ActiveRecord::Base
     begin
       meta              = audio_upload[:uploads].first[:meta]
 
-      title             = meta[:title].to_s   
-      title             = title.gsub(/(^\d{2}\s)/, '')
-      
-      self.title        = title      
-      self.duration     = meta[:duration].to_f.round(2)         
-      self.lyrics       = meta[:lyrics].gsub(/\//, '<br>')      
+      self.title        = TransloaditParser.sanitize_title( meta[:title].to_s )    
+      self.duration     = meta[:duration].to_f.round(2)   
+      self.lyrics        = TransloaditParser.sanitize_lyrics( meta[:lyrics].to_s )        
+      #self.lyrics       = meta[:lyrics].gsub(/\//, '<br>')      
       self.bpm          = meta[:beats_per_minute].to_i          
       self.album_name   = meta[:album].to_s                     
       self.year         = meta[:year].to_s                           
       self.genre        = meta[:genre].to_s                           
       self.artist       = meta[:artist].to_s                          
-      self.comment      = meta[:comment].to_s                         
+      self.comment      = TransloaditParser.sanitize_comment( meta[:comment].to_s )     
       self.performer    = meta[:performer].to_s                                  
       self.band         = meta[:band].to_s                            
       self.disc         = meta[:disc].to_s                            
@@ -382,9 +380,11 @@ class Recording < ActiveRecord::Base
   
   def extract_genres
     self.genre.split(',').each do |genre|
-
-
+      
+      
       extracted_genre = Genre.where(title: genre.strip).first_or_create(title: genre.strip, user_tag: true, category: 'user_tag')
+      
+      
       
       GenreTag.where( genre_id: extracted_genre.id, 
                       genre_tagable_type: self.class.to_s, 
@@ -395,6 +395,17 @@ class Recording < ActiveRecord::Base
                         genre_tagable_id: self.id
                      )
     end
+  end
+  
+  def genre_tags_as_csv_string
+    comma_seperated_genre_tags = ''
+    genre_tags.each do |genre_tag|
+      comma_seperated_genre_tags += genre_tag.genre.title
+      comma_seperated_genre_tags += ', '
+    end
+    # remove last ','
+    comma_seperated_genre_tags.rstrip.gsub(/\W\z/, '') 
+
   end
   
   
