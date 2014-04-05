@@ -3,6 +3,8 @@ class Genre < ActiveRecord::Base
   #has_many :genre_tags
   #has_many :recordings, through: :genre_tags
   
+  before_destroy :delete_genre_tags
+  
   include PgSearch
   pg_search_scope :search_genre, against: [:title, :category], :using => [:tsearch]
   
@@ -96,6 +98,12 @@ class Genre < ActiveRecord::Base
   #  
   #  genres
   #end
+  
+  def delete_genre_tags
+    genre_tags = GenreTag.where(genre_id: id)
+    genre_tags.delete_all if genre_tags
+    
+  end
   
   def category_name
     self.category.gsub('_', ' ').capitalize
