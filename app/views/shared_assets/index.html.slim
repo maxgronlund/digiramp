@@ -10,7 +10,7 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name}
                                                             
                                                             
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Dashboard'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Shared Assets'}
     
     
     
@@ -20,7 +20,7 @@
     
     .panel
       .panel-body
-        h3 Common Works I have Access to
+        b Common Works
         .table-responsive
           table class="table table-hover"
             tbody
