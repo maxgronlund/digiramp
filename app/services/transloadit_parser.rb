@@ -28,19 +28,19 @@ class TransloaditParser
       
       uploads[:uploads].each_with_index do |upload, index|
         meta =  upload[:meta]
-        #puts meta
-        transloadets[index][:genre]     = meta[:genre]
-        transloadets[index][:track]     = meta[:track]
-        transloadets[index][:disc]      = meta[:disc]
-        transloadets[index][:band]      = meta[:band]
-        transloadets[index][:title]     = meta[:title]
-        transloadets[index][:lyrics]    = meta[:lyrics]
-        transloadets[index][:performer] = meta[:performer]
-        transloadets[index][:comment]   = meta[:comment]
-        transloadets[index][:artist]    = meta[:artist]
-        transloadets[index][:year]      = meta[:year]
-        transloadets[index][:album]     = meta[:album]
-        transloadets[index][:bpm]       = meta[:beats_per_minute]
+        transloadets[index][:title]     = meta[:title].to_s 
+        transloadets[index][:duration]  = meta[:duration].to_f.round(2)
+        transloadets[index][:lyrics]    = meta[:lyrics].to_s.gsub(/\//, '<br>')
+        transloadets[index][:bpm]       = meta[:beats_per_minute].to_i
+        transloadets[index][:album]     = meta[:album].to_s 
+        transloadets[index][:year]      = meta[:year].to_s 
+        transloadets[index][:genre]     = meta[:genre].to_s 
+        transloadets[index][:artist]    = meta[:artist].to_s 
+        transloadets[index][:comment]   = meta[:comment].to_s 
+        transloadets[index][:performer] = meta[:performer].to_s 
+        transloadets[index][:band]      = meta[:band].to_s 
+        transloadets[index][:disc]      = meta[:disc].to_s 
+        transloadets[index][:track]     = meta[:track].to_s 
       end
       
       
@@ -69,38 +69,34 @@ class TransloaditParser
     recordings = []
     transloadets.each do |transloaded|
       title = 'na'
-      title = transloaded[:title] unless transloaded[:title].to_s == ''
-      title = transloaded[:original_name] unless title.to_s == ''
-      recording =   Recording.create!( title:            title.gsub(/(^\d{2}\s)/, ''),
-                                       artist:           transloaded[:artist],
-                                       lyrics:           transloaded[:lyrics],
-                                       bpm:              transloaded[:bpm],
-                                       comment:          transloaded[:comment],
-                                       year:             transloaded[:year],
-                                       album_name:       transloaded[:album],
-                                       genre:            transloaded[:genre],
-                                       performer:        transloaded[:performer],
-                                       band:             transloaded[:band],
-                                       disc:             transloaded[:disc],
-                                       track:            transloaded[:track],
-                                       mp3:              transloaded[:mp3],
-                                       waveform:         transloaded[:waveform],
-                                       thumbnail:        transloaded[:thumbnail],
-                                       #copyright:        transloaded[:copyright],
-                                       #composer:         transloaded[:composer],
-                                       account_id:       account_id, 
-                                       import_batch_id:  import_batch.id,
-                                       audio_upload:     transloaded
+      title = transloaded[:title]           unless transloaded[:title].to_s == ''
+      title = transloaded[:original_name]   unless title.to_s == 'na'
+      title = title.gsub(/(^\d{2}\s)/, '')  unless title.to_s == 'na'
+      recording =   Recording.create!(  title:             title, 
+                                        duration:          transloaded[:duration],
+                                        artist:            transloaded[:artist],
+                                        lyrics:            transloaded[:lyrics],
+                                        bpm:               transloaded[:bpm],
+                                        comment:           transloaded[:comment],
+                                        year:              transloaded[:year],
+                                        album_name:        transloaded[:album],
+                                        genre:             transloaded[:genre],
+                                        performer:         transloaded[:performer],
+                                        band:              transloaded[:band],
+                                        disc:              transloaded[:disc],
+                                        track:             transloaded[:track],
+                                        mp3:               transloaded[:mp3],
+                                        waveform:          transloaded[:waveform],
+                                        thumbnail:         transloaded[:thumbnail],
+                                        #copyright:         transloaded[:copyright],
+                                        #composer:          transloaded[:composer],
+                                        account_id:        account_id, 
+                                        import_batch_id:   import_batch.id,
+                                        audio_upload:      transloaded
                                        )
       recording.update_completeness
       recordings << recording
       CommonWork.attach( recording, account_id)
-      
-      
-      #Rails.logger.debug '----------------------------------------------------------------'
-      #Rails.logger.debug recording.audio_upload
-      #Rails.logger.debug '----------------------------------------------------------------'
-      
     end
     
     import_batch.recordings_count = recordings.size

@@ -216,22 +216,26 @@ class Recording < ActiveRecord::Base
   def extract_metadata
     
     begin
-      #upload = 
+      meta              = audio_upload[:uploads].first[:meta]
 
-      meta              =   audio_upload[:uploads].first[:meta]
-      self.duration     =   meta[:duration].to_f.round(2)     unless meta[:duration].nil?  
-      self.lyrics       =   meta[:lyrics].gsub(/\//, '<br>')  unless meta[:lyrics].nil? 
-      self.bpm          =   meta[:beats_per_minute].to_i      unless meta[:beats_per_minute].nil?
-      self.album_name   =   meta[:album].to_s                 unless meta[:album].nil?           
-      self.year         =   meta[:year]                       unless meta[:year].nil?            
-      self.genre        =   meta[:genre]                      unless meta[:genre].nil?           
-      self.artist       =   meta[:artist]                     unless meta[:artist].nil?          
-      self.comment      =   meta[:comment]                    unless meta[:comment].nil?         
-      self.performer    =   meta[:performer]                  unless meta[:performer].nil?       
-      self.title        =   meta[:title]                      unless meta[:title].nil?           
-      self.band         =   meta[:band]                       unless meta[:band].nil?            
-      self.disc         =   meta[:disc]                       unless meta[:disc].nil?            
-      self.track        =   meta[:track]                      unless meta[:track].nil?    
+      title             = meta[:title].to_s   
+      title             = title.gsub(/(^\d{2}\s)/, '')
+      
+      self.title        = title      
+      self.duration     = meta[:duration].to_f.round(2)         
+      self.lyrics       = meta[:lyrics].gsub(/\//, '<br>')      
+      self.bpm          = meta[:beats_per_minute].to_i          
+      self.album_name   = meta[:album].to_s                     
+      self.year         = meta[:year].to_s                           
+      self.genre        = meta[:genre].to_s                           
+      self.artist       = meta[:artist].to_s                          
+      self.comment      = meta[:comment].to_s                         
+      self.performer    = meta[:performer].to_s                                  
+      self.band         = meta[:band].to_s                            
+      self.disc         = meta[:disc].to_s                            
+      self.track        = meta[:track].to_s    
+      #copyright:         transloaded[:copyright],
+      #composer:          transloaded[:composer],                       
       self.save!            
 
     rescue
@@ -294,7 +298,8 @@ class Recording < ActiveRecord::Base
               'Explicit', 
               'Clearance', 
               'Copyright', 
-              'Production Company'  
+              'Production Company',
+              'Composer'  
             ]
       
       all.each do |recording|
@@ -327,7 +332,8 @@ class Recording < ActiveRecord::Base
                   recording.explicit,
                   recording.clearance,
                   recording.copyright.to_s.squish,
-                  recording.production_company
+                  recording.production_company,
+                  recording.composer
                 
                 ]
       end
@@ -362,6 +368,7 @@ class Recording < ActiveRecord::Base
         recording.clearance             = recording_row["Clearance"].to_s      == 'true'  unless recording_row["Clearance"].to_s.empty?
         recording.copyright             = recording_row["Copyright"].to_s                 unless recording_row["Copyright"].to_s.empty?
         recording.production_company    = recording_row["Production Company"].to_s        unless recording_row["Production Company"].to_s.empty?
+        recording.composer              = recording_row["Composer"].to_s                  unless recording_row["Composer"].to_s.empty?
 
         recording.cache_version += 1
         recording.save!

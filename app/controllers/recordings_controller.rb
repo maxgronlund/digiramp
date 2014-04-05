@@ -69,9 +69,6 @@ class RecordingsController < ApplicationController
     @recording      = Recording.find(params[:id])
     params[:recording][:cache_version] = @recording.cache_version + 1
     
-    #logger.debug '----------------------------------------------------------------'
-    #logger.debug params[:recording][:genre_category]
-    #logger.debug '----------------------------------------------------------------'
     
     if @genre_category = params[:recording][:genre_category]
       params[:recording].delete :genre_category

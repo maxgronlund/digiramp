@@ -2,7 +2,7 @@ class UploadRecordingsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   
   before_filter :there_is_access_to_the_account
-  #before_filter :get_blog
+
   def new
     @recording        = Recording.new
   end
@@ -12,6 +12,7 @@ class UploadRecordingsController < ApplicationController
   def create
     
     @import_batch = TransloaditParser.parse_recordings( params[:transloadit], @account.id )
+    flash[:info]            = { title: "SUCCESS: ", body: "Import completed" }
     redirect_to account_import_batch_path(@account,   @import_batch)
   end
   
@@ -37,7 +38,5 @@ class UploadRecordingsController < ApplicationController
     redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording )
   end
   
-  #def get_blog
-  #  @blog   = Blog.add_recording
-  #end
+
 end
