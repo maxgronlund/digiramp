@@ -219,21 +219,20 @@ class Recording < ActiveRecord::Base
       #upload = 
 
       meta              =   audio_upload[:uploads].first[:meta]
-
-      self.duration     = meta[:duration].to_f.round(2)     unless meta[:duration].nil?  
-      self.lyrics       = meta[:lyrics].gsub(/\//, '<br>')  unless meta[:lyrics].nil? 
-      self.bpm          = meta[:beats_per_minute].to_i      unless meta[:beats_per_minute].nil?
-      self.album_name   = meta[:album].to_s                 unless meta[:album].nil?           
-      self.year         = meta[:year]                       unless meta[:year].nil?            
-      self.genre        = meta[:genre]                      unless meta[:genre].nil?           
-      self.artist       = meta[:artist]                     unless meta[:artist].nil?          
-      self.comment      = meta[:comment]                    unless meta[:comment].nil?         
-      self.performer    = meta[:performer]                  unless meta[:performer].nil?       
-      self.title        = meta[:title]                      unless meta[:title].nil?           
-      self.band         = meta[:band]                       unless meta[:band].nil?            
-      self.disc         = meta[:disc]                       unless meta[:disc].nil?            
-      self.track        = meta[:track]                      unless meta[:track].nil?    
-      self.save! 
+      self.duration     =   meta[:duration].to_f.round(2)     unless meta[:duration].nil?  
+      self.lyrics       =   meta[:lyrics].gsub(/\//, '<br>')  unless meta[:lyrics].nil? 
+      self.bpm          =   meta[:beats_per_minute].to_i      unless meta[:beats_per_minute].nil?
+      self.album_name   =   meta[:album].to_s                 unless meta[:album].nil?           
+      self.year         =   meta[:year]                       unless meta[:year].nil?            
+      self.genre        =   meta[:genre]                      unless meta[:genre].nil?           
+      self.artist       =   meta[:artist]                     unless meta[:artist].nil?          
+      self.comment      =   meta[:comment]                    unless meta[:comment].nil?         
+      self.performer    =   meta[:performer]                  unless meta[:performer].nil?       
+      self.title        =   meta[:title]                      unless meta[:title].nil?           
+      self.band         =   meta[:band]                       unless meta[:band].nil?            
+      self.disc         =   meta[:disc]                       unless meta[:disc].nil?            
+      self.track        =   meta[:track]                      unless meta[:track].nil?    
+      self.save!            
 
     rescue
       
@@ -338,15 +337,11 @@ class Recording < ActiveRecord::Base
   
   def self.import_csv(csv_file)
     CSV.foreach(csv_file.path, headers: true) do |row|
-      
-      
       recording_row = row.to_hash
-      
       begin
         #recording = Recording.find(recording_row["Recording Id"].to_id)
         recording = Recording.cached_find(recording_row["Recording Id"].to_i)
-        
-       
+
         recording.account_id            = recording_row["Account Id"].to_i                unless recording_row["Account Id"].to_s.empty?
         recording.common_work_id        = recording_row["Work ID"].to_i                   unless recording_row["Work ID"].to_s.empty?
         recording.title                 = recording_row["Title"].to_s                     unless recording_row["Title"].to_s.empty?
@@ -374,17 +369,14 @@ class Recording < ActiveRecord::Base
 
       rescue
       end
-
-        
     end
   end
   
   
   def extract_genres
     self.genre.split(',').each do |genre|
-      logger.debug '----------------------------------------------------------------'
 
-      
+
       extracted_genre = Genre.where(title: genre.strip).first_or_create(title: genre.strip, user_tag: true, category: 'user_tag')
       
       GenreTag.where( genre_id: extracted_genre.id, 
@@ -395,9 +387,6 @@ class Recording < ActiveRecord::Base
                         genre_tagable_type: self.class.to_s, 
                         genre_tagable_id: self.id
                      )
-      
-      
-      logger.debug '----------------------------------------------------------------'
     end
   end
   

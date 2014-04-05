@@ -1,0 +1,67 @@
+-session[:return_url] = request.url
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+
+            
+  .container
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
+                                                            content: admin_content_index_path, \
+                                                            tags: admin_tags_path, \
+                                                            genre: admin_genres_path, \
+                                                            }, current:  'user genre'}
+    == render 'admin/shared/messages'
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Genre'), blog_post: 'User Genre'}
+    /.row
+    /  .col-sm-12
+    /    .panel
+    /      .panel-body
+    /        /= form_tag admin_user_genres_path, :method => 'get' do
+    /        /  .row
+    /        /    .col-sm-6
+    /        /      br
+    /        /      = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search', value: params[:query]
+    /        /    .col-sm-6
+    /        /      br
+    /        /      = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+    /        /      '&nbsp;
+    /        /      = link_to 'Show All', admin_genres_path, class: 'btn btn-default btn-lg'
+    /        /  hr
+            .hidden-xs
+              == paginate(@genres)
+            .visible-xs
+              br
+              .btn-group.btn-group-sm
+                = link_to_previous_page @genres, '« Prev Page', class: 'btn btn-default mobile_pagination'
+                = link_to_next_page @genres, 'Next Page »', class: 'btn btn-default mobile_pagination'
+              br
+              b
+    .row 
+      .col-sm-12
+        table class="table table-striped"
+          tbody
+            -@genres.each do |genre|
+              tr
+                td = genre.title
+                td = genre.category
+                td 
+                  .pull-right
+                    = link_to edit_admin_genre_path(genre) do
+                      .btn.btn-primary.btn-lg
+                        i class="fa fa-pencil"
+                    '&nbsp;
+                    = link_to admin_genre_path(genre)  , data: { confirm: 'Are you sure?' } , method: :delete do
+                      .btn.btn-danger.btn-lg
+                        i class="fa fa-minus-circle"
+      .row
+        .col-sm-12
+          .hidden-xs
+            == paginate(@genres)
+          .visible-xs
+            br
+            .btn-group.btn-group-sm
+              = link_to_previous_page @genres, '« Prev Page', class: 'btn btn-default mobile_pagination'
+              = link_to_next_page @genres, 'Next Page »', class: 'btn btn-default mobile_pagination'
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

@@ -46,7 +46,7 @@ class Admin::GenresController < ApplicationController
     @genre = Genre.find(params[:id])
     @genre.destroy!
     flash[:success]   = { title: 'Success', body: 'Genere deleted' }
-    redirect_to admin_genres_path
+    redirect_to_return_url admin_genres_path
   end
 private
   def genre_params

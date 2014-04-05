@@ -1,0 +1,44 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'admin'
+
+               
+  .container
+    ==render 'admin/shared/messages'
+    /-cache ([request.url, @account.rec_cache_version, current_user.role  ]) do
+    .do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
+                                                              content: admin_content_index_path, \
+                                                              }, current:  'tags'}
+
+      
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Tags'} 
+    .row
+      .col-sm-6
+        == render 'shared/badge_button', locals: { \
+                                                    blog_post: 'GENRE', \
+                                                    link: admin_genres_path, \
+                                                    css_class: 'btn btn-primary', \
+                                                    icon: 'fa fa-tags' \
+                                                  }
+      .col-sm-6
+        == render 'shared/badge_button', locals: { \
+                                                    blog_post: 'INSTRUMENTS', \
+                                                    link: admin_content_index_path, \
+                                                    css_class: 'btn btn-success', \
+                                                    icon: 'fa fa-tags' \
+                                                  }
+    .row
+      .col-sm-6
+        == render 'shared/badge_button', locals: { \
+                                                    blog_post: 'MOODS', \
+                                                    link: admin_users_path, \
+                                                    css_class: 'btn btn-info', \
+                                                    icon: 'fa fa-tags' \
+                                                  }
+
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+  

@@ -10,16 +10,19 @@ class CatalogRecordingsController < ApplicationController
   def new
     @recording = Recording.cached_find(params[:recording])
     @catalog   = Catalog.cached_find(params[:catalog_id])
-    CatalogItem.create(catalog_id: @catalog.id, catalog_itemable_id: @recording.id, catalog_itemable_type: @recording.class.name)
-    
+    CatalogItem.where(catalog_id: @catalog.id, 
+                        catalog_itemable_id: @recording.id, 
+                        catalog_itemable_type: @recording.class.name)
+               .first_or_create(catalog_id: @catalog.id, 
+                                catalog_itemable_id: @recording.id, 
+                                catalog_itemable_type: @recording.class.name)
+                 
     # use ajax here
     redirect_to :back
   end
   
   def show
-    logger.debug '----------------------------------------------------------------'
-    logger.debug params
-    logger.debug '----------------------------------------------------------------'
+
   end
   
   def add_all

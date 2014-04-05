@@ -7,7 +7,7 @@
     ==render 'admin/shared/messages'
     -cache (['content', Admin.cached_find(1).version, current_user.uuid]) do
       /.do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: 'content'}
 
       
       == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Manage Content'} 
@@ -29,7 +29,7 @@
         .col-sm-6
           == render 'shared/badge_button', locals: { \
                                                       blog_post: 'TAGS', \
-                                                      link: admin_genres_path, \
+                                                      link: admin_tags_path, \
                                                       css_class: 'btn btn-warning', \
                                                       icon: 'fa fa-tags' \
                                                     }

@@ -1,0 +1,11 @@
+= simple_form_for [:admin, @genre_import] do |f|
+  - if @genre_import.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@genre_import.errors.count, "error")} prohibited this genre_import from being saved:"
+      ul
+        - @genre_import.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.input :csv_file
+  .actions = f.submit 'Save'

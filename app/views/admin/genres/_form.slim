@@ -2,7 +2,7 @@
   .col-sm-6
     = simple_form_for [:admin, @genre] do |f|
       = f.input :title
-      = f.input :category,  collection: @categories,  as: :radio_buttons, label: false
+      = f.input :category,  collection: Genre::GENRE_CATEGORY,  as: :radio_buttons, label: false
       = f.input :user_tag
        
       hr

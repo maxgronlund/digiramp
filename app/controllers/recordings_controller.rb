@@ -31,8 +31,7 @@ class RecordingsController < ApplicationController
       render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
     end
     
-    
-    
+
   end
   
   def edit
@@ -49,12 +48,12 @@ class RecordingsController < ApplicationController
   end
   
   def create
-    @common_work          = CommonWork.cached_find(params[:common_work_id])
-    @recording            = Recording.new(audio_upload: params[:transloadit], account_id: @account.id, title: params[:title], common_work_id: @common_work.id)
-    @recording.title      = @recording.audio_upload[:uploads][0][:name]
-    @recording.mp3        = @recording.audio_upload[:results][:mp3][0][:url]
-    @recording.waveform   = @recording.audio_upload[:results][:waveform][0][:url]
-    @recording.thumbnail  = @recording.audio_upload[:results][:thumbnail][0][:url]
+    @common_work            = CommonWork.cached_find(params[:common_work_id])
+    @recording              = Recording.new(audio_upload: params[:transloadit], account_id: @account.id, title: params[:title], common_work_id: @common_work.id)
+    @recording.title        = @recording.audio_upload[:uploads][0][:name]
+    @recording.mp3          = @recording.audio_upload[:results][:mp3][0][:url]
+    @recording.waveform     = @recording.audio_upload[:results][:waveform][0][:url]
+    @recording.thumbnail    = @recording.audio_upload[:results][:thumbnail][0][:url]
     #@recording.category   = 'none'
     @recording.cache_version += 1
     @recording.save!
@@ -70,15 +69,19 @@ class RecordingsController < ApplicationController
     @recording      = Recording.find(params[:id])
     params[:recording][:cache_version] = @recording.cache_version + 1
     
+    #logger.debug '----------------------------------------------------------------'
+    #logger.debug params[:recording][:genre_category]
+    #logger.debug '----------------------------------------------------------------'
+    
     if @genre_category = params[:recording][:genre_category]
       params[:recording].delete :genre_category
     end
-    
-    
-    
-    
+
     if @recording.update_attributes(recording_params)
+      @recording.extract_genres
       @recording.update_completeness
+      
+      
       if @genre_category
         redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording,genre_category: @genre_category )
       else
