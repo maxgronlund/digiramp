@@ -7,11 +7,11 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
                                                             content: admin_content_index_path, \
                                                             tags: admin_tags_path, \
-                                                            genre: admin_genres_path, \
-                                                            }, current: @genre.title}
+                                                            instruments: admin_instruments_path, \
+                                                            }, current: 'new instrument'}
 
       
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'Edit Genre'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'New Instrument'}
     = render 'form'
 
 

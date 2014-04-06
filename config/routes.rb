@@ -5,7 +5,6 @@ Digiramp::Application.routes.draw do
 
 
 
-  
 
   get "tags/index"
   get "user_genre_tags/index"
@@ -217,13 +216,18 @@ Digiramp::Application.routes.draw do
     get "content"   => "content#index", :as => :content_index
     resources :export_users, only: [:index]
     resources :export_genres, only: [:index]
+    resources :export_instruments, only: [:index]
     resources :features
     resources :genres
     resources :genre_imports
+    resources :instruments_imports
     resources :homes, only: [:edit, :update]
+    resources :instruments
+    resources :instruments_imports
     resources :tags, only: [:index]
     resources :users
     resources :user_genres, only: [:index]
+    resources :user_instruments, only: [:index]
     resources :video_blogs do
       resources :videos
     end

@@ -1,7 +1,7 @@
 class Genre < ActiveRecord::Base
   
-  #has_many :genre_tags
-  #has_many :recordings, through: :genre_tags
+  has_many :genre_tags
+  has_many :recordings, through: :genre_tags
   
   before_destroy :delete_genre_tags
   
@@ -77,11 +77,13 @@ class Genre < ActiveRecord::Base
   scope :ethnic_world,  -> { where(category: 'Ethnic World')}
   scope :jazz,          -> { where(category: 'Jazz')}
   scope :other,         -> { where(category: 'Other')}
+  scope :user_tags,     -> { where(user_tag: true)}
   
   
     
-  scope :by_users,    -> { where('user_tag IS TRUE') }
-  scope :by_digiramp, -> { where('user_tag IS NOT TRUE') }
+  #scope :by_users,    -> { where('user_tag IS TRUE') }
+  #scope :by_digiramp, -> { where('user_tag IS NOT TRUE') }
+  
   validates_uniqueness_of :title
   after_commit :flush_cache
   
@@ -100,9 +102,7 @@ class Genre < ActiveRecord::Base
   #end
   
   def delete_genre_tags
-    genre_tags = GenreTag.where(genre_id: id)
-    genre_tags.delete_all if genre_tags
-    
+    genre_tags.delete_all
   end
   
   def category_name
@@ -123,7 +123,7 @@ class Genre < ActiveRecord::Base
   
   def self.to_csv
     CSV.generate do |csv|
-      csv << ['Id','Category', 'Genre', 'INgrooves Category', 'INgrooves Genre', 'iTunes Category', 'iTunes Genre', 'User Genre' ]
+      csv << ['Id','Category', 'Genre', 'INgrooves Category', 'INgrooves Genre', 'iTunes Category', 'iTunes Genre', 'User Genre', 'Delete' ]
     
       all.each do |genre|
         csv << [  genre.id.to_s, 
@@ -133,7 +133,8 @@ class Genre < ActiveRecord::Base
                   genre.ingrooves_genre, 
                   genre.itunes_category, 
                   genre.itunes_genre,
-                  genre.user_tag
+                  genre.user_tag,
+                  ''
                 ]
       end
 

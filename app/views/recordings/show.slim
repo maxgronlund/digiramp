@@ -26,7 +26,7 @@
         .col-sm-6
           == render 'recordings/shared/metadata'
         .col-sm-6 
-          == render 'recordings/shared/lyrics' if @recording.vocal != 'Instrumental' || !@recording.lyrics.empty?
+          == render 'recordings/shared/lyrics' if @recording.vocal != 'Instrumental' || @recording.lyrics.to_s != ''
           /.panel
           /  .panel-body
           /    b I'm having an ISRC for this recording

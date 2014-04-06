@@ -40,7 +40,7 @@ class Recording < ActiveRecord::Base
   #has_many :genre_tags
   #has_many :genres, through: :genre_tags
   has_many :genre_tags, as: :genre_tagable
-  
+  has_many :instrument_tags, as: :instrument_tagable
   
   mount_uploader :cover_art, ThumbUploader
   
@@ -321,7 +321,7 @@ class Recording < ActiveRecord::Base
                   recording.vocal,
                   genre,
                   '',
-                  '',
+                  recording.instruments,
                   recording.disc,
                   recording.track,
                   recording.bpm,
@@ -371,6 +371,7 @@ class Recording < ActiveRecord::Base
         recording.cache_version += 1
         recording.save!
         recording.extract_genres
+        recording.extract_instruments
 
       rescue
       end
@@ -381,7 +382,7 @@ class Recording < ActiveRecord::Base
   def extract_genres
     self.genre.split(',').each do |genre|
 
-      extracted_genre = Genre.where(title: genre.strip).first_or_create(title: genre.strip, user_tag: true, category: 'user_tag')
+      extracted_genre = Genre.where(title: genre.strip).first_or_create(title: genre.strip, user_tag: true, category: 'User Genre')
 
       GenreTag.where( genre_id: extracted_genre.id, 
                       genre_tagable_type: self.class.to_s, 
@@ -394,6 +395,23 @@ class Recording < ActiveRecord::Base
     end
   end
   
+  
+  def extract_instruments
+    self.instruments.split(',').each do |instrument|
+
+      extracted_instrument = Instrument.where(title: instrument.strip).first_or_create(title: instrument.strip, user_tag: true, category: 'User Instrument')
+
+      InstrumentTag.where( instrument_id: extracted_instrument.id, 
+                           instrument_tagable_type: self.class.to_s, 
+                           instrument_tagable_id: self.id)
+                           .first_or_create(
+                             instrument_id: extracted_instrument.id, 
+                             instrument_tagable_type: self.class.to_s, 
+                             instrument_tagable_id: self.id
+                          )
+    end
+  end
+  
   def genre_tags_as_csv_string
     comma_seperated_genre_tags = ''
     genre_tags.each do |genre_tag|
@@ -402,6 +420,22 @@ class Recording < ActiveRecord::Base
     end
     # remove last ','
     comma_seperated_genre_tags.rstrip.gsub(/\W\z/, '') 
+
+  end
+  
+  
+  def instruments_tags_as_csv_string
+    comma_seperated_instruments_tags = ''
+    instrument_tags.each do |instrument_tag|
+      begin
+        comma_seperated_instruments_tags += instrument_tag.instrument.title
+        comma_seperated_instruments_tags += ', '
+      rescue
+        instrument_tag.destroy
+      end
+    end
+    # remove last ','
+    comma_seperated_instruments_tags.rstrip.gsub(/\W\z/, '') 
 
   end
   

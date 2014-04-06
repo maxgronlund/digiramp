@@ -7,20 +7,17 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
                                                             content: admin_content_index_path, \
                                                             tags: admin_tags_path, \
-                                                            }, current:  'genre'}
-    
-    
-    
-    
+                                                            }, current:  'instruments'}
+     
     == render 'admin/shared/messages'
     
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'Genre'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'Instruments'}
     
 
     .col-sm-12
       .panel
         .panel-body
-          = form_tag admin_genres_path, :method => 'get' do
+          = form_tag admin_instruments_path, :method => 'get' do
             .row
               .col-sm-6
                 br
@@ -29,15 +26,15 @@
                 br
                 = submit_tag 'Search', class: 'btn btn-primary btn-lg'
                 '&nbsp;
-                = link_to 'Show All', admin_genres_path, class: 'btn btn-default btn-lg'
+                = link_to 'Show All', admin_instruments_path, class: 'btn btn-default btn-lg'
             hr
           .hidden-xs
-            == paginate(@genres)
+            == paginate(@instruments)
           .visible-xs
             br
             .btn-group.btn-group-sm
-              = link_to_previous_page @genres, '« Prev Page', class: 'btn btn-default mobile_pagination'
-              = link_to_next_page @genres, 'Next Page »', class: 'btn btn-default mobile_pagination'
+              = link_to_previous_page @instruments, '« Prev Page', class: 'btn btn-default mobile_pagination'
+              = link_to_next_page @instruments, 'Next Page »', class: 'btn btn-default mobile_pagination'
             br
             b
     .row 
@@ -45,25 +42,25 @@
         table class="table table-striped"
           thead
             tr
-              th Genre
+              th Instrument
               th Category
               th User Tag
               th
           tbody
-            -@genres.each do |genre|
+            -@instruments.each do |instrument|
               tr
-                td = genre.title
-                td = genre.category
+                td = instrument.title
+                td = instrument.category
                 td 
-                  -if genre.user_tag
-                    'User Genre!
+                  -if instrument.user_tag
+                    'User Instrument!
                 td 
                   .pull-right
-                    = link_to edit_admin_genre_path(genre) do
+                    = link_to edit_admin_instrument_path(instrument) do
                       .btn.btn-primary.btn-lg
                         i class="fa fa-pencil"
                     '&nbsp;
-                    = link_to admin_genre_path(genre)  , data: { confirm: 'Are you sure?' } , method: :delete do
+                    = link_to admin_instrument_path(instrument)  , data: { confirm: 'Are you sure?' } , method: :delete do
                       .btn.btn-danger.btn-lg
                         i class="fa fa-minus-circle"
       
@@ -71,13 +68,14 @@
     .row
        .col-sm-12
          .pull-right
-           = link_to 'New', new_admin_genre_path, class: 'btn btn-primary btn-lg'
+           = link_to 'New', new_admin_instrument_path, class: 'btn btn-primary btn-lg'
            '&nbsp;
-           = link_to 'Export CSV', admin_export_genres_path( format: "csv"), class: 'btn btn-default btn-lg'
+           = link_to 'Export CSV', admin_export_instruments_path( format: "csv"), class: 'btn btn-default btn-lg'
            '&nbsp;
-           = link_to 'Import CSV', new_admin_genre_import_path, class: 'btn btn-default btn-lg'
+           = link_to 'Import CSV', new_admin_instruments_import_path, class: 'btn btn-default btn-lg'
            '&nbsp;
-           = link_to 'User Genre', admin_user_genres_path, class: 'btn btn-default btn-lg'
+           = link_to 'User Instruments', admin_user_instruments_path, class: 'btn btn-default btn-lg'
      
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
+

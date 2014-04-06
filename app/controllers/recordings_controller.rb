@@ -38,7 +38,8 @@ class RecordingsController < ApplicationController
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
     
-    @recording.genre = @recording.genre_tags_as_csv_string
+    @recording.genre        = @recording.genre_tags_as_csv_string
+    @recording.instruments  = @recording.instruments_tags_as_csv_string
     
     #@recording.copy_genre_tags_in_to_genre_string
     if params[:genre_category]
@@ -79,6 +80,7 @@ class RecordingsController < ApplicationController
 
     if @recording.update_attributes(recording_params)
       @recording.extract_genres
+      @recording.extract_instruments
       @recording.update_completeness
       
       

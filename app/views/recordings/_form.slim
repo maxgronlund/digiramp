@@ -47,12 +47,13 @@
       /=f.input :genre
       .row
         .col-sm-6
-          =f.input :bpm
+          = f.input :bpm
           
-          =f.input :duration
+          = f.input :duration
         .col-sm-6
-          =f.input :tempo,   collection: Recording::TEMPO
-          =f.input :genre
+          = f.input :tempo,   collection: Recording::TEMPO
+          = f.input :genre
+          = f.input :instruments
           
   hr
   .pull-right  

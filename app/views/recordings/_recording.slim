@@ -59,10 +59,23 @@
                       tbody
                         tr        
                           td
-                            -recording.genre_tags.first(5).each do |genre_tag|
+                            -recording.genre_tags.first(4).each do |genre_tag|
                               = genre_tag.genre.title
                               br
-                          td = recording.instruments
+                          td 
+                            -recording.instrument_tags.first(4).each do |instrument_tag|
+                              = instrument_tag.instrument.title
+                              br
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
                           
                           td 
                             -unless recording.bpm == 0 || recording.bpm.nil?

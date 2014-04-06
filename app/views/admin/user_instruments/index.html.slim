@@ -7,11 +7,11 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
                                                             content: admin_content_index_path, \
                                                             tags: admin_tags_path, \
-                                                            genre: admin_genres_path, \
-                                                            }, current:  'user genre'}
+                                                            genre: admin_instruments_path, \
+                                                            }, current:  'user instruments'}
     == render 'admin/shared/messages'
     
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'User Genre'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'User Instruments'}
     /.row
     /  .col-sm-12
     /    .panel
@@ -28,39 +28,39 @@
     /        /      = link_to 'Show All', admin_genres_path, class: 'btn btn-default btn-lg'
     /        /  hr
             .hidden-xs
-              == paginate(@genres)
+              == paginate(@instruments)
             .visible-xs
               br
               .btn-group.btn-group-sm
-                = link_to_previous_page @genres, '« Prev Page', class: 'btn btn-default mobile_pagination'
-                = link_to_next_page @genres, 'Next Page »', class: 'btn btn-default mobile_pagination'
+                = link_to_previous_page @instruments, '« Prev Page', class: 'btn btn-default mobile_pagination'
+                = link_to_next_page @instruments, 'Next Page »', class: 'btn btn-default mobile_pagination'
               br
               b
     .row 
       .col-sm-12
         table class="table table-striped"
           tbody
-            -@genres.each do |genre|
+            -@instruments.each do |instrument|
               tr
-                td = genre.title
-                td = genre.category
+                td = instrument.title
+                td = instrument.category
                 td 
                   .pull-right
-                    = link_to edit_admin_genre_path(genre) do
+                    = link_to edit_admin_instrument_path(instrument) do
                       .btn.btn-primary.btn-lg
                         i class="fa fa-pencil"
                     '&nbsp;
-                    = link_to admin_genre_path(genre)  , data: { confirm: 'Are you sure?' } , method: :delete do
+                    = link_to admin_instrument_path(instrument)  , data: { confirm: 'Are you sure?' } , method: :delete do
                       .btn.btn-danger.btn-lg
                         i class="fa fa-minus-circle"
       .row
         .col-sm-12
           .hidden-xs
-            == paginate(@genres)
+            == paginate(@instruments)
           .visible-xs
             br
             .btn-group.btn-group-sm
-              = link_to_previous_page @genres, '« Prev Page', class: 'btn btn-default mobile_pagination'
-              = link_to_next_page @genres, 'Next Page »', class: 'btn btn-default mobile_pagination'
+              = link_to_previous_page @instruments, '« Prev Page', class: 'btn btn-default mobile_pagination'
+              = link_to_next_page @instruments, 'Next Page »', class: 'btn btn-default mobile_pagination'
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

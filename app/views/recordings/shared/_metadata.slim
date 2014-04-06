@@ -15,9 +15,13 @@
         
         - if @recording.year   != '1001'
           == render 'recordings/shared/meta_line' , locals: {title: 'Year', data: @recording.year}
+        
         - if @recording.genre   != ''
           == render 'recordings/shared/meta_line' , locals: {title: 'Genre', data: @recording.genre}
-
+          
+        - if @recording.instruments   != ''
+          == render 'recordings/shared/meta_line' , locals: {title: 'Instruments', data: @recording.instruments}
+          
         - if @recording.artist   != ''
           == render 'recordings/shared/meta_line' , locals: {title: 'Artist', data: @recording.artist}
         

@@ -8,11 +8,11 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
                                                             content: admin_content_index_path, \
                                                             tags: admin_tags_path, \
-                                                            genre: admin_genres_path, \
-                                                            }, current:  'import genre csv'}
+                                                            genre: admin_instruments_path, \
+                                                            }, current:  'import instruments csv'}
                                                             
 
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'Import Genre CSV'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'Import Instruments CSV'}
     .row
       .col-sm-3
       
@@ -20,12 +20,12 @@
         .panel
           .panel-body
             h3 SELECT CSV FILE
-            = simple_form_for [:admin, @genre_import] do |f|
-              - if @genre_import.errors.any?
+            = simple_form_for [:admin, @instruments_import] do |f|
+              - if @instruments_import.errors.any?
                 #error_explanation
-                  h2 = "#{pluralize(@genre_import.errors.count, "error")} prohibited this genre_import from being saved:"
+                  h2 = "#{pluralize(@instruments_import.errors.count, "error")} prohibited this genre_import from being saved:"
                   ul
-                    - @genre_import.errors.full_messages.each do |message|
+                    - @instruments_import.errors.full_messages.each do |message|
                       li = message
 
               .field
