@@ -17,24 +17,6 @@
       
       
       .row
-        -if current_user.can_manage 'add_music', @account
-          .col-sm-6
-            == render 'assets/shared/badge_button', locals: { \
-                                                        blog_post: 'ADD MUSIC', \
-                                                        link: account_add_content_index_path(@account), \
-                                                        css_class: 'btn btn-primary', \
-                                                        icon: 'fa fa-cloud-upload' \
-                                                      }
-  
-            
-        -if current_user.can_manage 'access works', @account
-          .col-sm-6
-            == render 'assets/shared/badge_button', locals: { \
-                                                        blog_post: 'WORKS', \
-                                                        link: account_works_path(@account), \
-                                                        css_class: 'btn btn-success', \
-                                                        icon: 'fa fa-music'\
-                                                      }
 
             
         -if current_user.can_manage 'access recordings', @account
@@ -47,16 +29,16 @@
                                                         css_class: 'btn btn-warning', \
                                                         icon: 'fa fa-headphones'\
                                                       }
-                                                      
-
-        -if current_user.can_manage 'documents', @account
+  
+            
+        -if current_user.can_manage 'access works', @account
           .col-sm-6
-           == render 'assets/shared/badge_button', locals: { \
-                                                       blog_post: 'DOCUMENTS', \
-                                                       link: account_documents_path(@account), \
-                                                       css_class: 'btn btn-danger', \
-                                                       icon: 'fa fa-folder-o' \
-                                                     }
+            == render 'assets/shared/badge_button', locals: { \
+                                                        blog_post: 'WORKS', \
+                                                        link: account_works_path(@account), \
+                                                        css_class: 'btn btn-success', \
+                                                        icon: 'fa fa-music'\
+                                                      }
 
 
 
@@ -67,6 +49,25 @@
                                                        link: account_catalogs_path(@account), \
                                                        css_class: 'btn btn-info', \
                                                        icon: 'fa fa-list-ul' \
+                                                     }
+                                                      
+        -if current_user.can_manage 'add_music', @account
+          .col-sm-6
+            == render 'assets/shared/badge_button', locals: { \
+                                                        blog_post: 'ADD MUSIC', \
+                                                        link: account_add_content_index_path(@account), \
+                                                        css_class: 'btn btn-primary', \
+                                                        icon: 'fa fa-cloud-upload' \
+                                                      }
+                                                      
+
+        -if current_user.can_manage 'documents', @account
+          .col-sm-6
+           == render 'assets/shared/badge_button', locals: { \
+                                                       blog_post: 'DOCUMENTS', \
+                                                       link: account_documents_path(@account), \
+                                                       css_class: 'btn btn-danger', \
+                                                       icon: 'fa fa-folder-o' \
                                                      }
 
 

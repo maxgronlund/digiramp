@@ -118,10 +118,13 @@
                     th Role
                     th 
                 tbody
-                  -@account.account_users.each do |account_user|
-                    tr
-                      td = account_user.user.email
-                      td = account_user.role
+                  - begin
+                    - @account.account_users.each do |account_user|
+                      tr
+                        td = account_user.user.email
+                        td = account_user.role
+                  -rescue
+                    - account_user.destroy
                       
     .row
       .col-sm-12
