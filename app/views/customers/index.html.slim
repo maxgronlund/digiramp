@@ -1,4 +1,3 @@
--session[:return_url] = request.url
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'         
@@ -13,7 +12,7 @@
         .col-sm-12
           == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account) \
                                                         }, current: 'customers'}
-          == render 'shared/page_title', locals: {blog: Blog.cached_find('Customers'), blog_post: 'Manage Customers'}
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Customers'), blog_post: 'Manage Customers'}
       .row
         col-sm-12
           .panel

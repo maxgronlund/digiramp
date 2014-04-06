@@ -1,6 +1,3 @@
--session[:return_url] = request.url
-
-
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
@@ -17,11 +14,6 @@
                                                             }, current: 'edit'}
     -blog = Blog.cached_find('Import Batch')
     == render 'shared/page_title', locals: {blog: blog, blog_post: 'Edit Import Bacth'} 
-    
-    /@import_batch.title.to_sym => account_import_batche_path(@account, @import_batch),\
-    
-
-    
     .row
       .col-sm-6
         .panel
@@ -33,33 +25,7 @@
               hr
               .pull-right
                 = f.submit 'Save', class: 'btn btn-primary btn-lg'
-    
-    /== render 'form'
-    
-    /- if @recording.genre.empty?
-    /  
-    /  == render 'recordings/shared/select_genre', blog: blog
-    /- else  
-    /  
-    /
-                
-                
-         
-        /= transloadit_jquerify :recording, :wait => true
-        /= simple_form_for [ @account, @common_work, @recording ], :url => url_for(:action => 'update', :controller => 'recordings'), :method => 'put',  :html => { :id => 'recording' } do |f| 
-        /  = transloadit :recording_with_thumbs 
-        /  = f.hidden_field :common_work_id, value: @common_work.id
-        /  = f.file_field :file
-        /  = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
-        /  hr
-        /  .pull-right
-        /    = f.submit 'Upload', class: 'btn btn-primary btn-lg'
-        /
-        /
-        /= transloadit_jquerify :recording, :wait => true
 
-
-  
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
               

@@ -1,10 +1,11 @@
--session[:return_url] = request.url
+
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
 
             
   .container
+    /== render 'shared/page_title', locals: {blog: Blog.cached_find('Customers'), blog_post: 'New Activity'}
     ==render 'admin/shared/messages'
     
     .row

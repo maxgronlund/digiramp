@@ -137,5 +137,6 @@
           = link_to 'Delete Account', admin_account_path(@account), method: :delete ,data: {confirm: 'Are you sure?'} , class: 'btn btn-danger btn-lg'
         
         
-      
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'      
     

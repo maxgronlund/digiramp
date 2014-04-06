@@ -1,6 +1,7 @@
-- blog        = locals[:blog] 
-- blog_post   = BlogPost.cached_find( locals[:blog_post] , blog )
-- insert     = locals[:insert]
+- session[:return_url]  = request.url
+- blog                  = locals[:blog] 
+- blog_post             = BlogPost.cached_find( locals[:blog_post] , blog )
+- insert                = locals[:insert]
 
 .row
   .col-sm-8

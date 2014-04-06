@@ -1,4 +1,3 @@
--session[:return_url] = request.url
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'blog'
@@ -12,20 +11,24 @@
                                                                 content: admin_content_index_path, \
                                                                 }, current: 'blogs'} 
                     
-        == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Admin Blogs'}
-        .row
-          = form_tag admin_blogs_path, :method => 'get' do
-            .col-sm-6
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Admin Blogs'}
+    .row
+      .col-sm-12
+        .panel
+          .panel-body
+            = form_tag admin_blogs_path, :method => 'get' do
+              .col-sm-6
+                br
+                = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string'
+              .col-sm-6
+                br
+                = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                '&nbsp;
+                = link_to 'Show All',admin_blogs_path, class: 'btn btn-default btn-lg'
               br
-              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string'
-            .col-sm-6
-              br
-              = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-              '&nbsp;
-              = link_to 'Show All',admin_blogs_path, class: 'btn btn-default btn-lg'
-        br
-        
-        
+              
+    .row
+      .col-sm-12
         .panel
           .panel-body
             .table-responsive

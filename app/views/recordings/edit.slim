@@ -1,6 +1,3 @@
--session[:return_url] = request.url
-
-
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
@@ -13,8 +10,8 @@
                                                             recordings: account_recordings_path(@account), \
                                                             @recording.title.to_sym => account_common_work_recording_path(@account, @recording.common_work, @recording), \
                                                             }, current: 'edit'}
-    -blog = Blog.cached_find('Edit Recording')
-    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Edit Recording'} 
+
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Edit Recording'), blog_post: 'Edit Recording'} 
     
     
     
@@ -43,27 +40,7 @@
     hr
     == render 'form'
     
-    /- if @recording.genre.empty?
-    /  
-    /  == render 'recordings/shared/select_genre', blog: blog
-    /- else  
-    /  
-    /
-                
-                
-         
-        /= transloadit_jquerify :recording, :wait => true
-        /= simple_form_for [ @account, @common_work, @recording ], :url => url_for(:action => 'update', :controller => 'recordings'), :method => 'put',  :html => { :id => 'recording' } do |f| 
-        /  = transloadit :recording_with_thumbs 
-        /  = f.hidden_field :common_work_id, value: @common_work.id
-        /  = f.file_field :file
-        /  = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
-        /  hr
-        /  .pull-right
-        /    = f.submit 'Upload', class: 'btn btn-primary btn-lg'
-        /
-        /
-        /= transloadit_jquerify :recording, :wait => true
+
 
 
   

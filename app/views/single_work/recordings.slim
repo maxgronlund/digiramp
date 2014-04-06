@@ -1,4 +1,3 @@
--session[:return_url] = request.url
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
@@ -10,15 +9,7 @@
                                                             assets: account_assets_path(@account), \
                                                             'create content'.to_sym => account_add_content_index_path(@account),\
                                                             }, current:  'recordings'}
-    /.row
-    /  .col-sm-6
-    /    h1 = @add_recording.title
-    /    = @add_recording.body
-    /  -if can_edit?
-    /    .col-sm-6
-    /      = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @add_recording), class: 'btn btn-primary btn-lg'
-    /
-    ==render 'admin/shared/messages'
+
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Recordings'} 
     .row
       .col-sm-3
@@ -47,21 +38,7 @@
       .col-sm-12
         -@common_work.recordings.each do |recording|
           = debug recording
-      
-    /= simple_nested_form_for [@account, @common_work], url: url_for(action: 'update', controller: 'single_work'), method: 'post' do |f|
-    /  = f.error_notification
-    /  = f.hidden_field :account_id, value: @account.id
-    /  = f.hidden_field :step, value: 'recordings added'
-    /  
-    /  = f.fields_for :recordings
-    /  
-    /  hr
-    /  = f.link_to_add 'Add recording', :recordings, :class => 'btn btn-default btn-lg'
-    /  
-    /
-    /    
-      
-      
+
       .col-sm-12
         hr
         .pull-right
@@ -72,9 +49,5 @@
           = f.submit 'Next', class: 'btn btn-primary btn-lg'
       
 
-#footer
-  .container
-    .footer
-      .row
-        .col-sm-12
-          '©2014 All rights reserved
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

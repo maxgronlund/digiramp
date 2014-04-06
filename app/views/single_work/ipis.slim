@@ -1,4 +1,3 @@
--session[:return_url] = request.url
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
@@ -9,14 +8,8 @@
                                                             'create content'.to_sym => account_add_content_index_path(@account),\
                                                             }, current:  @add_ipis.title}
                                                             
-    .row
-      .col-sm-6
-        h1 = @add_ipis.title
-        = @add_ipis.body
-      -if can_edit?
-        .col-sm-6
-          = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @add_ipis), class: 'btn btn-primary btn-lg'
-    hr
+
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Work'), blog_post: 'IPI'} 
     ==render 'admin/shared/messages'
     = simple_form_for [@account, @common_work], url: url_for(action: 'update', controller: 'single_work'), method: 'post' do |f|
       = f.error_notification
@@ -36,10 +29,5 @@
         '&nbsp;
         = f.submit 'Next', class: 'btn btn-primary btn-lg'
 
-
-#footer
-  .container
-    .footer
-      .row
-        .col-sm-12
-          '©2014 All rights reserved
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

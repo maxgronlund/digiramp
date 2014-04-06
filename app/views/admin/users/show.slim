@@ -1,4 +1,3 @@
--session[:return_url] = request.url
 - accounts_i_can_access = BlogPost.cached_find( 'Accounts I can access' , Blog.cached_find('User Account') )
 - user_account = Account.cached_find(@user.account_id)
 
@@ -7,14 +6,16 @@
     == render 'admin/shared/navbar', page: 'admin'
   .container
     ==render 'admin/shared/messages'
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'User Account'} 
     .row
       .col-sm-6  
-        == render 'users/shared/accounts_with_access', user_account: user_account    
-        'billing info and other backend stuff goes here
+        == render 'users/shared/user_profile'
+        /== render 'users/shared/accounts_with_access', user_account: user_account    
+        
          
       .col-sm-6  
         == render 'users/shared/account_info', user_account: user_account  
-        == render 'users/shared/user_profile'
+        
         /ul
         /  li Subscription plan
         /  li Accounts

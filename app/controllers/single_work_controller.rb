@@ -93,37 +93,7 @@ class SingleWorkController < ApplicationController
   def common_work_params
     params.require(:common_work).permit!
   end
-  
-  #def get_blog
-  #  @blog  = Blog.add_content
-  #end
-  #
-  #def new_single_work
-  #  BlogPost.where(identifier: 'New Single Work', blog_id: @blog.id)\
-  #          .first_or_create(identifier: 'New Single Work', blog_id: @blog.id, title: 'New Single Work', body: 'Add one Common Work') 
-  #end
-  #
-  #
-  #def add_lytics
-  #  BlogPost.where(identifier: 'Add Lyrics', blog_id: @blog.id)\
-  #          .first_or_create(identifier: 'Add Lyrics', blog_id: @blog.id, title: 'Add Lyrics', body: 'Improve the search') 
-  #end
-  #
-  #def add_recording
-  #  BlogPost.where(identifier: 'Add Recording', blog_id: @blog.id)\
-  #          .first_or_create(identifier: 'Add Recording', blog_id: @blog.id, title: 'Add Recording', body: 'Upload a recording so people can listen to your work') 
-  #end
-  #
-  #def add_ipis
-  #  BlogPost.where(identifier: "Add Interested Parties Info", blog_id: @blog.id)\
-  #          .first_or_create(identifier: 'Add Interested Parties Info', blog_id: @blog.id, title: 'Add Interested Parties Info', body: 'People with a interest in the work') 
-  #end
-  #
-  #def add_users
-  #  BlogPost.where(identifier: "Add Users", blog_id: @blog.id)\
-  #          .first_or_create(identifier: 'Add Users', blog_id: @blog.id, title: 'Add Users', body: 'People you want to have access to this work') 
-  #end
-  #
+
   
   
 end

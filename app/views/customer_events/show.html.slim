@@ -1,35 +1,3 @@
-/p#notice = notice
-/
-/p
-/  strong Event type:
-/  = @customer_event.event_type
-/p
-/  strong Action type:
-/  = @customer_event.action_type
-/p
-/  strong Title:
-/  = @customer_event.title
-/p
-/  strong Body:
-/  = @customer_event.body
-/p
-/  strong Folow up:
-/  = @customer_event.folow_up
-/p
-/  strong Follow up date:
-/  = @customer_event.follow_up_date
-/p
-/  strong Account:
-/  = @customer_event.account
-/p
-/  strong Customer:
-/  = @customer_event.customer
-/
-/= link_to 'Edit', edit_customer_event_path(@customer_event)
-/'|
-/= link_to 'Back', customer_events_path
-
--session[:return_url] = request.url
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'     

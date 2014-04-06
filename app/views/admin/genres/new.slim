@@ -1,4 +1,3 @@
--session[:return_url] = request.url
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
@@ -7,27 +6,5 @@
       .col-sm-6
         = render 'form'
 
-            
-  /.container
-  /  ==render 'admin/shared/messages'
-  /  
-  /  .row
-  /    .col-sm-12
-  /      table class="table table-striped"
-  /        tbody
-  /          -@genres.each do |genre|
-  /            tr
-  /              td = genre.title
-  /              td = genre.category
-  /              td 
-  /                .pull-right
-  /                  = link_to edit_admin_genre_path(genre) do
-  /                    .btn.btn-primary.btn-lg
-  /                      i class="fa fa-pencil"
-  /                  '&nbsp;
-  /                  = link_to admin_genre_path(genre)  , data: { confirm: 'Are you sure?' } , method: :delete do
-  /                    .btn.btn-danger.btn-lg
-  /                      i class="fa fa-minus-circle"
-  /      
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

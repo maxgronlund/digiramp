@@ -1,16 +1,11 @@
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
-        
   .container
-    
     == render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             customers: account_customers_path(@account), \
                                                             }, current: 'new customer'}
-                                                            
-
-                                                            
 
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Customers'), blog_post: 'New Customer'}
     = simple_form_for [@account, @account_user], url: url_for(action: 'create', controller: 'customers'), method: 'post' do |f|
@@ -23,11 +18,7 @@
               = f.input :email
               = f.input :phone
               hr
-              /= f.input :access_to_all_recordings
-              /= f.input :access_to_all_common_works
-              /= f.input :access_to_all_rights
-              /= f.input :access_to_all_documents
-              /= f.input :access_to_collect
+
             .col-sm-6
               b Note
               br
