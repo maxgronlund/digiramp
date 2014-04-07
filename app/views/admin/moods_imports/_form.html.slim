@@ -1,0 +1,11 @@
+= simple_form_for [:admin, @mood_import] do |f|
+  - if @mood_import.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@mood_import.errors.count, "error")} prohibited this mood import from being saved:"
+      ul
+        - @mood_import.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.input :csv_file
+  .actions = f.submit 'Save'

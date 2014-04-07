@@ -1,0 +1,81 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+
+            
+  .container
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
+                                                            content: admin_content_index_path, \
+                                                            tags: admin_tags_path, \
+                                                            }, current:  'moods'}
+     
+    == render 'admin/shared/messages'
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'Moods'}
+    
+
+    .col-sm-12
+      .panel
+        .panel-body
+          = form_tag admin_moods_path, :method => 'get' do
+            .row
+              .col-sm-6
+                br
+                = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search', value: params[:query]
+              .col-sm-6
+                br
+                = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                '&nbsp;
+                = link_to 'Show All', admin_moods_path, class: 'btn btn-default btn-lg'
+            hr
+          .hidden-xs
+            == paginate(@moods)
+          .visible-xs
+            br
+            .btn-group.btn-group-sm
+              = link_to_previous_page @moods, '« Prev Page', class: 'btn btn-default mobile_pagination'
+              = link_to_next_page @moods, 'Next Page »', class: 'btn btn-default mobile_pagination'
+            br
+            b
+    .row 
+      .col-sm-12
+        table class="table table-striped"
+          thead
+            tr
+              th Mood
+              th Category
+              th User Tag
+              th
+          tbody
+            -@moods.each do |mood|
+              tr
+                td = mood.title
+                td = mood.category
+                td 
+                  -if mood.user_tag
+                    'User Mood!
+                td 
+                  .pull-right
+                    = link_to edit_admin_mood_path(mood) do
+                      .btn.btn-primary.btn-lg
+                        i class="fa fa-pencil"
+                    '&nbsp;
+                    = link_to admin_mood_path(mood)  , data: { confirm: 'Are you sure?' } , method: :delete do
+                      .btn.btn-danger.btn-lg
+                        i class="fa fa-minus-circle"
+      
+      
+    .row
+       .col-sm-12
+         .pull-right
+           = link_to 'New', new_admin_mood_path, class: 'btn btn-primary btn-lg'
+           '&nbsp;
+           = link_to 'Export CSV', admin_export_moods_path( format: "csv"), class: 'btn btn-default btn-lg'
+           '&nbsp;
+           = link_to 'Import CSV', new_admin_moods_import_path, class: 'btn btn-default btn-lg'
+           '&nbsp;
+           = link_to 'User Moods', admin_user_moods_path, class: 'btn btn-default btn-lg'
+     
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+

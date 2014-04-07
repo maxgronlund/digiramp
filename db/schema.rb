@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140406212410) do
+ActiveRecord::Schema.define(version: 20140407185358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -587,9 +587,16 @@ ActiveRecord::Schema.define(version: 20140406212410) do
 
   create_table "moods", force: true do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.boolean  "user_tag"
+    t.string   "category",   default: ""
+  end
+
+  create_table "moods_imports", force: true do |t|
+    t.string   "csv_file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "music_opportunities", force: true do |t|
@@ -833,7 +840,7 @@ ActiveRecord::Schema.define(version: 20140406212410) do
     t.string   "cover_art"
     t.string   "vocal",               default: ""
     t.integer  "import_batch_id"
-    t.string   "mood",                default: ""
+    t.text     "mood",                default: ""
     t.text     "instruments",         default: ""
     t.string   "tempo",               default: ""
     t.string   "grouping",            default: ""

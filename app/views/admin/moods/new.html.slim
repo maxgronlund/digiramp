@@ -1,0 +1,19 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  .container
+    ==render 'admin/shared/messages'
+
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                            content: admin_content_index_path, \
+                                                            tags: admin_tags_path, \
+                                                            instruments: admin_instruments_path, \
+                                                            }, current: 'new instrument'}
+
+      
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'New Instrument'}
+    = render 'form'
+
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

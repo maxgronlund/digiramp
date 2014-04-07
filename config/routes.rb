@@ -6,6 +6,7 @@ Digiramp::Application.routes.draw do
 
 
 
+  get "signup/index"
   get "tags/index"
   get "user_genre_tags/index"
   get "permissions/index"
@@ -217,17 +218,20 @@ Digiramp::Application.routes.draw do
     resources :export_users, only: [:index]
     resources :export_genres, only: [:index]
     resources :export_instruments, only: [:index]
+    resources :export_moods, only: [:index]
     resources :features
     resources :genres
     resources :genre_imports
-    resources :instruments_imports
     resources :homes, only: [:edit, :update]
     resources :instruments
     resources :instruments_imports
+    resources :moods
+    resources :moods_imports
     resources :tags, only: [:index]
     resources :users
     resources :user_genres, only: [:index]
     resources :user_instruments, only: [:index]
+    resources :user_moods, only: [:index]
     resources :video_blogs do
       resources :videos
     end

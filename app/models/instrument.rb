@@ -56,6 +56,7 @@ class Instrument < ActiveRecord::Base
       return all
     end
   end
+  
   #def self.by_comma_seperated string
   #  instruments = []
   #  if string
@@ -106,7 +107,7 @@ class Instrument < ActiveRecord::Base
         end
           
         import_category            = instrument_row["Category"].to_s == '' ? 'Other' : instrument_row["Category"].to_s 
-        @instrument.title          = @instrument.title.titleize  
+        @instrument.title          = instrument_title  
         @instrument.category       = import_category.strip.gsub('_',' ').titleize                              
         @instrument.user_tag       = instrument_row["User Tag"].to_s == 'true'
         @instrument.save
