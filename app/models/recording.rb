@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Recording < ActiveRecord::Base
   
   serialize :audio_upload, Hash
@@ -41,6 +42,7 @@ class Recording < ActiveRecord::Base
   #has_many :genres, through: :genre_tags
   has_many :genre_tags, as: :genre_tagable
   has_many :instrument_tags, as: :instrument_tagable
+  has_many :mood_tags, as: :mood_tagable
   
   mount_uploader :cover_art, ThumbUploader
   
@@ -307,6 +309,8 @@ class Recording < ActiveRecord::Base
           genre << genre_tag.genre.title
           genre << ','
         end
+        
+        
 
         csv << [  recording.account_id, 
                   recording.id, 
@@ -319,9 +323,9 @@ class Recording < ActiveRecord::Base
                   recording.year,
                   recording.album_name.to_s.squish,
                   recording.vocal,
-                  genre,
-                  '',
-                  recording.instruments,
+                  recording.genre_tags_as_csv_string,
+                  recording.moods_tags_as_csv_string,
+                  recording.instruments_tags_as_csv_string,
                   recording.disc,
                   recording.track,
                   recording.bpm,
@@ -345,7 +349,7 @@ class Recording < ActiveRecord::Base
       begin
         #recording = Recording.find(recording_row["Recording Id"].to_id)
         recording = Recording.cached_find(recording_row["Recording Id"].to_i)
-
+        # make check for permissions here
         recording.account_id            = recording_row["Account Id"].to_i                unless recording_row["Account Id"].to_s.empty?
         recording.common_work_id        = recording_row["Work ID"].to_i                   unless recording_row["Work ID"].to_s.empty?
         recording.title                 = recording_row["Title"].to_s                     unless recording_row["Title"].to_s.empty?
@@ -372,6 +376,7 @@ class Recording < ActiveRecord::Base
         recording.save!
         recording.extract_genres
         recording.extract_instruments
+        recording.extract_moods
 
       rescue
       end
@@ -412,6 +417,24 @@ class Recording < ActiveRecord::Base
     end
   end
   
+  def extract_moods
+    self.mood.split(',').each do |mood|
+
+      extracted_mood = Mood.where(title: mood.strip).first_or_create(title: mood.strip, user_tag: true, category: 'User Mood')
+
+      MoodTag.where( mood_id: extracted_mood.id, 
+                           mood_tagable_type: self.class.to_s, 
+                           mood_tagable_id: self.id)
+                           .first_or_create(
+                             mood_id: extracted_mood.id, 
+                             mood_tagable_type: self.class.to_s, 
+                             mood_tagable_id: self.id
+                          )
+    end
+  end
+  
+  
+  
   def genre_tags_as_csv_string
     comma_seperated_genre_tags = ''
     genre_tags.each do |genre_tag|
@@ -434,9 +457,20 @@ class Recording < ActiveRecord::Base
         instrument_tag.destroy
       end
     end
-    # remove last ','
     comma_seperated_instruments_tags.rstrip.gsub(/\W\z/, '') 
-
+  end
+  
+  def moods_tags_as_csv_string
+    comma_seperated_moods_tags = ''
+    mood_tags.each do |mood_tag|
+      begin
+        comma_seperated_moods_tags += mood_tag.mood.title
+        comma_seperated_moods_tags += ', '
+      rescue
+        mood_tag.destroy
+      end
+    end
+    comma_seperated_moods_tags.rstrip.gsub(/\W\z/, '') 
   end
   
   

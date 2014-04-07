@@ -145,6 +145,7 @@ class TransloaditParser
     recording.mp3               = transloadet[:mp3]
     recording.waveform          = transloadet[:waveform]
     recording.thumbnail         = transloadet[:thumbnail]
+    recording.audio_upload      = transloadet
     recording.extract_genres
     recording.update_completeness
   end

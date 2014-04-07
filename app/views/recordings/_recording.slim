@@ -51,13 +51,14 @@
                       thead
                         tr
                           /th
+                          
                           th Genre
                           th Instruments
-                          //th Vocal
-                          th Tempo
                           th Mood
+                          th Tempo
                       tbody
-                        tr        
+                        tr 
+                          
                           td
                             -recording.genre_tags.first(4).each do |genre_tag|
                               = genre_tag.genre.title
@@ -66,17 +67,12 @@
                             -recording.instrument_tags.first(4).each do |instrument_tag|
                               = instrument_tag.instrument.title
                               br
+           
                           
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
+                          td 
+                            -recording.mood_tags.first(4).each do |mood_tag|
+                              = mood_tag.mood.title
+                              br
                           td 
                             -unless recording.bpm == 0 || recording.bpm.nil?
                               i BPM:&nbsp;
@@ -84,9 +80,7 @@
                               br
                             -unless recording.tempo.empty?
                               i Tempo:&nbsp;
-                              =recording.tempo 
-                          td =recording.mood 
-                    
+                              =recording.tempo
   
   
     div id="load-player"

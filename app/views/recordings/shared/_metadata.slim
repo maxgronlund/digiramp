@@ -22,6 +22,9 @@
         - if @recording.instruments   != ''
           == render 'recordings/shared/meta_line' , locals: {title: 'Instruments', data: @recording.instruments}
           
+        - if @recording.mood   != ''
+          == render 'recordings/shared/meta_line' , locals: {title: 'Moods', data: @recording.mood}
+          
         - if @recording.artist   != ''
           == render 'recordings/shared/meta_line' , locals: {title: 'Artist', data: @recording.artist}
         

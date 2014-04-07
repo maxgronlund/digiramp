@@ -14,7 +14,15 @@ class Mood < ActiveRecord::Base
                            "Calm Pleasant", 
                            "Calm Unpleasant"
                         ]
-                        
+  
+  scope :energized_pleasant,   -> { where(category: 'Energized Pleasant')}
+  scope :energized_unpleasant, -> { where(category: 'Energized Unpleasant')}
+  scope :calm_pleasant,        -> { where(category: 'Calm Pleasant')}
+  scope :calm_unpleasant,      -> { where(category: 'Calm Unpleasant')}
+  scope :other,                -> { where(category: 'Other')}
+  scope :user_moods,           -> { where(category: 'User Mood')}
+  scope :user_tags,            -> { where(user_tag: true)}
+                     
   before_destroy :delete_mood_tags
   
   include PgSearch

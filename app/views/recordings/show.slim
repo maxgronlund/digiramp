@@ -14,7 +14,7 @@
       .row
         -body = link_to @common_work.title, account_work_path(@account, @common_work)
         == render 'shared/page_title_text', locals: {title: @recording.title, body: body}
-
+        /= debug @recording
       == render 'shared/line'
       -index = @recording.id
       div class="player" id="#{index}"

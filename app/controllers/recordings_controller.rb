@@ -40,6 +40,7 @@ class RecordingsController < ApplicationController
     
     @recording.genre        = @recording.genre_tags_as_csv_string
     @recording.instruments  = @recording.instruments_tags_as_csv_string
+    @recording.mood         = @recording.moods_tags_as_csv_string
     
     #@recording.copy_genre_tags_in_to_genre_string
     if params[:genre_category]
@@ -81,6 +82,7 @@ class RecordingsController < ApplicationController
     if @recording.update_attributes(recording_params)
       @recording.extract_genres
       @recording.extract_instruments
+      @recording.extract_moods
       @recording.update_completeness
       
       
