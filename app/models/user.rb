@@ -191,8 +191,11 @@ class User < ActiveRecord::Base
   def can_manage asset, account
     return true if role             == 'super'
     return true if account.user_id  == id
+    account_user = AccountUser.cached_find( id, account.id)
+    return true if account_user.role == 'Administrator'
     
-    if account_user = AccountUser.cached_find( id, account.id)
+    if account_user
+      
       case asset
       when 'users'
         return account_user.can_administrate?

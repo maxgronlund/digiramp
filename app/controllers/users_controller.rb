@@ -115,7 +115,7 @@ private
     if current_user && current_user.can_edit?
       params.require(:user).permit! 
     else
-      params.require(:user).permit(:name, :email, :image, :crop_params, :password, :password_confirmation, :profile, :commit, :show_welcome_message)
+      params.require(:user).permit(:name, :email, :image, :crop_params, :password, :password_confirmation, :profile, :commit, :show_welcome_message, :role)
     end 
   end
           
