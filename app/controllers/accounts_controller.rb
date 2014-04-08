@@ -18,6 +18,11 @@ class AccountsController < ApplicationController
       @account_status = 'dashboard'
     end
     
+    if @account.user.nil?
+      @account.user = @account.account_users.first.user
+      @account.save
+    end
+    
     #if @account.title.to_s == @account.user.email
     #  @welcome   = BlogPost.where(identifier: 'Welcome', blog_id: @blog.id).
     #                              first_or_create(identifier: 'Welcome', blog_id: @blog.id, title: 'Welcome')  
@@ -36,7 +41,7 @@ class AccountsController < ApplicationController
     @account_users  = @account.account_users.order('role asc')
     @show_users = current_user.can_administrate( @account) && @account_users.size > 1
     
-    # this hould be updated
+    # this should be updated
     if current_user.current_account_id != @account.id
       current_user.current_account_id = @account.id
       current_user.save!

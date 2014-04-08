@@ -304,11 +304,11 @@ class Recording < ActiveRecord::Base
       
       all.each do |recording|
         
-        genre = ''
-        recording.genre_tags.each do |genre_tag|
-          genre << genre_tag.genre.title
-          genre << ','
-        end
+        #genre = ''
+        #recording.genre_tags.each do |genre_tag|
+        #  genre << genre_tag.genre.title
+        #  genre << ','
+        #end
         
         
 

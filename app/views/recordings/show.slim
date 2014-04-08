@@ -19,9 +19,11 @@
       -index = @recording.id
       div class="player" id="#{index}"
       .just-load
-      .digiramp_player
-        == render 'players/digramp_player', locals: {index: index , recording: @recording}
-      == render 'shared/line'
+      .panel.panel-default
+        .panel-body
+          .digiramp_player
+            == render 'players/digramp_player', locals: {index: index , recording: @recording}
+      /== render 'shared/line'
       .row
         .col-sm-6
           == render 'recordings/shared/metadata'
