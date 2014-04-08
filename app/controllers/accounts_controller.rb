@@ -60,6 +60,7 @@ class AccountsController < ApplicationController
   end
   
   def update
+
     params[:account][:rec_cache_version] = @account.rec_cache_version + 1    
     @account.update_attributes(account_params)
     redirect_to_return_url account_path( @account)

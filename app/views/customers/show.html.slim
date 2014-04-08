@@ -19,44 +19,46 @@
 
     == render 'shared/line'
     .row
-      .col-sm-12
+      .col-sm-6
         .panel
           .panel-body
-            .row
-              .col-sm-6
-                b Contact
-                .table-responsive
-                  table class="table"
-                    tr
-                      td 
-                        .pull-right
-                          'Email:
-                      td = @account_user.email
-                    tr
-                      td 
-                        .pull-right
-                          'Phone:
-                      td = @account_user.get_phone
-                
-              .col-sm-6
-                b Note
-                = simple_format @account_user.note
-    
+            b Contact
+            .table-responsive
+              table class="table"
+                tr
+                  td 
+                    .pull-right
+                      'Email:
+                  td = @account_user.email
+                tr
+                  td 
+                    .pull-right
+                      'Phone:
+                  td = @account_user.get_phone
+            
+      .col-sm-6
+        .panel
+          .panel-body
+            b Note
+            = simple_format @account_user.note
+      
     
 
 
     .row
       .col-sm-6
-        h3 Activities
-        
-        - @account_user.customer_events.order('created_at desc').each do |customer_event|
-          .panel
-            .panel-body
-              h3 = customer_event.event_type
-              'Created: #{customer_event.created_at.strftime("%d %b %Y")}
-              .pull-right
-                = link_to 'View', account_customer_customer_event_path( @account, @account_user, customer_event), class: 'btn btn-primary btn-lg'
-              
+        .panel
+          .panel-body
+            h3 Activities
+            
+            - @account_user.customer_events.order('created_at desc').each do |customer_event|
+              .panel
+                .panel-body
+                  h3 = customer_event.event_type
+                  'Created: #{customer_event.created_at.strftime("%d %b %Y")}
+                  .pull-right
+                    = link_to 'View', account_customer_customer_event_path( @account, @account_user, customer_event), class: 'btn btn-primary btn-lg'
+                  
 
 
 

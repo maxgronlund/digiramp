@@ -11,23 +11,29 @@
         == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
                                                                 blogs: admin_blogs_path, \
                                                                 }, current: @blog.title}
-        h2 =@blog.title
+    .row
+      .col-sm-6
+        h1 =@blog.title
         = @blog.body
-
+      .col-sm-6
         .pull-right
-          = link_to 'Edit Blog Title', edit_admin_blog_path(@blog), class: 'btn btn-primary'
+          = link_to 'Edit Blog Title', edit_admin_blog_path(@blog), class: 'btn btn-primary btn-lg'
+    == render 'shared/line'
           
-        
-    -@blog_posts.each do |blog_post|
-      .row
-        = render 'blog_post', blog_post: blog_post[0] if blog_post[0]
-        = render 'blog_post', blog_post: blog_post[1] if blog_post[1]
-        .col-sm-12
-          hr
+    .row
+      .col-sm-12
+        .panel
+          .panel-body
+            -@blog_posts.each do |blog_post|
+              .row
+                = render 'blog_post', blog_post: blog_post[0] if blog_post[0]
+                = render 'blog_post', blog_post: blog_post[1] if blog_post[1]
+                .col-sm-12
+                  hr
     .row
       .col-sm-12
         .pull-right
-          = link_to 'Back to Blogs', admin_blogs_path,  class: 'btn btn-default btn-lg'
+          = link_to 'Blogs', admin_blogs_path,  class: 'btn btn-default btn-lg'
           '&nbsp;
           = link_to 'New Post', new_admin_blog_blog_post_path(@blog), class: 'btn btn-primary btn-lg'
         

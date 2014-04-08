@@ -1,52 +1,55 @@
 = simple_form_for [:admin, @blog, @blog_post] do |f|
-  = f.error_notification
-  = f.hidden_field :blog_id
-  .row
-    .col-sm-6
-      
-      = f.input :title, :input_html => { placeholder: "Title"}
-      /-if current_user.email == 'max@synthmax.dk'
-      /  = f.input :identifier, :input_html => { class: 'span12', placeholder: "identifier"}
-      = f.input :author, :input_html => {  placeholder: "Author"}
-      = f.input :link, :input_html => {  placeholder: "Link (optional)"}
-      =render 'admin/blog_posts/edit_image'   
-      = f.input :image, :input_html => {  placeholder: "Select Image File"}
-      /= f.input :layout , :include_blank => false , :collection => BlogPost::LAYOUTS, label: 'page layout', input_html: { class: 'chzn-select' }
-      = f.input :image_title, :input_html => {  placeholder: "Image Title"}
-      
-  
-  
-  
-  
-  
-    .col-sm-6
-      = f.input :teaser, :input_html => { style: " height: 120px;", placeholder: "Teaser"}
-      
-      div id="toolbar" class="wysihtml5-toolbar"
-        a data-wysihtml5-command="bold" Bold
-        '&nbsp; 
-        a data-wysihtml5-command="italic" Italic
-      
-      =f.input :body, label: false, :input_html => {  style: "height: 360px;", placeholder: "Write here", id: 'wysihtml5_editor'}
+  .panel
+    .panel-body
+      = f.error_notification
+      = f.hidden_field :blog_id
+      .row
+        .col-sm-6
           
-          
-          
-      /= f.input :body, :input_html => { style: " height: 180px;", placeholder: "Teaser"}
-
-
+          = f.input :title, :input_html => { placeholder: "Title"}
+          /-if current_user.email == 'max@synthmax.dk'
+          /  = f.input :identifier, :input_html => { class: 'span12', placeholder: "identifier"}
+          = f.input :author, :input_html => {  placeholder: "Author"}
+          = f.input :link, :input_html => {  placeholder: "Link (optional)"}
+          =render 'admin/blog_posts/edit_image'   
+          = f.input :image, :input_html => {  placeholder: "Select Image File"}
+          /= f.input :layout , :include_blank => false , :collection => BlogPost::LAYOUTS, label: 'page layout', input_html: { class: 'chzn-select' }
+          = f.input :image_title, :input_html => {  placeholder: "Image Title"}
           
       
-        
-        
-        
-
-        
+      
+      
+      
+      
+        .col-sm-6
+          = f.input :teaser, :input_html => { style: " height: 120px;", placeholder: "Teaser"}
+          
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
+          
+          =f.input :body, label: false, :input_html => {  style: "height: 360px;", placeholder: "Write here", id: 'wysihtml5_editor'}
+              
+              
+              
+          /= f.input :body, :input_html => { style: " height: 180px;", placeholder: "Teaser"}
+      
+      
+              
+          
+            
+            
+            
+      
+            
     
-  hr
-  .pull-right
-    = link_to 'Back to Block',  admin_blog_path(@blog), class: 'btn btn-default btn-lg'
-    '&nbsp;
-    = f.submit 'Save', class: 'btn btn-primary btn-lg', id: "submit_link"
+  .row
+    .col-sm-12
+      .pull-right
+        = link_to 'Cancel',  admin_blog_path(@blog), class: 'btn btn-default btn-lg'
+        '&nbsp;
+        = f.submit 'Save', class: 'btn btn-primary btn-lg', id: "submit_link"
 
 
 

@@ -4,6 +4,7 @@
     .panel-body
       .row
         .col-sm-6
+          = f.hidden_field :edit_customer, value: true
           = f.input :name
           = f.input :email
           = f.input :phone
@@ -22,7 +23,7 @@
             a data-wysihtml5-command="italic" Italic
        
           =f.input :note, label: false, :input_html => {  style: "height: 360px;", placeholder: "Note", id: 'wysihtml5_editor'}
-        .col-sm-12
-          hr
-          .pull-right
-            = f.submit 'Save', class: 'btn btn-primary btn-lg'
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary btn-lg'

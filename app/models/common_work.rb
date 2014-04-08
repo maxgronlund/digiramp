@@ -7,13 +7,11 @@ class CommonWork < ActiveRecord::Base
   #belongs_to :common_work_import
   
   has_many :recordings, dependent: :destroy
-  accepts_nested_attributes_for  :recordings, allow_destroy: true
+  #accepts_nested_attributes_for  :recordings, allow_destroy: true
   
   
   
   has_many :attachments, as: :attachable
-  
-  
   has_many :ipis,       dependent: :destroy
   
   #has_many :activity_events, as: :activity_eventable

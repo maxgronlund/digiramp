@@ -119,18 +119,30 @@ class AccountUsersController < ApplicationController
   end
   
   def update
-    logger.debug '-----------------------------------------'
-    logger.debug 'time to send an email'
-    logger.debug '-----------------------------------------'
+    #logger.debug '-----------------------------------------'
+    #logger.debug 'time to send an email'
+    #logger.debug '-----------------------------------------'
+    
+    
+    
     
     @account_user = AccountUser.find_by_cached_id(params[:id])
     params[:account_user][:version] = @account_user.version + 1
+    
+    # make sure to bounce back to the right place
+    if params[:account_user][:edit_customer]
+      session[:return_url] = account_customer_path( @account_user.account, @account_user)
+      params[:account_user].delete :edit_customer
+    end
+    
+    
+    
     @account_user.update(account_user_params)
     
     # administrator has full permissions
-    if @account_user.administrator?
-      session[:return_url] = account_account_users_path( @account )
-    end
+    #if @account_user.administrator?
+    #  session[:return_url] = account_account_users_path( @account )
+    #end
 
     redirect_to_return_url account_account_user_path(@account, @account_user)
     
