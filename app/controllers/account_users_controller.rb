@@ -72,13 +72,11 @@ class AccountUsersController < ApplicationController
     else
       # existing user
       if @user = User.where(email: params[:account_user][:email]).first
-        logger.debug '---------------------------------------------- EXISTING USER -----------------------------------------'
         create_account_user_for_existing @user
         @user.invite_existing_user_to_account( @account.id, params[:account_user][:invitation_message])
       else
         # there is no use so there is no account
         # so create a user first
-        logger.debug '---------------------------------------------- NEW USER -----------------------------------------'
         @user                     = create_user
         @user_account             = create_account_for @user
         @user.current_account_id  = @user_account.id
@@ -124,11 +122,11 @@ class AccountUsersController < ApplicationController
   end
   
   def update
-    #logger.debug '-----------------------------------------'
-    #logger.debug 'time to send an email'
-    #logger.debug '-----------------------------------------'
+    logger.debug '-----------------------------------------'
+    logger.debug 'time to send an email'
+    logger.debug '-----------------------------------------'
     
-    
+ 
     
     
     @account_user = AccountUser.find_by_cached_id(params[:id])
@@ -145,7 +143,11 @@ class AccountUsersController < ApplicationController
       params[:account_user].delete :invite_associate
     end
     
-    
+    if params[:account_user][:role] == "Associate"
+      session[:return_url] = account_account_user_path(@account, @account_user)
+    elsif  params[:account_user][:role] == "Administrator"
+      session[:return_url] = account_account_users_path(@account)
+    end
     
     @account_user.update(account_user_params)
     
@@ -154,7 +156,7 @@ class AccountUsersController < ApplicationController
     #  session[:return_url] = account_account_users_path( @account )
     #end
 
-    redirect_to_return_url account_account_user_path(@account, @account_user)
+    redirect_to_return_url account_account_users_path(@account, @account_user)
     
     
   end
