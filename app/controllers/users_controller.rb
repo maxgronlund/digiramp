@@ -24,15 +24,14 @@ class UsersController < ApplicationController
   def create
     #if User.where(email: params[:user][:email]).nil?
       
-      params[:user][:name]  = User::SECRET_NAME
-      params[:user][:role]  = 'cuctomer'
+      params[:user][:name]   = User::SECRET_NAME
+      params[:user][:role]   = 'cuctomer'
+      params[:user][:email]  = params[:user][:email].downcase
       @user = User.new(user_params)
       blog              = Blog.cached_find('Sign Up')
       if @user.save
        
-        @account = User.create_a_new_account_for_the @user
-       
-        
+        @account          = User.create_a_new_account_for_the @user
         blog              = Blog.cached_find('Sign Up')
         blog_post         = BlogPost.cached_find('Sucess', blog)
         flash[:success]   = { title: blog_post.title, body: blog_post.body }

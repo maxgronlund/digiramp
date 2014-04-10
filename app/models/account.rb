@@ -38,7 +38,7 @@ class Account < ActiveRecord::Base
   
   
   
-  before_destroy :delete_user
+  #before_destroy :delete_user
   
   
   
@@ -195,12 +195,12 @@ private
   #  ActivityLog.create!(account_id: id) unless ActivityLog.exists?(account_id: id)
   #end
   
-  def delete_user
-    if User.exists?(user_id)
-      user.destroy
-    end
-    account_users = AccountUser.where(account_id: id)
-    account_users.delete_all
-  end
+  #def delete_user
+  #  if User.exists?(user_id)
+  #    user.destroy
+  #  end
+  #  #account_users = AccountUser.where(account_id: id)
+  #  #account_users.delete_all
+  #end
   
 end

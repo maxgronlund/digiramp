@@ -28,6 +28,7 @@
           .panel-body
             =simple_form_for [@account, @account_user] do |f|
               = f.hidden_field :account_id, value: @account.id
+              = f.hidden_field :invite_associate, value: true
               /= f.input :role,  collection: @roles,     as: :radio_buttons, label: "Permissions for #{@account_user.user.name}"
               = f.input :access_to_all_recordings
               = f.input :access_to_all_common_works

@@ -7,6 +7,8 @@ class SessionsController < ApplicationController
   
   def create
     
+    params[:sessions][:email]  = params[:sessions][:email].downcase
+    
     user = User.where(email: params[:sessions][:email]).first
 
 

@@ -53,6 +53,9 @@ class AccountUsersController < ApplicationController
                               contact_email: user.email, 
                               user_id: user.id,
                               expiration_date: Date.current()>>1)
+    user.account_id = account.id
+    user.save!
+    account
   end
 
   def create
@@ -69,16 +72,18 @@ class AccountUsersController < ApplicationController
     else
       # existing user
       if @user = User.where(email: params[:account_user][:email]).first
+        logger.debug '---------------------------------------------- EXISTING USER -----------------------------------------'
         create_account_user_for_existing @user
-        @user.invite_existing_user_to_account( @account.id, params[:account_user][:invitation_message])  if @user.activated
+        @user.invite_existing_user_to_account( @account.id, params[:account_user][:invitation_message])
       else
         # there is no use so there is no account
         # so create a user first
+        logger.debug '---------------------------------------------- NEW USER -----------------------------------------'
         @user                     = create_user
         @user_account             = create_account_for @user
         @user.current_account_id  = @user_account.id
         @user.save!
-        @user.invite_new_user_to_account( @account.id, params[:account_user][:invitation_message]) if @user.activated
+        @user.invite_new_user_to_account( @account.id, params[:account_user][:invitation_message])
       
       end
       # try to create an account user
@@ -133,6 +138,11 @@ class AccountUsersController < ApplicationController
     if params[:account_user][:edit_customer]
       session[:return_url] = account_customer_path( @account_user.account, @account_user)
       params[:account_user].delete :edit_customer
+    end
+    
+    if params[:account_user][:invite_associate]
+      session[:return_url] = account_account_users_path( @account_user.account, @account_user)
+      params[:account_user].delete :invite_associate
     end
     
     
