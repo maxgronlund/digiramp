@@ -12,75 +12,91 @@ class CustomerEventsController < ApplicationController
   # GET /customer_events/1.json
   def show
     
-    @account_user     = AccountUser.find_by_cached_id(params[:customer_id])
-    @customer_event   = CustomerEvent.cached_find(params[:id])
+    @account_user     = AccountUser.cached_find(params[:customer_id])
+    #@customer_event   = CustomerEvent.cached_find(params[:id])
 
   end
 
 
   def new
-    @account_user       = AccountUser.find_by_cached_id(params[:customer_id])
-    @customer_event     = CustomerEvent.new
+    @account_user       = AccountUser.cached_find(params[:customer_id])
+    #@customer_event     = CustomerEvent.new
   end
 
 
   def edit
+    @account_user     = AccountUser.cached_find(params[:customer_id])
+    
+    #logger.debug '----------------------------------------------------------' 
+    #logger.debug @customer_event.action_type
+    #logger.debug '----------------------------------------------------------' 
+    
+    
+    
+    
   end
-
-
+  
   def create
-    @account_user     = AccountUser.find_by_cached_id(params[:customer_id])
-    @customer_event   = CustomerEvent.create(customer_event_params)
-    
-    case @customer_event.event_type
-      
-    when 'Private Playlist'
-      # create a playlist
-      playlist = Playlist.create(account_id: @account.id,
-                                 title: "Playlist for #{@account_user.get_name}")
-      # make a PlaylistKey 
-      secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-      playlist_key = PlaylistKey.create(playlist_id: playlist.id,
-                                        user_id: @account_user.user_id,
-                                        account_id: @account.id,
-                                        password_protection: true,
-                                        password: secret_temp_password,
-                                        expires: false,
-                                        expiration_date: Date.current()>>1,
-                                        page_link: 'google.com'
-                                        )
-                                        
-                                        
-      @customer_event.playlist_key_id = playlist_key.id
-      @customer_event.save!
-      
-      # go to the playlist wizard
-      # use the key as ID
-      # account/id/playlist_wizard/key_id
-      redirect_to edit_account_playlist_wizard_path(@account, playlist_key)
-    else
-      redirect_to account_customer_path(@account, @account_user)
-    end
+    costomer_event                  = CustomerEvent.new
+    costomer_event.event_type       = params[:event_type]
+    costomer_event.account_id       = params[:account_id]
+    costomer_event.account_user_id  = params[:account_user_id]
+    costomer_event.save!
+
+    redirect_to edit_account_customer_customer_event_path(
+                                                            params[:account_id],
+                                                            params[:account_user_id],
+                                                            costomer_event.id 
+                                                          )
     
   end
+
+
+
 
   # PATCH/PUT /customer_events/1
   # PATCH/PUT /customer_events/1.json
   def update
+    
+    @account_user     = AccountUser.cached_find(params[:customer_id])
+    
+    
+    case @customer_event.action_type
+      
+    when 'compose_invitation_email'
+      # avoid building the playlist two times
+      params[:customer_event][:action_type]       = 'build_playlist'
+      params[:customer_event][:playlist_key_id]   = Playlist.create_playlist_with_key( @account, @customer_event.account_user)
+
+      #here we are adding playlist items to the playlist
+       
+    end
+    
+    
+    
+    @customer_event.update_attributes(customer_event_params)
+    #redirect_to edit_account_playlist_path(@account, @customer_event.playlist_key.playlist_id)
+    redirect_to account_playlist_playlist_recordings_path(@account, @customer_event.playlist_key.playlist_id)
+    
+    #redirect_to :back
     
   end
 
   # DELETE /customer_events/1
   # DELETE /customer_events/1.json
   def destroy
+    @account_user     = AccountUser.cached_find(params[:customer_id])
+    @customer_event   = CustomerEvent.cached_find(params[:id])
+    # how about remove from playlist
     @customer_event.destroy
-    
+    redirect_to account_customer_path(@account, @account_user)
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_customer_event
-      @customer_event = CustomerEvent.find(params[:id])
+      @customer_event   = CustomerEvent.cached_find(params[:id])
+      #@customer_event = CustomerEvent.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

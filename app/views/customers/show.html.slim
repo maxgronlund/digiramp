@@ -46,22 +46,41 @@
 
 
     .row
-      .col-sm-6
+      .col-sm-12
         .panel
           .panel-body
             h3 Activities
-            
-            - @account_user.customer_events.order('created_at desc').each do |customer_event|
-              .panel
-                .panel-body
-                  h3 = customer_event.event_type
-                  'Created: #{customer_event.created_at.strftime("%d %b %Y")}
-                  .pull-right
-                    = link_to 'View', account_customer_customer_event_path( @account, @account_user, customer_event), class: 'btn btn-primary btn-lg'
+            .panel
+              .panel-body
+                .table-responsive
+                  table class="table table-striped"
+                    thead
+                      tr
+                        th Activity
+                        th Date
+                        th
                   
-
-
-
+                    tbody
+                      - @account_user.customer_events.order('created_at desc').each do |customer_event|
+                        tr
+                          td
+                            b = customer_event.event_type
+                          td
+                            = customer_event.created_at.strftime("%d %b %Y")
+                          td
+                            .pull-right
+                              = link_to  account_customer_customer_event_path( @account, @account_user, customer_event), \
+                                                                              method: :delete ,\
+                                                                              data: {confirm: 'Are you sure?'}  do
+                                .btn.btn-danger.btn-lg
+                                  i  class='fa fa-times'
+                              '&nbsp;
+                              = link_to 'View', account_customer_customer_event_path( @account, @account_user, customer_event), \
+                                                class: 'btn btn-primary btn-lg'
+                    
+                  
+                  
+                  
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  
               

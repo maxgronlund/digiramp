@@ -1,5 +1,5 @@
 class Attachment < ActiveRecord::Base
-  belongs_to :account_file
+  belongs_to :account
   belongs_to :attachable, polymorphic: true
   
   after_commit :flush_cache

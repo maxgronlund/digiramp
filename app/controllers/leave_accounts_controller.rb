@@ -7,7 +7,7 @@ class LeaveAccountsController < ApplicationController
   
   def destroy
     @account      = Account.cached_find(params[:account_id])
-    account_user  = AccountUser.find_by_cached_id(params[:id])
+    account_user  = AccountUser.cached_find(params[:id])
     if current_user.can_edit? || current_user.id = account_user.user_id
       account_user.destroy
     end

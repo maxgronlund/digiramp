@@ -36,53 +36,11 @@
 
               .pull-right
                 br
-                = f.submit 'Resend', class: 'btn btn-green btn-lg'
+                = f.submit 'Reset', class: 'btn btn-green btn-lg'
 
         
 
   
-#footer
-  .container
-    .footer
-      .row
-        .col-sm-12
-          '©2014 All rights reserved
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
 
-
-
-
-
-
-
-
-
-
-/.container
-/  .span4.offset4
-/    .padded
-/      div class="login box" style="margin-top: 80px;"
-/  
-/        .box-header
-/          span class="title" Reset Password
-/  
-/        .box-content.padded
-/
-/          =form_for @user, :url => password_reset_path(params[:id]) do |f| 
-/            -if @user.errors.any? 
-/              .error_messages
-/                h2 Form is invalid
-/                ul
-/                  -for message in @user.errors.full_messages
-/                    li
-/                      = message
-/          
-/            .field
-/              = f.label :password
-/              = f.password_field :password
-/            .field
-/              = f.label :password_confirmation 
-/              = f.password_field :password_confirmation 
-/          
-/            .actions
-/              = f.submit "Update password", class: 'btn btn-blue'
-          

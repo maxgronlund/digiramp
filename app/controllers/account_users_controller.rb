@@ -19,7 +19,7 @@ class AccountUsersController < ApplicationController
     #@blog = Blog.cached_find('Account Users')
     #@client_permissions  = BlogPost.where(identifier: 'Client Permissions', blog_id: @blog.id)
     #                                     .first_or_create(identifier: 'Client Permissions', blog_id: @blog.id, title: 'Client Permissions', body: 'What this client can access')
-    @account_user = AccountUser.find_by_cached_id(params[:id])
+    @account_user = AccountUser.cached_find(params[:id])
   end
   
   def new
@@ -46,17 +46,7 @@ class AccountUsersController < ApplicationController
     
   end
   
-  def create_account_for user
-    # forget about the expiration date
-    account = Account.create( title: user.email, 
-                              account_type: Account::ACCOUNT_TYPES[:free_account], 
-                              contact_email: user.email, 
-                              user_id: user.id,
-                              expiration_date: Date.current()>>1)
-    user.account_id = account.id
-    user.save!
-    account
-  end
+  
 
   def create
     # missing email
@@ -75,28 +65,31 @@ class AccountUsersController < ApplicationController
         create_account_user_for_existing @user
         @user.invite_existing_user_to_account( @account.id, params[:account_user][:invitation_message])
       else
-        # there is no use so there is no account
+        # there is no use in the system with that
         # so create a user first
         @user                     = create_user
-        @user_account             = create_account_for @user
+        @user_account             = User.create_account_for @user
         @user.current_account_id  = @user_account.id
         @user.save!
         @user.invite_new_user_to_account( @account.id, params[:account_user][:invitation_message])
       
       end
-      # try to create an account user
+      
       begin
-        # go ahead and create the account user
-        @account_user = AccountUser.create!(account_id: @account.id, 
+        # create an account user
+        @account_user = AccountUser.create( account_id: @account.id, 
                                             user_id: @user.id, 
                                             role: params[:account_user][:role], 
                                             invitation_message: params[:account_user][:invitation_message],
                                             email: @user.email,
                                             name: @user.name)
+                                            
+                                            
         
         redirect_to @account_user.associate?   ?  account_account_user_path( @account , @account_user) : account_account_users_path( @account)
-      # the account user was alreaddy created
+      
       rescue
+        # the account user was alreaddy created
         flash[:danger] = { title: "User already invited", body: "" }
         redirect_to new_account_account_user_path( @account )
       end
@@ -114,7 +107,7 @@ class AccountUsersController < ApplicationController
 
   def edit
     
-    @account_user = AccountUser.find_by_cached_id(params[:id])
+    @account_user = AccountUser.cached_find(params[:id])
     @roles = AccountUser::ROLES
     @roles.delete("Account Owner") #unless current_user.super?
     @roles.delete("Client")
@@ -122,15 +115,17 @@ class AccountUsersController < ApplicationController
   end
   
   def update
-    logger.debug '-----------------------------------------'
-    logger.debug 'time to send an email'
-    logger.debug '-----------------------------------------'
+    #logger.debug '-----------------------------------------'
+    #logger.debug 'time to send an email'
+    #logger.debug '-----------------------------------------'
     
  
     
     
-    @account_user = AccountUser.find_by_cached_id(params[:id])
-    params[:account_user][:version] = @account_user.version + 1
+    @account_user = AccountUser.cached_find(params[:id])
+    
+    
+    params[:account_user][:permission_key] = UUIDTools::UUID.timestamp_create().to_s
     
     # make sure to bounce back to the right place
     if params[:account_user][:edit_customer]
@@ -162,7 +157,7 @@ class AccountUsersController < ApplicationController
   end
   
   def destroy
-    account_user = AccountUser.find_by_cached_id(params[:id])
+    account_user = AccountUser.cached_find(params[:id])
     account_user.destroy
     
     

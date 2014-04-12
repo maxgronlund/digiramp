@@ -1,0 +1,44 @@
+#wrap
+  .full-width-top
+    == render 'shared/navbar', page: 'home'
+  .hidden-xs
+    .full-width-sign-up
+      .container
+        /== render 'shared/sign_up'
+            
+  .container
+    ==render 'admin/shared/messages'
+    .row
+      .col-sm-3
+        
+
+      .col-sm-6
+        .panel
+          .panel-body
+            h3 
+              i class= 'fa fa-lock'
+              '&nbsp;
+              'Create Password
+            hr
+
+            = simple_form_for(  @user, :url => accept_invitation_path(params[:id]) ) do |f|
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-key'
+                = f.input_field :password, placeholder: 'Password', autocomplete: :off
+              br
+              
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-key'
+                = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+
+              .pull-right
+                br
+                = f.submit 'Create', class: 'btn btn-green btn-lg'
+
+        
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

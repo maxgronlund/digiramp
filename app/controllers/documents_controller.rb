@@ -6,6 +6,6 @@ class DocumentsController < ApplicationController
 
   def show
     @attachment = Attachment.find(params[:id])
-    @document   = @attachment.account_file
+    #@document   = @attachment.account_file
   end
 end

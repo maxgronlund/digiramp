@@ -63,12 +63,17 @@ class CustomersController < ApplicationController
 
   def destroy
     user = @account_user.user
-    flash[:info] = { title: "Info", body: "#{@account_user.user.email} is deleted" }
-    @account_user.destroy
-    @account.customer_cache_version += 1
-    @account.save!
-    if user && user.activated == false && user.account_users.size
-      user.destroy
+    
+    if user.id == @account.user_id
+      flash[:danger] = { title: "Error", body: "Unable to delete account owner" }
+    else
+      flash[:info] = { title: "Info", body: "#{@account_user.user.email} is deleted" }
+      @account_user.destroy
+      @account.customer_cache_version += 1
+      @account.save!
+      if user && user.activated == false && user.account_users.size
+        user.destroy
+      end
     end
     redirect_to account_customers_path( @account)
   end

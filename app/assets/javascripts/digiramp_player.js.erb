@@ -48,11 +48,16 @@ function loadDigirampPlayer(){
     if ($('.add_recordings_to_catalog')[0]) {
       add_recordings_to_catalog_id = $('.add_recordings_to_catalog').attr('id');
     }
+    
+    var add_recordings_to_playlist_id = 0;
+    if ($('.add_recordings_to_playlist')[0]) {
+      add_recordings_to_playlist_id = $('.add_recordings_to_playlist').attr('id');
+    }
 
     var digiramp_player = [];
     $( ".player" ).each(function( index ) {
       id = $(this).attr('id');
-      digiramp_player.push(new digirampPlayer(id, account_id, catalog_id, add_recordings_to_catalog_id));
+      digiramp_player.push(new digirampPlayer(id, account_id, catalog_id, add_recordings_to_catalog_id, add_recordings_to_playlist_id));
     });
   };
   
@@ -103,7 +108,7 @@ function createSound(sm_sound_id, digiramp_player, progress_bar){
 }
 
 
-function digirampPlayer(i, account_id, catalog_id, add_recordings_to_catalog_id){
+function digirampPlayer(i, account_id, catalog_id, add_recordings_to_catalog_id, add_recordings_to_playlist_id){
   var player_index    = parseInt(i)
   var player_button   = "#play_button_"     + player_index;                                 
   var player_head     = "#playhead_"        + player_index;
@@ -217,7 +222,7 @@ function digirampPlayer(i, account_id, catalog_id, add_recordings_to_catalog_id)
     smSound.setPosition(gotoSoundPosition);
   });
   // add buttons to player based on permissions
-  $.getScript("/accounts/" + account_id + "/recording_permissions/" + player_index + '?catalog=' + catalog_id + '&add_recordings_to_catalog=' + add_recordings_to_catalog_id );
+  $.getScript("/accounts/" + account_id + "/recording_permissions/" + player_index + '?catalog=' + catalog_id + '&add_recordings_to_catalog=' + add_recordings_to_catalog_id + '&add_recordings_to_playlist=' + add_recordings_to_playlist_id );
 } 
 
 

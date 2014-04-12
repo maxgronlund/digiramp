@@ -1,2 +1,43 @@
-h1 Playlists#edit
-p Find me in app/views/playlists/edit.html.slim
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'         
+  .container
+    ==render 'admin/shared/messages'
+    div class="add_recordings_to_playlist" id="#{@playlist.id}" 
+    /-cache ([request.url, @account.rec_cache_version, current_user.role  ]) do
+    .do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              playlists: account_playlists_path(@account), \
+                                                              @playlist.title.to_sym => account_playlist_path(@account, @playlist), \
+                                                              }, current: 'add recordings'}
+                                                              
+
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Playlist'), blog_post: 'Edit Playlist'}
+      .row
+        .col-sm-3
+        .col-sm-6
+          = simple_form_for [@account, @playlist] do |f|
+            .panel
+              .panel-body
+                = f.input :title
+                = f.input :body, :input_html => { style: " height: 240px;"}, label: 'Description'
+            .pull-right
+              = link_to 'Cancel', account_playlist_path(@account, @playlist), class: 'btn btn-default btn-lg'
+              '&nbsp;
+              = f.submit 'Save', class: 'btn btn-primary btn-lg'
+          
+              
+                
+                
+      /.row
+      /  .col-sm-12
+      /    .panel
+      /      .panel-body
+      /        = debug PlaylistKey.where(playlist_id: @playlist.id)
+              
+                
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

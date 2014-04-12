@@ -31,6 +31,24 @@ class RecordingPermissionsController < ApplicationController
         #logger.debug '----------------------------------------------------------------'
       end
       
+      if params[:add_recordings_to_playlist] != '0'
+        @playlist                        = Playlist.cached_find(params[:add_recordings_to_playlist])
+        #@add_recording_to_playlist       = "#add_recording_#{params[:id]}_to_playlist"
+        @manage_recording               = nil
+        
+        playlist_item = PlaylistItem.where(playlist_id: @playlist.id, playlist_itemable_id: params[:id], playlist_itemable_type: 'Recording').first
+        
+        if playlist_item
+          @remove_recording_from_playlist       = "#remove_recording_#{params[:id]}_from_playlist"
+        else
+          @add_recording_to_playlist       = "#add_recording_#{params[:id]}_to_playlist"
+        end
+        
+        #logger.debug '----------------------------------------------------------------'
+        #logger.debug @add_recording_to_catalog
+        #logger.debug '----------------------------------------------------------------'
+      end
+      
       
     end
     

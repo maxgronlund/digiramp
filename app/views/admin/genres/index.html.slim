@@ -44,23 +44,24 @@
       .col-sm-12
         .panel
           .panel-body
-            table class="table table-striped"
-              thead
-                tr
-                  th Genre
-                  th Category
-                  th User Tag
-                  th
-              tbody
-                -@genres.each do |genre|
+            .table-responsive
+              table class="table table-striped"
+                thead
                   tr
-                    td = genre.title
-                    td = genre.category
-                    td 
-                      -if genre.user_tag
-                        'User Genre!
-                    td 
-                      .pull-right
+                    th Genre
+                    th Category
+                    th User Tag
+                    th
+                tbody
+                  -@genres.each do |genre|
+                    tr
+                      td = genre.title
+                      td = genre.category
+                      td 
+                        -if genre.user_tag
+                          'User Genre!
+                      td 
+                        .right
                         = link_to edit_admin_genre_path(genre) do
                           .btn.btn-primary.btn-lg
                             i class="fa fa-pencil"
@@ -68,7 +69,7 @@
                         = link_to admin_genre_path(genre)  , data: { confirm: 'Are you sure?' } , method: :delete do
                           .btn.btn-danger.btn-lg
                             i class="fa fa-minus-circle"
-            
+              
       
     .row
        .col-sm-12

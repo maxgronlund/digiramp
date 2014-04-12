@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140407185358) do
+ActiveRecord::Schema.define(version: 20140412194428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,11 +39,12 @@ ActiveRecord::Schema.define(version: 20140407185358) do
     t.boolean  "access_to_all_rights",       default: false
     t.boolean  "access_to_all_documents",    default: false
     t.boolean  "access_to_collect",          default: false
-    t.integer  "version",                    default: 0
     t.string   "phone",                      default: ""
     t.string   "name",                       default: ""
     t.text     "note",                       default: ""
     t.string   "email",                      default: ""
+    t.string   "permission_key",             default: ""
+    t.boolean  "administrate_playlists",     default: false
   end
 
   add_index "account_users", ["account_id"], name: "index_account_users_on_account_id", using: :btree
@@ -75,6 +76,7 @@ ActiveRecord::Schema.define(version: 20140407185358) do
     t.integer  "customer_cache_version", default: 0
     t.boolean  "activated",              default: true
     t.integer  "default_catalog_id"
+    t.integer  "playlists_cache_key",    default: 0
   end
 
   add_index "accounts", ["default_catalog_id"], name: "index_accounts_on_default_catalog_id", using: :btree
@@ -772,6 +774,7 @@ ActiveRecord::Schema.define(version: 20140407185358) do
     t.date     "expiration_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status",              default: "new"
   end
 
   add_index "playlist_keys", ["account_id"], name: "index_playlist_keys_on_account_id", using: :btree

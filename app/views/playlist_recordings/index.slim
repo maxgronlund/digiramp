@@ -1,0 +1,80 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'         
+  .container
+    ==render 'admin/shared/messages'
+    div class="add_recordings_to_playlist" id="#{@playlist.id}" 
+    /-cache ([request.url, @account.rec_cache_version, current_user.role  ]) do
+    .do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              playlists: account_playlists_path(@account), \
+                                                              @playlist.title.to_sym => account_playlist_path(@account, @playlist), \
+                                                              }, current: 'add recordings'}
+                                                              
+
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Playlist'), blog_post: 'Add Recordings'}
+      .row
+        .col-sm-12
+          .panel
+            .panel-body
+              .row
+                = form_tag account_playlist_playlist_recordings_path(@account, @playlist), :method => 'get' do
+                  .col-sm-6
+                    br
+                    = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string', value: params[:query]
+                  .col-sm-6
+                    br
+                    = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                    '&nbsp;
+                    = link_to 'Show All',account_playlist_playlist_recordings_path(@account, @playlist), class: 'btn btn-default btn-lg'
+                       
+              
+              hr     
+              .hidden-xs
+                == paginate(@recordings)
+              .visible-xs
+
+                .btn-group.btn-group-sm
+                  = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default btn-lg mobile_pagination'
+                  = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+                
+            
+      .row
+        .col-sm-12
+          .panel
+            .panel-body.digiramp_player
+              div class="panel-group" id="accordion"
+                - @recordings.each do |recording|
+                  /-playlist_item =  PlaylistItem.where(playlist_id: @playlist.id, playlist_itemable_id: recording.id, playlist_itemable_type: 'Recording').first
+                  /-unless playlist_item
+                  == render 'recordings/recording', recording: recording
+                  
+                         
+                    
+                   
+              .hidden-xs
+                == paginate(@recordings)
+              .visible-xs
+                .btn-group
+                  = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
+                  = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+            
+              
+      .row
+        .col-sm-12
+          .pull-right
+            = link_to account_playlist_path( @account, @playlist) do
+              .btn.btn-primary.btn-lg
+                i class="fa fa-pencil"
+                '&nbsp;Continue
+            '&nbsp;
+            = link_to  account_playlist_playlist_recordings_add_all_path(@account, @playlist, query: params[:query]) do
+              .btn.btn-success.btn-lg
+                i class="fa fa-plus-circle"   
+                '&nbsp;Add All To Playlist
+                
+      
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

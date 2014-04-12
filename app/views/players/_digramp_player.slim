@@ -41,26 +41,10 @@ div class="account_id" id="#{@account.id}"
       div class="player_action" id="manage_recording_#{recording.id}"
       div class="player_action" id="remove_recording_#{recording.id}_from_catalog"
       div class="player_action" id="add_recording_#{recording.id}_to_catalog"
+      div class="player_action" id="add_recording_#{recording.id}_to_playlist"
+      div class="player_action" id="remove_recording_#{recording.id}_from_playlist"
       
-      //div class="add_to_catalog"  id="{recording.id}"
-      /div class="add_to_catalog" id="add_to_catalog_#{index}"  
-      /'&nbsp;
-      /=link_to new_account_catalog_catalog_recording_path(@account, @catalog, recording: recording) do
-      /  .btn.btn-success.btn-lg
-      /    i class="fa fa-plus-circle"  
-      /      
-      /-if true
-      /  '&nbsp;
-      /  =link_to account_catalog_catalog_recording_path(@account, @catalog,  recording) , data: { confirm: 'Are you sure?' } , method: :delete do
-      /    .btn.btn-danger.btn-lg
-      /      i class="fa fa-minus-circle" 
-            
-      /-elsif @add_to_playlist
-      /  '&nbsp;
-      /  =link_to new_account_playlist_playlist_item_path(@account, @add_to_playlist, recording: recording) do
-      /    .btn.btn-success.btn-lg
-      /      i class="fa fa-plus-circle"     
-  
+    
   
           
 

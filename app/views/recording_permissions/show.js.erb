@@ -6,6 +6,14 @@
   $("<%= @add_recording_to_catalog %>").prepend('<%=j render("recording_permissions/add_recording_to_catalog") %>');
 <% end %>
 
+<% if @add_recording_to_playlist %>
+  $("<%= @add_recording_to_playlist %>").prepend('<%=j render("recording_permissions/add_recording_to_playlist") %>');
+<% end %>
+
+<% if @remove_recording_from_playlist %>
+  $("<%= @remove_recording_from_playlist %>").prepend('<%=j render("recording_permissions/remove_recording_from_playlist") %>');
+<% end %>
+
 <% if @show_more %>
   $("<%= @show_more %>").prepend('<%=j render("recording_permissions/show_more") %>');
 <% end %>

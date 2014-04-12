@@ -2,10 +2,6 @@
 Digiramp::Application.routes.draw do
   
 
-
-
-
-
   get "signup/index"
   get "tags/index"
   get "user_genre_tags/index"
@@ -41,6 +37,8 @@ Digiramp::Application.routes.draw do
     resources :recording_permissions
     resources :promotion, only: [:index]
     resources :playlists do
+      get "playlist_recordings/add_all"
+      resources :playlist_recordings
       resources :playlist_keys
       resources :playlist_items
     end
@@ -144,6 +142,7 @@ Digiramp::Application.routes.draw do
   get "login/index"
   resources :sessions
   resources :password_resets
+  resources :accept_invitations
   
   #get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'

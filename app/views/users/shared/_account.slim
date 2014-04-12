@@ -1,27 +1,39 @@
 -account = locals[:account]
 -account_user = locals[:account_user]
 
-.col-sm-6
-  
-  h3 =link_to account.title, account_path(account), id: "#{account.title}"
-  = account.description
+tr
+  td = link_to account.title, account_path(account), id: "#{account.title}", class: 'btn btn-default btn-lg'
+  td = account.description
+  td 
+    = account_user.role
+    -if account_user.role == 'Associate'
+      br
+      ul
+        -if account_user.access_to_all_recordings 
+          li Access to Recordings
+        -if account_user.access_to_all_common_works
+          li Access to Works
+        -if account_user.access_to_all_rights
+          li Access to Rights
+        -if account_user.access_to_all_documents
+          li Access to Documents
+        -if account_user.access_to_collect
+          li Access to Collect
 
-.col-sm-6
-  
+  td
+    .pull-right
+      -unless account_user.user.id == account.user_id
+        '&nbsp;
+        = link_to account_account_user_path(account, account_user), data: { confirm: 'Are you sure?' } , method: :delete, id: "delete_customer_#{account_user.id.to_s}" do
+          .btn.btn-danger.btn-lg
+            i class="fa fa-times"
+      -else
+        '&nbsp;
+        = link_to '#' do
+          .btn.btn-danger.btn-lg.disabled
+            i class="fa fa-times"
+            
+            
+            
 
-  h4 Role: #{account_user.role}
-  -if account_user.role == 'Associate'
-    ul
-      -if account_user.access_to_all_recordings 
-        li Access to Recordings
-      -if account_user.access_to_all_common_works
-        li Access to Works
-      -if account_user.access_to_all_rights
-        li Access to Rights
-      -if account_user.access_to_all_documents
-        li Access to Documents
-      -if account_user.access_to_collect
-        li Access to Collect
-.col-sm-12
-  /= debug account_user
-  hr
+ 

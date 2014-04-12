@@ -1,2 +1,86 @@
-h1 Playlists#show
-p Find me in app/views/playlists/show.html.slim
+
+/div class="playlist_id" id="#{@playlist.id}"
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  /-cache([ @account.id, @account.works_cache_key, params]) do  
+  .do   
+    .container
+      
+      
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              playlists: account_playlists_path(@account), \
+                                                              @playlist.title.to_sym => account_playlist_path(@account, @playlist), \
+                                                              }, current: 'show playlist'}
+                                                              
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Playlist'), blog_post: 'Playlist'}
+      .row
+        .col-sm-12
+          .panel
+            .panel-body
+              .row
+                .col-sm-8
+                  h3 = @playlist.title
+                  = @playlist.body
+                .col-sm-4
+                  .pull-right
+                    = link_to edit_account_playlist_path( @account, @playlist) do
+                      .btn.btn-primary.btn-lg
+                        i class="fa fa-pencil"
+                        '&nbsp;Title
+                    '&nbsp;
+                    = link_to account_playlist_playlist_recordings_path( @account, @playlist) do
+                      .btn.btn-primary.btn-lg
+                        i class="fa fa-pencil"
+                        '&nbsp;Recordings
+              hr
+              b Keys
+              .table-responsive
+                table class="table table-striped"
+                  thead
+                    tr
+                      th Assigned to
+                      th Expires
+                      
+              
+                  tbody
+                    -@playlist.playlist_keys.each do |playlist_key|
+                      - if user = User.where(id: playlist_key.user_id).first
+                        tr
+                          td = user.email
+                          td = playlist_key.expiration_date
+                          td
+                            .pull-right
+                              = link_to account_private_playlist_path(@account, playlist_key.password) do
+                                .btn.btn-default.btn-lg
+                                  i class="fa fa-eye"
+                              '&nbsp;
+                              - if playlist_key.status == 'new'
+                                = link_to 'Activate', '#', class: 'btn btn-success btn-lg'
+                              - else 
+                                = link_to 'Deactivate', '#', class: 'btn btn-warning btn-lg'
+                              '&nbsp;
+                              = link_to '#' do
+                                .btn.btn-danger.btn-lg
+                                  i class="fa fa-times"
+                            
+                        
+      /.row
+      /  .col-sm-12
+      /    .panel
+      /      .panel-body
+      /        /- playlist_keys = PlaylistKey.where
+      /        = debug @playlist
+      /        = debug @playlist.playlist_keys
+      /
+      /
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
+

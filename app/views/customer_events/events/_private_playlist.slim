@@ -1,22 +1,38 @@
+
+-link =  account_private_playlists_path( @account, \
+                                         account_user_id: @account_user.id,\
+                                         event_type: 'invite_to_private_playlist')
+                                                                                                       
 - blog = Blog.cached_find('Customers')      
 - post = BlogPost.cached_find( "Private Playlist" , blog )
 
-= simple_form_for [ @account, @account_user, @customer_event ], :url => url_for(:action => 'create', :controller => 'customer_events'), :method => 'post',  :html => { :id => 'customer_event' } do |f| 
-  = f.hidden_field :account_id, value: @account.id
-  = f.hidden_field :account_user_id, value: @account_user.id
-  = f.hidden_field :event_type, value: CustomerEvent::EVENT_TYPES[:private_playlist]
-  .row
-    .col-sm-6
-      = f.submit "", :type => :image, :src => "#{post.image_url(:size_570x320)}", class: 'img-responsive'
 
+.row
+  .visible-xs
     .col-sm-6
       h3 
-        = post.title
+        = link_to post.title, link, method: :post
         -if can_edit?
           '&nbsp;
           = link_to edit_admin_blog_blog_post_path(blog, post) do
              i class="fa fa-pencil"
-      =post.body  
-        
-      
-      
+    .col-sm-6
+      .icon-badge
+        = link_to link, method: :post, class: 'btn btn-success' do
+          div class="fa fa-pencil"
+      = simple_format post.body
+      hr
+  .hidden-xs
+    .col-sm-6
+      .icon-badge
+        = link_to link, method: :post, class: 'btn btn-success' do
+          div class="fa fa-pencil"
+    .col-sm-6
+      h3 
+        = link_to post.title, link, method: :post
+        -if can_edit?
+          '&nbsp;
+          = link_to edit_admin_blog_blog_post_path(blog, post) do
+             i class="fa fa-pencil"
+      = simple_format post.body
+

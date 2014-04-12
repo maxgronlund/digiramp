@@ -9,7 +9,7 @@ class Account < ActiveRecord::Base
   has_many :attachments, dependent: :destroy
   has_many :playlists, dependent: :destroy
   has_many :common_works, dependent: :destroy
-  has_many :customers
+  #has_many :customers
   has_many :customer_event
   has_many :recordings, dependent: :destroy
   has_many :import_batches
@@ -82,9 +82,9 @@ class Account < ActiveRecord::Base
     end
   end
   
-  def videos
-    self.recordings.where(media_type: 'Video').order(:title)
-  end
+  #def videos
+  #  self.recordings.where(media_type: 'Video').order(:title)
+  #end
   
   def assign_permissions
     
@@ -149,7 +149,7 @@ class Account < ActiveRecord::Base
   
   def administrators_account_user
 
-    unless account_user = AccountUser.cashed_find(user_id: self.administrator_id, account_id: self.id )
+    unless account_user = AccountUser.cached_find(user_id: self.administrator_id, account_id: self.id )
       account_user = AccountUser.create(user_id: self.administrator_id, account_id: self.id ) if account_administrator
     end
     return account_user 

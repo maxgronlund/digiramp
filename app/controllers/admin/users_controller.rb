@@ -24,6 +24,7 @@ class Admin::UsersController < ApplicationController
   
   def destroy
     @user = User.cached_find(params[:id])
+    #AccountUser.where(user_id: @user.id)
     @user.destroy
     redirect_to admin_users_path
   end

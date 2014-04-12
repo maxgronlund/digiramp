@@ -12,18 +12,31 @@
                                                                                                              
     == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Accssible Accounts'}
     .row
-      - @user.account_users.each do |account_user|
-         -account = Account.cached_find(account_user.account_id)
-         == render 'users/shared/account',locals: {account: account, account_user: account_user} 
-         /td =link_to account.title, account_path(account), id: "#{account.title}"
-         /td = account_user.role
-         /td 
-         /  .pull-right
-         /    = link_to account_leave_account_path(user_account, account_user) , data: { confirm: 'Are you sure?' } , :method => :delete do
-         /      .btn.btn-danger.btn-lg
-         /        i class="fa fa-times"
-         /
-      
+      .col-sm-12
+        .panel
+          .panel-body
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Account
+                    th Description
+                    th Permissions
+                    th
+
+                tbody
+                  - @user.account_users.each do |account_user|
+                     -account = Account.cached_find(account_user.account_id)
+                     == render 'users/shared/account',locals: {account: account, account_user: account_user} 
+                     /td =link_to account.title, account_path(account), id: "#{account.title}"
+                     /td = account_user.role
+                     /td 
+                     /  .pull-right
+                     /    = link_to account_leave_account_path(user_account, account_user) , data: { confirm: 'Are you sure?' } , :method => :delete do
+                     /      .btn.btn-danger.btn-lg
+                     /        i class="fa fa-times"
+                     /
+            
 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  

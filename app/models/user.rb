@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   has_many :account_users, dependent: :destroy
   has_many :work_users, dependent: :destroy
   has_many :accounts, :through => :account_users  
-  has_many :bugs, dependent: :destroy
+  #has_many :bugs, dependent: :destroy
   
   
   has_many :ipis
@@ -79,9 +79,9 @@ class User < ActiveRecord::Base
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
     save!
-    logger.debug '-----------------------------------------------------------------------------'
-    logger.debug invitation_message
-    logger.debug '-----------------------------------------------------------------------------'
+    #logger.debug '-----------------------------------------------------------------------------'
+    #logger.debug invitation_message
+    #logger.debug '-----------------------------------------------------------------------------'
     UserMailer.delay.invite_new_user_to_account(self.id, account_id, invitation_message)
   end
   #
@@ -166,14 +166,14 @@ class User < ActiveRecord::Base
   end
   
   def can_access_recordings? account
-    if account_user = AccountUser.cached_find( id, account.id)
+    if account_user = AccountUser.cached_find( id)
       return true if account_user.access_to_all_recordings
     end
     false
   end
   
   def can_access_common_works? account
-    if account_user = AccountUser.cached_find( id, account.id)
+    if account_user = AccountUser.cached_find( id)
       return true if account_user.access_to_all_common_works
     end
     false
@@ -181,7 +181,7 @@ class User < ActiveRecord::Base
   
   def can_administrate account
     return true if can_edit?
-    if account_user = AccountUser.cached_find( id, account.id)
+    if account_user = AccountUser.cached_find( id)
       return true if account_user.role = "Administrator"
       return true if account_user.role = "Account Owner"
     end
@@ -189,10 +189,10 @@ class User < ActiveRecord::Base
   end
   
   def can_manage asset, account
-    return true if role             == 'super'
-    return true if account.user_id  == id
-    account_user = AccountUser.cached_find( id, account.id)
-    return true if account_user.role == 'Administrator'
+    return true if role               == 'super'
+    return true if account.user_id    == id
+    account_user                       = AccountUser.cached_where( account.id, self.id)
+    return true if account_user.role  == 'Administrator'
     
     if account_user
       
@@ -215,16 +215,20 @@ class User < ActiveRecord::Base
         return account_user.has_access_to_all_common_works?
       when 'access recordings'
         return account_user.access_to_all_recordings
+      when 'addministrate playlists'
+        return account_user.administrate_playlists
       end
+      
     end
     false
   end
   
   def permission_cache_for account
-    if account_user = AccountUser.cached_find( id, account.id)
-      return account_user.version
+    begin
+      return AccountUser.‡( account.id, self.id).permission_key
+    rescue
+      return UUIDTools::UUID.timestamp_create().to_s
     end
-    0
   end
   
 
@@ -250,7 +254,7 @@ class User < ActiveRecord::Base
   end
   
   def user_role_on account
-    if account_user = AccountUser.cached_find( id, account.id)
+    if account_user = AccountUser.cached_where( account.id, self.id)
       return account_user.role
     end
     'no access'
@@ -316,7 +320,31 @@ class User < ActiveRecord::Base
   end
   
   
+  def self.create_account_for user
+    # forget about the expiration date
+    
+    account = Account.where(
+                              contact_email: user.email,
+                              title: user.email
+                            )
+                    .first_or_create(  title: user.email, 
+                                       account_type: Account::ACCOUNT_TYPES[:free_account], 
+                                       contact_email: user.email, 
+                                       user_id: user.id,
+                                       expiration_date: Date.current()>>1
+                                    )
+    user.account_id = account.id
+    user.save!
+    
+    AccountUser.create( account_id: account.id, 
+                        user_id: user.id, 
+                        role: 'Account Owner', 
+                        email: user.email,
+                        name:  user.name
+                       )
 
+    account
+  end
 
 private
 

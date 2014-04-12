@@ -115,13 +115,7 @@ class AccountUser < ActiveRecord::Base
     access_to_all_common_works || administrator?
   end
   
-  def self.cached_find(user_id, account_id)
-    Rails.cache.fetch([name, user_id, account_id]) { AccountUser.where(user_id: user_id, account_id: account_id).first }
-  end
   
-  def self.find_by_cached_id(id)
-    Rails.cache.fetch([name, id]) { find(id) }
-  end
 
   def self.account_search(account, query)
     account_users = account.account_users
@@ -134,13 +128,22 @@ class AccountUser < ActiveRecord::Base
   
 
   
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
+  
+  def self.cached_where(account_id, user_id)
+    Rails.cache.fetch([ 'account_user', account_id, user_id]) { where( account_id: account_id, user_id: user_id ).first }
+  end
+  
+
 
 
 private
 
   def flush_cache
-    Rails.cache.delete([self.class.name, user_id, account_id])
     Rails.cache.delete([self.class.name, id])
+    Rails.cache.delete(['account_user', account_id, user_id])
   end
   
   #def has_permission_for? action, permitted_model_id

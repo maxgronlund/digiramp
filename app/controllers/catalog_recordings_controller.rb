@@ -3,8 +3,6 @@ class CatalogRecordingsController < ApplicationController
   def index
      @catalog         = Catalog.cached_find(params[:catalog_id])
      @recordings      = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
-      
-     
   end
   
   def new

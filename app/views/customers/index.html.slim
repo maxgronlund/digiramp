@@ -34,7 +34,8 @@
       .row
         .col-sm-12
           .panel
-            .panel-body    
+            .panel-body  
+              /= debug @account
               .table-responsive
                 table class="table table-hover"
                   thead
@@ -47,6 +48,7 @@
                       th
                   tbody
                     -@account_users.each do |account_user|
+                      
                       tr
                         /d class="img-responsive" 
                         td = link_to account_user.get_name , account_customer_path( @account, account_user ), class: 'btn btn-default btn-lg'
@@ -61,10 +63,17 @@
                             = link_to edit_account_customer_path(@account, account_user) do
                               .btn.btn-primary.btn-lg
                                 i class='fa fa-pencil'
-                            '&nbsp;
-                            = link_to account_customer_path(@account, account_user), data: { confirm: 'Are you sure?' } , method: :delete, id: "delete_customer_#{account_user.id.to_s}" do
-                              .btn.btn-danger.btn-lg
-                                i class="fa fa-times"
+                            -unless account_user.user.id == @account.user_id
+                              '&nbsp;
+                              = link_to account_customer_path(@account, account_user), data: { confirm: 'Are you sure?' } , method: :delete, id: "delete_customer_#{account_user.id.to_s}" do
+                                .btn.btn-danger.btn-lg
+                                  i class="fa fa-times"
+                            -else
+                              '&nbsp;
+                              = link_to '#' do
+                                .btn.btn-danger.btn-lg.disabled
+                                  i class="fa fa-times"
+
       
           
           

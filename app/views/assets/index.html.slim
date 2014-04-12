@@ -5,7 +5,7 @@
             
   .container
     ==render 'admin/shared/messages'
-    -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account), current_user.role]) do
+    -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account ), current_user.role]) do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               }, current: 'assets'}
       
@@ -18,9 +18,7 @@
       .row
 
             
-        -if current_user.can_manage 'access recordings', @account
-
-            
+        -if current_user.can_manage 'access recordings', @account  
           .col-sm-6
             == render 'assets/shared/badge_button', locals: { \
                                                         blog_post: 'RECORDINGS', \
@@ -68,6 +66,15 @@
                                                        css_class: 'btn btn-danger', \
                                                        icon: 'fa fa-folder-o' \
                                                      }
+                                                     
+        -if current_user.can_manage 'addministrate playlists', @account  
+          .col-sm-6
+            == render 'assets/shared/badge_button', locals: { \
+                                                        blog_post: 'PLAYLISTS', \
+                                                        link: account_playlists_path(@account), \
+                                                        css_class: 'btn btn-default', \
+                                                        icon: 'fa fa-headphones'\
+                                                      }
 
 
 

@@ -108,7 +108,10 @@ Feature: When I'm signed in to my account I can manage clients
     Then I can see "John my best Customer"
     
     #Then Does it look right?
-
+    
+  @javascript  
+  Scenario: When I delete a client then all playlist_keys are femoved
+    Then I can see "falure"
   
 
     
