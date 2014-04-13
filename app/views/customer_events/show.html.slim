@@ -22,7 +22,7 @@
               'Created #{@customer_event.created_at.strftime("%d %b %Y") }
               hr
               .pull-right
-                = link_to 'Show', account_private_playlist_path(@account, @customer_event.playlist_key.password), class: 'btn btn-primary btn-lg'
+                = link_to 'Show', account_private_playlist_path(@account, @customer_event.playlist_key.playlist_url), class: 'btn btn-primary btn-lg'
               /=debug @customer_event.playlist_key
             
 

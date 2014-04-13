@@ -2,7 +2,6 @@
 Digiramp::Application.routes.draw do
   
 
-  
   get "signup/index"
   get "tags/index"
   get "user_genre_tags/index"
@@ -37,6 +36,7 @@ Digiramp::Application.routes.draw do
     resources :drm, only: [:index]
     resources :recording_permissions
     resources :promotion, only: [:index]
+    resources :playlist_keys
     resources :playlists do
       get "playlist_recordings/add_all"
       resources :playlist_recordings

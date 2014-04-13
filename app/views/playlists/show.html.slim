@@ -53,27 +53,30 @@
                       - if user = User.where(id: playlist_key.user_id).first
                         tr
                           td 
-                            = link_to account_private_playlist_path(@account, playlist_key.password) do
+                            = link_to account_private_playlist_path(@account, playlist_key.playlist_url) do
                               .btn.btn-default.btn-lg
                                 i class="fa fa-eye"
                                 '&nbsp;#{user.email}
 
                           td = playlist_key.expiration_date
-                          td = playlist_key.password_protection
+                          td = playlist_key.secure_access
                           td
                             .pull-right
-                              = link_to account_private_playlist_path(@account, playlist_key.password) do
+                              = link_to account_private_playlist_path(@account, playlist_key.playlist_url) do
                                 .btn.btn-primary.btn-lg
                                   i class="fa fa-pencil"
                                   '&nbsp;Edit
                               '&nbsp;
                               - if playlist_key.status == 'new'
-                                = link_to  '#' do
+                                = link_to  edit_account_playlist_key_path(@account, playlist_key) do
                                   .btn.btn-success.btn-lg
                                     i class="fa fa-key"
                                     '&nbsp;Activate
                               - else 
-                                = link_to 'Deactivate', '#', class: 'btn btn-warning btn-lg'
+                                = link_to  edit_account_playlist_key_path(@account, playlist_key) do
+                                  .btn.btn-warning.btn-lg
+                                    i class="fa fa-key"
+                                    '&nbsp;Update
                               '&nbsp;
                               = link_to '#' do
                                 .btn.btn-danger.btn-lg

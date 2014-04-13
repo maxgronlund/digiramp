@@ -21,7 +21,8 @@
                   h4 = blog_post.title
                   i = blog_post.author
                   br
-                  = blog_post.created_at.strftime("%d %b %Y")
+                  = time_ago_in_words(blog_post.created_at).titleize
+                  /= blog_post.created_at.strftime("%d %b %Y")
                 .col-sm-8
                   h4 &nbsp;
                   = simple_format blog_post.body

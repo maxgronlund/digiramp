@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140412194428) do
+ActiveRecord::Schema.define(version: 20140413115423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -767,14 +767,15 @@ ActiveRecord::Schema.define(version: 20140412194428) do
     t.integer  "playlist_id"
     t.integer  "user_id"
     t.integer  "account_id"
-    t.boolean  "password_protection"
+    t.boolean  "secure_access"
     t.string   "password"
     t.string   "page_link"
     t.boolean  "expires"
     t.date     "expiration_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status",              default: "new"
+    t.string   "status",          default: "new"
+    t.string   "playlist_url",    default: ""
   end
 
   add_index "playlist_keys", ["account_id"], name: "index_playlist_keys_on_account_id", using: :btree

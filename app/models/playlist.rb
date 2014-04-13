@@ -21,7 +21,7 @@ class Playlist < ActiveRecord::Base
                                                  playlist_id: playlist.id,
                                                  user_id: account_user.user_id,
                                                  account_id: account.id,
-                                                 password_protection: true,
+                                                 secure_access: true,
                                                  password: secret_temp_password,
                                                  expires: false,
                                                  expiration_date: Date.current()>>1,
