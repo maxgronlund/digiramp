@@ -19,7 +19,7 @@ class PlaylistKey < ActiveRecord::Base
   end 
   
   def secure_access?
-    secure_access
+    self.secure_access 
   end
   
 private                  
