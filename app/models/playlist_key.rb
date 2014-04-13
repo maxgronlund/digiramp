@@ -14,13 +14,13 @@ class PlaylistKey < ActiveRecord::Base
     Rails.cache.fetch([name, id]) { find(id) }
   end
   
-  #def has_public_access?
-  #  !secure_access
-  #end 
-  #
-  #def secure_access?
-  #  self.secure_access 
-  #end
+  def has_public_access?
+    !secure_access
+  end 
+  
+  def secure_access?
+    self.secure_access 
+  end
   
 private                  
   def flush_cache
