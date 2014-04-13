@@ -1,4 +1,3 @@
--session[:return_url] = request.url
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
@@ -6,11 +5,20 @@
             
   .container
     ==render 'admin/shared/messages'
+    /=debug @recording
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account) \
+                                                            }, current: 'drm'}
     
-    .row
-      .col-sm-12
-        h1 = @drm.title
-        = simple_format @drm.body
-        
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('DRM'), blog_post: 'DRM'}
+    /.row
+    /  .col-sm-6
+    /    == render 'promotion/shared/badge_buttons/playlist_by_invitation'
+    /  .col-sm-6
+    /    == render 'promotion/shared/badge_buttons/public_playlist'
+    /
+         
+
+
+  
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
