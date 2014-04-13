@@ -15,9 +15,12 @@ class PlaylistKey < ActiveRecord::Base
   end
   
   def has_public_access?
-    #!secure_access
-    false
+    !secure_access
   end 
+  
+  def secure_access?
+    secure_access
+  end
   
 private                  
   def flush_cache
