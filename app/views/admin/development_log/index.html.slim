@@ -15,7 +15,7 @@
       .col-sm-12
         .panel
           .panel-body
-            -development_log.blog_posts.order('created_at asc').each do |blog_post|
+            -development_log.blog_posts.order('created_at desc').each do |blog_post|
               .row
                 .col-sm-4
                   h4 = blog_post.title
@@ -26,7 +26,8 @@
                   h4 &nbsp;
                   = simple_format blog_post.body
                   .pull-right
-                    = link_to 'Edit', edit_admin_blog_blog_post_path(development_log, blog_post), class: 'btn btn-primary btn-lg'
+                   = link_to 'Edit', edit_admin_blog_blog_post_path(development_log, blog_post), class: 'btn btn-primary btn-lg'
+              == render 'shared/line'
                   
     .row
       .col-sm-12
