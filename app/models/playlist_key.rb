@@ -15,7 +15,8 @@ class PlaylistKey < ActiveRecord::Base
   end
   
   def has_public_access?
-    !secure_access
+    #!secure_access
+    false
   end 
   
 private                  
