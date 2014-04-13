@@ -17,39 +17,43 @@ class PlaylistRecordingsController < ApplicationController
                .first_or_create(playlist_id: @playlist.id, 
                                 playlist_itemable_id: @recording.id, 
                                 playlist_itemable_type: @recording.class.name)
-                 
-    # use ajax here
-    redirect_to :back
+
     
-    
-    
+    # ajax here
+    @prepend_tag = "#remove_recording_" + @recording.id.to_s  + "_from_playlist"
+    @remove_tag  = "#add_recording_"    + @recording.id.to_s  + "_to_playlist"
+
   end
   
   def add_all
-    #@catalog   = Catalog.cached_find(params[:catalog_id])
-    #
-    #if @recordings  = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
-    #  @recordings.each do |recording|
-    #    CatalogItem.where(catalog_id: @catalog.id, 
-    #                      catalog_itemable_id: recording.id, 
-    #                      catalog_itemable_type: recording.class.name)
-    #                .first_or_create( catalog_id: @catalog.id, 
-    #                                  catalog_itemable_id: recording.id, 
-    #                                  catalog_itemable_type: recording.class.name)
-    #  end
-    #end
-    #
+     playlist   = Playlist.cached_find(params[:playlist_id])
+    
+    if recordings  = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
+      recordings.each do |recording|
+        PlaylistItem.where( playlist_id: playlist.id, 
+                            playlist_itemable_id: recording.id, 
+                            playlist_itemable_type: recording.class.name)
+                   .first_or_create(playlist_id: playlist.id, 
+                                    playlist_itemable_id: recording.id, 
+                                    playlist_itemable_type: recording.class.name)
+      end
+    end
+    
     redirect_to :back
     
   end
   
   def destroy
-    @recording = Recording.cached_find(params[:id])
+    @recording  = Recording.cached_find(params[:id])
     @playlist   = Playlist.cached_find(params[:playlist_id])
     
     playlist_item = PlaylistItem.where(playlist_id: @playlist.id, playlist_itemable_id: @recording.id, playlist_itemable_type: @recording.class.name).first
     playlist_item.destroy
-    redirect_to :back
+    
+    # ajax here
+    @prepend_tag = "#add_recording_"    + @recording.id.to_s  + "_to_playlist"
+    @remove_tag  = "#remove_recording_" + @recording.id.to_s  + "_from_playlist"
+    
     
   end
   

@@ -42,6 +42,17 @@
                                                     css_class: 'btn btn-danger', \
                                                     icon: 'fa fa-cogs' \
                                                   }
+                                                  
+      .col-sm-6
+        == render 'shared/badge_button', locals: { \
+                                                    blog_post: 'DEVELOPMENT LOG', \
+                                                    link: admin_development_log_index_path, \
+                                                    css_class: 'btn btn-default', \
+                                                    icon: 'fa fa-bullhorn' \
+                                                  }
+                                                  
+                                                  
+                                                  
     /.row
     /  
     /  .col-sm-6

@@ -1,0 +1,42 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'admin'
+
+               
+  .container
+    ==render 'admin/shared/messages'
+    
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: 'Development log'}
+
+    - blog = Blog.cached_find('Development')
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Development Log'} 
+    - development_log = Blog.cached_find('Development Log')
+    .row
+      .col-sm-12
+        .panel
+          .panel-body
+            -development_log.blog_posts.order('created_at asc').each do |blog_post|
+              .row
+                .col-sm-4
+                  h4 = blog_post.title
+                  i = blog_post.author
+                  br
+                  = blog_post.created_at.strftime("%d %b %Y")
+                .col-sm-8
+                  h4 &nbsp;
+                  = simple_format blog_post.body
+                  .pull-right
+                    = link_to 'Edit', edit_admin_blog_blog_post_path(development_log, blog_post), class: 'btn btn-primary btn-lg'
+                  
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to 'New', new_admin_blog_blog_post_path(development_log), class: 'btn btn-primary btn-lg'
+            
+        
+
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+  

@@ -31,16 +31,19 @@
                       tbody
                         -@account.playlists.each do |playlist|
                           tr
-                            td = link_to playlist.title, account_playlist_playlist_recordings_path( @account, playlist), class: 'btn btn-default btn-lg'
+                            /td = link_to playlist.title, account_playlist_playlist_recordings_path( @account, playlist), class: 'btn btn-default btn-lg'
+                            td = link_to playlist.title, account_playlist_path( @account, playlist), class: 'btn btn-default btn-lg'
                             td
                               .pull-right
                                 = link_to account_playlist_path( @account, playlist)
-                                  .btn.btn-default.btn-lg
-                                    i class="fa fa-eye"
+                                  .btn.btn-info.btn-lg
+                                    i class="fa fa-cloud"
+                                    '&nbsp;Distribution
                                 '&nbsp;    
                                 = link_to edit_account_playlist_path( @account, playlist)
                                   .btn.btn-success.btn-lg
                                     i class="fa fa-pencil"
+                                    '&nbsp;Edit Title
                                 '&nbsp;    
                                 = link_to account_playlist_path( @account, playlist), \
                                                                               method: :delete ,\

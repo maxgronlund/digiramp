@@ -2,6 +2,7 @@
 Digiramp::Application.routes.draw do
   
 
+  
   get "signup/index"
   get "tags/index"
   get "user_genre_tags/index"
@@ -214,6 +215,7 @@ Digiramp::Application.routes.draw do
     resources :administrators
     get "engine_room"   => "engine_room#index", :as => :engine_room_index
     get "content"   => "content#index", :as => :content_index
+    get "development_log/index"
     resources :export_users, only: [:index]
     resources :export_genres, only: [:index]
     resources :export_instruments, only: [:index]

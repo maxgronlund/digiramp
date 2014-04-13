@@ -18,7 +18,7 @@
                                                               
       
       
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Playlist'), blog_post: 'Playlist'}
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Playlist'), blog_post: 'Playlist Distribution'}
       .row
         .col-sm-12
           .panel
@@ -39,29 +39,39 @@
                         i class="fa fa-pencil"
                         '&nbsp;Recordings
               hr
-              b Keys
               .table-responsive
                 table class="table table-striped"
                   thead
                     tr
-                      th Assigned to
+                      th Keys
                       th Expires
+                      th Password
                       
               
                   tbody
                     -@playlist.playlist_keys.each do |playlist_key|
                       - if user = User.where(id: playlist_key.user_id).first
                         tr
-                          td = user.email
+                          td 
+                            = link_to account_private_playlist_path(@account, playlist_key.password) do
+                              .btn.btn-default.btn-lg
+                                i class="fa fa-eye"
+                                '&nbsp;#{user.email}
+
                           td = playlist_key.expiration_date
+                          td = playlist_key.password_protection
                           td
                             .pull-right
                               = link_to account_private_playlist_path(@account, playlist_key.password) do
-                                .btn.btn-default.btn-lg
-                                  i class="fa fa-eye"
+                                .btn.btn-primary.btn-lg
+                                  i class="fa fa-pencil"
+                                  '&nbsp;Edit
                               '&nbsp;
                               - if playlist_key.status == 'new'
-                                = link_to 'Activate', '#', class: 'btn btn-success btn-lg'
+                                = link_to  '#' do
+                                  .btn.btn-success.btn-lg
+                                    i class="fa fa-key"
+                                    '&nbsp;Activate
                               - else 
                                 = link_to 'Deactivate', '#', class: 'btn btn-warning btn-lg'
                               '&nbsp;

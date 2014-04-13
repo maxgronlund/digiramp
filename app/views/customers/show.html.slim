@@ -9,13 +9,13 @@
                                                   }, current: @account_user.user.name}                                                        
                                                             
     .row
-      /=debug @account_user.user.account
       .col-sm-8
         == render 'shared/page_title_text', locals: {title: @account_user.get_name, body: ''}
       .col-sm-4
-        = link_to 'Edit Customer', edit_account_customer_path(@account, @account_user), class: 'btn btn-default btn-lg'
-        '&nbsp;
-        = link_to 'New Activity', new_account_customer_customer_event_path(@account, @account_user), class: 'btn btn-primary btn-lg'
+        .pull-right
+          = link_to 'Edit Customer', edit_account_customer_path(@account, @account_user), class: 'btn btn-default btn-lg'
+          '&nbsp;
+          = link_to 'New Activity', new_account_customer_customer_event_path(@account, @account_user), class: 'btn btn-primary btn-lg'
 
     == render 'shared/line'
     .row
@@ -47,39 +47,42 @@
 
     .row
       .col-sm-12
+
         .panel
           .panel-body
-            h3 Activities
-            .panel
-              .panel-body
-                .table-responsive
-                  table class="table table-striped"
-                    thead
-                      tr
-                        th Activity
-                        th Date
-                        th
-                  
-                    tbody
-                      - @account_user.customer_events.order('created_at desc').each do |customer_event|
-                        tr
-                          td
-                            b = customer_event.event_type
-                          td
-                            = customer_event.created_at.strftime("%d %b %Y")
-                          td
-                            .pull-right
-                              = link_to  account_customer_customer_event_path( @account, @account_user, customer_event), \
-                                                                              method: :delete ,\
-                                                                              data: {confirm: 'Are you sure?'}  do
-                                .btn.btn-danger.btn-lg
-                                  i  class='fa fa-times'
-                              '&nbsp;
-                              = link_to 'View', account_customer_customer_event_path( @account, @account_user, customer_event), \
-                                                class: 'btn btn-primary btn-lg'
-                    
-                  
-                  
+            .table-responsive
+              table class="table table-striped"
+                thead
+                  tr
+                    th Activity
+                    th Date
+                    th
+              
+                tbody
+                  - @account_user.customer_events.order('created_at desc').each do |customer_event|
+                    tr
+                      td
+                        b = customer_event.event_type
+                      td
+                        = customer_event.created_at.strftime("%d %b %Y")
+                      td
+                        .pull-right
+                          = link_to  account_customer_customer_event_path( @account, @account_user, customer_event), \
+                                                                          method: :delete ,\
+                                                                          data: {confirm: 'Are you sure?'}  do
+                            .btn.btn-danger.btn-lg
+                              i  class='fa fa-times'
+                          '&nbsp;
+                          = link_to 'View', account_customer_customer_event_path( @account, @account_user, customer_event), \
+                                            class: 'btn btn-primary btn-lg'
+                
+              
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to 'Edit Customer', edit_account_customer_path(@account, @account_user), class: 'btn btn-default btn-lg'
+          '&nbsp;
+          = link_to 'New Activity', new_account_customer_customer_event_path(@account, @account_user), class: 'btn btn-primary btn-lg'              
                   
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  
