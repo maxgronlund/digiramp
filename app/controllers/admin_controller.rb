@@ -18,7 +18,7 @@ class AdminController < ApplicationController
     Recording.all.each do |recording|
       recording.cache_version +=1
       if recording.title.nil? || recording.title.empty?
-        logger.debug '--------------- >>>>>>>>>>>>>>>   EMPTY <<<<<<<<<<<<<<<<<<-------------------------'
+        #logger.debug '--------------- >>>>>>>>>>>>>>>   EMPTY <<<<<<<<<<<<<<<<<<-------------------------'
         recording.destroy
       else
         recording.save!

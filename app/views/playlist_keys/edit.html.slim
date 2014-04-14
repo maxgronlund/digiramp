@@ -31,7 +31,7 @@
                 i = @playlist_key.user.email
                 hr
                 .row
-                  .col-sm-6
+                  .col-md-6
                     = f.input :secure_access, label: 'Password Protection'
                     br
                     .input-group
@@ -45,7 +45,7 @@
                         i class= 'fa fa-key'
                       = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
                     
-                  .col-sm-6
+                  .col-md-6
                     = f.input :expires 
                     = f.input :expiration_date, type: "text", "data-behaviour".to_sym =>'datepicker'
                

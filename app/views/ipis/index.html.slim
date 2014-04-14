@@ -1,0 +1,101 @@
+
+/div class="playlist_id" id="#{@playlist.id}"
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  /-cache([ @account.id, @account.works_cache_key, params]) do  
+  .do   
+    .container
+      
+      
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              'Common Works'.to_sym => account_works_path(@account), \
+                                                              @common_work.title.to_sym => account_work_path(@account, @common_work), \
+                                                              }, current: 'ipis'}
+                                                              
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('IP'), blog_post: 'List Interested Party', insert: 'common_work_title'}
+      .row
+        .col-sm-12
+          
+          -@common_work.ipis.each do |ipi|
+            .panel
+              .panel-body
+                .row
+                  .col-sm-8
+                    h3 = ipi.full_name
+                    = ipi.email
+                  .col-sm-4
+                    .pull-right
+                      = link_to 'Edit', edit_account_common_work_ipi_path(@account, @common_work, ipi), class: 'btn btn-primary btn-lg'
+                hr
+                .row
+                  .col-sm-4
+                    'Capacity: #{ipi.role}
+                    br
+                    'IPI Code: #{ipi.ipi_code}
+                    hr
+                    b Address:
+                    br
+                    = simple_format ipi.address
+                    br
+                    'Phone:&nbsp;#{ipi.phone_number}     
+                  .col-sm-4
+                    'Controlled: #{ipi.controlled}
+                    br
+                    '&nbsp;
+                    hr
+                    b Notes:
+                    br
+                    = simple_format ipi.notes
+                  .col-sm-4
+                    table
+                      thead
+                        tr
+                          th Rights
+                          th &nbsp;&nbsp;
+                          th
+                      tbody
+                        tr
+                          td Share
+                          td
+                          td = number_to_percentage(ipi.share, precision: 0) 
+                        tr
+                          td Mechanical Owened
+                          td
+                          td = number_to_percentage(ipi.mech_owned, precision: 0) 
+                        tr
+                          td Performance Owened
+                          td
+                          td = number_to_percentage(ipi.perf_owned, precision: 0) 
+                          
+                        tr
+                          td Mechanical Collected
+                          td
+                          td = number_to_percentage(ipi.mech_collected, precision: 0) 
+                        tr
+                          td Performance Collected
+                          td
+                          td = number_to_percentage(ipi.perf_collected, precision: 0)
+                /.row
+                /  .col-sm-12
+                /    .pull-right
+                /      = link_to 'Edit', edit_account_common_work_ipi_path(@account, @common_work, ipi), class: 'btn btn-primary btn-lg'
+                /    = debug ipi
+          .pull-right
+            =link_to 'New IP', new_account_common_work_ipi_path(@account, @common_work),\
+                      class: 'btn btn-primary btn-lg'
+
+          
+                
+                
+
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
+

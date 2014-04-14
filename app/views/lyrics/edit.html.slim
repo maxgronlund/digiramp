@@ -20,7 +20,12 @@
 
          
 
-            = simple_form_for [ @account, @common_work, @recording ], :url => url_for(:action => 'update', :controller => 'lyrics'), :method => 'put',  :html => { :id => 'recording' } do |f| 
+            = simple_form_for [ @account, @common_work, @recording ], \
+                                :url => url_for(:action => 'update', \
+                                :controller => 'lyrics'), \
+                                :method => 'put',  \
+                                :html => { \
+                                :id => 'recording' } do |f| 
               /= f.input :lyrics
               b Lyrics
               br

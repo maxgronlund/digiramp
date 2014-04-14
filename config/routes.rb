@@ -2,6 +2,7 @@
 Digiramp::Application.routes.draw do
   
 
+
   get "signup/index"
   get "tags/index"
   get "user_genre_tags/index"
@@ -93,6 +94,7 @@ Digiramp::Application.routes.draw do
 
     resources :upload_recordings, only: [:new, :edit, :create]
     resources :common_works do
+      
       resources :attachments do
         member do
           get :download
@@ -102,10 +104,9 @@ Digiramp::Application.routes.draw do
       resources :audio_files
       resources :recordings do
         resources :genre_tags
-        
-        
       end
       #resources :audio_file,    only: [:edit, :update]
+      resources :ipis
       resources :lyrics,        only: [:edit, :update]
       resources :work_users
       resources :upload_recordings
