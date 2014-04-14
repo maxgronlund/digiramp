@@ -16,7 +16,7 @@ class IpisController < ApplicationController
     @common_work = CommonWork.cached_find(params[:common_work_id])
     @ipi = Ipi.create(ipi_params)
 
-    redirect_to edit_account_common_work_ipi_path(@account, @common_work, @ipi)
+    redirect_to account_common_work_ipis_path(@account, @common_work)
   end
 
   def edit
@@ -28,6 +28,13 @@ class IpisController < ApplicationController
     @common_work = CommonWork.cached_find(params[:common_work_id])
     @ipi = Ipi.cached_find(params[:id])
     @ipi.update_attributes(ipi_params)
+    redirect_to account_common_work_ipis_path(@account, @common_work)
+  end
+  
+  def destroy
+    @common_work = CommonWork.cached_find(params[:common_work_id])
+    @ipi = Ipi.cached_find(params[:id])
+    @ipi.destroy
     redirect_to account_common_work_ipis_path(@account, @common_work)
   end
   
