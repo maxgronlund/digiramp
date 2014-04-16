@@ -4,8 +4,7 @@ class WorkUsersController < ApplicationController
   def index
     @common_work    = CommonWork.cached_find(params[:work_id])
   end
-    
-
+  # touch
     
   
   
