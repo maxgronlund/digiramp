@@ -93,7 +93,7 @@ namespace :deploy do
 
   # remove the default nginx configuration as it will tend
   # to conflict with our configs.
-  before 'deploy:setup_config', 'nginx:remove_default_vhost'
+  #before 'deploy:setup_config', 'nginx:remove_default_vhost'
 
   # reload nginx to it will pick up any modified vhosts from
   # setup_config
