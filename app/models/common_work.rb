@@ -134,12 +134,66 @@ class CommonWork < ActiveRecord::Base
     common_works
   end
   
+  ##############################################################
+  # access control
+  
+  # check if user is an associate adminstrator or owner
   def is_accessible_by user
-    return true  if user.can_manage 'access works', account
-    return true
-    
+    return true if user.can_manage 'access works', account
+    return false
   end
   
+  # ipis
+  def ipis_is_accessible_by user
+    # pessimistic locking
+    access = false
+    if user.can_manage 'access works', account
+      access = true
+    elsif work_user = WorkUser.cached_where(self.id, user.id)
+      access = true if work_user && work_user.access_ipis  
+    end
+    access
+  end
+  
+  # files
+  def files_is_accessible_by user
+    # pessimistic locking
+    access = false
+    if user.can_manage 'access works', account
+      access = true
+    elsif work_user = WorkUser.cached_where(self.id, user.id)
+      access = true if work_user && work_user.access_files  
+    end
+    access
+  end
+  
+  # legal documents
+  def legal_documents_is_accessible_by user
+    # pessimistic locking
+    access = false
+    if user.can_manage 'access works', account
+      access = true
+    elsif work_user = WorkUser.cached_where(self.id, user.id)
+      access = true if work_user && work_user.access_legal_documents  
+    end
+    access
+  end
+  
+  # financial documents
+  def financial_documents_is_accessible_by user
+    # pessimistic locking
+    access = false
+    if user.can_manage 'access works', account
+      access = true
+    elsif work_user = WorkUser.cached_where(self.id, user.id)
+      access = true if work_user && work_user.access_financial_documents  
+    end
+    access
+  end
+  
+  
+  
+  # model caching
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
