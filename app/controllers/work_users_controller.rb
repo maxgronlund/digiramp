@@ -5,7 +5,7 @@ class WorkUsersController < ApplicationController
     @common_work    = CommonWork.cached_find(params[:work_id])
   end
     
-  end
+
     
   
   
