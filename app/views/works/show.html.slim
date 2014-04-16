@@ -14,7 +14,7 @@
                                                             }, current: @common_work.title}
     .row
       .col-sm-6
-        h3 =@common_work.title
+        h1 =@common_work.title
         'ISWC Code: 
         '&nbsp;
         = @common_work.iswc_code
@@ -31,47 +31,120 @@
       
         
 
+    / all users can access recordings
+    .col-sm-6
+      == render 'works/shared/badge_button', locals: { \
+                                                  blog_post: 'RECORDINGS', \
+                                                  link: account_work_work_recordings_path(@account, @common_work), \
+                                                  css_class: 'btn btn-warning', \
+                                                  icon: 'fa fa-headphones'\
+                                                }
+  
+    -if @user_can_access_shared_with 
+      .col-sm-6
+        == render 'works/shared/badge_button', locals: { \
+                                                   blog_post: 'USERS', \
+                                                   link: account_work_work_users_path(@account, @common_work), \
+                                                   css_class: 'btn btn-default', \
+                                                   icon: 'fa fa-group' \
+                                                 }
+      
+    -if @user_can_access_legal_documents
+      .col-sm-6
+        == render 'works/shared/badge_button', locals: { \ 
+                                                  blog_post: 'LEGAL DOCUMENTS', \
+                                                  link: account_work_work_legal_documents_path(@account, @common_work), \
+                                                  css_class: 'btn btn-danger', \
+                                                  icon: 'fa fa-gavel' \
+                                                 }
+      
+    -if @user_can_access_files
+      .col-sm-6
+        == render 'works/shared/badge_button', locals: { \ 
+                                                  blog_post: 'FILES', \
+                                                  link: account_work_work_files_path(@account, @common_work), \
+                                                  css_class: 'btn btn-primary', \
+                                                  icon: 'fa fa-folder' \
+                                                 }
+      
+    -if @user_can_access_ipis
+      .col-sm-6
+        == render 'works/shared/badge_button', locals: { \ 
+                                                  blog_post: 'IPIS', \
+                                                  link: account_work_work_ipis_path(@account, @common_work), \
+                                                  css_class: 'btn btn-info', \
+                                                  icon: 'fa fa-exclamation-circle' \
+                                                 }
+      
+    -if @user_can_access_ipis
+      .col-sm-6
+        == render 'works/shared/badge_button', locals: { \ 
+                                                  blog_post: 'FINANCIAL DOCUMENTS', \
+                                                  link: account_work_work_financial_documents_path(@account, @common_work), \
+                                                  css_class: 'btn btn-success', \
+                                                  icon: 'fa fa-money' \
+                                                 }
+                                                 
+                                                 
+                                                 
+      
+
     
-    .row
-      .col-sm-12
-        .panel
-          .panel-body.digiramp_player
-            div class="panel-group" id="accordion"
-              - @common_work.recordings.each do |recording|
-                == render 'recordings/recording', recording: recording
-            -if current_user.can_administrate @account
-              .pull-right
-                = link_to "Add Recording", new_account_common_work_recording_path(@account, @common_work), \
-                          'data-no-turbolink'=>true, \
-                          class: 'btn btn-primary btn-lg'
-    .row
-      -unless @common_work.lyrics.to_s == ''
-        .col-sm-6
-          .panel
-            .panel-body
-              h3 original lyric
-              .text-center
-                = simple_format @common_work.lyrics
-      -unless @common_work.description.to_s == ''
-        .col-sm-6
-          .panel
-            .panel-body
-              h3 Description
-              = simple_format @common_work.description
-          
-    == render 'works/shared/personas'             if @user_can_access_shared_with 
-    == render 'works/shared/files'                if @user_can_access_files
-    == render 'works/shared/legal_documents'      if @user_can_access_legal_documents
-    == render 'works/shared/financial_documents'  if @user_can_access_financial_documents
-    == render 'works/shared/ipis'                 if @user_can_access_ipis
-        
-        
-    .visible-xs   
-      .row
-        .col-sm-12
-          hr
-          .pull-right
-            = link_to 'edit', edit_account_work_path(@account, @common_work), class: 'btn btn-primary btn-lg'
-        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /.row
+    /  .col-sm-12
+    /    .panel
+    /      .panel-body.digiramp_player
+    /        div class="panel-group" id="accordion"
+    /          - @common_work.recordings.each do |recording|
+    /            == render 'recordings/recording', recording: recording
+    /        -if current_user.can_administrate @account
+    /          .pull-right
+    /            = link_to "Add Recording", new_account_common_work_recording_path(@account, @common_work), \
+    /                      'data-no-turbolink'=>true, \
+    /                      class: 'btn btn-primary btn-lg'
+    /.row
+    /  -unless @common_work.lyrics.to_s == ''
+    /    .col-sm-6
+    /      .panel
+    /        .panel-body
+    /          h3 original lyric
+    /          .text-center
+    /            = simple_format @common_work.lyrics
+    /  -unless @common_work.description.to_s == ''
+    /    .col-sm-6
+    /      .panel
+    /        .panel-body
+    /          h3 Description
+    /          = simple_format @common_work.description
+    /      
+    /== render 'works/shared/personas'             if @user_can_access_shared_with 
+    /== render 'works/shared/files'                if @user_can_access_files
+    /== render 'works/shared/legal_documents'      if @user_can_access_legal_documents
+    /== render 'works/shared/financial_documents'  if @user_can_access_financial_documents
+    /== render 'works/shared/ipis'                 if @user_can_access_ipis
+    /    
+    /    
+    /.visible-xs   
+    /  .row
+    /    .col-sm-12
+    /      hr
+    /      .pull-right
+    /        = link_to 'edit', edit_account_work_path(@account, @common_work), class: 'btn btn-primary btn-lg'
+    /    
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

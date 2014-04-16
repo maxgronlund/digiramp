@@ -18,9 +18,10 @@ Digiramp::Application.routes.draw do
   resources :accounts, only: [:show, :edit, :update] do
     resources :add_catalog_assets, only: [:show]
     resources :account_users
+    resources :catalog_recordings, only: [:show]
     resources :catalogs do
       get "catalog_recordings/add_all"
-      resources :catalog_recordings, only: [:index, :new, :destroy, :show] 
+      resources :catalog_recordings, only: [:index, :new, :destroy] 
     end
     resources :documents
     resources :export_recordings, only: [:index]
@@ -76,7 +77,14 @@ Digiramp::Application.routes.draw do
     end
     
     #resources :upload_completed
-    resources :works
+    resources :works do
+      resources :work_recordings, only: [:index]
+      resources :work_users, only: [:index]
+      resources :work_financial_documents, only: [:index]
+      resources :work_legal_documents, only: [:index]
+      resources :work_ipis, only: [:index]
+      resources :work_files, only: [:index]
+    end
     
     resources :assets, only: [:index]
     get "add_content/index"

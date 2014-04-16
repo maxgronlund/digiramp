@@ -22,7 +22,7 @@ class CatalogRecordingsController < ApplicationController
   end
   
   def show
-
+    @catalog = Catalog.cached_find(params[:id])
   end
   
   def add_all

@@ -85,10 +85,16 @@ private
     return true if account_belongs_to_current_user
     return true if user_is_an_account_user
     return true if current_user.role == 'super'
+    #return true if the_page_contains_shared_assets
     @account = nil
     #account_belongs_to_current_user.current_account_id = current_user.account_id
     #account_belongs_to_current_user.save
     false
+  end
+  
+  # if the page holds a resource where the current user is granded access
+  def the_page_contains_shared_assets
+    #return false
   end
   
 end

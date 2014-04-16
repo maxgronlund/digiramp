@@ -1,0 +1,2 @@
+module WorkRecordingsHelper
+end
