@@ -5,6 +5,7 @@ set :deploy_user, 'deploy'
 # setup repo details
 set :scm, :git
 set :repo_url, 'https://github.com/maxgronlund/digiramp.git'
+set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 
 # setup rvm.
 set :rbenv_type, :system
@@ -68,7 +69,7 @@ set(:symlinks, [
   },
   {
     source: "sidekiq_init.sh",
-    link: "/etc/nginx/sites-enabled/sidekiq_{{full_app_name}}"
+    link: "/etc/init.d/sidekiq_{{full_app_name}}"
   }
   #{
   #  source: "sidekiq_init.sh",
