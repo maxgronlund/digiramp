@@ -9,7 +9,7 @@ set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 
 # setup rvm.
 set :rbenv_type, :system
-set :rbenv_ruby, '2.0.0-p353'
+set :rbenv_ruby, '2.1.0'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
@@ -92,11 +92,11 @@ namespace :deploy do
 
   # remove the default nginx configuration as it will tend
   # to conflict with our configs.
-  #before 'deploy:setup_config', 'nginx:remove_default_vhost'
+  before 'deploy:setup_config', 'nginx:remove_default_vhost'
 
   # reload nginx to it will pick up any modified vhosts from
   # setup_config
-  #after 'deploy:setup_config', 'nginx:reload'
+  after 'deploy:setup_config', 'nginx:reload'
 
   # Restart monit so it will pick up any monit configurations
   # we've added
