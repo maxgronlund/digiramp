@@ -9,7 +9,7 @@ set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 
 # setup rvm.
 set :rbenv_type, :system
-set :rbenv_ruby, '2.1.0'
+set :rbenv_ruby, '2.0.0-p353'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
@@ -32,7 +32,6 @@ set :tests, []
 set(:config_files, %w(
   nginx.conf
   application.yml
-  database.example.yml
   log_rotation
   monit
   unicorn.rb
@@ -71,7 +70,10 @@ set(:symlinks, [
     source: "sidekiq_init.sh",
     link: "/etc/init.d/sidekiq_{{full_app_name}}"
   }
-
+  #{
+  #  source: "sidekiq_init.sh",
+  #  link: "/etc/init.d/sidekiq_{{full_app_name}}"
+  #}
 ])
 
 # this:

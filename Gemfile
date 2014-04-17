@@ -31,7 +31,7 @@ gem 'jbuilder', '~> 1.2'
 gem "slim-rails"
 gem 'country_select'
 gem 'simple_form'
-gem 'backbone-on-rails'
+#gem 'backbone-on-rails'
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'carrierwave'
@@ -87,7 +87,7 @@ group :test do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt'
+gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
 gem 'unicorn'
