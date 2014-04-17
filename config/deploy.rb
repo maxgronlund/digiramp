@@ -31,12 +31,13 @@ set :tests, []
 # for details of operations
 set(:config_files, %w(
   nginx.conf
-  application.yml
   log_rotation
   monit
   unicorn.rb
   unicorn_init.sh
   sidekiq_init.sh
+  sidekiq.yml
+  application.yml
 ))
 
 # which config files should be made executable after copying
