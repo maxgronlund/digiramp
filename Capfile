@@ -21,7 +21,7 @@ require 'capistrano/deploy'
  require 'capistrano/bundler'
 # require "sidekiq/capistrano"
 # require 'capistrano/rails/assets'
-# require 'capistrano/rails/migrations'
+ require 'capistrano/rails/migrations'
  require 'capistrano/sidekiq'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
