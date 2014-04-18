@@ -32,7 +32,8 @@ class SellingPointsController < ApplicationController
   
 private
   def get_blog
-    @blog     = Blog.selling_points
+    @blog = Blog.cached_find('Selling Points')
+    
     
   end
 end

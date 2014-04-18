@@ -28,7 +28,7 @@ class Blog < ActiveRecord::Base
 #  def self.customers; Blog.where(identifier: 'Customers').first_or_create(identifier: 'Customers', title: 'Customers' ) end
 #  #def self.recordings; Blog.where(identifier: 'Recordings').first_or_create(identifier: 'Recordings', title: 'Recordings' ) end
 
-  
+
   
   
   def self.cached_find(identity)
