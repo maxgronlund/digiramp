@@ -5,7 +5,8 @@ set :deploy_user, 'deploy'
 # setup repo details
 set :scm, :git
 set :repo_url, 'https://github.com/maxgronlund/digiramp.git'
-set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
+#set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
+
 
 # setup rvm.
 set :rbenv_type, :system
@@ -17,7 +18,8 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :keep_releases, 5
 
 # files we want symlinking to specific entries in shared
-set :linked_files, %w{config/database.yml config/application.yml config/sidekiq.yml}
+#set :linked_files, %w{config/database.yml config/application.yml config/sidekiq.yml}
+set :linked_files, %w{config/database.yml config/application.yml }
 
 # dirs we want symlinking to shared
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
@@ -29,21 +31,32 @@ set :tests, []
 # which config files should be copied by deploy:setup_config
 # see documentation in lib/capistrano/tasks/setup_config.cap
 # for details of operations
+#set(:config_files, %w(
+#  nginx.conf
+#  application.yml
+#  log_rotation
+#  monit
+#  unicorn.rb
+#  unicorn_init.sh
+#  sidekiq_init.sh
+#))
+
 set(:config_files, %w(
   nginx.conf
   application.yml
-  database.example.yml
   log_rotation
   monit
   unicorn.rb
   unicorn_init.sh
-  sidekiq_init.sh
 ))
 
 # which config files should be made executable after copying
 # by deploy:setup_config
+#set(:executable_config_files, %w(
+#  unicorn_init.sh sidekiq_init.sh
+#))
 set(:executable_config_files, %w(
-  unicorn_init.sh sidekiq_init.sh
+  unicorn_init.sh
 ))
 
 
@@ -66,12 +79,8 @@ set(:symlinks, [
   {
     source: "monit",
     link: "/etc/monit/conf.d/{{full_app_name}}.conf"
-  },
-  {
-    source: "sidekiq_init.sh",
-    link: "/etc/init.d/sidekiq_{{full_app_name}}"
   }
-  #{
+  #,{
   #  source: "sidekiq_init.sh",
   #  link: "/etc/init.d/sidekiq_{{full_app_name}}"
   #}
