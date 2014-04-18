@@ -87,7 +87,7 @@ group :test do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt'
+gem 'bcrypt-ruby'
 
 # Use unicorn as the app server
 gem 'unicorn'

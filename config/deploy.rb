@@ -71,7 +71,10 @@ set(:symlinks, [
     source: "sidekiq_init.sh",
     link: "/etc/init.d/sidekiq_{{full_app_name}}"
   }
-
+  #{
+  #  source: "sidekiq_init.sh",
+  #  link: "/etc/init.d/sidekiq_{{full_app_name}}"
+  #}
 ])
 
 # this:
