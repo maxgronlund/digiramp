@@ -11,7 +11,7 @@ set :server_name, "www.assets-manager.com assets-manager.com"
 # at filepaths
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 
-server '107.170.73.147', user: 'deploy', roles: %w{web app db}, primary: true
+server '78.46.19.136', user: 'deploy', roles: %w{web app db}, primary: true
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/#{fetch(:full_app_name)}"
 

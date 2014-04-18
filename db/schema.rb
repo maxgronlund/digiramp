@@ -110,6 +110,19 @@ ActiveRecord::Schema.define(version: 20140413115423) do
 
   add_index "activity_logs", ["account_id"], name: "index_activity_logs_on_account_id", using: :btree
 
+  create_table "administrations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.integer  "account_catalog_id"
+    t.date     "expires"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "administrations", ["account_catalog_id"], name: "index_administrations_on_account_catalog_id", using: :btree
+  add_index "administrations", ["account_id"], name: "index_administrations_on_account_id", using: :btree
+  add_index "administrations", ["user_id"], name: "index_administrations_on_user_id", using: :btree
+
   create_table "admins", force: true do |t|
     t.integer  "version"
     t.datetime "created_at"
@@ -827,6 +840,17 @@ ActiveRecord::Schema.define(version: 20140413115423) do
     t.string   "production_company",  default: ""
     t.date     "available_date"
     t.string   "upc_code",            default: ""
+    t.integer  "track_count"
+    t.integer  "disk_number"
+    t.integer  "disk_count"
+    t.string   "album_artist"
+    t.string   "album_title"
+    t.string   "grouping"
+    t.string   "composer"
+    t.boolean  "compilation"
+    t.integer  "bitrate"
+    t.integer  "samplerate"
+    t.integer  "channels"
     t.text     "audio_upload"
     t.integer  "completeness_in_pct", default: 0
     t.string   "mp3"
@@ -840,15 +864,13 @@ ActiveRecord::Schema.define(version: 20140413115423) do
     t.string   "disc",                default: ""
     t.string   "track",               default: ""
     t.string   "waveform",            default: ""
-    t.integer  "cache_version",       default: 0
     t.string   "cover_art"
+    t.integer  "cache_version",       default: 0
     t.string   "vocal",               default: ""
     t.integer  "import_batch_id"
     t.text     "mood",                default: ""
     t.text     "instruments",         default: ""
     t.string   "tempo",               default: ""
-    t.string   "grouping",            default: ""
-    t.string   "composer",            default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -935,6 +957,8 @@ ActiveRecord::Schema.define(version: 20140413115423) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.integer  "current_account_id"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "avatar_url"
     t.integer  "account_id"
     t.boolean  "show_welcome_message",   default: true
@@ -952,6 +976,25 @@ ActiveRecord::Schema.define(version: 20140413115423) do
     t.datetime "updated_at", null: false
     t.string   "identifier"
   end
+
+  create_table "video_email_campains", force: true do |t|
+    t.string   "title"
+    t.string   "by"
+    t.string   "logo"
+    t.string   "link_to_contact"
+    t.string   "webm"
+    t.string   "ogg"
+    t.string   "mp4"
+    t.string   "star_rating_image"
+    t.text     "caption_text"
+    t.string   "email_layout"
+    t.string   "footer_image"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "video_email_campains", ["account_id"], name: "index_video_email_campains_on_account_id", using: :btree
 
   create_table "videos", force: true do |t|
     t.string   "title"
