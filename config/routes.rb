@@ -2,7 +2,6 @@
 Digiramp::Application.routes.draw do
   
 
-
   get "signup/index"
   get "tags/index"
   get "user_genre_tags/index"
@@ -21,7 +20,8 @@ Digiramp::Application.routes.draw do
     resources :catalog_recordings, only: [:show]
     resources :catalogs do
       get "catalog_recordings/add_all"
-      resources :catalog_recordings, only: [:index, :new, :destroy] 
+      resources :catalog_recordings, only: [:index, :new, :destroy]
+      resources :catalog_users
     end
     resources :documents
     resources :export_recordings, only: [:index]
@@ -75,6 +75,8 @@ Digiramp::Application.routes.draw do
       
       resources :genres
     end
+    
+    
     
     #resources :upload_completed
     resources :works do
@@ -167,6 +169,9 @@ Digiramp::Application.routes.draw do
   resources :users do
     resources :user_accounts, only: [:index]
     resources :shared_assets, only: [:index]
+    resources :shared_catalogs, only: [:index, :show] do
+      resources :shared_recordings, only: [:index, :show]
+    end
   end
 
 

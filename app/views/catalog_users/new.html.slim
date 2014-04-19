@@ -7,12 +7,12 @@
     ==render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             assets: account_assets_path(@account), \
-                                                            works: account_works_path(@account),\
-                                                            @common_work.title.to_sym => account_work_path(@account, @common_work), \
-                                                            }, current: 'invite'}
+                                                            catalogs: account_catalogs_path(@account),\
+                                                            @catalog.title.to_sym => account_work_path(@account, @catalog), \
+                                                            }, current: 'invite user to catalog'}
     
-    -blog = Blog.cached_find('Work Users')
-    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Invite To Work'}
+    -blog = Blog.cached_find('Catalog Users')
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Invite To Catalog'}
     .row
       .col-sm-3
       

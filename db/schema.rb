@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140413115423) do
+ActiveRecord::Schema.define(version: 20140419092938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,26 @@ ActiveRecord::Schema.define(version: 20140413115423) do
 
   add_index "catalog_items", ["catalog_id"], name: "index_catalog_items_on_catalog_id", using: :btree
   add_index "catalog_items", ["catalog_itemable_id"], name: "index_catalog_items_on_catalog_itemable_id", using: :btree
+
+  create_table "catalog_users", force: true do |t|
+    t.integer  "catalog_id"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.string   "email",                      default: ""
+    t.string   "title",                      default: ""
+    t.text     "body",                       default: ""
+    t.boolean  "can_edit",                   default: false
+    t.boolean  "access_files",               default: false
+    t.boolean  "access_legal_documents",     default: false
+    t.boolean  "access_financial_documents", default: false
+    t.boolean  "access_ipis",                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "catalog_users", ["account_id"], name: "index_catalog_users_on_account_id", using: :btree
+  add_index "catalog_users", ["catalog_id"], name: "index_catalog_users_on_catalog_id", using: :btree
+  add_index "catalog_users", ["user_id"], name: "index_catalog_users_on_user_id", using: :btree
 
   create_table "catalogs", force: true do |t|
     t.string   "title"
@@ -948,8 +968,8 @@ ActiveRecord::Schema.define(version: 20140413115423) do
     t.string   "password_digest"
     t.boolean  "admin"
     t.string   "role"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "image"
     t.text     "crop_params"
     t.text     "profile"
@@ -965,6 +985,7 @@ ActiveRecord::Schema.define(version: 20140413115423) do
     t.boolean  "activated",              default: true
     t.string   "uuid",                   default: ""
     t.integer  "curent_catalog_id"
+    t.boolean  "invited",                default: false
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

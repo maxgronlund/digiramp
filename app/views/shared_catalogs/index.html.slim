@@ -1,0 +1,47 @@
+- session[:return_url] = request.url
+- user_account = Account.cached_find(@user.account_id)
+
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'profile'     
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name}
+                                                            
+                                                            
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Shared Catalogs'), blog_post: 'Shared Catalogs'}
+    
+    
+
+      
+    
+    .panel
+      .panel-body
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Catalog
+                th Account
+                th
+            tbody
+              -CatalogUser.where(user_id: @user.id).each do |catalog_user|
+                -catalog = catalog_user.catalog
+                -cache (['shared catalog',catalog]) do
+                  tr
+                    /td = debug user
+                    td = link_to catalog.title, user_shared_catalog_path(@user, catalog), class: 'btn btn-default'
+                    td = catalog_user.account.title
+                    td
+                      .pull-right
+                        = link_to 'Show', user_shared_catalog_path(@user, catalog), class: 'btn btn-default'
+                        
+                        
+                        
+                        
+                        
+                        
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'  

@@ -22,13 +22,17 @@ class User < ActiveRecord::Base
   include ImageCrop
   
   has_one :account
-  #has_many :account_users
+  has_many :account_users
+  
+  has_many :catalog_users, dependent: :destroy
+  has_many :catalogs, through: :catalog_users
   
   has_one :dashboard
   
   
   has_many :account_users, dependent: :destroy
   has_many :work_users, dependent: :destroy
+  has_many :works, through: :work_users
   has_many :accounts, :through => :account_users  
   #has_many :bugs, dependent: :destroy
   
@@ -79,9 +83,6 @@ class User < ActiveRecord::Base
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
     save!
-    #logger.debug '-----------------------------------------------------------------------------'
-    #logger.debug invitation_message
-    #logger.debug '-----------------------------------------------------------------------------'
     UserMailer.delay.invite_new_user_to_account(self.id, account_id, invitation_message)
   end
   #
@@ -225,7 +226,7 @@ class User < ActiveRecord::Base
   
   def permission_cache_for account
     begin
-      return AccountUser.‡( account.id, self.id).permission_key
+      return AccountUser( account.id, self.id).permission_key
     rescue
       return UUIDTools::UUID.timestamp_create().to_s
     end
@@ -344,6 +345,30 @@ class User < ActiveRecord::Base
                        )
 
     account
+  end
+  
+  def self.find_or_invite_to_catalog_by_email email, title, body, catalog_id
+    if found_user       = User.where(email: email).first
+
+      # invite to existing user to catalog
+      UserMailer.delay.invite_existing_user_to_catalog( found_user.id , title, body, catalog_id )
+      
+    else
+      # create user
+      found_user = User.create(email: email, invited: true)
+      
+      # create account
+      create_a_new_account_for_the found_user
+
+      # invite to existing new to catalog
+      UserMailer.delay.invite_new_user_to_catalog( found_user.id , title, body )
+    end
+    
+    found_user
+  end
+  
+  def invite_to_catalog
+    
   end
 
 private

@@ -7,36 +7,42 @@
     == render 'admin/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name}
+    /== render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name}
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(current_user), \
+                                                            }, current: 'shared assets'}
                                                             
                                                             
     == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Shared Assets'}
     
+    .row
+      .col-sm-6
+        == render 'assets/shared/badge_button', locals: { \
+                                                    blog_post: 'CATALOGS', \
+                                                    link: user_shared_catalogs_path(@user), \
+                                                    css_class: 'btn btn-primary', \
+                                                    icon: 'fa fa-list-ul' \
+                                                  }
+      
     
-    
-    
-    
-    
-    
-    .panel
-      .panel-body
-        b Common Works
-        .table-responsive
-          table class="table table-hover"
-            tbody
-              -WorkUser.where(user_id: @user.id).each do |work_user|
-                -common_work = work_user.common_work
-                -cache (['shared',common_work]) do
-                  tr
-                    /td = debug user
-                    td = common_work.title
-                    td 
-                    td
-                      .pull-right
-                        = link_to 'Show', account_work_path(common_work.account, common_work), class: 'btn btn-default'
-                        
-                        
-                        
+    /.panel
+    /  .panel-body
+    /    b Common Works
+    /    .table-responsive
+    /      table class="table table-hover"
+    /        tbody
+    /          -WorkUser.where(user_id: @user.id).each do |work_user|
+    /            -common_work = work_user.common_work
+    /            -cache (['shared',common_work]) do
+    /              tr
+    /                /td = debug user
+    /                td = common_work.title
+    /                td 
+    /                td
+    /                  .pull-right
+    /                    = link_to 'Show', account_work_path(common_work.account, common_work), class: 'btn btn-default'
+    /                    
+    /                    
+    /                    
                         
                         
                         
