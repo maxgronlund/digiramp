@@ -22,14 +22,12 @@ class SessionsController < ApplicationController
         cookies[:auth_token] = user.auth_token  
       end
       
-      if current_user && current_user.super?
+      if current_user
         session[:user_id] = current_user.id
-        redirect_to admin_index_path
-      else
-        account = Account.cached_find(user.account_id)
+        account           = Account.cached_find(user.account_id)
         account.visits += 1
         account.save!
-        redirect_to account_path(account)
+        redirect_to user_path(current_user)
       end
 
     else

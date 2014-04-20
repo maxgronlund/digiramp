@@ -1,2 +1,38 @@
-h1 SharedRecordings#show
-p Find me in app/views/shared_recordings/show.html.slim
+/= debug @recording.audio_upload
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'profile'
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym     =>  user_path(@user), \
+                                                           "Shared Assets".to_sym   =>  user_shared_assets_path(@user), \
+                                                           "Shared catalogs".to_sym =>  user_shared_catalogs_path(@user), \
+                                                             @catalog.title.to_sym  =>  user_shared_catalog_path(@user, @catalog) \
+                                                           }, current:  @recording.title}
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Recordings'), blog_post: 'View Shared Recordings'}
+      -index = @recording.id
+      div class="player" id="#{index}"
+      .just-load
+      .panel.panel-default
+        .panel-body
+          .digiramp_player
+            == render 'players/digramp_player', locals: {index: index , recording: @recording}
+      .row
+        .col-sm-6
+          == render 'recordings/shared/metadata'
+        .col-sm-6 
+          == render 'recordings/shared/lyrics' if @recording.vocal != 'Instrumental' || @recording.lyrics.to_s != ''
+             
+      
+         
+       
+      
+
+          
+              
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

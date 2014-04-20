@@ -18,8 +18,8 @@
     hr
 
 .row
-  
-      
+  /-if @account.user.invited
+   
   -if current_user.can_manage 'assets', @account
     .col-sm-6
       == render 'shared/badge_button', locals: { \

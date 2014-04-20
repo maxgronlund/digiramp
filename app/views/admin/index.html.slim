@@ -5,60 +5,59 @@
 
                
   .container
-    'fo
     ==render 'admin/shared/messages'
-    /-cache ([request.url, @account.rec_cache_version, current_user.role  ]) do
-    .do
+    -cache (['admin', Admin.cached_find(1).version]) do      
+
       == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
 
       
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Admin'} 
-    .row
-      .col-sm-6
-        == render 'shared/badge_button', locals: { \
-                                                    blog_post: 'ACCOUNTS', \
-                                                    link: admin_accounts_path, \
-                                                    css_class: 'btn btn-primary', \
-                                                    icon: 'fa fa-list-alt' \
-                                                  }
-      .col-sm-6
-        == render 'shared/badge_button', locals: { \
-                                                    blog_post: 'CONTENT', \
-                                                    link: admin_content_index_path, \
-                                                    css_class: 'btn btn-success', \
-                                                    icon: 'fa fa-folder-o' \
-                                                  }
-    .row
-      .col-sm-6
-        == render 'shared/badge_button', locals: { \
-                                                    blog_post: 'USERS', \
-                                                    link: admin_users_path, \
-                                                    css_class: 'btn btn-info', \
-                                                    icon: 'fa fa-group' \
-                                                  }
-      .col-sm-6
-        == render 'shared/badge_button', locals: { \
-                                                    blog_post: 'ENGINE ROOM', \
-                                                    link: admin_engine_room_index_path, \
-                                                    css_class: 'btn btn-danger', \
-                                                    icon: 'fa fa-cogs' \
-                                                  }
-                                                  
-      .col-sm-6
-        == render 'shared/badge_button', locals: { \
-                                                    blog_post: 'DEVELOPMENT LOG', \
-                                                    link: admin_development_log_index_path, \
-                                                    css_class: 'btn btn-default', \
-                                                    icon: 'fa fa-bullhorn' \
-                                                  }
-                                                  
-                                                  
-                                                  
-    /.row
-    /  
-    /  .col-sm-6
-    /    == render 'admin/shared/badge_buttons/genre'
-    /
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Admin'} 
+      .row
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'ACCOUNTS', \
+                                                      link: admin_accounts_path, \
+                                                      css_class: 'btn btn-primary', \
+                                                      icon: 'fa fa-list-alt' \
+                                                    }
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'CONTENT', \
+                                                      link: admin_content_index_path, \
+                                                      css_class: 'btn btn-success', \
+                                                      icon: 'fa fa-folder-o' \
+                                                    }
+      
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'USERS', \
+                                                      link: admin_users_path, \
+                                                      css_class: 'btn btn-info', \
+                                                      icon: 'fa fa-group' \
+                                                    }
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'ENGINE ROOM', \
+                                                      link: admin_engine_room_index_path, \
+                                                      css_class: 'btn btn-danger', \
+                                                      icon: 'fa fa-cogs' \
+                                                    }
+                                                    
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'DEVELOPMENT LOG', \
+                                                      link: admin_development_log_index_path, \
+                                                      css_class: 'btn btn-default', \
+                                                      icon: 'fa fa-bullhorn' \
+                                                    }
+                                                    
+                                                    
+                                                    
+      /.row
+      /  
+      /  .col-sm-6
+      /    == render 'admin/shared/badge_buttons/genre'
+      /
   
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

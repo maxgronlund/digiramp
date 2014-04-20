@@ -7,7 +7,7 @@
     == render 'admin/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_path(@user), \
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { 'profile'.to_sym => user_path(@user), \
                                                             }, current:  'ACCSSIBLE ACCOUNTS'}
                                                                                                              
     == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Accssible Accounts'}

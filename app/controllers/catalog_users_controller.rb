@@ -14,11 +14,11 @@ class CatalogUsersController < ApplicationController
   
   def create
     @catalog                            = Catalog.cached_find(params[:catalog_id])
-      if @user                          = User.find_or_invite_to_catalog_by_email( params[:catalog_user][:email], 
-                                                                                    params[:catalog_user][:title],
-                                                                                    params[:catalog_user][:body],
-                                                                                    @catalog.id
-                                                                                  )
+      if @user                          = User.invite_to_catalog_by_email(  params[:catalog_user][:email], 
+                                                                            params[:catalog_user][:title],
+                                                                            params[:catalog_user][:body],
+                                                                            @catalog.id
+                                                                          )
       params[:catalog_user][:user_id]   = @user.id 
       @catalog_user                     = CatalogUser.create(catalog_user_params)
 

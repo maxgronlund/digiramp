@@ -67,9 +67,10 @@ class User < ActiveRecord::Base
   
   
   def send_password_reset
-    generate_token(:password_reset_token)
-    self.password_reset_sent_at = Time.zone.now
-    save!
+    #generate_token(:password_reset_token)
+    #self.password_reset_sent_at = Time.zone.now
+    #save!
+    self.add_token
     UserMailer.delay.password_reset(self)
   end 
   
@@ -83,6 +84,7 @@ class User < ActiveRecord::Base
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
     save!
+    self.add_token
     UserMailer.delay.invite_new_user_to_account(self.id, account_id, invitation_message)
   end
   #
@@ -284,13 +286,13 @@ class User < ActiveRecord::Base
   end
   
   def self.create_a_new_account_for_the user
-    @account = Account.new(title: Account::SECRET_NAME, 
+    @account = Account.new(   title: Account::SECRET_NAME, 
                               user_id: user.id, 
                               expiration_date: Date.current()>>1,
                               contact_email: user.email,
                               visits: 1,
                               account_type: Account::ACCOUNT_TYPES[:not_confirmed],
-                              )
+                            )
     @account.save(validate: false)                     
     AccountUser.create(user_id: user.id, account_id: @account.id, role: 'Account Owner')
     
@@ -347,21 +349,30 @@ class User < ActiveRecord::Base
     account
   end
   
-  def self.find_or_invite_to_catalog_by_email email, title, body, catalog_id
+  def self.invite_to_catalog_by_email email, title, body, catalog_id
     if found_user       = User.where(email: email).first
-
+      logger.debug '----------------------------------------------------------'
+      logger.debug '------------i nvite_to_catalog_by_email ------------------'
+      logger.debug '-----------------------------------------------'
       # invite to existing user to catalog
       UserMailer.delay.invite_existing_user_to_catalog( found_user.id , title, body, catalog_id )
-      
+      logger.debug '----------------------------------------------------------'
+      logger.debug '------------ existing user ------------------'
+      logger.debug '-----------------------------------------------'
     else
+      logger.debug '----------------------------------------------------------'
+      logger.debug '------------ new user ------------------'
+      logger.debug '-----------------------------------------------'
       # create user
-      found_user = User.create(email: email, invited: true)
-      
+      secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
+      found_user = User.create(name: email, email: email, invited: true, password: secret_temp_password, password_confirmation: secret_temp_password)
+      # apply a password reset token
+      found_user.add_token
       # create account
       create_a_new_account_for_the found_user
 
       # invite to existing new to catalog
-      UserMailer.delay.invite_new_user_to_catalog( found_user.id , title, body )
+      UserMailer.delay.invite_new_user_to_catalog( found_user.id , title, body,  catalog_id )
     end
     
     found_user
@@ -369,6 +380,12 @@ class User < ActiveRecord::Base
   
   def invite_to_catalog
     
+  end
+  
+  def add_token
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!
   end
 
 private
@@ -409,6 +426,8 @@ private
     when "Playlist", "MusicOpportunity" then class_name
     end
   end
+  
+  
   
   
   def generate_token(column)

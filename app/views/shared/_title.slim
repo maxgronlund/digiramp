@@ -1,0 +1,12 @@
+.row
+  .col-sm-8
+    .page-title
+      h1 
+        = locals[:title] 
+  
+    = simple_format locals[:body] 
+  .col-sm-4
+    /== render insert if locals[:insert] 
+      
+  .col-sm-12
+    hr

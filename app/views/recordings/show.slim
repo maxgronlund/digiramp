@@ -14,7 +14,6 @@
       .row
         -body = link_to @common_work.title, account_work_path(@account, @common_work)
         == render 'shared/page_title_text', locals: {title: @recording.title, body: body}
-        /= debug @recording
       == render 'shared/line'
       -index = @recording.id
       div class="player" id="#{index}"
@@ -23,26 +22,15 @@
         .panel-body
           .digiramp_player
             == render 'players/digramp_player', locals: {index: index , recording: @recording}
-      /== render 'shared/line'
+
       .row
         .col-sm-6
           == render 'recordings/shared/metadata'
         .col-sm-6 
           == render 'recordings/shared/lyrics' if @recording.vocal != 'Instrumental' || @recording.lyrics.to_s != ''
-          /.panel
-          /  .panel-body
-          /    b I'm having an ISRC for this recording
-          /    .pull-right
-          /      = link_to "Add", '#', class: 'btn btn-default btn-lg', id: 'play-button'
 
-      
-             
-      
-         
-       
-      
 
-          
+
               
     
 -cache (['footer', Admin.cached_find(1).version]) do      

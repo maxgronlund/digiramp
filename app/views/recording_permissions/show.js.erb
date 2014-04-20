@@ -21,3 +21,8 @@
 <% if @manage_recording %>
   $("<%= @manage_recording %>").prepend('<%=j render("recording_permissions/manage_recording") %>');
 <% end %>
+
+
+<% if @shared_catalog_recording %>
+  $("<%= @shared_catalog_recording %>").prepend('<%=j render("recording_permissions/shared_catalog_recording") %>');
+<% end %>

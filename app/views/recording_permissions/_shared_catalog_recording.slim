@@ -1,0 +1,14 @@
+=link_to user_shared_catalog_shared_recording_path(current_user, @catalog, @recording) 
+  .btn.btn-default.btn-lg
+    i class="fa fa-eye"
+'&nbsp;
+=link_to edit_user_shared_catalog_shared_recording_path(current_user, @catalog, @recording)
+  .btn.btn-primary.btn-lg
+    i class="fa fa-pencil"
+
+
+/= debug current_user.id
+/= debug @recording.id
+/= debug @catalog.id
+/
+/= link_to 'show',  user_shared_catalog_shared_recording_path(current_user, @catalog, @recording)

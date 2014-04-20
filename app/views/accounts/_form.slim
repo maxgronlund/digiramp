@@ -1,7 +1,7 @@
 .panel
   .panel-body
-    =simple_form_for @account do |f|
-    
+    =simple_form_for [ @user, @account ] do |f|
+      = f.hidden_field :user_id, value: @user.id
       .row
         .col-sm-6
           

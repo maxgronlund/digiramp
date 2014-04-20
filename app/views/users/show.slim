@@ -1,5 +1,4 @@
-- session[:return_url] = request.url
-- user_account = Account.cached_find(@user.account_id)
+/- user_account = Account.cached_find(@user.account_id)
 
 
 #wrap
@@ -7,50 +6,47 @@
     == render 'admin/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name}
-                                                            
-                                                            
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Dashboard'}
-    .row
-
-      .col-sm-6
-        == render 'users/shared/badge_button', locals: { \
-                                                    blog_post: 'ACCOUNTS', \
-                                                    link: user_user_accounts_path(@user), \
-                                                    css_class: 'btn btn-primary', \
-                                                    icon: 'fa fa-tachometer' \
-                                                  }
-                                                  
-      .col-sm-6
-        == render 'users/shared/badge_button', locals: { \
-                                                    blog_post: 'PROFILE', \
-                                                    link: edit_user_path(@user), \
-                                                    css_class: 'btn btn-success', \
-                                                    icon: 'fa fa-user' \
-                                                  }
-
-                                                  
-      .col-sm-6
-        == render 'users/shared/badge_button', locals: { \
-                                                    blog_post: 'ACCOUNT', \
-                                                    link: edit_account_path(user_account), \
-                                                    css_class: 'btn btn-warning', \
-                                                    icon: 'fa fa-pencil' \
-                                                  }
-      .col-sm-6
-        == render 'users/shared/badge_button', locals: { \
-                                                    blog_post: 'SHARED', \
-                                                    link: user_shared_assets_path(@user), \
-                                                    css_class: 'btn btn-danger', \
-                                                    icon: 'fa fa-share' \
-                                                  }
-         
-        /== render 'users/shared/accounts_with_access', user_account: user_account  
-        /== render 'users/shared/shared_common_works'
-      /   
-      /.col-sm-6  
-      /  == render 'users/shared/account_info', user_account: user_account  
-      /  == render 'users/shared/user_profile'
-
+    -cache ([ Admin.cached_find(1).version, request.url ]) do      
+      
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name} 
+      
+                                                           
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Dashboard'}
+      
+      .row
+      
+        .col-sm-6
+          == render 'users/shared/badge_button', locals: { \
+                                                      blog_post: 'ACCOUNTS', \
+                                                      link: user_user_accounts_path(@user), \
+                                                      css_class: 'btn btn-primary', \
+                                                      icon: 'fa fa-tachometer' \
+                                                    }
+                                                    
+        .col-sm-6
+          == render 'users/shared/badge_button', locals: { \
+                                                      blog_post: 'PROFILE', \
+                                                      link: edit_user_path(@user), \
+                                                      css_class: 'btn btn-success', \
+                                                      icon: 'fa fa-user' \
+                                                    }
+      
+                                                    
+        .col-sm-6
+          == render 'users/shared/badge_button', locals: { \
+                                                      blog_post: 'ACCOUNT', \
+                                                      link: edit_user_account_path(@user, @user.account_id), \
+                                                      css_class: 'btn btn-warning', \
+                                                      icon: 'fa fa-pencil' \
+                                                    }
+        .col-sm-6
+          == render 'users/shared/badge_button', locals: { \
+                                                      blog_post: 'SHARED', \
+                                                      link: user_shared_assets_path(@user), \
+                                                      css_class: 'btn btn-danger', \
+                                                      icon: 'fa fa-share' \
+                                                    }
+      
+      
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  

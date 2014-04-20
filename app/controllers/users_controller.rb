@@ -1,13 +1,8 @@
 class UsersController < ApplicationController
-  respond_to :html, :xml, :json, :js
-  #before_filter :account
-  before_filter :find_user, only: [:show, :edit, :update, :destroy]
-  #before_filter :add_roles, only: [:show, :new, :edit]
-  #before_filter :there_is_access_to_the_account
-  
-  #def index
-  #  @users = User.all
-  #end
+  #respond_to :html, :xml, :json, :js
+ 
+  #before_filter :find_user, only: [:show, :edit, :update, :destroy]
+  before_filter :access_user, only: [:show, :edit, :update, :destroy]
 
   def show
 
@@ -24,11 +19,11 @@ class UsersController < ApplicationController
   def create
     #if User.where(email: params[:user][:email]).nil?
       
-      params[:user][:name]   = User::SECRET_NAME
-      params[:user][:role]   = 'cuctomer'
-      params[:user][:email]  = params[:user][:email].downcase
-      @user = User.new(user_params)
-      blog              = Blog.cached_find('Sign Up')
+      params[:user][:name]    = User::SECRET_NAME
+      params[:user][:role]    = 'cuctomer'
+      params[:user][:email]   = params[:user][:email].downcase
+      @user                   = User.new(user_params)
+      blog                    = Blog.cached_find('Sign Up')
       if @user.save
        
         @account          = User.create_a_new_account_for_the @user
@@ -40,7 +35,7 @@ class UsersController < ApplicationController
         cookies.delete(:auth_token)
         sign_in
         @user.account.raise_cache_version
-        redirect_to account_path(@account)
+        redirect_to user_account_path(@user, @account)
       else
         blog_post         = BlogPost.cached_find('Error', blog)
         flash[:error]   = { title: blog_post.title, body: blog_post.body }
@@ -52,10 +47,7 @@ class UsersController < ApplicationController
     #  redirect_to root_path
     #end
   end
-  
-  
-  
-  
+
   def sign_in
     if @user && @user.authenticate(@user.password)
       cookies[:auth_token] = @user.auth_token
@@ -66,22 +58,18 @@ class UsersController < ApplicationController
     @account = @user.account
     if @user.update(user_params)
       flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} successfully updatet" }
-      #@user.activity_events.create! \
-      #  activity_log_id: @account.activity_log.id,
-      #  user_id: current_user.id,
-      #  title: "Updated #{@user.name}",
-      #  r: true,
-      #  activity_url: account_user_path( @account, @user)
+
       account = Account.cached_find(@user.account_id)
       account.rec_cache_version += 1 
       account.save! 
       
       @user.flush_auth_token_cache(cookies[:auth_token])
 
-      redirect_to_return_url user_path(@user)
+      redirect_to user_path(@user)
     else
       flash[:danger] = { title: "Error", body: "Check if password and password confirmation matched" }
-      redirect_to_return_url edit_user_path( @user)
+      
+      redirect_to user_path( @user)
     end
     
   end
@@ -128,6 +116,7 @@ private
       render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
     end
   end
+  
   
   
   

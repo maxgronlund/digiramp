@@ -1,6 +1,7 @@
 == render 'shared/page_title', locals: {blog: Blog.cached_find('Welcome'), blog_post: 'Enter Account Name'}
 -@account.title = ''
-=simple_form_for @account do |f|
+=simple_form_for [@user, @account] do |f|
+  = f.hidden_field :enter_user_name, value: true
   .row
     .col-sm-6
       =f.input :title

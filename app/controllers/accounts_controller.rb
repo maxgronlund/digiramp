@@ -1,9 +1,11 @@
 class AccountsController < ApplicationController
   before_filter :there_is_access_to_the_account
-
+  #before_filter :access_user, only: [:edit, :update]
+  
+  
   def show
     
-    
+    @account = Account.cached_find(params[:id])
     
     #if @account.rec_cache_version == 0
     if @account.has_no_name?
@@ -34,23 +36,28 @@ class AccountsController < ApplicationController
       @account.visits += 1
       @account.save!
     end
-    
-   
-    
-    
-    
-    
+
   end
   
   def edit
-    
+    @account = Account.cached_find(params[:id])
   end
   
   def update
-
-    params[:account][:rec_cache_version] = @account.rec_cache_version + 1    
+    @account                              = Account.cached_find(params[:id])
+    #@
+    
+    params[:account][:rec_cache_version]  = @account.rec_cache_version + 1 
+    if enter_user_name = params[:account][:enter_user_name]   
+       params[:account].delete :enter_user_name
+    end
     @account.update_attributes(account_params)
-    redirect_to_return_url account_path( @account)
+    
+    if enter_user_name
+      redirect_to user_account_path( @account.user, @account)
+    else
+      redirect_to user_path( @account.user)
+    end
   end
   
   def account_params

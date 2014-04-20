@@ -7,6 +7,7 @@ class AdminController < ApplicationController
   end
   
   def flush_cache
+    Rails.cache.clear
     admin = Admin.first
     #logger.debug '--------------------------------------------------------------'
     admin.version += 1
@@ -18,7 +19,6 @@ class AdminController < ApplicationController
     Recording.all.each do |recording|
       recording.cache_version +=1
       if recording.title.nil? || recording.title.empty?
-        #logger.debug '--------------- >>>>>>>>>>>>>>>   EMPTY <<<<<<<<<<<<<<<<<<-------------------------'
         recording.destroy
       else
         recording.save!

@@ -13,7 +13,8 @@
                                                               }, current: @catalog.title}
       
 
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog', insert: 'catalogs/links'}
+      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog', insert: 'catalogs/links'}
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog'}
 
 
       .row

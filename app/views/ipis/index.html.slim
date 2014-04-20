@@ -19,7 +19,8 @@
                                                               
       
       
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('IP'), blog_post: 'List Interested Party', insert: 'common_work_title'}
+      /== render 'shared/page_title', locals: {blog: Blog.cached_find('IP'), blog_post: 'List Interested Party', insert: 'common_work_title'}
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('IP'), blog_post: 'List Interested Party'}
       .row
         .col-sm-12
           

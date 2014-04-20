@@ -2,6 +2,7 @@
 Digiramp::Application.routes.draw do
   
 
+
   get "signup/index"
   get "tags/index"
   get "user_genre_tags/index"
@@ -168,9 +169,11 @@ Digiramp::Application.routes.draw do
   resources :sign_up
   resources :users do
     resources :user_accounts, only: [:index]
+    resources :accounts, only: [:edit, :show, :update]
     resources :shared_assets, only: [:index]
     resources :shared_catalogs, only: [:index, :show] do
-      resources :shared_recordings, only: [:index, :show]
+      resources :shared_recordings
+      resources :accept_invitaion_to_catalog, only: [:edit, :update]
     end
   end
 

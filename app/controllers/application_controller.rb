@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  
-  
   def current_user
     begin
       @current_user ||= User.cached_find_by_auth_token( cookies[:auth_token] ) if cookies[:auth_token]
@@ -19,13 +17,9 @@ class ApplicationController < ActionController::Base
   end
   
   def admin_only
-    
     unless  user_signed_in?  && current_user.super?
-      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+      forbidden
     end
-    #user_signed_in?
-    #raise ActionController::RoutingError.new('Not Found')
-    #render text: "422 Not Found", status: 422
   end
   
   def zaap_cokkies
@@ -52,6 +46,19 @@ class ApplicationController < ActionController::Base
     forbidden unless current_user.can_edit?
   end
   helper_method :admins_only
+  
+  def access_user
+    if params[:user_id]
+      @user = User.cached_find(params[:user_id])
+    else
+      @user = User.cached_find(params[:id])
+    end
+    unless Permissions.can_access_private_account( current_user, @user)
+      forbidden
+    end
+  end
+  helper_method :access_user
+  
   
   def account_belongs_to_current_user
     @account.user_id == current_user.id

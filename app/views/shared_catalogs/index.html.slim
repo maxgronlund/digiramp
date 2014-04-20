@@ -7,14 +7,14 @@
     == render 'admin/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name}
+    /== render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name}
                                                             
                                                             
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Shared Catalogs'), blog_post: 'Shared Catalogs'}
-    
-    
-
-      
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(@user), \
+                                                           "Shared Assets".to_sym =>  user_shared_assets_path(@user) \
+                                                           }, current: 'shared catalogs'}
+                                                           
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Shared Catalogs'}
     
     .panel
       .panel-body
@@ -45,3 +45,5 @@
 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  
+  
+= debug current_user

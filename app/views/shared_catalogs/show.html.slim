@@ -1,21 +1,22 @@
-- session[:return_url] = request.url
-- user_account = Account.cached_find(@user.account_id)
-
+- session[:return_url]  = request.url
+- user_account          = Account.cached_find(@user.account_id)
+- catalog               = @catalog_user.catalog
 
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'profile'     
   .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name}
+    == render 'admin/shared/messages'                                                    
                                                             
-                                                            
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Shared Catalog'}
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(@user), \
+                                                           "Shared Assets".to_sym =>  user_shared_assets_path(@user), \
+                                                           "Shared catalogs".to_sym =>  user_shared_catalogs_path(@user) \
+                                                           }, current:  catalog.title}
     
-    = debug @catalog_user
-    - catalog = @catalog_user.catalog
-    = debug catalog
     
+    
+    
+    == render 'shared/title', locals: {title: catalog.title, body: "From #{catalog.account.title}"}
     .row
       .col-sm-6
         == render 'assets/shared/badge_button', locals: { \
@@ -39,3 +40,6 @@
 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  
+  
+= debug catalog
+= debug @catalog_user

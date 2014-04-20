@@ -29,5 +29,7 @@ class CatalogItem < ActiveRecord::Base
   #  url
   #  
   #end
+  
+  
 
 end

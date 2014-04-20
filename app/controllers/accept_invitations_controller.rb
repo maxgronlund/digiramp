@@ -1,25 +1,8 @@
 class AcceptInvitationsController < ApplicationController
-  def new
-  end
-  
-  #def create
-  #  email = params[:sessions][:email].to_s
-  #  user = User.find_by_email(email)
-  #  if user
-  #    user.send_password_reset 
-  #    flash[:info] = { title: "Request received", body: "You should receive an email with instructions in a few minutes" }
-  #  else
-  #    flash[:danger] = { title: "Sorry", body: "No user with that email  #{email}  on record" }
-  #  end
-  #  redirect_to :back
-  #end
-  
-  #def email_send
-  #  
-  #end
 
   def edit
     @user = User.find_by_password_reset_token!(params[:id])
+    
   end
   
   def update
@@ -36,8 +19,6 @@ class AcceptInvitationsController < ApplicationController
       else
         redirect_to root_path
       end
-      #redirect_to login_index_path
-      
     else
       render :edit
     end
