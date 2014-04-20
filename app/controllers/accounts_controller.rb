@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   before_filter :there_is_access_to_the_account
-  #before_filter :access_user, only: [:edit, :update]
+  before_filter :access_user, only: [:edit, :update]
   
   
   def show
