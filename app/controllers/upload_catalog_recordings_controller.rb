@@ -15,7 +15,7 @@ class UploadCatalogRecordingsController < ApplicationController
     
     
     
-    flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
+    #flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
     
     #redirect_to account_import_batch_path(@account,   @import_batch)
     add_to_catalog @import_batch, @catalog.id

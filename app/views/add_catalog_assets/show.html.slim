@@ -11,8 +11,8 @@
                                                               @catalog.title.to_sym => account_catalog_path(@account, @catalog) \
                                                               }, current: "add assets"}
       
-
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Add Assets'}
+      - blog = Blog.cached_find('Catalogs')
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Add Assets'}
 
       .row
         -if current_user.can_manage 'access recordings', @account
@@ -23,16 +23,34 @@
                                                                 css_class: 'btn btn-warning', \
                                                                 icon: 'fa fa-headphones'\
                                                             } 
+        
+        
         -if current_user.can_manage 'access recordings', @account
           .col-sm-6
-            == render 'assets/shared/badge_button', locals: { \
-                                                                blog_post: 'UPLOAD AUDIO FILES', \
-                                                                link: new_account_catalog_upload_catalog_recording_path(@account, @catalog), \
-                                                                css_class: 'btn btn-info', \
-                                                                icon: 'fa fa-cloud-upload'\
-                                                            } 
-
-  
+            -blog_post = BlogPost.cached_find('UPLOAD AUDIO FILES' , blog)
+            .row
+              .col-sm-6
+                .icon-badge
+                  = link_to new_account_catalog_upload_catalog_recording_path(@account, @catalog), class: 'btn  btn-primary', 'data-no-turbolink'=>true do
+                    .fa.fa-cloud-upload
+              .col-sm-6
+                h3 
+                  =link_to blog_post.title, new_account_catalog_upload_catalog_recording_path(@account, @catalog)
+                  -if can_edit?
+                    '&nbsp;
+                    = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                       i class="fa fa-pencil"
+                = simple_format blog_post.body
+                
+                
+            /== render 'assets/shared/badge_button', locals: { \
+            /                                                    blog_post: 'UPLOAD AUDIO FILES', \
+            /                                                    link: new_account_catalog_upload_catalog_recording_path(@account, @catalog), \
+            /                                                    css_class: 'btn btn-info', \
+            /                                                    icon: 'fa fa-cloud-upload'\
+            /                                                } 
+            /
+            /
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
