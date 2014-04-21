@@ -10,70 +10,70 @@ class TransloaditParser
   def self.extract uploads
     transloadets  = []
     #upload_ids    = []
-    resoult_id   = []
+    #resoult_ids   = []
     
     begin
       # thumbnail
-      uploads[:results][:thumbnail].each do |thumbnail|
-        transloadets << {thumbnail: thumbnail[:url]}
-        resoult_id << thumbnail[:original_id]
-
+      uploads[:results][:thumbnail].each_with_index do |thumbnail, index|
+        transloadets << { id: thumbnail[:original_id], index: index, thumbnail: thumbnail[:url] }
       end
       
       # waveform
       uploads[:results][:waveform].each_with_index do |waveform, index|
-        transloadets[index][:waveform] = waveform[:url]
+        transloadets[index][:waveform]            = waveform[:url]
       end
+      
       # metadata
       uploads[:results][:mp3].each_with_index do |mp3, index|
-        transloadets[index][:mp3] = mp3[:url]
+        transloadets[index][:mp3]                 = mp3[:url]
+        transloadets[index][:original_file_name]  = mp3[:name]
+        transloadets[index][:original_name]       = mp3[:original_basename]
       end
       
-      position = 0
-      # asuming the order is right
-      # this has to be in the resoult asap
+      #uploads[:results][:mp3].each_with_index do |mp3, index|
+      #  transloadets[index][:original_file_name] = mp3[:name]
+      #end
+      
+      #uploads[:results][:mp3].each_with_index do |mp3, index|
+      #  transloadets[index][:original_name] = mp3[:original_basename]
+      #end
+      
+      #uploads[:results][:mp3].each_with_index do |mp3, index|
+      #  transloadets[index][:mp3] = mp3[:url]
+      #end
+
+
+      # ugly code will degrade with upload batch size
       uploads[:uploads].each do |upload|
-        
-        # only use success full transloads
-        if resoult_id[position] == upload[:id]
-          meta =  upload[:meta]
-          # remove curupted iTunes info
-          comment = meta[:comment].to_s 
-          comment = '' if comment.include?('(iTunSMPB)')
-        
-          transloadets[position][:title]     = meta[:title].to_s 
-          transloadets[position][:duration]  = meta[:duration].to_f.round(2)
-          transloadets[position][:lyrics]    = meta[:lyrics].to_s.gsub(/\//, '<br>')
-          transloadets[position][:bpm]       = meta[:beats_per_minute].to_i
-          transloadets[position][:album]     = meta[:album].to_s 
-          transloadets[position][:year]      = meta[:year].to_s 
-          transloadets[position][:genre]     = meta[:genre].to_s 
-          transloadets[position][:artist]    = meta[:artist].to_s 
-          transloadets[position][:comment]   = comment 
-          transloadets[position][:performer] = meta[:performer].to_s 
-          transloadets[position][:band]      = meta[:band].to_s 
-          transloadets[position][:disc]      = meta[:disc].to_s 
-          transloadets[position][:track]     = meta[:track].to_s 
-          position += 1
+        transloadets.each do |transloadet|
+          if transloadet[:id] == upload[:id]
+            index                           = transloadet[:index]
+            meta                            = upload[:meta]
+            # remove curupted iTunes info
+            comment                         = meta[:comment].to_s 
+            comment                         = '' if comment.include?('(iTunSMPB)')
+            transloadets[index][:title]     = meta[:title].to_s 
+            transloadets[index][:duration]  = meta[:duration].to_f.round(2)
+            transloadets[index][:lyrics]    = meta[:lyrics].to_s.gsub(/\//, '<br>')
+            transloadets[index][:bpm]       = meta[:beats_per_minute].to_i
+            transloadets[index][:album]     = meta[:album].to_s 
+            transloadets[index][:year]      = meta[:year].to_s 
+            transloadets[index][:genre]     = meta[:genre].to_s 
+            transloadets[index][:artist]    = meta[:artist].to_s 
+            transloadets[index][:comment]   = comment 
+            transloadets[index][:performer] = meta[:performer].to_s 
+            transloadets[index][:band]      = meta[:band].to_s 
+            transloadets[index][:disc]      = meta[:disc].to_s 
+            transloadets[index][:track]     = meta[:track].to_s 
+            break
+          end
         end
       end
-      
-      
-      uploads[:results][:mp3].each_with_index do |mp3, index|
-        transloadets[index][:original_file_name] = mp3[:name]
-      end
-      
-      uploads[:results][:mp3].each_with_index do |mp3, index|
-        transloadets[index][:original_name] = mp3[:original_basename]
-      end
-      
-      uploads[:results][:mp3].each_with_index do |mp3, index|
-        transloadets[index][:mp3] = mp3[:url]
-      end
+
     rescue
     end
     
-    
+
     transloadets
   end
   
