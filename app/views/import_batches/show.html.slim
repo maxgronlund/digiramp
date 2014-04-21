@@ -3,7 +3,9 @@
 /- import_resoult = import_resoult.gsub("=>",": \"")
 /- import_resoult = import_resoult.gsub(",", "\",")
 /= debug import_resoult = import_resoult.gsub("\"nil\"", "nil").class.name
-= debug @import_batch.transloadit.class.name
+/-transloadets = []
+/- @import_batch.transloadit.each do |t|
+/  = debug t
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'         

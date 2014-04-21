@@ -8,13 +8,16 @@ class TransloaditParser
   end
   
   def self.extract uploads
-    transloadets = []
-    
+    transloadets  = []
+    #upload_ids    = []
+    resoult_id   = []
     
     begin
       # thumbnail
       uploads[:results][:thumbnail].each do |thumbnail|
         transloadets << {thumbnail: thumbnail[:url]}
+        resoult_id << thumbnail[:original_id]
+
       end
       
       # waveform
@@ -26,26 +29,33 @@ class TransloaditParser
         transloadets[index][:mp3] = mp3[:url]
       end
       
-      uploads[:uploads].each_with_index do |upload, index|
-        meta =  upload[:meta]
+      position = 0
+      # asuming the order is right
+      # this has to be in the resoult asap
+      uploads[:uploads].each do |upload|
         
-        # remove curupted iTunes info
-        comment = meta[:comment].to_s 
-        comment = '' if comment.include?('(iTunSMPB)')
+        # only use success full transloads
+        if resoult_id[position] == upload[:id]
+          meta =  upload[:meta]
+          # remove curupted iTunes info
+          comment = meta[:comment].to_s 
+          comment = '' if comment.include?('(iTunSMPB)')
         
-        transloadets[index][:title]     = meta[:title].to_s 
-        transloadets[index][:duration]  = meta[:duration].to_f.round(2)
-        transloadets[index][:lyrics]    = meta[:lyrics].to_s.gsub(/\//, '<br>')
-        transloadets[index][:bpm]       = meta[:beats_per_minute].to_i
-        transloadets[index][:album]     = meta[:album].to_s 
-        transloadets[index][:year]      = meta[:year].to_s 
-        transloadets[index][:genre]     = meta[:genre].to_s 
-        transloadets[index][:artist]    = meta[:artist].to_s 
-        transloadets[index][:comment]   = comment 
-        transloadets[index][:performer] = meta[:performer].to_s 
-        transloadets[index][:band]      = meta[:band].to_s 
-        transloadets[index][:disc]      = meta[:disc].to_s 
-        transloadets[index][:track]     = meta[:track].to_s 
+          transloadets[position][:title]     = meta[:title].to_s 
+          transloadets[position][:duration]  = meta[:duration].to_f.round(2)
+          transloadets[position][:lyrics]    = meta[:lyrics].to_s.gsub(/\//, '<br>')
+          transloadets[position][:bpm]       = meta[:beats_per_minute].to_i
+          transloadets[position][:album]     = meta[:album].to_s 
+          transloadets[position][:year]      = meta[:year].to_s 
+          transloadets[position][:genre]     = meta[:genre].to_s 
+          transloadets[position][:artist]    = meta[:artist].to_s 
+          transloadets[position][:comment]   = comment 
+          transloadets[position][:performer] = meta[:performer].to_s 
+          transloadets[position][:band]      = meta[:band].to_s 
+          transloadets[position][:disc]      = meta[:disc].to_s 
+          transloadets[position][:track]     = meta[:track].to_s 
+          position += 1
+        end
       end
       
       
@@ -69,7 +79,7 @@ class TransloaditParser
   
   def self.parse_recordings uploads, account_id
     transloadets = extract( uploads )
-    import_batch = ImportBatch.create(account_id: account_id, transloadit: uploads )
+    import_batch = ImportBatch.create(account_id: account_id, transloadit: uploads)
     
     recordings = []
     transloadets.each do |transloaded|

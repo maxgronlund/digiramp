@@ -86,12 +86,9 @@ group :test do
   gem 'selenium-webdriver'
 end
 
-# Use ActiveModel has_secure_password
-#<<<<<<< HEAD
+
 gem 'bcrypt-ruby'
-#=======
-#gem 'bcrypt-ruby', '~> 3.1.2'
-#>>>>>>> 2cbb2602f201aa75883bf7622a08581730cdb07d
+
 
 # Use unicorn as the app server
 gem 'unicorn'

@@ -8,7 +8,8 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               assets: account_assets_path(@account), \
                                                               catalogs: account_catalogs_path(@account), \
-                                                              }, current: @catalog.title}
+                                                              catalogs: account_catalog_path(@account, @catalog) \
+                                                              }, current: "fo"}
       
 
       == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Add Assets'}
@@ -21,7 +22,15 @@
                                                                 link: account_catalog_catalog_recordings_path(@account, @catalog), \
                                                                 css_class: 'btn btn-warning', \
                                                                 icon: 'fa fa-headphones'\
-                                                            }  
+                                                            } 
+        -if current_user.can_manage 'access recordings', @account
+          .col-sm-6
+            == render 'assets/shared/badge_button', locals: { \
+                                                                blog_post: 'UPLOAD AUDIO FILES', \
+                                                                link: account_catalog_catalog_recordings_path(@account, @catalog), \
+                                                                css_class: 'btn btn-info', \
+                                                                icon: 'fa fa-cloud-upload'\
+                                                            } 
 
   
     
