@@ -15,7 +15,7 @@ class TransloaditParser
     begin
       # thumbnail
       uploads[:results][:thumbnail].each_with_index do |thumbnail, index|
-        transloadets << { id: thumbnail[:original_id], index: index, thumbnail: thumbnail[:url] }
+        transloadets << { id: thumbnail[:original_id], thumbnail: thumbnail[:url] }
       end
       
       # waveform
@@ -46,25 +46,24 @@ class TransloaditParser
       # ugly code will degrade with upload batch size
       uploads[:uploads].each do |upload|
         transloadets.each do |transloadet|
-          if transloadet[:id] == upload[:id]
-            index                           = transloadet[:index]
-            meta                            = upload[:meta]
+          if transloadet[:id] == upload[:original_id]
+            meta                      = upload[:meta]
             # remove curupted iTunes info
-            comment                         = meta[:comment].to_s 
-            comment                         = '' if comment.include?('(iTunSMPB)')
-            transloadets[index][:title]     = meta[:title].to_s 
-            transloadets[index][:duration]  = meta[:duration].to_f.round(2)
-            transloadets[index][:lyrics]    = meta[:lyrics].to_s.gsub(/\//, '<br>')
-            transloadets[index][:bpm]       = meta[:beats_per_minute].to_i
-            transloadets[index][:album]     = meta[:album].to_s 
-            transloadets[index][:year]      = meta[:year].to_s 
-            transloadets[index][:genre]     = meta[:genre].to_s 
-            transloadets[index][:artist]    = meta[:artist].to_s 
-            transloadets[index][:comment]   = comment 
-            transloadets[index][:performer] = meta[:performer].to_s 
-            transloadets[index][:band]      = meta[:band].to_s 
-            transloadets[index][:disc]      = meta[:disc].to_s 
-            transloadets[index][:track]     = meta[:track].to_s 
+            comment                   = meta[:comment].to_s 
+            comment                   = '' if comment.include?('(iTunSMPB)')
+            transloadet[:title]       = meta[:title].to_s 
+            transloadet[:duration]    = meta[:duration].to_f.round(2)
+            transloadet[:lyrics]      = meta[:lyrics].to_s.gsub(/\//, '<br>')
+            transloadet[:bpm]         = meta[:beats_per_minute].to_i
+            transloadet[:album]       = meta[:album].to_s 
+            transloadet[:year]        = meta[:year].to_s 
+            transloadet[:genre]       = meta[:genre].to_s 
+            transloadet[:artist]      = meta[:artist].to_s 
+            transloadet[:comment]     = comment 
+            transloadet[:performer]   = meta[:performer].to_s 
+            transloadet[:band]        = meta[:band].to_s 
+            transloadet[:disc]        = meta[:disc].to_s 
+            transloadet[:track]       = meta[:track].to_s 
             break
           end
         end
