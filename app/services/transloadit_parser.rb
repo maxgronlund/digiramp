@@ -128,12 +128,18 @@ class TransloaditParser
   end
   
   def self.sanitize_comment comment
-    comment  = '' if comment.include? '(iTunSMPB)'
-    comment
+    if comment
+      return '' if comment.include? '(iTunSMPB)'
+    end
+    return ''
   end
   
   def self.sanitize_lyrics lyrics
-    lyrics.gsub(/\//, '<br>') 
+    if lyrics
+      return lyrics.gsub(/\//, '<br>') 
+    end
+    return ''
+      
   end
   
   def self.write_recording recording, transloadet

@@ -1,0 +1,44 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+        
+  .container
+    
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            catalogs: account_catalogs_path(@account), \
+                                                            @catalog.title.to_sym => account_catalog_path(@account, @catalog), \
+                                                            add_assets: account_add_catalog_asset_path(@account, @catalog) \
+                                                            }, current: "Upload Recordings"}
+                                                            
+
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Upload Recording Catalog'}
+    .row
+      .col-sm-3
+      
+      .col-sm-6
+        .panel
+          .panel-body
+            h3 SELECT FILES
+            = simple_form_for [ @account, @cattalog, @recording ], :url => url_for(:action => 'create', :controller => 'upload_catalog_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+              = f.hidden_field :account_id, value: @account.id
+              = f.hidden_field :@catalog_id, value: @catalog.id
+              = transloadit :recording_with_thumbs 
+              /= form.label      :file, 'File to upload' 
+              = f.file_field :file, multiple: true
+              hr
+              .pull-right
+                = f.submit 'Upload', class: 'btn btn-primary btn-lg'
+            
+            
+            = transloadit_jquerify :recording, :wait => true
+            
+      .col-sm-3
+    
+    
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
+

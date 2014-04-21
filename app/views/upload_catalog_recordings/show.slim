@@ -1,0 +1,41 @@
+
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+        
+  .container
+    
+    == render 'admin/shared/messages'
+    /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+    /                                                        assets: account_assets_path(@account), \
+    /                                                        'create content'.to_sym => account_add_content_index_path(@account),\
+    /                                                        }, current:  'upload recording'}
+    /                                                        
+    /
+    /== render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Upload Recording Catalog'}
+    .row
+      .col-sm-3
+      
+      .col-sm-6
+        .panel.panel-success
+          .panel-heading
+            h3 = "#{pluralize(@import_batch.recordings_count, 'recording')} uploaded"
+          .panel-body
+            ul
+              -@import_batch.recordings.each do |recording|
+                li = recording.title
+            hr
+            .pull-right
+              = link_to 'Back to catalog', account_catalog_path(@account, @catalog), class: 'btn btn-default btn-lg'
+              '&nbsp;
+              = link_to 'Upload More', new_account_catalog_upload_catalog_recording_path(@account, @catalog), class: 'btn btn-primary btn-lg'
+            
+      .col-sm-3
+    
+    
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
+

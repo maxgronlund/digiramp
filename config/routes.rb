@@ -2,7 +2,6 @@
 Digiramp::Application.routes.draw do
   
 
-
   get "signup/index"
   get "tags/index"
   get "user_genre_tags/index"
@@ -23,6 +22,7 @@ Digiramp::Application.routes.draw do
       get "catalog_recordings/add_all"
       resources :catalog_recordings, only: [:index, :new, :destroy]
       resources :catalog_users
+      resources :upload_catalog_recordings
     end
     resources :documents
     resources :export_recordings, only: [:index]

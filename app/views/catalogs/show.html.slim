@@ -35,12 +35,12 @@
         .col-sm-6
           == render 'badge_button', locals: { \
                                                blog_post: 'ADD ASSETS', \
-                                               link: account_catalog_recording_path(@account, @catalog), \
+                                               link: account_add_catalog_asset_path(@account, @catalog), \
                                                css_class: 'btn btn-info', \
                                                icon: 'fa fa-cloud-upload' \
                                              }
           
-  
+                                             
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

@@ -6,6 +6,8 @@ class ImportBatch < ActiveRecord::Base
   serialize :transloadit
   mount_uploader :csv_file , CsvUploader
   
+  after_commit :flush_cache
+  
 
 
   
@@ -15,6 +17,16 @@ class ImportBatch < ActiveRecord::Base
       common_works << recording.common_work
     end
     common_works
+  end
+  
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
+  
+private
+
+  def flush_cache
+    Rails.cache.delete([self.class.name, id])
   end
   
   
