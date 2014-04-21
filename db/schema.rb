@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140419092938) do
+ActiveRecord::Schema.define(version: 20140421053707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -487,6 +487,7 @@ ActiveRecord::Schema.define(version: 20140419092938) do
     t.integer  "recordings_count", default: 0
     t.string   "title",            default: "import batch"
     t.string   "csv_file"
+    t.text     "transloadit",      default: ""
   end
 
   add_index "import_batches", ["account_id"], name: "index_import_batches_on_account_id", using: :btree

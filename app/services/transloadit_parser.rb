@@ -69,7 +69,7 @@ class TransloaditParser
   
   def self.parse_recordings uploads, account_id
     transloadets = extract( uploads )
-    import_batch = ImportBatch.create(account_id: account_id)
+    import_batch = ImportBatch.create(account_id: account_id, transloadit: uploads )
     
     recordings = []
     transloadets.each do |transloaded|
