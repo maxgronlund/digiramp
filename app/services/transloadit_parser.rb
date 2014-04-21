@@ -83,32 +83,35 @@ class TransloaditParser
     
     recordings = []
     transloadets.each do |transloaded|
-      recording =   Recording.create!(  title:             extract_title_from( transloaded ), 
-                                        duration:          transloaded[:duration],
-                                        artist:            transloaded[:artist],
-                                        lyrics:            sanitize_lyrics( transloaded[:lyrics] ),
-                                        bpm:               transloaded[:bpm],
-                                        comment:           sanitize_comment( transloaded[:comment] ),
-                                        year:              transloaded[:year],
-                                        album_name:        transloaded[:album],
-                                        genre:             transloaded[:genre],
-                                        performer:         transloaded[:performer],
-                                        band:              transloaded[:band],
-                                        disc:              transloaded[:disc],
-                                        track:             transloaded[:track],
-                                        mp3:               transloaded[:mp3],
-                                        waveform:          transloaded[:waveform],
-                                        thumbnail:         transloaded[:thumbnail],
-                                        #copyright:         transloaded[:copyright],
-                                        #composer:          transloaded[:composer],
-                                        account_id:        account_id, 
-                                        import_batch_id:   import_batch.id,
-                                        audio_upload:      transloaded
-                                       )
-      recording.extract_genres                                 
-      recording.update_completeness
-      recordings << recording
-      CommonWork.attach( recording, account_id)
+      begin
+        recording =   Recording.create!(  title:             extract_title_from( transloaded ), 
+                                          duration:          transloaded[:duration],
+                                          artist:            transloaded[:artist],
+                                          lyrics:            sanitize_lyrics( transloaded[:lyrics] ),
+                                          bpm:               transloaded[:bpm],
+                                          comment:           sanitize_comment( transloaded[:comment] ),
+                                          year:              transloaded[:year],
+                                          album_name:        transloaded[:album],
+                                          genre:             transloaded[:genre],
+                                          performer:         transloaded[:performer],
+                                          band:              transloaded[:band],
+                                          disc:              transloaded[:disc],
+                                          track:             transloaded[:track],
+                                          mp3:               transloaded[:mp3],
+                                          waveform:          transloaded[:waveform],
+                                          thumbnail:         transloaded[:thumbnail],
+                                          #copyright:         transloaded[:copyright],
+                                          #composer:          transloaded[:composer],
+                                          account_id:        account_id, 
+                                          import_batch_id:   import_batch.id,
+                                          audio_upload:      transloaded
+                                         )
+        recording.extract_genres                                 
+        recording.update_completeness
+        recordings << recording
+        CommonWork.attach( recording, account_id)
+      rescue
+      end
     end
     
     import_batch.recordings_count = recordings.size
