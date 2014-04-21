@@ -27,6 +27,16 @@ class CatalogUsersController < ApplicationController
   end
 
   def edit
+    @catalog        = Catalog.cached_find(params[:catalog_id])
+    @catalog_user   = CatalogUser.cached_find(params[:id])
+  end
+  
+  def update
+    @catalog        = Catalog.cached_find(params[:catalog_id])
+    @catalog_user   = CatalogUser.cached_find(params[:id])
+    
+    @catalog_user.update_attributes(catalog_user_params)
+    redirect_to account_catalog_catalog_users_path(@account, @catalog)
   end
   
   def destroy
