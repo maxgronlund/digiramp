@@ -50,7 +50,7 @@ class TransloaditParser
             meta                      = upload[:meta]
             # remove curupted iTunes info
             comment                   = meta[:comment].to_s 
-            comment                   = '' if comment.include?('(iTunSMPB)')
+            comment                   = '' if comment.include?('(iTun')
             transloadet[:title]       = meta[:title].to_s 
             transloadet[:duration]    = meta[:duration].to_f.round(2)
             transloadet[:lyrics]      = meta[:lyrics].to_s.gsub(/\//, '<br>')
