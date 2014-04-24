@@ -10,8 +10,9 @@
                                                             
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(@user), \
                                                            "Shared Assets".to_sym =>  user_shared_assets_path(@user), \
-                                                           "Shared catalogs".to_sym =>  user_shared_catalogs_path(@user) \
-                                                           }, current:  catalog.title}
+                                                           "Shared catalogs".to_sym =>  user_shared_catalogs_path(@user), \
+                                                           catalog.title.to_sym =>  user_shared_catalog_path(@user, catalog) \
+                                                           }, current:  'recordings'}
     
     
     
@@ -24,7 +25,7 @@
         /  .panel-body.digiramp_player
         .digiramp_player
           div class="panel-group" id="accordion"
-            - @catalog_user.catalog.catalog_items.where(catalog_itemable_type: "Recording").each do |catalog_item|
+            - catalog.catalog_items.where(catalog_itemable_type: "Recording").each do |catalog_item|
               - recording = Recording.cached_find(catalog_item.catalog_itemable_id)
               == render 'recordings/recording', recording: recording
       

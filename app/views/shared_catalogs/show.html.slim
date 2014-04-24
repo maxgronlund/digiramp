@@ -25,6 +25,13 @@
                                                     css_class: 'btn btn-warning', \
                                                     icon: 'fa fa-headphones'\
                                                   }
+      .col-sm-6
+        == render 'assets/shared/badge_button', locals: { \
+                                                    blog_post: 'UPLOAD RECORDINGS', \
+                                                    link: new_user_shared_catalog_upload_shared_catalog_recording_path(@user, catalog ), \
+                                                    css_class: 'btn btn-primary', \
+                                                    icon: 'fa fa-cloud-upload' \
+                                                  }
     
     
     

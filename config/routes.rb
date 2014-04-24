@@ -174,6 +174,7 @@ Digiramp::Application.routes.draw do
     resources :shared_catalogs, only: [:index, :show] do
       resources :shared_recordings
       resources :accept_invitaion_to_catalog, only: [:edit, :update]
+      resources :upload_shared_catalog_recordings
     end
   end
 
