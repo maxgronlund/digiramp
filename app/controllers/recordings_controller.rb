@@ -16,22 +16,24 @@ class RecordingsController < ApplicationController
     @recording      = Recording.find(params[:id])
     begin
       @common_work    = CommonWork.find(params[:common_work_id])
+      # pessimistic locking
+      access = false
+    
+      if current_user.can_administrate @account
+        access = true
+      elsif @common_work.is_accessible_by current_user
+        access = true
+      end
+   
+      unless access
+        render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+      end
     rescue
       @recording.destroy
+      redirect_to account_recordings_path( @account, page: params[:page])
     end
     
-    # pessimistic locking
-    access = false
     
-    if current_user.can_administrate @account
-      access = true
-    elsif @common_work.is_accessible_by current_user
-      access = true
-    end
-   
-    unless access
-      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
-    end
     
 
   end
