@@ -5,10 +5,7 @@ class RecordingsController < ApplicationController
   def index
     @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
     @show_more      = true
-    #if current_user.can_administrate @account
-    #  @can_delete     = true
-    #  @can_edit       = true
-    #end
+    
   end
 
   def show
