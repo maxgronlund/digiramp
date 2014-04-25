@@ -36,6 +36,9 @@ class Admin::AccountsController < ApplicationController
   def delete_common_works
     @account = Account.cached_find(params[:account_id])
     @account.common_works.delete_all
+    @account.works_cache_key += 1
+    @account.save
+    
     redirect_to :back
   end
   

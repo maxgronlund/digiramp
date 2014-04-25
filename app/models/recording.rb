@@ -498,6 +498,10 @@ private
   def remove_from_catalogs
     catalog_items = CatalogItem.where(catalog_itemable_id: self.id, catalog_itemable_type: self.class.name)
     catalog_items.delete_all
+    
+    playlist_items = PlaylistItem.where(playlist_itemable_id: self.id, playlist_itemable_type: self.class.name)
+    playlist_items.delete_all
+    
   end
   
   def update_audio_file_attributes

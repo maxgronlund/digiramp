@@ -70,6 +70,7 @@ class TransloaditParser
       end
 
     rescue
+      puts 'chrash'
     end
     
 
@@ -79,7 +80,6 @@ class TransloaditParser
   def self.parse_recordings uploads, account_id
     transloadets = extract( uploads )
     import_batch = ImportBatch.create(account_id: account_id, transloadit: uploads)
-    
     recordings = []
     transloadets.each do |transloaded|
       begin
@@ -110,14 +110,74 @@ class TransloaditParser
         recordings << recording
         CommonWork.attach( recording, account_id)
       rescue
+        
       end
     end
-    
     import_batch.recordings_count = recordings.size
     import_batch.save!
     import_batch
-  
   end
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  def self.add_to_common_work uploads, common_work_id
+    transloadets = extract( uploads )
+    transloadets.each do |transloaded|
+      begin
+        recording =   Recording.create!(  title:             extract_title_from( transloaded ), 
+                                          duration:          transloaded[:duration],
+                                          artist:            transloaded[:artist],
+                                          lyrics:            sanitize_lyrics( transloaded[:lyrics] ),
+                                          bpm:               transloaded[:bpm],
+                                          comment:           sanitize_comment( transloaded[:comment] ),
+                                          year:              transloaded[:year],
+                                          album_name:        transloaded[:album],
+                                          genre:             transloaded[:genre],
+                                          performer:         transloaded[:performer],
+                                          band:              transloaded[:band],
+                                          disc:              transloaded[:disc],
+                                          track:             transloaded[:track],
+                                          mp3:               transloaded[:mp3],
+                                          waveform:          transloaded[:waveform],
+                                          thumbnail:         transloaded[:thumbnail],
+                                          #copyright:         transloaded[:copyright],
+                                          #composer:          transloaded[:composer],
+                                          account_id:        account_id, 
+                                          import_batch_id:   import_batch.id,
+                                          audio_upload:      transloaded,
+                                          common_work_id:    common_work_id
+                                         )
+        recording.extract_genres                                 
+        recording.update_completeness
+      rescue
+        puts 'chrash2'
+      end
+    end
+  end
+  
+  
+  
+  
+  
+  
+  
+  
   
   def self.extract_title_from transloaded
     title = transloaded[:title].to_s

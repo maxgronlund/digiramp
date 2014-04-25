@@ -51,16 +51,10 @@ class SingleWorkController < ApplicationController
   def create_recording
 
     @common_work          = CommonWork.find(params[:single_work_id])
-    @recording            = Recording.new(audio_upload: params[:transloadit],common_work_id: @common_work.id, account_id: @account.id)
-    @recording.title      = @recording.audio_upload[:uploads][0][:name]
-    @recording.mp3        = @recording.audio_upload[:results][:mp3][0][:url]
-    @recording.waveform   = @recording.audio_upload[:results][:waveform][0][:url]
-    @recording.thumbnail  = @recording.audio_upload[:results][:thumbnail][0][:url]
-    #@recording.category   = 'none'
-    @recording.save!
-    
-    @recording.save!
-    redirect_to account_single_work_recordings_path(@account, @common_work)
+    TransloaditParser.add_to_common_work( params[:transloadit], @common_work.id )
+    #redirect_to account_single_work_ipis_path(@account, @common_work)
+    flash[:info]          = { title: "SUCCESS: ", body: "Common Work Created" }
+    redirect_to account_work_path(@account, @common_work.id)
   end
   
   
@@ -78,14 +72,14 @@ class SingleWorkController < ApplicationController
     @common_work    = CommonWork.find(params[:single_work_id])
   end
   
-  def ipis
-    
-    @common_work    = CommonWork.find(params[:single_work_id])
-  end
-  
-  def users
-    @common_work    = CommonWork.find(params[:single_work_id])
-  end
+  #def ipis
+  #  
+  #  @common_work    = CommonWork.find(params[:single_work_id])
+  #end
+  #
+  #def users
+  #  @common_work    = CommonWork.find(params[:single_work_id])
+  #end
   
   
   private
@@ -94,6 +88,7 @@ class SingleWorkController < ApplicationController
     params.require(:common_work).permit!
   end
 
+  
   
   
 end

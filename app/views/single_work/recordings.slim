@@ -11,6 +11,8 @@
                                                             }, current:  'recordings'}
 
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Recordings'} 
+    
+    
     .row
       .col-sm-3
       .col-sm-6
@@ -18,14 +20,19 @@
           .panel-body
             h3 SELECT FILE
             /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
-            = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create_recording', :controller => 'single_work'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+            = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create_recording', :controller => 'single_work'), \
+                                                        :method => 'post',  \
+                                                        :html => { :id => 'recording' } do |f| 
               = transloadit :recording_with_thumbs 
-              /= form.label      :file, 'File to upload' 
-              = f.file_field :file
+              = f.file_field :file, multiple: true
               hr
               .pull-right
-                = link_to 'Skip', '#'
+                = link_to 'Back', account_single_work_lyrics_path(@account, @common_work), class: 'btn btn-default btn-lg'
+                '&nbsp;
+                = link_to 'Skip', account_single_work_ipis_path(@account, @common_work), class: 'btn btn-default btn-lg'
+                '&nbsp;
                 = f.submit 'Upload', class: 'btn btn-primary btn-lg'
+                
             
             
             = transloadit_jquerify :recording, :wait => true
@@ -38,15 +45,15 @@
       .col-sm-12
         -@common_work.recordings.each do |recording|
           = debug recording
-
+    
       .col-sm-12
         hr
         .pull-right
-          = link_to 'Back', account_single_work_lyrics_path(@account, @common_work), class: 'btn btn-default btn-lg'
+          
           '&nbsp;
-          = link_to 'Skip', account_single_work_ipis_path(@account, @common_work), class: 'btn btn-default btn-lg'
-          '&nbsp;
-          = f.submit 'Next', class: 'btn btn-primary btn-lg'
+          
+          /'&nbsp;
+          /= f.submit 'Next', class: 'btn btn-primary btn-lg'
       
 
 -cache (['footer', Admin.cached_find(1).version]) do      
