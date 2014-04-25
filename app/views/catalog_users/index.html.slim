@@ -13,12 +13,8 @@
                                                             catalogs: account_catalogs_path(@account),\
                                                             @catalog.title.to_sym => account_catalog_path(@account, @catalog),\
                                                             }, current: 'users'}
-    .row
-      .col-sm-8
-        h1 = link_to @catalog.title, account_work_path(@account, @catalog)
-
-
-    == render 'shared/line'
+                                                            
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog Users'}
     == render 'personas'  
     
 -cache (['footer', Admin.cached_find(1).version]) do      

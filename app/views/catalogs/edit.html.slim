@@ -1,2 +1,28 @@
-h1 Catalogs#edit
-p Find me in app/views/catalogs/edit.html.slim
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  /-cache([ @account.id, @account.works_cache_key, params]) do  
+  .do   
+    .container
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              }, current: 'edit catalog'}
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'New Catalog'}
+
+
+      .row
+        .col-sm-3
+        .col-sm-6
+          .panel
+            .panel-body
+              = render 'form'
+              
+    
+
+  
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

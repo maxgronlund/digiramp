@@ -387,6 +387,10 @@ class User < ActiveRecord::Base
     self.password_reset_sent_at = Time.zone.now
     save!
   end
+  
+  def name_or_email
+    return  name == '' ? email : name
+  end
 
 private
 

@@ -1,0 +1,15 @@
+=simple_form_for [@account, @catalog] do |f|
+  =f.hidden_field :account_id, value: @account.id
+  =f.input :title
+  /=f.input :body, label: 'Description'
+  br
+  b Description
+  br
+  div id="toolbar" class="wysihtml5-toolbar"
+    a data-wysihtml5-command="bold" Bold
+    '&nbsp; 
+    a data-wysihtml5-command="italic" Italic
+  =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Description", id: 'wysihtml5_editor'}
+  hr
+  .pull-right
+    =f.submit 'Save', class: 'btn btn-primary btn-lg'

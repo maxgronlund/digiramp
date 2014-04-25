@@ -16,10 +16,19 @@ class CatalogsController < ApplicationController
   
   def create
     @catalog = Catalog.create(catalog_params)
+    flash[:info] = { title: "SUCCESS: ", body: "Catalog created" }
     redirect_to account_catalog_path( @account, @catalog)
   end
 
   def edit
+    @catalog = Catalog.cached_find(params[:id])
+  end
+  
+  def update
+    @catalog = Catalog.cached_find(params[:id])
+    @catalog.update_attributes(catalog_params)
+    flash[:info] = { title: "SUCCESS: ", body: "Catalog updated" }
+    redirect_to account_catalog_path( @account, @catalog)
   end
   
   def destroy

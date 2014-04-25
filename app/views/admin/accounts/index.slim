@@ -33,6 +33,7 @@
                       th Members
                       th Expires
                       th Visits
+                      th Owner
                       th 
                   tbody
                     -@accounts.each do |account|
@@ -45,6 +46,8 @@
                           td  class="#{'expired' if account.expiration_date < Date.current }"
                             = account.expiration_date
                           td = account.visits
+                          td = link_to account.account_owner.name_or_email, user_path(account.account_owner), class: 'btn btn-default btn-lg'
+                           
                           td
                             .pull-right
                               = link_to 'Go To', account_path( account), class: 'btn btn-default btn-lg'
