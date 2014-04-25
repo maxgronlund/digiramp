@@ -30,7 +30,8 @@ class SingleWorkController < ApplicationController
   
   def update
     @common_work = CommonWork.find(params[:single_work_id])
-    
+    @account.works_cache_key += 1
+    @account.save
     if @common_work.update_attributes(common_work_params)
       case @common_work.step
       when 'created'
@@ -38,11 +39,12 @@ class SingleWorkController < ApplicationController
       when 'lyrics added'
         redirect_to account_single_work_recordings_path(@account, @common_work)
       when 'recordings added'
-        redirect_to account_single_work_ipis_path(@account, @common_work)
-      when 'ipis added'
-        redirect_to account_single_work_users_path(@account, @common_work)
-      when 'users added'
         redirect_to account_single_work_path(@account, @common_work)
+        #redirect_to account_single_work_ipis_path(@account, @common_work)
+        #when 'ipis added'
+        #  redirect_to account_single_work_users_path(@account, @common_work)
+        #when 'users added'
+        #  redirect_to account_single_work_path(@account, @common_work)
       end
     end
 
@@ -51,10 +53,11 @@ class SingleWorkController < ApplicationController
   def create_recording
 
     @common_work          = CommonWork.find(params[:single_work_id])
-    TransloaditParser.add_to_common_work( params[:transloadit], @common_work.id )
-    #redirect_to account_single_work_ipis_path(@account, @common_work)
+    TransloaditParser.add_to_common_work( params[:transloadit], @common_work.id, @account.id )
+    
     flash[:info]          = { title: "SUCCESS: ", body: "Common Work Created" }
-    redirect_to account_work_path(@account, @common_work.id)
+    redirect_to account_single_work_path(@account, @common_work)
+    #redirect_to account_single_work_ipis_path(@account, @common_work)
   end
   
   
@@ -72,14 +75,13 @@ class SingleWorkController < ApplicationController
     @common_work    = CommonWork.find(params[:single_work_id])
   end
   
-  #def ipis
-  #  
-  #  @common_work    = CommonWork.find(params[:single_work_id])
-  #end
+  def ipis
+    @common_work    = CommonWork.find(params[:single_work_id])
+  end
   #
-  #def users
-  #  @common_work    = CommonWork.find(params[:single_work_id])
-  #end
+  def users
+    @common_work    = CommonWork.find(params[:single_work_id])
+  end
   
   
   private

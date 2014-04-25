@@ -10,15 +10,15 @@
                                                             
 
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Work'), blog_post: 'IPI'} 
-    ==render 'admin/shared/messages'
     = simple_form_for [@account, @common_work], url: url_for(action: 'update', controller: 'single_work'), method: 'post' do |f|
       = f.error_notification
       = f.hidden_field :account_id, value: @account.id
       = f.hidden_field :step, value: 'ipis added'
       .row
         .col-sm-6
-          h3 ipi's goes here
-          /=f.input :description, :input_html => {  style: "height: 120px; width: 100%;", placeholder: "Description"}
+          h3 to do! 
+          'ipi's goes here
+         
           
         .col-sm-6
 

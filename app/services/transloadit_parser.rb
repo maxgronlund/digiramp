@@ -136,7 +136,7 @@ class TransloaditParser
   
   
   
-  def self.add_to_common_work uploads, common_work_id
+  def self.add_to_common_work uploads, common_work_id, account_id
     transloadets = extract( uploads )
     transloadets.each do |transloaded|
       begin
@@ -159,12 +159,11 @@ class TransloaditParser
                                           #copyright:         transloaded[:copyright],
                                           #composer:          transloaded[:composer],
                                           account_id:        account_id, 
-                                          import_batch_id:   import_batch.id,
                                           audio_upload:      transloaded,
                                           common_work_id:    common_work_id
                                          )
-        recording.extract_genres                                 
-        recording.update_completeness
+        #recording.extract_genres                                 
+        #recording.update_completeness
       rescue
         puts 'chrash2'
       end
