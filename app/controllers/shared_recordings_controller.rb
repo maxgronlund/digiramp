@@ -2,8 +2,11 @@ class SharedRecordingsController < ApplicationController
   before_filter :access_user
   
   def index
-    @catalog_user = CatalogUser.where(user_id: @user.id, catalog_id: params[:shared_catalog_id]).first
-    @catalog      = Catalog.cached_find(params[:shared_catalog_id])
+    if @catalog_user = CatalogUser.where(user_id: @user.id, catalog_id: params[:shared_catalog_id]).first
+      @catalog      = Catalog.cached_find(params[:shared_catalog_id])
+    else
+      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+    end
   end
 
   def show

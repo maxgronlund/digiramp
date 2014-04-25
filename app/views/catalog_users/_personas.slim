@@ -22,7 +22,18 @@
                     -if catalog_user.can_edit
                       '√ Edit
                       br
-    
+                    -if  catalog_user.edit_recordings
+                      '√ Edit Recordings
+                      br
+                    -if  catalog_user.upload_recordings
+                      '√ Upload Recordings
+                      br
+                    -if  catalog_user.read_works
+                      '√ Read Works
+                      br
+                    -if  catalog_user.edit_works
+                      '√ Edit Common Works
+                      br
                     -if  catalog_user.access_files
                       '√ Access Files
                       br
@@ -49,3 +60,16 @@
         hr
         .pull-right
           == link_to 'Invite Users', new_account_catalog_catalog_user_path(@account, @catalog), class: 'btn btn-primary btn-lg'
+          
+          
+          
+          
+          /= f.input :can_edit, label: 'Can Edit Catalog'
+          /= f.input :edit_recordings
+          /= f.input :upload_recordings
+          /= f.input :read_works
+          /= f.input :edit_works
+          /= f.input :access_files
+          /= f.input :access_legal_documents
+          /= f.input :access_financial_documents
+          /= f.input :access_ipis

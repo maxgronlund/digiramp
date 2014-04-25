@@ -5,8 +5,13 @@ class UploadSharedCatalogRecordingsController < ApplicationController
 
   def new
     @catalog_user      = CatalogUser.where(user_id: @user.id, catalog_id: params[:shared_catalog_id]).first
-    @catalog           = @catalog_user.catalog
-    @recording         = Recording.new
+    
+    if @catalog_user.upload_recordings
+      @catalog           = @catalog_user.catalog
+      @recording         = Recording.new
+    else
+      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+    end
   end
   
   
@@ -16,22 +21,21 @@ class UploadSharedCatalogRecordingsController < ApplicationController
     #redirect_to :back
     @catalog              = Catalog.cached_find(params[:shared_catalog_id])
     @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @catalog.account.id )
-    
-    
-    
-    #flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
-    
-    #redirect_to account_import_batch_path(@account,   @import_batch)
     add_to_catalog @import_batch, @catalog.id
-    #
-    #redirect_to account_catalog_upload_catalog_recording_path( @account, @catalog, @import_batch )
-    redirect_to :back
+    
+    
+    
+    flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
+    redirect_to user_shared_catalog_upload_shared_catalog_recording_path(@user, @catalog,  @import_batch)
+    #users/115/shared_catalogs/45/upload_shared_catalog_recordings
+
+    #redirect_to :back
   end
   
-  #def show
-  #  @catalog              = Catalog.cached_find(params[:catalog_id])
-  #  @import_batch         = ImportBatch.cached_find(params[:id])
-  #end
+  def show
+    @catalog              = Catalog.cached_find(params[:shared_catalog_id])
+    @import_batch         = ImportBatch.cached_find(params[:id])
+  end
   #
   def add_to_catalog import_batch, catalog_id
     

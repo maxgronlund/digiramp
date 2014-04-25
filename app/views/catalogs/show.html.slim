@@ -14,7 +14,8 @@
       
 
       /== render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog', insert: 'catalogs/links'}
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog'}
+      - insert = 'fo'
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog', insert: 'edit'}
 
 
       .row
@@ -39,6 +40,14 @@
                                                css_class: 'btn btn-info', \
                                                icon: 'fa fa-cloud-upload' \
                                              }
+        /.col-sm-6
+        /  == render 'badge_button', locals: { \
+        /                                       blog_post: 'ADD DOCUMENTS', \
+        /                                       link: account_add_catalog_asset_path(@account, @catalog), \
+        /                                       css_class: 'btn btn-danger', \
+        /                                       icon: 'fa fa-folder-o' \
+        /                                     }
+        /                                     
           
                                              
     
