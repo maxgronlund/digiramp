@@ -17,6 +17,7 @@
                                                             
     == render 'shared/page_title', locals: {blog: blog, blog_post: 'Set Role'}
     .row
+      .col-sm-3
       .col-sm-6
         .panel
           .panel-body
@@ -25,20 +26,21 @@
               = f.input :role,  collection: @roles,     as: :radio_buttons, label: "Role"
               hr
               .pull-right
-                =f.submit 'Continue', class: 'btn btn-primary btn-lg'
-      .col-sm-6
-        .panel
-          .panel-body
-            h3 =administrator.title
-            =administrator.body
-            -if can_edit?
-              .pull-right
-                = link_to 'Edit', edit_admin_blog_blog_post_path(blog, administrator), class: 'btn btn-primary btn-lg'
-      .col-sm-6
-        .panel
-          .panel-body
-           h3 = client.title
-           = client.body
-           -if can_edit?
-             .pull-right
-               = link_to 'Edit', edit_admin_blog_blog_post_path(blog, client), class: 'btn btn-primary btn-lg'
+                =f.submit 'Save', class: 'btn btn-primary btn-lg'
+      .col-sm-3
+      /.col-sm-6
+      /  .panel
+      /    .panel-body
+      /      h3 =administrator.title
+      /      =administrator.body
+      /      -if can_edit?
+      /        .pull-right
+      /          = link_to 'Edit', edit_admin_blog_blog_post_path(blog, administrator), class: 'btn btn-primary btn-lg'
+      /.col-sm-6
+      /  .panel
+      /    .panel-body
+      /     h3 = client.title
+      /     = client.body
+      /     -if can_edit?
+      /       .pull-right
+      /         = link_to 'Edit', edit_admin_blog_blog_post_path(blog, client), class: 'btn btn-primary btn-lg'

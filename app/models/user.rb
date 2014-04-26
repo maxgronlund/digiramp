@@ -191,15 +191,15 @@ class User < ActiveRecord::Base
     false
   end
   
-  def can_manage asset, account
+  def can_manage manage, account
     return true if role               == 'super'
     return true if account.user_id    == id
-    account_user                       = AccountUser.cached_where( account.id, self.id)
+    account_user                      = AccountUser.cached_where( account.id, self.id)
     return true if account_user.role  == 'Administrator'
     
     if account_user
       
-      case asset
+      case manage
       when 'users'
         return account_user.can_administrate?
       when 'assets'
@@ -209,13 +209,11 @@ class User < ActiveRecord::Base
       when 'promotion'
         return account_user.can_administrate?
       when 'documents'
-        return account_user.has_access_to_all_documents? 
+        return account_user.access_to_all_documents? 
       when 'rights'
-        return account_user.has_access_to_all_rights?
-      when 'add_music'
-        return account_user.can_administrate?
+        return account_user.access_to_all_rights?
       when 'access works'
-        return account_user.has_access_to_all_common_works?
+        return account_user.access_to_all_common_works?
       when 'access recordings'
         return account_user.access_to_all_recordings
       when 'addministrate playlists'

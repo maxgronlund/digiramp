@@ -3,23 +3,37 @@
     == render 'admin/shared/navbar', page: 'account'
         
   .container
+    /-cache (['footer', Admin.cached_find(1).version]) do  
+    - blog = Blog.cached_find('Customer Relations Management')
     
     == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                            customers: account_customers_path(@account), \
-                                                            @account_user.get_name.to_sym => account_customer_path(@account, @account_user), \
-                                                            }, current: 'New Activity'}
+    == render 'shared/breadcrumbs', \
+              breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                        customers: account_customers_path(@account), \
+                                        @account_user.get_name.to_sym => account_customer_path(@account, @account_user), \
+                                     }, current: 'New Activity'}
                                                             
 
                                                             
-
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Customers'), blog_post: 'New Activity'}
-    /== render 'form'
+    
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'New Activity'}
     .row
       .col-sm-6
-        == render 'customer_events/events/private_playlist'
-      /.col-sm-6
-      /  == render 'customer_events/events/invite_to_common_work'
+        -link =  account_private_playlists_path( @account, \
+                                                 account_user_id: @account_user.id,\
+                                                 event_type: 'invite_to_private_playlist')
+                                                 
+        - post = BlogPost.cached_find( "Create Private Playlist" , blog )
+        = render 'shared/post_badge', locals: \
+                                              {  \
+                                                blog: blog, \
+                                                post: post, \
+                                                link: link, \
+                                                css_class: 'btn btn-success', \
+                                                icon: 'fa fa-pencil', \
+                                                id: 'create-private-playlist' \
+                                              }
+
         
 
 -cache (['footer', Admin.cached_find(1).version]) do      

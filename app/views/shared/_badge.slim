@@ -1,17 +1,18 @@
--blog       = Blog.cached_find('Dashboard Badges')
--post       = BlogPost.cached_find(locals[:blog_post], blog)
--title      = post.title
--body       = post.body
+-blog       = locals[:blog]
+-post       = locals[:post]
 -link       = locals[:link]
 -css_class  = locals[:css_class]
 -icon       = locals[:icon]
+-id         = locals[:id]
+
+-title      = post.title
+-body       = post.body
 
 .row
   .col-sm-6
     .icon-badge
-      = link_to link, class: css_class do
+      = link_to link, id: id, class: css_class do
         div class=icon
-    
   .col-sm-6
     h3 
       = link_to title,  link

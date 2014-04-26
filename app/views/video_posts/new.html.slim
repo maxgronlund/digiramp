@@ -1,0 +1,46 @@
+/h1 New video_post
+/
+/== render 'form'
+/
+/= link_to 'Back', video_posts_path
+/
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+        
+  .container
+    
+    /== render 'admin/shared/messages'
+    /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+    /                                                        assets: account_assets_path(@account), \
+    /                                                        'create content'.to_sym => account_add_content_index_path(@account),\
+    /                                                        }, current:  'upload recording'}
+    /                                                        
+
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Upload Video To Convert'}
+    .row
+      .col-sm-3
+      
+      .col-sm-6
+        .panel
+          .panel-body
+            h3 SELECT FILES
+            /= simple_form_for [ @account, @recording ], :url => url_for(:action => 'create', :controller => 'upload_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+            = simple_form_for @video_post,  :html => { :id => 'video_post' }  do |f|
+              = transloadit :digiramp_video 
+              /= form.label      :file, 'File to upload' 
+              = f.file_field :file, multiple: true
+              hr
+              .pull-right
+                = f.submit 'Upload', class: 'btn btn-primary btn-lg'
+            
+            
+            = transloadit_jquerify :video_post, :wait => true
+            
+      .col-sm-3
+    
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

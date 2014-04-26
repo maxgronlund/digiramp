@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
   
 
+  resources :video_posts
+
   get "signup/index"
   get "tags/index"
   get "user_genre_tags/index"

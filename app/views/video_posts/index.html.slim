@@ -1,0 +1,24 @@
+h1 Listing video_posts
+
+table
+  thead
+    tr
+      th Title
+      th Body
+      th
+      
+
+
+  tbody
+    - @video_posts.each do |video_post|
+      tr
+        td = video_post.title
+        td = image_tag(video_post.thumb_url :cover_thumb) 
+        td 
+          = link_to 'Show', video_post
+          = link_to 'Edit', edit_video_post_path(video_post)
+          = link_to 'Destroy', video_post, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Video post', new_video_post_path

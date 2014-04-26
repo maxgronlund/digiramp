@@ -1,0 +1,15 @@
+/= simple_form_for @video_post do |f|
+/  - if @video_post.errors.any?
+/    #error_explanation
+/      h2 = "#{pluralize(@video_post.errors.count, "error")} prohibited this video_post from being saved:"
+/      ul
+/        - @video_post.errors.full_messages.each do |message|
+/          li = message
+/
+/
+/  = f.input :title
+/  = f.input :body
+/  = f.input :file
+/  = f.input :thumb
+/
+/  = f.submit 'Save'

@@ -1,0 +1,25 @@
+-blog       = locals[:blog]
+-post       = locals[:post]
+-link       = locals[:link]
+-css_class  = locals[:css_class]
+-icon       = locals[:icon]
+-id         = locals[:id]
+
+-title      = post.title
+-body       = post.body
+
+.row
+  .col-sm-6
+    .icon-badge
+      = link_to link, method: :post, class: css_class do
+        div class="fa fa-pencil"
+    = simple_format post.body
+  .col-sm-6
+    h3 
+      = link_to title, link, method: :post, id: id
+      -if can_edit?
+        '&nbsp;
+        = link_to edit_admin_blog_blog_post_path(blog, post) do
+           i class=icon
+    = simple_format body
+    br

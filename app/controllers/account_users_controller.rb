@@ -115,13 +115,7 @@ class AccountUsersController < ApplicationController
   end
   
   def update
-    #logger.debug '-----------------------------------------'
-    #logger.debug 'time to send an email'
-    #logger.debug '-----------------------------------------'
-    
- 
-    
-    
+
     @account_user = AccountUser.cached_find(params[:id])
     
     
