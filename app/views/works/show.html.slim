@@ -3,90 +3,106 @@
 /-@can_administrate 
 #wrap
   .full-width-top
-    == render 'admin/shared/navbar', page: 'account'
-
-            
+    == render 'admin/shared/navbar', page: 'account'     
   .container
     ==render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             assets: account_assets_path(@account), \
-                                                            works: account_works_path(@account),\
+                                                            'manage works'.to_sym => account_account_works_path(@account),\
+                                                            'list works'.to_sym => account_works_path(@account),\
                                                             }, current: @common_work.title}
+    
+    - if @common_work.iswc_code.to_s == '' 
+      - iswc_code   = ''
+    - else
+      - iswc_code   = 'ISWC Code:&nbsp&nbsp' + @common_work.iswc_code  
+                                              
+    /== render 'shared/page_title_text', locals: {title: @common_work.title, body: iswc_code}
     .row
       .col-sm-6
-        h1 =@common_work.title
-        'ISWC Code: 
-        '&nbsp;
-        = @common_work.iswc_code
-      .col-sm-6
-        .hidden-xs
-          .pull-right
-            br
-            = link_to edit_account_work_path(@account, @common_work) do
-              .btn.btn-primary.btn-lg
-                i class="fa fa-pencil"
-          
-      .col-sm-12
-        hr
+        .page-title
+          h1 = @common_work.title
       
-        
-
-    / all users can access recordings
-    .col-sm-6
-      == render 'works/shared/badge_button', locals: { \
-                                                  blog_post: 'RECORDINGS', \
-                                                  link: account_work_work_recordings_path(@account, @common_work), \
-                                                  css_class: 'btn btn-warning', \
-                                                  icon: 'fa fa-headphones'\
-                                                }
-  
-    -if @user_can_access_shared_with 
+        - unless @common_work.iswc_code.to_s == '' 
+          = 'ISWC CODE:   '+ @common_work.iswc_code
+      .col-sm-6
+        = simple_format @common_work.description
+      
+    == render 'shared/line'
+    .row
+    
+      -if @user_can_access_shared_with 
+        .col-sm-6
+          == render 'works/shared/badge_button', locals: { \
+                                                     blog_post: 'EDIT', \
+                                                     link: edit_account_work_path(@account, @common_work), \
+                                                     css_class: 'btn btn-primary', \
+                                                     icon: 'fa fa-pencil' \
+                                                   }
+                                                   
+      / all users can access recordings
       .col-sm-6
         == render 'works/shared/badge_button', locals: { \
-                                                   blog_post: 'USERS', \
-                                                   link: account_work_work_users_path(@account, @common_work), \
-                                                   css_class: 'btn btn-default', \
-                                                   icon: 'fa fa-group' \
-                                                 }
+                                                    blog_post: 'RECORDINGS', \
+                                                    link: account_work_work_recordings_path(@account, @common_work), \
+                                                    css_class: 'btn btn-warning', \
+                                                    icon: 'fa fa-headphones'\
+                                                  }
       
-    -if @user_can_access_legal_documents
-      .col-sm-6
-        == render 'works/shared/badge_button', locals: { \ 
-                                                  blog_post: 'LEGAL DOCUMENTS', \
-                                                  link: account_work_work_legal_documents_path(@account, @common_work), \
-                                                  css_class: 'btn btn-danger', \
-                                                  icon: 'fa fa-gavel' \
-                                                 }
-      
-    -if @user_can_access_files
-      .col-sm-6
-        == render 'works/shared/badge_button', locals: { \ 
-                                                  blog_post: 'FILES', \
-                                                  link: account_work_work_files_path(@account, @common_work), \
-                                                  css_class: 'btn btn-primary', \
-                                                  icon: 'fa fa-folder' \
-                                                 }
-      
-    -if @user_can_access_ipis
-      .col-sm-6
-        == render 'works/shared/badge_button', locals: { \ 
-                                                  blog_post: 'IPIS', \
-                                                  link: account_work_work_ipis_path(@account, @common_work), \
-                                                  css_class: 'btn btn-info', \
-                                                  icon: 'fa fa-exclamation-circle' \
-                                                 }
-      
-    -if @user_can_access_financial_documents
-      .col-sm-6
-        == render 'works/shared/badge_button', locals: { \ 
-                                                  blog_post: 'FINANCIAL DOCUMENTS', \
-                                                  link: account_work_work_financial_documents_path(@account, @common_work), \
-                                                  css_class: 'btn btn-success', \
-                                                  icon: 'fa fa-money' \
-                                                 }
+      -if @user_can_access_shared_with 
+        .col-sm-6
+          == render 'works/shared/badge_button', locals: { \
+                                                     blog_post: 'USERS', \
+                                                     link: account_work_work_users_path(@account, @common_work), \
+                                                     css_class: 'btn btn-default', \
+                                                     icon: 'fa fa-group' \
+                                                   }
+        
+      -if @user_can_access_files
+        .col-sm-6
+          == render 'works/shared/badge_button', locals: { \ 
+                                                    blog_post: 'FILES', \
+                                                    link: account_work_work_files_path(@account, @common_work), \
+                                                    css_class: 'btn btn-success', \
+                                                    icon: 'fa fa-folder' \
+                                                   }
+        
+      -if @user_can_access_ipis
+        .col-sm-6
+          == render 'works/shared/badge_button', locals: { \ 
+                                                    blog_post: 'IPIS', \
+                                                    link: account_work_work_ipis_path(@account, @common_work), \
+                                                    css_class: 'btn btn-info', \
+                                                    icon: 'fa fa-exclamation-circle' \
+                                                   }
+        
+    /-if @user_can_access_financial_documents
+    /  .col-sm-6
+    /    == render 'works/shared/badge_button', locals: { \ 
+    /                                              blog_post: 'FINANCIAL DOCUMENTS', \
+    /                                              link: account_work_work_financial_documents_path(@account, @common_work), \
+    /                                              css_class: 'btn btn-success', \
+    /                                              icon: 'fa fa-money' \
+    /                                             }
+    /  
+    /-if @user_can_access_legal_documents
+    /  .col-sm-6
+    /    == render 'works/shared/badge_button', locals: { \ 
+    /                                              blog_post: 'LEGAL DOCUMENTS', \
+    /                                              link: account_work_work_legal_documents_path(@account, @common_work), \
+    /                                              css_class: 'btn btn-danger', \
+    /                                              icon: 'fa fa-gavel' \
+    /                                             }
                                                  
-                                                 
-                                                 
+    /.row
+    /  -unless @common_work.lyrics.to_s == ''
+    /    .col-sm-6
+    /      .panel
+    /        .panel-body
+    /          h3 original lyric
+    /          .text-center
+    /            = simple_format @common_work.lyrics                                            
+    /                                             
       
 
     

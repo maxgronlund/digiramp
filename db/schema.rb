@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140426202801) do
+ActiveRecord::Schema.define(version: 20140427115150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -347,6 +347,7 @@ ActiveRecord::Schema.define(version: 20140426202801) do
     t.string   "step",                   default: "created"
     t.text     "lyrics"
     t.integer  "catalog_id"
+    t.string   "uuid"
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree
@@ -897,6 +898,7 @@ ActiveRecord::Schema.define(version: 20140426202801) do
     t.text     "instruments",         default: ""
     t.string   "tempo",               default: ""
     t.string   "original_md5hash",    default: ""
+    t.string   "uuid"
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

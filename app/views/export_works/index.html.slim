@@ -1,0 +1,45 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            'manage works'.to_sym => account_account_works_path(@account),\
+                                                            }, current: 'export works'}
+    
+    - blog      = Blog.cached_find('Export Works')
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'Export Works'}
+    /-cache([ request.url, @account.works_cache_key, Admin.cached_find(1).version]) do  
+    .row
+      -if current_user.can_manage 'access works', @account
+        .col-sm-6
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "CSV FILE" , blog ), \
+                                              link: account_export_works_cvs_path(@account), \
+                                              css_class: 'btn btn-info', \
+                                              icon: 'fa fa-cloud-download', \
+                                              id: 'common-works' \
+                                            }
+          
+      -if current_user.can_manage 'access works', @account  
+        .col-sm-6
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "DDex XML" , blog ), \
+                                              link: account_export_works_path(@account), \
+                                              css_class: 'btn btn-success', \
+                                              icon: 'fa fa-cloud-download', \
+                                              id: 'recordings' \
+                                            }
+    
+                      
+
+  
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+  
+  
+/= link_to 'Export All to CSV', account_export_works_path(@account, format: "csv"), class: 'btn btn-primary btn-lg'

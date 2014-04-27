@@ -5,7 +5,8 @@
             
   .container
     ==render 'admin/shared/messages'
-    -cache ([request.url, current_user.permission_cache_for( @account) ]) do
+    /-cache ([request.url, current_user.permission_cache_for( @account), Admin.cached_find(1).version ]) do
+    .do
       - blog = Blog.cached_find('Assets')
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               }, current: 'assets'}
@@ -37,7 +38,7 @@
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
                                                 post: BlogPost.cached_find( "WORKS" , blog ), \
-                                                link: account_recordings_path(@account), \
+                                                link: account_account_works_path(@account), \
                                                 css_class: 'btn btn-primary', \
                                                 icon: 'fa fa-music', \
                                                 id: 'common-works' \

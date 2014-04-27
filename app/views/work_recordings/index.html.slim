@@ -8,12 +8,21 @@
             
   .container
     ==render 'admin/shared/messages'
+    /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+    /                                                        assets: account_assets_path(@account), \
+    /                                                        works: account_works_path(@account),\
+    /                                                        'list works'.to_sym => account_works_path(@account),\
+    /                                                        @common_work.title.to_sym => account_work_path(@account, @common_work),\
+    /                                                        }, current: 'recordings'}
+    /
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             assets: account_assets_path(@account), \
-                                                            works: account_works_path(@account),\
-                                                            @common_work.title.to_sym => account_work_path(@account, @common_work),\
-                                                            }, current: 'recordings'}
-    
+                                                            'manage works'.to_sym => account_account_works_path(@account),\
+                                                            'list works'.to_sym => account_works_path(@account),\
+                                                            @common_work.title.to_sym => account_work_path(@account, @common_work)\
+                                                            }, current: @common_work.title}
+                                                            
+                                                            
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Common Work'), blog_post: 'Recordings', insert: 'back'}
 
 

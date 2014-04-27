@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
   
 
+  get "export_works_cvs/index"
+  get "export_works/index"
   resources :video_posts
 
   get "signup/index"
@@ -19,6 +21,8 @@ Digiramp::Application.routes.draw do
   resources :accounts, only: [:show, :edit, :update] do
     resources :add_catalog_assets, only: [:show]
     resources :account_users
+    resources :account_works, only: [:index]
+  
     resources :catalog_recordings, only: [:show]
     resources :catalogs do
       get "catalog_recordings/add_all"
@@ -29,6 +33,7 @@ Digiramp::Application.routes.draw do
     resources :documents
     resources :export_recordings, only: [:index]
     resources :export_works, only: [:index]
+    resources :export_works_cvs, only: [:index]
     resources :export_import_batches, only: [:index, :show, :edit]
     resources :export_import_batch_works, only: [:show]
     resources :import_batches, only: [:index, :show, :destroy, :edit, :update]

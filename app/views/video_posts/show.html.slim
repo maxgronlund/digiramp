@@ -1,29 +1,21 @@
-/p#notice = notice
-/
-/p
-/  strong Title:
-/  = @video_post.title
-/p
-/  strong Body:
-/  = @video_post.body
-/p
-/  strong Mp4 video:
-/  = @video_post.mp4_video
-/p
-/  strong Mp4 video mobile:
-/  = @video_post.mp4_video_mobile
-/p
-/  strong Webm video:
-/  = @video_post.webm_video
-/
-/= link_to 'Edit', edit_video_post_path(@video_post)
-/'|
-/= link_to 'Back', video_posts_path
+
 /
 - results = @video_post.transloadet[:results]
 - mp4_video_url  = results[:mp4_video][0][:url]
 - webm_video_url = results[:webm_video][0][:url] 
 
-video class="sublime" data-autoresize='fill' poster="video-poster.jpg" data-uid="my-video-1" title="My Video #1" preload="none"
+video class="sublime" width="640" height="360" data-autoresize='fill' data-embed-type="manual"  poster="video-poster.jpg" data-uid="123654" title="My Video #1" preload="none"
   source src=mp4_video_url
   source src=webm_video_url 
+
+
+
+
+
+/<video id="7f445d66" class="sublime" width="640" height="360" data-embed-type="manual" data-uid="7f445d66" data-autoresize="fit" preload="none">
+/  <source src="http://digiramp.s3.amazonaws.com/be/260ec0cd8011e3831d6bfa527fbe9a/episode-3.webm" data-quality="hd" />
+/  <source src="http://digiramp.s3.amazonaws.com/be/260ec0cd8011e3831d6bfa527fbe9a/episode-3.webm" />
+/  <source src="http://digiramp.s3.amazonaws.com/be/260ec0cd8011e3831d6bfa527fbe9a/episode-3.webm" />
+/  <source src="http://digiramp.s3.amazonaws.com/be/260ec0cd8011e3831d6bfa527fbe9a/episode-3.webm" data-quality="hd" />
+/  <source src="http://digiramp.s3.amazonaws.com/be/260ec0cd8011e3831d6bfa527fbe9a/episode-3.webm" />
+/</video>

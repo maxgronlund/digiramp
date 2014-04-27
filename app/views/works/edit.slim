@@ -5,6 +5,12 @@
             
   .container
     ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            'manage works'.to_sym => account_account_works_path(@account),\
+                                                            'list works'.to_sym => account_works_path(@account),\
+                                                            @common_work.title.to_sym => account_work_path(@account, @common_work),\
+                                                            }, current: 'edit work'}
     .row
       .col-sm-12
         h2 Edit Work
