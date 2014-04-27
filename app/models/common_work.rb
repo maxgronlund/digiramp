@@ -223,7 +223,7 @@ class CommonWork < ActiveRecord::Base
                   common_work.uuid.to_s, 
                 ]
         # ipis
-        if common_work.ipis.size > 0
+        if true
           csv << ['' ]
           csv << ['' ]
           csv << ['IPI\'S' ]
@@ -269,7 +269,7 @@ class CommonWork < ActiveRecord::Base
                     ]
           end
           # recordings
-          if common_work.recordings.size > 0
+          if true
             csv << ['' ]
             csv << ['' ]
             csv << ['RECORDINGS' ]
