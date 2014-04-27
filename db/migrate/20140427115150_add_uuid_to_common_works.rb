@@ -8,6 +8,9 @@ class AddUuidToCommonWorks < ActiveRecord::Migration
     end
     Recording.all.each do |recording|
       recording.uuid = UUIDTools::UUID.random_create().to_s
+      if recording.title == ''
+        recording.title = 'No Title'
+      end
       recording.save!
     end
   end
