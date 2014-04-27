@@ -14,7 +14,7 @@
         .col-sm-6
           == render 'shared/badge_button', locals: { \
                                                       blog_post: 'SIDEKIQ', \
-                                                      link: 'http://localhost:3000/sidekiq/queues', \
+                                                      link: "#{Rails.root}/sidekiq/queues", \
                                                       css_class: 'btn btn-warning', \
                                                       icon: 'fa fa-clock-o' \
                                                     }

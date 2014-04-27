@@ -6,7 +6,8 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             assets: account_assets_path(@account), \
                                                             'manage works'.to_sym => account_account_works_path(@account),\
-                                                            }, current: 'list works'}
+                                                            'export works'.to_sym => account_export_works_path(@account),\
+                                                            }, current: 'export works as csv'}
     
     
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Export Works'), blog_post: 'Export Works As CSV File'}

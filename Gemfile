@@ -85,7 +85,7 @@ group :test do
   gem 'factory_girl'
   gem 'selenium-webdriver'
 end
-
+gem 'aws-sdk'
 
 gem 'bcrypt-ruby'
 

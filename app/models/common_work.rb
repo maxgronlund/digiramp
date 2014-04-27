@@ -213,13 +213,13 @@ class CommonWork < ActiveRecord::Base
         #end
         # work info
         csv << ['COMMON WORK']
-        csv << [  '','Title', 'ISWC Code','Alternative Titles', 'Description','','','','','','','','','','','','','','','','','','','','','','','','','','','','','', 'UUID' ]
+        csv << [  '','Title', 'ISWC Code','Alternative Titles', 'Description','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',  'UUID' ]
         csv << [  '',
                   common_work.title,
                   common_work.iswc_code,
                   common_work.alternative_titles,
                   common_work.description.to_s.squish,
-                  '','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
+                  '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','', 
                   common_work.uuid.to_s, 
                 ]
         # ipis
@@ -243,7 +243,7 @@ class CommonWork < ActiveRecord::Base
                     'Performance Collected %', 
                     'Notes',
                     'CAE Code',
-                    '','','','','','','','','','','','','','','','','','',
+                    '','','','','','','','','','','','','','','','','','','', 
                     'Common Work UUID',
                   ]
           common_work.ipis.each do |ipi|
@@ -264,7 +264,7 @@ class CommonWork < ActiveRecord::Base
                       ipi.perf_collected.to_s,
                       ipi.notes.to_s,
                       ipi.cae_code.to_s,
-                      '','','','','','','','','','','','','','','','','','', 
+                      '','','','','','','','','','','','','','','','','','', '', 
                       common_work.uuid
                     ]
           end
@@ -306,6 +306,7 @@ class CommonWork < ActiveRecord::Base
                       "Mood",             
                       "instruments",      
                       "Tempo",
+                      "MP3 File",
                       'UUDI', 
                       'Common Work UUID'
                     ]
@@ -344,6 +345,7 @@ class CommonWork < ActiveRecord::Base
                         recording.mood.to_s,             
                         recording.instruments.to_s,      
                         recording.tempo.to_s,
+                        recording.mp3,
                         recording.uuid,
                         common_work.uuid
                       ]

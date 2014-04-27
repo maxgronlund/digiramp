@@ -225,6 +225,38 @@ class RecordingsController < ApplicationController
 
   end
   
+  #def download
+  #  @recording = Recording.cached_find(params[:id])
+  #  
+  #  original_file_name = 'Audiofile'
+  #  if @recording.mp3
+  #    original_file_name = Pathname.new(@recording.mp3).basename 
+  #  else
+  #    original_file_name = @recording.title
+  #  end
+  #  send_file @recording.mp3 , :type=>"audio/mp3", :filename => original_file_name
+  #end
+  
+  #def download
+  #  @recording = Recording.cached_find(params[:id])
+  #  AWS.config({
+  #    access_key_id: "AKIAIVATNWTNMQZKK2VA",
+  #    secret_access_key: "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"
+  #  })
+  #
+  #  send_data( 
+  #    AWS::S3.new.buckets["digiramp"].objects["0.mp3"].read, {
+  #      filename: "0.mp3", 
+  #      type: "audio/mp3", 
+  #      disposition: 'attachment', 
+  #      stream: 'true', 
+  #      buffer_size: '4096'
+  #    }
+  #  )
+  #end
+  
+  
+  
 private
   
   def recording_params

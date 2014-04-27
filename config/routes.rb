@@ -63,6 +63,9 @@ Digiramp::Application.routes.draw do
     
     
     resources :recordings do
+      member do
+        get :download
+      end
       get 'delete_all'
       #post 'select_category'
       #get 'select_category'
