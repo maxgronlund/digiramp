@@ -287,7 +287,7 @@ class CommonWork < ActiveRecord::Base
                       "Copyright",        
                       "Production Company",
                       "Available Date",
-                      "UPD CODE",         
+                      "UPC CODE",         
                       "Album Artist",
                       "Album Title",
                       "Grouping",

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140427115150) do
+ActiveRecord::Schema.define(version: 20140428163656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,17 @@ ActiveRecord::Schema.define(version: 20140427115150) do
     t.datetime "updated_at"
     t.integer  "accounts_version", default: 0
   end
+
+  create_table "album_items", force: true do |t|
+    t.integer  "album_id"
+    t.integer  "albumable_id"
+    t.string   "albumable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "album_items", ["album_id"], name: "index_album_items_on_album_id", using: :btree
+  add_index "album_items", ["albumable_id", "albumable_type"], name: "index_album_items_on_albumable_id_and_albumable_type", using: :btree
 
   create_table "albums", force: true do |t|
     t.string   "title"

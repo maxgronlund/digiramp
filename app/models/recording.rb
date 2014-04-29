@@ -36,6 +36,9 @@ class Recording < ActiveRecord::Base
   belongs_to :common_work
   belongs_to :import_batch
   
+  #has_many :catalog_items
+  #has_many :catalogs, through: :catalog_items
+  
   
   
   #has_many :genre_tags
@@ -49,7 +52,10 @@ class Recording < ActiveRecord::Base
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
   TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
   
-  
+  def catalogs
+    catalog_ids = CatalogItem.where(catalog_itemable_type: self.class.name, catalog_itemable_id: self.id).pluck(:catalog_id)
+    Catalog.find(catalog_ids)
+  end
   
   
   #belongs_to :song
@@ -96,6 +102,7 @@ class Recording < ActiveRecord::Base
   #after_commit :expire_account_rec_cash
   after_commit :flush_cache
   before_destroy :remove_from_catalogs
+  before_destroy :remove_from_albums
   
   
   #def expire_account_rec_cash
@@ -116,7 +123,7 @@ class Recording < ActiveRecord::Base
       index = catalog_id.to_i
       if index != 0
         catalog = AccountCatalog.find(index)
-        logger.debug catalog.title
+        #logger.debug catalog.title
         CatalogItem.create( catalog_itemable_id: id, account_catalog_id: catalog.id, catalog_itemable_type: 'Recording' )
       end
     end
@@ -501,6 +508,11 @@ private
     
     playlist_items = PlaylistItem.where(playlist_itemable_id: self.id, playlist_itemable_type: self.class.name)
     playlist_items.delete_all
+    
+  end
+  
+  def remove_from_albums
+    
     
   end
   

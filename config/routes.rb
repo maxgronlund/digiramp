@@ -2,6 +2,10 @@
 Digiramp::Application.routes.draw do
   
 
+  get "albums/index"
+  get "albums/show"
+  get "albums/new"
+  get "albums/edit"
   get "export_works_cvs/index"
   get "export_works/index"
   resources :video_posts
@@ -22,7 +26,7 @@ Digiramp::Application.routes.draw do
     resources :add_catalog_assets, only: [:show]
     resources :account_users
     resources :account_works, only: [:index]
-  
+    resources :albums
     resources :catalog_recordings, only: [:show]
     resources :catalogs do
       get "catalog_recordings/add_all"
