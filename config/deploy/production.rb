@@ -27,4 +27,4 @@ set :unicorn_worker_count, 5
 # config file
 set :enable_ssl, false
 
-set :ssh_options, { :forward_agent => true }
+#set :ssh_options, { :forward_agent => true }
