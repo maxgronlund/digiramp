@@ -7,7 +7,7 @@
       == render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               assets: account_assets_path(@account), \
-                                                              recordings: account_recording_path(@account, @recording), \
+                                                              recordings: account_recordings_path(@account), \
                                                               @recording.title.to_sym => account_common_work_recording_path(@account, @common_work, @recording), \
                                                               }, current: 'artwork'}
       
