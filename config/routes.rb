@@ -2,6 +2,9 @@
 Digiramp::Application.routes.draw do
   
 
+  
+  resources :image_files
+
   get "albums/index"
   get "albums/show"
   get "albums/new"
@@ -126,10 +129,16 @@ Digiramp::Application.routes.draw do
         end
         
       end
+      resources :recording_artworks, only: [:show]
       resources :audio_files
       resources :recordings do
         resources :genre_tags
+        resources :image_files
       end
+      
+      resources :recording_files
+      resources :recording_infos
+      
       #resources :audio_file,    only: [:edit, :update]
       resources :ipis
       resources :lyrics,        only: [:edit, :update]

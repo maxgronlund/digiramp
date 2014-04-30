@@ -1,0 +1,28 @@
+/= debug @recording.audio_upload
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              recordings: account_recordings_path(@account), \
+                                                              }, current: @recording.title}
+      
+      
+      .row
+        -body = link_to @common_work.title, account_work_path(@account, @common_work)
+      == render 'shared/page_title_text', locals: {title: @recording.title, body: body}
+       
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
+
+            
+ 
+          
+          
+          
+        

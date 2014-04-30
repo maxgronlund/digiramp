@@ -11,27 +11,62 @@
                                                               }, current: @recording.title}
       
       
-      .row
-        -body = link_to @common_work.title, account_work_path(@account, @common_work)
-        == render 'shared/page_title_text', locals: {title: @recording.title, body: body}
-      == render 'shared/line'
-      -index = @recording.id
-      div class="player" id="#{index}"
-      .just-load
-      .panel.panel-default
-        .panel-body
-          .digiramp_player
-            == render 'players/digramp_player', locals: {index: index , recording: @recording}
-
+      /.row
+      /  -body = link_to @common_work.title, account_work_path(@account, @common_work)
+      /== render 'shared/page_title_text', locals: {title: @recording.title, body: body}
+      -body = link_to 'COMMON WORK', account_work_path(@account, @common_work)
+      == render 'shared/title', locals: {title: @recording.title, body: body} 
       .row
         .col-sm-6
-          == render 'recordings/shared/metadata'
-        .col-sm-6 
-          == render 'recordings/shared/lyrics' if @recording.vocal != 'Instrumental' || @recording.lyrics.to_s != ''
-
-
-
-              
+           == render 'works/shared/badge_button', locals: { \
+                                                      blog_post: 'INFO', \
+                                                      link: account_common_work_recording_info_path(@account, @common_work, @recording), \
+                                                      css_class: 'btn btn-info', \
+                                                      icon: 'fa fa-info-circle' \
+                                                    }
+        .col-sm-6
+           == render 'works/shared/badge_button', locals: { \
+                                                      blog_post: 'ARTWORK', \
+                                                      link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+                                                      css_class: 'btn btn-primary', \
+                                                      icon: 'fa fa-picture-o' \
+                                                    }                                               
+      / all users can access recordings
+      /.col-sm-6
+      /  == render 'works/shared/badge_button', locals: { \
+      /                                              blog_post: 'RECORDINGS', \
+      /                                              link: account_work_work_recordings_path(@account, @common_work), \
+      /                                              css_class: 'btn btn-warning', \
+      /                                              icon: 'fa fa-headphones'\
+      /                                            }
+      /
+      /-if @user_can_access_shared_with 
+      /  .col-sm-6
+      /    == render 'works/shared/badge_button', locals: { \
+      /                                               blog_post: 'USERS', \
+      /                                               link: account_work_work_users_path(@account, @common_work), \
+      /                                               css_class: 'btn btn-default', \
+      /                                               icon: 'fa fa-group' \
+      /                                             }
+      / 
+      /-if @user_can_access_files
+      /  .col-sm-6
+      /    == render 'works/shared/badge_button', locals: { \ 
+      /                                              blog_post: 'FILES', \
+      /                                              link: account_work_work_files_path(@account, @common_work), \
+      /                                              css_class: 'btn btn-success', \
+      /                                              icon: 'fa fa-folder' \
+      /                                             }
+      / 
+      /-if @user_can_access_ipis
+      /  .col-sm-6
+      /    == render 'works/shared/badge_button', locals: { \ 
+      /                                              blog_post: 'IPIS', \
+      /                                              link: account_work_work_ipis_path(@account, @common_work), \
+      /                                              css_class: 'btn btn-info', \
+      /                                              icon: 'fa fa-exclamation-circle' \
+      /
+      /       
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

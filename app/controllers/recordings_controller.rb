@@ -11,8 +11,7 @@ class RecordingsController < ApplicationController
   def show
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
-    
-    # pessimistic locking
+
     access = false
     
     if current_user.can_administrate @account
@@ -20,37 +19,10 @@ class RecordingsController < ApplicationController
     elsif @common_work.is_accessible_by current_user
       access = true
     end
-    #elsif catalog_items = CatalogItem.where(catalog_itemable_type: "Recording", catalog_itemable_id: @recording.id)
-    #  
-    #  catalog_items.each do |catalog_item|
-    #    if CatalogUser.cached_where(catalog_item.catalog_id, current_user.id)
-    #      access = true
-    #    end
-    #  end
-    #  # the recording is in a catalog
-    #  #logger.debug '-------------------------------------------------------'
-    #  #logger.debug 'fobar'
-    #  #logger.debug '-------------------------------------------------------'
-    #  #access = true
-    #
-    #end
-    #if @common_work.is_accessible_by current_user
-    #  if current_user.can_administrate @account
-    #    @can_edit       = true
-    #    
-    #  #else
-    #  #  work_user = WorkUser.where(user_id: current_user.id, common_work_id: @common_work.id).first
-    #  #  @user_can_access_files                = work_user.access_files
-    #  #  @user_can_access_legal_documents      = work_user.access_legal_documents
-    #  #  @user_can_access_financial_documents  = work_user.access_financial_documents
-    #  #  @user_can_access_ipis                 = work_user.access_ipis
-    #  end
-    #else
+
     unless access
       render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
     end
-    
-
   end
   
   def edit

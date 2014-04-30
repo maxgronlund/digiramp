@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140428163656) do
+ActiveRecord::Schema.define(version: 20140430211529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -495,6 +495,20 @@ ActiveRecord::Schema.define(version: 20140428163656) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "image_files", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "account_id"
+    t.string   "file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "recording_id"
+    t.string   "thumb"
+  end
+
+  add_index "image_files", ["account_id"], name: "index_image_files_on_account_id", using: :btree
+  add_index "image_files", ["recording_id"], name: "index_image_files_on_recording_id", using: :btree
 
   create_table "import_batches", force: true do |t|
     t.integer  "account_id"

@@ -23,7 +23,7 @@
 //= requiry jquery.transloadit2-v2-latest
 //= require super_simple_wysiwyg
 //= require recordings
-//= require permissions
+// require permissions
 // require_tree .
 
 

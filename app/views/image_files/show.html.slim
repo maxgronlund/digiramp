@@ -1,0 +1,56 @@
+/p#notice = notice
+/
+/p
+/  strong Title:
+/  = @image_file.title
+/p
+/  strong Body:
+/  = @image_file.body
+/p
+/  strong Account:
+/  = @image_file.account
+/p
+/  strong File:
+/  = @image_file.file
+/
+/= link_to 'Edit', edit_image_file_path(@image_file)
+/'|
+/= link_to 'Back', image_files_path
+/= debug @recording.audio_upload
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              recordings: account_recording_path(@account, @recording), \
+                                                              @recording.title.to_sym => account_common_work_recording_path(@account, @common_work, @recording), \
+                                                              artwork: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+                                                              }, current: 'show'}
+      
+      
+
+      == render 'shared/title', locals: {title: @recording.title, body: "ARTWORK"} 
+      
+      
+      .row
+        .col-sm-12
+          .image
+            = image_tag(@image_file.file)
+      
+          
+              
+      = render 'shared/line'
+      .row
+        .col-sm-12
+          .pull-right
+            = link_to 'Edit Artwork', \
+                      new_account_common_work_recording_image_file_path(@account, \
+                                                                        @common_work,\
+                                                                        @recording), class: 'btn btn-primary btn-lg'
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              

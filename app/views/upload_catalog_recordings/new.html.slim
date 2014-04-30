@@ -18,15 +18,16 @@
       .col-sm-3
       
       .col-sm-6
-        .panel
+        .panel.panel-primary
+          .panel-heading
+            'Select Files
           .panel-body
-            h3 SELECT FILES
             = simple_form_for [ @account, @cattalog, @recording ], \
                                 :url => url_for(:action => 'create', \
                                 :controller => 'upload_catalog_recordings'), \
                                 :method => 'post',  :html => { :id => 'recording' } do |f| 
               = f.hidden_field :account_id, value: @account.id
-              = f.hidden_field :@catalog_id, value: @catalog.id
+              = f.hidden_field :catalog_id, value: @catalog.id
               = transloadit :recording_with_thumbs 
               /= form.label      :file, 'File to upload' 
               = f.file_field :file, multiple: true

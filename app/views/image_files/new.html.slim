@@ -1,0 +1,55 @@
+/= debug @recording.audio_upload
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              recordings: account_recording_path(@account, @recording), \
+                                                              @recording.title.to_sym => account_common_work_recording_path(@account, @common_work, @recording), \
+                                                              }, current: 'artwork'}
+      
+      
+
+      == render 'shared/title', locals: {title: @recording.title, body: "UPLOAD IMAGE FILES"} 
+      
+      
+      .row
+        .col-sm-3
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Select Files
+            .panel-body
+
+              = simple_form_for [ @account, @common_work, @recording, @image_file ], \
+                                  :url => url_for(:action => 'create', \
+                                  :controller => 'image_files'), \
+                                  :method => 'post',  :html => { :id => 'image_file' } do |f| 
+                = f.hidden_field :account_id, value: @account.id
+                = f.hidden_field :common_work_id, value: @common_work.id
+                = f.hidden_field :recording_id, value: @recording.id
+                = transloadit :image_files_to_s3 
+
+                = f.file_field :file, multiple: true
+                hr
+                .pull-right
+                  = f.submit 'Upload', class: 'btn btn-primary btn-lg'
+            
+            
+              = transloadit_jquerify :image_file, :wait => true
+        .col-sm-3
+          
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
+
+            
+ 
+          
+          
+          
+        
