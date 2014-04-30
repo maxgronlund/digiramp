@@ -46,7 +46,7 @@ class Recording < ActiveRecord::Base
   has_many :genre_tags, as: :genre_tagable,             dependent: :destroy
   has_many :instrument_tags, as: :instrument_tagable,   dependent: :destroy
   has_many :mood_tags, as: :mood_tagable,               dependent: :destroy
-  has_many :image_files
+  has_many :image_files,                                dependent: :destroy
   
   mount_uploader :cover_art, ThumbUploader
   

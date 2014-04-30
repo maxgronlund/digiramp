@@ -32,7 +32,9 @@
             = link_to 'Upload Artwork', \
                       new_account_common_work_recording_image_file_path(@account, \
                                                                         @common_work,\
-                                                                        @recording), class: 'btn btn-primary btn-lg'
+                                                                        @recording),\
+                                                                        class: 'btn btn-primary btn-lg', \
+                                                                        'data-no-turbolink'=>true
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
