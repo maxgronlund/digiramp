@@ -1,0 +1,2 @@
+module UserRecordingsHelper
+end

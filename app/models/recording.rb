@@ -165,6 +165,13 @@ class Recording < ActiveRecord::Base
     recordings
   end
   
+  def self.catalogs_search(recordings, query)
+    if query.present?
+     recordings = recordings.search(query)
+    end
+    recordings
+  end
+  
   def update_completeness
 
     self.completeness_in_pct = 0

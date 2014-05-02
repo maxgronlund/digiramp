@@ -6,7 +6,7 @@ class SharedCatalogsController < ApplicationController
   end
 
   def show
-    @catalog_user= CatalogUser.where(user_id: @user.id, catalog_id: params[:id]).first
+    @catalog_user = CatalogUser.where(user_id: @user.id, catalog_id: params[:id]).first
   end
   
 

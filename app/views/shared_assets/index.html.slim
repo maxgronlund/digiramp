@@ -17,6 +17,13 @@
     .row
       .col-sm-6
         == render 'assets/shared/badge_button', locals: { \
+                                                    blog_post: 'RECORDINGS', \
+                                                    link: user_user_recordings_path(@user), \
+                                                    css_class: 'btn btn-warning', \
+                                                    icon: 'fa fa-headphones' \
+                                                  }
+      .col-sm-6
+        == render 'assets/shared/badge_button', locals: { \
                                                     blog_post: 'CATALOGS', \
                                                     link: user_shared_catalogs_path(@user), \
                                                     css_class: 'btn btn-primary', \

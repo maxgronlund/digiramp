@@ -3,6 +3,7 @@ Digiramp::Application.routes.draw do
   
 
   
+  get "user_recordings/index"
   resources :image_files
 
   get "albums/index"
@@ -193,6 +194,7 @@ Digiramp::Application.routes.draw do
   resources :users do
     resources :user_accounts, only: [:index]
     resources :accounts, only: [:edit, :show, :update]
+    resources :user_recordings, only: [:index]
     resources :shared_assets, only: [:index]
     resources :shared_catalogs, only: [:index, :show] do
       resources :shared_recordings
