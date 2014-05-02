@@ -30,6 +30,9 @@ class ImageFilesController < ApplicationController
 
   # GET /image_files/1/edit
   def edit
+    @common_work    = CommonWork.cached_find(params[:common_work_id])
+    @recording      = Recording.cached_find(params[:recording_id])
+    @image_file     = ImageFile.find(params[:id])
   end
 
   # POST /image_files
@@ -55,14 +58,15 @@ class ImageFilesController < ApplicationController
   # PATCH/PUT /image_files/1
   # PATCH/PUT /image_files/1.json
   def update
-    respond_to do |format|
-      if @image_file.update(image_file_params)
-        format.html { redirect_to @image_file, notice: 'Image file was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @image_file.errors, status: :unprocessable_entity }
-      end
+    @common_work    = CommonWork.cached_find(params[:common_work_id])
+    @recording      = Recording.cached_find(params[:recording_id])
+    @image_file     = ImageFile.find(params[:id])
+    
+    params[:image_file].delete :common_work_id
+    
+    if @image_file.update(image_file_params)
+
+      redirect_to account_common_work_recording_image_file_path @account, @common_work, @recording, @image_file
     end
   end
 
@@ -84,6 +88,6 @@ class ImageFilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_file_params
-      params.require(:image_file).permit(:title, :body, :account_id, :file)
+      params.require(:image_file).permit!
     end
 end

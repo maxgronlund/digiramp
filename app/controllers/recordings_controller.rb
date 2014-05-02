@@ -9,8 +9,8 @@ class RecordingsController < ApplicationController
   end
 
   def show
-    @common_work    = CommonWork.find(params[:common_work_id])
-    @recording      = Recording.find(params[:id])
+    @common_work    = CommonWork.cached_find(params[:common_work_id])
+    @recording      = Recording.cached_find(params[:id])
 
     access = false
     

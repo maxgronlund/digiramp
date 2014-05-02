@@ -11,10 +11,10 @@
                                                             
                                                             
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(@user), \
-                                                           "Shared Assets".to_sym =>  user_shared_assets_path(@user) \
-                                                           }, current: 'shared catalogs'}
+                                                           "ASSETS".to_sym =>  user_shared_assets_path(@user) \
+                                                           }, current: 'catalogs'}
                                                            
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Shared Catalogs'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Catalogs'}
     
     .panel
       .panel-body

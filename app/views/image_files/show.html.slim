@@ -1,22 +1,3 @@
-/p#notice = notice
-/
-/p
-/  strong Title:
-/  = @image_file.title
-/p
-/  strong Body:
-/  = @image_file.body
-/p
-/  strong Account:
-/  = @image_file.account
-/p
-/  strong File:
-/  = @image_file.file
-/
-/= link_to 'Edit', edit_image_file_path(@image_file)
-/'|
-/= link_to 'Back', image_files_path
-/= debug @recording.audio_upload
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
@@ -33,8 +14,20 @@
       
 
       == render 'shared/title', locals: {title: @recording.title, body: "ARTWORK"} 
-      
-      
+      .row
+        .col-sm-6
+          h3 = @image_file.title unless @image_file.title.to_s == ''
+          -unless @image_file.body.to_s == ''
+            = @image_file.body
+            br
+        .col-sm-6
+          .pull-right
+            = link_to 'Edit Artwork', \
+                      edit_account_common_work_recording_image_file_path(@account, \
+                                                                        @common_work,\
+                                                                        @recording,
+                                                                          @image_file), class: 'btn btn-primary btn-lg'
+      br
       .row
         .col-sm-12
           .image
@@ -47,9 +40,10 @@
         .col-sm-12
           .pull-right
             = link_to 'Edit Artwork', \
-                      new_account_common_work_recording_image_file_path(@account, \
+                      edit_account_common_work_recording_image_file_path(@account, \
                                                                         @common_work,\
-                                                                        @recording), class: 'btn btn-primary btn-lg'
+                                                                        @recording,
+                                                                        @image_file), class: 'btn btn-primary btn-lg'
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

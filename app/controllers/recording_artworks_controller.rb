@@ -17,4 +17,19 @@ class RecordingArtworksController < ApplicationController
       render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
     end
   end
+  
+  #def edit
+  #  redirect_to :back
+  #end
+  #
+  #def update
+  #  
+  #end
+  #
+  #def destroy
+  #  @image_files   = ImageFile.find(params[:id])
+  #  #@common_work    = CommonWork.find(params[:common_work_id])
+  #  #@recording      = Recording.find(params[:id])
+  #  redirect_to :back
+  #end
 end

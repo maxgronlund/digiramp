@@ -41,7 +41,7 @@ class Account < ActiveRecord::Base
   
   #before_destroy :delete_user
   
-  
+  ACCOUNT_TYPES =  ['Personal Account', 'Professional Account','Enterprise Account']
   
 
   
@@ -51,7 +51,7 @@ class Account < ActiveRecord::Base
   
   #ACCOUNT_TYPES = [ 'catalog owner', 'representative', 'supervisor', 'administrator', 'free account', 'not confirmed']
   
-  ACCOUNT_TYPES = { catalog_owner: 'catalog owner', free_account: 'free account', not_confirmed: 'not confirmed' } 
+  #ACCOUNT_TYPES = { catalog_owner: 'catalog owner', free_account: 'free account', not_confirmed: 'not confirmed' } 
   SECRET_NAME = "opjeKDV79Ml4"
   
   mount_uploader :logo, LogoUploader

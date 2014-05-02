@@ -11,46 +11,50 @@
 
             
   .container
-    .row
-      .col-sm-12
-        .panel
-          .panel-body
+    =simple_form_for [:admin, @account] do |f|
+      .row
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Info
+            .panel-body
+              =f.input :title
+              /=f.input :user_id, collection: User.all, prompt: "Account Owner"
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+                
+              =f.input :description, label: false, :input_html => {  style: "height: 360px;", placeholder: "Description", id: 'wysihtml5_editor'}
+              =f.input :logo, label: 'Logo 170x50 Pixels (png with transparency is best)'
           
-            =simple_form_for [:admin, @account] do |f|
-            
-              .row
-                .col-sm-6
-                  /=f.input :user_id, label: 'User ID'
-                  .panel
-                    .panel-body
-                      =f.input :title
-                      /=f.input :user_id, collection: User.all, prompt: "Account Owner"
-                      div id="toolbar" class="wysihtml5-toolbar"
-                        a data-wysihtml5-command="bold" Bold
-                        '&nbsp; 
-                        a data-wysihtml5-command="italic" Italic
-                        
-                      =f.input :description, label: false, :input_html => {  style: "height: 360px;", placeholder: "Description", id: 'wysihtml5_editor'}
-                      =f.input :logo, label: 'Logo 170x50 Pixels (png with transparency is best)'
-                  .panel
-                    .panel-body
-                      =f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES , label: 'Account Type'
-                  .panel
-                    .panel-body
-                      =f.input :expiration_date
-                .col-sm-6
-                  .panel
-                    .panel-body
-                      =f.input :contact_first_name
-                      =f.input :contact_last_name
-                  .panel
-                    .panel-body
-                      =f.input :contact_email
-                      =f.input :fax
-                      =f.input :country, as: :text, :input_html => {  style: "height: 36px;"}
-                      =f.input :street_address
-                      =f.input :city
-                      =f.input :state
-                      =f.input :postal_code
-                  = f.submit 'Save', class: 'btn btn-primary btn-lg'
-     
+          .panel.panel-primary
+            .panel-heading
+              'Expiration Date
+            .panel-body
+              =f.input :expiration_date, label: false
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Account Type
+            .panel-body
+              =f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES , label: false
+          .panel.panel-primary
+            .panel-heading
+              'Contact Person
+            .panel-body
+              =f.input :contact_first_name
+
+              =f.input :contact_email
+              =f.input :fax
+              =f.input :country, as: :text, :input_html => {  style: "height: 36px;"}
+              =f.input :street_address
+              =f.input :city
+              =f.input :state
+              =f.input :postal_code
+      .row
+        .col-sm-12
+          .pull-right
+            = f.submit 'Save', class: 'btn btn-primary btn-lg'
+      
+    

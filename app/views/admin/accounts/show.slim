@@ -4,24 +4,29 @@
     == render 'admin/shared/navbar', page: 'admin'
   .container
     ==render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, accounts: admin_accounts_path }, current: @account.title}
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                            accounts: admin_accounts_path \
+                                                          },current: @account.title}
+    /.row
+    /  .col-sm-6
+    /    h2 = @account.title
+    /
+    /.row
+    /  .col-sm-12
+    /    hr
+    == render 'shared/title', locals: {title: @account.title, body: @account.account_type}
     .row
       .col-sm-6
-        h2 = @account.title
-
-    .row
-      .col-sm-12
-        hr
-    .row
-      .col-sm-6
-        .panel
+        .panel.panel-primary
+          .panel-heading
+            'Description
           .panel-body
-            h3 DESCRIPTION
             = simple_format @account.description
 
-        .panel
+        .panel.panel-primary
+          .panel-heading
+            'Info
           .panel-body
-            h3 INFO
             .table-responsive
               table class="table table-hover"
                 tbody
@@ -30,8 +35,13 @@
                     td = @account.account_type.upcase
                   tr
                     td Expires:
-                    td class="#{'expired' if @account.expiration_date < Date.current }"
-                      = @account.expiration_date
+                    td 
+                      - if @account.expiration_date < Date.current
+                        .expired
+                          i class="fa fa-exclamation-circle"
+                          '&nbsp;EXPIRED  
+                      - else
+                        = @account.expiration_date
                   tr
                     td Contact Email:
                     td = @account.contact_email
@@ -39,41 +49,43 @@
                     td Visits:
                     td = @account.visits
                     
-        .panel
+
+        .panel.panel-primary
+          .panel-heading
+            'Assets
           .panel-body
-            h3 ASSETS
-            .table-responsive
-              table class="table table-hover"
-                tbody
-                  tr
-                    td Works:
-                    td = @account.common_works.size
-                    td
-                      .pull-right
-                        = link_to admin_account_delete_common_works_path(@account) ,data: {confirm: 'Are you sure?'} do
-                          .btn.btn-danger.btn-lg
-                            i class="fa fa-times-circle"
-                  tr
-                    td Recordings:
-                    td = @account.recordings.size
-                    td
-                      .pull-right
-                        = link_to = link_to admin_account_delete_recordings_path(@account) ,data: {confirm: 'Are you sure?'} do
-                          .btn.btn-danger.btn-lg
-                            i class="fa fa-times-circle"
-                  tr
-                    td Documents:
-                    td = @account.attachments.size
-                    td
-                      .pull-right
-                        = link_to admin_account_delete_documents_path(@account) ,data: {confirm: 'Are you sure?'} do
-                          .btn.btn-danger.btn-lg
-                            i class="fa fa-times-circle"
-                  tr
-                    td Storage:
-                    td 
-                    td
-          
+          .table-responsive
+            table class="table table-hover"
+              tbody
+                tr
+                  td Works:
+                  td = @account.common_works.size
+                  td
+                    .pull-right
+                      = link_to admin_account_delete_common_works_path(@account) ,data: {confirm: 'Are you sure?'} do
+                        .btn.btn-danger.btn-lg
+                          i class="fa fa-times-circle"
+                tr
+                  td Recordings:
+                  td = @account.recordings.size
+                  td
+                    .pull-right
+                      = link_to = link_to admin_account_delete_recordings_path(@account) ,data: {confirm: 'Are you sure?'} do
+                        .btn.btn-danger.btn-lg
+                          i class="fa fa-times-circle"
+                tr
+                  td Documents:
+                  td = @account.attachments.size
+                  td
+                    .pull-right
+                      = link_to admin_account_delete_documents_path(@account) ,data: {confirm: 'Are you sure?'} do
+                        .btn.btn-danger.btn-lg
+                          i class="fa fa-times-circle"
+                tr
+                  td Storage:
+                  td 
+                  td
+        
                   
         
            
@@ -81,9 +93,10 @@
                       
       .col-sm-6               
 
-        .panel
+        .panel.panel-primary
+          .panel-heading
+            'Address
           .panel-body
-            h3 ADDRESS
             .table-responsive
               table class="table table-hover"
                 tbody
@@ -107,9 +120,10 @@
                     td  = @account.contact_last_name
                     
                     
-        .panel
+        .panel.panel-primary
+          .panel-heading
+            'Users
           .panel-body
-            h3 USERS
             .table-responsive
               table class="table table-hover"
                 thead

@@ -8,29 +8,38 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_path(@user), \
                                                             }, current:  'edit profile'}
     == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Edit User Profile'}
-    .panel
-      .panel-body
-        = simple_form_for @user do |f|
-          .row
-            .col-sm-6
-              = f.input :name
-              = f.input :email
-              = f.input :password, autocomplete: :off
-              = f.input :password_confirmation, autocomplete: :off
-            .col-sm-6
-              = f.input :image
-              div id="toolbar" class="wysihtml5-toolbar"
-                a data-wysihtml5-command="bold" Bold
-                '&nbsp; 
-                a data-wysihtml5-command="italic" Italic
+    = simple_form_for @user do |f|
+      .row
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Login
+            .panel-body
               
-              =f.input :profile, label: false, :input_html => {  style: "height: 360px;", placeholder: "Profile", id: 'wysihtml5_editor'}
-            .col-sm-12
-              .pull-right
-                = link_to 'Cancel', user_path(@user), class: 'btn btn-default btn-lg'
-                '&nbsp;
-                = f.submit 'Save', class: 'btn btn-primary btn-lg'
-        
+                = f.input :name
+                = f.input :email
+                = f.input :password, autocomplete: :off
+                = f.input :password_confirmation, autocomplete: :off
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Personal Profile
+            .panel-body
+                = f.input :image
+                div id="toolbar" class="wysihtml5-toolbar"
+                  a data-wysihtml5-command="bold" Bold
+                  '&nbsp; 
+                  a data-wysihtml5-command="italic" Italic
+                
+                =f.input :profile, label: false, :input_html => {  style: "height: 360px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+      .row
+        .col-sm-12
+          hr
+          .pull-right
+            = link_to 'Cancel', user_path(@user), class: 'btn btn-default btn-lg'
+            '&nbsp;
+            = f.submit 'Save', class: 'btn btn-primary btn-lg'
+    
       
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  

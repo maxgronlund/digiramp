@@ -11,7 +11,7 @@
                                                               @catalog.title.to_sym => account_catalog_path(@account, @catalog) \
                                                               }, current: "add assets"}
       
-      - blog = Blog.cached_find('Shared Catalogs')
+      - blog = Blog.cached_find('Catalogs')
       == render 'shared/page_title', locals: {blog: blog, blog_post: 'Add Assets'}
 
       .row

@@ -30,29 +30,34 @@
                   thead
                     tr
                       th Account
-                      th Members
-                      th Expires
-                      th Visits
+                      /th Members
+                      th Expired
+                      th Account Type
                       th Owner
                       th 
                   tbody
                     -@accounts.each do |account|
                       -cache(account) do
                         tr
-                          td = account.title
-                          td = account.account_users.size
+                          td = link_to account.title, account_path( account), class: 'btn btn-default btn-lg'
+
+                          /td = account.account_users.size
                           /td class="#{'expired' if account.expiration_date < Date.current }"
                           /  = account.expiration_date
-                          td  class="#{'expired' if account.expiration_date < Date.current }"
-                            = account.expiration_date
-                          td = account.visits
+                          td
+                            - if account.expiration_date < Date.current && account.account_type != 'Personal Account'
+                              .expired
+                                i class="fa fa-exclamation-circle"
+                          /td  class="#{'expired' if account.expiration_date < Date.current }"
+                          /  = account.expiration_date
+                          td = account.account_type
                           td = link_to account.account_owner.name_or_email, user_path(account.account_owner), class: 'btn btn-default btn-lg'
                            
                           td
                             .pull-right
-                              = link_to 'Go To', account_path( account), class: 'btn btn-default btn-lg'
-                              '&nbsp;
-                              = link_to 'Info', admin_account_path( account), class: 'btn btn-default btn-lg'
+                              = link_to admin_account_path( account) do
+                                .btn.btn-info.btn-lg
+                                  i class="fa fa-info-circle"
                               '&nbsp;
                               = link_to edit_admin_account_path( account) do
                                 .btn.btn-primary.btn-lg

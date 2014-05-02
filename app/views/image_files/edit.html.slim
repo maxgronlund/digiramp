@@ -1,8 +1,61 @@
-h1 Editing image_file
+/h1 Editing image_file
+/
+/== render 'form'
+/
+/= link_to 'Show', @image_file
+/'|
+/= link_to 'Back', image_files_path
+/
 
-== render 'form'
 
-= link_to 'Show', @image_file
-'|
-= link_to 'Back', image_files_path
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              recordings: account_recordings_path(@account), \
+                                                              @recording.title.to_sym => account_common_work_recording_path(@account, @common_work, @recording), \
+                                                              artwork: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+                                                              show: account_common_work_recording_image_file_path( @account, @common_work, @recording, @image_file), \
+                                                              }, current: 'edit'}
+      
+      
 
+      == render 'shared/title', locals: {title: @recording.title, body: "EDIT ARTWORK"} 
+      
+      
+      .row
+        .col-sm-3
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Edit Image Files
+            .panel-body
+              = simple_form_for [ @account, @common_work, @recording, @image_file ], \
+                                  :url => url_for(:action => 'update', \
+                                  :controller => 'image_files'), \
+                                  :method => 'put',  :html => { :id => 'image_file' } do |f| 
+                = f.hidden_field :account_id, value: @account.id
+                = f.hidden_field :common_work_id, value: @common_work.id
+                = f.hidden_field :recording_id, value: @recording.id
+                = f.input :title, value: @image_file.title
+                = f.input :body, value: @image_file.body
+
+                hr
+                .pull-right
+                  = f.submit 'Save', class: 'btn btn-primary btn-lg'
+                  
+   
+        .col-sm-3
+
+            
+      
+          
+              
+
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
