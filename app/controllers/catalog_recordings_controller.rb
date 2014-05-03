@@ -1,8 +1,26 @@
 class CatalogRecordingsController < ApplicationController
   before_filter :there_is_access_to_the_account
+  
+  # list of recordings to add to the catalog
   def index
-     @catalog         = Catalog.cached_find(params[:catalog_id])
-     @recordings      = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
+    # find catalog
+    @catalog         = Catalog.cached_find(params[:catalog_id])
+    
+    # all recordings currently in the catalog
+    recording_in_catalog_ids   = @catalog.catalog_items.where(catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
+    logger.debug recording_in_catalog_ids
+    # all recordings
+    recordings_ids             = @account.recordings.pluck(:id)
+    logger.debug recordings_ids
+    #  recordings not in the catalog
+    recordings_not_in_the_catalog_ids = recordings_ids - recording_in_catalog_ids
+    logger.debug recordings_not_in_the_catalog_ids
+    # get them from the db
+    @recordings = Recording.where(id: recordings_not_in_the_catalog_ids)
+    logger.debug @recordings.size
+    
+    # do the search
+    @recordings      = Recording.catalogs_search(@recordings, params[:query]).order('title asc').page(params[:page]).per(24)
   end
   
   def new
@@ -26,21 +44,41 @@ class CatalogRecordingsController < ApplicationController
   end
   
   def add_all
-    @catalog   = Catalog.cached_find(params[:catalog_id])
-    
+    # find catalog
+    @catalog        = Catalog.cached_find(params[:catalog_id])
+    # add recordings not in the catalog
     if @recordings  = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
       @recordings.each do |recording|
-        CatalogItem.where(catalog_id: @catalog.id, 
-                          catalog_itemable_id: recording.id, 
-                          catalog_itemable_type: recording.class.name)
-                    .first_or_create( catalog_id: @catalog.id, 
-                                      catalog_itemable_id: recording.id, 
-                                      catalog_itemable_type: recording.class.name)
+        logger.debug '.'
+        CatalogItem.where(catalog_id:                         @catalog.id, 
+                          catalog_itemable_id:                recording.id, 
+                          catalog_itemable_type:              recording.class.name)
+                    .first_or_create( catalog_id:             @catalog.id, 
+                                      catalog_itemable_id:    recording.id, 
+                                      catalog_itemable_type:  recording.class.name)
       end
     end
     
     redirect_to :back
+  end
+  
+  def add_all_from_account
+    # find catalog
+    @catalog        = Catalog.cached_find(params[:catalog_id])
+    # add recordings not in the catalog
+    if @recordings  = @account.recordings
+      @recordings.each do |recording|
+        logger.debug '.'
+        CatalogItem.where(catalog_id:                         @catalog.id, 
+                          catalog_itemable_id:                recording.id, 
+                          catalog_itemable_type:              recording.class.name)
+                    .first_or_create( catalog_id:             @catalog.id, 
+                                      catalog_itemable_id:    recording.id, 
+                                      catalog_itemable_type:  recording.class.name)
+      end
+    end
     
+    redirect_to :back
   end
   
   def destroy

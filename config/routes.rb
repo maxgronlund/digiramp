@@ -34,6 +34,7 @@ Digiramp::Application.routes.draw do
     resources :catalog_recordings, only: [:show]
     resources :catalogs do
       get "catalog_recordings/add_all"
+      get "catalog_recordings/add_all_from_account"
       resources :catalog_recordings, only: [:index, :new, :destroy]
       resources :catalog_users
       resources :upload_catalog_recordings

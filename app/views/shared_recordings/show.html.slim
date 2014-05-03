@@ -24,7 +24,8 @@
         .col-sm-6
           == render 'recordings/shared/metadata'
         .col-sm-6 
-          == render 'recordings/shared/lyrics' if @recording.vocal != 'Instrumental' || @recording.lyrics.to_s != ''
+          == render 'recordings/shared/description'   if @recording.comment.to_s != ''
+          == render 'recordings/shared/lyrics'        if @recording.lyrics.to_s != ''
              
       
          

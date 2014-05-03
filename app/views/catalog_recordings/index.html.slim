@@ -67,7 +67,12 @@
                       = link_to  account_catalog_catalog_recordings_add_all_path(@account, @catalog, query: params[:query]) do
                         .btn.btn-success.btn-lg
                           i class="fa fa-plus-circle"   
-                          '&nbsp;Add All To Catalog
+                          '&nbsp;Add All Recordings
+                      '&nbsp;
+                      = link_to  account_catalog_catalog_recordings_add_all_path(@account, @catalog, query: params[:query]) do
+                        .btn.btn-success.btn-lg
+                          i class="fa fa-plus-circle"   
+                          '&nbsp;Add All Found
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

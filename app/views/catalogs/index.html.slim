@@ -15,15 +15,26 @@
 
       .row
         .col-sm-12
-          .panel
+          .panel.panel-primary
+
             .panel-body
               .table-responsive
                 table class="table table-hover"
+                  thead
+                    tr
+                      th Catalog
+                      th Users
+                      th
                   tbody
                     - @catalogs.each do |catalog|
                       tr
-                        td = link_to catalog.title, account_catalog_path( @account, catalog), class: 'btn btn-default btn-lg'
-                        
+                        td = link_to  catalog.title, \
+                                      account_catalog_path( @account, catalog), \
+                                      class: 'btn btn-default btn-lg'
+                                        
+                        td = link_to  catalog.catalog_users.size, \
+                                      account_catalog_catalog_users_path(@account, catalog), \
+                                      class: 'btn btn-default btn-lg'
                         td
                           .pull-right
                             = link_to edit_account_catalog_path( @account, catalog) do
