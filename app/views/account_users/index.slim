@@ -14,15 +14,18 @@
 
     .row
       .col-sm-12
-        .panel
+        .panel.panel-primary
+          .panel-heading
+            'Users
+            
           .panel-body
             .table-responsive
               table class="table table-hover"
-                /thead
-                /  tr
-                /    th User
-                /    th Permissions
-                /    th
+                thead
+                  tr
+                    th Name
+                    th Permissions
+                    th
                 tbody
                   -@account.account_users.editors.each do |account_user|
                     tr == render 'account_users/shared/account_user', account_user: account_user

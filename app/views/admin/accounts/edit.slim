@@ -39,8 +39,8 @@
               'Account Type
             .panel-body
               =f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES , label: false
-              -if current_user.email == 'max@synthmax.dk'
-                =f.input :user_id
+              /-if current_user.email == 'max@synthmax.dk'
+              /  =f.input :user_id
               
           .panel.panel-primary
             .panel-heading

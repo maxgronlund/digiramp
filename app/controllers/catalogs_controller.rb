@@ -46,6 +46,9 @@ class CatalogsController < ApplicationController
   
   def receive
     @catalog = Catalog.where(move_code: params[:move_code]).first
+    
+    if @catalog
+      
     logger.debug '--------------------------------------------'
     logger.debug @catalog.inspect
     redirect_to :back
