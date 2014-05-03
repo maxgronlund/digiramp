@@ -1,39 +1,39 @@
-/-cache (account_user) do
+-cache (['AccountUser',account_user.id, account_user.updated_at]) do
 
-/-user = account_user.user
-td 
-  = account_user.get_name
-  -unless account_user.get_name == account_user.email
-    br
-    = account_user.email
-td 
-  b = account_user.role
-  -if account_user.associate? 
-    -if account_user.access_to_all_recordings
+
+  td 
+    = account_user.get_name
+    -unless account_user.get_name == account_user.email
       br
-      'Access to Recordings
-    -if account_user.access_to_all_common_works
-      br
-      'Access to Common Works
-    -if account_user.access_to_all_rights
-      br
-      'Access to Rights
-      
-    -if account_user.access_to_all_documents
-      br
-      'Access to Documents
-      
-    -if account_user.access_to_collect
-      br
-      'Access to Finantial Informations
-td
-   -unless account_user.role  == 'Account Owner'
-    .pull-right
-      = link_to edit_account_account_user_path(@account, account_user) do
-        .btn.btn-primary.btn-lg
-          i class="fa fa-pencil"
-      
-      '&nbsp;
-      = link_to account_account_user_path(@account, account_user), data: { confirm: 'Are you sure?' } , :method => :delete do
-        .btn.btn-danger.btn-lg
-            i class="fa fa-times"
+      = account_user.email
+  td 
+    b = account_user.role
+    -if account_user.associate? 
+      -if account_user.access_to_all_recordings
+        br
+        'Access to Recordings
+      -if account_user.access_to_all_common_works
+        br
+        'Access to Common Works
+      -if account_user.access_to_all_rights
+        br
+        'Access to Rights
+        
+      -if account_user.access_to_all_documents
+        br
+        'Access to Documents
+        
+      -if account_user.access_to_collect
+        br
+        'Access to Finantial Informations
+  td
+     -unless account_user.role  == 'Account Owner'
+      .pull-right
+        = link_to edit_account_account_user_path(@account, account_user) do
+          .btn.btn-primary.btn-lg
+            i class="fa fa-pencil"
+        
+        '&nbsp;
+        = link_to account_account_user_path(@account, account_user), data: { confirm: 'Are you sure?' } , :method => :delete do
+          .btn.btn-danger.btn-lg
+              i class="fa fa-times"
