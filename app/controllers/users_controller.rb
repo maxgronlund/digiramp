@@ -24,8 +24,8 @@ class UsersController < ApplicationController
       params[:user][:email]   = params[:user][:email].downcase
       @user                   = User.new(user_params)
       blog                    = Blog.cached_find('Sign Up')
-      if @user.save
-       
+      if @user.save!
+
         @account          = User.create_a_new_account_for_the @user
         blog              = Blog.cached_find('Sign Up')
         blog_post         = BlogPost.cached_find('Sucess', blog)
@@ -102,7 +102,7 @@ private
     if current_user && current_user.can_edit?
       params.require(:user).permit! 
     else
-      params.require(:user).permit(:name, :email, :image, :crop_params, :password, :password_confirmation, :profile, :commit, :show_welcome_message, :role)
+      params.require(:user).permit!
     end 
   end
           

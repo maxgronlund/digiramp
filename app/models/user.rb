@@ -21,14 +21,14 @@ class User < ActiveRecord::Base
   mount_uploader :image, AvatarUploader
   include ImageCrop
   
-  has_one :account
+  has_one :account_users
   has_many :account_users
   
   has_many :catalog_users, dependent: :destroy
   has_many :catalogs, through: :catalog_users
   
   has_one :dashboard
-  
+  has_one :account
   
   has_many :account_users, dependent: :destroy
   has_many :work_users, dependent: :destroy
@@ -289,7 +289,7 @@ class User < ActiveRecord::Base
                               expiration_date: Date.current()>>1,
                               contact_email: user.email,
                               visits: 1,
-                              account_type: Account::ACCOUNT_TYPES[:not_confirmed],
+                              account_type: 'Personal Account',
                             )
     @account.save(validate: false)                     
     AccountUser.create(user_id: user.id, account_id: @account.id, role: 'Account Owner')

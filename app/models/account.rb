@@ -41,7 +41,7 @@ class Account < ActiveRecord::Base
   
   #before_destroy :delete_user
   
-  ACCOUNT_TYPES =  ['Personal Account', 'Professional Account','Enterprise Account']
+  ACCOUNT_TYPES =  ['Personal Account', 'Pro Account','Enterprise Account']
   
 
   
