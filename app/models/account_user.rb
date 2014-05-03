@@ -57,10 +57,7 @@ class AccountUser < ActiveRecord::Base
   
   
   
-  def get_email
-    return email unless email == ''
-    return user.email
-  end
+  
   
   def associate?
     role == 'Associate'
@@ -80,6 +77,10 @@ class AccountUser < ActiveRecord::Base
   
   def can_administrate?
     administrator? || owner?
+  end
+  
+  def get_email
+    return user.email
   end
   
   def get_name

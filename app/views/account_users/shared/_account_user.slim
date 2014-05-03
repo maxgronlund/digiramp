@@ -3,9 +3,8 @@
 
   td 
     = account_user.get_name
-    -unless account_user.get_name == account_user.email
-      br
-      = account_user.email
+    br
+    = account_user.get_email
   td 
     b = account_user.role
     -if account_user.associate? 

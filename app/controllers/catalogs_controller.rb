@@ -47,6 +47,7 @@ class CatalogsController < ApplicationController
   def receive
     @catalog = Catalog.where(move_code: params[:move_code]).first
     
+    MoveCatalog.move_to_account @catalog, @account
     #if @catalog
     #  
     #logger.debug '--------------------------------------------'
