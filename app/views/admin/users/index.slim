@@ -31,6 +31,7 @@
                   tr
                     /th User
                     th Name
+                    th Account
                     th Email
                     /th Role
                     /th Activated
@@ -42,6 +43,7 @@
                       tr
                         /td = debug user
                         td = user.name
+                        td = user.account.title rescue[]
                         td = user.email
                         /td = user.role
                         /td = user.activated ? '√' : ''
