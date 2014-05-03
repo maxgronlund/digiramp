@@ -49,6 +49,8 @@
                       
               == render 'shared/line'
               .pull-right
+                = link_to 'Get Catalog', account_catalog_get_catalog_path(@account, 1), class: 'btn btn-default btn-lg'
+                '&nbsp;
                 = link_to 'New Catalog', new_account_catalog_path(@account), class: 'btn btn-primary btn-lg'
               
     

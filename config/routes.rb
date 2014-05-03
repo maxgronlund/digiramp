@@ -32,7 +32,13 @@ Digiramp::Application.routes.draw do
     resources :account_works, only: [:index]
     resources :albums
     resources :catalog_recordings, only: [:show]
+    
+    
     resources :catalogs do
+      get "move"
+      get "get_code"
+      get "get_catalog"
+      put "receive"
       get "catalog_recordings/add_all"
       get "catalog_recordings/add_all_from_account"
       resources :catalog_recordings, only: [:index, :new, :destroy]

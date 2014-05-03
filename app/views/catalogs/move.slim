@@ -1,0 +1,48 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+  /-cache([ @account.id, @account.works_cache_key, params]) do  
+  .do   
+    .container
+      div class="catalog_id" id="#{@catalog.id}"
+      
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              catalogs: account_catalogs_path(@account), \
+                                                              }, current: @catalog.title}
+      
+
+      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog', insert: 'catalogs/links'}
+      == render 'shared/title', locals: {title: @account.title, body: @account.account_type}
+      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Move ', insert: 'edit'}
+
+      - blog      = Blog.cached_find('Catalogs')
+      - blog_post = BlogPost.cached_find('Move Catalog', blog)
+      .row
+        .col-sm-3
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              = blog_post.title
+              -if can_edit?
+                '&nbsp;
+                = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                   i class="fa fa-pencil"
+            .panel-body
+              = simple_format blog_post.body
+              br
+              h4
+                span class="label label-default"
+                  = @catalog.move_code
+              br
+              br
+              .pull-right
+                = link_to 'Done', account_catalog_path( @account, @catalog), class: 'btn btn-default btn-lg' 
+                '&nbsp;
+                = link_to 'Generate New Code', account_catalog_get_code_path(@account, @catalog), class: 'btn btn-primary btn-lg' 
+        .col-sm-3
+          
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

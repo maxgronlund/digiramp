@@ -45,7 +45,7 @@ class AccountsController < ApplicationController
   
   def update
     @account                              = Account.cached_find(params[:id])
-    #@
+   
     
     params[:account][:rec_cache_version]  = @account.rec_cache_version + 1 
     if enter_user_name = params[:account][:enter_user_name]   
@@ -63,6 +63,8 @@ class AccountsController < ApplicationController
   def account_params
     params.require(:account).permit!
   end
+  
+  
 
  
   

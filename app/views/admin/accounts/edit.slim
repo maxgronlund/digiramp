@@ -39,6 +39,7 @@
               'Account Type
             .panel-body
               =f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES , label: false
+              = debug @account.account_owner
           .panel.panel-primary
             .panel-heading
               'Contact Person
