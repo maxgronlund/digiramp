@@ -14,9 +14,10 @@
                                                            }, current:  catalog.title}
     
     
-    
-    
-    == render 'shared/title', locals: {title: catalog.title, body: "From #{catalog.account.title}"}
+    -if @catalog_user.can_edit? 
+      == render 'shared/title', locals: {title: catalog.title, body: "Belongs to #{catalog.account.title}", insert: 'edit'}
+    -else
+      == render 'shared/title', locals: {title: catalog.title, body: "Belongs to #{catalog.account.title}"}
     .row
       .col-sm-6
         == render 'assets/shared/badge_button', locals: { \

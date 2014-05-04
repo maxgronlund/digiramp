@@ -22,7 +22,10 @@
   $("<%= @manage_recording %>").prepend('<%=j render("recording_permissions/manage_recording") %>');
 <% end %>
 
+<% if @show_shared_recording %>
+  $("<%= @show_shared_recording %>").prepend('<%=j render("recording_permissions/show_shared_recording") %>');
+<% end %>
 
-<% if @shared_catalog_recording %>
-  $("<%= @shared_catalog_recording %>").prepend('<%=j render("recording_permissions/shared_catalog_recording") %>');
+<% if @edit_shared_recording %>
+  $("<%= @edit_shared_recording %>").prepend('<%=j render("recording_permissions/edit_shared_recording") %>');
 <% end %>

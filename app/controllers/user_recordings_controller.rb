@@ -11,14 +11,12 @@ class UserRecordingsController < ApplicationController
     recording_ids     += @user.account.recordings
     
     # pull rcordings
-    @recordings       =  Recording.where(id: recording_ids).page(params[:page])
+    @recordings       =  Recording.where(id: recording_ids)
 
     # find recordings
-    @recordings     =  Recording.catalogs_search(@recordings, params[:query]).order('title asc').page(params[:page]).per(24)
+    @recordings       =  Recording.catalogs_search(@recordings, params[:query]).order('title asc').page(params[:page]).per(56)
     
-    # trigger permissions
-    @show_more        = true
-    #@recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
+
   end
   
   

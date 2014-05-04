@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140503154311) do
+ActiveRecord::Schema.define(version: 20140504123345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -291,6 +291,7 @@ ActiveRecord::Schema.define(version: 20140503154311) do
     t.boolean  "upload_recordings",          default: false
     t.boolean  "read_works",                 default: false
     t.boolean  "edit_works",                 default: false
+    t.boolean  "create_playlists",           default: false
   end
 
   add_index "catalog_users", ["account_id"], name: "index_catalog_users_on_account_id", using: :btree
@@ -304,6 +305,8 @@ ActiveRecord::Schema.define(version: 20140503154311) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "move_code"
+    t.boolean  "movable",     default: false
+    t.boolean  "include_all", default: false
   end
 
   add_index "catalogs", ["account_id"], name: "index_catalogs_on_account_id", using: :btree

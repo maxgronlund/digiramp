@@ -53,6 +53,7 @@ class ApplicationController < ActionController::Base
     else
       @user = User.cached_find(params[:id])
     end
+    @account = @user.account
     unless Permissions.can_access_private_account( current_user, @user)
       forbidden
     end
@@ -67,6 +68,23 @@ class ApplicationController < ActionController::Base
   def user_is_an_account_user
     AccountUser.cached_where(@account.id, current_user.id )
   end
+  
+  def there_is_access_to_catalog
+    forbidden unless access_to_catalog
+  end
+  helper_method :there_is_access_to_catalog
+  
+  def access_to_catalog
+    if params[:catalog_id]
+      @catalog = Catalog.cached_find(params[:catalog_id])
+    elsif params[:id]
+      @catalog = Catalog.cached_find(params[:id])
+    end
+    return true if current_user.can_administrate @account
+  end
+  
+  
+  
   
   def forbidden
     render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
@@ -92,6 +110,7 @@ private
     return true if account_belongs_to_current_user
     return true if user_is_an_account_user
     return true if current_user.role == 'super'
+    
     #return true if the_page_contains_shared_assets
     @account = nil
     #account_belongs_to_current_user.current_account_id = current_user.account_id

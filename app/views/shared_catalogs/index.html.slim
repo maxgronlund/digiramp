@@ -23,19 +23,30 @@
             thead
               tr
                 th Catalog
-                th Account
+                th Recordings
+                th Belongs To
                 th
             tbody
               -CatalogUser.where(user_id: @user.id).each do |catalog_user|
                 -catalog = catalog_user.catalog
-                -cache (['shared catalog',catalog]) do
+                /-cache (['shared catalog', catalog]) do
+                .do
                   tr
                     /td = debug user
                     td = link_to catalog.title, user_shared_catalog_path(@user, catalog), class: 'btn btn-default'
+                    td = catalog.nr_recordings
                     td = catalog_user.account.title
                     td
                       .pull-right
-                        = link_to 'Show', user_shared_catalog_path(@user, catalog), class: 'btn btn-default'
+                        - if catalog_user.edit_recordings
+                          = link_to edit_user_shared_catalog_path(@user, catalog) do
+                             .btn.btn-primary.btn-lg
+                               i class="fa fa-pencil"
+                        '&nbsp;
+                        /-unless catalog.id == @account.default_catalog_id
+                        = link_to  user_shared_catalog_path(@user, catalog) , data: { confirm: 'You are about to leave this catalog. Are you shure?' } , method: :delete do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-minus-circle"
                         
                         
                         
@@ -46,4 +57,3 @@
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  
   
-= debug current_user

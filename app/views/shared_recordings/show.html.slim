@@ -12,7 +12,11 @@
                                                            }, current:  @recording.title}
       
       
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Recordings'), blog_post: 'View Shared Recordings'}
+      
+      - if @catalog_user.edit_recordings
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('Recordings'), blog_post: 'View Shared Recordings', insert: 'edit'}
+      - else
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('Recordings'), blog_post: 'View Shared Recordings'}
       -index = @recording.id
       div class="player" id="#{index}"
       .just-load

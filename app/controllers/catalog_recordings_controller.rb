@@ -1,10 +1,13 @@
 class CatalogRecordingsController < ApplicationController
   before_filter :there_is_access_to_the_account
+  before_filter :there_is_access_to_catalog
   
   # list of recordings to add to the catalog
   def index
     # find catalog
-    @catalog         = Catalog.cached_find(params[:catalog_id])
+    #@catalog         = Catalog.cached_find(params[:catalog_id])
+    
+    
     
     # all recordings currently in the catalog
     recording_in_catalog_ids   = @catalog.catalog_items.where(catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
@@ -23,9 +26,13 @@ class CatalogRecordingsController < ApplicationController
     @recordings      = Recording.catalogs_search(@recordings, params[:query]).order('title asc').page(params[:page]).per(24)
   end
   
+  
+  
+  
   def new
-    @recording = Recording.cached_find(params[:recording])
     @catalog   = Catalog.cached_find(params[:catalog_id])
+    @recording = Recording.cached_find(params[:recording])
+    
     CatalogItem.where(catalog_id: @catalog.id, 
                         catalog_itemable_id: @recording.id, 
                         catalog_itemable_type: @recording.class.name)
@@ -39,8 +46,11 @@ class CatalogRecordingsController < ApplicationController
     @remove_tag  = "#add_recording_"    + @recording.id.to_s  + "_to_catalog"
   end
   
+  
+  
+  
   def show
-    @catalog = Catalog.cached_find(params[:id])
+    
   end
   
   def add_all
@@ -82,8 +92,9 @@ class CatalogRecordingsController < ApplicationController
   end
   
   def destroy
-    @recording = Recording.cached_find(params[:id])
     @catalog   = Catalog.cached_find(params[:catalog_id])
+    @recording = Recording.cached_find(params[:id])
+    
     
     catalog_item = CatalogItem.where(catalog_id: @catalog.id, catalog_itemable_id: @recording.id, catalog_itemable_type: @recording.class.name).first
     catalog_item.destroy

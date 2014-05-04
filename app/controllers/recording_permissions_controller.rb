@@ -56,14 +56,22 @@ class RecordingPermissionsController < ApplicationController
 
     else
       # if current user is a catalog user
-      if catalog_user                 = CatalogUser.cached_where(params[:catalog], current_user.id)
-        @shared_catalog_recording     = "#shared_catalog_recording_#{params[:id]}"
+      if catalog_user  = CatalogUser.cached_where( params[:catalog], current_user.id)
+        logger.debug '----------- catalog_user --------------------------'
+        # insert the show shared recording button
+        @show_shared_recording        = "#show_shared_recording_#{params[:id]}"
+        if catalog_user.edit_recordings
+          @edit_shared_recording     = "#edit_shared_recording_#{params[:id]}"
+        end
+        
         
         
         @catalog                      = catalog_user.catalog
         @manage_recording                = nil
       elsif
         # check if the recording is a catalog where the user has access
+        #catalog_item_ids  
+        recording_ids     =  CatalogItem.where(catalog_itemable_id: @recording.id, catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)       
         
         logger.debug '----------- not found --------------------------'
         #logger.debug params[:shared_catalogs]

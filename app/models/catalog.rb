@@ -34,6 +34,10 @@ class Catalog< ActiveRecord::Base
     Rails.cache.fetch([name, id]) { find(id) }
   end
   
+  def nr_recordings
+    catalog_items.where(catalog_itemable_type: 'Recording').size
+  end
+  
 private
 
   def flush_cache

@@ -25,7 +25,7 @@
 
               h3 = "#{@catalog_user.user.email} can: " 
               hr
-              = f.input :can_edit, label: 'Can Edit Catalog'
+              = f.input :can_edit, label: 'Can edit catalog'
               = f.input :edit_recordings
               = f.input :upload_recordings
               = f.input :read_works
@@ -34,6 +34,7 @@
               = f.input :access_legal_documents
               = f.input :access_financial_documents
               = f.input :access_ipis
+              = f.input :create_playlists
               
               .pull-right
                 =f.submit 'Save', class: 'btn btn-primary btn-lg'

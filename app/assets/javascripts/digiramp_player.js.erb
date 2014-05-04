@@ -66,10 +66,10 @@ function loadDigirampPlayer(){
 
 
 function convertTimeToString(timeFloat) {
-  var hours = parseInt(timeFloat / 3600);
+  var hours   = parseInt(timeFloat / 3600);
   var minutes = parseInt(timeFloat / 60) - hours
   var seconds = parseInt(timeFloat) - (minutes * 60)
-  var msec = parseInt(timeFloat * 100) - (parseInt(timeFloat) * 100)
+  var msec    = parseInt(timeFloat * 100) - (parseInt(timeFloat) * 100)
   var timeString = convertToTwoDigitString(hours) + ':' + convertToTwoDigitString(minutes) + ':' + convertToTwoDigitString(seconds) + ':' + convertToTwoDigitString(msec)
   return (timeString);
 }

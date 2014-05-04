@@ -29,7 +29,24 @@
               - recording = Recording.cached_find(catalog_item.catalog_itemable_id)
               == render 'recordings/recording', recording: recording
       
-                    
+    /.row
+    /  .col-sm-6
+    /    == render 'assets/shared/badge_button', locals: { \
+    /                                                blog_post: 'RECORDINGS', \
+    /                                                link: user_shared_catalog_shared_recordings_path(@user, catalog ), \
+    /                                                css_class: 'btn btn-warning', \
+    /                                                icon: 'fa fa-headphones'\
+    /                                              }
+    /
+    /
+    /
+    /
+    /  
+    /
+    /
+    /                    
+    /                    
+    /                    
                         
                         
 

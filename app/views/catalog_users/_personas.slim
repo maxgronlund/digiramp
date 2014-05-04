@@ -20,32 +20,84 @@
                   td = catalog_user.email
                   td
                     -if catalog_user.can_edit
-                      '√ Edit
+                      'Edit Catalog √
                       br
-                    -if  catalog_user.edit_recordings
-                      '√ Edit Recordings
+                    -else
+                      .gray-text
+                        'Edit
+                    
+                    -if catalog_user.edit_recordings
+                      'Edit Recordings √ 
                       br
+                    -else
+                      .gray-text
+                        'Edit Recordings
+                    
+                    
                     -if  catalog_user.upload_recordings
-                      '√ Upload Recordings
+                      'Upload Recordings √
                       br
+                    -else
+                      .gray-text
+                        'Upload Recordings
+                    
+                    
                     -if  catalog_user.read_works
-                      '√ Read Works
+                      'Read Works √
                       br
+                    -else
+                      .gray-text
+                        'Read Works
+                    
                     -if  catalog_user.edit_works
-                      '√ Edit Common Works
+                      'Edit Common Works √
                       br
+                    -else
+                      .gray-text
+                        'Edit Common Works
+                        
+                        
                     -if  catalog_user.access_files
-                      '√ Access Files
+                      'Access Files √
                       br
+                    -else
+                      .gray-text
+                        'Access Files
+                        
+                        
                     -if  catalog_user.access_legal_documents
-                      '√ Access Legal Documents
+                      'Access Legal Documents √
                       br
+                    -else
+                      .gray-text
+                        'Access Legal Documents
+                        
+                        
                     -if  catalog_user.access_financial_documents
-                      '√ Access Financial Documents
+                      'Access Financial Documents √
                       br
+                    -else
+                      .gray-text
+                        'Access Financial Documents
+                        
+                        
                     -if  catalog_user.access_ipis
-                      '√ Access IPI
+                      'Access IPI √
                       br
+                    -else
+                      .gray-text
+                        'Access IPI
+                        
+                        
+                    -if  catalog_user.create_playlists
+                      'Create Playlists √
+                      br
+                    -else
+                      .gray-text
+                        'Create Playlists
+                        
+                        
+                        
                     td
                       .pull-right
                         = link_to edit_account_catalog_catalog_user_path(@account, @catalog, catalog_user) do

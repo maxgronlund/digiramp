@@ -39,6 +39,7 @@ Digiramp::Application.routes.draw do
       get "get_code"
       get "get_catalog"
       put "receive"
+      put "generate_code"
       get "catalog_recordings/add_all"
       get "catalog_recordings/add_all_from_account"
       resources :catalog_recordings, only: [:index, :new, :destroy]
@@ -203,7 +204,7 @@ Digiramp::Application.routes.draw do
     resources :accounts, only: [:edit, :show, :update]
     resources :user_recordings, only: [:index]
     resources :shared_assets, only: [:index]
-    resources :shared_catalogs, only: [:index, :show] do
+    resources :shared_catalogs do
       resources :shared_recordings
       resources :accept_invitaion_to_catalog, only: [:edit, :update]
       resources :upload_shared_catalog_recordings
