@@ -30,14 +30,16 @@ class TransloaditParser
       transloadets[index][:original_name]       = mp3[:original_basename]
     end
     
-    # artwork_thumb
-    uploads[:results][:artwork_thumb].each_with_index do |artwork_thumb, index|
-      transloadets[index][:artwork_thumb]       = artwork_thumb[:url]
-    end
+    ## artwork_thumb
+    #uploads[:results][:artwork_thumb].each_with_index do |artwork_thumb, index|
+    #  transloadets[index][:artwork_thumb]       = artwork_thumb[:url]
+    #end
     
     # artwork_thumb
-    uploads[:results][:artwork_thumb].each_with_index do |artwork_thumb, index|
-      transloadets[index][:cover_art]       = artwork_thumb[:url]
+    unless uploads[:results][:artwork_thumb].nil?
+      uploads[:results][:artwork_thumb].each_with_index do |artwork_thumb, index|
+        transloadets[index][:cover_art]       = artwork_thumb[:url]
+      end
     end
     
     # original file
@@ -47,8 +49,10 @@ class TransloaditParser
     end
     
     # artwork 
-    uploads[:results][:artwork].each_with_index do |artwork, index|
-      transloadets[index][:artwork]       = artwork[:url]
+    unless uploads[:results][:artwork].nil?
+      uploads[:results][:artwork].each_with_index do |artwork, index|
+        transloadets[index][:artwork]       = artwork[:url]
+      end
     end
     
     
@@ -131,7 +135,7 @@ class TransloaditParser
         #recording.update_completeness
         recordings << recording
         CommonWork.attach( recording, account_id)
-        add_artwork_to recording
+        add_artwork_to recording unless recording.cover_art == ''
         
         
         
@@ -147,9 +151,7 @@ class TransloaditParser
   
   
   def self.add_artwork_to recording
-    puts '----------------------------------------------------------------------------'
-    puts '---------------- add_artwork_to ---------------------------------------'
-    puts '----------------------------------------------------------------------------'
+    
     ImageFile.create!(  title: recording.title,
                         body: recording.comment,
                         recording_id: recording.id, 
