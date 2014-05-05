@@ -117,6 +117,9 @@ class CommonWork < ActiveRecord::Base
   end
   
   def self.attach recording, account_id
+    puts '----------------------------------------------------------------------------'
+    puts '----------------  attach ---------------------------------------'
+    puts '----------------------------------------------------------------------------'
     common_work = CommonWork.create(title: recording.title, 
                                     description: recording.comment, 
                                     lyrics: recording.lyrics, 
@@ -124,6 +127,7 @@ class CommonWork < ActiveRecord::Base
                                     
     recording.common_work_id = common_work.id
     recording.save!
+    puts '-------------------------- SUCCESS ----------------------------------'
   end
   
   def self.account_search(account, query)

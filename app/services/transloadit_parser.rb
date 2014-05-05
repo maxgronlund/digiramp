@@ -70,8 +70,7 @@ class TransloaditParser
 
       
     transloadets.each do |transloadet|
-      puts '----------------------------------------------------------------------------'
-      puts transloadet.inspect
+
       meta                      = transloadet[:meta]
       # remove curupted iTunes info
       comment                   = meta[:comment].to_s 
@@ -127,10 +126,15 @@ class TransloaditParser
                                           artwork:           transloaded[:artwork]
                                          )
         
+        
         recording.extract_genres                                 
         #recording.update_completeness
         recordings << recording
         CommonWork.attach( recording, account_id)
+        add_artwork_to recording
+        
+        
+        
       rescue
         
       end
@@ -138,6 +142,21 @@ class TransloaditParser
     import_batch.recordings_count = recordings.size
     import_batch.save!
     import_batch
+  end
+  
+  
+  
+  def self.add_artwork_to recording
+    puts '----------------------------------------------------------------------------'
+    puts '---------------- add_artwork_to ---------------------------------------'
+    puts '----------------------------------------------------------------------------'
+    ImageFile.create!(  title: recording.title,
+                        body: recording.comment,
+                        recording_id: recording.id, 
+                        account_id: recording.account_id, 
+                        thumb: recording.cover_art, 
+                        file: recording.artwork
+                    )
   end
   
   
