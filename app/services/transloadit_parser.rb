@@ -9,25 +9,42 @@ class TransloaditParser
   
   def self.extract uploads
     transloadets  = []
+    extracted     = {}
     #upload_ids    = []
     #resoult_ids   = []
     
+    # original file
+    uploads[:results][':original'].each do |original|
+    
+      extracted[ original[:original_id] ] =  { original_file: original[:url], meta: original[:meta]}
+      #transloadets[index][:original_file]     = original[:url]
+      #transloadets[index][:meta]              = original[:meta]
+    end
+    
 
     # thumbnail
-    uploads[:results][:thumbnail].each_with_index do |thumbnail, index|
-      transloadets << { thumbnail: thumbnail[:url] }
+    uploads[:results][:thumbnail].each do |thumbnail|
+      extracted[ thumbnail[:original_id] ][:original_file] = thumbnail[:url]
+      #transloadets << { thumbnail: thumbnail[:url] }
     end
     
     # waveform
-    uploads[:results][:waveform].each_with_index do |waveform, index|
-      transloadets[index][:waveform]            = waveform[:url]
+    uploads[:results][:waveform].each do |waveform|
+      extracted[ waveform[:original_id] ][:waveform]          = waveform[:url]
+      #transloadets[index][:waveform]            = waveform[:url]
     end
     
     # metadata
-    uploads[:results][:mp3].each_with_index do |mp3, index|
-      transloadets[index][:mp3]                 = mp3[:url]
-      transloadets[index][:original_file_name]  = mp3[:name]
-      transloadets[index][:original_name]       = mp3[:original_basename]
+    #uploads[:results][:mp3].each_with_index do |mp3, index|
+    #  transloadets[index][:mp3]                 = mp3[:url]
+    #  transloadets[index][:original_file_name]  = mp3[:name]
+    #  transloadets[index][:original_name]       = mp3[:original_basename]
+    #end
+    
+    uploads[:results][:mp3].each do |mp3|
+      extracted[ mp3[:original_id] ][:mp3]                 = mp3[:url]
+      extracted[ mp3[:original_id] ][:original_file_name]  = mp3[:name]
+      extracted[ mp3[:original_id] ][:original_name]       = mp3[:original_basename]
     end
     
     ## artwork_thumb
@@ -37,21 +54,17 @@ class TransloaditParser
     
     # artwork_thumb
     unless uploads[:results][:artwork_thumb].nil?
-      uploads[:results][:artwork_thumb].each_with_index do |artwork_thumb, index|
-        transloadets[index][:cover_art]       = artwork_thumb[:url]
+      uploads[:results][:artwork_thumb].each do |artwork_thumb|
+        extracted[ artwork_thumb[:original_id] ][:cover_art]       = artwork_thumb[:url]
       end
     end
     
-    # original file
-    uploads[:results][':original'].each_with_index do |original, index|
-      transloadets[index][:original_file]     = original[:url]
-      transloadets[index][:meta]              = original[:meta]
-    end
+    
     
     # artwork 
     unless uploads[:results][:artwork].nil?
-      uploads[:results][:artwork].each_with_index do |artwork, index|
-        transloadets[index][:artwork]       = artwork[:url]
+      uploads[:results][:artwork].each do |artwork|
+        extracted[ artwork[:original_id] ][:artwork]       = artwork[:url]
       end
     end
     
@@ -70,8 +83,13 @@ class TransloaditParser
 
 
     # ugly code will degrade with upload batch size
-
-
+    
+    extracted.each do | k, v|
+      transloadets << v
+    end
+    puts '----------------------------------------------------'
+    puts transloadets.inspect
+    puts '----------------------------------------------------'
       
     transloadets.each do |transloadet|
 
