@@ -50,7 +50,9 @@ class CatalogsController < ApplicationController
 
     if @catalog
       MoveCatalog.move_to_account @catalog, @account
-      @catalog
+      @catalog.move_code  = ''
+      @catalog.movable    = false
+      @catalog.save!
       flash[:info] = { title: "SUCCESS: ", body: "Catalog received" }
       redirect_to account_catalog_path( @account, @catalog )
     else

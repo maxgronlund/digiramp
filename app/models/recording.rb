@@ -48,7 +48,7 @@ class Recording < ActiveRecord::Base
   has_many :mood_tags, as: :mood_tagable,               dependent: :destroy
   has_many :image_files,                                dependent: :destroy
   
-  mount_uploader :cover_art, ThumbUploader
+  #mount_uploader :cover_art, ThumbUploader
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
   TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
@@ -402,7 +402,11 @@ class Recording < ActiveRecord::Base
   def extract_genres
     self.genre.split(',').each do |genre|
 
-      extracted_genre = Genre.where(title: genre.strip).first_or_create(title: genre.strip, user_tag: true, category: 'User Genre')
+      extracted_genre = Genre.where(title: genre.strip)
+                              .first_or_create(title: genre.strip, 
+                                                user_tag: true, 
+                                                category: 'User Genre'
+                                              )
 
       GenreTag.where( genre_id: extracted_genre.id, 
                       genre_tagable_type: self.class.to_s, 
@@ -505,6 +509,7 @@ private
   end
   
   def flush_cache
+    logger.debug '---------------- flush_cache --------------------------------'
     account.rec_cache_version += 1
     account.save!
     Rails.cache.delete([self.class.name, id])

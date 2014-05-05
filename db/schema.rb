@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140504123345) do
+ActiveRecord::Schema.define(version: 20140504161600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -297,6 +297,26 @@ ActiveRecord::Schema.define(version: 20140504123345) do
   add_index "catalog_users", ["account_id"], name: "index_catalog_users_on_account_id", using: :btree
   add_index "catalog_users", ["catalog_id"], name: "index_catalog_users_on_catalog_id", using: :btree
   add_index "catalog_users", ["user_id"], name: "index_catalog_users_on_user_id", using: :btree
+
+  create_table "catalogable_permissions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "catalog_item_id"
+    t.boolean  "can_edit",                   default: false
+    t.boolean  "access_files",               default: false
+    t.boolean  "access_legal_documents",     default: false
+    t.boolean  "access_financial_documents", default: false
+    t.boolean  "access_ipis",                default: false
+    t.boolean  "edit_recordings",            default: false
+    t.boolean  "upload_recordings",          default: false
+    t.boolean  "read_works",                 default: false
+    t.boolean  "edit_works",                 default: false
+    t.boolean  "create_playlists",           default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "catalogable_permissions", ["catalog_item_id"], name: "index_catalogable_permissions_on_catalog_item_id", using: :btree
+  add_index "catalogable_permissions", ["user_id"], name: "index_catalogable_permissions_on_user_id", using: :btree
 
   create_table "catalogs", force: true do |t|
     t.string   "title"
@@ -928,6 +948,8 @@ ActiveRecord::Schema.define(version: 20140504123345) do
     t.string   "tempo",               default: ""
     t.string   "original_md5hash",    default: ""
     t.string   "uuid"
+    t.string   "artwork",             default: ""
+    t.string   "original_file",       default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

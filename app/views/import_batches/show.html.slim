@@ -22,17 +22,9 @@
 
       - blog =  Blog.cached_find('Import Batch')
       - post =  BlogPost.cached_find( 'Import Batch', blog)
-      .row
-        == render 'shared/page_title_text', locals: { title: @import_batch.title, body: post.body}
-        .col-sm-6
-          .pull-right
-            
-            '&nbsp;
-            = link_to edit_account_import_batch_path(@account, @import_batch) do
-              .btn.btn-primary.btn-lg
-                i class="fa fa-pencil"
-        
-      == render 'shared/line'
+      /.row
+      == render 'shared/title', locals: { title: @import_batch.title, body: post.body, insert: 'edit'}
+      
       
       .row
         .col-sm-12

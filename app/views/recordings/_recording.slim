@@ -22,7 +22,7 @@
                     = recording.artist
                     
                   /img src="#{recording.cover_art_url(:cover_thumb)}" alt="alternate #{recording.title}" width="128" height="128" style="float:left;"
-                  = image_tag recording.cover_art_url(:cover_thumb), width: "92", height: "92", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
+                  = image_tag recording.cover_art, width: "92", height: "92", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
                   
                   -if recording.explicit
                     .pull-left
@@ -67,8 +67,6 @@
                             -recording.instrument_tags.first(4).each do |instrument_tag|
                               = instrument_tag.instrument.title
                               br
-           
-                          
                           td 
                             -recording.mood_tags.first(4).each do |mood_tag|
                               = mood_tag.mood.title

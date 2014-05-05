@@ -12,67 +12,85 @@ class TransloaditParser
     #upload_ids    = []
     #resoult_ids   = []
     
-    begin
-      # thumbnail
-      uploads[:results][:thumbnail].each_with_index do |thumbnail, index|
-        transloadets << { id: thumbnail[:original_id], thumbnail: thumbnail[:url] }
-      end
-      
-      # waveform
-      uploads[:results][:waveform].each_with_index do |waveform, index|
-        transloadets[index][:waveform]            = waveform[:url]
-      end
-      
-      # metadata
-      uploads[:results][:mp3].each_with_index do |mp3, index|
-        transloadets[index][:mp3]                 = mp3[:url]
-        transloadets[index][:original_file_name]  = mp3[:name]
-        transloadets[index][:original_name]       = mp3[:original_basename]
-      end
-      
-      #uploads[:results][:mp3].each_with_index do |mp3, index|
-      #  transloadets[index][:original_file_name] = mp3[:name]
-      #end
-      
-      #uploads[:results][:mp3].each_with_index do |mp3, index|
-      #  transloadets[index][:original_name] = mp3[:original_basename]
-      #end
-      
-      #uploads[:results][:mp3].each_with_index do |mp3, index|
-      #  transloadets[index][:mp3] = mp3[:url]
-      #end
 
-
-      # ugly code will degrade with upload batch size
-      uploads[:uploads].each do |upload|
-        transloadets.each do |transloadet|
-          if transloadet[:id] == upload[:original_id]
-            meta                      = upload[:meta]
-            # remove curupted iTunes info
-            comment                   = meta[:comment].to_s 
-            comment                   = '' if comment.include?('(iTun')
-            transloadet[:title]       = meta[:title].to_s 
-            transloadet[:duration]    = meta[:duration].to_f.round(2)
-            transloadet[:lyrics]      = meta[:lyrics].to_s.gsub(/\//, '<br>')
-            transloadet[:bpm]         = meta[:beats_per_minute].to_i
-            transloadet[:album]       = meta[:album].to_s 
-            transloadet[:year]        = meta[:year].to_s 
-            transloadet[:genre]       = meta[:genre].to_s 
-            transloadet[:artist]      = meta[:artist].to_s 
-            transloadet[:comment]     = comment 
-            transloadet[:performer]   = meta[:performer].to_s 
-            transloadet[:band]        = meta[:band].to_s 
-            transloadet[:disc]        = meta[:disc].to_s 
-            transloadet[:track]       = meta[:track].to_s 
-            break
-          end
-        end
-      end
-
-    rescue
-      puts 'chrash'
+    # thumbnail
+    uploads[:results][:thumbnail].each_with_index do |thumbnail, index|
+      transloadets << { thumbnail: thumbnail[:url] }
     end
     
+    # waveform
+    uploads[:results][:waveform].each_with_index do |waveform, index|
+      transloadets[index][:waveform]            = waveform[:url]
+    end
+    
+    # metadata
+    uploads[:results][:mp3].each_with_index do |mp3, index|
+      transloadets[index][:mp3]                 = mp3[:url]
+      transloadets[index][:original_file_name]  = mp3[:name]
+      transloadets[index][:original_name]       = mp3[:original_basename]
+    end
+    
+    # artwork_thumb
+    uploads[:results][:artwork_thumb].each_with_index do |artwork_thumb, index|
+      transloadets[index][:artwork_thumb]       = artwork_thumb[:url]
+    end
+    
+    # artwork_thumb
+    uploads[:results][:artwork_thumb].each_with_index do |artwork_thumb, index|
+      transloadets[index][:cover_art]       = artwork_thumb[:url]
+    end
+    
+    # original file
+    uploads[:results][':original'].each_with_index do |original, index|
+      transloadets[index][:original_file]     = original[:url]
+      transloadets[index][:meta]              = original[:meta]
+    end
+    
+    # artwork 
+    uploads[:results][:artwork].each_with_index do |artwork, index|
+      transloadets[index][:artwork]       = artwork[:url]
+    end
+    
+    
+    #uploads[:results][:mp3].each_with_index do |mp3, index|
+    #  transloadets[index][:original_file_name] = mp3[:name]
+    #end
+    
+    #uploads[:results][:mp3].each_with_index do |mp3, index|
+    #  transloadets[index][:original_name] = mp3[:original_basename]
+    #end
+    
+    #uploads[:results][:mp3].each_with_index do |mp3, index|
+    #  transloadets[index][:mp3] = mp3[:url]
+    #end
+
+
+    # ugly code will degrade with upload batch size
+
+
+      
+    transloadets.each do |transloadet|
+      puts '----------------------------------------------------------------------------'
+      puts transloadet.inspect
+      meta                      = transloadet[:meta]
+      # remove curupted iTunes info
+      comment                   = meta[:comment].to_s 
+      comment                   = '' if comment.include?('(iTun')
+      transloadet[:title]       = meta[:title].to_s 
+      transloadet[:duration]    = meta[:duration].to_f.round(2)
+      transloadet[:lyrics]      = meta[:lyrics].to_s.gsub(/\//, '<br>')
+      transloadet[:bpm]         = meta[:beats_per_minute].to_i
+      transloadet[:album]       = meta[:album].to_s 
+      transloadet[:year]        = meta[:year].to_s 
+      transloadet[:genre]       = meta[:genre].to_s 
+      transloadet[:artist]      = meta[:artist].to_s 
+      transloadet[:comment]     = comment 
+      transloadet[:performer]   = meta[:performer].to_s 
+      transloadet[:band]        = meta[:band].to_s 
+      transloadet[:disc]        = meta[:disc].to_s 
+      transloadet[:track]       = meta[:track].to_s 
+    end
+
 
     transloadets
   end
@@ -103,10 +121,14 @@ class TransloaditParser
                                           #composer:          transloaded[:composer],
                                           account_id:        account_id, 
                                           import_batch_id:   import_batch.id,
-                                          audio_upload:      transloaded
+                                          audio_upload:      transloaded,
+                                          original_file:     transloaded[:original_file],
+                                          cover_art:         transloaded[:cover_art],
+                                          artwork:           transloaded[:artwork]
                                          )
+        
         recording.extract_genres                                 
-        recording.update_completeness
+        #recording.update_completeness
         recordings << recording
         CommonWork.attach( recording, account_id)
       rescue

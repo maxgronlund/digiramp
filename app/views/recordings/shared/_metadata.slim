@@ -6,7 +6,7 @@
     /= upload_completed.body
     .table-responsive
       table class="table"
-        - if @recording.duration   != 0.0 
+        - if @recording.duration   != 0.0 && @recording.duration.to_s != ''
           == render 'recordings/shared/meta_line' , locals: {title: 'Duration', data: @recording.duration_string}
         
         - if @recording.bpm   != 0 
