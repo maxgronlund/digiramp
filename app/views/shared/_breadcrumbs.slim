@@ -1,5 +1,5 @@
 .row
-  .col-sm-12
+  .col-sm-8
     .hidden-xs
       -links = breadcrumbs[:links]
       ol class="breadcrumb"
@@ -8,4 +8,9 @@
             = link_to k.upcase , v
         li class="active" 
           = breadcrumbs[:current].upcase
+  .col-sm-4
+    .pull-right
+      ol class="breadcrumb"
+        li
+          = link_to current_user.email, user_path(current_user)
               
