@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.search(params[:query]).order('lower(email) ASC').page(params[:page]).per(14)
+    @users = User.search(params[:query]).order('lower(email) ASC').page(params[:page]).per(50)
   end
 
   def show
