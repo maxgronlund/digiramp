@@ -400,6 +400,8 @@ class Recording < ActiveRecord::Base
   
   
   def extract_genres
+    self.genre_tags.destroy_all
+    
     self.genre.split(',').each do |genre|
 
       extracted_genre = Genre.where(title: genre.strip)
@@ -421,6 +423,8 @@ class Recording < ActiveRecord::Base
   
   
   def extract_instruments
+    self.instrument_tags.destroy_all
+    
     self.instruments.split(',').each do |instrument|
 
       extracted_instrument = Instrument.where(title: instrument.strip).first_or_create(title: instrument.strip, user_tag: true, category: 'User Instrument')
@@ -437,6 +441,7 @@ class Recording < ActiveRecord::Base
   end
   
   def extract_moods
+    self.mood_tags.destroy_all
     self.mood.split(',').each do |mood|
 
       extracted_mood = Mood.where(title: mood.strip).first_or_create(title: mood.strip, user_tag: true, category: 'User Mood')
