@@ -398,55 +398,94 @@ class Recording < ActiveRecord::Base
     end
   end
   
-  
+  # update the genre
   def extract_genres
-    self.genre_tags.destroy_all
-    
-    self.genre.split(',').each do |genre|
+    # store old  tag id's so we can delete unused
+    genre_tag_ids = self.genre_tags.pluck(:id)
+    new_genre_tag_ids = []
 
+    
+    # go true the list of comma seperated tags
+    self.genre.split(',').each do |genre|
+      
+      # find or create the genre
       extracted_genre = Genre.where(title: genre.strip)
                               .first_or_create(title: genre.strip, 
                                                 user_tag: true, 
                                                 category: 'User Genre'
                                               )
+                                              
+      # check if the genre tag alreaddy is there
 
-      GenreTag.where( genre_id: extracted_genre.id, 
-                      genre_tagable_type: self.class.to_s, 
-                      genre_tagable_id: self.id)
-                      .first_or_create(
-                        genre_id: extracted_genre.id, 
-                        genre_tagable_type: self.class.to_s, 
-                        genre_tagable_id: self.id
-                     )
+      genre_tag = GenreTag.where( genre_id: extracted_genre.id, 
+                                  genre_tagable_type: self.class.to_s, 
+                                  genre_tagable_id: self.id)
+                                  .first_or_create(
+                                    genre_id: extracted_genre.id, 
+                                    genre_tagable_type: self.class.to_s, 
+                                    genre_tagable_id: self.id
+                                 )
+      # store new tag id
+      new_genre_tag_ids << genre_tag.id
+    end
+    
+    # remove not used genre tags
+    if genre_tags = GenreTag.where(id: (genre_tag_ids - new_genre_tag_ids))
+      genre_tags.destroy_all
     end
   end
   
   
+  # update instruments
   def extract_instruments
-    self.instrument_tags.destroy_all
+    # store old  tag id's so we can delete unused
+    instrument_tag_ids      = self.instrument_tags.pluck(:id)
+    new_instrument_tag_ids  = []
     
+    # read comma seperated list
     self.instruments.split(',').each do |instrument|
 
-      extracted_instrument = Instrument.where(title: instrument.strip).first_or_create(title: instrument.strip, user_tag: true, category: 'User Instrument')
-
-      InstrumentTag.where( instrument_id: extracted_instrument.id, 
-                           instrument_tagable_type: self.class.to_s, 
-                           instrument_tagable_id: self.id)
-                           .first_or_create(
-                             instrument_id: extracted_instrument.id, 
-                             instrument_tagable_type: self.class.to_s, 
-                             instrument_tagable_id: self.id
-                          )
+      # find or create genre
+      extracted_instrument = Instrument.where(title: instrument.strip)
+                                        .first_or_create(
+                                              title: instrument.strip, 
+                                              user_tag: true, 
+                                              category: 'User Instrument')
+      
+      # find or create instrument tag
+      instrument_tag = InstrumentTag.where(  instrument_id: extracted_instrument.id, 
+                                             instrument_tagable_type: self.class.to_s, 
+                                             instrument_tagable_id: self.id)
+                                             .first_or_create(
+                                               instrument_id: extracted_instrument.id, 
+                                               instrument_tagable_type: self.class.to_s, 
+                                               instrument_tagable_id: self.id
+                                            )
+      # store used tag ids
+      new_instrument_tag_ids << instrument_tag.id
+    end
+    # remove not used tags
+    if instrument_tags = InstrumentTag.where(id: (instrument_tag_ids - new_instrument_tag_ids))
+      instrument_tags.destroy_all
     end
   end
   
   def extract_moods
-    self.mood_tags.destroy_all
+    # store old  tag id's so we can delete unused
+    mood_tag_ids      = self.mood_tags.pluck(:id)
+    new_mood_tag_ids  = []
+    
+    # read comma seperated list
     self.mood.split(',').each do |mood|
-
-      extracted_mood = Mood.where(title: mood.strip).first_or_create(title: mood.strip, user_tag: true, category: 'User Mood')
-
-      MoodTag.where( mood_id: extracted_mood.id, 
+      
+      # find or create mood
+      extracted_mood = Mood.where(title: mood.strip)
+                            .first_or_create( title: mood.strip, 
+                                              user_tag: true, 
+                                              category: 'User Mood'
+                                            )
+      # find or create mood tag
+      mood_tag = MoodTag.where( mood_id: extracted_mood.id, 
                            mood_tagable_type: self.class.to_s, 
                            mood_tagable_id: self.id)
                            .first_or_create(
@@ -454,6 +493,12 @@ class Recording < ActiveRecord::Base
                              mood_tagable_type: self.class.to_s, 
                              mood_tagable_id: self.id
                           )
+      new_mood_tag_ids << mood_tag.id
+    end
+    
+    # remove not used tags
+    if mood_tags = MoodTag.where(id: (mood_tag_ids - new_mood_tag_ids))
+      mood_tags.destroy_all
     end
   end
   

@@ -3,7 +3,7 @@
 
 tr
   td = link_to account.title, account_path(account), id: "#{account.title}", class: 'btn btn-default btn-lg'
-  td = account.description
+  td = simple_format account.description
   td 
     = account_user.role
     -if account_user.role == 'Associate'
