@@ -3,7 +3,7 @@ class Admin::AccountsController < ApplicationController
   before_filter :admins_only
   
   def index
-    @accounts = Account.activated.search(params[:query]).order('lower(title) ASC').page(params[:page]).per(14)
+    @accounts = Account.activated.search(params[:query]).order('lower(title) ASC').page(params[:page]).per(50)
   end
   
   def show
