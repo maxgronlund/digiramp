@@ -3,24 +3,24 @@ class CreateCatalogablePermissions < ActiveRecord::Migration
     add_column :recordings, :artwork, :string, default: '' 
     add_column :recordings, :original_file, :string, default: '' 
     
-    create_table :catalogable_permissions do |t|
-      t.belongs_to :user, index: true
-      t.belongs_to :catalog_item, index: true
-      
-    
-      t.boolean  "can_edit",                   default: false
-      t.boolean  "access_files",               default: false
-      t.boolean  "access_legal_documents",     default: false
-      t.boolean  "access_financial_documents", default: false
-      t.boolean  "access_ipis",                default: false
-      t.boolean  "edit_recordings",            default: false
-      t.boolean  "upload_recordings",          default: false
-      t.boolean  "read_works",                 default: false
-      t.boolean  "edit_works",                 default: false
-      t.boolean  "create_playlists",           default: false
-    
-      t.timestamps
-    end
+    #create_table :catalogable_permissions do |t|
+    #  t.belongs_to :user, index: true
+    #  t.belongs_to :catalog_item, index: true
+    #  
+    #
+    #  t.boolean  "can_edit",                   default: false
+    #  t.boolean  "access_files",               default: false
+    #  t.boolean  "access_legal_documents",     default: false
+    #  t.boolean  "access_financial_documents", default: false
+    #  t.boolean  "access_ipis",                default: false
+    #  t.boolean  "edit_recordings",            default: false
+    #  t.boolean  "upload_recordings",          default: false
+    #  t.boolean  "read_works",                 default: false
+    #  t.boolean  "edit_works",                 default: false
+    #  t.boolean  "create_playlists",           default: false
+    #
+    #  t.timestamps
+    #end
     #
     #CatalogUser.all.each do |catalog_user|
     #
