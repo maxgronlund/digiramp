@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
       #redirect_to login_index_path
       flash[:danger] = { title: "Error", body: "You are not logged in" }
       
-      redirect_to root_path
+      redirect_to login_new_path
     end
   end
 

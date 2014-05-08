@@ -28,9 +28,29 @@ class SharedCatalogsController < ApplicationController
     redirect_to user_shared_catalogs_path(@user)
   end
   
+  def export_all
+    flash[:info] = { title: "SUCCESS: ", body: "Catalog exported as csv" }
+    
+    #@catalog = Catalog.cached_find(params[:id])
+    
+    @catalog       = Catalog.cached_find(params[:shared_catalog_id])
+    
+    if recording_ids   = @catalog.catalog_items.where(catalog_itemable_type: "Recording").pluck(:catalog_itemable_id)
+      @recordings      = Recording.where(id: recording_ids).order(:title)
+      respond_to do |format|
+        format.csv { render text: @recordings.to_csv }
+      end
+    end
+
+  end
+  
+  
+    
+  
 private
 
   def catalog_params
+    
     params.require(:catalog).permit!
   end  
 

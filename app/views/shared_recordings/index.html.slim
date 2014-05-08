@@ -1,6 +1,6 @@
 - session[:return_url]  = request.url
 - user_account          = Account.cached_find(@user.account_id)
-- catalog               = @catalog_user.catalog
+/- catalog               = @catalog_user.catalog
 
 #wrap
   .full-width-top
@@ -11,13 +11,37 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(@user), \
                                                            "ASSETS".to_sym =>  user_shared_assets_path(@user), \
                                                            "Catalogs".to_sym =>  user_shared_catalogs_path(@user), \
-                                                           catalog.title.to_sym =>  user_shared_catalog_path(@user, catalog) \
+                                                           @catalog.title.to_sym =>  user_shared_catalog_path(@user, @catalog) \
                                                            }, current:  'recordings'}
     
     
     
+    / page title
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Shared Recordings'), blog_post: 'Manage Recordings'}
     
-    
+    / search field
+    .row
+      .col-sm-12
+        .panel
+          .panel-body
+            .row
+              = form_tag user_shared_catalog_shared_recordings_path(@user, @catalog), :method => 'get' do
+                .col-sm-6
+                  = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string', value: params[:query]
+                .col-sm-6
+                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                  '&nbsp;
+                  = link_to 'Show All',user_shared_catalog_shared_recordings_path(@user, @catalog), class: 'btn btn-default btn-lg'
+                  
+            .hidden-xs
+              == paginate(@recordings)
+            .visible-xs
+
+              .btn-group.btn-group-sm
+                = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default btn-lg mobile_pagination'
+                = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+                
+                      
     div class="catalog_id" id="#{@catalog_user.catalog.id}"
     .row
       .col-sm-12
@@ -25,14 +49,20 @@
         /  .panel-body.digiramp_player
         .digiramp_player
           div class="panel-group" id="accordion"
-            - catalog.catalog_items.where(catalog_itemable_type: "Recording").each do |catalog_item|
-              - recording = Recording.cached_find(catalog_item.catalog_itemable_id)
+            - @recordings.each do |recording|
+              /- recording = Recording.cached_find(catalog_item.catalog_itemable_id)
               == render 'recordings/recording', recording: recording
       
                     
                         
-                        
-
+    .row
+      .col-sm-12
+        hr
+        .pull-right
+          = link_to 'Export Shown to CSV', '#', class: 'btn btn-primary btn-lg'
+          '&nbsp;
+          = link_to 'Export Catalog to CSV', user_shared_catalog_export_all_path(@user, @catalog, format: "csv"), class: 'btn btn-primary btn-lg'
+          
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  
   

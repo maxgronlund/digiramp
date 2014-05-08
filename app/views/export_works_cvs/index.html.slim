@@ -71,7 +71,10 @@
                 .row
                   .col-sm-12
                     .pull-right
-                      = link_to 'Export', account_export_works_cvs_path(@account, query: params[:query], format: "csv"), class: 'btn btn-primary btn-lg'
+                      = link_to 'Export All Works', account_export_works_cvs_path(@account, format: "csv"), class: 'btn btn-primary btn-lg'
+                      '&nbsp;
+                      = link_to 'Export Viewed Works', account_export_works_cvs_path(@account, query: params[:query], format: "csv"), class: 'btn btn-primary btn-lg'
+                      
                       
                         
 

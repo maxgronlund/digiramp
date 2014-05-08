@@ -205,7 +205,9 @@ Digiramp::Application.routes.draw do
     resources :user_recordings, only: [:index]
     resources :shared_assets, only: [:index]
     resources :shared_catalogs do
-      resources :shared_recordings
+      get "export_all"
+      get "export_found"
+      resources :shared_recordings 
       resources :accept_invitaion_to_catalog, only: [:edit, :update]
       resources :upload_shared_catalog_recordings
     end

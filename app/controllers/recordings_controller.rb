@@ -3,7 +3,7 @@ class RecordingsController < ApplicationController
   before_filter :there_is_access_to_the_account
   
   def index
-    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
+    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     @show_more      = true
     
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140504161600) do
+ActiveRecord::Schema.define(version: 20140508180914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20140504161600) do
     t.boolean  "activated",              default: true
     t.integer  "default_catalog_id"
     t.integer  "playlists_cache_key",    default: 0
+    t.string   "uuid",                   default: ""
   end
 
   add_index "accounts", ["default_catalog_id"], name: "index_accounts_on_default_catalog_id", using: :btree
