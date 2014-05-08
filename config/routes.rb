@@ -10,8 +10,8 @@ Digiramp::Application.routes.draw do
   get "albums/show"
   get "albums/new"
   get "albums/edit"
-  get "export_works_cvs/index"
-  get "export_works/index"
+  #get "export_works_csv/index"
+  #get "export_works/index"
   resources :video_posts
 
   get "signup/index"
@@ -49,7 +49,7 @@ Digiramp::Application.routes.draw do
     resources :documents
     resources :export_recordings, only: [:index]
     resources :export_works, only: [:index]
-    resources :export_works_cvs, only: [:index]
+    resources :export_works_csv, only: [:index, :show]
     resources :export_import_batches, only: [:index, :show, :edit]
     resources :export_import_batch_works, only: [:show]
     resources :import_batches, only: [:index, :show, :destroy, :edit, :update]
