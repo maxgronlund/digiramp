@@ -64,6 +64,14 @@ class RecordingsController < ApplicationController
     @recording.extract_metadata
     @recording.update_completeness
     
+    ImageFile.create!(  title: @recording.title,
+                        body: @recording.comment,
+                        recording_id: @recording.id, 
+                        account_id: @recording.account_id, 
+                        thumb: @recording.cover_art, 
+                        file: @recording.artwork
+                    )
+    
     redirect_to account_work_path(@account, @common_work )
     
   end

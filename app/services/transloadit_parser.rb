@@ -150,7 +150,7 @@ class TransloaditParser
         
         
         recording.extract_genres                                 
-        #recording.update_completeness
+        recording.update_completeness
         recordings << recording
         CommonWork.attach( recording, account_id)
         add_artwork_to recording unless recording.cover_art == ''
@@ -229,7 +229,7 @@ class TransloaditParser
         
         add_artwork_to recording unless recording.cover_art == ''
         recording.extract_genres                                 
-        #recording.update_completeness
+        recording.update_completeness
       rescue
         puts 'chrash2'
       end
