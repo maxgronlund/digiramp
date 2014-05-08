@@ -217,13 +217,18 @@ class TransloaditParser
                                           mp3:               transloaded[:mp3],
                                           waveform:          transloaded[:waveform],
                                           thumbnail:         transloaded[:thumbnail],
+                                          original_file:     transloaded[:original_file],
+                                          cover_art:         transloaded[:cover_art],
+                                          artwork:           transloaded[:artwork],
                                           #copyright:         transloaded[:copyright],
                                           #composer:          transloaded[:composer],
                                           account_id:        account_id, 
                                           audio_upload:      transloaded,
                                           common_work_id:    common_work_id
                                          )
-        #recording.extract_genres                                 
+        
+        add_artwork_to recording unless recording.cover_art == ''
+        recording.extract_genres                                 
         #recording.update_completeness
       rescue
         puts 'chrash2'

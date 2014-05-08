@@ -45,12 +45,19 @@ class RecordingsController < ApplicationController
   end
   
   def create
-    @common_work            = CommonWork.cached_find(params[:common_work_id])
-    @recording              = Recording.new(audio_upload: params[:transloadit], account_id: @account.id, title: params[:title], common_work_id: @common_work.id)
-    @recording.title        = @recording.audio_upload[:uploads][0][:name]
-    @recording.mp3          = @recording.audio_upload[:results][:mp3][0][:url]
-    @recording.waveform     = @recording.audio_upload[:results][:waveform][0][:url]
-    @recording.thumbnail    = @recording.audio_upload[:results][:thumbnail][0][:url]
+    logger.debug '**************************************************************'
+    logger.debug params
+    logger.debug '**************************************************************'
+    @common_work                = CommonWork.cached_find(params[:common_work_id])
+    @recording                  = Recording.new(audio_upload: params[:transloadit], account_id: @account.id, title: params[:title], common_work_id: @common_work.id)
+    @recording.title            = @recording.audio_upload[:uploads][0][:name]
+    @recording.mp3              = @recording.audio_upload[:results][:mp3][0][:url]
+    @recording.waveform         = @recording.audio_upload[:results][:waveform][0][:url]
+    @recording.thumbnail        = @recording.audio_upload[:results][:thumbnail][0][:url]
+    @recording.cover_art        = @recording.audio_upload[:results][:artwork][0][:url]
+    @recording.artwork          = @recording.audio_upload[:results][:artwork_thumb][0][:url]
+    @recording.original_file    = @recording.audio_upload[:results][':original'][0][:url]
+    
     #@recording.category   = 'none'
     @recording.cache_version += 1
     @recording.save!
