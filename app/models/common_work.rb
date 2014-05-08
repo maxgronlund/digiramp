@@ -271,7 +271,7 @@ class CommonWork < ActiveRecord::Base
                       ipi.notes.to_s,
                       ipi.cae_code.to_s,
                       '','','','','','','','','','','','','','','','','','', '', 
-                      common_work.uuid
+                      self.uuid
                     ]
           end
           # recordings
