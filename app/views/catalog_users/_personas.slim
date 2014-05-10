@@ -3,110 +3,184 @@
     .panel
       .panel-body
         h3 People with access
-        .table-responsive
+        .table-responsive.table-permissions
           table class="table table-hover"
             thead
               tr
-                th Name
-                th Email
-                th Permissions
-                th
+                th  Email
+                th 
+                th 
+                th 
+                th 
+                th 
                 th
             tbody
-              -@catalog.catalog_users.each do |catalog_user|
-                tr
-                  /td = catalog_user.user.name
-                  td
-                  td = catalog_user.email
-                  td
-                    -if catalog_user.can_edit
-                      'Edit Catalog √
-                      br
-                    -else
-                      .gray-text
-                        'Edit
+              -@catalog.catalog_users.order('email asc').each do |catalog_user|
+                -cache (['catalog_user', catalog_user.id, catalog_user.permission_version]) do
+                  
+                  tr
+                    th = catalog_user.email
+                    th Create
+                    th Read
+                    th Update
+                    th Delete
+                    th
                     
-                    -if catalog_user.edit_recordings
-                      'Edit Recordings √ 
-                      br
-                    -else
-                      .gray-text
-                        'Edit Recordings
+                  tr 
                     
+                    td Recordings &nbsp; &nbsp; &nbsp;
+                    td = catalog_user.create_recordings ? '√': ''
+                    td = catalog_user.read_recordings ? '√': ''
+                    td = catalog_user.update_recordings ? '√': ''
+                    td = catalog_user.delete_recordings ? '√': ''
+                    td
+                  tr 
                     
-                    -if  catalog_user.upload_recordings
-                      'Upload Recordings √
-                      br
-                    -else
-                      .gray-text
-                        'Upload Recordings
+                    td Recordings IPI's &nbsp; &nbsp; &nbsp;
+                    td = catalog_user.create_recording_ipis ? '√': ''
+                    td = catalog_user.read_recording_ipis ? '√': ''
+                    td = catalog_user.update_recording_ipis ? '√': ''
+                    td = catalog_user.delete_recording_ipis ? '√': ''
+                    td
                     
+                  tr 
+                    td Files's &nbsp; &nbsp; &nbsp;
+                    td = catalog_user.create_files ? '√': ''
+                    td = catalog_user.read_files ? '√': ''
+                    td = catalog_user.update_files ? '√': ''
+                    td = catalog_user.delete_files ? '√': ''
+                    td
                     
-                    -if  catalog_user.read_works
-                      'Read Works √
-                      br
-                    -else
-                      .gray-text
-                        'Read Works
+                  tr 
+                    td Legal Documents &nbsp; &nbsp; &nbsp;
+                    td = catalog_user.create_legal_documents ? '√': ''
+                    td = catalog_user.read_legal_documents ? '√': ''
+                    td = catalog_user.update_legal_documents ? '√': ''
+                    td = catalog_user.delete_legal_documents ? '√': ''
+                    td
                     
-                    -if  catalog_user.edit_works
-                      'Edit Common Works √
-                      br
-                    -else
-                      .gray-text
-                        'Edit Common Works
-                        
-                        
-                    -if  catalog_user.access_files
-                      'Access Files √
-                      br
-                    -else
-                      .gray-text
-                        'Access Files
-                        
-                        
-                    -if  catalog_user.access_legal_documents
-                      'Access Legal Documents √
-                      br
-                    -else
-                      .gray-text
-                        'Access Legal Documents
-                        
-                        
-                    -if  catalog_user.access_financial_documents
-                      'Access Financial Documents √
-                      br
-                    -else
-                      .gray-text
-                        'Access Financial Documents
-                        
-                        
-                    -if  catalog_user.access_ipis
-                      'Access IPI √
-                      br
-                    -else
-                      .gray-text
-                        'Access IPI
-                        
-                        
-                    -if  catalog_user.create_playlists
-                      'Create Playlists √
-                      br
-                    -else
-                      .gray-text
-                        'Create Playlists
-                        
-                        
-                        
+                  tr 
+                    td Financial Documents &nbsp; &nbsp; &nbsp;
+                    td = catalog_user.create_financial_documents ? '√': ''
+                    td   = catalog_user.read_financial_documents ? '√': ''
+                    td = catalog_user.update_financial_documents ? '√': ''
+                    td = catalog_user.delete_financial_documents ? '√': ''
+                    td
+                    
+                  tr 
+                    td Common Works &nbsp; &nbsp; &nbsp;
+                    td = catalog_user.create_common_works ? '√': ''
+                    td   = catalog_user.read_common_works ? '√': ''
+                    td = catalog_user.update_common_works ? '√': ''
+                    td = catalog_user.delete_common_works ? '√': ''
+                    td
+                    
+                  tr 
+                    td Common Work IPI's &nbsp; &nbsp; &nbsp;
+                    td = catalog_user.create_common_work_ipis ? '√': ''
+                    td   = catalog_user.read_common_work_ipis ? '√': ''
+                    td = catalog_user.update_common_work_ipis ? '√': ''
+                    td = catalog_user.delete_common_work_ipis ? '√': ''
+                    td
+                  tr
+                    td
+                    td
+                    td
+                    td
+                    td
                     td
                       .pull-right
                         = link_to edit_account_catalog_catalog_user_path(@account, @catalog, catalog_user) do
                           .btn.btn-primary.btn-lg
                             i class="fa fa-pencil"
                         '&nbsp;
-                        = link_to  account_catalog_catalog_user_path(@account, @catalog, catalog_user), data: { confirm: 'Are you sure?' } , :method => :delete do
+                        = link_to  account_catalog_catalog_user_path(@account, @catalog, catalog_user),\
+                                  data: { confirm: 'Are you sure?' } , :method => :delete do
                           .btn.btn-danger.btn-lg
                             i class="fa fa-times"
+                  
+                  
+                  
+                  
+                    
+                        
+                        
+                    /td
+                    /  'Recording
+                    /  br
+                    /  'Recording IPI
+                    /  br
+                    /  'Files
+                    /  br
+                    /  'Legal Documents
+                    /  br
+                    /  'Financial Documents
+                    /  br
+                    /  'Common Works
+                    /  br
+                    /  'Common Works IPI
+                    /  
+                    /td
+                    /  = catalog_user.create_recordings ? '√': ''
+                    /  br
+                    /  = catalog_user.create_recording_ipis ? '√': ''
+                    /  br
+                    /  = catalog_user.create_files ? '√': ''
+                    /  br
+                    /  = catalog_user.create_legal_documents ? '√': ''
+                    /  br
+                    /  = catalog_user.create_financial_documents ? '√': ''
+                    /  br
+                    /  = catalog_user.create_common_works ? '√': ''
+                    /  br
+                    /  = catalog_user.create_common_work_ipis ? '√': ''
+                    /
+                    /td
+                    /  = catalog_user.read_recordings ? '√': ''
+                    /  br
+                    /  = catalog_user.read_recording_ipis ? '√': ''
+                    /  br
+                    /  = catalog_user.read_files ? '√': ''
+                    /  br
+                    /  = catalog_user.read_legal_documents ? '√': ''
+                    /  br
+                    /  = catalog_user.read_financial_documents ? '√': ''
+                    /  br
+                    /  = catalog_user.read_common_works ? '√': ''
+                    /  br
+                    /  = catalog_user.read_common_work_ipis ? '√': ''
+                    /
+                    /td
+                    /  = catalog_user.update_recordings ? '√': ''
+                    /  br
+                    /  = catalog_user.update_recording_ipis ? '√': ''
+                    /  br
+                    /  = catalog_user.update_files ? '√': ''
+                    /  br
+                    /  = catalog_user.update_legal_documents ? '√': ''
+                    /  br
+                    /  = catalog_user.update_financial_documents ? '√': ''
+                    /  br
+                    /  = catalog_user.update_common_works ? '√': ''
+                    /  br
+                    /  = catalog_user.update_common_work_ipis ? '√': ''
+                    /
+                    /td
+                    /  = catalog_user.delete_recordings ? '√': ''
+                    /  br
+                    /  = catalog_user.delete_recording_ipis ? '√': ''
+                    /  br
+                    /  = catalog_user.delete_files ? '√': ''
+                    /  br
+                    /  = catalog_user.delete_legal_documents ? '√': ''
+                    /  br
+                    /  = catalog_user.delete_financial_documents ? '√': ''
+                    /  br
+                    /  = catalog_user.delete_common_works ? '√': ''
+                    /  br
+                    /  = catalog_user.delete_common_work_ipis ? '√': ''
+                  
+                    
                         
                     
         hr

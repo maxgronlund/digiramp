@@ -2,6 +2,7 @@
 - user_account          = Account.cached_find(@user.account_id)
 /- catalog               = @catalog_user.catalog
 
+
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'profile'     
@@ -43,6 +44,8 @@
                 
                       
     div class="catalog_id" id="#{@catalog_user.catalog.id}"
+    div class="shared_catalog" id="#{@catalog_user.catalog.id}"
+
     .row
       .col-sm-12
         /.panel

@@ -14,13 +14,23 @@
   $("<%= @remove_recording_from_playlist %>").prepend('<%=j render("recording_permissions/remove_recording_from_playlist") %>');
 <% end %>
 
-<% if @show_more %>
-  $("<%= @show_more %>").prepend('<%=j render("recording_permissions/show_more") %>');
+
+
+
+
+
+<% if @read_recording %>
+  $("<%= @read_recording %>").prepend('<%=j render("recording_permissions/read_recording") %>');
 <% end %>
 
-<% if @manage_recording %>
-  $("<%= @manage_recording %>").prepend('<%=j render("recording_permissions/manage_recording") %>');
+<% if @update_recording %>
+  $("<%= @update_recording %>").prepend('<%=j render("recording_permissions/update_recording") %>');
 <% end %>
+
+<% if @delete_recording %>
+  $("<%= @delete_recording %>").prepend('<%=j render("recording_permissions/delete_recording") %>');
+<% end %>
+
 
 <% if @show_shared_recording %>
   $("<%= @show_shared_recording %>").prepend('<%=j render("recording_permissions/show_shared_recording") %>');
@@ -28,4 +38,9 @@
 
 <% if @edit_shared_recording %>
   $("<%= @edit_shared_recording %>").prepend('<%=j render("recording_permissions/edit_shared_recording") %>');
+<% end %>
+
+
+<% if @show_more %>
+  $("<%= @show_more %>").prepend('<%=j render("recording_permissions/show_more") %>');
 <% end %>

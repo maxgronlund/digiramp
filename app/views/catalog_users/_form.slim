@@ -1,28 +1,96 @@
-=simple_form_for [@account, @catalog, @catalog_user] do |f|
-  = f.hidden_field :account_id, value: @account.id
-  = f.hidden_field :catalog_id, value: @catalog.id
-  = f.input :email
-  = f.input :title
-  b Message
-  br
-  div id="toolbar" class="wysihtml5-toolbar"
-    a data-wysihtml5-command="bold" Bold
-    '&nbsp; 
-    a data-wysihtml5-command="italic" Italic
-  =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Description", id: 'wysihtml5_editor'}
+/=simple_form_for [@account, @catalog, @catalog_user] do |f|
+/  = f.hidden_field :account_id, value: @account.id
+/  = f.hidden_field :catalog_id, value: @catalog.id
+/  = f.input :email
+/  = f.input :title
+/  b Message
+/  br
+/  div id="toolbar" class="wysihtml5-toolbar"
+/    a data-wysihtml5-command="bold" Bold
+/    '&nbsp; 
+/    a data-wysihtml5-command="italic" Italic
+/  =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Description", id: 'wysihtml5_editor'}
+/  
+/  hr
+/  'What the invited user has access to
+/  = f.input :can_edit, label: 'Can Edit Catalog'
+/  = f.input :edit_recordings
+/  = f.input :upload_recordings
+/  = f.input :read_works
+/  = f.input :edit_works
+/  = f.input :access_files
+/  = f.input :access_legal_documents
+/  = f.input :access_financial_documents
+/  = f.input :access_ipis
+/  = f.input :create_playlists
+/  
+/  .pull-right
+/    =f.submit 'Save', class: 'btn btn-primary btn-lg'
+
+
+
+/h3 = "#{@catalog_user.user.email} can: " 
+/hr
+/.row
+/  .col-sm-12
+= f.hidden_field :permission_version, value:  @catalog_user.permission_version + 1 
+.panel.panel-primary
+  .panel-heading
+    'Permissions for &nbsp;
+    =@catalog_user.email
+  .panel-body
+    .table-responsive
+      table class="table table-striped"
   
-  hr
-  'What the invited user has access to
-  = f.input :can_edit, label: 'Can Edit Catalog'
-  = f.input :edit_recordings
-  = f.input :upload_recordings
-  = f.input :read_works
-  = f.input :edit_works
-  = f.input :access_files
-  = f.input :access_legal_documents
-  = f.input :access_financial_documents
-  = f.input :access_ipis
-  = f.input :create_playlists
-  
-  .pull-right
-    =f.submit 'Save', class: 'btn btn-primary btn-lg'
+        
+        tbody
+          tr
+            td
+              h4 Recordings
+            td = f.input :create_recordings, label: 'Create'
+            td = f.input :read_recordings,   label: 'Read'
+            td = f.input :update_recordings, label: 'Update'
+            td = f.input :delete_recordings, label: 'Delete'
+          tr
+            td
+              h4 Recordings IPI's
+            td = f.input :create_recording_ipis, label: 'Create'
+            td = f.input :read_recording_ipis,   label: 'Read'
+            td = f.input :update_recording_ipis, label: 'Update'
+            td = f.input :delete_recording_ipis, label: 'Delete'
+          tr
+            td
+              h4 Files
+            td = f.input :create_files, label: 'Create'
+            td = f.input :read_files,   label: 'Read'
+            td = f.input :update_files, label: 'Update'
+            td = f.input :delete_files, label: 'Delete'
+          tr
+            td
+              h4 Legal Documents
+            td = f.input :create_legal_documents, label: 'Create'
+            td = f.input :read_legal_documents,   label: 'Read'
+            td = f.input :update_legal_documents, label: 'Update'
+            td = f.input :delete_legal_documents, label: 'Delete'
+          tr
+            td
+              h4 Financial Documents
+            td = f.input :create_financial_documents, label: 'Create'
+            td = f.input :read_financial_documents,   label: 'Read'
+            td = f.input :update_financial_documents, label: 'Update'
+            td = f.input :delete_financial_documents, label: 'Delete'
+          tr
+            td
+              h4 Common Works
+            td = f.input :create_common_works, label: 'Create'
+            td = f.input :read_common_works,   label: 'Read'
+            td = f.input :update_common_works, label: 'Update'
+            td = f.input :delete_common_works, label: 'Delete'
+          tr
+            td
+              h4 Common Works IPI's
+            td = f.input :create_common_work_ipis, label: 'Create'
+            td = f.input :read_common_work_ipis,   label: 'Read'
+            td = f.input :update_common_work_ipis, label: 'Update'
+            td = f.input :delete_common_work_ipis, label: 'Delete'
+    

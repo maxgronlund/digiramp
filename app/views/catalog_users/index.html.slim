@@ -15,6 +15,8 @@
                                                             }, current: 'users'}
                                                             
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog Users'}
+    / to do
+    /-cache (['catalog_indes', @catalog.permission_version ]) do  
     == render 'personas'  
     
 -cache (['footer', Admin.cached_find(1).version]) do      

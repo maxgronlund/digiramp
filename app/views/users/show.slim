@@ -6,8 +6,7 @@
     == render 'admin/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
-    -cache ([ Admin.cached_find(1).version, request.url ]) do      
-      
+    -cache ([ Admin.cached_find(1).version, request.url, user_account.version ]) do       
       == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name} 
       
                                                            
@@ -21,7 +20,8 @@
                                                       css_class: 'btn btn-primary', \
                                                       icon: 'fa fa-archive' \
                                                     }
-        - unless user_account.account_type == 'Personal Account'
+        /- unless user_account.account_type == 'Personal Account'
+        - if @user.account_users.size > 1
           .col-sm-6
             == render 'users/shared/badge_button', locals: { \
                                                         blog_post: 'ACCOUNTS', \

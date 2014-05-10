@@ -16,31 +16,7 @@ development:
     digiramp_video: '1d318760cd8011e3adcb670cdc24d59b'
     image_files_to_s3: 'd8c43c80d0a411e3a1f42dc1b62a296b'
 
-    # template defined inline
-    #image_resize:
-    #  steps:
-    #    resize:
-    #      robot : '/image/resize'
-    #      width : 320
-    #      height: 200
-    #      
-    ## template defined inline
-    #audio_convert:
-    #  steps:
-    #    resize:
-    #      robot : '/audio/waveform'
-    #      width : 320
-    #      height: 200
-    #      
-    #    stored_segments: {
-    #          robot: "/s3/store",
-    #          use: "resize",
-    #
-    #          bucket: "digiramp",
-    #          key: "AKIAIVATNWTNMQZKK2VA",
-    #          secret: "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"
-    #        }
-    #
+    
 production:
   # the jquery_sdk version you want to use, read up on it here:
   # https://transloadit.com/blog/2013/02/transloadit-javascript-plugin-and-jquery-1-9

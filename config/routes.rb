@@ -3,6 +3,7 @@ Digiramp::Application.routes.draw do
   
 
   
+  get "shared_recording_files/index"
   get "user_recordings/index"
   resources :image_files
 

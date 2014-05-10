@@ -2,8 +2,9 @@
   -link = user_shared_catalog_shared_recording_path(current_user, @catalog, @recording) 
 - else
   /accounts/37/common_works/3002/recording_infos/364
-  -link = account_common_work_recording_path( @account, @common_work, @recording)
+  -link = account_common_work_recording_info_path( @account, @common_work, @recording)
 
+'&nbsp;
 =link_to link do
-  .btn.btn-warning.btn-lg
-    i class="fa fa-folder-open"
+  .btn.btn-info.btn-lg
+    i class="fa fa-info-circle"

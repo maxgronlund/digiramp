@@ -1,6 +1,10 @@
 class RecordingsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
+  include RecordingsHelper
+  
   before_filter :there_is_access_to_the_account
+  
+  before_filter :read_recording, only:[:show]
   
   def index
     @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
@@ -12,15 +16,7 @@ class RecordingsController < ApplicationController
     @common_work    = CommonWork.cached_find(params[:common_work_id])
     @recording      = Recording.cached_find(params[:id])
 
-    access = false
-    
-    if current_user.can_administrate @account
-      access = true
-    elsif @common_work.is_accessible_by current_user
-      access = true
-    end
-
-    unless access
+    unless @recording.read_recording_ids.include? current_user.id
       render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
     end
   end

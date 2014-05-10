@@ -62,6 +62,13 @@ class Account < ActiveRecord::Base
   
   scope :activated,  ->  { where( activated: true).order("title asc")  }
   
+  def administrators
+    self.account_users.where(role: 'Administrator')
+  end
+  
+  def administrator_ids
+    self.account_users.where(role: 'Administrator').pluck(:id)
+  end
   
   def has_no_name?
     title == Account::SECRET_NAME

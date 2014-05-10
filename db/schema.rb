@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140508180914) do
+ActiveRecord::Schema.define(version: 20140510200135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20140508180914) do
     t.integer  "default_catalog_id"
     t.integer  "playlists_cache_key",    default: 0
     t.string   "uuid",                   default: ""
+    t.integer  "version",                default: 0
   end
 
   add_index "accounts", ["default_catalog_id"], name: "index_accounts_on_default_catalog_id", using: :btree
@@ -293,31 +294,40 @@ ActiveRecord::Schema.define(version: 20140508180914) do
     t.boolean  "read_works",                 default: false
     t.boolean  "edit_works",                 default: false
     t.boolean  "create_playlists",           default: false
+    t.integer  "permission_version",         default: 0
+    t.boolean  "create_recordings",          default: false
+    t.boolean  "read_recordings",            default: false
+    t.boolean  "update_recordings",          default: false
+    t.boolean  "delete_recordings",          default: false
+    t.boolean  "create_recording_ipis",      default: false
+    t.boolean  "read_recording_ipis",        default: false
+    t.boolean  "update_recording_ipis",      default: false
+    t.boolean  "delete_recording_ipis",      default: false
+    t.boolean  "create_files",               default: false
+    t.boolean  "read_files",                 default: false
+    t.boolean  "update_files",               default: false
+    t.boolean  "delete_files",               default: false
+    t.boolean  "create_legal_documents",     default: false
+    t.boolean  "read_legal_documents",       default: false
+    t.boolean  "update_legal_documents",     default: false
+    t.boolean  "delete_legal_documents",     default: false
+    t.boolean  "create_financial_documents", default: false
+    t.boolean  "read_financial_documents",   default: false
+    t.boolean  "update_financial_documents", default: false
+    t.boolean  "delete_financial_documents", default: false
+    t.boolean  "create_common_works",        default: false
+    t.boolean  "read_common_works",          default: false
+    t.boolean  "update_common_works",        default: false
+    t.boolean  "delete_common_works",        default: false
+    t.boolean  "create_common_work_ipis",    default: false
+    t.boolean  "read_common_work_ipis",      default: false
+    t.boolean  "update_common_work_ipis",    default: false
+    t.boolean  "delete_common_work_ipis",    default: false
   end
 
   add_index "catalog_users", ["account_id"], name: "index_catalog_users_on_account_id", using: :btree
   add_index "catalog_users", ["catalog_id"], name: "index_catalog_users_on_catalog_id", using: :btree
   add_index "catalog_users", ["user_id"], name: "index_catalog_users_on_user_id", using: :btree
-
-  create_table "catalogable_permissions", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "catalog_item_id"
-    t.boolean  "can_edit",                   default: false
-    t.boolean  "access_files",               default: false
-    t.boolean  "access_legal_documents",     default: false
-    t.boolean  "access_financial_documents", default: false
-    t.boolean  "access_ipis",                default: false
-    t.boolean  "edit_recordings",            default: false
-    t.boolean  "upload_recordings",          default: false
-    t.boolean  "read_works",                 default: false
-    t.boolean  "edit_works",                 default: false
-    t.boolean  "create_playlists",           default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "catalogable_permissions", ["catalog_item_id"], name: "index_catalogable_permissions_on_catalog_item_id", using: :btree
-  add_index "catalogable_permissions", ["user_id"], name: "index_catalogable_permissions_on_user_id", using: :btree
 
   create_table "catalogs", force: true do |t|
     t.string   "title"
@@ -898,24 +908,24 @@ ActiveRecord::Schema.define(version: 20140508180914) do
 
   create_table "recordings", force: true do |t|
     t.integer  "common_work_id"
-    t.string   "title",               default: "no title"
-    t.string   "isrc_code",           default: ""
-    t.text     "artist",              default: ""
-    t.text     "lyrics",              default: ""
-    t.integer  "bpm",                 default: 0
-    t.text     "comment",             default: ""
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.string   "title",                          default: "no title"
+    t.string   "isrc_code",                      default: ""
+    t.text     "artist",                         default: ""
+    t.text     "lyrics",                         default: ""
+    t.integer  "bpm",                            default: 0
+    t.text     "comment",                        default: ""
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.integer  "account_id"
-    t.boolean  "explicit",            default: false
-    t.integer  "documents_count",     default: 0,          null: false
+    t.boolean  "explicit",                       default: false
+    t.integer  "documents_count",                default: 0,          null: false
     t.string   "file_size"
-    t.boolean  "clearance",           default: false
+    t.boolean  "clearance",                      default: false
     t.string   "version"
-    t.string   "copyright",           default: ""
-    t.string   "production_company",  default: ""
+    t.string   "copyright",                      default: ""
+    t.string   "production_company",             default: ""
     t.date     "available_date"
-    t.string   "upc_code",            default: ""
+    t.string   "upc_code",                       default: ""
     t.integer  "track_count"
     t.integer  "disk_number"
     t.integer  "disk_count"
@@ -928,29 +938,55 @@ ActiveRecord::Schema.define(version: 20140508180914) do
     t.integer  "samplerate"
     t.integer  "channels"
     t.text     "audio_upload"
-    t.integer  "completeness_in_pct", default: 0
+    t.integer  "completeness_in_pct",            default: 0
     t.string   "mp3"
     t.string   "thumbnail"
-    t.string   "year",                default: ""
-    t.decimal  "duration",            default: 0.0
-    t.text     "album_name",          default: ""
-    t.text     "genre",               default: ""
-    t.text     "performer",           default: ""
-    t.string   "band",                default: ""
-    t.string   "disc",                default: ""
-    t.string   "track",               default: ""
-    t.string   "waveform",            default: ""
+    t.string   "year",                           default: ""
+    t.decimal  "duration",                       default: 0.0
+    t.text     "album_name",                     default: ""
+    t.text     "genre",                          default: ""
+    t.text     "performer",                      default: ""
+    t.string   "band",                           default: ""
+    t.string   "disc",                           default: ""
+    t.string   "track",                          default: ""
+    t.string   "waveform",                       default: ""
     t.string   "cover_art"
-    t.integer  "cache_version",       default: 0
-    t.string   "vocal",               default: ""
+    t.integer  "cache_version",                  default: 0
+    t.string   "vocal",                          default: ""
     t.integer  "import_batch_id"
-    t.text     "mood",                default: ""
-    t.text     "instruments",         default: ""
-    t.string   "tempo",               default: ""
-    t.string   "original_md5hash",    default: ""
+    t.text     "mood",                           default: ""
+    t.text     "instruments",                    default: ""
+    t.string   "tempo",                          default: ""
+    t.string   "original_md5hash",               default: ""
     t.string   "uuid"
-    t.string   "artwork",             default: ""
-    t.string   "original_file",       default: ""
+    t.string   "artwork",                        default: ""
+    t.string   "original_file",                  default: ""
+    t.string   "create_recording_ids",           default: ""
+    t.string   "read_recording_ids",             default: ""
+    t.string   "update_recording_ids",           default: ""
+    t.string   "delete_recording_ids",           default: ""
+    t.string   "create_recording_ipis_ids",      default: ""
+    t.string   "read_recording_ipis_ids",        default: ""
+    t.string   "update_recording_ipis_ids",      default: ""
+    t.string   "delete_recording_ipis_ids",      default: ""
+    t.string   "create_files_ids",               default: ""
+    t.string   "read_files_ids",                 default: ""
+    t.string   "update_files_ids",               default: ""
+    t.string   "delete_files_ids",               default: ""
+    t.string   "create_legal_documents_ids",     default: ""
+    t.string   "read_legal_documents_ids",       default: ""
+    t.string   "update_legal_documents_ids",     default: ""
+    t.string   "delete_legal_documents_ids",     default: ""
+    t.string   "create_financial_documents_ids", default: ""
+    t.string   "read_financial_documents_ids",   default: ""
+    t.string   "update_financial_documents_ids", default: ""
+    t.string   "delete_financial_documents_ids", default: ""
+    t.string   "read_common_works_ids",          default: ""
+    t.string   "update_common_works_ids",        default: ""
+    t.string   "create_common_work_ipis_ids",    default: ""
+    t.string   "read_common_work_ipis_ids",      default: ""
+    t.string   "update_common_work_ipis_ids",    default: ""
+    t.string   "delete_common_work_ipis_ids",    default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

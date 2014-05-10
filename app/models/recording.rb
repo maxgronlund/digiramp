@@ -1,7 +1,66 @@
 # encoding: UTF-8
+
+# recordings can be 
+# public
+# private
+# users can have permission to 
+# CRUD audio
+# CRUD recording/info
+# CRUD common work
+# CRUD artwork
+# CRUD documents
+# CRUD IPI'S
+# CRUD legal documents
+# CRUD financial documents
+
+
+
+
+
+
+
+
+
+
 class Recording < ActiveRecord::Base
   
   serialize :audio_upload, Hash
+  
+  # user permissions is stored in an array where
+  # each number is an id of a user granded permission
+  
+  # create recordings meening upload audio files
+  serialize  :create_recording_ids,           Array
+  # read recording meening reading recording info
+  serialize  :read_recording_ids,             Array
+  # update recording meeaning update recording metadata
+  serialize  :update_recording_ids,           Array
+  # Delete the entire 
+  serialize  :delete_recording_ids,           Array                                                             
+  serialize  :create_recording_ipis_ids,      Array
+  serialize  :read_recording_ipis_ids,        Array
+  serialize  :update_recording_ipis_ids,      Array
+  serialize  :delete_recording_ipis_ids,      Array                                                                
+  serialize  :create_files_ids,               Array
+  serialize  :read_files_ids,                 Array
+  serialize  :update_files_ids,               Array
+  serialize  :delete_files_ids,               Array                                                               
+  serialize  :create_legal_documents_ids,     Array
+  serialize  :read_legal_documents_ids,       Array
+  serialize  :update_legal_documents_ids,     Array
+  serialize  :delete_legal_documents_ids,     Array                                                               
+  serialize  :create_financial_documents_ids, Array
+  serialize  :read_financial_documents_ids,   Array
+  serialize  :update_financial_documents_ids, Array
+  serialize  :delete_financial_documents_ids, Array
+  serialize  :read_common_works_ids,          Array
+  serialize  :update_common_works_ids,        Array
+  serialize  :create_common_work_ipis_ids,    Array
+  serialize  :read_common_work_ipis_ids,      Array
+  serialize  :update_common_work_ipis_ids,    Array
+  serialize  :delete_common_work_ipis_ids,    Array
+  
+  
   
   
   include PgSearch
@@ -59,48 +118,7 @@ class Recording < ActiveRecord::Base
   end
   
   
-  #belongs_to :song
-  #belongs_to :album
   
-  #has_many :genre_tags
-  #has_many :genres, through: :genre_tags
-  #
-  #has_many :mood_tags
-  #has_many :moods, through: :mood_tags
-  #
-  #has_many :instrument_tags
-  #has_many :instruments, through: :instrument_tags
-  #
-  #has_many :account_catalogs
-  #has_many :catalogs, through: :account_catalogs
-  #
-  #has_many :documents, as: :documentable, dependent: :destroy
-  #has_many :activity_events, as: :activity_eventable
-  
-  #mount_uploader :poster, PosterUploader
-  #include ImageCrop
-  
-  #mount_uploader :mp4_video, Mp4Uploader
-  #mount_uploader :ogv_video, OgvUploader
-  #mount_uploader :webm_video, WebmUploader
-  
-  
-  
-  #before_create :update_counter_cache
-  #scope video,        ->    { where(media_type: 'Video')}
-  #scope recording,    ->    { where(media_type: 'Recording')}
-    
-  #mount_uploader :audio_file, AudioFileUploader
-  #process_in_background :audio_file
-  
-  #before_save :update_audio_file_attributes
-  #after_create :check_for_title_and_common_work
-  #after_create :try_extract_id3_tags
-  #after_create :check_title
-  
-  #CATEGORY = ["super", "cuctomer"]
-  
-  #after_commit :expire_account_rec_cash
   after_commit :flush_cache
   before_destroy :remove_from_catalogs
   before_destroy :remove_from_albums
@@ -115,7 +133,13 @@ class Recording < ActiveRecord::Base
   
   
   
-  def file
+  def show_more_for user_id
+    return true if self.read_recording_ipis_ids.include?        user_id
+    return true if self.read_files_ids.include?                 user_id
+    return true if self.read_legal_documents_ids.include?       user_id
+    return true if self.read_financial_documents_ids.include?   user_id
+    return true if self.read_common_works_ids.include?          user_id
+    return true
   end
   
   def catalog_ids=(ids) 

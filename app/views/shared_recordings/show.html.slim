@@ -6,14 +6,15 @@
     .container
       == render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym     =>  user_path(@user), \
-                                                           "ASSETS".to_sym   =>  user_shared_assets_path(@user), \
-                                                           "Catalogs".to_sym =>  user_shared_catalogs_path(@user), \
-                                                             @catalog.title.to_sym  =>  user_shared_catalog_path(@user, @catalog) \
+                                                           "ASSETS".to_sym          =>  user_shared_assets_path(@user), \
+                                                           "Catalogs".to_sym        =>  user_shared_catalogs_path(@user), \
+                                                            @catalog.title.to_sym   =>  user_shared_catalog_path(@user, @catalog), \
+                                                            "Recordings".to_sym     =>  user_shared_catalog_shared_recordings_path(@user, @catalog ) \
                                                            }, current:  @recording.title}
       
       
       
-      - if @catalog_user.edit_recordings
+      - if @recording.update_recording_ids.include? current_user.id
         == render 'shared/title', locals: {title: @recording.title, body: 'View Shared Recordings', insert: 'edit'}
       - else
         == render 'shared/title', locals: {title: @recording.title, body: 'View Shared Recordings'}
@@ -21,6 +22,7 @@
       
       
       -index = @recording.id
+      div class="shared_catalog" id="#{@catalog.id}"
       div class="player" id="#{index}"
       .just-load
       .panel.panel-default

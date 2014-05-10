@@ -1,15 +1,7 @@
 class AccountUsersController < ApplicationController
 
   before_filter :there_is_access_to_the_account
-  #respond_to :html, :xml, :json
-  
-  #after_create :mount_user
-  #
-  #def mount_user
-  #  logger.debug '============================================'
-  #  logger.debug 'mount user'
-  #  logger.debug '============================================'
-  #end
+
 
   def index
     
@@ -74,7 +66,8 @@ class AccountUsersController < ApplicationController
         @user.invite_new_user_to_account( @account.id, params[:account_user][:invitation_message])
       
       end
-      
+      @user.account.version += 1
+      @user.account.save
       begin
         # create an account user
         @account_user = AccountUser.create( account_id: @account.id, 
@@ -152,6 +145,8 @@ class AccountUsersController < ApplicationController
   
   def destroy
     account_user = AccountUser.cached_find(params[:id])
+    account_user.account.version += 1
+    account_user.account.save
     account_user.destroy
     
     
