@@ -18,8 +18,16 @@ class RecordingPermissionsController < ApplicationController
     end
     
     if  params[:catalog] != '0'
-      @catalog           = Catalog.cached_find(params[:catalog])
-      @remove_from_catalog = "#remove_from_catalog_#{params[:id]}"
+      
+      # We are in a catalog
+      @catalog              = Catalog.cached_find(params[:catalog])
+      @remove_from_catalog  = "#remove_from_catalog_#{params[:id]}"
+    end
+    if params[:add_recordings_to_catalog] != '0'
+      puts '----------------------'
+      # We are adding recordings to a catalog
+      @catalog         = Catalog.cached_find(params[:add_recordings_to_catalog])
+      @add_to_catalog  = "#add_to_catalog_#{params[:id]}"
     end
 
   end
