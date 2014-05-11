@@ -25,7 +25,7 @@
                                                     css_class: 'btn btn-warning', \
                                                     icon: 'fa fa-headphones'\
                                                   }
-      -if @catalog_user.upload_recordings
+      -if @catalog_user.create_recordings
         .col-sm-6
           == render 'assets/shared/badge_button', locals: { \
                                                       blog_post: 'UPLOAD AUDIO FILES', \
@@ -50,5 +50,5 @@
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  
   
-= debug catalog
-= debug @catalog_user
+/= debug catalog
+/= debug @catalog_user
