@@ -36,5 +36,44 @@ class UploadRecordingsController < ApplicationController
     redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording )
   end
   
+  def set_permission_keys
+    
+    #account           = @import_batch.account
+    #account_user_ids  = [account.user_id]
+    #
+    #account_user_ids  += AccountUser.where(account_id: account.id, role: 'Administrator').pluck(:id) || []
+    #
+    #@import_batch.recordings.each do |recording|
+    #  recording.create_recording_ids             = account_user_ids
+    #  recording.read_recording_ids               = account_user_ids
+    #  recording.update_recording_ids             = account_user_ids
+    #  recording.delete_recording_ids             = account_user_ids
+    #  recording.create_recording_ipis_ids        = account_user_ids
+    #  recording.read_recording_ipis_ids          = account_user_ids
+    #  recording.update_recording_ipis_ids        = account_user_ids
+    #  recording.delete_recording_ipis_ids        = account_user_ids
+    #  recording.create_files_ids                 = account_user_ids
+    #  recording.read_files_ids                   = account_user_ids
+    #  recording.update_files_ids                 = account_user_ids
+    #  recording.delete_files_ids                 = account_user_ids
+    #  recording.create_legal_documents_ids       = account_user_ids
+    #  recording.read_legal_documents_ids         = account_user_ids
+    #  recording.update_legal_documents_ids       = account_user_ids
+    #  recording.delete_legal_documents_ids       = account_user_ids
+    #  recording.create_financial_documents_ids   = account_user_ids
+    #  recording.read_financial_documents_ids     = account_user_ids
+    #  recording.update_financial_documents_ids   = account_user_ids
+    #  recording.delete_financial_documents_ids   = account_user_ids
+    #  recording.read_common_works_ids            = account_user_ids
+    #  recording.update_common_works_ids          = account_user_ids
+    #  recording.create_common_work_ipis_ids      = account_user_ids 
+    #  recording.read_common_work_ipis_ids        = account_user_ids 
+    #  recording.update_common_work_ipis_ids      = account_user_ids
+    #  recording.delete_common_work_ipis_ids      = account_user_ids
+    #  recording.save!
+    #end
+    
+  end
+  
 
 end

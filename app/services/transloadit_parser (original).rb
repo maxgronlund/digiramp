@@ -117,69 +117,35 @@ class TransloaditParser
   end
   
   def self.parse_recordings uploads, account_id
-    transloadets  = extract( uploads )
-    import_batch  = ImportBatch.create(account_id: account_id, transloadit: uploads)
-    account       = import_batch.account
-    user_ids      = [account.user_id]
-    user_ids      += AccountUser.where(account_id: account.id, access_to_all_recordings: true).pluck(:user_id)
-    user_ids      += AccountUser.where(account_id: account.id, role: 'Administrator').pluck(:user_id)
-    user_ids      += User.where(role: 'super').pluck(:id)
-    user_ids.uniq!
-    
+    transloadets = extract( uploads )
+    import_batch = ImportBatch.create(account_id: account_id, transloadit: uploads)
     recordings = []
     transloadets.each do |transloaded|
-      #begin
-        recording =   Recording.create!(  title:                              extract_title_from( transloaded ), 
-                                          duration:                           transloaded[:duration],
-                                          artist:                             transloaded[:artist],
-                                          lyrics:                             sanitize_lyrics( transloaded[:lyrics] ),
-                                          bpm:                                transloaded[:bpm],
-                                          comment:                            sanitize_comment( transloaded[:comment] ),
-                                          year:                               transloaded[:year],
-                                          album_name:                         transloaded[:album],
-                                          genre:                              transloaded[:genre],
-                                          performer:                          transloaded[:performer],
-                                          band:                               transloaded[:band],
-                                          disc:                               transloaded[:disc],
-                                          track:                              transloaded[:track],
-                                          mp3:                                transloaded[:mp3],
-                                          waveform:                           transloaded[:waveform],
-                                          thumbnail:                          transloaded[:thumbnail],
-                                          #copyright:                          transloaded[:copyright],
-                                          #composer:                           transloaded[:composer],
-                                          account_id:                         account_id, 
-                                          import_batch_id:                    import_batch.id,
-                                          audio_upload:                       transloaded,
-                                          original_file:                      transloaded[:original_file],
-                                          cover_art:                          transloaded[:cover_art],
-                                          artwork:                            transloaded[:artwork],
-                                          create_recording_ids:               user_ids, 
-                                          read_recording_ids:                 user_ids, 
-                                          update_recording_ids:               user_ids, 
-                                          delete_recording_ids:               user_ids,          
-                                          create_recording_ipis_ids:          user_ids,     
-                                          read_recording_ipis_ids:            user_ids,       
-                                          update_recording_ipis_ids:          user_ids,     
-                                          delete_recording_ipis_ids:          user_ids,     
-                                          create_files_ids:                   user_ids,              
-                                          read_files_ids:                     user_ids,                
-                                          update_files_ids:                   user_ids,              
-                                          delete_files_ids:                   user_ids,              
-                                          create_legal_documents_ids:         user_ids,    
-                                          read_legal_documents_ids:           user_ids,      
-                                          update_legal_documents_ids:         user_ids,    
-                                          delete_legal_documents_ids:         user_ids,    
-                                          create_financial_documents_ids:     user_ids,
-                                          read_financial_documents_ids:       user_ids,  
-                                          update_financial_documents_ids:     user_ids,
-                                          delete_financial_documents_ids:     user_ids,
-                                          read_common_works_ids:              user_ids,         
-                                          update_common_works_ids:            user_ids,       
-                                          create_common_work_ipis_ids:        user_ids,   
-                                          read_common_work_ipis_ids:          user_ids,     
-                                          update_common_work_ipis_ids:        user_ids,   
-                                          delete_common_work_ipis_ids:        user_ids
-                                          
+      begin
+        recording =   Recording.create!(  title:             extract_title_from( transloaded ), 
+                                          duration:          transloaded[:duration],
+                                          artist:            transloaded[:artist],
+                                          lyrics:            sanitize_lyrics( transloaded[:lyrics] ),
+                                          bpm:               transloaded[:bpm],
+                                          comment:           sanitize_comment( transloaded[:comment] ),
+                                          year:              transloaded[:year],
+                                          album_name:        transloaded[:album],
+                                          genre:             transloaded[:genre],
+                                          performer:         transloaded[:performer],
+                                          band:              transloaded[:band],
+                                          disc:              transloaded[:disc],
+                                          track:             transloaded[:track],
+                                          mp3:               transloaded[:mp3],
+                                          waveform:          transloaded[:waveform],
+                                          thumbnail:         transloaded[:thumbnail],
+                                          #copyright:         transloaded[:copyright],
+                                          #composer:          transloaded[:composer],
+                                          account_id:        account_id, 
+                                          import_batch_id:   import_batch.id,
+                                          audio_upload:      transloaded,
+                                          original_file:     transloaded[:original_file],
+                                          cover_art:         transloaded[:cover_art],
+                                          artwork:           transloaded[:artwork]
                                          )
         
         
@@ -191,9 +157,9 @@ class TransloaditParser
         
         
         
-      #rescue
-      #  
-      #end
+      rescue
+        
+      end
     end
     import_batch.recordings_count = recordings.size
     import_batch.save!
@@ -204,13 +170,13 @@ class TransloaditParser
   
   def self.add_artwork_to recording
     
-    image_file = ImageFile.create!(  title: recording.title,
-                                     body: recording.comment,
-                                     recording_id: recording.id, 
-                                     account_id: recording.account_id, 
-                                     thumb: recording.cover_art, 
-                                     file: recording.artwork
-                                  )
+    ImageFile.create!(  title: recording.title,
+                        body: recording.comment,
+                        recording_id: recording.id, 
+                        account_id: recording.account_id, 
+                        thumb: recording.cover_art, 
+                        file: recording.artwork
+                    )
   end
   
   

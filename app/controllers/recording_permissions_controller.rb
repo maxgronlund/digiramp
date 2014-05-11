@@ -2,18 +2,26 @@ class RecordingPermissionsController < ApplicationController
   
   
   def show
-    @recording            = Recording.cached_find(params[:id])
-    @account              = @recording.account
-    @common_work          = @recording.common_work
+    @recording             = Recording.cached_find(params[:id])
+    @account               = @recording.account
+    @common_work           = @recording.common_work
     
-    @read_recording       = "#read_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
-    @update_recording     = "#update_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
-    @delete_recording     = "#delete_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
-    
-    @show_more            = "#show_more_#{params[:id]}"       if @recording.show_more_for current_user.id
+    puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+    puts @recording.read_recording_ids[0].class.name
+    puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'                       
+    @read_recording        = "#read_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
+    @update_recording      = "#update_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
+    @delete_recording      = "#delete_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
+                           
+    @show_more             = "#show_more_#{params[:id]}"         if @recording.show_more_for current_user.id
 
-    if @shared_catalog    = params[:shared_catalog] == 'true'
-      @catalog            = Catalog.cached_find(params[:catalog])
+    if @shared_catalog     = params[:shared_catalog] == 'true'
+      @remove_from_catalog = "#remove_from_catalog_#{params[:id]}"
+    end
+    
+    if  params[:catalog] != '0'
+      @catalog           = Catalog.cached_find(params[:catalog])
+      @remove_from_catalog = "#remove_from_catalog_#{params[:id]}"
     end
 
   end

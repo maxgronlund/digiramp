@@ -107,6 +107,7 @@ class Recording < ActiveRecord::Base
   has_many :mood_tags, as: :mood_tagable,               dependent: :destroy
   has_many :image_files,                                dependent: :destroy
   
+  
   #mount_uploader :cover_art, ThumbUploader
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
@@ -139,7 +140,7 @@ class Recording < ActiveRecord::Base
     return true if self.read_legal_documents_ids.include?       user_id
     return true if self.read_financial_documents_ids.include?   user_id
     return true if self.read_common_works_ids.include?          user_id
-    return true
+    return false
   end
   
   def catalog_ids=(ids) 
@@ -583,7 +584,6 @@ private
   end
   
   def flush_cache
-    logger.debug '---------------- flush_cache --------------------------------'
     account.rec_cache_version += 1
     account.save!
     Rails.cache.delete([self.class.name, id])

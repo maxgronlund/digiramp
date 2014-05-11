@@ -5,7 +5,9 @@
     .col-sm-6
       
       = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
-      = f.input :cover_art, label: 'Cover Art. Ratio 1:1'
+      /= f.input :cover_art, label: 'Cover Art. Ratio 1:1'
+      /= f.input :image_file_id
+      = f.input :image_file_id , :include_blank => false, :collection => @recording.image_files , label: 'Cover Art'
       = transloadit :recording_with_thumbs 
       //= f.file_field :file
       /= f.input :audio_file

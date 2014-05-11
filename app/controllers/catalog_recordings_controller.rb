@@ -42,8 +42,11 @@ class CatalogRecordingsController < ApplicationController
                  
 
     # ajax here
-    @prepend_tag = "#remove_recording_" + @recording.id.to_s  + "_from_catalog"
-    @remove_tag  = "#add_recording_"    + @recording.id.to_s  + "_to_catalog"
+    #@prepend_tag = "#remove_recording_" + @recording.id.to_s  + "_from_catalog"
+    #@remove_tag  = "#add_recording_"    + @recording.id.to_s  + "_to_catalog"
+    
+    @prepend_tag = "#remove_from_catalog_"  + @recording.id.to_s
+    @remove_tag  = "#add_to_catalog_"       + @recording.id.to_s
   end
   
   
@@ -99,7 +102,7 @@ class CatalogRecordingsController < ApplicationController
     catalog_item = CatalogItem.where(catalog_id: @catalog.id, catalog_itemable_id: @recording.id, catalog_itemable_type: @recording.class.name).first
     catalog_item.destroy
     # ajax here
-    @prepend_tag = "#add_recording_"      + @recording.id.to_s  + "_to_catalog"
-    @remove_tag  = "#remove_recording_"   + @recording.id.to_s  + "_from_catalog"
+    @prepend_tag = "#add_to_catalog_"         + @recording.id.to_s
+    @remove_tag  = "#remove_from_catalog_"    + @recording.id.to_s
   end
 end

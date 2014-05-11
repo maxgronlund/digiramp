@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140510200135) do
+ActiveRecord::Schema.define(version: 20140510215059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -961,36 +961,38 @@ ActiveRecord::Schema.define(version: 20140510200135) do
     t.string   "uuid"
     t.string   "artwork",                        default: ""
     t.string   "original_file",                  default: ""
-    t.string   "create_recording_ids",           default: ""
-    t.string   "read_recording_ids",             default: ""
-    t.string   "update_recording_ids",           default: ""
-    t.string   "delete_recording_ids",           default: ""
-    t.string   "create_recording_ipis_ids",      default: ""
-    t.string   "read_recording_ipis_ids",        default: ""
-    t.string   "update_recording_ipis_ids",      default: ""
-    t.string   "delete_recording_ipis_ids",      default: ""
-    t.string   "create_files_ids",               default: ""
-    t.string   "read_files_ids",                 default: ""
-    t.string   "update_files_ids",               default: ""
-    t.string   "delete_files_ids",               default: ""
-    t.string   "create_legal_documents_ids",     default: ""
-    t.string   "read_legal_documents_ids",       default: ""
-    t.string   "update_legal_documents_ids",     default: ""
-    t.string   "delete_legal_documents_ids",     default: ""
-    t.string   "create_financial_documents_ids", default: ""
-    t.string   "read_financial_documents_ids",   default: ""
-    t.string   "update_financial_documents_ids", default: ""
-    t.string   "delete_financial_documents_ids", default: ""
-    t.string   "read_common_works_ids",          default: ""
-    t.string   "update_common_works_ids",        default: ""
-    t.string   "create_common_work_ipis_ids",    default: ""
-    t.string   "read_common_work_ipis_ids",      default: ""
-    t.string   "update_common_work_ipis_ids",    default: ""
-    t.string   "delete_common_work_ipis_ids",    default: ""
+    t.text     "create_recording_ids",           default: "--- []\n"
+    t.text     "read_recording_ids",             default: "--- []\n"
+    t.text     "update_recording_ids",           default: "--- []\n"
+    t.text     "delete_recording_ids",           default: "--- []\n"
+    t.text     "create_recording_ipis_ids",      default: "--- []\n"
+    t.text     "read_recording_ipis_ids",        default: "--- []\n"
+    t.text     "update_recording_ipis_ids",      default: "--- []\n"
+    t.text     "delete_recording_ipis_ids",      default: "--- []\n"
+    t.text     "create_files_ids",               default: "--- []\n"
+    t.text     "read_files_ids",                 default: "--- []\n"
+    t.text     "update_files_ids",               default: "--- []\n"
+    t.text     "delete_files_ids",               default: "--- []\n"
+    t.text     "create_legal_documents_ids",     default: "--- []\n"
+    t.text     "read_legal_documents_ids",       default: "--- []\n"
+    t.text     "update_legal_documents_ids",     default: "--- []\n"
+    t.text     "delete_legal_documents_ids",     default: "--- []\n"
+    t.text     "create_financial_documents_ids", default: "--- []\n"
+    t.text     "read_financial_documents_ids",   default: "--- []\n"
+    t.text     "update_financial_documents_ids", default: "--- []\n"
+    t.text     "delete_financial_documents_ids", default: "--- []\n"
+    t.text     "read_common_works_ids",          default: "--- []\n"
+    t.text     "update_common_works_ids",        default: "--- []\n"
+    t.text     "create_common_work_ipis_ids",    default: "--- []\n"
+    t.text     "read_common_work_ipis_ids",      default: "--- []\n"
+    t.text     "update_common_work_ipis_ids",    default: "--- []\n"
+    t.text     "delete_common_work_ipis_ids",    default: "--- []\n"
+    t.integer  "image_file_id"
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
   add_index "recordings", ["common_work_id"], name: "index_recordings_on_common_work_id", using: :btree
+  add_index "recordings", ["image_file_id"], name: "index_recordings_on_image_file_id", using: :btree
   add_index "recordings", ["import_batch_id"], name: "index_recordings_on_import_batch_id", using: :btree
 
   create_table "representatives", force: true do |t|

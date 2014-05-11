@@ -46,7 +46,7 @@
                             /-unless catalog.id == @account.default_catalog_id
                             = link_to account_catalog_path( @account, catalog) , data: { confirm: 'Are you sure?' } , method: :delete do
                               .btn.btn-danger.btn-lg
-                                i class="fa fa-minus-circle"
+                                i class="fa fa-trash-o"
                       
                       
               == render 'shared/line'

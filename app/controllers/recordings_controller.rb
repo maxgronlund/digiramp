@@ -75,6 +75,8 @@ class RecordingsController < ApplicationController
   def update
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
+    
+    
     params[:recording][:cache_version] = @recording.cache_version + 1
 
     if @genre_category = params[:recording][:genre_category]
@@ -87,6 +89,11 @@ class RecordingsController < ApplicationController
       @recording.extract_moods
       @recording.update_completeness
       
+      
+      if image_file = ImageFile.where(id: @recording.image_file_id).first
+        @recording.cover_art = image_file.thumb
+        @recording.save
+      end
       
       if @genre_category
         redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording,genre_category: @genre_category )
@@ -126,7 +133,7 @@ class RecordingsController < ApplicationController
     
     @recording = Recording.find(params[:id])
     @recording.destroy
-    redirect_to_return_url account_recordings_path( @account, page: params[:page])
+    redirect_to account_recordings_path( @account, page: params[:page], query: params[:query])
   end
   
   def upload_completed

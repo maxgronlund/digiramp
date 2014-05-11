@@ -4,48 +4,7 @@ class UpdatePermissionKeysOnRecordings < ActiveRecord::Migration
     
     super_user_ids  = User.where(role: 'super').pluck(:id)
 
-    Recording.all.each do |recording|
-      
-      account           = recording.account
-      account_user_ids  = AccountUser.where(account_id: recording.account_id).pluck(:id) || []
-      
-      begin
-        account_user_ids << account.user_id
-        account_user_ids.uniq!
-        recording.create_recording_ids              = [] + super_user_ids + account_user_ids
-        recording.read_recording_ids                = [] + super_user_ids + account_user_ids
-        recording.update_recording_ids              = [] + super_user_ids + account_user_ids
-        recording.delete_recording_ids              = [] + super_user_ids + account_user_ids
-        recording.create_recording_ipis_ids         = [] + super_user_ids + account_user_ids
-        recording.read_recording_ipis_ids           = [] + super_user_ids + account_user_ids
-        recording.update_recording_ipis_ids         = [] + super_user_ids + account_user_ids
-        recording.delete_recording_ipis_ids         = [] + super_user_ids + account_user_ids
-        recording.create_files_ids                  = [] + super_user_ids + account_user_ids
-        recording.read_files_ids                    = [] + super_user_ids + account_user_ids
-        recording.update_files_ids                  = [] + super_user_ids + account_user_ids
-        recording.delete_files_ids                  = [] + super_user_ids + account_user_ids
-        recording.create_legal_documents_ids        = [] + super_user_ids + account_user_ids
-        recording.read_legal_documents_ids          = [] + super_user_ids + account_user_ids
-        recording.update_legal_documents_ids        = [] + super_user_ids + account_user_ids
-        recording.delete_legal_documents_ids        = [] + super_user_ids + account_user_ids
-        recording.create_financial_documents_ids    = [] + super_user_ids + account_user_ids
-        recording.read_financial_documents_ids      = [] + super_user_ids + account_user_ids
-        recording.update_financial_documents_ids    = [] + super_user_ids + account_user_ids
-        recording.delete_financial_documents_ids    = [] + super_user_ids + account_user_ids
-        recording.read_common_works_ids             = [] + super_user_ids + account_user_ids
-        recording.update_common_works_ids           = [] + super_user_ids + account_user_ids
-        recording.create_common_work_ipis_ids       = [] + super_user_ids + account_user_ids
-        recording.read_common_work_ipis_ids         = [] + super_user_ids + account_user_ids
-        recording.update_common_work_ipis_ids       = [] + super_user_ids + account_user_ids
-        recording.delete_common_work_ipis_ids       = [] + super_user_ids + account_user_ids
-        recording.save!
-      rescue
-
-        recording.destroy!
-      end
-      
-      
-    end
+    
 
     
     CatalogUser.all.each do |catalog_user|
@@ -124,6 +83,49 @@ class UpdatePermissionKeysOnRecordings < ActiveRecord::Migration
           recording.save!
         end
       end
+    end
+    
+    Recording.all.each do |recording|
+      
+      account           = recording.account
+      account_user_ids  = AccountUser.where(account_id: recording.account_id).pluck(:id) || []
+      
+      begin
+        account_user_ids << account.user_id
+        account_user_ids.uniq!
+        recording.create_recording_ids              += super_user_ids + account_user_ids
+        recording.read_recording_ids                += super_user_ids + account_user_ids
+        recording.update_recording_ids              += super_user_ids + account_user_ids
+        recording.delete_recording_ids              += super_user_ids + account_user_ids
+        recording.create_recording_ipis_ids         += super_user_ids + account_user_ids
+        recording.read_recording_ipis_ids           += super_user_ids + account_user_ids
+        recording.update_recording_ipis_ids         += super_user_ids + account_user_ids
+        recording.delete_recording_ipis_ids         += super_user_ids + account_user_ids
+        recording.create_files_ids                  += super_user_ids + account_user_ids
+        recording.read_files_ids                    += super_user_ids + account_user_ids
+        recording.update_files_ids                  += super_user_ids + account_user_ids
+        recording.delete_files_ids                  += super_user_ids + account_user_ids
+        recording.create_legal_documents_ids        += super_user_ids + account_user_ids
+        recording.read_legal_documents_ids          += super_user_ids + account_user_ids
+        recording.update_legal_documents_ids        += super_user_ids + account_user_ids
+        recording.delete_legal_documents_ids        += super_user_ids + account_user_ids
+        recording.create_financial_documents_ids    += super_user_ids + account_user_ids
+        recording.read_financial_documents_ids      += super_user_ids + account_user_ids
+        recording.update_financial_documents_ids    += super_user_ids + account_user_ids
+        recording.delete_financial_documents_ids    += super_user_ids + account_user_ids
+        recording.read_common_works_ids             += super_user_ids + account_user_ids
+        recording.update_common_works_ids           += super_user_ids + account_user_ids
+        recording.create_common_work_ipis_ids       += super_user_ids + account_user_ids
+        recording.read_common_work_ipis_ids         += super_user_ids + account_user_ids
+        recording.update_common_work_ipis_ids       += super_user_ids + account_user_ids
+        recording.delete_common_work_ipis_ids       += super_user_ids + account_user_ids
+        recording.save!
+      rescue
+
+        recording.destroy!
+      end
+      
+      
     end
     
     Recording.all.each do |recording|
