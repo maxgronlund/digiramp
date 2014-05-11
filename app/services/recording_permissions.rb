@@ -4,7 +4,7 @@ class RecordingPermissions
   end
   
   
-  
+  #RecordingPermissions.create_catalog_user_permissions catalog, catalog_user
   def self.create_catalog_user_permissions catalog, catalog_user
     
     if catalog.recordings

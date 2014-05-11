@@ -5,31 +5,46 @@ class UploadSharedCatalogRecordingsController < ApplicationController
 
   def new
     @catalog_user      = CatalogUser.where(user_id: @user.id, catalog_id: params[:shared_catalog_id]).first
+    @catalog           = @catalog_user.catalog
     
-    if @catalog_user.upload_recordings
-      @catalog           = @catalog_user.catalog
+    if @catalog_user.create_recordings && @catalog_user
+      
       @recording         = Recording.new
     else
-      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+      forbidden
     end
   end
   
   
   # called when an  import is completed
   def create
+    # get the catalog
+    @catalog      = Catalog.cached_find(params[:shared_catalog_id])
+    @catalog_user = CatalogUser.cached_where(@catalog.id, @user.id)
     
-    #redirect_to :back
-    @catalog              = Catalog.cached_find(params[:shared_catalog_id])
-    @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @catalog.account.id )
-    add_to_catalog @import_batch, @catalog.id
+    if @catalog_user.create_recordings && @catalog_user
+      
+      
+      # parse the hash returned from www.transloadit.com
+      # and add the recordings to the catalog owners account
+      @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @catalog.account.id )
+      
+      # add to the catalog
+      add_to_catalog @import_batch, @catalog.id
+      
+      # set permissions for the user
+      RecordingPermissions.create_catalog_user_permissions @catalog, @catalog_user
+      
+      
+      # post message
+      flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
+      
+      # bounce back to the shared catalog
+      redirect_to user_shared_catalog_upload_shared_catalog_recording_path(@user, @catalog,  @import_batch)
+    else
+      forbidden
+    end
     
-    
-    
-    flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
-    redirect_to user_shared_catalog_upload_shared_catalog_recording_path(@user, @catalog,  @import_batch)
-    #users/115/shared_catalogs/45/upload_shared_catalog_recordings
-
-    #redirect_to :back
   end
   
   def show

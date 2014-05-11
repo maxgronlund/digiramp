@@ -1,0 +1,104 @@
+
+h1 fo
+- session[:return_url]  = request.url
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'profile'
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym     =>  user_path(@user), \
+                                                           "ASSETS".to_sym          =>  user_shared_assets_path(@user), \
+                                                           "Catalogs".to_sym        =>  user_shared_catalogs_path(@user), \
+                                                            @catalog.title.to_sym   =>  user_shared_catalog_path(@user, @catalog), \
+                                                            "Recordings".to_sym     =>  user_shared_catalog_shared_recordings_path(@user, @catalog ) \
+                                                           }, current:  @recording.title}
+      /
+      /
+      /
+      / add a link to 
+      / http://localhost:3000/accounts/6/common_works/6468/recordings/434/edit
+      /-body = link_to 'COMMON WORK', account_work_path(@account, @common_work)
+      /- insert = 'recordings/shared/edit'
+      /http://localhost:3000/users/115/shared_catalogs/53/shared_recordings/434
+      - if @recording.update_recording_ids.include? current_user.id
+        == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'shared_recordings/edit'} 
+      - else
+        == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment}
+      .row
+        .col-sm-6
+           == render 'works/shared/badge_button', locals: { \
+                                                      blog_post: 'INFO', \
+                                                      link: user_shared_catalog_shared_recording_path(@user, @catalog, @recording), \
+                                                      css_class: 'btn btn-info', \
+                                                      icon: 'fa fa-info-circle' \
+                                                    }
+      /  .col-sm-6
+      /     == render 'works/shared/badge_button', locals: { \
+      /                                                blog_post: 'ARTWORK', \
+      /                                                link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+      /                                                css_class: 'btn btn-primary', \
+      /                                                icon: 'fa fa-picture-o' \
+      /                                              }     
+      /  .col-sm-6
+      /     == render 'works/shared/badge_button', locals: { \
+      /                                                blog_post: 'FOOTAGE', \
+      /                                                link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+      /                                                css_class: 'btn btn-warning', \
+      /                                                icon: 'fa fa-film' \
+      /                                              }      
+      /  .col-sm-6
+      /     == render 'works/shared/badge_button', locals: { \
+      /                                                blog_post: 'DOCUMENTS', \
+      /                                                link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+      /                                                css_class: 'btn btn-danger', \
+      /                                                icon: 'fa fa-folder' \
+      /                                              } 
+                                                                                            
+      / all users can access recordings
+      /.col-sm-6
+      /  == render 'works/shared/badge_button', locals: { \
+      /                                              blog_post: 'RECORDINGS', \
+      /                                              link: account_work_work_recordings_path(@account, @common_work), \
+      /                                              css_class: 'btn btn-warning', \
+      /                                              icon: 'fa fa-headphones'\
+      /                                            }
+      /
+      /-if @user_can_access_shared_with 
+      /  .col-sm-6
+      /    == render 'works/shared/badge_button', locals: { \
+      /                                               blog_post: 'USERS', \
+      /                                               link: account_work_work_users_path(@account, @common_work), \
+      /                                               css_class: 'btn btn-default', \
+      /                                               icon: 'fa fa-group' \
+      /                                             }
+      / 
+      /-if @user_can_access_files
+      /  .col-sm-6
+      /    == render 'works/shared/badge_button', locals: { \ 
+      /                                              blog_post: 'FILES', \
+      /                                              link: account_work_work_files_path(@account, @common_work), \
+      /                                              css_class: 'btn btn-success', \
+      /                                              icon: 'fa fa-folder' \
+      /                                             }
+      / 
+      /-if @user_can_access_ipis
+      /  .col-sm-6
+      /    == render 'works/shared/badge_button', locals: { \ 
+      /                                              blog_post: 'IPIS', \
+      /                                              link: account_work_work_ipis_path(@account, @common_work), \
+      /                                              css_class: 'btn btn-info', \
+      /                                              icon: 'fa fa-exclamation-circle' \
+      /
+      /       
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
+
+            
+ 
+          
+          
+          
+        

@@ -1,6 +1,6 @@
 module RecordingsHelper
   
-  # create recording permissions
+  # read recording permissions
   def read_recording
     @recording      = Recording.cached_find(params[:id])
     forbidden unless @recording.create_recording_ids.include? current_user.id || can_edit?

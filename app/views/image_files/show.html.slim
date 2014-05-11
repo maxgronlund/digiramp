@@ -13,21 +13,23 @@
       
       
 
-      == render 'shared/title', locals: {title: @recording.title, body: "ARTWORK"} 
-      .row
-        .col-sm-6
-          h3 = @image_file.title unless @image_file.title.to_s == ''
-          -unless @image_file.body.to_s == ''
-            = @image_file.body
-            br
-        .col-sm-6
-          .pull-right
-            = link_to 'Edit Artwork', \
-                      edit_account_common_work_recording_image_file_path(@account, \
-                                                                        @common_work,\
-                                                                        @recording,
-                                                                          @image_file), class: 'btn btn-primary btn-lg'
-      br
+      /== render 'shared/title', locals: {title: @recording.title, body: "ARTWORK"} 
+      - insert = 'edit'
+      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: insert} 
+      /.row
+      /  .col-sm-6
+      /    h3 = @image_file.title unless @image_file.title.to_s == ''
+      /    -unless @image_file.body.to_s == ''
+      /      = @image_file.body
+      /      br
+      /  .col-sm-6
+      /    .pull-right
+      /      = link_to 'Edit Artwork', \
+      /                edit_account_common_work_recording_image_file_path(@account, \
+      /                                                                  @common_work,\
+      /                                                                  @recording,
+      /                                                                    @image_file), class: 'btn btn-primary btn-lg'
+      /br
       .row
         .col-sm-12
           .image
@@ -35,16 +37,16 @@
       
           
               
-      = render 'shared/line'
-      .row
-        .col-sm-12
-          .pull-right
-            = link_to 'Edit Artwork', \
-                      edit_account_common_work_recording_image_file_path(@account, \
-                                                                        @common_work,\
-                                                                        @recording,
-                                                                        @image_file), class: 'btn btn-primary btn-lg'
-    
+      /= render 'shared/line'
+      /.row
+      /  .col-sm-12
+      /    .pull-right
+      /      = link_to 'Edit Artwork', \
+      /                edit_account_common_work_recording_image_file_path(@account, \
+      /                                                                  @common_work,\
+      /                                                                  @recording,
+      /                                                                  @image_file), class: 'btn btn-primary btn-lg'
+      /
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
               

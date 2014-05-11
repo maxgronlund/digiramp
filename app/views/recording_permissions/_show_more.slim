@@ -1,9 +1,9 @@
 - if @shared_catalog
-  -link = user_shared_catalog_shared_recording_path(current_user, @catalog, @recording) 
+  -link = user_shared_catalog_shared_recording_file_path(current_user, @catalog, @recording) 
 - else
   /accounts/37/common_works/3002/recording_infos/364
   -link = account_common_work_recording_path( @account, @common_work, @recording)
 
 =link_to link do
   .btn.btn-success.btn-lg
-    i class="fa fa-folder-open"
+    i class="fa fa-cogs"

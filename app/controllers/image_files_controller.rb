@@ -38,18 +38,22 @@ class ImageFilesController < ApplicationController
   # POST /image_files
   # POST /image_files.json
   def create
-    @common_work    = CommonWork.cached_find(params[:common_work_id])
-    @recording      = Recording.cached_find(params[:recording_id])
+    begin
+      @common_work    = CommonWork.cached_find(params[:common_work_id])
+      @recording      = Recording.cached_find(params[:recording_id])
+      
+      TransloaditImageParser.parse_images( params[:transloadit], @account.id, @recording.id )
+      @transcoded     = params[:transloadit]
+      #@import_batch.image_files.each do |image_file|
+      #  
+      #end
+      
+      #redirect_to account_common_work_recording_image_files_path(@account, @common_work, @recording)
+      redirect_to  account_common_work_recording_artwork_path(@account, @common_work, @recording)
+    rescue
+      redirect_to :back
+    end
     
-    TransloaditImageParser.parse_images( params[:transloadit], @account.id, @recording.id )
-    @transcoded     = params[:transloadit]
-    #@import_batch.image_files.each do |image_file|
-    #  
-    #end
-    
-    #redirect_to account_common_work_recording_image_files_path(@account, @common_work, @recording)
-    
-    redirect_to  account_common_work_recording_artwork_path(@account, @common_work, @recording)
     
     
     
@@ -73,11 +77,14 @@ class ImageFilesController < ApplicationController
   # DELETE /image_files/1
   # DELETE /image_files/1.json
   def destroy
-    @image_file.destroy
-    respond_to do |format|
-      format.html { redirect_to image_files_url }
-      format.json { head :no_content }
-    end
+    @common_work    = CommonWork.cached_find(params[:common_work_id])
+    @recording      = Recording.cached_find(params[:recording_id])
+    @image_file     = ImageFile.find(params[:id])
+    
+    # check if recoring uses the artwork
+    @image_file.destroy unless @image_file.recording_id == @recording.id
+    
+    redirect_to account_common_work_recording_artwork_path(@account, @common_work, @recording)
   end
 
   private

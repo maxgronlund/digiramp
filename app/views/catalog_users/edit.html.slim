@@ -9,7 +9,8 @@
                                                             assets: account_assets_path(@account), \
                                                             catalogs: account_catalogs_path(@account),\
                                                             @catalog.title.to_sym => account_work_path(@account, @catalog), \
-                                                            }, current: 'invite user to catalog'}
+                                                            'catalog users'.to_sym => account_catalog_catalog_users_path(@account, @catalog), \
+                                                            }, current: 'edit'}
     
     -blog = Blog.cached_find('Catalog Users')
     == render 'shared/page_title', locals: {blog: blog, blog_post: 'Edit Permissions'}
@@ -26,3 +27,6 @@
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
+  
+  
+/accounts/6/catalogs/53/catalog_users

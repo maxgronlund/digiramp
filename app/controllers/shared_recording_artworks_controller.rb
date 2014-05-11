@@ -1,4 +1,4 @@
-class SharedRecordingFilesController < ApplicationController
+class SharedRecordingArtworksController < ApplicationController
   include RecordingsHelper
   include SharedCatalogsHelper
   

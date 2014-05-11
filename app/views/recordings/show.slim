@@ -17,7 +17,8 @@
       / http://localhost:3000/accounts/6/common_works/6468/recordings/434/edit
       -body = link_to 'COMMON WORK', account_work_path(@account, @common_work)
       - insert = 'recordings/shared/edit'
-      == render 'shared/title', locals: {title: @recording.title, body: body, insert: insert} 
+      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: insert} 
+      /== render 'shared/title', locals: {title: @recording.title, body: body, insert: insert} 
       .row
         .col-sm-6
            == render 'works/shared/badge_button', locals: { \

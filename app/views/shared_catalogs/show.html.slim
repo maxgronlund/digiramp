@@ -1,7 +1,6 @@
 - session[:return_url]  = request.url
 - user_account          = Account.cached_find(@user.account_id)
 - catalog               = @catalog_user.catalog
-
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'profile'     
@@ -29,7 +28,7 @@
       -if @catalog_user.upload_recordings
         .col-sm-6
           == render 'assets/shared/badge_button', locals: { \
-                                                      blog_post: 'UPLOAD RECORDINGS', \
+                                                      blog_post: 'UPLOAD AUDIO FILES', \
                                                       link: new_user_shared_catalog_upload_shared_catalog_recording_path(@user, catalog ),\
                                                        'data-no-turbolink'=>true, \
                                                       css_class: 'btn btn-primary', \

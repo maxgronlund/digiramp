@@ -10,14 +10,12 @@
                                                            "Catalogs".to_sym        =>  user_shared_catalogs_path(@user), \
                                                             @catalog.title.to_sym   =>  user_shared_catalog_path(@user, @catalog), \
                                                             "Recordings".to_sym     =>  user_shared_catalog_shared_recordings_path(@user, @catalog ) \
-                                                           }, current:  @recording.title}
+                                                           }, current:  ''}
       
       
       
-      - if @recording.update_recording_ids.include? current_user.id
-        == render 'shared/title', locals: {title: @recording.title, body: 'View Shared Recordings', insert: 'edit'}
-      - else
-        == render 'shared/title', locals: {title: @recording.title, body: 'View Shared Recordings'}
+      
+      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment} 
       
       
       
@@ -33,7 +31,7 @@
         .col-sm-6
           == render 'recordings/shared/metadata'
         .col-sm-6 
-          == render 'recordings/shared/description'   if @recording.comment.to_s != ''
+          /== render 'recordings/shared/description'   if @recording.comment.to_s != ''
           == render 'recordings/shared/lyrics'        if @recording.lyrics.to_s != ''
              
       

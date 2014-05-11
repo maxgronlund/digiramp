@@ -3,7 +3,7 @@ Digiramp::Application.routes.draw do
   
 
   
-  get "shared_recording_files/index"
+  #get "shared_recording_files/index"
   get "user_recordings/index"
   resources :image_files
 
@@ -209,6 +209,8 @@ Digiramp::Application.routes.draw do
       get "export_all"
       get "export_found"
       resources :shared_recordings 
+      resources :shared_recording_files
+      resources :shared_recording_artworks
       resources :accept_invitaion_to_catalog, only: [:edit, :update]
       resources :upload_shared_catalog_recordings
     end

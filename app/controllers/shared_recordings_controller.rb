@@ -1,5 +1,6 @@
 class SharedRecordingsController < ApplicationController
   
+  
   include RecordingsHelper
   
   before_filter :access_user
@@ -23,7 +24,6 @@ class SharedRecordingsController < ApplicationController
   def show
     @catalog      = Catalog.cached_find(params[:shared_catalog_id])
     @catalog_user = CatalogUser.where(user_id: @user.id, catalog_id: @catalog.id).first
-
   end
   
   def edit

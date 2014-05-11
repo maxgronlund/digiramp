@@ -9,18 +9,19 @@
                                                            "ASSETS".to_sym =>  user_shared_assets_path(@user), \
                                                            "Catalogs".to_sym =>  user_shared_catalogs_path(@user), \
                                                            @catalog.title.to_sym =>  user_shared_catalog_path(@user, @catalog) \
-                                                           }, current:  'upload recordings'}
+                                                           }, current:  ''}
                                                             
     
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Upload Recording To Catalog'}
+    == render 'shared/title', locals: {title: @catalog.title, body: "Belongs to #{@catalog.account.title}"}
     
     .row
       .col-sm-3
       
       .col-sm-6
-        .panel
+        .panel.panel-primary
+          .panel-heading
+            'SELECT FILES
           .panel-body
-            h3 SELECT FILES
             = simple_form_for [ @user, @cattalog, @recording ], \
                                 :url => url_for(:action => 'create', \
                                 :controller => 'upload_shared_catalog_recordings'), \

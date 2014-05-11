@@ -6,9 +6,7 @@ class RecordingPermissionsController < ApplicationController
     @account               = @recording.account
     @common_work           = @recording.common_work
     
-    puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-    puts @recording.read_recording_ids[0].class.name
-    puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'                       
+                      
     @read_recording        = "#read_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
     @update_recording      = "#update_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
     @delete_recording      = "#delete_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
