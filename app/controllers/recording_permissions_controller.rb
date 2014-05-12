@@ -6,7 +6,13 @@ class RecordingPermissionsController < ApplicationController
     @account               = @recording.account
     @common_work           = @recording.common_work
     
-                      
+    puts '---------------------------------'
+    puts @recording.title
+    puts @recording.read_recording_ids.include?   current_user.id
+    puts @recording.read_recording_ids.first.class.name
+    puts '---------------------------------'
+
+            
     @read_recording        = "#read_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
     @update_recording      = "#update_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
     @delete_recording      = "#delete_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
@@ -22,8 +28,7 @@ class RecordingPermissionsController < ApplicationController
       # We are in a catalog
       @catalog              = Catalog.cached_find(params[:catalog])
       @remove_from_catalog  = "#remove_from_catalog_#{params[:id]}"
-    end
-    if params[:add_recordings_to_catalog] != '0'
+    elsif params[:add_recordings_to_catalog] != '0'
       puts '----------------------'
       # We are adding recordings to a catalog
       @catalog         = Catalog.cached_find(params[:add_recordings_to_catalog])

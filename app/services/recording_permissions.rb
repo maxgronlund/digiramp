@@ -4,6 +4,46 @@ class RecordingPermissions
   end
   
   
+  # this has to more granular including permissions for associated and catalog users
+  def self.create_account_permissions account
+    account_users = []
+    account_users = AccountUser.where(account_id: account.id).pluck(:user_id)
+    account_users += User.where(role: 'super').pluck(:id) 
+    account_users.uniq!
+
+    account.recordings.each do |recording|
+      recording.create_recording_ids             +=  account_users  
+      recording.read_recording_ids               +=  account_users  
+      recording.update_recording_ids             +=  account_users  
+      recording.delete_recording_ids             +=  account_users  
+      recording.create_recording_ipis_ids        +=  account_users  
+      recording.read_recording_ipis_ids          +=  account_users  
+      recording.update_recording_ipis_ids        +=  account_users  
+      recording.delete_recording_ipis_ids        +=  account_users  
+      recording.create_files_ids                 +=  account_users  
+      recording.read_files_ids                   +=  account_users  
+      recording.update_files_ids                 +=  account_users  
+      recording.delete_files_ids                 +=  account_users  
+      recording.create_legal_documents_ids       +=  account_users  
+      recording.read_legal_documents_ids         +=  account_users  
+      recording.update_legal_documents_ids       +=  account_users  
+      recording.delete_legal_documents_ids       +=  account_users  
+      recording.create_financial_documents_ids   +=  account_users  
+      recording.read_financial_documents_ids     +=  account_users  
+      recording.update_financial_documents_ids   +=  account_users  
+      recording.delete_financial_documents_ids   +=  account_users  
+      recording.read_common_works_ids            +=  account_users
+      recording.update_common_works_ids          +=  account_users    
+      recording.create_common_work_ipis_ids      +=  account_users     
+      recording.read_common_work_ipis_ids        +=  account_users     
+      recording.update_common_work_ipis_ids      +=  account_users  
+      recording.delete_common_work_ipis_ids      +=  account_users    
+      recording.save!
+    end
+    
+  end
+  
+  
   #RecordingPermissions.create_catalog_user_permissions catalog, catalog_user
   def self.create_catalog_user_permissions catalog, catalog_user
     

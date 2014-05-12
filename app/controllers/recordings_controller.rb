@@ -41,9 +41,7 @@ class RecordingsController < ApplicationController
   end
   
   def create
-    logger.debug '**************************************************************'
-    logger.debug params
-    logger.debug '**************************************************************'
+    
     @common_work                = CommonWork.cached_find(params[:common_work_id])
     @recording                  = Recording.new(audio_upload: params[:transloadit], account_id: @account.id, title: params[:title], common_work_id: @common_work.id)
     @recording.title            = @recording.audio_upload[:uploads][0][:name]
@@ -59,6 +57,8 @@ class RecordingsController < ApplicationController
     @recording.save!
     @recording.extract_metadata
     @recording.update_completeness
+    
+    RecordingPermissions.create_account_permissions @account
     
     ImageFile.create!(  title: @recording.title,
                         body: @recording.comment,
