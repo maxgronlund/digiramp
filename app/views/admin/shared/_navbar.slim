@@ -22,6 +22,8 @@
       
       -if  user_signed_in?
         ul class="nav navbar-nav navbar-right"
+          li class="#{page == 'support' ? 'active' : ''}"
+            = link_to 'SUPPORT', support_index_path
           
           / only show account title when it's typed in by the user
           -unless current_user.current_account.title == Account::SECRET_NAME

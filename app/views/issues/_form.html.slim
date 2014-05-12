@@ -1,0 +1,65 @@
+
+  
+
+            
+= simple_form_for [@user , @issue] do |f|
+  .row
+    = f.hidden_field :user_id, value: @user.id
+    
+    /- if @issue.errors.any?
+    /  #error_explanation
+    /    h2 = "#{pluralize(@issue.errors.count, "error")} prohibited this issue from being saved:"
+    /    ul
+    /      - @issue.errors.full_messages.each do |message|
+    /        li = message
+    .col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          'New Issue
+        .panel-body
+          = f.input :title
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
+          
+          = f.input :body, label: 'Description', :input_html => {  style: "height: 284px;", placeholder: "Write here", id: 'wysihtml5_editor'}
+    .col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          '&nbsp;
+        .panel-body
+          = f.input :image
+          = f.input :os, label: 'Operating Systems', :collection => Issue::OSS 
+          = f.input :link_to_page
+          = f.input :browser , :collection => Issue::BROWSERS 
+          = f.input :symtom , :collection => Issue::SYMPTOMS 
+  .row
+    .col-sm-12
+      hr
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary btn-lg'
+
+
+/  = f.label :os
+/  = f.text_field :os
+/.field
+/  = f.label :browser
+/  = f.text_field :browser
+/.field
+/  = f.label :link_to_page
+/  = f.text_field :link_to_page
+/.field
+/  = f.label :can_reproducd
+/  = f.text_field :can_reproducd
+/.field
+/  = f.label :status
+/  = f.text_field :status
+/.field
+/  = f.label :priority
+/  = f.text_field :priority
+/.field
+/  = f.label :symtom
+/  = f.text_field :symtom
+/.actions = f.submit 'Save'
+/

@@ -1,0 +1,62 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'support'
+
+  .container
+    .row
+      .col-sm-12
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('Support'), blog_post: 'Support'}
+    .row
+      .col-sm-6
+        == render 'shared/badge_button', locals: { \
+                                                    blog_post: 'NEW ISSUES', \
+                                                    link: new_user_issue_path(current_user), \
+                                                    css_class: 'btn btn-success', \
+                                                    icon: 'fa fa-ticket' \
+                                                  }
+      .col-sm-6
+        == render 'shared/badge_button', locals: { \
+                                                    blog_post: 'KNOWN ISSUES', \
+                                                    link: user_issues_path(current_user), \
+                                                    css_class: 'btn btn-primary', \
+                                                    icon: 'fa fa-tasks' \
+                                                  }
+
+/p
+/  strong Title:
+/  = @issue.title
+/p
+/  strong Body:
+/  = @issue.body
+/p
+/  strong Image:
+/  = @issue.image
+/p
+/  strong User:
+/  = @issue.user
+/
+/p
+/  strong Os:
+/  = @issue.os
+/p
+/  strong Browser:
+/  = @issue.browser
+/p
+/  strong Link to page:
+/  = @issue.link_to_page
+/p
+/  strong Can reproducd:
+/  = @issue.can_reproducd
+/p
+/  strong Status:
+/  = @issue.status
+/p
+/  strong Priority:
+/  = @issue.priority
+/p
+/  strong Symtom:
+/  = @issue.symtom
+/
+/= link_to 'Edit', edit_issue_path(@issue)
+/'|
+/= link_to 'Back', issues_path

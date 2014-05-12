@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140510215059) do
+ActiveRecord::Schema.define(version: 20140512133345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -664,6 +664,24 @@ ActiveRecord::Schema.define(version: 20140510215059) do
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
   add_index "ipis", ["import_ipi_id"], name: "index_ipis_on_import_ipi_id", using: :btree
   add_index "ipis", ["user_id"], name: "index_ipis_on_user_id", using: :btree
+
+  create_table "issues", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "image"
+    t.integer  "user_id"
+    t.string   "os"
+    t.string   "browser"
+    t.string   "link_to_page"
+    t.string   "can_reproducd"
+    t.string   "status"
+    t.string   "priority"
+    t.string   "symtom"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
   create_table "mail_messages", force: true do |t|
     t.string   "identifier"

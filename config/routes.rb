@@ -3,6 +3,11 @@ Digiramp::Application.routes.draw do
   
 
   
+  
+
+  
+
+  
   #get "shared_recording_files/index"
   get "user_recordings/index"
   resources :image_files
@@ -168,7 +173,7 @@ Digiramp::Application.routes.draw do
   #get "accounts/index"
 
   get "admin"         => "admin#index",       :as => :admin_index
-
+  get "support" => "support#index",       :as => :support_index
   get "flush_cache" => "admin#flush_cache", :as => :admin_flush_cache
 
 
@@ -203,6 +208,8 @@ Digiramp::Application.routes.draw do
   resources :users do
     resources :user_accounts, only: [:index]
     resources :accounts, only: [:edit, :show, :update]
+    resources :issues
+    resources :issue_images, only: [:show]
     resources :user_recordings, only: [:index]
     resources :shared_assets, only: [:index]
     resources :shared_catalogs do

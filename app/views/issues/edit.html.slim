@@ -1,0 +1,16 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'support'
+
+  .container
+    .row
+      .col-sm-12
+        == render 'admin/shared/messages'
+        /== render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: 'accounts'}
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'Edit Issue'}
+        
+    == render 'form'
+
+
+
+/= link_to 'Back', issues_path
