@@ -197,55 +197,42 @@ class Recording < ActiveRecord::Base
     recordings
   end
   
+  
+  # remove disk_number, disk_count, track_count, available_date
   def update_completeness
 
     self.completeness_in_pct = 0
     
-            # 30  
-    unless self.isrc_code.empty? 
-      self.completeness_in_pct += 5 
-    end
-    unless self.comment.to_s == ''
-      self.completeness_in_pct += 10 
-      logger.debug 'has description'
-    end             # 50
-    if self.vocal != 'Instrumental' && !self.lyrics.to_s == ''
-      self.completeness_in_pct += 10 
-    else 
-      self.completeness_in_pct += 10 
-    end
-
-    unless self.genre.to_s == ''
-      self.completeness_in_pct += 10 
-    end  
     
-    #unless self.empty?
-    #  self.completeness_in_pct += 10 
-    #end 
+    self.completeness_in_pct += 4 unless self.isrc_code.to_s             == ''                 
+    self.completeness_in_pct += 4 unless self.artist.to_s                == ''                    
+    self.completeness_in_pct += 4 unless self.lyrics.to_s                == ''                    
+    self.completeness_in_pct += 4 unless self.bpm.to_s                   == ''                       
+    self.completeness_in_pct += 4 unless self.comment.to_s               == ''                                      
+    self.completeness_in_pct += 4 unless self.copyright.to_s             == ''              
+    self.completeness_in_pct += 4 unless self.production_company.to_s    == ''         
+    self.completeness_in_pct += 4 unless self.album_artist.to_s          == ''     
+    self.completeness_in_pct += 4 unless self.album_title.to_s           == ''     
+    self.completeness_in_pct += 4 unless self.grouping.to_s              == ''     
+    self.completeness_in_pct += 4 unless self.composer.to_s              == ''     
+    self.completeness_in_pct += 4 unless self.compilation.to_s           == ''     
+    self.completeness_in_pct += 4 unless self.year.to_s                  == ''                   
+    self.completeness_in_pct += 4 unless self.duration.to_s              == ''               
+    self.completeness_in_pct += 4 unless self.album_name.to_s            == ''             
+    self.completeness_in_pct += 4 unless self.genre.to_s                 == ''                  
+    self.completeness_in_pct += 4 unless self.performer.to_s             == ''              
+    self.completeness_in_pct += 4 unless self.band.to_s                  == ''                   
+    self.completeness_in_pct += 4 unless self.disc.to_s                  == ''                   
+    self.completeness_in_pct += 4 unless self.track.to_s                 == ''                  
+    self.completeness_in_pct += 4 unless self.cover_art.to_s             == ''     
+    self.completeness_in_pct += 4 unless self.vocal.to_s                 == ''                  
+    self.completeness_in_pct += 4 unless self.mood.to_s                  == ''                   
+    self.completeness_in_pct += 4 unless self.instruments.to_s           == ''            
+    self.completeness_in_pct += 4 unless self.tempo.to_s                 == '' 
     
-    unless self.artist.to_s == ''
-      self.completeness_in_pct += 10 
-    end 
-    
-    unless self.performer.to_s == ''
-      self.completeness_in_pct += 10 
-    end  
-    
-    unless self.band.to_s == ''
-      self.completeness_in_pct += 5 
-    end            # 70
-
-    unless self.duration == 0   
-      self.completeness_in_pct += 5 
-    end              # 90 
-    unless self.bpm == 0           
-      self.completeness_in_pct += 5 
-    end             # 100
     self.save!(validate: false)
     
-    # Album
-    # quality of common work
-    # artwork
+    
 
   end
   

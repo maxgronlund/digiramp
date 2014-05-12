@@ -11,7 +11,6 @@
     
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'Manage Works'}
     -cache([ request.url, @account.works_cache_key, Admin.cached_find(1).version]) do  
-
       .row
           = form_tag account_works_path(@account), :method => 'get' do
             .col-sm-6

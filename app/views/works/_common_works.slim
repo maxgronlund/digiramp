@@ -3,8 +3,30 @@
     thead
       tr
         th Title
+        th Recordings
+        /th Uploaded
+        th Health 
+        th
     tbody
       -@common_works.each do |common_work|
-        == render 'works/common_work', common_work: common_work
+        -cache ([common_work, Admin.cached_find(1).version]) do
+          tr
+            td = link_to common_work.title, account_work_path(@account, common_work), class: 'btn btn-default btn-lg'
+            td 
+              div class="#{common_work.recordings.size == 0 ? 'label label-danger' : 'label label-primary'}"
+                = common_work.recordings.size
+            td == render 'works/shared/health', health: common_work.health
+            /td 
+            /  = time_ago_in_words(common_work.created_at).titleize 
+            /  '&nbsp; ago
+            td
+              .pull-right
+                = link_to edit_account_work_path(@account, common_work) do
+                  .btn.btn-primary.btn-lg
+                    i class="fa fa-pencil"
+                '&nbsp;
+                = link_to account_work_path(@account, common_work), data: { confirm: 'Are you sure?' } , :method => :delete do
+                  .btn.btn-danger.btn-lg
+                    i class="fa fa-times"
       
 

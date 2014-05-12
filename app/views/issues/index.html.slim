@@ -23,13 +23,15 @@
                   tr 
                     th Issue
                     th Raporter
+                    th Created
                     th
                 tbody
-                  - @issues.each do |issue|
+                  - @issues.order('created_at desc').each do |issue|
                     - issue_email = issue.user.email
                     tr
                      td = issue.title
                      td = issue_email
+                     td = time_ago_in_words(issue.created_at).titleize 
                      td 
                        .pull-right
                          -if can_edit? || current_user.email == issue_email

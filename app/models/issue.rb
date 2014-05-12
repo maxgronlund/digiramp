@@ -17,7 +17,7 @@ class Issue < ActiveRecord::Base
         "OS X 10.8 Mountain Lion",
         "OS X 10.9 Mavericks"]
   SYMPTOMS = ['Error 422', 'Error 500', 'Missing Buttons', 'Styling', 'Other']
-  BROWSERS = ['Safari', 'Chrome', 'IE', 'Opera', 'Other']
+  BROWSERS = ['Safari', 'Chrome', 'Firefox', 'IE', 'Opera', 'Other']
   
-  STATUS = ['new', 'confirmed', 'in progress', 'resolved', 'closed']
+  STATUS = ['New', 'Confirmed', 'In progress', 'Resolved', 'Closed']
 end

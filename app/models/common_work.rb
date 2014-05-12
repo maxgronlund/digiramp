@@ -117,9 +117,7 @@ class CommonWork < ActiveRecord::Base
   end
   
   def self.attach recording, account_id
-    puts '----------------------------------------------------------------------------'
-    puts '----------------  attach ---------------------------------------'
-    puts '----------------------------------------------------------------------------'
+
     common_work = CommonWork.create(title: recording.title, 
                                     description: recording.comment, 
                                     lyrics: recording.lyrics, 
@@ -127,7 +125,7 @@ class CommonWork < ActiveRecord::Base
                                     
     recording.common_work_id = common_work.id
     recording.save!
-    puts '-------------------------- SUCCESS ----------------------------------'
+
   end
   
   def self.account_search(account, query)
@@ -138,8 +136,41 @@ class CommonWork < ActiveRecord::Base
     common_works
   end
   
-  ##############################################################
-  # access control
+  def health
+    
+    completeness
+  end
+  
+  def completeness
+    
+    value = 0
+    value += 5 unless self.recordings.size.to_i      == 0
+    value += 5 unless self.title.to_s                == ''
+    value += 10 unless self.description.to_s          == ''
+    value += 10 unless self.alternative_titles.to_s   == ''
+    value += 5 unless self.iswc_code.to_s             == ''
+    
+    
+    value + recording_health
+    
+  end
+  
+  def recording_health
+    rec_health        = 0
+    recording_factor  = 1
+    if self.recordings.exists?
+      recording_factor = 1/recordings.size
+      self.recordings.each do |recording|
+        recording.update_completeness
+        rec_health += recording.completeness_in_pct * 0.75
+      end
+    end
+    rec_health * recording_factor
+    
+  end
+  
+
+  # access control move to helper
   
   # check if user is an associate adminstrator or owner
   def is_accessible_by user
