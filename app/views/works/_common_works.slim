@@ -9,13 +9,15 @@
         th
     tbody
       -@common_works.each do |common_work|
-        -cache ([common_work, Admin.cached_find(1).version]) do
+        /-cache ([common_work, Admin.cached_find(1).version]) do
+        .do
           tr
             td = link_to common_work.title, account_work_path(@account, common_work), class: 'btn btn-default btn-lg'
             td 
               div class="#{common_work.recordings.size == 0 ? 'label label-danger' : 'label label-primary'}"
                 = common_work.recordings.size
-            td == render 'works/shared/health', health: common_work.health
+            td 
+              == render 'works/shared/health', health: common_work.health
             /td 
             /  = time_ago_in_words(common_work.created_at).titleize 
             /  '&nbsp; ago

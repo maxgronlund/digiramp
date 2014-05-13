@@ -53,6 +53,7 @@ class WorksController < ApplicationController
     @account.works_cache_key += 1
     @account.save
     if @common_work.update_attributes(common_work_params)
+      @common_work.update_completeness
       redirect_to_return_url account_work_path(@account, @common_work)
     else
       render :edit

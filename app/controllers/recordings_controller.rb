@@ -91,12 +91,14 @@ class RecordingsController < ApplicationController
       @recording.extract_instruments
       @recording.extract_moods
       #@recording.update_completeness
-      @recording.common_work.update_completeness
+      
       
       if image_file = ImageFile.where(id: @recording.image_file_id).first
         @recording.cover_art = image_file.thumb
         @recording.save
       end
+      
+      @recording.common_work.update_completeness
       
       if @genre_category
         redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording,genre_category: @genre_category )
@@ -135,7 +137,9 @@ class RecordingsController < ApplicationController
     #redirect_to account_works_path @account
     
     @recording = Recording.find(params[:id])
+    common_work = @recording.common_work
     @recording.destroy
+    common_work.update_completeness
     redirect_to account_recordings_path( @account, page: params[:page], query: params[:query])
   end
   

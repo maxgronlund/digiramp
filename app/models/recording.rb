@@ -207,7 +207,7 @@ class Recording < ActiveRecord::Base
     self.completeness_in_pct += 4 unless self.isrc_code.to_s             == ''                 
     self.completeness_in_pct += 4 unless self.artist.to_s                == ''                    
     self.completeness_in_pct += 4 unless self.lyrics.to_s                == ''                    
-    self.completeness_in_pct += 4 unless self.bpm.to_s                   == ''                       
+    self.completeness_in_pct += 4 unless self.bpm.to_s                   == '0'                       
     self.completeness_in_pct += 4 unless self.comment.to_s               == ''                                      
     self.completeness_in_pct += 4 unless self.copyright.to_s             == ''              
     self.completeness_in_pct += 4 unless self.production_company.to_s    == ''         
@@ -215,7 +215,7 @@ class Recording < ActiveRecord::Base
     self.completeness_in_pct += 4 unless self.album_title.to_s           == ''     
     self.completeness_in_pct += 4 unless self.grouping.to_s              == ''     
     self.completeness_in_pct += 4 unless self.composer.to_s              == ''     
-    self.completeness_in_pct += 4 unless self.compilation.to_s           == ''     
+    #self.completeness_in_pct += 4 unless self.compilation.to_s           == ''     
     self.completeness_in_pct += 4 unless self.year.to_s                  == ''                   
     self.completeness_in_pct += 4 unless self.duration.to_s              == ''               
     self.completeness_in_pct += 4 unless self.album_name.to_s            == ''             
@@ -225,10 +225,10 @@ class Recording < ActiveRecord::Base
     self.completeness_in_pct += 4 unless self.disc.to_s                  == ''                   
     self.completeness_in_pct += 4 unless self.track.to_s                 == ''                  
     self.completeness_in_pct += 4 unless self.cover_art.to_s             == ''     
-    self.completeness_in_pct += 4 unless self.vocal.to_s                 == ''                  
-    self.completeness_in_pct += 4 unless self.mood.to_s                  == ''                   
-    self.completeness_in_pct += 4 unless self.instruments.to_s           == ''            
-    self.completeness_in_pct += 4 unless self.tempo.to_s                 == '' 
+    self.completeness_in_pct += 5 unless self.vocal.to_s                 == ''                  
+    self.completeness_in_pct += 5 unless self.mood.to_s                  == ''                   
+    self.completeness_in_pct += 5 unless self.instruments.to_s           == ''            
+    self.completeness_in_pct += 5 unless self.tempo.to_s                 == '' 
     
     self.cache_version += 1
     

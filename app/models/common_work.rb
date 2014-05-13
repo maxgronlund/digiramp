@@ -149,8 +149,11 @@ class CommonWork < ActiveRecord::Base
     value += 5 unless self.description.to_s          == ''
     value += 5 unless self.alternative_titles.to_s   == ''
     value += 5 unless self.iswc_code.to_s            == ''
-    value + recording_health
-    self.completeness = value
+
+    # 75% of the completeness is based on the recordings
+    value += recording_health * 0.75
+    self.completeness       = value
+
     self.save
     
     if self.account
@@ -165,15 +168,19 @@ class CommonWork < ActiveRecord::Base
   def recording_health
     rec_health        = 0
     recording_factor  = 1
+    # if there is any recordings
     if self.recordings.exists?
+      # take the average of one recording
       recording_factor = 1/recordings.size
+      # loop true recordings
       self.recordings.each do |recording|
         recording.update_completeness
-        rec_health += recording.completeness_in_pct * 0.75
+        
+        rec_health += recording.completeness_in_pct
       end
     end
-    rec_health * recording_factor
-    
+    rec_health *= recording_factor
+    rec_health
   end
   
 
