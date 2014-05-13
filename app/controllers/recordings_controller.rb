@@ -67,7 +67,10 @@ class RecordingsController < ApplicationController
                         thumb: @recording.cover_art, 
                         file: @recording.artwork
                     )
+                    
+                    
     
+    @recording.common_work.update_completeness
     redirect_to account_work_path(@account, @common_work )
     
   end
@@ -87,8 +90,8 @@ class RecordingsController < ApplicationController
       @recording.extract_genres
       @recording.extract_instruments
       @recording.extract_moods
-      @recording.update_completeness
-      
+      #@recording.update_completeness
+      @recording.common_work.update_completeness
       
       if image_file = ImageFile.where(id: @recording.image_file_id).first
         @recording.cover_art = image_file.thumb

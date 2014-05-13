@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513142041) do
+ActiveRecord::Schema.define(version: 20140513192443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -396,6 +396,7 @@ ActiveRecord::Schema.define(version: 20140513142041) do
     t.text     "lyrics"
     t.integer  "catalog_id"
     t.string   "uuid"
+    t.decimal  "completeness"
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree

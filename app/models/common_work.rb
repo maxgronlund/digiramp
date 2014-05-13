@@ -137,22 +137,27 @@ class CommonWork < ActiveRecord::Base
   end
   
   def health
-    
     completeness
   end
   
-  def completeness
+  def update_completeness
     
     value = 0
     value += 5 unless self.recordings.size.to_i      == 0
     value += 5 unless self.title.to_s                == ''
-    value += 10 unless self.description.to_s          == ''
-    value += 10 unless self.alternative_titles.to_s   == ''
-    value += 5 unless self.iswc_code.to_s             == ''
-    
-    
+    value += 5 unless self.description.to_s          == ''
+    value += 5 unless self.alternative_titles.to_s   == ''
+    value += 5 unless self.iswc_code.to_s            == ''
     value + recording_health
+    self.save!
     
+    if self.account
+      self.account.works_cache_key += 1
+      self.account.save
+    else
+      puts 'missing account for work sork should be deleted'
+      self.destroy
+    end
   end
   
   def recording_health
@@ -578,7 +583,7 @@ private
     if audio_file.present? && audio_file_changed?
       
       self.content_type = audio_file.file.content_type
-      self.file_size = audio_file.size
+      self.file_size    = audio_file.size
       #fo
       
     end
