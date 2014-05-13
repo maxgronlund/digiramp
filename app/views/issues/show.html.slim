@@ -51,7 +51,61 @@
             = link_to image_tag( @issue.image_url(:small)), user_issue_image_path(@user, @issue)
             .pull-right
               = link_to 'Show', user_issue_image_path(@user, @issue), class: 'btn btn-primary btn-lg'
-              
+    .row  
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            'Write Comment
+          .panel-body   
+             == simple_form_for [ current_user, @issue, Comment.new] do |f|
+               = f.hidden_field :commentable_id, value: @issue.id
+               = f.hidden_field :commentable_type, value: @issue.class.name
+               = f.hidden_field :user_id, value: current_user.id
+               = f.input :title
+               = f.input :body
+               = f.input :image
+               hr
+                 .pull-right
+                   = f.submit 'Post', class: 'btn btn-primary btn-lg'
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            'Comments
+          .panel-body
+            -comments = Comment.where(commentable_id: @issue.id, commentable_type: @issue.class.name)
+            -comments.each do |comment|
+              .well
+                b = comment.title
+                hr
+                .row
+                  .col-sm-6
+                    'Posted&nbsp;
+                    = time_ago_in_words(comment.created_at).titleize 
+                    '&nbsp; ago
+                  .col-sm-6
+                    .pull-right
+                      i = comment.user.name
+                br
+                br
+                = simple_format comment.body
+                hr
+                .row
+                  .col-sm-6
+                    = image_tag( comment.image_url(:small))
+                  .col-sm-6
+                    .pull-right
+                      - if @issue.user_id == current_user.id || can_edit?
+                        = link_to user_issue_comment_path( @issue.user, @issue, comment ), data: {:confirm => 'Are you sure?'}, :method => :delete
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times"
+                        '&nbsp;   
+                      = link_to edit_user_issue_comment_path( @issue.user, @issue, comment )
+                        .btn.btn-primary.btn-lg
+                          i class="fa fa-pencil"
+                
+
+      
+            
     
             
 -cache (['footer', Admin.cached_find(1).version]) do      

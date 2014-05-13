@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
   belongs_to :user
-  has_many :activity_events, as: :activity_eventable
-
+  belongs_to :commentable, polymorphic: true
+  mount_uploader :image, LogoUploader
 end

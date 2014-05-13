@@ -1,0 +1,33 @@
+
+
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'support'
+
+  .container
+    .row
+      .col-sm-12
+        == render 'admin/shared/messages'
+        -case @comment.commentable_type
+        -when 'Issue'
+          == render 'issue_heading'
+          
+
+
+    .row  
+      .col-sm-3
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            'Edit Comment
+          .panel-body   
+            == simple_form_for [ @comment.user, @comment.commentable, @comment] do |f|
+              = f.input :title
+              = f.input :body
+              = f.input :image
+              hr
+                .pull-right
+                  = f.submit 'Save', class: 'btn btn-primary btn-lg'
+             
+
