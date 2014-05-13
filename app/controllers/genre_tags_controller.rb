@@ -44,6 +44,7 @@ class GenreTagsController < ApplicationController
     end
     @recording.genre = genre
     @recording.save!
+    @recording.common_work.update_completeness
   end
   
   

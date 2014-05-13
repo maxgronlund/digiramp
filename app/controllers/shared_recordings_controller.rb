@@ -47,7 +47,7 @@ class SharedRecordingsController < ApplicationController
       @recording.extract_genres
       @recording.extract_instruments
       @recording.extract_moods
-      @recording.update_completeness
+      @recording.common_work.update_completeness
     end
     redirect_to user_shared_catalog_shared_recording_path(@user, params[:shared_catalog_id], @recording)
   end

@@ -8,6 +8,7 @@ class RecordingLyricsController < ApplicationController
   def update
      @recording      = Recording.find(params[:id])
      @recording.update_attributes(recording_params)
+     @recording.common_work.update_completeness
 
      redirect_to account_recording_upload_completed_path(@account, @recording)
 

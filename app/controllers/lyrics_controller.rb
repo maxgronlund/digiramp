@@ -10,6 +10,7 @@ class LyricsController < ApplicationController
     @recording = Recording.cached_find(params[:id])
     @recording.lyrics = params[:recording][:lyrics]
     @recording.save
+    @recording.common_work.update_completeness
     redirect_to account_common_work_recording_path @account, @common_work, @recording
   end
   

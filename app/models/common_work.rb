@@ -124,7 +124,7 @@ class CommonWork < ActiveRecord::Base
                                     account_id: account_id)
                                     
     recording.common_work_id = common_work.id
-    recording.save!
+    recording.save
     common_work.update_completeness
 
   end
@@ -150,13 +150,14 @@ class CommonWork < ActiveRecord::Base
     value += 5 unless self.alternative_titles.to_s   == ''
     value += 5 unless self.iswc_code.to_s            == ''
     value + recording_health
-    self.save!
+    self.completeness = value
+    self.save
     
     if self.account
       self.account.works_cache_key += 1
       self.account.save
     else
-      puts 'missing account for work sork should be deleted'
+      puts 'missing account for work: should be deleted'
       self.destroy
     end
   end

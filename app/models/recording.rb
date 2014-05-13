@@ -230,6 +230,8 @@ class Recording < ActiveRecord::Base
     self.completeness_in_pct += 4 unless self.instruments.to_s           == ''            
     self.completeness_in_pct += 4 unless self.tempo.to_s                 == '' 
     
+    self.cache_version += 1
+    
     self.save!(validate: false)
     
     
@@ -400,10 +402,11 @@ class Recording < ActiveRecord::Base
         recording.composer              = recording_row["Composer"].to_s                  unless recording_row["Composer"].to_s.empty?
 
         recording.cache_version += 1
-        recording.save!
+        recording.save
         recording.extract_genres
         recording.extract_instruments
         recording.extract_moods
+        recording.common_work.update_completeness
 
       rescue
       end

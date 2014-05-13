@@ -151,7 +151,8 @@ class RecordingsController < ApplicationController
       common_work = CommonWork.create(account_id: @recording.account_id, title: @recording.title, lyrics: @recording.lyrics)
       @recording.common_work_id = common_work.id
       @recording.cache_version += 1
-      @recording.save!
+      @recording.save
+      @recording.common_work.update_completeness
     end                        
   end
   
@@ -170,6 +171,7 @@ class RecordingsController < ApplicationController
       #@recording.category     = params[:recording][:category]   if params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
+      @recording.common_work.update_completeness
     end
     
   end
@@ -181,6 +183,7 @@ class RecordingsController < ApplicationController
       #@recording.category = params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
+      @recording.common_work.update_completeness
     end
     @blog               = Blog.recordings
     
@@ -196,6 +199,7 @@ class RecordingsController < ApplicationController
       #@recording.category = params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
+      @recording.common_work.update_completeness
     end
     @blog               = Blog.recordings
   end

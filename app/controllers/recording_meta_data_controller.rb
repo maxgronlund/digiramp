@@ -8,6 +8,7 @@ class RecordingMetaDataController < ApplicationController
   def update
      @recording      = Recording.find(params[:id])
      @recording.update_attributes(recording_params)
+     @recording.common_work.update_completeness
      unless @recording.instrumental
        redirect_to edit_account_recording_lyric_path(@account, @recording)
      else

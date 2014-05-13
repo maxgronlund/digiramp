@@ -9,7 +9,6 @@ class AdminController < ApplicationController
   def flush_cache
     Rails.cache.clear
     admin = Admin.first
-    #logger.debug '--------------------------------------------------------------'
     admin.version += 1
     admin.save!
     Account.all.each do |account|
