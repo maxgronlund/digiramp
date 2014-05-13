@@ -56,7 +56,7 @@ class RecordingsController < ApplicationController
     @recording.cache_version += 1
     @recording.save!
     @recording.extract_metadata
-    @recording.update_completeness
+    #@recording.update_completeness
     
     RecordingPermissions.create_account_permissions @account
     

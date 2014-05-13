@@ -125,6 +125,7 @@ class CommonWork < ActiveRecord::Base
                                     
     recording.common_work_id = common_work.id
     recording.save!
+    common_work.update_completeness
 
   end
   

@@ -229,7 +229,7 @@ class TransloaditParser
         
         add_artwork_to recording unless recording.cover_art == ''
         recording.extract_genres                                 
-        recording.update_completeness
+        recording.common_work.update_completeness
       rescue
         puts 'chrash2'
       end

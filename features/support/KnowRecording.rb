@@ -29,6 +29,7 @@ module KnowRecordingHelper
                         explicit: explicit,
                        
                         )
+      common_work.update_completeness
     end
   end
   
