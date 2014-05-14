@@ -1,0 +1,14 @@
+.pull-right
+  -if @recording.read_common_work_ipis_ids.include? current_user.id || can_edit?
+    = link_to '#'
+      .btn.btn-default.btn-lg
+        i class='fa fa-users'
+        '&nbsp;
+        'IPI's
+    '&nbsp;
+  -if @recording.update_common_works_ids.include? current_user.id || can_edit?
+    = link_to edit_user_shared_catalog_shared_recording_shared_common_work_path(@user, @catalog, @recording, @common_work)
+      .btn.btn-primary.btn-lg
+        i class='fa fa-pencil'
+        '&nbsp;
+        'Edit

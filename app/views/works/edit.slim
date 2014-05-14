@@ -10,48 +10,37 @@
                                                             'manage works'.to_sym => account_account_works_path(@account),\
                                                             'list works'.to_sym => account_works_path(@account),\
                                                             @common_work.title.to_sym => account_work_path(@account, @common_work),\
-                                                            }, current: 'edit work'}
-    .row
-      .col-sm-12
-        h2 Edit Work
-        /= @manage_works.body
-      .col-sm-12
-        = simple_form_for [@account, @common_work], url: url_for(action: 'update', controller: 'works'), method: 'put' do |f|
-          .row
-            .col-sm-6
+                                                            }, current: 'update work'}
+    == render 'shared/title', locals: {title: @common_work.title, body: 'Update'}
+
+    = simple_form_for [@account, @common_work], url: url_for(action: 'update', controller: 'works'), method: 'put' do |f|
+      .row
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Info
+            .panel-body
               = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
               = f.input :alternative_titles, :input_html => {  style: "height: 120px;", placeholder: "Alternative Titles"}
-    
-            .col-sm-6
               = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "ISWC Code"}
               = f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
-          
-          .row
-            .col-sm-12
-              b Lyrics
-              br
+      
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Lyrics
+            .panel-body
               div id="toolbar" class="wysihtml5-toolbar"
                 a data-wysihtml5-command="bold" Bold
                 '&nbsp; 
                 a data-wysihtml5-command="italic" Italic
               
-              =f.input :lyrics, label: false, :input_html => {  style: "height: 360px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
-          .pull-right
-            = f.submit 'Save', class: 'btn btn-primary btn-lg'
-      .col-sm-4
+              =f.input :lyrics, label: false, :input_html => {  style: "height: 461px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
+      hr
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary btn-lg'
 
-        
-    .row
-      .col-sm-4
-    
-      .col-sm-4
-    
-      .col-sm-4
 
   
-#footer
-  .container
-    .footer
-      .row
-        .col-sm-12
-          '©2014 All rights reserved
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
