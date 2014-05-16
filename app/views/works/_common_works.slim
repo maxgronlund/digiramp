@@ -23,6 +23,10 @@
             /  '&nbsp; ago
             td
               .pull-right
+                = link_to account_work_path(@account, common_work) do
+                  .btn.btn-success.btn-lg
+                    i class="fa fa-gears"
+                '&nbsp;
                 = link_to edit_account_work_path(@account, common_work) do
                   .btn.btn-primary.btn-lg
                     i class="fa fa-pencil"

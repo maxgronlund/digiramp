@@ -8,6 +8,8 @@ class SharedCommonWorksController < ApplicationController
   
   
   def show
+    
+    
   end
 
   def index

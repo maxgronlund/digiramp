@@ -37,6 +37,7 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'sidekiq'
+gem 'whenever', require: false
 
 # not in use
 gem 'celluloid'

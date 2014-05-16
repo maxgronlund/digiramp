@@ -1,0 +1,2 @@
+module SharedRecordingArtworksHelper
+end

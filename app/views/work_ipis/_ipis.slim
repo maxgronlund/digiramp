@@ -1,6 +1,7 @@
-.panel
+.panel.panel-primary
+  .panel-heading
+    'IPI's
   .panel-body
-    h3 IPI
     .table-responsive
       table class="table"
         thead
@@ -23,19 +24,7 @@
               td = number_to_percentage(ipi.perf_owned, precision: 0) 
               td = number_to_percentage(ipi.mech_collected, precision: 0) 
               td = number_to_percentage(ipi.perf_collected, precision: 0) 
-                  /= link_to account_common_work_ipi_path( @account, @common_work, ipi) do
-                  /  .btn.btn-default.btn-lg
-                  /    i class="fa fa-eye"
-                  /-if current_user.can_administrate @account
-                  /  '&nbsp;
-                  /  = link_to edit_account_common_work_ipi_path( @account, @common_work, ipi) do
-                  /    .btn.btn-primary.btn-lg
-                  /      i class="fa fa-pencil"
-                  /  /'&nbsp;
-                  /  /= link_to account_common_work_ipi_path( @account, @common_work, ipi) do
-                  /  /  .btn.btn-danger.btn-lg
-                  /  /    i class="fa fa-times"
-                  /  /'&nbsp;
+
     hr
     .pull-right
       = link_to 'More', account_common_work_ipis_path(@account, @common_work),\
