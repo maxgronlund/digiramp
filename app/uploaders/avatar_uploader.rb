@@ -7,6 +7,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   storage :file
+  # storage :fog
 
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
@@ -25,11 +26,11 @@ class AvatarUploader < CarrierWave::Uploader::Base
   cattr_accessor :version_dimensions
   self.version_dimensions = {
     :avatar_32x32     => [32,32],
+    :avatar_64x64     => [64,64],
     :avatar_120x120   => [120,120],
     :avatar_170x170   => [170, 170],
     :avatar_270x270   => [270, 270],
-    :avatar_370x370   => [370, 370],
-    :poster           => [482, 272]
+    :avatar_370x370   => [370, 370]
   }
 
   RESIZE_GRAVITY = 'NorthWest'

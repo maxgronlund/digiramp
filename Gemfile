@@ -38,6 +38,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'sidekiq'
 gem 'whenever', require: false
+#gem "fog"
 
 # not in use
 gem 'celluloid'
