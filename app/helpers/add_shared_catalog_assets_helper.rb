@@ -1,0 +1,2 @@
+module AddSharedCatalogAssetsHelper
+end

@@ -1,5 +1,7 @@
 class CustomerEventsController < ApplicationController
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  before_filter :access_to_account
+  
   before_action :set_customer_event, only: [:show, :edit, :update, :destroy]
 
   # GET /customer_events

@@ -59,6 +59,12 @@ class User < ActiveRecord::Base
   after_commit :flush_cache
   
   
+  before_save :set_uuid
+  
+  def set_uuid
+    self.uuid = UUIDTools::UUID.timestamp_create().to_s
+  end
+  
   
   ## !!!! should be depricated! Moved to AccountUser
   def can? action, id_name_or_record, _account_id
@@ -77,7 +83,6 @@ class User < ActiveRecord::Base
   end 
   
 
-  
   def invite_existing_user_to_account account_id , invitation_message
     UserMailer.delay.invite_existing_user_to_account self.id, account_id, invitation_message
   end
@@ -294,11 +299,16 @@ class User < ActiveRecord::Base
                               account_type: 'Personal Account',
                             )
     @account.save(validate: false)                     
-    AccountUser.create(user_id: user.id, account_id: @account.id, role: 'Account Owner')
+    account_user = AccountUser.create(user_id: user.id, 
+                                      account_id: @account.id, 
+                                      role: 'Account Owner')
+    account_user.grand_all_permissions
     
     user.account_id          = @account.id
     user.current_account_id  = @account.id
-    user.save
+    user.save!
+    
+    
     @account
   end
   
@@ -391,6 +401,40 @@ class User < ActiveRecord::Base
   def name_or_email
     return  name == '' ? email : name
   end
+  
+  #def can_manage_assets account
+  #  return true if account.create_recording_ids.include?        self.id
+  #  return true if   account.read_recording_ids.include?        self.id
+  #  return true if account.update_recording_ids.include?        self.id
+  #  return true if account.delete_recording_ids.include?        self.id
+  #  return true if account.create_recording_ipi_ids.include?    self.id
+  #  return true if   account.read_recording_ipi_ids.include?    self.id
+  #  return true if account.update_recording_ipi_ids.include?    self.id
+  #  return true if account.delete_recording_ipi_ids.include?    self.id
+  #  return true if account.create_file_ids.include?             self.id
+  #  return true if   account.read_file_ids.include?             self.id
+  #  return true if account.update_file_ids.include?             self.id
+  #  return true if account.delete_file_ids.include?             self.id
+  #  return true if account.create_common_work_ids.include?      self.id
+  #  return true if   account.read_common_work_ids.include?      self.id
+  #  return true if account.update_common_work_ids.include?      self.id
+  #  return true if account.delete_common_work_ids.include?      self.id
+  #  return true if account.create_common_work_ipi_ids.include?  self.id
+  #  return true if   account.read_common_work_ipi_ids.include?  self.id
+  #  return true if account.update_common_work_ipi_ids.include?  self.id
+  #  return true if account.delete_common_work_ipi_ids.include?  self.id
+  #  return false
+  #end
+  #
+  #def can_manage_users account
+  #  return true if account.create_account_user_ids.include?     self.id
+  #  return true if account.read_account_user_ids.include?       self.id
+  #  return true if account.update_account_user_ids.include?     self.id
+  #  return true if account.delete_account_user_ids.include?     self.id
+  #  return false
+  #end
+  
+  
 
 private
 

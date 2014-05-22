@@ -1,5 +1,6 @@
 class PlaylistKeysController < ApplicationController
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  before_filter :access_to_account
   def edit
     @playlist_key = PlaylistKey.cached_find(params[:id])
   end

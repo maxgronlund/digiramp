@@ -1,0 +1,61 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            recordings: account_recordings_path(@account), \
+                                                            @recording.title.to_sym => account_common_work_recording_path(@account, @recording.common_work, @recording), \
+                                                            }, current: 'move recording'}
+
+    == render 'shared/recording_title', locals: {recording: @recording} 
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            'Find Common work
+          .panel-body
+            = form_tag account_works_path(@account), :method => 'get' do
+              .col-sm-8
+                
+                = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
+              .col-sm-4
+                
+                = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                '&nbsp;
+                = link_to 'Show All',account_works_path(@account), class: 'btn btn-default btn-lg'
+                
+                
+      .col-sm-12
+        .row
+          .col-sm-12
+            .panel.panel-primary
+              .panel-heading
+                'Move to Common work
+              .panel-body
+                .table-responsive
+                  table class="table table-striped"
+                    tbody
+                      -@account.common_works.each do |common_work|
+                        -cache ([common_work, Admin.cached_find(1).version]) do
+                
+                          tr
+                            td = link_to common_work.title, account_work_path(@account, common_work), class: 'btn btn-default btn-lg'
+                            td
+                              .pull-right
+                                = link_to 'Select', '#',  class: 'btn btn-primary btn-lg'
+                     
+                
+    
+  
+  
+
+
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              

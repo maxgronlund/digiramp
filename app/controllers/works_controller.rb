@@ -1,5 +1,6 @@
 class WorksController < ApplicationController
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  before_filter :access_to_account
   
   def index
     
@@ -50,8 +51,6 @@ class WorksController < ApplicationController
   
   def update
     @common_work    = CommonWork.cached_find(params[:id])
-    @account.works_cache_key += 1
-    @account.save
     if @common_work.update_attributes(common_work_params)
       @common_work.update_completeness
       redirect_to_return_url account_work_path(@account, @common_work)
@@ -63,9 +62,6 @@ class WorksController < ApplicationController
   def destroy
     @common_work    = CommonWork.cached_find(params[:id])
     @common_work.destroy
-    @account.works_cache_key += 1
-    @account.save
-    
     redirect_to account_works_path @account
 
   end

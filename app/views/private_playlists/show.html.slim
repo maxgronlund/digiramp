@@ -16,7 +16,7 @@
             = link_to 'Unauthorize', account_private_playlist_path( @account, @playlist_key.id) , method: :delete, class: 'btn btn-warning btn-lg'
         /h4 Expires: #{@playlist_key.expiration_date} 
     == render 'shared/line'
-    /-cache ([request.url, @account.rec_cache_version, current_user.role  ]) do
+    /-cache ([request.url, @account.recordings_uuid, current_user.role  ]) do
     .do 
       - if @show_login
         == render 'login'

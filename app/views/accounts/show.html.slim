@@ -7,7 +7,7 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current:  @account.title}
     ==render 'admin/shared/messages'
 
-    -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account), @account.rec_cache_version, @account_status]) do
+    -cache ([request.url, Admin.cached_find(1).version, current_user.uuid , @account.uuid]) do
       == render "accounts/shared/#{@account_status}"
          
       

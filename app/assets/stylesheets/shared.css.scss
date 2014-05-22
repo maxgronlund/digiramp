@@ -264,20 +264,41 @@ a:hover{text-decoration:none!important;}
   color: inherit;
 }
 
+.panel-player{
+  table{
+    margin-bottom:0px;
+    thead{
+      font-size:15px;
+      tr{
+        th{
+          padding-top:0px;
+          padding-bottom:0px;
+        }
+      } 
+    }
+  }
+}
+
 .panel-player:hover{
-  h4{color:#333;}
+  h4{color:#eee;}
   color:#000;
   table thead tr th{color:#333;}
 } 
 
 .bg-recording-title{
-  padding:4px 0px 10px 4px;
-  
-  h4{font-size:25px; margin-top:4px;}
+  padding:4px 0px 4px 8px;
+  margin-left:-8px;
+  margin-right:-8px;
+  margin-bottom:8px;
+  background-color:#3C9A94;
+  h4{font-size:16px; margin-top:4px;}
+  /*
   text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
-  color: #6d6d6d;
   text-shadow: #fff 0 1px 0;
+  */
+  color: #fff;
+  
   
 }
 table thead tr th{
@@ -332,7 +353,7 @@ ul
 
 @media (min-width:768px) {
   .comment{
-    margin-top:10px;
+    margin-top:0px;
     max-width:650px;
   }
 }

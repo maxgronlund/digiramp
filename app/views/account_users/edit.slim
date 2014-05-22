@@ -1,9 +1,32 @@
--session[:return_url] = account_account_user_path( @account, @account_user )
--blog = Blog.cached_find('Account Users')
--administrator  = BlogPost.cached_find('Administrator', blog)
--client         = BlogPost.cached_find('Client', blog)
-
-                                         
+/-session[:return_url] = account_account_user_path( @account, @account_user )
+/-blog = Blog.cached_find('Account Users')
+/-administrator  = BlogPost.cached_find('Administrator', blog)
+/-client         = BlogPost.cached_find('Client', blog)
+/
+/                                         
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'account'
+/
+/            
+/  .container
+/    ==render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account_user.account.title.to_sym => account_path(@account_user.account), \
+/                                                            users: account_account_users_path(@account_user.account), \
+/                                                            }, current: @account_user.get_name}
+/                                                            
+/    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Set Role'}
+/    .row
+/      .col-sm-3
+/      .col-sm-6
+/        .panel
+/          .panel-body
+/            =simple_form_for [@account, @account_user] do |f|
+/              = f.hidden_field :account_id, value: @account.id
+/              = f.input :role,  collection: @roles,     as: :radio_buttons, label: "Role"
+/              hr
+/              .pull-right
+/                =f.submit 'Save', class: 'btn btn-primary btn-lg'
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
@@ -14,33 +37,19 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account_user.account.title.to_sym => account_path(@account_user.account), \
                                                             users: account_account_users_path(@account_user.account), \
                                                             }, current: @account_user.get_name}
-                                                            
-    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Set Role'}
+    -blog = Blog.cached_find('Account Users')
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Edit Account Permissions'}
     .row
-      .col-sm-3
-      .col-sm-6
-        .panel
-          .panel-body
-            =simple_form_for [@account, @account_user] do |f|
-              = f.hidden_field :account_id, value: @account.id
-              = f.input :role,  collection: @roles,     as: :radio_buttons, label: "Role"
-              hr
-              .pull-right
-                =f.submit 'Save', class: 'btn btn-primary btn-lg'
-      .col-sm-3
-      /.col-sm-6
-      /  .panel
-      /    .panel-body
-      /      h3 =administrator.title
-      /      =administrator.body
-      /      -if can_edit?
-      /        .pull-right
-      /          = link_to 'Edit', edit_admin_blog_blog_post_path(blog, administrator), class: 'btn btn-primary btn-lg'
-      /.col-sm-6
-      /  .panel
-      /    .panel-body
-      /     h3 = client.title
-      /     = client.body
-      /     -if can_edit?
-      /       .pull-right
-      /         = link_to 'Edit', edit_admin_blog_blog_post_path(blog, client), class: 'btn btn-primary btn-lg'
+      .col-sm-12
+        =simple_form_for [@account, @account_user] do |f|
+          /= f.hidden_field :account_id, value: @account.id
+          /= f.hidden_field :user_id, value: @account_user.user_id
+          == render 'form', f: f
+          .pull-right
+            =f.submit 'Update', class: 'btn btn-primary btn-lg'
+          
+        
+        
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+  

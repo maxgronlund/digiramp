@@ -3,7 +3,7 @@
     == render 'admin/shared/navbar', page: 'profile'         
   .container
     ==render 'admin/shared/messages'
-    /-cache ([request.url, @account.rec_cache_version, current_user.role  ]) do
+    /-cache ([request.url, @account.uuid  ]) do
     .do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(@user), \
                                                              "ASSETS".to_sym =>  user_shared_assets_path(@user) \
@@ -26,9 +26,10 @@
                     = link_to 'Show All',user_user_recordings_path(@user), class: 'btn btn-default btn-lg'
                        
    
+      div class="permissions" value="shared_recordings" id="#{@user.id}"
+
       .row
         .col-sm-12
-          /div class="catalog_id" id="#{@catalog_user.catalog.id}"
           .digiramp_player
             div class="panel-group" id="accordion"
               - @recordings.each do |recording|

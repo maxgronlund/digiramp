@@ -10,7 +10,7 @@
     
     - blog      = Blog.cached_find('Export Works')
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'Export Works'}
-    /-cache([ request.url, @account.works_cache_key, Admin.cached_find(1).version]) do  
+    /-cache([ request.url, @account.works_uuid, Admin.cached_find(1).version]) do  
     .row
       -if current_user.can_manage 'access works', @account
         .col-sm-6

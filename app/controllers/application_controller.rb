@@ -37,15 +37,18 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def there_is_access_to_the_account
-    forbidden unless access_to_account
-  end
-  helper_method :there_is_access_to_the_account
+  #def there_is_access_to_the_account
+  #  forbidden unless access_to_account
+  #end
+  #helper_method :there_is_access_to_the_account
+  
+  
   
   def admins_only
     forbidden unless current_user.can_edit?
   end
   helper_method :admins_only
+  
   
   def access_user
     if params[:user_id]
@@ -54,9 +57,7 @@ class ApplicationController < ActionController::Base
       @user = User.cached_find(params[:id])
     end
     @account = @user.account
-    unless Permissions.can_access_private_account( current_user, @user)
-      forbidden
-    end
+    forbidden unless Permissions.can_access_private_account( current_user, @user)
   end
   helper_method :access_user
   
@@ -92,31 +93,31 @@ class ApplicationController < ActionController::Base
   helper_method :forbidden
   
 private
-  def access_to_account
-    
-    return false if current_user == nil
-    
-    #account_id = params[:id] || params[:account_id]
-    if params[:account_id]
-      @account = Account.cached_find(params[:account_id])
-    else
-      @account = Account.cached_find(params[:id])
-    end
-    #begin
-    #  @account = Account.cached_find(params[:id])
-    #rescue
-    #  @account = Account.cached_find(params[:account_id])
-    #end
-    return true if account_belongs_to_current_user
-    return true if user_is_an_account_user
-    return true if current_user.role == 'super'
-    
-    #return true if the_page_contains_shared_assets
-    @account = nil
-    #account_belongs_to_current_user.current_account_id = current_user.account_id
-    #account_belongs_to_current_user.save
-    false
-  end
+  #def access_to_account
+  #  
+  #  return false if current_user == nil
+  #  
+  #  #account_id = params[:id] || params[:account_id]
+  #  if params[:account_id]
+  #    @account = Account.cached_find(params[:account_id])
+  #  else
+  #    @account = Account.cached_find(params[:id])
+  #  end
+  #  #begin
+  #  #  @account = Account.cached_find(params[:id])
+  #  #rescue
+  #  #  @account = Account.cached_find(params[:account_id])
+  #  #end
+  #  return true if account_belongs_to_current_user
+  #  return true if user_is_an_account_user
+  #  return true if current_user.role == 'super'
+  #  
+  #  #return true if the_page_contains_shared_assets
+  #  @account = nil
+  #  #account_belongs_to_current_user.current_account_id = current_user.account_id
+  #  #account_belongs_to_current_user.save
+  #  false
+  #end
   
   # if the page holds a resource where the current user is granded access
   def the_page_contains_shared_assets

@@ -37,9 +37,64 @@ class Account < ActiveRecord::Base
   has_many :account_users, dependent: :destroy
   has_many :users, :through => :account_users
   
+  # white list user id
+  serialize :permitted_user_ids,                    Array                     
+
+  serialize :create_recording_ids,                  Array
+  serialize :read_recording_ids,                    Array
+  serialize :update_recording_ids,                  Array
+  serialize :delete_recording_ids,                  Array
+
+  serialize :create_recording_ipi_ids,              Array
+  serialize :read_recording_ipi_ids,                Array
+  serialize :update_recording_ipi_ids,              Array
+  serialize :delete_recording_ipi_ids,              Array
+
+  serialize :create_file_ids,                       Array
+  serialize :read_file_ids,                         Array
+  serialize :update_file_ids,                       Array
+  serialize :delete_file_ids,                       Array
+
+  serialize :create_legal_document_ids,             Array
+  serialize :read_legal_document_ids,               Array
+  serialize :update_legal_document_ids,             Array
+  serialize :delete_legal_document_ids,             Array
+
+  serialize :create_financial_document_ids,         Array
+  serialize :read_financial_document_ids,           Array
+  serialize :update_financial_document_ids,         Array
+  serialize :delete_financial_document_ids,         Array
+
+  serialize :create_common_work_ids,                Array
+  serialize :read_common_work_ids,                  Array
+  serialize :update_common_work_ids,                Array
+  serialize :delete_common_work_ids,                Array
+
+  serialize :create_common_work_ipi_ids,            Array
+  serialize :read_common_work_ipi_ids,              Array
+  serialize :update_common_work_ipi_ids,            Array
+  serialize :delete_common_work_ipi_ids,            Array
   
+  serialize :create_account_user_ids,               Array
+  serialize   :read_account_user_ids,               Array
+  serialize :update_account_user_ids,               Array
+  serialize :delete_account_user_ids,               Array
   
-  #before_destroy :delete_user
+  serialize :create_catalog_ids,                    Array
+  serialize   :read_catalog_ids,                    Array
+  serialize :update_catalog_ids,                    Array
+  serialize :delete_catalog_ids,                    Array
+  
+  serialize :create_playlist_ids,                    Array
+  serialize   :read_playlist_ids,                    Array
+  serialize :update_playlist_ids,                    Array
+  serialize :delete_playlist_ids,                    Array
+  
+  serialize :create_crm_ids,                         Array
+  serialize   :read_crm_ids,                         Array
+  serialize :update_crm_ids,                         Array
+  serialize :delete_crm_ids,                         Array
+
   
   ACCOUNT_TYPES =  ['Personal Account', 'Pro Account','Enterprise Account']
   
@@ -57,18 +112,26 @@ class Account < ActiveRecord::Base
   mount_uploader :logo, LogoUploader
   after_commit :flush_cache
   
+  
+  
   include PgSearch
   pg_search_scope :search_account, against: [:title, :description, :contact_first_name, :contact_last_name, :contact_email, :fax], :using => [:tsearch]
   
   scope :activated,  ->  { where( activated: true).order("title asc")  }
   
-  def administrators
-    self.account_users.where(role: 'Administrator')
+  before_save :set_uuid
+  
+  def set_uuid
+    self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
   
-  def administrator_ids
-    self.account_users.where(role: 'Administrator').pluck(:id)
-  end
+  #def administrators
+  #  self.account_users.where(role: 'Administrator')
+  #end
+  
+  #def administrator_ids
+  #  self.account_users.where(role: 'Administrator').pluck(:id)
+  #end
   
   def has_no_name?
     title == Account::SECRET_NAME
@@ -178,11 +241,13 @@ class Account < ActiveRecord::Base
     return false
   end
   
+  # obsolete use uuid instead
   def raise_cache_version
-    self.rec_cache_version += 1  
-    self.save
+    puts 'account.rb line 231 obsolete use uuid instead'
+    #self.rec_cache_version += 1  
+    #self.save
   end
-  
+
   def self.search( query)
     if query.present?
       return Account.search_account(query)

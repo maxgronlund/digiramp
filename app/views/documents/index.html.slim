@@ -7,7 +7,7 @@
     == render 'admin/shared/navbar', page: 'account'         
   .container
     ==render 'admin/shared/messages'
-    /-cache ([request.url, @account.rec_cache_version, current_user.role  ]) do
+    /-cache ([request.url, @account.recordings_uuid, current_user.role  ]) do
     .do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               assets: account_assets_path(@account), \

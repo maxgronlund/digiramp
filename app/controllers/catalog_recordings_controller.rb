@@ -1,5 +1,7 @@
 class CatalogRecordingsController < ApplicationController
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  before_filter :access_to_account
+  
   before_filter :there_is_access_to_catalog
   
   # list of recordings to add to the catalog

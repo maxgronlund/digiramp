@@ -18,9 +18,9 @@
     hr
 
 .row
-  /-if @account.user.invited
+
    
-  -if current_user.can_manage 'assets', @account
+  -if user_can_manage_assets @account, current_user
     .col-sm-6
       == render 'shared/badge_button', locals: { \
                                                   blog_post: 'ASSETS', \
@@ -29,7 +29,8 @@
                                                   icon: 'fa fa-archive' \
                                                 }
   
-  -if current_user.can_manage 'users', @account
+  
+  -if user_can_manage_users @account, current_user
     .col-sm-6
       == render 'shared/badge_button', locals: { \
                                                  blog_post: 'USERS', \
@@ -38,39 +39,39 @@
                                                  icon: 'fa fa-group' \
                                                }
       
-  -if current_user.can_manage 'collect', @account
-    .col-sm-6
-      == render 'shared/badge_button', locals: { \ 
-                                                blog_post: 'COLLECT', \
-                                                link: account_promotion_index_path(@account), \
-                                                css_class: 'btn btn-success', \
-                                                icon: 'fa fa-money' \
-                                               }
-      
-  -if current_user.can_manage 'promotion', @account
-    .col-sm-6
-      == render 'shared/badge_button', locals: { \
-                                                 blog_post: 'PROMOTE', \
-                                                 link: account_promotion_index_path(@account), \
-                                                 css_class: 'btn btn-warning', \
-                                                 icon: 'fa fa-share' \
-                                                }
-      
-  -if current_user.can_manage 'rights', @account
-    .col-sm-6
-      == render 'shared/badge_button', locals: { \
-                                                blog_post: 'RIGHTS', \
-                                                link: account_drm_index_path(@account), \
-                                                css_class: 'btn btn-danger', \
-                                                icon: 'fa fa-gavel' \
-                                               }
-                                                                       
-      
-  -if current_user.can_manage 'customer relations', @account
-    .col-sm-6
-      == render 'shared/badge_button', locals: { \
-                                                blog_post: 'CUSTOMERS', \
-                                                link: account_customers_path(@account), \
-                                                css_class: 'btn btn-info', \
-                                                icon: 'fa fa-phone' \
-                                               } 
+  /-if current_user.can_manage 'collect', @account
+  /  .col-sm-6
+  /    == render 'shared/badge_button', locals: { \ 
+  /                                              blog_post: 'COLLECT', \
+  /                                              link: account_promotion_index_path(@account), \
+  /                                              css_class: 'btn btn-success', \
+  /                                              icon: 'fa fa-money' \
+  /                                             }
+  /    
+  /-if current_user.can_manage 'promotion', @account
+  /  .col-sm-6
+  /    == render 'shared/badge_button', locals: { \
+  /                                               blog_post: 'PROMOTE', \
+  /                                               link: account_promotion_index_path(@account), \
+  /                                               css_class: 'btn btn-warning', \
+  /                                               icon: 'fa fa-share' \
+  /                                              }
+  /    
+  /-if current_user.can_manage 'rights', @account
+  /  .col-sm-6
+  /    == render 'shared/badge_button', locals: { \
+  /                                              blog_post: 'RIGHTS', \
+  /                                              link: account_drm_index_path(@account), \
+  /                                              css_class: 'btn btn-danger', \
+  /                                              icon: 'fa fa-gavel' \
+  /                                             }
+  /                                                                     
+  /    
+  /-if current_user.can_manage 'customer relations', @account
+  /  .col-sm-6
+  /    == render 'shared/badge_button', locals: { \
+  /                                              blog_post: 'CUSTOMERS', \
+  /                                              link: account_customers_path(@account), \
+  /                                              css_class: 'btn btn-info', \
+  /                                              icon: 'fa fa-phone' \
+  /                                             } 

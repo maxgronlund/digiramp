@@ -1,8 +1,9 @@
 .row
   .col-sm-12
-    .panel
+    .panel.panel-primary
+      .panel-heading
+        'People with access
       .panel-body
-        h3 People with access
         .table-responsive.table-permissions
           table class="table table-hover"
             thead
@@ -104,84 +105,7 @@
                   
                     
                         
-                        
-                    /td
-                    /  'Recording
-                    /  br
-                    /  'Recording IPI
-                    /  br
-                    /  'Files
-                    /  br
-                    /  'Legal Documents
-                    /  br
-                    /  'Financial Documents
-                    /  br
-                    /  'Common Works
-                    /  br
-                    /  'Common Works IPI
-                    /  
-                    /td
-                    /  = catalog_user.create_recordings ? '√': ''
-                    /  br
-                    /  = catalog_user.create_recording_ipis ? '√': ''
-                    /  br
-                    /  = catalog_user.create_files ? '√': ''
-                    /  br
-                    /  = catalog_user.create_legal_documents ? '√': ''
-                    /  br
-                    /  = catalog_user.create_financial_documents ? '√': ''
-                    /  br
-                    /  = catalog_user.create_common_works ? '√': ''
-                    /  br
-                    /  = catalog_user.create_common_work_ipis ? '√': ''
-                    /
-                    /td
-                    /  = catalog_user.read_recordings ? '√': ''
-                    /  br
-                    /  = catalog_user.read_recording_ipis ? '√': ''
-                    /  br
-                    /  = catalog_user.read_files ? '√': ''
-                    /  br
-                    /  = catalog_user.read_legal_documents ? '√': ''
-                    /  br
-                    /  = catalog_user.read_financial_documents ? '√': ''
-                    /  br
-                    /  = catalog_user.read_common_works ? '√': ''
-                    /  br
-                    /  = catalog_user.read_common_work_ipis ? '√': ''
-                    /
-                    /td
-                    /  = catalog_user.update_recordings ? '√': ''
-                    /  br
-                    /  = catalog_user.update_recording_ipis ? '√': ''
-                    /  br
-                    /  = catalog_user.update_files ? '√': ''
-                    /  br
-                    /  = catalog_user.update_legal_documents ? '√': ''
-                    /  br
-                    /  = catalog_user.update_financial_documents ? '√': ''
-                    /  br
-                    /  = catalog_user.update_common_works ? '√': ''
-                    /  br
-                    /  = catalog_user.update_common_work_ipis ? '√': ''
-                    /
-                    /td
-                    /  = catalog_user.delete_recordings ? '√': ''
-                    /  br
-                    /  = catalog_user.delete_recording_ipis ? '√': ''
-                    /  br
-                    /  = catalog_user.delete_files ? '√': ''
-                    /  br
-                    /  = catalog_user.delete_legal_documents ? '√': ''
-                    /  br
-                    /  = catalog_user.delete_financial_documents ? '√': ''
-                    /  br
-                    /  = catalog_user.delete_common_works ? '√': ''
-                    /  br
-                    /  = catalog_user.delete_common_work_ipis ? '√': ''
-                  
-                    
-                        
+                
                     
         hr
         .pull-right
@@ -189,13 +113,4 @@
           
           
           
-          
-          /= f.input :can_edit, label: 'Can Edit Catalog'
-          /= f.input :edit_recordings
-          /= f.input :upload_recordings
-          /= f.input :read_works
-          /= f.input :edit_works
-          /= f.input :access_files
-          /= f.input :access_legal_documents
-          /= f.input :access_financial_documents
-          /= f.input :access_ipis
+   

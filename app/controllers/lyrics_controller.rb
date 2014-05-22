@@ -1,5 +1,6 @@
 class LyricsController < ApplicationController
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  before_filter :access_to_account
   def edit
     @common_work = CommonWork.cached_find(params[:common_work_id])
     @recording = Recording.cached_find(params[:id])

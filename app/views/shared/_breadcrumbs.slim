@@ -1,5 +1,5 @@
 .row
-  .col-sm-8
+  .col-sm-9
     .hidden-xs
       -links = breadcrumbs[:links]
       ol class="breadcrumb"
@@ -8,7 +8,7 @@
             = link_to k.upcase , v
         li class="active" 
           = breadcrumbs[:current].upcase
-  .col-sm-4
+  .col-sm-3
     .pull-right
       ol class="breadcrumb"
         li

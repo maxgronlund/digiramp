@@ -1,7 +1,10 @@
 class Admin::UsersController < ApplicationController
+  
+  include UsersHelper
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
+    forbidden unless can_edit?
     @users = User.search(params[:query]).order('lower(email) ASC').page(params[:page]).per(50)
   end
 
@@ -14,6 +17,7 @@ class Admin::UsersController < ApplicationController
   end
   
   def update
+    forbidden unless can_edit?
     if @user.update(user_params)
       flash[:info] = { title: "SUCCESS: ", body: "User updated" }
     else
@@ -23,6 +27,7 @@ class Admin::UsersController < ApplicationController
   end
   
   def destroy
+    forbidden unless can_edit?
     @user = User.cached_find(params[:id])
     #AccountUser.where(user_id: @user.id)
     @user.destroy

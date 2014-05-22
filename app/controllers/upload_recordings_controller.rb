@@ -1,7 +1,8 @@
 class UploadRecordingsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  before_filter :access_to_account
 
   def new
     @recording        = Recording.new

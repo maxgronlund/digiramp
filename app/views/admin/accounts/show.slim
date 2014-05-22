@@ -31,6 +31,9 @@
               table class="table table-hover"
                 tbody
                   tr
+                    td Owner
+                    td =@account.user.name
+                  tr
                     td Account Type:
                     td = @account.account_type.upcase
                   tr
@@ -54,41 +57,41 @@
           .panel-heading
             'Assets
           .panel-body
-          .table-responsive
-            table class="table table-hover"
-              tbody
-                tr
-                  td Works:
-                  td = @account.common_works.size
-                  td
-                    .pull-right
-                      = link_to admin_account_delete_common_works_path(@account) ,data: {confirm: 'Are you sure?'} do
-                        .btn.btn-danger.btn-lg
-                          i class="fa fa-times-circle"
-                tr
-                  td Recordings:
-                  td = @account.recordings.size
-                  td
-                    .pull-right
-                      = link_to = link_to admin_account_delete_recordings_path(@account) ,data: {confirm: 'Are you sure?'} do
-                        .btn.btn-danger.btn-lg
-                          i class="fa fa-times-circle"
-                tr
-                  td Documents:
-                  td = @account.attachments.size
-                  td
-                    .pull-right
-                      = link_to admin_account_delete_documents_path(@account) ,data: {confirm: 'Are you sure?'} do
-                        .btn.btn-danger.btn-lg
-                          i class="fa fa-times-circle"
-                tr
-                  td Storage:
-                  td 
-                  td
-        
-                  
-        
-           
+            .table-responsive
+              table class="table table-hover"
+                tbody
+                  tr
+                    td Works:
+                    td = @account.common_works.size
+                    td
+                      .pull-right
+                        = link_to admin_account_delete_common_works_path(@account) ,data: {confirm: 'Are you sure?'} do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times-circle"
+                  tr
+                    td Recordings:
+                    td = @account.recordings.size
+                    td
+                      .pull-right
+                        = link_to = link_to admin_account_delete_recordings_path(@account) ,data: {confirm: 'Are you sure?'} do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times-circle"
+                  tr
+                    td Documents:
+                    td = @account.attachments.size
+                    td
+                      .pull-right
+                        = link_to admin_account_delete_documents_path(@account) ,data: {confirm: 'Are you sure?'} do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times-circle"
+                  tr
+                    td Storage:
+                    td 
+                    td
+            
+                    
+            
+             
                       
                       
       .col-sm-6               
@@ -132,13 +135,49 @@
                     th Role
                     th 
                 tbody
-                  - @account.account_users.each do |account_user|
-                    - begin
-                      tr
-                        td = account_user.user.email
-                        td = account_user.role
-                    -rescue
-                      - account_user.destroy
+                  - @account.account_users.where(role: 'Administrator').each do |account_user|
+                    tr
+                      td = account_user.user.email
+                      td 
+                        = account_user.role
+                      td
+                        .pull-right
+                          = link_to admin_user_path(account_user.user) do
+                            .btn.btn-default.btn-lg
+                              i class="fa fa-eye"
+                  
+                    
+                    
+        .panel.panel-primary
+          .panel-heading
+            'Repair Permissions
+          .panel-body
+            .table-responsive
+              table class="table table-hover"
+                tbody
+                    tr
+                      th Users 
+                      td 
+                        .pull-right
+                          = link_to 'Repair', admin_account_repair_users_path(@account), class: 'btn btn-primary btn-lg'
+                    tr
+                      th Recordings 
+                      td 
+                        .pull-right
+                          = link_to 'Repair', admin_account_repair_recordings_path(@account), class: 'btn btn-primary btn-lg'
+                    tr
+                      th Works 
+                      td 
+                        .pull-right
+                          = link_to 'Repair', admin_account_repair_works_path(@account), class: 'btn btn-primary btn-lg'
+                    tr
+                      th Catalogs 
+                      td 
+                        .pull-right
+                          = link_to 'Repair', admin_account_repair_catalogs_path(@account), class: 'btn btn-primary btn-lg'
+
+
+
                       
     .row
       .col-sm-12

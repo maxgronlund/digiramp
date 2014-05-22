@@ -1,7 +1,7 @@
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'
-  /-cache([ @account.id, @account.works_cache_key, params]) do  
+  /-cache([ @account.id, @account.works_uuid, params]) do  
   .do   
     .container
       ==render 'admin/shared/messages'
@@ -27,30 +27,23 @@
         
         -if current_user.can_manage 'access recordings', @account
           .col-sm-6
-            -blog_post = BlogPost.cached_find('UPLOAD AUDIO FILES' , blog)
-            .row
-              .col-sm-6
-                .icon-badge
-                  = link_to new_account_catalog_upload_catalog_recording_path(@account, @catalog), class: 'btn  btn-primary', 'data-no-turbolink'=>true do
-                    .fa.fa-cloud-upload
-              .col-sm-6
-                h3 
-                  =link_to blog_post.title, new_account_catalog_upload_catalog_recording_path(@account, @catalog)
-                  -if can_edit?
-                    '&nbsp;
-                    = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
-                       i class="fa fa-pencil"
-                = simple_format blog_post.body
-                
-                
-            /== render 'assets/shared/badge_button', locals: { \
-            /                                                    blog_post: 'UPLOAD AUDIO FILES', \
-            /                                                    link: new_account_catalog_upload_catalog_recording_path(@account, @catalog), \
-            /                                                    css_class: 'btn btn-info', \
-            /                                                    icon: 'fa fa-cloud-upload'\
-            /                                                } 
-            /
-            /
+            == render 'assets/shared/badge_button', locals: { \
+                                                                blog_post: 'UPLOAD AUDIO FILES', \
+                                                                link: new_account_catalog_upload_catalog_recording_path(@account, @catalog), \
+                                                                css_class: 'btn btn-primary', \
+                                                                icon: 'fa fa-cloud-upload'\
+                                                            } 
+        -if current_user.can_manage 'access recordings', @account  
+          .col-sm-6
+            == render 'assets/shared/badge_button', locals: { \
+                                                                blog_post: 'UPLOAD AUDIO FILES', \
+                                                                link: new_account_catalog_upload_catalog_recording_path(@account, @catalog), \
+                                                                css_class: 'btn btn-primary', \
+                                                                icon: 'fa fa-cloud-upload'\
+                                                            } 
+            
+            
+            
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

@@ -1,5 +1,12 @@
 class SharedCatalogsController < ApplicationController
-  #before_filter :there_is_access_to_the_account
+  
+  #include AccountsHelper
+  include UsersHelper
+  #before_filter :access_to_account
+  
+  
+  #include AccountsHelper
+  #before_filter :access_to_account
   before_filter :access_user
   before_filter :access_to_catalog
   def index

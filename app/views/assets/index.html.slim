@@ -5,8 +5,8 @@
             
   .container
     ==render 'admin/shared/messages'
-    /-cache ([request.url, current_user.permission_cache_for( @account), Admin.cached_find(1).version ]) do
-    .do
+    -cache ([request.url, Admin.cached_find(1).version, current_user.uuid , @account.uuid ]) do
+
       - blog = Blog.cached_find('Assets')
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               }, current: 'assets'}
@@ -20,7 +20,7 @@
       .row
 
             
-        -if current_user.can_manage 'access recordings', @account  
+        -if user_can_manage_recordings @account, current_user
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
@@ -33,7 +33,7 @@
             
             
             
-        -if current_user.can_manage 'access works', @account
+        -if user_can_manage_common_works @account, current_user
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
@@ -44,7 +44,7 @@
                                                 id: 'common-works' \
                                               }
             
-        -if true
+        -if user_can_manage_catalogs @account, current_user
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
@@ -55,7 +55,7 @@
                                                 id: 'catalogs' \
                                               }
                                         
-        -if current_user.can_manage 'add_music', @account
+        -if user_can_add_music @account, current_user
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
@@ -66,7 +66,7 @@
                                                 id: 'add-music' \
                                               }
 
-        -if current_user.can_manage 'documents', @account
+        -if user_can_manage_files @account, current_user
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
@@ -77,7 +77,7 @@
                                                 id: 'documents' \
                                               }
                                       
-        -if current_user.can_manage 'addministrate playlists', @account  
+        -if user_can_manage_playlists @account, current_user
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \

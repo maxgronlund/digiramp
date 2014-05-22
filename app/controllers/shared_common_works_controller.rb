@@ -20,8 +20,7 @@ class SharedCommonWorksController < ApplicationController
   end
   
   def update
-    @account.works_cache_key += 1
-    @account.save
+    
     if @common_work.update_attributes(common_work_params)
       @common_work.update_completeness
       redirect_to user_shared_catalog_shared_recording_shared_common_work_path(@user, @catalog, @recording, @common_work)

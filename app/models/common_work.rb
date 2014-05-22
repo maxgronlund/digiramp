@@ -19,7 +19,8 @@ class CommonWork < ActiveRecord::Base
   has_many :work_users, dependent: :destroy
   
   #mount_uploader :audio_file, AudioFileUploader
-  before_save :update_audio_file_attributes
+  before_save :update_uuids
+  before_destroy :update_uuids
   after_commit :flush_cache
   
   
@@ -142,7 +143,6 @@ class CommonWork < ActiveRecord::Base
   end
   
   def update_completeness
-    
     value = 0
     value += 5 unless self.recordings.size.to_i      == 0
     value += 5 unless self.title.to_s                == ''
@@ -153,16 +153,8 @@ class CommonWork < ActiveRecord::Base
     # 75% of the completeness is based on the recordings
     value += recording_health * 0.75
     self.completeness       = value
-
     self.save
-    
-    if self.account
-      self.account.works_cache_key += 1
-      self.account.save
-    else
-      puts 'missing account for work: should be deleted'
-      self.destroy
-    end
+
   end
   
   def recording_health
@@ -587,16 +579,23 @@ private
   def flush_cache
     Rails.cache.delete([self.class.name, id])
   end
-
-  def update_audio_file_attributes
-    if audio_file.present? && audio_file_changed?
-      
-      self.content_type = audio_file.file.content_type
-      self.file_size    = audio_file.size
-      #fo
-      
-    end
+  
+  def update_uuids
+    AccountCache.update_works_uuid self.account
+    self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
+
+  #def update_audio_file_attributes
+  #  
+  #  
+  #  if audio_file.present? && audio_file_changed?
+  #    
+  #    #self.content_type = audio_file.file.content_type
+  #    #self.file_size    = audio_file.size
+  #    #fo
+  #    
+  #  end
+  #end
   
 
   

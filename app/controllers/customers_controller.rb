@@ -1,5 +1,7 @@
 class CustomersController < ApplicationController
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  before_filter :access_to_account
+  
   before_action :set_account_user, only: [:show, :edit, :update, :destroy]
 
   # GET /customers

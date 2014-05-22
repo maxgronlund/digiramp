@@ -8,7 +8,7 @@
       /= f.input :cover_art, label: 'Cover Art. Ratio 1:1'
       /= f.input :image_file_id
       = f.input :image_file_id , :include_blank => false, :collection => @recording.image_files , label: 'Cover Art'
-      = transloadit :recording_with_thumbs 
+      /= transloadit :recording_with_thumbs 
       //= f.file_field :file
       /= f.input :audio_file
       = f.input :isrc_code, label: 'ISRC Code',:input_html => {  placeholder: "ISRC Code"}

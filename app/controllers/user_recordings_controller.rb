@@ -19,5 +19,30 @@ class UserRecordingsController < ApplicationController
 
   end
   
+  def show
+    @recording = Recording.cached_find(params[:id])
+  end
   
+  def edit
+    @recording = Recording.cached_find(params[:id])
+  end
+  
+  def update
+    @recording = Recording.cached_find(params[:id])
+    @recording.update_attributes(recording_params)
+    redirect_to user_user_recording_path( @user, @recording)
+  end
+  
+  def destroy
+    @recording = Recording.cached_find(params[:id])
+    @recording.destroy!
+    redirect_to user_user_recordings_path( @user)
+  end
+  
+private
+
+  def recording_params
+    params.require(:recording).permit!
+  end
+
 end

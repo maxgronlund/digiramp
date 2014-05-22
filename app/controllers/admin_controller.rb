@@ -12,16 +12,11 @@ class AdminController < ApplicationController
     admin.version += 1
     admin.save!
     Account.all.each do |account|
-      account.rec_cache_version +=1
+      # force update of cache
       account.save!
     end
     Recording.all.each do |recording|
-      recording.cache_version +=1
-      if recording.title.nil? || recording.title.empty?
-        recording.destroy
-      else
-        recording.save!
-      end
+      recording.save!
     end
     admin.flush_cache
     redirect_to :back

@@ -20,7 +20,6 @@ class Admin::AccountsController < ApplicationController
   
   def update
     @account = Account.cached_find(params[:id])
-    params[:account][:rec_cache_version] = @account.rec_cache_version + 1 
     @account.update_attributes(account_params)
     
     redirect_to admin_account_path( @account)
@@ -36,9 +35,7 @@ class Admin::AccountsController < ApplicationController
   def delete_common_works
     @account = Account.cached_find(params[:account_id])
     @account.common_works.delete_all
-    @account.works_cache_key += 1
-    @account.save
-    
+    AccountCache.update_works_uuid self.account
     redirect_to :back
   end
   
@@ -53,6 +50,50 @@ class Admin::AccountsController < ApplicationController
     @account.attachments.delete_all
     redirect_to :back
   end
+  
+  
+  
+  
+  
+  
+  def repair_users
+    @account = Account.cached_find(params[:account_id])
+    @account.account_users.each do |account_user|
+      
+    if( @account.user_id == account_user.user_id)
+    else
+      account_user.role = 'Administrator'
+    end
+    account_user.save!
+    end
+    redirect_to :back
+  end
+  
+  
+  
+  def repair_recordings
+    @account = Account.cached_find(params[:account_id])
+    RecordingPermissions.create_account_permissions @account
+    #@account.recordings.each do |recording|
+    #  recording.repair_permissions
+    #end
+    redirect_to :back
+  end
+  
+  def repair_works
+    @account = Account.cached_find(params[:account_id])
+    @account.common_works.each do |work|
+      work.update_completeness
+    end
+    redirect_to :back
+  end
+  
+  def repair_catalogs
+    @account = Account.cached_find(params[:account_id])
+    redirect_to :back
+  end
+  
+
   
   private 
   

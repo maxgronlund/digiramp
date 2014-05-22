@@ -12,8 +12,8 @@ class UpdatePermissionKeysOnRecordings < ActiveRecord::Migration
       account           =  catalog.account
       catalog_owner     =  account.user
       user_id           =  catalog_user.user_id
-      manager_ids       =  account.administrator_ids
-      manager_ids       << catalog_owner.id
+      #manager_ids       =  account.administrator_ids
+      #manager_ids       << catalog_owner.id
       
       create_recording_ids        = catalog_user.create_recordings            ? [] : [user_id]
         read_recording_ids        =   catalog_user.read_recordings            ? [] : [user_id]
@@ -54,32 +54,32 @@ class UpdatePermissionKeysOnRecordings < ActiveRecord::Migration
       if recordings = catalog.recordings
         recordings.each do |recording|
           
-          recording.create_recording_ids             = manager_ids + create_recording_ids
-          recording.read_recording_ids               = manager_ids +   read_recording_ids
-          recording.update_recording_ids             = manager_ids + update_recording_ids
-          recording.delete_recording_ids             = manager_ids + delete_recording_ids
-          recording.create_recording_ipis_ids        = manager_ids + create_recording_ids
-          recording.read_recording_ipis_ids          = manager_ids +   read_recording_ids
-          recording.update_recording_ipis_ids        = manager_ids + update_recording_ids
-          recording.delete_recording_ipis_ids        = manager_ids + delete_recording_ids
-          recording.create_files_ids                 = manager_ids + create_files_ids
-          recording.read_files_ids                   = manager_ids +   read_files_ids
-          recording.update_files_ids                 = manager_ids + update_files_ids
-          recording.delete_files_ids                 = manager_ids + delete_files_ids
-          recording.create_legal_documents_ids       = manager_ids + create_legal_documents_ids
-          recording.read_legal_documents_ids         = manager_ids +   read_legal_documents_ids
-          recording.update_legal_documents_ids       = manager_ids + update_legal_documents_ids
-          recording.delete_legal_documents_ids       = manager_ids + delete_legal_documents_ids
-          recording.create_financial_documents_ids   = manager_ids + create_legal_financial_ids 
-          recording.read_financial_documents_ids     = manager_ids +   read_legal_financial_ids 
-          recording.update_financial_documents_ids   = manager_ids + update_legal_financial_ids 
-          recording.delete_financial_documents_ids   = manager_ids + delete_legal_financial_ids 
-          recording.read_common_works_ids            = manager_ids +   read_common_works_ids
-          recording.update_common_works_ids          = manager_ids + update_common_works_ids
-          recording.create_common_work_ipis_ids      = manager_ids + create_common_works_ipi_ids
-          recording.read_common_work_ipis_ids        = manager_ids +   read_common_works_ipi_ids
-          recording.update_common_work_ipis_ids      = manager_ids + update_common_works_ipi_ids
-          recording.delete_common_work_ipis_ids      = manager_ids + delete_common_works_ipi_ids
+          recording.create_recording_ids             =  create_recording_ids
+          recording.read_recording_ids               =    read_recording_ids
+          recording.update_recording_ids             =  update_recording_ids
+          recording.delete_recording_ids             =  delete_recording_ids
+          recording.create_recording_ipis_ids        =  create_recording_ids
+          recording.read_recording_ipis_ids          =    read_recording_ids
+          recording.update_recording_ipis_ids        =  update_recording_ids
+          recording.delete_recording_ipis_ids        =  delete_recording_ids
+          recording.create_files_ids                 =  create_files_ids
+          recording.read_files_ids                   =    read_files_ids
+          recording.update_files_ids                 =  update_files_ids
+          recording.delete_files_ids                 =  delete_files_ids
+          recording.create_legal_documents_ids       =  create_legal_documents_ids
+          recording.read_legal_documents_ids         =    read_legal_documents_ids
+          recording.update_legal_documents_ids       =  update_legal_documents_ids
+          recording.delete_legal_documents_ids       =  delete_legal_documents_ids
+          recording.create_financial_documents_ids   =  create_legal_financial_ids 
+          recording.read_financial_documents_ids     =    read_legal_financial_ids 
+          recording.update_financial_documents_ids   =  update_legal_financial_ids 
+          recording.delete_financial_documents_ids   =  delete_legal_financial_ids 
+          recording.read_common_works_ids            =    read_common_works_ids
+          recording.update_common_works_ids          =  update_common_works_ids
+          recording.create_common_work_ipis_ids      =  create_common_works_ipi_ids
+          recording.read_common_work_ipis_ids        =    read_common_works_ipi_ids
+          recording.update_common_work_ipis_ids      =  update_common_works_ipi_ids
+          recording.delete_common_work_ipis_ids      =  delete_common_works_ipi_ids
           recording.save!
         end
       end

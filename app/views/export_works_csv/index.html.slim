@@ -11,7 +11,7 @@
     
     
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Export Works'), blog_post: 'Export Works As CSV File'}
-    -cache([ request.url, @account.works_cache_key, Admin.cached_find(1).version]) do  
+    -cache([ request.url, @account.works_uuid, Admin.cached_find(1).version]) do  
 
       .row
           = form_tag account_export_works_csv_index_path(@account), :method => 'get' do

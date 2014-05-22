@@ -25,7 +25,6 @@ class UsersController < ApplicationController
       @user                   = User.new(user_params)
       blog                    = Blog.cached_find('Sign Up')
       if @user.save!
-
         @account          = User.create_a_new_account_for_the @user
         blog              = Blog.cached_find('Sign Up')
         blog_post         = BlogPost.cached_find('Sucess', blog)
@@ -34,7 +33,6 @@ class UsersController < ApplicationController
         # signout if you was signed in as another user
         cookies.delete(:auth_token)
         sign_in
-        @user.account.raise_cache_version
         redirect_to user_account_path(@user, @account)
       else
         blog_post         = BlogPost.cached_find('Error', blog)
@@ -59,10 +57,6 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} successfully updatet" }
 
-      account = Account.cached_find(@user.account_id)
-      account.rec_cache_version += 1 
-      account.save! 
-      
       @user.flush_auth_token_cache(cookies[:auth_token])
 
       redirect_to user_path(@user)
@@ -99,11 +93,7 @@ private
   end
 
   def user_params
-    if current_user && current_user.can_edit?
-      params.require(:user).permit! 
-    else
-      params.require(:user).permit!
-    end 
+    params.require(:user).permit!
   end
           
   

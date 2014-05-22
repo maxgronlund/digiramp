@@ -119,21 +119,11 @@ class Recording < ActiveRecord::Base
   end
   
   
-  
+  before_save :update_uuids
   after_commit :flush_cache
-  before_destroy :remove_from_catalogs
-  before_destroy :remove_from_albums
-  
-  
-  #def expire_account_rec_cash
-  #  
-  #  account.rec_cache_version += 1
-  #  account.save!
-  #
-  #end
-  
-  
-  
+  before_destroy :remove_from_collections
+
+
   def show_more_for user_id
     return true if self.read_recording_ipis_ids.include?        user_id
     return true if self.read_files_ids.include?                 user_id
@@ -557,10 +547,7 @@ class Recording < ActiveRecord::Base
     comma_seperated_moods_tags.rstrip.gsub(/\W\z/, '') 
   end
   
-  
-  
-  
-  
+
 private
   #def update_counter_cache
   #  self.content_type = document.file.content_type
@@ -574,9 +561,13 @@ private
   end
   
   def flush_cache
-    account.rec_cache_version += 1
-    account.save!
     Rails.cache.delete([self.class.name, id])
+  end
+  
+  def remove_from_collections
+    update_uuids
+    remove_from_catalogs
+    remove_from_albums
   end
   
   def remove_from_catalogs
@@ -616,10 +607,10 @@ private
     end
   end
   
-  
-  
-  
-  
+  def update_uuids
+    AccountCache.update_works_uuid self.account
+    self.uuid = UUIDTools::UUID.timestamp_create().to_s
+  end
   
   
 end

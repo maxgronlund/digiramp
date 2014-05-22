@@ -1,6 +1,6 @@
 -recording = locals[:recording]  
 .row
-  .col-sm-8
+  .col-sm-9
     .page-title
       .pull-left
         = image_tag recording.cover_art, width: "92", height: "92", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
@@ -8,7 +8,7 @@
         = recording.title
   
     = simple_format locals[:body]  if locals[:body] 
-  .col-sm-4
+  .col-sm-3
     == render locals[:insert]  if locals[:insert] 
 .row      
   .col-sm-12

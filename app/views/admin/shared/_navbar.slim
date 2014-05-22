@@ -20,22 +20,22 @@
             = link_to 'ADMIN', admin_index_path
       
       
-      -if  user_signed_in?
+      -if user_signed_in?
         ul class="nav navbar-nav navbar-right"
           li class="#{page == 'support' ? 'active' : ''}"
             = link_to 'SUPPORT', support_index_path
           
-          / only show account title when it's typed in by the user
-          -unless current_user.current_account.title == Account::SECRET_NAME
-            / only give access to account for users with a pro or enterprice account
-            - user_account = Account.cached_find(current_user.account_id)
-            -unless user_account.account_type == 'Personal Account'
-              li  class="#{page == 'account' ? 'active' : ''}"
-                = link_to current_user.current_account.title.upcase, account_path(current_user.current_account)
-              
 
-            li class="#{page == 'profile' ? 'active' : ''}"
-              = link_to 'ACCOUNT', user_path(current_user)
+          
+          / only give access to account for users with a pro or enterprice account
+          - user_account = Account.cached_find(current_user.account_id)
+          -unless user_account.account_type == 'Personal Account'
+            li  class="#{page == 'account' ? 'active' : ''}"
+              = link_to current_user.current_account.title.upcase, account_path(current_user.current_account)
+            
+
+          li class="#{page == 'profile' ? 'active' : ''}"
+            = link_to 'ACCOUNT', user_path(current_user)
           
           li = link_to 'LOG OUT',  logout_path
       

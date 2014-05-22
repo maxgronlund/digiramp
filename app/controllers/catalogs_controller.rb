@@ -1,6 +1,7 @@
 class CatalogsController < ApplicationController
   
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  before_filter :access_to_account
   
   def index
     @catalogs = @account.catalogs

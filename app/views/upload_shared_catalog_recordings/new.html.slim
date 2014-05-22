@@ -8,8 +8,9 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(@user), \
                                                            "ASSETS".to_sym =>  user_shared_assets_path(@user), \
                                                            "Catalogs".to_sym =>  user_shared_catalogs_path(@user), \
-                                                           @catalog.title.to_sym =>  user_shared_catalog_path(@user, @catalog) \
-                                                           }, current:  ''}
+                                                           @catalog.title.to_sym =>  user_shared_catalog_path(@user, @catalog), \
+                                                           'add assets'.to_sym =>  user_shared_catalog_path(@user, @catalog) \
+                                                           }, current:  'upload recrodings'}
                                                             
     
     == render 'shared/title', locals: {title: @catalog.title, body: "Belongs to #{@catalog.account.title}"}

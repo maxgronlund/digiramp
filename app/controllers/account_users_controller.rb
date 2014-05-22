@@ -1,10 +1,12 @@
 class AccountUsersController < ApplicationController
 
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  include UsersHelper
+  before_filter :access_to_account
 
 
   def index
-    
+    forbidden unless @account.read_account_user_ids.include? current_user.id
   end
   
   def show
@@ -15,6 +17,8 @@ class AccountUsersController < ApplicationController
   end
   
   def new
+    forbidden unless @account.create_account_user_ids.include? current_user.id
+    
     @account_user = @account.account_users.new(role: "Associate")
     @roles = AccountUser::ROLES
     @roles.delete("Account Owner")
@@ -41,6 +45,10 @@ class AccountUsersController < ApplicationController
   
 
   def create
+    
+    forbidden unless @account.create_account_user_ids.include? current_user.id
+    
+    
     # missing email
     if params[:account_user][:email].to_s == ""
       flash[:danger] = { title: "Email can't be blank", body: "" }
@@ -50,11 +58,18 @@ class AccountUsersController < ApplicationController
     elsif /^\S+@\S+\.\S+$/.match(params[:account_user][:email]).nil?
       flash[:danger] = { title: "Invalid email", body: "" }
       redirect_to new_account_account_user_path( @account )
-      
+    end
+    @user = User.where(email: params[:account_user][:email]).first
+    
+    # user alreaddy added to the account
+    if @user && AccountUser.exists?(user_id: @user.id, account_id: @account.id)  
+      # the account user was alreaddy created
+      flash[:danger] = { title: "User already invited", body: "" }
+      redirect_to new_account_account_user_path( @account )
     else
-      # existing user
-      if @user = User.where(email: params[:account_user][:email]).first
-        create_account_user_for_existing @user
+      # the user is signed up at digiramp
+      if @user
+        #create_account_user_for_existing @user
         @user.invite_existing_user_to_account( @account.id, params[:account_user][:invitation_message])
       else
         # there is no use in the system with that
@@ -65,85 +80,61 @@ class AccountUsersController < ApplicationController
         @user.save!
         @user.invite_new_user_to_account( @account.id, params[:account_user][:invitation_message])
       
-      end
-      @user.account.version += 1
-      @user.account.save
-      begin
-        # create an account user
-        @account_user = AccountUser.create( account_id: @account.id, 
-                                            user_id: @user.id, 
-                                            role: params[:account_user][:role], 
-                                            invitation_message: params[:account_user][:invitation_message],
-                                            email: @user.email,
-                                            name: @user.name)
-                                            
-                                            
+        # some caching stuff
+        @user.account.version += 1
+        @user.account.save
+          
         
-        redirect_to @account_user.associate?   ?  account_account_user_path( @account , @account_user) : account_account_users_path( @account)
-      
-      rescue
-        # the account user was alreaddy created
-        flash[:danger] = { title: "User already invited", body: "" }
-        redirect_to new_account_account_user_path( @account )
       end
+      flash[:info] = { title: "User Invited", body: "An invitation is send to: #{ params[:account_user][:email]}" }
+      # create an account user
+      @account_user = AccountUser.create( account_id: @account.id, 
+                                          user_id: @user.id, 
+                                          role: params[:account_user][:role], 
+                                          invitation_message: params[:account_user][:invitation_message],
+                                          email: @user.email,
+                                          name: @user.name)
+      # bounce back to list
+      redirect_to edit_account_account_user_path @account, @account_user 
       
     end
   end
   
-  def create_account_user_for_existing user
-    if params[:account_user][:role] == 'Client'
-      redirect_to :back
-    end
-    flash[:info] = { title: "User invited", body: "An invitation is send to: #{ params[:account_user][:email]}" }
-    @user.invite_existing_user_to_account( @account.id , 'Welcome to the party')
-  end
+  #def create_account_user_for_existing user
+  #  #if params[:account_user][:role] == 'Client'
+  #  #  redirect_to :back
+  #  #end
+  #  flash[:info] = { title: "User invited", body: "An invitation is send to: #{ params[:account_user][:email]}" }
+  #  @user.invite_existing_user_to_account( @account.id , @account_user.invitation_message )
+  #end
 
   def edit
     
+    forbidden unless @account.update_account_user_ids.include?     current_user.id
     @account_user = AccountUser.cached_find(params[:id])
-    @roles = AccountUser::ROLES
-    @roles.delete("Account Owner") #unless current_user.super?
-    @roles.delete("Client")
+    #@roles        = AccountUser::ROLES
+    #@roles.delete("Account Owner") #unless current_user.super?
+    #@roles.delete("Client")
 
   end
   
   def update
-
+    forbidden unless @account.update_account_user_ids.include?     current_user.id
+    
     @account_user = AccountUser.cached_find(params[:id])
-    
-    
     params[:account_user][:permission_key] = UUIDTools::UUID.timestamp_create().to_s
-    
-    # make sure to bounce back to the right place
-    if params[:account_user][:edit_customer]
-      session[:return_url] = account_customer_path( @account_user.account, @account_user)
-      params[:account_user].delete :edit_customer
-    end
-    
-    if params[:account_user][:invite_associate]
-      session[:return_url] = account_account_users_path( @account_user.account, @account_user)
-      params[:account_user].delete :invite_associate
-    end
-    
-    if params[:account_user][:role] == "Associate"
-      session[:return_url] = account_account_user_path(@account, @account_user)
-    elsif  params[:account_user][:role] == "Administrator"
-      session[:return_url] = account_account_users_path(@account)
-    end
-    
+    # update the account user
     @account_user.update(account_user_params)
-    
-    # administrator has full permissions
-    #if @account_user.administrator?
-    #  session[:return_url] = account_account_users_path( @account )
-    #end
+    # update the white list for the account
+    AccountPermissions.update_user @account_user, @account_user.account
 
-    redirect_to_return_url account_account_users_path(@account, @account_user)
-    
-    
+    redirect_to account_account_users_path(@account)
+
   end
   
   def destroy
+    forbidden unless @account.delete_account_user_ids.include?     current_user.id
+    
     account_user = AccountUser.cached_find(params[:id])
     account_user.account.version += 1
     account_user.account.save

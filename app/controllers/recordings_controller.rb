@@ -1,9 +1,8 @@
 class RecordingsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include RecordingsHelper
-  
-  before_filter :there_is_access_to_the_account
-  
+  include AccountsHelper
+  before_filter :access_to_account
   before_filter :read_recording, only:[:show]
   
   def index
@@ -105,37 +104,17 @@ class RecordingsController < ApplicationController
       else
         redirect_to account_common_work_recording_path(@account, @common_work, @recording,genre_category: @genre_category )
       end
-      #if @genre_category
-      #  redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording,genre_category: @genre_category )
-      #elsif @recording.instrumental
-      #   redirect_to account_common_work_recording_path(@account, @common_work, @recording)
-      #else
-      #  redirect_to edit_account_common_work_lyric_path @account, @common_work, @recording
-      #end
-      #
+
     else
       redirect_to_return_url account_common_work_recording_path(@account, @common_work, @recording)
     end
     
     
-    #@account.works_cache_key += 1
-    #@account.save
-    #if @common_work.update_attributes(common_work_params)
-    #  redirect_to account_work_path(@account, @common_work)
-    #else
-    #  render :edit
-    #end
+
   end
 
   
   def destroy
-    
-    #@common_work    = CommonWork.find(params[:id])
-    #@common_work.destroy
-    #@account.works_cache_key += 1
-    #@account.save
-    #redirect_to account_works_path @account
-    
     @recording = Recording.find(params[:id])
     common_work = @recording.common_work
     @recording.destroy

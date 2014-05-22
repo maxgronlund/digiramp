@@ -1,27 +1,24 @@
+# account user
+# permissions copied to the account with lists for easy access
+
+
 class AccountUser < ActiveRecord::Base
   belongs_to :account
   belongs_to :user
   has_many :customer_events
   
-  #after_create :init_permissions
-  #has_many :permitted_models, dependent: :destroy
-  #accepts_nested_attributes_for :permitted_models
-  
-  #has_many :permissions
-  #has_many :permitted_models, dependent: :destroy #!!! moving to account_user
-  
+
   validates_uniqueness_of :user_id, :scope => :account_id
-  #attr_accessible :role, :user_id, :account_id
   
-  ## Usage:
-  ## account_user.has_permission_for_model? "r", "Recording", account_id
-  
+
   ROLES = ["Account Owner", "Administrator", "Client", "Associate"]
   
   include PgSearch
   pg_search_scope :search_account_user, against: [:name, :email, :note, :phone], :using => [:tsearch]
   
-  after_commit :flush_cache
+  after_commit :update_cache
+  before_save :update_uuids
+  before_destroy :update_uuids
 
   #def admin_or_super?;  admin? || super?              end
   #def super?;           role == 'super'               end
@@ -32,11 +29,32 @@ class AccountUser < ActiveRecord::Base
   #def supervisor?;      role == 'supervisor'          end
   #
   
-  scope :editors,  ->  { where.not( role: 'Client').order("name asc")  }
-  scope :clients,  ->  { where( role: 'Client').order("name asc")  }
+  scope :editors,         ->  { where.not( role: 'Client').order("id asc")  }
+  scope :clients,         ->  { where( role: 'Client').order("id asc")  }
+  scope :administrators,  ->  { where( role: 'Administrator').order("id asc")  }
+
+
+  def update_cache
+    flush_cache
+    update_account_white_lists
+    # update uuid on the account
+    account.save!
+  end
   
-
-
+  def grand_all_permissions
+    #  permissions 
+    AccountPermissions::PERMISSION_TYPES.each do |permission_type|
+      permission = permission_type.gsub('_ids', '')
+      eval "self.#{permission}  = true" 
+    end
+    self.save!
+    AccountPermissions.update_user self, self.account
+  end
+  
+  def update_account_white_lists
+    AccountPermissions.update_user self, self.account
+  end
+  
   
   def mount_user
     if user_id == -1
@@ -54,31 +72,7 @@ class AccountUser < ActiveRecord::Base
       self.save!
     end
   end
-  
-  
-  
-  
-  
-  def associate?
-    role == 'Associate'
-  end
-  
-  def client?
-    role == 'Client'
-  end
-  
-  def administrator?
-    role == 'Administrator'
-  end
-  
-  def owner?
-    role == 'Account Owner'
-  end
-  
-  def can_administrate?
-    administrator? || owner?
-  end
-  
+
   def get_email
     return user.email
   end
@@ -147,40 +141,9 @@ private
     Rails.cache.delete(['account_user', account_id, user_id])
   end
   
-  #def has_permission_for? action, permitted_model_id
-  #  if permitted_model = permitted_models.where( permitted_model_type_id: permitted_model_id).first
-  #    return permitted_model.public_send(action)
-  #  else
-  #    return false
-  #  end
-  #end  
-  #
-  #def build_permissions
-  #  PermittedModelType.order("ui_name asc").each do |permitted_model_type|
-  #    pm = permitted_models.create(permitted_model_type_id: permitted_model_type.id,
-  #                            account_user_id: self.id,
-  #                            user_id: self.user_id,
-  #                            c:  permitted_model_type.c,
-  #                            r:  permitted_model_type.r,
-  #                            u:  permitted_model_type.u,
-  #                            d:  permitted_model_type.d)
-  #  end
-  #end
-  #
-  #def init_permissions
-  #  PermittedModelType.all.each do |permitted_model_type|
-  #    permitted_model_type.add_to_account_user self
-  #  end
-  #  #def add_to_account_user(account_user)
-  #  #  account_user.permitted_models.where(permitted_model_type_id: id).first_or_create
-  #  #end
-  #end
+  def update_uuids
+    AccountCache.update_users_uuid self.account
+    self.uuid = UUIDTools::UUID.timestamp_create().to_s
+  end
   
-  #def get_role_for user
-  #  if account.administrator_id == user.id
-  #    return 'Administrator'
-  #  else
-  #    return self.role
-  #  end
-  #end
 end

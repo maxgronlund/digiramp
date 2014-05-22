@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513192443) do
+ActiveRecord::Schema.define(version: 20140522153505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 20140513192443) do
     t.integer  "account_id"
     t.integer  "user_id"
     t.string   "role"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.text     "invitation_message"
     t.boolean  "access_to_all_recordings",   default: false
     t.boolean  "access_to_all_common_works", default: false
@@ -45,6 +45,51 @@ ActiveRecord::Schema.define(version: 20140513192443) do
     t.string   "email",                      default: ""
     t.string   "permission_key",             default: ""
     t.boolean  "administrate_playlists",     default: false
+    t.boolean  "create_recording",           default: false
+    t.boolean  "read_recording",             default: false
+    t.boolean  "update_recording",           default: false
+    t.boolean  "delete_recording",           default: false
+    t.boolean  "create_recording_ipi",       default: false
+    t.boolean  "read_recording_ipi",         default: false
+    t.boolean  "update_recording_ipi",       default: false
+    t.boolean  "delete_recording_ipi",       default: false
+    t.boolean  "create_file",                default: false
+    t.boolean  "read_file",                  default: false
+    t.boolean  "update_file",                default: false
+    t.boolean  "delete_file",                default: false
+    t.boolean  "create_legal_document",      default: false
+    t.boolean  "read_legal_document",        default: false
+    t.boolean  "update_legal_document",      default: false
+    t.boolean  "delete_legal_document",      default: false
+    t.boolean  "create_financial_document",  default: false
+    t.boolean  "read_financial_document",    default: false
+    t.boolean  "update_financial_document",  default: false
+    t.boolean  "delete_financial_document",  default: false
+    t.boolean  "create_common_work",         default: false
+    t.boolean  "read_common_work",           default: false
+    t.boolean  "update_common_work",         default: false
+    t.boolean  "delete_common_work",         default: false
+    t.boolean  "create_common_work_ipi",     default: false
+    t.boolean  "read_common_work_ipi",       default: false
+    t.boolean  "update_common_work_ipi",     default: false
+    t.boolean  "delete_common_work_ipi",     default: false
+    t.boolean  "create_account_user",        default: false
+    t.boolean  "read_account_user",          default: false
+    t.boolean  "update_account_user",        default: false
+    t.boolean  "delete_account_user",        default: false
+    t.boolean  "create_catalog",             default: false
+    t.boolean  "read_catalog",               default: false
+    t.boolean  "update_catalog",             default: false
+    t.boolean  "delete_catalog",             default: false
+    t.boolean  "create_playlist",            default: false
+    t.boolean  "read_playlist",              default: false
+    t.boolean  "update_playlist",            default: false
+    t.boolean  "delete_playlist",            default: false
+    t.boolean  "create_crm",                 default: false
+    t.boolean  "read_crm",                   default: false
+    t.boolean  "update_crm",                 default: false
+    t.boolean  "delete_crm",                 default: false
+    t.string   "uuid",                       default: "new bee"
   end
 
   add_index "account_users", ["account_id"], name: "index_account_users_on_account_id", using: :btree
@@ -64,21 +109,67 @@ ActiveRecord::Schema.define(version: 20140513192443) do
     t.string   "city"
     t.string   "state"
     t.string   "postal_code"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "users_count",            default: 0,    null: false
-    t.integer  "documents_count",        default: 0,    null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.integer  "users_count",                   default: 0,                null: false
+    t.integer  "documents_count",               default: 0,                null: false
     t.date     "expiration_date"
-    t.integer  "visits",                 default: 0
-    t.integer  "works_cache_key",        default: 0
+    t.integer  "visits",                        default: 0
     t.string   "logo"
-    t.integer  "rec_cache_version",      default: 0
-    t.integer  "customer_cache_version", default: 0
-    t.boolean  "activated",              default: true
+    t.boolean  "activated",                     default: true
     t.integer  "default_catalog_id"
-    t.integer  "playlists_cache_key",    default: 0
-    t.string   "uuid",                   default: ""
-    t.integer  "version",                default: 0
+    t.string   "uuid",                          default: ""
+    t.integer  "version",                       default: 0
+    t.text     "permitted_user_ids",            default: "--- []\n"
+    t.text     "create_recording_ids",          default: "--- []\n"
+    t.text     "read_recording_ids",            default: "--- []\n"
+    t.text     "update_recording_ids",          default: "--- []\n"
+    t.text     "delete_recording_ids",          default: "--- []\n"
+    t.text     "create_recording_ipi_ids",      default: "--- []\n"
+    t.text     "read_recording_ipi_ids",        default: "--- []\n"
+    t.text     "update_recording_ipi_ids",      default: "--- []\n"
+    t.text     "delete_recording_ipi_ids",      default: "--- []\n"
+    t.text     "create_file_ids",               default: "--- []\n"
+    t.text     "read_file_ids",                 default: "--- []\n"
+    t.text     "update_file_ids",               default: "--- []\n"
+    t.text     "delete_file_ids",               default: "--- []\n"
+    t.text     "create_legal_document_ids",     default: "--- []\n"
+    t.text     "read_legal_document_ids",       default: "--- []\n"
+    t.text     "update_legal_document_ids",     default: "--- []\n"
+    t.text     "delete_legal_document_ids",     default: "--- []\n"
+    t.text     "create_financial_document_ids", default: "--- []\n"
+    t.text     "read_financial_document_ids",   default: "--- []\n"
+    t.text     "update_financial_document_ids", default: "--- []\n"
+    t.text     "delete_financial_document_ids", default: "--- []\n"
+    t.text     "create_common_work_ids",        default: "--- []\n"
+    t.text     "read_common_work_ids",          default: "--- []\n"
+    t.text     "update_common_work_ids",        default: "--- []\n"
+    t.text     "delete_common_work_ids",        default: "--- []\n"
+    t.text     "create_common_work_ipi_ids",    default: "--- []\n"
+    t.text     "read_common_work_ipi_ids",      default: "--- []\n"
+    t.text     "update_common_work_ipi_ids",    default: "--- []\n"
+    t.text     "delete_common_work_ipi_ids",    default: "--- []\n"
+    t.text     "create_account_user_ids",       default: "--- []\n"
+    t.text     "read_account_user_ids",         default: "--- []\n"
+    t.text     "update_account_user_ids",       default: "--- []\n"
+    t.text     "delete_account_user_ids",       default: "--- []\n"
+    t.text     "create_catalog_ids",            default: "--- []\n"
+    t.text     "read_catalog_ids",              default: "--- []\n"
+    t.text     "update_catalog_ids",            default: "--- []\n"
+    t.text     "delete_catalog_ids",            default: "--- []\n"
+    t.text     "create_playlist_ids",           default: "--- []\n"
+    t.text     "read_playlist_ids",             default: "--- []\n"
+    t.text     "update_playlist_ids",           default: "--- []\n"
+    t.text     "delete_playlist_ids",           default: "--- []\n"
+    t.text     "create_crm_ids",                default: "--- []\n"
+    t.text     "read_crm_ids",                  default: "--- []\n"
+    t.text     "update_crm_ids",                default: "--- []\n"
+    t.text     "delete_crm_ids",                default: "--- []\n"
+    t.string   "works_uuid",                    default: "first love 727"
+    t.string   "recordings_uuid",               default: "first love 727"
+    t.string   "customers_uuid",                default: "first love 727"
+    t.string   "playlists_uuid",                default: "first love 727"
+    t.string   "users_uuid",                    default: "first love 727"
   end
 
   add_index "accounts", ["default_catalog_id"], name: "index_accounts_on_default_catalog_id", using: :btree
@@ -329,6 +420,26 @@ ActiveRecord::Schema.define(version: 20140513192443) do
   add_index "catalog_users", ["catalog_id"], name: "index_catalog_users_on_catalog_id", using: :btree
   add_index "catalog_users", ["user_id"], name: "index_catalog_users_on_user_id", using: :btree
 
+  create_table "catalogable_permissions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "catalog_item_id"
+    t.boolean  "can_edit",                   default: false
+    t.boolean  "access_files",               default: false
+    t.boolean  "access_legal_documents",     default: false
+    t.boolean  "access_financial_documents", default: false
+    t.boolean  "access_ipis",                default: false
+    t.boolean  "edit_recordings",            default: false
+    t.boolean  "upload_recordings",          default: false
+    t.boolean  "read_works",                 default: false
+    t.boolean  "edit_works",                 default: false
+    t.boolean  "create_playlists",           default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "catalogable_permissions", ["catalog_item_id"], name: "index_catalogable_permissions_on_catalog_item_id", using: :btree
+  add_index "catalogable_permissions", ["user_id"], name: "index_catalogable_permissions_on_user_id", using: :btree
+
   create_table "catalogs", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -388,7 +499,6 @@ ActiveRecord::Schema.define(version: 20140513192443) do
     t.integer  "common_works_import_id"
     t.string   "audio_file"
     t.string   "content_type"
-    t.string   "file_size"
     t.text     "description"
     t.text     "alternative_titles"
     t.integer  "recording_preview_id"
@@ -906,11 +1016,12 @@ ActiveRecord::Schema.define(version: 20140513192443) do
     t.integer  "account_id"
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "url"
     t.string   "url_title"
     t.string   "link_title"
+    t.string   "uuid",       default: "novel player"
   end
 
   add_index "playlists", ["account_id"], name: "index_playlists_on_account_id", using: :btree

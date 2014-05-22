@@ -17,10 +17,10 @@
       
       == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment} 
       
-      
+      div class="permissions" value="shared_catalog" id="#{@catalog.id}"
       
       -index = @recording.id
-      div class="shared_catalog" id="#{@catalog.id}"
+      /div class="shared_catalog" id="#{@catalog.id}"
       div class="player" id="#{index}"
       .just-load
       .panel.panel-default

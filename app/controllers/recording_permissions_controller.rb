@@ -5,32 +5,59 @@ class RecordingPermissionsController < ApplicationController
     @recording             = Recording.cached_find(params[:id])
     @account               = @recording.account
     @common_work           = @recording.common_work
+    puts '-------------------------------------------------------------------'
     
-    puts '---------------------------------'
-    puts @recording.title
-    puts @recording.read_recording_ids.include?   current_user.id
-    puts @recording.read_recording_ids.first.class.name
-    puts '---------------------------------'
-
-            
-    @read_recording        = "#read_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
-    @update_recording      = "#update_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
-    @delete_recording      = "#delete_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
-                           
-    @show_more             = "#show_more_#{params[:id]}"         if @recording.show_more_for current_user.id
-
-    if @shared_catalog     = params[:shared_catalog] == 'true'
-      @remove_from_catalog = "#remove_from_catalog_#{params[:id]}"
-    end
     
-    if  params[:catalog] != '0'
+ 
+    case params[:permissions]
+    when 'shared_catalog'
+      puts params[:permission_id]
+      @catalog               = Catalog.cached_find(params[:permission_id])
+      @read_recording        = "#read_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
+      @update_recording      = "#update_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
+      @delete_recording      = "#delete_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
+      @show_more             = "#show_more_#{params[:id]}"         if @recording.show_more_for                 current_user.id
+      @remove_from_catalog   = "#remove_from_catalog_#{params[:id]}"
+    
+    when 'shared_recordings'
+      puts params[:id]
+      @user_id = params[:permission_id]
+      @read_shared_recording        = "#read_shared_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
+      @update_shared_recording      = "#update_shared_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
+      @delete_shared_recording      = "#delete_shared_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
+      @show_shared_more             = "#show_shared_more_#{params[:id]}"         if @recording.show_more_for                  current_user.id
       
-      # We are in a catalog
-      @catalog              = Catalog.cached_find(params[:catalog])
-      @remove_from_catalog  = "#remove_from_catalog_#{params[:id]}"
-    elsif params[:add_recordings_to_catalog] != '0'
-      puts '----------------------'
-      # We are adding recordings to a catalog
+    when 'account_recordings'
+       puts @recording.id
+       #puts params[:permission_id]
+       #@user_id = params[:permission_id]
+         @read_recording        = "#read_shared_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
+       @update_recording      = "#update_shared_recording_#{params[:id]}"    if @recording.update_recording_ids.include? current_user.id
+       @delete_recording      = "#delete_shared_recording_#{params[:id]}"    if @recording.delete_recording_ids.include? current_user.id
+         @show_more             = "#show_shared_more_#{params[:id]}"         if @recording.show_more_for                  current_user.id
+    else
+    
+    end       
+    
+    #@read_recording        = "#read_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
+    #@update_recording      = "#update_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
+    #@delete_recording      = "#delete_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
+    #@show_more             = "#show_more_#{params[:id]}"         if @recording.show_more_for current_user.id
+    
+    
+    #if @shared_catalog     = params[:shared_catalog] == 'true'
+    #  @remove_from_catalog = "#remove_from_catalog_#{params[:id]}"
+    #end
+    #
+    
+    
+    
+    
+    #if  params[:catalog] != '0'
+    #  # We are in a catalog
+    #  @catalog              = Catalog.cached_find(params[:catalog])
+    #  @remove_from_catalog  = "#remove_from_catalog_#{params[:id]}"
+    if params[:add_recordings_to_catalog] != '0'
       @catalog         = Catalog.cached_find(params[:add_recordings_to_catalog])
       @add_to_catalog  = "#add_to_catalog_#{params[:id]}"
     end

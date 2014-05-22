@@ -4,10 +4,12 @@ Digiramp::Application.routes.draw do
 
 
 
+
+
   resources :comments
 
   #get "shared_recording_files/index"
-  get "user_recordings/index"
+  #get "user_recordings/index"
   resources :image_files
 
   get "albums/index"
@@ -136,15 +138,15 @@ Digiramp::Application.routes.draw do
 
     resources :upload_recordings, only: [:new, :edit, :create]
     resources :common_works do
-      
+      resources :audio_files
       resources :attachments do
         member do
           get :download
         end
         
       end
+      resources :move_recordings, only: [:edit, :update]
       resources :recording_artworks, only: [:show]
-      resources :audio_files
       resources :recordings do
         resources :genre_tags
         resources :image_files
@@ -165,11 +167,6 @@ Digiramp::Application.routes.draw do
   resources :features
   resources :single_work_steps
 
-  #get "investors/index"
-  #get "about/index"
-  #get "solutions/index"
-  #get "features/index"
-  #get "accounts/index"
 
   get "admin"         => "admin#index",       :as => :admin_index
   get "support" => "support#index",       :as => :support_index
@@ -205,13 +202,15 @@ Digiramp::Application.routes.draw do
   
   resources :sign_up
   resources :users do
+    resources :add_shared_catalog_assets, only: [:show]
     resources :user_accounts, only: [:index]
     resources :accounts, only: [:edit, :show, :update]
     resources :issues do
       resources :comments
     end
     resources :issue_images, only: [:show]
-    resources :user_recordings, only: [:index]
+    resources :user_recordings
+    resources :user_recording_assets, only: [:show]
     resources :shared_assets, only: [:index]
     resources :shared_catalogs do
       get "export_all"
@@ -280,6 +279,12 @@ Digiramp::Application.routes.draw do
       get 'delete_common_works'
       get 'delete_recordings'
       get 'delete_documents'
+      
+      get 'repair_users'
+      get 'repair_catalogs'
+      get 'repair_recordings'
+      get 'repair_works'
+
     end
     resources :administrators
     get "engine_room"   => "engine_room#index", :as => :engine_room_index

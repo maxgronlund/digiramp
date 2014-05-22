@@ -1,6 +1,7 @@
 class PlaylistRecordingsController < ApplicationController
   
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  before_filter :access_to_account
   def index
      @playlist         = Playlist.cached_find(params[:playlist_id])
      @recordings       = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)

@@ -14,12 +14,11 @@
     .row
       .col-sm-3
       .col-sm-6
-        .panel.panel-default
+        .panel.panel-primary
           .panel-heading
-            h3 class="panel-title"
-              i class= 'fa fa-lock'
-              '&nbsp;
-              'LOG IN
+            i class= 'fa fa-lock'
+            '&nbsp;
+            'LOG IN
           .panel-body
 
             = simple_form_for(  :sessions, :url => sessions_path ) do |f|

@@ -7,30 +7,30 @@
     == render 'admin/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
-
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(current_user), \
-                                                            }, current: 'ASSETS'}
-                                                            
-                                                            
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'ASSETS'}
-    
-    .row
-      .col-sm-6
-        == render 'assets/shared/badge_button', locals: { \
-                                                    blog_post: 'RECORDINGS', \
-                                                    link: user_user_recordings_path(@user), \
-                                                    css_class: 'btn btn-warning', \
-                                                    icon: 'fa fa-headphones' \
-                                                  }
-      .col-sm-6
-        == render 'assets/shared/badge_button', locals: { \
-                                                    blog_post: 'CATALOGS', \
-                                                    link: user_shared_catalogs_path(@user), \
-                                                    css_class: 'btn btn-primary', \
-                                                    icon: 'fa fa-list-ul' \
-                                                  }
+    -cache ([ Admin.cached_find(1).version, request.url, user_account.uuid ]) do       
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(current_user), \
+                                                              }, current: 'ASSETS'}
+                                                              
+                                                              
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'ASSETS'}
       
-    
+      .row
+        .col-sm-6
+          == render 'assets/shared/badge_button', locals: { \
+                                                      blog_post: 'RECORDINGS', \
+                                                      link: user_user_recordings_path(@user), \
+                                                      css_class: 'btn btn-warning', \
+                                                      icon: 'fa fa-headphones' \
+                                                    }
+        .col-sm-6
+          == render 'assets/shared/badge_button', locals: { \
+                                                      blog_post: 'CATALOGS', \
+                                                      link: user_shared_catalogs_path(@user), \
+                                                      css_class: 'btn btn-primary', \
+                                                      icon: 'fa fa-list-ul' \
+                                                    }
+        
+      
     /.panel
     /  .panel-body
     /    b Common Works

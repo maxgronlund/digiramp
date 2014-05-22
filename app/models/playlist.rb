@@ -8,6 +8,10 @@ class Playlist < ActiveRecord::Base
   #has_many :permissions, as: :permissionable
   
   after_commit :flush_cache
+  before_save :update_uuids
+  before_destroy :update_uuids
+  
+  
   
   def self.create_playlist_with_key account, account_user
     
@@ -39,6 +43,11 @@ class Playlist < ActiveRecord::Base
 private                  
   def flush_cache
     Rails.cache.delete([self.class.name, id])
+  end
+  
+  def update_uuids
+    AccountCache.update_playlists_uuid account
+    self.uuid =  UUIDTools::UUID.timestamp_create().to_s
   end
   
   

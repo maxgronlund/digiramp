@@ -42,19 +42,7 @@ class FixAccountUsers < ActiveRecord::Migration
           user.current_account_id  = new_account.id
           user.save
           
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
+
           
         end
       end
@@ -64,12 +52,6 @@ class FixAccountUsers < ActiveRecord::Migration
       account.expiration_date =  Date.current()>>1
       account.save!
     end
-    
-    
-    #User.all.each do |user|
-    #  accounts = Account.where(user_id: user.id).first
-    #  
-    #  puts accounts.inspect
-    #end
+
   end
 end

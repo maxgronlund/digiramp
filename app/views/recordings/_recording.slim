@@ -1,4 +1,4 @@
--cache(['digiramp_player', Admin.cached_find(1).version, recording.id, recording.cache_version ]) do
+-cache([ Admin.cached_find(1).version, recording.uuid ]) do
   -index = recording.id
   div class="player" id="#{index}"
   div class="panel panel-default"
@@ -8,7 +8,7 @@
           .panel-title
             a data-toggle="collapse" data-parent="#accordion" href="#recording_#{index.to_s}" class="#{index}"
               .row
-                .col-sm-4
+                .col-sm-12
                   .bg-recording-title
                     .pull-left
                       h4
@@ -18,12 +18,12 @@
                     h4
                       '&nbsp;
                       =recording.title
-                    i Artist: 
-                    = recording.artist
-                    
-                  /img src="#{recording.cover_art_url(:cover_thumb)}" alt="alternate #{recording.title}" width="128" height="128" style="float:left;"
+                    /i Artist: 
+                    /= recording.artist
+              .row
+                .col-sm-4     
                   
-                  = image_tag recording.cover_art, width: "92", height: "92", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
+                  = image_tag recording.cover_art, width: "184", height: "184", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
                   
                   -if recording.explicit
                     .pull-left

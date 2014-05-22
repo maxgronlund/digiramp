@@ -1,5 +1,6 @@
 class ExportImportBatchesController < ApplicationController
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  before_filter :access_to_account
   def show
     @import_batch = ImportBatch.find(params[:id])
     @recordings   = @import_batch.recordings

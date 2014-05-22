@@ -1,6 +1,7 @@
 class SingleWorkController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
-  before_filter :there_is_access_to_the_account
+  include AccountsHelper
+  before_filter :access_to_account
   #before_filter :get_blog
   
   def show
@@ -30,7 +31,7 @@ class SingleWorkController < ApplicationController
   
   def update
     @common_work = CommonWork.find(params[:single_work_id])
-    @account.works_cache_key += 1
+   
     @account.save
     if @common_work.update_attributes(common_work_params)
       case @common_work.step

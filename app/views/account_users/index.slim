@@ -8,26 +8,13 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account) }, current: 'users'}
                                       
     == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Account users'}
-    .row
-      .col-sm-12
-        .panel.panel-primary
-          .panel-heading
-            'Users
-            
-          .panel-body
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr
-                    th Name
-                    th Permissions
-                    th
-                tbody
-                  -@account.account_users.editors.each do |account_user|
-                    tr == render 'account_users/shared/account_user', account_user: account_user
-            hr
-            .pull-right
-              = link_to 'Invite User', new_account_account_user_path(@account), class: 'btn btn-success btn-lg'
+    
+    -if @account.read_account_user_ids.include? current_user.id
+      == render 'personas'
+
+    - if @account.create_account_user_ids.include? current_user.id
+      .pull-right
+        = link_to 'Invite User', new_account_account_user_path(@account), class: 'btn btn-primary btn-lg'
 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
