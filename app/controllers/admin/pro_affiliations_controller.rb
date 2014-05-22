@@ -20,33 +20,24 @@ class Admin::ProAffiliationsController < ApplicationController
   def edit
   end
 
-  # POST /pro_affiliations
-  # POST /pro_affiliations.json
+
   def create
     @pro_affiliation = ProAffiliation.new(pro_affiliation_params)
     Admin.cached_find(1).pro_affilications_uuid =
-    respond_to do |format|
-      if @pro_affiliation.save
-        format.html { redirect_to @pro_affiliation, notice: 'Pro affiliation was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @pro_affiliation }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @pro_affiliation.errors, status: :unprocessable_entity }
-      end
+
+    if @pro_affiliation.save
+      redirect_to admin_pro_affiliation_path
+    else
+      redirect_to :back
     end
   end
 
-  # PATCH/PUT /pro_affiliations/1
-  # PATCH/PUT /pro_affiliations/1.json
+
   def update
-    respond_to do |format|
-      if @pro_affiliation.update(pro_affiliation_params)
-        format.html { redirect_to @pro_affiliation, notice: 'Pro affiliation was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @pro_affiliation.errors, status: :unprocessable_entity }
-      end
+    if @pro_affiliation.update_attributes(pro_affiliation_params)
+      redirect_to admin_pro_affiliation_path
+    else
+      redirect_to :back
     end
   end
 
@@ -54,10 +45,7 @@ class Admin::ProAffiliationsController < ApplicationController
   # DELETE /pro_affiliations/1.json
   def destroy
     @pro_affiliation.destroy
-    respond_to do |format|
-      format.html { redirect_to pro_affiliations_url }
-      format.json { head :no_content }
-    end
+    redirect_to admin_pro_affiliation_path
   end
 
   private
@@ -68,6 +56,6 @@ class Admin::ProAffiliationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pro_affiliation_params
-      params.require(:pro_affiliation).permit(:country, :web, :title)
+      params.require(:pro_affiliation).permit!
     end
 end

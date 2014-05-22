@@ -1,5 +1,47 @@
-h1 New pro_affiliation
+/h1 Editing pro_affiliation
+/
+/== render 'form'
 
-== render 'form'
 
-= link_to 'Back', pro_affiliations_path
+
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'admin'
+
+               
+  .container
+    ==render 'admin/shared/messages'
+    -cache ([ request.url, Admin.cached_find(1).pro_affilications_uuid  ]) do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
+                                                              'engine room'.to_sym => admin_engine_room_index_path, \
+                                                              'pro affiliations'.to_sym => admin_pro_affiliations_path, \
+                                                    }, current: 'Edit'}
+                                                    
+                                                    
+                                                    
+                                                    
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'New Pro Affiliations'} 
+      .row
+        .col-sm-3
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Pro Affiliations
+            .panel-body
+              = render 'form'
+        .col-sm-3
+                  
+              
+
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+  
+
+
+
+
+

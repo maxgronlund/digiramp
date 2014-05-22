@@ -10,18 +10,7 @@
                                                               'engine room'.to_sym => admin_engine_room_index_path, \
                                                     }, current: 'Pro affiliations'}
                                                     
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-      /                                                        assets: account_assets_path(@account), \
-      /                                                        recordings: account_recordings_path(@account), \
-      /                                                        @recording.title.to_sym => account_common_work_recording_path(@account, @recording.common_work, @recording), \
-      /                                                        }, current: ''}
-      /
-      
+
       == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Pro Affiliations'} 
       .row
         .col-sm-12
@@ -56,6 +45,10 @@
                           = link_to admin_pro_affiliation_path pro_affiliation, data: {:confirm => 'Are you sure?'}, :method => :delete do
                             .btn.btn-danger.btn-lg
                               i class='fa fa-times'
+      .row
+        .col-sm-12
+          .pull-right
+            = link_to 'New', new_admin_pro_affiliation_path, class: 'btn btn-primary btn-lg'
                 
                     
 
