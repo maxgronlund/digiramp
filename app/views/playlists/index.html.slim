@@ -5,7 +5,7 @@
             
   .container
     ==render 'admin/shared/messages'
-    -cache ([request.url, Admin.cached_find(1).version, @account.playlists_cache_key  ]) do
+    -cache ([request.url, Admin.cached_find(1).version, @account.playlists_uuid  ]) do
       -blog = Blog.cached_find('Playlists')
       -blog_post = BlogPost.cached_find('Playlists' , blog)
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \

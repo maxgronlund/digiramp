@@ -24,8 +24,7 @@ class PlaylistsController < ApplicationController
   def destroy
     @playlist = Playlist.cached_find(params[:id])
     @playlist.destroy
-    @account.playlists_cache_key += 1
-    @account.save!
+
     redirect_to account_playlists_path( @account )
   end
   
