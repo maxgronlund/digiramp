@@ -7,27 +7,26 @@
       div class="catalog_id" id="#{@catalog.id}"
       
       ==render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              assets: account_assets_path(@account), \
-                                                              catalogs: account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => account_catalog_path(@account, @catalog), \
-                                                              }, current: 'recordings'}
-      
-
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog', insert: 'catalogs/edit_and_add_assets'}
-      
-
-      .row
-        .col-sm-12
-          .panel
-            .panel-body
-
-              .digiramp_player
-                div class="panel-group" id="accordion"
-                  - @catalog.catalog_items.where(catalog_itemable_type: 'Recording').order('catalog_itemable_type asc').each do |catalog_item|
-                    == render catalog_item.catalog_itemable_type.downcase, catalog_item: catalog_item
+      -cache ([Admin.cached_find(1).version, request.url, @account.recordings_uuid ]) do 
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                                assets: account_assets_path(@account), \
+                                                                catalogs: account_catalogs_path(@account), \
+                                                                @catalog.title.to_sym => account_catalog_path(@account, @catalog), \
+                                                                }, current: 'recordings'}
         
-
+        
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog', insert: 'catalogs/edit_and_add_assets'}
+        
+        
+        .row
+          .col-sm-12
+            div class="permissions" value="account_recordings" id="#{@catalog.id}"
+            .digiramp_player
+              div class="panel-group" id="accordion"
+                - @catalog.catalog_items.where(catalog_itemable_type: 'Recording').order('catalog_itemable_type asc').each do |catalog_item|
+                  == render catalog_item.catalog_itemable_type.downcase, catalog_item: catalog_item
+          
+        
   
     
 -cache (['footer', Admin.cached_find(1).version]) do      
