@@ -16,6 +16,9 @@ class UpdatePermissionsOnAccountUsers < ActiveRecord::Migration
     add_column :accounts, :playlists_uuid,    :string, default: 'first love 727'
     add_column :accounts, :users_uuid,        :string, default: 'first love 727'
     
+    add_column :playlists, :uuid, :string, default: 'novel player'
+    add_column :account_users, :uuid, :string, default: 'new bee'
+    
     # update legacy data
     AccountUser.all.each do |account_user|
       
