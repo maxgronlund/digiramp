@@ -54,37 +54,22 @@ class Admin::AccountsController < ApplicationController
   
   
   
-  
-  
   def repair_users
     @account = Account.cached_find(params[:account_id])
-    @account.account_users.each do |account_user|
-      
-    if( @account.user_id == account_user.user_id)
-    else
-      account_user.role = 'Administrator'
-    end
-    account_user.save!
-    end
+    @account.repair_users
     redirect_to :back
   end
   
   
-  
   def repair_recordings
     @account = Account.cached_find(params[:account_id])
-    RecordingPermissions.create_account_permissions @account
-    #@account.recordings.each do |recording|
-    #  recording.repair_permissions
-    #end
+    @account.repair_recordings
     redirect_to :back
   end
   
   def repair_works
     @account = Account.cached_find(params[:account_id])
-    @account.common_works.each do |work|
-      work.update_completeness
-    end
+    @account.repair_works
     redirect_to :back
   end
   

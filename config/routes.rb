@@ -275,6 +275,7 @@ Digiramp::Application.routes.draw do
 
   # Example resource route within a namespace:
   namespace :admin do
+    get 'repair_permissions'
     # Directs /admin/products/* to Admin::ProductsController
     # (app/controllers/admin/products_controller.rb)
     resources :accounts do

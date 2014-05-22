@@ -255,6 +255,31 @@ class Account < ActiveRecord::Base
       return all
     end
   end
+  
+  
+  
+  def repair_users
+    self.account_users.each do |account_user|
+      unless( self.user_id == account_user.user_id)
+        account_user.role = 'Administrator'
+      end
+      account_user.save!
+    end
+  end
+  
+  def repair_recordings
+    RecordingPermissions.create_account_permissions self
+  end
+  
+  def repair_works
+    self.common_works.each do |work|
+      work.update_completeness
+    end
+  end
+  
+  def repair_catalogs
+    
+  end
 
   
 private
