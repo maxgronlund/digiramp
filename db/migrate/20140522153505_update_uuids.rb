@@ -1,8 +1,8 @@
 class UpdateUuids < ActiveRecord::Migration
   def change
     
+    remove_column :playlists, :uuid
     add_column :playlists, :uuid, :string, default: 'novel player'
-    add_column :account_users, :uuid, :string, default: 'new bee'
     
     # force new uuids
     Recording.all.each do |recording|
