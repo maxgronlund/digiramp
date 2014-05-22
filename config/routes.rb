@@ -6,6 +6,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  resources :pro_affiliations
+
   resources :comments
 
   #get "shared_recording_files/index"
@@ -302,6 +304,7 @@ Digiramp::Application.routes.draw do
     resources :instruments_imports
     resources :moods
     resources :moods_imports
+    resources :pro_affiliations
     resources :tags, only: [:index]
     resources :users
     resources :user_genres, only: [:index]

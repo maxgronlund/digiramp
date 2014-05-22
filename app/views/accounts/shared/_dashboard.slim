@@ -26,7 +26,8 @@
                                                   blog_post: 'ASSETS', \
                                                   link: account_assets_path(@account), \
                                                   css_class: 'btn btn-primary', \
-                                                  icon: 'fa fa-archive' \
+                                                  icon: 'fa fa-archive', \
+                                                 id: 'assets' \
                                                 }
   
   
@@ -36,7 +37,8 @@
                                                  blog_post: 'USERS', \
                                                  link: account_account_users_path(@account), \
                                                  css_class: 'btn btn-default', \
-                                                 icon: 'fa fa-group' \
+                                                 icon: 'fa fa-group', \
+                                                 id: 'users' \
                                                }
       
   /-if current_user.can_manage 'collect', @account

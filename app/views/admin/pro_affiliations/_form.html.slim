@@ -1,0 +1,7 @@
+= simple_form_for [ :admin, @pro_affiliation] do |f|
+
+  = f.input :territory
+  = f.input :web
+  = f.input :title
+  .pull-right
+    = f.submit 'Save', class: 'btn btn-primary btn-lg'

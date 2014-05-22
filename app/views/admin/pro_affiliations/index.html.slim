@@ -1,0 +1,70 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'admin'
+
+               
+  .container
+    ==render 'admin/shared/messages'
+    -cache ([ request.url, Admin.cached_find(1).pro_affilications_uuid  ]) do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
+                                                              'engine room'.to_sym => admin_engine_room_index_path, \
+                                                    }, current: 'Pro affiliations'}
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+      /                                                        assets: account_assets_path(@account), \
+      /                                                        recordings: account_recordings_path(@account), \
+      /                                                        @recording.title.to_sym => account_common_work_recording_path(@account, @recording.common_work, @recording), \
+      /                                                        }, current: ''}
+      /
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Pro Affiliations'} 
+      .row
+        .col-sm-12
+          .panel.panel-primary
+            .panel-heading
+              'Pro Affiliations
+            .panel-body
+              .table-responsive
+                table class="table table-striped"
+                  thead
+                    tr
+                      th Country
+                      th Web
+                      th territory
+                      th
+                  tbody
+                    - @pro_affiliations.order('territory asc').each do |pro_affiliation|
+                      tr
+                        td = pro_affiliation.territory
+                        td = link_to pro_affiliation.web, pro_affiliation.web
+                        td = pro_affiliation.title
+                        td 
+                          /= link_to  admin_pro_affiliation_path pro_affiliation do
+                          /  .btn.btn-default.btn-lg
+                          /    i class="fa fa-eye"
+                          /'&nbsp;
+                          /
+                          = link_to  edit_admin_pro_affiliation_path(pro_affiliation) do
+                            .btn.btn-primary.btn-lg
+                              i class='fa fa-pencil'
+                          '&nbsp;
+                          = link_to admin_pro_affiliation_path pro_affiliation, data: {:confirm => 'Are you sure?'}, :method => :delete do
+                            .btn.btn-danger.btn-lg
+                              i class='fa fa-times'
+                
+                    
+
+              
+
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+  
+
+

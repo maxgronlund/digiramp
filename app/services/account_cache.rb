@@ -28,6 +28,12 @@ class AccountCache
     account.save
   end
   
+  def self.update_pro_affilications_uuid
+    admin = Admin.cached_find(1)
+    admin.pro_affilications_uuid = UUIDTools::UUID.timestamp_create().to_s 
+    admin.save!
+  end
+  
   
   
 end

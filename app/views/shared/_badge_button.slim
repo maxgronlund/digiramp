@@ -5,11 +5,12 @@
 -link       = locals[:link]
 -css_class  = locals[:css_class]
 -icon       = locals[:icon]
+-id         = locals[:id]
 
 .row
   .col-sm-6
     .icon-badge
-      = link_to link, class: css_class do
+      = link_to link, id: id,  class: css_class do
         div class=icon
     
   .col-sm-6

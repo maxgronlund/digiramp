@@ -28,8 +28,8 @@ Feature: When I'm signed in to my account I can manage clients
     When I am logged in with the email "digi@ramp.com" and the password "superman"
     When I am on the MANAGE CUSTOMERS page for "DigiRAMP"
     
-    When I click on the link "New Customer"
-    Then I can see "NEW CUSTOMER"
+    Then I click on a link with id "Users"
+    Then I can see "Invite User"
     Then I am creating a customer with the email "max@digiramp.org" the name "New Customer" and the phone " 500 12 45 78"
     Then I can see "A new customer is added to your account"
     When I click on the link "CUSTOMERS"
