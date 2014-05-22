@@ -10,6 +10,12 @@
 class UpdatePermissionsOnAccountUsers < ActiveRecord::Migration
   def up
     
+    add_column :accounts, :works_uuid,        :string, default: 'first love 727'
+    add_column :accounts, :recordings_uuid,   :string, default: 'first love 727'
+    add_column :accounts, :customers_uuid,    :string, default: 'first love 727'
+    add_column :accounts, :playlists_uuid,    :string, default: 'first love 727'
+    add_column :accounts, :users_uuid,        :string, default: 'first love 727'
+    
     # update legacy data
     AccountUser.all.each do |account_user|
       
@@ -114,6 +120,10 @@ class UpdatePermissionsOnAccountUsers < ActiveRecord::Migration
 
   
   def down
-
+    remove_column :accounts, :works_uuid,        :string, default: 'first love 727'
+    remove_column :accounts, :recordings_uuid,   :string, default: 'first love 727'
+    remove_column :accounts, :customers_uuid,    :string, default: 'first love 727'
+    remove_column :accounts, :playlists_uuid,    :string, default: 'first love 727'
+    remove_column :accounts, :users_uuid,        :string, default: 'first love 727'
   end
 end

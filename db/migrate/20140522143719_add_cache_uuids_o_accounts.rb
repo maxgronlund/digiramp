@@ -5,11 +5,7 @@ class AddCacheUuidsOAccounts < ActiveRecord::Migration
     remove_column :accounts, :customer_cache_version
     remove_column :accounts, :playlists_cache_key
     
-    add_column :accounts, :works_uuid,        :string, default: 'first love 727'
-    add_column :accounts, :recordings_uuid,   :string, default: 'first love 727'
-    add_column :accounts, :customers_uuid,    :string, default: 'first love 727'
-    add_column :accounts, :playlists_uuid,    :string, default: 'first love 727'
-    add_column :accounts, :users_uuid,        :string, default: 'first love 727'
+    
     
     remove_column :common_works, :file_size
     
