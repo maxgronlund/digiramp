@@ -21,7 +21,7 @@ class Instrument < ActiveRecord::Base
                               ]
   
   
-  before_destroy :delete_instrument_tags
+  
   
   include PgSearch
   pg_search_scope :search_instruments, against: [:title, :category], :using => [:tsearch]
@@ -41,7 +41,8 @@ class Instrument < ActiveRecord::Base
   
   validates_uniqueness_of :title
   after_commit :flush_cache
-  
+
+  before_destroy :delete_instrument_tags
   
   def delete_instrument_tags
     instrument_tags.delete_all

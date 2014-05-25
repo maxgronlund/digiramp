@@ -74,13 +74,13 @@
     .row
        .col-sm-12
          .pull-right
-           = link_to 'New', new_admin_genre_path, class: 'btn btn-primary btn-lg'
-           '&nbsp;
            = link_to 'Export CSV', admin_export_genres_path( format: "csv"), class: 'btn btn-default btn-lg'
            '&nbsp;
            = link_to 'Import CSV', new_admin_genre_import_path, class: 'btn btn-default btn-lg'
            '&nbsp;
            = link_to 'User Genre', admin_user_genres_path, class: 'btn btn-default btn-lg'
+           '&nbsp;
+           = link_to 'New', new_admin_genre_path, class: 'btn btn-primary btn-lg'
      
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

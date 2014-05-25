@@ -48,6 +48,8 @@ class Admin::GenresController < ApplicationController
     flash[:success]   = { title: 'Success', body: 'Genre deleted' }
     redirect_to_return_url admin_genres_path
   end
+  
+  
 private
   def genre_params
     params.require(:genre).permit! if current_user.can_edit?

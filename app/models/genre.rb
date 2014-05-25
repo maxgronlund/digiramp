@@ -87,20 +87,6 @@ class Genre < ActiveRecord::Base
   validates_uniqueness_of :title
   after_commit :flush_cache
   
-  #def self.by_comma_seperated string
-  #  genres = []
-  #  if string
-  #    string.to_s.split(",").each do |title|
-  #      title = title.to_s.strip.downcase
-  #      genre = find :first, :conditions => ["lower(title) = ?", title]
-  #      genre ||= create! user_tag: true, title: title
-  #      genres << genre if genre
-  #    end
-  #  end
-  #  
-  #  genres
-  #end
-  
   def delete_genre_tags
     genre_tags.delete_all
   end

@@ -20,9 +20,12 @@
       -index = @recording.id
       div class="player" id="#{index}"
       .just-load
-      .panel.panel-default
+      .panel.panel-primary
+        .panel-heading
+          = @recording.title
         .panel-body
           .digiramp_player
+            div class="permissions" value="account_recordings" id="#{current_user.id}"
             == render 'players/digramp_player', locals: {index: index , recording: @recording}
 
       .row

@@ -16,9 +16,10 @@
       .col-sm-3
       
       .col-sm-6
-        .panel
+        .panel.panel-primary
+          .panel-heading
+            'SELECT FILE
           .panel-body
-            h3 SELECT FILE
             /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
             = simple_form_for [ @account, @common_work, @recording ], :url => url_for(:action => 'create', :controller => 'recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
               = transloadit :recording_with_thumbs 

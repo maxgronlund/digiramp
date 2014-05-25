@@ -15,15 +15,20 @@
       == render 'shared/page_title', locals: {blog: blog, blog_post: 'Create Content'}  
 
       .row
-        .col-sm-6
-          == render 'add_content/shared/badge_buttons/upload_recording', blog: blog
-        .col-sm-6
-          == render 'add_content/shared/badge_buttons/import_content', blog: blog
-          
-        .col-sm-6
-          == render 'add_content/shared/badge_buttons/wizard', blog: blog
-        .col-sm-6
-          == render 'add_content/shared/badge_buttons/csv', blog: blog
+        - if current_account_user.create_recording? 
+          .col-sm-6
+            == render 'add_content/shared/badge_buttons/upload_recording', blog: blog
+        
+        - if current_account_user.create_common_work?    
+          .col-sm-6
+            == render 'add_content/shared/badge_buttons/import_content', blog: blog
+        
+        - if current_account_user.create_common_work? 
+          .col-sm-6
+            == render 'add_content/shared/badge_buttons/wizard', blog: blog
+        - if current_account_user.create_recording? 
+          .col-sm-6
+            == render 'add_content/shared/badge_buttons/csv', blog: blog
 
 
   

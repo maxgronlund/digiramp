@@ -5,7 +5,7 @@ class RecordingPermissionsController < ApplicationController
     @recording             = Recording.cached_find(params[:id])
     @account               = @recording.account
     @common_work           = @recording.common_work
-    puts '-------------------------------------------------------------------'
+    logger.debug '-------------------------------------------------------------------'
     
     
  
@@ -25,16 +25,14 @@ class RecordingPermissionsController < ApplicationController
       @read_shared_recording        = "#read_shared_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
       @update_shared_recording      = "#update_shared_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
       @delete_shared_recording      = "#delete_shared_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
-      @show_shared_more             = "#show_shared_more_#{params[:id]}"         if @recording.show_more_for                  current_user.id
+      @show_shared_more             = "#show_shared_more_#{params[:id]}"         if @recording.show_more_for                 current_user.id
       
     when 'account_recordings'
        puts @recording.id
-       #puts params[:permission_id]
-       #@user_id = params[:permission_id]
          @read_recording        = "#read_shared_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
        @update_recording      = "#update_shared_recording_#{params[:id]}"    if @recording.update_recording_ids.include? current_user.id
        @delete_recording      = "#delete_shared_recording_#{params[:id]}"    if @recording.delete_recording_ids.include? current_user.id
-         @show_more             = "#show_shared_more_#{params[:id]}"         if @recording.show_more_for                  current_user.id
+         @show_more             = "#show_shared_more_#{params[:id]}"         if @recording.show_more_for                 current_user.id
     else
     
     end       

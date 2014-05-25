@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
   
+  def current_account_user
+    AccountUser.cached_where(@account.id, current_user.id)
+  end
+  helper_method :current_account_user
+  
+  
   def user_signed_in?
     current_user != nil
   end

@@ -88,15 +88,21 @@ class AccountPermissions
   end
   
   # update
+  # AccountPermissions.update_user account_user, account
   def self.update_user account_user, account
+    
     # remove old permissions
     delete_user account_user.user_id, account
+    
     # add new permissions
     add_user account_user, account
+    
     # remove dublicats
     unique_user_ids account
+    
     # save and get a new uuid
     account.save!
+
   end
   
   # delete
@@ -109,18 +115,18 @@ class AccountPermissions
   end
   
   
-  #AccountPermissions.grand_all_permissions(1,Account.find(37))
+  #AccountPermissions.grand_all_permissions user_id, account
   # grand all permissions 
-  def self.grand_all_permissions user_id, account
+  def self.grand_all_permissions account_user
     # add user_id to the access
-    account.permitted_user_ids   += [ user_id ]
+    account.permitted_user_ids   += [ account_user.user_id ]
     
     # add the given permissions
     PERMISSION_TYPES.each do |permission_type|
-      eval "account.#{permission_type} += #{[user_id]}"
+      eval "account.#{permission_type} += #{[account_user.user_id]}"
     end
     # remove dublicate users
-    unique_user_ids account
+    unique_user_ids account_user.account
     account.save!
 
   end

@@ -10,28 +10,23 @@ class TransloaditParser
   def self.extract uploads
     transloadets  = []
     extracted     = {}
-    #upload_ids    = []
-    #resoult_ids   = []
+
     
     # original file
     uploads[:results][':original'].each do |original|
-    
+      
       extracted[ original[:original_id] ] =  { original_file: original[:url], meta: original[:meta]}
-      #transloadets[index][:original_file]     = original[:url]
-      #transloadets[index][:meta]              = original[:meta]
     end
     
 
     # thumbnail
     uploads[:results][:thumbnail].each do |thumbnail|
       extracted[ thumbnail[:original_id] ][:original_file] = thumbnail[:url]
-      #transloadets << { thumbnail: thumbnail[:url] }
     end
     
     # waveform
     uploads[:results][:waveform].each do |waveform|
-      extracted[ waveform[:original_id] ][:waveform]          = waveform[:url]
-      #transloadets[index][:waveform]            = waveform[:url]
+      extracted[ waveform[:original_id] ][:waveform]       = waveform[:url]
     end
     
     # metadata
@@ -69,28 +64,10 @@ class TransloaditParser
     end
     
     
-    #uploads[:results][:mp3].each_with_index do |mp3, index|
-    #  transloadets[index][:original_file_name] = mp3[:name]
-    #end
-    
-    #uploads[:results][:mp3].each_with_index do |mp3, index|
-    #  transloadets[index][:original_name] = mp3[:original_basename]
-    #end
-    
-    #uploads[:results][:mp3].each_with_index do |mp3, index|
-    #  transloadets[index][:mp3] = mp3[:url]
-    #end
-
-
-    # ugly code will degrade with upload batch size
-    
     extracted.each do | k, v|
       transloadets << v
     end
-    puts '----------------------------------------------------'
-    puts transloadets.inspect
-    puts '----------------------------------------------------'
-      
+    
     transloadets.each do |transloadet|
 
       meta                      = transloadet[:meta]
@@ -111,89 +88,62 @@ class TransloaditParser
       transloadet[:disc]        = meta[:disc].to_s 
       transloadet[:track]       = meta[:track].to_s 
     end
-
-
     transloadets
   end
   
   def self.parse_recordings uploads, account_id
     transloadets  = extract( uploads )
     import_batch  = ImportBatch.create(account_id: account_id, transloadit: uploads)
-    account       = import_batch.account
-    user_ids      = [account.user_id]
-    user_ids      += AccountUser.where(account_id: account.id, access_to_all_recordings: true).pluck(:user_id)
-    user_ids      += AccountUser.where(account_id: account.id, role: 'Administrator').pluck(:user_id)
-    user_ids      += User.where(role: 'super').pluck(:id)
-    user_ids.uniq!
+    #account       = import_batch.account
+    #user_ids      = [account.user_id]
+    #
+    #user_ids      += AccountUser.where(account_id: account.id, access_to_all_recordings: true).pluck(:user_id)
+    #user_ids      += AccountUser.where(account_id: account.id, role: 'Administrator').pluck(:user_id)
+    #user_ids      += User.where(role: 'super').pluck(:id)
+    #
+    #user_ids.uniq!
     
     recordings = []
     transloadets.each do |transloaded|
-      #begin
-        recording =   Recording.create!(  title:                              extract_title_from( transloaded ), 
-                                          duration:                           transloaded[:duration],
-                                          artist:                             transloaded[:artist],
-                                          lyrics:                             sanitize_lyrics( transloaded[:lyrics] ),
-                                          bpm:                                transloaded[:bpm],
-                                          comment:                            sanitize_comment( transloaded[:comment] ),
-                                          year:                               transloaded[:year],
-                                          album_name:                         transloaded[:album],
-                                          genre:                              transloaded[:genre],
-                                          performer:                          transloaded[:performer],
-                                          band:                               transloaded[:band],
-                                          disc:                               transloaded[:disc],
-                                          track:                              transloaded[:track],
-                                          mp3:                                transloaded[:mp3],
-                                          waveform:                           transloaded[:waveform],
-                                          thumbnail:                          transloaded[:thumbnail],
-                                          #copyright:                          transloaded[:copyright],
-                                          #composer:                           transloaded[:composer],
-                                          account_id:                         account_id, 
-                                          import_batch_id:                    import_batch.id,
-                                          audio_upload:                       transloaded,
-                                          original_file:                      transloaded[:original_file],
-                                          cover_art:                          transloaded[:cover_art],
-                                          artwork:                            transloaded[:artwork],
-                                          create_recording_ids:               user_ids, 
-                                          read_recording_ids:                 user_ids, 
-                                          update_recording_ids:               user_ids, 
-                                          delete_recording_ids:               user_ids,          
-                                          create_recording_ipis_ids:          user_ids,     
-                                          read_recording_ipis_ids:            user_ids,       
-                                          update_recording_ipis_ids:          user_ids,     
-                                          delete_recording_ipis_ids:          user_ids,     
-                                          create_files_ids:                   user_ids,              
-                                          read_files_ids:                     user_ids,                
-                                          update_files_ids:                   user_ids,              
-                                          delete_files_ids:                   user_ids,              
-                                          create_legal_documents_ids:         user_ids,    
-                                          read_legal_documents_ids:           user_ids,      
-                                          update_legal_documents_ids:         user_ids,    
-                                          delete_legal_documents_ids:         user_ids,    
-                                          create_financial_documents_ids:     user_ids,
-                                          read_financial_documents_ids:       user_ids,  
-                                          update_financial_documents_ids:     user_ids,
-                                          delete_financial_documents_ids:     user_ids,
-                                          read_common_works_ids:              user_ids,         
-                                          update_common_works_ids:            user_ids,       
-                                          create_common_work_ipis_ids:        user_ids,   
-                                          read_common_work_ipis_ids:          user_ids,     
-                                          update_common_work_ipis_ids:        user_ids,   
-                                          delete_common_work_ipis_ids:        user_ids
-                                          
-                                         )
-        
-        
-        recording.extract_genres                                 
-        recording.update_completeness
-        recordings << recording
-        CommonWork.attach( recording, account_id)
-        add_artwork_to recording unless recording.cover_art == ''
-       
-        
-        
-      #rescue
-      #  
-      #end
+      puts '---------------- META DATA ---------------------------------'
+      puts transloaded[:genre]
+      puts '------------------------------------------------------------'
+
+      recording =   Recording.create!(  title:                              extract_title_from( transloaded ), 
+                                        duration:                           transloaded[:duration],
+                                        artist:                             transloaded[:artist],
+                                        lyrics:                             sanitize_lyrics( transloaded[:lyrics] ),
+                                        bpm:                                transloaded[:bpm],
+                                        comment:                            sanitize_comment( transloaded[:comment] ),
+                                        year:                               transloaded[:year],
+                                        album_name:                         transloaded[:album],
+                                        genre:                              transloaded[:genre],
+                                        performer:                          transloaded[:performer],
+                                        band:                               transloaded[:band],
+                                        disc:                               transloaded[:disc],
+                                        track:                              transloaded[:track],
+                                        mp3:                                transloaded[:mp3],
+                                        waveform:                           transloaded[:waveform],
+                                        thumbnail:                          transloaded[:thumbnail],
+                                        #copyright:                          transloaded[:copyright],
+                                        #composer:                           transloaded[:composer],
+                                        account_id:                         account_id, 
+                                        import_batch_id:                    import_batch.id,
+                                        audio_upload:                       transloaded,
+                                        original_file:                      transloaded[:original_file],
+                                        cover_art:                          transloaded[:cover_art],
+                                        artwork:                            transloaded[:artwork],
+                                       )
+      
+      
+      recording.extract_genres                                 
+      recording.update_completeness
+      recordings << recording
+      CommonWork.attach( recording, account_id)
+      add_artwork_to recording unless recording.cover_art == ''
+      
+      RecordingPermissions.add_permissions_to_account_users account_id, recording
+
     end
     import_batch.recordings_count = recordings.size
     import_batch.save!
@@ -233,7 +183,9 @@ class TransloaditParser
   
   def self.add_to_common_work uploads, common_work_id, account_id
     transloadets = extract( uploads )
+
     transloadets.each do |transloaded|
+      
       begin
         recording =   Recording.create!(  title:             extract_title_from( transloaded ), 
                                           duration:          transloaded[:duration],
@@ -262,21 +214,20 @@ class TransloaditParser
                                          )
         
         add_artwork_to recording unless recording.cover_art == ''
-        recording.extract_genres                                 
-        recording.common_work.update_completeness
+        RecordingPermissions.add_permissions_to_account_users account_id, recording
+        recording.extract_genres      
+                             
+        recording.update_completeness
+
       rescue
-        puts 'chrash2'
+        Rails.logger.debug '+++++++++++++++++++++++++++++++++++++++'
+        Rails.logger.debug '            CRASH                      '
+        Rails.logger.debug '+++++++++++++++++++++++++++++++++++++++'
       end
+
     end
   end
-  
-  
-  
-  
-  
-  
-  
-  
+
   
   def self.extract_title_from transloaded
     title = transloaded[:title].to_s

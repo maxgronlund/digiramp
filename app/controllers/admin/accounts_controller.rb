@@ -63,8 +63,11 @@ class Admin::AccountsController < ApplicationController
   
   def repair_recordings
     @account = Account.cached_find(params[:account_id])
-    @account.repair_recordings
-    redirect_to :back
+    RepairRecordingsWorker.perform_async(@account.id)
+    
+    #@account = Account.cached_find(params[:account_id])
+    #@account.repair_recordings
+    redirect_to admin_account_path( @account)
   end
   
   def repair_works

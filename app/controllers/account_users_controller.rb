@@ -123,10 +123,15 @@ class AccountUsersController < ApplicationController
     
     @account_user = AccountUser.cached_find(params[:id])
     params[:account_user][:permission_key] = UUIDTools::UUID.timestamp_create().to_s
+    
     # update the account user
     @account_user.update(account_user_params)
+    
     # update the white list for the account
-    AccountPermissions.update_user @account_user, @account_user.account
+    #AccountPermissions.update_user @account_user, @account_user.account
+    AccountWorker.perform_async(@account_user.id)
+    
+    
 
     redirect_to account_account_users_path(@account)
 

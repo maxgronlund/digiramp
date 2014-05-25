@@ -11,7 +11,7 @@ class AccountUser < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => :account_id
   
 
-  ROLES = ["Account Owner", "Administrator", "Client", "Associate"]
+  ROLES = ["Account Owner", "Administrator", "Client", "Super"]
   
   include PgSearch
   pg_search_scope :search_account_user, against: [:name, :email, :note, :phone], :using => [:tsearch]
@@ -20,16 +20,8 @@ class AccountUser < ActiveRecord::Base
   before_save :update_uuids
   before_destroy :update_uuids
 
-  #def admin_or_super?;  admin? || super?              end
-  #def super?;           role == 'super'               end
-  #def account_owner?;   role == 'account owner'       end
-  #def admin?;           role == 'admin'               end
-  #def representative?;  role == 'representative'      end
-  #def guest?;           role == 'guest' || role.nil?  end # Until role is set to :guest by default
-  #def supervisor?;      role == 'supervisor'          end
-  #
   
-  scope :editors,         ->  { where.not( role: 'Client').order("id asc")  }
+  scope :supers,          ->  { where.not( role: 'Super').order("id asc")  }
   scope :clients,         ->  { where( role: 'Client').order("id asc")  }
   scope :administrators,  ->  { where( role: 'Administrator').order("id asc")  }
 
@@ -90,25 +82,33 @@ class AccountUser < ActiveRecord::Base
     phone
   end
   
-  def can_access_assets?
-    access_to_all_recordings || access_to_all_common_works
+  def can_access_work common_work
+    common_work.recordings.each do |recording|
+      return true if recording.read_common_work_ids.include?  self.user_id
+    end
+    return false
+    
   end
   
-  def can_collect?
-    access_to_collect || administrator?
-  end
-  
-  def has_access_to_all_documents? 
-    access_to_all_documents || administrator?
-  end
-  
-  def has_access_to_all_rights?
-    access_to_all_rights || administrator?
-  end
-  
-  def has_access_to_all_common_works?
-    access_to_all_common_works || administrator?
-  end
+  #def can_access_assets?
+  #  access_to_all_recordings || access_to_all_common_works
+  #end
+  #
+  #def can_collect?
+  #  access_to_collect || administrator?
+  #end
+  #
+  #def has_access_to_all_documents? 
+  #  access_to_all_documents || administrator?
+  #end
+  #
+  #def has_access_to_all_rights?
+  #  access_to_all_rights || administrator?
+  #end
+  #
+  #def has_access_to_all_common_works?
+  #  access_to_all_common_works || administrator?
+  #end
   
   
 
@@ -129,6 +129,12 @@ class AccountUser < ActiveRecord::Base
   
   def self.cached_where(account_id, user_id)
     Rails.cache.fetch([ 'account_user', account_id, user_id]) { where( account_id: account_id, user_id: user_id ).first }
+  end
+  
+  def can_add_content?
+    return true if self.create_common_work
+    return true if self.create_recording
+    return false
   end
   
 

@@ -98,6 +98,9 @@ class Account < ActiveRecord::Base
   
   ACCOUNT_TYPES =  ['Personal Account', 'Pro Account','Enterprise Account']
   
+  scope :supers,              ->    { where( role: 'super' ).order("email asc")  }
+  scope :administrators,      ->    { where( role: 'administrator' ).order("email asc")  }
+  
 
   
   #has_many :recording_imports, dependent: :destroy
@@ -124,6 +127,14 @@ class Account < ActiveRecord::Base
   def set_uuid
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
+  
+  #def set_supers
+  #  super_users = User.supers
+  #  super_users.each do |super_user|
+  #    AccountUser.create(account_id: self.id, user_id: super_user.id)
+  #    AccountPermissions.grand_all_permissions(super_user.id, self)
+  #  end
+  #end
   
   #def administrators
   #  self.account_users.where(role: 'Administrator')
@@ -259,16 +270,28 @@ class Account < ActiveRecord::Base
   
   
   def repair_users
+    
+    # secure there is a account_user for the account_owner
+    account_owner = AccountUser.where(account_id: self.id, user_id: self.user_id)
+                               .first_or_create(account_id: self.id, user_id: self.user_id, role: 'Account Owner')  
+    
+    # grand all permissions to the account owner
+    account_owner.grand_all_permissions
+    
+    # 
     self.account_users.each do |account_user|
-      unless( self.user_id == account_user.user_id)
+      if( self.user_id == account_user.user_id)
+        account_user.role = 'Account Owner'
+      else
         account_user.role = 'Administrator'
+        AccountPermissions.update_user account_user, self
       end
       account_user.save!
     end
   end
   
   def repair_recordings
-    RecordingPermissions.create_account_permissions self
+    RecordingPermissions.repair_account_permissions self
   end
   
   def repair_works
@@ -280,6 +303,22 @@ class Account < ActiveRecord::Base
   def repair_catalogs
     
   end
+  
+  def get_users_and_supers
+    users_and_supers = self.users + User.supers
+    users_and_supers.uniq!
+    users_and_supers
+  end
+  
+  #def get_account_users 
+  #  #user_ids = []
+  #  #user_ids += AccountUser.where(account_id: self.id).pluck(:user_id)
+  #  #user_ids += User.where(role: 'super').pluck(:id)
+  #  #user_ids <<  AccountUser.where(account_id: self.user_id).pluck(:user_id)
+  #  users self.account_users + User.supers
+  #  #user_ids.uniq!
+  #  #AccountUser.where(user_id: user_ids, account_id: self.id)
+  # end
 
   
 private

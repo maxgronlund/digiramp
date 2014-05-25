@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522181159) do
+ActiveRecord::Schema.define(version: 20140524215203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1049,24 +1049,24 @@ ActiveRecord::Schema.define(version: 20140522181159) do
 
   create_table "recordings", force: true do |t|
     t.integer  "common_work_id"
-    t.string   "title",                          default: "no title"
-    t.string   "isrc_code",                      default: ""
-    t.text     "artist",                         default: ""
-    t.text     "lyrics",                         default: ""
-    t.integer  "bpm",                            default: 0
-    t.text     "comment",                        default: ""
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.string   "title",                         default: "no title"
+    t.string   "isrc_code",                     default: ""
+    t.text     "artist",                        default: ""
+    t.text     "lyrics",                        default: ""
+    t.integer  "bpm",                           default: 0
+    t.text     "comment",                       default: ""
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.integer  "account_id"
-    t.boolean  "explicit",                       default: false
-    t.integer  "documents_count",                default: 0,          null: false
+    t.boolean  "explicit",                      default: false
+    t.integer  "documents_count",               default: 0,          null: false
     t.string   "file_size"
-    t.boolean  "clearance",                      default: false
+    t.boolean  "clearance",                     default: false
     t.string   "version"
-    t.string   "copyright",                      default: ""
-    t.string   "production_company",             default: ""
+    t.string   "copyright",                     default: ""
+    t.string   "production_company",            default: ""
     t.date     "available_date"
-    t.string   "upc_code",                       default: ""
+    t.string   "upc_code",                      default: ""
     t.integer  "track_count"
     t.integer  "disk_number"
     t.integer  "disk_count"
@@ -1079,55 +1079,55 @@ ActiveRecord::Schema.define(version: 20140522181159) do
     t.integer  "samplerate"
     t.integer  "channels"
     t.text     "audio_upload"
-    t.integer  "completeness_in_pct",            default: 0
+    t.integer  "completeness_in_pct",           default: 0
     t.string   "mp3"
     t.string   "thumbnail"
-    t.string   "year",                           default: ""
-    t.decimal  "duration",                       default: 0.0
-    t.text     "album_name",                     default: ""
-    t.text     "genre",                          default: ""
-    t.text     "performer",                      default: ""
-    t.string   "band",                           default: ""
-    t.string   "disc",                           default: ""
-    t.string   "track",                          default: ""
-    t.string   "waveform",                       default: ""
+    t.string   "year",                          default: ""
+    t.decimal  "duration",                      default: 0.0
+    t.text     "album_name",                    default: ""
+    t.text     "genre",                         default: ""
+    t.text     "performer",                     default: ""
+    t.string   "band",                          default: ""
+    t.string   "disc",                          default: ""
+    t.string   "track",                         default: ""
+    t.string   "waveform",                      default: ""
     t.string   "cover_art"
-    t.integer  "cache_version",                  default: 0
-    t.string   "vocal",                          default: ""
+    t.integer  "cache_version",                 default: 0
+    t.string   "vocal",                         default: ""
     t.integer  "import_batch_id"
-    t.text     "mood",                           default: ""
-    t.text     "instruments",                    default: ""
-    t.string   "tempo",                          default: ""
-    t.string   "original_md5hash",               default: ""
+    t.text     "mood",                          default: ""
+    t.text     "instruments",                   default: ""
+    t.string   "tempo",                         default: ""
+    t.string   "original_md5hash",              default: ""
     t.string   "uuid"
-    t.string   "artwork",                        default: ""
-    t.string   "original_file",                  default: ""
-    t.text     "create_recording_ids",           default: "--- []\n"
-    t.text     "read_recording_ids",             default: "--- []\n"
-    t.text     "update_recording_ids",           default: "--- []\n"
-    t.text     "delete_recording_ids",           default: "--- []\n"
-    t.text     "create_recording_ipis_ids",      default: "--- []\n"
-    t.text     "read_recording_ipis_ids",        default: "--- []\n"
-    t.text     "update_recording_ipis_ids",      default: "--- []\n"
-    t.text     "delete_recording_ipis_ids",      default: "--- []\n"
-    t.text     "create_files_ids",               default: "--- []\n"
-    t.text     "read_files_ids",                 default: "--- []\n"
-    t.text     "update_files_ids",               default: "--- []\n"
-    t.text     "delete_files_ids",               default: "--- []\n"
-    t.text     "create_legal_documents_ids",     default: "--- []\n"
-    t.text     "read_legal_documents_ids",       default: "--- []\n"
-    t.text     "update_legal_documents_ids",     default: "--- []\n"
-    t.text     "delete_legal_documents_ids",     default: "--- []\n"
-    t.text     "create_financial_documents_ids", default: "--- []\n"
-    t.text     "read_financial_documents_ids",   default: "--- []\n"
-    t.text     "update_financial_documents_ids", default: "--- []\n"
-    t.text     "delete_financial_documents_ids", default: "--- []\n"
-    t.text     "read_common_works_ids",          default: "--- []\n"
-    t.text     "update_common_works_ids",        default: "--- []\n"
-    t.text     "create_common_work_ipis_ids",    default: "--- []\n"
-    t.text     "read_common_work_ipis_ids",      default: "--- []\n"
-    t.text     "update_common_work_ipis_ids",    default: "--- []\n"
-    t.text     "delete_common_work_ipis_ids",    default: "--- []\n"
+    t.string   "artwork",                       default: ""
+    t.string   "original_file",                 default: ""
+    t.text     "create_recording_ids",          default: "--- []\n"
+    t.text     "read_recording_ids",            default: "--- []\n"
+    t.text     "update_recording_ids",          default: "--- []\n"
+    t.text     "delete_recording_ids",          default: "--- []\n"
+    t.text     "create_recording_ipi_ids",      default: "--- []\n"
+    t.text     "read_recording_ipi_ids",        default: "--- []\n"
+    t.text     "update_recording_ipi_ids",      default: "--- []\n"
+    t.text     "delete_recording_ipi_ids",      default: "--- []\n"
+    t.text     "create_file_ids",               default: "--- []\n"
+    t.text     "read_file_ids",                 default: "--- []\n"
+    t.text     "update_file_ids",               default: "--- []\n"
+    t.text     "delete_file_ids",               default: "--- []\n"
+    t.text     "create_legal_document_ids",     default: "--- []\n"
+    t.text     "read_legal_document_ids",       default: "--- []\n"
+    t.text     "update_legal_document_ids",     default: "--- []\n"
+    t.text     "delete_legal_document_ids",     default: "--- []\n"
+    t.text     "create_financial_document_ids", default: "--- []\n"
+    t.text     "read_financial_document_ids",   default: "--- []\n"
+    t.text     "update_financial_document_ids", default: "--- []\n"
+    t.text     "delete_financial_document_ids", default: "--- []\n"
+    t.text     "read_common_work_ids",          default: "--- []\n"
+    t.text     "update_common_work_ids",        default: "--- []\n"
+    t.text     "create_common_work_ipi_ids",    default: "--- []\n"
+    t.text     "read_common_work_ipi_ids",      default: "--- []\n"
+    t.text     "update_common_work_ipi_ids",    default: "--- []\n"
+    t.text     "delete_common_work_ipi_ids",    default: "--- []\n"
     t.integer  "image_file_id"
   end
 

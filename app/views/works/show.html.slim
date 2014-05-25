@@ -31,7 +31,7 @@
     == render 'shared/line'
     .row
     
-      -if @user_can_access_shared_with 
+      -if @common_work.editable_by current_user
         .col-sm-6
           == render 'works/shared/badge_button', locals: { \
                                                      blog_post: 'EDIT', \
@@ -40,16 +40,16 @@
                                                      icon: 'fa fa-pencil' \
                                                    }
                                                    
-      / all users can access recordings
-      .col-sm-6
-        == render 'works/shared/badge_button', locals: { \
-                                                    blog_post: 'RECORDINGS', \
-                                                    link: account_work_work_recordings_path(@account, @common_work), \
-                                                    css_class: 'btn btn-warning', \
-                                                    icon: 'fa fa-headphones'\
-                                                  }
-      
-      -if @user_can_access_shared_with 
+      - if current_account_user.read_recording?
+        .col-sm-6
+          == render 'works/shared/badge_button', locals: { \
+                                                      blog_post: 'RECORDINGS', \
+                                                      link: account_work_work_recordings_path(@account, @common_work), \
+                                                      css_class: 'btn btn-warning', \
+                                                      icon: 'fa fa-headphones'\
+                                                    }
+        
+      - if current_account_user.create_account_user? || current_account_user.update_account_user? || current_account_user.delete_account_user?
         .col-sm-6
           == render 'works/shared/badge_button', locals: { \
                                                      blog_post: 'USERS', \
@@ -58,7 +58,7 @@
                                                      icon: 'fa fa-group' \
                                                    }
         
-      -if @user_can_access_files
+      -if current_account_user.read_file
         .col-sm-6
           == render 'works/shared/badge_button', locals: { \ 
                                                     blog_post: 'FILES', \
@@ -67,7 +67,7 @@
                                                     icon: 'fa fa-folder' \
                                                    }
         
-      -if @user_can_access_ipis
+      -if current_account_user.read_common_work_ipi
         .col-sm-6
           == render 'works/shared/badge_button', locals: { \ 
                                                     blog_post: 'IPIS', \

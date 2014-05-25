@@ -14,11 +14,11 @@
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Upload Recording To Extract'}
     .row
       .col-sm-3
-      
       .col-sm-6
-        .panel
+        .panel.panel-primary
+          .panel-heading
+            'SELECT FILE
           .panel-body
-            h3 SELECT FILES
             = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create', :controller => 'upload_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
               = transloadit :recording_with_thumbs 
               /= form.label      :file, 'File to upload' 

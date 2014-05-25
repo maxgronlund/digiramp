@@ -175,61 +175,61 @@ class User < ActiveRecord::Base
     self.role == 'super'
   end
   
-  def can_access_recordings? account
-    if account_user = AccountUser.cached_find( id)
-      return true if account_user.access_to_all_recordings
-    end
-    false
-  end
+  #def can_access_recordings? account
+  #  if account_user = AccountUser.cached_find( id)
+  #    return true if account_user.access_to_all_recordings
+  #  end
+  #  false
+  #end
+  #
+  #def can_access_common_works? account
+  #  if account_user = AccountUser.cached_find( id)
+  #    return true if account_user.access_to_all_common_works
+  #  end
+  #  false
+  #end
+  #
+  #def can_administrate account
+  #  return true if can_edit?
+  #  if account_user = AccountUser.cached_find( id)
+  #    return true if account_user.role = "Administrator"
+  #    return true if account_user.role = "Account Owner"
+  #  end
+  #  false
+  #end
   
-  def can_access_common_works? account
-    if account_user = AccountUser.cached_find( id)
-      return true if account_user.access_to_all_common_works
-    end
-    false
-  end
-  
-  def can_administrate account
-    return true if can_edit?
-    if account_user = AccountUser.cached_find( id)
-      return true if account_user.role = "Administrator"
-      return true if account_user.role = "Account Owner"
-    end
-    false
-  end
-  
-  def can_manage manage, account
-    return true if role               == 'super'
-    return true if account.user_id    == id
-    account_user                      = AccountUser.cached_where( account.id, self.id)
-    return true if account_user.role  == 'Administrator'
-    
-    if account_user
-      
-      case manage
-      when 'users'
-        return account_user.can_administrate?
-      when 'assets'
-        return account_user.can_access_assets?
-      when 'collect'
-        return account_user.can_collect?
-      when 'promotion'
-        return account_user.can_administrate?
-      when 'documents'
-        return account_user.access_to_all_documents? 
-      when 'rights'
-        return account_user.access_to_all_rights?
-      when 'access works'
-        return account_user.access_to_all_common_works?
-      when 'access recordings'
-        return account_user.access_to_all_recordings
-      when 'addministrate playlists'
-        return account_user.administrate_playlists
-      end
-      
-    end
-    false
-  end
+  #def can_manage manage, account
+  #  return true if role               == 'super'
+  #  return true if account.user_id    == id
+  #  account_user                      = AccountUser.cached_where( account.id, self.id)
+  #  return true if account_user.role  == 'Administrator'
+  #  
+  #  if account_user
+  #    
+  #    case manage
+  #    when 'users'
+  #      return account_user.can_administrate?
+  #    when 'assets'
+  #      return account_user.can_access_assets?
+  #    when 'collect'
+  #      return account_user.can_collect?
+  #    when 'promotion'
+  #      return account_user.can_administrate?
+  #    when 'documents'
+  #      return account_user.access_to_all_documents? 
+  #    when 'rights'
+  #      return account_user.access_to_all_rights?
+  #    when 'access works'
+  #      return account_user.access_to_all_common_works?
+  #    when 'access recordings'
+  #      return account_user.access_to_all_recordings
+  #    when 'addministrate playlists'
+  #      return account_user.administrate_playlists
+  #    end
+  #    
+  #  end
+  #  false
+  #end
   
   def permission_cache_for account
     begin
@@ -302,6 +302,7 @@ class User < ActiveRecord::Base
     account_user = AccountUser.create(user_id: user.id, 
                                       account_id: @account.id, 
                                       role: 'Account Owner')
+                                      
     account_user.grand_all_permissions
     
     user.account_id          = @account.id

@@ -1,11 +1,3 @@
-
-/- import_resoult =  @import_batch.transloadit.gsub("\"", "")
-/- import_resoult = import_resoult.gsub("=>",": \"")
-/- import_resoult = import_resoult.gsub(",", "\",")
-/= debug import_resoult = import_resoult.gsub("\"nil\"", "nil").class.name
-/-transloadets = []
-/- @import_batch.transloadit.each do |t|
-/  = debug t
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account'         
@@ -27,14 +19,12 @@
       
       
       .row
-        .col-sm-12
-          .panel
-            .panel-body.digiramp_player
-              div class="panel-group" id="accordion"
-                - @recordings.each do |recording|
-                  /= debug recording
-                  == render 'recordings/recording', recording: recording
-          hr
+        .col-sm-12.digiramp_player
+          div class="panel-group" id="accordion"
+            div class="permissions" value="account_recordings" id="#{current_user.id}"
+            - @recordings.each do |recording|
+              == render 'recordings/recording', recording: recording
+          
           .pull-right
             = link_to account_export_import_batch_work_path( @account, @import_batch, format: "csv") do
                .btn.btn-info.btn-lg

@@ -31,35 +31,83 @@ class Recording < ActiveRecord::Base
   
   # create recordings meening upload audio files
   serialize  :create_recording_ids,           Array
-  # read recording meening reading recording info
   serialize  :read_recording_ids,             Array
-  # update recording meeaning update recording metadata
   serialize  :update_recording_ids,           Array
-  # Delete the entire 
   serialize  :delete_recording_ids,           Array                                                             
+  
+  # remove after two deploys
   serialize  :create_recording_ipis_ids,      Array
   serialize  :read_recording_ipis_ids,        Array
   serialize  :update_recording_ipis_ids,      Array
   serialize  :delete_recording_ipis_ids,      Array                                                                
+  
+  # remove after two deploys
   serialize  :create_files_ids,               Array
   serialize  :read_files_ids,                 Array
   serialize  :update_files_ids,               Array
-  serialize  :delete_files_ids,               Array                                                               
+  serialize  :delete_files_ids,               Array 
+
+  # remove after two deploys
   serialize  :create_legal_documents_ids,     Array
   serialize  :read_legal_documents_ids,       Array
   serialize  :update_legal_documents_ids,     Array
   serialize  :delete_legal_documents_ids,     Array                                                               
+  
+  # remove after two deploys
   serialize  :create_financial_documents_ids, Array
   serialize  :read_financial_documents_ids,   Array
   serialize  :update_financial_documents_ids, Array
   serialize  :delete_financial_documents_ids, Array
+  
+  serialize :create_recording_ipi_ids,        Array
+  serialize :read_recording_ipi_ids,          Array
+  serialize :update_recording_ipi_ids,        Array
+  serialize :delete_recording_ipi_ids,        Array
+
+  # remove after two deploys
   serialize  :read_common_works_ids,          Array
   serialize  :update_common_works_ids,        Array
+  
+  # remove after two deploys
   serialize  :create_common_work_ipis_ids,    Array
   serialize  :read_common_work_ipis_ids,      Array
   serialize  :update_common_work_ipis_ids,    Array
   serialize  :delete_common_work_ipis_ids,    Array
   
+  
+  
+  
+  
+  
+  # Updated                                                           
+  serialize  :create_recording_ipi_ids,      Array
+  serialize  :read_recording_ipi_ids,        Array
+  serialize  :update_recording_ipi_ids,      Array
+  serialize  :delete_recording_ipi_ids,      Array                                                                
+  
+  serialize  :create_file_ids,               Array
+  serialize  :read_file_ids,                 Array
+  serialize  :update_file_ids,               Array
+  serialize  :delete_file_ids,               Array 
+
+  serialize  :create_legal_document_ids,     Array
+  serialize  :read_legal_document_ids,       Array
+  serialize  :update_legal_document_ids,     Array
+  serialize  :delete_legal_document_ids,     Array                                                               
+  
+  serialize  :create_financial_document_ids, Array
+  serialize  :read_financial_document_ids,   Array
+  serialize  :update_financial_document_ids, Array
+  serialize  :delete_financial_document_ids, Array
+
+
+  serialize  :read_common_work_ids,          Array
+  serialize  :update_common_work_ids,        Array
+  
+  serialize  :create_common_work_ipi_ids,    Array
+  serialize  :read_common_work_ipi_ids,      Array
+  serialize  :update_common_work_ipi_ids,    Array
+  serialize  :delete_common_work_ipi_ids,    Array
   
   
   
@@ -125,11 +173,11 @@ class Recording < ActiveRecord::Base
 
 
   def show_more_for user_id
-    return true if self.read_recording_ipis_ids.include?        user_id
-    return true if self.read_files_ids.include?                 user_id
-    return true if self.read_legal_documents_ids.include?       user_id
-    return true if self.read_financial_documents_ids.include?   user_id
-    return true if self.read_common_works_ids.include?          user_id
+    return true if self.read_recording_ipi_ids.include?        user_id
+    return true if self.read_file_ids.include?                 user_id
+    return true if self.read_legal_document_ids.include?       user_id
+    return true if self.read_financial_document_ids.include?   user_id
+    return true if self.read_common_work_ids.include?          user_id
     return false
   end
   
@@ -232,6 +280,12 @@ class Recording < ActiveRecord::Base
     
     self.completeness_in_pct > 30
 
+  end
+  
+  def build_permissions
+    
+    
+    
   end
   
   def extract_metadata
@@ -405,6 +459,10 @@ class Recording < ActiveRecord::Base
   
   # update the genre
   def extract_genres
+    puts '----------------------------------------------------------------'
+    puts '                       extract_genres'
+    puts self.genre
+    puts '----------------------------------------------------------------'
     # store old  tag id's so we can delete unused
     genre_tag_ids = self.genre_tags.pluck(:id)
     new_genre_tag_ids = []
@@ -608,7 +666,8 @@ private
   end
   
   def update_uuids
-    AccountCache.update_works_uuid self.account
+    #AccountCache.update_works_uuid self.account
+    AccountCache.update_recordings_uuid self.account
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
   

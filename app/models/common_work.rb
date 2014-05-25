@@ -37,19 +37,35 @@ class CommonWork < ActiveRecord::Base
   end
 
 
+  # if the user can edit
+  def editable_by user
+    recordings.each do |recording|
+      return true if recording.update_common_work_ids.include?  user.id
+    end
+    return false
+  end
   
- def recording_genres
-   genres = []
-   self.recordings.includes(:genres).each do |recording|
-     recording.genres.each do |genre|
-       genres << genre
-     end
-   end
-   genres.uniq!
-   genres
- end
- 
- def recording_moods
+  # if the user can access files
+  def user_can_access_files user
+    recordings.each do |recording|
+      return true if recording.update_common_work_ids.include?  user.id
+    end
+    return false
+  end
+  
+  
+  def recording_genres
+    genres = []
+    self.recordings.includes(:genres).each do |recording|
+      recording.genres.each do |genre|
+        genres << genre
+      end
+    end
+    genres.uniq!
+    genres
+  end
+  
+  def recording_moods
     moods = []
     self.recordings.includes(:moods).each do |recording|
       recording.moods.each do |mood|
@@ -179,58 +195,58 @@ class CommonWork < ActiveRecord::Base
   # access control move to helper
   
   # check if user is an associate adminstrator or owner
-  def is_accessible_by user
-    return true if user.can_manage 'access works', account
-    return false
-  end
-  
-  # ipis
-  def ipis_is_accessible_by user
-    # pessimistic locking
-    access = false
-    if user.can_manage 'access works', account
-      access = true
-    elsif work_user = WorkUser.cached_where(self.id, user.id)
-      access = true if work_user && work_user.access_ipis  
-    end
-    access
-  end
-  
-  # files
-  def files_is_accessible_by user
-    # pessimistic locking
-    access = false
-    if user.can_manage 'access works', account
-      access = true
-    elsif work_user = WorkUser.cached_where(self.id, user.id)
-      access = true if work_user && work_user.access_files  
-    end
-    access
-  end
-  
-  # legal documents
-  def legal_documents_is_accessible_by user
-    # pessimistic locking
-    access = false
-    if user.can_manage 'access works', account
-      access = true
-    elsif work_user = WorkUser.cached_where(self.id, user.id)
-      access = true if work_user && work_user.access_legal_documents  
-    end
-    access
-  end
-  
-  # financial documents
-  def financial_documents_is_accessible_by user
-    # pessimistic locking
-    access = false
-    if user.can_manage 'access works', account
-      access = true
-    elsif work_user = WorkUser.cached_where(self.id, user.id)
-      access = true if work_user && work_user.access_financial_documents  
-    end
-    access
-  end
+  #def is_accessible_by user
+  #  return true if user.can_manage 'access works', account
+  #  return false
+  #end
+  #
+  ## ipis
+  #def ipis_is_accessible_by user
+  #  # pessimistic locking
+  #  access = false
+  #  if user.can_manage 'access works', account
+  #    access = true
+  #  elsif work_user = WorkUser.cached_where(self.id, user.id)
+  #    access = true if work_user && work_user.access_ipis  
+  #  end
+  #  access
+  #end
+  #
+  ## files
+  #def files_is_accessible_by user
+  #  # pessimistic locking
+  #  access = false
+  #  if user.can_manage 'access works', account
+  #    access = true
+  #  elsif work_user = WorkUser.cached_where(self.id, user.id)
+  #    access = true if work_user && work_user.access_files  
+  #  end
+  #  access
+  #end
+  #
+  ## legal documents
+  #def legal_documents_is_accessible_by user
+  #  # pessimistic locking
+  #  access = false
+  #  if user.can_manage 'access works', account
+  #    access = true
+  #  elsif work_user = WorkUser.cached_where(self.id, user.id)
+  #    access = true if work_user && work_user.access_legal_documents  
+  #  end
+  #  access
+  #end
+  #
+  ## financial documents
+  #def financial_documents_is_accessible_by user
+  #  # pessimistic locking
+  #  access = false
+  #  if user.can_manage 'access works', account
+  #    access = true
+  #  elsif work_user = WorkUser.cached_where(self.id, user.id)
+  #    access = true if work_user && work_user.access_financial_documents  
+  #  end
+  #  access
+  #end
   
   
   

@@ -20,7 +20,8 @@
       
       
       .row
-        -if current_user.can_manage 'access works', @account
+        /-if current_user.can_manage 'access works', @account
+        - if current_account_user.read_common_work
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
@@ -31,7 +32,7 @@
                                                 id: 'common-works' \
                                               }
             
-        -if current_user.can_manage 'access works', @account  
+        - if current_account_user.read_common_work  
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
@@ -44,7 +45,7 @@
             
             
             
-        -if current_user.can_manage 'documents', @account
+        -if current_account_user.create_common_work
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
