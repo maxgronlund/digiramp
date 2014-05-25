@@ -15,7 +15,8 @@
       == render 'shared/page_title', locals: {blog: blog, blog_post: 'Add Assets'}
 
       .row
-        -if current_user.can_manage 'access recordings', @account
+        /-if current_user.can_manage 'access recordings', @account
+        - if current_account_user.update_catalog?
           .col-sm-6
             == render 'assets/shared/badge_button', locals: { \
                                                                 blog_post: 'ADD RECORDINGS', \
@@ -25,7 +26,7 @@
                                                             } 
         
         
-        -if current_user.can_manage 'access recordings', @account
+
           .col-sm-6
             == render 'assets/shared/badge_button', locals: { \
                                                                 blog_post: 'UPLOAD AUDIO FILES', \
@@ -33,15 +34,15 @@
                                                                 css_class: 'btn btn-primary', \
                                                                 icon: 'fa fa-cloud-upload'\
                                                             } 
-        -if current_user.can_manage 'access recordings', @account  
-          .col-sm-6
-            == render 'assets/shared/badge_button', locals: { \
-                                                                blog_post: 'UPLOAD AUDIO FILES', \
-                                                                link: new_account_catalog_upload_catalog_recording_path(@account, @catalog), \
-                                                                css_class: 'btn btn-primary', \
-                                                                icon: 'fa fa-cloud-upload'\
-                                                            } 
-            
+        /-if true
+        /  .col-sm-6
+        /    == render 'assets/shared/badge_button', locals: { \
+        /                                                        blog_post: 'UPLOAD AUDIO FILES', \
+        /                                                        link: new_account_catalog_upload_catalog_recording_path(@account, @catalog), \
+        /                                                        css_class: 'btn btn-primary', \
+        /                                                        icon: 'fa fa-cloud-upload'\
+        /                                                    } 
+        /    
             
             
     

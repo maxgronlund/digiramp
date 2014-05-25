@@ -83,7 +83,6 @@ class AccountPermissions
       end
     end
     unique_user_ids account
-    account.save!
     set_access_for account_user
   end
   
@@ -100,8 +99,7 @@ class AccountPermissions
     # remove dublicats
     unique_user_ids account
     
-    # save and get a new uuid
-    account.save!
+    
 
   end
   
@@ -118,6 +116,7 @@ class AccountPermissions
   #AccountPermissions.grand_all_permissions user_id, account
   # grand all permissions 
   def self.grand_all_permissions account_user
+    account = account_user.account
     # add user_id to the access
     account.permitted_user_ids   += [ account_user.user_id ]
     
@@ -127,7 +126,7 @@ class AccountPermissions
     end
     # remove dublicate users
     unique_user_ids account_user.account
-    account.save!
+    
 
   end
   
@@ -138,6 +137,8 @@ class AccountPermissions
     PERMISSION_TYPES.each do |permission_type|
       eval "account.#{permission_type}.uniq!"
     end
+    # save and get a new uuid
+    account.save!
   end
   
 private

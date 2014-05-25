@@ -15,18 +15,21 @@ class AddMissingAccountUsers < ActiveRecord::Migration
       end
       
       User.supers.each do |spider_man|
+        
+        account_user = AccountUser.where( user_id: spider_man.id, 
+                                          account_id: account.id)
+                                  .first_or_create( user_id: spider_man.id, 
+                                                    account_id: account.id, 
+                                                    role: "Super")
+        
+        AccountPermissions.grand_all_permissions account_user
+        
         unless account.permitted_user_ids.include?  spider_man.id
-          puts "spider man is not on the guest list, so go ahead and add him"
           account.permitted_user_ids << spider_man.id
-          AccountPermissions.grand_all_permissions spider_man.id, account
           account.save!
         end
         
-        if AccountUser.where(user_id: spider_man.id, account_id: account.id).first.nil?
-          puts "There is no account user for spiderman so create one"
-          account_user = AccountUser.create!(user_id: spider_man.id, account_id: account.id, role: "Super")
-          AccountPermissions.grand_all_permissions spider_man.id, account
-        end
+        
         
       end
       
