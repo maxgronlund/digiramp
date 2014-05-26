@@ -1,0 +1,39 @@
+h1 Listing footages
+
+table
+  thead
+    tr
+      th Title
+      th Body
+      th Transloadet
+      th Thumb
+      th Uuid
+      th Mp4 file
+      th Webm file
+      th Copyright
+      th Footagable type
+      th Footageable
+      th
+      th
+      th
+
+  tbody
+    - @footages.each do |footage|
+      tr
+        td = footage.title
+        td = footage.body
+        td = footage.transloadet
+        td = footage.thumb
+        td = footage.uuid
+        td = footage.mp4_file
+        td = footage.webm_file
+        td = footage.copyright
+        td = footage.footagable_type
+        td = footage.footageable_id
+        td = link_to 'Show', footage
+        td = link_to 'Edit', edit_footage_path(footage)
+        td = link_to 'Destroy', footage, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Footage', new_footage_path

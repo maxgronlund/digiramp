@@ -1,3 +1,47 @@
+html,
+body{
+  /*h1,h2,h3,h4,h5,h6{font-family: 'Cinzel', serif;}*/
+  height: 100%;
+  font-size: 16px;
+  /*
+  background-color:#506577;
+  color:#D3D3D3;
+  */
+  
+  /*background: image-url('skyline.jpg');*/
+  /*background: image-url('img-noise-002.png');*/
+  
+  
+  /*background-image:url("http://d75k54frx42tp.cloudfront.net/img-noise-002.png");*/
+  /*
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+  background-repeat-x: initial;
+  background-repeat-y: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgb(238, 238, 238); 
+  */
+   /*background: url(../images/img-noise-361x370.png) repeat-x fixed center bottom;*/
+  
+}
+
+a { color: #3675C4; text-decoration: none; }
+a:hover { color: #26538D; text-decoration: none;}
+
+hr {
+
+  margin-top: 8px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #999;
+
+
+}
+
+
 /* use full screen */
 .navbar{
   margin-top:-15px;
@@ -5,8 +49,6 @@
   border-radius: 0px;
   margin-bottom: 15px;
   .navbar-default{
-
-  
   }
 }
 
@@ -126,6 +168,26 @@
 */
 
 
+
+
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.428571429;
+  vertical-align: top;
+  border-top: 1px solid #545E77;
+}
+
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+  background-color: #E3E3E3;
+}
+
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 1px solid #333;
+}
+
 .panel{
   .panel-body{
     hr{
@@ -136,7 +198,7 @@
   background-color: #1A242E;
   color:#ddd;
   */
-  background-color:#E3E3E3;
+  background-color:#F8F8F8;
   /*background: image-url('noiseback.png');*/
   /*
   background-image:url("http://d75k54frx42tp.cloudfront.net/img-noise-002.png");
@@ -156,25 +218,44 @@
       color:#6d6d6d;
       text-shadow: #fff 0 1px 0;
     }
+  .panel-heading {
+    background-color: #5C6B75;
+    border-color: #5C6B75;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+  }
+}
+
+.panel{
+  border-radius: 0px;
+  border:1px solid;
+  border-color:#DDD;
+}
+
+.panel .digiramp_player{
+  background:none;
+  border:none;
+}
+
+.panel-group .panel {
+  margin-bottom: 0;
+  overflow: hidden;
+  border-radius: 0px;
+  background-color:#F0F0F0;
+  padding:8px;
+  padding-top:0px;
+  margin-bottom:16px;
+}
+
+.logo{
+  .thumbnail {
+    padding: 4px;
+    border: 0px solid #fff;
+    border-radius: 0px;
+  }
 }
 
 
-.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-  padding: 8px;
-  line-height: 1.428571429;
-  vertical-align: top;
-  border-top: 1px solid #545E77;
-}
-
-.table-hover > tbody > tr:hover > td,
-.table-hover > tbody > tr:hover > th {
-  background-color: #E3E3E3;
-}
-
-.table > thead > tr > th {
-  vertical-align: bottom;
-  border-bottom: 1px solid #333;
-}
 
 
 

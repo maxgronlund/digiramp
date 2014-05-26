@@ -3,7 +3,8 @@
     h1 
       =locals[:title] 
 
-  = simple_format locals[:body] 
-.row        
-  .col-sm-12
-    hr
+  = simple_format locals[:body]        
+.col-sm-4
+  == render locals[:insert] if locals[:insert]
+.col-sm-12
+  hr

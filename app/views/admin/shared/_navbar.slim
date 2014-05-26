@@ -28,10 +28,10 @@
 
           
           / only give access to account for users with a pro or enterprice account
-          - user_account = Account.cached_find(current_user.account_id)
-          -unless user_account.account_type == 'Personal Account'
-            li  class="#{page == 'account' ? 'active' : ''}"
-              = link_to current_user.current_account.title.upcase, account_path(current_user.current_account)
+          / - user_account = Account.cached_find(current_user.account_id)
+          
+          li  class="#{page == 'account' ? 'active' : ''}"
+            = link_to current_user.current_account.title.upcase, account_path(current_user.current_account)
             
 
           li class="#{page == 'profile' ? 'active' : ''}"

@@ -11,7 +11,13 @@ class AccountUser < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => :account_id
   
 
-  ROLES = ["Account Owner", "Administrator", "Client", "Super"]
+  ROLES            = [  "Account Owner", 
+                        "Administrator", 
+                        "Client", 
+                        "Super"
+                      ]
+                      
+  
   
   include PgSearch
   pg_search_scope :search_account_user, against: [:name, :email, :note, :phone], :using => [:tsearch]
@@ -28,24 +34,57 @@ class AccountUser < ActiveRecord::Base
 
   def update_cache
     flush_cache
-    update_account_white_lists
     # update uuid on the account
     account.save!
   end
   
   def grand_all_permissions
     #  permissions 
-    AccountPermissions::PERMISSION_TYPES.each do |permission_type|
-      permission = permission_type.gsub('_ids', '')
-      eval "self.#{permission}  = true" 
+    Permissions::TYPES.each do |permission_type|
+      eval "self.#{permission_type} = true" 
     end
+    self.account.permitted_user_ids += [self.user_id]
+    self.account.permitted_user_ids.uniq!
+    self.account.save!
+    # save and update uuid
     self.save!
-    AccountPermissions.update_user self, self.account
   end
   
-  def update_account_white_lists
-    AccountPermissions.update_user self, self.account
+  def remove_all_permissions
+    self.account.permitted_user_ids -= [self.user_id]
+    self.account.save!
+    #  remove permissions 
+    Permissions::TYPES.each do |permission_type|
+      eval "self.#{permission_type} = true" 
+    end
+    # save and update uuid
+    self.save!
   end
+  
+
+  
+  def check_permissions
+    # pessimistic
+    permission = false;
+    #  permissions 
+    Permissions::TYPES.each do |permission_type|
+      if (eval "self.#{permission_type}") 
+        permission = true
+      end
+    end
+    if permission
+      # add permission
+      self.account.permitted_user_ids += [self.user_id]
+    else
+      # remove permission
+      self.account.permitted_user_ids -= [self.user_id]
+    end
+    # only store on id on white list
+    self.account.permitted_user_ids.uniq!
+    self.save!
+  end
+  
+
   
   
   def mount_user
@@ -89,27 +128,22 @@ class AccountUser < ActiveRecord::Base
     return false
     
   end
+
+  def can_manage_assets?   
+    return true if self.read_recording? 
+    return true if self.read_common_work?           
+    return true if self.read_file?                
+    return true if self.read_legal_document?        
+    return true if self.read_financial_document?    
+    return true if self.user.super?
+    return false
+  end
   
-  #def can_access_assets?
-  #  access_to_all_recordings || access_to_all_common_works
-  #end
-  #
-  #def can_collect?
-  #  access_to_collect || administrator?
-  #end
-  #
-  #def has_access_to_all_documents? 
-  #  access_to_all_documents || administrator?
-  #end
-  #
-  #def has_access_to_all_rights?
-  #  access_to_all_rights || administrator?
-  #end
-  #
-  #def has_access_to_all_common_works?
-  #  access_to_all_common_works || administrator?
-  #end
-  
+  def add_music?
+    return true if self.create_common_work?
+    return true if self.create_recording?
+    return false
+  end
   
 
   def self.account_search(account, query)

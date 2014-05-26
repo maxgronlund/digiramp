@@ -22,7 +22,7 @@ class AddMissingAccountUsers < ActiveRecord::Migration
                                                     account_id: account.id, 
                                                     role: "Super")
         
-        AccountPermissions.grand_all_permissions account_user
+        #AccountPermissions.grand_all_permissions account_user
         
         unless account.permitted_user_ids.include?  spider_man.id
           account.permitted_user_ids << spider_man.id

@@ -1,0 +1,2 @@
+module FootagesHelper
+end

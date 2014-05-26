@@ -1,5 +1,5 @@
 class IssueImagesController < ApplicationController
-  before_filter :access_user, only: [:show]
+  #before_filter :access_user, only: [:show]
 
 
 
@@ -10,6 +10,7 @@ class IssueImagesController < ApplicationController
   # GET /issue_images/1
   # GET /issue_images/1.json
   def show
+     @user = User.cached_find(params[:user_id])
     @issue = Issue.find(params[:id])
   end
 

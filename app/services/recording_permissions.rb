@@ -60,51 +60,59 @@ class RecordingPermissions
 
   
   def self.add_permissions_to_account_users account_id, recording
-    account = Account.cached_find(account_id)
-    
-    # iterate true all users with access to the account
-    account.permitted_user_ids.each do |user_id|
+    begin
+      # find the account
+      account = Account.cached_find(account_id)
       
-      # get the account_user
-      if account_user = AccountUser.cached_where(account_id, user_id)
-        # permit the user to access the recording based on the account user permissions
-        add_account_users_permissions recording, account_user.user, account_user
-      else
-        Rails.logger.debug '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' 
-        Rails.logger.debug '     SOMETHING ROTTHEN IN DENMARK' 
-        Rails.logger.debug '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' 
+      # iterate true all users with access to the account
+      account.permitted_user_ids.each do |user_id|
+        
+        # get the account_user
+        if account_user = AccountUser.cached_where(account_id, user_id)
+          # permit the user to access the recording based on the account user permissions
+          add_account_users_permissions recording, account_user
+        else
+          Rails.logger.debug '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' 
+          Rails.logger.debug '     ERROR 1000' 
+          Rails.logger.debug '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' 
+        end
       end
+    rescue
+      Rails.logger.debug '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' 
+      Rails.logger.debug '     ERROR 1001'
+      Rails.logger.debug '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' 
     end
   end
   
   # RecordingPermissions.update_accound_users_permissions account_user
   # update permissions on all recordings for the user
-  def self.update_accound_users_permissions  account_user
+  def self.update_accound_user_permissions  account_user
     account = account_user.account
     account.recordings.each do |recording|
+      
       # first remove permissions
       delete_user_permissions recording, account_user.user_id
+      
       # then add permissions 
-      add_account_users_permissions recording, account_user.user, account_user
+      add_account_users_permissions recording, account_user
     end
   end
   
   # add the user id to the recordings white_list based on the account_users permissions
-  def self.add_account_users_permissions recording, user, account_user
-    # RecordingPermissions.add_account_users_permissions recording, account_user
+  def self.add_account_users_permissions recording, account_user
 
     #  permissions 
     PERMISSION_TYPES.each do |permission_type|
-      
+  
       permission = permission_type.gsub('_ids', '')
       begin
-        eval "recording.#{permission_type}  += #{[user.id]} if account_user.#{permission}" 
+        eval "recording.#{permission_type}  += #{[account_user.user_id]} if account_user.#{permission}" 
       rescue
-        puts 'autch'
-
+        puts '+++++++++++++++'
+        puts 'error'
+        puts '+++++++++++++++'
       end
     end
-    
     unique_user_ids_for recording
     
     #puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
@@ -163,6 +171,7 @@ class RecordingPermissions
       permission = permission_type.gsub('_ids', '')
       eval "recording.#{permission_type}  -= #{[user_id]}" 
     end
+    recording.save!
   end
   
   def self.unique_user_ids_for recording

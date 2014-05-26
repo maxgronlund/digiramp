@@ -4,14 +4,65 @@
     == render 'admin/shared/navbar', page: 'account' 
   
   .container
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current:  @account.title}
+    /== render 'shared/breadcrumbs', breadcrumbs: { links: { }, current:  @account.title}
     ==render 'admin/shared/messages'
+    .row
+      /- insert = 'accounts/shared/leave_account'
+      -if current_user && current_user.account_id == @account.id
+        - insert = 'edit'
+      -else
+        - insert = nil
+      == render 'shared/page_title_text', locals: {title: @account.title, body: ''}
+      /-cache ([request.url, Admin.cached_find(1).version, current_account_user.uuid , @account.uuid]) do
+      /  == render "accounts/shared/#{@account_status}"
+    .row
+      .col-sm-6
+        .logo
+          .thumbnail
+            = image_tag @account.logo_url(:default)
+      .col-sm-6   
+        = simple_format @account.description
+    hr
+    .row
+      .col-sm-6
+        - blog = Blog.cached_find('Assets')
+        == render 'shared/badge', locals: {  \
+                                            blog: blog, \
+                                            post: BlogPost.cached_find( "CATALOGS" , blog ), \
+                                            link: account_catalogs_path(@account), \
+                                            css_class: 'btn btn-primary', \
+                                            icon: 'fa fa-list-ul', \
+                                            id: 'catalogs' \
+                                          } 
+      .col-sm-6
+        - blog = Blog.cached_find('Assets')
+        == render 'shared/badge', locals: {  \
+                                            blog: blog, \
+                                            post: BlogPost.cached_find( "CONTACT" , blog ), \
+                                            link: account_catalogs_path(@account), \
+                                            css_class: 'btn btn-info', \
+                                            icon: 'fa fa-envelope', \
+                                            id: 'catalogs' \
+                                          } 
 
-    -cache ([request.url, Admin.cached_find(1).version, current_user.uuid , @account.uuid]) do
-      == render "accounts/shared/#{@account_status}"
-         
+                                          
+    br
+    br
+    .pull-right
+      -if current_account_user && current_account_user.read_account_user?
+        = link_to 'Users', account_account_users_path(@account), class: 'btn btn-default btn-lg'
+        '&nbsp;
+      -if current_account_user && current_account_user.can_manage_assets?
+        = link_to 'Assets', account_assets_path(@account), class: 'btn btn-default btn-lg'
+        '&nbsp;
+      -if current_user && current_user.account_id == @account.id
+        = link_to 'Edit', edit_user_account_path( current_user, @account), class: 'btn btn-primary btn-lg'
+          
       
+    
+   
 
+        
   
     
 -cache (['footer', Admin.cached_find(1).version]) do      

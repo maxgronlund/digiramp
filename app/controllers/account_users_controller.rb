@@ -6,7 +6,7 @@ class AccountUsersController < ApplicationController
 
 
   def index
-    forbidden unless @account.read_account_user_ids.include? current_user.id
+    forbidden unless current_account_user && current_account_user.read_account_user
   end
   
   def show
@@ -17,7 +17,7 @@ class AccountUsersController < ApplicationController
   end
   
   def new
-    forbidden unless @account.create_account_user_ids.include? current_user.id
+    forbidden unless current_account_user.create_account_user
     
     @account_user = @account.account_users.new(role: "Associate")
     @roles = AccountUser::ROLES
@@ -27,7 +27,7 @@ class AccountUsersController < ApplicationController
   end
   
   def create_user
-    # dont activate accounts for new users if their role is 'Client'
+    forbidden unless current_account_user.create_account_user
     activated = params[:account_user][:role] == 'Client' ? false : true
     # make a temporary password
     secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
@@ -46,7 +46,7 @@ class AccountUsersController < ApplicationController
 
   def create
     
-    forbidden unless @account.create_account_user_ids.include? current_user.id
+    forbidden unless current_account_user.create_account_user
     
     
     # missing email
@@ -94,6 +94,12 @@ class AccountUsersController < ApplicationController
                                           invitation_message: params[:account_user][:invitation_message],
                                           email: @user.email,
                                           name: @user.name)
+      
+      # add user to white list
+      @account.permitted_user_ids << @account_user.user.id
+      @account.permitted_user_ids.uniq!
+      @account.save!
+      
       # bounce back to list
       redirect_to edit_account_account_user_path @account, @account_user 
       
@@ -110,7 +116,7 @@ class AccountUsersController < ApplicationController
 
   def edit
     
-    forbidden unless @account.update_account_user_ids.include?     current_user.id
+    forbidden unless current_account_user.update_account_user
     @account_user = AccountUser.cached_find(params[:id])
     #@roles        = AccountUser::ROLES
     #@roles.delete("Account Owner") #unless current_user.super?
@@ -119,7 +125,7 @@ class AccountUsersController < ApplicationController
   end
   
   def update
-    forbidden unless @account.update_account_user_ids.include?     current_user.id
+    forbidden unless current_account_user.update_account_user
     
     @account_user = AccountUser.cached_find(params[:id])
     params[:account_user][:permission_key] = UUIDTools::UUID.timestamp_create().to_s
@@ -127,30 +133,53 @@ class AccountUsersController < ApplicationController
     # update the account user
     @account_user.update(account_user_params)
     
+    
     # update the white list for the account
-    #AccountPermissions.update_user @account_user, @account_user.account
-    AccountWorker.perform_async(@account_user.id)
+    #RecordingsWorker.perform_async(@account_user.id)
+    
+    # update the white list for the recordings
     
     
-
     redirect_to account_account_users_path(@account)
 
   end
   
   def destroy
-    forbidden unless @account.delete_account_user_ids.include?     current_user.id
-    
     account_user = AccountUser.cached_find(params[:id])
-    account_user.account.version += 1
-    account_user.account.save
+    
+    
+    
+    # users can always leave
+    if current_account_user.id == account_user.id
+      session[:return_url] = nil
+      go_to = user_path(current_account_user.user)
+      flash[:info] = { title: "You have leaved an account", body: "You have no more access to #{@account.title}" }
+    else
+      # only account users with the right permissions can delete users
+      forbidden unless current_account_user.delete_account_user
+      go_to = account_path(@account)
+      flash[:info] = { title: "User removed", body: "the user has no more access to this account" }
+    end
+    
+    
+    
+    # remove user from whitelist
+    @account.permitted_user_ids -= [@account_user.user.id]
+    # force update of uuids on this
+    @account.save!
+    
+    # force update of uuids
+    # on the account users account
+    account_user.account.save!
+    
+    # remove the account user
     account_user.destroy
-    
-    
 
     
-    flash[:info] = { title: "User removed", body: "the user has no more access to this account" }
-    redirect_to_return_url account_path(@account)
+   
+    redirect_to_return_url go_to
     #redirect_to :back
+    
   end
   
   

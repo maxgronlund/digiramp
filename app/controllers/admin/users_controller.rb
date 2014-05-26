@@ -18,12 +18,32 @@ class Admin::UsersController < ApplicationController
   
   def update
     forbidden unless can_edit?
+    role = @user.role
     if @user.update(user_params)
       flash[:info] = { title: "SUCCESS: ", body: "User updated" }
+      update_account_users if role != @user.role
     else
       flash[:danger] = { title: "Error", body: "User not updated" }
     end
       redirect_to admin_users_path
+  end
+  
+  def update_account_users
+    @user.account_users.each do |account_user|
+      
+      if @user.role == 'super'
+        # super users has all permissions
+        account_user.grand_all_permissions
+      else
+        # normal users has no permissions
+        if account_user.user.account_id != account_user.account_id
+          @account.permitted_user_ids -= [account_user.user_id]
+          @account.save!
+          account_user.remove_all_permissions 
+        end
+      end
+      
+    end
   end
   
   def destroy

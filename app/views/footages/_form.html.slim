@@ -1,0 +1,39 @@
+= form_for @footage do |f|
+  - if @footage.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@footage.errors.count, "error")} prohibited this footage from being saved:"
+      ul
+        - @footage.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :body
+    = f.text_area :body
+  .field
+    = f.label :transloadet
+    = f.text_area :transloadet
+  .field
+    = f.label :thumb
+    = f.text_field :thumb
+  .field
+    = f.label :uuid
+    = f.text_field :uuid
+  .field
+    = f.label :mp4_file
+    = f.text_field :mp4_file
+  .field
+    = f.label :webm_file
+    = f.text_field :webm_file
+  .field
+    = f.label :copyright
+    = f.text_field :copyright
+  .field
+    = f.label :footagable_type
+    = f.text_field :footagable_type
+  .field
+    = f.label :footageable_id
+    = f.text_field :footageable_id
+  .actions = f.submit 'Save'

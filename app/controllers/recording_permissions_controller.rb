@@ -16,23 +16,22 @@ class RecordingPermissionsController < ApplicationController
       @read_recording        = "#read_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
       @update_recording      = "#update_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
       @delete_recording      = "#delete_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
-      @show_more             = "#show_more_#{params[:id]}"         if @recording.show_more_for                 current_user.id
+      @show_more             = "#show_more_#{params[:id]}"         if @recording.read_recording_ids.include?   current_user.id
       @remove_from_catalog   = "#remove_from_catalog_#{params[:id]}"
     
-    when 'shared_recordings'
-      puts params[:id]
-      @user_id = params[:permission_id]
-      @read_shared_recording        = "#read_shared_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
-      @update_shared_recording      = "#update_shared_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
-      @delete_shared_recording      = "#delete_shared_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
-      @show_shared_more             = "#show_shared_more_#{params[:id]}"         if @recording.show_more_for                 current_user.id
+    #when 'shared_recordings'
+    #  puts params[:id]
+    #  @user_id = params[:permission_id]
+    #  @read_shared_recording        = "#read_shared_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
+    #  @update_shared_recording      = "#update_shared_recording_#{params[:id]}"  if @recording.update_recording_ids.include? current_user.id
+    #  @delete_shared_recording      = "#delete_shared_recording_#{params[:id]}"  if @recording.delete_recording_ids.include? current_user.id
+    #  @show_shared_more             = "#show_shared_more_#{params[:id]}"         if @recording.read_recording_ids.include?   current_user.id
       
     when 'account_recordings'
-       puts @recording.id
-         @read_recording        = "#read_shared_recording_#{params[:id]}"    if @recording.read_recording_ids.include?   current_user.id
-       @update_recording      = "#update_shared_recording_#{params[:id]}"    if @recording.update_recording_ids.include? current_user.id
-       @delete_recording      = "#delete_shared_recording_#{params[:id]}"    if @recording.delete_recording_ids.include? current_user.id
-         @show_more             = "#show_shared_more_#{params[:id]}"         if @recording.show_more_for                 current_user.id
+         @read_recording        = "#read_shared_recording_#{params[:id]}"    if current_account_user.read_recording
+       @update_recording      = "#update_shared_recording_#{params[:id]}"    if current_account_user.update_recording
+       @delete_recording      = "#delete_shared_recording_#{params[:id]}"    if current_account_user.delete_recording
+         @show_more             = "#show_shared_more_#{params[:id]}"         if current_account_user.read_recording
     else
     
     end       

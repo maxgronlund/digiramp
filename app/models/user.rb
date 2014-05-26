@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   
   
   has_many :ipis
+  has_many :issues, dependent: :destroy
   #has_many :permissions
   #has_many :permitted_models, dependent: :destroy #!!! moving to account_user
   
@@ -173,6 +174,17 @@ class User < ActiveRecord::Base
   
   def can_edit?
     self.role == 'super'
+  end
+  
+  def permits? current_user
+    # users can access their own profile
+    return true if current_user.account_id == self.account_id
+       
+    # super user can access all profiles 
+    return true if current_user.role == 'super'
+      
+    # no access
+    return false
   end
   
   #def can_access_recordings? account

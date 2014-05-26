@@ -6,12 +6,14 @@ class RecordingsController < ApplicationController
   before_filter :read_recording, only:[:show]
   
   def index
+    forbidden unless current_account_user.read_recording?
     @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     @show_more      = true
     
   end
 
   def show
+    forbidden unless current_account_user.read_recording?
     @common_work    = CommonWork.cached_find(params[:common_work_id])
     @recording      = Recording.cached_find(params[:id])
 
@@ -21,6 +23,7 @@ class RecordingsController < ApplicationController
   end
   
   def edit
+    forbidden unless current_account_user.update_recording?
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
     
@@ -35,11 +38,13 @@ class RecordingsController < ApplicationController
   end
   
   def new
+    forbidden unless current_account_user.create_recording?
     @common_work    = CommonWork.cached_find(params[:common_work_id])
     @recording      = Recording.new
   end
   
   def create
+    forbidden unless current_account_user.create_recording?
     @common_work           = CommonWork.cached_find(params[:common_work_id])
     begin
       TransloaditParser.add_to_common_work params[:transloadit], @common_work.id, @account.id
@@ -53,6 +58,7 @@ class RecordingsController < ApplicationController
   end
   
   def update
+    forbidden unless current_account_user.update_recording?
     @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
     

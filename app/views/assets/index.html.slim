@@ -20,7 +20,7 @@
       .row
 
             
-        -if user_can_manage_recordings @account, current_user
+        -if current_account_user.read_recording
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
@@ -33,7 +33,7 @@
             
             
             
-        -if user_can_manage_common_works @account, current_user
+        -if current_account_user.read_common_work?
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
@@ -44,18 +44,9 @@
                                                 id: 'common-works' \
                                               }
             
-        -if user_can_manage_catalogs @account, current_user
-          .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "CATALOGS" , blog ), \
-                                                link: account_catalogs_path(@account), \
-                                                css_class: 'btn btn-primary', \
-                                                icon: 'fa fa-list-ul', \
-                                                id: 'catalogs' \
-                                              }
+        
                                         
-        -if user_can_add_music @account, current_user
+        -if current_account_user.add_music?
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
@@ -66,7 +57,7 @@
                                                 id: 'add-music' \
                                               }
 
-        -if user_can_manage_files @account, current_user
+        -if current_account_user.read_file?
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
@@ -77,7 +68,7 @@
                                                 id: 'documents' \
                                               }
                                       
-        -if user_can_manage_playlists @account, current_user
+        -if current_account_user.read_playlist?
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \

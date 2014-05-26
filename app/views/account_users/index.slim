@@ -9,10 +9,9 @@
                                       
     == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Account users'}
     
-    -if @account.read_account_user_ids.include? current_user.id
-      == render 'personas'
+    == render 'personas'
 
-    - if @account.create_account_user_ids.include? current_user.id
+    - if current_account_user.create_account_user
       .pull-right
         = link_to 'Invite User', new_account_account_user_path(@account), class: 'btn btn-primary btn-lg'
 

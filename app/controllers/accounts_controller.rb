@@ -46,18 +46,28 @@ class AccountsController < ApplicationController
   end
   
   def update
-    @account                              = Account.cached_find(params[:id])
-
-    if enter_user_name = params[:account][:enter_user_name]   
-       params[:account].delete :enter_user_name
-    end
+    @account  = Account.cached_find(params[:id])
     @account.update_attributes(account_params)
     
-    if enter_user_name
-      redirect_to user_account_path( @account.user, @account)
+    if false
+      redirect_to edit_user_path(  @account.user)
     else
-      redirect_to user_path( @account.user)
+      redirect_to account_path(  @account)
     end
+    
+    
+    #redirect_to user_account_path( @account.user, @account)
+
+    #if enter_user_name = params[:account][:enter_user_name]   
+    #   params[:account].delete :enter_user_name
+    #end
+    @account.update_attributes(account_params)
+    
+    #if enter_user_name
+    #  redirect_to user_account_path( @account.user, @account)
+    #else
+    #  redirect_to user_path( @account.user)
+    #end
   end
   
   def account_params

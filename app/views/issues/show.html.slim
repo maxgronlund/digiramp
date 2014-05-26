@@ -23,9 +23,10 @@
             b Description
             br
             = simple_format @issue.body
-            hr
-            .pull-right
-              = link_to 'Edit', edit_user_issue_path(@user, @issue), class: 'btn btn-primary btn-lg'
+            -if can_edit? || current_user.id == @user.id
+              hr
+              .pull-right
+                = link_to 'Edit', edit_user_issue_path(@user, @issue), class: 'btn btn-primary btn-lg'
           
       .col-sm-6
         .panel.panel-primary
@@ -110,41 +111,4 @@
             
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
-/p
-/  strong Title:
-/  = @issue.title
-/p
-/  strong Body:
-/  = @issue.body
-/p
-/  strong Image:
-/  = @issue.image
-/p
-/  strong User:
-/  = @issue.user
-/
-/p
-/  strong Os:
-/  = @issue.os
-/p
-/  strong Browser:
-/  = @issue.browser
-/p
-/  strong Link to page:
-/  = @issue.link_to_page
-/p
-/  strong Can reproducd:
-/  = @issue.can_reproducd
-/p
-/  strong Status:
-/  = @issue.status
-/p
-/  strong Priority:
-/  = @issue.priority
-/p
-/  strong Symtom:
-/  = @issue.symtom
-/
-/= link_to 'Edit', edit_issue_path(@issue)
-/'|
-/= link_to 'Back', issues_path
+

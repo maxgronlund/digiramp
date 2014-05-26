@@ -38,7 +38,7 @@ class LogoUploader < CarrierWave::Uploader::Base
     #process :resize_to_fit => [200, 113]
     #resize_and_pad(340, 96,:transparent,'Center')
     #process :convert => 'png'
-    process :resize_to_fit => [600, 600]
+    process :resize_to_fit => [640, 640]
   end
   
   version :small do

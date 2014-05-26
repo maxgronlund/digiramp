@@ -13,4 +13,5 @@
 
 
 
-/= link_to 'Back', issues_path
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

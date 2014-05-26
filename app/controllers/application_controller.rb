@@ -13,7 +13,15 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   
   def current_account_user
-    AccountUser.cached_where(@account.id, current_user.id)
+    AccountUser.cached_where( @account.id, current_user.id)
+
+    #unless account_user = AccountUser.cached_where( @account.id, current_user.id)
+    #  if current_user.super?
+    #    account_user = AccountUser.create(acount_id: @account.id, user_id: current_user.id, role: 'Super')
+    #    account_user.grand_all_permissions
+    #  end
+    #end
+    
   end
   helper_method :current_account_user
   
@@ -57,13 +65,16 @@ class ApplicationController < ActionController::Base
   
   
   def access_user
-    if params[:user_id]
-      @user = User.cached_find(params[:user_id])
+    unless current_user
+      forbidden 
     else
-      @user = User.cached_find(params[:id])
+      if params[:user_id]
+        @user = User.cached_find(params[:user_id])
+      else
+        @user = User.cached_find(params[:id])
+      end
+      forbidden unless @user.permits? current_user
     end
-    @account = @user.account
-    forbidden unless Permissions.can_access_private_account( current_user, @user)
   end
   helper_method :access_user
   

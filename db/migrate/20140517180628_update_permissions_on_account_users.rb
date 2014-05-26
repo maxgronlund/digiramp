@@ -107,14 +107,14 @@ class UpdatePermissionsOnAccountUsers < ActiveRecord::Migration
 
     
     # give owners full permission
-    Account.all.each do |account|
-      
-      AccountPermissions.grand_all_permissions account.user_id, account
-      
-      User.supers.each do |super_man|
-        AccountPermissions.grand_all_permissions super_man.id, account
-      end
-    end
+    #Account.all.each do |account|
+    #  
+    #  AccountPermissions.grand_all_permissions account.user_id, account
+    #  
+    #  User.supers.each do |super_man|
+    #    AccountPermissions.grand_all_permissions super_man.id, account
+    #  end
+    #end
     
     
     

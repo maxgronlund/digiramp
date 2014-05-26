@@ -5,7 +5,7 @@
       
       -@account.account_users.order('id asc').each do |account_user|
         / don's show account owner
-        - unless account_user.role == 'Account Owner'
+        - unless account_user.role == 'Account Owner' || account_user.user.role == 'super'
           .panel.panel-primary
             .panel-heading
               = account_user.user.name
@@ -111,26 +111,20 @@
                       td = account_user.update_crm ? '√': ''
                       td = account_user.delete_crm ? '√': ''
                       
-                    tr
-                      
-                      td
-                      td
-                      td
-                      td
-                      td
-                        .pull-right
-                          -if @account.update_account_user_ids.include? current_user.id
-                            = link_to edit_account_account_user_path(@account, account_user) do
-                              .btn.btn-primary.btn-lg
-                                i class="fa fa-pencil"
-                            '&nbsp;
-                          -if @account.delete_account_user_ids.include? current_user.id
-                            = link_to  account_account_user_path(@account, account_user),\
-                                      data: { confirm: 'Are you sure?' } , :method => :delete do
-                              .btn.btn-danger.btn-lg
-                                i class="fa fa-times"
-                            
-                  
+                    
+                .pull-right
+                  -if current_account_user.update_account_user
+                    = link_to edit_account_account_user_path(@account, account_user) do
+                      .btn.btn-primary.btn-lg
+                        i class="fa fa-pencil"
+                    '&nbsp;
+                  -if current_account_user.delete_account_user
+                    = link_to  account_account_user_path(@account, account_user),\
+                              data: { confirm: 'Are you sure?' } , :method => :delete do
+                      .btn.btn-danger.btn-lg
+                        i class="fa fa-times"
+                    
+                
             
                       
           /hr

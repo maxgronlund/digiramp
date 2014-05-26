@@ -1,5 +1,5 @@
 class IssuesController < ApplicationController
-  before_filter :access_user, only: [:create, :show, :edit, :update, :new, :destroy]
+  before_filter :access_user, only: [:create, :edit, :update, :new, :destroy]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
   # GET /issues
@@ -11,6 +11,7 @@ class IssuesController < ApplicationController
   # GET /issues/1
   # GET /issues/1.json
   def show
+    @user = User.cached_find(params[:user_id])
   end
 
   # GET /issues/new

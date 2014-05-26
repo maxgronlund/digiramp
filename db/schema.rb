@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140524215203) do
+ActiveRecord::Schema.define(version: 20140526171258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,67 +109,23 @@ ActiveRecord::Schema.define(version: 20140524215203) do
     t.string   "city"
     t.string   "state"
     t.string   "postal_code"
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-    t.integer  "users_count",                   default: 0,                null: false
-    t.integer  "documents_count",               default: 0,                null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.integer  "users_count",        default: 0,                null: false
+    t.integer  "documents_count",    default: 0,                null: false
     t.date     "expiration_date"
-    t.integer  "visits",                        default: 0
+    t.integer  "visits",             default: 0
     t.string   "logo"
-    t.boolean  "activated",                     default: true
+    t.boolean  "activated",          default: true
     t.integer  "default_catalog_id"
-    t.string   "uuid",                          default: ""
-    t.integer  "version",                       default: 0
-    t.text     "permitted_user_ids",            default: "--- []\n"
-    t.text     "create_recording_ids",          default: "--- []\n"
-    t.text     "read_recording_ids",            default: "--- []\n"
-    t.text     "update_recording_ids",          default: "--- []\n"
-    t.text     "delete_recording_ids",          default: "--- []\n"
-    t.text     "create_recording_ipi_ids",      default: "--- []\n"
-    t.text     "read_recording_ipi_ids",        default: "--- []\n"
-    t.text     "update_recording_ipi_ids",      default: "--- []\n"
-    t.text     "delete_recording_ipi_ids",      default: "--- []\n"
-    t.text     "create_file_ids",               default: "--- []\n"
-    t.text     "read_file_ids",                 default: "--- []\n"
-    t.text     "update_file_ids",               default: "--- []\n"
-    t.text     "delete_file_ids",               default: "--- []\n"
-    t.text     "create_legal_document_ids",     default: "--- []\n"
-    t.text     "read_legal_document_ids",       default: "--- []\n"
-    t.text     "update_legal_document_ids",     default: "--- []\n"
-    t.text     "delete_legal_document_ids",     default: "--- []\n"
-    t.text     "create_financial_document_ids", default: "--- []\n"
-    t.text     "read_financial_document_ids",   default: "--- []\n"
-    t.text     "update_financial_document_ids", default: "--- []\n"
-    t.text     "delete_financial_document_ids", default: "--- []\n"
-    t.text     "create_common_work_ids",        default: "--- []\n"
-    t.text     "read_common_work_ids",          default: "--- []\n"
-    t.text     "update_common_work_ids",        default: "--- []\n"
-    t.text     "delete_common_work_ids",        default: "--- []\n"
-    t.text     "create_common_work_ipi_ids",    default: "--- []\n"
-    t.text     "read_common_work_ipi_ids",      default: "--- []\n"
-    t.text     "update_common_work_ipi_ids",    default: "--- []\n"
-    t.text     "delete_common_work_ipi_ids",    default: "--- []\n"
-    t.text     "create_account_user_ids",       default: "--- []\n"
-    t.text     "read_account_user_ids",         default: "--- []\n"
-    t.text     "update_account_user_ids",       default: "--- []\n"
-    t.text     "delete_account_user_ids",       default: "--- []\n"
-    t.text     "create_catalog_ids",            default: "--- []\n"
-    t.text     "read_catalog_ids",              default: "--- []\n"
-    t.text     "update_catalog_ids",            default: "--- []\n"
-    t.text     "delete_catalog_ids",            default: "--- []\n"
-    t.text     "create_playlist_ids",           default: "--- []\n"
-    t.text     "read_playlist_ids",             default: "--- []\n"
-    t.text     "update_playlist_ids",           default: "--- []\n"
-    t.text     "delete_playlist_ids",           default: "--- []\n"
-    t.text     "create_crm_ids",                default: "--- []\n"
-    t.text     "read_crm_ids",                  default: "--- []\n"
-    t.text     "update_crm_ids",                default: "--- []\n"
-    t.text     "delete_crm_ids",                default: "--- []\n"
-    t.string   "works_uuid",                    default: "first love 727"
-    t.string   "recordings_uuid",               default: "first love 727"
-    t.string   "customers_uuid",                default: "first love 727"
-    t.string   "playlists_uuid",                default: "first love 727"
-    t.string   "users_uuid",                    default: "first love 727"
+    t.string   "uuid",               default: ""
+    t.integer  "version",            default: 0
+    t.string   "works_uuid",         default: "first love 727"
+    t.string   "recordings_uuid",    default: "first love 727"
+    t.string   "customers_uuid",     default: "first love 727"
+    t.string   "playlists_uuid",     default: "first love 727"
+    t.string   "users_uuid",         default: "first love 727"
+    t.text     "permitted_user_ids", default: "--- []\n"
   end
 
   add_index "accounts", ["default_catalog_id"], name: "index_accounts_on_default_catalog_id", using: :btree
@@ -583,6 +539,25 @@ ActiveRecord::Schema.define(version: 20140524215203) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "footages", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.text     "transloadet"
+    t.string   "thumb"
+    t.string   "uuid"
+    t.string   "mp4_file"
+    t.string   "webm_file"
+    t.string   "copyright"
+    t.integer  "account_id"
+    t.integer  "footageable_id"
+    t.string   "footageable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "footages", ["account_id"], name: "index_footages_on_account_id", using: :btree
+  add_index "footages", ["footageable_id", "footageable_type"], name: "index_footages_on_footageable_id_and_footageable_type", using: :btree
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false

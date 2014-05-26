@@ -1,26 +1,28 @@
-- session[:return_url]  = request.url
-- blog                  = Blog.cached_find('Dashboard')
-- blog_post             = BlogPost.cached_find('Account', blog)
+/- session[:return_url]  = request.url
+/- blog                  = Blog.cached_find('Dashboard')
+/- blog_post             = BlogPost.cached_find('Account', blog)
 
 .row
-  .col-sm-8
-    .page-title
-      h1 
-        =@account.title
-        -if can_edit?
-          '&nbsp;
-          = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
-             i class="fa fa-pencil"
-    = simple_format blog_post.body
-
-      
-  .col-sm-12
-    hr
+  
+  == render 'shared/page_title_text', locals: {title: @account.title, body: '', insert: 'accounts/shared/leave_account'}
+  /.col-sm-8
+  /  .page-title
+  /    h1 
+  /      =@account.title
+  /      -if can_edit?
+  /        '&nbsp;
+  /        = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+  /           i class="fa fa-pencil"
+  /  = simple_format blog_post.body
+  /
+  /    
+  /.col-sm-12
+  /  hr
 
 .row
 
    
-  -if user_can_manage_assets @account, current_user
+  -if current_account_user.can_manage_assets?
     .col-sm-6
       == render 'shared/badge_button', locals: { \
                                                   blog_post: 'ASSETS', \
@@ -31,7 +33,7 @@
                                                 }
   
   
-  -if user_can_manage_users @account, current_user
+  -if current_account_user.read_account_user
     .col-sm-6
       == render 'shared/badge_button', locals: { \
                                                  blog_post: 'USERS', \

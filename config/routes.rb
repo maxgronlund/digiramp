@@ -6,6 +6,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  resources :footages
+
   resources :pro_affiliations
 
   resources :comments
@@ -200,7 +202,7 @@ Digiramp::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-
+  
   
   resources :sign_up
   resources :users do

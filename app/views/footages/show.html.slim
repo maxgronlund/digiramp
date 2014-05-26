@@ -1,0 +1,36 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @footage.title
+p
+  strong Body:
+  = @footage.body
+p
+  strong Transloadet:
+  = @footage.transloadet
+p
+  strong Thumb:
+  = @footage.thumb
+p
+  strong Uuid:
+  = @footage.uuid
+p
+  strong Mp4 file:
+  = @footage.mp4_file
+p
+  strong Webm file:
+  = @footage.webm_file
+p
+  strong Copyright:
+  = @footage.copyright
+p
+  strong Footagable type:
+  = @footage.footagable_type
+p
+  strong Footageable:
+  = @footage.footageable_id
+
+= link_to 'Edit', edit_footage_path(@footage)
+'|
+= link_to 'Back', footages_path

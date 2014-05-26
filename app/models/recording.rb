@@ -172,14 +172,14 @@ class Recording < ActiveRecord::Base
   before_destroy :remove_from_collections
 
 
-  def show_more_for user_id
-    return true if self.read_recording_ipi_ids.include?        user_id
-    return true if self.read_file_ids.include?                 user_id
-    return true if self.read_legal_document_ids.include?       user_id
-    return true if self.read_financial_document_ids.include?   user_id
-    return true if self.read_common_work_ids.include?          user_id
-    return false
-  end
+  #def show_more_for user_id
+  #  return true if self.read_recording_ipi_ids.include?        user_id
+  #  return true if self.read_file_ids.include?                 user_id
+  #  return true if self.read_legal_document_ids.include?       user_id
+  #  return true if self.read_financial_document_ids.include?   user_id
+  #  return true if self.read_common_work_ids.include?          user_id
+  #  return false
+  #end
   
   def catalog_ids=(ids) 
     

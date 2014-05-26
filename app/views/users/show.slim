@@ -1,52 +1,75 @@
 - user_account = Account.cached_find(@user.account_id)
-
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
-    -cache ([ Admin.cached_find(1).version, request.url, user_account.uuid ]) do       
+    /-cache ([ Admin.cached_find(1).version, request.url, user_account.uuid ]) do    
+    .do   
       == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name} 
       
                                                            
       == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Dashboard'}
-      
+      - account_users = AccountUser.where(user_id: @user.id)
       .row
-        .col-sm-6
-          == render 'users/shared/badge_button', locals: { \
-                                                      blog_post: 'ASSETS', \
-                                                      link: user_shared_assets_path(@user), \
-                                                      css_class: 'btn btn-primary', \
-                                                      icon: 'fa fa-archive' \
-                                                    }
-        /- unless user_account.account_type == 'Personal Account'
+        - account_users.each do |account_user|
+          .col-sm-4
+             == render 'shared/account_badge', locals: { \
+                                                          title: account_user.account.title, \
+                                                          body: account_user.account.description, \
+                                                          link: account_path( account_user.account ), \
+                                                          css_class: 'btn btn-primary', \
+                                                          icon: 'fa fa-tachometer', \
+                                                          id: account_user.account.id, \
+                                                          account_user: account_user \
+                                                        }
+          
         
-        - if @user.account_users.size > 1
-          .col-sm-6
-            == render 'users/shared/badge_button', locals: { \
-                                                        blog_post: 'ACCOUNTS', \
-                                                        link: user_user_accounts_path(@user), \
-                                                        css_class: 'btn btn-primary', \
-                                                        icon: 'fa fa-tachometer' \
-                                                      }
-                                                      
-        .col-sm-6
-          == render 'users/shared/badge_button', locals: { \
-                                                      blog_post: 'PROFILE', \
-                                                      link: edit_user_path(@user), \
-                                                      css_class: 'btn btn-success', \
-                                                      icon: 'fa fa-user' \
-                                                    }
-      
-                                                    
-        .col-sm-6
-          == render 'users/shared/badge_button', locals: { \
-                                                      blog_post: 'ACCOUNT', \
-                                                      link: edit_user_account_path(@user, @user.account_id), \
-                                                      css_class: 'btn btn-warning', \
-                                                      icon: 'fa fa-pencil' \
-                                                    }
         
+        
+        
+        
+
+      .pull-right
+        = link_to 'Edit Account', edit_user_account_path(@user, @user.account_id), class: 'btn btn-primary btn-lg'
+        '&nbsp;
+        = link_to 'User Settings', edit_user_path(@user), class: 'btn btn-primary btn-lg'
+        /.row
+        /  .col-sm-6
+        /    == render 'users/shared/badge_button', locals: { \
+        /                                                blog_post: 'ASSETS', \
+        /                                                link: user_shared_assets_path(@user), \
+        /                                                css_class: 'btn btn-primary', \
+        /                                                icon: 'fa fa-archive' \
+        /                                              }
+        /
+        /.col-sm-6
+        /  == render 'users/shared/badge_button', locals: { \
+        /                                              blog_post: 'ACCOUNTS', \
+        /                                              link: user_user_accounts_path(@user), \
+        /                                              css_class: 'btn btn-primary', \
+        /                                              icon: 'fa fa-tachometer' \
+        /                                            }
+        /                                            
+        /      
+        /                                            
+        /.col-sm-6
+        /  == render 'users/shared/badge_button', locals: { \
+        /                                              blog_post: 'PROFILE', \
+        /                                              link: edit_user_path(@user), \
+        /                                              css_class: 'btn btn-success', \
+        /                                              icon: 'fa fa-user' \
+        /                                            }
+        /
+        /                                            
+        /.col-sm-6
+        /  == render 'users/shared/badge_button', locals: { \
+        /                                              blog_post: 'ACCOUNT', \
+        /                                              link: edit_user_account_path(@user, @user.account_id), \
+        /                                              css_class: 'btn btn-warning', \
+        /                                              icon: 'fa fa-pencil' \
+        /                                            }
+        /
       
       
 -cache (['footer', Admin.cached_find(1).version]) do      

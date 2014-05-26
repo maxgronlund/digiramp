@@ -128,21 +128,7 @@ class Account < ActiveRecord::Base
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
   
-  #def set_supers
-  #  super_users = User.supers
-  #  super_users.each do |super_user|
-  #    AccountUser.create(account_id: self.id, user_id: super_user.id)
-  #    AccountPermissions.grand_all_permissions(super_user.id, self)
-  #  end
-  #end
-  
-  #def administrators
-  #  self.account_users.where(role: 'Administrator')
-  #end
-  
-  #def administrator_ids
-  #  self.account_users.where(role: 'Administrator').pluck(:id)
-  #end
+
   
   def has_no_name?
     title == Account::SECRET_NAME
@@ -279,15 +265,15 @@ class Account < ActiveRecord::Base
     account_owner.grand_all_permissions
     
     # 
-    self.account_users.each do |account_user|
-      if( self.user_id == account_user.user_id)
-        account_user.role = 'Account Owner'
-      else
-        account_user.role = 'Administrator'
-        AccountPermissions.update_user account_user, self
-      end
-      account_user.save!
-    end
+    #self.account_users.each do |account_user|
+    #  if( self.user_id == account_user.user_id)
+    #    account_user.role = 'Account Owner'
+    #  else
+    #    account_user.role = 'Administrator'
+    #    #AccountPermissions.update_user account_user, self
+    #  end
+    #  account_user.save!
+    #end
   end
   
   def repair_recordings
