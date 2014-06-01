@@ -1,12 +1,13 @@
 /= debug @recording.audio_upload
 #wrap
-  .full-width-top
-    == render 'admin/shared/navbar', page: 'account'
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
   .do           
     .container
       == render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              assets: account_assets_path(@account), \
+                                                              #assets: account_assets_path(@account), \
                                                               recordings: account_recordings_path(@account), \
                                                               @recording.title.to_sym => account_common_work_recording_path(@account, @common_work, @recording), \
                                                               }, current: 'info'}

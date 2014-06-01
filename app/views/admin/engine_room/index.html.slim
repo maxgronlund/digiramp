@@ -14,7 +14,7 @@
         .col-sm-6
           == render 'shared/badge_button', locals: { \
                                                       blog_post: 'SIDEKIQ', \
-                                                      link: "#{Rails.root}/sidekiq/queues", \
+                                                      link: sidekiq_web_path, \
                                                       css_class: 'btn btn-warning', \
                                                       icon: 'fa fa-clock-o' \
                                                     }
@@ -49,8 +49,17 @@
                                                       css_class: 'btn btn-default', \
                                                       icon: 'fa fa-globe' \
                                                     }
-                                                    
-                                                    
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'Repair Permissions', \
+                                                      link: admin_repair_permissions_path, \
+                                                      css_class: 'btn btn-warning', \
+                                                      icon: 'fa fa-lock' \
+                                                    }
+        
+        
+        
+        
   
 
 

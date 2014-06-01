@@ -11,16 +11,18 @@ class AccountsController < ApplicationController
     
     @account = Account.cached_find(params[:id])
     
+    @account_status = 'dashboard'
+    
 
-    if @account.has_no_name?
-      @account_status = 'enter_account_name'
-    elsif @account.owner_has_no_name?
-      @account_status = 'enter_user_name'
-    elsif @account.show_welcome_message?
-      @account_status = 'welcome'
-    else
-      @account_status = 'dashboard'
-    end
+    #if @account.has_no_name?
+    #  @account_status = 'enter_account_name'
+    #elsif @account.owner_has_no_name?
+    #  @account_status = 'enter_user_name'
+    #elsif @account.show_welcome_message?
+    #  @account_status = 'welcome'
+    #else
+    #  @account_status = 'dashboard'
+    #end
     
     #if @account.user.nil?
     #  @account.user = @account.account_users.first.user
@@ -32,7 +34,7 @@ class AccountsController < ApplicationController
     
     # this should be updated
     if current_user.current_account_id != @account.id
-      current_user.current_account_id = @account.id
+      current_user.current_account_id  = @account.id
       current_user.save!
       current_user.flush_auth_token_cache(cookies[:auth_token])
       @account.visits += 1

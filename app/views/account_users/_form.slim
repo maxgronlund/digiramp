@@ -1,10 +1,14 @@
 .panel.panel-primary
   .panel-heading
-    'Permissions for &nbsp;
-    = @account_user.user.email
+    - if @account_user.user
+      'Permissions for &nbsp;
+      = @account_user.user.email 
+    - else
+      ' Permissions
+    
   .panel-body
     .table-responsive
-      table class="table table-striped"
+      table class="table table-hover"
 
         tbody
           tr
@@ -59,10 +63,10 @@
           tr
             td
               h4 Users
-            td = f.input :create_account_user, label: 'Create'
-            td = f.input   :read_account_user, label: 'Read'
-            td = f.input :update_account_user, label: 'Update'
-            td = f.input :delete_account_user, label: 'Delete'
+            td = f.input :createx_user, label: 'Create'
+            td = f.input   :read_user, label: 'Read'
+            td = f.input :update_user, label: 'Update'
+            td = f.input :delete_user, label: 'Delete'
           tr
             td
               h4 Catalogs

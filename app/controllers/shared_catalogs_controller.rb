@@ -2,13 +2,14 @@ class SharedCatalogsController < ApplicationController
   
   #include AccountsHelper
   include UsersHelper
+  include CatalogsHelper
   #before_filter :access_to_account
   
   
   #include AccountsHelper
   #before_filter :access_to_account
   before_filter :access_user
-  before_filter :access_to_catalog
+  before_filter :access_catalog
   def index
     
   end

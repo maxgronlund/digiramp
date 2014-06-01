@@ -1,7 +1,7 @@
--session[:return_url] = request.url
 #wrap
-  .full-width-top
-    == render 'admin/shared/navbar', page: 'admin'
+  .admin
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'admin'
   .container
     ==render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
@@ -132,14 +132,14 @@
                 thead
                   tr
                     th Email
-                    th Role
+                    /th Role
                     th 
                 tbody
-                  - @account.account_users.where(role: 'Administrator').each do |account_user|
+                  - @account.account_users.invited.each do |account_user|
                     tr
                       td = account_user.user.email
-                      td 
-                        = account_user.role
+                      /td 
+                      /  = account_user.role
                       td
                         .pull-right
                           = link_to admin_user_path(account_user.user) do
@@ -148,35 +148,35 @@
                   
                     
                     
-        .panel.panel-primary
-          .panel-heading
-            'Repair Permissions
-          .panel-body
-            .table-responsive
-              table class="table table-hover"
-                tbody
-                    tr
-                      th Users 
-                      td 
-                        .pull-right
-                          = link_to 'Repair', admin_account_repair_users_path(@account), class: 'btn btn-primary btn-lg'
-                    tr
-                      th Recordings 
-                      td 
-                        .pull-right
-                          = link_to 'Repair', admin_account_repair_recordings_path(@account), class: 'btn btn-primary btn-lg'
-                    tr
-                      th Works 
-                      td 
-                        .pull-right
-                          = link_to 'Repair', admin_account_repair_works_path(@account), class: 'btn btn-primary btn-lg'
-                    tr
-                      th Catalogs 
-                      td 
-                        .pull-right
-                          = link_to 'Repair', admin_account_repair_catalogs_path(@account), class: 'btn btn-primary btn-lg'
-
-
+        /.panel.panel-primary
+        /  .panel-heading
+        /    'Repair Permissions
+        /  .panel-body
+        /    .table-responsive
+        /      table class="table table-hover"
+        /        tbody
+        /            tr
+        /              th Users 
+        /              td 
+        /                .pull-right
+        /                  = link_to 'Repair', admin_account_repair_users_path(@account), class: 'btn btn-primary btn-lg'
+        /            tr
+        /              th Recordings 
+        /              td 
+        /                .pull-right
+        /                  = link_to 'Repair', admin_account_repair_recordings_path(@account), class: 'btn btn-primary btn-lg'
+        /            tr
+        /              th Works 
+        /              td 
+        /                .pull-right
+        /                  = link_to 'Repair', admin_account_repair_works_path(@account), class: 'btn btn-primary btn-lg'
+        /            tr
+        /              th Catalogs 
+        /              td 
+        /                .pull-right
+        /                  = link_to 'Repair', admin_account_repair_catalogs_path(@account), class: 'btn btn-primary btn-lg'
+        /
+        /
 
                       
     .row

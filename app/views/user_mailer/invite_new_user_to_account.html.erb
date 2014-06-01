@@ -1,7 +1,8 @@
-<h3>You are invited to an account on DigiRAMP</h3>
+<h3><%= @title %></h3>
 
 <p> 
-  <%=simple_format @message%>
+  <%= simple_format @body %>
 </p>
 
-<a href="http://assets-manager.com/<%= edit_accept_invitation_path( @user.password_reset_token ) %>">Click here to accept the invitation</a>
+
+<a href="<%= edit_accept_invitation_url( @user.password_reset_token ) %>">Click here to accept the invitation</a>

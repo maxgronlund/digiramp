@@ -40,60 +40,7 @@ class Account < ActiveRecord::Base
   # white list user id
   serialize :permitted_user_ids,                    Array                     
 
-  serialize :create_recording_ids,                  Array
-  serialize :read_recording_ids,                    Array
-  serialize :update_recording_ids,                  Array
-  serialize :delete_recording_ids,                  Array
 
-  serialize :create_recording_ipi_ids,              Array
-  serialize :read_recording_ipi_ids,                Array
-  serialize :update_recording_ipi_ids,              Array
-  serialize :delete_recording_ipi_ids,              Array
-
-  serialize :create_file_ids,                       Array
-  serialize :read_file_ids,                         Array
-  serialize :update_file_ids,                       Array
-  serialize :delete_file_ids,                       Array
-
-  serialize :create_legal_document_ids,             Array
-  serialize :read_legal_document_ids,               Array
-  serialize :update_legal_document_ids,             Array
-  serialize :delete_legal_document_ids,             Array
-
-  serialize :create_financial_document_ids,         Array
-  serialize :read_financial_document_ids,           Array
-  serialize :update_financial_document_ids,         Array
-  serialize :delete_financial_document_ids,         Array
-
-  serialize :create_common_work_ids,                Array
-  serialize :read_common_work_ids,                  Array
-  serialize :update_common_work_ids,                Array
-  serialize :delete_common_work_ids,                Array
-
-  serialize :create_common_work_ipi_ids,            Array
-  serialize :read_common_work_ipi_ids,              Array
-  serialize :update_common_work_ipi_ids,            Array
-  serialize :delete_common_work_ipi_ids,            Array
-  
-  serialize :create_account_user_ids,               Array
-  serialize   :read_account_user_ids,               Array
-  serialize :update_account_user_ids,               Array
-  serialize :delete_account_user_ids,               Array
-  
-  serialize :create_catalog_ids,                    Array
-  serialize   :read_catalog_ids,                    Array
-  serialize :update_catalog_ids,                    Array
-  serialize :delete_catalog_ids,                    Array
-  
-  serialize :create_playlist_ids,                    Array
-  serialize   :read_playlist_ids,                    Array
-  serialize :update_playlist_ids,                    Array
-  serialize :delete_playlist_ids,                    Array
-  
-  serialize :create_crm_ids,                         Array
-  serialize   :read_crm_ids,                         Array
-  serialize :update_crm_ids,                         Array
-  serialize :delete_crm_ids,                         Array
 
   
   ACCOUNT_TYPES =  ['Personal Account', 'Pro Account','Enterprise Account']
@@ -123,6 +70,13 @@ class Account < ActiveRecord::Base
   scope :activated,  ->  { where( activated: true).order("title asc")  }
   
   before_save :set_uuid
+  #before_destroy :delete_account_owner
+  
+  # delete the account owner if the user is
+  # on no other accounts
+  #def delete_account_owner
+  #  self.user.destroy! unless AccountUser.where(user_id: self.user_id).size > 1
+  #end
   
   def set_uuid
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
@@ -256,7 +210,7 @@ class Account < ActiveRecord::Base
   
   
   def repair_users
-    
+
     # secure there is a account_user for the account_owner
     account_owner = AccountUser.where(account_id: self.id, user_id: self.user_id)
                                .first_or_create(account_id: self.id, user_id: self.user_id, role: 'Account Owner')  
@@ -264,20 +218,57 @@ class Account < ActiveRecord::Base
     # grand all permissions to the account owner
     account_owner.grand_all_permissions
     
-    # 
-    #self.account_users.each do |account_user|
-    #  if( self.user_id == account_user.user_id)
-    #    account_user.role = 'Account Owner'
-    #  else
-    #    account_user.role = 'Administrator'
-    #    #AccountPermissions.update_user account_user, self
-    #  end
-    #  account_user.save!
-    #end
+    # create an account user for each super user
+    User.supers.each do |super_user|
+      super_man = AccountUser.where(account_id: self.id, user_id: super_user.id)
+                             .first_or_create(account_id: self.id, user_id: super_user.id, role: 'Super')  
+
+    end
+    
+    
+    
+    # grand all permissions to administrators
+    self.account_users.administrators.each do |account_user|
+      account_user.grand_all_permissions
+    end
+    
+    # grand all permissions to administrators
+    self.account_users.supers.each do |account_user|
+      account_user.grand_all_permissions
+    end
+    
+    # grand all permissions to super users
+    #grand_account_user_all_permissions_to_catalogs super_man
+    #super_man.grand_all_permissions
+    
+    # account users with out any permissions should have no access
+    self.account_users.each do |account_user|
+      account_user.check_permissions
+    end
+    
+    
+  end
+  
+  def grand_full_permission_to_all_catalogs account_user
+
+    
+    self.catalogs.each do |catalog|
+      catalog_user = CatalogUser.where( user_id: account_user.user_id, 
+                                        catalog_id: catalog.id)
+                              .first_or_create( user_id:    account_user.user_id, 
+                                                catalog_id: catalog.id, 
+                                                account_id: self.id,
+                                                role:       'Super User',
+                                                email: account_user.user.email)
+
+      catalog_user.grand_all_permissions
+
+    end
+    
   end
   
   def repair_recordings
-    RecordingPermissions.repair_account_permissions self
+    
   end
   
   def repair_works
@@ -288,6 +279,7 @@ class Account < ActiveRecord::Base
   
   def repair_catalogs
     
+
   end
   
   def get_users_and_supers

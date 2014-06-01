@@ -52,6 +52,7 @@ class ImageFilesController < ApplicationController
       #redirect_to account_common_work_recording_image_files_path(@account, @common_work, @recording)
       redirect_to  account_common_work_recording_artwork_path(@account, @common_work, @recording)
     rescue
+      flash[:danger] = { title: "Sorry: ", body: "Something went wrong" }
       redirect_to :back
     end
     

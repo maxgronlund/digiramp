@@ -15,7 +15,8 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url
-    "/assets/fallback/" + [version_name, "default.jpg"].compact.join('_')
+    "/assets/fallback/" + [version_name, "account-logo.jpg"].compact.join('_')
+    #"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
   # Process files as they are uploaded:

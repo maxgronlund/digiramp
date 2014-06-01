@@ -1,8 +1,9 @@
 / add a link to 
 / http://localhost:3000/accounts/6/common_works/6468/recordings/434/edit
-.pull-right
-  = link_to edit_account_common_work_recording_path(@account, @common_work, @recording) do
-    .btn.btn-primary.btn-lg
-      i class="fa fa-pencil"
-      '&nbsp;
-      'Edit
+- if current_account_user.update_recording
+  .pull-right
+    = link_to edit_account_common_work_recording_path(@account, @common_work, @recording) do
+      .btn.btn-primary.btn-lg
+        i class="fa fa-pencil"
+        '&nbsp;
+        'Edit

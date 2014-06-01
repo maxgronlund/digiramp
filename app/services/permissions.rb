@@ -35,10 +35,10 @@ class Permissions
              "update_common_work_ipi",   
              "delete_common_work_ipi",         
              
-             "create_account_user", 
-               "read_account_user", 
-             "update_account_user",   
-             "delete_account_user",         
+             "createx_user", 
+               "read_user", 
+             "update_user",   
+             "delete_user",         
              
              "create_catalog", 
                "read_catalog", 
@@ -58,25 +58,7 @@ class Permissions
   
   def initialize
   end
-  
 
-  
-  #def self.can_access_private_account account, current_user
-  #  # pessimistic locking
-  #  access = false
-  #  
-  #  if current_user
-  #  # no access for users not signed in 
-  #    if current_user.id == account.user_id
-  #       # all users have access to their own account
-  #      access =  true
-  #    else current_user.super?
-  #      # super user can access all private accounts
-  #      access =  true
-  #    end
-  #  end
-  #  access
-  #end
   
 end
 

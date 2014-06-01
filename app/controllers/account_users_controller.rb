@@ -6,7 +6,7 @@ class AccountUsersController < ApplicationController
 
 
   def index
-    forbidden unless current_account_user && current_account_user.read_account_user
+    forbidden unless current_account_user && current_account_user.read_user
   end
   
   def show
@@ -17,9 +17,11 @@ class AccountUsersController < ApplicationController
   end
   
   def new
-    forbidden unless current_account_user.create_account_user
+    forbidden unless current_account_user.createx_user
     
-    @account_user = @account.account_users.new(role: "Associate")
+    @account_user = @account.account_users.new( role: "Associate", 
+                                                invitation_title: "You have been invited to a DigiRAMP Account by #{current_user.name}",
+                                                invitation_message: "You are invited to an account on DigiRAMP, please sign in to your account and you will find a new account on your dashboard")
     @roles = AccountUser::ROLES
     @roles.delete("Account Owner")
     @roles.delete("Client")
@@ -27,7 +29,7 @@ class AccountUsersController < ApplicationController
   end
   
   def create_user
-    forbidden unless current_account_user.create_account_user
+    forbidden unless current_account_user.createx_user
     activated = params[:account_user][:role] == 'Client' ? false : true
     # make a temporary password
     secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
@@ -43,12 +45,46 @@ class AccountUsersController < ApplicationController
   end
   
   
-
+  # create an account user and send an invitation email
   def create
+    # secure the permissions is in place
+    forbidden unless current_account_user.createx_user
     
-    forbidden unless current_account_user.create_account_user
+    # validate the email
+    validate_email
     
+    # get the user and send invitation
+    invited_user = User.invite_to_account_by_email( 
+                                                    params[:account_user][:email], 
+                                                    params[:account_user][:invitation_title], 
+                                                    params[:account_user][:invitation_message], 
+                                                    @account.id
+                                                   )
+   
+    # If there allready is an account user for the invited user
+    if @account_user = AccountUser.where(user_id: invited_user.id, account_id: @account.id).first
+  
+      # make sure the role is set to account user
+      params[:account_user][:role] = 'Account User'
+  
+      # update the account user
+      @account_user.update_attributes!(account_user_params)
+  
+    else
+      # create new account user
+      params[:account_user][:user_id] = invited_user.id
+      params[:account_user][:role]    = 'Account User'
+      @account_user = AccountUser.create!(account_user_params)
+    end
+    # notice!
+    # Permissions for the account user are copied to the catalog users
+    # from the after_commit on the AccountUser#after_create => update_catalog_users
     
+    redirect_to account_account_users_path @account
+  end
+  
+  def validate_email
+    # simple validation move to model
     # missing email
     if params[:account_user][:email].to_s == ""
       flash[:danger] = { title: "Email can't be blank", body: "" }
@@ -59,54 +95,42 @@ class AccountUsersController < ApplicationController
       flash[:danger] = { title: "Invalid email", body: "" }
       redirect_to new_account_account_user_path( @account )
     end
-    @user = User.where(email: params[:account_user][:email]).first
-    
-    # user alreaddy added to the account
-    if @user && AccountUser.exists?(user_id: @user.id, account_id: @account.id)  
-      # the account user was alreaddy created
-      flash[:danger] = { title: "User already invited", body: "" }
-      redirect_to new_account_account_user_path( @account )
-    else
-      # the user is signed up at digiramp
-      if @user
-        #create_account_user_for_existing @user
-        @user.invite_existing_user_to_account( @account.id, params[:account_user][:invitation_message])
-      else
-        # there is no use in the system with that
-        # so create a user first
-        @user                     = create_user
-        @user_account             = User.create_account_for @user
-        @user.current_account_id  = @user_account.id
-        @user.save!
-        @user.invite_new_user_to_account( @account.id, params[:account_user][:invitation_message])
-      
-        # some caching stuff
-        @user.account.version += 1
-        @user.account.save
-          
-        
-      end
-      flash[:info] = { title: "User Invited", body: "An invitation is send to: #{ params[:account_user][:email]}" }
-      # create an account user
-      @account_user = AccountUser.create( account_id: @account.id, 
-                                          user_id: @user.id, 
-                                          role: params[:account_user][:role], 
-                                          invitation_message: params[:account_user][:invitation_message],
-                                          email: @user.email,
-                                          name: @user.name)
-      
-      # add user to white list
-      @account.permitted_user_ids << @account_user.user.id
-      @account.permitted_user_ids.uniq!
-      @account.save!
-      
-      # bounce back to list
-      redirect_to edit_account_account_user_path @account, @account_user 
-      
-    end
   end
   
-  #def create_account_user_for_existing user
+  
+  # if user is found
+  # then the make sure the users 
+  # the account_users  is created / updated 
+  # and the role is 'Account User'
+  # and all permissions on catalog users are updated
+  #def invite_existing user
+  #  
+  #  # If there all ready is a account user 
+  #  if @account_user = AccountUser.where(user_id: user.id, account_id: @account.id).first
+  #
+  #    # make sure the role is set to account user
+  #    params[:account_user][:role] = 'Account User'
+  #
+  #    # update the account user
+  #    @account_user.update_attributes!(account_user_params)
+  #
+  #  else
+  #    # Create new account user
+  #    params[:account_user][:user_id] = user.id
+  #    @account_user = AccountUser.create!(account_user_params)
+  #  end
+  #  # notice!
+  #  # Permissions for the account user are copied to the catalog users
+  #  # from the after_commit on the AccountUser#update_catalog_users
+  #end
+  #
+  #def create_and_invite_new_user
+  #  user = User.invite_to_account_by_email params[:account_user][:email], title, body, @account.id
+  #  params[:account_user][:user_id] = user.id
+  #  @account_user = AccountUser.create!(account_user_params)
+  #end
+  
+  #def createx_user_for_existing user
   #  #if params[:account_user][:role] == 'Client'
   #  #  redirect_to :back
   #  #end
@@ -116,7 +140,7 @@ class AccountUsersController < ApplicationController
 
   def edit
     
-    forbidden unless current_account_user.update_account_user
+    forbidden unless current_account_user.update_user
     @account_user = AccountUser.cached_find(params[:id])
     #@roles        = AccountUser::ROLES
     #@roles.delete("Account Owner") #unless current_user.super?
@@ -125,9 +149,11 @@ class AccountUsersController < ApplicationController
   end
   
   def update
-    forbidden unless current_account_user.update_account_user
+    forbidden unless current_account_user.update_user
     
     @account_user = AccountUser.cached_find(params[:id])
+    
+    # update the permission key will re render cached views
     params[:account_user][:permission_key] = UUIDTools::UUID.timestamp_create().to_s
     
     # update the account user
@@ -147,38 +173,53 @@ class AccountUsersController < ApplicationController
   def destroy
     account_user = AccountUser.cached_find(params[:id])
     
+    #if current_account_user.delete_user
+    #  redirect_to :back
+    #else
+    #  forbidden
+    #end
+    
+    #if current_user.account_id == @account.id
+    #  forbidden
+    #else
+    @account.permitted_user_ids -= [account_user.user_id]
+    @account.save!
+    account_user.destroy!
+    redirect_to :back
+    #end
+    
     
     
     # users can always leave
-    if current_account_user.id == account_user.id
-      session[:return_url] = nil
-      go_to = user_path(current_account_user.user)
-      flash[:info] = { title: "You have leaved an account", body: "You have no more access to #{@account.title}" }
-    else
-      # only account users with the right permissions can delete users
-      forbidden unless current_account_user.delete_account_user
-      go_to = account_path(@account)
-      flash[:info] = { title: "User removed", body: "the user has no more access to this account" }
-    end
+    #if current_account_user.id == account_user.id
+    #  session[:return_url] = nil
+    #  go_to = user_path(current_account_user.user)
+    #  flash[:info] = { title: "You have leaved an account", body: "You have no more access to #{@account.title}" }
+    #else
+    #  # only account users with the right permissions can delete users
+    #  forbidden unless current_account_user.delete_user
+    #  go_to = account_path(@account)
+    #  flash[:info] = { title: "User removed", body: "the user has no more access to this account" }
+    #end
+    #
+    #
+    #
+    ## remove user from whitelist
+    #@account.permitted_user_ids -= [account_user.user.id]
+    ## force update of uuids on this
+    #@account.save!
+    #
+    ## force update of uuids
+    ## on the account users account
+    #account_user.account.save!
+    #
+    ## remove the account user
+    #account_user.destroy
+    #
+    #
+    #
+    #redirect_to_return_url go_to
     
-    
-    
-    # remove user from whitelist
-    @account.permitted_user_ids -= [@account_user.user.id]
-    # force update of uuids on this
-    @account.save!
-    
-    # force update of uuids
-    # on the account users account
-    account_user.account.save!
-    
-    # remove the account user
-    account_user.destroy
-
-    
-   
-    redirect_to_return_url go_to
-    #redirect_to :back
     
   end
   

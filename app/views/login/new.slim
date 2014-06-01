@@ -1,13 +1,8 @@
 
 #wrap
   .full-width-top
-    == render 'shared/navbar', page: 'home'
-  /-unless current_user
-  /  .hidden-xs
-  /    .full-width-sign-up
-  /      .container
-  /        == render 'shared/sign_up'
-  /          
+    == render 'admin/shared/navbar', page: 'account' 
+       
   .container
     ==render 'admin/shared/messages'
     

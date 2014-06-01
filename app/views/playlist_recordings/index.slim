@@ -1,6 +1,7 @@
 #wrap
-  .full-width-top
-    == render 'admin/shared/navbar', page: 'account'         
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'         
   .container
     ==render 'admin/shared/messages'
     div class="add_recordings_to_playlist" id="#{@playlist.id}" 

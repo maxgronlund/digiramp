@@ -136,13 +136,15 @@ class TransloaditParser
                                        )
       
       
+      add_artwork_to recording unless recording.cover_art == ''
       recording.extract_genres                                 
       recording.update_completeness
       recordings << recording
-      CommonWork.attach( recording, account_id)
-      add_artwork_to recording unless recording.cover_art == ''
       
-      RecordingPermissions.add_permissions_to_account_users account_id, recording
+      CommonWork.attach( recording, account_id)
+      
+      
+
 
     end
     import_batch.recordings_count = recordings.size
@@ -216,10 +218,6 @@ class TransloaditParser
         add_artwork_to recording unless recording.cover_art == ''
         recording.extract_genres                          
         recording.update_completeness
-        
-        RecordingPermissions.add_permissions_to_account_users account_id, recording
-        
-        
         
 
       rescue

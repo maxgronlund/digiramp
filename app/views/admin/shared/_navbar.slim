@@ -1,4 +1,6 @@
-.navbar.navbar-default role="navigation"
+
+
+.navbar.navbar-default
   .container-fluid 
     .navbar-header
       button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -18,31 +20,54 @@
         -if can_edit?
           li class="#{page == 'admin' ? 'active' : ''}"
             = link_to 'ADMIN', admin_index_path
-      
-      
+
       -if user_signed_in?
         ul class="nav navbar-nav navbar-right"
-          li class="#{page == 'support' ? 'active' : ''}"
-            = link_to 'SUPPORT', support_index_path
           
 
           
-          / only give access to account for users with a pro or enterprice account
-          / - user_account = Account.cached_find(current_user.account_id)
+          li  class="#{page == 'support' ? 'active' : ''}"
+            = link_to support_index_path do
+              i class="fa fa-exclamation-circle"
+              '&nbsp;
+              'SUPPORT
+
+
           
           li  class="#{page == 'account' ? 'active' : ''}"
-            = link_to current_user.current_account.title.upcase, account_path(current_user.current_account)
-            
+            = link_to account_path(current_user.current_account) do
+              i class="fa fa-tachometer"
+              '&nbsp;
+              = current_user.current_account.title.upcase 
+
 
           li class="#{page == 'profile' ? 'active' : ''}"
-            = link_to 'ACCOUNT', user_path(current_user)
+            = link_to user_path(current_user) do
+              i class="fa fa-home"
+              '&nbsp;
+              'HOME
+              
           
-          li = link_to 'LOG OUT',  logout_path
+          
+
+
+          li 
+            = link_to logout_path do
+              i class="fa fa-unlock"
+              '&nbsp;
+              'LOG OUT
       
       
       -else
         ul class="nav navbar-nav navbar-right"
-          li  = link_to 'LOG IN',  login_new_path
+          /li  = link_to 'LOG IN',  login_new_path
+
+
+          li 
+            = link_to login_new_path do
+              i class="fa fa-lock"
+              '&nbsp;
+              'LOG IN
       
 
 

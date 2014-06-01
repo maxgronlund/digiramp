@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140526171258) do
+ActiveRecord::Schema.define(version: 20140601221339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,65 +31,60 @@ ActiveRecord::Schema.define(version: 20140526171258) do
     t.integer  "account_id"
     t.integer  "user_id"
     t.string   "role"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.text     "invitation_message"
-    t.boolean  "access_to_all_recordings",   default: false
-    t.boolean  "access_to_all_common_works", default: false
-    t.boolean  "access_to_all_rights",       default: false
-    t.boolean  "access_to_all_documents",    default: false
-    t.boolean  "access_to_collect",          default: false
-    t.string   "phone",                      default: ""
-    t.string   "name",                       default: ""
-    t.text     "note",                       default: ""
-    t.string   "email",                      default: ""
-    t.string   "permission_key",             default: ""
-    t.boolean  "administrate_playlists",     default: false
-    t.boolean  "create_recording",           default: false
-    t.boolean  "read_recording",             default: false
-    t.boolean  "update_recording",           default: false
-    t.boolean  "delete_recording",           default: false
-    t.boolean  "create_recording_ipi",       default: false
-    t.boolean  "read_recording_ipi",         default: false
-    t.boolean  "update_recording_ipi",       default: false
-    t.boolean  "delete_recording_ipi",       default: false
-    t.boolean  "create_file",                default: false
-    t.boolean  "read_file",                  default: false
-    t.boolean  "update_file",                default: false
-    t.boolean  "delete_file",                default: false
-    t.boolean  "create_legal_document",      default: false
-    t.boolean  "read_legal_document",        default: false
-    t.boolean  "update_legal_document",      default: false
-    t.boolean  "delete_legal_document",      default: false
-    t.boolean  "create_financial_document",  default: false
-    t.boolean  "read_financial_document",    default: false
-    t.boolean  "update_financial_document",  default: false
-    t.boolean  "delete_financial_document",  default: false
-    t.boolean  "create_common_work",         default: false
-    t.boolean  "read_common_work",           default: false
-    t.boolean  "update_common_work",         default: false
-    t.boolean  "delete_common_work",         default: false
-    t.boolean  "create_common_work_ipi",     default: false
-    t.boolean  "read_common_work_ipi",       default: false
-    t.boolean  "update_common_work_ipi",     default: false
-    t.boolean  "delete_common_work_ipi",     default: false
-    t.boolean  "create_account_user",        default: false
-    t.boolean  "read_account_user",          default: false
-    t.boolean  "update_account_user",        default: false
-    t.boolean  "delete_account_user",        default: false
-    t.boolean  "create_catalog",             default: false
-    t.boolean  "read_catalog",               default: false
-    t.boolean  "update_catalog",             default: false
-    t.boolean  "delete_catalog",             default: false
-    t.boolean  "create_playlist",            default: false
-    t.boolean  "read_playlist",              default: false
-    t.boolean  "update_playlist",            default: false
-    t.boolean  "delete_playlist",            default: false
-    t.boolean  "create_crm",                 default: false
-    t.boolean  "read_crm",                   default: false
-    t.boolean  "update_crm",                 default: false
-    t.boolean  "delete_crm",                 default: false
-    t.string   "uuid",                       default: "new bee"
+    t.string   "phone",                     default: ""
+    t.string   "name",                      default: ""
+    t.text     "note",                      default: ""
+    t.string   "email",                     default: ""
+    t.string   "permission_key",            default: ""
+    t.boolean  "create_recording",          default: false
+    t.boolean  "read_recording",            default: false
+    t.boolean  "update_recording",          default: false
+    t.boolean  "delete_recording",          default: false
+    t.boolean  "create_recording_ipi",      default: false
+    t.boolean  "read_recording_ipi",        default: false
+    t.boolean  "update_recording_ipi",      default: false
+    t.boolean  "delete_recording_ipi",      default: false
+    t.boolean  "create_file",               default: false
+    t.boolean  "read_file",                 default: false
+    t.boolean  "update_file",               default: false
+    t.boolean  "delete_file",               default: false
+    t.boolean  "create_legal_document",     default: false
+    t.boolean  "read_legal_document",       default: false
+    t.boolean  "update_legal_document",     default: false
+    t.boolean  "delete_legal_document",     default: false
+    t.boolean  "create_financial_document", default: false
+    t.boolean  "read_financial_document",   default: false
+    t.boolean  "update_financial_document", default: false
+    t.boolean  "delete_financial_document", default: false
+    t.boolean  "create_common_work",        default: false
+    t.boolean  "read_common_work",          default: false
+    t.boolean  "update_common_work",        default: false
+    t.boolean  "delete_common_work",        default: false
+    t.boolean  "create_common_work_ipi",    default: false
+    t.boolean  "read_common_work_ipi",      default: false
+    t.boolean  "update_common_work_ipi",    default: false
+    t.boolean  "delete_common_work_ipi",    default: false
+    t.boolean  "createx_user",              default: false
+    t.boolean  "read_user",                 default: false
+    t.boolean  "update_user",               default: false
+    t.boolean  "delete_user",               default: false
+    t.boolean  "create_catalog",            default: false
+    t.boolean  "read_catalog",              default: false
+    t.boolean  "update_catalog",            default: false
+    t.boolean  "delete_catalog",            default: false
+    t.boolean  "create_playlist",           default: false
+    t.boolean  "read_playlist",             default: false
+    t.boolean  "update_playlist",           default: false
+    t.boolean  "delete_playlist",           default: false
+    t.boolean  "create_crm",                default: false
+    t.boolean  "read_crm",                  default: false
+    t.boolean  "update_crm",                default: false
+    t.boolean  "delete_crm",                default: false
+    t.string   "uuid",                      default: "new bee"
+    t.string   "invitation_title"
   end
 
   add_index "account_users", ["account_id"], name: "index_account_users_on_account_id", using: :btree
@@ -120,12 +115,12 @@ ActiveRecord::Schema.define(version: 20140526171258) do
     t.integer  "default_catalog_id"
     t.string   "uuid",               default: ""
     t.integer  "version",            default: 0
+    t.text     "permitted_user_ids", default: "--- []\n"
     t.string   "works_uuid",         default: "first love 727"
     t.string   "recordings_uuid",    default: "first love 727"
     t.string   "customers_uuid",     default: "first love 727"
     t.string   "playlists_uuid",     default: "first love 727"
     t.string   "users_uuid",         default: "first love 727"
-    t.text     "permitted_user_ids", default: "--- []\n"
   end
 
   add_index "accounts", ["default_catalog_id"], name: "index_accounts_on_default_catalog_id", using: :btree
@@ -327,53 +322,66 @@ ActiveRecord::Schema.define(version: 20140526171258) do
     t.integer  "catalog_id"
     t.integer  "user_id"
     t.integer  "account_id"
-    t.string   "email",                      default: ""
-    t.string   "title",                      default: ""
-    t.text     "body",                       default: ""
-    t.boolean  "can_edit",                   default: false
-    t.boolean  "access_files",               default: false
-    t.boolean  "access_legal_documents",     default: false
-    t.boolean  "access_financial_documents", default: false
-    t.boolean  "access_ipis",                default: false
+    t.string   "email",                     default: ""
+    t.string   "title",                     default: ""
+    t.text     "body",                      default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "edit_recordings",            default: false
-    t.boolean  "upload_recordings",          default: false
-    t.boolean  "read_works",                 default: false
-    t.boolean  "edit_works",                 default: false
-    t.boolean  "create_playlists",           default: false
-    t.integer  "permission_version",         default: 0
-    t.boolean  "create_recordings",          default: false
-    t.boolean  "read_recordings",            default: false
-    t.boolean  "update_recordings",          default: false
-    t.boolean  "delete_recordings",          default: false
-    t.boolean  "create_recording_ipis",      default: false
-    t.boolean  "read_recording_ipis",        default: false
-    t.boolean  "update_recording_ipis",      default: false
-    t.boolean  "delete_recording_ipis",      default: false
-    t.boolean  "create_files",               default: false
-    t.boolean  "read_files",                 default: false
-    t.boolean  "update_files",               default: false
-    t.boolean  "delete_files",               default: false
-    t.boolean  "create_legal_documents",     default: false
-    t.boolean  "read_legal_documents",       default: false
-    t.boolean  "update_legal_documents",     default: false
-    t.boolean  "delete_legal_documents",     default: false
-    t.boolean  "create_financial_documents", default: false
-    t.boolean  "read_financial_documents",   default: false
-    t.boolean  "update_financial_documents", default: false
-    t.boolean  "delete_financial_documents", default: false
-    t.boolean  "create_common_works",        default: false
-    t.boolean  "read_common_works",          default: false
-    t.boolean  "update_common_works",        default: false
-    t.boolean  "delete_common_works",        default: false
-    t.boolean  "create_common_work_ipis",    default: false
-    t.boolean  "read_common_work_ipis",      default: false
-    t.boolean  "update_common_work_ipis",    default: false
-    t.boolean  "delete_common_work_ipis",    default: false
+    t.boolean  "create_recording",          default: false
+    t.boolean  "read_recording",            default: false
+    t.boolean  "update_recording",          default: false
+    t.boolean  "delete_recording",          default: false
+    t.boolean  "create_recording_ipi",      default: false
+    t.boolean  "read_recording_ipi",        default: false
+    t.boolean  "update_recording_ipi",      default: false
+    t.boolean  "delete_recording_ipi",      default: false
+    t.boolean  "create_file",               default: false
+    t.boolean  "read_file",                 default: false
+    t.boolean  "update_file",               default: false
+    t.boolean  "delete_file",               default: false
+    t.boolean  "create_legal_document",     default: false
+    t.boolean  "read_legal_document",       default: false
+    t.boolean  "update_legal_document",     default: false
+    t.boolean  "delete_legal_document",     default: false
+    t.boolean  "create_financial_document", default: false
+    t.boolean  "read_financial_document",   default: false
+    t.boolean  "update_financial_document", default: false
+    t.boolean  "delete_financial_document", default: false
+    t.boolean  "create_common_work",        default: false
+    t.boolean  "read_common_work",          default: false
+    t.boolean  "update_common_work",        default: false
+    t.boolean  "delete_common_work",        default: false
+    t.boolean  "create_common_work_ipi",    default: false
+    t.boolean  "read_common_work_ipi",      default: false
+    t.boolean  "update_common_work_ipi",    default: false
+    t.boolean  "delete_common_work_ipi",    default: false
+    t.boolean  "create_comment",            default: true
+    t.boolean  "read_comment",              default: true
+    t.boolean  "update_comment",            default: true
+    t.boolean  "delete_comment",            default: true
+    t.boolean  "createx_user",              default: false
+    t.boolean  "read_user",                 default: false
+    t.boolean  "update_user",               default: false
+    t.boolean  "delete_user",               default: false
+    t.boolean  "create_playlist",           default: false
+    t.boolean  "read_playlist",             default: false
+    t.boolean  "update_playlist",           default: false
+    t.boolean  "delete_playlist",           default: false
+    t.boolean  "create_catalog",            default: false
+    t.boolean  "read_catalog",              default: true
+    t.boolean  "update_catalog",            default: false
+    t.boolean  "delete_catalog",            default: false
+    t.boolean  "create_crm",                default: false
+    t.boolean  "read_crm",                  default: false
+    t.boolean  "update_crm",                default: false
+    t.boolean  "delete_crm",                default: false
+    t.string   "uuid",                      default: "chunky beacon"
+    t.string   "role",                      default: "Catalog User"
+    t.integer  "account_user_id"
   end
 
   add_index "catalog_users", ["account_id"], name: "index_catalog_users_on_account_id", using: :btree
+  add_index "catalog_users", ["account_user_id"], name: "index_catalog_users_on_account_user_id", using: :btree
   add_index "catalog_users", ["catalog_id"], name: "index_catalog_users_on_catalog_id", using: :btree
   add_index "catalog_users", ["user_id"], name: "index_catalog_users_on_user_id", using: :btree
 
@@ -464,6 +472,7 @@ ActiveRecord::Schema.define(version: 20140526171258) do
     t.integer  "catalog_id"
     t.string   "uuid"
     t.decimal  "completeness"
+    t.string   "artwork"
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree

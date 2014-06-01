@@ -2,7 +2,7 @@
 
 #wrap
   .full-width-top
-    == render 'shared/navbar', page: 'home'
+    == render 'admin/shared/navbar', page: 'account' 
   -cache ([request.url, Admin.cached_find(1)]) do  
     .container
       .row

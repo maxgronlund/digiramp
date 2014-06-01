@@ -8,10 +8,11 @@
 -account          = account_user.account
 
 = link_to link do
-  .panel.panel-primary
-  
+  div class="#{css_class}"
     .panel-heading
-       = title
+      i class="#{icon}"
+      '&nbsp;
+      = title
       
     .panel-body
       .account_badge

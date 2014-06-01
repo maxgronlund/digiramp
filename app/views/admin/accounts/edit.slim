@@ -1,6 +1,7 @@
 #wrap
-  .full-width-top
-    == render 'admin/shared/navbar', page: 'admin'
+  .admin
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'admin'
 
             
   .container
@@ -26,7 +27,7 @@
                 a data-wysihtml5-command="italic" Italic
                 
               =f.input :description, label: false, :input_html => {  style: "height: 360px;", placeholder: "Description", id: 'wysihtml5_editor'}
-              =f.input :logo, label: 'Logo 170x50 Pixels (png with transparency is best)'
+              =f.input :logo, label: 'Account page graphics will be scaled to fitt 640x360 Pixels'
           
           .panel.panel-primary
             .panel-heading

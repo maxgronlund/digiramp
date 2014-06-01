@@ -1,30 +1,26 @@
+
 #wrap
-  .full-width-top
-    == render 'admin/shared/navbar', page: 'account'
-  /-cache([ @account.id, @account.works_uuid, params]) do  
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  
   .do   
     .container
       div class="catalog_id" id="#{@catalog.id}"
       
       ==render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              assets: account_assets_path(@account), \
+                                                              #assets: account_assets_path(@account), \
                                                               catalogs: account_catalogs_path(@account), \
                                                               }, current: @catalog.title}
       
-
-      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog', insert: 'catalogs/links'}
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog', insert: 'edit'}
+                                                              
+      - insert = current_account_user.update_catalog ? 'edit' : nil
+      == render 'shared/page_title_text', locals: {title: @catalog.title, body: @catalog.body, insert: insert}
       
       .row
         .col-sm-6
           br
-          .panel.panel-primary
-            .panel-heading
-              'Description
-            .panel-body
-              = simple_format @catalog.body
-
           .panel.panel-primary
             .panel-heading
               'Info
@@ -39,35 +35,48 @@
                       th Belongs to:
                       th = @catalog.account.title
 
+                      
         .col-sm-6
-          == render 'badge_button', locals: { \
-                                               blog_post: 'RECORDINGS', \
-                                               link: account_catalog_recording_path(@account, @catalog), \
-                                               css_class: 'btn btn-warning', \
-                                               icon: 'fa fa-headphones'\
-                                             }
-        
-          == render 'badge_button', locals: { \
-                                               blog_post: 'ADD ASSETS', \
-                                               link: account_add_catalog_asset_path(@account, @catalog), \
-                                               css_class: 'btn btn-success', \
-                                               icon: 'fa fa-plus-circle' \
-                                             }
-        
-          == render 'badge_button', locals: { \
-                                               blog_post: 'USERS', \
-                                               link: account_catalog_catalog_users_path(@account, @catalog), \
-                                               css_class: 'btn btn-default', \
-                                               icon: 'fa fa-group' \
-                                             }
-                                             
-        
-          == render 'badge_button', locals: { \
-                                               blog_post: 'MOVE CATALOG', \
-                                               link: account_catalog_move_path(@account, @catalog), \
-                                               css_class: 'btn btn-danger', \
-                                               icon: 'fa fa-truck' \
-                                             }
+
+          /= debug current_catalog_user  @catalog
+          - if current_catalog_user.read_recording 
+            == render 'badge_button', locals: { \
+                                                 blog_post: 'RECORDINGS', \
+                                                 link: account_catalog_catalog_recordings_path(@account, @catalog), \
+                                                 css_class: 'btn btn-warning', \
+                                                 icon: 'fa fa-headphones'\
+                                               }
+          
+          - if current_catalog_user.read_common_work
+            == render 'badge_button', locals: { \
+                                                 blog_post: 'WORKS', \
+                                                 link: account_catalog_catalog_works_path(@account, @catalog), \
+                                                 css_class: 'btn btn-primary', \
+                                                 icon: 'fa fa-music'\
+                                               }
+          
+          -if current_catalog_user.add_assets?  
+            == render 'badge_button', locals: { \
+                                                 blog_post: 'ADD ASSETS', \
+                                                 link: account_add_catalog_asset_path(@account, @catalog), \
+                                                 css_class: 'btn btn-success', \
+                                                 icon: 'fa fa-plus-circle' \
+                                               }
+          -if current_catalog_user.read_user? 
+            == render 'badge_button', locals: { \
+                                                 blog_post: 'USERS', \
+                                                 link: account_catalog_catalog_users_path(@account, @catalog), \
+                                                 css_class: 'btn btn-default', \
+                                                 icon: 'fa fa-group' \
+                                               }
+                                               
+          -if can_edit? || current_user.account_id == @account.id 
+            == render 'badge_button', locals: { \
+                                                 blog_post: 'MOVE CATALOG', \
+                                                 link: account_catalog_move_path(@account, @catalog), \
+                                                 css_class: 'btn btn-danger', \
+                                                 icon: 'fa fa-truck' \
+                                               }
         /.col-sm-6
         /  == render 'badge_button', locals: { \
         /                                       blog_post: 'ADD DOCUMENTS', \

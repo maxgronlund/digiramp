@@ -1,0 +1,65 @@
+- session[:return_url]  = request.url
+/- user_account          = Account.cached_find(@user.account_id)
+/- catalog               = @catalog_user.catalog
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'profile'     
+  .container
+    == render 'admin/shared/messages'                                                    
+                                                            
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(@user), \
+                                                           "ASSETS".to_sym =>  user_shared_assets_path(@user), \
+                                                           "Catalogs".to_sym =>  user_shared_catalogs_path(@user), \
+                                                           @catalog.title.to_sym =>  user_shared_catalog_path(@user, @catalog) \
+                                                           }, current:  'add assets'}
+    
+    -if @catalog_user.can_edit? 
+      == render 'shared/title', locals: {title: @catalog.title, body: "Belongs to #{@catalog.account.title}", insert: 'edit'}
+    -else
+      == render 'shared/title', locals: {title: @catalog.title, body: "Belongs to #{@catalog.account.title}"}
+    .row
+      -if @catalog_user.create_recordings
+        .col-sm-6
+          == render 'assets/shared/badge_button', locals: { \
+                                                      blog_post: 'UPLOAD AUDIO FILES', \
+                                                      link: new_user_shared_catalog_upload_shared_catalog_recording_path(@user, @catalog ),\
+                                                       'data-no-turbolink'=>true, \
+                                                      css_class: 'btn btn-primary', \
+                                                      icon: 'fa fa-cloud-upload' \
+                                                    }
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+
+      
+    
+    
+                        
+                        
+                        
+                        
+                        
+
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'  
+  
+/= debug catalog
+/= debug @catalog_user

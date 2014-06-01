@@ -7,7 +7,7 @@
           'Settings
         .panel-body
           - if current_user.can_edit?
-            = f.input :account_id , :include_blank => true, :collection => Account.all , label: 'Account'
+            = f.input :account_id , :include_blank => false, :collection => Account.all , label: 'Account'
             -unless (@user.email == 'max@synthmax.dk') || (@user.email == 'peter@digiramp.org')
               = f.input :role, collection: User::ROLES
           = f.input :name

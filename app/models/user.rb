@@ -52,10 +52,11 @@ class User < ActiveRecord::Base
   has_many :administrations
   has_many :account_catalogs, through: :administrations
   
-  ROLES       = ["super", "cuctomer"]
+  ROLES       = ["Super", "Customer"]
   SECRET_NAME = "RGeiHK8yUB6a"
   
-  scope :supers,      ->    { where( role: 'super' ).order("email asc")  }
+  scope :supers,        ->    { where( role: 'Super' ).order("email asc")  }
+  scope :customers,     ->    { where( role: 'Customer' ).order("email asc")  }
   
   after_commit :flush_cache
   
@@ -169,11 +170,11 @@ class User < ActiveRecord::Base
   end
   
   def super?
-    self.role == 'super'
+    self.role == 'Super'
   end
   
   def can_edit?
-    self.role == 'super'
+    self.role == 'Super'
   end
   
   def permits? current_user
@@ -181,7 +182,7 @@ class User < ActiveRecord::Base
     return true if current_user.account_id == self.account_id
        
     # super user can access all profiles 
-    return true if current_user.role == 'super'
+    return true if current_user.role == 'Super'
       
     # no access
     return false
@@ -303,7 +304,7 @@ class User < ActiveRecord::Base
   end
   
   def self.create_a_new_account_for_the user
-    @account = Account.new(   title: Account::SECRET_NAME, 
+    @account = Account.new(   title: user.email, 
                               user_id: user.id, 
                               expiration_date: Date.current()>>1,
                               contact_email: user.email,
@@ -374,23 +375,24 @@ class User < ActiveRecord::Base
   
   def self.invite_to_catalog_by_email email, title, body, catalog_id
     if found_user       = User.where(email: email).first
-      logger.debug '----------------------------------------------------------'
-      logger.debug '------------i nvite_to_catalog_by_email ------------------'
-      logger.debug '-----------------------------------------------'
       # invite to existing user to catalog
       UserMailer.delay.invite_existing_user_to_catalog( found_user.id , title, body, catalog_id )
-      logger.debug '----------------------------------------------------------'
-      logger.debug '------------ existing user ------------------'
-      logger.debug '-----------------------------------------------'
+      
+      # force the uuid to update
+      found_user.save!
     else
-      logger.debug '----------------------------------------------------------'
-      logger.debug '------------ new user ------------------'
-      logger.debug '-----------------------------------------------'
       # create user
       secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-      found_user = User.create(name: email, email: email, invited: true, password: secret_temp_password, password_confirmation: secret_temp_password)
+      found_user = User.create( name: email, 
+                                email: email, 
+                                invited: true, 
+                                password: secret_temp_password, 
+                                password_confirmation: secret_temp_password
+                              )
+      
       # apply a password reset token
       found_user.add_token
+      
       # create account
       create_a_new_account_for_the found_user
 
@@ -401,9 +403,41 @@ class User < ActiveRecord::Base
     found_user
   end
   
-  def invite_to_catalog
+  
+  # find or create a user 
+  # and send an email invitation
+  def self.invite_to_account_by_email email, title, body, account_id
     
+    # the user is already signed up
+    if found_user       = User.where(email: email).first
+      
+      # invite found user to account
+      UserMailer.delay.invite_existing_user_to_account( found_user.id , title, body, account_id )
+      
+      # force uuid to update
+      found_user.save!
+    else
+      # create user
+      secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
+      found_user = User.create( name: email, 
+                                email: email, 
+                                invited: true, 
+                                password: secret_temp_password, 
+                                password_confirmation: secret_temp_password
+                              )
+      
+      # apply a password reset token
+      found_user.add_token
+      
+      # create account
+      create_a_new_account_for_the found_user
+
+      # invite to existing new to catalog
+      UserMailer.delay.invite_new_user_to_account( found_user.id , title, body )
+    end
+    found_user
   end
+
   
   def add_token
     generate_token(:password_reset_token)

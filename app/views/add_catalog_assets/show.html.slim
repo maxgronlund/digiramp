@@ -1,6 +1,7 @@
 #wrap
-  .full-width-top
-    == render 'admin/shared/navbar', page: 'account'
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
   /-cache([ @account.id, @account.works_uuid, params]) do  
   .do   
     .container
@@ -16,17 +17,17 @@
 
       .row
         /-if current_user.can_manage 'access recordings', @account
-        - if current_account_user.update_catalog?
+        - if current_catalog_user.create_recording
           .col-sm-6
             == render 'assets/shared/badge_button', locals: { \
                                                                 blog_post: 'ADD RECORDINGS', \
-                                                                link: account_catalog_catalog_recordings_path(@account, @catalog), \
+                                                                link: account_catalog_add_recordings_path(@account, @catalog), \
                                                                 css_class: 'btn btn-success', \
                                                                 icon: 'fa fa-plus-circle'\
                                                             } 
         
         
-
+        - if current_catalog_user.create_recording
           .col-sm-6
             == render 'assets/shared/badge_button', locals: { \
                                                                 blog_post: 'UPLOAD AUDIO FILES', \

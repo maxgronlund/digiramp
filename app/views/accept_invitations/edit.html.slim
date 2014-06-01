@@ -1,6 +1,6 @@
 #wrap
   .full-width-top
-    == render 'shared/navbar', page: 'home'
+    == render 'admin/shared/navbar', page: 'account' 
   .hidden-xs
     .full-width-sign-up
       .container
@@ -13,18 +13,18 @@
         
 
       .col-sm-6
-        .panel
+        .panel.panel-primary
+          .panel-heading
+            i class= 'fa fa-lock'
+            '&nbsp;
+            'Create Password
           .panel-body
-            h3 
-              i class= 'fa fa-lock'
-              '&nbsp;
-              'Create Password
-            hr
 
             = simple_form_for(  @user, :url => accept_invitation_path(params[:id]) ) do |f|
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-key'
+                = f.hidden_field :name, value: @user.email
                 = f.input_field :password, placeholder: 'Password', autocomplete: :off
               br
               

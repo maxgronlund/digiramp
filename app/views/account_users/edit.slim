@@ -28,8 +28,9 @@
 /              .pull-right
 /                =f.submit 'Save', class: 'btn btn-primary btn-lg'
 #wrap
-  .full-width-top
-    == render 'admin/shared/navbar', page: 'account'
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
 
             
   .container

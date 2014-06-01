@@ -33,64 +33,80 @@
 /hr
 /.row
 /  .col-sm-12
-= f.hidden_field :permission_version, value:  @catalog_user.permission_version + 1 
 .panel.panel-primary
   .panel-heading
     'Permissions for &nbsp;
     =@catalog_user.email
   .panel-body
     .table-responsive
-      table class="table table-striped"
-  
+      table class="table table-hover"
+        thead
+          tr
+            th Email
+            th Create
+            th Read
+            th Update
+            th Delete
         
         tbody
           tr
-            td
-              h4 Recordings
-            td = f.input :create_recordings, label: 'Create'
-            td = f.input :read_recordings,   label: 'Read'
-            td = f.input :update_recordings, label: 'Update'
-            td = f.input :delete_recordings, label: 'Delete'
+            td Recordings
+            td = f.input :create_recording, label: 'Create'
+            td = f.input :read_recording,   label: 'Read'
+            td = f.input :update_recording, label: 'Update'
+            td = f.input :delete_recording, label: 'Delete'
           tr
-            td
-              h4 Recordings IPI's
-            td = f.input :create_recording_ipis, label: 'Create'
-            td = f.input :read_recording_ipis,   label: 'Read'
-            td = f.input :update_recording_ipis, label: 'Update'
-            td = f.input :delete_recording_ipis, label: 'Delete'
+            td Recordings IPI's
+            td = f.input :create_recording_ipi, label: 'Create'
+            td = f.input :read_recording_ipi,   label: 'Read'
+            td = f.input :update_recording_ipi, label: 'Update'
+            td = f.input :delete_recording_ipi, label: 'Delete'
           tr
-            td
-              h4 Files
-            td = f.input :create_files, label: 'Create'
-            td = f.input :read_files,   label: 'Read'
-            td = f.input :update_files, label: 'Update'
-            td = f.input :delete_files, label: 'Delete'
+            td Files
+            td = f.input :create_file, label: 'Create'
+            td = f.input :read_file,   label: 'Read'
+            td = f.input :update_file, label: 'Update'
+            td = f.input :delete_file, label: 'Delete'
           tr
-            td
-              h4 Legal Documents
-            td = f.input :create_legal_documents, label: 'Create'
-            td = f.input :read_legal_documents,   label: 'Read'
-            td = f.input :update_legal_documents, label: 'Update'
-            td = f.input :delete_legal_documents, label: 'Delete'
+            td Legal Documents
+            td = f.input :create_legal_document, label: 'Create'
+            td = f.input :read_legal_document,   label: 'Read'
+            td = f.input :update_legal_document, label: 'Update'
+            td = f.input :delete_legal_document, label: 'Delete'
           tr
-            td
-              h4 Financial Documents
-            td = f.input :create_financial_documents, label: 'Create'
-            td = f.input :read_financial_documents,   label: 'Read'
-            td = f.input :update_financial_documents, label: 'Update'
-            td = f.input :delete_financial_documents, label: 'Delete'
+            td Financial Documents
+            td = f.input :create_financial_document, label: 'Create'
+            td = f.input :read_financial_document,   label: 'Read'
+            td = f.input :update_financial_document, label: 'Update'
+            td = f.input :delete_financial_document, label: 'Delete'
           tr
-            td
-              h4 Common Works
-            td = f.input :create_common_works, label: 'Create'
-            td = f.input :read_common_works,   label: 'Read'
-            td = f.input :update_common_works, label: 'Update'
-            td = f.input :delete_common_works, label: 'Delete'
+            td Common Works
+            td = f.input :create_common_work, label: 'Create'
+            td = f.input :read_common_work,   label: 'Read'
+            td = f.input :update_common_work, label: 'Update'
+            td = f.input :delete_common_work, label: 'Delete'
           tr
-            td
-              h4 Common Works IPI's
-            td = f.input :create_common_work_ipis, label: 'Create'
-            td = f.input :read_common_work_ipis,   label: 'Read'
-            td = f.input :update_common_work_ipis, label: 'Update'
-            td = f.input :delete_common_work_ipis, label: 'Delete'
+            td Common Works IPI's
+            td = f.input :create_common_work_ipi, label: 'Create'
+            td = f.input :read_common_work_ipi,   label: 'Read'
+            td = f.input :update_common_work_ipi, label: 'Update'
+            td = f.input :delete_common_work_ipi, label: 'Delete'
+          tr
+            td Users
+            td = f.input :createx_user, label: 'Create'
+            td = f.input   :read_user,   label: 'Read'
+            td = f.input :update_user, label: 'Update'
+            td = f.input :delete_user, label: 'Delete'
+          tr
+            td Playlists
+            td = f.input :create_playlist, label: 'Create'
+            td = f.input   :read_playlist,   label: 'Read'
+            td = f.input :update_playlist, label: 'Update'
+            td = f.input :delete_playlist, label: 'Delete'
+          tr
+            td Comments
+            td = f.input :create_comment, label: 'Create'
+            td = f.input   :read_comment,   label: 'Read'
+            td = f.input :update_comment, label: 'Update'
+            td = f.input :delete_comment, label: 'Delete'
     

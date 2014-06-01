@@ -1,134 +1,132 @@
 -cache ( [@account.uuid, request.url, current_user.uuid ] ) do
-  /.do
   .row
     .col-sm-12
-      
-      -@account.account_users.order('id asc').each do |account_user|
-        / don's show account owner
-        - unless account_user.role == 'Account Owner' || account_user.user.role == 'super'
+      #accordion
+        -@account.account_users.invited.each_with_index do |account_user, index|
           .panel.panel-primary
             .panel-heading
-              = account_user.user.name
-              '&nbsp;&nbsp;&nbsp;&nbsp;
-              = account_user.user.email
-                
-            .panel-body
-              .table-responsive.table-permissions
-                table class="table table-hover"
-                  thead
-                    tr
-                      th 
-                      th Create
-                      th Read
-                      th Update
-                      th Delete
-                  tbody
-                    tr 
+              .panel-title
+                a data-toggle="collapse" data-parent="#accordion" href="#collapse_#{account_user.id.to_s}"
+                  = account_user.user.name.upcase
+                  
+            div id="collapse_#{account_user.id.to_s}" class="panel-collapse collapse"   
+              .panel-body
+                .table-responsive.table-permissions
+                  table class="table table-hover"
+                    thead
+                      tr
+                        th = account_user.user.email
+                        th Create
+                        th Read
+                        th Update
+                        th Delete
+                    tbody
+                      tr 
+                        
+                        td Recordings &nbsp; &nbsp; &nbsp;
+                        td = account_user.create_recording ? '√': ''
+                        td = account_user.read_recording ? '√': ''
+                        td = account_user.update_recording ? '√': ''
+                        td = account_user.delete_recording ? '√': ''
+              
+                      tr 
+                        
+                        td Recordings IPI's &nbsp; &nbsp; &nbsp;
+                        td = account_user.create_recording_ipi ? '√': ''
+                        td = account_user.read_recording_ipi ? '√': ''
+                        td = account_user.update_recording_ipi ? '√': ''
+                        td = account_user.delete_recording_ipi ? '√': ''
+              
+                        
+                      tr 
+                        td Files &nbsp; &nbsp; &nbsp;
+                        td = account_user.create_file ? '√': ''
+                        td = account_user.read_file ? '√': ''
+                        td = account_user.update_file ? '√': ''
+                        td = account_user.delete_file ? '√': ''
+                        
+                        
+                      tr 
+                        td Legal Documents &nbsp; &nbsp; &nbsp;
+                        td = account_user.create_legal_document ? '√': ''
+                        td = account_user.read_legal_document ? '√': ''
+                        td = account_user.update_legal_document ? '√': ''
+                        td = account_user.delete_legal_document ? '√': ''
+                        
+                        
+                      tr 
+                        td Financial Documents &nbsp; &nbsp; &nbsp;
+                        td = account_user.create_financial_document ? '√': ''
+                        td   = account_user.read_financial_document ? '√': ''
+                        td = account_user.update_financial_document ? '√': ''
+                        td = account_user.delete_financial_document ? '√': ''
+                        
+                        
+                      tr 
+                        td Common Works &nbsp; &nbsp; &nbsp;
+                        td = account_user.create_common_work ? '√': ''
+                        td   = account_user.read_common_work ? '√': ''
+                        td = account_user.update_common_work ? '√': ''
+                        td = account_user.delete_common_work ? '√': ''
+                        
+                        
+                      tr 
+                        td Common Work IPI's &nbsp; &nbsp; &nbsp;
+                        td = account_user.create_common_work_ipi ? '√': ''
+                        td   = account_user.read_common_work_ipi ? '√': ''
+                        td = account_user.update_common_work_ipi ? '√': ''
+                        td = account_user.delete_common_work_ipi ? '√': ''
+                        
+                        
+                      tr 
+                        td Users &nbsp; &nbsp; &nbsp;
+                        td = account_user.createx_user ? '√': ''
+                        td   = account_user.read_user ? '√': ''
+                        td = account_user.update_user ? '√': ''
+                        td = account_user.delete_user ? '√': ''
+                        
+                        
+                      tr 
+                        td Catalogs &nbsp; &nbsp; &nbsp;
+                        td = account_user.create_catalog ? '√': ''
+                        td   = account_user.read_catalog ? '√': ''
+                        td = account_user.update_catalog ? '√': ''
+                        td = account_user.delete_catalog ? '√': ''
+                        
+                        
+                      tr 
+                        td Playlists &nbsp; &nbsp; &nbsp;
+                        td = account_user.create_playlist ? '√': ''
+                        td   = account_user.read_playlist ? '√': ''
+                        td = account_user.update_playlist ? '√': ''
+                        td = account_user.delete_playlist ? '√': ''
+                        
+                        
+                      tr 
+                        td CRM &nbsp; &nbsp; &nbsp;
+                        td = account_user.create_crm ? '√': ''
+                        td   = account_user.read_crm ? '√': ''
+                        td = account_user.update_crm ? '√': ''
+                        td = account_user.delete_crm ? '√': ''
+                        
                       
-                      td Recordings &nbsp; &nbsp; &nbsp;
-                      td = account_user.create_recording ? '√': ''
-                      td = account_user.read_recording ? '√': ''
-                      td = account_user.update_recording ? '√': ''
-                      td = account_user.delete_recording ? '√': ''
-          
-                    tr 
+                  .pull-right
+                    -if current_account_user.update_user
+                      = link_to edit_account_account_user_path(@account, account_user) do
+                        .btn.btn-primary.btn-lg
+                          i class="fa fa-pencil"
+                      '&nbsp;
+                    -if current_account_user.delete_user
+                      = link_to  account_account_user_path(@account, account_user),\
+                                data: { confirm: 'Are you sure?' } , :method => :delete do
+                        .btn.btn-danger.btn-lg
+                          i class="fa fa-times"
                       
-                      td Recordings IPI's &nbsp; &nbsp; &nbsp;
-                      td = account_user.create_recording_ipi ? '√': ''
-                      td = account_user.read_recording_ipi ? '√': ''
-                      td = account_user.update_recording_ipi ? '√': ''
-                      td = account_user.delete_recording_ipi ? '√': ''
-          
-                      
-                    tr 
-                      td Files &nbsp; &nbsp; &nbsp;
-                      td = account_user.create_file ? '√': ''
-                      td = account_user.read_file ? '√': ''
-                      td = account_user.update_file ? '√': ''
-                      td = account_user.delete_file ? '√': ''
-                      
-                      
-                    tr 
-                      td Legal Documents &nbsp; &nbsp; &nbsp;
-                      td = account_user.create_legal_document ? '√': ''
-                      td = account_user.read_legal_document ? '√': ''
-                      td = account_user.update_legal_document ? '√': ''
-                      td = account_user.delete_legal_document ? '√': ''
-                      
-                      
-                    tr 
-                      td Financial Documents &nbsp; &nbsp; &nbsp;
-                      td = account_user.create_financial_document ? '√': ''
-                      td   = account_user.read_financial_document ? '√': ''
-                      td = account_user.update_financial_document ? '√': ''
-                      td = account_user.delete_financial_document ? '√': ''
-                      
-                      
-                    tr 
-                      td Common Works &nbsp; &nbsp; &nbsp;
-                      td = account_user.create_common_work ? '√': ''
-                      td   = account_user.read_common_work ? '√': ''
-                      td = account_user.update_common_work ? '√': ''
-                      td = account_user.delete_common_work ? '√': ''
-                      
-                      
-                    tr 
-                      td Common Work IPI's &nbsp; &nbsp; &nbsp;
-                      td = account_user.create_common_work_ipi ? '√': ''
-                      td   = account_user.read_common_work_ipi ? '√': ''
-                      td = account_user.update_common_work_ipi ? '√': ''
-                      td = account_user.delete_common_work_ipi ? '√': ''
-                      
-                      
-                    tr 
-                      td Users &nbsp; &nbsp; &nbsp;
-                      td = account_user.create_account_user ? '√': ''
-                      td   = account_user.read_account_user ? '√': ''
-                      td = account_user.update_account_user ? '√': ''
-                      td = account_user.delete_account_user ? '√': ''
-                      
-                      
-                    tr 
-                      td Catalogs &nbsp; &nbsp; &nbsp;
-                      td = account_user.create_catalog ? '√': ''
-                      td   = account_user.read_catalog ? '√': ''
-                      td = account_user.update_catalog ? '√': ''
-                      td = account_user.delete_catalog ? '√': ''
-                      
-                      
-                    tr 
-                      td Playlists &nbsp; &nbsp; &nbsp;
-                      td = account_user.create_playlist ? '√': ''
-                      td   = account_user.read_playlist ? '√': ''
-                      td = account_user.update_playlist ? '√': ''
-                      td = account_user.delete_playlist ? '√': ''
-                      
-                      
-                    tr 
-                      td CRM &nbsp; &nbsp; &nbsp;
-                      td = account_user.create_crm ? '√': ''
-                      td   = account_user.read_crm ? '√': ''
-                      td = account_user.update_crm ? '√': ''
-                      td = account_user.delete_crm ? '√': ''
-                      
-                    
-                .pull-right
-                  -if current_account_user.update_account_user
-                    = link_to edit_account_account_user_path(@account, account_user) do
-                      .btn.btn-primary.btn-lg
-                        i class="fa fa-pencil"
-                    '&nbsp;
-                  -if current_account_user.delete_account_user
-                    = link_to  account_account_user_path(@account, account_user),\
-                              data: { confirm: 'Are you sure?' } , :method => :delete do
-                      .btn.btn-danger.btn-lg
-                        i class="fa fa-times"
-                    
                 
             
-                      
+                        
           /hr
           /.pull-right
           /  == link_to 'Invite Users', new_account_catalog_catalog_user_path(@account, @catalog), class: 'btn btn-primary btn-lg'
-            
+              
      

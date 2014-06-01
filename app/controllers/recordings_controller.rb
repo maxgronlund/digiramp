@@ -3,7 +3,7 @@ class RecordingsController < ApplicationController
   include RecordingsHelper
   include AccountsHelper
   before_filter :access_to_account
-  before_filter :read_recording, only:[:show]
+  #before_filter :read_recording, only:[:show]
   
   def index
     forbidden unless current_account_user.read_recording?
@@ -13,13 +13,14 @@ class RecordingsController < ApplicationController
   end
 
   def show
-    forbidden unless current_account_user.read_recording?
+    logger.debug'-----------------------------------------------------'
+    logger.debug current_account_user.inspect
+    forbidden unless current_account_user.read_recording
+    
     @common_work    = CommonWork.cached_find(params[:common_work_id])
     @recording      = Recording.cached_find(params[:id])
 
-    unless @recording.read_recording_ids.include? current_user.id
-      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
-    end
+
   end
   
   def edit
@@ -63,7 +64,7 @@ class RecordingsController < ApplicationController
     @recording      = Recording.find(params[:id])
     
     
-    params[:recording][:cache_version] = @recording.cache_version + 1
+    params[:recording][:uuid] = UUIDTools::UUID.timestamp_create().to_s
 
     if @genre_category = params[:recording][:genre_category]
       params[:recording].delete :genre_category

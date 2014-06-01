@@ -3,7 +3,7 @@ module RecordingsHelper
   # read recording permissions
   def read_recording
     @recording      = Recording.cached_find(params[:id])
-    forbidden unless @recording.read_recording_ids.include? current_user.id || can_edit?
+    #forbidden unless @recording.read_recording_ids.include? current_user.id || can_edit?
   end
   
   

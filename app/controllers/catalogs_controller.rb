@@ -1,14 +1,17 @@
 class CatalogsController < ApplicationController
   
   include AccountsHelper
+  include CatalogsHelper
   before_filter :access_to_account
+  before_filter :access_catalog, only: [:show]
+  #before_filter :current_catalog_user
   
   def index
     @catalogs = @account.catalogs
   end
 
   def show
-    @catalog = Catalog.cached_find(params[:id])
+   
   end
 
   def new
@@ -17,6 +20,7 @@ class CatalogsController < ApplicationController
   
   def create
     @catalog = Catalog.create(catalog_params)
+    
     flash[:info] = { title: "SUCCESS: ", body: "Catalog created" }
     redirect_to account_catalog_path( @account, @catalog)
   end

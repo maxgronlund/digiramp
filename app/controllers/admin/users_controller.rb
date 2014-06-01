@@ -35,11 +35,12 @@ class Admin::UsersController < ApplicationController
         # super users has all permissions
         account_user.grand_all_permissions
       else
-        # normal users has no permissions
-        if account_user.user.account_id != account_user.account_id
-          @account.permitted_user_ids -= [account_user.user_id]
-          @account.save!
-          account_user.remove_all_permissions 
+        # remove super account_user from all accounts
+        unless account_user.user.account_id   == account_user.account_id
+          if account_user.role == 'Super'
+            account_user.account.permitted_user_ids -= [account_user.user_id]
+            account_user.destroy!
+          end
         end
       end
       

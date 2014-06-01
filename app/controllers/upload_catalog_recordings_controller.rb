@@ -2,16 +2,19 @@ class UploadCatalogRecordingsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   
   include AccountsHelper
+  include CatalogsHelper
+  
   before_filter :access_to_account
-
+  before_filter :access_catalog, only: [:create, :show, :new]
+  
   def new
     @recording        = Recording.new
-    @catalog          = Catalog.cached_find(params[:catalog_id])
+    #@catalog          = Catalog.cached_find(params[:catalog_id])
   end
   
   # called when an  import is completed
   def create
-    @catalog              = Catalog.cached_find(params[:catalog_id])
+    #@catalog              = Catalog.cached_find(params[:catalog_id])
     @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @account.id )
     
     
@@ -25,7 +28,7 @@ class UploadCatalogRecordingsController < ApplicationController
   end
   
   def show
-    @catalog              = Catalog.cached_find(params[:catalog_id])
+    #@catalog              = Catalog.cached_find(params[:catalog_id])
     @import_batch         = ImportBatch.cached_find(params[:id])
   end
   

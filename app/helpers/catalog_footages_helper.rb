@@ -1,0 +1,2 @@
+module CatalogFootagesHelper
+end

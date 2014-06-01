@@ -4,7 +4,7 @@ Digiramp::Application.routes.draw do
 
 
 
-
+  
 
   resources :footages
 
@@ -36,12 +36,13 @@ Digiramp::Application.routes.draw do
   get "selling_points/selling_point_2"
   get "selling_points/selling_point_3"
   
+  #resources :collections, controller: 'accounts', only: [:show, :edit, :update] do
   resources :accounts, only: [:show, :edit, :update] do
     resources :add_catalog_assets, only: [:show]
     resources :account_users
     resources :account_works, only: [:index]
     resources :albums
-    resources :catalog_recordings, only: [:show]
+    #resources :catalog_recordings, only: [:show, :edit, :update, :destroy]
     resources :common_works, only: [:show]
     
     
@@ -51,9 +52,13 @@ Digiramp::Application.routes.draw do
       get "get_catalog"
       put "receive"
       put "generate_code"
-      get "catalog_recordings/add_all"
-      get "catalog_recordings/add_all_from_account"
-      resources :catalog_recordings, only: [:index, :new, :destroy]
+      get "add_recordings/add_all"
+      get "add_recordings/add_all_from_account"
+      resources :add_recordings, only: [:index]
+      resources :catalog_footages
+      resources :catalog_recordings
+      resources :catalog_works
+      resources :catalog_recording_infos, only: [:show, :delete, :destroy]
       resources :catalog_users
       resources :upload_catalog_recordings
     end
@@ -309,6 +314,7 @@ Digiramp::Application.routes.draw do
     resources :moods_imports
     resources :pro_affiliations
     resources :tags, only: [:index]
+    resources :system_emails
     resources :users
     resources :user_genres, only: [:index]
     resources :user_instruments, only: [:index]

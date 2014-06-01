@@ -24,18 +24,13 @@ class UploadSharedCatalogRecordingsController < ApplicationController
     
     if @catalog_user.create_recordings && @catalog_user
       
-      
       # parse the hash returned from www.transloadit.com
       # and add the recordings to the catalog owners account
       @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @catalog.account.id )
       
       # add to the catalog
       add_to_catalog @import_batch, @catalog.id
-      
-      # set permissions for the user
-      RecordingPermissions.create_catalog_user_permissions @catalog, @catalog_user
-      
-      
+
       # post message
       flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
       

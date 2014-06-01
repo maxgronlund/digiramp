@@ -3,7 +3,7 @@
     == render 'admin/shared/navbar', page: 'profile'     
   
   .container
-
+    == render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_path(@account.user), \
                                                             }, current:  'edit'}
 

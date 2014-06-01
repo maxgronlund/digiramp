@@ -1,0 +1,22 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    /-cache ([request.url, current_user.permission_cache_for( @account), Admin.cached_find(1).version ]) do
+    .do
+      
+      /- blog_post = BlogPost.cached_find( "bread_crumb_title" , blog )
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              'catalogs'.to_sym => account_catalogs_path(@account), \
+                                                              @catalog.title.to_sym => account_catalog_path(@account, @catalog), \
+                                                              }, current: 'works'}
+      
+      - blog      = Blog.cached_find('Manage Works')
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'works'}
+  -@common_works.each do |common_work|
+    .col-sm-6
+      = render 'common_works/common_work', locals: {common_work: common_work, common_work_path: account_catalog_catalog_work_path( @account, @catalog, common_work )}

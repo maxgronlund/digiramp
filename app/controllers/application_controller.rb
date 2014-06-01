@@ -7,21 +7,15 @@ class ApplicationController < ActionController::Base
     begin
       @current_user ||= User.cached_find_by_auth_token( cookies[:auth_token] ) if cookies[:auth_token]
     rescue
-      cookies.delete(:auth_token)
+      zaap_cokkies
     end
   end
   helper_method :current_user
   
+  
+  
   def current_account_user
     AccountUser.cached_where( @account.id, current_user.id)
-
-    #unless account_user = AccountUser.cached_where( @account.id, current_user.id)
-    #  if current_user.super?
-    #    account_user = AccountUser.create(acount_id: @account.id, user_id: current_user.id, role: 'Super')
-    #    account_user.grand_all_permissions
-    #  end
-    #end
-    
   end
   helper_method :current_account_user
   
@@ -86,59 +80,13 @@ class ApplicationController < ActionController::Base
   def user_is_an_account_user
     AccountUser.cached_where(@account.id, current_user.id )
   end
-  
-  def there_is_access_to_catalog
-    forbidden unless access_to_catalog
-  end
-  helper_method :there_is_access_to_catalog
-  
-  def access_to_catalog
-    if params[:catalog_id]
-      @catalog = Catalog.cached_find(params[:catalog_id])
-    elsif params[:id]
-      @catalog = Catalog.cached_find(params[:id])
-    end
-    return true if current_user.can_administrate @account
-  end
-  
-  
-  
-  
+
   def forbidden
     render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
   end
   helper_method :forbidden
   
 private
-  #def access_to_account
-  #  
-  #  return false if current_user == nil
-  #  
-  #  #account_id = params[:id] || params[:account_id]
-  #  if params[:account_id]
-  #    @account = Account.cached_find(params[:account_id])
-  #  else
-  #    @account = Account.cached_find(params[:id])
-  #  end
-  #  #begin
-  #  #  @account = Account.cached_find(params[:id])
-  #  #rescue
-  #  #  @account = Account.cached_find(params[:account_id])
-  #  #end
-  #  return true if account_belongs_to_current_user
-  #  return true if user_is_an_account_user
-  #  return true if current_user.role == 'super'
-  #  
-  #  #return true if the_page_contains_shared_assets
-  #  @account = nil
-  #  #account_belongs_to_current_user.current_account_id = current_user.account_id
-  #  #account_belongs_to_current_user.save
-  #  false
-  #end
-  
-  # if the page holds a resource where the current user is granded access
-  def the_page_contains_shared_assets
-    #return false
-  end
+
   
 end

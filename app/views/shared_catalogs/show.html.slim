@@ -13,10 +13,11 @@
                                                            }, current:  @catalog.title}
     
     
-    -if @catalog_user.can_edit? 
-      == render 'shared/title', locals: {title: @catalog.title, body: "Belongs to #{@catalog.account.title}", insert: 'edit'}
-    -else
-      == render 'shared/title', locals: {title: @catalog.title, body: "Belongs to #{@catalog.account.title}"}
+    = debug current_account_user
+    /-if current_account_user.edit_catalog 
+    /  == render 'shared/title', locals: {title: @catalog.title, body: "Belongs to #{@catalog.account.title}", insert: 'edit'}
+    /-else
+    /  == render 'shared/title', locals: {title: @catalog.title, body: "Belongs to #{@catalog.account.title}"}
 
       
     .row                         

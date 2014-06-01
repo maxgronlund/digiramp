@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_filter :access_user, only: [:show, :edit, :update, :destroy]
 
   def show
-    
+    puts 'show'
 
   end
 

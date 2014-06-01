@@ -9,13 +9,16 @@ class UserMailer < ActionMailer::Base
     mail to: @user.email, subject: "reset password"
   end
   
-  def invite_new_user_to_account user_id, account_id, invitation_message
+  def invite_new_user_to_account user_id, title, body
      @user            = User.cached_find(user_id)
-     @message         = invitation_message
-     #puts '-----------------------------------------------------------------------------'
-     #puts invitation_message
-     #puts '-----------------------------------------------------------------------------'
-     mail to: @user.email, subject: "You are invited to an account on DigiRAMP"
+     @body         = body
+     puts '-----------------------------------------------------------------------------'
+     puts 'invite_new_user_to_account'
+     puts @user.email
+     puts title
+     puts @body
+     puts '-----------------------------------------------------------------------------'
+     mail to: @user.email,  subject: title
   end
   
   def invite_existing_user_to_account user_id, account_id, invitation

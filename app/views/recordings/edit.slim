@@ -1,6 +1,7 @@
 #wrap
-  .full-width-top
-    == render 'admin/shared/navbar', page: 'account'
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
 
             
   .container
@@ -42,7 +43,11 @@
         br
         .panel
           .panel-body
-            == render 'form'
+            = simple_form_for [@account, @common_work, @recording] do |f|
+            
+              = f.hidden_field :account_id, value: @account.id
+              = f.hidden_field :common_work_id, value: @common_work.id
+              == render 'form', f: f
     
 
 

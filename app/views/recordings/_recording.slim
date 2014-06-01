@@ -22,8 +22,9 @@
                     /= recording.artist
               .row
                 .col-sm-4     
-                  
-                  = image_tag recording.cover_art, width: "184", height: "184", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
+                  /- art = recording.cover_art
+                  - art = recording.cover_art || 'default-cover.jpg'
+                  = image_tag art, width: "184", height: "184", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
                   
                   -if recording.explicit
                     .pull-left

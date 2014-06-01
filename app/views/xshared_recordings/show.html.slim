@@ -1,0 +1,46 @@
+/= debug @recording.audio_upload
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'profile'
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym     =>  user_path(@user), \
+                                                           "ASSETS".to_sym          =>  user_shared_assets_path(@user), \
+                                                           "Catalogs".to_sym        =>  user_shared_catalogs_path(@user), \
+                                                            @catalog.title.to_sym   =>  user_shared_catalog_path(@user, @catalog), \
+                                                            "Recordings".to_sym     =>  user_shared_catalog_shared_recordings_path(@user, @catalog ) \
+                                                           }, current:  ''}
+      
+      
+      
+      
+      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment} 
+      
+      div class="permissions" value="shared_catalog" id="#{@catalog.id}"
+      
+      -index = @recording.id
+      /div class="shared_catalog" id="#{@catalog.id}"
+      div class="player" id="#{index}"
+      .just-load
+      .panel.panel-default
+        .panel-body
+          .digiramp_player
+            == render 'players/digramp_player', locals: {index: index , recording: @recording}
+      .row
+        .col-sm-6
+          == render 'recordings/shared/metadata'
+        .col-sm-6 
+          /== render 'recordings/shared/description'   if @recording.comment.to_s != ''
+          == render 'recordings/shared/lyrics'        if @recording.lyrics.to_s != ''
+             
+      
+         
+       
+      
+
+          
+              
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

@@ -5,5 +5,4 @@
 </p>
 
 
-
-<a href="http://assets-manager.com<%= edit_user_shared_catalog_accept_invitaion_to_catalog_path( @user.id, @catalog.id, @user.password_reset_token ) %>">Click here to accept the invitation</a>
+<a href="<%= edit_accept_invitation_url( @user.password_reset_token ) %>">Click here to accept the invitation</a>

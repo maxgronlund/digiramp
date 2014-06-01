@@ -1,0 +1,49 @@
+/= debug @recording.audio_upload
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .do           
+/    .container
+/      == render 'admin/shared/messages'
+/      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/      /                                                        assets: account_assets_path(@account), \
+/      /                                                        recordings: account_recordings_path(@account), \
+/      /                                                        @recording.title.to_sym => account_common_work_recording_path(@account, @common_work, @recording), \
+/      /                                                        }, current: 'artwork'}
+/      /
+/      /
+/      /
+/      /== render 'shared/title', locals: {title: @recording.title, body: "ARTWORK"} 
+/      /
+/      /.row
+/      /  - @recording.image_files.each do |image_file|
+/      /    .col-xs-4.col-md-2
+/      /      = link_to image_tag( image_file.thumb ), \
+/      /                account_common_work_recording_image_file_path(@account, \
+/      /                                                               @common_work,\
+/      /                                                               @recording, \
+/      /                                                               image_file), class: "thumbnail"
+/      /    
+/      /        
+/      /= render 'shared/line'
+/      /.row
+/      /  .col-sm-12
+/      /    .pull-right
+/      /      = link_to 'Upload Artwork', \
+/      /                new_account_common_work_recording_image_file_path(@account, \
+/      /                                                                  @common_work,\
+/      /                                                                  @recording),\
+/      /                                                                  class: 'btn btn-primary btn-lg', \
+/      /                                                                  'data-no-turbolink'=>true
+/    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
+
+            
+ 
+          
+          
+          
+        

@@ -1,13 +1,15 @@
-.panel
-  .panel-body    
-    h3 User Profile
+.panel.panel-primary
+  .panel-heading
+    'User Profile
+  .panel-body
     .row
       .col-sm-6
-        .thumbnail
-          = image_tag @user.image_url(:avatar_170x170)
-      .col-sm-5
+        .logo
+          .thumbnail
+            = image_tag @user.image_url(:avatar_170x170) 
+      .col-sm-6
         b = @user.name
-    = simple_format @user.profile
-    .pull-right
-      = link_to  edit_user_path( @user ), class: 'btn btn-primary btn-lg', id: 'edit_user_profile' do
-        i class='fa fa-pencil' 
+        = simple_format @user.profile
+        .pull-right
+          = link_to  edit_user_path( @user ), class: 'btn btn-primary btn-lg', id: 'edit_user_profile' do
+            i class='fa fa-pencil'

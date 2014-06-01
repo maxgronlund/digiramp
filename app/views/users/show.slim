@@ -1,29 +1,43 @@
 - user_account = Account.cached_find(@user.account_id)
 #wrap
-  .full-width-top
-    == render 'admin/shared/navbar', page: 'profile'     
+  .profile
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
-    /-cache ([ Admin.cached_find(1).version, request.url, user_account.uuid ]) do    
-    .do   
+    -cache ([ Admin.cached_find(1).version, request.url, user_account.uuid ]) do    
+      .do   
       == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name} 
       
                                                            
       == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Dashboard'}
       - account_users = AccountUser.where(user_id: @user.id)
       .row
+        - account_user = AccountUser.where(account_id: @user.account_id, user_id: @user.id).first
+        .col-sm-4
+          == render 'shared/account_badge', locals: { \
+                                                       title: account_user.account.title, \
+                                                       body: account_user.account.description, \
+                                                       link: account_path( account_user.account ), \
+                                                       css_class: "panel panel-warning", \
+                                                       icon: 'fa fa-tachometer', \
+                                                       id: account_user.account.id, \
+                                                       account_user: account_user \
+                                                     }
         - account_users.each do |account_user|
-          .col-sm-4
-             == render 'shared/account_badge', locals: { \
-                                                          title: account_user.account.title, \
-                                                          body: account_user.account.description, \
-                                                          link: account_path( account_user.account ), \
-                                                          css_class: 'btn btn-primary', \
-                                                          icon: 'fa fa-tachometer', \
-                                                          id: account_user.account.id, \
-                                                          account_user: account_user \
-                                                        }
-          
+          - unless account_user.account.user_id == @user.id
+            .col-sm-4
+            
+              == render 'shared/account_badge', locals: { \
+                                                           title: account_user.account.title, \
+                                                           body: account_user.account.description, \
+                                                           link: account_path( account_user.account ), \
+                                                           css_class: "panel panel-primary", \
+                                                           icon: 'fa fa-tachometer', \
+                                                           id: account_user.account.id, \
+                                                           account_user: account_user \
+                                                         }
+              
         
         
         

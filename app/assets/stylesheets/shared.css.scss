@@ -74,7 +74,12 @@
     li a {
       color: #A0A0A0;
       /*font-family: 'Cinzel', serif;*/
+      min-height:50px;
       font-size:20px;
+      border-left-style:solid;
+      border-color:#686868;
+      border-color:rgba(255, 255, 255, 0.19);
+      border-width:1px;
     }
     li a:hover{color: #CCD;}
   }
@@ -109,7 +114,31 @@
   .navbar-collapse, .navbar-default .navbar-form {border-color: transparent;}
 }
 
+.profile{
+  .full-width-top {
+    
+    background-color: #E86D56;
+    li a { 
+      color: #ccc;
+      border-color:#ccc;
+      border-color:rgba(255, 255, 255, 0.19);
+    }
+    li a:hover { color: #fff;}
+  }
+}
 
+.admin{
+  .full-width-top {
+    border-color:#358882;
+    background-color: #3C9A94;
+    li a { 
+      color: #ccc;
+      border-color:#5F7A6E;
+      border-color:rgba(255, 255, 255, 0.19);
+    }
+    li a:hover { color: #fff;}
+  }
+}
 
 .fa-3{
   font-size:3em;
@@ -357,6 +386,20 @@ ul
       color: #666;
     }
   }
+}
+.meta_line{
+  .col-xs-6{
+    padding:6px !important;
+    /*padding-bottom:-6px !important;*/
+  }
+  
+  hr{
+    margin-top:0px !important;
+    margin-bottom:0px !important;
+  }
+}
+.meta_line:hover{
+  background-color:#fff;
 }
 
 

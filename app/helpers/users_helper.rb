@@ -58,10 +58,10 @@ module UsersHelper
   end
   
   def user_can_manage_users account, user
-    return true if account.create_account_user_ids.include?     current_user.id
-    return true if account.read_account_user_ids.include?       current_user.id
-    return true if account.update_account_user_ids.include?     current_user.id
-    return true if account.delete_account_user_ids.include?     current_user.id
+    return true if account.create_user_ids.include?     current_user.id
+    return true if   account.read_user_ids.include?       current_user.id
+    return true if account.update_user_ids.include?     current_user.id
+    return true if account.delete_user_ids.include?     current_user.id
     return false
   end
   
@@ -121,6 +121,25 @@ module UsersHelper
     return true if account.delete_playlist_ids.include?     current_user.id
     return false
   end
+  
+  def on_users_account
+    true
+  end
+  
+  def account_owner?
+    return true if current_user && current_user.account_id == @account.id
+    return false
+  end
+  
+  def can_edit_account?
+    if @account
+      return true if current_user && current_user.account_id == @account.id
+      return true if current_user.super?
+    end
+    return false
+    
+  end
+
   
   
   

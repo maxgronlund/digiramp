@@ -1,6 +1,7 @@
 #wrap
-  .full-width-top
-    == render 'admin/shared/navbar', page: 'admin'
+  .admin
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'admin'
 
                
   .container
@@ -33,16 +34,23 @@
                                                       css_class: 'btn btn-warning', \
                                                       icon: 'fa fa-tags' \
                                                     }
-        
         .col-sm-6
           == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'Repair Permissions', \
-                                                      link: admin_repair_permissions_path, \
-                                                      css_class: 'btn btn-warning', \
-                                                      icon: 'fa fa-lock' \
+                                                      blog_post: 'EMAILS', \
+                                                      link: admin_system_emails_path, \
+                                                      css_class: 'btn btn-success', \
+                                                      icon: 'fa fa-envelope' \
                                                     }
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'PRO AFFILIATIONS', \
+                                                      link: admin_pro_affiliations_path, \
+                                                      css_class: 'btn btn-default', \
+                                                      icon: 'fa fa-globe' \
+                                                    }
+                                                    
         
-      
+       
 
 
   

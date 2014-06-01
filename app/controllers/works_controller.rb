@@ -1,4 +1,5 @@
 class WorksController < ApplicationController
+  include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
   before_filter :access_to_account
   
@@ -15,7 +16,7 @@ class WorksController < ApplicationController
   def show
 
     @common_work    = CommonWork.cached_find(params[:id])
-    forbidden unless current_account_user.can_access_work @common_work
+    forbidden unless current_account_user.read_common_work
    
   end
   
@@ -24,6 +25,16 @@ class WorksController < ApplicationController
   end
   
   def update
+    # get the artwork url
+    artwork_url = TransloaditImageParser.get_image_url params[:transloadit]
+
+    # extract  parameters
+    params[:common_work] = params["common_work"]
+    
+    # set the artwork url if any
+    params[:common_work][:artwork]  = artwork_url if artwork_url
+
+    
     @common_work    = CommonWork.cached_find(params[:id])
     if @common_work.update_attributes(common_work_params)
       @common_work.update_completeness

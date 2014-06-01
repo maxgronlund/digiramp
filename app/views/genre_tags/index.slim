@@ -1,7 +1,8 @@
 -session[:return_url] = request.url
 #wrap
-  .full-width-top
-    == render 'admin/shared/navbar', page: 'account'
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
 
             
   .container
