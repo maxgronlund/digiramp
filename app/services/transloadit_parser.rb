@@ -100,20 +100,10 @@ class TransloaditParser
   def self.parse_recordings uploads, account_id
     transloadets  = extract( uploads )
     import_batch  = ImportBatch.create(account_id: account_id, transloadit: uploads)
-    #account       = import_batch.account
-    #user_ids      = [account.user_id]
-    #
-    #user_ids      += AccountUser.where(account_id: account.id, access_to_all_recordings: true).pluck(:user_id)
-    #user_ids      += AccountUser.where(account_id: account.id, role: 'Administrator').pluck(:user_id)
-    #user_ids      += User.where(role: 'super').pluck(:id)
-    #
-    #user_ids.uniq!
-    
+
     recordings = []
     transloadets.each do |transloaded|
-      puts '---------------- META DATA ---------------------------------'
-      puts transloaded[:genre]
-      puts '------------------------------------------------------------'
+
 
       recording =   Recording.create!(  title:                              extract_title_from( transloaded ), 
                                         duration:                           transloaded[:duration],
@@ -147,8 +137,8 @@ class TransloaditParser
       recording.update_completeness
       recordings << recording
       
-      CommonWork.attach( recording, account_id)
-      
+      CommonWork.attach( recording, account_id).inspect
+  
       
 
 

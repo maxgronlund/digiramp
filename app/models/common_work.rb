@@ -144,6 +144,7 @@ class CommonWork < ActiveRecord::Base
     recording.save
     common_work.update_completeness
 
+
   end
   
   def self.account_search(account, query)
