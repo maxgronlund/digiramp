@@ -29,6 +29,11 @@ $ redis-server /usr/local/etc/redis.conf
 $ git push origin master
 $ cap production deploy
 
+
+* log the server
+cap production "logs:tail[production]"
+
+
 * ...
 
 

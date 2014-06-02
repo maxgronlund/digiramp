@@ -8,13 +8,13 @@ class TransloaditParser
   end
   
   def self.extract uploads
+    
     transloadets  = []
     extracted     = {}
 
     
     # original file
     uploads[:results][':original'].each do |original|
-      
       extracted[ original[:original_id] ] =  { original_file: original[:url], meta: original[:meta]}
     end
     
@@ -221,9 +221,9 @@ class TransloaditParser
         
 
       rescue
-        Rails.logger.debug '+++++++++++++++++++++++++++++++++++++++'
-        Rails.logger.debug '            CRASH                      '
-        Rails.logger.debug '+++++++++++++++++++++++++++++++++++++++'
+        puts '+++++++++++++++++++++++++++++++++++++++'
+        puts '            CRASH                      '
+        puts '+++++++++++++++++++++++++++++++++++++++'
       end
 
     end

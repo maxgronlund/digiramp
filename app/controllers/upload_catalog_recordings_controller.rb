@@ -14,7 +14,8 @@ class UploadCatalogRecordingsController < ApplicationController
   
   # called when an  import is completed
   def create
-    #@catalog              = Catalog.cached_find(params[:catalog_id])
+    puts '==========================================='
+    puts params
     @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @account.id )
     
     
