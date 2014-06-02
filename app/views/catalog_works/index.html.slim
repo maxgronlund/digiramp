@@ -81,13 +81,15 @@
                                 .btn.btn-success.btn-lg
                                   i class="fa fa-gears"
                               '&nbsp;
-                              = link_to edit_account_work_path(@account, common_work) do
-                                .btn.btn-primary.btn-lg
-                                  i class="fa fa-pencil"
-                              '&nbsp;
-                              = link_to account_work_path(@account, common_work), data: { confirm: 'Are you sure?' } , :method => :delete do
-                                .btn.btn-danger.btn-lg
-                                  i class="fa fa-times"
+                              - if current_catalog_user.update_common_work
+                                = link_to edit_account_catalog_catalog_work_path(@account, @catalog,  common_work) do
+                                  .btn.btn-primary.btn-lg
+                                    i class="fa fa-pencil"
+                                '&nbsp;
+                              - if current_catalog_user.delete_common_work
+                                = link_to account_catalog_catalog_work_path(@account, @catalog, common_work), data: { confirm: 'Are you sure?' } , :method => :delete do
+                                  .btn.btn-danger.btn-lg
+                                    i class="fa fa-times"
                                   
                                   
                                   

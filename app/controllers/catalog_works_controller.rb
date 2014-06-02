@@ -3,7 +3,7 @@ class CatalogWorksController < ApplicationController
   include AccountsHelper
   include CatalogsHelper
   before_filter :access_to_account
-  before_filter :access_catalog, only: [:index, :show, :edit, :update]
+  before_filter :access_catalog, only: [:index, :show, :edit, :update, :destroy]
   
   def index
     forbidden unless current_catalog_user.read_common_work
@@ -58,6 +58,13 @@ class CatalogWorksController < ApplicationController
     else
       render :edit
     end
+  end
+  
+  def destroy
+    forbidden unless current_catalog_user.delete_common_work
+    @common_work = CommonWork.cached_find(params[:id])
+    @common_work.destroy
+    redirect_to_return_url account_catalog_catalog_works_path(@account, @catalog)
   end
   
 private
