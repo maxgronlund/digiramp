@@ -24,6 +24,7 @@ class SessionsController < ApplicationController
       if current_user
         session[:user_id] = current_user.id
         session[:account_id] = user.account_id
+        
         account           = Account.cached_find(user.account_id)
         account.visits += 1
         account.save!

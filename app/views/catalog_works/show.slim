@@ -13,8 +13,9 @@
                                                             }, current: @common_work.title}
     
                                          
-    
-    == render 'shared/page_title_text', locals: {title: @common_work.title, body: ''}
+    - insert = nil
+    - insert = 'edit'
+    == render 'shared/page_title_text', locals: {title: @common_work.title, body: '', insert: insert}
 
     .row
       .col-sm-6.pull-down

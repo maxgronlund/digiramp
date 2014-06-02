@@ -1,8 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: "info@digiramp.org"
 
-
-  
   def password_reset user
     @user           = user
     @message        = MailMessage.password_reset
@@ -48,8 +46,5 @@ class UserMailer < ActionMailer::Base
     @catalog    = Catalog.cached_find(catalog_id)
     mail to: @user.email, subject: title
   end
-  
- 
-  
-  
+
 end

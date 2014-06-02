@@ -18,8 +18,14 @@
     .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
       ul class="nav navbar-nav"
         -if can_edit?
-          li class="#{page == 'admin' ? 'active' : ''}"
-            = link_to 'ADMIN', admin_index_path
+          li  class="#{page == 'admin' ? 'active' : ''}"
+            = link_to admin_index_path do
+              i class="fa fa-wrench"
+              '&nbsp;
+              'ADMIN
+              
+          /li class="#{page == 'admin' ? 'active' : ''}"
+          /  = link_to 'ADMIN', admin_index_path
 
       -if user_signed_in?
         ul class="nav navbar-nav navbar-right"
