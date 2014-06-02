@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_filter :access_user, only: [:show, :edit, :update, :destroy]
 
   def show
-    flash[:info] = { title: "SUCCESS: ", body: "You are logged in" }
+    
     if current_user.current_account_id != current_user.account.id
       current_user.current_account_id  = current_user.account.id
       current_user.save!
