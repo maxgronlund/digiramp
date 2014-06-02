@@ -9,6 +9,7 @@ module AccountsHelper
       else
         @account = Account.cached_find(params[:id])
       end
+      session[:account_id] = @account.id
       forbidden unless @account.permitted_user_ids.include? current_user.id
     end
   end

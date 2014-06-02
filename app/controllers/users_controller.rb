@@ -5,7 +5,11 @@ class UsersController < ApplicationController
   before_filter :access_user, only: [:show, :edit, :update, :destroy]
 
   def show
-    puts 'show'
+
+    if current_user.current_account_id != current_user.account.id
+      current_user.current_account_id = current_user.account.id
+      current_user.save!
+    end
 
   end
 

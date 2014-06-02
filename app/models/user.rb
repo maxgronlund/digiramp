@@ -487,9 +487,11 @@ private
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])
-    AccountUser.where(user_id: id).each do |account_user|
-      account_user.touch
-    end
+    
+    #AccountUser.where(user_id: id).each do |account_user|
+    #  account_user.save
+    #end
+    
     #Rails.cache.delete([self.class.name, id,  cookies[:auth_token] ]) 
   end
 

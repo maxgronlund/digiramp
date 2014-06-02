@@ -15,7 +15,6 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:sessions][:password])
       flash[:info] = { title: "SUCCESS: ", body: "You are logged in" }
       
-      
       if params[:remember_me]
         cookies.permanent[:auth_token] = user.auth_token
       else
@@ -24,9 +23,11 @@ class SessionsController < ApplicationController
       
       if current_user
         session[:user_id] = current_user.id
+        session[:account_id] = user.account_id
         account           = Account.cached_find(user.account_id)
         account.visits += 1
         account.save!
+        
         redirect_to user_path(current_user)
       end
 

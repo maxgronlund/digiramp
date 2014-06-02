@@ -35,10 +35,11 @@
 
           
           li  class="#{page == 'account' ? 'active' : ''}"
-            = link_to account_path(current_user.current_account) do
+            
+            = link_to account_path(current_account) do
               i class="fa fa-tachometer"
               '&nbsp;
-              = current_user.current_account.title.upcase 
+              = current_account.title.upcase 
 
 
           li class="#{page == 'profile' ? 'active' : ''}"

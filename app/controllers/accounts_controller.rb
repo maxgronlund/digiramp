@@ -33,13 +33,16 @@ class AccountsController < ApplicationController
     #@show_users = current_user.can_administrate( @account) && @account_users.size > 1
     
     # this should be updated
-    if current_user.current_account_id != @account.id
-      current_user.current_account_id  = @account.id
-      current_user.save!
-      current_user.flush_auth_token_cache(cookies[:auth_token])
-      @account.visits += 1
-      @account.save!
-    end
+    #if current_user.current_account_id != @account.id
+    #  current_user.current_account_id  = @account.id
+    #  current_user.save!
+    #  #current_user.flush_auth_token_cache(cookies[:auth_token])
+    #  @account.visits += 1
+    #  @account.save!
+    #end
+    
+    session[:account_id] = @account.id
+
 
   end
   

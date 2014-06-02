@@ -14,12 +14,12 @@ class UploadCatalogRecordingsController < ApplicationController
   
   # called when an  import is completed
   def create
-    begin
-      @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @account.id )
+
+    unless @import_batch   = TransloaditParser.parse_recordings( params[:transloadit], @account.id )
       flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
       add_to_catalog @import_batch, @catalog.id
       redirect_to account_catalog_upload_catalog_recording_path( @account, @catalog, @import_batch )
-    rescue
+    else
       flash[:danger]        = { title: "ERROR: ", body: "Something went wrong" }
       redirect_to     new_account_catalog_upload_catalog_recording_path(@account, @catalog)
     end

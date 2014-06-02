@@ -4,7 +4,7 @@ class CatalogsController < ApplicationController
   include CatalogsHelper
   before_filter :access_to_account
   before_filter :access_catalog, only: [:show]
-  #before_filter :current_catalog_user
+
   
   def index
     @catalogs = @account.catalogs
