@@ -8,10 +8,13 @@ class TransloaditParser
   end
   
   def self.extract uploads
-    puts '============= TRANSLOADED ERROR ====================='
-    puts uploads
-    puts '====================================================='
-    return nil if uploads[:results].nil?
+    
+    if uploads[:results].nil?
+      puts '============= TRANSLOADED ERROR ====================='
+      puts uploads
+      puts '====================================================='
+      return nil 
+    end
     transloadets  = []
     extracted     = {}
 

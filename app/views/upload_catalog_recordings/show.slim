@@ -19,9 +19,9 @@
       .col-sm-3
       
       .col-sm-6
-        .panel.panel-success
+        .panel.panel-primary
           .panel-heading
-            h3 = "#{pluralize(@import_batch.recordings_count, 'recording')} uploaded"
+            = "#{pluralize(@import_batch.recordings_count, 'recording')} uploaded"
           .panel-body
             ul
               -@import_batch.recordings.each do |recording|
