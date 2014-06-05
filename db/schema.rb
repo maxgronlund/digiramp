@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140601221339) do
+ActiveRecord::Schema.define(version: 20140605183222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -638,6 +638,50 @@ ActiveRecord::Schema.define(version: 20140601221339) do
     t.datetime "updated_at"
     t.integer  "recording_id"
     t.string   "thumb"
+    t.string   "image_id"
+    t.string   "basename"
+    t.string   "ext"
+    t.string   "image_size"
+    t.string   "mime"
+    t.string   "image_type"
+    t.string   "md5hash"
+    t.string   "width"
+    t.string   "height"
+    t.string   "date_recorded"
+    t.string   "date_file_created"
+    t.string   "date_file_modified"
+    t.string   "description"
+    t.string   "location"
+    t.string   "aspect_ratio"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "country_code"
+    t.text     "keywords"
+    t.string   "aperture"
+    t.string   "exposure_compensation"
+    t.string   "exposure_mode"
+    t.string   "exposure_time"
+    t.string   "flash"
+    t.string   "focal_length"
+    t.string   "f_number"
+    t.string   "iso"
+    t.string   "light_value"
+    t.string   "metering_mode"
+    t.string   "shutter_speed"
+    t.string   "white_balance"
+    t.string   "device_name"
+    t.string   "device_vendor"
+    t.string   "device_software"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.string   "orientation"
+    t.string   "has_clipping_path"
+    t.string   "creator"
+    t.string   "author"
+    t.string   "copyright"
+    t.string   "frame_count"
+    t.text     "copyright_notice"
   end
 
   add_index "image_files", ["account_id"], name: "index_image_files_on_account_id", using: :btree

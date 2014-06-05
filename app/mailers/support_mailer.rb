@@ -1,15 +1,23 @@
 class SupportMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "info@digiramp.org"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
   #   en.support_mailer.ticket_created.subject
   #
+  def ticket_received user_id,  issue_id, blog_post_id
+    @user      = User.cached_find user_id
+    @issue     = Issue.cached_find issue_id
+    @blog_post = BlogPost.find( blog_post_id )
+    @body      = @blog_post.body.gsub( '--user--', @user.name)
+    mail to: @user.email,  subject: @blog_post.title
+  end
+  
   def ticket_created
     @greeting = "Hi"
 
-    mail to: "to@example.org"
+    mail to: @user.email,  subject: title
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -20,7 +28,24 @@ class SupportMailer < ActionMailer::Base
   def comment_posted
     @greeting = "Hi"
 
-    mail to: "to@example.org"
+    mail to: @user.email,  subject: title
+  end
+  
+  # Subject can be set in your I18n file at config/locales/en.yml
+  # with the following lookup:
+  #
+  #   en.support_mailer.issue_closed.subject
+  #
+  def issue_resolved user_id,  issue_id, blog_post_id
+
+    @user       = User.cached_find user_id
+    @issue      = Issue.cached_find issue_id
+    @blog_post  = BlogPost.find( blog_post_id )
+    @body       = @blog_post.body.gsub( '--user--', @user.name)
+    @body       = @body.gsub('--issue--', @issue.title)
+    
+  
+    mail to: @user.email,  subject: @blog_post.title
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -31,6 +56,6 @@ class SupportMailer < ActionMailer::Base
   def issue_closed
     @greeting = "Hi"
 
-    mail to: "to@example.org"
+    mail to: @user.email,  subject: title
   end
 end

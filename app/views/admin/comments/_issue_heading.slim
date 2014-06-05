@@ -1,0 +1,5 @@
+-issue = @comment.commentable
+== render 'shared/breadcrumbs', breadcrumbs: { links: { 'support'.to_sym => support_index_path,\
+                                                        'issues'.to_sym => user_issues_path(issue.user, issue)\
+                                                      }, current: 'edit'}
+== render 'shared/title', locals: {title: issue.title, body: "Reported by: #{issue.user.email}"}

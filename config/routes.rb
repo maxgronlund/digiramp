@@ -6,6 +6,9 @@ Digiramp::Application.routes.draw do
 
   
 
+  
+  
+
   resources :footages
 
   resources :pro_affiliations
@@ -35,6 +38,8 @@ Digiramp::Application.routes.draw do
   get "selling_points/selling_point_1"
   get "selling_points/selling_point_2"
   get "selling_points/selling_point_3"
+  
+  resources :terms_and_conditions, only: [:index]
   
   #resources :collections, controller: 'accounts', only: [:show, :edit, :update] do
   resources :accounts, only: [:show, :edit, :update] do
@@ -200,6 +205,8 @@ Digiramp::Application.routes.draw do
   resources :password_resets
   resources :accept_invitations
   
+  get "download/image_file"
+  
   #get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
@@ -308,12 +315,17 @@ Digiramp::Application.routes.draw do
     resources :genres
     resources :genre_imports
     resources :homes, only: [:edit, :update]
+    resources :issues do
+      resources :comments
+    end
     resources :instruments
     resources :instruments_imports
+    resources :legal_documents
     resources :moods
     resources :moods_imports
     resources :pro_affiliations
     resources :tags, only: [:index]
+    get "emails/index"
     resources :system_emails
     resources :users
     resources :user_genres, only: [:index]

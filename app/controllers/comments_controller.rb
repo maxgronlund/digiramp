@@ -25,12 +25,11 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
 
-    if @comment.save!
+    
+    if @comment = Comment.create!(comment_params)
       case @comment.commentable_type
       when 'Issue'
-        
         redirect_to user_issue_path(@comment.user, @comment.commentable_id)
       end
     else

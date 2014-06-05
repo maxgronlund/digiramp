@@ -1,0 +1,21 @@
+- blog = Blog.cached_find('Legal')
+- blog_post = BlogPost.cached_find( "TERMS AND CONDITIONS" , blog )
+
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'home'
+
+  /-cache ([request.url, Admin.cached_find(1).version]) do   
+  .do    
+    .container
+      .row
+        .col-sm-12
+          = simple_format blog_post.body
+          - if can_edit?
+            .pull-right
+              = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-primary btn-lg'
+            
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

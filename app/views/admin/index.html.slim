@@ -52,6 +52,14 @@
                                                       icon: 'fa fa-bullhorn' \
                                                     }
                                                     
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'ISSUES', \
+                                                      link: admin_issues_path, \
+                                                      css_class: 'btn btn-warning', \
+                                                      icon: 'fa fa-bug' \
+                                                    }
+                                                    
                                                     
                                                     
       /.row

@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap/bootstrap
-//= require jquery_nested_form
+// require jquery_nested_form
 //= require simple
 //= require wysihtml5-0.4.0pre
 //= require soundmanager2-nodebug-jsmin
@@ -23,15 +23,8 @@
 //= requiry jquery.transloadit2-v2-latest
 //= require super_simple_wysiwyg
 //= require recordings
-// require permissions
-// require_tree .
-
-
-
-
-
-
-
+//= require jquery.fancybox
+//= require start_fancybox
 
 
 

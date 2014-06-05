@@ -23,7 +23,7 @@
             'Edit Comment
           .panel-body   
             == simple_form_for [ @comment.user, @comment.commentable, @comment] do |f|
-              = f.input :user_id, value: @comment.user_id
+              = f.hidden_field :user_id, value: @comment.user_id
               = f.input :title
               = f.input :body
               = f.input :image

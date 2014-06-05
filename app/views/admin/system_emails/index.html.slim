@@ -6,20 +6,61 @@
                
   .container
     ==render 'admin/shared/messages'
-    -cache (['system_emails', Admin.cached_find(1).version, current_user.uuid]) do
+    / fix cache expiration here
+    -cache (['system_emails', Admin.cached_find(1).version ]) do
       /.do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: 'content'}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   "admin".to_sym => admin_index_path,\
+                                                                "content".to_sym => admin_content_index_path },\
+                                                                 current: 'emails'}
 
       
       == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Manage Content'} 
+      
+      - blog = Blog.cached_find('Support')
+
       .row
         .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'INVITATION', \
-                                                      link: admin_export_users_path(format: "csv"), \
-                                                      css_class: 'btn btn-info', \
-                                                      icon: 'fa fa-envelope' \
-                                                    }
+          - blog_post = BlogPost.cached_find( "TICKET RECEIVED" , blog )
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: blog_post, \
+                                              link: edit_admin_blog_blog_post_path(blog, blog_post), \
+                                              css_class: 'btn btn-primary', \
+                                              icon: 'fa fa-bug', \
+                                              id: 'common-works' \
+                                            }
+        .col-sm-6
+          - blog_post = BlogPost.cached_find( "TICKET RECEIVED" , blog )
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: blog_post, \
+                                              link: edit_admin_blog_blog_post_path(blog, blog_post), \
+                                              css_class: 'btn btn-primary', \
+                                              icon: 'fa fa-bug', \
+                                              id: 'common-works' \
+                                            }
+        .col-sm-6
+          - blog_post = BlogPost.cached_find( "ISSUE RESOLVED" , blog )
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: blog_post, \
+                                              link: edit_admin_blog_blog_post_path(blog, blog_post), \
+                                              css_class: 'btn btn-primary', \
+                                              icon: 'fa fa-bug', \
+                                              id: 'common-works' \
+                                            }
+                                            
+                                            
+                                            
+          
+          /== render 'shared/badge_button', locals: { \
+          /                                            blog_post:  (blog_post, blog), \
+          /                                            link: edit_admin_blog_blog_post_path(format: "csv"), \
+          /                                            css_class: 'btn btn-info', \
+          /                                            icon: 'fa fa-envelope' \
+          /                                          }
+          /                                          
+                                                    
         
         
         

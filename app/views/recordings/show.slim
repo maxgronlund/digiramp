@@ -35,17 +35,18 @@
                                                         blog_post: 'COMMON WORK', \
                                                         link: account_work_path(@account, @common_work), \
                                                         css_class: 'btn btn-primary', \
-                                                        icon: 'fa fa-music' \
+                                                        icon: 'fa fa-music'\
                                                       }     
         - if current_account_user.read_file?
           .col-sm-6
-             == render 'works/shared/badge_button', locals: { \
-                                                        blog_post: 'FOOTAGE', \
-                                                        link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
-                                                        css_class: 'btn btn-warning', \
-                                                        icon: 'fa fa-film' \
-                                                      }      
-
+            == render 'works/shared/badge_button', locals: { \
+                                                       blog_post: 'FOOTAGE', \
+                                                       link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+                                                       css_class: 'btn btn-warning', \
+                                                       icon: 'fa fa-film' , \
+                                                        no_turbo: true \
+                                                     }      
+            
           .col-sm-6
              == render 'works/shared/badge_button', locals: { \
                                                         blog_post: 'DOCUMENTS', \

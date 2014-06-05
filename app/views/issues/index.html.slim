@@ -10,7 +10,7 @@
         == render 'shared/breadcrumbs', breadcrumbs: { links: { 'support'.to_sym => support_index_path,\
                                                               }, current: 'issues'}
         == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'Issues'}
-        
+   
     .row
       .col-sm-12
         .panel.panel-primary
@@ -26,20 +26,37 @@
                     th Created
                     th
                 tbody
-                  - @issues.order('created_at desc').each do |issue|
+                  - @issues.open.order('created_at desc').each do |issue|
                     - issue_email = issue.user.email
                     tr
-                     td = issue.title
+                     td 
+                       .truncate.width_350
+                         = issue.title
                      td = issue_email
                      td = time_ago_in_words(issue.created_at).titleize 
                      td 
                        .pull-right
                          -if can_edit? || current_user.email == issue_email
-                           = link_to 'Edit' , edit_user_issue_path(issue.user, issue), class: 'btn btn-default btn-lg'
                            '&nbsp;
-                         = link_to 'Show', user_issue_path(issue.user, issue), class: 'btn btn-primary btn-lg'
-                    
+                           = link_to 'Edit' , edit_user_issue_path(issue.user, issue), class: 'btn btn-default btn-lg'
+                         '&nbsp;   
+                         = link_to 'Show', user_issue_path(issue.user, issue), class: 'btn btn-primary btn-lg', 'data-no-turbolink'=>true
+                         -if can_edit?
+                           '&nbsp;
+                           = link_to user_issue_path(issue.user, issue), data: { confirm: 'Are you sure?' } , :method => :delete do
+                             .btn.btn-danger.btn-lg'
+                               i class=" fa fa-times"
+                               
     .row
+      .col-sm-12
+        .pull-right
+          .hidden-xs
+            == paginate(@issues)
+          .visible-xs
+            .btn-group
+              = link_to_previous_page @issues, '« Prev Page', class: 'btn btn-default mobile_pagination'
+              = link_to_next_page @issues, 'Next Page »', class: 'btn btn-default mobile_pagination'                       
+    .row                
       .col-sm-12
         hr
         .pull-right

@@ -41,22 +41,22 @@ gem 'whenever', require: false
 #gem "fog"
 
 # not in use
-gem 'celluloid'
-gem 'mechanize'
-gem 'watir'
-gem 'watir-webdriver'
-gem 'nokogiri'
-gem 'headless'
-#gem 'linguistics'
-gem 'levenshtein'
-gem 'chosen-rails', '0.12.0'
+#gem 'celluloid'
+#gem 'mechanize'
+#gem 'watir'
+#gem 'watir-webdriver'
+#gem 'nokogiri'
+#gem 'headless'
+##gem 'linguistics'
+#gem 'levenshtein'
+#gem 'chosen-rails', '0.12.0'
 #
 
 
 gem 'bootstrap-editable-rails'
 gem 'jQuery-Validation-Engine-rails'
 gem 'sinatra', require: false
-gem "nested_form"
+#gem "nested_form"
 #gem 'private_pub'
 #gem "taglib-ruby"
 #gem 'id3_tags'
@@ -75,6 +75,8 @@ gem 'uuidtools'
 #gem 'jquery-ui-rails'
 gem "rails-erd"
 #gem "font-awesome-rails" <<------- not working on all devices ;-(
+
+#gem 'fancybox2-rails', '~> 0.2.8'
 
 
 group :doc do

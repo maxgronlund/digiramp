@@ -39,7 +39,7 @@ class ImageFilesController < ApplicationController
   # POST /image_files
   # POST /image_files.json
   def create
-    begin
+    #begin
       @common_work    = CommonWork.cached_find(params[:common_work_id])
       @recording      = Recording.cached_find(params[:recording_id])
       
@@ -51,10 +51,10 @@ class ImageFilesController < ApplicationController
       
       #redirect_to account_common_work_recording_image_files_path(@account, @common_work, @recording)
       redirect_to  account_common_work_recording_artwork_path(@account, @common_work, @recording)
-    rescue
-      flash[:danger] = { title: "Sorry: ", body: "Something went wrong" }
-      redirect_to :back
-    end
+      #rescue
+      #flash[:danger] = { title: "Sorry: ", body: "Something went wrong" }
+      #redirect_to :back
+      #end
     
     
     
@@ -68,6 +68,9 @@ class ImageFilesController < ApplicationController
     @recording      = Recording.cached_find(params[:recording_id])
     @image_file     = ImageFile.find(params[:id])
     
+
+    
+    params[:image_file].delete :keywords
     params[:image_file].delete :common_work_id
     
     if @image_file.update(image_file_params)
@@ -84,7 +87,7 @@ class ImageFilesController < ApplicationController
     @image_file     = ImageFile.find(params[:id])
     
     # check if recoring uses the artwork
-    @image_file.destroy unless @image_file.recording_id == @recording.id
+    @image_file.destroy! unless @image_file.id == @recording.image_file_id
     
     redirect_to account_common_work_recording_artwork_path(@account, @common_work, @recording)
   end

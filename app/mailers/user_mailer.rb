@@ -8,7 +8,7 @@ class UserMailer < ActionMailer::Base
   end
   
   def invite_new_user_to_account user_id, title, body
-     @user            = User.cached_find(user_id)
+     @user         = User.cached_find(user_id)
      @body         = body
      puts '-----------------------------------------------------------------------------'
      puts 'invite_new_user_to_account'

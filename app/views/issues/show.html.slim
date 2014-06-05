@@ -92,7 +92,8 @@
                 hr
                 .row
                   .col-sm-6
-                    = image_tag( comment.image_url(:small))
+ 
+                    = render 'shared/lightbox', locals: {image_url: comment.image_url(), thumb_url: comment.image_url(:small), id: comment.id, caption: comment.title}
                   .col-sm-6
                     .pull-right
                       - if @issue.user_id == current_user.id || can_edit?

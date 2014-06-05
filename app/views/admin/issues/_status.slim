@@ -1,0 +1,23 @@
+.pull-right
+  h3
+    -case @issue.status
+    
+    -when 'New'
+      .label.label-primary
+        'New
+    
+    -when 'Confirmed'
+      .label.label-success
+        'Confirmed
+    
+    -when 'In Progress'
+      .label.label-info
+        'In Progress
+    
+    -when 'Resolved'
+      .label.label-success
+        'Resolved
+    
+    -when 'Closed'
+      .label.label-default
+        'Closed

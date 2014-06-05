@@ -1,10 +1,11 @@
--blog       = Blog.cached_find('Works Badges')
--post       = BlogPost.cached_find(locals[:blog_post], blog)
--title      = post.title
--body       = post.body
--link       = locals[:link]
--css_class  = locals[:css_class]
--icon       = locals[:icon]
+- blog       = Blog.cached_find('Works Badges')
+- post       = BlogPost.cached_find(locals[:blog_post], blog)
+- title      = post.title
+- body       = post.body
+- link       = locals[:link]
+- css_class  = locals[:css_class]
+- icon       = locals[:icon]
+- no_turbo   = locals[:no_turbo] || false
 
 .row
   .visible-xs
@@ -18,14 +19,14 @@
              i class="fa fa-pencil"
     .col-sm-6
       .icon-badge
-        = link_to link, class: css_class do
+        = link_to link, class: css_class, 'data-no-turbolink'=>no_turbo do
           div class=icon
       = simple_format body
       hr
   .hidden-xs
     .col-sm-6
       .icon-badge
-        = link_to link, class: css_class do
+        = link_to link, class: css_class, 'data-no-turbolink'=>no_turbo do
           div class=icon
     .col-sm-6
       h3 

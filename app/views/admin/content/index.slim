@@ -6,9 +6,10 @@
                
   .container
     ==render 'admin/shared/messages'
-    -cache (['content', Admin.cached_find(1).version, current_user.uuid]) do
+    / fix cache expiration here
+    -cache (['content', Admin.cached_find(1).version ]) do
       /.do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: 'content'}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path}, current: 'content'}
 
       
       == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Manage Content'} 
@@ -46,8 +47,19 @@
                                                       blog_post: 'PRO AFFILIATIONS', \
                                                       link: admin_pro_affiliations_path, \
                                                       css_class: 'btn btn-default', \
-                                                      icon: 'fa fa-globe' \
+                                                      icon: 'fa fa-envelope' \
                                                     }
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'LEGAL', \
+                                                      link: admin_legal_documents_path, \
+                                                      css_class: 'btn btn-danger', \
+                                                      icon: 'fa fa-gavel' \
+                                                    }
+                                                    
+                                                    
+                                                    
+                      
                                                     
         
        

@@ -15,18 +15,89 @@
       
 
       == render 'shared/title', locals: {title: @recording.title, body: "ARTWORK"} 
-      
-      .row
-        - @recording.image_files.each do |image_file|
-          .col-xs-4.col-md-2
-            = link_to image_tag( image_file.thumb ), \
-                      account_common_work_recording_image_file_path(@account, \
-                                                                     @common_work,\
-                                                                     @recording, \
-                                                                     image_file), class: "thumbnail"
-          
-              
-      = render 'shared/line'
+      .panel.panel-primary
+        .panel-heading
+          'Artwork
+        .panel-body.dark
+          .row
+            - @recording.image_files.each do |image_file|
+              .visible-xs
+                .col-xs-12
+                  .logo
+                    .thumbnail
+                      = render 'shared/lightbox', locals: {image_url: image_file.file, thumb_url: image_file.thumb, id: image_file.id, caption: image_file.title}
+                      .pull-right
+                        br
+                        = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, image_file) do
+                          .btn.btn-info.btn-lg
+                            i class="fa fa-info-circle"
+                        '&nbsp;
+                        = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, image_file), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times"
+              .visible-sm
+                .col-xs-6
+                  .logo
+                    .thumbnail
+                      = render 'shared/lightbox', locals: {image_url: image_file.file, thumb_url: image_file.thumb, id: image_file.id, caption: image_file.title}
+                      .pull-right
+                        br
+                        = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, image_file) do
+                          .btn.btn-info.btn-lg
+                            i class="fa fa-info-circle"
+                        '&nbsp;
+                        = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, image_file), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times"
+              .visible-md
+                .col-xs-4
+                  .logo
+                    .thumbnail
+                      = render 'shared/lightbox', locals: {image_url: image_file.file, thumb_url: image_file.thumb, id: image_file.id, caption: image_file.title}
+                      .pull-right
+                        br
+                        = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, image_file) do
+                          .btn.btn-info.btn-lg
+                            i class="fa fa-info-circle"
+                        '&nbsp;
+                        = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, image_file), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times"
+              .visible-lg
+                .col-xs-3
+                  .logo
+                    .thumbnail
+                      = render 'shared/lightbox', locals: {image_url: image_file.file, thumb_url: image_file.thumb, id: image_file.id, caption: image_file.title}
+                      .pull-right
+                        br
+                        = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, image_file) do
+                          .btn.btn-info.btn-lg
+                            i class="fa fa-info-circle"
+                        '&nbsp;
+                        = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, image_file), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times"
+                        
+                      
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                /= link_to image_tag( image_file.thumb ), \
+                /          account_common_work_recording_image_file_path(@account, \
+                /                                                         @common_work,\
+                /                                                         @recording, \
+                /                                                         image_file), class: "thumbnail"
+                /
+                /  
+
       .row
         .col-sm-12
           .pull-right

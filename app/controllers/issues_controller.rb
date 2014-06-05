@@ -5,7 +5,7 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
-    @issues = Issue.all
+    @issues = Issue.page(params[:page]).per(10).order('created_at desc')
   end
 
   # GET /issues/1
@@ -41,6 +41,7 @@ class IssuesController < ApplicationController
   def update
     if @issue.update(issue_params)
       redirect_to user_issue_path(@user, @issue)
+      #UserMailer.delay.invite_new_user_to_account(self.id, account_id, invitation_message)
     else
       redirect_to edit_user_issue_path(@user, @issue)
     end
@@ -50,10 +51,7 @@ class IssuesController < ApplicationController
   # DELETE /issues/1.json
   def destroy
     @issue.destroy
-    respond_to do |format|
-      format.html { redirect_to issues_url }
-      format.json { head :no_content }
-    end
+    redirect_to user_issues_path(current_user)
   end
 
   private

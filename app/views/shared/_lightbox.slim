@@ -1,0 +1,14 @@
+- image_url = locals[:image_url]
+- thumb_url = locals[:thumb_url]
+- caption    = locals[:caption] || ''
+- id = "lightbox_#{locals[:id]}"
+
+
+
+
+= link_to image_url , title: caption, class: 'fancybox' do
+  = image_tag thumb_url
+
+/<a class="fancybox" href="#{image_url}" data-fancybox-group="gallery" title="#{caption}"><img src="#{thumb_url}" alt="" /></a>
+
+		

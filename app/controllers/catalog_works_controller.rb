@@ -10,6 +10,9 @@ class CatalogWorksController < ApplicationController
     #@common_works = @catalog.common_works 
     
     
+    #recording = CatalogItem.where(catalogable_id: @catalog.id, catalogable_type: 'Recording')
+    
+    
     
     
     @common_works  = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
@@ -20,10 +23,7 @@ class CatalogWorksController < ApplicationController
     end
     
     
-    
-    
-    
-    
+
     
     
   end
