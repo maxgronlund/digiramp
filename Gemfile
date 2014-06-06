@@ -41,15 +41,15 @@ gem 'whenever', require: false
 #gem "fog"
 
 # not in use
-#gem 'celluloid'
-#gem 'mechanize'
-#gem 'watir'
-#gem 'watir-webdriver'
-#gem 'nokogiri'
-#gem 'headless'
-##gem 'linguistics'
-#gem 'levenshtein'
-#gem 'chosen-rails', '0.12.0'
+gem 'celluloid'
+gem 'mechanize'
+gem 'watir'
+gem 'watir-webdriver'
+gem 'nokogiri'
+gem 'headless'
+#gem 'linguistics'
+gem 'levenshtein'
+gem 'chosen-rails', '0.12.0'
 #
 
 
