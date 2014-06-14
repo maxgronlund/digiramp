@@ -1,0 +1,71 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  /-cache([ @account.id, @account.works_uuid, params]) do  
+  .do   
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              }, current: 'catalogs'}
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalogs'}
+
+
+      .row
+        .col-sm-12
+          .panel.panel-primary
+            .panel-heading
+              'Catalogs Controlled by #{@account.title}
+            .panel-body
+              .table-responsive
+                table class="table table-hover"
+                  thead
+                    tr
+                      th Catalog
+                      th Recordings
+                      /th Users
+                      th
+                  tbody
+                    
+                    -  user = current_account_user.user
+                    /= debug user
+                    /= debug CatalogUser.where(account_id: @account.id, user_id: current_user.id)
+                    - @catalogs.each do |catalog|
+                      - if catalog.catalog_users.pluck(:user_id).include? user.id
+                        tr
+                          td = link_to  catalog.title, \
+                                        account_catalog_path( @account, catalog), \
+                                        class: 'btn btn-default btn-lg'
+                          td = catalog.nr_recordings
+                                          
+                          /td = link_to  catalog.catalog_users.size, \
+                          /              account_catalog_catalog_users_path(@account, catalog), \
+                          /              class: 'btn btn-default btn-lg'
+                          td
+                            .pull-right
+                              -if current_account_user.update_catalog?
+                                = link_to edit_account_catalog_path( @account, catalog) do
+                                  .btn.btn-primary.btn-lg
+                                    i class="fa fa-pencil"
+                                '&nbsp;
+                              -if current_account_user.delete_catalog?
+                                = link_to account_catalog_path( @account, catalog) , data: { confirm: 'Are you sure?' } , method: :delete do
+                                  .btn.btn-danger.btn-lg
+                                    i class="fa fa-trash-o"
+                      
+                      
+              == render 'shared/line'
+              .pull-right
+                = link_to 'Get Catalog', account_catalog_get_catalog_path(@account, 1), class: 'btn btn-default btn-lg'
+                '&nbsp;
+                = link_to 'New Catalog', new_account_catalog_path(@account), class: 'btn btn-primary btn-lg'
+              
+    
+
+  
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

@@ -16,36 +16,44 @@ class AccountUser < ActiveRecord::Base
                         "Administrator", 
                         "Client", 
                         "Super",
-                        "Catalog User"
+                        "Catalog User",
+                        "Account User"
                       ]
                       
   
-  
+  # setup of search
   include PgSearch
   pg_search_scope :search_account_user, against: [:name, :email, :note, :phone], :using => [:tsearch]
   
-  
+  # 
   after_commit    :update_cache
   
   before_save     :update_uuids
-  #before_destroy  :update_uuids
-  after_create    :add_to_permitted_user_ids
+  
+  # force the cache to rebuild
+  before_destroy  :update_uuids
+  after_create    :update_catalog_users
   after_update    :update_catalog_users
 
   
   scope :supers,            ->  { where.not( role: 'Super')  }
   scope :clients,           ->  { where( role: 'Client') }
   scope :administrators,    ->  { where( role: 'Administrator') }
+  scope :owner,             ->  { where( role: 'Account Owner')  }
   # users invited
-  scope :invited,           ->  { where.not( role: ['Catalog User', 'Super', 'Client', 'Account Owner'])  }
+  scope :invited,           ->  { where.not( role: ['Catalog User', 'Super', 'Client', 'Account Owner', 'Administrator'])  }
   #scope :invited,   -> { joins(:dog).order('dogs.name') }
 
+ 
+  
+  # refrech memcach and force the segment cache to rerender
   def update_cache
     flush_cache
     # update uuid on the account
     account.save!
   end
   
+  #!!! When is this used
   def copy_permissions_to_catalog_users
     if catalogs = self.account.catalogs
       
@@ -70,61 +78,94 @@ class AccountUser < ActiveRecord::Base
     end
   end
   
+  def super?
+    self.role == 'Super'
+  end
+  
+  # set basic permissions to true
+  def grand_basic_permissions
+    
+    self.create_recording     = true
+    self.read_recording       = true
+    self.update_recording     = true
+    self.delete_recording     = true
+    
+    self.create_common_work   = true
+      self.read_common_work   = true
+    self.update_common_work   = true
+    self.delete_common_work   = true
+    
+    self.read_catalog         = true
+    self.update_catalog       = true
+    
+    save!
+    
+  end
+  
+  # set all permissions to true
   def grand_all_permissions
-    #  permissions 
+    #  copy permissions 
     Permissions::TYPES.each do |permission_type|
       eval "self.#{permission_type} = true" 
     end
     self.save!
-    self.account.permitted_user_ids += [self.user_id]
-    self.account.permitted_user_ids.uniq!
-    self.account.save!
     
+    # add to all catalogs
     self.account.catalogs.each do |catalog|
       catalog.add_account_user self
     end
 
   end
   
+  # set all permissions to false
   def remove_all_permissions
-    self.account.permitted_user_ids -= [self.user_id]
-    self.account.save!
-    #  remove permissions 
     Permissions::TYPES.each do |permission_type|
-      eval "self.#{permission_type} = true" 
+      eval "self.#{permission_type} = false" 
     end
     # save and update uuid
     self.save!
+    
+    # remove from all catalogs
+    #self.account.catalogs.each do |catalog|
+    #  catalog.remove_account_user self
+    #end
+    
+    
   end
   
 
-  
+  # if the user has no permissions to an accout 
+  # remove the user from the list of permitted_user_ids
   def check_permissions
-    # pessimistic
-    permission = false;
-    #  permissions 
-    Permissions::TYPES.each do |permission_type|
-      if (eval "self.#{permission_type}") 
-        permission = true
-      end
-    end
-    if permission
-      # add permission
-      self.account.permitted_user_ids += [self.user_id]
-    else
-      # remove permission
-      self.account.permitted_user_ids -= [self.user_id]
-    end
-    # only store on id on white list
-    self.account.permitted_user_ids.uniq!
-    self.account.save!
+    puts '++++++++++++++++++++++++++++++++++++++++++++++'
+    puts ' Obsolete AccountUser#check_permissions'
+    ## pessimistic
+    #permission = false;
+    ##  permissions 
+    #Permissions::TYPES.each do |permission_type|
+    #  if (eval "self.#{permission_type}") 
+    #    permission = true
+    #  end
+    #end
+    #if permission
+    #  # add permission
+    #  self.account.permitted_user_ids += [self.user_id]
+    #else
+    #  # remove permission
+    #  self.account.permitted_user_ids -= [self.user_id]
+    #end
+    ## only store on id on white list
+    #self.account.permitted_user_ids.uniq!
+    #self.account.save!
   end
   
   def add_to_permitted_user_ids
-    self.account.permitted_user_ids  += [self.user_id]
-    self.account.permitted_user_ids.uniq!
-    self.save!
-    update_catalog_users
+    puts '++++++++++++++++++++++++++++++++++++++++++++++'
+    puts ' Obsolete AccountUser#add_to_permitted_user_ids'
+    #self.account.permitted_user_ids   += [self.user_id]
+    #self.account.permitted_user_ids.uniq!
+    #self.save!
+    #update_catalog_users
   end
 
   
@@ -159,9 +200,9 @@ class AccountUser < ActiveRecord::Base
     return email
   end
   
-  def get_phone
-    phone
-  end
+  #def get_phone
+  #  phone
+  #end
   
   #def can_access_work common_work
   #  common_work.recordings.each do |recording|
@@ -259,9 +300,12 @@ private
   #end
   
   def update_uuids
+    # !!! what is account cache
     AccountCache.update_users_uuid self.account
+    # force segment cache for account user to rerender
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
-
+    # force update of the users cache
+    self.user.save!
   end
   
 end

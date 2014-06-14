@@ -1,0 +1,43 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  /-cache([ @account.id, @account.works_uuid, params]) do  
+  .do   
+    .container
+      
+      
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              }, current: 'get catalog'}
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Import Catalog '}
+
+      
+      .row
+        .col-sm-3
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Get Catalog
+              
+            .panel-body
+              = simple_form_for  [@account, @catalog], :url => url_for(:action => 'receive', :controller => 'catalogs'), :method => 'put'do |f|
+                = f.hidden_field :account_id, value: @account.id
+                .input-group
+                  span class="input-group-addon"
+                    i class= 'fa fa-key'
+                  = f.input_field :move_code, placeholder: 'Catalog Key', autocomplete: :off
+                br
+                hr
+                .pull-right
+                  =f.submit 'Save', class: 'btn btn-primary btn-lg'
+              
+
+        .col-sm-3
+          
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

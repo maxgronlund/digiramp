@@ -2,7 +2,7 @@ class CatalogWorksController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
   include CatalogsHelper
-  before_filter :access_to_account
+  before_filter :access_account
   before_filter :access_catalog, only: [:index, :show, :edit, :update, :destroy]
   
   def index

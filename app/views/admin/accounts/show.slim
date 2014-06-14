@@ -33,6 +33,10 @@
                   tr
                     td Owner
                     td =@account.user.name
+                  - if @account.is_administrated?
+                    tr
+                      td Administrator
+                      td =@account.administrator.name
                   tr
                     td Account Type:
                     td = @account.account_type.upcase

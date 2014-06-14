@@ -39,18 +39,18 @@ div class="account_id" id="#{recording.account_id}"
     .pull-right
       /= link_to 'Download', download_account_recording_path(@account, recording)
       / shared recordings
-      div class="player_action" id="show_shared_more_#{recording.id}"
-      div class="player_action" id="read_shared_recording_#{recording.id}"
-      div class="player_action" id="update_shared_recording_#{recording.id}"
-      div class="player_action" id="delete_shared_recording_#{recording.id}"
-      / shared catalog
-      div class="player_action" id="show_more_#{recording.id}"
-      div class="player_action" id="read_recording_#{recording.id}"
-      div class="player_action" id="update_recording_#{recording.id}"
-      div class="player_action" id="remove_from_catalog_#{recording.id}"
-      div class="player_action" id="add_to_catalog_#{recording.id}"
-      div class="player_action" id="remove_from_catalog_#{recording.id}"
-      div class="player_action" id="delete_recording_#{recording.id}"
+      .btn-group
+        div class="player_action" id="show_shared_more_#{recording.id}"
+        div class="player_action" id="read_shared_recording_#{recording.id}"
+        div class="player_action" id="update_shared_recording_#{recording.id}"
+        div class="player_action" id="delete_shared_recording_#{recording.id}"
+        div class="player_action" id="show_more_#{recording.id}"
+        div class="player_action" id="read_recording_#{recording.id}"
+        div class="player_action" id="update_recording_#{recording.id}"
+        div class="player_action" id="remove_from_catalog_#{recording.id}"
+        div class="player_action" id="add_to_catalog_#{recording.id}"
+        div class="player_action" id="remove_from_catalog_#{recording.id}"
+        div class="player_action" id="delete_recording_#{recording.id}"
       
       
       

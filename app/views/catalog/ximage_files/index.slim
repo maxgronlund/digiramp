@@ -1,0 +1,50 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            catalogs: catalog_account_catalogs_path(@account), \
+                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                            recordings: catalog_account_catalog_recordings_path(@account, @catalog), \
+                                                            @recording.title.to_sym => catalog_account_catalog_recording_path(@account, @catalog, @recording), \
+                                                            }, current: 'artwork'}
+      
+      
+
+    == render 'shared/recording_title', locals: {recording: @recording, body: 'IMAGE FILES'} 
+    .panel.panel-primary
+      .panel-heading
+        'Artwork
+      .panel-body.dark
+        - @recording.image_files.each do |image_file|
+          .visible-xs
+            == render 'catalog/image_files/image_file', image_file: image_file
+          .visible-sm
+            .col-xs-6
+              == render 'catalog/image_files/image_file', image_file: image_file
+          .visible-md
+            .col-xs-4
+              == render 'catalog/image_files/image_file', image_file: image_file
+          .visible-lg
+            .col-xs-3
+              == render 'catalog/image_files/image_file', image_file: image_file
+                    
+                  
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to 'Upload Artwork', \
+                    new_catalog_account_catalog_recording_image_file_path(@account, \
+                                                                          @catalog,\
+                                                                          @recording),\
+                                                                          class: 'btn btn-primary btn-lg', \
+                                                                          'data-no-turbolink'=>true 
+    
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              

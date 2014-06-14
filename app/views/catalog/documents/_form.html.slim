@@ -1,0 +1,24 @@
+= form_for @document do |f|
+  - if @document.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@document.errors.count, "error")} prohibited this document from being saved:"
+      ul
+        - @document.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :body
+    = f.text_field :body
+  .field
+    = f.label :file
+    = f.text_field :file
+  .field
+    = f.label :transloadit
+    = f.text_area :transloadit
+  .field
+    = f.label :account
+    = f.text_field :account
+  .actions = f.submit 'Save'

@@ -1,0 +1,58 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+        
+  .container
+    
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            catalogs: catalog_account_catalogs_path(@account), \
+                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                            'common works'.to_sym => catalog_account_catalog_common_works_path(@account, @catalog), \
+                                                            @common_work.title.to_sym => catalog_account_catalog_common_work_path(@account, @catalog, @common_work), \
+                                                            }, current: 'add recordings'}
+    
+
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content To Catalog'), blog_post: 'Add Recordings to Common Work'}
+    .row
+      .col-sm-3
+      
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            'SELECT FILE
+          .panel-body
+            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+            = simple_form_for [ @account, @common_work, Recording.new ], :url => url_for(:action => 'create_recordings', :controller => 'catalog/common_works'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+              = transloadit :recording_with_thumbs 
+              /= form.label      :file, 'File to upload' 
+              = f.hidden_field :common_work_id, value: @common_work.id
+              = f.hidden_field :account_id, value: @account.id
+              
+              
+              = f.file_field :file, multiple: true
+              br
+              = f.input :add_to_catalogs, collection: [ "All Catalogs", "This Only"], include_blank: false, label: 'Add to Catalogs'
+              
+              == render 'shared/hint', locals: { blog_post: 'Adding to all Catalogs'}
+              /= f.collection_radio_buttons :add_to_catalogs, [[true, 'This Only'] ,[false, 'All Catalogs']], :first, :last, value: 'This Only'
+              hr
+              .pull-right
+                = f.submit 'Done', class: 'btn btn-primary btn-lg'
+            
+            
+            = transloadit_jquerify :recording, :wait => true
+            
+      .col-sm-3
+    
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+    
+
+
+
+
+

@@ -1,0 +1,31 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'users'
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            catalogs: catalog_account_catalogs_path(@account), \
+                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                            users: catalog_account_catalog_catalog_users_path(@account, @catalog), \
+                                                            }, current: 'edit'}
+    
+    -blog = Blog.cached_find('Catalog Users')
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Edit Permissions'}
+    =simple_form_for [:catalog, @account, @catalog, @catalog_user] do |f|   
+      = f.hidden_field :account_id, value: @account.id
+      = f.hidden_field :catalog_id, value: @catalog.id
+
+      == render 'form', f: f
+      .pull-right
+        =f.submit 'Update', class: 'btn btn-primary btn-lg'
+    
+
+    
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+  
+  
+/accounts/6/catalogs/53/catalog_users

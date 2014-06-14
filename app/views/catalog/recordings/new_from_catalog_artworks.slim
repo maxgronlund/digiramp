@@ -1,0 +1,25 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'         
+  .container
+    ==render 'admin/shared/messages'
+    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
+    .do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              catalogs: catalog_account_catalogs_path(@account), \
+                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                              recordings: catalog_account_catalog_recordings_path(@account, @catalog), \
+                                                              @recording.title.to_sym => catalog_account_catalog_recording_path(@account, @catalog, @recording), \
+                                                              artwork: catalog_account_catalog_recording_recording_artworks_path(@account, @catalog, @recording), \
+                                                              }, current: 'select from catalog'}
+      
+      - blog = Blog.cached_find('Recording Artwork')
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Artwork'}
+      
+      - @catalog.artworks.each do |artwork|
+        == render 'catalog/artworks/index', locals: {artwork: artwork, links: 'catalog/artworks/add_to_recording'}
+            
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

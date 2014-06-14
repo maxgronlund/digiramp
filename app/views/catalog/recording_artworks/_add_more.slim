@@ -1,0 +1,20 @@
+-if current_catalog_user.update_recording
+  .pull-right
+    -if current_account_user.update_recording
+      = link_to catalog_account_catalog_artworks_path(@account, @catalog) do
+        .btn.btn-success.btn-lg
+          i class="fa fa-plus-circle"
+          '&nbsp;
+          'Find In Collection
+      '&nbsp;
+    -if current_catalog_user.update_recording
+      = link_to catalog_account_catalog_artworks_path(@account, @catalog) do
+        .btn.btn-success.btn-lg
+          i class="fa fa-plus-circle"
+          '&nbsp;
+          'Find In Catalog
+
+
+
+
+

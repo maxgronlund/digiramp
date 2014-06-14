@@ -1,0 +1,132 @@
+.do
+  .row
+    .col-sm-12
+      #accordion
+        -@catalog.catalog_users.where( role: 'Catalog User').order("email asc").each_with_index do |catalog_user|
+          /.do
+          -cache ( ['catalog_users', catalog_user.uuid ] ) do
+            .panel.panel-primary
+              .panel-heading
+                .panel-title
+                  a data-toggle="collapse" data-parent="#accordion" href="#collapse_#{catalog_user.id.to_s}"
+                    i  class="fa fa-eye"
+                    '&nbsp;
+                    = catalog_user.email.upcase
+              
+              div id="collapse_#{catalog_user.id.to_s}" class="panel-collapse collapse"  
+                .panel-body
+                  .table-responsive.table-permissions
+                    table class="table table-hover"
+                      thead
+                        tr
+                          th  
+                          th Create
+                          th Read
+                          th Update
+                          th Delete
+                           
+                          
+                      tbody
+                        tr 
+                          td Recordings &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.create_recording ? '√': ''
+                          td = catalog_user.read_recording ? '√': ''
+                          td = catalog_user.update_recording ? '√': ''
+                          td = catalog_user.delete_recording ? '√': ''
+                          
+                        tr 
+                          
+                          td Recordings IPI's &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.create_recording_ipi ? '√': ''
+                          td = catalog_user.read_recording_ipi ? '√': ''
+                          td = catalog_user.update_recording_ipi ? '√': ''
+                          td = catalog_user.delete_recording_ipi ? '√': ''
+                          
+                          
+                        tr 
+                          td Files &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.create_file ? '√': ''
+                          td = catalog_user.read_file ? '√': ''
+                          td = catalog_user.update_file ? '√': ''
+                          td = catalog_user.delete_file ? '√': ''
+                          
+                          
+                        tr 
+                          td Legal Documents &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.create_legal_document ? '√': ''
+                          td = catalog_user.read_legal_document ? '√': ''
+                          td = catalog_user.update_legal_document ? '√': ''
+                          td = catalog_user.delete_legal_document ? '√': ''
+                          
+                          
+                        tr 
+                          td Financial Documents &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.create_financial_document ? '√': ''
+                          td   = catalog_user.read_financial_document ? '√': ''
+                          td = catalog_user.update_financial_document ? '√': ''
+                          td = catalog_user.delete_financial_document ? '√': ''
+                          
+                          
+                        tr 
+                          td Common Works &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.create_common_work ? '√': ''
+                          td   = catalog_user.read_common_work ? '√': ''
+                          td = catalog_user.update_common_work ? '√': ''
+                          td = catalog_user.delete_common_work ? '√': ''
+                          
+                          
+                        tr 
+                          td Common Work IPI's &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.create_common_work_ipi ? '√': ''
+                          td   = catalog_user.read_common_work_ipi ? '√': ''
+                          td = catalog_user.update_common_work_ipi ? '√': ''
+                          td = catalog_user.delete_common_work_ipi ? '√': ''
+                          
+                          
+                        tr 
+                          td Users &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.createx_user ? '√': ''
+                          td   = catalog_user.read_user ? '√': ''
+                          td = catalog_user.update_user ? '√': ''
+                          td = catalog_user.delete_user ? '√': ''
+                          
+                          
+                        tr 
+                          td Playlists &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.create_playlist ? '√': ''
+                          td   = catalog_user.read_playlist ? '√': ''
+                          td = catalog_user.update_playlist ? '√': ''
+                          td = catalog_user.delete_playlist ? '√': ''
+                          
+                          
+                        tr 
+                          td Comments &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.create_comment ? '√': ''
+                          td   = catalog_user.read_comment ? '√': ''
+                          td = catalog_user.update_comment ? '√': ''
+                          td = catalog_user.delete_comment ? '√': ''
+                          
+                       
+                  .pull-right
+                    = link_to edit_catalog_account_catalog_catalog_user_path(@account, @catalog, catalog_user) do
+                      .btn.btn-primary.btn-lg
+                        i class="fa fa-pencil"
+                    '&nbsp;
+                    = link_to  catalog_account_catalog_catalog_user_path(@account, @catalog, catalog_user),\
+                              data: { confirm: 'Are you sure?' } , :method => :delete do
+                      .btn.btn-danger.btn-lg
+                        i class="fa fa-times"
+                  
+                      
+                      
+                      
+                      
+                          
+                  
+                      
+  
+      
+          
+          
+          
+   

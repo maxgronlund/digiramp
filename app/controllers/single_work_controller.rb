@@ -1,7 +1,7 @@
 class SingleWorkController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
-  before_filter :access_to_account
+  before_filter :access_account
   #before_filter :get_blog
   
   def show

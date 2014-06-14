@@ -13,9 +13,8 @@ class RecordingPermissionsController < ApplicationController
     case params[:permissions]
     
     when 'catalog_recordings'
-      puts params[:permission_id]
-      puts '-------------------catalog_recordings------------'
-      current_catalog_user = CatalogUser.where(user_id: current_user.id, catalog_id: params[:permission_id]).first
+      #puts params[:permission_id]
+      current_catalog_user  = CatalogUser.where(user_id: current_user.id, catalog_id: params[:permission_id]).first
       #puts current_catalog_user.read_recording ? 'true' : 'false'
       @catalog               = Catalog.cached_find(params[:permission_id])
       @read_recording        = "#read_recording_#{params[:id]}"           if current_catalog_user.read_recording
@@ -24,15 +23,25 @@ class RecordingPermissionsController < ApplicationController
       @show_more             = "#show_more_#{params[:id]}"                if current_catalog_user.read_recording
       @remove_from_catalog   = "#remove_from_catalog_#{params[:id]}"      if current_account_user.update_catalog
     
-    when 'add_recordings'
-      puts params[:permission_id]
-      puts '-------------------catalog_recordings------------'
-      current_catalog_user = CatalogUser.where(user_id: current_user.id, catalog_id: params[:permission_id]).first
+    when 'catalog_common_work_recordings'
+      current_catalog_user  = CatalogUser.where(user_id: current_user.id, catalog_id: params[:permission_id]).first
       #puts current_catalog_user.read_recording ? 'true' : 'false'
       @catalog               = Catalog.cached_find(params[:permission_id])
       @read_recording        = "#read_recording_#{params[:id]}"           if current_catalog_user.read_recording
       @update_recording      = "#update_recording_#{params[:id]}"         if current_catalog_user.update_recording
       @delete_recording      = "#delete_recording_#{params[:id]}"         if current_catalog_user.delete_recording
+      @show_more             = "#show_more_#{params[:id]}"                if current_catalog_user.read_recording
+      
+      
+    when 'add_recordings'
+      #puts params[:permission_id]
+      #puts '-------------------catalog_recordings------------'
+      current_catalog_user = CatalogUser.where(user_id: current_user.id, catalog_id: params[:permission_id]).first
+      #puts current_catalog_user.read_recording ? 'true' : 'false'
+      @catalog               = Catalog.cached_find(params[:permission_id])
+      @read_recording        = "#read_recording_#{params[:id]}"           if current_catalog_user.read_recording
+      #@update_recording      = "#update_recording_#{params[:id]}"         if current_catalog_user.update_recording
+      #@delete_recording      = "#delete_recording_#{params[:id]}"         if current_catalog_user.delete_recording
       @show_more             = "#show_more_#{params[:id]}"                if current_catalog_user.read_recording
       @add_to_catalog        = "#add_to_catalog_#{params[:id]}"           if current_account_user.update_catalog
     
@@ -45,7 +54,7 @@ class RecordingPermissionsController < ApplicationController
     #  @show_shared_more             = "#show_shared_more_#{params[:id]}"         if @recording.read_recording_ids.include?   current_user.id
       
     when 'account_recordings'
-      puts '-------------------account_recordings------------'
+      #puts '-------------------account_recordings------------'
          @read_recording        = "#read_shared_recording_#{params[:id]}"    if current_account_user.read_recording
        @update_recording      = "#update_shared_recording_#{params[:id]}"    if current_account_user.update_recording
        @delete_recording      = "#delete_shared_recording_#{params[:id]}"    if current_account_user.delete_recording

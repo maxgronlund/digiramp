@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @document.title
+p
+  strong Body:
+  = @document.body
+p
+  strong File:
+  = @document.file
+p
+  strong Transloadit:
+  = @document.transloadit
+p
+  strong Account:
+  = @document.account
+
+= link_to 'Edit', edit_document_path(@document)
+'|
+= link_to 'Back', documents_path

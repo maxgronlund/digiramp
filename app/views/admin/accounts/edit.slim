@@ -39,7 +39,16 @@
             .panel-heading
               'Account Type
             .panel-body
-              =f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES , label: false
+              =f.input :account_type , :include_blank => false, \
+                        :collection => Account::ACCOUNT_TYPES , \
+                        label: false, \
+                        hint: 'Curently not used'
+              -  administrators = User.administrators << @account.account_owner 
+              =f.input :administrator_id , \
+                        :include_blank => false, \
+                        :collection => administrators, \
+                        label: 'Administrated by', \
+                        hint: 'Selecting an administrator will downgrade the account ower to account user'
               /-if current_user.email == 'max@synthmax.dk'
               /  =f.input :user_id
               

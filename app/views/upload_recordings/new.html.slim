@@ -18,7 +18,7 @@
       .col-sm-6
         .panel.panel-primary
           .panel-heading
-            'SELECT FILE
+            'SELECT FILES
           .panel-body
             = simple_form_for [ @account, @recording ], :url => url_for(:action => 'create', :controller => 'upload_recordings'), :method => 'post',  :html => { :id => 'recording' } do |f| 
               = transloadit :recording_with_thumbs 

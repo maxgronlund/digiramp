@@ -1,5 +1,6 @@
 /= debug current_account_user
 -session[:return_url] = request.url
+
 #wrap
   div class="#{'profile' if account_owner?}"
     .full-width-top
@@ -10,6 +11,7 @@
     ==render 'admin/shared/messages'
 
     /- insert = 'accounts/shared/leave_account'
+    
     == render 'shared/page_title_text', locals: {title: @account.title, body: '', insert: 'edit'}
     /-cache ([request.url, Admin.cached_find(1).version, current_account_user.uuid , @account.uuid]) do
     .do
@@ -33,7 +35,7 @@
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
                                                 post: BlogPost.cached_find( "CATALOGS" , blog ), \
-                                                link: account_catalogs_path(@account), \
+                                                link: catalog_account_catalogs_path(@account), \
                                                 css_class: 'btn btn-primary', \
                                                 icon: 'fa fa-book', \
                                                 id: 'catalogs' \

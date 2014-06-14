@@ -10,6 +10,7 @@
             = f.input :account_id , :include_blank => false, :collection => Account.all , label: 'Account'
             -unless (@user.email == 'max@synthmax.dk') || (@user.email == 'peter@digiramp.org')
               = f.input :role, collection: User::ROLES
+          = f.input :administrator, label: 'Administrator', hint: 'User can administrate other accounts'
           = f.input :name
           = f.input :email
           = f.input :password, autocomplete: :off

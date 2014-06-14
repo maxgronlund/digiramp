@@ -13,15 +13,22 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   
   def current_account
+    
     return  Account.cached_find( session[:account_id]) if session[:account_id]
     return  Account.cached_find( current_user.account_id ) 
   end
   helper_method :current_account
   
   def current_account_user
-    AccountUser.cached_where( @account.id, current_user.id)
+    AccountUser.cached_where( current_account.id, current_user.id)
   end
   helper_method :current_account_user
+  
+  def current_catalog_user
+    
+    @catalog.catalog_users.where(user_id: current_user.id ).first
+  end
+  helper_method :current_catalog_user 
   
   
   def user_signed_in?
@@ -87,6 +94,11 @@ class ApplicationController < ActionController::Base
 
   def forbidden
     render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+  end
+  helper_method :forbidden
+  
+  def not_found
+    render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
   end
   helper_method :forbidden
   

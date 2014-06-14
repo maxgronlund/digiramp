@@ -1,0 +1,17 @@
+.pull-right
+  br
+  = link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
+    .btn.btn-info.btn-lg
+      i class="fa fa-info-circle"
+  '&nbsp;
+  = link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
+    .btn.btn-warning.btn-lg
+      i class="fa fa-minus-circle"
+      
+  '&nbsp;
+  / Clicking on this button 
+  / will add the artwork to th erecordings artwork
+  = link_to catalog_account_catalog_recording_use_artwork_path(@account, @catalog, @recording, artwork_id: artwork.id), method: :post, remote: true do
+    .btn.btn-success.btn-lg
+      i class="fa fa-plus"
+      '&nbsp;Use

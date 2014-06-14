@@ -1,6 +1,7 @@
 class TransloaditParser
   
   def initialize
+    deprication_warning
   end
   
   def self.update recording, uploads
@@ -8,11 +9,12 @@ class TransloaditParser
   end
   
   def self.extract uploads
-    
+    deprication_warning
     if uploads[:results].nil?
-      puts '============= TRANSLOADED ERROR ====================='
-      puts uploads
-      puts '====================================================='
+      puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+      puts 'ERROR: Unable to extract recordings: uploads nil'
+      puts 'In TransloaditParser#extract'
+      puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       return nil 
     end
     transloadets  = []
@@ -98,6 +100,7 @@ class TransloaditParser
   end
   
   def self.parse_recordings uploads, account_id
+
     transloadets  = extract( uploads )
     import_batch  = ImportBatch.create(account_id: account_id, transloadit: uploads)
 
@@ -132,7 +135,7 @@ class TransloaditParser
                                        )
       
       
-      add_artwork_to recording unless recording.cover_art == ''
+      add_artwork_to recording unless recording.cover_art.to_s == ''
       recording.extract_genres                                 
       recording.update_completeness
       recordings << recording
@@ -151,37 +154,42 @@ class TransloaditParser
   
   
   def self.add_artwork_to recording
+    puts '---------------------- add artwork --------------------------------------'
+    puts recording.cover_art
+    puts '-------------------------------------------------------------------------'
+    artwork = Artwork.create!(  title:      recording.title,
+                                body:       recording.comment,
+                                account_id: recording.account_id, 
+                                thumb:      recording.cover_art, 
+                                file:       recording.artwork
+                              )
+    # add artwork to recording
+    RecordingItem.create( itemable_type: 'Artwork', 
+                          itemable_id:   artwork.id, 
+                          recording_id: recording.id
+                          )
     
-    image_file = ImageFile.create!(  title: recording.title,
-                                     body: recording.comment,
-                                     recording_id: recording.id, 
-                                     account_id: recording.account_id, 
-                                     thumb: recording.cover_art, 
-                                     file: recording.artwork
-                                  )
+    # add artwork to catalogs                      
+    recording.catalogs.each do |catalog|
+      catalog_item = CatalogItem.create( catalog_id:            catalog.id,
+                                         catalog_itemable_type: 'Artwork',
+                                         catalog_itemable_id:     artwork.id
+                                        )
+      
+    end
+    
   end
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  def self.add_to_common_work uploads, common_work_id, account_id
-    transloadets = extract( uploads )
 
+  
+  
+  # add a recording to a common work
+  def self.add_to_common_work uploads, common_work_id, account_id, add_to_catalog = nil
+
+    
+    transloadets      = extract( uploads )
+    
+    
+    
     transloadets.each do |transloaded|
       
       begin
@@ -215,15 +223,49 @@ class TransloaditParser
         recording.extract_genres                          
         recording.update_completeness
         
+        
+        update_catalogs( recording, account_id, add_to_catalog )
 
       rescue
-        puts '+++++++++++++++++++++++++++++++++++++++'
-        puts '            CRASH                      '
-        puts '+++++++++++++++++++++++++++++++++++++++'
+        puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+        puts 'ERROR: Unable to add recordings to common_work'
+        puts 'In TransloaditParser#add_to_common_work'
+        puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       end
 
     end
   end
+  
+  def self.update_catalogs( recording, account_id, add_to_catalog )
+
+    begin
+      account = Account.cached_find(account_id)
+      # start with adding to all catalogs
+      #catalog_ids = CatalogItem.where(catalog_itemable_id: common_work_id, catalog_itemable_type: 'CommonWork').pluck(catalog_id)
+      #catalogs = Catalog.find(catalog_ids)
+      puts '------------------- catalogs---------------------'
+      if account.catalogs
+        
+        account.catalogs.each do |catalog|
+          catalog.add_recording recording
+        end
+        
+      end
+      #puts catalogs.inspect
+      #catalogs.each do catalog
+      #  catalog.add_recording recording
+      #end
+    rescue
+      puts '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+      puts 'ERROR: Unable to add recordings to catalogs'
+      puts 'In TransloaditParser#add_to_catalogs'
+      puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+    end
+    
+      
+  end
+  
+
 
   
   def self.extract_title_from transloaded
@@ -273,6 +315,15 @@ class TransloaditParser
     recording.audio_upload      = transloadet
     recording.extract_genres
     recording.update_completeness
+  end
+  
+  def self.deprication_warning
+    puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+    puts 'DEPRICATION WARNING: TransloaditParser'
+    puts 'A More generilized version is created'
+    puts 'Please use TransloaditRecordingsParser instead'
+    puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+    
   end
   
   

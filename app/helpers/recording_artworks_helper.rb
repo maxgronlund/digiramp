@@ -1,0 +1,2 @@
+module RecordingArtworksHelper
+end

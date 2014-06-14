@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   has_many :work_users, dependent: :destroy
   has_many :works, through: :work_users
   has_many :accounts, :through => :account_users  
+  
   #has_many :bugs, dependent: :destroy
   
   
@@ -55,15 +56,19 @@ class User < ActiveRecord::Base
   ROLES       = ["Super", "Customer"]
   SECRET_NAME = "RGeiHK8yUB6a"
   
-  scope :supers,        ->    { where( role: 'Super' ).order("email asc")  }
-  scope :customers,     ->    { where( role: 'Customer' ).order("email asc")  }
+  scope :supers,          ->    { where( role: 'Super' ).order("email asc")  }
+  scope :administrators,  ->    { where( administrator: true ).order("email asc")  }
+  scope :customers,       ->    { where( role: 'Customer' ).order("email asc")  }
   
   after_commit :flush_cache
   
-  
+  # force update of uuid
   before_save :set_uuid
   
+  # update the uuid to force rebuild of 
+  # segment cached pages
   def set_uuid
+    logger.debug '--------------- set uuid -----------------------'
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
   
@@ -268,8 +273,7 @@ class User < ActiveRecord::Base
   #end
   
   def can_administrate account
-    return true if account.id == self.account_id
-    return true if user_role_on( account) == 'Administrator'
+    return true if account.administrator_id == self.id
     return true if self.super?
     false
   end
@@ -316,7 +320,7 @@ class User < ActiveRecord::Base
                                       account_id: @account.id, 
                                       role: 'Account Owner')
                                       
-    account_user.grand_all_permissions
+    account_user.grand_basic_permissions
     
     user.account_id          = @account.id
     user.current_account_id  = @account.id
@@ -412,7 +416,8 @@ class User < ActiveRecord::Base
     if found_user       = User.where(email: email).first
       
       # invite found user to account
-      UserMailer.delay.invite_existing_user_to_account( found_user.id , title, body, account_id )
+      UserMailer.delay.invite_existing_user_to_account found_user.id, account_id, body
+      #UserMailer.delay.invite_existing_user_to_account( found_user.id , title, body, account_id )
       
       # force uuid to update
       found_user.save!

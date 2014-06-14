@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+  title DigiRAMP
+  /link href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'
+  = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css", media: "all"
+  = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+  = stylesheet_link_tag "home", media: "all", "data-turbolinks-track" => true
+  /= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Cinzel|Junge'
+  = javascript_include_tag "application", "data-turbolinks-track" => true
+  = javascript_include_tag "assets.transloadit.com/js/jquery.transloadit2-v2-latest.js" => true
+  = javascript_include_tag "//cdn.sublimevideo.net/js/w21x4dlf.js"
+  
+  
+  /<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  
+  
+  meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  = csrf_meta_tags
+  
+  
+  
+  
+body
+  = yield
+  
+  
+  
+

@@ -1,0 +1,12 @@
+- session[:return_url]  = request.url
+- blog                  = Blog.cached_find('Hints') 
+- blog_post             = BlogPost.cached_find( locals[:blog_post] , blog )
+
+.help-block
+  =simple_format blog_post.body
+  -if can_edit?
+    '&nbsp;
+    = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+       i class="fa fa-pencil"
+  
+  

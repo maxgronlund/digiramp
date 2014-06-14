@@ -1,8 +1,17 @@
 class Artwork < ActiveRecord::Base
-  belongs_to :song
-  belongs_to :gallery
-  #attr_accessible :title, :body, :gallery_id, :image, :link, :position
-  serialize :crop_params, Hash
-  mount_uploader :image, ArtworkUploader
-  include ImageCrop
+  
+  belongs_to :account
+  
+  after_commit :flush_cache
+
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
+  
+private
+  
+  def flush_cache
+    Rails.cache.delete([self.class.name, id])
+  end
+
 end

@@ -1,0 +1,93 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              catalogs: catalog_account_catalogs_path(@account), \
+                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                              recordings: catalog_account_catalog_recordings_path(@account, @catalog), \
+                                                              @recording.title.to_sym => catalog_account_catalog_recording_path(@account, @catalog, @recording), \
+                                                              }, current: 'artwork'}
+      
+      
+
+
+      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment} 
+      
+      .row
+        .col-sm-6
+          .logo
+            .thumbnail
+              = image_tag(@image_file.file)
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Info
+            .panel-body
+              - if @image_file.creator.to_s != ''
+                'Creator:&nbsp;
+                = @image_file.creator
+                hr
+                
+              - if @image_file.author.to_s != ''
+                'Author:&nbsp;
+                = @image_file.author
+                hr
+                
+              - if @image_file.copyright.to_s != ''
+                b Copyright:&nbsp; #{@image_file.copyright}
+                hr
+                
+              - if @image_file.copyright_notice.to_s != ''
+                'Copyright Notice:&nbsp;
+                = @image_file.copyright_notice
+                hr
+                
+              - if @image_file.keywords.to_s != ''
+                'Keywords:&nbsp;
+                = @image_file.keywords
+                hr
+              'Size:
+              = @image_file.width
+              'x
+              = @image_file.width
+              '&nbsp; pixels
+              hr
+              = simple_format @image_file.body
+              /br
+              /b = @image_file.copyright
+              /hr
+          .pull-right
+            
+            = link_to download_image_file_path(image_file: @image_file.id) do
+              .btn.btn-info.btn-lg
+                i class='fa fa-cloud-download'
+            '&nbsp;
+            - if current_catalog_user.update_recording
+              = link_to edit_catalog_account_catalog_recording_image_file_path(@account, @catalog, @recording, @image_file)
+                .btn.btn-primary.btn-lg
+                  i class="fa fa-pencil"
+              '&nbsp;
+            - if current_catalog_user.delete_recording
+              = link_to catalog_account_catalog_recording_image_file_path(@account, @catalog, @recording, @image_file), \
+                 data: { confirm: 'Are you shure?' } , method: :delete
+                .btn.btn-danger.btn-lg
+                  i class="fa fa-trash-o"
+            
+              
+      /= render 'shared/line'
+      /.row
+      /  .col-sm-12
+      /    .pull-right
+      /      = link_to 'Edit Artwork', \
+      /                edit_account_common_work_recording_image_file_path(@account, \
+      /                                                                  @common_work,\
+      /                                                                  @recording,
+      /                                                                  @image_file), class: 'btn btn-primary btn-lg'
+      /
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              

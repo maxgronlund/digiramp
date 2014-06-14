@@ -1,0 +1,83 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'         
+  .container
+    ==render 'admin/shared/messages'
+    /-cache ([Admin.cached_find(1).version, request.url, current_user.uuid  ]) do
+    .do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              catalogs: catalog_account_catalogs_path(@account), \
+                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                              }, current: 'add recordings'}
+      
+      - blog = Blog.cached_find('Add Catalog Recordings')
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Add Assets'}
+
+      .row
+        /-if current_user.can_manage 'access recordings', @account
+        - if current_account_user.update_catalog && current_account_user.read_common_work
+          .col-sm-6
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "FIND IN COLLECTION" , blog ), \
+                                                link: catalog_account_catalog_find_in_collections_path(@account, @catalog), \
+                                                css_class: 'btn btn-warning', \
+                                                icon: 'fa fa-archive', \
+                                                id: 'add-find-recordings' \
+                                              }
+          .col-sm-6
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "ADD TO COMMON WORK" , blog ), \
+                                                link: catalog_account_catalog_common_works_path(@account, @catalog), \
+                                                css_class: 'btn btn-primary', \
+                                                icon: 'fa fa-music', \
+                                                id: 'add-common-work' \
+                                              }
+                                              
+          .col-sm-6
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "UPLOAD RECORDINGS" , blog ), \
+                                                link: catalog_account_catalog_upload_recordings_path(@account, @catalog), \
+                                                css_class: 'btn btn-info', \
+                                                icon: 'fa fa-cloud-upload', \
+                                                id: 'add-documents' \
+                                              }
+                                              
+          .col-sm-6
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "FILL IN FORM" , blog ), \
+                                                link: catalog_account_catalog_assets_path(@account, @catalog), \
+                                                css_class: 'btn btn-success', \
+                                                icon: 'fa fa-pencil-square-o', \
+                                                id: 'add-documents' \
+                                              }
+                                              
+
+        
+        
+        /- if current_catalog_user.create_recording
+        /  .col-sm-6
+        /    == render 'assets/shared/badge_button', locals: { \
+        /                                                        blog_post: 'UPLOAD AUDIO FILES', \
+        /                                                        link: new_account_catalog_upload_catalog_recording_path(@account, @catalog), \
+        /                                                        css_class: 'btn btn-primary', \
+        /                                                        icon: 'fa fa-cloud-upload'\
+        /                                                    } 
+        /-if true
+        /  .col-sm-6
+        /    == render 'assets/shared/badge_button', locals: { \
+        /                                                        blog_post: 'UPLOAD AUDIO FILES', \
+        /                                                        link: new_account_catalog_upload_catalog_recording_path(@account, @catalog), \
+        /                                                        css_class: 'btn btn-primary', \
+        /                                                        icon: 'fa fa-cloud-upload'\
+        /                                                    } 
+        /    
+            
+            
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

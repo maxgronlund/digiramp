@@ -1,0 +1,90 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              catalogs: catalog_account_catalogs_path(@account), \
+                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
+                                                              artwork: catalog_account_catalog_artworks_path(@account, @catalog), \
+                                                              }, current: 'info', no_turbo: false }
+      
+      
+
+
+      - blog = Blog.cached_find('Catalog Artwork')
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Artwork'}
+      .row
+        .col-sm-6
+          .logo
+            .thumbnail
+              = image_tag(@artwork.file)
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              'Info
+            .panel-body
+              - if @artwork.creator.to_s != ''
+                'Creator:&nbsp;
+                = @artwork.creator
+                hr
+                
+              - if @artwork.author.to_s != ''
+                'Author:&nbsp;
+                = @artwork.author
+                hr
+                
+              - if @artwork.copyright.to_s != ''
+                b Copyright:&nbsp; #{@artwork.copyright}
+                hr
+                
+              - if @artwork.copyright_notice.to_s != ''
+                'Copyright Notice:&nbsp;
+                = @artwork.copyright_notice
+                hr
+                
+              - if @artwork.keywords.to_s != ''
+                'Keywords:&nbsp;
+                = @artwork.keywords
+                hr
+              'Size:
+              = @artwork.width
+              'x
+              = @artwork.width
+              '&nbsp; pixels
+              hr
+              = simple_format @artwork.body
+              /br
+              /b = @artwork.copyright
+              /hr
+          .pull-right
+            = link_to download_artwork_path(artwork: @artwork.id) do
+              .btn.btn-info.btn-lg
+                i class='fa fa-cloud-download'
+            '&nbsp;
+            = link_to edit_catalog_account_catalog_artwork_path(@account, @catalog, @artwork)
+              .btn.btn-primary.btn-lg
+                i class="fa fa-pencil"
+            '&nbsp;
+          /  = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, @artwork), \
+          /     data: { confirm: 'Are you shure?' } , method: :delete
+          /    .btn.btn-danger.btn-lg
+          /      i class="fa fa-trash-o"
+          /
+              
+      /= render 'shared/line'
+      /.row
+      /  .col-sm-12
+      /    .pull-right
+      /      = link_to 'Edit Artwork', \
+      /                edit_account_common_work_recording_image_file_path(@account, \
+      /                                                                  @common_work,\
+      /                                                                  @recording,
+      /                                                                  @artwork), class: 'btn btn-primary btn-lg'
+      /
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              

@@ -2,7 +2,7 @@ class CatalogFootagesController < ApplicationController
   
   include AccountsHelper
   include CatalogsHelper
-  before_filter :access_to_account, only: [:show, :destroy]
+  before_filter :access_account, only: [:show, :destroy]
   before_filter :access_catalog,    only: [:show, :destroy]
 
   # GET /catalog_footages

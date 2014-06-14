@@ -1,0 +1,81 @@
+
+
+.navbar.navbar-default
+  .container-fluid 
+    .navbar-header
+      button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        span class="sr-only"
+          Toggle navigation
+        span class="icon-bar"
+        span class="icon-bar"
+        span class="icon-bar"
+
+      = link_to root_path, 'data-no-turbolink'=>true do
+        .navbar-brand
+          = image_tag('logo.svg')
+
+
+    .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
+      ul class="nav navbar-nav"
+        -if can_edit?
+          li  class="#{page == 'admin' ? 'active' : ''}"
+            = link_to admin_index_path, 'data-no-turbolink'=>true do
+              i class="fa fa-wrench"
+              '&nbsp;
+              'ADMIN
+              
+          /li class="#{page == 'admin' ? 'active' : ''}"
+          /  = link_to 'ADMIN', admin_index_path
+
+      -if user_signed_in?
+        ul class="nav navbar-nav navbar-right"
+          
+
+          
+          li  class="#{page == 'support' ? 'active' : ''}"
+            = link_to support_index_path, 'data-no-turbolink'=>true do
+              i class="fa fa-exclamation-circle"
+              '&nbsp;
+              'SUPPORT
+
+
+          
+          li  class="#{page == 'account' ? 'active' : ''}"
+            
+            = link_to account_path(current_account), 'data-no-turbolink'=>true do
+              i class="fa fa-tachometer"
+              '&nbsp;
+              = current_account.title.upcase 
+
+
+          li class="#{page == 'profile' ? 'active' : ''}"
+            = link_to user_path(current_user), 'data-no-turbolink'=>true do
+              i class="fa fa-home"
+              '&nbsp;
+              'HOME
+              
+          
+          
+
+
+          li 
+            = link_to logout_path, 'data-no-turbolink'=>true do
+              i class="fa fa-unlock"
+              '&nbsp;
+              'LOG OUT
+      
+      
+      -else
+        ul class="nav navbar-nav navbar-right"
+          /li  = link_to 'LOG IN',  login_new_path
+
+
+          li 
+            = link_to login_new_path, 'data-no-turbolink'=>true do
+              i class="fa fa-lock"
+              '&nbsp;
+              'LOG IN
+      
+
+
+

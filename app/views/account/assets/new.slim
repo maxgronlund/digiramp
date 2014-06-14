@@ -1,0 +1,43 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'         
+  .container
+    ==render 'admin/shared/messages'
+    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
+    .do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              catalogs: catalog_account_catalogs_path(@account), \
+                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                              }, current: 'add assets'}
+      
+      - blog = Blog.cached_find('Catalog Assets')
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Assets'}
+
+      .col-sm-3
+      .col-sm-6 
+        .panel.panel-primary
+          .panel-heading
+            'New
+          .panel-body
+            = simple_form_for [ :catalog, @account, @attachable, @attachment] do |f|
+              = f.hidden_field :account_id, value: @account.id
+              = f.hidden_field :attachable_id, value: @attachable.id
+              = f.hidden_field :attachable_type, value: @attachable.class
+              = f.hidden_field :file_type, value: @file_type
+            
+              = f.input :file
+              = f.input :title
+              = f.input :body, label: 'Description'
+            
+              hr
+              .pull-right
+                = link_to "Cancel", @back, class: 'btn btn-default btn-lg'
+                '&nbsp;
+                = f.submit 'Save', class: 'btn btn-primary btn-lg'
+            
+      .col-sm-3
+            
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

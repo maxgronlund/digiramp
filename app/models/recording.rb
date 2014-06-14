@@ -1,115 +1,16 @@
 # encoding: UTF-8
 
-# recordings can be 
-# public
-# private
-# users can have permission to 
-# CRUD audio
-# CRUD recording/info
-# CRUD common work
-# CRUD artwork
-# CRUD documents
-# CRUD IPI'S
-# CRUD legal documents
-# CRUD financial documents
-
-
-
-
-
-
-
-
-
 
 class Recording < ActiveRecord::Base
   
+  # virtual parameter for CommonWorksController#new_recording form
+  attr_accessor :add_to_catalogs
+  
+  has_many :recording_items, dependent: :destroy
+  
   serialize :audio_upload, Hash
   
-  # user permissions is stored in an array where
-  # each number is an id of a user granded permission
-  
-  # create recordings meening upload audio files
-  serialize  :create_recording_ids,           Array
-  serialize  :read_recording_ids,             Array
-  serialize  :update_recording_ids,           Array
-  serialize  :delete_recording_ids,           Array                                                             
-  
-  # remove after two deploys
-  serialize  :create_recording_ipis_ids,      Array
-  serialize  :read_recording_ipis_ids,        Array
-  serialize  :update_recording_ipis_ids,      Array
-  serialize  :delete_recording_ipis_ids,      Array                                                                
-  
-  # remove after two deploys
-  serialize  :create_files_ids,               Array
-  serialize  :read_files_ids,                 Array
-  serialize  :update_files_ids,               Array
-  serialize  :delete_files_ids,               Array 
 
-  # remove after two deploys
-  serialize  :create_legal_documents_ids,     Array
-  serialize  :read_legal_documents_ids,       Array
-  serialize  :update_legal_documents_ids,     Array
-  serialize  :delete_legal_documents_ids,     Array                                                               
-  
-  # remove after two deploys
-  serialize  :create_financial_documents_ids, Array
-  serialize  :read_financial_documents_ids,   Array
-  serialize  :update_financial_documents_ids, Array
-  serialize  :delete_financial_documents_ids, Array
-  
-  serialize :create_recording_ipi_ids,        Array
-  serialize :read_recording_ipi_ids,          Array
-  serialize :update_recording_ipi_ids,        Array
-  serialize :delete_recording_ipi_ids,        Array
-
-  # remove after two deploys
-  serialize  :read_common_works_ids,          Array
-  serialize  :update_common_works_ids,        Array
-  
-  # remove after two deploys
-  serialize  :create_common_work_ipis_ids,    Array
-  serialize  :read_common_work_ipis_ids,      Array
-  serialize  :update_common_work_ipis_ids,    Array
-  serialize  :delete_common_work_ipis_ids,    Array
-  
-  
-  
-  
-  
-  
-  # Updated                                                           
-  serialize  :create_recording_ipi_ids,      Array
-  serialize  :read_recording_ipi_ids,        Array
-  serialize  :update_recording_ipi_ids,      Array
-  serialize  :delete_recording_ipi_ids,      Array                                                                
-  
-  serialize  :create_file_ids,               Array
-  serialize  :read_file_ids,                 Array
-  serialize  :update_file_ids,               Array
-  serialize  :delete_file_ids,               Array 
-
-  serialize  :create_legal_document_ids,     Array
-  serialize  :read_legal_document_ids,       Array
-  serialize  :update_legal_document_ids,     Array
-  serialize  :delete_legal_document_ids,     Array                                                               
-  
-  serialize  :create_financial_document_ids, Array
-  serialize  :read_financial_document_ids,   Array
-  serialize  :update_financial_document_ids, Array
-  serialize  :delete_financial_document_ids, Array
-
-
-  serialize  :read_common_work_ids,          Array
-  serialize  :update_common_work_ids,        Array
-  
-  serialize  :create_common_work_ipi_ids,    Array
-  serialize  :read_common_work_ipi_ids,      Array
-  serialize  :update_common_work_ipi_ids,    Array
-  serialize  :delete_common_work_ipi_ids,    Array
-  
-  
   
   include PgSearch
   pg_search_scope :search, against: [ :title, 
@@ -161,6 +62,7 @@ class Recording < ActiveRecord::Base
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
   TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
   
+ 
   def catalogs
     catalog_ids = CatalogItem.where(catalog_itemable_type: self.class.name, catalog_itemable_id: self.id).pluck(:catalog_id)
     Catalog.find(catalog_ids)
@@ -206,6 +108,14 @@ class Recording < ActiveRecord::Base
     Document.where(documentable_id: self.id, documentable_type: 'Recording')
   end
   
+  def artworks
+    artwork_ids = RecordingItem.where(recording_id: self.id, 
+                                      itemable_type: 'Artwork').pluck(:itemable_id)
+                                      
+    Artwork.where(id: artwork_ids )
+    
+  end
+  
   
   #def extract_id3_tags_from_audio_file
   # 
@@ -219,6 +129,17 @@ class Recording < ActiveRecord::Base
   #    self.save
   #  end
   #end
+  
+  def self.find_in_collection(catalog, account, query)
+    
+    recording_ids = account.recording_ids - catalog.recording_ids
+    recordings    = Recording.where(id: recording_ids)
+
+    if query.present?
+     recordings = recordings.search(query)
+    end
+    recordings
+  end
   
   def self.account_search(account, query)
     recordings = account.recordings
@@ -459,10 +380,7 @@ class Recording < ActiveRecord::Base
   
   # update the genre
   def extract_genres
-    puts '----------------------------------------------------------------'
-    puts '                       extract_genres'
-    puts self.genre
-    puts '----------------------------------------------------------------'
+
     # store old  tag id's so we can delete unused
     genre_tag_ids = self.genre_tags.pluck(:id)
     new_genre_tag_ids = []

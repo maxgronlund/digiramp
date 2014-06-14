@@ -1,7 +1,7 @@
 class CatalogRecordingsController < ApplicationController
   include AccountsHelper
   include CatalogsHelper
-  before_filter :access_to_account
+  before_filter :access_account
   before_filter :access_catalog, only: [:index, :show, :edit, :update]
   #before_filter :there_is_access_to_catalog
   
@@ -57,6 +57,7 @@ class CatalogRecordingsController < ApplicationController
   
   
   def new
+    # add the recording to the catalog
     @catalog   = Catalog.cached_find(params[:catalog_id])
     @recording = Recording.cached_find(params[:recording])
     
@@ -66,14 +67,23 @@ class CatalogRecordingsController < ApplicationController
                .first_or_create(catalog_id: @catalog.id, 
                                 catalog_itemable_id: @recording.id, 
                                 catalog_itemable_type: @recording.class.name)
-                 
 
-    # ajax here
-    #@prepend_tag = "#remove_recording_" + @recording.id.to_s  + "_from_catalog"
-    #@remove_tag  = "#add_recording_"    + @recording.id.to_s  + "_to_catalog"
     
+    # also add the common work
+    common_work = @recording.common_work
+    CatalogItem.where(catalog_id: @catalog.id, 
+                        catalog_itemable_id: common_work.id, 
+                        catalog_itemable_type: common_work.class.name)
+               .first_or_create(catalog_id: @catalog.id, 
+                                catalog_itemable_id: common_work.id, 
+                                catalog_itemable_type: common_work.class.name)
+    
+    
+    # insert the button for removing the recording again
     @prepend_tag = "#remove_from_catalog_"  + @recording.id.to_s
-    @remove_tag  = "#add_to_catalog_"       + @recording.id.to_s
+    
+    # remove the add to catalog
+    @remove_tag  = "#add_to_catalog_"       + @recording.id.to_s 
   end
   
   
@@ -127,12 +137,21 @@ class CatalogRecordingsController < ApplicationController
     @catalog   = Catalog.cached_find(params[:catalog_id])
     @recording = Recording.cached_find(params[:id])
     
-    
+    # remove the recording
     catalog_item = CatalogItem.where( catalog_id: @catalog.id, 
                                       catalog_itemable_id: @recording.id, 
                                       catalog_itemable_type: @recording.class.name).first
                                       
     catalog_item.destroy! if catalog_item
+    
+    # remove the common work if...
+    # common_work = @recording.common_work
+    
+    # remove the recording
+    # catalog_item = CatalogItem.where( catalog_id: @catalog.id, 
+    #                                   catalog_itemable_id: common_work.id, 
+    #                                   catalog_itemable_type: common_work.class.name).first
+                                   
     
     @prepend_tag = "#add_to_catalog_"         + @recording.id.to_s
     @remove_tag  = "#remove_from_catalog_"    + @recording.id.to_s

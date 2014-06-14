@@ -4,7 +4,7 @@ class Attachment < ActiveRecord::Base
   
   after_commit :flush_cache
   
-  mount_uploader :file, DocumentUploader
+  #mount_uploader :file, DocumentUploader
   
   include PgSearch
   pg_search_scope :search, against: [:title, :file_type ], :using => [:tsearch]

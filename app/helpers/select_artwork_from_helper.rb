@@ -1,0 +1,2 @@
+module SelectArtworkFromHelper
+end

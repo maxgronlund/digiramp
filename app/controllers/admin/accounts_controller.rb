@@ -20,10 +20,28 @@ class Admin::AccountsController < ApplicationController
   
   def update
     @account = Account.cached_find(params[:id])
+    
+    # store administrator id
+    old_administrator_id = @account.administrator_id
+    # update
     @account.update_attributes(account_params)
     
+    # if the administrator is updated  
+    if old_administrator_id != @account.administrator_id
+      
+      @account.reassign_administrator( old_administrator_id ) 
+      #options = {old_administrator_id: old_administrator_id, account_id: @account.id}
+      #ReassignAdministratorWorker.perform_async( options )
+      
+      flash[:warning] = { title: "NOTICE: ", body: "Rebuilding all permissions, might take a few seconds before completed" }
+    else
+      flash[:success] = { title: "SUCCESS: ", body: "Account updated" }
+    end
+    # go to the account
     redirect_to admin_account_path( @account)
   end
+  
+  
   
   def destroy
     @account = Account.cached_find(params[:id])
@@ -39,7 +57,7 @@ class Admin::AccountsController < ApplicationController
   def delete_common_works
     @account = Account.cached_find(params[:account_id])
     @account.common_works.delete_all
-    AccountCache.update_works_uuid self.account
+    AccountCache.update_works_uuid @account
     redirect_to :back
   end
   

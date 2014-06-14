@@ -1,0 +1,12 @@
+.logo
+  .thumbnail
+    = render 'shared/lightbox', locals: {image_url: image_file.file, thumb_url: image_file.thumb, id: image_file.id, caption: image_file.title}
+    .pull-right
+      br
+      = link_to catalog_account_catalog_recording_image_file_path(@account, @catalog, @recording, image_file) do
+        .btn.btn-info.btn-lg
+          i class="fa fa-info-circle"
+      '&nbsp;
+      = link_to catalog_account_catalog_recording_image_file_path(@account, @catalog, @recording, image_file), data: { confirm: 'Are you sure?' } , :method => :delete do
+        .btn.btn-danger.btn-lg
+          i class="fa fa-times"

@@ -1,7 +1,7 @@
 class MoveRecordingsController < ApplicationController
   include RecordingsHelper
   include AccountsHelper
-  before_filter :access_to_account
+  before_filter :access_account
   #before_filter :read_recording, only:[:edit, :update]
   
   def edit

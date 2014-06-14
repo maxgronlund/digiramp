@@ -30,97 +30,103 @@ module UsersHelper
     end
   end
   
-  
-  
-  
-  def user_can_manage_assets account, user
-    return true if account.create_recording_ids.include?        current_user.id
-    return true if   account.read_recording_ids.include?        current_user.id
-    return true if account.update_recording_ids.include?        current_user.id
-    return true if account.delete_recording_ids.include?        current_user.id
-    return true if account.create_recording_ipi_ids.include?    current_user.id
-    return true if   account.read_recording_ipi_ids.include?    current_user.id
-    return true if account.update_recording_ipi_ids.include?    current_user.id
-    return true if account.delete_recording_ipi_ids.include?    current_user.id
-    return true if account.create_file_ids.include?             current_user.id
-    return true if   account.read_file_ids.include?             current_user.id
-    return true if account.update_file_ids.include?             current_user.id
-    return true if account.delete_file_ids.include?             current_user.id
-    return true if account.create_common_work_ids.include?      current_user.id
-    return true if   account.read_common_work_ids.include?      current_user.id
-    return true if account.update_common_work_ids.include?      current_user.id
-    return true if account.delete_common_work_ids.include?      current_user.id
-    return true if account.create_common_work_ipi_ids.include?  current_user.id
-    return true if   account.read_common_work_ipi_ids.include?  current_user.id
-    return true if account.update_common_work_ipi_ids.include?  current_user.id
-    return true if account.delete_common_work_ipi_ids.include?  current_user.id
-    return false
+  def create_catalog_assets(current_catalog_user)
+    true
   end
   
-  def user_can_manage_users account, user
-    return true if account.create_user_ids.include?     current_user.id
-    return true if   account.read_user_ids.include?       current_user.id
-    return true if account.update_user_ids.include?     current_user.id
-    return true if account.delete_user_ids.include?     current_user.id
-    return false
-  end
   
-  def user_can_manage_common_works account, user
-    return true if account.create_common_work_ids.include?     current_user.id
-    return true if   account.read_common_work_ids.include?     current_user.id
-    return true if account.update_common_work_ids.include?     current_user.id
-    return true if account.delete_common_work_ids.include?     current_user.id
-    
-    return true if account.create_common_work_ipi_ids.include?     current_user.id
-    return true if   account.read_common_work_ipi_ids.include?     current_user.id
-    return true if account.update_common_work_ipi_ids.include?     current_user.id
-    return true if account.delete_common_work_ipi_ids.include?     current_user.id
-    return false
-    
-    
-  end
   
-  def user_can_manage_recordings account, user
-    #return true if account.create_recording_ids.include?     current_user.id
-    return true if   account.read_recording_ids.include?     current_user.id
-    return true if account.update_recording_ids.include?     current_user.id
-    return true if account.delete_recording_ids.include?     current_user.id
-    
-    return true if account.create_recording_ipi_ids.include?     current_user.id
-    return true if   account.read_recording_ipi_ids.include?     current_user.id
-    return true if account.update_recording_ipi_ids.include?     current_user.id
-    return true if account.delete_recording_ipi_ids.include?     current_user.id
-    return false
-  end
   
-  def user_can_manage_catalogs account, user
-    return true if account.create_catalog_ids.include?     current_user.id
-    return true if   account.read_catalog_ids.include?     current_user.id
-    return true if account.update_catalog_ids.include?     current_user.id
-    return true if account.delete_catalog_ids.include?     current_user.id
-    return false
-  end
   
-  def user_can_add_music account, user
-    return true if account.create_recording_ids.include?     current_user.id
-    return false
-  end
   
-  def user_can_manage_files account, user
-    return true if account.create_file_ids.include?     current_user.id
-    return true if   account.read_file_ids.include?     current_user.id
-    return true if account.update_file_ids.include?     current_user.id
-    return true if account.delete_file_ids.include?     current_user.id
-    return false
-  end
-  
-  def user_can_manage_playlists account, user
-    return true if account.create_playlist_ids.include?     current_user.id
-    return true if   account.read_playlist_ids.include?     current_user.id
-    return true if account.update_playlist_ids.include?     current_user.id
-    return true if account.delete_playlist_ids.include?     current_user.id
-    return false
-  end
+  #def user_can_manage_assets account, user
+  #  return true if account.create_recording_ids.include?        current_user.id
+  #  return true if   account.read_recording_ids.include?        current_user.id
+  #  return true if account.update_recording_ids.include?        current_user.id
+  #  return true if account.delete_recording_ids.include?        current_user.id
+  #  return true if account.create_recording_ipi_ids.include?    current_user.id
+  #  return true if   account.read_recording_ipi_ids.include?    current_user.id
+  #  return true if account.update_recording_ipi_ids.include?    current_user.id
+  #  return true if account.delete_recording_ipi_ids.include?    current_user.id
+  #  return true if account.create_file_ids.include?             current_user.id
+  #  return true if   account.read_file_ids.include?             current_user.id
+  #  return true if account.update_file_ids.include?             current_user.id
+  #  return true if account.delete_file_ids.include?             current_user.id
+  #  return true if account.create_common_work_ids.include?      current_user.id
+  #  return true if   account.read_common_work_ids.include?      current_user.id
+  #  return true if account.update_common_work_ids.include?      current_user.id
+  #  return true if account.delete_common_work_ids.include?      current_user.id
+  #  return true if account.create_common_work_ipi_ids.include?  current_user.id
+  #  return true if   account.read_common_work_ipi_ids.include?  current_user.id
+  #  return true if account.update_common_work_ipi_ids.include?  current_user.id
+  #  return true if account.delete_common_work_ipi_ids.include?  current_user.id
+  #  return false
+  #end
+  #
+  #def user_can_manage_users account, user
+  #  return true if account.create_user_ids.include?     current_user.id
+  #  return true if   account.read_user_ids.include?       current_user.id
+  #  return true if account.update_user_ids.include?     current_user.id
+  #  return true if account.delete_user_ids.include?     current_user.id
+  #  return false
+  #end
+  #
+  #def user_can_manage_common_works account, user
+  #  return true if account.create_common_work_ids.include?     current_user.id
+  #  return true if   account.read_common_work_ids.include?     current_user.id
+  #  return true if account.update_common_work_ids.include?     current_user.id
+  #  return true if account.delete_common_work_ids.include?     current_user.id
+  #  
+  #  return true if account.create_common_work_ipi_ids.include?     current_user.id
+  #  return true if   account.read_common_work_ipi_ids.include?     current_user.id
+  #  return true if account.update_common_work_ipi_ids.include?     current_user.id
+  #  return true if account.delete_common_work_ipi_ids.include?     current_user.id
+  #  return false
+  #  
+  #  
+  #end
+  #
+  #def user_can_manage_recordings account, user
+  #  #return true if account.create_recording_ids.include?     current_user.id
+  #  return true if   account.read_recording_ids.include?     current_user.id
+  #  return true if account.update_recording_ids.include?     current_user.id
+  #  return true if account.delete_recording_ids.include?     current_user.id
+  #  
+  #  return true if account.create_recording_ipi_ids.include?     current_user.id
+  #  return true if   account.read_recording_ipi_ids.include?     current_user.id
+  #  return true if account.update_recording_ipi_ids.include?     current_user.id
+  #  return true if account.delete_recording_ipi_ids.include?     current_user.id
+  #  return false
+  #end
+  #
+  #def user_can_manage_catalogs account, user
+  #  return true if account.create_catalog_ids.include?     current_user.id
+  #  return true if   account.read_catalog_ids.include?     current_user.id
+  #  return true if account.update_catalog_ids.include?     current_user.id
+  #  return true if account.delete_catalog_ids.include?     current_user.id
+  #  return false
+  #end
+  #
+  #def user_can_add_music account, user
+  #  return true if account.create_recording_ids.include?     current_user.id
+  #  return false
+  #end
+  #
+  #def user_can_manage_files account, user
+  #  return true if account.create_file_ids.include?     current_user.id
+  #  return true if   account.read_file_ids.include?     current_user.id
+  #  return true if account.update_file_ids.include?     current_user.id
+  #  return true if account.delete_file_ids.include?     current_user.id
+  #  return false
+  #end
+  #
+  #def user_can_manage_playlists account, user
+  #  return true if account.create_playlist_ids.include?     current_user.id
+  #  return true if   account.read_playlist_ids.include?     current_user.id
+  #  return true if account.update_playlist_ids.include?     current_user.id
+  #  return true if account.delete_playlist_ids.include?     current_user.id
+  #  return false
+  #end
   
   def on_users_account
     true

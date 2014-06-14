@@ -1,6 +1,6 @@
 class RecordingLyricsController < ApplicationController
   include AccountsHelper
-  before_filter :access_to_account
+  before_filter :access_account
   def edit
      @recording      = Recording.find(params[:id])
      @recording.extract_metadata

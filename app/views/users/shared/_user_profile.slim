@@ -13,3 +13,21 @@
         .pull-right
           = link_to  edit_user_path( @user ), class: 'btn btn-primary btn-lg', id: 'edit_user_profile' do
             i class='fa fa-pencil'
+        
+    -if @user.administrator
+      - accounts_under_administration = Account.where(administrator_id: @user.id)
+      .table-responsive
+        table class="table"
+          thead
+            tr
+              th Administrates
+              th Catalogs
+              th Recordings
+          tbody
+            - accounts_under_administration.each do |account|
+              tr
+                td = link_to account.title, account, class: 'btn btn-default btn-lg'
+                td = account.catalogs.size
+                td = account.recordings.size
+                
+            

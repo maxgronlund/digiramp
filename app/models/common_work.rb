@@ -144,11 +144,37 @@ class CommonWork < ActiveRecord::Base
     recording.save
     common_work.update_completeness
 
-
+    common_work
   end
   
   def self.account_search(account, query)
     common_works = account.common_works
+    if query.present?
+     common_works = common_works.search(query)
+    end
+    common_works
+  end
+  
+  # find a common work in a collection
+  # filter out those alreaddy in the catalog
+  def self.find_from_collection(account, catalog, query)
+    
+    common_work_ids = CatalogItem.where(catalog_id: catalog.id, 
+                                        catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
+                                        
+    common_work_ids = account.common_work_ids - common_work_ids
+    common_works = CommonWork.where(id: common_work_ids)
+    
+    if query.present?
+     common_works = common_works.search(query)
+    end
+    common_works
+  end
+  
+  # find a common work in a catalog
+  def self.catalog_search(catalog, query)
+    
+    common_works = catalog.common_works
     if query.present?
      common_works = common_works.search(query)
     end
@@ -585,6 +611,19 @@ class CommonWork < ActiveRecord::Base
       end
 
     end
+  end
+  
+  def add_to_catalog catalog
+    
+    CatalogItem.where(catalog_itemable_type: 'CommonWork', 
+                      catalog_itemable_id: self.id, 
+                      catalog_id: catalog.id)
+                .first_or_create(
+                      catalog_itemable_type: 'CommonWork', 
+                      catalog_itemable_id: self.id, 
+                      catalog_id: catalog.id
+                      )
+    
   end
 
 

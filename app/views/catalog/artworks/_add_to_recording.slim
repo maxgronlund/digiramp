@@ -1,0 +1,8 @@
+/ Clicking on this button 
+/ will add the artwork to th erecordings artwork
+.pull-right
+  br
+  = link_to catalog_account_catalog_recording_create_from_catalog_artworks_path(@account, @catalog, @recording, artwork_id: artwork.id), method: :post, remote: true do
+    .btn.btn-success.btn-lg
+      i class="fa fa-plus"
+      '&nbsp;Add

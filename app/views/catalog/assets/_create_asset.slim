@@ -1,0 +1,8 @@
+-if create_catalog_assets(current_catalog_user)
+  .pull-right
+    = link_to new_catalog_account_catalog_asset_path(@account, @catalog) do
+      .btn.btn-success.btn-lg
+        i class="fa fa-plus-circle"
+        '&nbsp;
+        'Add Asset
+

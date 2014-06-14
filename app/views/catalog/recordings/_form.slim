@@ -1,0 +1,101 @@
+
+.row
+  .col-sm-6
+    .panel.panel-primary
+      
+      .panel-body
+    
+        = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
+        /= f.input :cover_art, label: 'Cover Art. Ratio 1:1'
+        /= f.input :image_file_id
+        /.row
+        /  .col-sm-12
+        /    .pull-right
+        /      = link_to catalog_account_catalog_recording_recording_artworks_path(@account, @catalog, @recording), \
+        /                data: {confirm: 'Save form?'}, \
+        /                id: "attach_artwork_#{@recording.id}" do
+        /                  
+        /        .btn.btn-default.btn-lg
+        /          i class="fa fa-picture-open"
+        /          '&nbsp;Find Artwork
+        = f.input :image_file_id , :include_blank => false, :collection => @recording.image_files , label: 'Cover Art'
+        /= transloadit :recording_with_thumbs 
+        //= f.file_field :file
+        /= f.input :audio_file
+        = f.input :isrc_code, label: 'ISRC Code',:input_html => {  placeholder: "CC-XXX-YY-NNNNN"}
+        .row
+          .col-sm-6
+            = f.input :artist, :input_html => {  style: "height: 80px;", placeholder: "Artist"}
+          .col-sm-6
+            = f.input :performer, :input_html => {  style: "height: 80px;", placeholder: "Performer"}
+        .row
+          .col-sm-6
+            = f.input :composer, :input_html => {  style: "height: 80px;", placeholder: "Composer"}
+          .col-sm-6
+            = f.input :band, :input_html => {  style: "height: 80px;", placeholder: "Band"}
+        .row
+          .col-sm-6
+            = f.input :duration,:input_html => {  placeholder: "Seconds"}
+        .row
+          .col-sm-6
+            = f.input :year
+          .col-sm-6
+            = f.input :vocal,   collection: Recording::VOCAL
+        .row
+          .col-sm-6
+            =f.input :disc
+          .col-sm-6
+            =f.input :track
+        
+        /= f.input :lyrics, :input_html => {  style: "height: 120px;", placeholder: "Lyrics"}
+  .col-sm-6
+    .panel.panel-primary
+      
+      .panel-body
+        .row
+          .col-sm-6
+            = f.input :clearance, label: '200% clearance'
+          .col-sm-6
+             = f.input :explicit
+        = f.input :copyright
+        
+        
+        b Description
+        br
+        div id="toolbar" class="wysihtml5-toolbar"
+          a data-wysihtml5-command="bold" Bold
+          '&nbsp; 
+          a data-wysihtml5-command="italic" Italic
+      
+        =f.input :comment, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+        /=f.input :genre
+        .row
+          .col-sm-6
+            = f.input :bpm
+          
+          .col-sm-6
+            = f.input :tempo,   collection: Recording::TEMPO
+        
+        .row
+          .col-sm-6
+            = f.input :mood, hint: 'Comma seperated list'
+          .col-sm-6
+            = f.input :genre, hint: 'Comma seperated list'
+        .row
+          .col-sm-6
+            = f.input :instruments, hint: 'Comma seperated list'
+            
+
+.pull-right  
+  = f.submit 'Save', class: 'btn btn-primary btn-lg'
+  
+  /'&nbsp;
+  //-if @recording.instrumental
+  //  = link_to 'Skip', account_common_work_recording_path( @account, @common_work, @recording), class: 'btn btn-default btn-lg'
+  //-else
+  //  = link_to 'Skip', edit_account_common_work_lyric_path( @account, @common_work, @recording), class: 'btn btn-default btn-lg'
+  /  
+  /'&nbsp;
+  /= f.submit 'Next', class: 'btn btn-primary btn-lg'
+
+        

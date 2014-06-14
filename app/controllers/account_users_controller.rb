@@ -2,7 +2,7 @@ class AccountUsersController < ApplicationController
 
   include AccountsHelper
   include UsersHelper
-  before_filter :access_to_account
+  before_filter :access_account
 
 
   def index
@@ -97,46 +97,6 @@ class AccountUsersController < ApplicationController
     end
   end
   
-  
-  # if user is found
-  # then the make sure the users 
-  # the account_users  is created / updated 
-  # and the role is 'Account User'
-  # and all permissions on catalog users are updated
-  #def invite_existing user
-  #  
-  #  # If there all ready is a account user 
-  #  if @account_user = AccountUser.where(user_id: user.id, account_id: @account.id).first
-  #
-  #    # make sure the role is set to account user
-  #    params[:account_user][:role] = 'Account User'
-  #
-  #    # update the account user
-  #    @account_user.update_attributes!(account_user_params)
-  #
-  #  else
-  #    # Create new account user
-  #    params[:account_user][:user_id] = user.id
-  #    @account_user = AccountUser.create!(account_user_params)
-  #  end
-  #  # notice!
-  #  # Permissions for the account user are copied to the catalog users
-  #  # from the after_commit on the AccountUser#update_catalog_users
-  #end
-  #
-  #def create_and_invite_new_user
-  #  user = User.invite_to_account_by_email params[:account_user][:email], title, body, @account.id
-  #  params[:account_user][:user_id] = user.id
-  #  @account_user = AccountUser.create!(account_user_params)
-  #end
-  
-  #def createx_user_for_existing user
-  #  #if params[:account_user][:role] == 'Client'
-  #  #  redirect_to :back
-  #  #end
-  #  flash[:info] = { title: "User invited", body: "An invitation is send to: #{ params[:account_user][:email]}" }
-  #  @user.invite_existing_user_to_account( @account.id , @account_user.invitation_message )
-  #end
 
   def edit
     

@@ -1,10 +1,10 @@
 - if @catalog
   /-link = edit_user_shared_catalog_shared_recording_path(current_user, @catalog, @recording)
-  -link = edit_account_catalog_catalog_recording_path(@account, @catalog, @recording)
+  -link = edit_catalog_account_catalog_recording_path(@account, @catalog, @recording)
 - else
   -link = edit_account_common_work_recording_path(@account, @common_work, @recording)
 
-'&nbsp;
+
 =link_to link
   .btn.btn-primary.btn-lg
     i class="fa fa-pencil"

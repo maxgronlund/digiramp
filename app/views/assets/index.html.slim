@@ -79,18 +79,30 @@
                                                 icon: 'fa fa-headphones', \
                                                 id: 'playlists' \
                                               }
-                                              
-        -if current_account_user.read_catalog?
+                                      
+        -if current_account_user.read_file?
           .col-sm-6
-        
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
-                                                post: BlogPost.cached_find( "CATALOGS" , blog ), \
-                                                link: account_catalogs_path(@account), \
-                                                css_class: 'btn btn-primary', \
-                                                icon: 'fa fa-book', \
-                                                id: 'catalogs' \
-                                              } 
+                                                post: BlogPost.cached_find( "ARTWORK" , blog ), \
+                                                link: account_account_artworks_path(@account), \
+                                                css_class: 'btn btn-default', \
+                                                icon: 'fa fa-picture-o', \
+                                                no_turbo: true \
+                                              }
+                                              
+                                              
+        /-if current_account_user.read_catalog?
+        /  .col-sm-6
+        /
+        /    == render 'shared/badge', locals: {  \
+        /                                        blog: blog, \
+        /                                        post: BlogPost.cached_find( "CATALOGS" , blog ), \
+        /                                        link: catalog_account_catalogs_path(@account), \
+        /                                        css_class: 'btn btn-primary', \
+        /                                        icon: 'fa fa-book', \
+        /                                        id: 'catalogs' \
+        /                                      } 
             
             
       

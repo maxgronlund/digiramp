@@ -90,15 +90,85 @@ class TransloaditImageParser
     transloadets
   end
   
+  def self.catalog_artwork  uploads, account_id, catalog_id
+    transloadets = extract( uploads )
+    
+    transloadets.each do |transloaded|
+
+      keywords = ''
+      if transloaded[:keywords]
+        transloaded[:keywords].each do |keyword|
+          keywords += ' '
+          keywords += keyword
+          keywords += ','
+        end
+      end
+      
+      artwork = Artwork.create!(  account_id:              account_id, 
+                                  file:                    transloaded[:file], 
+                                  thumb:                   transloaded[:thumb], 
+                                  title:                   transloaded[:title],
+                                  basename:                transloaded[:basename ],
+                                  ext:                     transloaded[:ext],
+                                  image_size:              transloaded[:image_size],
+                                  mime:                    transloaded[:mime],
+                                  image_type:              transloaded[:image_type],
+                                  md5hash:                 transloaded[:md5hash],
+                                  width:                   transloaded[:width],
+                                  height:                  transloaded[:height],
+                                  date_recorded:	         transloaded[:date_recorded],
+                                  date_file_created:	     transloaded[:date_file_created],
+                                  date_file_modified:      transloaded[:date_file_modified],
+                                  description:	           transloaded[:description],
+                                  location:	               transloaded[:location],
+                                  aspect_ratio:            transloaded[:aspect_ratio],
+                                  city:		                 transloaded[:city],
+                                  state:	                 transloaded[:state],
+                                  country:	               transloaded[:country],
+                                  country_code:            transloaded[:country_code],
+                                  keywords:	               keywords,
+                                  aperture:	               transloaded[:aperture],
+                                  exposure_compensation:	 transloaded[:exposure_compensation],
+                                  exposure_mode:	         transloaded[:exposure_mode],
+                                  exposure_time:	         transloaded[:exposure_time],
+                                  flash:	                 transloaded[:flash],
+                                  focal_length:	           transloaded[:focal_length],
+                                  f_number:	               transloaded[:f_number],
+                                  iso:	                   transloaded[:iso],
+                                  light_value:	           transloaded[:light_value],
+                                  metering_mode:	         transloaded[:metering_mode],
+                                  shutter_speed:	         transloaded[:shutter_speed],
+                                  white_balance:	         transloaded[:white_balance],
+                                  device_name:	           transloaded[:device_name],
+                                  device_vendor:	         transloaded[:device_vendor],
+                                  device_software:         transloaded[:device_software],
+                                  latitude:	               transloaded[:latitude],
+                                  longitude:	             transloaded[:longitude],
+                                  orientation:             transloaded[:orientation],
+                                  has_clipping_path:	     transloaded[:has_clipping_path],
+                                  creator:	               transloaded[:creator],
+                                  author:	                 transloaded[:author],
+                                  copyright:	             transloaded[:copyright],
+                                  frame_count:	           transloaded[:frame_count],
+                                  copyright_notice:	       transloaded[:copyright_notice]
+                                )
+                                
+                                CatalogItem.create( catalog_id: catalog_id, 
+                                                    catalog_itemable_type: 'Artwork',
+                                                    catalog_itemable_id: artwork.id)
+    end
+    
+  end
+  
+  
+  
+  
+  # depricate this use artwork instead
   def self.parse_images uploads, account_id, recording_id
     transloadets = extract( uploads )
     
     transloadets.each do |transloaded|
-      
-      puts '------------------------- transloaded ---------------------------------'
-      puts transloaded
-      puts '------------------------------------------------------------------------'
-      
+
       keywords = ''
       if transloaded[:keywords]
         transloaded[:keywords].each do |keyword|
@@ -113,8 +183,6 @@ class TransloaditImageParser
                           file:                    transloaded[:file], 
                           thumb:                   transloaded[:thumb], 
                           title:                   transloaded[:title],
-                          
-                          
                           basename:                transloaded[:basename ],
                           ext:                     transloaded[:ext],
                           image_size:              transloaded[:image_size],
@@ -162,6 +230,8 @@ class TransloaditImageParser
                         )
     end
   end
+  
+  
   
   def self.get_image_url uploads
     

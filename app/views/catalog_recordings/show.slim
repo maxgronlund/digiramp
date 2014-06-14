@@ -35,31 +35,31 @@
                                                         css_class: 'btn btn-primary', \
                                                         icon: 'fa fa-music' \
                                                       }     
-        /- if current_catalog_user.read_file?
-        /  .col-sm-6
-        /     == render 'works/shared/badge_button', locals: { \
-        /                                                blog_post: 'FOOTAGE', \
-        /                                                link: account_catalog_catalog_footages_path(@account, @catalog), \
-        /                                                css_class: 'btn btn-warning', \
-        /                                                icon: 'fa fa-film' \
-        /                                              }      
-        /  
-        /.col-sm-6
-        /   == render 'works/shared/badge_button', locals: { \
-        /                                              blog_post: 'DOCUMENTS', \
-        /                                              link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
-        /                                              css_class: 'btn btn-danger', \
-        /                                              icon: 'fa fa-folder' \
-        /                                            } 
-        /
-        /.col-sm-6
-        /   == render 'works/shared/badge_button', locals: { \
-        /                                              blog_post: 'ARTWORK', \
-        /                                              link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
-        /                                              css_class: 'btn btn-default', \
-        /                                              icon: 'fa fa-picture-o' \
-        /                                            }     
-
+        - if current_catalog_user.read_file?
+          /.col-sm-6
+          /   == render 'works/shared/badge_button', locals: { \
+          /                                              blog_post: 'FOOTAGE', \
+          /                                              link: account_catalog_catalog_footages_path(@account, @catalog), \
+          /                                              css_class: 'btn btn-warning', \
+          /                                              icon: 'fa fa-film' \
+          /                                            }      
+          /
+          /.col-sm-6
+          /   == render 'works/shared/badge_button', locals: { \
+          /                                              blog_post: 'DOCUMENTS', \
+          /                                              link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+          /                                              css_class: 'btn btn-danger', \
+          /                                              icon: 'fa fa-folder' \
+          /                                            } 
+          /
+          .col-sm-6
+             == render 'works/shared/badge_button', locals: { \
+                                                        blog_post: 'ARTWORK', \
+                                                        link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+                                                        css_class: 'btn btn-default', \
+                                                        icon: 'fa fa-picture-o' \
+                                                      }     
+          
                                                                                             
       / all users can access recordings
       /.col-sm-6

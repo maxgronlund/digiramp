@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @artwork.title
+
+= link_to 'Edit', edit_artwork_path(@artwork)
+'|
+= link_to 'Back', artworks_path

@@ -1,6 +1,6 @@
 class RecordingArtworksController < ApplicationController
   include AccountsHelper
-  before_filter :access_to_account
+  before_filter :access_account
 
   def show
     @common_work    = CommonWork.find(params[:common_work_id])

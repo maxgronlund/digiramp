@@ -1,31 +1,21 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-/-if current_user && current_user.account_id == @account.id
 .pull-right
-  /= link_to 'Edit', edit_user_account_path( current_user, @account), class: 'btn btn-primary btn-lg'
+  / only the administrator can edit the assets directly
+  -if current_user.can_administrate @account
   
-  -if current_account_user && current_account_user.read_user?
+  
     = link_to account_account_users_path(@account) do
       .btn.btn-warning.btn-lg
         i class="fa fa-group"
         '&nbsp; Users
     '&nbsp;
-  -if current_account_user && current_account_user.can_manage_assets?
+    
     = link_to account_assets_path(@account)
       .btn.btn-success.btn-lg
         i class='fa fa-folder-o'
         '&nbsp; Assets
     '&nbsp;
-  -if can_edit_account?
+    = link_to 'Edit', edit_user_account_path( current_user, @account), class: 'btn btn-primary btn-lg'
+  
+  / the account user can always edit the account
+  -elsif current_user.id == @account.user_id
     = link_to 'Edit', edit_user_account_path( current_user, @account), class: 'btn btn-primary btn-lg'

@@ -1,0 +1,73 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+        
+  .container
+    
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', \
+              breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                      catalogs: catalog_account_catalogs_path(@account), \
+                                      @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                      assets: catalog_account_catalog_assets_path(@account, @catalog), \
+                                      'Legal Documents'.to_sym => catalog_account_catalog_legal_documents_path(@account, @catalog ), \
+                                      }, current: 'upload'}
+    
+
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Legal Documents'), blog_post: 'Upload Legal Documents'}
+    .row
+      .col-sm-3
+      
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            'SELECT FILE
+          .panel-body
+            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+            = simple_form_for [ :catalog, @account, @catalog, Document.new ], \
+                                :url => url_for(:action => 'create', :controller => 'catalog/legal_documents'), \
+                                :method => 'post',  \
+                                :html => { :id => 'legal_documents' } do |f| 
+              = transloadit :files_to_s3 
+              = f.hidden_field :account_id, value: @account.id
+              b Document
+              br
+              = f.file_field :file, multiple: true
+              hr
+              = f.input :title
+              b Description
+              br
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+      
+              =f.input :body, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+              /
+              /
+              /= f.file_field :file, multiple: true
+              /br
+              /= f.input :add_to_catalogs, collection: [ "All Catalogs", "This Only"], include_blank: false, label: 'Add to Catalogs'
+              /
+              /== render 'shared/hint', locals: { blog_post: 'Adding to all Catalogs'}
+              //= f.collection_radio_buttons :add_to_catalogs, [[true, 'This Only'] ,[false, 'All Catalogs']], :first, :last, value: 'This Only'
+              /hr
+              .pull-right
+                = f.submit 'Done', class: 'btn btn-primary btn-lg'
+            
+            
+            = transloadit_jquerify :legal_documents, :wait => true
+            
+      .col-sm-3
+    
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+    
+
+
+
+
+

@@ -1,13 +1,25 @@
--cache ( [@account.uuid, request.url, current_user.uuid ] ) do
+/-cache ( [@account.uuid, request.url, current_user.uuid ] ) do
+.do
   .row
     .col-sm-12
       #accordion
-        -@account.account_users.invited.each_with_index do |account_user, index|
+        /= debug @account.account_users.owner
+        /= debug @account.account_users.invited
+        - if can_edit?
+          - account_users = @account.account_users
+        -else
+          - account_users = @account.account_users.invited
+          - if @account.is_administrated?
+            - account_users += @account.account_users.owner
+            /- account_users -= @account.administrators_account_user
+        -account_users.each do |account_user|
           .panel.panel-primary
             .panel-heading
               .panel-title
                 a data-toggle="collapse" data-parent="#accordion" href="#collapse_#{account_user.id.to_s}"
                   = account_user.user.name.upcase
+                  .pull-right
+                    = account_user.role.upcase
                   
             div id="collapse_#{account_user.id.to_s}" class="panel-collapse collapse"   
               .panel-body
@@ -117,10 +129,14 @@
                           i class="fa fa-pencil"
                       '&nbsp;
                     -if current_account_user.delete_user
-                      = link_to  account_account_user_path(@account, account_user),\
-                                data: { confirm: 'Are you sure?' } , :method => :delete do
-                        .btn.btn-danger.btn-lg
+                      - if account_user.super?
+                        .btn.btn-danger.btn-lg disabled="disabled"
                           i class="fa fa-times"
+                      -else
+                        = link_to  account_account_user_path(@account, account_user),\
+                                  data: { confirm: 'Are you sure?' } , :method => :delete do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times"
                       
                 
             

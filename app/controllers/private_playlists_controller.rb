@@ -1,6 +1,6 @@
 class PrivatePlaylistsController < ApplicationController
   include AccountsHelper
-  before_filter :access_to_account, only: [:create]
+  before_filter :access_account, only: [:create]
   
   def index
   end

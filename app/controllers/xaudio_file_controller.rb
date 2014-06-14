@@ -1,7 +1,7 @@
 class AudioFileController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
-  before_filter :access_to_account
+  before_filter :access_account
   def edit
     @common_work  = CommonWork.cached_find(params[:common_work_id])
     @recording    = Recording.cached_find(params[:id])

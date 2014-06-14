@@ -31,10 +31,10 @@
                 thead
                   tr
                     /th User
-                    th Name
-                    th Account
                     th Email
-                    /th Role
+                    th Account
+                    th Administrator
+                    th Super
                     /th Activated
                     th 
 
@@ -43,9 +43,21 @@
                     -cache (user) do
                       tr
                         /td = debug user
-                        td = user.name
-                        td = user.account.title rescue[]
                         td = user.email
+                        td = user.account.title rescue[]
+                        td 
+                          - if user.administrator
+                            = link_to edit_admin_user_path( user) do 
+                              .btn.btn-success.btn-lg
+                                '√
+                        td 
+                          - if user.role == 'Super'
+                            = link_to edit_admin_user_path( user) do 
+                              .btn.btn-danger.btn-lg
+                                i class="fa fa-rocket"
+                                
+
+                              
                         /td = user.role
                         /td = user.activated ? '√' : ''
                         td 

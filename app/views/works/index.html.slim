@@ -30,17 +30,19 @@
       br
       .row
         .col-sm-12
-          .panel
+          .hidden-xs
+            == paginate(@common_works)
+          .visible-xs
+            br
+            .btn-group.btn-group-sm
+              = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination'
+              = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
+            br
+            br
+          .panel.panel-primary
+            .panel-heading
+              'Common Works
             .panel-body
-              .hidden-xs
-                == paginate(@common_works)
-              .visible-xs
-                br
-                .btn-group.btn-group-sm
-                  = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination'
-                  = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
-                br
-                br
             
               
               == render 'works/common_works'

@@ -9,10 +9,17 @@ Digiramp::Application.routes.draw do
   
   
 
+  
+
+  #get "legal_documents/index"
+  #get "legal_documents/show"
+  #get "legal_documents/new"
+  #get "legal_documents/edit"
+  #get "recording_artworks/index"
+  #resources :artworks
+
   resources :footages
-
   resources :pro_affiliations
-
   resources :comments
 
   #get "shared_recording_files/index"
@@ -33,7 +40,7 @@ Digiramp::Application.routes.draw do
   get "permissions/index"
   resources :uploads
   require 'sidekiq/web'
-  #require 'admin_constraint'
+
 
   get "selling_points/selling_point_1"
   get "selling_points/selling_point_2"
@@ -52,11 +59,11 @@ Digiramp::Application.routes.draw do
     
     
     resources :catalogs do
-      get "move"
-      get "get_code"
-      get "get_catalog"
-      put "receive"
-      put "generate_code"
+      #get "move"
+      #get "get_code"
+      #get "get_catalog"
+      #put "receive"
+      #put "generate_code"
       get "add_recordings/add_all"
       get "add_recordings/add_all_from_account"
       resources :add_recordings, only: [:index]
@@ -206,6 +213,7 @@ Digiramp::Application.routes.draw do
   resources :accept_invitations
   
   get "download/image_file"
+  get "download/artwork"
   
   #get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
@@ -245,53 +253,11 @@ Digiramp::Application.routes.draw do
   end
 
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
 
   # Example resource route within a namespace:
   namespace :admin do
     get 'repair_permissions'
-    # Directs /admin/products/* to Admin::ProductsController
-    # (app/controllers/admin/products_controller.rb)
+
     resources :accounts do
       get 'delete_common_works'
       get 'delete_recordings'
@@ -341,8 +307,75 @@ Digiramp::Application.routes.draw do
     
     
   end
+  namespace :account do
+    resources :accounts do
+      resources :artworks 
+      resources :assets
+      
+      
+    end
+    
+  end
+  namespace :catalog do
+    
+    resources :accounts do
+      resources :catalogs do
+        
+        get "move"
+        get "get_code"
+        get "get_catalog"
+        get "copy_code"
+        put "receive"
+        put "generate_code"
+        get "find_common_work_in_collection"
+        
+        
+        resources :add_common_works, only: [:index]
+        resources :add_recordings, only: [:index]
+        resources :artworks 
+        resources :assets
+        resources :attachments
+        resources :catalog_users
+        resources :common_works do
+          get "recordings"
+          get "new_recordings"
+          post "create_recordings"
+          post "add_common_work_from_collection"
+          get  "remove_common_work_from_catalog"
+        end
+        resources :documents
+        resources :find_in_collections
+        resources :legal_documents
+        resources :recordings do
+          get "new_from_catalog_artworks"
+          post "create_from_catalog_artworks"
+          post "use_artwork"
+          resources :recording_artworks, only: [:index]
+          resources :image_files
+          get "info"
+        end
+        resources :select_artwork_from
+        resources :upload_recordings, only: [:index, :create]
+        
+        
+        
+        #get "move"
+        #get "get_code"
+        #get "get_catalog"
+        #put "receive"
+        #put "generate_code"
+        
+        
+      end
+      
+    
+    end
+    
+  end
   
-
+  namespace :user do
+    
+  end
   
   #admin_constraint = lambda do |request|
   #  request.session[:init] = true # Starts up the session so we can access values from it later.

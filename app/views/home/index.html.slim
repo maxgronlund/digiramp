@@ -11,16 +11,25 @@
   -cache ([request.url, Admin.cached_find(1).version]) do       
     .container
       .row
-        .col-sm-12
-          .jumbotron
-            h1 = @home.big_banner_text
-            /.row
-            /  .col-xs-12
-            /    .pull-right
-            /      'Get you account now 
-            /      '&nbsp;
-            /      =link_to 'Sign up', '#', class: 'btn btn-custom btn-lg'
-            /      br
+        .hidden-xs
+          .col-sm-3
+            .logo
+              .thumbnail
+                = image_tag 'digiramp-logo.png'
+          .col-sm-9
+            .jumbotron
+              h1 = @home.big_banner_text
+        .visible-xs
+          .col-md-12
+            .jumbotron
+              h1 = @home.big_banner_text
+              /.row
+              /  .col-xs-12
+              /    .pull-right
+              /      'Get you account now 
+              /      '&nbsp;
+              /      =link_to 'Sign up', '#', class: 'btn btn-custom btn-lg'
+              /      br
         
       /.col-sm-4
       /-unless current_user
@@ -28,11 +37,39 @@
             
       .row
         .col-sm-4
-          = render 'box1'
+          .panel.panel-default
+            .panel-heading
+              h3 class="panel-title"
+                i class= 'fa fa-cloud-upload'
+                '&nbsp;
+                =  @home.box_1_title
+                /=link_to @home.box_1_title, @home.box_1_link
+            .panel-body
+              = @home.box_1_body
+        
+        
         .col-sm-4
-          = render 'box2'
+          .panel.panel-default
+            .panel-heading
+              h3 class="panel-title"
+                i class= 'fa fa-cloud-upload'
+                '&nbsp;
+                =  @home.box_2_title
+                /=link_to @home.box_1_title, @home.box_1_link
+            .panel-body
+              = @home.box_2_body
+        
+        
         .col-sm-4
-          = render 'box3'
+          .panel.panel-default
+            .panel-heading.home
+              h3 class="panel-title"
+                i class= 'fa fa-cloud-upload'
+                '&nbsp;
+                =  @home.box_3_title
+                /=link_to @home.box_1_title, @home.box_1_link
+            .panel-body
+              = @home.box_3_body
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

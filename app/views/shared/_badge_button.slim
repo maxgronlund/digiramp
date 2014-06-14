@@ -10,12 +10,12 @@
 .row
   .col-sm-6
     .icon-badge
-      = link_to link, id: id,  class: css_class do
+      = link_to link, id: id, 'data-no-turbolink'=>locals[:no_turbo],  class: css_class do
         div class=icon
     
   .col-sm-6
     h3 
-      = link_to title,  link
+      = link_to title,  link, 'data-no-turbolink'=>locals[:no_turbo]
       -if can_edit?
         '&nbsp;
         = link_to edit_admin_blog_blog_post_path(blog, post) do

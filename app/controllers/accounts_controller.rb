@@ -1,18 +1,24 @@
 class AccountsController < ApplicationController
   
   include AccountsHelper
-  before_filter :access_to_account
-  
-
-  before_filter :access_user, only: [:edit]
+  before_filter :access_account
+  #before_filter :access_user, only: [:edit, :show]
   
   
   def show
+
+    # repairs an old corupted account
+    unless current_account_user
+      @account.initialize_account_owner 
+      @account.initialize_super_users
+      @account.save!
+      flash[:info]      = { title: "FYI", body: "User Permissions updated" }
+    end
+
     
-    @account = Account.cached_find(params[:id])
+    session[:account_id]  = @account.id
     
-    @account_status = 'dashboard'
-    
+
 
     #if @account.has_no_name?
     #  @account_status = 'enter_account_name'
@@ -41,13 +47,15 @@ class AccountsController < ApplicationController
     #  @account.save!
     #end
     
-    session[:account_id] = @account.id
+    
 
 
   end
   
   def edit
+    
     @account = Account.cached_find(params[:id])
+    @user = @account.user
   end
   
   def update
