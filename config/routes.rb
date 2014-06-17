@@ -3,6 +3,7 @@ Digiramp::Application.routes.draw do
   
 
 
+  
   #resources :footages
   #resources :pro_affiliations
   resources :comments
@@ -312,6 +313,8 @@ Digiramp::Application.routes.draw do
         put "generate_code"
         get "find_common_work_in_collection"
         
+
+        
         
         resources :add_common_works, only: [:index]
         resources :add_recordings, only: [:index]
@@ -319,6 +322,10 @@ Digiramp::Application.routes.draw do
         resources :assets
         resources :attachments
         resources :catalog_users
+        # scrape from performance rights organizations
+        resources :common_work_imports do
+          get "create_pro"
+        end
         resources :common_works do
           resources :common_work_ipis
           get "recordings"

@@ -23,6 +23,8 @@ class CommonWork < ActiveRecord::Base
   before_destroy :update_uuids
   after_commit :flush_cache
   
+  PROS = ['ASCAP', 'BMI']
+  
   
   #title @@ :q or lyrics @@ :q or alternative_titles @@ :q or iswc_code @@ :q or description
 
