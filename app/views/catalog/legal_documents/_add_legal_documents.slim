@@ -1,6 +1,6 @@
 -if current_catalog_user.create_legal_document
   .pull-right
-    = link_to new_catalog_account_catalog_legal_document_path(@account, @catalog) do
+    = link_to new_catalog_account_catalog_legal_document_path(@account, @catalog), 'data-no-turbolink'=>true do
       .btn.btn-success.btn-lg
         i class="fa fa-plus-circle"
         '&nbsp;
