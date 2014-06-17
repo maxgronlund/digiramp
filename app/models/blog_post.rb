@@ -5,7 +5,7 @@ class BlogPost < ActiveRecord::Base
   validates_presence_of :title
   serialize :crop_params, Hash
   mount_uploader :image, ArtworkUploader
-  include ImageCrop
+  #include ImageCrop
   LAYOUTS = %w[layout_6_6  layout_4_8 layout_3_9 layout_12]
   after_commit :flush_cache
   

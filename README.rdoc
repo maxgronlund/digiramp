@@ -32,6 +32,7 @@ $ cap production deploy
 
 * log the server
 cap production "logs:tail[production]"
+cap production "logs:tail[unicorn]"  <<< IMPORTANT if there is problems
 
 
 * ...
@@ -40,4 +41,10 @@ cap production "logs:tail[production]"
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
 
+
+Test on localhost
+
+$ rake RAILS_ENV=production  assets:clean
+$ rake RAILS_ENV=production  assets:precompile
+$ thin -e production start
 

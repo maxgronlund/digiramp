@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   
   serialize :crop_params, Hash
   mount_uploader :image, AvatarUploader
-  include ImageCrop
+  #include ImageCrop
   
   has_one :account_users
   has_many :account_users
