@@ -57,9 +57,9 @@
             = f.input :clearance, label: '200% clearance'
           .col-sm-6
              = f.input :explicit
-        = f.input :copyright
+        = f.input :copyright,  :input_html => {  placeholder: "i.e. © 2014 Entertainment Company, Inc"}
         
-        
+        /  All rights reserved ℗ 2010
         b Description
         br
         div id="toolbar" class="wysihtml5-toolbar"
@@ -78,12 +78,12 @@
         
         .row
           .col-sm-6
-            = f.input :mood, hint: 'Comma seperated list'
+            = f.input :mood, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Happy, Uplifting, Scarry"}
           .col-sm-6
-            = f.input :genre, hint: 'Comma seperated list'
+            = f.input :genre, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Pop, Cinimatic, Hip-Hop"}
         .row
           .col-sm-6
-            = f.input :instruments, hint: 'Comma seperated list'
+            = f.input :instruments, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Drums, Banjo, Choir"}
             
 
 .pull-right  

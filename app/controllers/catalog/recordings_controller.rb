@@ -40,6 +40,7 @@ class Catalog::RecordingsController < ApplicationController
     @recording      = Recording.new
   end
   
+  # return from transloadit
   def create
     forbidden unless current_account_user.create_recording?
     @common_work           = CommonWork.cached_find(params[:common_work_id])

@@ -33,6 +33,12 @@
             td = f.input :update_file, label: 'Update'
             td = f.input :delete_file, label: 'Delete'
           tr
+            td Artwork
+            td = f.input :create_artwork, label: 'Create'
+            td = f.input   :read_artwork,   label: 'Read'
+            td = f.input :update_artwork, label: 'Update'
+            td = f.input :delete_artwork, label: 'Delete'
+          tr
             td
               h4 Legal Documents
             td = f.input :create_legal_document, label: 'Create'

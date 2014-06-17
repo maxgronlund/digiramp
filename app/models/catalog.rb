@@ -6,18 +6,50 @@ class Catalog< ActiveRecord::Base
   #belongs_to :catalog_itemable, polymorphic: true
   #attr_accessible :catalog_itemable_type, :catalog_itemable_id, :account_catalog_id
   
+  before_save  :update_uuid
   after_commit :flush_cache
   after_create :add_account_users_to_catalog
   before_destroy :remove_account_users
   
-
+  ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
+  
+  def update_uuid
+    self.uuid = UUIDTools::UUID.timestamp_create().to_s
+  end
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
   
-  def nr_recordings
-    catalog_items.where(catalog_itemable_type: 'Recording').size
+  def update_assets_count
+    self.count_recordings
+    self.count_common_works
+    self.count_assets
+    self.count_users
+    self.save!
+  end
+  
+  # counter cache
+  def count_recordings
+    self.nr_recordings  = self.catalog_items.where(catalog_itemable_type: 'Recording').size
+
+  end
+  
+  # counter cache
+  def count_common_works
+    self.nr_common_works = common_works.size
+
+  end
+  
+  # counter cache
+  def count_assets
+    #puts '-----------------------count_assets ---------------------------------'
+    self.nr_assets = self.catalog_items.where(catalog_itemable_type: ['Document', 'Artwork']).size
+  end
+  
+  # counter cache
+  def count_users
+    self.nr_users = self.catalog_users.where(role: 'Catalog User').size
   end
   
   def recordings
@@ -29,8 +61,10 @@ class Catalog< ActiveRecord::Base
   end
   
   def common_works
-    common_work_ids = catalog_items.where(catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
+
+    common_work_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
     CommonWork.where(id: common_work_ids)
+
   end
   
   #def common_works

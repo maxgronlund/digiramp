@@ -15,7 +15,8 @@ class Catalog::CatalogsController < ApplicationController
   
   def index
     forbidden unless current_account_user.read_catalog
-    @catalogs = @account.catalogs
+    @catalogs     = @account.catalogs
+    
   end
 
   def show

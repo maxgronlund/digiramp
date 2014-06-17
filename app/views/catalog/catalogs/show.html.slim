@@ -33,7 +33,7 @@
                       th = @catalog.recordings.size
                     tr
                       th Works:
-                      th = @catalog.common_works.size
+                      th = @catalog.nr_common_works
                     tr
                       th Belongs to:
                       th = @catalog.account.title
@@ -58,7 +58,7 @@
                                                  icon: 'fa fa-music'\
                                                }
           
-          -if current_catalog_user.add_assets?  
+          -if current_catalog_user.access_assets?  
             == render 'badge_button', locals: { \
                                                  blog_post: 'ASSETS', \
                                                  link: catalog_account_catalog_assets_path(@account, @catalog), \

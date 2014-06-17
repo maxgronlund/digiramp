@@ -10,12 +10,12 @@ class UserMailer < ActionMailer::Base
   def invite_new_user_to_account user_id, title, body
      @user         = User.cached_find(user_id)
      @body         = body
-     puts '-----------------------------------------------------------------------------'
-     puts 'invite_new_user_to_account'
-     puts @user.email
-     puts title
-     puts @body
-     puts '-----------------------------------------------------------------------------'
+     #puts '-----------------------------------------------------------------------------'
+     #puts 'invite_new_user_to_account'
+     #puts @user.email
+     #puts title
+     #puts @body
+     #puts '-----------------------------------------------------------------------------'
      mail to: @user.email,  subject: title
   end
   
@@ -25,9 +25,9 @@ class UserMailer < ActionMailer::Base
   end
   
   def invite_existing_user_to_catalog user_id , title, body, catalog_id 
-    puts '-----------------------------------------------------------------------------'
-    puts 'invite_existing_user_to_catalog'
-    puts '-----------------------------------------------------------------------------'
+    #puts '-----------------------------------------------------------------------------'
+    #puts 'invite_existing_user_to_catalog'
+    #puts '-----------------------------------------------------------------------------'
     @user       = User.cached_find(user_id)
     @title      = title
     @body       = body
@@ -37,9 +37,9 @@ class UserMailer < ActionMailer::Base
   end
   
   def invite_new_user_to_catalog user_id , title, body , catalog_id
-    puts '-----------------------------------------------------------------------------'
-    puts 'invite_new_user_to_catalog'
-    puts '-----------------------------------------------------------------------------'
+    #puts '-----------------------------------------------------------------------------'
+    #puts 'invite_new_user_to_catalog'
+    #puts '-----------------------------------------------------------------------------'
     @user       = User.cached_find(user_id)
     @title      = title
     @body       = body

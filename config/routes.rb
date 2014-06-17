@@ -3,28 +3,11 @@ Digiramp::Application.routes.draw do
   
 
 
-
-  
-
-  
-  
-
-  
-
-  #get "legal_documents/index"
-  #get "legal_documents/show"
-  #get "legal_documents/new"
-  #get "legal_documents/edit"
-  #get "recording_artworks/index"
-  #resources :artworks
-
-  resources :footages
-  resources :pro_affiliations
+  #resources :footages
+  #resources :pro_affiliations
   resources :comments
 
-  #get "shared_recording_files/index"
-  #get "user_recordings/index"
-  resources :image_files
+
 
   get "albums/index"
   get "albums/show"
@@ -214,7 +197,7 @@ Digiramp::Application.routes.draw do
   
   get "download/image_file"
   get "download/artwork"
-  
+  get "download/document"
   #get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
@@ -337,6 +320,7 @@ Digiramp::Application.routes.draw do
         resources :attachments
         resources :catalog_users
         resources :common_works do
+          resources :common_work_ipis
           get "recordings"
           get "new_recordings"
           post "create_recordings"
@@ -345,6 +329,7 @@ Digiramp::Application.routes.draw do
         end
         resources :documents
         resources :find_in_collections
+        resources :financial_documents
         resources :legal_documents
         resources :recordings do
           get "new_from_catalog_artworks"
@@ -354,6 +339,7 @@ Digiramp::Application.routes.draw do
           resources :image_files
           get "info"
         end
+        resources :recording_artworks, only: [:destroy]
         resources :select_artwork_from
         resources :upload_recordings, only: [:index, :create]
         

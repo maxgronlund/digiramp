@@ -1,0 +1,1 @@
+Dir[File.join(File.dirname(__FILE__), *%w[ruby_extension *.rb])].each { |file| require file }

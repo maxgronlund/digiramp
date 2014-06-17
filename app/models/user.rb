@@ -287,7 +287,7 @@ class User < ActiveRecord::Base
   
 
   
-  def self.search( query)
+  def self.search(  query)
     if query.present?
       return User.search_user(query)
     else
@@ -377,34 +377,56 @@ class User < ActiveRecord::Base
     account
   end
   
+  
+  
   def self.invite_to_catalog_by_email email, title, body, catalog_id
-    if found_user       = User.where(email: email).first
-      # invite to existing user to catalog
-      UserMailer.delay.invite_existing_user_to_catalog( found_user.id , title, body, catalog_id )
-      
-      # force the uuid to update
-      found_user.save!
-    else
-      # create user
-      secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-      found_user = User.create( name: email, 
-                                email: email, 
-                                invited: true, 
-                                password: secret_temp_password, 
-                                password_confirmation: secret_temp_password
-                              )
-      
-      # apply a password reset token
-      found_user.add_token
-      
-      # create account
-      create_a_new_account_for_the found_user
-
-      # invite to existing new to catalog
-      UserMailer.delay.invite_new_user_to_catalog( found_user.id , title, body,  catalog_id )
-    end
-    
-    found_user
+    #if found_user       = User.where(email: email).first
+    #  # invite to existing user to catalog
+    #  UserMailer.delay.invite_existing_user_to_catalog( found_user.id , title, body, catalog_id )
+    #  
+    #  # force the uuid to update
+    #  found_user.save!
+    #else
+    #  # create user
+    #  secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
+    #  found_user = User.create( name: email, 
+    #                            email: email, 
+    #                            invited: true, 
+    #                            password: secret_temp_password, 
+    #                            password_confirmation: secret_temp_password
+    #                          )
+    #  
+    #  # apply a password reset token
+    #  found_user.add_token
+    #  
+    #  # create account
+    #  create_a_new_account_for_the found_user
+    #
+    #  # invite to existing new to catalog
+    #  UserMailer.delay.invite_new_user_to_catalog( found_user.id , title, body,  catalog_id )
+    #end
+    #
+    #found_user
+  end
+  
+  # invite a user based on an email 
+  def self.invite_user email
+    secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
+    user                  = User.create(  name: email, 
+                                          email: email, 
+                                          invited: true, 
+                                          password: secret_temp_password, 
+                                          password_confirmation: secret_temp_password
+                                        )
+                            
+     # apply a password reset token
+     user.add_token
+     
+     # create an account
+     create_a_new_account_for_the user
+     
+     # return the new user
+     user
   end
   
   

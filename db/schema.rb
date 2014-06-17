@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140614201753) do
+ActiveRecord::Schema.define(version: 20140616221724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,10 @@ ActiveRecord::Schema.define(version: 20140614201753) do
     t.boolean  "delete_crm",                default: false
     t.string   "uuid",                      default: "new bee"
     t.string   "invitation_title"
+    t.boolean  "create_artwork",            default: true
+    t.boolean  "read_artwork",              default: true
+    t.boolean  "update_artwork",            default: true
+    t.boolean  "delete_artwork",            default: true
   end
 
   add_index "account_users", ["account_id"], name: "index_account_users_on_account_id", using: :btree
@@ -353,8 +357,9 @@ ActiveRecord::Schema.define(version: 20140614201753) do
     t.integer  "catalog_id"
     t.string   "catalog_itemable_type"
     t.integer  "catalog_itemable_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "category",              default: ""
   end
 
   add_index "catalog_items", ["catalog_id"], name: "index_catalog_items_on_catalog_id", using: :btree
@@ -420,6 +425,10 @@ ActiveRecord::Schema.define(version: 20140614201753) do
     t.string   "uuid",                      default: "chunky beacon"
     t.string   "role",                      default: "Catalog User"
     t.integer  "account_user_id"
+    t.boolean  "create_artwork",            default: true
+    t.boolean  "read_artwork",              default: true
+    t.boolean  "update_artwork",            default: true
+    t.boolean  "delete_artwork",            default: true
   end
 
   add_index "catalog_users", ["account_id"], name: "index_catalog_users_on_account_id", using: :btree
@@ -454,8 +463,13 @@ ActiveRecord::Schema.define(version: 20140614201753) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "move_code"
-    t.boolean  "movable",     default: false
-    t.boolean  "include_all", default: false
+    t.boolean  "movable",         default: false
+    t.boolean  "include_all",     default: false
+    t.integer  "nr_recordings"
+    t.integer  "nr_common_works"
+    t.integer  "nr_assets"
+    t.integer  "nr_users"
+    t.string   "uuid"
   end
 
   add_index "catalogs", ["account_id"], name: "index_catalogs_on_account_id", using: :btree
@@ -569,10 +583,15 @@ ActiveRecord::Schema.define(version: 20140614201753) do
     t.string   "document_type"
     t.text     "body"
     t.string   "file"
-    t.text     "transloadit"
+    t.string   "image_thumb"
+    t.integer  "usage"
+    t.text     "text_content"
+    t.string   "mime"
+    t.string   "file_type"
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "file_size",     default: 0
   end
 
   add_index "documents", ["account_id"], name: "index_documents_on_account_id", using: :btree

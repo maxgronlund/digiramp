@@ -8,6 +8,7 @@ class Catalog::AssetsController < ApplicationController
   
   
   def index
+    forbidden unless current_catalog_user.access_assets?
      #@catalog = Catalog.cached_find(params[:catalog_id])
   end
   

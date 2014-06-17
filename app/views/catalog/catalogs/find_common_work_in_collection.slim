@@ -63,42 +63,42 @@
 
                   
                     -@common_works.each do |common_work|
-                      -cache ([common_work, Admin.cached_find(1).version]) do
-                        tr id="add_to_catalog_#{common_work.id.to_s}"
-                          td = link_to common_work.title, catalog_account_catalog_common_work_path( @account, @catalog, common_work), class: 'btn btn-default btn-lg'
-                          td 
-                            div class="#{common_work.recordings.size == 0 ? 'label label-danger' : 'label label-primary'}"
-                              = common_work.recordings.size
-                          td 
-                            == render 'works/shared/health', health: common_work.health rescue []
-                          /td 
-                          /  = time_ago_in_words(common_work.created_at).titleize 
-                          /  '&nbsp; ago
-                          td
-                            .pull-right
-                              /-if current_account_user.read_common_work
-                              /  = link_to catalog_account_catalog_common_work_path( @account, @catalog, common_work) do
-                              /    .btn.btn-success.btn-lg
-                              /      i class="fa fa-gears"
-                              /  '&nbsp;
-                              /-if current_account_user.update_common_work
-                              /  = link_to edit_catalog_account_catalog_common_work_path(@account, @catalog, common_work) do
-                              /    .btn.btn-primary.btn-lg
-                              /      i class="fa fa-pencil"
-                              /  '&nbsp;
-                              
-                              
-                              -if current_catalog_user.create_common_work
-                                = link_to catalog_account_catalog_common_work_add_common_work_from_collection_path( @account, @catalog, common_work), method: :post, remote: true do
-                                  .btn.btn-success.btn-lg
-                                    i class="fa fa-plus-circle"
-                                    '&nbsp;
-                                    'Add To Catalog
+                      /-cache ([common_work, Admin.cached_find(1).version]) do
+                      tr id="add_to_catalog_#{common_work.id.to_s}"
+                        td = link_to common_work.title, catalog_account_catalog_common_work_path( @account, @catalog, common_work), class: 'btn btn-default btn-lg'
+                        td 
+                          div class="#{common_work.recordings.size == 0 ? 'label label-danger' : 'label label-primary'}"
+                            = common_work.recordings.size
+                        td 
+                          == render 'works/shared/health', health: common_work.health rescue []
+                        /td 
+                        /  = time_ago_in_words(common_work.created_at).titleize 
+                        /  '&nbsp; ago
+                        td
+                          .pull-right
+                            /-if current_account_user.read_common_work
+                            /  = link_to catalog_account_catalog_common_work_path( @account, @catalog, common_work) do
+                            /    .btn.btn-success.btn-lg
+                            /      i class="fa fa-gears"
+                            /  '&nbsp;
+                            /-if current_account_user.update_common_work
+                            /  = link_to edit_catalog_account_catalog_common_work_path(@account, @catalog, common_work) do
+                            /    .btn.btn-primary.btn-lg
+                            /      i class="fa fa-pencil"
+                            /  '&nbsp;
+                            
+                            
+                            -if current_catalog_user.create_common_work
+                              = link_to catalog_account_catalog_common_work_add_common_work_from_collection_path( @account, @catalog, common_work), method: :post, remote: true do
+                                .btn.btn-success.btn-lg
+                                  i class="fa fa-plus-circle"
+                                  '&nbsp;
+                                  'Add To Catalog
+                                
                                   
-                                    
-                                    
-                                    
-                                    
+                                  
+                                  
+                                  
                                     
                                     
               /- @common_works.each do |common_work|

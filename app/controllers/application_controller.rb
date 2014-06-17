@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_account_user
   
   def current_catalog_user
-    
     @catalog.catalog_users.where(user_id: current_user.id ).first
   end
   helper_method :current_catalog_user 

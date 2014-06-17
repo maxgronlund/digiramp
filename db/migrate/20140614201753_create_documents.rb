@@ -6,7 +6,11 @@ class CreateDocuments < ActiveRecord::Migration
       t.string :document_type
       t.text :body
       t.string :file
-      t.text :transloadit
+      t.string :image_thumb
+      t.integer :usage
+      t.text :text_content
+      t.string :mime
+      t.string :file_type
       t.belongs_to :account, index: true
 
       t.timestamps

@@ -1,0 +1,68 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            catalogs: catalog_account_catalogs_path(@account), \
+                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                            assets: catalog_account_catalog_assets_path(@account, @catalog), \
+                                                            'financial documents'.to_sym => catalog_account_catalog_financial_documents_path(@account, @catalog), \
+                                                            }, current: 'show'}
+    
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalog'), blog_post: 'Financial Document'}
+    /-cache([ Admin.cached_find(1).version, request.url, @account.works_uuid, current_user.uuid ]) do 
+    
+    .row
+      .col-sm-6
+        .media
+          .pull-left
+            .thumbnail
+              = image_tag @document.image_thumb || 'digiramp-document.jpg'
+          .media-body
+            .media-heading
+              h3 = @document.title
+            i Document type: 
+            b = @document.file_type
+            br
+            i Size: 
+            = number_to_human_size @document.file_size
+            = simple_format @document.body
+        
+      .col-sm-6
+        .pull-right
+          - if current_catalog_user.update_financial_document
+            = link_to edit_catalog_account_catalog_financial_document_path(@account, @catalog, @document) do
+              .btn.btn-primary.btn-lg
+                i class="fa fa-pencil"
+            '&nbsp;
+          = link_to download_document_path(document: @document.id) do
+            .btn.btn-info.btn-lg
+              i class='fa fa-cloud-download'
+              '&nbsp;Download
+          '&nbsp;
+          = link_to @document.file do
+            .btn.btn-default.btn-lg
+              'Read File
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            .panel-title
+              a data-toggle="collapse" data-parent="#accordion" href="#collapse"
+                i  class="fa fa-eye"
+                '&nbsp;
+                'Extracted Text Content
+          div id="collapse" class="panel-collapse collapse"  
+            .panel-body
+              = simple_format @document.text_content
+
+            
+                      
+                    
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

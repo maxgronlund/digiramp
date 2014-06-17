@@ -3,7 +3,7 @@ class Catalog::RecordingArtworksController < ApplicationController
   include CatalogsHelper
   
   before_filter :access_account
-  before_filter :access_catalog, only: [:index]
+  before_filter :access_catalog, only: [:index, :destroy]
 
   def index
     forbidden unless current_catalog_user.read_file
@@ -20,6 +20,15 @@ class Catalog::RecordingArtworksController < ApplicationController
     #unless access
     #  render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
     #end
+  end
+  
+  def destroy
+    forbidden unless current_catalog_user.update_recording
+    if recording_item = RecordingItem.where(itemable_type: 'Artwork', 
+                                            itemable_id: params[:id]).first
+      recording_item.destroy!                                        
+    end
+    @remove_tag = "#artwork_#{params[:id]}"
   end
   
   #def edit

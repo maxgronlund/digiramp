@@ -75,7 +75,7 @@ class Account < ActiveRecord::Base
     
     # !!! but for now this is how it is
     if zebulon              = User.where(email: 'peter@musicintomedia.com').first
-      self.administrator_id = zebulon.if
+      self.administrator_id = zebulon.id
     end
   end
   

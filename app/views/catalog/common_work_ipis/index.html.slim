@@ -1,0 +1,31 @@
+- session[:return_url]  = request.url
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              catalogs: catalog_account_catalogs_path(@account), \
+                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                              'common works'.to_sym => catalog_account_catalog_common_works_path(@account, @catalog), \
+                                                              @common_work.title.to_sym => catalog_account_catalog_common_work_path(@account, @catalog, @common_work), \
+                                                              }, current: 'ipi\'s'}
+    
+                                         
+    
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'IPIS'}
+      .panel.panel-primary
+        .panel-heading
+          = @common_work.title
+        .panel-body
+          = debug @common_work.ipis
+              
+        
+
+     
+     
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

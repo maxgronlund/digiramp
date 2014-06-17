@@ -12,32 +12,41 @@ class Catalog::ArtworksController < ApplicationController
   # GET /artworks
   # GET /artworks.json
   def index
-    #artwork_ids = CatalogItem.where(catalog_id: @catalog.id, catalog_itemable_type: 'Artwork').pluck(:catalog_itemable_id)
-    #@artworks = Artwork.where(id: artwork_ids)
-    #@artworks = @catalog.artworks
+    artwork_ids = CatalogItem.where(catalog_id: @catalog.id, catalog_itemable_type: 'Artwork').pluck(:catalog_itemable_id)
+    @artworks = Artwork.where(id: artwork_ids)
+    @artworks = @catalog.artworks
   end
 
   # GET /artworks/1
   # GET /artworks/1.json
   def show
+    forbidden unless current_catalog_user.read_artwork
   end
 
   # GET /artworks/new
   def new
+    forbidden unless current_catalog_user.create_artwork
     @artwork = Artwork.new
   end
 
   # GET /artworks/1/edit
   def edit
+    forbidden unless current_catalog_user.update_artwork
   end
 
   # POST /artworks
   # POST /artworks.json
   def create
-    @artwork = Artwork.new(artwork_params)
+    forbidden unless current_catalog_user.create_artwork
 
-    TransloaditImageParser.catalog_artwork( params[:transloadit], @account.id, @catalog.id )
-    @transcoded     = params[:transloadit]
+    artworks = TransloaditImageParser.catalog_artwork( params[:transloadit], @account.id, @catalog.id )
+    
+    artworks.each do |artwork|
+      CatalogItem.create( catalog_id: @catalog.id, 
+                          catalog_itemable_type: 'Artwork',
+                          catalog_itemable_id: artwork.id)
+      
+    end
 
     #redirect_to account_common_work_recording_image_files_path(@account, @common_work, @recording)
     redirect_to  catalog_account_catalog_artworks_path(@account, @catalog)
@@ -47,6 +56,7 @@ class Catalog::ArtworksController < ApplicationController
   # PATCH/PUT /artworks/1
   # PATCH/PUT /artworks/1.json
   def update
+    forbidden unless current_catalog_user.read_artwork
     @artwork.update(artwork_params)
     redirect_to  catalog_account_catalog_artworks_path(@account, @catalog)
   end
@@ -54,7 +64,12 @@ class Catalog::ArtworksController < ApplicationController
   # DELETE /artworks/1
   # DELETE /artworks/1.json
   def destroy
-    @artwork.destroy
+    forbidden unless current_catalog_user.delete_artwork
+    
+    
+    
+    
+    @artwork.destroy!
     redirect_to  catalog_account_catalog_artworks_path(@account, @catalog)
   end
 

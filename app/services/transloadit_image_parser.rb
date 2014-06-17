@@ -92,7 +92,7 @@ class TransloaditImageParser
   
   def self.catalog_artwork  uploads, account_id, catalog_id
     transloadets = extract( uploads )
-    
+    artworks = []
     transloadets.each do |transloaded|
 
       keywords = ''
@@ -152,12 +152,9 @@ class TransloaditImageParser
                                   frame_count:	           transloaded[:frame_count],
                                   copyright_notice:	       transloaded[:copyright_notice]
                                 )
-                                
-                                CatalogItem.create( catalog_id: catalog_id, 
-                                                    catalog_itemable_type: 'Artwork',
-                                                    catalog_itemable_id: artwork.id)
+      artworks << artwork                          
     end
-    
+    artworks
   end
   
   

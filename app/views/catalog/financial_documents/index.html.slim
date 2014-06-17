@@ -1,0 +1,112 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            catalogs: catalog_account_catalogs_path(@account), \
+                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                            assets: catalog_account_catalog_assets_path(@account, @catalog), \
+                                                            }, current: 'financial documents'}
+    
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalog'), blog_post: 'Financial Documents', insert: 'add_financial_documents'}
+    /-cache([ Admin.cached_find(1).version, request.url, @account.works_uuid, current_user.uuid ]) do 
+    .do
+      .row
+          = form_tag catalog_account_catalog_financial_documents_path(@account, @catalog), :method => 'get' do
+            .col-sm-6
+              br
+              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
+            .col-sm-6
+              br
+              = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+              '&nbsp;
+              = link_to 'Show All',catalog_account_catalog_financial_documents_path(@account, @catalog), class: 'btn btn-default btn-lg'
+              
+      br        
+      .panel.panel-primary
+        .panel-heading
+          'Financial Documents
+        .panel-body
+          .table-responsive
+            table class="table table-hover"
+              thead
+                tr
+                  th Title
+                  th Description
+                  th
+
+              tbody
+                -@financial_documents.each do |financial_document|
+                  -cache ([ 'index', current_catalog_user ,financial_document]) do
+                    tr
+                      td 
+                        = link_to catalog_account_catalog_financial_document_path(@account, @catalog, financial_document) do
+                          .btn.btn-default.btn-lg
+                            = financial_document.title
+                      td = simple_format financial_document.body.truncate(100) if financial_document.body.to_s != ''
+                      td 
+                        .pull-right
+                          = link_to catalog_account_catalog_financial_document_path(@account, @catalog, financial_document) do
+                            .btn.btn-default.btn-lg
+                              i class="fa fa-eye"
+                          - if current_catalog_user.update_financial_document
+                            '&nbsp;
+                            = link_to edit_catalog_account_catalog_financial_document_path(@account, @catalog, financial_document) do
+                              .btn.btn-primary.btn-lg
+                                i class="fa fa-pencil"
+                          - if current_catalog_user.delete_financial_document
+                            '&nbsp;
+                            = link_to catalog_account_catalog_financial_document_path(@account, @catalog, financial_document), method: :delete, data: {confirm: 'Are you sure?'} do
+                              .btn.btn-danger.btn-lg
+                                i class="fa fa-times"
+                    
+                    
+                    
+
+            
+      
+      
+      
+      
+      
+      
+      
+      
+          
+              
+      /br
+      /br
+      /.row
+      /  .col-sm-12
+      /    .hidden-xs
+      /      == paginate(@common_works)
+      /    .visible-xs
+      /      br
+      /      .btn-group.btn-group-sm
+      /        = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination'
+      /        = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
+      /      br
+      /      br
+      /    .panel.panel-primary
+      /      .panel-heading
+      /        'Common Works
+      /      .panel-body
+      /        
+      /        == render 'catalog/common_works/index'
+      /     
+      /        .hidden-xs
+      /          == paginate(@common_works)
+      /        .visible-xs
+      /          .btn-group
+      /            = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination '
+      /            = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
+      /        
+      /         
+      /
+  
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

@@ -74,9 +74,14 @@ gem 'transloadit-rails'
 gem 'uuidtools'
 #gem 'jquery-ui-rails'
 gem "rails-erd"
-#gem "font-awesome-rails" <<------- not working on all devices ;-(
+#gem "font-awesome-rails" #<<------- not working on all devices ;-(
 
-#gem 'fancybox2-rails', '~> 0.2.8'
+
+# for extraction of text content
+gem 'yomu'
+
+# for nice logging
+gem "awesome_print"
 
 
 group :doc do
@@ -124,6 +129,8 @@ group :development do
 
   # Use debugger
   # gem 'debugger', group: [:development, :test]
+  
+  
 end
 
 

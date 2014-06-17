@@ -15,6 +15,28 @@ class DownloadController < ApplicationController
     mime = @artwork.mime || 'image/jpeg'
     send_data data.read, filename: @artwork.title, type: mime, stream: 'true', buffer_size: '4096'  
   end
+  
+  def financial_document
+    begin
+      @document= Document.cached_find(params[:document])
+      data = open("#{@document.file}") 
+      mime = @document.mime || 'image/jpeg'
+      send_data data.read, filename: @document.title, type: mime, stream: 'true', buffer_size: '4096'
+    rescue
+      
+    end
+  end
+  
+  def document
+    begin
+      @document= Document.cached_find(params[:document])
+      data = open("#{@document.file}") 
+      mime = @document.mime || 'image/jpeg'
+      send_data data.read, filename: @document.title, type: mime, stream: 'true', buffer_size: '4096'
+    rescue
+      
+    end
+  end
 
   
 end

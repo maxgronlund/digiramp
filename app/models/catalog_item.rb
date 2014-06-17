@@ -2,6 +2,25 @@ class CatalogItem < ActiveRecord::Base
   
   belongs_to :catalog
   belongs_to :catalog_itemable, polymorphic: true
+  
+  after_create  :update_catalog_counter_cache
+  after_destroy :update_catalog_counter_cache
+  
+  def update_catalog_counter_cache
+    
+    
+    case self.catalog_itemable_type
+
+    when 'CommonWork'
+      CatalogCommonWorkCounterCachWorker.perform_async(self.catalog_id)
+    when 'Recording'
+      CatalogRecordingCounterCachWorker.perform_async(self.catalog_id)
+    when 'Document', 'Artwork'
+      CatalogDocumentCounterCachWorker.perform_async(self.catalog_id)
+    end
+
+    
+  end
   #attr_accessible :catalog_itemable_type, :catalog_itemable_id, :account_catalog_id
   
 

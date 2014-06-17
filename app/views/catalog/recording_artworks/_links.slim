@@ -4,7 +4,7 @@
     .btn.btn-info.btn-lg
       i class="fa fa-info-circle"
   '&nbsp;
-  = link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
+  = link_to catalog_account_catalog_recording_artwork_path(@account, @catalog, artwork ), remote: true , :method => :delete do
     .btn.btn-warning.btn-lg
       i class="fa fa-minus-circle"
       
@@ -15,3 +15,6 @@
     .btn.btn-success.btn-lg
       i class="fa fa-plus"
       '&nbsp;Use
+      
+      
+/catalog/accounts/6/catalogs/45/recordings/571/recording_artworks

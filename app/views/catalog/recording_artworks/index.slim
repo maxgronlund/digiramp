@@ -15,7 +15,7 @@
       
       - blog = Blog.cached_find('Recording Artwork')
       /== render 'shared/page_title', locals: {blog: blog, blog_post: 'Artwork'}
-      == render 'shared/recording_title', locals: {recording: @recording, body: 'Artwork'} 
+      == render 'shared/recording_title', locals: {recording: @recording, body: 'Artwork', insert: 'info_link'} 
       
       -if current_catalog_user.update_recording
         = link_to catalog_account_catalog_recording_new_from_catalog_artworks_path(@account, @catalog, @recording), 'data-no-turbolink'=>true do
@@ -43,7 +43,6 @@
       .row
         - if current_account_user.read_file 
           -@recording.artworks.each do |artwork|
-            /== render 'catalog/artworks/index', locals: {artwork: artwork, links: 'catalog/artworks/edit'}
             == render 'catalog/artworks/index', locals: {artwork: artwork, links: 'catalog/recording_artworks/links'}
           
               

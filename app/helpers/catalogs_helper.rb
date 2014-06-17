@@ -11,5 +11,12 @@ module CatalogsHelper
 
     #forbidden unless current_catalog_user @catalog
   end
+  
+  def catalog_users
+    current_user.super? ? 
+                        @catalog.catalog_users.order("email asc") :  
+                        @catalog.catalog_users.where( role: 'Catalog User').order("email asc")
+    
+  end
 
 end

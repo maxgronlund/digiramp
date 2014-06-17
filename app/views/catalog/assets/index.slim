@@ -15,7 +15,7 @@
       == render 'shared/page_title', locals: {blog: blog, blog_post: 'Assets'}
 
       .row
-        - if current_catalog_user.read_recording 
+        - if current_catalog_user.read_artwork
           .col-sm-6
             == render 'badge_button', locals: { \
                                                  blog_post: 'ARTWORK', \
@@ -24,6 +24,7 @@
                                                  icon: 'fa fa-picture-o', \
                                                  no_turbo: true \
                                                }
+        - if current_catalog_user.read_legal_document 
           .col-sm-6
             == render 'badge_button', locals: { \
                                                  blog_post: 'LEGAL DOCUMENTS', \
@@ -31,17 +32,19 @@
                                                  css_class: 'btn btn-danger', \
                                                  icon: 'fa fa-gavel'\
                                                }
+        - if current_catalog_user.read_financial_document 
           .col-sm-6
             == render 'badge_button', locals: { \
                                                  blog_post: 'FINANCIAL DOCUMENTS', \
-                                                 link: catalog_account_catalog_recordings_path(@account, @catalog), \
+                                                 link: catalog_account_catalog_financial_documents_path(@account, @catalog), \
                                                  css_class: 'btn btn-primary', \
                                                  icon: 'fa fa-money'\
                                                }
+        - if current_catalog_user.access_assets? 
           .col-sm-6
             == render 'badge_button', locals: { \
-                                                 blog_post: 'FILES', \
-                                                 link: catalog_account_catalog_recordings_path(@account, @catalog), \
+                                                 blog_post: 'DOCUMENTS', \
+                                                 link: catalog_account_catalog_documents_path(@account, @catalog), \
                                                  css_class: 'btn btn-warning', \
                                                  icon: 'fa fa-archive'\
                                                }

@@ -2,7 +2,8 @@
   .row
     .col-sm-12
       #accordion
-        -@catalog.catalog_users.where( role: 'Catalog User').order("email asc").each_with_index do |catalog_user|
+
+        -catalog_users.each do |catalog_user|
           /.do
           -cache ( ['catalog_users', catalog_user.uuid ] ) do
             .panel.panel-primary
@@ -11,7 +12,9 @@
                   a data-toggle="collapse" data-parent="#accordion" href="#collapse_#{catalog_user.id.to_s}"
                     i  class="fa fa-eye"
                     '&nbsp;
-                    = catalog_user.email.upcase
+                    = catalog_user.user.email.upcase
+                  .pull-right
+                    = catalog_user.role.upcase
               
               div id="collapse_#{catalog_user.id.to_s}" class="panel-collapse collapse"  
                 .panel-body
@@ -49,6 +52,14 @@
                           td = catalog_user.read_file ? '√': ''
                           td = catalog_user.update_file ? '√': ''
                           td = catalog_user.delete_file ? '√': ''
+                          
+                          
+                        tr 
+                          td Artwork &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.create_artwork ? '√': ''
+                          td =   catalog_user.read_artwork ? '√': ''
+                          td = catalog_user.update_artwork ? '√': ''
+                          td = catalog_user.delete_artwork ? '√': ''
                           
                           
                         tr 
@@ -109,12 +120,12 @@
                        
                   .pull-right
                     = link_to edit_catalog_account_catalog_catalog_user_path(@account, @catalog, catalog_user) do
-                      .btn.btn-primary.btn-lg
+                      div class="btn btn-primary btn-lg #{'disabled' unless catalog_user.role == 'Catalog User'}"
                         i class="fa fa-pencil"
                     '&nbsp;
                     = link_to  catalog_account_catalog_catalog_user_path(@account, @catalog, catalog_user),\
                               data: { confirm: 'Are you sure?' } , :method => :delete do
-                      .btn.btn-danger.btn-lg
+                       div class="btn btn-danger btn-lg #{'disabled' unless catalog_user.role == 'Catalog User'}"
                         i class="fa fa-times"
                   
                       

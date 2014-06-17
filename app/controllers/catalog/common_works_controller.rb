@@ -5,20 +5,8 @@ class Catalog::CommonWorksController < ApplicationController
   include ActionView::Helpers::TextHelper
   
   before_filter :access_account
-  before_filter :access_catalog, only: [
-                                          :show, 
-                                          :update, 
-                                          :edit, 
-                                          :index, 
-                                          :recordings, 
-                                          :new_recordings, 
-                                          :create_recordings, 
-                                          :add_to_catalogs,
-                                          :add_common_work_from_collection,
-                                          :remove_common_work_from_catalog,
-                                          :add_recordings
-                                        ]
-  #before_filter :current_account_user
+  before_filter :access_catalog
+
   
   def index
     forbidden unless current_catalog_user.read_common_work?
@@ -127,7 +115,6 @@ class Catalog::CommonWorksController < ApplicationController
   #end
   
   def remove_common_work_from_catalog
-    puts '----------------------------- xxx ---------------------------------'
     @common_work = CommonWork.cached_find(params[:common_work_id])
     @remove_tag  = "#remove_from_catalog_"       + @common_work.id.to_s
     
@@ -160,21 +147,22 @@ class Catalog::CommonWorksController < ApplicationController
   end
   
   def add_common_work_from_collection
+
     @common_work = CommonWork.cached_find(params[:common_work_id])
     
     catalog_item = CatalogItem.where(
                                      catalog_id: @catalog.id, 
                                      catalog_itemable_id: @common_work.id, 
-                                     catalog_itemable_type: @common_work.class.name 
+                                     catalog_itemable_type: 'CommonWork' 
                                    )
                               .first_or_create(
-                                                 catalog_id: @catalog.id, 
-                                                 catalog_itemable_id: @common_work.id, 
-                                                 catalog_itemable_type: @common_work.class.name 
+                                                  catalog_id: @catalog.id, 
+                                                  catalog_itemable_id: @common_work.id, 
+                                                  catalog_itemable_type: 'CommonWork' 
                                                )
                               
 
-    @remove_tag  = "#add_to_catalog_"       + @common_work.id.to_s
+    @remove_tag  = "#add_to_catalog_#{@common_work.id.to_s}" 
     
     add_recordings( @catalog, catalog_item.catalog_itemable  )
     

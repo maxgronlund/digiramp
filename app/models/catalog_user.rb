@@ -11,6 +11,7 @@ class CatalogUser < ActiveRecord::Base
   after_commit  :flush_cache
   before_save   :update_uuids
   after_create  :attach_to_account_user
+  after_destroy :update_catalog_counter_cache
   #before_destroy :before_destroy
 
   
@@ -25,6 +26,12 @@ class CatalogUser < ActiveRecord::Base
   # 3: Super User, this role is set for all super users
   # 4: Account owner this role is set for the account owner
   ROLE = ['Catalog User', 'Account User', 'Super User', 'Account Owner']
+  
+ 
+  def update_catalog_counter_cache
+    CatalogUserCounterCachWorker.perform_async(self.catalog_id)
+  end
+  
   
   def update_uuids
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
@@ -46,11 +53,11 @@ class CatalogUser < ActiveRecord::Base
   def attach_to_account_user
     # find or create an account user for all catalog users
     account_user = AccountUser.where( account_id: self.account_id, 
-                                      user_id: self.user_id)
-                              .first_or_create( account_id: self.account_id, 
-                                                user_id: self.user_id,
-                                                role: 'Catalog User',
-                                                email: self.user.email)
+                                      user_id:    self.user_id)
+                              .first_or_create( account_id:   self.account_id, 
+                                                user_id:      self.user_id,
+                                                role:         'Catalog User',
+                                                email:        self.user.email)
                                                 
     account_user.read_catalog = true   
     account_user.save!                                       
@@ -64,11 +71,15 @@ class CatalogUser < ActiveRecord::Base
     #else
     #  copy_permissions_from_account_user account_user
     end
+    CatalogUserCounterCachWorker.perform_async(self.catalog_id)
   end
   
   def access_assets?
-    return true if self.read_file
     
+    return true if self.read_file
+    return true if self.read_legal_document
+    return true if self.read_financial_document
+    return true if self.read_artwork
   end
   
   def add_assets?
@@ -111,8 +122,11 @@ private
   end
   
   def flush_cache
+    
     Rails.cache.delete([self.class.name, id])
     Rails.cache.delete(['catalog_user', catalog_id, user_id])
+    self.catalog.count_users
+    self.catalog.save!
   end
   
 end

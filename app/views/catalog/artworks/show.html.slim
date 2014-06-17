@@ -64,11 +64,12 @@
             = link_to download_artwork_path(artwork: @artwork.id) do
               .btn.btn-info.btn-lg
                 i class='fa fa-cloud-download'
-            '&nbsp;
-            = link_to edit_catalog_account_catalog_artwork_path(@account, @catalog, @artwork)
-              .btn.btn-primary.btn-lg
-                i class="fa fa-pencil"
-            '&nbsp;
+            - if current_catalog_user.update_artwork
+              '&nbsp;
+              = link_to edit_catalog_account_catalog_artwork_path(@account, @catalog, @artwork)
+                .btn.btn-primary.btn-lg
+                  i class="fa fa-pencil"
+              
           /  = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, @artwork), \
           /     data: { confirm: 'Are you shure?' } , method: :delete
           /    .btn.btn-danger.btn-lg

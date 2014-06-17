@@ -11,7 +11,7 @@
       
       
       == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalogs'}
-
+     
 
       .row
         .col-sm-12
@@ -23,9 +23,19 @@
                 table class="table table-hover"
                   thead
                     tr
-                      th Catalog
-                      th Recordings
-                      /th Users
+                      th Title
+                      th 
+                        i class='fa fa-headphones'
+                        '&nbsp;Recordings
+                      th 
+                        i class='fa fa-music'
+                        '&nbsp;Common Works
+                      th 
+                        i class= 'fa fa-folder'
+                        '&nbsp;Assetes
+                      th 
+                        i class= 'fa fa-group'
+                        '&nbsp;Users
                       th
                   tbody
                     
@@ -33,16 +43,39 @@
                     /= debug user
                     /= debug CatalogUser.where(account_id: @account.id, user_id: current_user.id)
                     - @catalogs.each do |catalog|
-                      - if catalog.catalog_users.pluck(:user_id).include? user.id
+                      - if catalog_user = catalog.catalog_users.where(user_id: current_user.id).first
                         tr
                           td = link_to  catalog.title, \
                                         catalog_account_catalog_path( @account, catalog), \
                                         class: 'btn btn-default btn-lg'
-                          td = catalog.nr_recordings
+                          
+                        
+                          td = link_to catalog_account_catalog_recordings_path(@account, catalog) do 
+                                div class="btn btn-warning btn-lg #{'disabled' unless catalog_user.read_recording}"
+                                   i class='fa fa-headphones'
+                                   '&nbsp;
+                                   =catalog.nr_recordings
+                          
+                        
+                          td = link_to catalog_account_catalog_common_works_path(@account, catalog) do 
+                                div class="btn btn-primary btn-lg #{'disabled' unless catalog_user.read_common_work}"
+                                   i class='fa fa-music'
+                                   '&nbsp;
+                                   =catalog.nr_common_works
+                          
+                        
+                          td = link_to catalog_account_catalog_assets_path(@account, catalog) do 
+                                div class="btn btn-success btn-lg #{'disabled' unless catalog_user.access_assets?}"
+                                   i class='fa fa-folder-o'
+                                   '&nbsp;
+                                   =catalog.nr_assets
                                           
-                          /td = link_to  catalog.catalog_users.size, \
-                          /              account_catalog_catalog_users_path(@account, catalog), \
-                          /              class: 'btn btn-default btn-lg'
+                          td = link_to catalog_account_catalog_catalog_users_path(@account, catalog) do 
+                                div class="btn btn-default btn-lg #{'disabled' unless catalog_user.read_user}"
+                                   i class='fa fa-group'
+                                   '&nbsp;
+                                   =catalog.nr_users
+                                          
                           td
                             .pull-right
                               -if current_account_user.update_catalog?
@@ -54,9 +87,9 @@
                                 = link_to catalog_account_catalog_path( @account, catalog) , data: { confirm: 'Are you sure?' } , method: :delete do
                                   .btn.btn-danger.btn-lg
                                     i class="fa fa-trash-o"
-                      
-                      
-              
+                        
+                        
+                        
               - if current_account_user.create_catalog
                 .pull-right
                   /= link_to 'Get Catalog', account_catalog_get_catalog_path(@account, 1), class: 'btn btn-default btn-lg'

@@ -53,7 +53,12 @@ class Permissions
              "create_crm", 
                "read_crm", 
              "update_crm",   
-             "delete_crm"
+             "delete_crm",         
+             
+             "create_artwork", 
+               "read_artwork", 
+             "update_artwork",   
+             "delete_artwork"
             ]
   
   def initialize

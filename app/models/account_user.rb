@@ -262,23 +262,6 @@ class AccountUser < ActiveRecord::Base
     update_cache
   end
  
-  #def update_catalog_user
-  #
-  #  catalog_user = CatalogUser.where(account_id:  self.account_id, 
-  #                                   user_id:     self.user_id)
-  #                            .first_or_create(
-  #                                   account_id: self.account_id, 
-  #                                   user_id:     self.user_id,
-  #                                   role: 'Generated for an Account User')
-  #                                   
-  # 
-  #  catalog_user.copy_permissions_from_account_user self
-  #
-  #  
-  #end
-  
-
-
 
 private
 

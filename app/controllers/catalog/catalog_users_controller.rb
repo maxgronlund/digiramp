@@ -6,41 +6,90 @@ class Catalog::CatalogUsersController < ApplicationController
   before_filter :access_account
   before_filter :access_catalog, only: [  :index,
                                           :new,
-                                          :create
+                                          :create,
+                                          :edit,
+                                          :update
                                        ]
                                        
   
   def index
+    forbidden unless current_catalog_user.read_user
     #@catalog        = Catalog.cached_find(params[:catalog_id])
   end
   
   
   def new
-    #@catalog        = Catalog.cached_find(params[:catalog_id])
-    @catalog_user   = CatalogUser.new( title: "You have been invited to a DigiRAMP Catalog by #{current_user.name}", 
-                                       body: "You are invited to a Catalog on DigiRAMP. You can access it from #{@catalog.account.title} on your home page")
+    forbidden unless current_catalog_user.create_user
+    @catalog        = Catalog.cached_find(params[:catalog_id])
+    @catalog_user   = CatalogUser.new( title: "You have been invited the #{@catalog.title.upcase!} Catalog by #{current_user.name}", 
+                                       body: "You can access the #{@catalog.title.upcase!} Catalog from #{@catalog.account.title} on your HOME screen")
   end
   
+  # create a new catalog user
+  # send invitation by email
   def create
-    #@catalog        = Catalog.cached_find(params[:catalog_id])
-    if @user        = User.invite_to_catalog_by_email(  params[:catalog_user][:email], 
-                                                        params[:catalog_user][:title],
-                                                        params[:catalog_user][:body],
-                                                        @catalog.id
-                                                     )
+    forbidden unless current_catalog_user.create_user
     
-      params[:catalog_user][:user_id]   = @user.id 
-      @catalog_user                     = CatalogUser.create!(catalog_user_params)
+    email   = params[:catalog_user][:email]
+    title   = params[:catalog_user][:title]
+    body    = params[:catalog_user][:body]
+    catalog = Catalog.cached_find(params[:catalog_user][:catalog_id])
+    
+  
+    
+    # if the user already is in the system
+    if @user    = User.where(email: email).first
+
+      flash[:info] = { title: "User Invited: ", 
+                       body: "You have invited a DigiRAMP member with the email #{email} to the #{catalog.title} catalog" 
+                     }
+      
+      # invite existing user to catalog
+      UserMailer.delay.invite_existing_user_to_catalog( @user.id, 
+                                                        title, 
+                                                        body, 
+                                                        catalog.id 
+                                                      )
+      
+      # force the user uuid to update
+      @user.save!
+      
+    else
+      # invite a new user
+      if @user = User.invite_user( email )
+
+        # send invitation email for to new DigiRAMP account and the catalog
+        UserMailer.delay.invite_new_user_to_catalog(  @user.id, 
+                                                      title, 
+                                                      body,  
+                                                      catalog.id 
+                                                    )
+        
+        # confirm for current user
+        flash[:info] = { title: "User Invited: ", body: "You have invited #{email} to the #{catalog.title.upcase} catalog" }
+      else
+        
+      end
+      
     end
+    params[:catalog_user][:user_id]       = @user.id 
+    params[:catalog_user][:account_id]    = @account.id 
+    unless @user && @catalog_user   = CatalogUser.create!( catalog_user_params ) 
+      # notify if something went wrong
+      flash[:danger] = { title: "Error: ", body: "User not invited, If this error persists please contact support" }
+    end
+    
     redirect_to catalog_account_catalog_catalog_users_path(@account, @catalog)
   end
 
   def edit
+    forbidden unless current_catalog_user.update_user
     @catalog        = Catalog.cached_find(params[:catalog_id])
     @catalog_user   = CatalogUser.cached_find(params[:id])
   end
   
   def update
+    forbidden unless current_catalog_user.update_user
     @catalog        = Catalog.cached_find(params[:catalog_id])
     @catalog_user   = CatalogUser.cached_find(params[:id])
     @catalog_user.update_attributes(catalog_user_params)
