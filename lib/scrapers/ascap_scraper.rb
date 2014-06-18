@@ -1,4 +1,5 @@
-require './lib/scrapers/scraper'
+require_relative 'scraper'
+
 module Scraper::AscapScraper
   require_relative 'ascap_scraper/search'
   require_relative 'ascap_scraper/ascap_iswc'

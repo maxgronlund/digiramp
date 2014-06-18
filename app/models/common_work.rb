@@ -4,12 +4,10 @@ class CommonWork < ActiveRecord::Base
   
   belongs_to :account
   #belongs_to :ascap_import
-  #belongs_to :common_work_import
+  belongs_to :common_works_import
   
   has_many :recordings, dependent: :destroy
   #accepts_nested_attributes_for  :recordings, allow_destroy: true
-  
-  
   
   has_many :attachments, as: :attachable
   has_many :ipis,       dependent: :destroy
@@ -24,8 +22,7 @@ class CommonWork < ActiveRecord::Base
   after_commit :flush_cache
   
   PROS = ['ASCAP', 'BMI']
-  
-  
+
   #title @@ :q or lyrics @@ :q or alternative_titles @@ :q or iswc_code @@ :q or description
 
   #before_save :check_title
@@ -615,17 +612,25 @@ class CommonWork < ActiveRecord::Base
     end
   end
   
-  def add_to_catalog catalog
-    
-    CatalogItem.where(catalog_itemable_type: 'CommonWork', 
-                      catalog_itemable_id: self.id, 
-                      catalog_id: catalog.id)
-                .first_or_create(
-                      catalog_itemable_type: 'CommonWork', 
-                      catalog_itemable_id: self.id, 
-                      catalog_id: catalog.id
-                      )
-    
+  def add_to_catalog catalog_id
+
+    if catalog_id
+      CatalogItem.where(catalog_itemable_type: 'CommonWork', 
+                        catalog_itemable_id: self.id, 
+                        catalog_id: catalog_id)
+                  .first_or_create(
+                        catalog_itemable_type: 'CommonWork', 
+                        catalog_itemable_id: self.id, 
+                        catalog_id: catalog_id
+                        )
+    else
+      puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+      puts 'ERROR: Unable to add common work to catalog:' 
+      puts 'In CommonWork#add_to_catalog'
+      puts 'catalog_id cant be nil'
+      puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+    end
+      
   end
 
 
@@ -639,7 +644,7 @@ private
   end
   
   def update_uuids
-    AccountCache.update_works_uuid self.account
+    #AccountCache.update_works_uuid self.account
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
 

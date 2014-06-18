@@ -1,14 +1,38 @@
 class AscapScraperWorker
   include Sidekiq::Worker
-  
-  def perform import_klass_name, common_works_import_id
-    import_klass = case import_klass_name
-    when 'AscapMemberScrape'
-      Scraper::AscapMemberScrape::Import
-    when 'AscapScraper'
-      Scraper::AscapScraper::Import
-    end
+
+  def perform user_name, password, account_id, catalog_id, title, body, pro, user_email
+
+    common_works_import = CommonWorksImport.new(
+                                                    account_id: account_id.to_i,
+                                                    catalog_id: catalog_id.to_i,
+                                                    title:      title,
+                                                    body:       body,
+                                                    pro:        pro,
+                                                    user_email: user_email,
+                                                    in_progress: true
+                                                 )
     
-    import_klass.new.start(common_works_import_id)
+    scrape = Scraper::AscapMemberScrape.new user_name, password
+    
+    scrape.start do |info|
+      #ap info
+      #puts "\n--------------------------------\n"
+      puts '.'
+    end
+    #puts "\n\n"
+    #puts "Results: \n"
+    ap scrape.works_details
+    ap scrape.works_details
+    if scrape.works_details
+      common_works_import.params = scrape.works_details
+      common_works_import.save!
+      common_works_import.parse_common_works
+    else
+      puts '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+      puts 'ERROR: Unable to extract common works: works_details nil'
+      puts 'In AscapScraperWorker#perform'
+      puts '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+    end
   end
 end

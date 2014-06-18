@@ -10,7 +10,7 @@ class MoveCommonWorksToCatalogs < ActiveRecord::Migration
       recording       =  catalog_item.catalog_itemable
       common_work     =  recording.common_work
       # add common_work to catalog
-      common_work.add_to_catalog catalog
+      common_work.add_to_catalog catalog.id
     end
   end
   

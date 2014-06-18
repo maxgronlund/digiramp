@@ -1,7 +1,4 @@
-require './lib/scrapers/scraper'
-require './lib/daisy_chain.rb'
-require './lib/table_strip.rb'
-require './lib/all_except.rb'
+require_relative 'scraper'
 
 class Scraper::AscapMemberScrape
   require_relative 'ascap_member_scrape/digiramp_browser'
@@ -30,7 +27,7 @@ class Scraper::AscapMemberScrape
     inform next_stage: :get_work_details          ;get_work_details            ;inform stage_complete: :get_work_details
     inform next_stage: :close_browser             ;close_browser               ;inform stage_complete: :close_browser
     #inform next_stage: :parse_works               ;parse_works                 ;inform stage_complete: :parse_works
-    #inform next_stage: :parse_work_details        ;parse_work_details          ;inform stage_complete: :parse_work_details
+    inform next_stage: :parse_work_details        ;parse_work_details          ;inform stage_complete: :parse_work_details
     
     @done = true
     

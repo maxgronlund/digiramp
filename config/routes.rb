@@ -323,7 +323,7 @@ Digiramp::Application.routes.draw do
         resources :attachments
         resources :catalog_users
         # scrape from performance rights organizations
-        resources :common_work_imports do
+        resources :common_works_imports do
           get "create_pro"
         end
         resources :common_works do

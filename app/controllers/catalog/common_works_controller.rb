@@ -73,7 +73,7 @@ class Catalog::CommonWorksController < ApplicationController
     @common_work           = CommonWork.cached_find(params[:common_work_id])
 
     begin
-      puts params[:recording][:add_to_catalogs]
+      #puts params[:recording][:add_to_catalogs]
       #params[:recording].delete :add_to_catalog
       
       if recordings = TransloaditRecordingsParser.parse( params[:transloadit], @account.id )

@@ -1,5 +1,5 @@
-#require 'watir'
-#require 'watir-webdriver'
+require 'watir'
+require 'watir-webdriver'
 #require 'headless'
 
 class Scraper::AscapMemberScrape::DigirampBrowser

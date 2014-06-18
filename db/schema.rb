@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617175315) do
+ActiveRecord::Schema.define(version: 20140618130631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -510,22 +510,11 @@ ActiveRecord::Schema.define(version: 20140617175315) do
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "common_work_imports", force: true do |t|
-    t.integer  "account_id"
-    t.string   "user_email"
-    t.text     "result"
-    t.string   "pro"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "common_work_imports", ["account_id"], name: "index_common_work_imports_on_account_id", using: :btree
-
   create_table "common_works", force: true do |t|
     t.string   "title"
     t.string   "iswc_code"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.integer  "ascap_work_id"
     t.integer  "account_id"
     t.integer  "common_works_import_id"
@@ -534,12 +523,22 @@ ActiveRecord::Schema.define(version: 20140617175315) do
     t.text     "description"
     t.text     "alternative_titles"
     t.integer  "recording_preview_id"
-    t.string   "step",                   default: "created"
+    t.string   "step",                              default: "created"
     t.text     "lyrics"
     t.integer  "catalog_id"
     t.string   "uuid"
     t.decimal  "completeness"
     t.string   "artwork"
+    t.string   "pro"
+    t.string   "surveyed_work"
+    t.string   "last_distribution"
+    t.string   "work_status"
+    t.string   "ascap_award_winner"
+    t.string   "work_type"
+    t.string   "composite_type"
+    t.string   "arrangement_of_public_domain_work"
+    t.string   "genre"
+    t.string   "submitter_work_id"
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree
@@ -558,9 +557,14 @@ ActiveRecord::Schema.define(version: 20140617175315) do
     t.datetime "updated_at",      null: false
     t.string   "title"
     t.text     "body"
+    t.string   "pro"
+    t.string   "user_email"
+    t.string   "ascap_work_id"
+    t.string   "catalog_id"
   end
 
   add_index "common_works_imports", ["account_id"], name: "index_common_works_imports_on_account_id", using: :btree
+  add_index "common_works_imports", ["catalog_id"], name: "index_common_works_imports_on_catalog_id", using: :btree
 
   create_table "contacts", force: true do |t|
     t.string   "name"
@@ -858,19 +862,23 @@ ActiveRecord::Schema.define(version: 20140617175315) do
     t.string   "role"
     t.integer  "common_work_id"
     t.integer  "import_ipi_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "user_id"
     t.string   "ipi_code"
     t.string   "cae_code"
     t.boolean  "controlled"
     t.string   "territory"
-    t.decimal  "share",          default: 0.0, null: false
-    t.decimal  "mech_owned",     default: 0.0, null: false
-    t.decimal  "mech_collected", default: 0.0, null: false
-    t.decimal  "perf_owned",     default: 0.0, null: false
-    t.decimal  "perf_collected", default: 0.0, null: false
+    t.decimal  "share",                   default: 0.0, null: false
+    t.decimal  "mech_owned",              default: 0.0, null: false
+    t.decimal  "mech_collected",          default: 0.0, null: false
+    t.decimal  "perf_owned",              default: 0.0, null: false
+    t.decimal  "perf_collected",          default: 0.0, null: false
     t.text     "notes"
+    t.string   "pro"
+    t.boolean  "has_agreement"
+    t.boolean  "linked_to_ascap_member"
+    t.boolean  "controlled_by_submitter"
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
