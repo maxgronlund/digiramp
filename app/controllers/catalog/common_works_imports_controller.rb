@@ -11,9 +11,6 @@ class Catalog::CommonWorksImportsController < ApplicationController
   end
   
   def create
-    puts 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx CommonWorksImportsController xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-    ap params
-    puts 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
     AscapScraperWorker.perform_async( params[:common_works_import][:user_name], 
                                       params[:common_works_import][:password],
