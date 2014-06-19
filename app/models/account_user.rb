@@ -33,7 +33,7 @@ class AccountUser < ActiveRecord::Base
   # force the cache to rebuild
   before_destroy  :update_uuids
   after_create    :update_catalog_users
-  after_update    :update_catalog_users
+  #after_update    :update_catalog_users
 
   
   scope :supers,            ->  { where.not( role: 'Super')  }
@@ -50,7 +50,7 @@ class AccountUser < ActiveRecord::Base
   def update_cache
     flush_cache
     # update uuid on the account
-    account.save!
+    self.account.save!
   end
   
   #!!! When is this used
@@ -184,6 +184,8 @@ class AccountUser < ActiveRecord::Base
                                        activated: false)
       self.user_id = new_user.id
       self.save!
+
+      
     end
   end
 
@@ -254,13 +256,38 @@ class AccountUser < ActiveRecord::Base
     return false
   end
   
+  # secure there is a catalog user for all catalogs on the account
+  def mount_to_catalogs
+   
+    self.account.catalogs.each do |catalog|
+
+      catalog_user = CatalogUser.where(user_id:    self.user_id, 
+                                             catalog_id: catalog.id
+                                             )
+                                      .first_or_create(  user_id:     self.user_id, 
+                                                         account_user_id:  self.id,
+                                                         catalog_id: catalog.id
+                                                       )
+
+                                
+    end
+  end
+  
   def update_catalog_users
+
+    # make sure there is access to all catalogs
+    mount_to_catalogs
+    
+    # set the permissions from the account user on the catalog users
     self.catalog_users.each do |catalog_user|
       # copy permissions from the account user
       catalog_user.copy_permissions_from_account_user self
+      
     end
     update_cache
   end
+  
+  
  
 
 private

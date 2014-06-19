@@ -119,6 +119,10 @@ class AccountUsersController < ApplicationController
     # update the account user
     @account_user.update(account_user_params)
     
+    # copy permissions to all catalogs 
+    @account_user.update_catalog_users
+    
+    
     
     # update the white list for the account
     #RecordingsWorker.perform_async(@account_user.id)

@@ -78,7 +78,7 @@ class Catalog::CatalogUsersController < ApplicationController
       # notify if something went wrong
       flash[:danger] = { title: "Error: ", body: "User not invited, If this error persists please contact support" }
     end
-    
+    @catalog_user.attach_to_account_user
     redirect_to catalog_account_catalog_catalog_users_path(@account, @catalog)
   end
 

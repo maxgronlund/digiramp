@@ -40,10 +40,10 @@
                   tbody
                     
                     -  user = current_account_user.user
-                    /= debug user
+                    
                     /= debug CatalogUser.where(account_id: @account.id, user_id: current_user.id)
                     - @catalogs.each do |catalog|
-                      - if catalog_user = catalog.catalog_users.where(user_id: current_user.id).first
+                      - if catalog_user = catalog.catalog_users.where(user_id: current_user.id).last
                         tr
                           td = link_to  catalog.title, \
                                         catalog_account_catalog_path( @account, catalog), \

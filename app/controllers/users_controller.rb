@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   #respond_to :html, :xml, :json, :js
  
   #before_filter :find_user, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user, only: [:show, :edit, :update, :destroy]
+  before_filter :access_user, only: [:show, :edit, :update, :destroy, :index]
 
   def show
     session[:account_id] = @user.account_id

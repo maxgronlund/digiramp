@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   
   def current_account
-    
     return  Account.cached_find( session[:account_id]) if session[:account_id]
     return  Account.cached_find( current_user.account_id ) 
   end

@@ -184,7 +184,7 @@ class User < ActiveRecord::Base
   
   def permits? current_user
     # users can access their own profile
-    return true if current_user.account_id == self.account_id
+    return true if current_user.id == self.id
        
     # super user can access all profiles 
     return true if current_user.role == 'Super'
