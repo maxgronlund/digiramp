@@ -14,7 +14,7 @@
                                                               }, current: 'select'}
       
       - blog = Blog.cached_find('Add Catalog Common Works')
-      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Select Artwork From'}
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Add Artwork'}
 
       .row
         /-if current_user.can_manage 'access recordings', @account
@@ -24,7 +24,7 @@
               == render 'shared/badge', locals: {  \
                                                   blog: blog, \
                                                   post: BlogPost.cached_find( "SELECT FROM COLLECTION" , blog ), \
-                                                  link: catalog_account_catalog_find_common_work_in_collection_path(@account, @catalog), \
+                                                  link: account_account_artworks_path(@account), \
                                                   css_class: 'btn btn-primary', \
                                                   icon: 'fa fa-archive', \
                                                   id: 'add-common-work' \

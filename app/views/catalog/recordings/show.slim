@@ -5,6 +5,7 @@
       == render 'admin/shared/navbar', page: 'account' 
   .do           
     .container
+    
       == render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               catalogs: catalog_account_catalogs_path(@account), \
