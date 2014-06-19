@@ -1,9 +1,0 @@
-.pull-right
-  = link_to edit_account_common_work_recording_image_file_path(@account, @common_work,@recording, @image_file)
-    .btn.btn-primary.btn-lg
-      i class="fa fa-pencil"
-  '&nbsp;
-  = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, @image_file), \
-     data: { confirm: 'Are you shure?' } , method: :delete
-    .btn.btn-danger.btn-lg
-      i class="fa fa-trash-o"
