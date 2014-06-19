@@ -6,7 +6,7 @@ class AccountUser < ActiveRecord::Base
   belongs_to :account
   belongs_to :user
   has_many :customer_events
-  has_many :catalog_users
+  has_many :catalog_users, dependent: :destroy
   
 
   validates_uniqueness_of :user_id, :scope => :account_id
@@ -32,7 +32,7 @@ class AccountUser < ActiveRecord::Base
   
   # force the cache to rebuild
   before_destroy  :update_uuids
-  after_create    :update_catalog_users
+  #after_create    :update_catalog_users
   #after_update    :update_catalog_users
 
   
@@ -257,20 +257,25 @@ class AccountUser < ActiveRecord::Base
   end
   
   # secure there is a catalog user for all catalogs on the account
+  # only use this for account users
   def mount_to_catalogs
    
     self.account.catalogs.each do |catalog|
-
-      catalog_user = CatalogUser.where(user_id:    self.user_id, 
-                                             catalog_id: catalog.id
-                                             )
-                                      .first_or_create(  user_id:     self.user_id, 
-                                                         account_user_id:  self.id,
-                                                         catalog_id: catalog.id
-                                                       )
-
-                                
+      mount_to_catalog catalog                        
     end
+  end
+  
+  # ordanary users when invited
+  def mount_to_catalog catalog
+    
+    catalog_user = CatalogUser.where(user_id:    self.user_id, 
+                                           catalog_id: catalog.id
+                                           )
+                                    .first_or_create(  user_id:     self.user_id, 
+                                                       account_user_id:  self.id,
+                                                       catalog_id: catalog.id
+                                                     )
+                                                     
   end
   
   def update_catalog_users

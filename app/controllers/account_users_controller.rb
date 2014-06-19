@@ -113,7 +113,7 @@ class AccountUsersController < ApplicationController
     
     @account_user = AccountUser.cached_find(params[:id])
     
-    # update the permission key will re render cached views
+    # update the permission key will re-render cached views
     params[:account_user][:permission_key] = UUIDTools::UUID.timestamp_create().to_s
     
     # update the account user
