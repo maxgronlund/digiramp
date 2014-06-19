@@ -42,7 +42,7 @@ class Catalog::RecordingsController < ApplicationController
   
   # return from transloadit
   def create
-    forbidden unless current_account_user.create_recording?
+    forbidden unless current_catalog_user.create_recording?
     @common_work           = CommonWork.cached_find(params[:common_work_id])
     begin
       TransloaditParser.add_to_common_work params[:transloadit], @common_work.id, @account.id
@@ -176,14 +176,14 @@ class Catalog::RecordingsController < ApplicationController
   # catalog users can select artwork for a recording
   # from the catalogs artwork repository
   def new_from_catalog_artworks
-    forbidden unless current_account_user.read_file
+    forbidden unless current_catalog_user.read_file
     @recording      = Recording.find(params[:recording_id])
   end
   
   # create a new recording_item holding a 'Artwork' for a recording
   def create_from_catalog_artworks
 
-    forbidden unless current_account_user.update_file
+    forbidden unless current_catalog_user.update_file
     @recording      = Recording.find(params[:recording_id])
     @remove_tag = "#artwork_#{params[:artwork_id]}"
     
@@ -200,7 +200,7 @@ class Catalog::RecordingsController < ApplicationController
   end
   
   def use_artwork
-    forbidden unless current_account_user.update_file
+    forbidden unless current_catalog_user.update_file
     @recording          = Recording.find(params[:recording_id])
     artwork = Artwork.cached_find(params[:artwork_id])
     #puts '--------------------------------------------'

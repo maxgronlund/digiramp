@@ -45,7 +45,7 @@
                                                         css_class: 'btn btn-primary', \
                                                         icon: 'fa fa-music'\
                                                       }     
-        - if current_account_user.read_file?
+        - if current_catalog_user.read_file?
           /.col-sm-6
           /  == render 'works/shared/badge_button', locals: { \
           /                                             blog_post: 'FOOTAGE', \

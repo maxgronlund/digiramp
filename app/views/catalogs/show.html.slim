@@ -15,7 +15,7 @@
                                                               }, current: @catalog.title}
       
                                                               
-      - insert = current_account_user.update_catalog ? 'edit' : nil
+      - insert = current_catalog_user.update_catalog ? 'edit' : nil
       == render 'shared/page_title_text', locals: {title: @catalog.title, body: @catalog.body, insert: insert}
       
       .row

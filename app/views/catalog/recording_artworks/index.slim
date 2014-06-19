@@ -24,24 +24,25 @@
             '&nbsp;
             'Add From Catalog
         '&nbsp;
+      -if current_account_user.update_recording
         = link_to catalog_account_catalog_artworks_path(@account, @catalog) do
           .btn.btn-success.btn-lg
             i class="fa fa-plus-circle"
             '&nbsp;
             'Add From Collection
             
-        -if current_account_user.update_recording
-          '&nbsp;
-          = link_to catalog_account_catalog_artworks_path(@account, @catalog) do
-            .btn.btn-info.btn-lg
-              i class="fa fa-cloud-upload"
-              '&nbsp;
-              'Upload More
-          
+      -if current_catalog_user.update_recording
+        '&nbsp;
+        = link_to catalog_account_catalog_artworks_path(@account, @catalog) do
+          .btn.btn-info.btn-lg
+            i class="fa fa-cloud-upload"
+            '&nbsp;
+            'Upload More
+        
       br
       br
       .row
-        - if current_account_user.read_file 
+        - if current_catalog_user.read_file 
           -@recording.artworks.each do |artwork|
             == render 'catalog/artworks/index', locals: {artwork: artwork, links: 'catalog/recording_artworks/links'}
           
