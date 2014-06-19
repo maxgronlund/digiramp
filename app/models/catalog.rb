@@ -126,7 +126,7 @@ class Catalog< ActiveRecord::Base
   end
   
   def add_account_user account_user
-
+    puts '---------------- add account user --------------------------------XXXXXXX'
     catalog_user = CatalogUser.create(  user_id: account_user.user_id, 
                                         catalog_id: self.id,
                                         account_id: account_user.account_id,

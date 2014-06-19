@@ -15,11 +15,13 @@ class Catalog::CatalogsController < ApplicationController
   
   def index
     forbidden unless current_account_user.read_catalog
-    @catalogs     = @account.catalogs
+    puts '--------------------- INDEX ------------------------'
+    #@catalogs     = @account.catalogs
     
   end
 
   def show
+    puts '--------------------- SHOW ------------------------'
   end
 
   def new

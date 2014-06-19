@@ -14,8 +14,9 @@
     -blog = Blog.cached_find('Catalog Users')
     == render 'shared/page_title', locals: {blog: blog, blog_post: 'Edit Permissions'}
     =simple_form_for [:catalog, @account, @catalog, @catalog_user] do |f|   
-      = f.hidden_field :account_id, value: @account.id
-      = f.hidden_field :catalog_id, value: @catalog.id
+      = f.hidden_field :account_id,       value: @account.id
+      = f.hidden_field :catalog_id,       value: @catalog.id
+      /= f.hidden_field :catalog_user_id,  value: @catalog_user.id
 
       == render 'form', f: f
       .pull-right

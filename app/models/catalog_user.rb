@@ -12,7 +12,9 @@ class CatalogUser < ActiveRecord::Base
   before_save   :update_uuids
   #after_create  :attach_to_account_user
   after_destroy :update_catalog_counter_cache
-  #before_destroy :before_destroy
+
+  
+
 
   
   scope :invited,           ->  { where.( role: 'Catalog User').order("email asc")  }
@@ -110,17 +112,17 @@ class CatalogUser < ActiveRecord::Base
     self.role   =  'Catalog User' if account_user.role == 'Catalog User'
     self.role   =  'Super User'   if account_user.role == 'Super'
     self.save!
-    ap self
-    puts '++++++++++++++++++++++++++++'
+    #ap self
+    #puts '++++++++++++++++++++++++++++'
   end
   
 private
 
   
   
-  def before_destroy
-
-  end
+  #def before_destroy
+  #
+  #end
   
   def flush_cache
     

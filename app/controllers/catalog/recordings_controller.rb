@@ -20,7 +20,7 @@ class Catalog::RecordingsController < ApplicationController
   end
   
   def edit
-    forbidden unless current_account_user.update_recording?
+    forbidden unless current_catalog_user.update_recording?
     
     @recording      = Recording.find(params[:id])
     
@@ -35,7 +35,7 @@ class Catalog::RecordingsController < ApplicationController
   end
   
   def new
-    forbidden unless current_account_user.create_recording?
+    forbidden unless current_catalog_user.create_recording?
     @common_work    = CommonWork.cached_find(params[:common_work_id])
     @recording      = Recording.new
   end
@@ -56,7 +56,7 @@ class Catalog::RecordingsController < ApplicationController
   end
   
   def update
-    forbidden unless current_account_user.update_recording?
+    forbidden unless current_catalog_user.update_recording?
     #@catalog        = Catalog.find(params[:catalog_id])
     @recording      = Recording.find(params[:id])
     
@@ -90,7 +90,7 @@ class Catalog::RecordingsController < ApplicationController
 
   
   def destroy
-    forbidden unless current_account_user.delete_recording
+    forbidden unless current_catalog_user.delete_recording
     @recording = Recording.find(params[:id])
     common_work = @recording.common_work
     @recording.destroy
