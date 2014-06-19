@@ -4,10 +4,11 @@ class Catalog::AddRecordingsController < ApplicationController
   include CatalogsHelper
   
   before_filter :access_account
-  before_filter :access_catalog, only: [:show, :update, :edit]
+  before_filter :access_catalog
   
   
   def index
-     @catalog = Catalog.cached_find(params[:catalog_id])
+    forbidden unless current_catalog_user.create_recording
+    #@catalog = Catalog.cached_find(params[:catalog_id])
   end
 end
