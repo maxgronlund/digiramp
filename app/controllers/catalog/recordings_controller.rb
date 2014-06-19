@@ -57,9 +57,6 @@ class Catalog::RecordingsController < ApplicationController
   
   def update
     
-    ap params 
-    
-    
     forbidden unless current_catalog_user.update_recording?
     #@catalog        = Catalog.find(params[:catalog_id])
     @recording      = Recording.find(params[:id])
@@ -79,7 +76,7 @@ class Catalog::RecordingsController < ApplicationController
       @recording.extract_moods
 
       
-      
+      # artwork
       if artworks = TransloaditImageParser.catalog_artwork( params[:transloadit], @account.id, @catalog.id )
         # if there is no artwork file
         if artworks == []
@@ -103,11 +100,11 @@ class Catalog::RecordingsController < ApplicationController
                                   itemable_type: 'Artwork',
                                   itemable_id: artwork.id)
                                 
-            @recording.cover_art = artwork.thumb
+            @recording.cover_art      = artwork.thumb
+            @recording.image_file_id  = artwork.id
             @recording.save!
           end
-        end
-        
+        end 
       end
       
       
