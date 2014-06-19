@@ -4,7 +4,7 @@ class Catalog::RecordingsController < ApplicationController
   include AccountsHelper
   include CatalogsHelper
   before_filter :access_account
-  before_filter :access_catalog, only: [:index, :show, :update, :edit, :info, :artwork, :new_from_catalog_artworks]
+  before_filter :access_catalog
   #before_filter :read_recording, only:[:show]
   
   def index
