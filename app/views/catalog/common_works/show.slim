@@ -49,46 +49,46 @@
           
      
         .col-sm-6                                           
-          - if current_account_user.read_recording?
-              == render 'works/shared/badge_button', locals: { \
-                                                          blog_post: 'RECORDINGS', \
-                                                          link: catalog_account_catalog_common_work_recordings_path(@account, @catalog, @common_work), \
-                                                          css_class: 'btn btn-warning', \
-                                                          icon: 'fa fa-headphones'\
-                                                        }
+          - if current_catalog_user.read_recording
+            == render 'works/shared/badge_button', locals: { \
+                                                        blog_post: 'RECORDINGS', \
+                                                        link: catalog_account_catalog_common_work_recordings_path(@account, @catalog, @common_work), \
+                                                        css_class: 'btn btn-warning', \
+                                                        icon: 'fa fa-headphones'\
+                                                      }
             
-      /  /- if current_account_user.createx_user? || current_account_user.update_account_user? || current_account_user.delete_account_user?
-      /  /    == render 'works/shared/badge_button', locals: { \
-      /  /                                               blog_post: 'USERS', \
-      /  /                                               link: account_work_work_users_path(@account, @common_work), \
-      /  /                                               css_class: 'btn btn-default', \
-      /  /                                               icon: 'fa fa-group' \
-      /  /                                             }
-      /  /  
-      /  -if current_account_user.read_file
-      /      == render 'works/shared/badge_button', locals: { \ 
-      /                                                blog_post: 'FILES', \
-      /                                                link: account_work_work_files_path(@account, @common_work), \
-      /                                                css_class: 'btn btn-success', \
-      /                                                icon: 'fa fa-folder' \
-      /                                               }
-      /    
-      /  -if current_account_user.read_common_work_ipi
-      /      == render 'works/shared/badge_button', locals: { \ 
-      /                                                blog_post: 'IPIS', \
-      /                                                link: account_work_work_ipis_path(@account, @common_work), \
-      /                                                css_class: 'btn btn-info', \
-      /                                                icon: 'fa fa-exclamation-circle' \
-      /                                               }
-      /  
-      /   
-      / 
-      /
-      /
-      /
-      /
-      /
-      /
+            /- if current_account_user.createx_user? || current_account_user.update_account_user? || current_account_user.delete_account_user?
+            /    == render 'works/shared/badge_button', locals: { \
+            /                                               blog_post: 'USERS', \
+            /                                               link: account_work_work_users_path(@account, @common_work), \
+            /                                               css_class: 'btn btn-default', \
+            /                                               icon: 'fa fa-group' \
+            /                                             }
+            /  
+          /-if current_catalog_user.read_file
+          /    == render 'works/shared/badge_button', locals: { \ 
+          /                                              blog_post: 'FILES', \
+          /                                              link: catalog_account_catalog_common_work_files_path(@account, @common_work), \
+          /                                              css_class: 'btn btn-success', \
+          /                                              icon: 'fa fa-folder' \
+          /                                             }
+          /  
+          /-if current_catalog_user.read_common_work_ipi
+          /    == render 'works/shared/badge_button', locals: { \ 
+          /                                              blog_post: 'IPIS', \
+          /                                              link: account_work_work_ipis_path(@account, @common_work), \
+          /                                              css_class: 'btn btn-info', \
+          /                                              icon: 'fa fa-exclamation-circle' \
+          /                                             }
+          /
+          / 
+       
+      
+      
+      
+      
+      
+      
      
      
      
