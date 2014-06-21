@@ -79,6 +79,12 @@ class Account < ActiveRecord::Base
   
   # update the uuid so all cached segments expires
   before_save :set_uuid
+  
+  #def hello_world
+  #    Pusher['test_channel'].trigger('my_event', {
+  #      message: 'hello world'
+  #    })
+  #end
 
   # make sure the administrator is the account owner up on creation
   def initialize_account

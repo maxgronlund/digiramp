@@ -28,3 +28,8 @@
 
 
 
+$(function() {
+  var pusher    = new Pusher('d70ad0d20fdef342dd05');
+  var channel   = pusher.subscribe('my_notifications');
+  var notifier  = new PusherNotifier(channel);
+});

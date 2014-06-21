@@ -1,3 +1,15 @@
+require 'pusher'
+
+
+
+
+
+
+
+
+
+
+
 class Catalog::CatalogsController < ApplicationController
   
   include AccountsHelper
@@ -17,6 +29,10 @@ class Catalog::CatalogsController < ApplicationController
     forbidden unless current_account_user.read_catalog
     puts '--------------------- INDEX ------------------------'
     #@catalogs     = @account.catalogs
+    Pusher.trigger('my-channel', 'digiramp-event', {:message => 'hello world max'})
+    
+    data = {'message' => 'This is an HTML5 Realtime Push Notification!'}
+    Pusher['my_notifications'].trigger('notification', data)
     
   end
 
