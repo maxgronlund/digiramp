@@ -81,10 +81,11 @@ class Catalog::RecordingsController < ApplicationController
         # if there is no artwork file
         if artworks == []
           # if a drop down item is selected
-          if params[:recording][:image_file_id]   
+          begin
             artwork = Artwork.cached_find(params[:recording][:image_file_id])
             @recording.cover_art  = artwork.thumb
             @recording.save!
+          rescue
           end
         else
           # add the uploaded artwork
