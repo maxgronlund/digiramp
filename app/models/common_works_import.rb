@@ -11,11 +11,11 @@ class CommonWorksImport < ActiveRecord::Base
   
   
   def parse_common_works
-    ap self
+    #ap self
     self.imported_works = 0
     self.params.each do |param|
       
-      begin
+      #begin
         common_work = CommonWork.where( ascap_work_id:  param[:ascap_work_id].to_i,
                                         account_id:     self.account_id
                                       )
@@ -54,10 +54,10 @@ class CommonWorksImport < ActiveRecord::Base
         end
           
         # save
-        common_work.save!
+        common_work.save!common_work
         
         # parse ipis
-        parse_ipis common_work.id, param[:ipis]
+        parse_ipis common_work.id, param[:ipis], common_work.ascap_work_id
         
         
         # set health
@@ -67,15 +67,15 @@ class CommonWorksImport < ActiveRecord::Base
         self.imported_works += 1
         
         # add to catalog
-        common_work.add_to_catalog self.catalog_id
+        add_to_catalog common_work, self.catalog_id
 
-      rescue
-        puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-        puts 'ERROR: Unable to parse ascap common work:' 
-        puts 'In CommonWorksImport#parse_common_works'
-        ap params
-        puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-      end
+      #rescue
+      #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+      #  puts 'ERROR: Unable to parse ascap common work:' 
+      #  puts 'In CommonWorksImport#parse_common_works'
+      #  ap params
+      #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+      #end
     end
     # not in progress
     self.in_progress = false
@@ -83,19 +83,49 @@ class CommonWorksImport < ActiveRecord::Base
     
   end
   
-  def parse_ipis common_work_id, ipis
+  def add_to_catalog common_work, catalog_id
+
+    if catalog_id
+      CatalogItem.where(catalog_itemable_type: 'CommonWork', 
+                        catalog_itemable_id: common_work.id, 
+                        catalog_id: catalog_id)
+                  .first_or_create(
+                        catalog_itemable_type: 'CommonWork', 
+                        catalog_itemable_id: common_work.id, 
+                        catalog_id: catalog_id
+                        )
+    else
+      puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+      puts 'ERROR: Unable to add common work to catalog:' 
+      puts 'In CommonWork#add_to_catalog'
+      puts 'catalog_id cant be nil'
+      puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+    end
+      
+  end
+  
+  def parse_ipis common_work_id, ipis, ascap_work_id
+    puts '+++++++++++++++++++++  PARSE IPIS ++++++++++++++++++++++++++++'
     ipis.each do |ipi_scrape|
-      ipi = Ipi.where(common_work_id: common_work_id, ipi_code: ipi_scrape[:ipi_number] )
+      ipi = Ipi.where(common_work_id: common_work_id, 
+                      ipi_code: ipi_scrape[:ipi_number] )
                .first_or_create( common_work_id:  common_work_id, 
                                  ipi_code:        ipi_scrape[:ipi_number]
                                 )
-      ipi.pro                      = ipi_scrape[:society]
-      ipi.perf_owned               = ipi_scrape[:own_percent]
-      ipi.perf_collected           = ipi_scrape[:collect_percent]
-      ipi.has_agreement            = ipi_scrape[:has_agreement]
-      ipi.linked_to_ascap_member   = ipi_scrape[:linked_to_ascap_member]
-      ipi.controlled_by_submitter  = ipi_scrape[:controlled_by_submitter]
+      
+      ipi.full_name                 = ipi_scrape[:full_name]
+      ipi.role                      = ipi_scrape[:role]
+      ipi.pro                       = ipi_scrape[:society]
+      ipi.perf_owned                = ipi_scrape[:own_percent]
+      ipi.perf_collected            = ipi_scrape[:collect_percent]
+      ipi.has_agreement             = ipi_scrape[:has_agreement]
+      ipi.linked_to_ascap_member    = ipi_scrape[:linked_to_ascap_member]
+      ipi.controlled_by_submitter   = ipi_scrape[:controlled_by_submitter]
+      ipi.ascap_work_id             = ascap_work_id
       ipi.save!
+      puts '+++++++++++++++++++++++ LOGGING IPI ++++++++++++++++++++++++++'
+      ap ipi
+      puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
     end
     
   end

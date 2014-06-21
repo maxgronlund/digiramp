@@ -7,6 +7,9 @@
 -account_user     = locals[:account_user]
 -account          = account_user.account
 
+
+
+
 = link_to link do
   div class="#{css_class}"
     .panel-heading
@@ -22,26 +25,3 @@
   
 
       
-      
-      
-/.account-badge
-/  = link_to link do
-/    .panel.panel-primary
-/      .panel-heading
-/         = title
-/      .panel-body
-/        .account-badge-body
-/          = simple_format body
-/        .pull-right
-/          -unless account_user.user.id == account.user_id
-/           '&nbsp;
-/           = link_to account_account_user_path(account, account_user), data: { confirm: 'Are you sure?' } , method: :delete, id: "delete_customer_#{account_user.id.to_s}" do
-/             .btn.btn-danger.btn-lg
-/               i class="fa fa-times"
-/          -else
-/            '&nbsp;
-/            = link_to '#' do
-/              .btn.btn-danger.btn-lg.disabled
-/                i class="fa fa-times"
-/          
-/  

@@ -56,20 +56,23 @@ class Admin::AccountsController < ApplicationController
   
   def delete_common_works
     @account = Account.cached_find(params[:account_id])
-    @account.common_works.delete_all
+    @account.common_works.destroy_all
     AccountCache.update_works_uuid @account
+    @account.update_assets_count
     redirect_to :back
   end
   
   def delete_recordings
     @account = Account.cached_find(params[:account_id])
-    @account.recordings.delete_all
+    @account.recordings.destroy_all
+    @account.update_assets_count
     redirect_to :back
   end
   
   def delete_documents
     @account = Account.cached_find(params[:account_id])
-    @account.attachments.delete_all
+    @account.attachments.destroy_all
+    @account.update_assets_count
     redirect_to :back
   end
   

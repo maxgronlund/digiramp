@@ -15,13 +15,100 @@
     
                                          
     
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'IPIS'}
-      .panel.panel-primary
-        .panel-heading
-          = @common_work.title
-        .panel-body
-          = debug @common_work.ipis
-              
+      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'IPIS'}
+      - blog          = Blog.cached_find('Ipis')
+      - blog_post     = BlogPost.cached_find( 'common work ipis' , blog )
+      - edit_link     = edit_admin_blog_blog_post_path(blog, blog_post)
+      == render 'shared/page_title_text', locals: {title: @common_work.title, body: blog_post.body, edit_link: edit_link }
+      - @common_work.ipis.each do |ipi|
+        
+       .panel.panel-primary
+         .panel-heading
+           = ipi.full_name
+         .panel-body
+           .row
+             .col-sm-4
+               .table-responsive
+                 table class="table table-hover"
+                   tbody
+                     tr
+                       td 
+                         b Role:
+                       td 
+                         b = ipi.role
+                     tr
+                       td PRO:
+                       td  = ipi.pro
+                     tr
+                       td Address:
+                       td  = ipi.address
+                     tr
+                       td Email:
+                       td  = ipi.email
+                     tr
+                       td Phone Number
+                       td = ipi.phone_number
+                     tr
+                       td IPI Code:
+                       td  = ipi.ipi_code
+                     tr
+                       td CAE Code:
+                       td  = ipi.cae_code 
+             .col-sm-4
+               .table-responsive
+                 table class="table table-hover"
+                   tbody
+                     tr
+                       td  Controlled:
+                       td  = ipi.controlled
+                     tr
+                       td Territory:
+                       td  = ipi.territory
+                     tr
+                       td Share:
+                       td  = ipi.share
+                     tr
+                       td Mechanical Owned
+                       
+                       td = ipi.mech_owned
+                     tr
+                       td Mechanical Collected:
+                       td  = ipi.mech_collected
+                     tr
+                       td Performance Owned:
+                       td = number_to_percentage(ipi.perf_owned, precision: 0) 
+                     tr
+                       td Performance Collected:
+                       td = number_to_percentage(ipi.perf_collected, precision: 0) 
+             .col-sm-4
+               .table-responsive
+                 table class="table table-hover"
+                   tbody
+                     tr
+                       td  Notes:
+                       td  = ipi.notes
+                     tr
+                       td Has Agreement:
+                       td  = ipi.has_agreement
+                     tr
+                       td Share:
+                       td  = ipi.share
+                     tr
+                       td Linked to ASCAP Member
+                       td = ipi.linked_to_ascap_member
+                     tr
+                       td Controlled By Submitter:
+                       td  = ipi.controlled_by_submitter
+                     tr
+                       td Ascap Work Id:
+                       td  = ipi.ascap_work_id
+                     tr
+                       td 
+                       td 
+
+          
+
+
         
 
      

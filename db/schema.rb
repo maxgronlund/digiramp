@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140619182710) do
+ActiveRecord::Schema.define(version: 20140621181748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -879,6 +879,7 @@ ActiveRecord::Schema.define(version: 20140619182710) do
     t.boolean  "has_agreement"
     t.boolean  "linked_to_ascap_member"
     t.boolean  "controlled_by_submitter"
+    t.string   "ascap_work_id"
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree

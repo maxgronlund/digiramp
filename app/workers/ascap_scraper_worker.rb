@@ -22,8 +22,8 @@ class AscapScraperWorker
     end
     #puts "\n\n"
     #puts "Results: \n"
-    ap scrape.works_details
-    ap scrape.works_details
+    #ap scrape.works_details
+    
     if scrape.works_details
       common_works_import.params = scrape.works_details
       common_works_import.save!

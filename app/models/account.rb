@@ -61,7 +61,12 @@ class Account < ActiveRecord::Base
   
   # search against
   include PgSearch
-  pg_search_scope :search_account, against: [:title, :description, :contact_first_name, :contact_last_name, :contact_email, :fax], :using => [:tsearch]
+  pg_search_scope :search_account, against: [ :title, 
+                                              :description, 
+                                              :contact_first_name, 
+                                              :contact_last_name, 
+                                              :contact_email, 
+                                              :fax], :using => [:tsearch]
   
   
   # make sure the administrator is the account owner up on creation
@@ -400,6 +405,12 @@ class Account < ActiveRecord::Base
   #def recording_ids
   #  
   #end
+  
+  def update_assets_count
+    self.catalogs.each do |catalog|
+      catalog.update_assets_count
+    end
+  end
 
   
 private

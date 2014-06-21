@@ -74,6 +74,7 @@ gem 'transloadit-rails'
 gem 'uuidtools'
 #gem 'jquery-ui-rails'
 gem "rails-erd"
+gem 'gravatarify', '~> 3.0.0'
 #gem "font-awesome-rails" #<<------- not working on all devices ;-(
 
 

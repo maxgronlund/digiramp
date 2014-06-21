@@ -134,6 +134,7 @@ class Catalog::RecordingsController < ApplicationController
     
   end
   
+  # after recordings returns from transloadet
   def upload_completed
     @recording      = Recording.find(params[:recording_id])
     @recording.extract_metadata
@@ -148,7 +149,9 @@ class Catalog::RecordingsController < ApplicationController
       @recording.cache_version += 1
       @recording.save
       @recording.common_work.update_completeness
-    end                        
+    end 
+    
+    @catalog.count_recordings                       
   end
   
   

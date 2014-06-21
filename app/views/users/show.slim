@@ -5,49 +5,141 @@
       == render 'admin/shared/navbar', page: 'profile'     
   .container
     ==render 'admin/shared/messages'
-    -cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
-      .do   
+    /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
+    .do   
       == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name} 
       
                                                            
       == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Dashboard'}
-      - account_users = AccountUser.where(user_id: @user.id)
+      
+      - account_user = AccountUser.where(account_id: @user.account_id, user_id: @user.id).first
       .row
-        - account_user = AccountUser.where(account_id: @user.account_id, user_id: @user.id).first
-        .col-sm-4
-          == render 'shared/account_badge', locals: { \
-                                                       title: account_user.account.title, \
-                                                       body: account_user.account.description, \
-                                                       link: account_path( account_user.account ), \
-                                                       css_class: "panel panel-warning", \
-                                                       icon: 'fa fa-tachometer', \
-                                                       id: account_user.account.id, \
-                                                       account_user: account_user \
-                                                     }
-        - account_users.each do |account_user|
-          - unless account_user.account.user_id == @user.id
-            .col-sm-4
-            
-              == render 'shared/account_badge', locals: { \
-                                                           title: account_user.account.title, \
-                                                           body: account_user.account.description, \
-                                                           link: account_path( account_user.account ), \
-                                                           css_class: "panel panel-primary", \
-                                                           icon: 'fa fa-tachometer', \
-                                                           id: account_user.account.id, \
-                                                           account_user: account_user \
-                                                         }
+        .col-sm-6
+          .row
+            .col-sm-12
+              .panel.panel-primary
+                .panel-heading
+                  'ACCOUNT INFO
+                .panel-body
+                  .logo
+                    .thumbnail
+                      
+                      = image_tag @user.account.logo_url(:default) || 'account-logo.jpg'
+                  
+                
+                  = simple_format @user.account.description
+                  
+                  
+                  .pull-right
+                    = link_to 'Collection', account_path( @user.account ), class: 'btn btn-success btn-lg'
+                    '&nbsp;
+                    = link_to 'Edit Account', edit_user_account_path(@user, @user.account_id), class: 'btn btn-primary btn-lg'
+                    
+                    /= link_to 'User Settings', edit_user_path(@user), class: 'btn btn-primary btn-lg'
               
-        
-        
-        
-        
-        
+            .col-sm-12
+              .panel.panel-primary
+                .panel-heading
+                  'USER INFO
+                .panel-body
+                  .media
+                    .pull-left
+                      .logo
+                        = gravatar_tag @user.email, :size => 120, class: "media-object"
 
-      .pull-right
-        = link_to 'Edit Account', edit_user_account_path(@user, @user.account_id), class: 'btn btn-primary btn-lg'
-        '&nbsp;
-        = link_to 'User Settings', edit_user_path(@user), class: 'btn btn-primary btn-lg'
+                    .media-body
+                      h4 class="media-heading" =@user.full_name
+                      = @user.email
+                  br
+                  = simple_format @user.profile
+                  .pull-right
+                    = link_to 'User Settings', edit_user_path(@user), class: 'btn btn-primary btn-lg'
+                  
+                  /= debug @user
+                  
+            .col-sm-12
+              - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
+              - accounts = Account.order('title asc').where(id: account_ids)
+              .panel.panel-primary
+                .panel-heading
+                  'COLLECTIONS
+                .panel-body
+                  .table-responsive
+                    table class="table table-hover"
+                      tbody
+                        - accounts.each do |account|
+                          tr
+                            td = link_to account.title, account_path( account ), class: 'btn btn-default btn-lg'
+                            
+        .col-sm-6
+          .row
+            .col-sm-12
+              - catalog_ids = CatalogUser.where(user_id: @user.id ).pluck(:catalog_id)
+              - catalogs = Catalog.order('title asc').where(id: catalog_ids)
+              .panel.panel-primary
+                .panel-heading
+                  'CATALOGS
+                .panel-body
+                  .table-responsive
+                    table class="table table-hover"
+                      thead
+                        tr
+                          th CATALOG
+                          th
+                          th
+                          
+                      
+                      tbody
+                        -catalogs.each do |catalog|
+                          - catalog_user = CatalogUser.cached_where(catalog.id, @user.id)
+                          tr
+                            td = link_to catalog.title, catalog_account_catalog_path(catalog.account, catalog), class: 'btn btn-primary btn-lg'
+                            td
+                              
+                              = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do 
+                                 div class="btn btn-warning btn-lg #{'disabled' unless catalog_user.read_recording}"
+                                    i class='fa fa-headphones'
+                                    '&nbsp;
+                                    =catalog.nr_recordings
+                            td      
+                              /= link_to  account_path( catalog.account ) do
+                              /  .btn.btn-default.btn-lg
+                              /    i class="fa fa-eye"
+                              
+            
+                             
+                        
+              
+          /== render 'shared/account_badge', locals: { \
+          /                                             title: account_user.account.title, \
+          /                                             body: account_user.account.description, \
+          /                                             link: account_path( account_user.account ), \
+          /                                             css_class: "panel panel-warning", \
+          /                                             icon: 'fa fa-tachometer', \
+          /                                             id: account_user.account.id, \
+          /                                             account_user: account_user \
+          /                                           }
+        /- account_users.each do |account_user|
+        /  - unless account_user.account.user_id == @user.id
+        /    .col-sm-4
+        /    
+        /      == render 'shared/account_badge', locals: { \
+        /                                                   title: account_user.account.title, \
+        /                                                   body: account_user.account.description, \
+        /                                                   link: account_path( account_user.account ), \
+        /                                                   css_class: "panel panel-primary", \
+        /                                                   icon: 'fa fa-tachometer', \
+        /                                                   id: account_user.account.id, \
+        /                                                   account_user: account_user \
+        /                                                 }
+        /      
+        /
+        /
+        /
+        /
+        /
+
+      
         /.row
         /  .col-sm-6
         /    == render 'users/shared/badge_button', locals: { \

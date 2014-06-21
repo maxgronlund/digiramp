@@ -193,6 +193,15 @@ class User < ActiveRecord::Base
     return false
   end
   
+  def full_name
+    full_name = self.name
+    if self.first_name && self.last_name
+      full_name = self.first_name + ' ' + self.last_name
+    end
+    
+    full_name
+  end
+  
   #def can_access_recordings? account
   #  if account_user = AccountUser.cached_find( id)
   #    return true if account_user.access_to_all_recordings
