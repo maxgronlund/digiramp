@@ -56,7 +56,7 @@ class Catalog::RecordingsController < ApplicationController
   end
   
   def update
-    
+    ap params
     forbidden unless current_catalog_user.update_recording?
     #@catalog        = Catalog.find(params[:catalog_id])
     @recording      = Recording.find(params[:id])
@@ -71,41 +71,42 @@ class Catalog::RecordingsController < ApplicationController
     params[:recording].delete :catalog_id
     
     if @recording.update_attributes(recording_params)
-      @recording.extract_genres
-      @recording.extract_instruments
-      @recording.extract_moods
+       @recording.extract_genres
+       @recording.extract_instruments
+       @recording.extract_moods
 
       
       # artwork
-      if artworks = TransloaditImageParser.catalog_artwork( params[:transloadit], @account.id, @catalog.id )
-        # if there is no artwork file
-        if artworks == []
-          # if a drop down item is selected
-          begin
-            artwork = Artwork.cached_find(params[:recording][:image_file_id])
-            @recording.cover_art  = artwork.thumb
-            @recording.save!
-          rescue
-          end
-        else
-          # add the uploaded artwork
-          # notice there is only one artwork file
-          artworks.each do |artwork|
-            CatalogItem.create( catalog_id: @catalog.id, 
-                                catalog_itemable_type: 'Artwork',
-                                catalog_itemable_id: artwork.id)
-                                
-                                
-                                
-            RecordingItem.create( recording_id: @recording.id, 
-                                  itemable_type: 'Artwork',
-                                  itemable_id: artwork.id)
-                                
-            @recording.cover_art      = artwork.thumb
-            @recording.image_file_id  = artwork.id
-            @recording.save!
-          end
-        end 
+      if params[:transloadit]
+        if artworks = TransloaditImageParser.catalog_artwork( params[:transloadit], @account.id, @catalog.id )
+          # if there is no artwork file
+          if artworks == []
+            # if a drop down item is selected
+            if params[:recording][:image_file_id]   
+              artwork = Artwork.cached_find(params[:recording][:image_file_id])
+              @recording.cover_art  = artwork.thumb
+              @recording.save!
+            end
+          else
+            # add the uploaded artwork
+            # notice there is only one artwork file
+            artworks.each do |artwork|
+              CatalogItem.create( catalog_id: @catalog.id, 
+                                  catalog_itemable_type: 'Artwork',
+                                  catalog_itemable_id: artwork.id)
+                                  
+                                  
+                                  
+              RecordingItem.create( recording_id: @recording.id, 
+                                    itemable_type: 'Artwork',
+                                    itemable_id: artwork.id)
+                                  
+              @recording.cover_art      = artwork.thumb
+              @recording.image_file_id  = artwork.id
+              @recording.save!
+            end
+          end 
+        end
       end
       
       
