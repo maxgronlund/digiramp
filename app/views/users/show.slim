@@ -57,20 +57,20 @@
                   
                   /= debug @user
                   
-            .col-sm-12
-              - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
-              - accounts = Account.order('title asc').where(id: account_ids)
-              .panel.panel-primary
-                .panel-heading
-                  'COLLECTIONS
-                .panel-body
-                  .table-responsive
-                    table class="table table-hover"
-                      tbody
-                        - accounts.each do |account|
-                          tr
-                            td = link_to account.title, account_path( account ), class: 'btn btn-default btn-lg'
-                            
+            /.col-sm-12
+            /  - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
+            /  - accounts = Account.order('title asc').where(id: account_ids)
+            /  .panel.panel-primary
+            /    .panel-heading
+            /      'COLLECTIONS
+            /    .panel-body
+            /      .table-responsive
+            /        table class="table table-hover"
+            /          tbody
+            /            - accounts.each do |account|
+            /              tr
+            /                td = link_to account.title, account_path( account ), class: 'btn btn-default btn-lg'
+            /                
         .col-sm-6
           .row
             .col-sm-12

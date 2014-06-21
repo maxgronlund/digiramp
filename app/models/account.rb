@@ -66,7 +66,12 @@ class Account < ActiveRecord::Base
                                               :contact_first_name, 
                                               :contact_last_name, 
                                               :contact_email, 
-                                              :fax], :using => [:tsearch]
+                                              :fax,
+                                              :street_address,
+                                              :city,
+                                              :state,
+                                              :postal_code
+                                            ], :using => [:tsearch]
   
   
   # make sure the administrator is the account owner up on creation
