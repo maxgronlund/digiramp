@@ -9,6 +9,8 @@ class AscapScraperWorker
   #end
 
   def perform user_name, password, account_id, catalog_id, title, body, pro, user_email
+    
+    CommonWorksImport.post_info user_email,  {start: 'starting'}
 
     common_works_import = CommonWorksImport.new(
                                                     account_id: account_id.to_i,
@@ -21,13 +23,10 @@ class AscapScraperWorker
                                                  )
     
     scrape = Scraper::AscapMemberScrape.new user_name, password
-    
 
-    
     scrape.start do |info|
 
       if info[:error] 
-
          CommonWorksImport.post_info user_email, info
       else
         #ap info
