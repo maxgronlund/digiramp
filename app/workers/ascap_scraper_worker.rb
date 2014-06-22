@@ -27,7 +27,7 @@ class AscapScraperWorker
     scrape.start do |info|
 
       if info[:error] 
-         CommonWorksImport.post_info user_email, info
+         CommonWorksImport.post_info user_email, {error: 'error'}
       else
         #ap info
         #puts "\n-------------- INFO ------------------\n"

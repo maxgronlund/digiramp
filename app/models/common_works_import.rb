@@ -154,6 +154,7 @@ class CommonWorksImport < ActiveRecord::Base
   #end
   
   def self.post_info user_email, info
+    ap info
     
     if info[:error]
       channel = 'digiramp_radio_' + user_email
@@ -165,6 +166,7 @@ class CommonWorksImport < ActiveRecord::Base
                                             })
  
     end
+
   end
   
 
