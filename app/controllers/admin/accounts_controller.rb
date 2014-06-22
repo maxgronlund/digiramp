@@ -37,6 +37,25 @@ class Admin::AccountsController < ApplicationController
     else
       flash[:success] = { title: "SUCCESS: ", body: "Account updated" }
     end
+    
+    # the account owner can create opertunities
+    if @account.create_oppertunities
+      account_user = AccountUser.cached_where(@account.id, @account.user_id)
+      account_user.create_oppertunity = true
+      account_user.read_oppertunity = true
+      account_user.save!
+    else
+      # no account_users can create oppertunities
+      @account.account_users.each do |account_user|
+        account_user.create_oppertunity   = false
+        account_user.read_oppertunity     = false
+        account_user.update_oppertunity   = false
+        account_user.delete_oppertunity   = false
+        account_user.save!
+      end
+    end
+    
+    
     # go to the account
     redirect_to admin_account_path( @account)
   end

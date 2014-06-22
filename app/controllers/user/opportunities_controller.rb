@@ -4,7 +4,7 @@ class User::OpportunitiesController < ApplicationController
 
   
   def index
-    
+    forbidden unless @user.account.read_oppertunities
   end
 
   

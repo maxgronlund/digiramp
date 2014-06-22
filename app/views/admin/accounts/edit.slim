@@ -34,6 +34,17 @@
               'Expiration Date
             .panel-body
               =f.input :expiration_date, label: false
+
+
+          .panel.panel-primary
+            .panel-heading
+              'Oppertunities
+            .panel-body
+              .row
+                .col-sm-6
+                  = f.input :create_oppertunities
+                .col-sm-6
+                  = f.input :read_oppertunities
         .col-sm-6
           .panel.panel-primary
             .panel-heading

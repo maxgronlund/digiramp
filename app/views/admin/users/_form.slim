@@ -15,18 +15,22 @@
           = f.input :email
           = f.input :password, autocomplete: :off
           = f.input :password_confirmation, autocomplete: :off
+    
     .col-sm-6
-      .panel.panel-primary
-        .panel-heading
-          'Description
-        .panel-body
-          = f.input :image
-          div id="toolbar" class="wysihtml5-toolbar"
-            a data-wysihtml5-command="bold" Bold
-            '&nbsp; 
-            a data-wysihtml5-command="italic" Italic
-          
-          =f.input :profile, label: false, :input_html => {  style: "height: 399px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+      .row
+        .col-sm-12
+          .panel.panel-primary
+            .panel-heading
+              'Description
+            .panel-body
+              = f.input :image
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+              
+              =f.input :profile, label: false, :input_html => {  style: "height: 250px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+      
     .col-sm-12
       .pull-right
         = f.submit 'Save', class: 'btn btn-primary btn-lg'

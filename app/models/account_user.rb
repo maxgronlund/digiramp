@@ -292,8 +292,13 @@ class AccountUser < ActiveRecord::Base
     update_cache
   end
   
-  
+  def has_access_to_opertunities
+    return true if self.read_oppertunity
+    return true if self.role == 'Super'
+    return false
+  end
  
+
 
 private
 

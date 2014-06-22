@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @oppertunity.title
+p
+  strong Body:
+  = simple_format @oppertunity.body
+p
+  strong Kind:
+  = @oppertunity.kind
+p
+  strong Budget:
+  = @oppertunity.budget
+p
+  strong Deadline:
+  = @oppertunity.deadline
+p
+  strong Account:
+  = @oppertunity.account
+
+/= link_to 'Edit', edit_oppertunity_path(@oppertunity)
+/'|
+/= link_to 'Back', oppertunities_path

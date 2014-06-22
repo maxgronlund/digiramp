@@ -45,7 +45,10 @@
                   .media
                     .pull-left
                       .logo
-                        = gravatar_tag @user.email, :size => 120, class: "media-object"
+                        -if @user.image
+                          = image_tag @user.image_url :avatar_120x120
+                        -else
+                          = gravatar_tag @user.email, :size => 120, class: "media-object"
 
                     .media-body
                       h4 class="media-heading" =@user.full_name
@@ -72,14 +75,15 @@
                                                           css_class: 'btn btn-warning', \
                                                           icon: 'fa fa-tachometer' \
                                                         }
-            .col-sm-12
-              == render 'users/shared/badge_button', locals: { \
-                                                          blog_post: 'OPPORTUNITIES', \
-                                                          link: user_user_opportunities_path(@user), \
-                                                          css_class: 'btn btn-danger', \
-                                                          icon: 'fa fa-plane' \
-                                                        }
-                            
+            - if account_user.has_access_to_opertunities
+              .col-sm-12
+                == render 'users/shared/badge_button', locals: { \
+                                                            blog_post: 'OPPORTUNITIES', \
+                                                            link: user_user_opportunities_path(@user), \
+                                                            css_class: 'btn btn-danger', \
+                                                            icon: 'fa fa-plane' \
+                                                          }
+                              
               
           /== render 'shared/account_badge', locals: { \
           /                                             title: account_user.account.title, \

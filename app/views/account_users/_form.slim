@@ -87,6 +87,22 @@
             td = f.input   :read_playlist, label: 'Read'
             td = f.input :update_playlist, label: 'Update'
             td = f.input :delete_playlist, label: 'Delete'
+          
+          -if @account.create_oppertunities || @account.read_oppertunities 
+            tr
+              td
+                h4 Oppertunities
+              td
+                -if @account.create_oppertunities
+                  = f.input :create_oppertunity, label: 'Create'
+              td 
+                = f.input   :read_oppertunity, label: 'Read'
+              td 
+                -if @account.create_oppertunities
+                  = f.input :update_oppertunity, label: 'Update'
+              td
+                -if @account.create_oppertunities
+                  = f.input :delete_oppertunity, label: 'Delete'
           tr
             td
               h4 CRM

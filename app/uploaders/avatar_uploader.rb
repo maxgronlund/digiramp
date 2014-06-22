@@ -40,30 +40,29 @@ class AvatarUploader < CarrierWave::Uploader::Base
   self.version_dimensions.keys.each do |a_version|
     eval <<-EOT
       version :#{a_version} do
-        process :manualcrop
         process :resize_to_fill => self.version_dimensions[:#{a_version}] << RESIZE_GRAVITY
       end
 EOT
   end
 
-  def manualcrop
-    return unless model.cropping?
-    return if model.crop_params[version_name.to_sym].blank?
+  #def manualcrop
+  #  return unless model.cropping?
+  #  return if model.crop_params[version_name.to_sym].blank?
+  #
+  #  model.get_crop_version!(version_name)
+  #
+  #  manipulate_crop! do |img|
+  #    img.crop("#{model.crop_w.to_i}x#{model.crop_h.to_i}+#{model.crop_x.to_i}+#{model.crop_y.to_i}")
+  #  end
+  #end
 
-    model.get_crop_version!(version_name)
-
-    manipulate_crop! do |img|
-      img.crop("#{model.crop_w.to_i}x#{model.crop_h.to_i}+#{model.crop_x.to_i}+#{model.crop_y.to_i}")
-    end
-  end
-
-  def manipulate_crop!
-    crop_image = ::MiniMagick::Image.open(current_path)
-    yield(crop_image)
-    crop_image.write(current_path)
-  rescue => e
-    raise CarrierWave::ProcessingError.new("Failed to manipulate with MiniMagick, maybe it is not an image? Original Error: #{e}")
-  end
+  #def manipulate_crop!
+  #  crop_image = ::MiniMagick::Image.open(current_path)
+  #  yield(crop_image)
+  #  crop_image.write(current_path)
+  #rescue => e
+  #  raise CarrierWave::ProcessingError.new("Failed to manipulate with MiniMagick, maybe it is not an image? Original Error: #{e}")
+  #end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

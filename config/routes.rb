@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
 
   
+  
+
   resources :gitter, only: [:index]
   #resources :footages
   #resources :pro_affiliations
@@ -297,6 +299,7 @@ Digiramp::Application.routes.draw do
     resources :accounts do
       resources :artworks 
       resources :assets
+      resources :oppertunities
       
       
     end

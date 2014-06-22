@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140621184331) do
+ActiveRecord::Schema.define(version: 20140622213222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,10 @@ ActiveRecord::Schema.define(version: 20140621184331) do
     t.boolean  "read_artwork",              default: true
     t.boolean  "update_artwork",            default: true
     t.boolean  "delete_artwork",            default: true
+    t.boolean  "create_oppertunity"
+    t.boolean  "read_oppertunity"
+    t.boolean  "update_oppertunity"
+    t.boolean  "delete_oppertunity"
   end
 
   add_index "account_users", ["account_id"], name: "index_account_users_on_account_id", using: :btree
@@ -108,24 +112,26 @@ ActiveRecord::Schema.define(version: 20140621184331) do
     t.string   "city"
     t.string   "state"
     t.string   "postal_code"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
-    t.integer  "users_count",        default: 0,                null: false
-    t.integer  "documents_count",    default: 0,                null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.integer  "users_count",          default: 0,                null: false
+    t.integer  "documents_count",      default: 0,                null: false
     t.date     "expiration_date"
-    t.integer  "visits",             default: 0
+    t.integer  "visits",               default: 0
     t.string   "logo"
-    t.boolean  "activated",          default: true
+    t.boolean  "activated",            default: true
     t.integer  "default_catalog_id"
-    t.string   "uuid",               default: ""
-    t.integer  "version",            default: 0
-    t.text     "permitted_user_ids", default: "--- []\n"
-    t.string   "works_uuid",         default: "first love 727"
-    t.string   "recordings_uuid",    default: "first love 727"
-    t.string   "customers_uuid",     default: "first love 727"
-    t.string   "playlists_uuid",     default: "first love 727"
-    t.string   "users_uuid",         default: "first love 727"
-    t.integer  "administrator_id",   default: 0
+    t.string   "uuid",                 default: ""
+    t.integer  "version",              default: 0
+    t.text     "permitted_user_ids",   default: "--- []\n"
+    t.string   "works_uuid",           default: "first love 727"
+    t.string   "recordings_uuid",      default: "first love 727"
+    t.string   "customers_uuid",       default: "first love 727"
+    t.string   "playlists_uuid",       default: "first love 727"
+    t.string   "users_uuid",           default: "first love 727"
+    t.integer  "administrator_id",     default: 0
+    t.boolean  "create_oppertunities"
+    t.boolean  "read_oppertunities"
   end
 
   add_index "accounts", ["administrator_id"], name: "index_accounts_on_administrator_id", using: :btree
@@ -939,19 +945,6 @@ ActiveRecord::Schema.define(version: 20140621184331) do
     t.datetime "updated_at"
   end
 
-  create_table "music_opportunities", force: true do |t|
-    t.integer  "account_id"
-    t.string   "title"
-    t.text     "body"
-    t.string   "kind"
-    t.decimal  "budget"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.date     "deadline"
-  end
-
-  add_index "music_opportunities", ["account_id"], name: "index_movie_projects_on_account_id", using: :btree
-
   create_table "music_opportunity_invitations", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -1016,6 +1009,19 @@ ActiveRecord::Schema.define(version: 20140621184331) do
 
   add_index "notifications", ["account_id"], name: "index_notifications_on_account_id", using: :btree
   add_index "notifications", ["notification_event_id"], name: "index_notifications_on_notification_event_id", using: :btree
+
+  create_table "oppertunities", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "kind"
+    t.decimal  "budget"
+    t.date     "deadline"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "oppertunities", ["account_id"], name: "index_oppertunities_on_account_id", using: :btree
 
   create_table "permissions", force: true do |t|
     t.integer  "user_id"

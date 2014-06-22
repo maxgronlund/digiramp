@@ -101,29 +101,7 @@ class User < ActiveRecord::Base
     self.add_token
     UserMailer.delay.invite_new_user_to_account(self.id, account_id, invitation_message)
   end
-  #
-  #def send_signup_confirmation
-  #  generate_token(:password_reset_token)
-  #  self.password_reset_sent_at = Time.zone.now
-  #  save!
-  #  UserMailer.delay.signup_confirmation(self)
-  #end
-  #
-  #def new_account_and_user_confirmation  invited_to_account
-  #  generate_token(:password_reset_token)
-  #  self.password_reset_sent_at = Time.zone.now
-  #  save!
-  #  options = { user: self, account: invited_to_account}
-  #  UserMailer.delay.new_account_and_user_confirmation options
-  #end
-  #
-  #def signed_up_and_invited_to account_id, invitation_massage
-  #
-  #  generate_token(:password_reset_token)
-  #  self.password_reset_sent_at = Time.zone.now
-  #  save!
-  #  UserMailer.delay.signup_confirmation self.id, account_id, invitation_massage 
-  #end
+
 
   def asseccible_recordings
     recordings = []
@@ -202,61 +180,7 @@ class User < ActiveRecord::Base
     full_name
   end
   
-  #def can_access_recordings? account
-  #  if account_user = AccountUser.cached_find( id)
-  #    return true if account_user.access_to_all_recordings
-  #  end
-  #  false
-  #end
-  #
-  #def can_access_common_works? account
-  #  if account_user = AccountUser.cached_find( id)
-  #    return true if account_user.access_to_all_common_works
-  #  end
-  #  false
-  #end
-  #
-  #def can_administrate account
-  #  return true if can_edit?
-  #  if account_user = AccountUser.cached_find( id)
-  #    return true if account_user.role = "Administrator"
-  #    return true if account_user.role = "Account Owner"
-  #  end
-  #  false
-  #end
-  
-  #def can_manage manage, account
-  #  return true if role               == 'super'
-  #  return true if account.user_id    == id
-  #  account_user                      = AccountUser.cached_where( account.id, self.id)
-  #  return true if account_user.role  == 'Administrator'
-  #  
-  #  if account_user
-  #    
-  #    case manage
-  #    when 'users'
-  #      return account_user.can_administrate?
-  #    when 'assets'
-  #      return account_user.can_access_assets?
-  #    when 'collect'
-  #      return account_user.can_collect?
-  #    when 'promotion'
-  #      return account_user.can_administrate?
-  #    when 'documents'
-  #      return account_user.access_to_all_documents? 
-  #    when 'rights'
-  #      return account_user.access_to_all_rights?
-  #    when 'access works'
-  #      return account_user.access_to_all_common_works?
-  #    when 'access recordings'
-  #      return account_user.access_to_all_recordings
-  #    when 'addministrate playlists'
-  #      return account_user.administrate_playlists
-  #    end
-  #    
-  #  end
-  #  false
-  #end
+ 
   
   def permission_cache_for account
     begin
@@ -265,21 +189,6 @@ class User < ActiveRecord::Base
       return UUIDTools::UUID.timestamp_create().to_s
     end
   end
-  
-
-  
-  
-  
-  #def admin_or_super?
-  #
-  #  #!!! do some permissions here
-  #  #begin
-  #  #  account_user = AccountUser.find(user.current_account_id)
-  #  #  return account_user.admin_or_super?
-  #  #rescue
-  #  #  return false
-  #  #end
-  #end
   
   def can_administrate account
     return true if account.administrator_id == self.id
@@ -518,6 +427,7 @@ class User < ActiveRecord::Base
   #end
   
   
+  
 
 private
 
@@ -560,9 +470,7 @@ private
     end
   end
   
-  
-  
-  
+
   def generate_token(column)
     begin
       self[column] = SecureRandom.urlsafe_base64
