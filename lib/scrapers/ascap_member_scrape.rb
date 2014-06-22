@@ -56,7 +56,11 @@ private
   end
   
   def goto_works_from_dashboard
-    @browser.img(:id, 'btn_view_accepted_works').parent.click
+    begin
+      @browser.img(:id, 'btn_view_accepted_works').parent.click
+    rescue
+      inform error: 'unable to login'
+    end
   end
   
   def get_works
