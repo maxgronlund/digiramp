@@ -105,7 +105,7 @@ class CommonWorksImport < ActiveRecord::Base
   end
   
   def parse_ipis common_work_id, ipis, ascap_work_id
-    puts '+++++++++++++++++++++  PARSE IPIS ++++++++++++++++++++++++++++'
+    #puts '+++++++++++++++++++++  PARSE IPIS ++++++++++++++++++++++++++++'
     ipis.each do |ipi_scrape|
       ipi = Ipi.where(common_work_id: common_work_id, 
                       ipi_code: ipi_scrape[:ipi_number] )
@@ -123,11 +123,38 @@ class CommonWorksImport < ActiveRecord::Base
       ipi.controlled_by_submitter   = ipi_scrape[:controlled_by_submitter]
       ipi.ascap_work_id             = ascap_work_id
       ipi.save!
-      puts '+++++++++++++++++++++++ LOGGING IPI ++++++++++++++++++++++++++'
-      ap ipi
-      puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+      #puts '+++++++++++++++++++++++ LOGGING IPI ++++++++++++++++++++++++++'
+      #ap ipi
+      #puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
     end
     
+  end
+  
+  def self.post_alert user_email
+    channel = 'digiramp_radio_' + user_email
+    Pusher.trigger(channel, 'my_eventx', {"title" => 'Success', 
+                                          "message" => 'import done', 
+                                          "time"    => '1000', 
+                                          "sticky"  => 'true', 
+                                          "image"   => 'success'
+                                          
+                                          })
+
+  end
+  
+  def self.post_info user_email, info
+    
+    ap info
+    puts "\n--------------------------------\n"
+    
+    #channel = 'digiramp_radio_' + user_email
+    #Pusher.trigger(channel, 'my_eventx', {"title" => 'Success', 
+    #                                      "message" => 'import done', 
+    #                                      "time"    => '500', 
+    #                                      "sticky"  => 'false', 
+    #                                      "image"   => 'progress'
+    #                                      
+    #                                      })
   end
 
 end

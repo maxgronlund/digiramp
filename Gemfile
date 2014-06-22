@@ -75,9 +75,10 @@ gem 'uuidtools'
 #gem 'jquery-ui-rails'
 gem "rails-erd"
 gem 'gravatarify', '~> 3.0.0'
-#gem 'pusher'
-#gem "font-awesome-rails" #<<------- not working on all devices ;-(
-gem "private_pub"
+gem 'pusher'
+gem "gritter", "1.1.0"
+
+
 
 
 # for extraction of text content

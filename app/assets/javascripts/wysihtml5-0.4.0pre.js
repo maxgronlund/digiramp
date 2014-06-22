@@ -171,7 +171,7 @@ window['rangy'] = (function() {
             if (areHostMethods(testRange, domRangeMethods) && areHostProperties(testRange, domRangeProperties)) {
                 implementsDomRange = true;
             }
-            testRange.detach();
+            //testRange.detach();
         }
 
         var body = isHostObject(document, "body") ? document.body : document.getElementsByTagName("body")[0];
@@ -979,7 +979,7 @@ rangy.createModule("DomUtil", function(api, module) {
 
         detach: function(detachRange) {
             if (detachRange) {
-                this.range.detach();
+                //this.range.detach();
             }
             this.range = this._current = this._next = this._first = this._last = this.sc = this.so = this.ec = this.eo = null;
         }
@@ -2349,8 +2349,8 @@ rangy.createModule("DomUtil", function(api, module) {
 
             // Clean up
             dom.getBody(document).removeChild(testTextNode);
-            range.detach();
-            range2.detach();
+            //range.detach();
+            //range2.detach();
         })();
 
         api.createNativeRange = function(doc) {
@@ -2564,8 +2564,8 @@ rangy.createModule("DomUtil", function(api, module) {
             selectionSupportsMultipleRanges = (sel.rangeCount == 2);
 
             // Clean up
-            r1.detach();
-            r2.detach();
+            //r1.detach();
+            //r2.detach();
 
             body.removeChild(iframe);
         })();
@@ -6656,7 +6656,7 @@ wysihtml5.quirks.ensureProperClearing = (function() {
 
       var intersectionRange = textRange.intersection(range);
       var text = intersectionRange ? intersectionRange.toString() : "";
-      textRange.detach();
+      //textRange.detach();
 
       return text;
     },

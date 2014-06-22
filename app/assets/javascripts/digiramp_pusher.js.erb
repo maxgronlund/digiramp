@@ -1,0 +1,27 @@
+
+function sayHello(data){
+  
+  /*
+  $.gritter.add({
+  	// (string | mandatory) the heading of the notification
+  	title: 'This is a notice!',
+  	// (string | mandatory) the text inside the notification
+  	text: 'This will fade out after a certain amount of time.'
+  });
+    */
+  
+                          
+  /*alert(data.name);*/                   
+  
+  // add buttons to player based on permissions
+  $.getScript("/gitter?"  + 'title=' + data.title +
+              '&message=' + data.message+
+              '&time='    + data.time+
+              '&sticky='  + data.sticky+
+              '&image='   + data.image
+              );
+            
+            
+            
+                          
+}

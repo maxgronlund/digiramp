@@ -15,14 +15,18 @@ html
   /= stylesheet_link_tag "html5-realtime-push-notifications/src/js/gritter/css/jquery.gritter.css", media: "all"
   
   / pusher
-  /= javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
-  /= javascript_include_tag "html5-realtime-push-notifications/src/js/PusherNotifier.js"
-  /<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  = javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
+  /= javascript_include_tag "//js/jquery.gritter.js"
+  
+  /= javascript_include_tag "//realtime-notifications/src/PusherNotifier.js"
+ 
   
   
   meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   = csrf_meta_tags
   
+  
+  == render 'layouts/pusher'
   
   
   

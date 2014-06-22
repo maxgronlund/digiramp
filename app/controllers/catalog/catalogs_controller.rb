@@ -1,4 +1,8 @@
 #require 'pusher'
+#
+#Pusher.app_id   = '78910'
+#Pusher.key      = 'd70ad0d20fdef342dd05'
+#Pusher.secret   = '608220ad093a78b7f95d'
 
 
 
@@ -28,16 +32,17 @@ class Catalog::CatalogsController < ApplicationController
   def index
     forbidden unless current_account_user.read_catalog
     puts '--------------------- INDEX ------------------------'
-    #@catalogs     = @account.catalogs
-    #Pusher.trigger('my-channel', 'digiramp-event', {:message => 'hello world max'})
-    #
-    #data = {'message' => 'This is an HTML5 Realtime Push Notification!'}
-    #Pusher['my_notifications'].trigger('notification', data)
-    
+    #Pusher['private-'+params[:message][:recipient_id]].trigger('new_message', {:from => current_user.name, :subject => message.subject})
+    #Pusher['private-'+ current_user.email, 'my_eventx', {"message" => 'hello world'})
+    #channel = 'digiramp_radio'
+    #Pusher.trigger(channel, 'my_eventx', {"name" => 'hello world'})
+    CommonWorksImport.post_alert current_user.email
+
   end
 
   def show
     puts '--------------------- SHOW ------------------------'
+    Pusher.trigger('my-channel', 'my-event', {:message => 'hello world'})
   end
 
   def new

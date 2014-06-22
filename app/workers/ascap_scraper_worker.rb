@@ -1,5 +1,10 @@
 class AscapScraperWorker
   include Sidekiq::Worker
+  sidekiq_options :retry => false 
+  
+  #sidekiq_retries_exhausted do |msg|
+  #  Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
+  #end
 
   def perform user_name, password, account_id, catalog_id, title, body, pro, user_email
 
@@ -15,10 +20,13 @@ class AscapScraperWorker
     
     scrape = Scraper::AscapMemberScrape.new user_name, password
     
+    
+    
     scrape.start do |info|
-      #ap info
-      #puts "\n--------------------------------\n"
-      puts '.'
+      ap info
+      puts "\n-------------- INFO ------------------\n"
+
+      #CommonWorksImport.post_info user_email, info
     end
     #puts "\n\n"
     #puts "Results: \n"

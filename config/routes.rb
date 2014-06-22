@@ -4,6 +4,7 @@ Digiramp::Application.routes.draw do
 
 
   
+  resources :gitter, only: [:index]
   #resources :footages
   #resources :pro_affiliations
   resources :comments
@@ -24,6 +25,7 @@ Digiramp::Application.routes.draw do
   get "permissions/index"
   resources :uploads
   require 'sidekiq/web'
+  
 
 
   get "selling_points/selling_point_1"
