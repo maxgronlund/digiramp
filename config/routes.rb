@@ -373,6 +373,7 @@ Digiramp::Application.routes.draw do
     resources :users do
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
+      resources :opportunities, only: [:index]
     end
     
   end

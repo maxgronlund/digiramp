@@ -72,6 +72,13 @@
                                                           css_class: 'btn btn-warning', \
                                                           icon: 'fa fa-tachometer' \
                                                         }
+            .col-sm-12
+              == render 'users/shared/badge_button', locals: { \
+                                                          blog_post: 'OPPORTUNITIES', \
+                                                          link: user_user_opportunities_path(@user), \
+                                                          css_class: 'btn btn-danger', \
+                                                          icon: 'fa fa-plane' \
+                                                        }
                             
               
           /== render 'shared/account_badge', locals: { \

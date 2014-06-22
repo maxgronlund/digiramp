@@ -1,0 +1,40 @@
+- user_account = Account.cached_find(@user.account_id)
+#wrap
+  .profile
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'profile'     
+  .container
+    ==render 'admin/shared/messages'
+    /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
+    .do   
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name} 
+      
+                                                           
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Oppertunities'), blog_post: 'Oppertunities'}
+      .row
+        .col-sm-12
+          - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
+          - accounts = Account.order('title asc').where(id: account_ids)
+          .panel.panel-primary
+            .panel-heading
+              'OPPERTUNITIES
+            .panel-body
+              .table-responsive
+                table class="table table-hover"
+                  /thead
+                  /  tr
+                  /    th COLLECTION
+                  /tbody
+                  /  - accounts.each do |account|
+                  /    tr
+                  /      td = link_to account.title, account_path( account ), class: 'btn btn-default btn-lg'
+        
+     
+                         
+                        
+              
+
+      
+      
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'  

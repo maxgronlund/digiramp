@@ -36,7 +36,7 @@ class Catalog::CatalogsController < ApplicationController
     #Pusher['private-'+ current_user.email, 'my_eventx', {"message" => 'hello world'})
     #channel = 'digiramp_radio'
     #Pusher.trigger(channel, 'my_eventx', {"name" => 'hello world'})
-    CommonWorksImport.post_alert current_user.email
+    #CommonWorksImport.post_alert current_user.email
 
   end
 
