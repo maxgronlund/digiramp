@@ -370,6 +370,11 @@ Digiramp::Application.routes.draw do
   
   namespace :user do
     
+    resources :users do
+      resources :catalogs, only: [:index]
+      resources :collections, only: [:index]
+    end
+    
   end
   
   #admin_constraint = lambda do |request|
