@@ -11,6 +11,8 @@ class Catalog::CommonWorksImportsController < ApplicationController
   end
   
   def create
+    
+    CommonWorksImport.post_info current_user.email, info = {start: 'starting'}
 
     AscapScraperWorker.perform_async( params[:common_works_import][:user_name], 
                                       params[:common_works_import][:password],
@@ -23,8 +25,8 @@ class Catalog::CommonWorksImportsController < ApplicationController
                                     )
     
     
-
-    redirect_to :back
+    #http://localhost:3000/catalog/accounts/6/catalogs/53/common_works_imports/new
+    redirect_to catalog_account_catalog_common_works_import_path(@account, @catalog, 1)
   end
 
   def select_pro

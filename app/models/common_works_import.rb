@@ -140,26 +140,22 @@ class CommonWorksImport < ActiveRecord::Base
     
   end
   
-  def self.post_started user_email
-    
-    ap user_email
-    channel = 'digiramp_radio_' + user_email
-    Pusher.trigger(channel, 'my_eventx', {"title" => 'FOBAR', 
-                                          "message" => 'Unable to log in', 
-                                          "time"    => '500', 
-                                          "sticky"  => 'true', 
-                                          "image"   => 'success'
-                                          })
-  
-  end
+  #def self.post_started user_email
+  #  
+  #  ap user_email
+  #  channel = 'digiramp_radio_' + user_email
+  #  Pusher.trigger(channel, 'my_eventx', {"title" => 'FOBAR', 
+  #                                        "message" => 'Unable to log in', 
+  #                                        "time"    => '500', 
+  #                                        "sticky"  => 'true', 
+  #                                        "image"   => 'success'
+  #                                        })
+  #
+  #end
   
   def self.post_info user_email, info
     
-    ap info
-    
-    if info[:start]
-      puts '*************************** starting ***********************************'
-      puts user_email
+    if info[:error]
       channel = 'digiramp_radio_' + user_email
       Pusher.trigger(channel, 'my_eventx', {"title" => 'Error', 
                                             "message" => 'Unable to log in', 
@@ -167,33 +163,8 @@ class CommonWorksImport < ActiveRecord::Base
                                             "sticky"  => 'true', 
                                             "image"   => 'error'
                                             })
-    elsif info[:error]
-      channel = 'digiramp_radio_' + user_email
-      Pusher.trigger(channel, 'my_eventx', {"title" => 'Error', 
-                                            "message" => 'Unable to log in', 
-                                            "time"    => '500', 
-                                            "sticky"  => 'true', 
-                                            "image"   => 'error'
-                                            })
-    #elsif  [:html_work_detail_tbodies]
-    #  channel = 'digiramp_radio_' + user_email
-    #  Pusher.trigger(channel, 'my_eventx', {"title" => 'Info', 
-    #                                        "message" => 'Common Work imported', 
-    #                                        "time"    => '2000', 
-    #                                        "sticky"  => 'false', 
-    #                                        "image"   => 'progress'
-    #                                        })
-    #  
+ 
     end
-    
-    #channel = 'digiramp_radio_' + user_email
-    #Pusher.trigger(channel, 'my_eventx', {"title" => 'Success', 
-    #                                      "message" => 'import done', 
-    #                                      "time"    => '500', 
-    #                                      "sticky"  => 'false', 
-    #                                      "image"   => 'progress'
-    #                                      
-    #                                      })
   end
   
 

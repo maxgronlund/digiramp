@@ -10,7 +10,7 @@ class AscapScraperWorker
 
   def perform user_name, password, account_id, catalog_id, title, body, pro, user_email
     
-    CommonWorksImport.post_info user_email,  {start: 'starting'}
+    
 
     common_works_import = CommonWorksImport.new(
                                                     account_id: account_id.to_i,
@@ -31,7 +31,7 @@ class AscapScraperWorker
       else
         #ap info
         #puts "\n-------------- INFO ------------------\n"
-        CommonWorksImport.post_info user_email, info
+        #CommonWorksImport.post_info user_email, info
       end
       
     end
