@@ -31,7 +31,7 @@ class AscapScraperWorker
       else
         #ap info
         #puts "\n-------------- INFO ------------------\n"
-        #CommonWorksImport.post_info user_email, info
+        CommonWorksImport.post_info user_email, info
       end
       
     end

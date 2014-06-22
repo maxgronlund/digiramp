@@ -82,8 +82,8 @@ class CommonWorksImport < ActiveRecord::Base
     self.save!
     
     channel = 'digiramp_radio_' + user_email
-    Pusher.trigger(channel, 'my_eventx', {"title" => 'Success', 
-                                          "message" => 'Common Works imported', 
+    Pusher.trigger(channel, 'digiramp_event', {"title" => 'Success', 
+                                          "message" => "#{self.imported_works} Common Works imported", 
                                           "time"    => '5000', 
                                           "sticky"  => 'true', 
                                           "image"   => 'success'
@@ -144,7 +144,7 @@ class CommonWorksImport < ActiveRecord::Base
   #  
   #  ap user_email
   #  channel = 'digiramp_radio_' + user_email
-  #  Pusher.trigger(channel, 'my_eventx', {"title" => 'FOBAR', 
+  #  Pusher.trigger(channel, 'digiramp_event', {"title" => 'FOBAR', 
   #                                        "message" => 'Unable to log in', 
   #                                        "time"    => '500', 
   #                                        "sticky"  => 'true', 
@@ -154,17 +154,28 @@ class CommonWorksImport < ActiveRecord::Base
   #end
   
   def self.post_info user_email, info
+    puts '---------------------------------------------'
     ap info
     
     if info[:error]
       channel = 'digiramp_radio_' + user_email
-      Pusher.trigger(channel, 'my_eventx', {"title" => 'Error', 
+      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Error', 
                                             "message" => 'Unable to log in', 
                                             "time"    => '500', 
                                             "sticky"  => 'true', 
                                             "image"   => 'error'
                                             })
  
+    end
+    
+    if info[:stage_complete] == :goto_works_from_dashboard
+      channel = 'digiramp_radio_' + user_email
+      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
+                                            "message" => 'Password Accepted', 
+                                            "time"    => '4000', 
+                                            "sticky"  => 'false', 
+                                            "image"   => 'progress'
+                                            })
     end
 
   end
