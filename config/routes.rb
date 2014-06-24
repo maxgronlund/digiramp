@@ -317,6 +317,7 @@ Digiramp::Application.routes.draw do
         put "receive"
         put "generate_code"
         get "find_common_work_in_collection"
+        get "common_works/export_common_works"
         
 
         

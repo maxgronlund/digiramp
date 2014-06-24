@@ -23,6 +23,13 @@
               = submit_tag 'Search', class: 'btn btn-primary btn-lg'
               '&nbsp;
               = link_to 'Show All',account_works_path(@account), class: 'btn btn-default btn-lg'
+              -if current_catalog_user.update_common_work
+                '&nbsp;
+                = link_to catalog_account_catalog_common_works_export_common_works_path(@account, @catalog, params: params, format: "csv") do
+                  .btn.btn-info.btn-lg
+                    i class="fa fa-cloud-download"
+                    '&nbsp;
+                    'Download XLS
               
               
           

@@ -190,6 +190,22 @@ class Catalog::CommonWorksController < ApplicationController
                                                )
   end
   
+  def export_common_works
+    @common_works  = CommonWork.catalog_search(@catalog, params[:query]).order('title asc').page(params[:page]).per(32)
+    
+    respond_to do |format|
+      format.html
+      #format.csv { render text: @common_works.to_csv }
+      format.csv { render text: @common_works.to_csv }
+    end
+    
+    
+    #puts '--------------------------------------------------------------------'
+    #ap @common_works.size
+    #puts '--------------------------------------------------------------------'
+    #redirect_to :back
+  end
+  
 private
 
   def common_work_params

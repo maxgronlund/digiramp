@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140622213222) do
+ActiveRecord::Schema.define(version: 20140623202416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,10 +89,10 @@ ActiveRecord::Schema.define(version: 20140622213222) do
     t.boolean  "read_artwork",              default: true
     t.boolean  "update_artwork",            default: true
     t.boolean  "delete_artwork",            default: true
-    t.boolean  "create_oppertunity"
-    t.boolean  "read_oppertunity"
-    t.boolean  "update_oppertunity"
-    t.boolean  "delete_oppertunity"
+    t.boolean  "create_oppertunity",        default: false
+    t.boolean  "read_oppertunity",          default: false
+    t.boolean  "update_oppertunity",        default: false
+    t.boolean  "delete_oppertunity",        default: false
   end
 
   add_index "account_users", ["account_id"], name: "index_account_users_on_account_id", using: :btree

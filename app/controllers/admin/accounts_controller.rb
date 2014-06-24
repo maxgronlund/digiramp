@@ -42,8 +42,12 @@ class Admin::AccountsController < ApplicationController
     if @account.create_oppertunities
       account_user = AccountUser.cached_where(@account.id, @account.user_id)
       account_user.create_oppertunity = true
-      account_user.read_oppertunity = true
+      account_user.read_oppertunity   = true
       account_user.save!
+      #@account.account_users.supers.each do |super|
+      #  
+      #  
+      #end
     else
       # no account_users can create oppertunities
       @account.account_users.each do |account_user|
