@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624160605) do
+ActiveRecord::Schema.define(version: 20140624165425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -435,6 +435,10 @@ ActiveRecord::Schema.define(version: 20140624160605) do
     t.boolean  "read_artwork",              default: true
     t.boolean  "update_artwork",            default: true
     t.boolean  "delete_artwork",            default: true
+    t.boolean  "create_oppertunity"
+    t.boolean  "read_oppertunity"
+    t.boolean  "update_oppertunity"
+    t.boolean  "delete_oppertunity"
   end
 
   add_index "catalog_users", ["account_id"], name: "index_catalog_users_on_account_id", using: :btree
