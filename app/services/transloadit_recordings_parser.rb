@@ -1,6 +1,7 @@
 class TransloaditRecordingsParser
   
   def initialize
+    
   end
   
   def self.update recording, uploads
@@ -22,7 +23,14 @@ class TransloaditRecordingsParser
     
     # original file
     uploads[:results][':original'].each do |original|
-      extracted[ original[:original_id] ] =  { original_file: original[:url], meta: original[:meta]}
+      extracted[ original[:original_id] ] =  {  original_file:        original[:url],
+                                                name:                 original[:name], 
+                                                original_md5hash:     original[:original_md5hash],  
+                                                original_file_name:   original[:original_file_name], 
+                                                ext:                  original[:ext], 
+                                                ssl_url:              original[:ssl_url], 
+                                                url:                  original[:url],
+                                                meta:                 original[:meta]}
     end
     
 
@@ -64,6 +72,7 @@ class TransloaditRecordingsParser
       transloadets << v
     end
     
+    # copy meta hash in to transloaded hash
     transloadets.each do |transloadet|
 
       meta                      = transloadet[:meta]
@@ -118,9 +127,14 @@ class TransloaditRecordingsParser
                                         original_file:                      transloaded[:original_file],
                                         cover_art:                          transloaded[:cover_art],
                                         artwork:                            transloaded[:artwork],
+
+                                        ssl_url:                            transloaded[:ssl_url],
+                                        url:                                transloaded[:url],
+                                        ext:                                transloaded[:ext],
+                                        original_file_name:                 transloaded[:original_file_name],
                                        )
       
-      
+      ap recording
       add_artwork_to recording unless recording.cover_art == ''
       recording.extract_genres                                 
       recording.update_completeness

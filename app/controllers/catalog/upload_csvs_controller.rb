@@ -37,7 +37,7 @@ class Catalog::UploadCsvsController < ApplicationController
     forbidden unless current_catalog_user.create_common_work?
     
     begin
-      TransloaditParser.add_to_common_work params[:transloadit], @catalog.id, @account.id
+      TransloaditCSVParser.add_to_common_work params[:transloadit], @catalog.id, @account.id
       flash[:info]      = { title: "Success", body: "Recording added to Common Work" }
       #redirect_to account_work_work_recordings_path(@account, @common_work )
     rescue

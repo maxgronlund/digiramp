@@ -35,6 +35,10 @@ class Catalog::UploadRecordingsController < ApplicationController
     
     flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
     
+    @catalog.count_recordings
+    @catalog.count_common_works
+    @catalog.save!
+    
     redirect_to catalog_account_catalog_recordings_path(@account, @catalog)
     #redirect_to account_import_batch_path(@account,   @import_batch)
   end

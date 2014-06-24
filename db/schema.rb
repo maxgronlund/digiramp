@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624165425) do
+ActiveRecord::Schema.define(version: 20140624190337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1231,6 +1231,10 @@ ActiveRecord::Schema.define(version: 20140624165425) do
     t.string   "artwork",             default: ""
     t.string   "original_file",       default: ""
     t.integer  "image_file_id"
+    t.string   "ssl_url",             default: ""
+    t.string   "url",                 default: ""
+    t.string   "ext",                 default: ""
+    t.string   "original_file_name",  default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
