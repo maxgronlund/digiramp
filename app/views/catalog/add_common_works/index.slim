@@ -44,6 +44,15 @@
                                                 icon: 'fa fa-university', \
                                                 id: 'add-common-work' \
                                               }
+          .col-sm-6
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "UPLOAD CSV" , blog ), \
+                                                link: new_catalog_account_catalog_upload_csv_path(@account, @catalog), \
+                                                css_class: 'btn btn-info', \
+                                                icon: 'fa fa-cloud-upload', \
+                                                id: 'add-common-work' \
+                                              }
                                               
   
             

@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @upload_csv.title
+p
+  strong Body:
+  = @upload_csv.body
+p
+  strong User email:
+  = @upload_csv.user_email
+p
+  strong Account:
+  = @upload_csv.account
+p
+  strong Catalog:
+  = @upload_csv.catalog
+p
+  strong Common works count:
+  = @upload_csv.common_works_count
+
+= link_to 'Edit', edit_upload_csv_path(@upload_csv)
+'|
+= link_to 'Back', upload_csvs_path

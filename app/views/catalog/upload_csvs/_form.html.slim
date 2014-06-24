@@ -1,0 +1,13 @@
+=simple_form_for [:catalog, @account, @catalog, @upload_csv], :html => { :id => 'csv_file' }  do |f|
+  = f.hidden_field :account_id, value: @account.id
+  = f.hidden_field :catalog_id, value: @catalog.id
+  = f.hidden_field :user_email, value: current_user.email
+  
+  = f.input :title
+  = f.input :body
+  = f.file_field :file, multiple: false
+  br
+  .pull-right
+    = f.submit 'Save', class: 'btn btn-primary btn-lg'
+  
+= transloadit_jquerify :csv_file, :wait => true
