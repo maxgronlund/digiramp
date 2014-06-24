@@ -114,12 +114,12 @@ gem 'thin'
 
 group :development do
   # Use Capistrano for deployment
-  gem 'capistrano', '~> 3.0.1'
+  gem 'capistrano'
   
-  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-rbenv'
   
   # rails specific capistrano functions
-  gem 'capistrano-rails', '~> 1.1.0'
+  gem 'capistrano-rails'
   
   # integrate bundler with capistrano
   gem 'capistrano-bundler'
