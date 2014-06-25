@@ -1,23 +1,9 @@
-namespace :deploy do
-  desc 'Restart sidekiq'
-  task :restart_sidekiq do
-    on roles(:app), in: :sequence, wait: 5 do
-      
-      
-      
-      
-      
-      
-      
-      #sudo "/etc/init.d/sidekiq_digiramp_production stop"
-      #sudo "/etc/init.d/sidekiq_digiramp_production start"
-      
-      
-      "<%= current_path %>/tmp/pids/sidekiq.pid stop program = '/etc/init.d/sidekiq_<%=application%>_<%= fetch(:rails_env)%> stop'"
-      "<%= current_path %>/tmp/pids/sidekiq.pid start program = '/etc/init.d/sidekiq_<%=application%>_<%= fetch(:rails_env)%> start'"
-        
-        
-        
-    end
-  end
-end
+#namespace :deploy do
+#  desc 'Restart sidekiq'
+#  task :restart_sidekiq do
+#    on roles(:app), in: :sequence, wait: 5 do
+#      sudo "/etc/init.d/sidekiq_digiramp_production stop"
+#      sudo "/etc/init.d/sidekiq_digiramp_production start"
+#    end
+#  end
+#end
