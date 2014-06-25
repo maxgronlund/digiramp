@@ -124,7 +124,8 @@ group :development do
   # integrate bundler with capistrano
   gem 'capistrano-bundler'
   
-  gem "capistrano-sidekiq"
+  #gem "capistrano-sidekiq"
+  gem 'capistrano-sidekiq' , github: 'seuros/capistrano-sidekiq'
   
   # if you are using RVM
   #gem 'capistrano-rvm'

@@ -15,7 +15,7 @@ class CommonWorksImport < ActiveRecord::Base
     self.imported_works = 0
     self.params.each do |param|
       
-      #begin
+      begin
         common_work = CommonWork.where( ascap_work_id:  param[:ascap_work_id].to_i,
                                         account_id:     self.account_id
                                       )
@@ -69,13 +69,13 @@ class CommonWorksImport < ActiveRecord::Base
         # add to catalog
         add_to_catalog common_work, self.catalog_id
 
-      #rescue
-      #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-      #  puts 'ERROR: Unable to parse ascap common work:' 
-      #  puts 'In CommonWorksImport#parse_common_works'
-      #  ap params
-      #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-      #end
+      rescue
+        puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+        puts 'ERROR: Unable to parse ascap common work:' 
+        puts 'In CommonWorksImport#parse_common_works'
+        ap params
+        puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+      end
     end
     # not in progress
     self.in_progress = false
