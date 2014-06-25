@@ -5,7 +5,7 @@ set :deploy_user, 'deploy'
 # setup repo details
 set :scm, :git
 set :repo_url, 'https://github.com/maxgronlund/digiramp.git'
-#set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
+set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 
 
 # setup rvm.
@@ -48,6 +48,7 @@ set(:config_files, %w(
   monit
   unicorn.rb
   unicorn_init.sh
+  sidekiq_init.sh
 ))
 
 # which config files should be made executable after copying
@@ -57,6 +58,7 @@ set(:config_files, %w(
 #))
 set(:executable_config_files, %w(
   unicorn_init.sh
+  sidekiq_init.sh
 ))
 
 
@@ -79,11 +81,11 @@ set(:symlinks, [
   {
     source: "monit",
     link: "/etc/monit/conf.d/{{full_app_name}}.conf"
+  },
+  {
+    source: "sidekiq_init.sh",
+    link: "/etc/init.d/sidekiq_{{full_app_name}}"
   }
-  #,{
-  #  source: "sidekiq_init.sh",
-  #  link: "/etc/init.d/sidekiq_{{full_app_name}}"
-  #}
 ])
 
 # this:
