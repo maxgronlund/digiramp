@@ -8,6 +8,7 @@ set :repo_url, 'https://github.com/maxgronlund/digiramp.git'
 set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 
 
+
 # setup rvm.
 set :rbenv_type, :system
 set :rbenv_ruby, '2.1.1'
