@@ -31,7 +31,7 @@ class Catalog::CatalogsController < ApplicationController
   
   def index
     forbidden unless current_account_user.read_catalog
-    puts '--------------------- INDEX ------------------------'
+    #puts '--------------------- INDEX ------------------------'
     #Pusher['private-'+params[:message][:recipient_id]].trigger('new_message', {:from => current_user.name, :subject => message.subject})
     #Pusher['private-'+ current_user.email, 'my_eventx', {"message" => 'hello world'})
     #channel = 'digiramp_radio'
@@ -41,8 +41,8 @@ class Catalog::CatalogsController < ApplicationController
   end
 
   def show
-    puts '--------------------- SHOW ------------------------'
-    Pusher.trigger('my-channel', 'my-event', {:message => 'hello world'})
+    #puts '--------------------- SHOW ------------------------'
+    #Pusher.trigger('my-channel', 'my-event', {:message => 'hello world'})
   end
 
   def new

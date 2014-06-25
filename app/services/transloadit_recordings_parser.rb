@@ -134,7 +134,7 @@ class TransloaditRecordingsParser
                                         original_file_name:                 transloaded[:original_file_name],
                                        )
       
-      ap recording
+      
       add_artwork_to recording unless recording.cover_art == ''
       recording.extract_genres                                 
       recording.update_completeness
