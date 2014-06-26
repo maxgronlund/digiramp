@@ -1,4 +1,6 @@
 class Oppertunity < ActiveRecord::Base
+  
+  has_many :music_requests, dependent: :destroy
   belongs_to :account
   after_commit :flush_cache
   

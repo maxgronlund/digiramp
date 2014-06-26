@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626153750) do
+ActiveRecord::Schema.define(version: 20140626222707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -979,20 +979,20 @@ ActiveRecord::Schema.define(version: 20140626153750) do
   add_index "music_opportunity_invitations", ["music_opportunity_id"], name: "index_music_opportunity_invitations_on_music_opportunity_id", using: :btree
 
   create_table "music_requests", force: true do |t|
-    t.integer  "music_opportunity_id"
     t.string   "title"
     t.text     "body"
     t.decimal  "fee"
     t.time     "duration"
     t.string   "audio_file"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "scene_number"
     t.string   "link"
     t.boolean  "up_to_full_use"
+    t.integer  "oppertunity_id"
   end
 
-  add_index "music_requests", ["music_opportunity_id"], name: "index_scene_track_requests_on_music_opportunity_id", using: :btree
+  add_index "music_requests", ["oppertunity_id"], name: "index_music_requests_on_oppertunity_id", using: :btree
 
   create_table "music_submissions", force: true do |t|
     t.integer  "recording_id"

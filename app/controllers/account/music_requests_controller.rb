@@ -19,8 +19,9 @@ class Account::MusicRequestsController < ApplicationController
 
   # GET /oppertunities/new
   def new
-    forbidden unless current_account_user.create_oppertunity
-    @oppertunity = Oppertunity.new
+    forbidden unless current_account_user.update_oppertunity
+    @oppertunity    = Oppertunity.cached_find(params[:oppertunity_id])
+    @music_request  = MusicRequest.new
   end
 
   # GET /oppertunities/1/edit
@@ -31,47 +32,44 @@ class Account::MusicRequestsController < ApplicationController
   # POST /oppertunities
   # POST /oppertunities.json
   def create
-    forbidden unless current_account_user.create_oppertunity
-    @oppertunity = Oppertunity.new(oppertunity_params)
-    
-    if @oppertunity.save
-      flash[:info]      = { title: "Success", body: "Oppertunity Created" }
+    forbidden unless current_account_user.update_oppertunity
+     @oppertunity    = Oppertunity.cached_find(params[:oppertunity_id])
+    if @music_request = MusicRequest.create(music_request_params)
       redirect_to account_account_oppertunity_path(@account, @oppertunity)
-       
     else
-      flash[:danger]      = { title: "Error", body: "Unable to create oppertunity" }
-      redirect_to new_account_account_oppertunity_path(@account)
+      
     end
-
+    #
+    #if @oppertunity.save
+    #  flash[:info]      = { title: "Success", body: "Oppertunity Created" }
+    #  redirect_to account_account_oppertunity_path(@account, @oppertunity)
+    #   
+    #else
+    #  flash[:danger]      = { title: "Error", body: "Unable to create oppertunity" }
+    #  redirect_to new_account_account_oppertunity_path(@account)
+    #end
+    #
   end
 
   # PATCH/PUT /oppertunities/1
   # PATCH/PUT /oppertunities/1.json
   def update
-    forbidden unless current_account_user.update_oppertunity
-    if @oppertunity.update(oppertunity_params)
-      flash[:info]      = { title: "Success", body: "Oppertunity Updated" }
-      redirect_to account_account_oppertunity_path(@account, @oppertunity)
-    else
-      flash[:danger]      = { title: "Error", body: "Unable to update oppertunity" }
-      redirect_to edit_new_account_account_oppertunity_path(@account)
-    end
-    #respond_to do |format|
-    #  if @oppertunity.update(oppertunity_params)
-    #    format.html { redirect_to @oppertunity, notice: 'Oppertunity was successfully updated.' }
-    #    format.json { head :no_content }
-    #  else
-    #    format.html { render action: 'edit' }
-    #    format.json { render json: @oppertunity.errors, status: :unprocessable_entity }
-    #  end
+    #forbidden unless current_account_user.update_oppertunity
+    #if @oppertunity.update(oppertunity_params)
+    #  flash[:info]      = { title: "Success", body: "Oppertunity Updated" }
+    #  redirect_to account_account_oppertunity_path(@account, @oppertunity)
+    #else
+    #  flash[:danger]      = { title: "Error", body: "Unable to update oppertunity" }
+    #  redirect_to edit_new_account_account_oppertunity_path(@account)
     #end
+
   end
 
   # DELETE /oppertunities/1
   # DELETE /oppertunities/1.json
   def destroy
     forbidden unless current_account_user.delete_oppertunity
-    @oppertunity.destroy
+    @music_request.destroy
     redirect_to account_account_oppertunities_path(@account)
   end
 
@@ -82,7 +80,7 @@ class Account::MusicRequestsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def oppertunity_params
-      params.require(:oppertunity).permit(:title, :body, :kind, :budget, :deadline, :account_id)
+    def music_request_params
+      params.require(:music_request).permit!
     end
 end

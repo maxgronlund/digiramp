@@ -36,18 +36,19 @@
           .panel-heading
             'Music Requests
           .panel-body
-            /.table-responsive
-            /  table class="table"
-            /    tr
-            /      td Kind:
-            /      td = @oppertunity.kind
-            /    tr
-            /      td Budget:
-            /      td = number_to_currency(@oppertunity.budget, locale: :en, precision: 2)
-            /    tr
-            /      td Deadline:
-            /      td = @oppertunity.deadline
-            hr
+            .table-responsive
+              table class="table"
+                thead
+                  tr
+                    th Title
+                    th Fee
+                tbody
+                  
+                  - @oppertunity.music_requests.each do |music_request|
+                    tr
+                      td = music_request.title
+                      td = music_request.fee
+                  
             .pull-right
               = link_to new_account_account_oppertunity_music_request_path(@account, @oppertunity) do
                 .btn.btn-success.btn-lg

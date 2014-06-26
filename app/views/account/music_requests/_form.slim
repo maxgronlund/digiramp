@@ -1,0 +1,48 @@
+= simple_form_for [ :account, @account, @oppertunity, @music_request] do |f|
+  /= f.hidden_field :account_id, value: @account.id
+  = f.hidden_field :oppertunity_id, value: @oppertunity.id
+  = debug @music_request
+  .row
+    .col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          'Description
+        .panel-body
+          = f.input :title
+          
+          
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
+          
+          =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
+    .col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          'Info
+        .panel-body
+          = f.input :fee
+          = f.input :up_to_full_use
+          = f.input :audio_file
+          = f.input :duration_text, label: 'Duration', placeholder: 'HH:MM:SS'
+          = f.input :link, placeholder: 'i.e. http://digiramp.com'
+          /= f.input :deadline
+    
+
+ 
+
+  .pull-right
+    = f.submit 'Save', class: 'btn btn-primary btn-lg'
+
+
+
+/body"
+/fee"
+/duration"
+/audio_file"
+/created_at",           null: false
+/updated_at",           null: false
+/scene_number"
+/link"
+/up_to_full_use"

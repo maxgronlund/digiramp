@@ -1,5 +1,5 @@
 class MusicRequest < ActiveRecord::Base
-  belongs_to :music_opportunity
+  belongs_to :oppertunity, touch: true
   #has_many :music_submissions
   #has_many :music_oppertunity_submitters
   #has_one :activity_log
@@ -29,8 +29,4 @@ private
   def flush_cache
     Rails.cache.delete([self.class.name, id])
   end
-end
-  
-  
-  
 end
