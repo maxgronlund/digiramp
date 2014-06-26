@@ -170,6 +170,7 @@ class CommonWorksImport < ActiveRecord::Base
     ipi.full_name                 = info[:name]
     ipi.role                      = role
     ipi.pro                       = info[:society]
+    ipi.perf_collected            = ipi_scrape[:share]
     #ipi.perf_owned                = ipi_scrape[:own_percent]
     #ipi.perf_collected            = ipi_scrape[:collect_percent]
     #ipi.has_agreement             = ipi_scrape[:has_agreement]
@@ -179,7 +180,7 @@ class CommonWorksImport < ActiveRecord::Base
     ipi.save!
     
     
-    ap info
+    #ap info
     #{
     #          :name => "MOSES JOE",
     #       :society => "ASCAP",
