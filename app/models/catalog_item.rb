@@ -3,12 +3,12 @@ class CatalogItem < ActiveRecord::Base
   belongs_to :catalog
   belongs_to :catalog_itemable, polymorphic: true
   
-  after_create  :update_catalog_counter_cache
-  after_destroy :update_catalog_counter_cache
+  after_create   :update_catalog_counter_cache
+  before_destroy :remove_linked_assets
+  after_destroy  :update_catalog_counter_cache
   
   def update_catalog_counter_cache
-    
-    
+
     case self.catalog_itemable_type
 
     when 'CommonWork'
@@ -19,35 +19,42 @@ class CatalogItem < ActiveRecord::Base
       CatalogDocumentCounterCachWorker.perform_async(self.catalog_id)
     end
 
-    
   end
-  #attr_accessible :catalog_itemable_type, :catalog_itemable_id, :account_catalog_id
   
+  # when some kind of catalog items are removed
+  # there is assets that has to follow
+  def remove_linked_assets
+    case self.catalog_itemable_type
 
-  #scope :common_works,  ->  { where( catalog_itemable_type: 'CommonWork')  }
+    when 'CommonWork'
+      remove_recordings
+    end
+  end
   
-  
-  
-  #def link_to_parrent 
-  #  url = ''
-  #  #parrent_link = 'root_path'
-  #  #
-  #  #
-  #  case catalog_itemable_type
-  #    
-  #  when 'CommenWork'
-  #    common_work = CommonWork.find(catalog_itemable_id)
-  #    #logger.debug '-----------------------------------------------------------------'
-  #    #logger.debug common_work.account_id
-  #    #logger.debug common_work.id
-  #    #logger.debug '-----------------------------------------------------------------'
-  #    #parrent_link = root_path
-  #    ## = account_common_work_path(common_work.account_id, common_work.id)
-  #    #url = url_for(common_work.account, common_work)
-  #  end
-  #  url
-  #  
-  #end
+  def remove_recordings
+    begin
+      common_work =   self.catalog_itemable
+      common_work.recordings.each do |recording|
+        catalog_item = CatalogItem.where(
+                          catalog_id: self.catalog_id, 
+                          catalog_itemable_id: recording.id, 
+                          catalog_itemable_type: recording.class.name 
+                        ).first
+        catalog_item.destroy! if catalog_item
+      end
+    rescue
+      
+    end
+    #
+    #catalog_items = CatalogItem.where( catalog_id: self.id,
+    #                                   catalog_itemable_type: 'Recording',
+    #                                   catalog_itemable_id: recording_ids.first) 
+    #                                  
+    ##puts '----------------------------- remove_recordings ---------------------------------'
+    #ap catalog_items.first
+    #
+  end
+
   
   
 

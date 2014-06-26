@@ -1,15 +1,8 @@
 require_relative '../web_browser'
 
-##Usage:
-#require 'pp'
-#BMI::MemberWorkCollect 'everstar', 'Bmibmi1234' do |work|
-#  pp work
-#  puts "----------------------------\n"
-#end
-
-class BMI::MemberWorkCollect
-  def BMI::MemberWorkCollect username, password, &block
-    @collector = BMI::MemberWorkCollect.new
+class BMIMemberWorkCollect
+  def self.scrape username, password, &block
+    @collector = BMIMemberWorkCollect.new
     @collector.login username, password
     @collector.check_is_multipage
     @collector.collect! &block
@@ -48,6 +41,8 @@ class BMI::MemberWorkCollect
       yield work if block_given?
       @works << work
     end
+    #!!! Max added this to close browser from BmiScraperWorker
+    @browser.close
     @works
   end
 

@@ -78,6 +78,8 @@ class Catalog::CatalogsController < ApplicationController
     #@common_works  = CommonWork.catalog_search(@catalog, params[:query]).order('title asc').page(params[:page]).per(32)
   end
   
+  
+  
   #def move
   #  @catalog = Catalog.cached_find(params[:catalog_id])
   #end

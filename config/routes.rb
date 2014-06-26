@@ -320,6 +320,7 @@ Digiramp::Application.routes.draw do
         put "generate_code"
         get "find_common_work_in_collection"
         get "common_works/export_common_works"
+        get "common_works/remove"
         
 
         
@@ -333,6 +334,12 @@ Digiramp::Application.routes.draw do
         # scrape from performance rights organizations
         resources :common_works_imports do
           get "create_pro"
+          
+          get "select_pro"
+          get "from_ascap"
+          post "ascap_import"
+          get "from_bmi"
+          post "bmi_import"
         end
         resources :common_works do
           resources :common_work_ipis

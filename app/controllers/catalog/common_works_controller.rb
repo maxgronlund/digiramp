@@ -128,22 +128,33 @@ class Catalog::CommonWorksController < ApplicationController
     
     catalog_item.destroy!
   end
-  
+
   def remove_recordings common_work
     
     #if common_work.recordings
-    common_work.recordings.each do |recording|
-      catalog_item = CatalogItem.where(
-                        catalog_id: @catalog.id, 
-                        catalog_itemable_id: recording.id, 
-                        catalog_itemable_type: recording.class.name 
-                      ).first
-      catalog_item.destroy! if catalog_item
-    end
+    #common_work.recordings.each do |recording|
+    #  catalog_item = CatalogItem.where(
+    #                    catalog_id: @catalog.id, 
+    #                    catalog_itemable_id: recording.id, 
+    #                    catalog_itemable_type: recording.class.name 
+    #                  ).first
+    #  catalog_item.destroy! if catalog_item
+    #end
     #end
     
     
     
+  end
+  
+  def remove
+    catalog_items   = CatalogItem.where(
+                      catalog_id: @catalog.id, 
+                      catalog_itemable_type: 'CommonWork'
+                    )
+                    
+    catalog_items.destroy_all if catalog_items   
+        
+    redirect_to catalog_account_catalog_common_works_path( @account, @catalog)
   end
   
   def add_common_work_from_collection

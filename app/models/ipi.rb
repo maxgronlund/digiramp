@@ -10,7 +10,7 @@ class Ipi < ActiveRecord::Base
   
 
 
-  ROLES = [ "Writer", "Composer", "Administrator", "Producer", "Original Publisher",  "Artist", "Distributor", "Remixer", "Other"]
+  ROLES = [ "Writer", "Composer", "Administrator", "Producer", "Original Publisher",  "Artist", "Distributor", "Remixer", "Other", "Publisher"]
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }

@@ -7,25 +7,13 @@ class CatalogWorksController < ApplicationController
   
   def index
     forbidden unless current_catalog_user.read_common_work
-    #@common_works = @catalog.common_works 
-    
-    
-    #recording = CatalogItem.where(catalogable_id: @catalog.id, catalogable_type: 'Recording')
-    
-    
-    
-    
+
     @common_works  = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
     respond_to do |format|
       format.html
       #format.csv { render text: @common_works.to_csv }
       format.csv { render text: @common_works.to_csv }
     end
-    
-    
-
-    
-    
   end
   
   def show
@@ -66,6 +54,8 @@ class CatalogWorksController < ApplicationController
     @common_work.destroy
     redirect_to_return_url account_catalog_catalog_works_path(@account, @catalog)
   end
+  
+  
   
 private
 

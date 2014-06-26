@@ -1,9 +1,13 @@
 class CommonWorksImport < ActiveRecord::Base
   belongs_to :account
+  belongs_to :catalog
   #attr_accessible :title, :body, :imported_works, :in_progress, :params, :processed_works, :total_works, :updated_works
   has_many :common_works
   
   attr_accessor :user_name, :password
+  
+  # clear memcache
+  after_commit :flush_cache
   
   serialize :params, Array 
   
@@ -92,9 +96,10 @@ class CommonWorksImport < ActiveRecord::Base
   end
   
   def add_to_catalog common_work, catalog_id
+    puts '--------------- add to catalog -------------------------------'
 
-    if catalog_id
-      CatalogItem.where(catalog_itemable_type: 'CommonWork', 
+    if catalog_id 
+      catalog_item = CatalogItem.where(catalog_itemable_type: 'CommonWork', 
                         catalog_itemable_id: common_work.id, 
                         catalog_id: catalog_id)
                   .first_or_create(
@@ -102,6 +107,7 @@ class CommonWorksImport < ActiveRecord::Base
                         catalog_itemable_id: common_work.id, 
                         catalog_id: catalog_id
                         )
+      ap catalog_item
     else
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       puts 'ERROR: Unable to add common work to catalog:' 
@@ -140,18 +146,101 @@ class CommonWorksImport < ActiveRecord::Base
     
   end
   
-  #def self.post_started user_email
-  #  
-  #  ap user_email
-  #  channel = 'digiramp_radio_' + user_email
-  #  Pusher.trigger(channel, 'digiramp_event', {"title" => 'FOBAR', 
-  #                                        "message" => 'Unable to log in', 
-  #                                        "time"    => '500', 
-  #                                        "sticky"  => 'true', 
-  #                                        "image"   => 'success'
-  #                                        })
-  #
-  #end
+  
+  def self.post_bmi_info user_email, work
+    
+    channel = 'digiramp_radio_' + user_email
+    Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
+                                          "message" => "Importing From BMI", 
+                                          "time"    => '5000', 
+                                          "sticky"  => 'false', 
+                                          "image"   => 'progress'
+                                          })
+                                        
+  end
+  
+  def parse_bmi_ipis common_work_id, role, info
+    puts '-------- ipi -------------'
+    
+    ipi = Ipi.where(common_work_id: common_work_id, 
+                    ipi_code: info[:ipi_number] )
+             .first_or_create( common_work_id: common_work_id, 
+                               ipi_code: info[:ipi_number] )
+    
+    ipi.full_name                 = ipi_scrape[:name ]
+    ipi.role                      = role
+    ipi.pro                       = ipi_scrape[:society]
+    #ipi.perf_owned                = ipi_scrape[:own_percent]
+    #ipi.perf_collected            = ipi_scrape[:collect_percent]
+    #ipi.has_agreement             = ipi_scrape[:has_agreement]
+    #ipi.linked_to_ascap_member    = ipi_scrape[:linked_to_ascap_member]
+    #ipi.controlled_by_submitter   = ipi_scrape[:controlled_by_submitter]
+    #ipi.ascap_work_id             = ascap_work_id
+    ipi.save!
+    
+    
+    ap info
+    #{
+    #          :name => "MOSES JOE",
+    #       :society => "ASCAP",
+    #         :share => "33.33%",
+    #    :ipi_number => "00628608528"
+    #}
+    
+  end
+  
+  def parse_works_from_bmi 
+    imports = 0
+    self.params.each do |work|
+      imports += 1
+     
+      # find or create the common work
+      common_work = CommonWork.where( 
+                                      iswc_code:          work[:iswc], 
+                                      account_id:         self.account_id, 
+                                      title:              work[:title],
+                                      registration_date:  work[:registration_date]
+                                      
+                                    )
+                              .first_or_create( 
+                                                iswc_code:          work[:iswc], 
+                                                account_id:         self.account_id, 
+                                                title:              work[:title],
+                                                registration_date:  work[:registration_date]
+                                              )
+
+
+      common_work.bmi_work_id   = work[:bmi_work_id]
+      common_work.update_completeness
+      add_to_catalog common_work, self.catalog_id
+      
+      # parse writers
+      if work[:writers]
+        work[:writers].each do |writer|
+          parse_bmi_ipis common_work.id, 'Writer', writer
+        end 
+      end
+      
+      # parse publishers
+      if work[:publishers]
+        work[:publishers].each do |publisher|
+          parse_bmi_ipis common_work.id, 'Publisher', publisher
+        end 
+      end
+
+    end
+    self.imported_works = imports
+    self.save!
+    channel = 'digiramp_radio_' + user_email
+    Pusher.trigger(channel, 'digiramp_event', {"title" => 'Success', 
+                                          "message" => "#{self.imported_works} Common Works Imported", 
+                                          "time"    => '5000', 
+                                          "sticky"  => 'true', 
+                                          "image"   => 'success'
+                                          })
+                                          
+                                          
+  end
   
   def self.post_info user_email, info
     #puts '---------------------------------------------'
@@ -166,9 +255,7 @@ class CommonWorksImport < ActiveRecord::Base
                                             "image"   => 'error'
                                             })
  
-    end
-    
-    if info[:stage_complete] == :goto_works_from_dashboard
+    elsif info[:stage_complete] == :goto_works_from_dashboard
       channel = 'digiramp_radio_' + user_email
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
                                             "message" => 'Password Accepted', 
@@ -176,10 +263,36 @@ class CommonWorksImport < ActiveRecord::Base
                                             "sticky"  => 'false', 
                                             "image"   => 'progress'
                                             })
+    elsif info[:start] == :ascap_import
+      channel = 'digiramp_radio_' + user_email
+      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
+                                            "message" => 'ASCAP Import Started', 
+                                            "time"    => '1000', 
+                                            "sticky"  => 'false', 
+                                            "image"   => 'notice'
+                                            })
+    elsif info[:start] == :bmi_import
+      ap info
+      channel = 'digiramp_radio_' + user_email
+      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
+                                            "message" => 'BMI Import Started', 
+                                            "time"    => '4000', 
+                                            "sticky"  => 'false', 
+                                            "image"   => 'notice'
+                                            })
     end
 
   end
   
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
+  
+private
+  
+  def flush_cache
+    Rails.cache.delete([self.class.name, id])
+  end
 
 
 end

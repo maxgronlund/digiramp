@@ -1,9 +1,17 @@
--if current_catalog_user.create_common_work
-  .pull-right
+.pull-right
+  -if current_catalog_user.delete_common_work
+    = link_to catalog_account_catalog_common_works_remove_path(@account, @catalog), data: {:confirm => 'Are you sure?'} do
+      .btn.btn-warning.btn-lg
+        i class="fa fa-minus-circle"
+        '&nbsp;
+        'Remove All
+  
+  -if current_catalog_user.create_common_work
+    '&nbsp;
     = link_to catalog_account_catalog_add_common_works_path(@account, @catalog) do
       .btn.btn-success.btn-lg
         i class="fa fa-plus-circle"
         '&nbsp;
-        'Add Common Work
-        
-
+        'Add
+          
+  
