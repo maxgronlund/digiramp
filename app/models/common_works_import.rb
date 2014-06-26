@@ -58,7 +58,7 @@ class CommonWorksImport < ActiveRecord::Base
         end
           
         # save
-        common_work.save!common_work
+        common_work.save!
         
         # parse ipis
         parse_ipis common_work.id, param[:ipis], common_work.ascap_work_id
@@ -81,7 +81,7 @@ class CommonWorksImport < ActiveRecord::Base
         puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       end
     end
-    # not in progress
+    # not in progress any more
     self.in_progress = false
     self.save!
     
@@ -230,6 +230,8 @@ class CommonWorksImport < ActiveRecord::Base
       end
 
     end
+    # not in progress any more
+    self.in_progress = false
     self.imported_works = imports
     self.save!
     channel = 'digiramp_radio_' + user_email
