@@ -112,6 +112,8 @@ gem 'unicorn'
 
 gem 'thin'
 
+gem 'capistrano-sidekiq' , github: 'seuros/capistrano-sidekiq'
+
 group :development do
   # Use Capistrano for deployment
   gem 'capistrano'
@@ -125,7 +127,7 @@ group :development do
   gem 'capistrano-bundler'
   
   #gem "capistrano-sidekiq"
-  gem 'capistrano-sidekiq'
+  #gem 'capistrano-sidekiq'
   
   # if you are using RVM
   #gem 'capistrano-rvm'
