@@ -167,9 +167,9 @@ class CommonWorksImport < ActiveRecord::Base
              .first_or_create( common_work_id: common_work_id, 
                                ipi_code: info[:ipi_number] )
     
-    ipi.full_name                 = ipi_scrape[:name ]
+    ipi.full_name                 = info[:name]
     ipi.role                      = role
-    ipi.pro                       = ipi_scrape[:society]
+    ipi.pro                       = info[:society]
     #ipi.perf_owned                = ipi_scrape[:own_percent]
     #ipi.perf_collected            = ipi_scrape[:collect_percent]
     #ipi.has_agreement             = ipi_scrape[:has_agreement]

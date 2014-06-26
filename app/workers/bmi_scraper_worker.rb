@@ -21,11 +21,13 @@ class BmiScraperWorker
         CommonWorksImport.post_bmi_info common_works_import.user_email, work
         import_started = false
       end
+      #ap work
     end
     
     if works != []
       common_works_import.params = works
       common_works_import.save!
+      #ap common_works_import
       common_works_import.parse_works_from_bmi
     else
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'

@@ -13,7 +13,6 @@
     };
 
     var pusher = new Pusher('d70ad0d20fdef342dd05');
-    /*var channel = pusher.subscribe('digiramp_radio');*/
     var channel = pusher.subscribe('<%= current_user ? 'digiramp_radio_'+current_user.email : 'null' %>');
     channel.bind('digiramp_event', sayHello);
     /*
