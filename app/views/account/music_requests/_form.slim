@@ -1,7 +1,6 @@
 = simple_form_for [ :account, @account, @oppertunity, @music_request] do |f|
   /= f.hidden_field :account_id, value: @account.id
   = f.hidden_field :oppertunity_id, value: @oppertunity.id
-  = debug @music_request
   .row
     .col-sm-6
       .panel.panel-primary
