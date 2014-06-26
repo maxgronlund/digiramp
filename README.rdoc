@@ -50,3 +50,12 @@ $ thin -e production start
 
 
 
+
+
+
+
+ssh deploy@78.46.19.136
+bundle exec rake sidekiq:start RAILS_ENV=production
+
+
+
