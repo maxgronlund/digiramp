@@ -159,7 +159,7 @@ class CommonWorksImport < ActiveRecord::Base
                                         
   end
   
-  def parse_bmi_ipis common_work_id, role, info
+  def parse_bmi_ipis common_work_id, role, info, bmi_work_id
     puts '-------- ipi -------------'
     
     ipi = Ipi.where(common_work_id: common_work_id, 
@@ -170,7 +170,8 @@ class CommonWorksImport < ActiveRecord::Base
     ipi.full_name                 = info[:name]
     ipi.role                      = role
     ipi.pro                       = info[:society]
-    ipi.perf_collected            = ipi_scrape[:share]
+    ipi.perf_collected            = info[:share]
+    ipi.bmi_work_id               = bmi_work_id
     #ipi.perf_owned                = ipi_scrape[:own_percent]
     #ipi.perf_collected            = ipi_scrape[:collect_percent]
     #ipi.has_agreement             = ipi_scrape[:has_agreement]
@@ -180,7 +181,7 @@ class CommonWorksImport < ActiveRecord::Base
     ipi.save!
     
     
-    #ap info
+    ap ipi
     #{
     #          :name => "MOSES JOE",
     #       :society => "ASCAP",
@@ -218,14 +219,14 @@ class CommonWorksImport < ActiveRecord::Base
       # parse writers
       if work[:writers]
         work[:writers].each do |writer|
-          parse_bmi_ipis common_work.id, 'Writer', writer
+          parse_bmi_ipis common_work.id, 'Writer', writer, work[:bmi_work_id]
         end 
       end
       
       # parse publishers
       if work[:publishers]
         work[:publishers].each do |publisher|
-          parse_bmi_ipis common_work.id, 'Publisher', publisher
+          parse_bmi_ipis common_work.id, 'Publisher', publisher, work[:bmi_work_id]
         end 
       end
 

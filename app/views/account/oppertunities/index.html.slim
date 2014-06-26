@@ -48,6 +48,34 @@
         .panel-heading
           'Oppertunities
         .panel-body
+          .table-responsive
+            table class="table"
+              thead
+                tr
+                  th Title
+                  th Kind
+                  th Budget
+                  th Deadline
+                  th
+              tbody
+                - @oppertunities.order(:deadline).each do |oppertunity|
+                  tr
+                    td = link_to oppertunity.title, account_account_oppertunity_path(@account, oppertunity), class: 'btn btn-default btn-lg'
+                    td = oppertunity.kind
+                    td = oppertunity.budget
+                    td = oppertunity.deadline
+                    th
+                      .pull-right
+                        = link_to edit_account_account_oppertunity_path(@account, oppertunity) do
+                          .btn.btn-primary.btn-lg
+                            i class="fa fa-pencil"
+                        '&nbsp;
+                        = link_to account_account_oppertunity_path(@account, oppertunity), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times"
+                        
+                        
+          
      
             
 

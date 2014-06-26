@@ -1,8 +1,27 @@
-h1 Editing oppertunity
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'         
+  .container
+    ==render 'admin/shared/messages'
+    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
+    .do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_account_assets_path(@account), \
+                                                              oppertunities: account_account_oppertunities_path(@account), \
+                                                              @oppertunity.title.to_sym => account_account_oppertunity_path(@account, @oppertunity), \
+                                                              }, current: 'oppertunities'}
+      - blog = Blog.cached_find('Oppertunities')
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Edit Oppertunity'}
+      == render 'form'
+            
 
-== render 'form'
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
 
-= link_to 'Show', @oppertunity
-'|
-= link_to 'Back', oppertunities_path
+
+
+
+
 

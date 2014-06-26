@@ -1,0 +1,4 @@
+.pull-right
+  / the account user can always edit the account
+  -if current_user.id == @account.user_id || current_user.super?
+    = link_to 'Edit', edit_user_account_path( current_user, @account), class: 'btn btn-primary btn-lg'

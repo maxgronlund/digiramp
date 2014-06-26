@@ -1,4 +1,5 @@
-- user_account = Account.cached_find(@user.account_id)
+- user_account                  = Account.cached_find(@user.account_id)
+- session[:go_to_after_update]  = request.url
 #wrap
   .profile
     .full-width-top

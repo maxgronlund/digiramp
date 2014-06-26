@@ -1,0 +1,41 @@
+/= debug current_account_user
+- session[:return_url]         = request.url
+- session[:go_to_after_update] = request.url
+- blog      = Blog.cached_find('Account')
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  
+  .container
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           manage: account_account_path(@account)}, current:  'ipi codes'}
+    ==render 'admin/shared/messages'
+
+    /- insert = 'accounts/shared/leave_account'
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('IPI Codes'), blog_post: 'Edit IPI Code'}
+    .row
+      - if current_account_user.create_common_work
+        .row
+          .col-sm-3
+          
+          .col-sm-6
+            .panel.panel-primary
+              .panel-heading
+                'ADD IPI CODE
+              .panel-body
+                == render 'form'
+                
+          .col-sm-3
+    
+
+                                          
+
+
+
+        
+  
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

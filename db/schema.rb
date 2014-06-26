@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625201642) do
+ActiveRecord::Schema.define(version: 20140626153750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -866,6 +866,21 @@ ActiveRecord::Schema.define(version: 20140625201642) do
   add_index "invites", ["inviteable_id", "inviteable_type"], name: "index_invites_on_inviteable_id_and_inviteable_type", using: :btree
   add_index "invites", ["user_id"], name: "index_invites_on_user_id", using: :btree
 
+  create_table "ipi_codes", force: true do |t|
+    t.integer  "account_id"
+    t.integer  "ipiable_id"
+    t.string   "ipiable_type"
+    t.string   "ipi_code"
+    t.string   "title"
+    t.string   "pro"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ipi_codes", ["account_id"], name: "index_ipi_codes_on_account_id", using: :btree
+  add_index "ipi_codes", ["ipiable_id", "ipiable_type"], name: "index_ipi_codes_on_ipiable_id_and_ipiable_type", using: :btree
+
   create_table "ipis", force: true do |t|
     t.string   "full_name"
     t.text     "address"
@@ -892,6 +907,7 @@ ActiveRecord::Schema.define(version: 20140625201642) do
     t.boolean  "linked_to_ascap_member"
     t.boolean  "controlled_by_submitter"
     t.string   "ascap_work_id"
+    t.string   "bmi_work_id",             default: ""
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree

@@ -299,11 +299,14 @@ Digiramp::Application.routes.draw do
   end
   namespace :account do
     resources :accounts do
+      resources :account_ipis
       resources :artworks 
       resources :assets
-      resources :oppertunities
-      
-      
+      resources :common_works
+      resources :common_works_imports
+      resources :oppertunities do
+        resources :music_requests
+      end
     end
     
   end

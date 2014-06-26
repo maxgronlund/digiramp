@@ -1,5 +1,5 @@
-class Account::OppertunitiesController < ApplicationController
-  before_action :set_oppertunity, only: [:show, :edit, :update, :destroy]
+class Account::MusicRequestsController < ApplicationController
+  before_action :set_music_request, only: [:show, :edit, :update, :destroy]
   
   include AccountsHelper
   before_filter :access_account
@@ -8,7 +8,7 @@ class Account::OppertunitiesController < ApplicationController
   # GET /oppertunities.json
   def index
     forbidden unless current_account_user.read_oppertunity
-    @oppertunities = @account.oppertunities
+    #@oppertunities = Oppertunity.all
   end
 
   # GET /oppertunities/1
@@ -43,15 +43,6 @@ class Account::OppertunitiesController < ApplicationController
       redirect_to new_account_account_oppertunity_path(@account)
     end
 
-    #respond_to do |format|
-    #  if @oppertunity.save
-    #    format.html { redirect_to @oppertunity, notice: 'Oppertunity was successfully created.' }
-    #    format.json { render action: 'show', status: :created, location: @oppertunity }
-    #  else
-    #    format.html { render action: 'new' }
-    #    format.json { render json: @oppertunity.errors, status: :unprocessable_entity }
-    #  end
-    #end
   end
 
   # PATCH/PUT /oppertunities/1
@@ -86,8 +77,8 @@ class Account::OppertunitiesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_oppertunity
-      @oppertunity = Oppertunity.cached_find(params[:id])
+    def set_music_request
+      @music_request = MusicRequest.cached_find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

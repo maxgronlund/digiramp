@@ -1,0 +1,62 @@
+/= debug current_account_user
+- session[:return_url]         = request.url
+- session[:go_to_after_update] = request.url
+- blog      = Blog.cached_find('Account')
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  
+  .container
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           manage: account_account_path(@account)}, current:  'ipi codes'}
+    ==render 'admin/shared/messages'
+
+    /- insert = 'accounts/shared/leave_account'
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('IPI Codes'), blog_post: 'IPI CODES', insert: 'add_ipi_code'}
+    
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            'IPI Codes Attached to #{@account.title}
+          .panel-body
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Title
+                    th IPI Code
+                    th Capacity
+                    th PRO
+                    th
+                tbody                    
+                  - @account.atached_ipi_codes.each do |ipi_code|
+                    tr
+                      td = link_to ipi_code.title, account_account_account_ipi_path(@account, ipi_code), class: 'btn btn-default btn-lg'
+                      td = ipi_code.ipi_code
+                      td = ipi_code.role
+                      td = ipi_code.pro
+                      td
+                        .pull-right
+                          = link_to edit_account_account_account_ipi_path( @account, ipi_code ) do
+                            .btn.btn-primary.btn-lg
+                              i class="fa fa-pencil"
+                          '&nbsp; 
+                          = link_to account_account_account_ipi_path( @account, ipi_code ), data: { confirm: 'Are you sure?' } , :method => :delete do
+                            .btn.btn-danger.btn-lg
+                              i class="fa fa-times"
+                         
+          
+          
+          
+      
+    
+   
+
+        
+  
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

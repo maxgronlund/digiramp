@@ -1,4 +1,4 @@
-class AccountsController < ApplicationController
+class Account::AccountsController < ApplicationController
   
   include AccountsHelper
   before_filter :access_account
@@ -18,12 +18,9 @@ class AccountsController < ApplicationController
     
     session[:account_id]  = @account.id
 
-
-
   end
   
   def edit
-    
     @account = Account.cached_find(params[:id])
     @user = @account.user
   end
@@ -31,21 +28,14 @@ class AccountsController < ApplicationController
   def update
     @account  = Account.cached_find(params[:id])
     @account.update_attributes(account_params)
-    
-    go_to = session[:go_to_after_update] 
-    session[:go_to_after_update]  = nil
-    redirect_to go_to || account_account_path(  @account)
 
+    redirect_to account_account_path(  @account)
 
   end
   
   def account_params
     params.require(:account).permit!
   end
-  
-  
 
- 
-  
 
 end

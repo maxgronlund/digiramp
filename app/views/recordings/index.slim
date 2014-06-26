@@ -5,9 +5,11 @@
   .container
     ==render 'admin/shared/messages'
     -cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              #assets: account_assets_path(@account), \
-                                                              }, current: 'recordings'}
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account), \
+                                                             manage: account_account_path(@account)}, \
+                                                             current:  'recordings'}
+                                                             
                                                                  
       == render 'shared/page_title', locals: {blog: Blog.cached_find('Recordings'), \
                                       blog_post: 'Manage Recordings'}

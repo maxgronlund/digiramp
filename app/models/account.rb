@@ -19,6 +19,9 @@ class Account < ActiveRecord::Base
   # delete common_works when account is deleted
   has_many :common_works, dependent: :destroy
   
+  # ipi codes connected to the account
+  has_many :ipi_codes, as: :ipiable
+  
   # !!! might be obsolete
   has_many :customer_event
   
@@ -165,6 +168,11 @@ class Account < ActiveRecord::Base
     initialize_super_users
     # update white list
     rebuild_permitted_user_ids
+  end
+  
+  def atached_ipi_codes
+    
+    IpiCode.where(account_id: self.id, ipiable_type: 'Account')
   end
 
   

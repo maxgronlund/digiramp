@@ -104,6 +104,10 @@
                         tr
                           td Ascap Work Id:
                           td  = ipi.ascap_work_id
+                      - unless ipi.bmi_work_id.to_s == ''
+                        tr
+                          td BMI Work Id:
+                          td  = ipi.bmi_work_id
                       
       
          

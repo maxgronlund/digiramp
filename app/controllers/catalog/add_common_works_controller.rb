@@ -4,7 +4,7 @@ class Catalog::AddCommonWorksController < ApplicationController
   include CatalogsHelper
   
   before_filter :access_account
-  before_filter :access_catalog, only: [:index]
+  before_filter :access_catalog
   
   
   def index
