@@ -12,6 +12,7 @@ class CatalogItem < ActiveRecord::Base
     case self.catalog_itemable_type
 
     when 'CommonWork'
+      'count commonworks'
       CatalogCommonWorkCounterCachWorker.perform_async(self.catalog_id)
     when 'Recording'
       CatalogRecordingCounterCachWorker.perform_async(self.catalog_id)
@@ -43,7 +44,7 @@ class CatalogItem < ActiveRecord::Base
         catalog_item.destroy! if catalog_item
       end
     rescue
-      
+      puts '>>>>>>>>>>>>>>>>>> no recordings removed <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
     end
     #
     #catalog_items = CatalogItem.where( catalog_id: self.id,

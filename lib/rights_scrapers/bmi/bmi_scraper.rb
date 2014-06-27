@@ -137,9 +137,10 @@ class BMIMemberWorkCollect
       @ipis << {name: ipi[0], society: ipi[1], share: ipi[2], ipi_number: ipi[3]}
     end
     
-    ipis = @ipis
+    ipis.push *@ipis
+    result = @ipis
     @ipis = nil
-    return ipis
+    return result
   rescue Selenium::WebDriver::Error::StaleElementReferenceError
     if @tr_index
       return get_ipis type, @tr_index

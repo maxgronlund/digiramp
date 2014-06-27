@@ -9,12 +9,14 @@ class CommonWork < ActiveRecord::Base
   has_many :recordings, dependent: :destroy
   #accepts_nested_attributes_for  :recordings, allow_destroy: true
   
-  has_many :attachments, as: :attachable
+  has_many :attachments, as: :attachable,       dependent: :destroy
   has_many :ipis,       dependent: :destroy
   
   #has_many :activity_events, as: :activity_eventable
   #has_many :documents,       as: :documentable, dependent: :destroy
   has_many :work_users, dependent: :destroy
+  
+  has_many :catalog_items, as: :catalog_itemable, dependent: :destroy
   
   #mount_uploader :audio_file, AudioFileUploader
   before_save :update_uuids

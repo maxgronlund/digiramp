@@ -80,7 +80,7 @@ class Admin::AccountsController < ApplicationController
   def delete_common_works
     @account = Account.cached_find(params[:account_id])
     @account.common_works.destroy_all
-    AccountCache.update_works_uuid @account
+    #AccountCache.update_works_uuid @account
     @account.update_assets_count
     redirect_to :back
   end
