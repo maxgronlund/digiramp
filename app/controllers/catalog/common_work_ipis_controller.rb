@@ -19,8 +19,11 @@ class Catalog::CommonWorkIpisController < ApplicationController
   end
 
   def edit
+    @common_work      = CommonWork.cached_find(params[:common_work_id])
+    @ipi              = Ipi.cached_find(params[:id])
   end
 
   def update
+    
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140627201343) do
+ActiveRecord::Schema.define(version: 20140627225102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -552,6 +552,7 @@ ActiveRecord::Schema.define(version: 20140627201343) do
     t.string   "registration_date",                 default: ""
     t.string   "bmi_work_id",                       default: ""
     t.string   "bmi_catalog",                       default: "Main catalog"
+    t.string   "registration_origin",               default: ""
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree

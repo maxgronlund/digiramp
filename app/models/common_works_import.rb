@@ -179,15 +179,7 @@ class CommonWorksImport < ActiveRecord::Base
     #ipi.controlled_by_submitter   = ipi_scrape[:controlled_by_submitter]
     #ipi.ascap_work_id             = ascap_work_id
     ipi.save!
-    
 
-    #{
-    #          :name => "MOSES JOE",
-    #       :society => "ASCAP",
-    #         :share => "33.33%",
-    #    :ipi_number => "00628608528"
-    #}
-    
   end
   
   def parse_works_from_bmi 
@@ -203,14 +195,19 @@ class CommonWorksImport < ActiveRecord::Base
                               .first_or_create( bmi_work_id:  work[:bmi_work_id],
                                                 account_id:   self.account_id)
       
-
-      common_work.common_works_import_id  = self.id
-      common_work.bmi_catalog             = catalog[:catalog]
-      common_work.iswc_code               = work[:iswc]
-      common_work.title                   = work[:title]
-      common_work.registration_date       = work[:registration_date]     
-                              
-      
+      #if work[:registration_origin]  == 'Cue Sheet'
+      #  puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   Cue Sheet   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+      #  ap work
+      #  puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   Cue Sheet   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+      #end 
+      common_work.common_works_import_id    = self.id
+      common_work.bmi_catalog               = catalog[:catalog]
+      common_work.iswc_code                 = work[:iswc]
+      common_work.title                     = work[:title]
+      common_work.registration_date         = work[:registration_date]   
+      common_work.registration_origin       = work[:registration_origin] 
+        
+          
       common_work.update_completeness
       
       add_to_catalog common_work, self.catalog_id

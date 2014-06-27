@@ -1,2 +1,39 @@
-h1 CommonWorkIpis#edit
-p Find me in app/views/common_work_ipis/edit.html.slim
+- session[:return_url]  = request.url
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .do 
+    
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              catalogs: catalog_account_catalogs_path(@account), \
+                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                              'common works'.to_sym => catalog_account_catalog_common_works_path(@account, @catalog), \
+                                                              @common_work.title.to_sym => catalog_account_catalog_common_work_path(@account, @catalog, @common_work), \
+                                                              ipi: catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, @ipi), \
+                                                              }, current: 'edit'}
+    
+                                         
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('IPI'), blog_post: 'EDIT IPI'}
+    /  - blog          = Blog.cached_find('Ipis')
+    /  - blog_post     = BlogPost.cached_find( 'common work ipis' , blog )
+    /  - edit_link     = edit_admin_blog_blog_post_path(blog, blog_post)
+    /  == render 'shared/page_title_text', locals: {title: @common_work.title, body: blog_post.body, edit_link: edit_link }
+    /
+    /    
+    /  .panel.panel-primary
+    /    .panel-heading
+    /      = ipi.full_name
+    /    .panel-body
+    /
+    /    
+    /
+     
+     
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
+= debug @ipi

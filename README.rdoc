@@ -52,10 +52,9 @@ $ thin -e production start
 
 
 
-
-
-ssh deploy@78.46.19.136
-bundle exec rake sidekiq:start RAILS_ENV=production
-
+#start sicekiq
+$ ssh deploy@78.46.19.136
+$ cd apps/digiramp_production/current
+$ RAILS_ENV=production bundle exec sidekiq
 
 
