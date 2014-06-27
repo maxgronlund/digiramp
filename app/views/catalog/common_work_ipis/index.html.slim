@@ -36,62 +36,82 @@
                           b Role:
                         td 
                           b = ipi.role
+                      
                       tr
                         td PRO:
                         td  = ipi.pro
-                      tr
-                        td Address:
-                        td  = ipi.address
-                      tr
-                        td Email:
-                        td  = ipi.email
-                      tr
-                        td Phone Number
-                        td = ipi.phone_number
+                      
+                      - unless ipi.address.to_s == ''
+                        tr
+                          td Address:
+                          td  = ipi.address
+                      - unless ipi.email.to_s == ''
+                        tr
+                          td Email:
+                          td  = ipi.email
+                      
+                      - unless ipi.phone_number.to_s == ''
+                        tr
+                          td Phone Number
+                          td = ipi.phone_number
                       tr
                         td IPI Code:
                         td  = ipi.ipi_code
-                      tr
-                        td CAE Code:
-                        td  = ipi.cae_code 
+                        
+                      - unless ipi.bmi_work_id.to_s == ''
+                        tr
+                          td BMI Work Id:
+                          td  = ipi.bmi_work_id
+                      
+                      - unless ipi.cae_code.to_s == ''
+                        tr
+                          td CAE Code:
+                          td  = ipi.cae_code 
               .col-sm-4
                 .table-responsive
                   table class="table table-hover"
                     tbody
-                      tr
-                        td  Controlled:
-                        td  = ipi.controlled
-                      tr
-                        td Territory:
-                        td  = ipi.territory
-                      /tr
-                      /  td Share:
-                      /  td  = ipi.share
+                      - unless ipi.controlled.to_s == ''
+                        tr
+                          td  Controlled:
+                          td  = ipi.controlled
+                      - unless ipi.territory.to_s == ''
+                        tr
+                          td Territory:
+                          td  = ipi.territory
+
                       tr
                         td Mechanical Owned
                         td = number_to_percentage(ipi.mech_owned, precision: 0) 
+                      
                       tr
                         td Mechanical Collected:
                         td = number_to_percentage(ipi.mech_collected, precision: 0) 
+                      
                       tr
                         td Performance Owned:
                         td = number_to_percentage(ipi.perf_owned, precision: 0) 
+                      
                       tr
                         td Performance Collected:
                         td = number_to_percentage(ipi.perf_collected, precision: 0) 
+                        
               .col-sm-4
                 .table-responsive
                   table class="table table-hover"
                     tbody
-                      tr
-                        td  Notes:
-                        td  = ipi.notes
-                      tr
-                        td Has Agreement:
-                        td  = ipi.has_agreement
-                      /tr
-                      /  td Share:
-                      /  td  = ipi.share
+                      - unless ipi.notes.to_s == ''
+                        tr
+                          td  Notes:
+                          td  = ipi.notes
+                          
+                      - unless ipi.has_agreement.to_s == ''
+                        tr
+                          td Has Agreement:
+                          td  = ipi.has_agreement ? '√' : ''
+                        /tr
+                        /  td Share:
+                        /  td  = ipi.share
                       - unless ipi.linked_to_ascap_member.to_s == ''
                         tr
                           td Linked to ASCAP Member
@@ -100,17 +120,12 @@
                         tr
                           td Controlled By Submitter:
                           td Yes
-                      - unless ipi.ascap_work_id.to_s == ''
-                        tr
-                          td Ascap Work Id:
-                          td  = ipi.ascap_work_id
-                      - unless ipi.bmi_work_id.to_s == ''
-                        tr
-                          td BMI Work Id:
-                          td  = ipi.bmi_work_id
                       
-      
-         
+                .pull-right
+                  = link_to edit_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, ipi) do
+                    .btn.btn-primary.btn-lg
+                      i class="fa fa-pencil"
+              
       
 
         

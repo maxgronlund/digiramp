@@ -195,7 +195,7 @@ class CommonWork < ActiveRecord::Base
     # 75% of the completeness is based on the recordings
     value += recording_health * 0.75
     self.completeness       = value
-    self.save
+    self.save!
 
   end
   

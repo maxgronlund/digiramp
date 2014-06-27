@@ -33,9 +33,16 @@
                   = simple_format @common_work.description
               .row
                 .col-sm-12
-                  - if @common_work.iswc_code.to_s != ''
+                  - unless @common_work.iswc_code.to_s    == ''
                     br
-                    B ISWC: #{@common_work.iswc_code}
+                    b ISWC: 
+                    = @common_work.iswc_code
+                    
+                  - unless @common_work.bmi_catalog.to_s  == ''
+                    br
+                    b BMI Catalog: 
+                    = @common_work.bmi_catalog
+     
               
       
           - if @common_work.lyrics.to_s != ''

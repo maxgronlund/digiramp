@@ -96,7 +96,7 @@ class CommonWorksImport < ActiveRecord::Base
   end
   
   def add_to_catalog common_work, catalog_id
-    puts '--------------- add to catalog -------------------------------'
+    #puts '--------------- add to catalog -------------------------------'
 
     if catalog_id 
       catalog_item = CatalogItem.where(catalog_itemable_type: 'CommonWork', 
@@ -107,7 +107,7 @@ class CommonWorksImport < ActiveRecord::Base
                         catalog_itemable_id: common_work.id, 
                         catalog_id: catalog_id
                         )
-      ap catalog_item
+      #ap catalog_item
     else
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       puts 'ERROR: Unable to add common work to catalog:' 
@@ -159,9 +159,9 @@ class CommonWorksImport < ActiveRecord::Base
                                         
   end
   
+  # parse ipi informations from BMI
   def parse_bmi_ipis common_work_id, role, info, bmi_work_id
-    puts '-------- ipi -------------'
-    
+
     ipi = Ipi.where(common_work_id: common_work_id, 
                     ipi_code: info[:ipi_number] )
              .first_or_create( common_work_id: common_work_id, 
@@ -180,8 +180,7 @@ class CommonWorksImport < ActiveRecord::Base
     #ipi.ascap_work_id             = ascap_work_id
     ipi.save!
     
-    
-    ap ipi
+
     #{
     #          :name => "MOSES JOE",
     #       :society => "ASCAP",
@@ -192,28 +191,28 @@ class CommonWorksImport < ActiveRecord::Base
   end
   
   def parse_works_from_bmi 
+    puts '++++++++++++++++++++++++++++ parse_works_from_bmi ++++++++++++++++++++++++++++++'
+
     imports = 0
-    self.params.each do |work|
-      imports += 1
-     
+    self.params.each do |catalog|
+      work        = catalog[:work]
+   
       # find or create the common work
-      common_work = CommonWork.where( 
-                                      iswc_code:          work[:iswc], 
-                                      account_id:         self.account_id, 
-                                      title:              work[:title],
-                                      registration_date:  work[:registration_date]
-                                      
-                                    )
-                              .first_or_create( 
-                                                iswc_code:          work[:iswc], 
-                                                account_id:         self.account_id, 
-                                                title:              work[:title],
-                                                registration_date:  work[:registration_date]
-                                              )
+      common_work = CommonWork.where(           bmi_work_id:  work[:bmi_work_id],
+                                                account_id:   self.account_id)
+                              .first_or_create( bmi_work_id:  work[:bmi_work_id],
+                                                account_id:   self.account_id)
+      
 
-
-      common_work.bmi_work_id   = work[:bmi_work_id]
+      common_work.common_works_import_id  = self.id
+      common_work.bmi_catalog             = catalog[:catalog]
+      common_work.iswc_code               = work[:iswc]
+      common_work.title                   = work[:title]
+      common_work.registration_date       = work[:registration_date]     
+                              
+      
       common_work.update_completeness
+      
       add_to_catalog common_work, self.catalog_id
       
       # parse writers
@@ -229,10 +228,10 @@ class CommonWorksImport < ActiveRecord::Base
           parse_bmi_ipis common_work.id, 'Publisher', publisher, work[:bmi_work_id]
         end 
       end
-
+      imports     += 1
     end
     # not in progress any more
-    self.in_progress = false
+    self.in_progress    = false
     self.imported_works = imports
     self.save!
     channel = 'digiramp_radio_' + user_email

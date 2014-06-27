@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140627144254) do
+ActiveRecord::Schema.define(version: 20140627201343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -523,8 +523,8 @@ ActiveRecord::Schema.define(version: 20140627144254) do
   create_table "common_works", force: true do |t|
     t.string   "title"
     t.string   "iswc_code"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
     t.integer  "ascap_work_id"
     t.integer  "account_id"
     t.integer  "common_works_import_id"
@@ -551,6 +551,7 @@ ActiveRecord::Schema.define(version: 20140627144254) do
     t.string   "submitter_work_id"
     t.string   "registration_date",                 default: ""
     t.string   "bmi_work_id",                       default: ""
+    t.string   "bmi_catalog",                       default: "Main catalog"
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree
