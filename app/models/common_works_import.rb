@@ -96,7 +96,7 @@ class CommonWorksImport < ActiveRecord::Base
   end
   
   def add_to_catalog common_work, catalog_id
-    #puts '--------------- add to catalog -------------------------------'
+    puts '--------------- add to catalog -------------------------------'
 
     if catalog_id 
       catalog_item = CatalogItem.where(catalog_itemable_type: 'CommonWork', 
@@ -184,14 +184,15 @@ class CommonWorksImport < ActiveRecord::Base
   
   def parse_works_from_bmi 
     puts '++++++++++++++++++++++++++++ parse_works_from_bmi ++++++++++++++++++++++++++++++'
-
+    ap self.params
+    
     imports = 0
     self.params.each do |catalog|
       work        = catalog[:work]
    
       # find or create the common work
-      common_work = CommonWork.where(           bmi_work_id:  work[:bmi_work_id],
-                                                account_id:   self.account_id)
+      common_work = CommonWork.where( bmi_work_id:  work[:bmi_work_id],
+                                      account_id:   self.account_id)
                               .first_or_create( bmi_work_id:  work[:bmi_work_id],
                                                 account_id:   self.account_id)
       
@@ -206,9 +207,8 @@ class CommonWorksImport < ActiveRecord::Base
       common_work.title                     = work[:title]
       common_work.registration_date         = work[:registration_date]   
       common_work.registration_origin       = work[:registration_origin] 
-        
-          
       common_work.update_completeness
+      
       
       add_to_catalog common_work, self.catalog_id
       
