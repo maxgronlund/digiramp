@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626222707) do
+ActiveRecord::Schema.define(version: 20140627144254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,10 +89,10 @@ ActiveRecord::Schema.define(version: 20140626222707) do
     t.boolean  "read_artwork",              default: true
     t.boolean  "update_artwork",            default: true
     t.boolean  "delete_artwork",            default: true
-    t.boolean  "create_oppertunity",        default: false
-    t.boolean  "read_oppertunity",          default: false
-    t.boolean  "update_oppertunity",        default: false
-    t.boolean  "delete_oppertunity",        default: false
+    t.boolean  "create_opportunity",        default: false
+    t.boolean  "read_opportunity",          default: false
+    t.boolean  "update_opportunity",        default: false
+    t.boolean  "delete_opportunity",        default: false
   end
 
   add_index "account_users", ["account_id"], name: "index_account_users_on_account_id", using: :btree
@@ -130,8 +130,8 @@ ActiveRecord::Schema.define(version: 20140626222707) do
     t.string   "playlists_uuid",       default: "first love 727"
     t.string   "users_uuid",           default: "first love 727"
     t.integer  "administrator_id",     default: 0
-    t.boolean  "create_oppertunities"
-    t.boolean  "read_oppertunities"
+    t.boolean  "create_opportunities"
+    t.boolean  "read_opportunities"
   end
 
   add_index "accounts", ["administrator_id"], name: "index_accounts_on_administrator_id", using: :btree
@@ -435,10 +435,10 @@ ActiveRecord::Schema.define(version: 20140626222707) do
     t.boolean  "read_artwork",              default: true
     t.boolean  "update_artwork",            default: true
     t.boolean  "delete_artwork",            default: true
-    t.boolean  "create_oppertunity"
-    t.boolean  "read_oppertunity"
-    t.boolean  "update_oppertunity"
-    t.boolean  "delete_oppertunity"
+    t.boolean  "create_opportunity"
+    t.boolean  "read_opportunity"
+    t.boolean  "update_opportunity"
+    t.boolean  "delete_opportunity"
   end
 
   add_index "catalog_users", ["account_id"], name: "index_catalog_users_on_account_id", using: :btree
@@ -984,15 +984,18 @@ ActiveRecord::Schema.define(version: 20140626222707) do
     t.decimal  "fee"
     t.time     "duration"
     t.string   "audio_file"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "scene_number"
     t.string   "link"
     t.boolean  "up_to_full_use"
     t.integer  "oppertunity_id"
+    t.integer  "opportunity_id"
+    t.string   "link_title",     default: "Click Here"
   end
 
   add_index "music_requests", ["oppertunity_id"], name: "index_music_requests_on_oppertunity_id", using: :btree
+  add_index "music_requests", ["opportunity_id"], name: "index_music_requests_on_opportunity_id", using: :btree
 
   create_table "music_submissions", force: true do |t|
     t.integer  "recording_id"
@@ -1032,7 +1035,7 @@ ActiveRecord::Schema.define(version: 20140626222707) do
   add_index "notifications", ["account_id"], name: "index_notifications_on_account_id", using: :btree
   add_index "notifications", ["notification_event_id"], name: "index_notifications_on_notification_event_id", using: :btree
 
-  create_table "oppertunities", force: true do |t|
+  create_table "opportunities", force: true do |t|
     t.string   "title"
     t.text     "body"
     t.string   "kind"
@@ -1043,7 +1046,7 @@ ActiveRecord::Schema.define(version: 20140626222707) do
     t.datetime "updated_at"
   end
 
-  add_index "oppertunities", ["account_id"], name: "index_oppertunities_on_account_id", using: :btree
+  add_index "opportunities", ["account_id"], name: "index_opportunities_on_account_id", using: :btree
 
   create_table "permissions", force: true do |t|
     t.integer  "user_id"

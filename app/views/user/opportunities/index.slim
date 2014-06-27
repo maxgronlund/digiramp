@@ -10,7 +10,7 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name} 
       
                                                            
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Oppertunities'), blog_post: 'Oppertunities'}
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Opportunities'), blog_post: 'Opportunities'}
       .row
         .col-sm-12
           - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)

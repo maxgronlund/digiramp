@@ -38,7 +38,7 @@ class Account < ActiveRecord::Base
   has_many :account_users, dependent: :destroy
   has_many :users, :through => :account_users
   
-  has_many :oppertunities, dependent: :destroy
+  has_many :opportunities, dependent: :destroy
   
   # white list of users with access to the account
   serialize :permitted_user_ids,   Array                     

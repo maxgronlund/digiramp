@@ -1,6 +1,6 @@
-= simple_form_for [ :account, @account, @oppertunity, @music_request] do |f|
+= simple_form_for [ :account, @account, @opportunity, @music_request] do |f|
   /= f.hidden_field :account_id, value: @account.id
-  = f.hidden_field :oppertunity_id, value: @oppertunity.id
+  = f.hidden_field :opportunity_id, value: @opportunity.id
   .row
     .col-sm-6
       .panel.panel-primary
@@ -22,10 +22,14 @@
           'Info
         .panel-body
           = f.input :fee
-          = f.input :up_to_full_use
-          = f.input :audio_file
+          = f.input :audio_file, hint: 'Could sound like'
           = f.input :duration_text, label: 'Duration', placeholder: 'HH:MM:SS'
-          = f.input :link, placeholder: 'i.e. http://digiramp.com'
+          = f.input :up_to_full_use, hint: 'fobar'
+          .row
+            .col-sm-6
+              = f.input :link, placeholder: 'i.e. http://youtube.com/bruno-mars', hint: 'Could sound like'
+            .col-sm-6
+              = f.input :link_title, label: 'Link Name', placeholder: 'Click Here'
           /= f.input :deadline
     
 

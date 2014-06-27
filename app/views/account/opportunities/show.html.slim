@@ -1,0 +1,80 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'     
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           manage: account_account_path(@account), \
+                                                           opportunities: account_account_opportunities_path(@account)\
+                                                           }, current: @opportunity.title }
+    
+                                         
+    
+    == render 'shared/page_title_text', locals: {title: @opportunity.title, body: '', insert: 'edit'}
+
+    .row
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            = @opportunity.title
+          .panel-body
+            = simple_format @opportunity.body
+            .table-responsive
+              table class="table"
+                tr
+                  td Kind:
+                  td = @opportunity.kind
+                tr
+                  td Budget:
+                  td = number_to_currency(@opportunity.budget, locale: :en, precision: 2)
+                tr
+                  td Deadline:
+                  td = @opportunity.deadline
+      .col-sm-6
+        - @opportunity.music_requests.each do |music_request|
+          .panel.panel-primary
+            .panel-heading
+              = music_request.title
+            .panel-body
+              .table-responsive
+                table class="table"
+                  tr
+                    td Fee:
+                    td = number_to_currency(music_request.fee, locale: :en, precision: 2)
+                  tr
+                    td Duration:
+                    td = music_request.duration_text
+                  tr
+                    td Sound like:
+                    td = link_to 'click here', music_request.link
+                    
+                  
+              
+              b Description:
+              br
+              = simple_format music_request.body
+              br
+              = debug music_request
+              .pull-right
+                = link_to edit_account_account_opportunity_music_request_path(@account, @opportunity, music_request) do
+                  .btn.btn-primary.btn-lg
+                    i class="fa fa-pencil"
+                    
+        .pull-right
+          = link_to new_account_account_opportunity_path(@account, @opportunity) do
+            .btn.btn-success.btn-lg
+              i class="fa fa-plus-circle"
+              '&nbsp;
+              'New
+           
+             
+            
+              
+
+        
+         
+
+    /   
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

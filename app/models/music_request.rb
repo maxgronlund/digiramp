@@ -1,7 +1,7 @@
 class MusicRequest < ActiveRecord::Base
-  belongs_to :oppertunity, touch: true
+  belongs_to :opportunity, touch: true
   #has_many :music_submissions
-  #has_many :music_oppertunity_submitters
+  #has_many :music_opportunity_submitters
   #has_one :activity_log
   #has_many :activity_events, as: :activity_eventable
   #has_many :mood_tags,        as: :mood_tagable

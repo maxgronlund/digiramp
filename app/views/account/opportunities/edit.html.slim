@@ -1,0 +1,27 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'         
+  .container
+    ==render 'admin/shared/messages'
+    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
+    .do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_account_assets_path(@account), \
+                                                              opportunities: account_account_opportunities_path(@account), \
+                                                              @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity), \
+                                                              }, current: 'opportunities'}
+      - blog = Blog.cached_find('Opportunities')
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Edit Opportunity'}
+      == render 'form'
+            
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
+
+
+
+
+
+

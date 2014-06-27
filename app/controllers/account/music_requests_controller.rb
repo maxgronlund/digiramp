@@ -4,73 +4,76 @@ class Account::MusicRequestsController < ApplicationController
   include AccountsHelper
   before_filter :access_account
 
-  # GET /oppertunities
-  # GET /oppertunities.json
+  # GET /opportunities
+  # GET /opportunities.json
   def index
-    forbidden unless current_account_user.read_oppertunity
-    #@oppertunities = Oppertunity.all
+    forbidden unless current_account_user.read_opportunity
+    #@opportunities = Opportunity.all
   end
 
-  # GET /oppertunities/1
-  # GET /oppertunities/1.json
+  # GET /opportunities/1
+  # GET /opportunities/1.json
   def show
-    forbidden unless current_account_user.read_oppertunity
+    forbidden unless current_account_user.read_opportunity
   end
 
-  # GET /oppertunities/new
+  # GET /opportunities/new
   def new
-    forbidden unless current_account_user.update_oppertunity
-    @oppertunity    = Oppertunity.cached_find(params[:oppertunity_id])
+    forbidden unless current_account_user.update_opportunity
+    @opportunity    = Opportunity.cached_find(params[:opportunity_id])
     @music_request  = MusicRequest.new
   end
 
-  # GET /oppertunities/1/edit
+  # GET /opportunities/1/edit
   def edit
-    forbidden unless current_account_user.update_oppertunity
+    forbidden unless current_account_user.update_opportunity
+    @opportunity    = Opportunity.cached_find(params[:opportunity_id])
+    
   end
 
-  # POST /oppertunities
-  # POST /oppertunities.json
+  # POST /opportunities
+  # POST /opportunities.json
   def create
-    forbidden unless current_account_user.update_oppertunity
-     @oppertunity    = Oppertunity.cached_find(params[:oppertunity_id])
+    forbidden unless current_account_user.update_opportunity
+     @opportunity    = Opportunity.cached_find(params[:opportunity_id])
     if @music_request = MusicRequest.create(music_request_params)
-      redirect_to account_account_oppertunity_path(@account, @oppertunity)
+      redirect_to account_account_opportunity_path(@account, @opportunity)
     else
       
     end
     #
-    #if @oppertunity.save
-    #  flash[:info]      = { title: "Success", body: "Oppertunity Created" }
-    #  redirect_to account_account_oppertunity_path(@account, @oppertunity)
+    #if @opportunity.save
+    #  flash[:info]      = { title: "Success", body: "Opportunity Created" }
+    #  redirect_to account_account_opportunity_path(@account, @opportunity)
     #   
     #else
-    #  flash[:danger]      = { title: "Error", body: "Unable to create oppertunity" }
-    #  redirect_to new_account_account_oppertunity_path(@account)
+    #  flash[:danger]      = { title: "Error", body: "Unable to create opportunity" }
+    #  redirect_to new_account_account_opportunity_path(@account)
     #end
     #
   end
 
-  # PATCH/PUT /oppertunities/1
-  # PATCH/PUT /oppertunities/1.json
+  # PATCH/PUT /opportunities/1
+  # PATCH/PUT /opportunities/1.json
   def update
-    #forbidden unless current_account_user.update_oppertunity
-    #if @oppertunity.update(oppertunity_params)
-    #  flash[:info]      = { title: "Success", body: "Oppertunity Updated" }
-    #  redirect_to account_account_oppertunity_path(@account, @oppertunity)
-    #else
-    #  flash[:danger]      = { title: "Error", body: "Unable to update oppertunity" }
-    #  redirect_to edit_new_account_account_oppertunity_path(@account)
-    #end
+    forbidden unless current_account_user.update_opportunity
+    @opportunity    = Opportunity.cached_find(params[:opportunity_id])
+    if @music_request.update(music_request_params)
+      flash[:info]      = { title: "Success", body: "Music Request Updated" }
+      redirect_to account_account_opportunity_path(@account, @opportunity)
+    else
+      flash[:danger]      = { title: "Error", body: "Unable to update Music Request" }
+      redirect_to new_account_account_opportunity_path(@account)
+    end
 
   end
 
-  # DELETE /oppertunities/1
-  # DELETE /oppertunities/1.json
+  # DELETE /opportunities/1
+  # DELETE /opportunities/1.json
   def destroy
-    forbidden unless current_account_user.delete_oppertunity
+    forbidden unless current_account_user.delete_opportunity
     @music_request.destroy
-    redirect_to account_account_oppertunities_path(@account)
+    redirect_to account_account_opportunities_path(@account)
   end
 
   private

@@ -304,7 +304,7 @@ Digiramp::Application.routes.draw do
       resources :assets
       resources :common_works
       resources :common_works_imports
-      resources :oppertunities do
+      resources :opportunities do
         resources :music_requests
       end
     end

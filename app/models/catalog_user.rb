@@ -17,10 +17,10 @@ class CatalogUser < ActiveRecord::Base
 
 
   
-  scope :invited,           ->  { where.( role: 'Catalog User').order("email asc")  }
-  scope :account_users,     ->  { where.( role: 'Account User').order("email asc")  }
-  scope :super_users,       ->  { where.( role: 'Super User').order("email asc")  }
-  scope :account_owners,    ->  { where.( role: 'Account Owner').order("email asc")  }
+  scope :invited,           ->  { where( role: 'Catalog User').order("email asc")  }
+  scope :account_users,     ->  { where( role: 'Account User').order("email asc")  }
+  scope :super_users,       ->  { where( role: 'Super User').order("email asc")  }
+  scope :account_owners,    ->  { where( role: 'Account Owner').order("email asc")  }
   
   # catalog users comes in four flavors
   # 1: Catalog User, this role is set when the catalog user is invited to a catalog

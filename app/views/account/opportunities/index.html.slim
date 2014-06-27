@@ -1,0 +1,84 @@
+/h1 Listing opportunities
+/
+/table
+/  thead
+/    tr
+/      th Title
+/      th Body
+/      th Kind
+/      th Budget
+/      th Deadline
+/      th Account
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @opportunities.each do |opportunity|
+/      tr
+/        td = opportunity.title
+/        td = opportunity.body
+/        td = opportunity.kind
+/        td = opportunity.budget
+/        td = opportunity.deadline
+/        td = opportunity.account
+/        td = link_to 'Show', opportunity
+/        td = link_to 'Edit', edit_opportunity_path(opportunity)
+/        td = link_to 'Destroy', opportunity, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Opportunity', new_opportunity_path
+/
+
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'         
+  .container
+    ==render 'admin/shared/messages'
+    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
+    .do
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_account_assets_path(@account), \
+                                                              }, current: 'opportunities'}
+      - blog = Blog.cached_find('Opportunities')
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Opportunities', insert: 'create_opportunity'}
+      .panel.panel-primary
+        .panel-heading
+          'Opportunities
+        .panel-body
+          .table-responsive
+            table class="table"
+              thead
+                tr
+                  th Title
+                  th Kind
+                  th Budget
+                  th Deadline
+                  th
+              tbody
+                - @opportunities.order(:deadline).each do |opportunity|
+                  tr
+                    td = link_to opportunity.title, account_account_opportunity_path(@account, opportunity), class: 'btn btn-default btn-lg'
+                    td = opportunity.kind
+                    td = opportunity.budget
+                    td = opportunity.deadline
+                    th
+                      .pull-right
+                        = link_to edit_account_account_opportunity_path(@account, opportunity) do
+                          .btn.btn-primary.btn-lg
+                            i class="fa fa-pencil"
+                        '&nbsp;
+                        = link_to account_account_opportunity_path(@account, opportunity), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times"
+                        
+                        
+          
+     
+            
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              

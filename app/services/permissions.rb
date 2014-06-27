@@ -60,10 +60,10 @@ class Permissions
              "update_artwork",   
              "delete_artwork",         
              
-             "create_oppertunity", 
-               "read_oppertunity", 
-             "update_oppertunity",   
-             "delete_oppertunity"
+             "create_opportunity", 
+               "read_opportunity", 
+             "update_opportunity",   
+             "delete_opportunity"
             ]
   
   def initialize

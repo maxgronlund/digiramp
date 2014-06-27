@@ -13,15 +13,26 @@ class BmiScraperWorker
     common_works_import = CommonWorksImport.cached_find(common_works_import_id)
     
     import_started = true
-
-    BMIMemberWorkCollect.scrape user_name, password do |work|
-      #puts "\n\nWork:"
-      works << work
-      if import_started
-        CommonWorksImport.post_bmi_info common_works_import.user_email, work
-        import_started = false
+    
+    begin
+      BMIMemberWorkCollect.scrape user_name, password do |work|
+        #puts "\n\nWork:"
+        works << work
+        if import_started
+          CommonWorksImport.post_bmi_info common_works_import.user_email, work
+          import_started = false
+        end
+        #ap work
       end
-      #ap work
+    rescue BMIMemberWorkCollect::VerifyEmailError
+      puts 'VerifyEmailError'
+    rescue BMIMemberWorkCollect::InvalidUsernameOrPasswordError
+      puts 'InvalidUsernameOrPassword'
+      CommonWorksImport.post_info common_works_import.user_email, {error: 'InvalidUsernameOrPassword'}
+    rescue BMIMemberWorkCollect::UnableToLoginError
+      puts 'UnableToLoginError'
+    rescue BMIMemberWorkCollect::ErrorBoxPopupError
+      
     end
     
     if works != []

@@ -1,32 +1,45 @@
 require_relative '../web_browser'
 
 class BMIMemberWorkCollect
+  class UnableToLoginError < RuntimeError; end
+  class VerifyEmailError < UnableToLoginError; end
+  class InvalidUsernameOrPassword < UnableToLoginError; end
+  class ErrorBoxPopupError < RuntimeError; end
+  
+    
   def self.scrape username, password, &block
     @collector = BMIMemberWorkCollect.new
-    @collector.login username, password
+    @collector.login username, password, &block
     @collector.check_is_multipage
-    @collector.collect! &block
+    return @collector.collect! &block
+  ensure
+    @collector.close
   end
   
   attr_reader :works
-
+  
   def login username, password
     @browser = WebBrowser.open url: "https://applications.bmi.com/security/Login.aspx"
     @browser.text_field(id: "txtUserName").set username
     @browser.text_field(id: "txtPassword").set password
     @browser.checkbox(id: "checkBoxDisclaimer").set true
     @browser.button(id: "btnLogin").click
-    raise "You need to verify your BMI email" if @browser.text.include? "Please confirm the email address"
-    @browser.a(text: "Works Catalog").click
+    raise InvalidUsernameOrPassword if @browser.text.include? "Invalid Username/Password"
+    raise VerifyEmailError if @browser.text.include? "Please confirm the email address"
+    @browser.a(text: "Works Catalog").click  
   end
 
   def check_is_multipage
     works_count = @browser.span(id: "lbCount").text.split(':').last.strip.to_i
     actual_works_on_page = @browser.table(id: "tblWorks").trs.length
-    raise "Count doesn't match amount of works on page! Implement paginate bot here." if works_count != actual_works_on_page
+    raise "Count doesn't match amount of works on page! Implement paginate bot here." if works_count != actual_works_on_page #!!!
   end
   
-  def collect!
+  def close
+    @browser.close if @browser
+  end
+  
+  def collect! &block
     @works = []
     @browser.table(id: "tblWorks").trs.each do |tr|
       open_work_tr tr
@@ -38,11 +51,11 @@ class BMIMemberWorkCollect
         writers:            get_ipis(:writers),
         publishers:         get_ipis(:publishers)
       }
+      
       yield work if block_given?
       @works << work
     end
-    #!!! Max added this to close browser from BmiScraperWorker
-    @browser.close
+    
     @works
   end
 
@@ -56,7 +69,7 @@ class BMIMemberWorkCollect
     tr.a(class: "titleList").click
     @browser.div(id: "detailsdiv").wait_until_present
     Watir::Wait.until {
-      raise "Error box popup on BMI" if @browser.div(id: "divError").present?
+      raise ErrorBoxPopupError if @browser.div(id: "divError").present?
       get_bmi_work_id  == bmi_work_id
     }
   end

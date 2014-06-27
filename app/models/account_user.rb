@@ -40,6 +40,7 @@ class AccountUser < ActiveRecord::Base
   scope :clients,           ->  { where( role: 'Client') }
   scope :administrators,    ->  { where( role: 'Administrator') }
   scope :owner,             ->  { where( role: 'Account Owner')  }
+  scope :owners,             ->  { where( role: 'Account Owner')  }
   # users invited
   scope :invited,           ->  { where.not( role: ['Catalog User', 'Super', 'Client', 'Account Owner', 'Administrator'])  }
   #scope :invited,   -> { joins(:dog).order('dogs.name') }
@@ -247,7 +248,7 @@ class AccountUser < ActiveRecord::Base
   end
   
   def self.cached_where(account_id, user_id)
-    Rails.cache.fetch([ 'account_user', account_id, user_id]) { where( account_id: account_id, user_id: user_id ).first }
+    Rails.cache.fetch([ name, account_id, user_id]) { where( account_id: account_id, user_id: user_id ).first }
   end
   
   def can_add_content?
@@ -293,7 +294,7 @@ class AccountUser < ActiveRecord::Base
   end
   
   def has_access_to_opertunities
-    return true if self.read_oppertunity
+    return true if self.read_opportunity
     return true if self.role == 'Super'
     return false
   end
@@ -304,7 +305,7 @@ private
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])
-    Rails.cache.delete(['account_user', account_id, user_id])
+    Rails.cache.delete([self.class.name, self.account_id, self.user_id])
   end
   
   #def remove_catalog_users

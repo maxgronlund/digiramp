@@ -102,19 +102,19 @@
                                                 icon: 'fa fa-picture-o', \
                                                 no_turbo: true \
                                               }
-                                      
-        -if current_account_user.read_oppertunity?
+                         
+        -if current_account_user.read_opportunity
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
                                                 post: BlogPost.cached_find( "OPPERTUNITIES" , blog ), \
-                                                link: account_account_oppertunities_path(@account), \
+                                                link: account_account_opportunities_path(@account), \
                                                 css_class: 'btn btn-danger', \
                                                 icon: 'fa fa-plane', \
                                                 no_turbo: true \
                                               }
                                       
-        -if current_account_user.read_oppertunity?
+        -if true
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
