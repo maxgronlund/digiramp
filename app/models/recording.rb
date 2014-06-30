@@ -36,7 +36,7 @@ class Recording < ActiveRecord::Base
                                     ], :using => [:tsearch]
   validates :title, :presence => true
   
-  scope :bucket,            ->  { where.not( in_bucket: true)  }
+  scope :bucket,            ->  { where( in_bucket: true)  }
   
   belongs_to :account
   belongs_to :common_work
