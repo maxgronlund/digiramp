@@ -1,0 +1,56 @@
+
+- genre_category = params[:genre_category].gsub(' ', '_').downcase
+- all_genre_ids  = eval("Genre.#{genre_category}.ids")
+- blog_post      = BlogPost.cached_find(params[:genre_category], blog)
+
+- selected_genre_ids = []
+- @recording.genre_tags.each do |genre_tag|
+  - selected_genre_ids << genre_tag.genre.id
+- all_genre_ids -= selected_genre_ids
+  
+.panel
+  .panel-body
+    
+    .col-sm-6
+      h4 Select from
+      table class="table table-hover table-bordered"
+        tbody
+          - Genre.where(id: all_genre_ids).each do |genre_id|
+            - genre = Genre.cached_find(genre_id) 
+            tr
+              td = genre.title
+              td 
+                .pull-right
+                  = link_to new_account_common_work_recording_genre_tag_path(@account, @common_work, @recording, genre_id: genre_id) do
+                    -if @disable_more_genres
+                      div class="btn btn-primary btn-lg" disabled='disabled'
+                        i class="fa fa-plus"
+                    -else
+                      div class="btn btn-primary btn-lg"
+                        i class="fa fa-plus"
+            
+    .col-sm-6
+      h4 Genre
+      table class="table table-hover table-bordered"
+        tbody
+          - Genre.where(id: selected_genre_ids).each do |genre_id|
+            - genre = Genre.cached_find(genre_id) 
+            - genre_tag_id = @recording.genre_tags.where(genre_id: genre_id).first
+            tr
+              td 
+                = genre.title 
+                
+              td
+                = genre.category_name
+              
+              td 
+                .pull-right
+                  = link_to account_common_work_recording_genre_tag_path(@account, @common_work, @recording, genre_tag_id),  method: :delete do
+                     div class="btn btn-danger btn-lg" 
+                      i class="fa fa-minus"
+                        
+== render 'shared/line'
+.pull-right
+  == link_to 'Categories', account_common_work_recording_genre_tags_path(@account, @common_work, @recording), class: 'btn btn-default btn-lg'
+  '&nbsp;
+  == link_to 'Done', edit_account_common_work_recording_path(@account, @common_work, @recording), class: 'btn btn-primary btn-lg'

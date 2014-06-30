@@ -5,7 +5,7 @@
     .full-width-top
       == render 'admin/shared/navbar', page: 'account'     
   .container
-    ==render 'admin/shared/messages'
+    == render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
                                                            manage: account_account_path(@account), \
                                                            common_works: account_account_common_works_path(@account)\
@@ -60,7 +60,7 @@
         - if current_account_user.read_recording?
             == render 'works/shared/badge_button', locals: { \
                                                         blog_post: 'RECORDINGS', \
-                                                        link: account_work_work_recordings_path(@account, @common_work), \
+                                                        link: recordings_account_account_common_work_path(@account, @common_work), \
                                                         css_class: 'btn btn-warning', \
                                                         icon: 'fa fa-headphones'\
                                                       }
@@ -187,5 +187,6 @@
     /      .pull-right
     /        = link_to 'edit', edit_account_work_path(@account, @common_work), class: 'btn btn-primary btn-lg'
     /    
+    == render 'shared/back', locals: {link: account_account_common_works_path(@account)}
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

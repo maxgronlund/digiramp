@@ -68,22 +68,8 @@
               .btn.btn-primary.btn-lg
                 i class="fa fa-pencil"
             '&nbsp;
-          /  = link_to account_common_work_recording_image_file_path(@account, @common_work,@recording, @artwork), \
-          /     data: { confirm: 'Are you shure?' } , method: :delete
-          /    .btn.btn-danger.btn-lg
-          /      i class="fa fa-trash-o"
-          /
-              
-      /= render 'shared/line'
-      /.row
-      /  .col-sm-12
-      /    .pull-right
-      /      = link_to 'Edit Artwork', \
-      /                edit_account_common_work_recording_image_file_path(@account, \
-      /                                                                  @common_work,\
-      /                                                                  @recording,
-      /                                                                  @artwork), class: 'btn btn-primary btn-lg'
-      /
+
+
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
               

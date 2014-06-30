@@ -1,0 +1,97 @@
+/= debug @recording.audio_upload
+- session[:return_url]  = request.url
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                             manage: account_account_path(@account), \
+                                                             recordings: account_account_recordings_path(@account)\
+                                                             }, current: @recording.title }
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+      /                                                        #assets: account_assets_path(@account), \
+      /                                                        recordings: account_account_recordings_path(@account), \
+      /                                                        }, current: @recording.title}
+      /
+      /
+      /
+      / add a link to 
+      / http://localhost:3000/accounts/6/common_works/6468/recordings/434/edit
+      -body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
+      - insert = 'account/recordings/edit'
+      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: insert} 
+      /== render 'shared/title', locals: {title: @recording.title, body: body, insert: insert} 
+      -index = @recording.id
+      div class="player" id="#{index}"
+      .just-load
+      .panel.panel-primary
+        .panel-heading
+          = @recording.title
+        .panel-body
+          .digiramp_player
+            div class="permissions" value="account_recordings" id="#{current_user.id}"
+            == render 'players/digramp_player', locals: {index: index , recording: @recording}
+      .row
+        .col-sm-6
+          == render 'recordings/shared/metadata'
+        .col-sm-6 
+          == render 'recordings/shared/description'   if @recording.comment.to_s != ''
+          == render 'recordings/shared/lyrics'        if @recording.lyrics.to_s != ''
+        /.col-sm-6
+        /   == render 'works/shared/badge_button', locals: { \
+        /                                              blog_post: 'INFO', \
+        /                                              link: account_accout_recording_info_path(@account, @common_work, @recording), \
+        /                                              css_class: 'btn btn-info', \
+        /                                              icon: 'fa fa-info-circle' \
+        /                                            }
+        /
+        /- if current_account_user.read_common_work?
+        /  .col-sm-6
+        /     == render 'works/shared/badge_button', locals: { \
+        /                                                blog_post: 'COMMON WORK', \
+        /                                                link: account_account_common_work_path(@account, @recording.common_work), \
+        /                                                css_class: 'btn btn-primary', \
+        /                                                icon: 'fa fa-music'\
+        /                                              }     
+        /- if current_account_user.read_file?
+        /  /.col-sm-6
+        /  /  == render 'works/shared/badge_button', locals: { \
+        /  /                                             blog_post: 'FOOTAGE', \
+        /  /                                             link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+        /  /                                             css_class: 'btn btn-warning', \
+        /  /                                             icon: 'fa fa-film' , \
+        /  /                                              no_turbo: true \
+        /  /                                           }      
+        /  /  
+        /  .col-sm-6
+        /     == render 'works/shared/badge_button', locals: { \
+        /                                                blog_post: 'DOCUMENTS', \
+        /                                                link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+        /                                                css_class: 'btn btn-danger', \
+        /                                                icon: 'fa fa-folder' \
+        /                                              } 
+        /
+        /  .col-sm-6
+        /     == render 'works/shared/badge_button', locals: { \
+        /                                                blog_post: 'ARTWORK', \
+        /                                                link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+        /                                                css_class: 'btn btn-default', \
+        /                                                icon: 'fa fa-picture-o' \
+        /                                              }     
+        /
+        /                                                                                    
+     
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
+
+            
+ 
+          
+          
+          
+        

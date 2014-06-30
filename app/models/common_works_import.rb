@@ -96,7 +96,6 @@ class CommonWorksImport < ActiveRecord::Base
   end
   
   def add_to_catalog common_work, catalog_id
-    puts '--------------- add to catalog -------------------------------'
 
     if catalog_id 
       catalog_item = CatalogItem.where(catalog_itemable_type: 'CommonWork', 
@@ -161,7 +160,7 @@ class CommonWorksImport < ActiveRecord::Base
   
   # parse ipi informations from BMI
   def parse_bmi_ipis common_work_id, role, info, bmi_work_id
-    puts '++++++++++++++++++++++++++++ parse_works_from_bmi ++++++++++++++++++++++++++++++'
+    
     ipi = Ipi.where(common_work_id: common_work_id, 
                     ipi_code: info[:ipi_number] )
              .first_or_create( common_work_id: common_work_id, 
@@ -183,7 +182,7 @@ class CommonWorksImport < ActiveRecord::Base
   end
   
   def parse_works_from_bmi 
-    puts '++++++++++++++++++++++++++++ parse_works_from_bmi ++++++++++++++++++++++++++++++'
+   
     ap self.params
     
     imports = 0

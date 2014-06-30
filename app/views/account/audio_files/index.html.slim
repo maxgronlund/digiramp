@@ -1,0 +1,47 @@
+/= debug current_account_user
+- session[:return_url]         = request.url
+- session[:go_to_after_update] = request.url
+- blog      = Blog.cached_find('Upload Audio Files')
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  
+  .container
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            manage: account_account_path(@account), \
+                                                            upload: account_account_uploads_path(@account) \
+                                                           }, \
+                                                    current:  'audio files'}
+    ==render 'admin/shared/messages'
+    /, insert: 'audio_files_new'
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'UNORGANIZED AUDIO FILES'}
+    .row
+      .col-sm-12
+        .panel
+          .panel-body
+            .row
+              = form_tag account_account_recordings_path(@account), :method => 'get' do
+                .col-sm-6
+                  = text_field_tag "query", "", :class => 'search-query form-control', \
+                                                :placeholder => 'Search string', \
+                                                value: params[:query]
+                .col-sm-6
+                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                  '&nbsp;
+                  = link_to 'Show All',account_account_recordings_path(@account), class: 'btn btn-default btn-lg'
+
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            'AUDIO FILES
+          .panel-body
+            = debug @recordings
+            
+
+        
+  
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

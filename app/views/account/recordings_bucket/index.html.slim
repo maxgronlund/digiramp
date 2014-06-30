@@ -1,0 +1,60 @@
+/= debug current_account_user
+- session[:return_url]         = request.url
+- session[:go_to_after_update] = request.url
+- blog      = Blog.cached_find('Account Documents')
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  
+  .container
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            manage: account_account_path(@account), \
+                                                            documents: account_account_documents_path(@account) \
+                                                           }, \
+                                                    current:  'recordings bucket'}
+    
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'RECORDINGS BUCKET'}
+    == render 'admin/shared/messages'
+    -recordings = @account.recordings.bucket
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            'Recordings
+          .panel-body
+            .table-responsive
+               = form_tag edit_multiple_account_account_recordings_bucket_index_path [ @account] do
+                table class="table table-hover"
+                  thead
+                    tr
+                      /th User
+                      th 
+                      th Title
+                      
+                
+                  tbody
+                   
+                    -recordings.each do |recording|
+                      tr
+                        td
+                          label class="recording-select"
+                            = check_box_tag "recording_ids[]", recording.id
+                            '&nbsp;
+                            = recording.title
+                            
+                        td = recording.title
+                .pull-right
+                  = submit_tag "Edit Checked", class: 'btn btn-primary btn-lg'
+                                            
+                           
+        
+      
+    
+   
+
+        
+  
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

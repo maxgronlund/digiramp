@@ -14,8 +14,12 @@
           tr
             td = link_to common_work.title, account_account_common_work_path(@account, common_work), class: 'btn btn-default btn-lg'
             td 
-              div class="#{common_work.recordings.size == 0 ? 'label label-danger' : 'label label-primary'}"
-                = common_work.recordings.size
+              = link_to recordings_account_account_common_work_path(@account, common_work) do
+                .btn.btn-primary.btn-lg
+                  i class="fa fa-music"
+                  '&nbsp;
+                  = common_work.recordings.size
+                
             td 
               == render 'works/shared/health', health: common_work.health rescue []
             /td 

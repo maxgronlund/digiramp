@@ -10,7 +10,7 @@ class TransloaditRecordingsParser
   
   def self.extract uploads
     
-    if uploads[:results].nil?
+    if uploads[:results].nil? ||  uploads[:results][':original'].nil?
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       puts 'ERROR: Unable to extract recordings: uploads nil'
       puts 'In TransloaditRecordingsParser#extract'
@@ -21,6 +21,7 @@ class TransloaditRecordingsParser
     extracted     = {}
 
     
+
     # original file
     uploads[:results][':original'].each do |original|
       extracted[ original[:original_id] ] =  {  original_file:        original[:url],
@@ -32,39 +33,49 @@ class TransloaditRecordingsParser
                                                 url:                  original[:url],
                                                 meta:                 original[:meta]}
     end
-    
-
-    # thumbnail
-    uploads[:results][:thumbnail].each do |thumbnail|
-      extracted[ thumbnail[:original_id] ][:original_file] = thumbnail[:url]
-    end
-    
-    # waveform
-    uploads[:results][:waveform].each do |waveform|
-      extracted[ waveform[:original_id] ][:waveform]       = waveform[:url]
-    end
-    
-
-    # mp3 file
-    uploads[:results][:mp3].each do |mp3|
-      extracted[ mp3[:original_id] ][:mp3]                 = mp3[:url]
-      extracted[ mp3[:original_id] ][:original_file_name]  = mp3[:name]
-      extracted[ mp3[:original_id] ][:original_name]       = mp3[:original_basename]
-    end
 
     
-    # artwork_thumb
-    unless uploads[:results][:artwork_thumb].nil?
-      uploads[:results][:artwork_thumb].each do |artwork_thumb|
-        extracted[ artwork_thumb[:original_id] ][:cover_art]       = artwork_thumb[:url]
+
+    if uploads[:results][:thumbnail]
+      # thumbnail
+      uploads[:results][:thumbnail].each do |thumbnail|
+        extracted[ thumbnail[:original_id] ][:original_file] = thumbnail[:url]
       end
     end
     
+    if uploads[:results][:waveform]
+      # waveform
+      uploads[:results][:waveform].each do |waveform|
+        extracted[ waveform[:original_id] ][:waveform]       = waveform[:url]
+      end
+    end
+    
+    
+    if uploads[:results][:mp3]
+      # mp3 file
+      uploads[:results][:mp3].each do |mp3|
+        extracted[ mp3[:original_id] ][:mp3]                 = mp3[:url]
+        extracted[ mp3[:original_id] ][:original_file_name]  = mp3[:name]
+        extracted[ mp3[:original_id] ][:original_name]       = mp3[:original_basename]
+      end
+    end
 
-    # artwork 
-    unless uploads[:results][:artwork].nil?
-      uploads[:results][:artwork].each do |artwork|
-        extracted[ artwork[:original_id] ][:artwork]       = artwork[:url]
+    
+    if uploads[:results][:artwork_thumb]
+      # artwork_thumb
+      unless uploads[:results][:artwork_thumb].nil?
+        uploads[:results][:artwork_thumb].each do |artwork_thumb|
+          extracted[ artwork_thumb[:original_id] ][:cover_art]       = artwork_thumb[:url]
+        end
+      end
+    end
+    
+    if uploads[:results][:artwork]
+      # artwork 
+      unless uploads[:results][:artwork].nil?
+        uploads[:results][:artwork].each do |artwork|
+          extracted[ artwork[:original_id] ][:artwork]       = artwork[:url]
+        end
       end
     end
     
@@ -96,53 +107,63 @@ class TransloaditRecordingsParser
     transloadets
   end
   
-  def self.parse uploads, account_id
+  def self.parse uploads, account_id, in_bucket
     transloadets  = extract( uploads )
     
 
-    recordings = []
-    transloadets.each do |transloaded|
-
-
-      recording =   Recording.create!(  title:                              extract_title_from( transloaded ), 
-                                        duration:                           transloaded[:duration],
-                                        artist:                             transloaded[:artist],
-                                        lyrics:                             sanitize_lyrics( transloaded[:lyrics] ),
-                                        bpm:                                transloaded[:bpm],
-                                        comment:                            sanitize_comment( transloaded[:comment] ),
-                                        year:                               transloaded[:year],
-                                        album_name:                         transloaded[:album],
-                                        genre:                              transloaded[:genre],
-                                        performer:                          transloaded[:performer],
-                                        band:                               transloaded[:band],
-                                        disc:                               transloaded[:disc],
-                                        track:                              transloaded[:track],
-                                        mp3:                                transloaded[:mp3],
-                                        waveform:                           transloaded[:waveform],
-                                        thumbnail:                          transloaded[:thumbnail],
-                                        #copyright:                          transloaded[:copyright],
-                                        #composer:                           transloaded[:composer],
-                                        account_id:                         account_id, 
-                                        audio_upload:                       transloaded,
-                                        original_file:                      transloaded[:original_file],
-                                        cover_art:                          transloaded[:cover_art],
-                                        artwork:                            transloaded[:artwork],
-
-                                        ssl_url:                            transloaded[:ssl_url],
-                                        url:                                transloaded[:url],
-                                        ext:                                transloaded[:ext],
-                                        original_file_name:                 transloaded[:original_file_name],
-                                       )
+    recordings  = []
+    errors      = []
+    if transloadets.nil?
+      errors << 'No valid files uploaded'
+    else
+      
+      transloadets.each do |transloaded|
+      
+        begin
+          recording =   Recording.create!(  title:               extract_title_from( transloaded ), 
+                                            duration:            transloaded[:duration],
+                                            artist:              transloaded[:artist],
+                                            lyrics:              sanitize_lyrics( transloaded[:lyrics] ),
+                                            bpm:                 transloaded[:bpm],
+                                            comment:             sanitize_comment( transloaded[:comment] ),
+                                            year:                transloaded[:year],
+                                            album_name:          transloaded[:album],
+                                            genre:               transloaded[:genre],
+                                            performer:           transloaded[:performer],
+                                            band:                transloaded[:band],
+                                            disc:                transloaded[:disc],
+                                            track:               transloaded[:track],
+                                            mp3:                 transloaded[:mp3],
+                                            waveform:            transloaded[:waveform],
+                                            thumbnail:           transloaded[:thumbnail],
+                                            #copyright:           transloaded[:copyright],
+                                            #composer:            transloaded[:composer],
+                                            account_id:          account_id, 
+                                            audio_upload:        transloaded,
+                                            original_file:       transloaded[:original_file],
+                                            cover_art:           transloaded[:cover_art],
+                                            artwork:             transloaded[:artwork],
+          
+                                            ssl_url:             transloaded[:ssl_url],
+                                            url:                 transloaded[:url],
+                                            ext:                 transloaded[:ext],
+                                            original_file_name:  transloaded[:original_file_name],
+                                            in_bucket:           in_bucket
+                                           )
+          
+          
+          add_artwork_to recording unless recording.cover_art == ''
+          recording.extract_genres                                 
+          recording.update_completeness
+          recordings << recording
+        rescue
+          errors << "!Unable to convert: #{transloaded[:name]}"
+        end
       
       
-      add_artwork_to recording unless recording.cover_art == ''
-      recording.extract_genres                                 
-      recording.update_completeness
-      recordings << recording
-
-
+      end
     end
-    recordings
+    { recordings: recordings, errors: errors }
   end
 
   def self.add_artwork_to recording

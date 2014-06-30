@@ -1,0 +1,13 @@
+
+= form_tag update_multiple_account_account_recordings_bucket_index_path [ @account] do
+
+  -@recordings.each do |recording| 
+    h2 = recording.title 
+    = fields_for "recordings[]", recording do |f| 
+
+      div class="field"
+        = f.label :title
+        br
+        = f.text_field :title
+      
+  = submit_tag "Update" 

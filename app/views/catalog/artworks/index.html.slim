@@ -19,7 +19,7 @@
       /  .panel-body
       .row
         - @catalog.artworks.each do |artwork|
-          == render 'catalog/artworks/index', locals: {artwork: artwork, links: 'catalog/artworks/catalog'}
+          == render 'shared/artworks', locals: {artwork: artwork, links: 'catalog/artworks/catalog'}
           
 
 -cache (['footer', Admin.cached_find(1).version]) do      

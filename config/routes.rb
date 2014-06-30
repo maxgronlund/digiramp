@@ -8,6 +8,10 @@ Digiramp::Application.routes.draw do
 
   
 
+  
+
+  
+
   resources :gitter, only: [:index]
   #resources :footages
   #resources :pro_affiliations
@@ -299,14 +303,73 @@ Digiramp::Application.routes.draw do
   end
   namespace :account do
     resources :accounts do
+      member do
+        #get 'find_recording_in_bucket'
+        get "legal_documents"
+        get "financial_documents"
+        get "files"
+      end
       resources :account_ipis
+      resources :account_users
       resources :artworks 
-      resources :assets
-      resources :common_works
+      
+      resources :audio_files
+      resources :common_works do
+        member do
+          get  'recordings'
+          get  'recordings_new'
+          get  'recordings_destroy'
+          post 'recordings_create'
+        end
+      end
       resources :common_works_imports
+      resources :documents, only: [:index] do
+        
+        
+      end
       resources :opportunities do
         resources :music_requests
       end
+      
+      # make this member do
+      post "uploads/audio_files_create"
+      get "uploads/audio_files_new"
+      get "uploads/audio_files"
+      get "uploads/common_works"
+      resources :recordings_bucket do
+        collection do
+          post :edit_multiple
+          post :update_multiple
+          get :edit_shared
+          post :update_shared
+        end
+      end
+      resources :recordings do
+        
+        member do
+          get "files"
+          
+          get "documents"
+          get "legal_documents"
+          get "artwork"
+          get "new_artwork"
+          get "financial_documents"
+          
+          
+
+        end
+      end
+     
+      #resources :recordings do
+      #  get "new_from_catalog_artworks"
+      #  post "create_from_catalog_artworks"
+      #  post "use_artwork"
+      #  resources :recording_artworks, only: [:index]
+      #  resources :image_files
+      #  get "info"
+      #end
+      
+      resources :uploads, only: [:index]
     end
     
   end

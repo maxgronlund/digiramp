@@ -2,9 +2,9 @@
   -link = catalog_account_catalog_recording_info_path(@account, @catalog, @recording)
 - else
   /accounts/37/common_works/3002/recording_infos/364
-  -link = account_common_work_recording_info_path( @account, @common_work, @recording)
+  -link = account_account_recording_path( @account, @recording)
 
 
 =link_to link do
-  .btn.btn-info.btn-lg
-    i class="fa fa-info-circle"
+  .btn.btn-warning.btn-lg
+    i class="fa fa-eye"

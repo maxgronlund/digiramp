@@ -102,7 +102,7 @@ class RecordingsController < ApplicationController
     @recording.destroy
     common_work.update_completeness
     # jump back to recordings or common work
-    redirect_to_return_url account_recordings_path( @account, page: params[:page], query: params[:query])
+    redirect_to_return_url account_account_recordings_path( @account, page: params[:page], query: params[:query])
   end
   
   def upload_completed

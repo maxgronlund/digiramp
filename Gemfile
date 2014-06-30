@@ -81,6 +81,8 @@ gem "gritter", "1.1.0"
 
 
 
+
+
 # for extraction of text content
 gem 'yomu'
 

@@ -1,0 +1,15 @@
+/-if current_account_user.create_recording? && current_account_user.update_common_work?
+/  .pull-right
+/    = link_to "Add Recording", new_account_common_work_recording_path(@account, @common_work), \
+/              'data-no-turbolink'=>true, \
+/                  class: 'btn btn-primary btn-lg'
+
+-if current_account_user.create_recording? && current_account_user.update_common_work?
+  .pull-right
+    = link_to recordings_new_account_account_common_work_path(@account, @common_work), 'data-no-turbolink'=>true do 
+      .btn.btn-success.btn-lg
+        i class="fa fa-plus-circle"
+        '&nbsp;
+        'Add Recordings
+      
+      

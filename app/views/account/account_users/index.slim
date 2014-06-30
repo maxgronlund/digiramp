@@ -1,0 +1,23 @@
+
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+
+            
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            manage: account_account_path(@account) \
+                                                           }, \
+                                                    current:  'users'}
+                                      
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Account users', insert: 'account/account_users/invite_user'}
+    
+    == render 'personas'
+
+    
+
+  == render 'shared/back', locals: {link: account_account_path(@account)}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

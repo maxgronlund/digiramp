@@ -75,14 +75,31 @@ class Catalog::CommonWorksController < ApplicationController
     begin
       #puts params[:recording][:add_to_catalogs]
       #params[:recording].delete :add_to_catalog
+      result = TransloaditRecordingsParser.parse( params[:transloadit], @account.id, false )
       
-      if recordings = TransloaditRecordingsParser.parse( params[:transloadit], @account.id )
-        recordings.each do |recording|
+      nr_files_uploaded = 0
+      if result[:recordings]
+        result[:recordings].each do |recording|
+          nr_files_uploaded += 1
           recording.common_work_id = @common_work.id
           recording.save!
         end
-        flash[:info]      = { title: "Success", body: "#{pluralize(recordings.size, "recorcing")} uploaded" }
       end
+      
+      # success mesage
+      flash[:info]      = { title: "Succes", body: "#{pluralize(nr_files_uploaded, "File")} uploaded" }
+      
+      # error messages
+      unless result[:errors].size == 0
+        errors     = ''
+        nr_errors = 0
+        result[:errors].each do |error|
+          nr_errors += 1
+          errors << error + '<br>'
+        end
+        flash[:danger]    = { title: "Errors", body: errors }
+      end
+      
       
       # selection from drop down
       case params[:recording][:add_to_catalogs]
@@ -94,7 +111,8 @@ class Catalog::CommonWorksController < ApplicationController
       when 'This Only'
         @catalog.add_recordings recordings
       end
-    
+      puts '*********************************************'
+      ap result
       redirect_to catalog_account_catalog_common_work_path( @account, @catalog, @common_work )
     rescue
       flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }

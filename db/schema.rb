@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140627225102) do
+ActiveRecord::Schema.define(version: 20140630142350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1258,6 +1258,7 @@ ActiveRecord::Schema.define(version: 20140627225102) do
     t.string   "url",                 default: ""
     t.string   "ext",                 default: ""
     t.string   "original_file_name",  default: ""
+    t.boolean  "in_bucket",           default: false
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

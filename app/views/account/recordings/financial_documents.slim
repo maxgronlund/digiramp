@@ -1,0 +1,36 @@
+/= debug @recording.audio_upload
+- session[:return_url]  = request.url
+- blog = Blog.cached_find('RECORDING documents')
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                             manage: account_account_path(@account), \
+                                                             recordings: account_account_recordings_path(@account),\
+                                                             @recording.title.to_sym => account_account_recording_path(@account, @recording), \
+                                                             files: files_account_account_recording_path(@account, @recording) \
+                                                             }, current: 'financial documents' }
+
+
+      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment} 
+      .row
+                                      
+
+                                      
+       
+     
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
+
+            
+ 
+          
+          
+          
+        

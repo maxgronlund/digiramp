@@ -1,8 +1,6 @@
 class Account::CommonWorksImportsController < ApplicationController
   
   include AccountsHelper
-
-  
   before_filter :access_account
 
                                        

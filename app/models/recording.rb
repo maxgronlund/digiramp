@@ -36,28 +36,20 @@ class Recording < ActiveRecord::Base
                                     ], :using => [:tsearch]
   validates :title, :presence => true
   
-  #require 'taglib'
-  #scope :none, where("1 = 0")
-  #scope :none, -> { where(color: "1 = 0") }
+  scope :bucket,            ->  { where.not( in_bucket: true)  }
   
   belongs_to :account
   belongs_to :common_work
   belongs_to :import_batch
   
-  #has_many :catalog_items
-  #has_many :catalogs, through: :catalog_items
-  
-  
-  
-  #has_many :genre_tags
-  #has_many :genres, through: :genre_tags
+
   has_many :genre_tags, as: :genre_tagable,             dependent: :destroy
   has_many :instrument_tags, as: :instrument_tagable,   dependent: :destroy
   has_many :mood_tags, as: :mood_tagable,               dependent: :destroy
   has_many :image_files,                                dependent: :destroy
   
   
-  #mount_uploader :cover_art, ThumbUploader
+
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
   TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
@@ -74,14 +66,6 @@ class Recording < ActiveRecord::Base
   before_destroy :remove_from_collections
 
 
-  #def show_more_for user_id
-  #  return true if self.read_recording_ipi_ids.include?        user_id
-  #  return true if self.read_file_ids.include?                 user_id
-  #  return true if self.read_legal_document_ids.include?       user_id
-  #  return true if self.read_financial_document_ids.include?   user_id
-  #  return true if self.read_common_work_ids.include?          user_id
-  #  return false
-  #end
   
   def catalog_ids=(ids) 
     

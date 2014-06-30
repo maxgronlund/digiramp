@@ -1,0 +1,18 @@
+'edit shared
+= form_tag update_shared_account_account_recordings_bucket_index_path [ @account] do
+  ul
+    -@recordings.each do |recording| 
+      li
+        = recording.title 
+        = hidden_field_tag "recording_ids[]", recording.id
+    = simple_fields_for :recording do |f|
+      = f.input :artist, required: false
+      = f.input :composer, required: false
+      = f.input :genre, required: false
+      = f.input :mood, required: false
+      = f.input :band, required: false
+      
+  = submit_tag "Update" 
+
+
+    

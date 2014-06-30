@@ -1,0 +1,57 @@
+-session[:return_url] = account_account_users_path( @account )
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            users: account_account_users_path(@account), \
+                                                            }, current: @account_user.get_name}
+    /.row
+    /  .col-sm-8
+    /    h1 Permission for #{@account_user.name}
+    /
+    /  .col-sm-4
+    /
+    /    .pull-right
+    /      = link_to 'Edit', edit_admin_blog_blog_post_path( @blog, @client_permissions), class: 'btn btn-primary btn-lg'
+    /.row 
+    /  .col-sm-12
+    /    hr
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Account Users'), blog_post: 'Permissions'}
+    
+    .row
+      .col-sm-3
+      .col-sm-6
+        .panel
+          .panel-body
+            =simple_form_for [@account, @account_user] do |f|
+              = f.hidden_field :account_id, value: @account.id
+              = f.hidden_field :invite_associate, value: true
+              /= f.input :role,  collection: @roles,     as: :radio_buttons, label: "Permissions for #{@account_user.user.name}"
+              = f.input :access_to_all_recordings
+              = f.input :access_to_all_common_works
+              = f.input :access_to_all_rights
+              = f.input :access_to_all_documents
+              = f.input :access_to_collect
+              = f.input :administrate_playlists
+              hr
+              .pull-right
+                =f.submit 'Save', class: 'btn btn-primary btn-lg'
+      /.col-sm-6
+      /  h3 = @client_permissions.title
+      /  = simple_format @client_permissions.body
+        /h3 =@administrator.title
+        /=@administrator.body
+        /-if can_edit?
+        /  .pull-right
+        /    = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @administrator), class: 'btn btn-primary'
+        /br
+        /h3 = @client.title
+        /= @client.body
+        /-if can_edit?
+        /  .pull-right
+        /    = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @client), class: 'btn btn-primary'

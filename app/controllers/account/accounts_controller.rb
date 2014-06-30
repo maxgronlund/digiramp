@@ -36,6 +36,30 @@ class Account::AccountsController < ApplicationController
   def account_params
     params.require(:account).permit!
   end
+  
+  def find_recording_in_bucket
+    
+  end
+  
+  def recordings
+    
+  end
+  
+  def legal_documents
+    
+  end
+  
+  def financial_documents
+    
+  end
+  
+  def artwork
+    
+  end
+  
+  def files
+    
+  end
 
 
 end

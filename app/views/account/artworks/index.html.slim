@@ -1,3 +1,4 @@
+- blog = Blog.cached_find('Account Artwork')
 #wrap
   div class="#{'profile' if account_owner?}"
     .full-width-top
@@ -7,9 +8,10 @@
     /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
     .do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              assets: account_account_assets_path(@account), \
-                                                              }, current: 'artwork'}
-      - blog = Blog.cached_find('Account Artwork')
+                                                              manage: account_account_path(@account) \
+                                                             }, \
+                                                      current:  'artwork'}
+      
       == render 'shared/page_title', locals: {blog: blog, blog_post: 'Artwork', insert: 'upload_artwork'}
       /.panel.panel-primary
       /  .panel-heading
