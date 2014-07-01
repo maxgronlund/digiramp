@@ -146,10 +146,10 @@
                           i class="fa fa-pencil"
                       '&nbsp;
                     -if current_account_user.delete_user
-                      - if account_user.super?
-                        .btn.btn-danger.btn-lg disabled="disabled"
-                          i class="fa fa-times"
-                      -else
+                      /- if account_user.super?
+                      /  .btn.btn-danger.btn-lg disabled="disabled"
+                      /    i class="fa fa-times"
+                      /-else
                         = link_to  account_account_account_user_path(@account, account_user),\
                                   data: { confirm: 'Are you sure?' } , :method => :delete do
                           .btn.btn-danger.btn-lg
