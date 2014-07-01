@@ -108,9 +108,7 @@ class TransloaditRecordingsParser
   end
   
   def self.parse uploads, account_id, in_bucket
-    puts '*********************************************************************'
-    puts in_bucket ? 'true' : 'false'
-    puts '*********************************************************************'
+
     transloadets  = extract( uploads )
     
 

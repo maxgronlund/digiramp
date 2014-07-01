@@ -16,11 +16,13 @@ class Catalog::UploadRecordingsController < ApplicationController
   # when transloading is done
   def create
     forbidden unless current_catalog_user.create_recording
-    #@import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @account.id )
+
     
-    #@import_batch.add_to_catalog @catalog
+    result = TransloaditRecordingsParser.parse( params[:transloadit], @account.id, false )
     
-    recordings = TransloaditRecordingsParser.parse( params[:transloadit], @account.id )
+    recordings = result[:recordings]
+    
+    # handle errors here
     
     # etach recording and assets to catalog
     recordings.each do |recording|
