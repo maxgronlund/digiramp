@@ -38,10 +38,10 @@
     /    '&nbsp;
     /    'Upload Recording
     
-    = simple_form_for [@account, @recording.common_work, @recording] do |f|
+    = simple_form_for [:account, @account, @recording] do |f|
     
       = f.hidden_field :account_id, value: @account.id
-      = f.hidden_field :common_work_id, value: @recording.common_work_id
+      /= f.hidden_field :common_work_id, value: @recording.common_work_id
       == render 'form', f: f
     
 

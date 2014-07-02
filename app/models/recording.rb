@@ -37,6 +37,7 @@ class Recording < ActiveRecord::Base
   validates :title, :presence => true
   
   scope :bucket,            ->  { where( in_bucket: true)  }
+  scope :not_in_bucket,     ->  { where.not( in_bucket: true)  }
   
   belongs_to :account
   belongs_to :common_work
@@ -53,6 +54,12 @@ class Recording < ActiveRecord::Base
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
   TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
+  
+  VOCAL_HASH = []
+  
+  VOCAL.each do |k|
+    VOCAL_HASH << [k,k]
+  end
   
  
   def catalogs
@@ -125,8 +132,16 @@ class Recording < ActiveRecord::Base
     recordings
   end
   
+  def self.account_bucket_search(account, query)
+    recordings = account.recordings.bucket
+    if query.present?
+     recordings = recordings.search(query)
+    end
+    recordings
+  end
+  
   def self.account_search(account, query)
-    recordings = account.recordings
+    recordings = account.recordings.not_in_bucket
     if query.present?
      recordings = recordings.search(query)
     end

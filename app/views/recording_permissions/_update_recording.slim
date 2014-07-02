@@ -1,8 +1,11 @@
 - if @catalog
   /-link = edit_user_shared_catalog_shared_recording_path(current_user, @catalog, @recording)
   -link = edit_catalog_account_catalog_recording_path(@account, @catalog, @recording)
-- else
+- elsif @common_work
   -link = edit_account_common_work_recording_path(@account, @common_work, @recording)
+  
+- else  
+  - link = edit_account_account_recording_path(@account, @recording)
 
 
 =link_to link

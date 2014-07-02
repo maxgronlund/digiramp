@@ -1,0 +1,43 @@
+- session[:return_url]  = request.url
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              manage: account_account_path(@account), \
+                                                              documents: account_account_documents_path(@account), \
+                                                              'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account) \
+                                                             }, \
+                                                      current:  @recording.title}
+      
+      
+      
+      == render 'shared/recording_title', locals: {recording: @recording, body: 'Info', insert: 'edit'} 
+      
+      -index = @recording.id
+      div class="player" id="#{index}"
+      .just-load
+      .panel.panel-primary
+        .panel-heading
+          = @recording.title
+        .panel-body
+          .digiramp_player
+            div class="permissions" value="catalog_recordings" id="#{@account.id}"
+            == render 'players/digramp_player', locals: {index: index , recording: @recording}
+
+      .row
+        .col-sm-6
+          == render 'recordings/shared/metadata'
+        .col-sm-6 
+          == render 'recordings/shared/description'   if @recording.comment.to_s != ''
+          == render 'recordings/shared/lyrics'        if @recording.lyrics.to_s != ''
+
+
+
+              
+  == render 'shared/back', locals: {link: account_account_recordings_bucket_index_path(@account)}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

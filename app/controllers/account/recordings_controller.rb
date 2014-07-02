@@ -7,6 +7,7 @@ class Account::RecordingsController < ApplicationController
   
   def index
     forbidden unless current_account_user.read_recording?
+    #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< apply not_in_bucket. in model
     @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     @show_more      = true
     
@@ -59,7 +60,7 @@ class Account::RecordingsController < ApplicationController
   
   def update
     forbidden unless current_account_user.update_recording?
-    @common_work    = CommonWork.find(params[:common_work_id])
+    #@common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
     
     
@@ -79,17 +80,24 @@ class Account::RecordingsController < ApplicationController
         @recording.save
       end
       
-      @recording.common_work.update_completeness
+      @recording.common_work.update_completeness if @recording.common_work
       
-      if @genre_category
-        redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )
+      if @recording.in_bucket?
+        redirect_to account_account_recordings_bucket_path(@account, @recording )
       else
-        redirect_to account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )
+        #redirect_to :back
+        redirect_to account_common_work_recording_path(@account, @recording.common_work, @recording, genre_category: @genre_category )
       end
+      
+      #if @genre_category
+      #  redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )
+      #else
+      #  redirect_to account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )
+      #end
 
     else
       # jump back to recordings or common work
-      redirect_to_return_url account_common_work_recording_path(@account, @common_work, @recording)
+      redirect_to_return_url account_common_work_recording_path(@account, @recording.common_work, @recording)
     end
   end
 

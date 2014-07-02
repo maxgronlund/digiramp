@@ -1,7 +1,9 @@
 - if @catalog
-  -link = catalog_account_catalog_recording_path(@account, @catalog, @recording)
-- else
-  -link = account_common_work_recording_path( @account, @common_work, @recording)
+  - link = catalog_account_catalog_recording_path(@account, @catalog, @recording)
+- elsif @common_work
+  - link = account_common_work_recording_path( @account, @common_work, @recording)
+-else
+  - link = account_account_recording_path( @account, @recording)
 
 
 =link_to link , data: { confirm: 'Are you sure you want to delete this recording?' } ,method: :delete 

@@ -1,13 +1,62 @@
+/= debug current_account_user
+- session[:return_url]         = request.url
+- session[:go_to_after_update] = request.url
+- blog      = Blog.cached_find('Account Documents')
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  
+  .container
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            manage: account_account_path(@account), \
+                                                            documents: account_account_documents_path(@account), \
+                                                            'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account) \
+                                                           }, \
+                                                    current:  'eidt individual'}
+    
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'EDIT INDIVIDUAL'}
+    == render 'admin/shared/messages'
+   
+        
+    = form_tag update_multiple_account_account_recordings_bucket_index_path [ @account] do
 
-= form_tag update_multiple_account_account_recordings_bucket_index_path [ @account] do
+      -@recordings.each do |recording| 
+        
+        = fields_for "recordings[]", recording do |f| 
+          .panel.panel-primary
+            .panel-heading
+              = recording.title
+            .panel-body
+              .row
+                .col-sm-4
+                  = label_tag 'Title'
+                  = f.text_field :title, class: 'form-control'
+                .col-sm-3
+                  = label_tag 'ISRC CODE'
+                  = f.text_field :isrc_code, class: 'form-control',placeholder: "CC-XXX-YY-NNNNN"
+                .col-sm-2
+                  = label_tag 'bpm'
+                  = f.text_field :bpm, class: 'form-control'
+                .col-sm-3
+                  = label_tag 'vocal'
+                  br
+                  = f.select :vocal, Recording::VOCAL_HASH
+                  
+          
+      .pull-right
+        = submit_tag "Update", class: 'btn btn-primary btn-lg'
+    
+    
+    
+   
 
-  -@recordings.each do |recording| 
-    h2 = recording.title 
-    = fields_for "recordings[]", recording do |f| 
+ 
+  == render 'shared/back', locals: {link: account_account_recordings_bucket_index_path(@account)}
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
 
-      div class="field"
-        = f.label :title
-        br
-        = f.text_field :title
-      
-  = submit_tag "Update" 
+
+
+
