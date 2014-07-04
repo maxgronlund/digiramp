@@ -8,13 +8,15 @@ class Admin::StatisticsController < ApplicationController
   end
 
   def recordings
-
-    @recording_uploads = Recording.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago}).group_by_day(:created_at).count
+    @recording_uploads = Recording.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @recordings_chart = @recording_uploads.group_by_day(:created_at).count
     
-    #@last_week = Recording.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 2.weeks.ago, end_date: 1.weeks.ago})
+   
   end
 
   def common_works
+    @common_work_uploads = CommonWork.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @common_works_chart = @common_work_uploads.group_by_day(:created_at).count
   end
 
   def users

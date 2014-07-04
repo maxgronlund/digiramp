@@ -22,55 +22,17 @@
           == render 'shared/badge_button', locals: { \
                                                       blog_post: 'RECORDINGS', \
                                                       link: recordings_admin_statistic_path(0), \
-                                                      css_class: 'btn btn-primary', \
-                                                      icon: 'fa fa-list-alt' \
+                                                      css_class: 'btn btn-warning', \
+                                                      icon: 'fa fa fa-headphones' \
                                                     }
-      /  .col-sm-6
-      /    == render 'shared/badge_button', locals: { \
-      /                                                blog_post: 'CONTENT', \
-      /                                                link: admin_content_index_path, \
-      /                                                css_class: 'btn btn-success', \
-      /                                                icon: 'fa fa-folder-o' \
-      /                                              }
-      /
-      /  .col-sm-6
-      /    == render 'shared/badge_button', locals: { \
-      /                                                blog_post: 'USERS', \
-      /                                                link: admin_users_path, \
-      /                                                css_class: 'btn btn-info', \
-      /                                                icon: 'fa fa-group' \
-      /                                              }
-      /  .col-sm-6
-      /    == render 'shared/badge_button', locals: { \
-      /                                                blog_post: 'ENGINE ROOM', \
-      /                                                link: admin_engine_room_index_path, \
-      /                                                css_class: 'btn btn-danger', \
-      /                                                icon: 'fa fa-cogs' \
-      /                                              }
-      /                                              
-      /  .col-sm-6
-      /    == render 'shared/badge_button', locals: { \
-      /                                                blog_post: 'DEVELOPMENT LOG', \
-      /                                                link: admin_development_log_index_path, \
-      /                                                css_class: 'btn btn-default', \
-      /                                                icon: 'fa fa-bullhorn' \
-      /                                              }
-      /                                              
-      /  .col-sm-6
-      /    == render 'shared/badge_button', locals: { \
-      /                                                blog_post: 'ISSUES', \
-      /                                                link: admin_issues_path, \
-      /                                                css_class: 'btn btn-warning', \
-      /                                                icon: 'fa fa-bug' \
-      /                                              }
-      /                                              
-      /                                              
-      /                                              
-      /.row
-      /  
-      /  .col-sm-6
-      /    == render 'admin/shared/badge_buttons/genre'
-      /
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'COMMON WORKS', \
+                                                      link: common_works_admin_statistic_path(0), \
+                                                      css_class: 'btn btn-primary', \
+                                                      icon: 'fa fa fa-music' \
+                                                    }
+
   
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
@@ -98,7 +60,7 @@
 
 
 
-h1 Statistics
+
 
 /= line_chart User.group_by_day(:created_at).count
 /

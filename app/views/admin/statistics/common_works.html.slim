@@ -1,2 +1,32 @@
-h1 Statistics#common_works
-p Find me in app/views/statistics/common_works.html.slim
+#wrap
+  .admin
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'admin'
+
+               
+  .container
+    ==render 'admin/shared/messages'
+    /-cache (['statistics', Admin.cached_find(1).version]) do      
+    .do
+
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,\
+                                                              statistics: admin_statistics_path \
+                                                             }, current: 'Recordings'}
+
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Statistics'), blog_post: 'Recordings'} 
+
+      .row
+        .col-sm-6
+          h3 Total: #{ Statistics.first.common_works}
+        .col-sm-6
+          h3 Added last month: #{@common_work_uploads.size}
+      .row
+        .col-sm-12
+          hr
+          h3 Activity: Common Works
+          = line_chart @common_works_chart
+      
+      
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
