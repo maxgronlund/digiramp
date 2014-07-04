@@ -6,16 +6,14 @@ class Account::RecordingsBucketController < ApplicationController
   def index
     forbidden unless current_account_user.read_recording?
     @recordings     = Recording.bucket.account_bucket_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
-    
   end
   
   def edit
-    
+    @recording = Recording.cached_find(542)
   end
   
   def show
-    logger.debug '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-     @recording = Recording.cached_find(params[:id])
+    @recording = Recording.cached_find(params[:id])
   end
   
   def edit_multiple
@@ -40,6 +38,13 @@ class Account::RecordingsBucketController < ApplicationController
     @recordings.reject! do |recording|
       recording.update_attributes( recording_params.reject { |k,v| v.blank? })
     end
+    
+    redirect_to account_account_recordings_bucket_index_path(@account)
+  end
+  
+  def destroy
+    @recording = Recording.cached_find(params[:id])
+    @recording.destroy!
     
     redirect_to account_account_recordings_bucket_index_path(@account)
   end

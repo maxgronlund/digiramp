@@ -76,7 +76,7 @@ class Catalog::CatalogUsersController < ApplicationController
     end
     params[:catalog_user][:user_id]       = @user.id 
     params[:catalog_user][:account_id]    = @account.id 
-    unless @user && @catalog_user   = CatalogUser.create!( catalog_user_params ) 
+    unless @user && @catalog_user         = CatalogUser.create!( catalog_user_params ) 
       # notify if something went wrong
       flash[:danger] = { title: "Error: ", body: "User not invited, If this error persists please contact support" }
     end
@@ -115,9 +115,10 @@ class Catalog::CatalogUsersController < ApplicationController
     user          = @catalog_user.user
     account_user = AccountUser.where(account_id: @catalog_user.account_id, user_id: @catalog_user.user_id).first
     
-
-    @catalog_user.destroy!
-    
+    begin
+      @catalog_user.destroy!
+    rescue
+    end
     # if the account user was created when the user was invited to a scatlog
     if account_user.role == 'Catalog User'
       # and there is no more catalog users for the account user

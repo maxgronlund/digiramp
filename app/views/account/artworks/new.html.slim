@@ -1,3 +1,4 @@
+- blog = Blog.cached_find('Account Artwork')
 #wrap
   div class="#{'profile' if account_owner?}"
     .full-width-top
@@ -6,13 +7,12 @@
     .container
       == render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
-                                                              artwork: catalog_account_catalog_artworks_path(@account, @catalog), \
-                                                              }, current: 'upload'}
+                                                              manage: account_account_path(@account), \
+                                                              artwork: account_account_artworks_path(@account) \
+                                                             }, \
+                                                      current:  'upload'}
 
-      == render 'shared/title', locals: {title: @catalog.title, body: "UPLOAD ARTWORK"} 
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Artwork'}
       
       
       .row
@@ -23,7 +23,7 @@
               'Select Files
             .panel-body
 
-              = simple_form_for [:catalog, @account, @catalog, @artwork],  :html => { :id => 'artwork' } do |f| 
+              = simple_form_for [ :account,  @account, @artwork],  :html => { :id => 'artwork' } do |f| 
                 = f.hidden_field :account_id, value: @account.id
                 = transloadit :image_files_to_s3 
 

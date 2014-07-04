@@ -2,16 +2,6 @@
 Digiramp::Application.routes.draw do
   
 
-
-  
-  
-
-  
-
-  
-
-  
-
   resources :gitter, only: [:index]
   #resources :footages
   #resources :pro_affiliations
@@ -251,6 +241,17 @@ Digiramp::Application.routes.draw do
   # Example resource route within a namespace:
   namespace :admin do
     get 'repair_permissions'
+    
+    resources :statistics do
+      member do
+        get 'recordings'
+        get 'common_works'
+        get 'users'
+        get 'ipis'
+      end
+    end
+
+    
 
     resources :accounts do
       get 'delete_common_works'

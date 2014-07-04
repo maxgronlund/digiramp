@@ -83,6 +83,49 @@ class AccountUser < ActiveRecord::Base
     self.role == 'Super'
   end
   
+  # can update account_user
+  def can_update_account_user account_user
+    # only if there is permissions to update
+    return false unless self.update_user
+    handle_user_permissions_for account_user
+  end
+  
+  # can delete account_user
+  def can_delete_account_user account_user
+    # only if there is permissions to update
+    return false unless self.delete_user
+    handle_user_permissions_for account_user
+  end
+  
+  # permissions based on role
+  def handle_user_permissions_for account_user
+    puts '+++++++++++++++++++++++ handle_user_permissions_for ++++++++++++++++++++++++++'
+    puts account_user.user.email
+    # always edit account users
+    return true if account_user.role        == 'Account User'
+                                            
+    # never edit a super user               
+    return false if account_user.role       == 'Super'
+    
+  
+    # newer edit the account owner
+    return false if account_user.role       == 'Account Owner'
+    
+    # never edit the administrator
+    return false if account_user.role       == 'Administrator'
+    
+    # never grand catalog users 
+    # access to the account
+    return true if account_user.role        == 'Catalog User'
+    
+    puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+    puts 'ERROR: Unable assign edit permmision for account user'
+    puts 'In AccountUser#has_permisions'
+    puts '+++++++++++++++++++++++++++++++++++++++++++++++++' 
+    false
+    
+  end
+  
   # set basic permissions to true
   def grand_basic_permissions
     

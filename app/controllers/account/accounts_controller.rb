@@ -46,11 +46,13 @@ class Account::AccountsController < ApplicationController
   end
   
   def legal_documents
-    
+    forbidden unless current_account_user.read_legal_document?
+    @files = @account.documents.legal
   end
   
   def financial_documents
-    
+    forbidden unless current_account_user.read_financial_document?
+    @files = @account.documents.financial
   end
   
   def artwork
@@ -58,7 +60,7 @@ class Account::AccountsController < ApplicationController
   end
   
   def files
-    
+    @files = @account.documents.files
   end
 
 

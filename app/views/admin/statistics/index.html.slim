@@ -1,0 +1,112 @@
+
+- session[:return_url] = request.url
+#wrap
+  .admin
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'admin'
+
+               
+  .container
+    ==render 'admin/shared/messages'
+    /-cache (['statistics', Admin.cached_find(1).version]) do      
+    .do
+
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
+
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Statistics'} 
+
+
+      .row
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'RECORDINGS', \
+                                                      link: recordings_admin_statistic_path(0), \
+                                                      css_class: 'btn btn-primary', \
+                                                      icon: 'fa fa-list-alt' \
+                                                    }
+      /  .col-sm-6
+      /    == render 'shared/badge_button', locals: { \
+      /                                                blog_post: 'CONTENT', \
+      /                                                link: admin_content_index_path, \
+      /                                                css_class: 'btn btn-success', \
+      /                                                icon: 'fa fa-folder-o' \
+      /                                              }
+      /
+      /  .col-sm-6
+      /    == render 'shared/badge_button', locals: { \
+      /                                                blog_post: 'USERS', \
+      /                                                link: admin_users_path, \
+      /                                                css_class: 'btn btn-info', \
+      /                                                icon: 'fa fa-group' \
+      /                                              }
+      /  .col-sm-6
+      /    == render 'shared/badge_button', locals: { \
+      /                                                blog_post: 'ENGINE ROOM', \
+      /                                                link: admin_engine_room_index_path, \
+      /                                                css_class: 'btn btn-danger', \
+      /                                                icon: 'fa fa-cogs' \
+      /                                              }
+      /                                              
+      /  .col-sm-6
+      /    == render 'shared/badge_button', locals: { \
+      /                                                blog_post: 'DEVELOPMENT LOG', \
+      /                                                link: admin_development_log_index_path, \
+      /                                                css_class: 'btn btn-default', \
+      /                                                icon: 'fa fa-bullhorn' \
+      /                                              }
+      /                                              
+      /  .col-sm-6
+      /    == render 'shared/badge_button', locals: { \
+      /                                                blog_post: 'ISSUES', \
+      /                                                link: admin_issues_path, \
+      /                                                css_class: 'btn btn-warning', \
+      /                                                icon: 'fa fa-bug' \
+      /                                              }
+      /                                              
+      /                                              
+      /                                              
+      /.row
+      /  
+      /  .col-sm-6
+      /    == render 'admin/shared/badge_buttons/genre'
+      /
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+h1 Statistics
+
+/= line_chart User.group_by_day(:created_at).count
+/
+/= line_chart Recording.group_by_day(:created_at).count
+/
+/= line_chart CommonWork.group_by_day(:created_at).count
+/= timeline [ ["Washington", "1789-04-29", "1797-03-03"], ["Adams", "1797-03-03", "1801-03-03"], ["Jefferson", "1801-03-03", "1809-03-03"] ] 
+
+
+/= pie_chart({"Football" => 10, "Basketball" => 5}) 
+/= pie_chart [["Football", 10], ["Basketball", 5]] 

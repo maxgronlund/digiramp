@@ -7,6 +7,9 @@ class Account < ActiveRecord::Base
   # image files uploaded
   has_many :artworks, dependent: :destroy
   
+  # documents attached to the account
+  has_many :documents, dependent: :destroy
+  
   # !!! might be obsolete
   has_many :attachments, dependent: :destroy
   

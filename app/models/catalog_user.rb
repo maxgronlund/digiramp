@@ -61,10 +61,12 @@ class CatalogUser < ActiveRecord::Base
                                                 role:         'Catalog User',
                                                 email:        self.user.email)
                                                 
-    account_user.read_catalog = true   
+    
+    
+    #account_user.read_catalog = true   
     account_user.save!                                       
-    self.account_user_id  = account_user.id
-    self.role             = 'Super User' if self.user.role == 'Super'
+    self.account_user_id      = account_user.id
+    self.role                 = 'Super User' if self.user.role == 'Super'
     self.save!
     
     
@@ -73,6 +75,56 @@ class CatalogUser < ActiveRecord::Base
     end
     CatalogUserCounterCachWorker.perform_async(self.catalog_id)
   end
+  
+  
+  # can update catalog_user
+  def can_update_catalog_user catalog_user
+    puts '+++++++++++++++++++++++ can_update_catalog_user ++++++++++++++++++++++++++'
+   
+    # only if there is permissions to update
+    return false unless self.update_user
+    handle_user_permissions_for catalog_user
+  end
+  
+  # can delete catalog_user
+  def can_delete_catalog_user catalog_user
+    puts '+++++++++++++++++++++++ can_delete_catalog_user ++++++++++++++++++++++++++'
+    # only if there is permissions to update
+    return false unless self.delete_user
+    handle_user_permissions_for catalog_user
+  end
+  
+  # permissions based on catalog_user
+  def handle_user_permissions_for catalog_user
+    puts '+++++++++++++++++++++++ handle_user_permissions_for ++++++++++++++++++++++++++'
+    puts catalog_user.user.email
+    # always edit account users
+    return true if catalog_user.role        == 'Account User'
+                                            
+    # never edit a super user               
+    return false if catalog_user.role       == 'Super User'
+    
+  
+    # newer edit the account owner
+    return false if catalog_user.role       == 'Account Owner'
+    
+    # never edit the administrator
+    return false if catalog_user.role       == 'Administrator'
+    
+    # never grand catalog users 
+    # access to the account
+    return true if catalog_user.role        == 'Catalog User'
+    
+    puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+    puts 'ERROR: Unable assign edit permmision for account user'
+    puts 'In AccountUser#has_permisions'
+    puts '+++++++++++++++++++++++++++++++++++++++++++++++++' 
+    false
+    
+  end
+  
+  
+  
   
   def access_assets?
     

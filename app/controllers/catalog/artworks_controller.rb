@@ -39,7 +39,7 @@ class Catalog::ArtworksController < ApplicationController
   def create
     forbidden unless current_catalog_user.create_artwork
 
-    artworks = TransloaditImageParser.catalog_artwork( params[:transloadit], @account.id, @catalog.id )
+    artworks = TransloaditImageParser.artwork( params[:transloadit], @account.id)
     
     artworks.each do |artwork|
       CatalogItem.create( catalog_id: @catalog.id, 

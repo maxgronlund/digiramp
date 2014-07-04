@@ -153,7 +153,8 @@ class TransloaditRecordingsParser
                                            )
           
           
-          add_artwork_to recording unless recording.cover_art == ''
+          
+          add_artwork_to recording unless recording.thumbnail.nil?
           recording.extract_genres                                 
           recording.update_completeness
           recordings << recording

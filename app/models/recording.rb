@@ -71,8 +71,12 @@ class Recording < ActiveRecord::Base
   before_save :update_uuids
   after_commit :flush_cache
   before_destroy :remove_from_collections
+  
+  after_create :count_stats_up
 
 
+  
+  
   
   def catalog_ids=(ids) 
     
@@ -539,10 +543,20 @@ private
     Rails.cache.delete([self.class.name, id])
   end
   
+  def count_stats_up
+    Statistics.first.recordings += 1
+    Statistics.first.save!
+    
+  end
+  
   def remove_from_collections
     update_uuids
     remove_from_catalogs
     remove_from_albums
+    
+    Statistics.first.recordings -= 1
+    Statistics.first.save!
+
   end
   
   def remove_from_catalogs

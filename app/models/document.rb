@@ -2,6 +2,10 @@ class Document < ActiveRecord::Base
   belongs_to :account
   
   TYPES = ['File', 'Financial', 'Legal']
+  
+  scope :files,     ->  { where( document_type: 'File')  }
+  scope :financial, ->  { where( document_type: 'Financial')  }
+  scope :legal,     ->  { where( document_type: 'Legal')  }
 
   after_commit :flush_cache
 

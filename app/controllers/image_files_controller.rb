@@ -39,22 +39,27 @@ class ImageFilesController < ApplicationController
   # POST /image_files
   # POST /image_files.json
   def create
+    puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+    puts 'ERROR: ImageFiles is discontinued' 
+    puts 'and do no longer work: use Artworks instead'
+    puts 'In ImageFilesController#create'
+    puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
     #begin
-      @common_work    = CommonWork.cached_find(params[:common_work_id])
-      @recording      = Recording.cached_find(params[:recording_id])
-      
-      TransloaditImageParser.parse_images( params[:transloadit], @account.id, @recording.id )
-      @transcoded     = params[:transloadit]
-      #@import_batch.image_files.each do |image_file|
-      #  
-      #end
-      
-      #redirect_to account_common_work_recording_image_files_path(@account, @common_work, @recording)
-      redirect_to  account_common_work_recording_artwork_path(@account, @common_work, @recording)
-      #rescue
-      #flash[:danger] = { title: "Sorry: ", body: "Something went wrong" }
-      #redirect_to :back
-      #end
+      #@common_work    = CommonWork.cached_find(params[:common_work_id])
+      #@recording      = Recording.cached_find(params[:recording_id])
+      #
+      #TransloaditImageParser.parse_images( params[:transloadit], @account.id, @recording.id )
+      #@transcoded     = params[:transloadit]
+      ##@import_batch.image_files.each do |image_file|
+      ##  
+      ##end
+      #
+      ##redirect_to account_common_work_recording_image_files_path(@account, @common_work, @recording)
+      #redirect_to  account_common_work_recording_artwork_path(@account, @common_work, @recording)
+      ##rescue
+      ##flash[:danger] = { title: "Sorry: ", body: "Something went wrong" }
+      ##redirect_to :back
+      ##end
     
     
     

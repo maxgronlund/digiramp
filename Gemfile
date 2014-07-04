@@ -56,6 +56,11 @@ gem 'chosen-rails', '0.12.0'
 gem 'bootstrap-editable-rails'
 gem 'jQuery-Validation-Engine-rails'
 gem 'sinatra', require: false
+
+
+gem "chartkick"
+gem 'groupdate'
+
 #gem "nested_form"
 #gem 'private_pub'
 #gem "taglib-ruby"

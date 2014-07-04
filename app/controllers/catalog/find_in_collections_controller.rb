@@ -57,10 +57,10 @@ class Catalog::FindInCollectionsController < ApplicationController
       @recording.extract_instruments
       @recording.extract_moods
 
-      if image_file = ImageFile.where(id: @recording.image_file_id).first
-        @recording.cover_art = image_file.thumb
-        @recording.save
-      end
+      #if image_file = ImageFile.where(id: @recording.image_file_id).first
+      #  @recording.cover_art = image_file.thumb
+      #  @recording.save
+      #end
       
       @recording.common_work.update_completeness
       

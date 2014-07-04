@@ -10,7 +10,6 @@ class TransloaditImageParser
     
 
     # original images
-    
     if uploads[:results] && uploads[:results][:accepted_images]
       uploads[:results][:accepted_images].each do |accepted_image|
         
@@ -90,7 +89,8 @@ class TransloaditImageParser
     transloadets
   end
   
-  def self.catalog_artwork  uploads, account_id, catalog_id
+  def self.artwork  uploads, account_id
+    
     transloadets = extract( uploads )
     artworks = []
     if transloadets

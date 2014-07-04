@@ -18,7 +18,9 @@
       /    'Artwork
       /  .panel-body
       .row
+        
         - @artworks.order('title asc').each do |artwork|
+
           .visible-xs.visible-sm
             .col-sm-6
               .panel.panel-primary

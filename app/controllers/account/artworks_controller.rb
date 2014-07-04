@@ -1,4 +1,5 @@
 class Account::ArtworksController < ApplicationController
+  include Transloadit::Rails::ParamsDecoder
   before_action :set_artwork, only: [:show, :edit, :update, :destroy]
 
   include AccountsHelper
@@ -17,6 +18,7 @@ class Account::ArtworksController < ApplicationController
 
   # GET /artworks/new
   def new
+    forbidden unless current_account_user.create_artwork
     @artwork = Artwork.new
   end
 
@@ -27,17 +29,21 @@ class Account::ArtworksController < ApplicationController
   # POST /artworks
   # POST /artworks.json
   def create
-    @artwork = Artwork.new(artwork_params)
+    #forbidden unless current_catalog_user.create_artwork
+    forbidden unless current_account_user.create_artwork
 
-    respond_to do |format|
-      if @artwork.save
-        format.html { redirect_to @artwork, notice: 'Artwork was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @artwork }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @artwork.errors, status: :unprocessable_entity }
-      end
-    end
+   artworks = TransloaditImageParser.artwork( params[:transloadit], @account.id)
+
+    
+    #redirect_to account_common_work_recording_image_files_path(@account, @common_work, @recording)
+    redirect_to  account_account_artworks_path(@account)
+    #rescue
+    #flash[:danger] = { title: "Sorry: ", body: "Something went wrong" }
+    #redirect_to :back
+    #end
+  
+  
+  
   end
 
   # PATCH/PUT /artworks/1
@@ -72,6 +78,6 @@ class Account::ArtworksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def artwork_params
-      params.require(:artwork).permit(:title)
+      params.require(:artwork).permit!
     end
 end
