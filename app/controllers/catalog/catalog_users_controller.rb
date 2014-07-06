@@ -96,8 +96,8 @@ class Catalog::CatalogUsersController < ApplicationController
     puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
     forbidden unless current_catalog_user.update_user
     @catalog        = Catalog.cached_find(params[:catalog_id])
-    @catalog_user   = CatalogUser.cached_find(params[:id])
     
+    @catalog_user   = CatalogUser.cached_find(params[:id])
     @catalog_user.update_attributes(catalog_user_params)
 
 

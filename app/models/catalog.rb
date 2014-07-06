@@ -9,8 +9,16 @@ class Catalog< ActiveRecord::Base
   
   before_save  :update_uuid
   after_commit :flush_cache
-  after_create :add_account_users_to_catalog
+  #after_create :add_account_users_to_catalog
   before_destroy :remove_account_users
+  
+  
+  after_create :post_created
+  def post_created
+    puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
+    puts '++++++++++++ CATALOG CREATED ++++++++++++++++'
+    puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
+  end
   
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
   
@@ -62,31 +70,15 @@ class Catalog< ActiveRecord::Base
   end
   
   def common_works
-
     common_work_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
     CommonWork.where(id: common_work_ids)
 
   end
   
-  #def common_works
-  #  # all recordings in the catalog
-  #  recording_ids = catalog_items.where(catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
-  #  # work ids from all the recordings
-  #  work_ids = Recording.where(id: recording_ids).pluck(:common_work_id)
-  #  # remove dublets
-  #  work_ids.uniq
-  #  # fetch the common works
-  #  CommonWork.where(id: work_ids)
-  #  
-  #end
-  
+  # when the catalog is created add account users
   def add_account_users_to_catalog
-    # migration hack feel fre to remove the line belove
-    if self.account
-      # keep this
-      self.account.account_users.each do |account_user|
-        add_account_user account_user
-      end
+    self.account.account_users.non_catalog_users.each do |account_user|
+      add_account_user account_user
     end
   end
   
@@ -126,8 +118,20 @@ class Catalog< ActiveRecord::Base
                                                )
   end
   
+  
+  
+  # fetch all artwork in the catalog
+  def artworks
+    artwork_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'Artwork').pluck(:catalog_itemable_id)
+    @artworks = Artwork.order('title asc').where(id: artwork_ids)
+  end
+  
+private
+
   def add_account_user account_user
-    puts '---------------- add account user --------------------------------XXXXXXX'
+    puts '---------------- add account user --------------------------------'
+    
+    # find or create catalog user
     catalog_user = CatalogUser.create(  user_id: account_user.user_id, 
                                         catalog_id: self.id,
                                         account_id: account_user.account_id,
@@ -139,14 +143,6 @@ class Catalog< ActiveRecord::Base
     end
     catalog_user.save!
   end
-  
-  # fetch all artwork in the catalog
-  def artworks
-    artwork_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'Artwork').pluck(:catalog_itemable_id)
-    @artworks = Artwork.order('title asc').where(id: artwork_ids)
-  end
-  
-private
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])

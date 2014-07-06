@@ -1,7 +1,7 @@
 /= debug current_account_user
 - session[:return_url]         = request.url
 - session[:go_to_after_update] = request.url
-- blog      = Blog.cached_find('Account Documents')
+- blog      = Blog.cached_find('Recording Bucket')
 #wrap
   div class="#{'profile' if account_owner?}"
     .full-width-top
@@ -13,7 +13,7 @@
                                                             documents: account_account_documents_path(@account), \
                                                             'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account) \
                                                            }, \
-                                                    current:  'eidt individual'}
+                                                    current:  'edit individual'}
     
     == render 'shared/page_title', locals: {blog: blog, blog_post: 'EDIT INDIVIDUAL'}
     == render 'admin/shared/messages'

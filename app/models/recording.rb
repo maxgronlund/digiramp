@@ -547,16 +547,31 @@ private
     Statistics.first.recordings += 1
     Statistics.first.save!
     
+    # optimization
+    catalogs.each do |catalog|
+      catalog.nr_recordings += 1
+      catalog.save!
+    end
   end
+  
+  def count_stats_down
+    Statistics.first.recordings -= 1
+    Statistics.first.save!
+    
+    # optimization
+    catalogs.each do |catalog|
+      catalog.nr_recordings -= 1
+      catalog.save!
+    end
+  end
+  
+  
   
   def remove_from_collections
     update_uuids
     remove_from_catalogs
     remove_from_albums
-    
-    Statistics.first.recordings -= 1
-    Statistics.first.save!
-
+    count_stats_down
   end
   
   def remove_from_catalogs

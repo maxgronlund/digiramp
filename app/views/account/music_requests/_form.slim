@@ -24,7 +24,7 @@
           = f.input :fee
           = f.input :audio_file, hint: 'Could sound like'
           = f.input :duration_text, label: 'Duration', placeholder: 'HH:MM:SS'
-          = f.input :up_to_full_use, hint: 'fobar'
+          = f.input :up_to_full_use
           .row
             .col-sm-6
               = f.input :link, placeholder: 'i.e. http://youtube.com/bruno-mars', hint: 'Could sound like'
@@ -36,6 +36,8 @@
  
 
   .pull-right
+    = link_to 'Cancel', account_account_opportunity_path(@account, @opportunity), class: 'btn btn-default btn-lg'
+    '&nbsp;
     = f.submit 'Save', class: 'btn btn-primary btn-lg'
 
 

@@ -29,8 +29,6 @@ class AccountUser < ActiveRecord::Base
   after_commit    :update_cache
   
   before_save     :update_uuids
-  
-  # force the cache to rebuild
   before_destroy  :update_uuids
   #after_create    :update_catalog_users
   #after_update    :update_catalog_users
@@ -40,12 +38,22 @@ class AccountUser < ActiveRecord::Base
   scope :clients,           ->  { where( role: 'Client') }
   scope :administrators,    ->  { where( role: 'Administrator') }
   scope :owner,             ->  { where( role: 'Account Owner')  }
-  scope :owners,             ->  { where( role: 'Account Owner')  }
+  scope :owners,            ->  { where( role: 'Account Owner')  }
   # users invited
   scope :invited,           ->  { where.not( role: ['Catalog User', 'Super', 'Client', 'Account Owner', 'Administrator'])  }
+  scope :non_catalog_users, ->  { where.not( role: 'Catalog User' )  }
+  
+
   #scope :invited,   -> { joins(:dog).order('dogs.name') }
 
  
+  after_create :post_created
+  def post_created
+    puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
+    puts '++++++++++++ ACCOUNT USER CREATED ++++++++++++++++'
+    puts self.role
+    puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
+  end
   
   # refrech memcach and force the segment cache to rerender
   def update_cache

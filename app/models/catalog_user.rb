@@ -12,6 +12,11 @@ class CatalogUser < ActiveRecord::Base
   before_save   :update_uuids
   #after_create  :attach_to_account_user
   after_destroy :update_catalog_counter_cache
+  
+  
+ 
+  
+  
 
   
 
@@ -28,6 +33,15 @@ class CatalogUser < ActiveRecord::Base
   # 3: Super User, this role is set for all super users
   # 4: Account owner this role is set for the account owner
   ROLE = ['Catalog User', 'Account User', 'Super User', 'Account Owner']
+  
+  after_create :post_created
+  def post_created
+    puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
+    puts '++++++++++++ CATALOG USER CREATED ++++++++++++++++'
+    puts self.role
+    puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
+    
+  end
   
  
   def update_catalog_counter_cache

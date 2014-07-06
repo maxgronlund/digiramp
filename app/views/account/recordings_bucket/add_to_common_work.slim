@@ -1,0 +1,46 @@
+- blog      = Blog.cached_find('Recording Bucket')
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  
+  .container
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            manage: account_account_path(@account) \
+                                                           }, \
+                                                    current:  'add to common work'}
+    ==render 'admin/shared/messages'
+
+    /- insert = 'accounts/shared/leave_account'
+    
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Add to Common Work'}
+    
+
+                                          
+    .row
+                                          
+      .col-sm-6
+        == render 'shared/badge', locals: {  \
+                                            blog: blog, \
+                                            post: BlogPost.cached_find( "CREATE COMMON WORK" , blog ), \
+                                            link: new_common_work_account_account_recordings_bucket_index_path(@account), \
+                                            css_class: 'btn btn-success', \
+                                            icon: 'fa fa-plus-circle', \
+                                            id: 'recordings' \
+                                          }
+
+      -if current_account_user.read_file?
+        .col-sm-6
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "ADD TO EXISTING" , blog ), \
+                                              link: account_documents_path(@account), \
+                                              css_class: 'btn btn-primary', \
+                                              icon: 'fa fa-music', \
+                                              id: 'documents' \
+                                            }
+
+  
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

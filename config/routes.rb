@@ -343,6 +343,13 @@ Digiramp::Application.routes.draw do
           post :update_multiple
           get :edit_shared
           post :update_shared
+          
+          get :add_to_common_work
+          
+          get :new_common_work
+          post :create_common_work
+          get :finc_common_work
+          #post :update_shared
         end
       end
       resources :recordings do

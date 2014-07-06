@@ -8,7 +8,8 @@
     /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
     .do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              manage: account_account_path(@account) \
+                                                              manage: account_account_path(@account), \
+                                                              documents: account_account_documents_path(@account) \
                                                              }, \
                                                       current:  'artwork'}
       
@@ -82,7 +83,7 @@
                         /  .btn.btn-danger.btn-lg
                         /    i class="fa fa-times"
 
-            
+  == render 'shared/back', locals: {link: account_account_documents_path(@account)}      
 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

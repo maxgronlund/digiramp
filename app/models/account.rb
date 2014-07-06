@@ -87,12 +87,7 @@ class Account < ActiveRecord::Base
   
   # update the uuid so all cached segments expires
   before_save :set_uuid
-  
-  #def hello_world
-  #    Pusher['test_channel'].trigger('my_event', {
-  #      message: 'hello world'
-  #    })
-  #end
+
 
   # make sure the administrator is the account owner up on creation
   def initialize_account
@@ -138,6 +133,7 @@ class Account < ActiveRecord::Base
     end
   end
   
+  # get the owner of the account
   def account_owner
     begin
       return User.cached_find(user_id)
@@ -174,9 +170,10 @@ class Account < ActiveRecord::Base
   end
   
   def atached_ipi_codes
-    
     IpiCode.where(account_id: self.id, ipiable_type: 'Account')
   end
+  
+  
 
   
   # remove a user from an account
@@ -258,10 +255,7 @@ class Account < ActiveRecord::Base
       #self.administrator_id 
     end
 
-    #unless account_user = AccountUser.cached_find(user_id: self.administrator_id, account_id: self.id )
-    #  account_user = AccountUser.create(user_id: self.administrator_id, account_id: self.id ) if account_administrator
-    #end
-    #return account_user 
+    
   end
   
   def self.cached_find(id)

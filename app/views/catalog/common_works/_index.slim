@@ -11,8 +11,8 @@
         th
     tbody
       -@common_works.each do |common_work|
-        -cache ([common_work, Admin.cached_find(1).version]) do
-        
+        /-cache ([common_work, Admin.cached_find(1).version]) do
+        .do
           tr id="remove_from_catalog_#{common_work.id.to_s}"
             td = link_to common_work.title, catalog_account_catalog_common_work_path( @account, @catalog, common_work), class: 'btn btn-default btn-lg'
             td

@@ -226,6 +226,7 @@ class User < ActiveRecord::Base
   end
   
   def self.create_a_new_account_for_the user
+    # creating the acount
     @account = Account.new(   title: user.email, 
                               user_id: user.id, 
                               expiration_date: Date.current()>>1,
@@ -233,18 +234,27 @@ class User < ActiveRecord::Base
                               visits: 1,
                               account_type: 'Personal Account',
                             )
-    @account.save(validate: false)                     
+                            
+    # save the account without validation                        
+    @account.save(validate: false)    
+    
+    # creating the account user                 
     account_user = AccountUser.create(user_id: user.id, 
                                       account_id: @account.id, 
                                       role: 'Account Owner')
-                                      
+    # give the account user permissions                                  
     account_user.grand_basic_permissions
     
+    # set the account owned by the user
     user.account_id          = @account.id
+    
+    # store the account
     user.current_account_id  = @account.id
+    
+    # save
     user.save!
     
-    
+    # return the account
     @account
   end
   

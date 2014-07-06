@@ -17,29 +17,73 @@ class Account::RecordingsBucketController < ApplicationController
   end
   
   def edit_multiple
-    @recordings = Recording.find(params[:recording_ids])
+    
+
+    recording_ids = []
+    if params[:recording_ids].nil?
+      
+      flash[:danger] = { title: "Error", body: "You have to check at least one recording to edit" }
+      redirect_to account_account_recordings_bucket_index_path(@account)
+    else
+      params[:recording_ids].each do |recording|
+        recording_ids <<  recording
+      end
+      session[:recording_ids]  = recording_ids
+      @recordings = Recording.find(params[:recording_ids])
+      ap session[:recording_ids]
+     end
   end
   
   def update_multiple
     Recording.update(params[:recordings].keys, params[:recordings].values)
+    
+    # build a nice little parameter block
+    recordings = {}
+    params[:recordings].each do |rec|
+       recordings[rec[0].to_s ] = nil
+    end
+    params =  ActionController::Parameters.new( { "recordings" => recordings})
+    
+    
     redirect_to edit_shared_account_account_recordings_bucket_index_path(@account, params)
-    #account_account_recordings_bucket_index_path(@account)
+
   end
   
   def edit_shared
     @recordings = Recording.find(params[:recordings].keys )
-    ap @recordings
   end
   
 
   def update_shared
     @recordings = Recording.find(params[:recording_ids])
-    
+
     @recordings.reject! do |recording|
       recording.update_attributes( recording_params.reject { |k,v| v.blank? })
     end
     
-    redirect_to account_account_recordings_bucket_index_path(@account)
+    #build a nice little parameter block
+    recordings = []
+    params[:recording_ids].each do |rec|
+       recordings << rec
+    end
+    params =  ActionController::Parameters.new( { "recording_ids"=>recordings })
+    
+    redirect_to add_to_common_work_account_account_recordings_bucket_index_path(@account, params)
+    
+  end
+  
+  def add_to_common_work
+    
+    #@recordings = Recording.find(session[:recording_ids])
+  
+  end
+  
+  def new_common_work
+    #@common_work    = CommonWork.find(params[:id])
+  end
+  
+  def create_common_work
+    
   end
   
   def destroy

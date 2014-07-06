@@ -29,15 +29,15 @@
                                                       icon: 'fa fa-info-circle' \
                                                     }
         
-        - if current_catalog_user.update_recording?
-          .col-sm-6
-             == render 'works/shared/badge_button', locals: { \
-                                                        blog_post: 'EDIT RECORDING', \
-                                                        link: edit_catalog_account_catalog_recording_path(@account, @catalog, @recording), \
-                                                        css_class: 'btn btn-warning', \
-                                                        icon: 'fa fa-pencil'\
-                                                      }  
-        
+        /- if current_catalog_user.update_recording?
+        /  .col-sm-6
+        /     == render 'works/shared/badge_button', locals: { \
+        /                                                blog_post: 'EDIT RECORDING', \
+        /                                                link: edit_catalog_account_catalog_recording_path(@account, @catalog, @recording), \
+        /                                                css_class: 'btn btn-warning', \
+        /                                                icon: 'fa fa-pencil'\
+        /                                              }  
+        /
         - if current_catalog_user.read_common_work?
           .col-sm-6
              == render 'works/shared/badge_button', locals: { \

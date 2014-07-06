@@ -16,7 +16,7 @@
                                                             documents: account_account_documents_path(@account), \
                                                             'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account) \
                                                            }, \
-                                                    current:  'eidt shared'}
+                                                    current:  'edit shared'}
     
     == render 'shared/page_title', locals: {blog: blog, blog_post: 'EDIT SHARED'}
     == render 'admin/shared/messages'
@@ -45,9 +45,9 @@
               .col-sm-3
                 = f.input :composer, required: false, :input_html => {  style: "height: 80px;", placeholder: "Composer"}, as: 'text'
               .col-sm-3
-                = f.input :Performer, required: false, :input_html => {  style: "height: 80px;", placeholder: "Performer"}, as: 'text'
+                = f.input :performer, required: false, :input_html => {  style: "height: 80px;", placeholder: "Performer"}, as: 'text'
               .col-sm-3
-                = f.input :Band, required: false, :input_html => {  style: "height: 80px;", placeholder: "Band"}, as: 'text'
+                = f.input :band, required: false, :input_html => {  style: "height: 80px;", placeholder: "Band"}, as: 'text'
             .row
               .col-sm-3
                 = f.input :genre, required: false, :input_html => {  style: "height: 80px;", placeholder: "i.e. Pop, Cinimatic, Hip-Hop, Christmas"}, as: 'text'

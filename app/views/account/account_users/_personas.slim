@@ -5,21 +5,25 @@
       #accordion
         /= debug @account.account_users.owner
         /= debug @account.account_users.invited
-        - if can_edit?
-          - account_users = @account.account_users
-        -else
-          - account_users = @account.account_users.invited
-          - if @account.is_administrated?
-            - account_users += @account.account_users.owner
-            /- account_users -= @account.administrators_account_user
-        -account_users.each do |account_user|
+        /- if can_edit?
+        /  - account_users = @account.account_users
+        /-else
+        /  - account_users = @account.account_users.non_catalog_users
+        /  /- if @account.is_administrated?
+        /  /  - account_users += @account.account_users.owner
+        /  /  /- account_users -= @account.administrators_account_user
+        -@account.account_users.non_catalog_users.each do |account_user|
           .panel.panel-primary
             .panel-heading
               .panel-title
                 a data-toggle="collapse" data-parent="#accordion" href="#collapse_#{account_user.id.to_s}"
                   = account_user.user.name.upcase
                   .pull-right
+                    - if account_user.user_id == @account.user_id && account_user.user.super?
+                      'ACCOUNT OWNER&nbsp;/
+                    
                     = account_user.role.upcase
+                    
                   
             div id="collapse_#{account_user.id.to_s}" class="panel-collapse collapse"   
               .panel-body

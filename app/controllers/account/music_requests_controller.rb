@@ -72,8 +72,9 @@ class Account::MusicRequestsController < ApplicationController
   # DELETE /opportunities/1.json
   def destroy
     forbidden unless current_account_user.delete_opportunity
+    opportunity = @music_request.opportunity
     @music_request.destroy
-    redirect_to account_account_opportunities_path(@account)
+    redirect_to account_account_opportunity_path(@account, opportunity)
   end
 
   private
