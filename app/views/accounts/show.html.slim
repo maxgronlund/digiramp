@@ -7,7 +7,7 @@
       == render 'admin/shared/navbar', page: 'account' 
   
   .container
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current:  @account.title}
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path(@account.user) }, current:  @account.title}
     ==render 'admin/shared/messages'
 
     /- insert = 'accounts/shared/leave_account'

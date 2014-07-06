@@ -8,15 +8,20 @@
     .row
       .col-sm-12
         ==render 'admin/shared/messages'
+        = debug @blog
         == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
                                                                 blogs: admin_blogs_path, \
                                                                 }, current: @blog.identifier}
-                                        
+                                                                
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Edit Blog'}                                
         == render 'form'
   
 
     
-
+  == render 'shared/back', locals: {link: admin_blog_path(@blog)}
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
 
 
 

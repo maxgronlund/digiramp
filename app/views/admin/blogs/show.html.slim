@@ -12,15 +12,10 @@
         == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
                                                                 blogs: admin_blogs_path, \
                                                                 }, current: @blog.title}
-    .row
-      .col-sm-6
-        h1 =@blog.title
-        = @blog.body
-      .col-sm-6
-        .pull-right
-          = link_to 'Edit Blog Title', edit_admin_blog_path(@blog), class: 'btn btn-primary btn-lg'
-    == render 'shared/line'
-          
+    
+    
+             
+    == render 'shared/page_title_text', locals: {title: @blog.title, body: '', insert: 'edit_blog'}      
     .row
       .col-sm-12
         .panel
@@ -34,10 +29,8 @@
     .row
       .col-sm-12
         .pull-right
-          = link_to 'Blogs', admin_blogs_path,  class: 'btn btn-default btn-lg'
-          '&nbsp;
           = link_to 'New Post', new_admin_blog_blog_post_path(@blog), class: 'btn btn-primary btn-lg'
         
-        
+  == render 'shared/back', locals: {link: admin_blogs_path}
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

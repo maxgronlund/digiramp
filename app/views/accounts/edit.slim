@@ -4,7 +4,7 @@
   
   .container
     == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_path(@account.user), \
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path(@account.user), \
                                                             }, current:  'edit'}
 
     /== render 'shared/page_title', locals: {blog: blog, blog_post: 'Create Content'}

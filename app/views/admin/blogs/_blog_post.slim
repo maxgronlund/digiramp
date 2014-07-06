@@ -7,10 +7,10 @@
   br
   = simple_format blog_post.body
   br
-  = link_to 'Edit Post', edit_admin_blog_blog_post_path(@blog, blog_post), class: 'btn btn-primary'
+  = link_to 'Edit Post', edit_admin_blog_blog_post_path(@blog, blog_post), class: 'btn btn-primary btn-lg'
   '&nbsp;
   = link_to 'Delete Post',admin_blog_blog_post_path(@blog, blog_post), method: :delete ,\
-                                                                  data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-warning',\
+                                                                  data: {confirm: 'Are you sure?'}, class: 'btn btn-lg btn-warning',\
                                                                   id: "delete_blog_post_#{blog_post.id}"
   br
   br

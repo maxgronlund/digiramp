@@ -11,7 +11,7 @@
                                                                 content: admin_content_index_path, \
                                                                 }, current: 'blogs'} 
                     
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Admin Blogs'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Admin Blogs', insert: 'new_blog'}
     .row
       .col-sm-12
         .panel
@@ -72,7 +72,6 @@
             = link_to_previous_page @blogs, '« Prev Page', class: 'btn btn-default mobile_pagination'
             = link_to_next_page @blogs, 'Next Page »', class: 'btn btn-default mobile_pagination'
           
-      .col-sm-12
-        .pull-right
-          = link_to 'New Blog', new_admin_blog_path, class: 'btn btn-primary btn-lg'
+
+        
             

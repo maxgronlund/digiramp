@@ -23,6 +23,13 @@ class Catalog::CatalogUsersController < ApplicationController
   def new
     forbidden unless current_catalog_user.create_user
     @catalog        = Catalog.cached_find(params[:catalog_id])
+    
+    
+    blog      = Blog.cached_find('User Mailer')
+    blog_post = BlogPost.cached_find('Invite Existing User To Catalog' , blog)
+    
+    
+    
     @catalog_user   = CatalogUser.new( title: "You have been invited the #{@catalog.title.upcase!} Catalog by #{current_user.name}", 
                                        body: "You can access the #{@catalog.title.upcase!} Catalog from #{@catalog.account.title} on your HOME screen")
   end

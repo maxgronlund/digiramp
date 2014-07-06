@@ -1,4 +1,8 @@
 class BlogPost < ActiveRecord::Base
+  
+
+  
+  
   belongs_to :blog
   has_many :comments, as: :commentable
   #attr_accessible :author, :body, :crop_params, :image, :image_title, :title, :blog_id, :identifier, :position, :link, :teaser, :layout

@@ -11,10 +11,10 @@ class Account::MusicRequestsController < ApplicationController
     #@opportunities = Opportunity.all
   end
 
-  # GET /opportunities/1
-  # GET /opportunities/1.json
+
   def show
     forbidden unless current_account_user.read_opportunity
+    @opportunity    = Opportunity.cached_find(params[:opportunity_id])
   end
 
   # GET /opportunities/new
@@ -31,8 +31,7 @@ class Account::MusicRequestsController < ApplicationController
     
   end
 
-  # POST /opportunities
-  # POST /opportunities.json
+
   def create
     forbidden unless current_account_user.update_opportunity
      @opportunity    = Opportunity.cached_find(params[:opportunity_id])
@@ -53,8 +52,6 @@ class Account::MusicRequestsController < ApplicationController
     #
   end
 
-  # PATCH/PUT /opportunities/1
-  # PATCH/PUT /opportunities/1.json
   def update
     forbidden unless current_account_user.update_opportunity
     @opportunity    = Opportunity.cached_find(params[:opportunity_id])
@@ -68,8 +65,7 @@ class Account::MusicRequestsController < ApplicationController
 
   end
 
-  # DELETE /opportunities/1
-  # DELETE /opportunities/1.json
+
   def destroy
     forbidden unless current_account_user.delete_opportunity
     opportunity = @music_request.opportunity

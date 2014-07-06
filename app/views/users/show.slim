@@ -8,7 +8,7 @@
     ==render 'admin/shared/messages'
     /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
     .do   
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name} 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: 'home'} 
       
                                                            
       == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Dashboard'}

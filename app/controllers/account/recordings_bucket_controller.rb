@@ -30,7 +30,7 @@ class Account::RecordingsBucketController < ApplicationController
       end
       session[:recording_ids]  = recording_ids
       @recordings = Recording.find(params[:recording_ids])
-      ap session[:recording_ids]
+      session[:recording_ids]
      end
   end
   
@@ -77,6 +77,27 @@ class Account::RecordingsBucketController < ApplicationController
     #@recordings = Recording.find(session[:recording_ids])
   
   end
+  
+  def select_common_work
+    @common_works  = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
+  end
+  
+  def use_common_work
+    @common_work  = CommonWork.find(params[:common_work_id])
+    @recordings   = Recording.find(session[:recording_ids])
+    
+
+    @recordings.each do |recording|
+      recording.common_work_id = @common_work.id
+      recording.in_bucket = false
+      recording.save!
+    end
+    
+    flash[:success] = { title: "Success", body: "Recordings added to common work" }
+    redirect_to account_account_common_work_path(@account, @common_work)
+    
+  end
+  
   
   def new_common_work
     #@common_work    = CommonWork.find(params[:id])

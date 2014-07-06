@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
   
 
+
+
   resources :gitter, only: [:index]
   #resources :footages
   #resources :pro_affiliations
@@ -329,7 +331,9 @@ Digiramp::Application.routes.draw do
         
       end
       resources :opportunities do
-        resources :music_requests
+        resources :music_requests do
+          resources :music_submissions
+        end
       end
       
       # make this member do
@@ -345,10 +349,10 @@ Digiramp::Application.routes.draw do
           post :update_shared
           
           get :add_to_common_work
-          
+          get :select_common_work
           get :new_common_work
           post :create_common_work
-          get :finc_common_work
+          get :use_common_work
           #post :update_shared
         end
       end

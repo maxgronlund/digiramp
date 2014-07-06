@@ -1,0 +1,2 @@
+module MusicSubmissionsHelper
+end

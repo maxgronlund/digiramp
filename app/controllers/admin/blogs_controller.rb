@@ -34,11 +34,11 @@ class Admin::BlogsController < ApplicationController
 
   def create
     @blog = Blog.new(blog_params)
-    if @blog.save
+    if @blog.save!
       flash[:info] = { title: "SUCCESS: ", body: "#{@blog.title} Created" }
       redirect_to admin_blogs_path
     else
-der :new
+      render :new
     end
     
   end
