@@ -366,9 +366,6 @@ Digiramp::Application.routes.draw do
           get "artwork"
           get "new_artwork"
           get "financial_documents"
-          
-          
-
         end
       end
      
