@@ -7,94 +7,47 @@
     .full-width-top
       == render 'admin/shared/navbar', page: 'account' 
   
-  /.container
-  /  == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-  /                                                          manage: account_account_path(@account), \
-  /                                                          upload: account_account_uploads_path(@account) \
-  /                                                         }, \
-  /                                                  current:  'common works'}
-  /  ==render 'admin/shared/messages'
-  /
-  /  /- insert = 'accounts/shared/leave_account'
-  /  
-  /  == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Common Works'}
-  /  
-  /  .row
-  /    .col-sm-3
-  /    .col-sm-6
-  /      .panel.panel-primary
-  /        .panel-heading
-  /          'SELECT FILES
-  /        .panel-body
-  /          = simple_form_for [ @account, @cattalog, @recording ], \
-  /                              :url => url_for(:action => 'create', \
-  /                              :controller => 'catalog/upload_recordings'), \
-  /                              :method => 'post',  \
-  /                              :html => { :id => 'recording' } do |f| 
-  /                              
-  /            = f.hidden_field :account_id, value: @account.id
-  /            = f.hidden_field :@catalog_id, value: @catalog.id
-  /            = transloadit :recording_with_thumbs 
-  /            /= form.label      :file, 'File to upload' 
-  /            = f.file_field :file, multiple: true
-  /            hr
-  /            .pull-right
-  /              = f.submit 'Done', class: 'btn btn-primary btn-lg'
-  /          
-  /          
-  /          = transloadit_jquerify :recording, :wait => true
-  /      
-  /      
-  /    .col-sm-3
-                                          
-    /.row
-    /  .col-sm-6
-    /    == render 'shared/badge', locals: {  \
-    /                                        blog: blog, \
-    /                                        post: BlogPost.cached_find( "IMPORT CSV FILE" , blog ), \
-    /                                        link: account_account_common_works_path(@account), \
-    /                                        css_class: 'btn btn-primary', \
-    /                                        icon: 'fa fa-music', \
-    /                                        id: 'common-works' \
-    /                                      }
-    /  
-    /  
-    /  
-    /    
-    /  .col-sm-6
-    /    == render 'shared/badge', locals: {  \
-    /                                        blog: blog, \
-    /                                        post: BlogPost.cached_find( "IMPORT FROM PRO" , blog ), \
-    /                                        link: account_account_uploads_common_works_path(@account), \
-    /                                        css_class: 'btn btn-success', \
-    /                                        icon: 'fa fa-database', \
-    /                                        id: 'add-common-work' \
-    /                                      }
-    /  
-    /
-    /
-    /        
-    /
-    /  .col-sm-6
-    /    == render 'shared/badge', locals: {  \
-    /                                        blog: blog, \
-    /                                        post: BlogPost.cached_find( "UPLOAD AUDIO FILE" , blog ), \
-    /                                        link: account_account_recordings_path(@account), \
-    /                                        css_class: 'btn btn-info', \
-    /                                        icon: 'fa fa-cloud-upload', \
-    /                                        id: 'recordings' \
-    /                                      }
-    /    
-      
-                                    
-      
-          
-      
-    
-   
+  .container
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            manage: account_account_path(@account), \
+                                                            upload: account_account_uploads_path(@account) \
+                                                           }, \
+                                                    current:  'common works'}
+    ==render 'admin/shared/messages'
 
-        
-  
+    /- insert = 'accounts/shared/leave_account'
+    
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Common Works'}
+    
+    />>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> continue here >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    /.row
+    /  .col-sm-3
+    /  .col-sm-6
+    /    .panel.panel-primary
+    /      .panel-heading
+    /        'SELECT FILES
+    /      .panel-body
+    /        = simple_form_for [ @account, @cattalog, @recording ], \
+    /                            :url => url_for(:action => 'create', \
+    /                            :controller => 'catalog/upload_recordings'), \
+    /                            :method => 'post',  \
+    /                            :html => { :id => 'recording' } do |f| 
+    /                            
+    /          = f.hidden_field :account_id, value: @account.id
+    /
+    /          = transloadit :recording_with_thumbs 
+    /          /= form.label      :file, 'File to upload' 
+    /          = f.file_field :file, multiple: true
+    /          hr
+    /          .pull-right
+    /            = f.submit 'Done', class: 'btn btn-primary btn-lg'
+    /        
+    /        
+    /        = transloadit_jquerify :recording, :wait => true
+    /    
+    /    
+    /  .col-sm-3
+    /
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

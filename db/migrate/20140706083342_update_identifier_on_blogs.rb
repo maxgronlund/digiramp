@@ -5,9 +5,9 @@ class UpdateIdentifierOnBlogs < ActiveRecord::Migration
     change_column_default :blogs, :body, ''
     change_column_default :blogs, :identifier, ''
     
-    Blog.all.each do |blog|
-      blog.check_identifier
-    end
+    #Blog.all.each do |blog|
+    #  blog.check_identifier
+    #end
     
     
   end

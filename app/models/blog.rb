@@ -21,6 +21,8 @@ class Blog < ActiveRecord::Base
     end
   end
   
+
+  
 private
 
   def flush_cache
