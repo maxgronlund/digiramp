@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     #if User.where(email: params[:user][:email]).nil?
       
       params[:user][:name]    = params[:user][:email].downcase
-      params[:user][:role]    = 'Custome'
+      params[:user][:role]    = 'Customer'
       params[:user][:email]   = params[:user][:email].downcase
       @user                   = User.new(user_params)
       blog                    = Blog.cached_find('Sign Up')
