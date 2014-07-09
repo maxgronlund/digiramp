@@ -107,8 +107,8 @@ class AccountUser < ActiveRecord::Base
   
   # permissions based on role
   def handle_user_permissions_for account_user
-    puts '+++++++++++++++++++++++ handle_user_permissions_for ++++++++++++++++++++++++++'
-    puts account_user.user.email
+    #puts '+++++++++++++++++++++++ handle_user_permissions_for ++++++++++++++++++++++++++'
+    #puts account_user.user.email
     # always edit account users
     return true if account_user.role        == 'Account User'
                                             
@@ -116,8 +116,10 @@ class AccountUser < ActiveRecord::Base
     return false if account_user.role       == 'Super'
     
   
-    # newer edit the account owner
-    return false if account_user.role       == 'Account Owner'
+    # newer edit the account owner unless the current user is super
+    if account_user.role       == 'Account Owner'
+      return self.role == 'Super' ? true : false
+    end
     
     # never edit the administrator
     return false if account_user.role       == 'Administrator'
