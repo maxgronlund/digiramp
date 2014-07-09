@@ -7,7 +7,7 @@
     /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
     .do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              assets: account_account_assets_path(@account), \
+                                                              manage: account_account_path(@account), \
                                                               opportunities: account_account_opportunities_path(@account), \
                                                               }, current: 'opportunities'}
       - blog = Blog.cached_find('Opportunities')
