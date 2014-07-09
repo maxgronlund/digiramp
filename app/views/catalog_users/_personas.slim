@@ -4,7 +4,8 @@
       #accordion
         -@catalog.catalog_users.where( role: 'Catalog User').order("email asc").each_with_index do |catalog_user|
           /.do
-          -cache ( ['catalog_users', catalog_user.uuid ] ) do
+          /-cache ( ['catalog_users', catalog_user.uuid ] ) do
+          
             .panel.panel-primary
               .panel-heading
                 .panel-title

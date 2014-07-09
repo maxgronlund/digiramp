@@ -14,7 +14,9 @@
                     '&nbsp;
                     = catalog_user.user.email.upcase
                   .pull-right
-                    = catalog_user.role.upcase
+                    - if catalog_user.user_id == @account.user_id && catalog_user.user.super?
+                      'ACCOUNT OWNER&nbsp;/
+                    = catalog_user.user.role.upcase
               
               div id="collapse_#{catalog_user.id.to_s}" class="panel-collapse collapse"  
                 .panel-body

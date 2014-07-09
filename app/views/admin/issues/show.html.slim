@@ -29,29 +29,23 @@
             br
             = simple_format @issue.body
 
-            hr
-            .pull-right
-              = link_to 'Edit', edit_admin_issue_path( @issue), class: 'btn btn-primary btn-lg'
+            
           
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
+      
+
+            'Priority:
             '&nbsp;
-          .panel-body
-            h4
-              'Priority:
-              '&nbsp;
-              - case @issue.priority
-              -when 'High'
-                .label.label-danger
-                  'High
-              -when 'Medium'
-                .label.label-warning
-                  'Medium
-              -when 'Low'
-                .label.label-info
-                  'Low
-              
+            - case @issue.priority
+            -when 'High'
+              .label.label-danger
+                'High
+            -when 'Medium'
+              .label.label-warning
+                'Medium
+            -when 'Low'
+              .label.label-info
+                'Low
+            
             hr
             
             b Operating Systems
@@ -68,12 +62,14 @@
               br
               = link_to @issue.link_to_page, @issue.link_to_page
               br
-              hr
+              
+            hr
+            .pull-right
+              = link_to 'Edit', edit_admin_issue_path( @issue), class: 'btn btn-primary btn-lg'
             /= link_to image_tag( @issue.image_url(:small)), user_issue_image_path(@user, @issue)
             /.pull-right
             /  = link_to 'Show', user_issue_image_path(@user, @issue), class: 'btn btn-primary btn-lg'
-    .row  
-      .col-sm-6
+
         .panel.panel-primary
           .panel-heading
             'Write Comment
