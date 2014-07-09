@@ -28,8 +28,8 @@ class AccountUser < ActiveRecord::Base
   # 
   after_commit    :update_cache
   
-  before_save     :update_uuids
-  before_destroy  :update_uuids
+  #before_save     :update_uuids
+  #before_destroy  :update_uuids
   #after_create    :update_catalog_users
   #after_update    :update_catalog_users
 
@@ -373,11 +373,11 @@ private
   
   def update_uuids
     # !!! what is account cache
-    AccountCache.update_users_uuid self.account
+    #AccountCache.update_users_uuid self.account
     # force segment cache for account user to rerender
-    self.uuid = UUIDTools::UUID.timestamp_create().to_s
+    #self.uuid = UUIDTools::UUID.timestamp_create().to_s
     # force update of the users cache
-    self.user.save!
+    #self.user.save!
   end
   
 end

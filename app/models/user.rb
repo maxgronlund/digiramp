@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   after_commit :flush_cache
   
   # force update of uuid
-  before_save :set_uuid
+  # before_save :set_uuid
   
   # update the uuid to force rebuild of 
   # segment cached pages
@@ -193,6 +193,7 @@ class User < ActiveRecord::Base
   def can_administrate account
     return true if account.administrator_id == self.id
     return true if self.super?
+    return true if self.account_id == account.id
     false
   end
   
@@ -243,7 +244,7 @@ class User < ActiveRecord::Base
                                       account_id: @account.id, 
                                       role: 'Account Owner')
     # give the account user permissions                                  
-    account_user.grand_basic_permissions
+    account_user.grand_all_permissions
     
     # set the account owned by the user
     user.account_id          = @account.id

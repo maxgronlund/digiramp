@@ -13,8 +13,8 @@ class Account < ActiveRecord::Base
   # !!! might be obsolete
   has_many :attachments, dependent: :destroy
   
-  # image files uploaded
-  has_many :common_work_imports, dependent: :destroy
+  # Imported common works
+  has_many :common_works_imports, dependent: :destroy
   
   # delete playlists when account is deleted
   has_many :playlists, dependent: :destroy

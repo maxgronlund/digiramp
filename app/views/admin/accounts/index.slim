@@ -9,7 +9,8 @@
         == render 'admin/shared/messages'
         == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: 'accounts'}
         == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'All DigiRAMP Accounts'}
-    -cache([request.url, Admin.cached_find(1).accounts_version]) do  
+    /-cache([request.url, Admin.cached_find(1).accounts_version]) do  
+    .do
       .row
         .col-sm-12
           
@@ -39,7 +40,8 @@
                       th 
                   tbody
                     -@accounts.each do |account|
-                      -cache(account) do
+                      /-cache(account) do
+                      .do-so
                         tr
                           td = link_to account.title, account_path( account), class: 'btn btn-default btn-lg'
 
