@@ -28,8 +28,8 @@ class AccountUser < ActiveRecord::Base
   # 
   after_commit    :update_cache
   
-  #before_save     :update_uuids
-  #before_destroy  :update_uuids
+  before_save     :update_uuids
+  before_destroy  :update_uuids
   #after_create    :update_catalog_users
   #after_update    :update_catalog_users
 
@@ -102,6 +102,8 @@ class AccountUser < ActiveRecord::Base
   def can_delete_account_user account_user
     # only if there is permissions to update
     return false unless self.delete_user
+    return false if account_user.role == 'Administrator'
+    return false if account_user.role == 'Account Owner'
     handle_user_permissions_for account_user
   end
   
@@ -116,9 +118,15 @@ class AccountUser < ActiveRecord::Base
     return false if account_user.role       == 'Super'
     
   
-    # newer edit the account owner unless the current user is super
-    if account_user.role       == 'Account Owner'
-      return self.role == 'Super' ? true : false
+    # only administrators and supers can edit the account owner
+    if account_user.role  == 'Account Owner'
+      
+      if account_user.account.administrator_id != account_user.account.user_id
+        # the account is administrated
+        return true if self.role == 'Super'
+        return true if self.role == 'Administrator'
+      end
+      return false    
     end
     
     # never edit the administrator
@@ -375,11 +383,11 @@ private
   
   def update_uuids
     # !!! what is account cache
-    #AccountCache.update_users_uuid self.account
+    AccountCache.update_users_uuid self.account
     # force segment cache for account user to rerender
-    #self.uuid = UUIDTools::UUID.timestamp_create().to_s
+    self.uuid = UUIDTools::UUID.timestamp_create().to_s
     # force update of the users cache
-    #self.user.save!
+    self.user.save!
   end
   
 end

@@ -13,8 +13,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   
   def current_account
-    return  Account.cached_find( session[:account_id]) if session[:account_id]
-    return  Account.cached_find( current_user.account_id ) 
+    begin
+      return  Account.cached_find( session[:account_id]) if session[:account_id]
+      return  Account.cached_find( current_user.account_id ) 
+    rescue
+      session[:account_id] = current_user.account_id
+      return  Account.cached_find( current_user.account_id ) 
+    end
   end
   helper_method :current_account
   

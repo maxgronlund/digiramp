@@ -15,7 +15,7 @@
     /- insert = 'accounts/shared/leave_account'
     
     == render 'shared/page_title_text', locals: {title: @account.title, body: '', insert: 'edit'}
-    
+    = debug current_account_user
 
                                           
     .row
@@ -33,19 +33,19 @@
 
 
             
-        -if current_account_user.read_recording
-          .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "RECORDINGS" , blog ), \
-                                                link: account_account_recordings_path(@account), \
-                                                css_class: 'btn btn-warning', \
-                                                icon: 'fa fa-headphones', \
-                                                id: 'recordings' \
-                                              }
-            
-            
-            
+      -if current_account_user.read_recording
+        .col-sm-6
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "RECORDINGS" , blog ), \
+                                              link: account_account_recordings_path(@account), \
+                                              css_class: 'btn btn-warning', \
+                                              icon: 'fa fa-headphones', \
+                                              id: 'recordings' \
+                                            }
+          
+          
+          
         /-if current_account_user.read_common_work?
         /  .col-sm-6
         /    == render 'shared/badge', locals: {  \
@@ -104,7 +104,7 @@
                                                 icon: 'fa fa-plane' \
                                               }
                                       
-        -if true
+        -if current_account_user.read_common_work_ipi
           .col-sm-6
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \

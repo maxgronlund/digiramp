@@ -113,7 +113,7 @@ class Account < ActiveRecord::Base
   
   # !!! might be obsolete
   def owner_has_no_name?
-    account_owner.name == User::SECRET_NAME
+    account_owner.name == account.user.email
   end
   
   # !!! might be obsolete

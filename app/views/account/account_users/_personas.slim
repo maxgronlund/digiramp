@@ -13,6 +13,7 @@
         /  /  - account_users += @account.account_users.owner
         /  /  /- account_users -= @account.administrators_account_user
         -@account.account_users.non_catalog_users.each do |account_user|
+          
           .panel.panel-primary
             .panel-heading
               .panel-title
@@ -21,6 +22,8 @@
                   .pull-right
                     - if account_user.user_id == @account.user_id && account_user.user.super?
                       'ACCOUNT OWNER&nbsp;/
+                    - elsif @account.administrator_id == account_user.user_id
+                      'ADMINISTRATOR&nbsp;/
                     
                     = account_user.role.upcase
                     

@@ -27,7 +27,7 @@
           /li class="#{page == 'admin' ? 'active' : ''}"
           /  = link_to 'ADMIN', admin_index_path
 
-      -if user_signed_in?
+      -if user_signed_in? && current_account
         ul class="nav navbar-nav navbar-right"
           
 

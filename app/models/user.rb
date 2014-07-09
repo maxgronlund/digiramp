@@ -244,7 +244,14 @@ class User < ActiveRecord::Base
                                       account_id: @account.id, 
                                       role: 'Account Owner')
     # give the account user permissions                                  
-    account_user.grand_all_permissions
+    account_user.grand_basic_permissions
+    
+    # limit user invite
+    #account_user.createx_user  = false
+    #account_user.read_user     = false
+    #account_user.update_user   = false
+    #account_user.delete_user   = false
+    #account_user.save!
     
     # set the account owned by the user
     user.account_id          = @account.id
