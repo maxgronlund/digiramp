@@ -41,7 +41,8 @@
 
                 tbody
                   -@users.each do |user|
-                    -cache (user) do
+                    /-cache (user) do
+                    .do
                       tr
                         /td = debug user
                         td = user.email
