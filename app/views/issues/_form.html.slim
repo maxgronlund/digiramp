@@ -35,7 +35,7 @@
           = f.input :os, label: 'Operating Systems', :collection => Issue::OSS 
           = f.input :link_to_page
           = f.input :browser , :collection => Issue::BROWSERS 
-          = f.input :symtom , :collection => Issue::SYMPTOMS 
+          = f.input :symtom , :collection => Issue::SYMPTOMS , label: 'Symptom'
   .row
     .col-sm-12
       hr
