@@ -22,7 +22,7 @@
                   .pull-right
                     - if account_user.user_id == @account.user_id && account_user.user.super?
                       'ACCOUNT OWNER&nbsp;/
-                    - elsif @account.administrator_id == account_user.user_id
+                    - elsif @account.administrator_id == account_user.user_id && account_user.role != 'Account Owner'
                       'ADMINISTRATOR&nbsp;/
                     
                     = account_user.role.upcase
