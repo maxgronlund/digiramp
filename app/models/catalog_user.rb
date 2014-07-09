@@ -93,16 +93,17 @@ class CatalogUser < ActiveRecord::Base
   
   # can update catalog_user
   def can_update_catalog_user catalog_user
-    puts '+++++++++++++++++++++++ can_update_catalog_user ++++++++++++++++++++++++++'
+    #puts '+++++++++++++++++++++++ can_update_catalog_user ++++++++++++++++++++++++++'
    
     # only if there is permissions to update
     return false unless self.update_user
+
     handle_user_permissions_for catalog_user
   end
   
   # can delete catalog_user
   def can_delete_catalog_user catalog_user
-    puts '+++++++++++++++++++++++ can_delete_catalog_user ++++++++++++++++++++++++++'
+    #puts '+++++++++++++++++++++++ can_delete_catalog_user ++++++++++++++++++++++++++'
     # only if there is permissions to update
     return false unless self.delete_user
     handle_user_permissions_for catalog_user
@@ -110,13 +111,18 @@ class CatalogUser < ActiveRecord::Base
   
   # permissions based on catalog_user
   def handle_user_permissions_for catalog_user
-    puts '+++++++++++++++++++++++ handle_user_permissions_for ++++++++++++++++++++++++++'
-    puts catalog_user.user.email
+    #puts '+++++++++++++++++++++++ handle_user_permissions_for ++++++++++++++++++++++++++'
+    #puts catalog_user.user.email
+    #puts catalog_user.role
+    
+    # never edit a super user               
+    return false if catalog_user.role      == 'Super User'
+    
+    
     # always edit account users
     return true if catalog_user.role        == 'Account User'
                                             
-    # never edit a super user               
-    return false if catalog_user.role       == 'Super User'
+    
     
   
     # newer edit the account owner

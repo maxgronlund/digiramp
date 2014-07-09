@@ -4,8 +4,8 @@
       #accordion
 
         -catalog_users.each do |catalog_user|
-          /.do
-          -cache ( ['catalog_users', catalog_user.uuid ] ) do
+          /-cache ( ['catalog_users', catalog_user.uuid ] ) do
+          .do
             .panel.panel-primary
               .panel-heading
                 .panel-title
@@ -13,10 +13,11 @@
                     i  class="fa fa-eye"
                     '&nbsp;
                     = catalog_user.user.email.upcase
-                  .pull-right
-                    - if catalog_user.user_id == @account.user_id && catalog_user.user.super?
-                      'ACCOUNT OWNER&nbsp;/
-                    = catalog_user.user.role.upcase
+                    .pull-right
+                      - if catalog_user.user_id == @account.user_id && catalog_user.user.super?
+                        'ACCOUNT OWNER&nbsp;/
+                      = catalog_user.user.role.upcase
+                    
               
               div id="collapse_#{catalog_user.id.to_s}" class="panel-collapse collapse"  
                 .panel-body
