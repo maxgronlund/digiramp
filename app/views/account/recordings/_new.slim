@@ -4,8 +4,8 @@
                                   class: 'btn btn-primary btn-lg'
     '&nbsp;
   - if current_account_user.update_recording
-  
-      = link_to new_account_account_recording_path(@account) do
+      /account_account_uploads_audio_files_new_path
+      = link_to account_account_uploads_audio_files_new_path(@account) do
         .btn.btn-success.btn-lg
           i class="fa fa-plus-circle"
           '&nbsp;

@@ -4,6 +4,8 @@ class Catalog< ActiveRecord::Base
   has_many :catalog_items, dependent: :destroy
   has_many :catalog_users, dependent: :destroy
   has_many :common_works_imports, dependent: :destroy
+  
+
   #belongs_to :catalog_itemable, polymorphic: true
   #attr_accessible :catalog_itemable_type, :catalog_itemable_id, :account_catalog_id
   

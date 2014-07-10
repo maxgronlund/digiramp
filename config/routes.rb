@@ -3,7 +3,6 @@ Digiramp::Application.routes.draw do
   
 
 
-
   resources :gitter, only: [:index]
   #resources :footages
   #resources :pro_affiliations
@@ -119,7 +118,7 @@ Digiramp::Application.routes.draw do
     
     
     
-    #resources :upload_completed
+
     resources :works do
       resources :work_recordings, only: [:index]
       resources :work_users, only: [:index]
@@ -318,6 +317,8 @@ Digiramp::Application.routes.draw do
       
       resources :audio_files
       resources :common_works do
+        resources :common_work_files, only: [:index]
+        resources :common_work_artworks
         member do
           get  'recordings'
           get  'recordings_new'
@@ -325,6 +326,7 @@ Digiramp::Application.routes.draw do
           post 'recordings_create'
         end
       end
+      
       resources :common_works_imports
       resources :documents, only: [:index] do
         

@@ -75,7 +75,7 @@ class Account::CommonWorksController < ApplicationController
     forbidden unless current_account_user.delete_common_work
     @common_work    = CommonWork.cached_find(params[:id])
     @common_work.destroy
-    redirect_to account_works_path @account
+    redirect_to account_account_common_works_path @account
 
   end
   

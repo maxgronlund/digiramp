@@ -30,8 +30,8 @@ class User < ActiveRecord::Base
   has_one :dashboard
   has_one :account
   
-  has_many :account_users, dependent: :destroy
-  has_many :work_users, dependent: :destroy
+  has_many :account_users,    dependent: :destroy
+  has_many :work_users,       dependent: :destroy
   has_many :works, through: :work_users
   has_many :accounts, :through => :account_users  
   
@@ -46,8 +46,8 @@ class User < ActiveRecord::Base
   has_many :activity_events, as: :activity_eventable
   has_many :invites
   
-  has_many :representatives, dependent: :destroy
-  has_many :search_recordings
+  #has_many :representatives, dependent: :destroy
+  #has_many :search_recordings
   
   # account_catalog a user administrates
   has_many :administrations
@@ -412,36 +412,16 @@ class User < ActiveRecord::Base
     return  name == '' ? email : name
   end
   
-  #def can_manage_assets account
-  #  return true if account.create_recording_ids.include?        self.id
-  #  return true if   account.read_recording_ids.include?        self.id
-  #  return true if account.update_recording_ids.include?        self.id
-  #  return true if account.delete_recording_ids.include?        self.id
-  #  return true if account.create_recording_ipi_ids.include?    self.id
-  #  return true if   account.read_recording_ipi_ids.include?    self.id
-  #  return true if account.update_recording_ipi_ids.include?    self.id
-  #  return true if account.delete_recording_ipi_ids.include?    self.id
-  #  return true if account.create_file_ids.include?             self.id
-  #  return true if   account.read_file_ids.include?             self.id
-  #  return true if account.update_file_ids.include?             self.id
-  #  return true if account.delete_file_ids.include?             self.id
-  #  return true if account.create_common_work_ids.include?      self.id
-  #  return true if   account.read_common_work_ids.include?      self.id
-  #  return true if account.update_common_work_ids.include?      self.id
-  #  return true if account.delete_common_work_ids.include?      self.id
-  #  return true if account.create_common_work_ipi_ids.include?  self.id
-  #  return true if   account.read_common_work_ipi_ids.include?  self.id
-  #  return true if account.update_common_work_ipi_ids.include?  self.id
-  #  return true if account.delete_common_work_ipi_ids.include?  self.id
-  #  return false
+  def has_access_to_cattalogs_on account
+    !CatalogUser.where(catalog_id: account.catalog_ids, user_id: self.id).nil?
+  end
+  
+  #def has_access_to_recordings_on account
+  #  !CatalogUser.where(catalog_id: account.catalog_ids, user_id: self.id).nil?
   #end
   #
-  #def can_manage_users account
-  #  return true if account.create_account_user_ids.include?     self.id
-  #  return true if account.read_account_user_ids.include?       self.id
-  #  return true if account.update_account_user_ids.include?     self.id
-  #  return true if account.delete_account_user_ids.include?     self.id
-  #  return false
+  #def has_access_to_cattalogs_on account
+  #  !CatalogUser.where(catalog_id: account.catalog_ids, user_id: self.id).nil?
   #end
   
   

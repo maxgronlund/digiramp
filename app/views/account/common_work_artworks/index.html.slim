@@ -1,0 +1,35 @@
+
+
+
+/= debug @recording.audio_upload
+- session[:return_url]  = request.url
+- blog = Blog.cached_find('COMMON WORK FILES')
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                             manage: account_account_path(@account), \
+                                                             common_works: account_account_common_works_path(@account),\
+                                                             @common_work.title.to_sym => account_account_common_work_path(@account, @common_work)\
+                                                             }, current: 'artwork' }
+
+      == render 'shared/page_title_text', locals: {title: @common_work.title, body: 'ARTWORK'}
+      
+      = debug @common_work.artworks
+             
+     
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
+
+            
+ 
+          
+          
+          
+        

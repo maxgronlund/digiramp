@@ -63,8 +63,14 @@ class Recording < ActiveRecord::Base
   
  
   def catalogs
-    catalog_ids = CatalogItem.where(catalog_itemable_type: self.class.name, catalog_itemable_id: self.id).pluck(:catalog_id)
-    Catalog.find(catalog_ids)
+    puts '----------------------------------------------------------'
+    puts 'get catalogs'
+    puts '----------------------------------------------------------'
+    ap CatalogItem.where(catalog_itemable_type: "Recording", catalog_itemable_id: self.id)
+    catalog_ids = CatalogItem.where(catalog_itemable_type: "Recording", catalog_itemable_id: self.id).pluck(:catalog_id)
+    cats = Catalog.find(catalog_ids)
+    ap cats
+    cats
   end
   
   
@@ -555,13 +561,20 @@ private
   end
   
   def count_stats_down
+    puts '---------------------------------------------------------------'
+    puts 'count_stats_down'
+    puts catalogs.size
+    puts '---------------------------------------------------------------'
     Statistics.first.recordings -= 1
     Statistics.first.save!
+    
+    ap CatalogItem.where(catalog_itemable_id: self.id)
     
     # optimization
     catalogs.each do |catalog|
       catalog.nr_recordings -= 1
       catalog.save!
+      ap catalog
     end
   end
   

@@ -17,37 +17,37 @@
 
     /- insert = 'accounts/shared/leave_account'
     
-    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Common Works'}
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Create Common Works'}
     
     />>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> continue here >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    /.row
-    /  .col-sm-3
-    /  .col-sm-6
-    /    .panel.panel-primary
-    /      .panel-heading
-    /        'SELECT FILES
-    /      .panel-body
-    /        = simple_form_for [ @account, @cattalog, @recording ], \
-    /                            :url => url_for(:action => 'create', \
-    /                            :controller => 'catalog/upload_recordings'), \
-    /                            :method => 'post',  \
-    /                            :html => { :id => 'recording' } do |f| 
-    /                            
-    /          = f.hidden_field :account_id, value: @account.id
-    /
-    /          = transloadit :recording_with_thumbs 
-    /          /= form.label      :file, 'File to upload' 
-    /          = f.file_field :file, multiple: true
-    /          hr
-    /          .pull-right
-    /            = f.submit 'Done', class: 'btn btn-primary btn-lg'
-    /        
-    /        
-    /        = transloadit_jquerify :recording, :wait => true
-    /    
-    /    
-    /  .col-sm-3
-    /
+    .row
+      .col-sm-3
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            'SELECT FILES
+          .panel-body
+            = simple_form_for [ @account ], \
+                                :url => url_for(:action => 'audio_files_create', \
+                                :controller => 'account/uploads'), \
+                                :method => 'post',  \
+                                :html => { :id => 'recording' } do |f| 
+                                
+              = f.hidden_field :account_id, value: @account.id
+    
+              = transloadit :recording_with_thumbs 
+              /= form.label      :file, 'File to upload' 
+              = f.file_field :file, multiple: true
+              hr
+              .pull-right
+                = f.submit 'Done', class: 'btn btn-primary btn-lg'
+            
+            
+            = transloadit_jquerify :recording, :wait => true
+        
+        
+      .col-sm-3
+    
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

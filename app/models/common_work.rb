@@ -220,6 +220,10 @@ class CommonWork < ActiveRecord::Base
     rec_health
   end
   
+  def artworks
+    CatalogItem.where(catalog_itemable_id: self.id, catalog_itemable_type: 'Artwork')
+  end
+  
 
   # access control move to helper
   

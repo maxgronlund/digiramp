@@ -4,8 +4,9 @@
       -links = breadcrumbs[:links]
       ol class="breadcrumb"
         - links.each do |k, v|
-          li
-            = link_to k.upcase , v, 'data-no-turbolink'=> breadcrumbs[:no_turbo]
+          - if v
+            li
+              = link_to k.upcase , v, 'data-no-turbolink'=> breadcrumbs[:no_turbo]
 
         li class="active" 
           = breadcrumbs[:current].upcase

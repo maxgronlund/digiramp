@@ -26,17 +26,17 @@ class Catalog::CatalogsController < ApplicationController
                                         :move, 
                                         :copy_code, 
                                         :find_common_work_in_collection
+                                        
                                        ]
-  #before_filter :current_account_user
+
+  
+ 
   
   def index
-    forbidden unless current_account_user.read_catalog
-    #puts '--------------------- INDEX ------------------------'
-    #Pusher['private-'+params[:message][:recipient_id]].trigger('new_message', {:from => current_user.name, :subject => message.subject})
-    #Pusher['private-'+ current_user.email, 'my_eventx', {"message" => 'hello world'})
-    #channel = 'digiramp_radio'
-    #Pusher.trigger(channel, 'my_eventx', {"name" => 'hello world'})
-    #CommonWorksImport.post_alert current_user.email
+
+    forbidden unless current_user && current_user.has_access_to_cattalogs_on( @account )
+    #forbidden unless CatalogUser.where(catalog_id: @account.catalog_ids, user_id: current_user.id)
+    
 
   end
 
