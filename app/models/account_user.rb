@@ -34,7 +34,7 @@ class AccountUser < ActiveRecord::Base
   #after_update    :update_catalog_users
 
   
-  scope :supers,            ->  { where.not( role: 'Super')  }
+  scope :supers,            ->  { where( role: 'Super')  }
   scope :clients,           ->  { where( role: 'Client') }
   scope :administrators,    ->  { where( role: 'Administrator') }
   scope :owner,             ->  { where( role: 'Account Owner')  }
@@ -170,6 +170,11 @@ class AccountUser < ActiveRecord::Base
     Permissions::TYPES.each do |permission_type|
       eval "self.#{permission_type} = true" 
     end
+    
+    self.create_client = true
+    self.read_client   = true
+    self.update_client = true
+    self.delete_client = true
     self.save!
     
     # add to all catalogs
@@ -184,6 +189,14 @@ class AccountUser < ActiveRecord::Base
     Permissions::TYPES.each do |permission_type|
       eval "self.#{permission_type} = false" 
     end
+    
+    self.create_client = false
+    self.read_client   = false
+    self.update_client = false
+    self.delete_client = false
+    self.save!
+    
+    
     # save and update uuid
     self.save!
     

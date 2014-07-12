@@ -1,0 +1,15 @@
+- if current_account_user.create_client
+  .pull-right
+
+    = link_to new_account_account_client_import_path(@account) do
+      .btn.btn-info.btn-lg
+        i class="fa fa-cloud-upload"
+        '&nbsp;Import CVS
+    '&nbsp;
+    = link_to new_account_account_client_path(@account)
+      .btn.btn-success.btn-lg
+        i class='fa fa-plus-circle'
+        '&nbsp;
+        'Add Clients
+        
+    

@@ -4,6 +4,12 @@ class Account < ActiveRecord::Base
   # the user might be active on another account
   belongs_to :user
   
+  # used to contact
+  has_many :clients
+  
+  # csv imports
+  has_many :client_imports
+  
   # image files uploaded
   has_many :artworks, dependent: :destroy
   

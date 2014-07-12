@@ -16,7 +16,11 @@ class CommonWork < ActiveRecord::Base
   #has_many :documents,       as: :documentable, dependent: :destroy
   has_many :work_users, dependent: :destroy
   
-  has_many :catalog_items, as: :catalog_itemable, dependent: :destroy
+  #has_many :catalog_items, dependent: :destroy
+  
+  has_many :common_work_items, dependent: :destroy
+  
+  #has_many :catalog_items, as: :catalog_itemable, dependent: :destroy
   
   #mount_uploader :audio_file, AudioFileUploader
   before_save :update_uuids
@@ -221,7 +225,8 @@ class CommonWork < ActiveRecord::Base
   end
   
   def artworks
-    CatalogItem.where(catalog_itemable_id: self.id, catalog_itemable_type: 'Artwork')
+    artwork_ids = self.common_work_items.where( attachable_type: 'Artwork').pluck(:attachable_id)
+    @artworks = Artwork.where(id: artwork_ids)
   end
   
 

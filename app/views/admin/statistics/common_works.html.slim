@@ -18,7 +18,7 @@
 
       .row
         .col-sm-6
-          h3 Total: #{ Statistics.first.common_works}
+          h3 Total: #{ CommonWork.all.size}
         .col-sm-6
           h3 Added last 8 weeks: #{@common_work_uploads.size}
       .row

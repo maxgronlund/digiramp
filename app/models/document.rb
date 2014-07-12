@@ -6,6 +6,7 @@ class Document < ActiveRecord::Base
   scope :files,     ->  { where( document_type: 'File')  }
   scope :financial, ->  { where( document_type: 'Financial')  }
   scope :legal,     ->  { where( document_type: 'Legal')  }
+  scope :csv,       ->  { where( document_type: 'Csv')  }
 
   after_commit :flush_cache
 

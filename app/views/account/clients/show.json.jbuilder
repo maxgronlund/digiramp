@@ -1,0 +1,1 @@
+json.extract! @client, :id, :account_id, :user_uuid, :name, :last_name, :user_uuid, :title, :photo, :telephone_home, :telephone_work, :address_home, :address_home, :email, :revision, :created_at, :updated_at

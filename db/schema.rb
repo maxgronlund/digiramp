@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140709143613) do
+ActiveRecord::Schema.define(version: 20140711174245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,10 @@ ActiveRecord::Schema.define(version: 20140709143613) do
     t.boolean  "read_opportunity",          default: false
     t.boolean  "update_opportunity",        default: false
     t.boolean  "delete_opportunity",        default: false
+    t.boolean  "create_client",             default: false
+    t.boolean  "read_client",               default: false
+    t.boolean  "update_client",             default: false
+    t.boolean  "delete_client",             default: false
   end
 
   add_index "account_users", ["account_id"], name: "index_account_users_on_account_id", using: :btree
@@ -506,6 +510,46 @@ ActiveRecord::Schema.define(version: 20140709143613) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
+  create_table "client_imports", force: true do |t|
+    t.integer  "account_id"
+    t.string   "user_uuid"
+    t.string   "file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "client_imports", ["account_id"], name: "index_client_imports_on_account_id", using: :btree
+
+  create_table "clients", force: true do |t|
+    t.integer  "account_id"
+    t.string   "user_uuid",      default: ""
+    t.string   "name",           default: ""
+    t.string   "last_name",      default: ""
+    t.string   "title",          default: ""
+    t.string   "photo",          default: ""
+    t.string   "telephone_home", default: ""
+    t.string   "telephone_work", default: ""
+    t.string   "fax_work",       default: ""
+    t.string   "fax_home",       default: ""
+    t.string   "cell_phone",     default: ""
+    t.string   "company",        default: ""
+    t.string   "capacity",       default: ""
+    t.text     "address_home",   default: ""
+    t.text     "address_work",   default: ""
+    t.string   "city_work",      default: ""
+    t.string   "state_work",     default: ""
+    t.string   "zip_work",       default: ""
+    t.string   "country_work",   default: ""
+    t.string   "email",          default: ""
+    t.string   "home_page",      default: ""
+    t.string   "department",     default: ""
+    t.string   "revision",       default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "clients", ["account_id"], name: "index_clients_on_account_id", using: :btree
+
   create_table "comments", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -519,6 +563,20 @@ ActiveRecord::Schema.define(version: 20140709143613) do
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "common_work_items", force: true do |t|
+    t.integer  "account_id"
+    t.integer  "common_work_id"
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
+    t.string   "user_uuid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "common_work_items", ["account_id"], name: "index_common_work_items_on_account_id", using: :btree
+  add_index "common_work_items", ["attachable_id", "attachable_type"], name: "index_common_work_items_on_attachable_id_and_attachable_type", using: :btree
+  add_index "common_work_items", ["common_work_id"], name: "index_common_work_items_on_common_work_id", using: :btree
 
   create_table "common_works", force: true do |t|
     t.string   "title"
@@ -1324,15 +1382,6 @@ ActiveRecord::Schema.define(version: 20140709143613) do
   end
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
-
-  create_table "statistics", force: true do |t|
-    t.integer  "recordings"
-    t.integer  "common_works"
-    t.integer  "users"
-    t.integer  "catalogs"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "upload_csvs", force: true do |t|
     t.string   "file"

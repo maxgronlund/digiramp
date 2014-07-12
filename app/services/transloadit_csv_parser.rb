@@ -9,8 +9,8 @@ class TransloaditCSVParser
     
     if uploads[:results].nil?
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-      puts 'ERROR: Unable to extract recordings: uploads nil'
-      puts 'In TransloaditRecordingsParser#extract'
+      puts 'ERROR: Unable to extract cvs file: uploads nil'
+      puts 'In TransloaditCSVParser#extract'
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       return nil 
     end
@@ -53,8 +53,6 @@ class TransloaditCSVParser
     documents = []
     transloadets.each do |transloaded|
 
-
-      
       document =   Document.create!(  title:          transloaded[:title],
                                       file_type:      transloaded[:file_type],
                                       mime:           transloaded[:mime],

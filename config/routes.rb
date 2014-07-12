@@ -3,11 +3,11 @@ Digiramp::Application.routes.draw do
   
 
 
+
   resources :gitter, only: [:index]
   #resources :footages
   #resources :pro_affiliations
   resources :comments
-
 
 
   get "albums/index"
@@ -316,9 +316,12 @@ Digiramp::Application.routes.draw do
       resources :artworks 
       
       resources :audio_files
+      resources :clients
+      resources :client_imports
       resources :common_works do
         resources :common_work_files, only: [:index]
         resources :common_work_artworks
+        resources :common_work_items
         member do
           get  'recordings'
           get  'recordings_new'
@@ -332,6 +335,7 @@ Digiramp::Application.routes.draw do
         
         
       end
+
       resources :opportunities do
         resources :music_requests do
           resources :music_submissions

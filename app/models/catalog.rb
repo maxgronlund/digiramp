@@ -128,8 +128,6 @@ class Catalog< ActiveRecord::Base
     @artworks = Artwork.order('title asc').where(id: artwork_ids)
   end
   
-private
-
   def add_account_user account_user
     puts '---------------- add account user --------------------------------'
     
@@ -145,7 +143,11 @@ private
     end
     catalog_user.save!
   end
+  
+  
+private
 
+  
   def flush_cache
     Rails.cache.delete([self.class.name, id])
   end

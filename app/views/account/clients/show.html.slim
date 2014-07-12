@@ -1,0 +1,80 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           manage: account_account_path(@account),\
+                                                           clients: account_account_clients_path(@account)},\
+                                                            current:  @client.full_name}
+
+    
+    == render 'shared/page_title_text', locals: {title: @client.full_name, body: '', insert: 'edit'}
+    .row
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            'Contact Info
+          .panel-body
+            .gravatar
+              = gravatar_tag @client.email, :size => 120, class: "media-object"
+            .address
+              table
+                tr
+                  th Email: &nbsp;
+                  td = @client.email
+                tr
+                  th Telephone: &nbsp;
+                  td = @client.telephone_work
+                tr
+                  th Department: &nbsp;
+                  td = @client.department
+                tr
+                  th Capacity: &nbsp;
+                  td = @client.capacity
+                tr
+                  th Address: &nbsp;
+                  td = @client.address_work
+                tr
+                  th City: &nbsp;
+                  td = @client.city_work
+                tr
+                  th State: &nbsp;
+                  td = @client.state_work
+                tr
+                  th Zip Code: &nbsp;
+                  td = @client.zip_work
+                tr
+                  th Country: &nbsp;
+                  td = @client.country_work
+                tr
+                  th Home Page: &nbsp;
+                  td = link_to @client.home_page, @client.home_page
+                  
+              = @client.title
+                
+                p
+                  strong Title:
+     
+                p
+                  strong Telephone home:
+                  = @client.telephone_home
+                p
+                  strong Telephone work:
+                  = @client.telephone_work
+                p
+                  strong Address home:
+                  = @client.address_home
+                p
+                  strong Address work:
+                  = @client.address_work
+                p
+                  strong Email:
+                  = @client.email
+              
+                
+                /= link_to 'Edit', edit_client_path(@client)
+            /'|
+            /= link_to 'Back', clients_path
+        
