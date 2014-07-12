@@ -27,31 +27,42 @@ class User < ActiveRecord::Base
   has_many :catalog_users, dependent: :destroy
   has_many :catalogs, through: :catalog_users
   
+  #################################
+  # not sure if in use
   has_one :dashboard
-  has_one :account
-  
-  has_many :account_users,    dependent: :destroy
   has_many :work_users,       dependent: :destroy
   has_many :works, through: :work_users
-  has_many :accounts, :through => :account_users  
-  
-  #has_many :bugs, dependent: :destroy
-  
-  
-  has_many :ipis
-  has_many :issues, dependent: :destroy
-  #has_many :permissions
-  #has_many :permitted_models, dependent: :destroy #!!! moving to account_user
-  
-  has_many :activity_events, as: :activity_eventable
   has_many :invites
-  
-  #has_many :representatives, dependent: :destroy
-  #has_many :search_recordings
   
   # account_catalog a user administrates
   has_many :administrations
   has_many :account_catalogs, through: :administrations
+  
+  #################################
+  
+  has_one :account
+  
+  has_many :account_users,    dependent: :destroy
+  
+  has_many :accounts, :through => :account_users  
+  
+  # for the crm
+  has_many :project_tasks
+  has_many :projects
+  
+  
+  has_many :ipis
+  has_many :issues, dependent: :destroy
+  
+  #has_many :permissions
+  #has_many :permitted_models, dependent: :destroy #!!! moving to account_user
+  
+  has_many :activity_events, as: :activity_eventable
+  
+  
+
+  
+  
   
   ROLES       = ["Super", "Customer"]
   SECRET_NAME = "RGeiHK8yUB6a"
@@ -103,25 +114,25 @@ class User < ActiveRecord::Base
   end
 
 
-  def asseccible_recordings
-    recordings = []
-    
-    accounts.each do |acnt|
-      acnt.recordings.each do |rec|
-        recordings << rec
-      end
-    end
-    recordings.uniq
-  end
+  #def asseccible_recordings
+  #  recordings = []
+  #  
+  #  accounts.each do |acnt|
+  #    acnt.recordings.each do |rec|
+  #      recordings << rec
+  #    end
+  #  end
+  #  recordings.uniq
+  #end
   
-  def playlists
-    playlists = []
-    accounts.each do |account|
-      account.playlists.each do |playlist|
-        playlists << playlist
-      end
-    end
-  end
+  #def playlists
+  #  playlists = []
+  #  accounts.each do |account|
+  #    account.playlists.each do |playlist|
+  #      playlists << playlist
+  #    end
+  #  end
+  #end
   
 
   
@@ -431,12 +442,6 @@ private
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])
-    
-    #AccountUser.where(user_id: id).each do |account_user|
-    #  account_user.save
-    #end
-    
-    #Rails.cache.delete([self.class.name, id,  cookies[:auth_token] ]) 
   end
 
   

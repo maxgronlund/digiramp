@@ -1,0 +1,41 @@
+h1 Listing project_tasks
+
+table
+  thead
+    tr
+      th Project
+      th User
+      th Title
+      th Assigned to
+      th Category
+      th Status
+      th Due date
+      th Start date
+      th Reminder
+      th Priority
+      th Description
+      th
+      th
+      th
+
+  tbody
+    - @project_tasks.each do |project_task|
+      tr
+        td = project_task.project
+        td = project_task.user
+        td = project_task.title
+        td = project_task.assigned_to
+        td = project_task.category
+        td = project_task.status
+        td = project_task.due_date
+        td = project_task.start_date
+        td = project_task.reminder
+        td = project_task.priority
+        td = project_task.description
+        td = link_to 'Show', project_task
+        td = link_to 'Edit', edit_project_task_path(project_task)
+        td = link_to 'Destroy', project_task, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Project task', new_project_task_path

@@ -1,0 +1,47 @@
+= simple_form_for [:account, @account, @project, @project_task]  do |f|
+
+  = f.hidden_field :project_id, value: @project.id
+  = f.input :user_id , \
+            :collection => @account.get_account_users , \
+            label: 'Assigned To', \
+            hint: "Who's Responsible?"
+  
+  = f.input :title
+  = f.input :category
+  = f.input :status
+  /= f.date_select :due_date
+
+  /= f.input :reminder
+
+  
+  div class='input-group date' id='project_task_reminder'
+    input type='text' class="form-control" name="project_task[reminder]" 
+    span class="input-group-addon"
+      span class="glyphicon glyphicon-calendar"
+  
+
+  br
+  .pull-right  
+    = f.submit 'Save', class: 'btn btn-primary btn-lg'
+  
+  
+  
+  
+  javascript:
+    $(function () {
+        $('#project_task_reminder').datetimepicker();
+    });
+    
+  
+
+  /.field
+  /  = f.label :priority
+  /  = f.text_field :priority
+  /.field
+  /  = f.label :description
+  /  = f.text_area :description
+  /.actions = f.submit 'Save'
+  /.field
+  /  = f.label :start_date
+  /  = f.date_select :start_date
+  /.field

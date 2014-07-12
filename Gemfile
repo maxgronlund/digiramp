@@ -52,12 +52,15 @@ gem 'levenshtein'
 gem 'chosen-rails', '0.12.0'
 #
 
+gem 'datetimepicker-rails', :require => 'datetimepicker-rails', :git => 'git://github.com/zpaulovics/datetimepicker-rails.git'
+
 
 gem 'bootstrap-editable-rails'
 gem 'jQuery-Validation-Engine-rails'
 gem 'sinatra', require: false
 
 
+# what is this in use for?
 gem "chartkick"
 gem 'groupdate'
 

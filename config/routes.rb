@@ -2,6 +2,10 @@
 Digiramp::Application.routes.draw do
 
 
+  
+
+  resources :project_tasks
+
   resources :gitter, only: [:index]
   #resources :footages
   #resources :pro_affiliations
@@ -344,7 +348,9 @@ Digiramp::Application.routes.draw do
         end
       end
       
-      resources :projects
+      resources :projects do
+        resources :project_tasks
+      end
       
       # make this member do
       post "uploads/audio_files_create"
