@@ -1,7 +1,5 @@
 
 Digiramp::Application.routes.draw do
-  
-
 
 
   resources :gitter, only: [:index]
@@ -332,6 +330,7 @@ Digiramp::Application.routes.draw do
       end
       
       resources :common_works_imports
+      get 'crm/index'
       resources :admin_clients
       resources :documents, only: [:index] do
       end
@@ -343,6 +342,8 @@ Digiramp::Application.routes.draw do
           resources :music_submissions
         end
       end
+      
+      resources :projects
       
       # make this member do
       post "uploads/audio_files_create"

@@ -4,14 +4,30 @@ class Client < ActiveRecord::Base
   
   
   include PgSearch
-  pg_search_scope :search, against: [ :title, 
-                                      :name, 
-                                      :last_name, 
-                                      :telephone_home, 
-                                      :telephone_work,
-                                      :address_home,
-                                      :address_work,
-                                      :email ], :using => [:tsearch]
+  pg_search_scope :search, against: [ :name,         
+                                      :last_name,    
+                                      :title,    
+                                      :telephone_home,
+                                      :business_phone,
+                                      :business_fax, 
+                                      :fax_home,     
+                                      :cell_phone,   
+                                      :company,      
+                                      :capacity,     
+                                      :address_home, 
+                                      :address_work, 
+                                      :city_work,    
+                                      :state_work,   
+                                      :zip_work,     
+                                      :country_work, 
+                                      :email,        
+                                      :home_page,    
+                                      :department,     
+                                      :assistant,    
+                                      :direct_phone, 
+                                      :direct_fax,   
+                                      :business_email 
+                                      ], :using => [:tsearch]
   
   def set_user_uuid
     self.user_uuid = UUIDTools::UUID.timestamp_create().to_s
@@ -58,25 +74,23 @@ class Client < ActiveRecord::Base
         
         
         
-        client.name                = client_info["Name"]
-        client.last_name           = client_info["Last Name"]
-        client.title               = client_info["Name"]
-        client.photo               = client_info["Name"]
-        client.telephone_home      = client_info["Name"]
-        client.telephone_work      = client_info["Direct Phone"]
-        client.fax_work            = client_info["Direct Fax"]
-        client.fax_home            = client_info["Name"]
-        client.cell_phone          = client_info["Name"]
-        client.company             = client_info["Company"]
-        client.capacity            = client_info["Capacity"]
-        client.address_home        = client_info["Name"]
-        client.address_work        = client_info["Address"]
-        client.city_work           = client_info["City"]
-        client.state_work          = client_info["State"]
-        client.zip_work            = client_info["Zip"]
-        client.country_work        = client_info["Name"]
-        client.email               = client_info["Email"]
-        client.home_page           = client_info["Home Page"]
+        client.name                = client_info["Name"]             if client_info["Name"]              
+        client.last_name           = client_info["Last Name"]        if client_info["Last Name"]
+        client.company             = client_info["Company"]          if client_info["Company"]
+        client.email               = client_info["Email"]            if client_info["Email"]
+        client.assistant           = client_info["Assistant"]        if client_info["Assistant"]
+        client.direct_phone        = client_info["Direct Phone"]     if client_info["Direct Phone"]
+        client.direct_fax          = client_info["Direct Fax"]       if client_info["Direct Fax"]
+        client.capacity            = client_info["Capacity"]         if client_info["Capacity"]
+        client.address_work        = client_info["Address"]          if client_info["Address"]
+        client.city_work           = client_info["City"]             if client_info["City"]
+        client.state_work          = client_info["State"]            if client_info["State"]
+        client.zip_work            = client_info["Zip"]              if client_info["Zip"]
+        client.country_work        = client_info["Country"]          if client_info["Country"]
+        client.home_page           = client_info["Home Page"]        if client_info["Home Page"]
+        client.business_phone      = client_info["Business Phone"]   if client_info["Business Phone"]
+        client.business_fax        = client_info["Bus. Fax"]         if client_info["Bus. Fax"]
+        client.business_email      = client_info["Bus. Email"]       if client_info["Bus. Email"]
         
         client.account_id          = client_import.account_id
         client.save!

@@ -22,56 +22,105 @@
             .address
               table
                 tr
-                  th Email: &nbsp;
-                  td = @client.email
-                tr
-                  th Telephone: &nbsp;
-                  td = @client.telephone_work
-                tr
-                  th Department: &nbsp;
-                  td = @client.department
-                tr
-                  th Capacity: &nbsp;
-                  td = @client.capacity
-                tr
-                  th Address: &nbsp;
-                  td = @client.address_work
-                tr
-                  th City: &nbsp;
-                  td = @client.city_work
-                tr
-                  th State: &nbsp;
-                  td = @client.state_work
-                tr
-                  th Zip Code: &nbsp;
-                  td = @client.zip_work
-                tr
-                  th Country: &nbsp;
-                  td = @client.country_work
-                tr
-                  th Home Page: &nbsp;
-                  td = link_to @client.home_page, @client.home_page
-                  
-              = @client.title
+                    
+                - if @client.company.to_s != ''
+                  tr
+                    th Company: &nbsp;
+                    td = @client.company
                 
-                p
-                  strong Title:
-     
-                p
-                  strong Telephone home:
-                  = @client.telephone_home
-                p
-                  strong Telephone work:
-                  = @client.telephone_work
-                p
-                  strong Address home:
-                  = @client.address_home
-                p
-                  strong Address work:
-                  = @client.address_work
-                p
-                  strong Email:
-                  = @client.email
+                th Email: &nbsp;
+                td = @client.email
+                   
+                - if @client.assistant.to_s != ''
+                  tr
+                    th Assistant: &nbsp;
+                    td = @client.assistant
+                    
+                - if @client.direct_phone.to_s != ''
+                  tr
+                    th Direct Phone: &nbsp;
+                    td = @client.direct_phone
+                    
+                - if @client.direct_fax.to_s != ''
+                  tr
+                    th Direct Fax: &nbsp;
+                    td = @client.direct_fax
+                    
+                - if @client.capacity.to_s != ''
+                  tr
+                    th Capacity: &nbsp;
+                    td = @client.capacity
+                    
+                - if @client.department.to_s != ''
+                  tr
+                    th Department: &nbsp;
+                    td = @client.department
+                    
+                - if @client.address_work.to_s != ''
+                  tr
+                    th Address: &nbsp;
+                    td = @client.address_work
+                    
+                - if @client.city_work.to_s != ''
+                  tr
+                    th City: &nbsp;
+                    td = @client.city_work
+                    
+                - if @client.state_work.to_s != ''
+                  tr
+                    th State: &nbsp;
+                    td = @client.state_work
+                    
+                - if @client.zip_work.to_s != ''
+                  tr
+                    th Zip Code: &nbsp;
+                    td = @client.zip_work
+                    
+                - if @client.country_work.to_s != ''
+                  tr
+                    th Country: &nbsp;
+                    td = @client.country_work
+                    
+                - if @client.home_page.to_s != ''
+                  tr
+                    th Home Page: &nbsp;
+                    td = link_to @client.home_page, @client.home_page
+                    
+                - if @client.business_phone.to_s != ''
+                  tr
+                    th Business Phone: &nbsp;
+                    td = @client.business_phone
+                    
+                - if @client.business_fax.to_s != ''
+                  tr
+                    th Business Fax: &nbsp;
+                    td = @client.business_fax
+                    
+                - if @client.business_email.to_s != ''
+                  tr
+                    th Business Email: &nbsp;
+                    td = @client.business_email
+                  
+              /= @client.title
+              /  
+              /  p
+              /    strong Title:
+              /
+              /  p
+              /    strong Telephone home:
+              /    = @client.telephone_home
+              /  p
+              /    strong Telephone work:
+              /    = @client.telephone_work
+              /  p
+              /    strong Address home:
+              /    = @client.address_home
+              /  p
+              /    strong Address work:
+              /    = @client.address_work
+              /  p
+              /    strong Email:
+              /    = @client.email
               
                 
                 /= link_to 'Edit', edit_client_path(@client)

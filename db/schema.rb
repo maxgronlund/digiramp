@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140711174245) do
+ActiveRecord::Schema.define(version: 20140712154747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -528,8 +528,8 @@ ActiveRecord::Schema.define(version: 20140711174245) do
     t.string   "title",          default: ""
     t.string   "photo",          default: ""
     t.string   "telephone_home", default: ""
-    t.string   "telephone_work", default: ""
-    t.string   "fax_work",       default: ""
+    t.string   "business_phone", default: ""
+    t.string   "business_fax",   default: ""
     t.string   "fax_home",       default: ""
     t.string   "cell_phone",     default: ""
     t.string   "company",        default: ""
@@ -546,6 +546,10 @@ ActiveRecord::Schema.define(version: 20140711174245) do
     t.string   "revision",       default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "assistant",      default: ""
+    t.string   "direct_phone",   default: ""
+    t.string   "direct_fax",     default: ""
+    t.string   "business_email", default: ""
   end
 
   add_index "clients", ["account_id"], name: "index_clients_on_account_id", using: :btree
@@ -1244,6 +1248,21 @@ ActiveRecord::Schema.define(version: 20140711174245) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "projects", force: true do |t|
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.string   "user_uuid"
+    t.string   "title"
+    t.text     "descriprion"
+    t.string   "category"
+    t.string   "stage"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "projects", ["account_id"], name: "index_projects_on_account_id", using: :btree
+  add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
   create_table "recording_items", force: true do |t|
     t.integer  "recording_id"

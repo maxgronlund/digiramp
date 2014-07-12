@@ -1,0 +1,127 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           manage: account_account_path(@account), \
+                                                           crm: account_account_crm_index_path(@account)\
+                                                           }, current:  'Projects'}
+    
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Projects'), blog_post: 'Projects', insert: 'new'}
+    /.row
+    /    = form_tag account_account_clients_path(@account), :method => 'get' do
+    /      .col-sm-6
+    /        br
+    /        = text_field_tag "query", "", :class => 'search-query form-control', \
+    /                                      :placeholder => 'Search string',  \
+    /                                      value: params[:query]
+    /      .col-sm-6
+    /        br
+    /        = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+    /        '&nbsp;
+    /        = link_to 'Show All',account_account_clients_path(@account), class: 'btn btn-default btn-lg'
+    /
+    .row
+      .col-sm-12
+        /.hidden-xs
+        /  == paginate(@clients)
+        /.visible-xs
+        /  br
+        /  .btn-group.btn-group-sm
+        /    = link_to_previous_page @clients, '« Prev Page', class: 'btn btn-default mobile_pagination'
+        /    = link_to_next_page @clients, 'Next Page »', class: 'btn btn-default mobile_pagination'
+        /  br
+        /  br
+        /  br
+        .panel.panel-primary
+          .panel-heading
+            'Projects
+          .panel-body
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Name
+                    th Assigned To
+                    th
+                tbody
+                  - @projects.each do |project|
+                    
+                    tr
+                      td = link_to project.title, account_account_project_path(@account, project), class: 'btn btn-default btn-lg'
+                      td = project.user.name
+                      td
+                        .pull-right
+                          = link_to edit_account_account_project_path(@account, project) do
+                            .btn.btn-primary.btn-lg
+                              i class="fa fa-pencil"
+                          '&nbsp;
+                          = link_to account_account_project_path(@account, project), data: { confirm: 'Are you sure?' } , :method => :delete do
+                            .btn.btn-danger.btn-lg
+                              i class="fa fa-times"
+                  
+          
+            
+    /    .col-sm-12
+    /      .hidden-xs
+    /        == paginate(@clients)
+    /      .visible-xs
+    /        br
+    /        .btn-group.btn-group-sm
+    /          = link_to_previous_page @clients, '« Prev Page', class: 'btn btn-default mobile_pagination'
+    /          = link_to_next_page @clients, 'Next Page »', class: 'btn btn-default mobile_pagination'
+    /
+    /
+
+  
+  == render 'shared/back', locals: {link: account_account_path(@account)}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
+
+
+
+
+
+
+
+
+
+
+/h1 Listing projects
+/
+/table
+/  thead
+/    tr
+/      th Account
+/      th User
+/      th User uuid
+/      th Title
+/      th Descriprion
+/      th Category
+/      th Stage
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @projects.each do |project|
+/      tr
+/        td = project.account
+/        td = project.user
+/        td = project.user_uuid
+/        td = project.title
+/        td = project.descriprion
+/        td = project.category
+/        td = project.stage
+/        td = link_to 'Show', project
+/        td = link_to 'Edit', edit_project_path(project)
+/        td = link_to 'Destroy', project, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Project', new_project_path
+/

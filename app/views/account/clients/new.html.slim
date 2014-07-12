@@ -1,5 +1,3 @@
-
-
 #wrap
   div class="#{'profile' if account_owner?}"
     .full-width-top
@@ -8,11 +6,12 @@
     == render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
                                                            manage: account_account_path(@account), \
+                                                           crm: account_account_crm_index_path(@account), \
                                                            clients: account_account_clients_path(@account), \
                                                            }, current:  'New Client'}
     
     
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Clients'), blog_post: 'New Clients'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Clients'), blog_post: 'New Client'}
     == render 'form'
     
 

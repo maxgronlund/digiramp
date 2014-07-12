@@ -7,6 +7,9 @@ class Account < ActiveRecord::Base
   # used to contact
   has_many :clients
   
+  # used as the basis for the CRM
+  has_many :projects
+  
   # csv imports
   has_many :client_imports
   
@@ -418,6 +421,12 @@ class Account < ActiveRecord::Base
   
   # !!! might be obsolete
   def repair_catalogs
+  end
+  
+  def get_account_users
+    user_ids = self.account_users.invited.pluck(:user_id)
+    user_ids << self.user_id
+    User.where(id: user_ids)
   end
   
   def get_users_and_supers

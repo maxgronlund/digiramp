@@ -5,7 +5,9 @@
   .container
     == render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           manage: account_account_path(@account)}, current:  'clients'}
+                                                           manage: account_account_path(@account), \
+                                                           crm: account_account_crm_index_path(@account)\
+                                                           },current:  'clients'}
     
     
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Clients'), blog_post: 'Clients', insert: 'new'}
@@ -46,14 +48,17 @@
                   thead
                     tr
                       th Name
+                      th Company
+                      th Capacity
                       th Email
-                      th
                   tbody
                     /= debug @account.clients.first
                     -@clients.each do |client|
                       
                       tr
-                        td = link_to client.full_name, account_account_client_path(@account, client), class: 'btn btn-default btn-lg' rescue []
+                        td = link_to client.full_name, account_account_client_path(@account, client), class: 'btn btn-default btn-lg'
+                        td = client.company
+                        td = client.capacity
                         td = client.email
                         td
                           .pull-right

@@ -56,6 +56,18 @@
                                                 icon: 'fa fa-music', \
                                                 id: 'common-works' \
                                               }
+                        
+        
+        
+        -if current_account_user.read_crm
+          .col-sm-6
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "CRM" , blog ), \
+                                                link: account_account_crm_index_path(@account), \
+                                                css_class: 'btn btn-danger', \
+                                                icon: 'fa fa-money' \
+                                              }
             
         
                                         
@@ -94,15 +106,7 @@
         /                              
         
                          
-        -if current_account_user.read_opportunity
-          .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "OPPORTUNITIES" , blog ), \
-                                                link: account_account_opportunities_path(@account), \
-                                                css_class: 'btn btn-danger', \
-                                                icon: 'fa fa-plane' \
-                                              }
+        
                                       
         -if current_account_user.read_common_work_ipi
           .col-sm-6
@@ -122,16 +126,6 @@
                                                 link: account_account_uploads_path(@account), \
                                                 css_class: 'btn btn-info', \
                                                 icon: 'fa fa-cloud-upload' \
-                                              }
-                        
-        -if current_account_user.read_client
-          .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "CLIENTS" , blog ), \
-                                                link: account_account_clients_path(@account), \
-                                                css_class: 'btn btn-success', \
-                                                icon: 'fa fa-group' \
                                               }
           
           

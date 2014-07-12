@@ -1,0 +1,55 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           manage: account_account_path(@account),\
+                                                           crm: account_account_crm_index_path(@account),\
+                                                           projects: account_account_projects_path(@account)},\
+                                                            current:  @project.title}
+
+    
+    == render 'shared/page_title_text', locals: {title: @project.title, body: ''}
+    .row
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            = @project.title
+          .panel-body
+            b Assigned To:
+            br
+            - if @project.user
+              = @project.user.name
+            -else
+              'Unassigned
+            br
+            br
+            b Category:
+            br
+            = @project.category
+            br
+            br
+            b Stage:
+            br
+            = @project.stage
+            br
+            br
+            b Descriprion:
+            br
+            = simple_format @project.descriprion
+            - if current_account_user.update_crm
+              .pull-right
+                = link_to edit_account_account_project_path(@account, @project) do
+                  .btn.btn-primary.btn-lg
+                    i class='fa fa-pencil'
+                    '&nbsp;
+                    'Edit
+    
+              
+                
+                /= link_to 'Edit', edit_client_path(@client)
+            /'|
+            /= link_to 'Back', clients_path
+        
