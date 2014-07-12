@@ -70,7 +70,7 @@ class Client < ActiveRecord::Base
       ap client_info
 
       if client_info["Email"].to_s != ''
-        client   = Client.where(email: client_info["Email"] ).first_or_create(email: client_info["Email"])
+        client   = Client.where(email: client_info["Email"], account_id:  client_import.account_id ).first_or_create(email: client_info["Email"])
         
         
         
