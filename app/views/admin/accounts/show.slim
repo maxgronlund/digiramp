@@ -89,6 +89,14 @@
                           .btn.btn-danger.btn-lg
                             i class="fa fa-times-circle"
                   tr
+                    td Clients:
+                    td = @account.clients.size
+                    td
+                      .pull-right
+                        = link_to admin_account_delete_clients_path(@account) ,data: {confirm: 'Are you sure?'} do
+                          .btn.btn-danger.btn-lg
+                            i class="fa fa-times-circle"
+                  tr
                     td Storage:
                     td 
                     td

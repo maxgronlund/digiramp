@@ -256,6 +256,7 @@ Digiramp::Application.routes.draw do
       get 'delete_common_works'
       get 'delete_recordings'
       get 'delete_documents'
+      get 'delete_clients'
       
       get 'repair_users'
       get 'repair_catalogs'

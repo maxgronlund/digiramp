@@ -102,6 +102,13 @@ class Admin::AccountsController < ApplicationController
     redirect_to :back
   end
   
+  def delete_clients
+    @account = Account.cached_find(params[:account_id])
+    # add worker here
+    @account.clients.destroy_all
+    redirect_to :back
+  end
+  
   
   
   
