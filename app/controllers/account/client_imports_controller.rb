@@ -18,18 +18,9 @@ class Account::ClientImportsController < ApplicationController
   def create
     @client_import = ClientImport.create(client_import_params)
     
-    ClientCsvImportWorker.perform_async( @client_import.id )
-    
+    ClientCsvImportWorker.perform_async( @client_import.id, current_user.email )
+    flash[:info] = { title: "Info: ", body: "This might take a little time. You will see a notification when done" }
 
-    #if documents
-    #  documents.each do |document|
-    #    #ClientCsvImportWorker.perform_async( document.id )
-    #    CSV.foreach(document.file, headers: true) do |row|
-    #      #Product.create! row.to_hash
-    #      ap row.to_hash
-    #    end
-    #  end
-    #end
 
     redirect_to account_account_clients_path(@account)
   end

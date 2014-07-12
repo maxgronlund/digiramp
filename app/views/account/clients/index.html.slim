@@ -22,18 +22,9 @@
               = submit_tag 'Search', class: 'btn btn-primary btn-lg'
               '&nbsp;
               = link_to 'Show All',account_account_clients_path(@account), class: 'btn btn-default btn-lg'
-              
-              /'&nbsp;
-              /= link_to account_account_clients_path(@account) do
-              /  .btn.btn-info.btn-lg
-              /    i class="fa fa-cloud-download"
-              /    '&nbsp;Export CVS
-              
-              
-          
-              
+
       br
-      br
+      b
       .row
         .col-sm-12
           .hidden-xs
@@ -43,6 +34,7 @@
             .btn-group.btn-group-sm
               = link_to_previous_page @clients, '« Prev Page', class: 'btn btn-default mobile_pagination'
               = link_to_next_page @clients, 'Next Page »', class: 'btn btn-default mobile_pagination'
+            br
             br
             br
           .panel.panel-primary
@@ -58,7 +50,7 @@
                       th
                   tbody
                     /= debug @account.clients.first
-                    -@account.clients.each do |client|
+                    -@clients.each do |client|
                       
                       tr
                         td = link_to client.full_name, account_account_client_path(@account, client), class: 'btn btn-default btn-lg' rescue []
@@ -74,15 +66,17 @@
                                 i class="fa fa-times"
                     
             
-/              
-/              == render 'account/common_works/common_works'
-/           
-/              .hidden-xs
-/                == paginate(@common_works)
-/              .visible-xs
-/                .btn-group
-/                  = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination '
-/                  = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
+              
+        .col-sm-12
+          .hidden-xs
+            == paginate(@clients)
+          .visible-xs
+            br
+            .btn-group.btn-group-sm
+              = link_to_previous_page @clients, '« Prev Page', class: 'btn btn-default mobile_pagination'
+              = link_to_next_page @clients, 'Next Page »', class: 'btn btn-default mobile_pagination'
+
+              
 /              
 /              /-if current_user.can_administrate @account
 /              /  hr
