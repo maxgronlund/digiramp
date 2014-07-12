@@ -328,13 +328,15 @@ Digiramp::Application.routes.draw do
           get  'recordings_destroy'
           post 'recordings_create'
         end
+        
       end
       
       resources :common_works_imports
+      resources :admin_clients
       resources :documents, only: [:index] do
-        
-        
       end
+      
+      
 
       resources :opportunities do
         resources :music_requests do

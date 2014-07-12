@@ -8,7 +8,7 @@
                                                            manage: account_account_path(@account)}, current:  'clients'}
     
     
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Clients'), blog_post: 'Manage Clients', insert: 'new'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Clients'), blog_post: 'Clients', insert: 'new'}
     .do
       .row
           = form_tag account_account_clients_path(@account), :method => 'get' do

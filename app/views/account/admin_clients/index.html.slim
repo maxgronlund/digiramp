@@ -1,0 +1,57 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           manage: account_account_path(@account)}, current:  'clients'}
+    
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Clients'), blog_post: 'Edit Clients'}
+    
+
+    .table-responsive
+      table  class="table table-hover table-bordered"
+        thead
+          tr
+            th Name
+            th Last Name
+            th Company
+            th Email
+            th Assistant
+            th Direct Phone
+            th Direct Fax
+            th Capacity
+            th Address
+            th City
+            th State
+            th Zip
+            th Home Page
+            th Business Phone
+        tbody
+          tr
+            td John
+            td Doe
+            td Music INC
+            td john@music.inc
+            td Jane Doe
+            td 888-123 456
+            td 888-123 457
+            td Composer
+            td Burbank Bulleward 3010
+            td Losangeles
+            td CA
+            td 5000
+            td http://musicinc.com  
+            td 888-123 458
+            
+    
+    .pull-right
+      = link_to 'Save', '#', class: 'btn btn-primary btn-lg'
+    
+  
+  == render 'shared/back', locals: {link: account_account_path(@account)}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
