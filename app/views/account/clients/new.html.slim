@@ -7,7 +7,9 @@
   .container
     == render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           manage: account_account_path(@account)}, current:  'new Client'}
+                                                           manage: account_account_path(@account), \
+                                                           clients: account_account_clients_path(@account), \
+                                                           }, current:  'New Client'}
     
     
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Clients'), blog_post: 'New Clients'}
@@ -18,4 +20,3 @@
   == render 'shared/back', locals: {link: account_account_clients_path(@account)}
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
-
