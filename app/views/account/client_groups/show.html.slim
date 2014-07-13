@@ -1,12 +1,36 @@
-p#notice = notice
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           manage: account_account_path(@account),\
+                                                           crm: account_account_crm_index_path(@account),\
+                                                           'Client Groups'.to_sym => account_account_client_groups_path(@account)},\
+                                                           current:  @client_group.title}
 
-p
-  strong Title:
-  = @client_group.title
-p
-  strong Account:
-  = @client_group.account
-
-= link_to 'Edit', edit_client_group_path(@client_group)
-'|
-= link_to 'Back', client_groups_path
+    
+    == render 'shared/page_title_text', locals: {title: @client_group.title, body: ''}
+    .row
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            = @client_group.title
+          .panel-body
+            b Descriprion:
+            br
+            = simple_format @client_group.description
+            br
+            .pull-right 
+              = link_to edit_account_account_client_group_path(@account, @client_group) do
+                .btn.btn-primary.btn-lg
+                  i class="fa fa-pencil"
+        .panel.panel-primary
+          .panel-heading
+            'Members
+          .panel-body
+            - @client_group.clients.each do |client|
+              = debug client
+                  
+        

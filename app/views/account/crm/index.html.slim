@@ -48,17 +48,17 @@
                                               post: BlogPost.cached_find( "CLIENTS" , blog ), \
                                               link: account_account_clients_path(@account), \
                                               css_class: 'btn btn-default', \
-                                              icon: 'fa fa-group' \
+                                              icon: 'fa fa-user' \
                                             }
                         
 
         .col-sm-6
           == render 'shared/badge', locals: {  \
                                               blog: blog, \
-                                              post: BlogPost.cached_find( "CAMPAIGN GROUPS" , blog ), \
+                                              post: BlogPost.cached_find( "CLIENT GROUPS" , blog ), \
                                               link: account_account_client_groups_path(@account), \
                                               css_class: 'btn btn-warning', \
-                                              icon: 'fa fa-rocket' \
+                                              icon: 'fa fa-group' \
                                             }
           
           
