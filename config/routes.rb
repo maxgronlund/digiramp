@@ -40,7 +40,7 @@ Digiramp::Application.routes.draw do
     resources :albums
     #resources :catalog_recordings, only: [:show, :edit, :update, :destroy]
     resources :common_works, only: [:show]
-    
+       
     
     resources :catalogs do
       #get "move"
@@ -330,7 +330,10 @@ Digiramp::Application.routes.draw do
         end
         
       end
-      resources :client_groups
+      resources :client_groups do
+        post :import_client_emails
+        get '/remove-member/:client_group_client_id', :to => "client_groups#remove_member", as: :remove_member
+      end
       resources :common_works_imports
       get 'crm/index'
       resources :admin_clients
