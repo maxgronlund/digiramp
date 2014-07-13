@@ -28,7 +28,7 @@
                       th Assigned To: &nbsp;
                       td 
                         - if @project.user
-                          = @project.user.name
+                          = @project.user.name  
                         -else
                           'Unassigned
                     tr
@@ -60,7 +60,7 @@
               .panel-body
                 hr
                 .pull-right
-                  = link_to new_account_account_project_campaign_path(@account, @project) do
+                  = link_to new_account_account_project_mail_campaign_path(@account, @project) do
                     .btn.btn-success.btn-lg
                       i class='fa fa-plus-circle'
                       '&nbsp;Add Mail Campaigns

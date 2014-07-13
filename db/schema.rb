@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140713100544) do
+ActiveRecord::Schema.define(version: 20140713111942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1029,10 +1029,12 @@ ActiveRecord::Schema.define(version: 20140713100544) do
     t.date     "send_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "client_group_id"
   end
 
   add_index "mail_campaigns", ["account_id"], name: "index_mail_campaigns_on_account_id", using: :btree
   add_index "mail_campaigns", ["campaign_group_id"], name: "index_mail_campaigns_on_campaign_group_id", using: :btree
+  add_index "mail_campaigns", ["client_group_id"], name: "index_mail_campaigns_on_client_group_id", using: :btree
   add_index "mail_campaigns", ["mail_layout_id"], name: "index_mail_campaigns_on_mail_layout_id", using: :btree
   add_index "mail_campaigns", ["user_id"], name: "index_mail_campaigns_on_user_id", using: :btree
 
