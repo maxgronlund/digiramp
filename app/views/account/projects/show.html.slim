@@ -14,50 +14,111 @@
     == render 'shared/page_title_text', locals: {title: @project.title, body: ''}
     .row
       .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            = @project.title
-          .panel-body
-            b Assigned To:
-            br
-            - if @project.user
-              = @project.user.name
-            -else
-              'Unassigned
-            br
-            br
-            b Category:
-            br
-            = @project.category
-            br
-            br
-            b Stage:
-            br
-            = @project.stage
-            br
-            br
-            b Descriprion:
-            br
-            = simple_format @project.descriprion
-            - if current_account_user.update_crm
-              .pull-right
-                = link_to edit_account_account_project_path(@account, @project) do
-                  .btn.btn-primary.btn-lg
-                    i class='fa fa-pencil'
-                    '&nbsp;
-                    'Edit
+        .row
+          .col-sm-12
+            .panel.panel-primary
+              .panel-heading
+                = @project.title
+              .panel-body
+                .gravatar
+                  = gravatar_tag @project.user.email, :size => 80, class: "media-object" rescue []
+                .address
+                  table
+                    tr
+                      th Assigned To: &nbsp;
+                      td 
+                        - if @project.user
+                          = @project.user.name
+                        -else
+                          'Unassigned
+                    tr
+                      th Category: &nbsp;
+                      td = @project.category
+                      
+                      
+              
+                br
+                b Stage:
+                br
+                = @project.stage
+                br
+                br
+                b Descriprion:
+                br
+                = simple_format @project.description
+                - if current_account_user.update_crm
+                  .pull-right
+                    = link_to edit_account_account_project_path(@account, @project) do
+                      .btn.btn-primary.btn-lg
+                        i class='fa fa-pencil'
+                        '&nbsp;
+                        'Edit
+          .col-sm-12
+            .panel.panel-primary
+              .panel-heading
+                'Mail Campaigns
+              .panel-body
+                hr
+                .pull-right
+                  = link_to new_account_account_project_campaign_path(@account, @project) do
+                    .btn.btn-success.btn-lg
+                      i class='fa fa-plus-circle'
+                      '&nbsp;Add Mail Campaigns
+            
+                 
       .col-sm-6
         .panel.panel-primary
           .panel-heading
             'Tasks
           .panel-body
-          
-            .pull-right
-              = link_to new_account_account_project_project_task_path(@account, @project) do
-                .btn.btn-success.btn-lg
-                  i class='fa fa-plus-circle'
-                  '&nbsp;Add Task
-    
+            - @project.project_tasks.each do |project_task|
+              
+              .gravatar
+                = gravatar_tag project_task.user.email, :size => 80, class: "media-object"
+              .address
+                h3 = project_task.title
+                table
+                  tr
+                    th Assigned To: &nbsp;
+                    td = project_task.user.name rescue []
+                  tr
+                    th Category: &nbsp;
+                    td = project_task.category
+                  tr
+                    th Status: &nbsp;
+                    td = project_task.status
+                  tr
+                    th Priority: &nbsp;
+                    td = project_task.priority
+                  tr
+                    th Notification: &nbsp;
+                    td = project_task.notifcation
+           
+              .row
+                .col-sm-12
+                  b Description
+                  = simple_format project_task.description
+                .col-sm-12
+                  .pull-right
+                    = link_to edit_account_account_project_project_task_path(@account, @project, project_task) do
+                      .btn.btn-primary.btn-lg
+                        i class="fa fa-pencil"
+                    '&nbsp;
+                    = link_to account_account_project_project_task_path(@account, @project, project_task), \
+                                                                          data: { confirm: 'Are you sure?' } , \
+                                                                          :method => :delete do
+                      .btn.btn-danger.btn-lg
+                        i class="fa fa-times"
+                          
+              hr
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to new_account_account_project_project_task_path(@account, @project) do
+                    .btn.btn-success.btn-lg
+                      i class='fa fa-plus-circle'
+                      '&nbsp;Add Task
+                  
               
                 
                 /= link_to 'Edit', edit_client_path(@client)

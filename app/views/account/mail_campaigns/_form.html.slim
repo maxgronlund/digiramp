@@ -1,0 +1,12 @@
+= simple_form_for [:account, @account, @project, @project_task]  do |f|
+  = f.input :title
+  = f.input :account_id
+  = f.input :user_id
+  = f.input :title
+  = f.input :from_email
+  = f.input :from_title
+  = f.input :mail_layout
+  = f.input :subscription_message
+  
+  = f.input :send_date
+  = f.submit 'Save'

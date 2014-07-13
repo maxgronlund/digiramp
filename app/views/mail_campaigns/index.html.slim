@@ -1,0 +1,33 @@
+h1 Listing mail_campaigns
+
+table
+  thead
+    tr
+      th Account
+      th User
+      th Title
+      th From email
+      th From title
+      th Mail layout
+      th Subscription message
+      th
+      th
+      th
+
+  tbody
+    - @mail_campaigns.each do |mail_campaign|
+      tr
+        td = mail_campaign.account
+        td = mail_campaign.user
+        td = mail_campaign.title
+        td = mail_campaign.from_email
+        td = mail_campaign.from_title
+        td = mail_campaign.mail_layout
+        td = mail_campaign.subscription_message
+        td = link_to 'Show', mail_campaign
+        td = link_to 'Edit', edit_mail_campaign_path(mail_campaign)
+        td = link_to 'Destroy', mail_campaign, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Mail campaign', new_mail_campaign_path

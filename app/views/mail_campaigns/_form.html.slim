@@ -1,0 +1,30 @@
+= form_for @mail_campaign do |f|
+  - if @mail_campaign.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@mail_campaign.errors.count, "error")} prohibited this mail_campaign from being saved:"
+      ul
+        - @mail_campaign.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :account
+    = f.text_field :account
+  .field
+    = f.label :user
+    = f.text_field :user
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :from_email
+    = f.text_field :from_email
+  .field
+    = f.label :from_title
+    = f.text_field :from_title
+  .field
+    = f.label :mail_layout
+    = f.text_field :mail_layout
+  .field
+    = f.label :subscription_message
+    = f.text_area :subscription_message
+  .actions = f.submit 'Save'

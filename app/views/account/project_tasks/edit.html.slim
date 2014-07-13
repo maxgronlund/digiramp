@@ -1,8 +1,22 @@
-h1 Editing project_task
+#wrap  
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           manage: account_account_path(@account), \
+                                                           crm: account_account_crm_index_path(@account),\
+                                                           projects: account_account_projects_path(@account), \
+                                                           @project.title.to_sym => account_account_project_path(@account, @project), \
+                                                           }, current:  'Edit Task'}
+    
+    
+    == render 'shared/page_title_text', locals: {title: @project_task.title, body: ''}
+    == render 'form'
+    
 
-== render 'form'
-
-= link_to 'Show', @project_task
-'|
-= link_to 'Back', project_tasks_path
-
+  
+  == render 'shared/back', locals: {link: account_account_project_path(@account, @project)}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

@@ -41,8 +41,6 @@
                                                 icon: 'fa fa-plane' \
                                               }
                         
-        
-        
 
         .col-sm-6
           == render 'shared/badge', locals: {  \
@@ -51,6 +49,16 @@
                                               link: account_account_clients_path(@account), \
                                               css_class: 'btn btn-default', \
                                               icon: 'fa fa-group' \
+                                            }
+                        
+
+        .col-sm-6
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "CAMPAIGN GROUPS" , blog ), \
+                                              link: account_account_client_groups_path(@account), \
+                                              css_class: 'btn btn-warning', \
+                                              icon: 'fa fa-rocket' \
                                             }
           
           

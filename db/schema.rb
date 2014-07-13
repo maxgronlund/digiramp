@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140712201119) do
+ActiveRecord::Schema.define(version: 20140713090733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -510,6 +510,15 @@ ActiveRecord::Schema.define(version: 20140712201119) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
+  create_table "client_groups", force: true do |t|
+    t.string   "title"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "client_groups", ["account_id"], name: "index_client_groups_on_account_id", using: :btree
+
   create_table "client_imports", force: true do |t|
     t.integer  "account_id"
     t.string   "user_uuid"
@@ -996,6 +1005,25 @@ ActiveRecord::Schema.define(version: 20140712201119) do
 
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
+  create_table "mail_campaigns", force: true do |t|
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.integer  "campaign_group_id"
+    t.string   "title"
+    t.string   "from_email"
+    t.string   "from_title"
+    t.integer  "mail_layout_id"
+    t.text     "subscription_message"
+    t.date     "send_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "mail_campaigns", ["account_id"], name: "index_mail_campaigns_on_account_id", using: :btree
+  add_index "mail_campaigns", ["campaign_group_id"], name: "index_mail_campaigns_on_campaign_group_id", using: :btree
+  add_index "mail_campaigns", ["mail_layout_id"], name: "index_mail_campaigns_on_mail_layout_id", using: :btree
+  add_index "mail_campaigns", ["user_id"], name: "index_mail_campaigns_on_user_id", using: :btree
+
   create_table "mail_messages", force: true do |t|
     t.string   "identifier"
     t.string   "subject"
@@ -1255,10 +1283,10 @@ ActiveRecord::Schema.define(version: 20140712201119) do
     t.string   "title"
     t.string   "category"
     t.string   "status"
+    t.string   "priority"
     t.date     "due_date"
     t.date     "start_date"
-    t.datetime "reminder"
-    t.string   "priority"
+    t.datetime "notifcation"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1272,7 +1300,7 @@ ActiveRecord::Schema.define(version: 20140712201119) do
     t.integer  "user_id"
     t.string   "user_uuid"
     t.string   "title"
-    t.text     "descriprion"
+    t.text     "description"
     t.string   "category"
     t.string   "stage"
     t.datetime "created_at"
@@ -1419,6 +1447,12 @@ ActiveRecord::Schema.define(version: 20140712201119) do
   end
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
+
+  create_table "titles", force: true do |t|
+    t.text     "mail_html"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "upload_csvs", force: true do |t|
     t.string   "file"

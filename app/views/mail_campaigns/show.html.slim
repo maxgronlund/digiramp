@@ -1,0 +1,27 @@
+p#notice = notice
+
+p
+  strong Account:
+  = @mail_campaign.account
+p
+  strong User:
+  = @mail_campaign.user
+p
+  strong Title:
+  = @mail_campaign.title
+p
+  strong From email:
+  = @mail_campaign.from_email
+p
+  strong From title:
+  = @mail_campaign.from_title
+p
+  strong Mail layout:
+  = @mail_campaign.mail_layout
+p
+  strong Subscription message:
+  = @mail_campaign.subscription_message
+
+= link_to 'Edit', edit_mail_campaign_path(@mail_campaign)
+'|
+= link_to 'Back', mail_campaigns_path

@@ -2,9 +2,6 @@
 Digiramp::Application.routes.draw do
 
 
-  
-
-  resources :project_tasks
 
   resources :gitter, only: [:index]
   #resources :footages
@@ -333,13 +330,12 @@ Digiramp::Application.routes.draw do
         end
         
       end
-      
+      resources :client_groups
       resources :common_works_imports
       get 'crm/index'
       resources :admin_clients
       resources :documents, only: [:index] do
       end
-      
       
 
       resources :opportunities do
@@ -349,7 +345,9 @@ Digiramp::Application.routes.draw do
       end
       
       resources :projects do
+        resources :mail_campaigns
         resources :project_tasks
+        
       end
       
       # make this member do

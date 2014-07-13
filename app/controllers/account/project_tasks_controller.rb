@@ -22,6 +22,7 @@ class Account::ProjectTasksController < ApplicationController
 
   # GET /project_tasks/1/edit
   def edit
+    @project      = Project.cached_find(params[:project_id])
   end
 
   # POST /project_tasks
@@ -29,20 +30,17 @@ class Account::ProjectTasksController < ApplicationController
   def create
     @project_task = ProjectTask.create(project_task_params)
     @project      = Project.cached_find(params[:project_id])
-    redirect_to account_account_project_project_task_path(@account, @project, @project_task)
+    redirect_to account_account_project_path(@account, @project)
   end
 
   # PATCH/PUT /project_tasks/1
   # PATCH/PUT /project_tasks/1.json
   def update
-    respond_to do |format|
-      if @project_task.update(project_task_params)
-        format.html { redirect_to @project_task, notice: 'Project task was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project_task }
-      else
-        format.html { render :edit }
-        format.json { render json: @project_task.errors, status: :unprocessable_entity }
-      end
+    @project      = Project.cached_find(params[:project_id])
+    if @project_task.update!(project_task_params)
+      redirect_to account_account_project_path(@account, @project)
+    else
+      redirect_to edit_account_account_project_project_task_path(@account, @project, @project_task)
     end
   end
 
@@ -50,10 +48,8 @@ class Account::ProjectTasksController < ApplicationController
   # DELETE /project_tasks/1.json
   def destroy
     @project_task.destroy
-    respond_to do |format|
-      format.html { redirect_to project_tasks_url, notice: 'Project task was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @project      = Project.cached_find(params[:project_id])
+    redirect_to account_account_project_path(@account, @project)
   end
 
   private
@@ -64,6 +60,6 @@ class Account::ProjectTasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_task_params
-      params.require(:project_task).permit(:project, :user_id, :title, :assigned_to, :category, :status, :due_date, :start_date, :reminder, :priority, :description)
+      params.require(:project_task).permit!
     end
 end

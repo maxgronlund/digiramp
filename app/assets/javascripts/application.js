@@ -26,6 +26,6 @@
 //= require start_fancybox
 //= require digiramp_pusher
 //= require gritter
-//= require bootstrap-datetimepicker
+
 
 

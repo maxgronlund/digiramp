@@ -9,6 +9,7 @@ class Account < ActiveRecord::Base
   
   # used as the basis for the CRM
   has_many :projects
+  has_many :mail_campaigns
   
   # csv imports
   has_many :client_imports

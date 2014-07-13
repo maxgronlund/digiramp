@@ -52,7 +52,7 @@ gem 'levenshtein'
 gem 'chosen-rails', '0.12.0'
 #
 
-gem 'datetimepicker-rails', :require => 'datetimepicker-rails', :git => 'git://github.com/zpaulovics/datetimepicker-rails.git'
+
 
 
 gem 'bootstrap-editable-rails'

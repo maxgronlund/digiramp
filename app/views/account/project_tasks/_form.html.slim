@@ -1,37 +1,59 @@
 = simple_form_for [:account, @account, @project, @project_task]  do |f|
+  .row
+    .col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          'Task
+        .panel-body
+          = f.input :title
+          = f.hidden_field :project_id, value: @project.id
+          = f.input :user_id , \
+                    :collection => @account.get_account_users , \
+                    label: 'Assigned To', \
+                    include_blank: false,\
+                    hint: "Who's Responsible?"
+          
+          
+          
+          b Description
+          br
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold"
+              .btn.btn-default.btn-sm
+                i class="fa fa-bold"
+            
+            a data-wysihtml5-command="italic" 
+              .btn.btn-default.btn-sm
+                i class="fa fa-italic"
 
-  = f.hidden_field :project_id, value: @project.id
-  = f.input :user_id , \
-            :collection => @account.get_account_users , \
-            label: 'Assigned To', \
-            hint: "Who's Responsible?"
-  
-  = f.input :title
-  = f.input :category
-  = f.input :status
-  /= f.date_select :due_date
+            =f.input :description, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+          
+          = f.input :category, collection: ProjectTask::CATAGORY
+          = f.input :priority, collection: ProjectTask::PRIORITY, include_blank: false
+          = f.input :status, collection: ProjectTask::STATUS, include_blank: false
+          /= f.date_select :due_date
+    .col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          'Reminder
+        .panel-body
+          = f.input :notifcation
 
-  /= f.input :reminder
-
-  
-  div class='input-group date' id='project_task_reminder'
-    input type='text' class="form-control" name="project_task[reminder]" 
-    span class="input-group-addon"
-      span class="glyphicon glyphicon-calendar"
-  
-
-  br
-  .pull-right  
-    = f.submit 'Save', class: 'btn btn-primary btn-lg'
+          
+      br
+      .pull-right  
+        = link_to 'Cancel', account_account_project_path(@account, @project), class: 'btn btn-default btn-lg'
+        '&nbsp;
+        = f.submit 'Save', class: 'btn btn-primary btn-lg'
   
   
   
   
-  javascript:
-    $(function () {
-        $('#project_task_reminder').datetimepicker();
-    });
-    
+  /javascript:
+  /  $(function () {
+  /      $('#project_task_reminder').datetimepicker();
+  /  });
+  /  
   
 
   /.field

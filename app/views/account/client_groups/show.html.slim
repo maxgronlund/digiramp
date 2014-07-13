@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @client_group.title
+p
+  strong Account:
+  = @client_group.account
+
+= link_to 'Edit', edit_client_group_path(@client_group)
+'|
+= link_to 'Back', client_groups_path
