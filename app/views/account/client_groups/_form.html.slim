@@ -1,15 +1,41 @@
-= form_for @client_group do |f|
-  - if @client_group.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@client_group.errors.count, "error")} prohibited this client_group from being saved:"
-      ul
-        - @client_group.errors.full_messages.each do |message|
-          li = message
 
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :account
-    = f.text_field :account
-  .actions = f.submit 'Save'
+
+
+= simple_form_for [:account, @account, @client_group] do |f|
+  .row
+    .col-sm-3
+    .col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          'New Client Group
+        .panel-body
+          
+           = f.hidden_field :account_id, value: @account.id
+           = f.hidden_field :user_uuid, value: current_user.uuid
+           = f.input :title
+           
+           b Description
+           br
+           div id="toolbar" class="wysihtml5-toolbar"
+             a data-wysihtml5-command="bold"
+               .btn.btn-default.btn-sm
+                 i class="fa fa-bold"
+            
+             a data-wysihtml5-command="italic" 
+               .btn.btn-default.btn-sm
+                 i class="fa fa-italic"
+
+             =f.input :description, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+             
+             
+
+           
+           /= f.input :user_id , \
+           /          :collection => @account.get_account_users , \
+           /          label: 'Assigned To', \
+           /          hint: "Who's Responsible?"
+           /= f.input :category, :collection => Project::CATEGORIES, include_blank: false
+           /= f.input :stage, :collection => Project::STAGES, include_blank: false
+      .pull-right  
+        = f.submit 'Save', class: 'btn btn-primary btn-lg'
+    .col-sm-3

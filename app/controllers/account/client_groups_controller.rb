@@ -26,41 +26,26 @@ class Account::ClientGroupsController < ApplicationController
   # POST /client_groups
   # POST /client_groups.json
   def create
-    @client_group = ClientGroup.new(client_group_params)
-
-    respond_to do |format|
-      if @client_group.save
-        format.html { redirect_to @client_group, notice: 'Client group was successfully created.' }
-        format.json { render :show, status: :created, location: @client_group }
-      else
-        format.html { render :new }
-        format.json { render json: @client_group.errors, status: :unprocessable_entity }
-      end
-    end
+    @client_group = ClientGroup.create(client_group_params)
+    redirect_to account_account_client_groups_path(@account)
+    
   end
 
   # PATCH/PUT /client_groups/1
   # PATCH/PUT /client_groups/1.json
   def update
-    respond_to do |format|
-      if @client_group.update(client_group_params)
-        format.html { redirect_to @client_group, notice: 'Client group was successfully updated.' }
-        format.json { render :show, status: :ok, location: @client_group }
-      else
-        format.html { render :edit }
-        format.json { render json: @client_group.errors, status: :unprocessable_entity }
-      end
-    end
+    if @client_group.update(client_group_params)
+      redirect_to account_account_client_group_path(@account, @client_group)
+    else
+      redirect_to edit_account_account_client_group_path(@account, @client_group)
+    end  
   end
 
   # DELETE /client_groups/1
   # DELETE /client_groups/1.json
   def destroy
     @client_group.destroy
-    respond_to do |format|
-      format.html { redirect_to client_groups_url, notice: 'Client group was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to account_account_client_groups_path(@account)
   end
 
   private
@@ -71,6 +56,6 @@ class Account::ClientGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_group_params
-      params.require(:client_group).permit(:title, :account_id)
+      params.require(:client_group).permit!
     end
 end
