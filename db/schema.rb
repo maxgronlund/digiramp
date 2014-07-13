@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140713111942) do
+ActiveRecord::Schema.define(version: 20140713132244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1023,19 +1023,22 @@ ActiveRecord::Schema.define(version: 20140713111942) do
     t.integer  "campaign_group_id"
     t.string   "title"
     t.string   "from_email"
-    t.string   "from_title"
     t.integer  "mail_layout_id"
     t.text     "subscription_message"
     t.date     "send_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "client_group_id"
+    t.integer  "project_id"
+    t.string   "subject"
+    t.string   "status",               default: ""
   end
 
   add_index "mail_campaigns", ["account_id"], name: "index_mail_campaigns_on_account_id", using: :btree
   add_index "mail_campaigns", ["campaign_group_id"], name: "index_mail_campaigns_on_campaign_group_id", using: :btree
   add_index "mail_campaigns", ["client_group_id"], name: "index_mail_campaigns_on_client_group_id", using: :btree
   add_index "mail_campaigns", ["mail_layout_id"], name: "index_mail_campaigns_on_mail_layout_id", using: :btree
+  add_index "mail_campaigns", ["project_id"], name: "index_mail_campaigns_on_project_id", using: :btree
   add_index "mail_campaigns", ["user_id"], name: "index_mail_campaigns_on_user_id", using: :btree
 
   create_table "mail_messages", force: true do |t|
@@ -1300,10 +1303,10 @@ ActiveRecord::Schema.define(version: 20140713111942) do
     t.string   "priority"
     t.date     "due_date"
     t.date     "start_date"
-    t.datetime "notifcation"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "notifcation"
   end
 
   add_index "project_tasks", ["project_id"], name: "index_project_tasks_on_project_id", using: :btree
@@ -1461,6 +1464,12 @@ ActiveRecord::Schema.define(version: 20140713111942) do
   end
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
+
+  create_table "titles", force: true do |t|
+    t.text     "mail_html"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "upload_csvs", force: true do |t|
     t.string   "file"

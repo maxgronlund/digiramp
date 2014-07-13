@@ -1,8 +1,22 @@
-h1 Editing campaign
+#wrap  
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           manage: account_account_path(@account), \
+                                                           crm: account_account_crm_index_path(@account),\
+                                                           projects: account_account_projects_path(@account), \
+                                                           @project.title.to_sym => account_account_project_path(@account, @project), \
+                                                           }, current:  'Edit Mail Campaign'}
+    
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Campaign'), blog_post: 'Edit Mail Campaign'}
+    == render 'form'
+    
 
-== render 'form'
-
-= link_to 'Show', @campaign
-'|
-= link_to 'Back', campaigns_path
-
+  
+  == render 'shared/back', locals: {link: account_account_project_path(@account, @project)}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
