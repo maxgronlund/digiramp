@@ -31,6 +31,19 @@
             'Members
           .panel-body
             - @client_group.clients.each do |client|
-              = debug client
+              .row
+                .col-sm-6
+                  = link_to client.email, account_account_client_path(@account.id, client.id)
+                .col-sm-6  
+                  .pull-right
+                    - client_group_client = ClientGroupsClients.where(client_group_id: @client_group.id, client_id: client.id).first
+                    = link_to 'remove', account_account_client_group_remove_member_path(@account.id, @client_group.id, client_group_client.try(:id)), confirm: 'Are you sure?'
+      .col-sm-6
+        = form_tag account_account_client_group_import_client_emails_path(@account, @client_group) do 
+          = text_area_tag(:emails, "", :size => "73x12")
+          = submit_tag("Import", class: "btn btn-primary")
+       
+
+              
                   
         

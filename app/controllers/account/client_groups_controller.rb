@@ -1,7 +1,9 @@
 class Account::ClientGroupsController < ApplicationController
-  before_action :set_client_group, only: [:show, :edit, :update, :destroy]
+  
   include AccountsHelper
   before_filter :access_account
+  before_action :set_client_group, only: [:show, :edit, :update, :destroy, 
+    :import_client_emails, :remove_member]
   
   # GET /client_groups
   # GET /client_groups.json
@@ -48,14 +50,43 @@ class Account::ClientGroupsController < ApplicationController
     redirect_to account_account_client_groups_path(@account)
   end
 
+
+  def import_client_emails
+    emails = params[:emails].split(',')
+    emails.each do |email|
+      client = Client.where(email:email).first_or_create(email:email, name:email, show_alert: true)
+      ClientGroupsClients.where(client_group_id: @client_group.id, client_id: client.id
+                                ).first_or_create(client_group_id: @client_group.id,
+                                client_id: client.id)
+    end  
+    redirect_to account_account_client_group_path(@account.id, @client_group.id)
+      
+  end  
+
+  def remove_member
+    client_groups_client = ClientGroupsClients.where(id: params[:client_group_client_id].to_i, client_group_id: @client_group.id).first
+    if client_groups_client.destroy
+      flash[:notice] = "Member has successfully deleted."
+    else
+      flash[:error] = "Requested member does not exists for this group."
+    end
+    redirect_to account_account_client_group_path(@account.id, @client_group.id)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client_group
-      @client_group = ClientGroup.find(params[:id])
+      params[:id] ||= params[:client_group_id]
+      @client_group = @account.client_groups.where(id: params[:id]).first
+      if @client_group.blank?
+        flash[:error] = "Requested URL does not exists."
+        redirect_to account_account_path(@account.id) 
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_group_params
       params.require(:client_group).permit!
     end
+
 end

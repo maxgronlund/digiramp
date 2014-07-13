@@ -14,6 +14,7 @@ class Account < ActiveRecord::Base
   
   # csv imports
   has_many :client_imports
+  has_many :client_groups
   
   # image files uploaded
   has_many :artworks, dependent: :destroy
