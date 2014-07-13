@@ -37,7 +37,10 @@
         .panel-heading
           'Reminder
         .panel-body
-          = f.input :notifcation
+          div id="datepicker" class="col-md-3 input-group date"
+            = text_field_tag "project_task[notifcation]", (f.object.notifcation.present? ? f.object.notifcation : nil)
+            span class='input-group-addon glyphicon glyphicon-calendar data_button'
+                    
 
           
       br
@@ -49,7 +52,10 @@
   
   
   
-  /javascript:
+  javascript:
+    $(function () {
+        $('#datepicker').datetimepicker();
+    });
   /  $(function () {
   /      $('#project_task_reminder').datetimepicker();
   /  });

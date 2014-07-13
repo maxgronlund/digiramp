@@ -1462,12 +1462,6 @@ ActiveRecord::Schema.define(version: 20140713111942) do
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
 
-  create_table "titles", force: true do |t|
-    t.text     "mail_html"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "upload_csvs", force: true do |t|
     t.string   "file"
     t.string   "title"

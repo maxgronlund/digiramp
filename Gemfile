@@ -59,6 +59,9 @@ gem 'bootstrap-editable-rails'
 gem 'jQuery-Validation-Engine-rails'
 gem 'sinatra', require: false
 
+gem 'momentjs-rails', '>= 2.5.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0.2'
+
 
 # what is this in use for?
 gem "chartkick"

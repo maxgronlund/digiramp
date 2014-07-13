@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap/bootstrap
+//= require moment
+//= require bootstrap-datetimepicker
 // require jquery_nested_form
 //= require simple
 //= require wysihtml5-0.4.0pre
