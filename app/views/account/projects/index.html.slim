@@ -52,7 +52,7 @@
                     
                     tr
                       td = link_to project.title, account_account_project_path(@account, project), class: 'btn btn-default btn-lg'
-                      td = project.user.name
+                      td = project.user.name if project.user
                       td
                         .pull-right
                           = link_to edit_account_account_project_path(@account, project) do

@@ -1,30 +1,20 @@
-p#notice = notice
 
-p
-  strong Account:
-  = @campaign.account
-p
-  strong User:
-  = @campaign.user
-p
-  strong Title:
-  = @campaign.title
+
+strong Title:
+= @mail_campaign.title
 p
   strong From email:
-  = @campaign.from_email
+  = @mail_campaign.from_email
 p
-  strong From title:
-  = @campaign.from_title
+  strong Subject:
+  = @mail_campaign.subject
 p
   strong Mail layout:
-  = @campaign.mail_layout
+  = @mail_campaign.mail_layout
 p
   strong Subscription message:
-  = @campaign.subscription_message
-p
-  strong Send:
-  = @campaign.send
+  = @mail_campaign.subscription_message
+/p
+/  strong Send:
+/  = @mail_campaign.send
 
-= link_to 'Edit', edit_campaign_path(@campaign)
-'|
-= link_to 'Back', campaigns_path

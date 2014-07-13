@@ -6,39 +6,35 @@ class Account::MailCampaignsController < ApplicationController
   # GET /campaigns.json
   def index
     @project      = Project.cached_find(params[:project_id])
-    @campaigns = Campaign.all
+    @campaigns  = MailCampaign.all
   end
 
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
+     @project      = Project.cached_find(params[:project_id])
+    
   end
 
   # GET /campaigns/new
   # GET /project_tasks/new
   def new
-    @project      = Project.cached_find(params[:project_id])
-    @project_task = MailCampaign.new
+    @project       = Project.cached_find(params[:project_id])
+    @mail_campaign = MailCampaign.new
+    @mail_campaign.status = 'Draft'
   end
 
   # GET /campaigns/1/edit
   def edit
+    @project      = Project.cached_find(params[:project_id])
   end
 
   # POST /campaigns
   # POST /campaigns.json
   def create
-    @campaign = Campaign.new(campaign_params)
-
-    respond_to do |format|
-      if @campaign.save
-        format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
-        format.json { render :show, status: :created, location: @campaign }
-      else
-        format.html { render :new }
-        format.json { render json: @campaign.errors, status: :unprocessable_entity }
-      end
-    end
+    @mail_campaign = MailCampaign.create(mail_campaign_params)
+    @project      = Project.cached_find(params[:project_id])
+    redirect_to account_account_project_mail_campaign_path(@account, @project, @mail_campaign)
   end
 
   # PATCH/PUT /campaigns/1
@@ -68,11 +64,11 @@ class Account::MailCampaignsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_campaign
-      @campaign = Campaign.find(params[:id])
+      @mail_campaign = MailCampaign.cached_find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def campaign_params
-      params.require(:campaign).permit(:account_id, :user_id, :title, :from_email, :from_title, :mail_layout_id, :subscription_message, :send)
+    def mail_campaign_params
+      params.require(:mail_campaign).permit!
     end
 end

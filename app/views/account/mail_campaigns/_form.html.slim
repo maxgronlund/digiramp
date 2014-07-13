@@ -1,12 +1,81 @@
-= simple_form_for [:account, @account, @project, @project_task]  do |f|
-  = f.input :title
-  = f.input :account_id
-  = f.input :user_id
-  = f.input :title
-  = f.input :from_email
-  = f.input :from_title
-  = f.input :mail_layout
-  = f.input :subscription_message
+
+/  = f.input :title
+/  = f.input :account_id
+/  = f.input :user_id
+/  = f.input :title
+/  = f.input :from_email
+/  = f.input :from_title
+/  = f.input :mail_layout
+/  = f.input :subscription_message
+/  
+/  = f.input :send_date
+/  = f.submit 'Save'
+
+
+
+= simple_form_for [:account, @account, @project, @mail_campaign]  do |f|
+  .row
+    .col-sm-3
+    .col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          'Mail Campaign
+        .panel-body
+          = f.input :title
+          = f.hidden_field :project_id, value: @project.id
+          = f.hidden_field :account_id, value: @account.id
+          = f.input :client_group_id , \
+                    :collection => @account.client_groups , \
+                    label: 'Client Group', \
+                    include_blank: false,\
+                    hint: "Resipients of the email?"
+          
+          = f.input :subject
+          = f.input :from_email
+          
+          = f.input :subscription_message
+          
+          /= f.input :status, collection: MailCampaign::STATUS, include_blank: false
+          /  
+          /  b Description
+          /  br
+          /  div id="toolbar" class="wysihtml5-toolbar"
+          /    a data-wysihtml5-command="bold"
+          /      .btn.btn-default.btn-sm
+          /        i class="fa fa-bold"
+          /    
+          /    a data-wysihtml5-command="italic" 
+          /      .btn.btn-default.btn-sm
+          /        i class="fa fa-italic"
+          /  
+          /    =f.input :description, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+          /  
+          /  = f.input :category, collection: ProjectTask::CATAGORY
+          /  = f.input :priority, collection: ProjectTask::PRIORITY, include_blank: false
+          /  = f.input :status, collection: ProjectTask::STATUS, include_blank: false
+            /= f.date_select :due_date
+          /.col-sm-6
+          /  .panel.panel-primary
+          /    .panel-heading
+          /      'Reminder
+          /    .panel-body
+          /      div id="datepicker" class="col-md-3 input-group date"
+          /        = text_field_tag "project_task[notifcation]", (f.object.notifcation.present? ? f.object.notifcation : nil)
+          /        span class='input-group-addon glyphicon glyphicon-calendar data_button'
+          /                
+
+          
+      br
+      .pull-right  
+        = link_to 'Cancel', account_account_project_path(@account, @project), class: 'btn btn-default btn-lg'
+        '&nbsp;
+        = f.submit 'Save', class: 'btn btn-primary btn-lg'
   
-  = f.input :send_date
-  = f.submit 'Save'
+  
+  
+  
+  javascript:
+    $(function () {
+        $('#datepicker').datetimepicker();
+    });
+

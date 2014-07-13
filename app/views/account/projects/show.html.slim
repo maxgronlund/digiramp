@@ -1,3 +1,4 @@
+
 #wrap
   div class="#{'profile' if account_owner?}"
     .full-width-top
@@ -28,7 +29,7 @@
                       th Assigned To: &nbsp;
                       td 
                         - if @project.user
-                          = @project.user.name
+                          = @project.user.name  
                         -else
                           'Unassigned
                     tr
@@ -58,12 +59,30 @@
               .panel-heading
                 'Mail Campaigns
               .panel-body
+                .table-responsive
+                  table class="table table-hover"
+                    thead
+                      tr
+                        th Name
+                        th Status
+                        th
+                    tbody
+                      - @project.mail_campaigns.each do |mail_campaign|
+                        tr
+                          td
+                            = link_to mail_campaign.title, account_account_project_mail_campaign_path(@account, \
+                                                                                                      @project, \
+                                                                                                      mail_campaign), \
+                                                                                                class: 'btn btn-default btn-lg'
+                          td
+                          td
+                        
                 hr
                 .pull-right
-                  = link_to new_account_account_project_campaign_path(@account, @project) do
+                  = link_to new_account_account_project_mail_campaign_path(@account, @project) do
                     .btn.btn-success.btn-lg
                       i class='fa fa-plus-circle'
-                      '&nbsp;Add Mail Campaigns
+                      '&nbsp;Add Mail Campaign
             
                  
       .col-sm-6
