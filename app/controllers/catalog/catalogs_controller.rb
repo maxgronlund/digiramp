@@ -35,7 +35,7 @@ class Catalog::CatalogsController < ApplicationController
   def index
 
     forbidden unless current_user && current_user.has_access_to_cattalogs_on( @account )
-    #forbidden unless CatalogUser.where(catalog_id: @account.catalog_ids, user_id: current_user.id)
+
     
 
   end

@@ -13,20 +13,19 @@ class Catalog< ActiveRecord::Base
   after_commit :flush_cache
   #after_create :add_account_users_to_catalog
   before_destroy :remove_account_users
-  
-  
   after_create :post_created
+  
   def post_created
     puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
     puts '++++++++++++ CATALOG CREATED ++++++++++++++++'
+    
+    puts self.id
     puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
   end
   
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
   
-  def update_uuid
-    self.uuid = UUIDTools::UUID.timestamp_create().to_s
-  end
+  
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
@@ -139,7 +138,8 @@ class Catalog< ActiveRecord::Base
     
     # copy permissions to catalog user                                    
     Permissions::TYPES.each do |permission|
-      eval "catalog_user.#{permission} = account_user.#{permission}"
+      #eval "catalog_user.#{permission} = account_user.#{permission}"
+      catalog_user[permission] = account_user[permission]
     end
     catalog_user.save!
   end
@@ -147,6 +147,9 @@ class Catalog< ActiveRecord::Base
   
 private
 
+  def update_uuid
+    self.uuid = UUIDTools::UUID.timestamp_create().to_s
+  end
   
   def flush_cache
     Rails.cache.delete([self.class.name, id])

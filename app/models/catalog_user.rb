@@ -13,15 +13,7 @@ class CatalogUser < ActiveRecord::Base
   #after_create  :attach_to_account_user
   after_destroy :update_catalog_counter_cache
   
-  
- 
-  
-  
 
-  
-
-
-  
   scope :invited,           ->  { where( role: 'Catalog User').order("email asc")  }
   scope :account_users,     ->  { where( role: 'Account User').order("email asc")  }
   scope :super_users,       ->  { where( role: 'Super User').order("email asc")  }
@@ -35,22 +27,23 @@ class CatalogUser < ActiveRecord::Base
   ROLE = ['Catalog User', 'Account User', 'Super User', 'Account Owner']
   
   after_create :post_created
+  
+  
   def post_created
     puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
     puts '++++++++++++ CATALOG USER CREATED ++++++++++++++++'
     puts self.role
     puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
-    
   end
   
  
   def update_catalog_counter_cache
-    CatalogUserCounterCachWorker.perform_async(self.catalog_id)
+    #CatalogUserCounterCachWorker.perform_async(self.catalog_id)
   end
   
   
   def update_uuids
-    self.uuid = UUIDTools::UUID.timestamp_create().to_s
+    #self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
   
   def self.cached_find(id)
@@ -67,6 +60,9 @@ class CatalogUser < ActiveRecord::Base
   # when a catalog user is created, it's attached to an account_user
   # so the persona can access the hosting account true the account user
   def attach_to_account_user
+    
+     puts '++++++++++++++++++++++ attach_to_account_user ++++++++++++++++++++++++++++'
+     
     # find or create an account user for all catalog users
     account_user = AccountUser.where( account_id: self.account_id, 
                                       user_id:    self.user_id)
@@ -87,7 +83,7 @@ class CatalogUser < ActiveRecord::Base
     if account_user.user.super?
       grand_all_permissions 
     end
-    CatalogUserCounterCachWorker.perform_async(self.catalog_id)
+    #CatalogUserCounterCachWorker.perform_async(self.catalog_id)
   end
   
   
@@ -163,7 +159,8 @@ class CatalogUser < ActiveRecord::Base
   
   def grand_all_permissions
     Permissions::TYPES.each do |permission|
-      eval "self.#{permission} = true"
+      self[permission] = true
+      #eval "self.#{permission} = true"
     end
     self.save!
   end
@@ -171,7 +168,8 @@ class CatalogUser < ActiveRecord::Base
   def copy_permissions_from_account_user account_user
     
     Permissions::TYPES.each do |permission|
-      eval "self.#{permission} = account_user.#{permission}"
+      self[permission]    = account_user[permission]
+      #eval "self.#{permission} = self[permission] = true.#{permission}"
     end
     self.save!
     # update role if needed

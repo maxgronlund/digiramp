@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140713200208) do
+ActiveRecord::Schema.define(version: 20140714194434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1487,12 +1487,6 @@ ActiveRecord::Schema.define(version: 20140713200208) do
   end
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
-
-  create_table "titles", force: true do |t|
-    t.text     "mail_html"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "upload_csvs", force: true do |t|
     t.string   "file"

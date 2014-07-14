@@ -176,7 +176,7 @@ class Account < ActiveRecord::Base
     # initialize users
     initialize_account_owner
     initialize_administrator
-    initialize_super_users
+    #initialize_super_users
     # update white list
     rebuild_permitted_user_ids
   end
@@ -190,11 +190,10 @@ class Account < ActiveRecord::Base
   
   # remove a user from an account
   def remove_user user_id
-    begin
-      account_user = AccountUser.cached_where(self.id, user_id)
+    if account_user = AccountUser.where(account_id: self.id, user_id: user_id).first
       # remove user
       account_user.destroy!
-    rescue
+    else
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       puts 'ERROR: Unable to find account_user'
       puts 'In Account#remove_user'
@@ -256,7 +255,7 @@ class Account < ActiveRecord::Base
         return account_user
       else
         # better error handling here ! make account owner administrator!!!
-        account_user = get_account_user self.administrator_id, 'Administrator'
+        account_user = get_account_user (self.administrator_id, 'Administrator')
       end
     else
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
@@ -300,7 +299,7 @@ class Account < ActiveRecord::Base
   # and the account owners account_user has all permissions
   def initialize_account_owner
     # secure there is a account_user for the account_owner
-    account_user = get_account_user self.user_id, "Account Owner"
+    account_user = get_account_user( self.user_id, "Account Owner" )
     
     if self.user_id == self.administrator_id                           
       account_user.grand_all_permissions
@@ -316,7 +315,7 @@ class Account < ActiveRecord::Base
   # and the accounts administrator account_user has all permissions
   def initialize_administrator
     # secure there is a account_user for the account_owner
-    account_user = get_account_user self.administrator_id, "Administrator"                           
+    account_user = get_account_user( self.administrator_id, "Administrator" )                     
     account_user.grand_all_permissions
   end
   
@@ -326,10 +325,8 @@ class Account < ActiveRecord::Base
   # and the super users account_user has all permissions
   def initialize_super_users
     User.supers.each do |super_user|
-      super_account_user = get_account_user super_user.id, "Super"
+      super_account_user = get_account_user( super_user.id, "Super")
       super_account_user.grand_all_permissions
-      logger.debug '--------------------------------------'
-      logger.debug super_account_user.inspect
     end
   end
 
@@ -397,7 +394,7 @@ class Account < ActiveRecord::Base
 
     
     self.catalogs.each do |catalog|
-      catalog_user = CatalogUser.where( user_id: account_user.user_id, 
+      catalog_user = CatalogUser.where( user_id:    account_user.user_id, 
                                         catalog_id: catalog.id)
                               .first_or_create( user_id:    account_user.user_id, 
                                                 catalog_id: catalog.id, 

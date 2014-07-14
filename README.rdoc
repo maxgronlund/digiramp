@@ -34,6 +34,8 @@ $ git push origin master
 $ cap production deploy
 
 
+###########################
+* LOGGING
 * log the server
 cap production "logs:tail[production]"
 cap production "logs:tail[unicorn]"  <<< IMPORTANT if there is problems
@@ -55,8 +57,14 @@ $ thin -e production start
 
 
 
+############################
+# SIDEKIQ
+$ ssh deploy@78.46.19.136
 
-#start sicekiq
+# Check if sidekiq is running and for how long, It shoule restart after each deploy
+ps aux | grep sidekiq
+
+# restart
 $ ssh deploy@78.46.19.136
 $ cd apps/digiramp_production/current
 $ RAILS_ENV=production bundle exec sidekiq

@@ -14,8 +14,8 @@ class AccountUser < ActiveRecord::Base
 
   ROLES            = [  "Account Owner", 
                         "Administrator", 
-                        "Client", 
-                        "Super",
+                        "Client User", 
+                        "Super User",
                         "Catalog User",
                         "Account User"
                       ]
@@ -34,8 +34,8 @@ class AccountUser < ActiveRecord::Base
   #after_update    :update_catalog_users
 
   
-  scope :supers,            ->  { where( role: 'Super')  }
-  scope :clients,           ->  { where( role: 'Client') }
+  scope :supers,            ->  { where( role: 'Super User')  }
+  scope :clients,           ->  { where( role: 'Client User') }
   scope :administrators,    ->  { where( role: 'Administrator') }
   scope :owner,             ->  { where( role: 'Account Owner')  }
   scope :owners,            ->  { where( role: 'Account Owner')  }
@@ -63,29 +63,29 @@ class AccountUser < ActiveRecord::Base
   end
   
   #!!! When is this used
-  def copy_permissions_to_catalog_users
-    if catalogs = self.account.catalogs
-      
-      catalogs.each do |catalog|
-        catalog_user = CatalogUser.where(account_id: self.account_id, 
-                                         user_id: self.user_id,
-                                         catalog_id: catalog.id)
-                                  .first_or_create(
-                                         account_id: self.account_id, 
-                                         catalog_id: catalog.id,
-                                         user_id: self.user_id,
-                                         role: 'Catalog User',
-                                         email: self.user.email)
-                                         
-                                         
-        #CopyPermissions.from_account_user_to_catalog_user( self, catalog_user )
-        Permissions::TYPES.each do |permission_type|
-          eval "catalog_user.#{permission_type}   = self.#{permission_type}" 
-        end
-        catalog_user.save!
-      end
-    end
-  end
+  #def copy_permissions_to_catalog_users
+  #  if catalogs = self.account.catalogs
+  #    
+  #    catalogs.each do |catalog|
+  #      catalog_user = CatalogUser.where(account_id: self.account_id, 
+  #                                       user_id: self.user_id,
+  #                                       catalog_id: catalog.id)
+  #                                .first_or_create(
+  #                                       account_id: self.account_id, 
+  #                                       catalog_id: catalog.id,
+  #                                       user_id: self.user_id,
+  #                                       role: 'Catalog User',
+  #                                       email: self.user.email)
+  #                                       
+  #                                       
+  #      #CopyPermissions.from_account_user_to_catalog_user( self, catalog_user )
+  #      Permissions::TYPES.each do |permission_type|
+  #        eval "catalog_user.#{permission_type}   = self.#{permission_type}" 
+  #      end
+  #      catalog_user.save!
+  #    end
+  #  end
+  #end
   
   def super?
     self.role == 'Super'
@@ -168,7 +168,8 @@ class AccountUser < ActiveRecord::Base
   def grand_all_permissions
     #  copy permissions 
     Permissions::TYPES.each do |permission_type|
-      eval "self.#{permission_type} = true" 
+      #eval "self.#{permission_type} = true" 
+      self[permission_type] = true
     end
     
     self.create_client = true
@@ -187,7 +188,8 @@ class AccountUser < ActiveRecord::Base
   # set all permissions to false
   def remove_all_permissions
     Permissions::TYPES.each do |permission_type|
-      eval "self.#{permission_type} = false" 
+      #eval "self.#{permission_type} = false" 
+      self[parmission_type] = false
     end
     
     self.create_client = false
