@@ -255,7 +255,7 @@ class AccountUser < ActiveRecord::Base
                      .first_or_create(account_id: account_id, 
                                        name: get_name, 
                                        email: email, 
-                                       role: 'cuctomer',
+                                       role: 'Customer',
                                        password: secret_temp_password,
                                        password_confirmation: secret_temp_password, 
                                        activated: false)

@@ -255,7 +255,7 @@ class Account < ActiveRecord::Base
         return account_user
       else
         # better error handling here ! make account owner administrator!!!
-        account_user = get_account_user (self.administrator_id, 'Administrator')
+        account_user = get_account_user(self.administrator_id, 'Administrator')
       end
     else
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
