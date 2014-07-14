@@ -1,7 +1,6 @@
 
 Digiramp::Application.routes.draw do
-
-
+  
 
   resources :gitter, only: [:index]
   #resources :footages
@@ -342,6 +341,9 @@ Digiramp::Application.routes.draw do
       
 
       resources :opportunities do
+        resources :opportunity_invitations
+        post :invite_provider_by_email
+        resources :invite_providers, only: [:index]
         resources :music_requests do
           resources :music_submissions
         end

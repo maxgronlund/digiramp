@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140713132731) do
+ActiveRecord::Schema.define(version: 20140713200208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1157,6 +1157,28 @@ ActiveRecord::Schema.define(version: 20140713132731) do
   end
 
   add_index "opportunities", ["account_id"], name: "index_opportunities_on_account_id", using: :btree
+
+  create_table "opportunities_users", force: true do |t|
+    t.integer  "opportunity_id"
+    t.integer  "user_id"
+    t.boolean  "invited",        default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "opportunities_users", ["opportunity_id"], name: "index_opportunities_users_on_opportunity_id", using: :btree
+  add_index "opportunities_users", ["user_id"], name: "index_opportunities_users_on_user_id", using: :btree
+
+  create_table "opportunity_invitations", force: true do |t|
+    t.integer  "opportunity_id"
+    t.string   "title"
+    t.text     "body"
+    t.text     "invitees"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "opportunity_invitations", ["opportunity_id"], name: "index_opportunity_invitations_on_opportunity_id", using: :btree
 
   create_table "permissions", force: true do |t|
     t.integer  "user_id"

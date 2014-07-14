@@ -1,0 +1,27 @@
+h1 Listing opportunity_invitations
+
+table
+  thead
+    tr
+      th Opportunity
+      th Title
+      th Body
+      th Invitees
+      th
+      th
+      th
+
+  tbody
+    - @opportunity_invitations.each do |opportunity_invitation|
+      tr
+        td = opportunity_invitation.opportunity
+        td = opportunity_invitation.title
+        td = opportunity_invitation.body
+        td = opportunity_invitation.invitees
+        td = link_to 'Show', opportunity_invitation
+        td = link_to 'Edit', edit_opportunity_invitation_path(opportunity_invitation)
+        td = link_to 'Destroy', opportunity_invitation, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Opportunity invitation', new_opportunity_invitation_path

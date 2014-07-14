@@ -1,6 +1,6 @@
 class Account::AccountIpisController < ApplicationController
   include AccountsHelper
-  include CatalogsHelper
+  #include CatalogsHelper
   
   before_filter :access_account
   

@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Opportunity:
+  = @opportunity_invitation.opportunity
+p
+  strong Title:
+  = @opportunity_invitation.title
+p
+  strong Body:
+  = @opportunity_invitation.body
+p
+  strong Invitees:
+  = @opportunity_invitation.invitees
+
+= link_to 'Edit', edit_opportunity_invitation_path(@opportunity_invitation)
+'|
+= link_to 'Back', opportunity_invitations_path

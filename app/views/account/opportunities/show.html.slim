@@ -6,6 +6,7 @@
     ==render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
                                                            manage: account_account_path(@account), \
+                                                           crm: account_account_crm_index_path(@account),\
                                                            opportunities: account_account_opportunities_path(@account)\
                                                            }, current: @opportunity.title }
     
@@ -31,6 +32,20 @@
                 tr
                   td Deadline:
                   td = @opportunity.deadline
+                  
+                  
+        .panel.panel-primary
+          .panel-heading
+            'Music Providers
+          .panel-body
+          
+            .pull-right
+              = link_to new_account_account_opportunity_opportunity_invitation_path(@account, @opportunity) do
+                .btn.btn-success.btn-lg
+                  i class="fa fa-plus-circle"
+                  '&nbsp; Invite Providers
+          
+          
       .col-sm-6
         - @opportunity.music_requests.each do |music_request|
           .panel.panel-primary

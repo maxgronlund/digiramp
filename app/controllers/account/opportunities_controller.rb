@@ -65,15 +65,15 @@ class Account::OpportunitiesController < ApplicationController
       flash[:danger]      = { title: "Error", body: "Unable to update opportunity" }
       redirect_to edit_new_account_account_opportunity_path(@account)
     end
-    #respond_to do |format|
-    #  if @opportunity.update(opportunity_params)
-    #    format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
-    #    format.json { head :no_content }
-    #  else
-    #    format.html { render action: 'edit' }
-    #    format.json { render json: @opportunity.errors, status: :unprocessable_entity }
-    #  end
-    #end
+  end
+  
+  def invite_provider_by_email
+    @opportunity = Opportunity.cached_find(params[:opportunity_id])
+    
+    redirect_to account_account_opportunity_path(@account, @opportunity)
+    
+    
+
   end
 
   # DELETE /opportunities/1
