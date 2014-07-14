@@ -8,80 +8,83 @@ class TransloaditImageParser
     transloadets  = []
     extracted     = {}
     
-
+    begin
     # original images
-    if uploads[:results] && uploads[:results][:accepted_images]
-      uploads[:results][:accepted_images].each do |accepted_image|
+      if uploads[:results] && uploads[:results][:accepted_images]
+        uploads[:results][:accepted_images].each do |accepted_image|
+          
+          meta = accepted_image["meta"]
+          
+          extracted[ accepted_image[:original_id] ] =  { 
+                                                          file:                    accepted_image[:url], 
+                                                          title:                   accepted_image[:name],
+                                                          basename:                accepted_image[:basename ],
+                                                          ext:                     accepted_image[:ext],
+                                                          image_size:              accepted_image[:image_size],
+                                                          mime:                    accepted_image[:mime],
+                                                          image_type:              accepted_image[:image_type],
+                                                          md5hash:                 accepted_image[:md5hash],
+                                                          width:                   meta["width"],
+                                                          height:                  meta["height"],
+                                                          date_recorded:	         meta["date_recorded"],
+                                                          date_file_created:	     meta["date_file_created"],
+                                                          date_file_modified:      meta["date_file_modified"],
+                                                          description:	           meta["description"],
+                                                          location:	               meta["location"],
+                                                          aspect_ratio:            meta["aspect_ratio"],
+                                                          city:		                 meta["city"],
+                                                          state:	                 meta["state"],
+                                                          country:	               meta["country"],
+                                                          country_code:            meta["country_code"],
+                                                          keywords:	               meta["keywords"],
+                                                          aperture:	               meta["aperture"],
+                                                          exposure_compensation:	 meta["exposure_compensation"],
+                                                          exposure_mode:	         meta["exposure_mode"],
+                                                          exposure_time:	         meta["exposure_time"],
+                                                          flash:	                 meta["flash"],
+                                                          focal_length:	           meta["focal_length"],
+                                                          f_number:	               meta["f_number"],
+                                                          iso:	                   meta["iso"],
+                                                          light_value:	           meta["light_value"],
+                                                          metering_mode:	         meta["metering_mode"],
+                                                          shutter_speed:	         meta["shutter_speed"],
+                                                          white_balance:	         meta["white_balance"],
+                                                          device_name:	           meta["device_name"],
+                                                          device_vendor:	         meta["device_vendor"],
+                                                          device_software:         meta["device_software"],
+                                                          latitude:	               meta["latitude"],
+                                                          longitude:	             meta["longitude"],
+                                                          orientation:             meta["orientation"],
+                                                          has_clipping_path:	     meta["has_clipping_path"],
+                                                          creator:	               meta["creator"],
+                                                          author:	                 meta["author"],
+                                                          copyright:	             meta["copyright"],
+                                                          frame_count:	           meta["frame_count "],
+                                                          copyright_notice:	       meta["copyright_notice"]
+                                                        }
+        end
         
-        meta = accepted_image["meta"]
         
-        extracted[ accepted_image[:original_id] ] =  { 
-                                                        file:                    accepted_image[:url], 
-                                                        title:                   accepted_image[:name],
-                                                        basename:                accepted_image[:basename ],
-                                                        ext:                     accepted_image[:ext],
-                                                        image_size:              accepted_image[:image_size],
-                                                        mime:                    accepted_image[:mime],
-                                                        image_type:              accepted_image[:image_type],
-                                                        md5hash:                 accepted_image[:md5hash],
-                                                        width:                   meta["width"],
-                                                        height:                  meta["height"],
-                                                        date_recorded:	         meta["date_recorded"],
-                                                        date_file_created:	     meta["date_file_created"],
-                                                        date_file_modified:      meta["date_file_modified"],
-                                                        description:	           meta["description"],
-                                                        location:	               meta["location"],
-                                                        aspect_ratio:            meta["aspect_ratio"],
-                                                        city:		                 meta["city"],
-                                                        state:	                 meta["state"],
-                                                        country:	               meta["country"],
-                                                        country_code:            meta["country_code"],
-                                                        keywords:	               meta["keywords"],
-                                                        aperture:	               meta["aperture"],
-                                                        exposure_compensation:	 meta["exposure_compensation"],
-                                                        exposure_mode:	         meta["exposure_mode"],
-                                                        exposure_time:	         meta["exposure_time"],
-                                                        flash:	                 meta["flash"],
-                                                        focal_length:	           meta["focal_length"],
-                                                        f_number:	               meta["f_number"],
-                                                        iso:	                   meta["iso"],
-                                                        light_value:	           meta["light_value"],
-                                                        metering_mode:	         meta["metering_mode"],
-                                                        shutter_speed:	         meta["shutter_speed"],
-                                                        white_balance:	         meta["white_balance"],
-                                                        device_name:	           meta["device_name"],
-                                                        device_vendor:	         meta["device_vendor"],
-                                                        device_software:         meta["device_software"],
-                                                        latitude:	               meta["latitude"],
-                                                        longitude:	             meta["longitude"],
-                                                        orientation:             meta["orientation"],
-                                                        has_clipping_path:	     meta["has_clipping_path"],
-                                                        creator:	               meta["creator"],
-                                                        author:	                 meta["author"],
-                                                        copyright:	             meta["copyright"],
-                                                        frame_count:	           meta["frame_count "],
-                                                        copyright_notice:	       meta["copyright_notice"]
-                                                      }
+        
+        
+        # thumbnail
+        uploads[:results][:image_thumb].each do |image_thumb|
+          extracted[ image_thumb[:original_id]][:thumb]  = image_thumb[:url]
+        end
+        
+        
+        extracted.each do | k, v|
+          transloadets << v
+        end
+        
+        
+        #uploads[:results][:image_thumb].each_with_index do |image_thumb, index|
+        #  transloadets[index][:thumb] = image_thumb[:url]
+        #end
+      else
+        transloadets = nil
       end
-      
-      
-      
-      
-      # thumbnail
-      uploads[:results][:image_thumb].each do |image_thumb|
-        extracted[ image_thumb[:original_id]][:thumb]  = image_thumb[:url]
-      end
-      
-      
-      extracted.each do | k, v|
-        transloadets << v
-      end
-      
-      
-      #uploads[:results][:image_thumb].each_with_index do |image_thumb, index|
-      #  transloadets[index][:thumb] = image_thumb[:url]
-      #end
-    else
+    rescue
       transloadets = nil
     end
     
