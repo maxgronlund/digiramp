@@ -657,14 +657,14 @@ private
   
   def update_uuids
     #AccountCache.update_works_uuid self.account
-    Statistics.first.common_works -= 1
-    Statistics.first.save!
+    #Statistics.first.common_works -= 1
+    #Statistics.first.save!
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
   
   def count_statistics_up
-    Statistics.first.common_works += 1
-    Statistics.first.save!
+    #Statistics.first.common_works += 1
+    #Statistics.first.save!
   end
 
   #def update_audio_file_attributes
