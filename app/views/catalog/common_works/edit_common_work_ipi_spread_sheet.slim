@@ -34,7 +34,7 @@
             th Perf Owned
             th Perf Collected
             th Notes
-            th Bro 
+            th Pro 
             th Has Agreement
             
             
@@ -64,7 +64,9 @@
               td = ipi.pro 
               td = ipi.has_agreement
 
-   
+    .pull-right
+      br
+      = link_to 'Save', '#', class: 'btn btn-primary btn-lg'
   /= debug @common_work.ipis.first
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
