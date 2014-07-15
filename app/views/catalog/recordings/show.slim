@@ -22,7 +22,7 @@
 
       .row
         .col-sm-6
-           == render 'works/shared/badge_button', locals: { \
+           == render 'shared/badge_button', locals: { \
                                                       blog_post: 'INFO', \
                                                       link: catalog_account_catalog_recording_info_path(@account, @catalog, @recording), \
                                                       css_class: 'btn btn-info', \
@@ -31,7 +31,7 @@
         
         /- if current_catalog_user.update_recording?
         /  .col-sm-6
-        /     == render 'works/shared/badge_button', locals: { \
+        /     == render 'shared/badge_button', locals: { \
         /                                                blog_post: 'EDIT RECORDING', \
         /                                                link: edit_catalog_account_catalog_recording_path(@account, @catalog, @recording), \
         /                                                css_class: 'btn btn-warning', \
@@ -40,7 +40,7 @@
         /
         - if current_catalog_user.read_common_work?
           .col-sm-6
-             == render 'works/shared/badge_button', locals: { \
+             == render 'shared/badge_button', locals: { \
                                                         blog_post: 'COMMON WORK', \
                                                         link: catalog_account_catalog_common_work_path(@account, @catalog, @recording.common_work), \
                                                         css_class: 'btn btn-primary', \
@@ -48,7 +48,7 @@
                                                       }     
         - if current_catalog_user.read_file?
           /.col-sm-6
-          /  == render 'works/shared/badge_button', locals: { \
+          /  == render 'shared/badge_button', locals: { \
           /                                             blog_post: 'FOOTAGE', \
           /                                             link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
           /                                             css_class: 'btn btn-warning', \
@@ -57,7 +57,7 @@
           /                                           }      
           /  
           /.col-sm-6
-          /   == render 'works/shared/badge_button', locals: { \
+          /   == render 'shared/badge_button', locals: { \
           /                                              blog_post: 'DOCUMENTS', \
           /                                              link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
           /                                              css_class: 'btn btn-danger', \
@@ -65,7 +65,7 @@
           /                                            } 
           /
           .col-sm-6
-             == render 'works/shared/badge_button', locals: { \
+             == render 'shared/badge_button', locals: { \
                                                         blog_post: 'ARTWORK', \
                                                         link: catalog_account_catalog_recording_recording_artworks_path(@account, @catalog, @recording), \
                                                         css_class: 'btn btn-default', \
@@ -75,7 +75,7 @@
       /                                                                                      
       / all users can access recordings
       /.col-sm-6
-      /  == render 'works/shared/badge_button', locals: { \
+      /  == render 'shared/badge_button', locals: { \
       /                                              blog_post: 'RECORDINGS', \
       /                                              link: account_work_work_recordings_path(@account, @common_work), \
       /                                              css_class: 'btn btn-warning', \
@@ -84,7 +84,7 @@
       /
       /-if @user_can_access_shared_with 
       /  .col-sm-6
-      /    == render 'works/shared/badge_button', locals: { \
+      /    == render 'shared/badge_button', locals: { \
       /                                               blog_post: 'USERS', \
       /                                               link: account_work_work_users_path(@account, @common_work), \
       /                                               css_class: 'btn btn-default', \
@@ -93,7 +93,7 @@
       / 
       /-if @user_can_access_files
       /  .col-sm-6
-      /    == render 'works/shared/badge_button', locals: { \ 
+      /    == render 'shared/badge_button', locals: { \ 
       /                                              blog_post: 'FILES', \
       /                                              link: account_work_work_files_path(@account, @common_work), \
       /                                              css_class: 'btn btn-success', \
@@ -102,7 +102,7 @@
       / 
       /-if @user_can_access_ipis
       /  .col-sm-6
-      /    == render 'works/shared/badge_button', locals: { \ 
+      /    == render 'shared/badge_button', locals: { \ 
       /                                              blog_post: 'IPIS', \
       /                                              link: account_work_work_ipis_path(@account, @common_work), \
       /                                              css_class: 'btn btn-info', \

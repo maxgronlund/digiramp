@@ -118,3 +118,5 @@ namespace :deploy do
 end
 
 #RAILS_ENV=production bundle exec sidekiq
+        require './config/boot'
+        require 'airbrake/capistrano'

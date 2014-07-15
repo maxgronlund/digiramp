@@ -18,7 +18,7 @@
         == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment}
       .row
         .col-sm-6
-           == render 'works/shared/badge_button', locals: { \
+           == render 'shared/badge_button', locals: { \
                                                       blog_post: 'INFO', \
                                                       link: user_shared_catalog_shared_recording_path(@user, @catalog, @recording), \
                                                       css_class: 'btn btn-info', \
@@ -26,7 +26,7 @@
                                                     }
         - if @recording.read_common_works_ids.include? current_user.id
           .col-sm-6
-             == render 'works/shared/badge_button', locals: { \
+             == render 'shared/badge_button', locals: { \
                                                         blog_post: 'COMMON WORK', \
                                                         link: user_shared_catalog_shared_recording_shared_common_work_path(@user, @catalog, @recording, @recording.common_work), \
                                                         css_class: 'btn btn-primary', \
@@ -34,7 +34,7 @@
                                                       }
         - if @recording.read_files_ids.include? current_user.id
           .col-sm-6
-            == render 'works/shared/badge_button', locals: { \
+            == render 'shared/badge_button', locals: { \
                                                        blog_post: 'ARTWORK', \
                                                        link: user_shared_catalog_shared_recording_artwork_path(@user, @catalog, @recording), \
                                                        css_class: 'btn btn-primary', \

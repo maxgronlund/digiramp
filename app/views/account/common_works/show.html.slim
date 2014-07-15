@@ -50,7 +50,7 @@
 
       .col-sm-6
         /-if current_account_user.update_common_work
-        /    == render 'works/shared/badge_button', locals: { \
+        /    == render 'shared/badge_button', locals: { \
         /                                               blog_post: 'EDIT', \
         /                                               link: edit_account_work_path(@account, @common_work), \
         /                                               css_class: 'btn btn-primary', \
@@ -66,7 +66,7 @@
                                                       }
           
         /- if current_account_user.createx_user? || current_account_user.update_account_user? || current_account_user.delete_account_user?
-        /    == render 'works/shared/badge_button', locals: { \
+        /    == render 'shared/badge_button', locals: { \
         /                                               blog_post: 'USERS', \
         /                                               link: account_work_work_users_path(@account, @common_work), \
         /                                               css_class: 'btn btn-default', \
@@ -103,7 +103,7 @@
         
     /-if @user_can_access_financial_documents
     /  .col-sm-6
-    /    == render 'works/shared/badge_button', locals: { \ 
+    /    == render 'shared/badge_button', locals: { \ 
     /                                              blog_post: 'FINANCIAL DOCUMENTS', \
     /                                              link: account_work_work_financial_documents_path(@account, @common_work), \
     /                                              css_class: 'btn btn-success', \
@@ -112,7 +112,7 @@
     /  
     /-if @user_can_access_legal_documents
     /  .col-sm-6
-    /    == render 'works/shared/badge_button', locals: { \ 
+    /    == render 'shared/badge_button', locals: { \ 
     /                                              blog_post: 'LEGAL DOCUMENTS', \
     /                                              link: account_work_work_legal_documents_path(@account, @common_work), \
     /                                              css_class: 'btn btn-danger', \
