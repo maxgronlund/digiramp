@@ -1,10 +1,13 @@
 class Account::SubmissionsController < ApplicationController
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
+  include AccountsHelper
+  before_filter :access_account
 
   # GET /submissions
   # GET /submissions.json
   def index
-    @submissions = Submission.all
+    @opportunity = Opportunity.cached_find(params[:opportunity_id])
+    @submissions = @opportunity.submissions
   end
 
   # GET /submissions/1
@@ -64,6 +67,7 @@ class Account::SubmissionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_submission
+      @opportunity = Opportunity.cached_find(params[:opportunity_id])
       @submission = Submission.find(params[:id])
     end
 

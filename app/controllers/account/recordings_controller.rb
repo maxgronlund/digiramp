@@ -75,10 +75,51 @@ class Account::RecordingsController < ApplicationController
       @recording.extract_instruments
       @recording.extract_moods
 
-      #if image_file = ImageFile.where(id: @recording.image_file_id).first
-      #  @recording.cover_art = image_file.thumb
-      #  @recording.save
-      #end
+      
+      
+      
+      # artwork
+      if params[:transloadit]
+        if artworks = TransloaditImageParser.artwork( params[:transloadit], @account.id)
+          # if there is no artwork file
+          if artworks == []
+            # if a drop down item is selected
+            if params[:recording][:image_file_id].to_s != ''   
+              artwork = Artwork.cached_find(params[:recording][:image_file_id])
+              @recording.cover_art  = artwork.thumb
+              @recording.save!
+            end
+          else
+            # add the uploaded artwork
+            # notice there is only one artwork file
+            artworks.each do |artwork|
+              
+                                  
+                                  
+              RecordingItem.create( recording_id: @recording.id, 
+                                    itemable_type: 'Artwork',
+                                    itemable_id: artwork.id)
+                                  
+              @recording.cover_art      = artwork.thumb
+              @recording.image_file_id  = artwork.id
+              @recording.save!
+            end
+          end 
+        end
+      end
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
       @recording.common_work.update_completeness if @recording.common_work
       
