@@ -10,6 +10,7 @@ class Catalog::CommonWorksController < ApplicationController
   
   def index
     forbidden unless current_catalog_user.read_common_work?
+    
     @common_works  = CommonWork.catalog_search(@catalog, params[:query]).order('title asc').page(params[:page]).per(32)
   end
 
