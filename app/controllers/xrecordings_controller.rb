@@ -1,4 +1,4 @@
-class Account::RecordingsController < ApplicationController
+class RecordingsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include RecordingsHelper
   include AccountsHelper
@@ -7,17 +7,17 @@ class Account::RecordingsController < ApplicationController
   
   def index
     forbidden unless current_account_user.read_recording?
-    #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< apply not_in_bucket. in model
     @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     @show_more      = true
     
   end
 
   def show
-    
+    logger.debug'-----------------------------------------------------'
+    logger.debug current_account_user.inspect
     forbidden unless current_account_user.read_recording
     
-    #@common_work    = CommonWork.cached_find(params[:common_work_id])
+    @common_work    = CommonWork.cached_find(params[:common_work_id])
     @recording      = Recording.cached_find(params[:id])
 
 
@@ -25,8 +25,8 @@ class Account::RecordingsController < ApplicationController
   
   def edit
     forbidden unless current_account_user.update_recording?
-    #@common_work    = CommonWork.find(params[:common_work_id])
-    @recording              = Recording.find(params[:id])
+    @common_work    = CommonWork.find(params[:common_work_id])
+    @recording      = Recording.find(params[:id])
     
     @recording.genre        = @recording.genre_tags_as_csv_string
     @recording.instruments  = @recording.instruments_tags_as_csv_string
@@ -40,8 +40,8 @@ class Account::RecordingsController < ApplicationController
   
   def new
     forbidden unless current_account_user.create_recording?
-    #@common_work    = CommonWork.cached_find(params[:common_work_id])
-    #@recording      = Recording.new
+    @common_work    = CommonWork.cached_find(params[:common_work_id])
+    @recording      = Recording.new
   end
   
   def create
@@ -60,7 +60,7 @@ class Account::RecordingsController < ApplicationController
   
   def update
     forbidden unless current_account_user.update_recording?
-    #@common_work    = CommonWork.find(params[:common_work_id])
+    @common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
     
     
@@ -80,25 +80,19 @@ class Account::RecordingsController < ApplicationController
       #  @recording.save
       #end
       
-      @recording.common_work.update_completeness if @recording.common_work
+      @recording.common_work.update_completeness
       
-      if @recording.in_bucket?
-        redirect_to account_account_recordings_bucket_path(@account, @recording )
+      if @genre_category
+        redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )
       else
-        #redirect_to :back
-        redirect_to account_account_common_work_recording_path(@account, @recording.common_work, @recording, genre_category: @genre_category )
+        redirect_to account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )
       end
-      
-      #if @genre_category
-      #  redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )
-      #else
-      #  redirect_to account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )
-      #end
 
     else
       # jump back to recordings or common work
-      redirect_to_return_url account_common_work_recording_path(@account, @recording.common_work, @recording)
+      redirect_to_return_url account_common_work_recording_path(@account, @common_work, @recording)
     end
+
   end
 
   
@@ -192,53 +186,6 @@ class Account::RecordingsController < ApplicationController
   end
   def overview
 
-  end
-  
-  def find_in_bucket
-    
-  end
-  
-  def files
-    forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
-  end
-  
-  def documents
-    forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
-  end
-  
-  def legal_documents
-    forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
-  end
-  
-  def artwork
-    forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
-  end
-  
-  # ====================================================
-  # artwork
-  def artwork
-    forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
-  end
-  
-  def new_artwork
-    forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
-    
-    redirect_to :back
-  end
-  
- 
-  
-  # ====================================================
-  # financial documents
-  def financial_documents
-    forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
   end
   
   #def download

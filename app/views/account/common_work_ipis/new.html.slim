@@ -1,0 +1,32 @@
+
+/div class="playlist_id" id="#{@playlist.id}"
+
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  /-cache([ @account.id, @account.works_uuid, params]) do  
+  .do   
+    .container
+      
+      
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              'Common Works'.to_sym => account_works_path(@account), \
+                                                              @common_work.title.to_sym => account_work_path(@account, @common_work), \
+                                                              }, current: 'register ip'}
+                                                              
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('IP'), blog_post: 'Register Interested Party'}
+      == render 'form'
+          
+                
+                
+
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
+

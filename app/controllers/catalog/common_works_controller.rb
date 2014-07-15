@@ -66,6 +66,40 @@ class Catalog::CommonWorksController < ApplicationController
     @common_work = CommonWork.cached_find(params[:common_work_id])
   end
   
+  def create_common_work_ip
+    forbidden unless current_catalog_user.create_common_work_ipi?
+    @common_work  = CommonWork.cached_find(params[:common_work_id])
+    #@catalog  = Catalog.cached_find(params[:catalog_id])
+    ip = Ipi.create(common_work_ipi_params)
+
+    redirect_to catalog_account_catalog_common_work_common_work_ipis_path(@account, @catalog, @common_work)
+    #Ipi.create()
+    #redirect_to catalog_account_catalog_common_work_common_work_ipis_path( @account, @catalog, @common_work)
+  end
+  
+  def update_common_work_ip
+    forbidden unless current_catalog_user.update_common_work_ipi?
+    @common_work  = CommonWork.cached_find(params[:common_work_id])
+    @catalog      = Catalog.cached_find(params[:catalog_id])
+    @ipi          = Ipi.cached_find(params[:ipi][:id])
+    
+    @ipi.update_attributes(common_work_ipi_params)
+
+    redirect_to catalog_account_catalog_common_work_common_work_ipis_path(@account, @catalog, @common_work)
+    #Ipi.create()
+    #redirect_to catalog_account_catalog_common_work_common_work_ipis_path( @account, @catalog, @common_work)
+  end
+  
+  def edit_common_work_ipi_spread_sheet
+    forbidden unless current_catalog_user.create_common_work_ipi?
+    forbidden unless current_catalog_user.update_common_work_ipi?
+    @common_work  = CommonWork.cached_find(params[:common_work_id])
+  end
+  
+  def common_work_ipi_params
+    params.require(:ipi).permit!
+  end
+  
   
   # submitted from the cattalog and been true transloadedit
   # adding multiply recordings to an catalog by uploading files

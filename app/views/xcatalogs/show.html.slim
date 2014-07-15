@@ -15,7 +15,7 @@
                                                               }, current: @catalog.title}
       
                                                               
-      - insert = current_account_user.update_catalog ? 'edit' : nil
+      - insert = current_catalog_user.update_catalog ? 'edit' : nil
       == render 'shared/page_title_text', locals: {title: @catalog.title, body: @catalog.body, insert: insert}
       
       .row
@@ -70,13 +70,13 @@
                                                  icon: 'fa fa-group' \
                                                }
                                                
-          -if can_edit? || current_user.account_id == @account.id 
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'MOVE CATALOG', \
-                                                 link: account_catalog_move_path(@account, @catalog), \
-                                                 css_class: 'btn btn-danger', \
-                                                 icon: 'fa fa-truck' \
-                                               }
+          /-if can_edit? || current_user.account_id == @account.id 
+          /  == render 'badge_button', locals: { \
+          /                                       blog_post: 'MOVE CATALOG', \
+          /                                       link: account_catalog_move_path(@account, @catalog), \
+          /                                       css_class: 'btn btn-danger', \
+          /                                       icon: 'fa fa-truck' \
+          /                                     }
         /.col-sm-6
         /  == render 'badge_button', locals: { \
         /                                       blog_post: 'ADD DOCUMENTS', \

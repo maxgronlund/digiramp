@@ -432,6 +432,39 @@ ul
   table tr th{ text-align:right;} 
 }
 
+.editable-table{
+  width:100%;
+  table {
+    table thead tr th {
+      text-transform: none !important;
+      -webkit-font-smoothing: antialiased;
+      color: #6d6d6d;
+      text-shadow: #fff 0 1px 0;
+    }
+    
+    border-spacing: 2px;
+    border-color: gray;
+    white-space: normal;
+    line-height: normal;
+    font-weight: normal;
+    font-size: medium;
+    font-variant: normal;
+    font-style: normal;
+    color: -webkit-text;
+    text-align: start;
+  }
+  
+  .column-label > td, .row-label {
+    text-align: center;
+    background: #EEE;
+  }
+  td {
+    border: 1px solid #EEE;
+  }
+
+}
+
+
 
 /*
 .gray-back{

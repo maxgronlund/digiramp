@@ -5,11 +5,12 @@
     .full-width-top
       == render 'admin/shared/navbar', page: 'account'     
   .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           manage: account_account_path(@account), \
-                                                           common_works: account_account_common_works_path(@account)\
-                                                           }, current: @common_work.title }
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            'manage works'.to_sym => account_account_works_path(@account),\
+                                                            'list works'.to_sym => account_works_path(@account),\
+                                                            }, current: @common_work.title}
     
                                          
     
@@ -58,9 +59,9 @@
         /                                             }
         /                                             
         - if current_account_user.read_recording?
-            == render 'shared/badge_button', locals: { \
+            == render 'works/shared/badge_button', locals: { \
                                                         blog_post: 'RECORDINGS', \
-                                                        link: recordings_account_account_common_work_path(@account, @common_work), \
+                                                        link: account_work_work_recordings_path(@account, @common_work), \
                                                         css_class: 'btn btn-warning', \
                                                         icon: 'fa fa-headphones'\
                                                       }
@@ -74,17 +75,17 @@
         /                                             }
         /  
         -if current_account_user.read_file
-            == render 'shared/badge_button', locals: { \ 
+            == render 'works/shared/badge_button', locals: { \ 
                                                       blog_post: 'FILES', \
-                                                      link: account_account_common_work_common_work_files_path(@account, @common_work), \
+                                                      link: account_work_work_files_path(@account, @common_work), \
                                                       css_class: 'btn btn-success', \
                                                       icon: 'fa fa-folder' \
                                                      }
           
         -if current_account_user.read_common_work_ipi
-            == render 'shared/badge_button', locals: { \ 
+            == render 'works/shared/badge_button', locals: { \ 
                                                       blog_post: 'IPIS', \
-                                                      link: account_account_common_work_common_work_ipis_path(@account, @common_work), \
+                                                      link: account_work_work_ipis_path(@account, @common_work), \
                                                       css_class: 'btn btn-info', \
                                                       icon: 'fa fa-exclamation-circle' \
                                                      }
@@ -187,6 +188,5 @@
     /      .pull-right
     /        = link_to 'edit', edit_account_work_path(@account, @common_work), class: 'btn btn-primary btn-lg'
     /    
-    == render 'shared/back', locals: {link: account_account_common_works_path(@account)}
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

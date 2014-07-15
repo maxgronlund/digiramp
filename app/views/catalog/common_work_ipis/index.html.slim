@@ -15,16 +15,14 @@
     
                                          
     
-      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'IPIS'}
-      - blog          = Blog.cached_find('Ipis')
-      - blog_post     = BlogPost.cached_find( 'common work ipis' , blog )
-      - edit_link     = edit_admin_blog_blog_post_path(blog, blog_post)
-      == render 'shared/page_title_text', locals: {title: @common_work.title, body: blog_post.body, edit_link: edit_link }
+      
+
+      == render 'shared/page_title_text', locals: {title: @common_work.title, body: '', insert: 'new' }
       - @common_work.ipis.each do |ipi|
         
         .panel.panel-primary
           .panel-heading
-            = ipi.full_name
+            = ipi.full_name.upcase
           .panel-body
             .row
               .col-sm-4
@@ -122,9 +120,20 @@
                           td Yes
                       
                 .pull-right
-                  = link_to edit_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, ipi) do
-                    .btn.btn-primary.btn-lg
-                      i class="fa fa-pencil"
+                  - if current_catalog_user.update_common_work_ipi
+                    = link_to edit_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, ipi) do
+                      .btn.btn-primary.btn-lg
+                        i class="fa fa-pencil"
+                      
+                  - if current_catalog_user.delete_common_work_ipi
+                    '&nbsp;
+                    = link_to catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, ipi), \
+                                data: { confirm: 'Are you sure?' } , \
+                                :method => :delete do
+                                  
+                      .btn.btn-danger.btn-lg
+                        i class="fa fa-times"
+                  
               
       
 

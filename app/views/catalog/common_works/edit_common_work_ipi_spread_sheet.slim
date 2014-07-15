@@ -1,0 +1,88 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            catalogs: catalog_account_catalogs_path(@account), \
+                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                            }, current: 'edit ipis'}
+    
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Common Work Ipi'), blog_post: 'Edit IPI'}
+    
+    h1 Add editable spread sheet here
+    i notice adaptive layout compatible with mobile devices
+    
+
+    .table-responsive
+      table class="editable-table"
+        thead
+          tr
+            th Full Name
+            th Address
+            th Email
+            th Phone
+            th IPI Code
+            th CAE Code
+            th Controlled
+            th Territory
+
+        tbody
+          -@common_work.ipis.each do |ipi|
+            tr
+              td = ipi.full_name
+              / the line below is a text field
+              td = simple_format ipi.address   
+              td = ipi.email
+              td = ipi.phone_number
+              td = ipi.ipi_code
+              td = ipi.cae_code
+              / the line belove has a placeholder 'y/n'
+              td = ipi.controlled 
+              td = ipi.territory 
+            /    td 
+            /      = link_to catalog_account_catalog_document_path(@account, @catalog, document) do
+            /        .btn.btn-default.btn-lg
+            /          = document.title
+            /    td = simple_format document.body.truncate(100) if document.body.to_s != ''
+            /    td 
+            /      .pull-right
+            /        = link_to catalog_account_catalog_document_path(@account, @catalog, document) do
+            /          .btn.btn-default.btn-lg
+            /            i class="fa fa-eye"
+            /        - if current_catalog_user.update_file
+            /          '&nbsp;
+            /          = link_to edit_catalog_account_catalog_document_path(@account, @catalog, document) do
+            /            .btn.btn-primary.btn-lg
+            /              i class="fa fa-pencil"
+            /        - if current_catalog_user.delete_file
+            /          '&nbsp;
+            /          = link_to catalog_account_catalog_document_path(@account, @catalog, document), method: :delete, data: {confirm: 'Are you sure?'} do
+            /            .btn.btn-danger.btn-lg
+            /              i class="fa fa-times"
+
+    
+  = debug @common_work.ipis.first
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+  
+  
+  
+
+
+
+/territory: ''
+/share: !ruby/object:BigDecimal 18:0.0
+/mech_owned: !ruby/object:BigDecimal 18:0.0
+/mech_collected: !ruby/object:BigDecimal 18:0.0
+/perf_owned: !ruby/object:BigDecimal 18:0.0
+/perf_collected: !ruby/object:BigDecimal 18:0.0
+/notes: ''
+/pro: 
+/has_agreement: 
+/linked_to_ascap_member: 
+/controlled_by_submitter: 
+/ascap_work_id: 
+/bmi_work_id: ''

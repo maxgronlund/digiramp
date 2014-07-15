@@ -1,19 +1,18 @@
-class Catalog::CommonWorkIpisController < ApplicationController
+class Account::CommonWorkIpisController < ApplicationController
   
-  include Transloadit::Rails::ParamsDecoder
+  #include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
-  include CatalogsHelper
-  include ActionView::Helpers::TextHelper
+  #include ActionView::Helpers::TextHelper
   
   before_filter :access_account
-  before_filter :access_catalog
+
   
-  before_filter :authorize_common_work
+  before_filter :get_common_work
                                         
                                         
                                         
   def index
-    forbidden unless current_catalog_user.read_common_work_ipi?
+    forbidden unless current_account_user.read_common_work_ipi?
    
   end
 
@@ -21,16 +20,16 @@ class Catalog::CommonWorkIpisController < ApplicationController
   end
   
   def new
-    forbidden unless current_catalog_user.update_common_work_ipi?
+    forbidden unless current_account_user.update_common_work_ipi?
     @common_work_ip = Ipi.new
   end
   
   
 
   def edit
-    forbidden unless current_catalog_user.update_common_work_ipi?
+    forbidden unless current_account_user.update_common_work_ipi?
     @common_work_ip     = Ipi.cached_find(params[:id])
-
+    ap @common_work_ip
     @common_work_ip
     #redirect_to edit_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, @common_work_ip)
   end
@@ -46,7 +45,7 @@ class Catalog::CommonWorkIpisController < ApplicationController
   
 private
   # Use callbacks to share common setup or constraints between actions.
-  def authorize_common_work
+  def get_common_work
      @common_work = CommonWork.cached_find(params[:common_work_id])
   end
 

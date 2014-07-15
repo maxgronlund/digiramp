@@ -1,0 +1,45 @@
+- common_work = locals[:common_work]
+- common_work_path    = locals[:common_work_path]
+
+.panel.panel-primary
+  .panel-heading
+    = common_work.title
+  .panel-body
+    .row
+      .col-sm-12
+        -art = common_work.artwork || 'default-cover.jpg'
+        = link_to image_tag( art, width: "184", \
+                                  height: "184", \
+                                  style: "float:left", \
+                                  alt: "#{common_work.title}", \
+                                  class: "cover_thumb"), \
+                                    common_work_path
+        
+        'Alternative Titles: 
+        br
+        b = common_work.alternative_titles
+        hr
+        = simple_format common_work.description
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to common_work_path do
+            .btn.btn.btn-lg.btn-success
+              i class="fa fa-eye"
+    br
+      
+      == render 'shared/meta_line' , locals: {title: 'Recordings', data: common_work.recordings.size}
+      == render 'shared/meta_line' , locals: {title: 'ISWC CODE', data: common_work.iswc_code}
+      .meta_line
+        .row
+          .col-xs-6
+            .pull-right
+              'Health
+              ':
+          .col-xs-6 
+            = render 'works/shared/health', health: common_work.health rescue [] 
+
+     
+            
+            
+            

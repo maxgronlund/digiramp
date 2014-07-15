@@ -12,19 +12,15 @@
                                                             'common works'.to_sym => catalog_account_catalog_common_works_path(@account, @catalog), \
                                                             @common_work.title.to_sym => catalog_account_catalog_common_work_path(@account, @catalog, @common_work), \
                                                             ipis: catalog_account_catalog_common_work_common_work_ipis_path(@account, @catalog, @common_work), \
-                                                            }, current: 'Edit Ip'}
+                                                            }, current: 'Create'}
     
 
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalog CommonWork'), blog_post: 'Edit IP'}
-    .panel.panel-primary
-      .panel-heading
-        'Info
-      .panel-body
-        = simple_form_for [ @account, @common_work, @common_work_ip ], :url => url_for(:action => 'update_common_work_ip', \
-                                                                                        :controller => 'catalog/common_works'), \
-                                                                                        :method => 'put' do |f|
-          = f.hidden_field :id, value: @common_work_ip.id
-          == render 'form', f: f
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalog CommonWork'), blog_post: 'Add IP To Common Work'}
+    = simple_form_for [ @account, @common_work, @common_work_ip ], :url => url_for(:action => 'create_common_work_ip', \
+                                                                                    :controller => 'catalog/common_works'), \
+                                                                                    :method => 'post' do |f|
+      
+      == render 'form', f: f
     
 
   

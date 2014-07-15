@@ -1,38 +1,3 @@
-/=simple_form_for [@account, @catalog, @catalog_user] do |f|
-/  = f.hidden_field :account_id, value: @account.id
-/  = f.hidden_field :catalog_id, value: @catalog.id
-/  = f.input :email
-/  = f.input :title
-/  b Message
-/  br
-/  div id="toolbar" class="wysihtml5-toolbar"
-/    a data-wysihtml5-command="bold" Bold
-/    '&nbsp; 
-/    a data-wysihtml5-command="italic" Italic
-/  =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Description", id: 'wysihtml5_editor'}
-/  
-/  hr
-/  'What the invited user has access to
-/  = f.input :can_edit, label: 'Can Edit Catalog'
-/  = f.input :edit_recordings
-/  = f.input :upload_recordings
-/  = f.input :read_works
-/  = f.input :edit_works
-/  = f.input :access_files
-/  = f.input :access_legal_documents
-/  = f.input :access_financial_documents
-/  = f.input :access_ipis
-/  = f.input :create_playlists
-/  
-/  .pull-right
-/    =f.submit 'Save', class: 'btn btn-primary btn-lg'
-
-
-
-/h3 = "#{@catalog_user.user.email} can: " 
-/hr
-/.row
-/  .col-sm-12
 .panel.panel-primary
   .panel-heading
     'Permissions for &nbsp;

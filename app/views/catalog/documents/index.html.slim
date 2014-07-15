@@ -40,7 +40,8 @@
 
               tbody
                 -@documents.each do |document|
-                  -cache ([ 'index', current_catalog_user ,document]) do
+                  /-cache ([ 'index', current_catalog_user ,document]) do
+                  .do
                     tr
                       td 
                         = link_to catalog_account_catalog_document_path(@account, @catalog, document) do

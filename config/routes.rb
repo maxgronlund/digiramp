@@ -318,6 +318,7 @@ Digiramp::Application.routes.draw do
       resources :clients
       resources :client_imports
       resources :common_works do
+        resources :common_work_ipis
         resources :common_work_files, only: [:index]
         resources :common_work_artworks
         resources :common_work_items
@@ -327,7 +328,7 @@ Digiramp::Application.routes.draw do
           get  'recordings_destroy'
           post 'recordings_create'
         end
-        
+        resources :recordings
       end
       resources :client_groups do
         post :import_client_emails
@@ -437,11 +438,14 @@ Digiramp::Application.routes.draw do
         end
         resources :common_works do
           resources :common_work_ipis
-          get "recordings"
-          get "new_recordings"
+          get  "recordings"
+          get  "new_recordings"
           post "create_recordings"
+          post "create_common_work_ip"
+          put  "update_common_work_ip"
           post "add_common_work_from_collection"
           get  "remove_common_work_from_catalog"
+          get  "edit_common_work_ipi_spread_sheet"
         end
         resources :documents
         resources :find_in_collections

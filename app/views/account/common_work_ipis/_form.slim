@@ -1,0 +1,71 @@
+= simple_form_for [@ccount, @common_work, @common_work_ip] do |f|
+  = f.hidden_field :common_work_id, value: @common_work.id
+/  .row
+/    .col-sm-6
+/      .panel.panel-primary
+/        .panel-heading
+/          'IP
+/        .panel-body
+/          
+/          = f.input :role, collection: Ipi::ROLES, include_blank: false, label: 'Capacity'
+/          = f.input :ipi_code
+/          = f.input :cae_code
+/      .panel.panel-primary
+/        .panel-heading
+/          'Contact
+/        .panel-body
+/          
+/          = f.input :full_name
+/          = f.input :address
+/          = f.input :email
+/          = f.input :phone_number
+/      
+/    .col-sm-6
+/      .panel.panel-primary
+/        .panel-heading
+/          'Notes
+/        .panel-body
+/           div id="toolbar" class="wysihtml5-toolbar"
+/             a data-wysihtml5-command="bold" Bold
+/             '&nbsp; 
+/             a data-wysihtml5-command="italic" Italic
+/           =f.input :notes, label: false, :input_html => {  style: "height: 370px;", id: 'wysihtml5_editor'}
+/          
+/
+/      .panel.panel-primary
+/        .panel-heading
+/          'Rights
+/        .panel-body
+/            = f.input :controlled
+/            = f.input :territory
+/            = f.input :share       
+/      
+/  
+/  
+/  .row
+/    .col-sm-6
+/      .panel.panel-primary
+/        .panel-heading
+/          'Mechanical
+/        .panel-body
+/          .row
+/            .col-sm-6
+/              = f.input :mech_owned , label: 'Owned'
+/            .col-sm-6
+/              = f.input :mech_collected, label: 'Collected'
+/    .col-sm-6       
+/      .panel.panel-primary
+/        .panel-heading
+/          'Performance
+/        .panel-body
+/          .row
+/            .col-sm-6
+/              = f.input :perf_owned , label: 'Owned'
+/            .col-sm-6
+/              = f.input :perf_collected, label: 'Collected'
+/      
+/      
+/  .row
+/    .col-sm-12
+/      .pull-right
+/        = f.submit 'Save', class: 'btn btn-primary btn-default btn-lg'

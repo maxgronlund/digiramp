@@ -73,14 +73,14 @@ class Catalog::ArtworksController < ApplicationController
     redirect_to  catalog_account_catalog_artworks_path(@account, @catalog)
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_artwork
-      @artwork = Artwork.find(params[:id])
-    end
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_artwork
+    @artwork = Artwork.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def artwork_params
-      params.require(:artwork).permit!
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def artwork_params
+    params.require(:artwork).permit!
+  end
 end
