@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140715171801) do
+ActiveRecord::Schema.define(version: 20140715193225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1487,6 +1487,23 @@ ActiveRecord::Schema.define(version: 20140715171801) do
   end
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
+
+  create_table "submissions", force: true do |t|
+    t.integer  "opportunity_id"
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.integer  "recording_id"
+    t.string   "title"
+    t.text     "body"
+    t.integer  "rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "submissions", ["account_id"], name: "index_submissions_on_account_id", using: :btree
+  add_index "submissions", ["opportunity_id"], name: "index_submissions_on_opportunity_id", using: :btree
+  add_index "submissions", ["recording_id"], name: "index_submissions_on_recording_id", using: :btree
+  add_index "submissions", ["user_id"], name: "index_submissions_on_user_id", using: :btree
 
   create_table "upload_csvs", force: true do |t|
     t.string   "file"

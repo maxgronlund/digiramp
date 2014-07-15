@@ -1,0 +1,30 @@
+= form_for @submission do |f|
+  - if @submission.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@submission.errors.count, "error")} prohibited this submission from being saved:"
+      ul
+        - @submission.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :opportunity
+    = f.text_field :opportunity
+  .field
+    = f.label :account
+    = f.text_field :account
+  .field
+    = f.label :user
+    = f.text_field :user
+  .field
+    = f.label :recording
+    = f.text_field :recording
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :body
+    = f.text_area :body
+  .field
+    = f.label :rating
+    = f.number_field :rating
+  .actions = f.submit 'Save'

@@ -71,6 +71,9 @@ class Catalog< ActiveRecord::Base
   end
   
   def common_works
+    
+    
+    
     common_work_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
     CommonWork.where(id: common_work_ids)
 

@@ -25,10 +25,9 @@ class Account::UploadsController < ApplicationController
     
     forbidden unless current_account_user.create_recording?
     
-    ap params[:transloadit]
+    #ap params[:transloadit]
 
     result = TransloaditRecordingsParser.parse( params[:transloadit],  @account.id, false)
-    
     
     # success 
     unless result[:recordings].size == 0

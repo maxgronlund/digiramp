@@ -1,0 +1,33 @@
+h1 Listing submissions
+
+table
+  thead
+    tr
+      th Opportunity
+      th Account
+      th User
+      th Recording
+      th Title
+      th Body
+      th Rating
+      th
+      th
+      th
+
+  tbody
+    - @submissions.each do |submission|
+      tr
+        td = submission.opportunity
+        td = submission.account
+        td = submission.user
+        td = submission.recording
+        td = submission.title
+        td = submission.body
+        td = submission.rating
+        td = link_to 'Show', submission
+        td = link_to 'Edit', edit_submission_path(submission)
+        td = link_to 'Destroy', submission, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Submission', new_submission_path
