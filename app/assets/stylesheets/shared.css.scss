@@ -432,15 +432,16 @@ ul
   table tr th{ text-align:right;} 
 }
 
+
 .editable-table{
   width:100%;
-  table {
-    table thead tr th {
-      text-transform: none !important;
-      -webkit-font-smoothing: antialiased;
-      color: #6d6d6d;
-      text-shadow: #fff 0 1px 0;
-    }
+
+  thead tr th {
+    -webkit-font-smoothing: antialiased;
+    color: #000000!important;
+    text-align: center;
+    background-color: #999;
+
     
     border-spacing: 2px;
     border-color: gray;
@@ -452,6 +453,9 @@ ul
     font-style: normal;
     color: -webkit-text;
     text-align: start;
+    
+    color: #000;
+    text-shadow:none; 
   }
   
   .column-label > td, .row-label {

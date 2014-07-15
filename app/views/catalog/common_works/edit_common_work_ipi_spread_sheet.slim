@@ -19,7 +19,8 @@
     .table-responsive
       table class="editable-table"
         thead
-          tr
+          tr class="column-label"
+            th
             th Full Name
             th Address
             th Email
@@ -28,10 +29,22 @@
             th CAE Code
             th Controlled
             th Territory
+            th Mech Owned
+            th Mech Collected
+            th Perf Owned
+            th Perf Collected
+            th Notes
+            th Bro 
+            th Has Agreement
+            
+            
+            
+            
 
         tbody
-          -@common_work.ipis.each do |ipi|
+          -@common_work.ipis.each_with_index do |ipi, index|
             tr
+              td = index
               td = ipi.full_name
               / the line below is a text field
               td = simple_format ipi.address   
@@ -42,29 +55,17 @@
               / the line belove has a placeholder 'y/n'
               td = ipi.controlled 
               td = ipi.territory 
-            /    td 
-            /      = link_to catalog_account_catalog_document_path(@account, @catalog, document) do
-            /        .btn.btn-default.btn-lg
-            /          = document.title
-            /    td = simple_format document.body.truncate(100) if document.body.to_s != ''
-            /    td 
-            /      .pull-right
-            /        = link_to catalog_account_catalog_document_path(@account, @catalog, document) do
-            /          .btn.btn-default.btn-lg
-            /            i class="fa fa-eye"
-            /        - if current_catalog_user.update_file
-            /          '&nbsp;
-            /          = link_to edit_catalog_account_catalog_document_path(@account, @catalog, document) do
-            /            .btn.btn-primary.btn-lg
-            /              i class="fa fa-pencil"
-            /        - if current_catalog_user.delete_file
-            /          '&nbsp;
-            /          = link_to catalog_account_catalog_document_path(@account, @catalog, document), method: :delete, data: {confirm: 'Are you sure?'} do
-            /            .btn.btn-danger.btn-lg
-            /              i class="fa fa-times"
+              
+              td = ipi.mech_owned
+              td = ipi.mech_collected
+              td = ipi.perf_owned
+              td = ipi.perf_collected
+              td = ipi.notes
+              td = ipi.pro 
+              td = ipi.has_agreement
 
-    
-  = debug @common_work.ipis.first
+   
+  /= debug @common_work.ipis.first
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
   
