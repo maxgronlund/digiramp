@@ -3,7 +3,7 @@
     = link_to 'Export All to CSV', account_export_recordings_path(@account, format: "csv"), \
                                   class: 'btn btn-primary btn-lg'
     '&nbsp;
-  - if current_account_user.update_recording
+  - if current_account_user.create_recording
       /account_account_uploads_audio_files_new_path
       = link_to account_account_uploads_audio_files_new_path(@account) do
         .btn.btn-success.btn-lg

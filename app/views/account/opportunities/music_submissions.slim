@@ -1,0 +1,37 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'     
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           manage: account_account_path(@account), \
+                                                           crm: account_account_crm_index_path(@account),\
+                                                           opportunities: account_account_opportunities_path(@account), \
+                                                           @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity)\
+                                                           }, current: 'music submissions' }
+    
+                                         
+    
+    == render 'shared/page_title_text', locals: {title: @opportunity.title, body: 'Submissions', insert: 'show_request'}
+
+    .row
+      .col-sm-12
+        - @opportunity.music_requests.each do |music_request|
+          .panel.panel-primary
+            .panel-heading
+              = music_request.title
+            .panel-body
+              'list of submissions goes here
+              
+              
+            
+             
+            
+              
+
+        
+         
+  == render 'shared/back', locals: {link: account_account_opportunities_path(@account)} 
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

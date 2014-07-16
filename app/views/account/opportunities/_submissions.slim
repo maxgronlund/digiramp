@@ -1,0 +1,9 @@
+.pull-right
+  -if current_account_user.update_opportunity
+    = link_to music_submissions_account_account_opportunity_path(@account, @opportunity) do
+      .btn.btn-info.btn-lg
+        = @opportunity.submission_count
+        '&nbsp;
+        'Submissions
+
+  

@@ -1,5 +1,5 @@
 class Account::OpportunitiesController < ApplicationController
-  before_action :set_opportunity, only: [:show, :edit, :update, :destroy]
+  before_action :set_opportunity, only: [:show, :edit, :update, :destroy, :music_submissions]
   
   include AccountsHelper
   before_filter :access_account
@@ -43,15 +43,6 @@ class Account::OpportunitiesController < ApplicationController
       redirect_to new_account_account_opportunity_path(@account)
     end
 
-    #respond_to do |format|
-    #  if @opportunity.save
-    #    format.html { redirect_to @opportunity, notice: 'Opportunity was successfully created.' }
-    #    format.json { render action: 'show', status: :created, location: @opportunity }
-    #  else
-    #    format.html { render action: 'new' }
-    #    format.json { render json: @opportunity.errors, status: :unprocessable_entity }
-    #  end
-    #end
   end
 
   # PATCH/PUT /opportunities/1
@@ -67,12 +58,14 @@ class Account::OpportunitiesController < ApplicationController
     end
   end
   
+  def music_submissions
+    forbidden unless current_account_user.read_opportunity
+  end
+  
   def invite_provider_by_email
     @opportunity = Opportunity.cached_find(params[:opportunity_id])
     
     redirect_to account_account_opportunity_path(@account, @opportunity)
-    
-    
 
   end
 

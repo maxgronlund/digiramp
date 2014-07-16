@@ -1,6 +1,6 @@
 class MusicRequest < ActiveRecord::Base
   belongs_to :opportunity, touch: true
-  has_many :submissions, dependent: :destroy
+  has_many :music_submissions, dependent: :destroy
   #has_many :music_submissions
   #has_many :music_opportunity_submitters
   #has_one :activity_log

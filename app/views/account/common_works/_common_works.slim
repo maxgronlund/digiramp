@@ -13,12 +13,18 @@
         .do
           tr
             td = link_to common_work.title, account_account_common_work_path(@account, common_work), class: 'btn btn-default btn-lg'
-            td 
+            td
               = link_to recordings_account_account_common_work_path(@account, common_work) do
                 .btn.btn-primary.btn-lg
                   i class="fa fa-music"
                   '&nbsp;
                   = common_work.recordings.size
+              - if current_account_user.create_recording
+                '&nbsp;
+                = link_to recordings_new_account_account_common_work_path(@account, common_work), 'data-no-turbolink'=>true do 
+                  .btn.btn-success.btn-lg
+                    i class="fa fa-plus-circle"
+
                 
             td 
               == render 'works/shared/health', health: common_work.health rescue []
@@ -28,7 +34,7 @@
             td
               .pull-right
                 = link_to account_account_common_work_path(@account, common_work) do
-                  .btn.btn-success.btn-lg
+                  .btn.btn-warning.btn-lg
                     i class="fa fa-gears"
                 '&nbsp;
                 = link_to edit_account_account_common_work_path(@account, common_work) do
