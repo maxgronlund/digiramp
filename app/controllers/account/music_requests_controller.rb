@@ -1,5 +1,5 @@
 class Account::MusicRequestsController < ApplicationController
-  before_action :set_music_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_music_request, only: [:show, :edit, :update, :destroy, :find_recording, :upload_recording]
   
   include AccountsHelper
   before_filter :access_account
@@ -71,6 +71,18 @@ class Account::MusicRequestsController < ApplicationController
     opportunity = @music_request.opportunity
     @music_request.destroy
     redirect_to account_account_opportunity_path(@account, opportunity)
+  end
+  
+  def find_recording
+    forbidden unless current_account_user.read_recording?
+    @opportunity    = Opportunity.cached_find(params[:opportunity_id])
+    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
+    @show_more      = true
+  end
+  
+  def upload_recording
+    forbidden unless current_account_user.create_recording?
+    @opportunity    = Opportunity.cached_find(params[:opportunity_id])
   end
 
   private

@@ -59,6 +59,14 @@ class RecordingPermissionsController < ApplicationController
        @update_recording      = "#update_shared_recording_#{params[:id]}"    if current_account_user.update_recording
        @delete_recording      = "#delete_shared_recording_#{params[:id]}"    if current_account_user.delete_recording
          @show_more             = "#show_shared_more_#{params[:id]}"         if current_account_user.read_recording
+      
+    when 'submission_recordings'
+      puts '-------------------submission_recordings------------'
+      ap params
+         @read_recording        = "#read_shared_recording_#{params[:id]}"    if current_account_user.read_recording
+       @update_recording      = "#update_shared_recording_#{params[:id]}"    if current_account_user.update_recording
+       @delete_recording      = "#delete_shared_recording_#{params[:id]}"    if current_account_user.delete_recording
+         @show_more             = "#show_shared_more_#{params[:id]}"         if current_account_user.read_recording
     else
     
     end       

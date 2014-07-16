@@ -351,7 +351,12 @@ Digiramp::Application.routes.draw do
         post :invite_provider_by_email
         resources :invite_providers, only: [:index]
         resources :music_requests do
+          member do
+            get :find_recording
+            get :upload_recording
+          end
           resources :music_submissions
+          
           #resources :submissions
         end
       end

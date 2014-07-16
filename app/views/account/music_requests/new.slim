@@ -8,6 +8,7 @@
     .do
       == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
                                                              manage: account_account_path(@account), \
+                                                             crm: account_account_crm_index_path(@account),\
                                                              opportunities: account_account_opportunities_path(@account),\
                                                              @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity)\
                                                              }, current: 'New' }

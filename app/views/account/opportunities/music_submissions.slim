@@ -22,7 +22,17 @@
             .panel-heading
               = music_request.title
             .panel-body
-              'list of submissions goes here
+              -if music_request.music_submissions
+                - music_request.music_submissions.each do |music_submission|
+                  = debug music_submission
+              .pull-right
+                = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
+                                                                                              @opportunity, \
+                                                                                              music_request) do 
+                  .btn.btn-success.btn-lg
+                    i class="fa fa-plus-circle"
+                    '&nbsp;Make Submission
+                '&nbsp;
               
               
             

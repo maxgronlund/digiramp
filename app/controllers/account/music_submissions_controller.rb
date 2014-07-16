@@ -4,13 +4,17 @@ class Account::MusicSubmissionsController < ApplicationController
   include AccountsHelper
   before_filter :access_account
   
-  def index
-    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
-  end
+  #def index
+  #  @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
+  #end
   
   def new
-    #@music_submission = MusicSubmission.new
-    
+    @music_submission = MusicSubmission.new
+  end
+  
+  def create
+    @music_submission = MusicSubmission.create(music_submission_params)
+    redirect_to :back
   end
 
   def edit
@@ -23,6 +27,13 @@ class Account::MusicSubmissionsController < ApplicationController
   end
 
   def update
+
+  end
+  
+private
+
+  def music_submission_params
+     params.require(:music_submission).permit!
   end
   
   # Use callbacks to share common setup or constraints between actions.

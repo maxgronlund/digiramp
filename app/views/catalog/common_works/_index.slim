@@ -21,6 +21,16 @@
                   i class="fa fa-headphones"
                   '&nbsp;
                   = common_work.recordings.size
+              
+              
+              - if current_catalog_user.create_recording
+                '&nbsp;
+                = link_to catalog_account_catalog_common_work_new_recordings_path(@account, @catalog, common_work), 'data-no-turbolink'=>true do 
+                  .btn.btn-success.btn-lg
+                    i class="fa fa-plus-circle"
+              
+              
+              
             td 
               = link_to catalog_account_catalog_common_work_common_work_ipis_path( @account, @catalog, common_work) do
                 .btn.btn-info.btn-lg
