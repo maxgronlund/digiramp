@@ -192,7 +192,7 @@ Digiramp::Application.routes.draw do
   root to: "home#index"
   get "sign_up/index"
   get "login/new"
-  get "login/index"
+  #get "login/index"
   resources :sessions
   resources :password_resets
   resources :accept_invitations
@@ -201,7 +201,7 @@ Digiramp::Application.routes.draw do
   get "download/artwork"
   get "download/document"
   #get 'signup', to: 'users#new', as: 'signup'
-  get 'login', to: 'sessions#new', as: 'login'
+  #get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
