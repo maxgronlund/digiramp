@@ -350,6 +350,7 @@ Digiramp::Application.routes.draw do
         resources :invite_providers, only: [:index]
         resources :music_requests do
           resources :music_submissions
+          #resources :submissions
         end
       end
       

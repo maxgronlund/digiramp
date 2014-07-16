@@ -1,7 +1,6 @@
 class Opportunity < ActiveRecord::Base
   
   has_many :music_requests, dependent: :destroy
-  has_many :submissions, dependent: :destroy
   belongs_to :account
   after_commit :flush_cache
   
