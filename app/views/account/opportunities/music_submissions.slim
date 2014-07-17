@@ -23,8 +23,10 @@
               = music_request.title
             .panel-body
               -if music_request.music_submissions
-                - music_request.music_submissions.each do |music_submission|
-                  = debug music_submission
+                - music_request.music_submissions.each_with_index do |music_submission, index|
+                  = debug music_submission.recording_id
+                  /- recording = Recording.cached_find(music_submission.recording_id)
+                  /== render 'players/digramp_player', locals: {index: index, recording: recording}
               .pull-right
                 = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
                                                                                               @opportunity, \

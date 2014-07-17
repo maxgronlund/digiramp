@@ -55,5 +55,11 @@
 <% end %>
 
 
+<% if @add_to_request %>
+  $("<%= @add_to_request %>").prepend('<%=j render("recording_permissions/add_to_request") %>');
+<% end %>
+
+
+
 
 

@@ -9,7 +9,11 @@ class Account::MusicSubmissionsController < ApplicationController
   #end
   
   def new
-    @music_submission = MusicSubmission.new
+
+    @music_submission = MusicSubmission.create( recording_id: params[:recording_id],
+                                             music_request_id: params[:music_request_id]  
+                                            )
+
   end
   
   def create
