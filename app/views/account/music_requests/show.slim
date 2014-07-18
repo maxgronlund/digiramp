@@ -50,7 +50,7 @@
           .just-load
           .panel.panel-primary
             .panel-heading
-              'Sounds like
+              'Sounds like:
               = recording.title
             .panel-body
               .digiramp_player
@@ -69,7 +69,6 @@
           .just-load
           .panel.panel-primary
             .panel-heading
-              'Sounds like
               = recording.title
             .panel-body
               .digiramp_player
@@ -79,11 +78,17 @@
               
         
         .pull-right    
-          = link_to account_account_opportunity_music_request_music_submissions_path( @account, @opportunity, @music_request) do
+          = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
+                                                                                        @opportunity, \
+                                                                                        @music_request) do 
             .btn.btn-success.btn-lg
-              i class='fa fa-plus-circle'
-              '&nbsp;
-              'Add Submission
+              i class="fa fa-plus-circle"
+              '&nbsp;Make Submission
+          /= link_to account_account_opportunity_music_request_music_submissions_path( @account, @opportunity, @music_request) do
+          /  .btn.btn-success.btn-lg
+          /    i class='fa fa-plus-circle'
+          /    '&nbsp;
+          /    'Add Submission
        
            
              
