@@ -1,0 +1,35 @@
+/= debug @playlist_key.playlist
+/-session[:return_url] = request.url
+#wrap
+  
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'         
+  .container
+    ==render 'admin/shared/messages'
+    
+    .row
+      .col-sm-8
+        h1 = @playlist_key.playlist.title
+      .col-sm-4
+        .pull-right
+          - unless @show_login
+            = link_to 'Unauthorize', account_private_playlist_path( @account, @playlist_key.id) , method: :delete, class: 'btn btn-warning btn-lg'
+        /h4 Expires: #{@playlist_key.expiration_date} 
+    == render 'shared/line'
+    /-cache ([request.url, @account.recordings_uuid, current_user.role  ]) do
+    .do 
+      - if @show_login
+        == render 'login'
+      -else
+        .row
+          .col-sm-12
+            .panel
+              .panel-body.digiramp_player
+                - @playlist_items.each_with_index do |playlist_item, index|
+                  == render playlist_item.playlist_itemable_type.downcase, playlist_item: playlist_item, index: index
+                  
+
+
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

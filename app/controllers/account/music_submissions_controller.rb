@@ -10,15 +10,32 @@ class Account::MusicSubmissionsController < ApplicationController
   
   def new
 
-    @music_submission = MusicSubmission.create( recording_id: params[:recording_id],
-                                             music_request_id: params[:music_request_id]  
-                                            )
-
   end
   
+  
+  
   def create
-    @music_submission = MusicSubmission.create(music_submission_params)
-    redirect_to :back
+    #@music_submission = MusicSubmission.create(music_submission_params)
+    #@music_submission = MusicSubmission.create( recording_id: params[:recording_id],
+    #                                         music_request_id: params[:music_request_id]  
+    #                                        )                 
+    #redirect_to :back
+  end
+  
+  def submit_recording
+    ap params
+    @music_submission = MusicSubmission.where( recording_id: params[:id],
+                                                music_request_id: params[:music_request_id]  
+                                              ).first_or_create( 
+                                                recording_id: params[:id],
+                                                music_request_id: params[:music_request_id]  
+                                              )  
+                                     
+    @remove_button = "#add_to_request_#{params[:id]}"
+    #puts '-----------------------------------------------------'
+    #puts @add_to_request
+    #@add_to_request
+    #puts '-----------------------------------------------------'
   end
 
   def edit

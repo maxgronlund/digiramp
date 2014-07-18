@@ -144,7 +144,6 @@ class TransloaditRecordingsParser
                                             original_file:       transloaded[:original_file],
                                             cover_art:           transloaded[:cover_art],
                                             artwork:             transloaded[:artwork],
-          
                                             ssl_url:             transloaded[:ssl_url],
                                             url:                 transloaded[:url],
                                             ext:                 transloaded[:ext],
@@ -154,12 +153,14 @@ class TransloaditRecordingsParser
           
           
           
-          add_artwork_to recording unless recording.thumbnail.nil?
-          recording.extract_genres                                 
-          recording.update_completeness
+          if account_id
+            add_artwork_to recording unless recording.thumbnail.nil?
+            recording.extract_genres                                 
+            recording.update_completeness
+          end
           recordings << recording
         rescue
-          errors << "!Unable to convert: #{transloaded[:name]}"
+          errors << "!Unable to import: #{transloaded[:name]}"
         end
       
       

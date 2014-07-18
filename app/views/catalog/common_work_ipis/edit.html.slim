@@ -16,15 +16,12 @@
     
 
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalog CommonWork'), blog_post: 'Edit IP'}
-    .panel.panel-primary
-      .panel-heading
-        'Info
-      .panel-body
-        = simple_form_for [ @account, @common_work, @common_work_ip ], :url => url_for(:action => 'update_common_work_ip', \
-                                                                                        :controller => 'catalog/common_works'), \
-                                                                                        :method => 'put' do |f|
-          = f.hidden_field :id, value: @common_work_ip.id
-          == render 'form', f: f
+
+    = simple_form_for [ @account, @common_work, @common_work_ip ], :url => url_for(:action => 'update_common_work_ip', \
+                                                                                    :controller => 'catalog/common_works'), \
+                                                                                    :method => 'put' do |f|
+      = f.hidden_field :id, value: @common_work_ip.id
+      == render 'form', f: f
     
 
   

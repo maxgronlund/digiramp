@@ -18,23 +18,34 @@
         .col-sm-12
           - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
           - accounts = Account.order('title asc').where(id: account_ids)
-          .panel.panel-primary
-            .panel-heading
-              'OPPORTUNITIES
-            .panel-body
-              .table-responsive
-                table class="table table-hover"
-                  /thead
-                  /  tr
-                  /    th COLLECTION
-                  /tbody
-                  /  - accounts.each do |account|
-                  /    tr
-                  /      td = link_to account.title, account_path( account ), class: 'btn btn-default btn-lg'
-        
-     
-                         
-                        
+      
+      /.row
+      /  .col-sm-6
+      /    
+      /    
+      /    
+      /
+      /      
+      /    == render 'users/shared/badge_button', locals: { \
+      /                                                blog_post: 'OPPORTUNITIES', \
+      /                                                link: '#', \
+      /                                                css_class: 'btn btn-danger', \
+      /                                                icon: 'fa fa-plane' \
+      /                                              }
+      /    
+      /    
+      /    
+      /
+      /  .col-sm-6  
+      /    == render 'users/shared/badge_button', locals: { \
+      /                                                blog_post: 'SUBMISSIONS', \
+      /                                                link: '#', \
+      /                                                css_class: 'btn btn-danger', \
+      /                                                icon: 'fa fa-plane' \
+      /                                              }
+      /    
+      /                   
+      /                  
               
 
       

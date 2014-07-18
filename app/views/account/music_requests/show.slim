@@ -14,9 +14,7 @@
                                          
     
     == render 'shared/page_title_text', locals: {title: @music_request.title, body: '', insert: 'edit'}
-
     .row
-      
       .col-sm-6
 
         .panel.panel-primary
@@ -43,13 +41,42 @@
             b Description:
             br
             = simple_format @music_request.body
+            
+      
+        - if recording = @music_request.recording
+        
+          -index = recording.id
+          div class="player" id="#{index}"
+          .just-load
+          .panel.panel-primary
+            .panel-heading
+              'Sounds like
+              = recording.title
+            .panel-body
+              .digiramp_player
+                div class="permissions" value="account_recordings" id="#{current_user.id}"
+                == render 'players/digramp_player', locals: {index: index , recording: recording}
+                
+          
+
+      
+      
       .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            'Submissions
-            '&nbsp;
-          .panel-body
-            '&nbsp;
+        - @music_request.music_submissions.each do |music_submission|
+          -recording =  music_submission.recording
+          -index = recording.id
+          div class="player" id="#{index}"
+          .just-load
+          .panel.panel-primary
+            .panel-heading
+              'Sounds like
+              = recording.title
+            .panel-body
+              .digiramp_player
+                div class="permissions" value="account_recordings" id="#{current_user.id}"
+                == render 'players/digramp_player', locals: {index: index , recording: recording}
+        
+              
         
         .pull-right    
           = link_to account_account_opportunity_music_request_music_submissions_path( @account, @opportunity, @music_request) do

@@ -11,12 +11,11 @@
       
       
       ==render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              assets: account_assets_path(@account), \
-                                                              'Common Works'.to_sym => account_works_path(@account), \
-                                                              @common_work.title.to_sym => account_work_path(@account, @common_work), \
-                                                              'ipi\'s'.to_sym => account_work_work_ipis_path(@account, @common_work), \
-                                                              }, current: 'ipis'}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                             manage: account_account_path(@account), \
+                                                             common_works: account_account_common_works_path(@account), \
+                                                             @common_work.title.to_sym => account_account_common_work_path(@account, @common_work) \
+                                                             }, current: 'ipis' }
                                                               
       
       

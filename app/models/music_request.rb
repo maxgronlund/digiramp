@@ -1,6 +1,7 @@
 class MusicRequest < ActiveRecord::Base
   belongs_to :opportunity, touch: true
   has_many :music_submissions, dependent: :destroy
+
   #has_many :music_submissions
   #has_many :music_opportunity_submitters
   #has_one :activity_log
@@ -17,6 +18,10 @@ class MusicRequest < ActiveRecord::Base
   
   def duration_text=(duration)
     self.duration = Time.zone.parse(duration) if duration.present?
+  end
+  
+  def recording
+    Recording.where(id: self.recording_id).first
   end
   
   

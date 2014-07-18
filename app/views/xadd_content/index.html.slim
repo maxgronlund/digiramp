@@ -1,0 +1,37 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    -cache ([request.url, Admin.cached_find(1).version, current_user.permission_cache_for( @account)]) do
+      -blog = Blog.cached_find('Add Content')
+      -blog_post = BlogPost.cached_find('Create Content' , blog)
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              assets: account_assets_path(@account), \
+                                                              }, current:  blog_post.title}
+
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Create Content'}  
+
+      .row
+        - if current_account_user.create_recording? 
+          .col-sm-6
+            == render 'add_content/shared/badge_buttons/upload_recording', blog: blog
+        
+        - if current_account_user.create_common_work?    
+          .col-sm-6
+            == render 'add_content/shared/badge_buttons/import_content', blog: blog
+        
+        - if current_account_user.create_common_work? 
+          .col-sm-6
+            == render 'add_content/shared/badge_buttons/wizard', blog: blog
+        - if current_account_user.create_recording? 
+          .col-sm-6
+            == render 'add_content/shared/badge_buttons/csv', blog: blog
+
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

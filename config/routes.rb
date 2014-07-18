@@ -354,8 +354,13 @@ Digiramp::Application.routes.draw do
           member do
             get :find_recording
             get :upload_recording
+            
           end
-          resources :music_submissions
+          resources :music_submissions do
+            member do
+              get 'submit_recording'
+            end
+          end
           
           #resources :submissions
         end

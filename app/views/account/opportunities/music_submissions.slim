@@ -15,18 +15,27 @@
     
     == render 'shared/page_title_text', locals: {title: @opportunity.title, body: 'Submissions', insert: 'show_request'}
 
-    .row
-      .col-sm-12
-        - @opportunity.music_requests.each do |music_request|
-          .panel.panel-primary
-            .panel-heading
-              = music_request.title
-            .panel-body
-              -if music_request.music_submissions
-                - music_request.music_submissions.each_with_index do |music_submission, index|
-                  = debug music_submission.recording_id
-                  /- recording = Recording.cached_find(music_submission.recording_id)
-                  /== render 'players/digramp_player', locals: {index: index, recording: recording}
+
+    - @opportunity.music_requests.each_with_index do |music_request, |
+      .panel.panel-primary
+        .panel-heading
+          = music_request.title
+          '&nbsp;
+        .panel-body
+          .row
+            .col-sm-4
+              = simple_format music_request.body
+            .col-sm-4
+              .table-responsive
+                table class="table"
+                  tr
+                    td Fee:
+                    td = number_to_currency(music_request.fee, locale: :en, precision: 2)
+                  - unless  music_request.link.to_s == ''
+                    tr
+                      td Duration:
+                      td = music_request.duration_text
+            .col-sm-4
               .pull-right
                 = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
                                                                                               @opportunity, \
@@ -34,7 +43,44 @@
                   .btn.btn-success.btn-lg
                     i class="fa fa-plus-circle"
                     '&nbsp;Make Submission
-                '&nbsp;
+                
+
+                  
+      -if music_request.music_submissions
+        .digiramp_player
+          div class="panel-group" id="accordion"
+            div class="permissions" value="submission_recordings" id="#{@opportunity.id}"
+            
+            - music_request.music_submissions.each_with_index do |music_submission, index|
+                /- music_request_index = (100000 + music_request_index + index)
+                - recording = Recording.cached_find(music_submission.recording_id)
+                == render 'players/submission_recording', recording: recording
+            
+        
+        
+
+                  
+                  
+                  
+          /.panel.panel-primary
+          /  .panel-heading
+          /    = music_request.title
+          /  .panel-body
+          /    -if music_request.music_submissions
+          /      div class="permissions" value="submissions" id="#{@opportunity.id}"
+          /      - music_request.music_submissions.each_with_index do |music_submission, index|
+          /        - recording = Recording.cached_find(music_submission.recording_id)
+          /        == render 'recordings/recording', recording: recording
+          /    
+          /    
+          /    .pull-right
+          /      = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
+          /                                                                                    @opportunity, \
+          /                                                                                    music_request) do 
+          /        .btn.btn-success.btn-lg
+          /          i class="fa fa-plus-circle"
+          /          '&nbsp;Make Submission
+          /      '&nbsp;
               
               
             

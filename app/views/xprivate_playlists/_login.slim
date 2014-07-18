@@ -1,0 +1,16 @@
+.row
+  .col-sm-3
+
+  .col-sm-6
+    = simple_form_for [@account , @playlist_key], \
+        :url => url_for(:action => 'update', \
+        :controller => 'private_playlists'), \
+        :method => 'put' do |f|
+      .panel
+        .panel-body 
+          = f.hidden_field :playlist_key_id, value: @playlist_key.id
+          = f.input :password
+          
+      .pull-right
+        = f.submit 'Authorize', class: 'btn btn-primary btn-lg'
+  .col-sm-3

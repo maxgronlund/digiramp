@@ -22,7 +22,7 @@ class Account::AudioFilesController < ApplicationController
    
     forbidden unless current_account_user.create_recording?
     
-    #begin
+    begin
       result = TransloaditRecordingsParser.parse params[:transloadit],  @account.id, true
 
       
@@ -44,10 +44,10 @@ class Account::AudioFilesController < ApplicationController
       
       
       redirect_to account_account_recordings_bucket_index_path(@account)
-    #rescue
-    #  flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
-    #  redirect_to new_account_account_audio_file_path(@account, @common_work )
-    #end
+    rescue
+      flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
+      redirect_to new_account_account_audio_file_path(@account, @common_work )
+    end
     
   end
   
