@@ -42,6 +42,8 @@ class Account::MusicSubmissionsController < ApplicationController
   end
 
   def show
+    @music_submission  = MusicSubmission.cached_find(params[:id])
+    @recording         = @music_submission.recording
   end
 
   def destroy

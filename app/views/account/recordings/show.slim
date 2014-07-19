@@ -40,49 +40,7 @@
         .col-sm-6 
           == render 'recordings/shared/description'   if @recording.comment.to_s != ''
           == render 'recordings/shared/lyrics'        if @recording.lyrics.to_s != ''
-        /.col-sm-6
-        /   == render 'shared/badge_button', locals: { \
-        /                                              blog_post: 'INFO', \
-        /                                              link: account_accout_recording_info_path(@account, @common_work, @recording), \
-        /                                              css_class: 'btn btn-info', \
-        /                                              icon: 'fa fa-info-circle' \
-        /                                            }
-        /
-        /- if current_account_user.read_common_work?
-        /  .col-sm-6
-        /     == render 'shared/badge_button', locals: { \
-        /                                                blog_post: 'COMMON WORK', \
-        /                                                link: account_account_common_work_path(@account, @recording.common_work), \
-        /                                                css_class: 'btn btn-primary', \
-        /                                                icon: 'fa fa-music'\
-        /                                              }     
-        /- if current_account_user.read_file?
-        /  /.col-sm-6
-        /  /  == render 'shared/badge_button', locals: { \
-        /  /                                             blog_post: 'FOOTAGE', \
-        /  /                                             link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
-        /  /                                             css_class: 'btn btn-warning', \
-        /  /                                             icon: 'fa fa-film' , \
-        /  /                                              no_turbo: true \
-        /  /                                           }      
-        /  /  
-        /  .col-sm-6
-        /     == render 'shared/badge_button', locals: { \
-        /                                                blog_post: 'DOCUMENTS', \
-        /                                                link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
-        /                                                css_class: 'btn btn-danger', \
-        /                                                icon: 'fa fa-folder' \
-        /                                              } 
-        /
-        /  .col-sm-6
-        /     == render 'shared/badge_button', locals: { \
-        /                                                blog_post: 'ARTWORK', \
-        /                                                link: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
-        /                                                css_class: 'btn btn-default', \
-        /                                                icon: 'fa fa-picture-o' \
-        /                                              }     
-        /
-        /                                                                                    
+                                                                                      
      
     
 -cache (['footer', Admin.cached_find(1).version]) do      

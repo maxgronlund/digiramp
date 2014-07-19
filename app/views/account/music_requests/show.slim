@@ -41,61 +41,46 @@
             b Description:
             br
             = simple_format @music_request.body
-            
-      
-        - if recording = @music_request.recording
-        
-          -index = recording.id
-          div class="player" id="#{index}"
-          .just-load
-          .panel.panel-primary
-            .panel-heading
-              'Sounds like:
-              = recording.title
-            .panel-body
+            - if recording = @music_request.recording
+              h4 Sounds Like
+              -index = recording.id
+              div class="player" id="#{index}"
+              .just-load
               .digiramp_player
                 div class="permissions" value="account_recordings" id="#{current_user.id}"
                 == render 'players/digramp_player', locals: {index: index , recording: recording}
+      
+        
                 
           
 
       
-      
-      .col-sm-6
-        - @music_request.music_submissions.each do |music_submission|
-          -recording =  music_submission.recording
-          -index = recording.id
-          div class="player" id="#{index}"
-          .just-load
-          .panel.panel-primary
-            .panel-heading
-              = recording.title
-            .panel-body
-              .digiramp_player
-                div class="permissions" value="account_recordings" id="#{current_user.id}"
-                == render 'players/digramp_player', locals: {index: index , recording: recording}
-        
-              
-        
         .pull-right    
           = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
                                                                                         @opportunity, \
                                                                                         @music_request) do 
             .btn.btn-success.btn-lg
               i class="fa fa-plus-circle"
-              '&nbsp;Make Submission
-          /= link_to account_account_opportunity_music_request_music_submissions_path( @account, @opportunity, @music_request) do
-          /  .btn.btn-success.btn-lg
-          /    i class='fa fa-plus-circle'
-          /    '&nbsp;
-          /    'Add Submission
-       
-           
-             
+              '&nbsp;Add Submission
+      .col-sm-6
+        h2 SUBMISSIONS
+        hr
+        - @music_request.music_submissions.each do |music_submission|
+          -recording =  music_submission.recording
+          -index = recording.id
+          div class="player" id="#{index}"
+          .just-load
+          
+          h4 = recording.title
             
+          .digiramp_player
+            div class="permissions" value="account_recordings" id="#{current_user.id}"
+            == render 'players/submission_player', locals: {index: index , recording: recording, music_submission: music_submission}
+          hr
               
-
         
+        
+
          
   == render 'shared/back', locals: {link: account_account_opportunity_path(@account, @opportunity)} 
 -cache (['footer', Admin.cached_find(1).version]) do      

@@ -75,8 +75,8 @@ class RecordingPermissionsController < ApplicationController
         # show more is missing here
       end
       
-    when 'submissions'
-      #puts '-------------------submissions------------'
+    when 'submission'
+      #puts '-------------------submission------------'
       #ap params
        #  @read_recording        = "#read_shared_recording_#{params[:id]}"    if current_account_user.read_recording
        #@update_recording      = "#update_shared_recording_#{params[:id]}"    if current_account_user.update_recording

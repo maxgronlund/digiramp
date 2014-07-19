@@ -1,2 +1,48 @@
-h1 MusicSubmissions#show
-p Find me in app/views/music_submissions/show.html.slim
+/= debug @recording.audio_upload
+- session[:return_url]  = request.url
+
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity),\
+                                                              @music_request.title.to_sym => account_account_opportunity_music_request_path(@account, @opportunity, @music_request) \
+                                                             }, current: 'Show' }
+                                                             
+      -body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
+      /- insert = 'account/recordings/edit'
+      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment} 
+      /== render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'show_common_work'} 
+      /== render 'shared/title', locals: {title: @recording.title, body: body, insert: insert} 
+      -index = @recording.id
+      div class="player" id="#{index}"
+      .just-load
+      .panel.panel-primary
+        .panel-heading
+          = @recording.title
+        .panel-body
+          .digiramp_player
+            div class="permissions" value="submission" id="#{current_user.id}"
+            == render 'players/digramp_player', locals: {index: index , recording: @recording}
+      .row
+        .col-sm-6
+          == render 'recordings/shared/metadata'
+        .col-sm-6 
+          == render 'recordings/shared/description'   if @recording.comment.to_s != ''
+          == render 'recordings/shared/lyrics'        if @recording.lyrics.to_s != ''
+                                                                                      
+     
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
+
+            
+ 
+          
+          
+          
+        

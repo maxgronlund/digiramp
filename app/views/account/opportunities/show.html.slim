@@ -92,8 +92,10 @@
                                                                                                           
                                                                                                           
                 = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request)
-                  .btn.btn-success.btn-lg
-                    i class="fa fa-eye"
+                  .btn.btn-info.btn-lg
+                    = music_request.music_submissions.size.to_s
+                    '&nbsp;Submissions
+                    /i class="fa fa-eye"
                 '&nbsp;
                 = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), \
                                                                           data: { confirm: 'Are you sure?' } , \
