@@ -55,7 +55,7 @@
           
           
       .col-sm-6
-        - @opportunity.music_requests.each do |music_request|
+        - @opportunity.music_requests.order('created_at asc').each do |music_request|
           .panel.panel-primary
             .panel-heading
               = music_request.title

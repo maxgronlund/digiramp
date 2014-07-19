@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140718215548) do
+ActiveRecord::Schema.define(version: 20140719160211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1121,8 +1121,10 @@ ActiveRecord::Schema.define(version: 20140718215548) do
     t.datetime "updated_at",                    null: false
     t.integer  "stars",             default: 0
     t.integer  "like",              default: 0
+    t.string   "account_id"
   end
 
+  add_index "music_submissions", ["account_id"], name: "index_music_submissions_on_account_id", using: :btree
   add_index "music_submissions", ["music_request_id"], name: "index_scene_track_submissions_on_music_request_id", using: :btree
   add_index "music_submissions", ["recording_id"], name: "index_scene_track_submissions_on_recording_id", using: :btree
   add_index "music_submissions", ["user_id"], name: "index_scene_track_submissions_on_user_id", using: :btree
@@ -1586,21 +1588,62 @@ ActiveRecord::Schema.define(version: 20140718215548) do
     t.text     "body"
     t.string   "thumb"
     t.string   "ogv_video"
-    t.string   "mp4_video"
     t.integer  "video_width_in_pixels"
     t.integer  "video_height_in_pixels"
     t.integer  "video_blog_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "song_id"
-    t.string   "webm_video"
     t.string   "mp4_360_p"
     t.string   "mp4_720_p"
     t.string   "webm_360_p"
     t.string   "webm_720_p"
     t.string   "identifyer"
+    t.string   "file",                   default: ""
+    t.text     "transloadit"
+    t.integer  "account_id"
+    t.string   "duration",               default: ""
+    t.integer  "width",                  default: 0
+    t.integer  "height",                 default: 0
+    t.integer  "framerate",              default: 0
+    t.integer  "video_bitrate",          default: 0
+    t.integer  "overall_bitrate",        default: 0
+    t.string   "video_codec",            default: ""
+    t.integer  "audio_bitrate",          default: 0
+    t.integer  "audio_samplerate",       default: 0
+    t.integer  "audio_channels",         default: 0
+    t.string   "audio_codec",            default: ""
+    t.string   "seekable",               default: ""
+    t.string   "date_recorded",          default: ""
+    t.string   "date_file_created",      default: ""
+    t.string   "date_file_modified",     default: ""
+    t.string   "device_vendor",          default: ""
+    t.string   "device_name",            default: ""
+    t.string   "device_software",        default: ""
+    t.string   "latitude",               default: ""
+    t.string   "longitude",              default: ""
+    t.integer  "rotation",               default: 0
+    t.string   "album",                  default: ""
+    t.string   "comment",                default: ""
+    t.string   "year",                   default: ""
+    t.text     "uploads"
+    t.text     "mp4_video"
+    t.text     "webm_video"
+    t.string   "mp4_video_url",          default: ""
+    t.string   "webm_video_url",         default: ""
+    t.string   "name",                   default: ""
+    t.string   "basename",               default: ""
+    t.string   "ext",                    default: ""
+    t.integer  "size",                   default: 0
+    t.string   "mime",                   default: ""
+    t.string   "video_type",             default: ""
+    t.string   "md5hash",                default: ""
+    t.string   "original_id",            default: ""
+    t.string   "original_basename",      default: ""
+    t.string   "original_md5hash",       default: ""
   end
 
+  add_index "videos", ["account_id"], name: "index_videos_on_account_id", using: :btree
   add_index "videos", ["song_id"], name: "index_videos_on_song_id", using: :btree
   add_index "videos", ["video_blog_id"], name: "index_videos_on_video_blog_id", using: :btree
 

@@ -7,11 +7,12 @@
   .container
     .row
       .col-sm-12
-        ==render 'admin/shared/messages'
-        = debug @blog
+        == render 'admin/shared/messages'
         == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                                content: admin_content_index_path, \
                                                                 blogs: admin_blogs_path, \
-                                                                }, current: @blog.identifier}
+                                                                @blog.title.to_sym => admin_blog_path(@blog), \
+                                                                }, current: 'edit'}
                                                                 
         == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Edit Blog'}                                
         == render 'form'

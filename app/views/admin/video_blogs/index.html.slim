@@ -1,46 +1,130 @@
+/#wrap
+/  == render 'admin/shared/navbar', page: 'manage'
+/
+/            
+/  .container
+/    ==render 'admin/shared/messages'
+/    .row
+/      .col-sm-12
+/        
+/        .table-responsive
+/          table class="table table-hover"
+/            thead
+/              tr
+/                /th User
+/                th Title
+/                th Videos
+/                th 
+/                  .pull-right
+/                    'Manage
+/            tbody
+/              -@video_blogs.each do |video_blog|
+/                tr
+/                  td 
+/                    b=video_blog.title
+/                  td 
+/                    =video_blog.videos.size
+/                  td 
+/                    .pull-right
+/                      = link_to 'Show', admin_video_blog_path(video_blog), class: 'btn btn-default' 
+/                      /'&nbsp;
+/                      /= link_to 'Edit', admin_video_blog_path(video_blog), class: 'btn btn-primary'
+/                      '&nbsp;
+/                      = link_to 'Delete', admin_video_blog_path(video_blog), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+/
+/          
+/        hr  
+/        /== paginate(@video_blogs) 
+/    
+/    
+/
+/#footer
+/  .container
+/    .footer
+/      .row
+/        .col-sm-12
+/          '©2014 All rights reserved
+/
 #wrap
-  == render 'admin/shared/navbar', page: 'manage'
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'blog'
 
             
   .container
-    ==render 'admin/shared/messages'
     .row
       .col-sm-12
-        
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                /th User
-                th Title
-                th Videos
-                th 
-                  .pull-right
-                    'Manage
-            tbody
-              -@video_blogs.each do |video_blog|
-                tr
-                  td 
-                    b=video_blog.title
-                  td 
-                    =video_blog.videos.size
-                  td 
-                    .pull-right
-                      = link_to 'Show', admin_video_blog_path(video_blog), class: 'btn btn-default' 
-                      /'&nbsp;
-                      /= link_to 'Edit', admin_video_blog_path(video_blog), class: 'btn btn-primary'
-                      '&nbsp;
-                      = link_to 'Delete', admin_video_blog_path(video_blog), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+        ==render 'admin/shared/messages'    
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                                content: admin_content_index_path, \
+                                                                }, current: 'video blogs'} 
+                    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin Video Blogs'), blog_post: 'Video Blogs', insert: 'new_video_blog'}
+    .row
+      .col-sm-12
+        .panel
+          .panel-body
+            = form_tag admin_video_blogs_path, :method => 'get' do
+              .col-sm-6
 
+                = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string', value: params[:query]
+              .col-sm-6
+
+                = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                '&nbsp;
+                = link_to 'Show All',admin_video_blogs_path, class: 'btn btn-default btn-lg'
+              br
+              
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            'Video Blogs
+          .panel-body
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Title
+                    th Videos
+                    th
+                tbody
+                  
+                  -@video_blogs.order(:title).each do |video_blog|
+                   tr
+                     td =link_to video_blog.title, admin_video_blog_path(video_blog), 'data-no-turbolink'=> true , class: "btn btn-default btn-lg"
+                     td 
+                        = link_to admin_video_blog_path(video_blog), 'data-no-turbolink'=> true do
+                          .btn.btn-warning.btn-lg
+                            i class="fa fa-eye"
+                            '&nbsp;
+                            = video_blog.videos.size
+                     td 
+                       .pull-right
+                         = link_to admin_video_blog_path(video_blog), 'data-no-turbolink'=> true do
+                           .btn.btn-default.btn-lg
+                             i class='fa fa-eye'
+                         '&nbsp;
+                         = link_to edit_admin_video_blog_path(video_blog), 'data-no-turbolink'=> true do
+                           .btn.btn-primary.btn-lg
+                             i class='fa fa-pencil'
+                         '&nbsp;
+                         = link_to  admin_video_blog_path(video_blog, page: params[:page]), data: { confirm: 'Are you sure?' } , :method => :delete do
+                           .btn.btn-danger.btn-lg
+                             i class="fa fa-times"
+                     
+    .row             
+      /br
+      .col-sm-12
+        .hidden-xs
+          == paginate(@video_blogs)
+        .visible-xs
+          br
+          .btn-group.btn-group-sm
+            = link_to_previous_page @video_blogs, '« Prev Page', class: 'btn btn-default mobile_pagination'
+            = link_to_next_page @video_blogs, 'Next Page »', class: 'btn btn-default mobile_pagination'
           
-        hr  
-        /== paginate(@video_blogs) 
-    
-    
-
-#footer
-  .container
-    .footer
-      .row
-        .col-sm-12
-          '©2014 All rights reserved
+  == render 'shared/back', locals: {link: admin_content_index_path}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+        
+            

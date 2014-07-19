@@ -1,28 +1,27 @@
-==render 'shared/navbar'
-==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: ""} 
-.main-content
-  .container-fluid
-    .row-fluid
-      .area-top.clearfix
-        .pull-left.header
-          h3 class="title"
-            i class="icon-film"
-            'New video collection
+/ = link_to 'Edit', admin_video_blog_path(@video_blog), class: 'btn btn-primary'
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'blog'
 
-          h5
-            'Create a new collection of videos
+            
+  .container
+    .row
+      .col-sm-12
+        ==render 'admin/shared/messages'    
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                                content: admin_content_index_path, \
+                                                                'video blogs'.to_sym => admin_video_blogs_path,\
+                                                                }, current: 'new'} 
+                    
 
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin Video Blogs'), blog_post: 'New Video'}
+    == render 'form'
+                 
 
-        
-      ==render 'shared/breadcrumbs'
-      
-      .container-fluid.padded
-        ==render 'shared/messages'
-        .box
-          .box-header
-            span class="title"New video collection
-          .box-content
-            == render 'form'
+          
+  == render 'shared/back', locals: {link: admin_video_blogs_path}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
 
 
 

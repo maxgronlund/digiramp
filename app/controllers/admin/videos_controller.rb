@@ -1,7 +1,8 @@
 class Admin::VideosController < ApplicationController
+  include Transloadit::Rails::ParamsDecoder
   respond_to :html, :xml, :json
   
-  before_filter :find_video, only: [ :edit, :update, :destroy, :crop, :crop_update, :show]
+  before_filter :find_video, only: [ :edit, :update, :destroy, :show]
   before_filter :admins_only
   
   def new
@@ -16,19 +17,32 @@ class Admin::VideosController < ApplicationController
   end
 
   def edit
-     @video_blog = VideoBlog.find(params[:video_blog_id])
+     @video_blog  = VideoBlog.find(params[:video_blog_id])
+
+     
+     
   end
 
   def create
     @video_blog = VideoBlog.find(params[:video_blog_id])
-    @video = @video_blog.videos.create(video_params)
-    redirect_to admin_video_blog_video_path(@video.video_blog, @video)
+    results = TransloaditVideosParser.parse( params[:transloadit], nil, @video_blog.id)
+    begin
+      redirect_to admin_video_blog_video_path(@video_blog, results[:videos][0])
+    rescue
+      flash[:danger]   = { title: "Unable to create Video", body: results[:errors][0] }
+      redirect_to new_admin_video_blog_video_path(@video_blog)
+    end
 
   end
 
   def update
+    @video_blog = VideoBlog.find(params[:video_blog_id])
     @video.update(video_params)
-    redirect_to admin_video_blog_path(@video.video_blog)
+    
+    #results = TransloaditVideosParser.update( params[:transloadit], nil, @video.id)
+
+    
+    redirect_to admin_video_blog_video_path(@video_blog, @video)
 
   end
 
@@ -51,7 +65,7 @@ private
   end
   
   def video_params
-    params.require(:video).permit!  if current_user.can_edit?
+    params.require(:video).permit!
   end
   
 

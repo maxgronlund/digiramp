@@ -1,31 +1,42 @@
+= simple_form_for [:admin, @video_blog, @video],  :html => { :id => 'video_post' }  do |f|
+  = transloadit :digiramp_video 
+  .panel.panel-primary
+    .panel-heading
+      '&nbsp;
+    .panel-body
+      /= f.input :thumb
+      b Video File
+      br
+      = f.file_field :file, multiple: false
+      br
+      - if @video.identifyer.to_s == ''
+        = f.input :identifyer , :input_html => { class: 'span4', placeholder: "Identifier"}, hint: 'can not be updated'
 
-= simple_form_for [:admin, @video_blog, @video] do |f|
-  = f.error_notification
-
-  .inputs
-    .row
-      .col-sm-6
-        br
-        == render 'shared/video', video: @video
-          
+      = f.input :title, :input_html => { class: 'span12'}
       
-      .col-sm-6
-        = f.input :title, :input_html => { class: 'span12'}
-        = f.input :body, :input_html => { class: 'span12', style: " height: 120px;"}
-        
-        = f.input :thumb
-        /= f.input :ogv_video
-        = f.input :mp4_360_p
-        = f.input :mp4_720_p
-        = f.input :webm_360_p
-        = f.input :webm_720_p
-        /= f.input :webm_video
-        /= f.input :video_width_in_pixels
-        /= f.input :video_height_in_pixels
-        
-        
-
-
+      
+      div id="toolbar" class="wysihtml5-toolbar"
+        a data-wysihtml5-command="bold" Bold
+        '&nbsp; 
+        a data-wysihtml5-command="italic" Italic
+      
+      =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
+      
+      
+      /= f.input :ogv_video
+      /= f.input :mp4_360_p
+      /= f.input :mp4_720_p
+      /= f.input :webm_360_p
+      /= f.input :webm_720_p
+      /= f.input :webm_video
+      /= f.input :video_width_in_pixels
+      /= f.input :video_height_in_pixels
+      
+      
+    
+    
   .pull-right
-    = f.submit 'Save', class: 'btn btn-lg btn-green', id: "submit_link"
-  
+    = f.submit 'Save', class: 'btn btn-lg btn-primary'
+      
+= transloadit_jquerify :video_post, :wait => true
+          

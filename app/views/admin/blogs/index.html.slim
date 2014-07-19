@@ -19,7 +19,7 @@
             = form_tag admin_blogs_path, :method => 'get' do
               .col-sm-6
 
-                = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string'
+                = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string', value: params[:query]
               .col-sm-6
 
                 = submit_tag 'Search', class: 'btn btn-primary btn-lg'
@@ -73,5 +73,7 @@
             = link_to_next_page @blogs, 'Next Page »', class: 'btn btn-default mobile_pagination'
           
 
-        
+  == render 'shared/back', locals: {link: admin_content_index_path}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
             

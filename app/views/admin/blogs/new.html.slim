@@ -6,13 +6,17 @@
   .container
     .row
       .col-sm-12
-        ==render 'admin/shared/messages'
+        == render 'admin/shared/messages'
         == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                                content: admin_content_index_path, \
                                                                 blogs: admin_blogs_path, \
                                                                 }, current: 'new'}
 
                     
         == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'New Blog'}
-    .row
-      .col-sm-6.col-sm-offset-3
+    
         == render 'form'
+
+  == render 'shared/back', locals: {link: admin_blogs_path}        
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

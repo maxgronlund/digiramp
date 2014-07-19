@@ -1,12 +1,12 @@
- 
-.panel
-  .panel-body
-    = simple_form_for [:admin, @blog]  do |f|
-      = f.error_notification
-      = f.input :title, placeholder: 'Blog Title'
-      
-      = f.input :body, :input_html => { style: " height: 120px;", placeholder: "Short description of the subject for the blog"}
-      hr
+= simple_form_for [:admin, @blog]  do |f|  
+  .row
+    .col-sm-6.col-sm-offset-3 
+      .panel
+        .panel-body
+          = f.error_notification
+          = f.input :title, placeholder: 'Blog Title'
+          
+          = f.input :body, :input_html => { style: " height: 120px;", placeholder: "Short description of the subject for the blog"}
       .pull-right
         = f.submit 'Save', class: 'btn btn-primary btn-lg'
-    
+        

@@ -1,15 +1,20 @@
-.padded
-  = simple_form_for [:admin, @video_blog] do |f|
-    = f.error_notification
-  
-    .row-fluid
-      .span12
-        .inputs
+= simple_form_for [:admin, @video_blog] do |f|
+  .row
+    .col-sm-6.col-sm-offset-3 
+      .panel
+        .panel-body  
           = f.input :title, :input_html => { class: 'span4', placeholder: "Title"}
-          = f.input :identifier , :input_html => { class: 'span4', placeholder: "Identifier"} if current_user.email == 'max@synthmax.dk'
-          = f.input :body, :input_html => { class: 'span4', style: " height: 120px;", placeholder: "Type here"}
           
+          - if @video_blog.identifier.to_s == ''
+            = f.input :identifier , :input_html => { placeholder: "Identifier"}, hint: 'can not be updated'
+          
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
       
-        .form-actions
-          = f.submit 'Save', class: 'btn btn-blue'
+          =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
+          
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary btn-lg'
   

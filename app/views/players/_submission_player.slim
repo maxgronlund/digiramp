@@ -45,7 +45,9 @@ div class="account_id" id="#{recording.account_id}"
         .btn.btn-primary.btn-lg
           i class="fa fa-eye"
       '&nbsp;
-      = link_to account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, music_submission) do
+      = link_to account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, music_submission), \
+                                                                          data: { confirm: 'Are you sure?' } , \
+                                                                          :method => :delete   do
         .btn.btn-danger.btn-lg
           i class="fa fa-times"
             

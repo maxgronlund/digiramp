@@ -1,13 +1,12 @@
 class Admin::VideoBlogsController < ApplicationController
-  respond_to :html, :xml, :json
+  include Transloadit::Rails::ParamsDecoder
   before_filter :admin_only
   before_filter :find_video_blog, only: [:show, :edit, :update, :destroy]
   
   
   
   def index
-    @video_blogs = VideoBlog.all
-
+    @video_blogs = VideoBlog.blog_search(params[:query]).order('title asc').page(params[:page]).per(12)
   end
   
   def show
@@ -26,12 +25,12 @@ class Admin::VideoBlogsController < ApplicationController
   def create
     @video_blog = VideoBlog.new(video_blog_params)
     @video_blog.save
-    redirect_to admin_video_blogs_path
+    redirect_to admin_video_blog_path( @video_blog )
   end
 
   def update
     @video_blog.update(video_blog_params)
-    redirect_to admin_video_blogs_path
+    redirect_to admin_video_blog_path( @video_blog )
   end
 
   def destroy

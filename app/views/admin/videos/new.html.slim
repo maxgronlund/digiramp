@@ -2,60 +2,26 @@
   .admin
     .full-width-top
       == render 'admin/shared/navbar', page: 'admin'
-==render 'shared/sidebar', locals: {page: 'digiramp', sub_page: ""} 
-.main-content
-  .container-fluid
-    .row-fluid
-      .area-top.clearfix
-        .pull-left.header
-          h3 class="title"
-            i class="icon-film"
-            'New video
+            
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                            content: admin_content_index_path, \
+                                                            blogs: admin_video_blogs_path, \
+                                                            @video_blog.title.to_sym => admin_video_blog_path(@video_blog), \
+                                                            }, current: 'new video', \
+                                                              no_turbo: true}
+    
+                    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin Video Blogs'), blog_post: 'New Video'}
+    .row
+      .col-sm-3
+      .col-sm-6
+        == render 'form'
 
-          h5
-            'Add a new video to the collection
-
-
-        
-      ==render 'shared/breadcrumbs'
-      
-      .container-fluid.padded
-        ==render 'shared/messages'
-        .box
-          .box-header
-            span class="title"Info and files
-          .box-content
-            == render 'form'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/== render 'shared/top', :locals => { selected: 'admin', title: "New Video" }
-/  
-/.container
-/  .content
-/    ==render 'shared/messages', :target => @video
-/    h1 New Video
-/    
-/    == render 'form'
-/
+  == render 'shared/back', locals: {link: admin_video_blog_path(@video_blog), no_turbo: true }        
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
 /
 
 

@@ -35,7 +35,8 @@ Digiramp::Application.routes.draw do
   
   #resources :collections, controller: 'accounts', only: [:show, :edit, :update] do
   resources :accounts, only: [:show, :edit, :update] do
-    resources :add_catalog_assets, only: [:show]
+    
+    #resources :add_catalog_assets, only: [:show]
     resources :account_users
     resources :account_works, only: [:index]
     resources :albums

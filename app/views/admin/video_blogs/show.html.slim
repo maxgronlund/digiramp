@@ -1,34 +1,55 @@
+/ = link_to 'Edit', admin_video_blog_path(@video_blog), class: 'btn btn-primary'
 #wrap
-  == render 'admin/shared/navbar', page: 'manage'
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'blog'
 
             
   .container
     .row
       .col-sm-12
-        h3 =@video_blog.title
-        = @video_blog.body
+        ==render 'admin/shared/messages'    
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                                content: admin_content_index_path, \
+                                                                'video blogs'.to_sym => admin_video_blogs_path,\
+                                                                @video_blog.title.to_sym => admin_video_blog_path(@video_blog), \
+                                                                }, current: 'edit'} 
+                    
 
-        .pull-right
-          = link_to 'Edit', admin_video_blog_path(@video_blog), class: 'btn btn-primary'
-          
-        
+    == render 'shared/page_title_text', locals: {title: @video_blog.title, body: '', insert: 'edit_video_blog'}   
+
+              
     .row
       .col-sm-12
-        ==render 'admin/shared/messages'
+        .panel.panel-primary
+          .panel-heading
+            'Videos
+          .panel-body
+            -@video_blog.videos.order('title asc').each do |video|
+              .row
+                .col-sm-6
+                  == render 'shared/video', video: video
+                .col-sm-6
+                  h3 = video.title
+                  = video.body
+                  br
+                  .pull-right
+                    =link_to edit_admin_video_blog_video_path(@video_blog, video), 'data-no-turbolink'=> true do
+                      .btn.btn-primary.btn-lg
+                        i class="fa fa-pencil"
+                    '&nbsp;
+                    =link_to admin_video_blog_video_path(@video_blog, video), data: { confirm: 'Are you sure?' } , :method => :delete do
+                      .btn.btn-danger.btn-lg
+                        i class="fa fa-times"
+              hr
+        .pull-right
+          = link_to new_admin_video_blog_video_path(@video_blog), 'data-no-turbolink'=>'true' do
+            .btn.btn-success.btn-lg
+              i class="fa fa-plus-circle"
+              '&nbsp;New Video
+                 
 
-    -@video_blog.videos.order('title asc').each do |video|
-      .row
-        .col-sm-6
-          == render 'shared/video', video: video
-        .col-sm-6
-          h3 = video.title
-          = video.body
-          br
-          .pull-right
-            =link_to 'Edit', edit_admin_video_blog_video_path(@video_blog, video), class: 'btn btn-primary'
-            =link_to 'Delete', admin_video_blog_video_path(@video_blog, video), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
-      hr
-
-
-  
-== render 'shared/footer'
+          
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+        
+            

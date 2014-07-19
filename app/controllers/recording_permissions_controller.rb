@@ -2,11 +2,15 @@ class RecordingPermissionsController < ApplicationController
   #include CatalogsHelper
   
   def show
+    puts '----------------------------------------------------'
+    ap params
+    puts '----------------------------------------------------'
+    
     @recording             = Recording.cached_find(params[:id])
-    @account               = @recording.account
-    @common_work           = @recording.common_work
+    @account               = @recording.account if @recording.account
+    @common_work           = @recording.common_work if @recording.common_work
     #logger.debug '-------------------------------------------------------------------'
-    #logger.debug params[:permissions]
+    ap params
     
     
  
