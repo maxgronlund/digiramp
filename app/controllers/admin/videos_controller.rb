@@ -18,9 +18,6 @@ class Admin::VideosController < ApplicationController
 
   def edit
      @video_blog  = VideoBlog.find(params[:video_blog_id])
-
-     
-     
   end
 
   def create
