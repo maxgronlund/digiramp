@@ -30,7 +30,7 @@
                   == render 'shared/video', video: video
                 .col-sm-6
                   h3 = video.title
-                  = video.body
+                  = simple_format video.body
                   br
                   .pull-right
                     =link_to edit_admin_video_blog_video_path(@video_blog, video), 'data-no-turbolink'=> true do

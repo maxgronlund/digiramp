@@ -163,7 +163,8 @@ class TransloaditVideosParser
     { videos: videos, errors: errors }
   end
   
-  def self.update uploads, account_id, video_blog_id
+  def self.update uploads, video
+    
     transloadets  = extract( uploads )
     
 
@@ -177,9 +178,7 @@ class TransloaditVideosParser
       
         begin
           
-          video =   Video.create!(    account_id:           account_id,
-                                      video_blog_id:        video_blog_id,
-                                      duration:             transloaded[:duration],               
+         video.update_attributes!(    duration:             transloaded[:duration],               
                                       width:                transloaded[:width],                  
                                       height:               transloaded[:height],                 
                                       framerate:            transloaded[:framerate],              
@@ -226,7 +225,7 @@ class TransloaditVideosParser
           #end
           videos << video
         rescue
-          errors << "!Unable to import: #{transloaded[:name]}"
+          errors << "!Unable to update: #{video.title}"
         end
       
       
