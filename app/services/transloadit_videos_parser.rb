@@ -91,9 +91,9 @@ class TransloaditVideosParser
   
   
   
-  def self.parse uploads, account_id, video_blog_id
+  def self.parse params, account_id, video_blog_id
 
-    transloadets  = extract( uploads )
+    transloadets  = extract( params[:transloadit] )
     
 
     videos  = []
@@ -101,11 +101,13 @@ class TransloaditVideosParser
     if transloadets.nil?
       errors << 'No valid files uploaded'
     else
-      
       transloadets.each do |transloaded|
       
         begin
-          video =   Video.create!(    account_id:           account_id,
+          video =   Video.create!(    title:                params[:title],
+                                      body:                 params[:body],
+                                      identifyer:           params[:identifyer],
+                                      account_id:           account_id,
                                       video_blog_id:        video_blog_id,
                                       duration:             transloaded[:duration],               
                                       width:                transloaded[:width],                  

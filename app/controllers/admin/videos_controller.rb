@@ -25,15 +25,15 @@ class Admin::VideosController < ApplicationController
 
   def create
     @video_blog = VideoBlog.find(params[:video_blog_id])
-    results = TransloaditVideosParser.parse( params[:transloadit], nil, @video_blog.id)
     
-    
-    unless results[:errors][0].to_s == ''
+    results = TransloaditVideosParser.parse( params, nil, @video_blog.id)
+
+    if results[:errors][0].to_s == 'No valid files uploaded'
       flash[:danger]   = { title: "Unable to create Video", body: results[:errors][0] }
-      redirect_to new_admin_video_blog_video_path(@video_blog)
-    else
-      redirect_to admin_video_blog_path(@video_blog)
+      Video.create(video_params)
     end
+    
+    redirect_to admin_video_blog_path(@video_blog)
 
   end
 
@@ -43,12 +43,9 @@ class Admin::VideosController < ApplicationController
     
     results = TransloaditVideosParser.update( params[:transloadit], @video)
     unless results[:errors][0].to_s == ''
-      flash[:danger]   = { title: "Unable to create Video", body: results[:errors][0] }
-      redirect_to new_admin_video_blog_video_path(@video_blog)
-    else
-      redirect_to admin_video_blog_path(@video_blog)
+      flash[:danger]   = { title: "Unable to update Video", body: results[:errors][0] }
     end
-    
+    redirect_to admin_video_blog_path(@video_blog)
     #redirect_to admin_video_blog_video_path(@video_blog, @video)
 
   end

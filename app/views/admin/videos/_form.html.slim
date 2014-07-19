@@ -1,4 +1,5 @@
 = simple_form_for [:admin, @video_blog, @video],  :html => { :id => 'video_post' }  do |f|
+  = f.hidden_field :video_blog_id, value: @video_blog.id
   = transloadit :digiramp_video 
   .panel.panel-primary
     .panel-heading
