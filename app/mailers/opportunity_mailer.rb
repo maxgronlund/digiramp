@@ -14,7 +14,7 @@ class OpportunityMailer < ActionMailer::Base
     url                     = url_for controller: 'account/opportunities', action: 'show', id: opportunity.id
     
     @invitation = opportunity_invitation.body
-    @footer     = footer.body.gsub('--link--', "<a href='#{url}'>Show Opportunity</a>")
+    #@footer     = footer.body.gsub('--link--', "<a href='#{url}'>Show Opportunity</a>")
     
     
     
