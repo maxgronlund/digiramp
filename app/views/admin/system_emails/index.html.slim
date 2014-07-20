@@ -29,8 +29,9 @@
                                               icon: 'fa fa-bug', \
                                               id: 'common-works' \
                                             }
+                                            
         .col-sm-6
-          - blog_post = BlogPost.cached_find( "TICKET RECEIVED" , blog )
+          - blog_post = BlogPost.cached_find( "ISSUE RESOLVED" , blog )
           == render 'shared/badge', locals: {  \
                                               blog: blog, \
                                               post: blog_post, \
@@ -40,13 +41,13 @@
                                               id: 'common-works' \
                                             }
         .col-sm-6
-          - blog_post = BlogPost.cached_find( "ISSUE RESOLVED" , blog )
+          - blog_post = BlogPost.cached_find( "INVITE TO CATALOG" , blog )
           == render 'shared/badge', locals: {  \
                                               blog: blog, \
                                               post: blog_post, \
                                               link: edit_admin_blog_blog_post_path(blog, blog_post), \
-                                              css_class: 'btn btn-primary', \
-                                              icon: 'fa fa-bug', \
+                                              css_class: 'btn btn-warning', \
+                                              icon: 'fa fa-archive', \
                                               id: 'common-works' \
                                             }
                                             

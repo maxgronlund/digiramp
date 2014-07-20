@@ -4,9 +4,7 @@ class Opportunity < ActiveRecord::Base
   belongs_to :account
   after_commit :flush_cache
   
-  def self.cached_find(id)
-    Rails.cache.fetch([name, id]) { find(id) }
-  end
+  
   
   def submission_count
     return submissions.size if submissions
@@ -15,6 +13,10 @@ class Opportunity < ActiveRecord::Base
   
   def submissions
     MusicSubmission.where( music_request_id: music_request_ids)
+  end
+  
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
   end
   
 private

@@ -104,9 +104,9 @@ class TransloaditVideosParser
       transloadets.each do |transloaded|
       
         begin
-          video =   Video.create!(    title:                params[:title],
-                                      body:                 params[:body],
-                                      identifyer:           params[:identifyer],
+          video =   Video.create!(    title:                params[:video][:title],
+                                      body:                 params[:video][:body],
+                                      identifyer:           params[:video][:identifyer],
                                       account_id:           account_id,
                                       video_blog_id:        video_blog_id,
                                       duration:             transloaded[:duration],               
@@ -180,7 +180,10 @@ class TransloaditVideosParser
       
         begin
           
-         video.update_attributes!(    duration:             transloaded[:duration],               
+         video.update_attributes!(    title:                params[:video][:title],
+                                      body:                 params[:video][:body],
+                                      identifyer:           params[:video][:identifyer],
+                                      duration:             transloaded[:duration],               
                                       width:                transloaded[:width],                  
                                       height:               transloaded[:height],                 
                                       framerate:            transloaded[:framerate],              

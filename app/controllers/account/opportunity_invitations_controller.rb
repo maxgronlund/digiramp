@@ -30,16 +30,23 @@ class Account::OpportunityInvitationsController < ApplicationController
   def create
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_invitation = OpportunityInvitation.create(opportunity_invitation_params)
-     redirect_to account_account_opportunity_path(@account, @opportunity)
-    #respond_to do |format|
-    #  if @opportunity_invitation.save
-    #    format.html { redirect_to @opportunity_invitation, notice: 'Opportunity invitation was successfully created.' }
-    #    format.json { render :show, status: :created, location: @opportunity_invitation }
-    #  else
-    #    format.html { render :new }
-    #    format.json { render json: @opportunity_invitation.errors, status: :unprocessable_entity }
-    #  end
-    #end
+    
+    
+    
+    params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
+      OpportunityMailer.delay.invite(email, @opportunity_invitation.id)
+      #ap @opportunity_invitation
+    end
+    
+    
+
+    
+    redirect_to account_account_opportunity_path(@account, @opportunity)
+    
+    
+    
+    
+    
   end
 
   # PATCH/PUT /opportunity_invitations/1

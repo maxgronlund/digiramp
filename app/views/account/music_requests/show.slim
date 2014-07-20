@@ -49,19 +49,18 @@
               .digiramp_player
                 div class="permissions" value="account_recordings" id="#{current_user.id}"
                 == render 'players/digramp_player', locals: {index: index , recording: recording}
-      
-        
-                
+        - if current_account_user.update_opportunity
+          .pull-right 
+            = link_to edit_account_account_opportunity_music_request_path(@account, @opportunity, @music_request) do
+              .btn.btn-primary.btn-lg
+                i class="fa fa-pencil"
+                '&nbsp;Edit
+            
+                  
           
 
       
-        .pull-right    
-          = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
-                                                                                        @opportunity, \
-                                                                                        @music_request) do 
-            .btn.btn-success.btn-lg
-              i class="fa fa-plus-circle"
-              '&nbsp;Add Submission
+        
       .col-sm-6
         h2 SUBMISSIONS
         hr
@@ -77,7 +76,13 @@
             div class="permissions" value="submission" id="#{current_user.id}"
             == render 'players/submission_player', locals: {index: index , recording: recording, music_submission: music_submission}
           hr
-              
+        .pull-right    
+          = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
+                                                                                        @opportunity, \
+                                                                                        @music_request) do 
+            .btn.btn-success.btn-lg
+              i class="fa fa-plus-circle"
+              '&nbsp;Add Submission      
         
         
 
