@@ -53,6 +53,9 @@ class Account::AccountUsersController < ApplicationController
     # validate the email
     validate_email
     
+    # set the acces
+    set_access
+    
     # get the user and send invitation
     invited_user = User.invite_to_account_by_email( 
                                                     params[:account_user][:email], 
