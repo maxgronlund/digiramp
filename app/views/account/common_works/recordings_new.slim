@@ -37,10 +37,6 @@
             
       .col-sm-3
     == render 'shared/back', locals: {link: account_account_common_work_path(@account, @common_work)}
-
-    
-
-  
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
     

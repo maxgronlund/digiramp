@@ -64,7 +64,7 @@
       .col-sm-6
         h2 SUBMISSIONS
         hr
-        - @music_request.music_submissions.each do |music_submission|
+        - @music_request.music_submissions.order('stars desc').each do |music_submission|
           -recording =  music_submission.recording
           -index = recording.id
           div class="player" id="#{index}"
@@ -74,7 +74,9 @@
             
           .digiramp_player
             div class="permissions" value="submission" id="#{current_user.id}"
-            == render 'players/submission_player', locals: {index: index , recording: recording, music_submission: music_submission}
+            == render 'players/submission_player', locals: {index: index , 
+                                                            recording: recording, 
+                                                            music_submission: music_submission}
           hr
         .pull-right    
           = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
@@ -87,6 +89,6 @@
         
 
          
-  == render 'shared/back', locals: {link: account_account_opportunity_path(@account, @opportunity)} 
+    == render 'shared/back', locals: {link: account_account_opportunity_path(@account, @opportunity)} 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

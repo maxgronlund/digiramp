@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   # account_catalog a user administrates
   has_many :administrations
   has_many :account_catalogs, through: :administrations
+
   
   #################################
   

@@ -19,7 +19,7 @@
   
 
     
-  == render 'shared/back', locals: {link: admin_blog_path(@blog)}
+    == render 'shared/back', locals: {link: admin_blog_path(@blog)}
   
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

@@ -1,0 +1,11 @@
+$(".user_star_#{@music_submission.id.to_s}").raty({
+  score: <%= @music_submission.stars %>,
+  path: '/assets',
+  click: function(score, evt) {
+    $.ajax({
+      url: "/music_submissions_ratings/#{@music_submission.id.to_s}"
+      type: 'PATCH',
+      data: { score: score }
+    }).done(function (data){});
+  }
+});

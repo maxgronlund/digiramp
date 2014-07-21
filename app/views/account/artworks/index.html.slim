@@ -83,8 +83,7 @@
                         /  .btn.btn-danger.btn-lg
                         /    i class="fa fa-times"
 
-  == render 'shared/back', locals: {link: account_account_documents_path(@account)}      
-
+    == render 'shared/back', locals: {link: account_account_documents_path(@account)}      
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
               

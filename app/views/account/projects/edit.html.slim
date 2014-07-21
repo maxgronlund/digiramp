@@ -17,6 +17,6 @@
     
 
   
-  == render 'shared/back', locals: {link: account_account_project_path(@account, @project)}
+    == render 'shared/back', locals: {link: account_account_project_path(@account, @project)}
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

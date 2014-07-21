@@ -2,6 +2,7 @@ class MusicSubmission < ActiveRecord::Base
   belongs_to :recording
   belongs_to :music_request
   belongs_to :user
+
   
   
   def self.cached_find(id)

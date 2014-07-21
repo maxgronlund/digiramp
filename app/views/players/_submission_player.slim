@@ -24,7 +24,7 @@ div class="account_id" id="#{recording.account_id}"
         div class="progress-bar load-position" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" id="load_bar_#{index}"
             '&nbsp;
 .row
-  .col-sm-6
+  .col-sm-3
     .play-controlls
       table
         tr
@@ -36,15 +36,22 @@ div class="account_id" id="#{recording.account_id}"
           /  div class="position" id="position_#{index}"
 
   .col-sm-6
+    div class="user_star_#{music_submission.id.to_s}"
+  .col-sm-3 
+
+    
+
+
+      
     .pull-right
-      = link_to account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, music_submission) do
-        .btn.btn-warning.btn-lg
-          i class="fa fa-thumbs-down"
-      '&nbsp;
-      = link_to account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, music_submission) do
-        .btn.btn-success.btn-lg
-          i class="fa fa-thumbs-up"
-      '&nbsp;
+      /= link_to account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, music_submission) do
+      /  .btn.btn-warning.btn-lg
+      /    i class="fa fa-thumbs-down"
+      /'&nbsp;
+      /= link_to account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, music_submission) do
+      /  .btn.btn-success.btn-lg
+      /    i class="fa fa-thumbs-up"
+      /'&nbsp;
       = link_to account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, music_submission) do
         .btn.btn-primary.btn-lg
           i class="fa fa-eye"
@@ -64,9 +71,20 @@ div class="account_id" id="#{recording.account_id}"
       
 
       
-      
-      
-    
+javascript:
+  $(".user_star_#{music_submission.id.to_s}").raty({
+      score: "#{music_submission.stars}",
+      path: '/assets',
+      click: function(score, evt) {
+        $.ajax({
+          url: "/music_submissions_ratings/#{music_submission.id}" ,
+          type: 'PATCH',
+          data: { score: score }
+        });
+      }
+    });  
+  
+
   
           
 

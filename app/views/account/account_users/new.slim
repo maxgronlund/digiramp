@@ -43,6 +43,6 @@
                 =f.submit 'Send', class: 'btn btn-primary btn-lg'
               
 
-  == render 'shared/back', locals: {link: account_account_account_users_path(@account)}
+    == render 'shared/back', locals: {link: account_account_account_users_path(@account)}
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
