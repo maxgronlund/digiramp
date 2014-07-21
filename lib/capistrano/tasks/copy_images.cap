@@ -1,0 +1,15 @@
+namespace :deploy do
+  desc "compiles assets locally then rsyncs"
+  task :copy_images do
+    on roles(:app) do |role|
+
+
+      execute "cp -R #{fetch(:deploy_to)}/current/app/assets/images/* #{fetch(:deploy_to)}/current/public/assets"
+      #execute "cp -R #{fetch(:deploy_to)}/current/app/assets/images/* #{fetch(:deploy_to)}/current/public/assets"
+      
+      #belarto
+      #execute "cp  ~/apps/#{fetch(:full_app_name)}/current/app/assets/flash/* ~/apps/#{fetch(:full_app_name)}/current/public/assets"
+
+    end
+  end
+end
