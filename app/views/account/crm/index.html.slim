@@ -21,46 +21,46 @@
 
                                           
     .row
-
+      = debug current_account_user
+      .col-sm-6
+        == render 'shared/badge', locals: {  \
+                                            blog: blog, \
+                                            post: BlogPost.cached_find( "PROJECTS" , blog ), \
+                                            link: account_account_projects_path(@account), \
+                                            css_class: 'btn btn-primary', \
+                                            icon: 'fa fa-road' \
+                                          }
+      
+      -if current_account_user.read_opportunity
         .col-sm-6
           == render 'shared/badge', locals: {  \
                                               blog: blog, \
-                                              post: BlogPost.cached_find( "PROJECTS" , blog ), \
-                                              link: account_account_projects_path(@account), \
-                                              css_class: 'btn btn-primary', \
-                                              icon: 'fa fa-road' \
+                                              post: BlogPost.cached_find( "OPPORTUNITIES" , blog ), \
+                                              link: account_account_opportunities_path(@account), \
+                                              css_class: 'btn btn-danger', \
+                                              icon: 'fa fa-plane' \
                                             }
-        
-        -if current_account_user.read_opportunity
-          .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "OPPORTUNITIES" , blog ), \
-                                                link: account_account_opportunities_path(@account), \
-                                                css_class: 'btn btn-danger', \
-                                                icon: 'fa fa-plane' \
-                                              }
-                        
+                      
 
-        .col-sm-6
-          == render 'shared/badge', locals: {  \
-                                              blog: blog, \
-                                              post: BlogPost.cached_find( "CLIENTS" , blog ), \
-                                              link: account_account_clients_path(@account), \
-                                              css_class: 'btn btn-default', \
-                                              icon: 'fa fa-user' \
-                                            }
-                        
+      .col-sm-6
+        == render 'shared/badge', locals: {  \
+                                            blog: blog, \
+                                            post: BlogPost.cached_find( "CLIENTS" , blog ), \
+                                            link: account_account_clients_path(@account), \
+                                            css_class: 'btn btn-default', \
+                                            icon: 'fa fa-user' \
+                                          }
+                      
 
-        .col-sm-6
-          == render 'shared/badge', locals: {  \
-                                              blog: blog, \
-                                              post: BlogPost.cached_find( "CLIENT GROUPS" , blog ), \
-                                              link: account_account_client_groups_path(@account), \
-                                              css_class: 'btn btn-warning', \
-                                              icon: 'fa fa-group' \
-                                            }
-                        
+      .col-sm-6
+        == render 'shared/badge', locals: {  \
+                                            blog: blog, \
+                                            post: BlogPost.cached_find( "CLIENT GROUPS" , blog ), \
+                                            link: account_account_client_groups_path(@account), \
+                                            css_class: 'btn btn-warning', \
+                                            icon: 'fa fa-group' \
+                                          }
+                      
 
         
           
