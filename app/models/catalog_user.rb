@@ -118,8 +118,6 @@ class CatalogUser < ActiveRecord::Base
     # always edit account users
     return true if catalog_user.role        == 'Account User'
                                             
-    
-    
   
     # newer edit the account owner
     return false if catalog_user.role       == 'Account Owner'
@@ -142,11 +140,13 @@ class CatalogUser < ActiveRecord::Base
   def can_read_catalog_user( catalog_user )
     # supers can se everything
     return true if self.role == 'Super User'
-    # always edit account users
-    return true if catalog_user.role        == 'Account User'
-    # never show the administrator
-    account = catalog_user.catalog.account
-    return false if account.administrator_id == catalog_user.id
+    
+    # never update the administrator
+    return false if account.administrator_id == catalog_user.user_id
+   
+    # always show catalog users
+    return true if catalog_user.role    == 'Catalog User'
+    
     # no permissions
     false
   end

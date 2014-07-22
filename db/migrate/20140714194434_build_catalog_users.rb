@@ -42,7 +42,8 @@ class BuildCatalogUsers < ActiveRecord::Migration
 
           catalog_user = CatalogUser.create(user_id: account_user.user_id,
                                             catalog_id: catalog.id,
-                                            role: account_user.role
+                                            role: account_user.role,
+                                            account_id: catalog.account_id
                                             )
           catalog_user.grand_all_permissions
         

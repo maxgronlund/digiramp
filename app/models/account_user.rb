@@ -62,30 +62,7 @@ class AccountUser < ActiveRecord::Base
     self.account.save!
   end
   
-  #!!! When is this used
-  #def copy_permissions_to_catalog_users
-  #  if catalogs = self.account.catalogs
-  #    
-  #    catalogs.each do |catalog|
-  #      catalog_user = CatalogUser.where(account_id: self.account_id, 
-  #                                       user_id: self.user_id,
-  #                                       catalog_id: catalog.id)
-  #                                .first_or_create(
-  #                                       account_id: self.account_id, 
-  #                                       catalog_id: catalog.id,
-  #                                       user_id: self.user_id,
-  #                                       role: 'Catalog User',
-  #                                       email: self.user.email)
-  #                                       
-  #                                       
-  #      #CopyPermissions.from_account_user_to_catalog_user( self, catalog_user )
-  #      Permissions::TYPES.each do |permission_type|
-  #        eval "catalog_user.#{permission_type}   = self.#{permission_type}" 
-  #      end
-  #      catalog_user.save!
-  #    end
-  #  end
-  #end
+ 
   
   def super?
     self.role == 'Super'

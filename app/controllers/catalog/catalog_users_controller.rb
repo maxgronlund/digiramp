@@ -31,7 +31,8 @@ class Catalog::CatalogUsersController < ApplicationController
     
     
     @catalog_user   = CatalogUser.new( title: "You have been invited the #{@catalog.title.upcase!} Catalog by #{current_user.name}", 
-                                       body: "You can access the #{@catalog.title.upcase!} Catalog from #{@catalog.account.title} on your HOME screen")
+                                       body: "You can access the #{@catalog.title.upcase!} Catalog from #{@catalog.account.title} on your HOME screen",
+                                       account_id: @catalog.account_id)
   end
   
   # create a new catalog user
@@ -98,9 +99,9 @@ class Catalog::CatalogUsersController < ApplicationController
   end
   
   def update
-    puts '++++++++++++++++++++++++++++  UPDATE +++++++++++++++++++++++++++++++++++++++'
-    puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-    puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+    #puts '++++++++++++++++++++++++++++  UPDATE +++++++++++++++++++++++++++++++++++++++'
+    #puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+    #puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
     forbidden unless current_catalog_user.update_user
     @catalog        = Catalog.cached_find(params[:catalog_id])
     
@@ -127,7 +128,7 @@ class Catalog::CatalogUsersController < ApplicationController
     rescue
     end
     # if the account user was created when the user was invited to a scatlog
-    if account_user.role == 'Catalog User'
+    if account_user && account_user.role == 'Catalog User'
       # and there is no more catalog users for the account user
       if CatalogUser.where(user_id: user.id, account_id: account.id, catalog_id: @catalog.id).first.nil?
         

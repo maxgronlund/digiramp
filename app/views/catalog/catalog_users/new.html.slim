@@ -20,6 +20,7 @@
         .panel-body
           = f.hidden_field :account_id, value: @account.id
           = f.hidden_field :catalog_id, value: @catalog.id
+          = f.hidden_field :role, value: 'Catalog User'
           = f.input :email
           = f.input :title
           b Message
