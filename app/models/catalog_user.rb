@@ -138,8 +138,9 @@ class CatalogUser < ActiveRecord::Base
   end
   
   def can_read_catalog_user( catalog_user )
+
     # supers can se everything
-    return true if self.role == 'Super User'
+    return true if self.user.role == 'Super'
     
     # never update the administrator
     return false if account.administrator_id == catalog_user.user_id
