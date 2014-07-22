@@ -281,7 +281,7 @@ class Catalog::CommonWorksController < ApplicationController
 private
 
   def common_work_params
-    params.permit( :common_work,  :account_id, :catalog_id, :id, :ipi => [:full_name])
+    params.require(:common_work).permit!
   end
   
   
