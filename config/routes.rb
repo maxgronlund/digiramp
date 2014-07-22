@@ -463,6 +463,7 @@ Digiramp::Application.routes.draw do
           post "add_common_work_from_collection"
           get  "remove_common_work_from_catalog"
           get  "edit_common_work_ipi_spread_sheet"
+          patch  "update_common_work_ipi_spread_sheet/:ipi_id", :to => "common_works#update_common_work_ipi_spread_sheet", as: :update_common_work_ipi_spread_sheet 
         end
         resources :documents
         resources :find_in_collections

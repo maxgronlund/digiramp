@@ -97,6 +97,13 @@ class Catalog::CommonWorksController < ApplicationController
     @common_work  = CommonWork.cached_find(params[:common_work_id])
   end
   
+  def update_common_work_ipi_spread_sheet
+    @common_work  = CommonWork.cached_find(params[:common_work_id])
+    ipi = @common_work.ipis.where(id: params[:ipi_id]).first
+    ipi.update_attributes(common_work_ipi_params)
+    redirect_to catalog_account_catalog_common_work_edit_common_work_ipi_spread_sheet_path(@account.id, @catalog.id, @common_work.id)
+  end
+
   def common_work_ipi_params
     params.require(:ipi).permit!
   end

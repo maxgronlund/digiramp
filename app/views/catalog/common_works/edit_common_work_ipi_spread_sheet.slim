@@ -15,11 +15,11 @@
     h1 Add editable spread sheet here
     i notice adaptive layout compatible with mobile devices
     
-
+    
     .table-responsive
-      table class="editable-table"
+      table class="editable-table table table-bordered"
         thead
-          tr class="column-label"
+          tr
             th
             th Full Name
             th Address
@@ -38,43 +38,36 @@
             th Has Agreement
             
             
-            
-            
 
         tbody
           -@common_work.ipis.each_with_index do |ipi, index|
             tr
-              td = index
-              td = ipi.full_name
-              / the line below is a text field
-              td = simple_format ipi.address   
-              td = ipi.email
-              td = ipi.phone_number
-              td = ipi.ipi_code
-              td = ipi.cae_code
-              / the line belove has a placeholder 'y/n'
-              td = ipi.controlled 
-              td = ipi.territory 
-              
-              td = ipi.mech_owned
-              td = ipi.mech_collected
-              td = ipi.perf_owned
-              td = ipi.perf_collected
-              td = ipi.notes
-              td = ipi.pro 
-              td = ipi.has_agreement
+              = form_for ipi, url: catalog_account_catalog_common_work_update_common_work_ipi_spread_sheet_path(@account.id, @catalog.id, @common_work.id, ipi.id) do |f|
+                td = index
+                td = f.text_area :full_name
+                / the line below is a text field
+                td = f.text_area :address   
+                td = f.text_area :email
+                td = f.text_area :phone_number
+                td = f.text_area :ipi_code
+                td = f.text_area :cae_code
+                / the line belove has a placeholder 'y/n'
+                td = f.text_area :controlled 
+                td = f.text_area :territory 
+                
+                td = f.text_area :mech_owned
+                td = f.text_area :mech_collected
+                td = f.text_area :perf_owned
+                td = f.text_area :perf_collected
+                td = f.text_area :notes
+                td = f.text_area :pro 
+                td = f.text_area :has_agreement
+                td = f.submit 'Save', class: 'btn btn-primary btn-lg'
 
-    .pull-right
-      br
-      = link_to 'Save', '#', class: 'btn btn-primary btn-lg'
   /= debug @common_work.ipis.first
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
   
-  
-  
-
-
 
 /territory: ''
 /share: !ruby/object:BigDecimal 18:0.0
