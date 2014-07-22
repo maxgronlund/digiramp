@@ -35,7 +35,7 @@
 
         .col-sm-3
           
-  == render 'shared/back', locals: {link: account_account_clients_path(@account), no_turbo: 'no_turbo'}
+    == render 'shared/back', locals: {link: account_account_clients_path(@account), no_turbo: 'no_turbo'}
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
               

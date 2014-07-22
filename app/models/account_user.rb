@@ -375,7 +375,7 @@ class AccountUser < ActiveRecord::Base
     return false
   end
  
-
+  
 
 private
 

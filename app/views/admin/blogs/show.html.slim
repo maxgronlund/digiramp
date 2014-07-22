@@ -33,6 +33,6 @@
         .pull-right
           = link_to 'New Post', new_admin_blog_blog_post_path(@blog), class: 'btn btn-primary btn-lg'
         
-  == render 'shared/back', locals: {link: admin_blogs_path}
+    == render 'shared/back', locals: {link: admin_blogs_path}
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

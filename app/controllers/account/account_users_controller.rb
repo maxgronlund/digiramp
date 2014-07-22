@@ -53,6 +53,9 @@ class Account::AccountUsersController < ApplicationController
     # validate the email
     validate_email
     
+    # set the acces
+    set_access
+    
     # get the user and send invitation
     invited_user = User.invite_to_account_by_email( 
                                                     params[:account_user][:email], 
@@ -102,9 +105,7 @@ class Account::AccountUsersController < ApplicationController
     
     forbidden unless current_account_user.update_user
     @account_user = AccountUser.cached_find(params[:id])
-    #@roles        = AccountUser::ROLES
-    #@roles.delete("Account Owner") #unless current_user.super?
-    #@roles.delete("Client")
+
 
   end
   
@@ -112,6 +113,8 @@ class Account::AccountUsersController < ApplicationController
     forbidden unless current_account_user.update_user
     
     @account_user = AccountUser.cached_find(params[:id])
+    
+    set_access 
     
     # update the permission key will re-render cached views
     params[:account_user][:permission_key] = UUIDTools::UUID.timestamp_create().to_s
@@ -121,94 +124,49 @@ class Account::AccountUsersController < ApplicationController
     
     # copy permissions to all catalogs 
     @account_user.update_catalog_users
-    
-    
-    
-    # update the white list for the account
-    #RecordingsWorker.perform_async(@account_user.id)
-    
-    # update the white list for the recordings
+
     
     
     redirect_to account_account_account_users_path(@account)
 
   end
   
+  # set the access
+  def set_access 
+    has_access                          = false
+    has_access                          = true if params[:account_user][:read_crm]
+    has_access                          = true if params[:account_user][:read_opportunity]
+    has_access                          = true if params[:account_user][:read_client]
+    has_access                          = true if params[:account_user][:read_recording]
+    has_access                          = true if params[:account_user][:read_file]
+    has_access                          = true if params[:account_user][:read_legal_document]
+    has_access                          = true if params[:account_user][:read_financial_document]
+    has_access                          = true if params[:account_user][:read_common_work]
+    has_access                          = true if params[:account_user][:read_user]
+    has_access                          = true if params[:account_user][:read_catalog]
+    has_access                          = true if params[:account_user][:read_playlist]
+    has_access                          = true if params[:account_user][:read_artwork]
+    has_access                          = true if params[:account_user][:read_client]
+    has_access                          = true if params[:account_user][:read_file]
+    params[:account_user][:access_account]  = has_access
+  end
+  
   def destroy
     account_user = AccountUser.cached_find(params[:id])
-    
-    #if current_account_user.delete_user
-    #  redirect_to :back
-    #else
-    #  forbidden
-    #end
-    
-    #if current_user.account_id == @account.id
-    #  forbidden
-    #else
+
     @account.permitted_user_ids -= [account_user.user_id]
     @account.save!
     account_user.destroy!
     redirect_to account_account_account_users_path(@account)
-    #end
-    
-    
-    
-    # users can always leave
-    #if current_account_user.id == account_user.id
-    #  session[:return_url] = nil
-    #  go_to = user_path(current_account_user.user)
-    #  flash[:info] = { title: "You have leaved an account", body: "You have no more access to #{@account.title}" }
-    #else
-    #  # only account users with the right permissions can delete users
-    #  forbidden unless current_account_user.delete_user
-    #  go_to = account_path(@account)
-    #  flash[:info] = { title: "User removed", body: "the user has no more access to this account" }
-    #end
-    #
-    #
-    #
-    ## remove user from whitelist
-    #@account.permitted_user_ids -= [account_user.user.id]
-    ## force update of uuids on this
-    #@account.save!
-    #
-    ## force update of uuids
-    ## on the account users account
-    #account_user.account.save!
-    #
-    ## remove the account user
-    #account_user.destroy
-    #
-    #
-    #
-    #redirect_to_return_url go_to
-    
-    
+
   end
   
   
 private
 
-  #def invite( account, user, role )
-  #  @account_user = AccountUser.where(account_id: account.id, user_id: user.id).first_or_create
-  #  @account_user.update(account_id: params[:account_id], user_id: user.id, role: role)
-  #  (params[:account_user][:permitted_models_attributes]||{}).each do |k,v|
-  #    @account_user.permitted_models.where(permitted_model_type_id: v[:permitted_model_type_id]).first.update(v)
-  #  end
-  #  
-  #end
-  #
   def account_user_params
-    #if current_user.can_administrate( @account)
-      params.require(:account_user).permit!
-      #end
+    params.require(:account_user).permit!
   end
-  #
-  #def check_permitted_models
-  #  PermittedModelType.all.each do |permitted_model_type|
-  #    @account_user.permitted_models.where(  account_user_id: @account_user.id, permitted_model_type_id: permitted_model_type.id) .first_or_create(   account_user_id: @account_user.id,permitted_model_type_id: permitted_model_type.id)
-  #  end
-  #end
+
   
 end

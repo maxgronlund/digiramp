@@ -56,6 +56,10 @@ class Account::MusicSubmissionsController < ApplicationController
 
   end
   
+  def ratings
+    
+  end
+  
 private
 
   def music_submission_params

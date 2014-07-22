@@ -51,7 +51,7 @@
       = link_to 'Save', '#', class: 'btn btn-primary btn-lg'
     
   
-  == render 'shared/back', locals: {link: account_account_path(@account)}
+    == render 'shared/back', locals: {link: account_account_path(@account)}
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
 

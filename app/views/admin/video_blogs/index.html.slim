@@ -123,7 +123,7 @@
             = link_to_previous_page @video_blogs, '« Prev Page', class: 'btn btn-default mobile_pagination'
             = link_to_next_page @video_blogs, 'Next Page »', class: 'btn btn-default mobile_pagination'
           
-  == render 'shared/back', locals: {link: admin_content_index_path}
+    == render 'shared/back', locals: {link: admin_content_index_path}
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
         

@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  resources  :music_submissions_ratings, only: [:update]
+
   resources :gitter, only: [:index]
   #resources :footages
   #resources :pro_affiliations
@@ -357,6 +359,7 @@ Digiramp::Application.routes.draw do
             get :upload_recording
             
           end
+          
           resources :music_submissions do
             member do
               get 'submit_recording'
