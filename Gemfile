@@ -52,6 +52,8 @@ gem 'levenshtein'
 gem 'chosen-rails', '0.12.0'
 #
 
+#gem 'mailcheckjs-rails'
+
 
 
 

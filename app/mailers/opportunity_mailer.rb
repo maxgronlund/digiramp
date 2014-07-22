@@ -7,6 +7,9 @@ class OpportunityMailer < ActionMailer::Base
   #   en.opportunity_mailer.invite.subject
   #
   def invite email, opportunity_invitation_id
+    
+    
+    
     opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
     opportunity             = opportunity_invitation.opportunity
     blog                    = Blog.cached_find('Support')

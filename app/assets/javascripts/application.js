@@ -29,6 +29,7 @@
 //= require digiramp_pusher
 //= require gritter
 //= require jquery.raty
+// require mailcheck
 
 
 
