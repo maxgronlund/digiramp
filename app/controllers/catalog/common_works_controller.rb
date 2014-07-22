@@ -37,6 +37,7 @@ class Catalog::CommonWorksController < ApplicationController
   end
   
   def update
+    ap params
     # get the artwork url
     artwork_url = TransloaditImageParser.get_image_url params[:transloadit]
 
@@ -48,7 +49,7 @@ class Catalog::CommonWorksController < ApplicationController
 
     
     @common_work    = CommonWork.cached_find(params[:id])
-    if @common_work.update_attributes(common_work_params)
+    if @common_work.update_attributes!(common_work_params)
       @common_work.update_completeness
       redirect_to catalog_account_catalog_common_work_path( @account, @catalog, @common_work)
     else
@@ -280,7 +281,7 @@ class Catalog::CommonWorksController < ApplicationController
 private
 
   def common_work_params
-    params.require(:common_work).permit!
+    params.permit( :common_work,  :account_id, :catalog_id, :id, :ipi => [:full_name])
   end
   
   

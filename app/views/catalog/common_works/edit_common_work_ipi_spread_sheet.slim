@@ -16,54 +16,62 @@
     i notice adaptive layout compatible with mobile devices
     
     
-    .table-responsive
-      table class="editable-table table table-bordered"
-        thead
-          tr
-            th
-            th Full Name
-            th Address
-            th Email
-            th Phone
-            th IPI Code
-            th CAE Code
-            th Controlled
-            th Territory
-            th Mech Owned
-            th Mech Collected
-            th Perf Owned
-            th Perf Collected
-            th Notes
-            th Pro 
-            th Has Agreement
-            
-            
-
-        tbody
-          -@common_work.ipis.each_with_index do |ipi, index|
+    /form_for @user do |f|
+    /  f.simple_fields_for :posts do |posts_form|
+    /    # Here you have all simple_form methods available
+    /    posts_form.input :title
+    /  end
+    /end
+    
+    = simple_form_for [:catalog , @account, @catalog, @common_work] do |f|
+    
+      .table-responsive
+        table class="editable-table table table-bordered"
+          thead
             tr
-              = form_for ipi, url: catalog_account_catalog_common_work_update_common_work_ipi_spread_sheet_path(@account.id, @catalog.id, @common_work.id, ipi.id) do |f|
-                td = index
-                td = f.text_area :full_name
-                / the line below is a text field
-                td = f.text_area :address   
-                td = f.text_area :email
-                td = f.text_area :phone_number
-                td = f.text_area :ipi_code
-                td = f.text_area :cae_code
-                / the line belove has a placeholder 'y/n'
-                td = f.check_box :controlled 
-                td = f.text_area :territory 
-                
-                td = f.text_area :mech_owned
-                td = f.text_area :mech_collected
-                td = f.text_area :perf_owned
-                td = f.text_area :perf_collected
-                td = f.text_area :notes
-                td = f.text_area :pro 
-                td = f.check_box :has_agreement
-                td = f.submit 'Save', class: 'btn btn-primary btn-lg'
-
+              /th
+              th Full Name
+              th Address
+              th Email
+              th Phone
+              th IPI Code
+              th CAE Code
+              th Controlled
+              th Territory
+              th Mech Owned
+              th Mech Collected
+              th Perf Owned
+              th Perf Collected
+              th Notes
+              th Pro 
+              th Has Agreement
+              
+              
+      
+          tbody
+           
+              
+                = f.fields_for :ipis do |ipi_form|
+                  tr
+                    /= form_for ipi, url: catalog_account_catalog_common_work_update_common_work_ipi_spread_sheet_path(@account.id, @catalog.id, @common_work.id, ipi.id) do |f|
+                    /td = index
+                    td = ipi_form.text_area :full_name
+                    td = ipi_form.text_area :address   
+                    td = ipi_form.text_area :email
+                    td = ipi_form.text_area :phone_number
+                    td = ipi_form.text_area :ipi_code
+                    td = ipi_form.text_area :cae_code
+                    td = ipi_form.check_box :controlled 
+                    td = ipi_form.text_area :territory 
+                    td = ipi_form.text_area :mech_owned
+                    td = ipi_form.text_area :mech_collected
+                    td = ipi_form.text_area :perf_owned
+                    td = ipi_form.text_area :perf_collected
+                    td = ipi_form.text_area :notes
+                    td = ipi_form.text_area :pro 
+                    td = ipi_form.check_box :has_agreement
+        = f.submit 'Save', class: 'btn btn-primary btn-lg'
+      
   /= debug @common_work.ipis.first
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
