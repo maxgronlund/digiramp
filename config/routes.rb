@@ -463,9 +463,7 @@ Digiramp::Application.routes.draw do
         end
         resources :common_works do
           
-          resources :common_work_ipis do
-            post "update_ipi"
-          end
+          resources :common_work_ipis
           get  "recordings"
           get  "new_recordings"
           post "create_recordings"
