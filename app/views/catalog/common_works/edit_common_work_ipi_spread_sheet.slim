@@ -72,46 +72,55 @@
     /    
     /    
     /= render 'shared/line'
-  	div class="account_id" id="#{@account.id}"
+    div class="account_id" id="#{@account.id}"
+  	div class="catalog_id" id="#{@catalog.id}"
+    div class="common_work_id" id="#{@common_work.id}"
     .hide-alert
       div class="alert alert-warning "
         b ALERT!
         br
         'Total exceeds 200%
-      
-    table id="mainTable" class="table table-striped"
-      thead
-        tr
-          th Full Name
-          th Mech Owned
-          th mech collected
-          th perf owned
-          th perf collected
-
-      
-      tbody
-        - @common_work.ipis.each do |ipi|
-          div class="ipi_id" id="#{ipi.id}"
+    .table-responsive  
+      table id="mainTable" class="table table-striped"
+        thead
           tr
-            td = ipi.full_name
-            td = ipi.mech_owned
-            td = ipi.mech_collected
-            td = ipi.perf_owned
-            td = ipi.mech_collected
-
-          
-  	  tfoot
-        tr
-          
-          th
-            strong TOTAL
-          th
-          th
-          th
-          th
-
+            th Full Name
+            th Mech Owned
+            th mech collected
+            th perf owned
+            th perf collected
       
-
+        
+        tbody
+          - @common_work.ipis.each do |ipi|
+            tr
+              td id="#{ipi.id}"
+                = ipi.full_name
+              td id="#{ipi.id}"
+                = ipi.mech_owned
+              td id="#{ipi.id}"
+                = ipi.mech_collected
+              td id="#{ipi.id}"
+                = ipi.perf_owned
+              td id="#{ipi.id}"
+                = ipi.mech_collected
+      
+            
+  	    tfoot
+          tr
+            
+            th
+              strong TOTAL
+            th
+            th
+            th
+            th
+      
+      
+    .pull-right
+      = link_to 'Cancel', '#', class: 'btn btn-default btn-lg'
+      '&nbsp;
+      = link_to 'Save', '#', class: 'btn btn-primary btn-lg'
     /= render 'shared/line'
   	/= debug @common_work.ipis.first
 

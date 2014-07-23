@@ -1,7 +1,17 @@
-- if current_catalog_user.create_common_work_ipi
-  .pull-right
+.pull-right
+  - if current_catalog_user.create_common_work_ipi
+  
     = link_to new_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work) do
       .btn.btn-success.btn-lg
         i class="fa fa-plus-circle"
         '&nbsp;New IP
-
+          
+  - if current_catalog_user.update_common_work_ipi
+    '&nbsp;
+    = link_to catalog_account_catalog_common_work_edit_common_work_ipi_spread_sheet_path(@account, @catalog, @common_work) do
+      .btn.btn-primary.btn-lg
+        i class="fa fa-pencil"
+        '&nbsp;Edit IPI's       
+          
+          
+  

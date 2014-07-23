@@ -19,51 +19,27 @@ $.fn.numericInputExample = function () {
 	element.find('td').on('change', function (evt, newValue) {
     
 		var cell = $(this),
-			column = cell.index(),
-			total = 0;
-      
-		if (column === 0) {
-      /* FULL NAME */
-      
-      
-      
-      var account_id = 0;
-      if ($('.account_id')[0]) {
-        account_id = $('.account_id').attr('id');
-        console.log(account_id);
-      }
-      
-      var ipi_id = 0;
-      if ($('.ipi_id')[0]) {
-        ipi_id = $('.ipi_id').attr('id');
-        console.log(ipi_id);
-        console.log(newValue);
-        
-        
-        $.ajax(
-                {  url: "/catalog/accounts/" + account_id +  
-                        "/catalogs/" + 65 + 
-                        "/common_works/" + 6388 + 
-                        "/common_work_ipis/" + ipi_id ,
-                   type: "PUT",
-                   data: {full_name: newValue}
-                }
-              );
-              
-      }
-      
-      
+		column  = cell.index(),
+		total   = 0;
+    
 
+    var account_id      = $('.account_id').attr('id');
+    var catalog_id      = $('.catalog_id').attr('id');
+    var common_work_id  = $('.common_work_id').attr('id');
+    var ipi_id = cell.attr('id');
+		
+    if (column === 0) {
+      /* FULL NAME */
+      $.ajax(
+              {  url: "/catalog/accounts/" + account_id +  
+                      "/catalogs/" + catalog_id + 
+                      "/common_works/" + common_work_id + 
+                      "/common_work_ipis/" + ipi_id ,
+                 type: "PUT",
+                 data: {full_name: newValue}
+              }
+            );
       
-      
-      /*
-      $.getScript("/account/accounts/" + 37 + 
-                  "/common_works/" + 6388 + 
-                  '?common_work_ipis=' + 23049 + 
-                  '&update_full_name=' + 'johny madsen' 
-                );
-                
-       */         
 			return;
 		}
     
@@ -72,6 +48,7 @@ $.fn.numericInputExample = function () {
 			total += parseFloat(row.children().eq(column).text());
 		});
     
+    /* validate MECH OWNED */
 		if (column === 1 && total > 200) {
 			$('.hide-alert').show();
 			return false; // changes can be rejected
