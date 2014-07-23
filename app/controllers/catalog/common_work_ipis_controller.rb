@@ -9,8 +9,7 @@ class Catalog::CommonWorkIpisController < ApplicationController
   before_filter :access_catalog
   
   before_filter :authorize_common_work
-                                        
-                                        
+  before_action :common_work_ipi_params, only: :update
                                         
   def index
     forbidden unless current_catalog_user.read_common_work_ipi?
@@ -25,8 +24,6 @@ class Catalog::CommonWorkIpisController < ApplicationController
     @common_work_ip = Ipi.new
   end
   
-  
-
   def edit
     forbidden unless current_catalog_user.update_common_work_ipi?
     @common_work_ip     = Ipi.cached_find(params[:id])
@@ -44,21 +41,21 @@ class Catalog::CommonWorkIpisController < ApplicationController
   
   def update
     ipi = Ipi.cached_find(params[:id])
-    ipi.full_name = params[:full_name]
-    ipi.save!
-    ap ipi
+    ipi.update_attributes(params[:ipi]) if ipi.present?
   end
   
   
-  
-private
-  # Use callbacks to share common setup or constraints between actions.
-  def authorize_common_work
-     @common_work = CommonWork.cached_find(params[:common_work_id])
-  end
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def authorize_common_work
+       @common_work = CommonWork.cached_find(params[:common_work_id])
+    end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  # def common_work_ipi_params
-  #   params.require(:common_work_ipi).permit!
-  # end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    # def common_work_ipi_params
+    #   params.require(:common_work_ipi).permit!
+    # end
+    def common_work_ipi_params
+      params.require(:ipi).permit!
+    end
 end
