@@ -58,9 +58,9 @@ function DigirampPlayer(  i,
 
   this.button         = play_button;
   this.index          = player_index;
-  
+  console.log('DigirampPlayer');
 
-  /*
+  
   // when a player colapses: stop it
   $(".multi_player").on('hide.bs.collapse', function (event) {
     
@@ -93,13 +93,14 @@ function DigirampPlayer(  i,
     smSound = createSound(sm_sound_id, digiramp_player, progress_bar);
     this.sm = smSound;
   }
-  */
   
+  
+  /*
   if(smSound == null){
     smSound = createSound(sm_sound_id, digiramp_player, progress_bar);
     this.sm = smSound;
   }
-  
+  */
   
   // show the play-button
   $(player_button).html("<i class='player-button fa fa-play'></i>");
@@ -203,7 +204,8 @@ function stopAllPlayers(player_index){
 }
 
 DigirampPlayer.prototype.stop = function(index) {
-  if(this.index != index){
+  
+  if(this.index != index && this.sm != null){
     this.sm.pause();
   }
 };
@@ -256,7 +258,7 @@ function loadDigirampPlayer(){
       add_recordings_to_playlist_id = $('.add_recordings_to_playlist').attr('id');
     }
 
-    
+
     $( ".player" ).each(function( index ) {
       id = $(this).attr('id');
       digiramp_players.push(new DigirampPlayer(
