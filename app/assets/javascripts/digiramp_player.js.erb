@@ -57,6 +57,9 @@ function DigirampPlayer(  i,
   var smSound          = null;
 
   this.button         = play_button;
+  this.index          = player_index;
+  
+
   // when a player colapses: stop it
   $(".multi_player").on('hide.bs.collapse', function (event) {
     
@@ -100,28 +103,28 @@ function DigirampPlayer(  i,
   var duration_string = convertTimeToString('0')
   $(possition_tag).text(duration_string);
   
-
+  
+  
   var durationEstimate = 100;
   $(player_button).click(function() {
-    
+
     if(smSound != null){
+      
       // change to pause button
       $(player_button).html('<i class="player-button fa fa-pause""></i>');
       
       playing = !playing;
-      this.play = playing;
+      /*console.log(smSound.playState);*/
       // play
       if (playing) {
-        stopAllPlayers();
-        
+        stopAllPlayers(player_index);
         smSound.play({
           whileplaying: function() {
             // move playhead
-            durationEstimate = this.durationEstimate
-            playhead_pos = this.position / this.durationEstimate;
-            pos = playhead_pos * waveform_width;
-
-            var waveform_width = $(waveform).width();
+            durationEstimate    = this.durationEstimate
+            playhead_pos        = this.position / this.durationEstimate;
+            pos                 = playhead_pos * waveform_width;
+            var waveform_width  = $(waveform).width();
 
             $(player_head).css("margin-left", playhead_pos * waveform_width);
             $('.playhead').css("height", $(waveform).height());            // <<<< make this react on window resize instead
@@ -134,15 +137,24 @@ function DigirampPlayer(  i,
             smSound.setPosition(0);
             $(player_head).css("margin-left", 0); 
             $(possition_tag).text(convertTimeToString(this.position * 0.001));
+          },
+          onpause: function() {
+            playing = false;
+            $(play_button).html('<i class="player-button fa fa-play""></i>');
           }
         
         });
-      } else {
+      } 
+       else {
         // stop
         smSound.pause();
+        playing = false;
         // change back to play button
         $(play_button).html('<i class="player-button fa fa-play""></i>');
+        
       };
+      
+      
     };
     
   });
@@ -174,15 +186,16 @@ function DigirampPlayer(  i,
 } 
 
 
-
-DigirampPlayer.prototype.stop = function() {
-  
-  // change to play button
-  if( this.play){
-    this.sm.pause();
-    $(this.button).html('<i class="player-button fa fa-play""></i>');
+function stopAllPlayers(player_index){
+  for (i = 0; i < digiramp_players.length; i++) { 
+      digiramp_players[i].stop(player_index);
   }
-  
+}
+
+DigirampPlayer.prototype.stop = function(index) {
+  if(this.index != index){
+    this.sm.pause();
+  }
 };
 
 
@@ -250,14 +263,7 @@ function loadDigirampPlayer(){
   };
 }
 
-function stopAllPlayers(){
- 
-  
-  for (i = 0; i < digiramp_players.length; i++) { 
-      digiramp_players[i].stop();
-  }
 
-}
 
 
 function convertTimeToString(timeFloat) {
