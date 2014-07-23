@@ -29,6 +29,8 @@ $.fn.numericInputExample = function () {
     var ipi_id = cell.attr('id');
 		
     if (column === 0) {
+      var field_name = 'full_name'
+      var obj = jQuery.parseJSON( '{ "ipi": {"'+field_name+'": "'+newValue+'"} }' );
       /* FULL NAME */
       $.ajax(
               {  url: "/catalog/accounts/" + account_id +  
@@ -36,7 +38,7 @@ $.fn.numericInputExample = function () {
                       "/common_works/" + common_work_id + 
                       "/common_work_ipis/" + ipi_id ,
                  type: "PUT",
-                 data: {ipi: {full_name: newValue} }
+                 data: obj
               }
             );
       
