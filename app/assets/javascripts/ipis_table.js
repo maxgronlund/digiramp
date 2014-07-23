@@ -21,83 +21,20 @@ $.fn.numericInputExample = function () {
 		var cell = $(this),
 		column  = cell.index(),
 		total   = 0;
-    
-
+    var class_name = cell.attr('class');
     var account_id      = $('.account_id').attr('id');
     var catalog_id      = $('.catalog_id').attr('id');
     var common_work_id  = $('.common_work_id').attr('id');
     var ipi_id = cell.attr('id');
-		
-    if (column === 0) {
-      /* FULL NAME */
-      $.ajax(
-              {  url: "/catalog/accounts/" + account_id +  
-                      "/catalogs/" + catalog_id + 
-                      "/common_works/" + common_work_id + 
-                      "/common_work_ipis/" + ipi_id ,
-                 type: "PUT",
-                 data: {ipi: {full_name: newValue} }
-              }
-            );
-      
-			return;
-		}
-    if (column === 1) {
-      /* FULL NAME */
-      $.ajax(
-              {  url: "/catalog/accounts/" + account_id +  
-                      "/catalogs/" + catalog_id + 
-                      "/common_works/" + common_work_id + 
-                      "/common_work_ipis/" + ipi_id ,
-                 type: "PUT",
-                 data: {ipi: {mech_owned: newValue} }
-              }
-            );
-      
-      return;
-    }
-    if (column === 2) {
-      /* FULL NAME */
-      $.ajax(
-              {  url: "/catalog/accounts/" + account_id +  
-                      "/catalogs/" + catalog_id + 
-                      "/common_works/" + common_work_id + 
-                      "/common_work_ipis/" + ipi_id ,
-                 type: "PUT",
-                 data: {ipi: {mech_collected: newValue} }
-              }
-            );
-      
-      return;
-    } 
-    if (column === 3) {
-      /* FULL NAME */
-      $.ajax(
-              {  url: "/catalog/accounts/" + account_id +  
-                      "/catalogs/" + catalog_id + 
-                      "/common_works/" + common_work_id + 
-                      "/common_work_ipis/" + ipi_id ,
-                 type: "PUT",
-                 data: {ipi: {perf_owned: newValue} }
-              }
-            );
-      
-      return;
-    }        
-    if (column === 4) {
-      /* FULL NAME */
-      $.ajax(
-              {  url: "/catalog/accounts/" + account_id +  
-                      "/catalogs/" + catalog_id + 
-                      "/common_works/" + common_work_id + 
-                      "/common_work_ipis/" + ipi_id ,
-                 type: "PUT",
-                 data: {ipi: {perf_collected: newValue} }
-              }
-            );
-      
-      return;
-    }            
+    var url = "/catalog/accounts/" + account_id + "/catalogs/" + catalog_id + "/common_works/" + common_work_id + "/common_work_ipis/" + ipi_id;
+    var obj = jQuery.parseJSON( '{ "ipi": {"'+class_name+'": "'+newValue+'"} }' );
+
+    $.ajax(
+      {  url: url,
+        type: "PUT",
+        data: obj
+      }
+    );
     
 		element.find('tbody tr').each(function () {
 			var row = $(this);

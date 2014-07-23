@@ -94,15 +94,15 @@
         tbody
           - @common_work.ipis.each do |ipi|
             tr
-              td id="#{ipi.id}"
+              td id="#{ipi.id}" class="full_name"
                 = ipi.full_name
-              td id="#{ipi.id}"
+              td id="#{ipi.id}" class="mech_owned"
                 = ipi.mech_owned
-              td id="#{ipi.id}"
+              td id="#{ipi.id}" class="mech_collected"
                 = ipi.mech_collected
-              td id="#{ipi.id}"
+              td id="#{ipi.id}" class="perf_owned"
                 = ipi.perf_owned
-              td id="#{ipi.id}"
+              td id="#{ipi.id}" class="perf_collected"
                 = ipi.perf_collected
       
             
