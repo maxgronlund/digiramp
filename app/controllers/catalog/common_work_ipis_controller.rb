@@ -42,7 +42,6 @@ class Catalog::CommonWorkIpisController < ApplicationController
   def update
     ipi = Ipi.cached_find(params[:id])
     ipi.update_attributes(params[:ipi]) if ipi.present?
-    ap ipi
   end
   
   
