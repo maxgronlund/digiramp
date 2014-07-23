@@ -3,7 +3,7 @@ Digiramp::Application.routes.draw do
   
 
   
-
+  
   resources  :music_submissions_ratings, only: [:update]
 
   resources :gitter, only: [:index]
@@ -44,14 +44,12 @@ Digiramp::Application.routes.draw do
     resources :albums
     #resources :catalog_recordings, only: [:show, :edit, :update, :destroy]
     resources :common_works, only: [:show]
-       
     
+    ##################################################   
+    # CLEAN UP MOST OF THE BELOVE 
+    # SHOULD NOT BE USED
     resources :catalogs do
-      #get "move"
-      #get "get_code"
-      #get "get_catalog"
-      #put "receive"
-      #put "generate_code"
+
       get "add_recordings/add_all"
       get "add_recordings/add_all_from_account"
       resources :add_recordings, only: [:index]
@@ -92,7 +90,8 @@ Digiramp::Application.routes.draw do
     resources :recording_common_work, only: [:edit, :update]
     resources :recording_meta_data, only: [:edit, :update]
     resources :recording_lyrics, only: [:edit, :update]
-    
+    # CLEAN UP END
+    ##############################################
     
     resources :recordings do
       member do
@@ -121,7 +120,9 @@ Digiramp::Application.routes.draw do
     
     
     
-
+    ##################################################   
+    # CLEAN UP MOST OF THE BELOVE 
+    # SHOULD NOT BE USED
     resources :works do
       resources :work_recordings, only: [:index]
       resources :work_users, only: [:index]
@@ -144,7 +145,7 @@ Digiramp::Application.routes.draw do
       get 'ipis'
       get 'users'
     end
-
+    
     resources :upload_recordings, only: [:new, :edit, :create]
     resources :common_works do
       resources :audio_files
@@ -173,6 +174,9 @@ Digiramp::Application.routes.draw do
     #get "upload_recording/new"
     #get "upload_recording/edit"
   end
+  # CLEAN UP END
+  ##############################################
+  
   resources :features
   resources :single_work_steps
 
@@ -213,6 +217,7 @@ Digiramp::Application.routes.draw do
   
   
   resources :sign_up
+  
   resources :users do
     resources :add_shared_catalog_assets, only: [:show]
     resources :user_accounts, only: [:index]
@@ -457,7 +462,10 @@ Digiramp::Application.routes.draw do
           post "bmi_import"
         end
         resources :common_works do
-          resources :common_work_ipis
+          
+          resources :common_work_ipis do
+            post "update_ipi"
+          end
           get  "recordings"
           get  "new_recordings"
           post "create_recordings"

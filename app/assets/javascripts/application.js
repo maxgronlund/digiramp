@@ -29,6 +29,8 @@
 //= require digiramp_pusher
 //= require gritter
 //= require jquery.raty
+//= require mindmup-editabletable.js
+//= require ipis_table.js
 
 
 

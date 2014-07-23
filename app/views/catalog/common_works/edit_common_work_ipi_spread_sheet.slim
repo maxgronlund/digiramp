@@ -10,10 +10,10 @@
                                                             }, current: 'edit ipis'}
     
     
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Common Work Ipi'), blog_post: 'Edit IPI'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Common Work Ipi'), blog_post: 'Edit IPIS'}
     
-    h1 Add editable spread sheet here
-    i notice adaptive layout compatible with mobile devices
+    /h1 Add editable spread sheet here
+    /i notice adaptive layout compatible with mobile devices
     
     
     /form_for @user do |f|
@@ -23,54 +23,104 @@
     /  end
     /end
     
-    = simple_form_for [:catalog , @account, @catalog, @common_work] do |f|
-    
-      .table-responsive
-        table class="editable-table table table-bordered"
-          thead
-            tr
-              /th
-              th Full Name
-              th Address
-              th Email
-              th Phone
-              th IPI Code
-              th CAE Code
-              th Controlled
-              th Territory
-              th Mech Owned
-              th Mech Collected
-              th Perf Owned
-              th Perf Collected
-              th Notes
-              th Pro 
-              th Has Agreement
-              
-              
+    /= simple_form_for [:catalog , @account, @catalog, @common_work] do |f|
+    /
+    /  .table-responsive
+    /    table class="editable-table table table-bordered"
+    /      thead
+    /        tr
+    /          /th
+    /          th Full Name
+    /          th Address
+    /          th Email
+    /          th Phone
+    /          th IPI Code
+    /          th CAE Code
+    /          th Controlled
+    /          th Territory
+    /          th Mech Owned
+    /          th Mech Collected
+    /          th Perf Owned
+    /          th Perf Collected
+    /          th Notes
+    /          th Pro 
+    /          th Has Agreement
+    /          
+    /      tbody
+    /       
+    /          
+    /            = f.fields_for :ipis do |ipi_form|
+    /              tr
+    /                /= form_for ipi, url: catalog_account_catalog_common_work_update_common_work_ipi_spread_sheet_path(@account.id, @catalog.id, @common_work.id, ipi.id) do |f|
+    /                /td = index
+    /                td = ipi_form.text_area :full_name
+    /                td = ipi_form.text_area :address   
+    /                td = ipi_form.text_area :email
+    /                td = ipi_form.text_area :phone_number
+    /                td = ipi_form.text_area :ipi_code
+    /                td = ipi_form.text_area :cae_code
+    /                td = ipi_form.check_box :controlled 
+    /                td = ipi_form.text_area :territory 
+    /                td = ipi_form.text_area :mech_owned
+    /                td = ipi_form.text_area :mech_collected
+    /                td = ipi_form.text_area :perf_owned
+    /                td = ipi_form.text_area :perf_collected
+    /                td = ipi_form.text_area :notes
+    /                td = ipi_form.text_area :pro 
+    /                td = ipi_form.check_box :has_agreement
+    /    = f.submit 'Save', class: 'btn btn-primary btn-lg'
+    /    
+    /    
+    /= render 'shared/line'
+  	div class="account_id" id="#{@account.id}"
+    .hide-alert
+      div class="alert alert-warning "
+        b ALERT!
+        br
+        'Total exceeds 200%
       
-          tbody
-           
-              
-                = f.fields_for :ipis do |ipi_form|
-                  tr
-                    /= form_for ipi, url: catalog_account_catalog_common_work_update_common_work_ipi_spread_sheet_path(@account.id, @catalog.id, @common_work.id, ipi.id) do |f|
-                    /td = index
-                    td = ipi_form.text_area :full_name
-                    td = ipi_form.text_area :address   
-                    td = ipi_form.text_area :email
-                    td = ipi_form.text_area :phone_number
-                    td = ipi_form.text_area :ipi_code
-                    td = ipi_form.text_area :cae_code
-                    td = ipi_form.check_box :controlled 
-                    td = ipi_form.text_area :territory 
-                    td = ipi_form.text_area :mech_owned
-                    td = ipi_form.text_area :mech_collected
-                    td = ipi_form.text_area :perf_owned
-                    td = ipi_form.text_area :perf_collected
-                    td = ipi_form.text_area :notes
-                    td = ipi_form.text_area :pro 
-                    td = ipi_form.check_box :has_agreement
-        = f.submit 'Save', class: 'btn btn-primary btn-lg'
+    table id="mainTable" class="table table-striped"
+      thead
+        tr
+          th Full Name
+          th Mech Owned
+          th mech collected
+          th perf owned
+          th perf collected
+
+      
+      tbody
+        - @common_work.ipis.each do |ipi|
+          div class="ipi_id" id="#{ipi.id}"
+          tr
+            td = ipi.full_name
+            td = ipi.mech_owned
+            td = ipi.mech_collected
+            td = ipi.perf_owned
+            td = ipi.mech_collected
+
+          
+  	  tfoot
+        tr
+          
+          th
+            strong TOTAL
+          th
+          th
+          th
+          th
+
+      
+
+    /= render 'shared/line'
+  	/= debug @common_work.ipis.first
+
+    
+    javascript:
+      $('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
+      $('#textAreaEditor').editableTableWidget({editor: $('<textarea>')});
+      
+
       
   /= debug @common_work.ipis.first
 -cache (['footer', Admin.cached_find(1).version]) do      
