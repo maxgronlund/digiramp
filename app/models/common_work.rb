@@ -11,7 +11,7 @@ class CommonWork < ActiveRecord::Base
   
   has_many :attachments, as: :attachable,       dependent: :destroy
   has_many :ipis,       dependent: :destroy
-  
+  accepts_nested_attributes_for :ipis, allow_destroy: true
   #has_many :activity_events, as: :activity_eventable
   #has_many :documents,       as: :documentable, dependent: :destroy
   has_many :work_users, dependent: :destroy
@@ -27,6 +27,8 @@ class CommonWork < ActiveRecord::Base
   before_destroy :update_uuids
   after_commit :flush_cache
   after_create :count_statistics_up
+  
+  
   
   PROS = ['ASCAP', 'BMI']
 

@@ -29,114 +29,10 @@ soundManager.onready(function() {
   
 });
 
-function loadDigirampPlayer(){
-
-  
-  if ($('#load-player')[0]) {
-    
-    var permission_id = 0;
-    var permissions = 'none';
-    if ($('.permissions')[0]) {
-      permissions = $('.permissions').attr('value');
-      permission_id = $('.permissions').attr('id');
-      console.log(permission_id);
-      
-    }
-    
-    
-    var account_id = 0;
-    if ($('.account_id')[0]) {
-      account_id = $('.account_id').attr('id');
-    }
-    
-    var catalog_id = 0;
-    if ($('.catalog_id')[0]) {
-      catalog_id = $('.catalog_id').attr('id');
-    }
-    
-    var shared_catalog = false
-    if ($('.shared_catalog')[0]) {
-      shared_catalog = true
-      catalog_id = $('.shared_catalog').attr('id');
-    }
-    
-
-    
-    var add_recordings_to_catalog_id = 0;
-    if ($('.add_recordings_to_catalog')[0]) {
-      add_recordings_to_catalog_id = $('.add_recordings_to_catalog').attr('id');
-    }
-    
-    var add_recordings_to_playlist_id = 0;
-    if ($('.add_recordings_to_playlist')[0]) {
-      add_recordings_to_playlist_id = $('.add_recordings_to_playlist').attr('id');
-    }
-
-    var digiramp_player = [];
-    $( ".player" ).each(function( index ) {
-      id = $(this).attr('id');
-      digiramp_player.push(new digirampPlayer(
-                                                id, 
-                                                account_id, 
-                                                catalog_id, 
-                                                add_recordings_to_catalog_id, 
-                                                add_recordings_to_playlist_id, 
-                                                shared_catalog,
-                                                permissions,
-                                                permission_id
-                                                
-                                              ));
-    });
-  };
-  
-  
-}
+var digiramp_players = [];
 
 
-function convertTimeToString(timeFloat) {
-  var hours   = parseInt(timeFloat / 3600);
-  var minutes = parseInt(timeFloat / 60) - hours
-  var seconds = parseInt(timeFloat) - (minutes * 60)
-  var msec    = parseInt(timeFloat * 100) - (parseInt(timeFloat) * 100)
-  var timeString = convertToTwoDigitString(hours) + ':' + convertToTwoDigitString(minutes) + ':' + convertToTwoDigitString(seconds) + ':' + convertToTwoDigitString(msec)
-  return (timeString);
-}
-
-function convertToTwoDigitString(inInt) {
-  if (inInt < 10) {
-    return ("0" + parseInt(inInt));
-  }
-  return (inInt);
-}
-
-function positionInPercent(waweform, mousePosX) {
-  return(mousePosX/$(waweform).width());
-}
-
-
-function createSound(sm_sound_id, digiramp_player, progress_bar){
-  
-  
-  var smSound = soundManager.createSound({
-    id: sm_sound_id,
-    url: $(digiramp_player).attr('class'),
-  });
-  
-  // progress bar
-  smSound.load({
-    whileloading: function() {
-      var loaded = (this.bytesLoaded / this.bytesTotal) * 100;
-      var pos = loaded.toString() + '%';
-      $(progress_bar).css("width", pos);
-      //console.log(pos);
-      //$(progress_bar).html(pos);
-    }
-  });
-  return smSound;
-}
-
-
-function digirampPlayer(  i, 
+function DigirampPlayer(  i, 
                           account_id, 
                           catalog_id, 
                           add_recordings_to_catalog_id, 
@@ -146,20 +42,21 @@ function digirampPlayer(  i,
                           permission_id
                         ){
                           
-  var player_index    = parseInt(i)
-  var player_button   = "#play_button_"     + player_index;                                 
-  var player_head     = "#playhead_"        + player_index;
-  var progress_bar    = "#load_bar_"        + player_index + ".progress-bar.load-position";
-  var possition_tag   = "#position_"        + player_index + ".position";
-  var digiramp_player = "#digiramp_player_" + player_index;
-  var back_button     = "#back_button_"     + player_index;
-  var play_button     = "#play_button_"     + player_index;
-  var waveform        = "#waveform_"        + player_index;
-  var expand_colapse  = "#expand_colapse_"  + player_index;
-  var sm_sound_id     = "sound_"            + player_index;
-  var playing         = false;
-  var smSound         = null;
-  
+  var player_index     = parseInt(i)
+  var player_button    = "#play_button_"     + player_index;                                 
+  var player_head      = "#playhead_"        + player_index;
+  var progress_bar     = "#load_bar_"        + player_index + ".progress-bar.load-position";
+  var possition_tag    = "#position_"        + player_index + ".position";
+  var digiramp_player  = "#digiramp_player_" + player_index;
+  var back_button      = "#back_button_"     + player_index;
+  var play_button      = "#play_button_"     + player_index;
+  var waveform         = "#waveform_"        + player_index;
+  var expand_colapse   = "#expand_colapse_"  + player_index;
+  var sm_sound_id      = "sound_"            + player_index;
+  var playing          = false;
+  var smSound          = null;
+
+  this.button         = play_button;
   // when a player colapses: stop it
   $(".multi_player").on('hide.bs.collapse', function (event) {
     
@@ -190,6 +87,7 @@ function digirampPlayer(  i,
 
   if ($(".just-load")[0]) {
     smSound = createSound(sm_sound_id, digiramp_player, progress_bar);
+    this.sm = smSound;
   }
   
   // show the play-button
@@ -205,12 +103,17 @@ function digirampPlayer(  i,
 
   var durationEstimate = 100;
   $(player_button).click(function() {
+    
     if(smSound != null){
       // change to pause button
       $(player_button).html('<i class="player-button fa fa-pause""></i>');
+      
       playing = !playing;
+      this.play = playing;
       // play
       if (playing) {
+        stopAllPlayers();
+        
         smSound.play({
           whileplaying: function() {
             // move playhead
@@ -270,5 +173,133 @@ function digirampPlayer(  i,
             );
 } 
 
+
+
+DigirampPlayer.prototype.stop = function() {
+  
+  // change to play button
+  if( this.play){
+    this.sm.pause();
+    $(this.button).html('<i class="player-button fa fa-play""></i>');
+  }
+  
+};
+
+
+
+
+
+
+
+/* LOAD THE PLAYERS */
+function loadDigirampPlayer(){
+
+  if ($('#load-player')[0]) {
+    
+    var permission_id = 0;
+    var permissions = 'none';
+    if ($('.permissions')[0]) {
+      permissions = $('.permissions').attr('value');
+      permission_id = $('.permissions').attr('id');
+      /*console.log(permission_id);*/
+    }
+    
+    
+    var account_id = 0;
+    if ($('.account_id')[0]) {
+      account_id = $('.account_id').attr('id');
+    }
+    
+    var catalog_id = 0;
+    if ($('.catalog_id')[0]) {
+      catalog_id = $('.catalog_id').attr('id');
+    }
+    
+    var shared_catalog = false
+    if ($('.shared_catalog')[0]) {
+      shared_catalog = true
+      catalog_id = $('.shared_catalog').attr('id');
+    }
+    
+
+    
+    var add_recordings_to_catalog_id = 0;
+    if ($('.add_recordings_to_catalog')[0]) {
+      add_recordings_to_catalog_id = $('.add_recordings_to_catalog').attr('id');
+    }
+    
+    var add_recordings_to_playlist_id = 0;
+    if ($('.add_recordings_to_playlist')[0]) {
+      add_recordings_to_playlist_id = $('.add_recordings_to_playlist').attr('id');
+    }
+
+    
+    $( ".player" ).each(function( index ) {
+      id = $(this).attr('id');
+      digiramp_players.push(new DigirampPlayer(
+                                                id, 
+                                                account_id, 
+                                                catalog_id, 
+                                                add_recordings_to_catalog_id, 
+                                                add_recordings_to_playlist_id, 
+                                                shared_catalog,
+                                                permissions,
+                                                permission_id
+                                              ));
+    });
+  };
+}
+
+function stopAllPlayers(){
+ 
+  
+  for (i = 0; i < digiramp_players.length; i++) { 
+      digiramp_players[i].stop();
+  }
+
+}
+
+
+function convertTimeToString(timeFloat) {
+  var hours   = parseInt(timeFloat / 3600);
+  var minutes = parseInt(timeFloat / 60) - hours
+  var seconds = parseInt(timeFloat) - (minutes * 60)
+  var msec    = parseInt(timeFloat * 100) - (parseInt(timeFloat) * 100)
+  var timeString = convertToTwoDigitString(hours) + ':' + convertToTwoDigitString(minutes) + ':' + convertToTwoDigitString(seconds) + ':' + convertToTwoDigitString(msec)
+  return (timeString);
+}
+
+function convertToTwoDigitString(inInt) {
+  if (inInt < 10) {
+    return ("0" + parseInt(inInt));
+  }
+  return (inInt);
+}
+
+function positionInPercent(waweform, mousePosX) {
+  return(mousePosX/$(waweform).width());
+}
+
+
+function createSound(sm_sound_id, digiramp_player, progress_bar){
+  
+  
+  var smSound = soundManager.createSound({
+    id: sm_sound_id,
+    url: $(digiramp_player).attr('class'),
+  });
+  
+  // progress bar
+  smSound.load({
+    whileloading: function() {
+      var loaded = (this.bytesLoaded / this.bytesTotal) * 100;
+      var pos = loaded.toString() + '%';
+      $(progress_bar).css("width", pos);
+      //console.log(pos);
+      //$(progress_bar).html(pos);
+    }
+  });
+  return smSound;
+}
 
 

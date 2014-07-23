@@ -42,6 +42,13 @@ class Catalog::CommonWorkIpisController < ApplicationController
     
   end
   
+  def update
+    ipi = Ipi.cached_find(params[:id])
+    ipi.full_name = params[:full_name]
+    ipi.save!
+    ap ipi
+  end
+  
   
   
 private
