@@ -150,6 +150,24 @@ class Recording < ActiveRecord::Base
     recordings
   end
   
+  def self.search_all(query)
+    
+    if query.present?
+     recordings = Recording.search(query)
+    else
+      Recording.all
+    end
+    
+  end
+  
+  def self.search_from_ids(recording_ids, query)
+    recordings = Recording.where(id: recording_ids)
+    if query.present?
+     recordings = recordings.search(query)
+    end
+    recordings
+  end
+  
   def self.account_search(account, query)
     recordings = account.recordings.not_in_bucket
     if query.present?

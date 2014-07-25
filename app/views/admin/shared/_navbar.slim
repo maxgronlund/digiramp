@@ -1,5 +1,3 @@
-
-
 .navbar.navbar-default
   .container-fluid 
     .navbar-header
@@ -41,7 +39,7 @@
 
           
           li  class="#{page == 'account' ? 'active' : ''}"
-            -if current_account.id != current_user.account_id && current_account.user.has_a_collection
+            -unless page == 'profile'
               = link_to account_path(current_account) do
                 i class="fa fa-tachometer"
                 '&nbsp;

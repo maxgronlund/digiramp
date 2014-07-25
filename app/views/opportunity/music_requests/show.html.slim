@@ -1,0 +1,75 @@
+
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'     
+  .container
+    == render 'admin/shared/messages' 
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path( @account.user), \
+                                                            @opportunity.title.to_sym => opportunity_opportunity_path(@opportunity) \
+                                                            }, current: @music_request.title } 
+
+    
+    == render 'shared/page_title_text', locals: {title: @opportunity.title, body: ''}
+    
+    .row
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            = @music_request.title
+            '&nbsp;
+          .panel-body
+            /.table-responsive
+            table class="table"
+              tr
+                th Fee:
+                td = number_to_currency(@music_request.fee, locale: :en, precision: 2)
+              - unless  @music_request.link.to_s == ''
+                tr
+                  th Duration:
+                  td = @music_request.duration_text
+              - unless  @music_request.link.to_s == ''
+                tr
+                  th Sound like:
+                  td = link_to 'click here', music_request.link
+                  
+
+            b Description:
+            br
+            = simple_format @music_request.body
+            
+      .col-sm-6
+        h2 SUBMISSIONS
+        hr
+        - @music_request.music_submissions.order('stars desc').each do |music_submission|
+          -recording =  music_submission.recording
+          -index = recording.id
+          div class="player" id="#{index}"
+          .just-load
+        
+          h4 = recording.title
+          
+          .digiramp_player
+            div class="permissions" value="submission" id="#{current_user.id}"
+            == render 'players/simple_submission_player', locals: {index: index , 
+                                                            recording: recording, 
+                                                            music_submission: music_submission}
+          hr
+        - if @opportunity.deadline < Date.current
+          div class="alert alert-danger"
+            button type="button" class="close" data-dismiss="alert" ×
+            h4 Expired !
+            'Please extend the deadline to add more music requests
+        - else
+         .pull-right    
+           = link_to new_opportunity_opportunity_music_request_music_submission_path(@opportunity, \
+                                                                                     @music_request) do 
+             .btn.btn-success.btn-lg
+               i class="fa fa-plus-circle"
+               '&nbsp;Add Submission      
+        
+        
+        
+    == render 'shared/back', locals: {link: opportunity_opportunity_path(@opportunity)} 
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

@@ -24,28 +24,10 @@ module AccountsHelper
     session[:account_id] = @account.id
     @account  
 
-    
-    #forbidden unless @account.permitted_user_ids.include? current_user.id
 
   end
   
-  #def access_account
-  #
-  #  forbidden if current_user == nil
-  #  if params[:account_id]
-  #    @account = Account.cached_find(params[:account_id])
-  #  elsif
-  #    @account = Account.cached_find(params[:id])
-  #  elsif session[:account_id]
-  #    @account = Account.cached_find( session[:account_id])
-  #  end
-  #  not_found unless @account
-  #  @account
-  #end
-  
-  #def current_account
-  #  access_to_account
-  #end
+
   
   
 

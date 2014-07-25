@@ -30,7 +30,9 @@ class Issue < ActiveRecord::Base
         "OS X 10.6 Snow Leopard",
         "OS X 10.7 Lion",
         "OS X 10.8 Mountain Lion",
-        "OS X 10.9 Mavericks"]
+        "OS X 10.9 Mavericks",
+        "iOS",
+        "Android"]
   SYMPTOMS = ['Error 422', 'Error 500', 'Missing Buttons', 'Styling', 'Other']
   BROWSERS = ['Safari', 'Chrome', 'Firefox', 'IE', 'Opera', 'Other']
   

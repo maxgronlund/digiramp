@@ -16,27 +16,24 @@
       - account_user = AccountUser.where(account_id: @user.account_id, user_id: @user.id).first
       .row
         .col-sm-6
-          - if @user.has_a_collection
-            .panel.panel-primary
-              .panel-heading
-                'ACCOUNT INFO
-              .panel-body
-                .logo
-                  .thumbnail
-                    
-                    = image_tag @user.account.logo_url(:default) || 'account-logo.jpg'
-                
-              
-                = simple_format @user.account.description
-                
-                
-                .pull-right
-                  = link_to 'Collection', account_path( @user.account ), class: 'btn btn-success btn-lg'
-                  '&nbsp;
-                  = link_to 'Edit Account', edit_user_account_path(@user, @user.account_id), class: 'btn btn-primary btn-lg'
+          .panel.panel-primary
+            .panel-heading
+              'ACCOUNT INFO
+            .panel-body
+              .logo
+                .thumbnail
                   
-                  /= link_to 'User Settings', edit_user_path(@user), class: 'btn btn-primary btn-lg'
-           
+                  = image_tag @user.account.logo_url(:default) || 'account-logo.jpg'
+              
+            
+              = simple_format @user.account.description
+              
+              
+              .pull-right
+                = link_to 'Edit Account', edit_user_account_path(@user, @user.account_id), class: 'btn btn-primary btn-lg'
+                
+                /= link_to 'User Settings', edit_user_path(@user), class: 'btn btn-primary btn-lg'
+          
 
           .panel.panel-primary
             .panel-heading
@@ -60,6 +57,20 @@
               
                   
         .col-sm-6.pull-up-20
+          - if @user.has_a_collection
+            == render 'users/shared/badge_button', locals: { \
+                                                        blog_post: 'MANAGE COLLECTION', \
+                                                        link: account_account_path( @user.account ), \
+                                                        css_class: 'btn btn-default', \
+                                                        icon: 'fa fa-archive' \
+                                                      }
+            
+          == render 'users/shared/badge_button', locals: { \
+                                                      blog_post: 'COLLECTIONS', \
+                                                      link: user_user_collections_path(@user), \
+                                                      css_class: 'btn btn-warning', \
+                                                      icon: 'fa fa-list' \
+                                                    }
 
           == render 'users/shared/badge_button', locals: { \
                                                       blog_post: 'CATALOGS', \
@@ -67,13 +78,7 @@
                                                       css_class: 'btn btn-primary', \
                                                       icon: 'fa fa-book' \
                                                     }
-          
-          == render 'users/shared/badge_button', locals: { \
-                                                      blog_post: 'COLLECTIONS', \
-                                                      link: user_user_collections_path(@user), \
-                                                      css_class: 'btn btn-warning', \
-                                                      icon: 'fa fa-tachometer' \
-                                                    }
+                                                    
           - if account_user.has_access_to_opertunities
             
               == render 'users/shared/badge_button', locals: { \

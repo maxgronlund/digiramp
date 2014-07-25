@@ -1,12 +1,6 @@
 
 Digiramp::Application.routes.draw do
-  
 
-  
-  
-  get 'opportunities/index'
-
-  get 'opportunities/show'
 
   resources  :music_submissions_ratings, only: [:update]
 
@@ -523,7 +517,11 @@ Digiramp::Application.routes.draw do
   
    namespace :opportunity do
      
-     resources :opportunities, only: [:index, :show]
+     resources :opportunities, only: [:index, :show] do
+       resources :music_requests do
+         resources :music_submissions
+       end
+     end
    end
   
   #admin_constraint = lambda do |request|

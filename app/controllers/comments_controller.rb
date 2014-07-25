@@ -26,11 +26,44 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
 
-    
     if @comment = Comment.create!(comment_params)
       case @comment.commentable_type
       when 'Issue'
+        
+        begin
+          issue = Issue.cached_find(@comment.commentable_id)
+          # send notification to issue owner
+          #ap issue.user.email
+          channel = 'digiramp_radio_' + issue.user.email
+          options = {  "channel" => channel, 
+                       "title"   => 'Info', 
+                       "message" => "Acomment is posted on the issue #{issue.title}", 
+                       "time"    => '10000', 
+                       "sticky"  => 'true', 
+                       "image"   => 'notice'
+                     }
+          PusherWorker.perform_async(options)
+          
+          
+          
+          
+          
+          # channel = 'digiramp_radio_' + issue.user.email
+          #Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
+          #                                      "message" => " Acomment is posted on the issue #{issue.title}", 
+          #                                      "time"    => '4000', 
+          #                                      "sticky"  => 'true', 
+          #                                      "image"   => 'info'
+          #                                      })
+          #
+        rescue
+          puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+          puts 'ERROR: Unable send notification'
+          puts 'In CommentController#create'
+          puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+        end
         redirect_to user_issue_path(@comment.user, @comment.commentable_id)
+        
       end
     else
       redirect_to :back

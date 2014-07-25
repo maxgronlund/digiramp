@@ -65,15 +65,18 @@
                   tr
                     th Sound like:
                     td = link_to 'click here', music_request.link
-                  
-                
-              
+                    
+
               b Description:
               br
               = simple_format music_request.body
               br
               
               .pull-right
+                = link_to opportunity_opportunity_music_request_path( @opportunity, music_request) do
+                  .btn.btn-default.btn-lg
+                    i class="fa fa-eye"
+                    '&nbsp;Submission
                 /= link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
                 /                                                                              @opportunity, \
                 /                                                                              music_request) do 
