@@ -28,7 +28,8 @@ class Account::MusicSubmissionsController < ApplicationController
                                                 music_request_id: params[:music_request_id]  
                                               ).first_or_create( 
                                                 recording_id: params[:id],
-                                                music_request_id: params[:music_request_id]  
+                                                music_request_id: params[:music_request_id] ,
+                                                user_id: current_user.id
                                               )  
                                      
     @remove_button = "#add_to_request_#{params[:id]}"

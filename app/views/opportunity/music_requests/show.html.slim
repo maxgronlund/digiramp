@@ -41,7 +41,7 @@
       .col-sm-6
         h2 SUBMISSIONS
         hr
-        - @music_request.music_submissions.order('stars desc').each do |music_submission|
+        - @music_submissions.each do |music_submission|
           -recording =  music_submission.recording
           -index = recording.id
           div class="player" id="#{index}"

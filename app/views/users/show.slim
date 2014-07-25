@@ -79,16 +79,16 @@
                                                       icon: 'fa fa-book' \
                                                     }
                                                     
-          - if account_user.has_access_to_opertunities
+          
             
-              == render 'users/shared/badge_button', locals: { \
-                                                          blog_post: 'OPPORTUNITIES', \
-                                                          link: user_user_opportunities_path(@user), \
-                                                          css_class: 'btn btn-danger', \
-                                                          icon: 'fa fa-plane' \
-                                                        }
-                              
-              
+          == render 'users/shared/badge_button', locals: { \
+                                                      blog_post: 'OPPORTUNITIES', \
+                                                      link: user_user_opportunities_path(@user), \
+                                                      css_class: 'btn btn-danger', \
+                                                      icon: 'fa fa-plane' \
+                                                    }
+                          
+          
 
       
       
