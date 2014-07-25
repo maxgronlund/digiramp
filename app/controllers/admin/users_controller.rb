@@ -51,7 +51,7 @@ class Admin::UsersController < ApplicationController
     forbidden unless can_edit?
     @user = User.cached_find(params[:id])
     #AccountUser.where(user_id: @user.id)
-    @user.destroy
+    @user.destroy!
     redirect_to admin_users_path
   end
 

@@ -377,9 +377,9 @@ private
     # !!! what is account cache
     AccountCache.update_users_uuid self.account
     # force segment cache for account user to rerender
-    self.uuid = UUIDTools::UUID.timestamp_create().to_s
+    #self.uuid = UUIDTools::UUID.timestamp_create().to_s
     # force update of the users cache
-    self.user.save!
+    #self.user.save!
   end
   
 end

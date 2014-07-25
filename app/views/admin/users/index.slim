@@ -34,7 +34,7 @@
                     /th User
                     th Email
                     th Account
-                    th Administrator
+                    th Admin
                     th Super
                     /th Activated
                     th 
@@ -45,8 +45,14 @@
                     .do
                       tr
                         /td = debug user
-                        td = user.email
-                        td = user.account.title rescue[]
+                        td 
+                          = link_to admin_user_path( user ) do 
+                            .btn.btn-default.btn-lg
+                              = user.email
+                        td 
+                          = link_to user_path(user) do 
+                            .btn.btn-default.btn-lg
+                              = user.account.title rescue[]
                         td 
                           - if user.administrator
                             = link_to edit_admin_user_path( user) do 

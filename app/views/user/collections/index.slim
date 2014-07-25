@@ -14,7 +14,10 @@
       .row
         .col-sm-12
           - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
-          - accounts = Account.order('title asc').where(id: account_ids)
+          - unless @user.has_a_collection
+            - account_ids -= [@user.account_id]
+          - accounts    = Account.order('title asc').where(id: account_ids)
+          
           .panel.panel-primary
             .panel-heading
               'COLLECTIONS
@@ -29,45 +32,7 @@
                       tr
                         td = link_to account.title, account_path( account ), class: 'btn btn-default btn-lg'
         
-          /- catalog_ids = CatalogUser.where(user_id: @user.id ).pluck(:catalog_id)
-          /- catalogs = Catalog.order('title asc').where(id: catalog_ids)
-          /.panel.panel-primary
-          /  .panel-heading
-          /    'CATALOGS
-          /  .panel-body
-          /    .table-responsive
-          /      table class="table table-hover"
-          /        thead
-          /          tr
-          /            th CATALOG
-          /            th RECORDINGS
-          /            th COMMON WORKS
-          /            
-          /        
-          /        tbody
-          /          -catalogs.each do |catalog|
-          /            - catalog_user = CatalogUser.cached_where(catalog.id, @user.id)
-          /            tr
-          /              td = link_to catalog.title, catalog_account_catalog_path(catalog.account, catalog), class: 'btn btn-default btn-lg'
-          /              td
-          /                = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do 
-          /                   div class="btn btn-warning btn-lg #{'disabled' unless catalog_user.read_recording}"
-          /                      i class='fa fa-headphones'
-          /                      '&nbsp;
-          /                      =catalog.nr_recordings
-          /              td
-          /                = link_to catalog_account_catalog_common_works_path(catalog.account, catalog) do 
-          /                   div class="btn btn-primary btn-lg #{'disabled' unless catalog_user.read_recording}"
-          /                      i class='fa fa-music'
-          /                      '&nbsp;
-          /                      =catalog.nr_common_works
-          /                
-        
-                         
-                        
-              
-
-      
-      
+         
+    == render 'shared/back', locals: {link: user_path(@user)} 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  

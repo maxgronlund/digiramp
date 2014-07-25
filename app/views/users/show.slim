@@ -16,50 +16,49 @@
       - account_user = AccountUser.where(account_id: @user.account_id, user_id: @user.id).first
       .row
         .col-sm-6
-          .row
-            .col-sm-12
-              .panel.panel-primary
-                .panel-heading
-                  'ACCOUNT INFO
-                .panel-body
-                  .logo
-                    .thumbnail
-                      
-                      = image_tag @user.account.logo_url(:default) || 'account-logo.jpg'
-                  
-                
-                  = simple_format @user.account.description
-                  
-                  
-                  .pull-right
-                    = link_to 'Collection', account_path( @user.account ), class: 'btn btn-success btn-lg'
-                    '&nbsp;
-                    = link_to 'Edit Account', edit_user_account_path(@user, @user.account_id), class: 'btn btn-primary btn-lg'
+          - if @user.has_a_collection
+            .panel.panel-primary
+              .panel-heading
+                'ACCOUNT INFO
+              .panel-body
+                .logo
+                  .thumbnail
                     
-                    /= link_to 'User Settings', edit_user_path(@user), class: 'btn btn-primary btn-lg'
+                    = image_tag @user.account.logo_url(:default) || 'account-logo.jpg'
+                
               
-            .col-sm-12
-              .panel.panel-primary
-                .panel-heading
-                  'USER INFO
-                .panel-body
-                  .media
-                    .pull-left
-                      .logo
-                        -if @user.image
-                          = image_tag @user.image_url :avatar_120x120
-                        -else
-                          = gravatar_tag @user.email, :size => 120, class: "media-object"
-
-                    .media-body
-                      h4 class="media-heading" =@user.full_name
-                      = @user.email
-                  br
-                  = simple_format @user.profile
-                  .pull-right
-                    = link_to 'User Settings', edit_user_path(@user), class: 'btn btn-primary btn-lg'
+                = simple_format @user.account.description
+                
+                
+                .pull-right
+                  = link_to 'Collection', account_path( @user.account ), class: 'btn btn-success btn-lg'
+                  '&nbsp;
+                  = link_to 'Edit Account', edit_user_account_path(@user, @user.account_id), class: 'btn btn-primary btn-lg'
                   
-                   
+                  /= link_to 'User Settings', edit_user_path(@user), class: 'btn btn-primary btn-lg'
+           
+
+          .panel.panel-primary
+            .panel-heading
+              'profile
+            .panel-body
+              .media
+                .pull-left
+                  .logo
+                    - unless @user.image == "/assets/fallback/avatar_120x120_account-logo.jpg"
+                      = image_tag @user.image_url :avatar_120x120
+                    -else
+                      = gravatar_tag @user.email, :size => 120, class: "media-object"
+          
+                .media-body
+                  h4 class="media-heading" =@user.full_name
+                  = @user.email
+              br
+              = simple_format @user.profile
+              .pull-right
+                = link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-primary btn-lg'
+              
+                  
         .col-sm-6.pull-up-20
 
           == render 'users/shared/badge_button', locals: { \
@@ -85,72 +84,7 @@
                                                         }
                               
               
-          /== render 'shared/account_badge', locals: { \
-          /                                             title: account_user.account.title, \
-          /                                             body: account_user.account.description, \
-          /                                             link: account_path( account_user.account ), \
-          /                                             css_class: "panel panel-warning", \
-          /                                             icon: 'fa fa-tachometer', \
-          /                                             id: account_user.account.id, \
-          /                                             account_user: account_user \
-          /                                           }
-        /- account_users.each do |account_user|
-        /  - unless account_user.account.user_id == @user.id
-        /    .col-sm-4
-        /    
-        /      == render 'shared/account_badge', locals: { \
-        /                                                   title: account_user.account.title, \
-        /                                                   body: account_user.account.description, \
-        /                                                   link: account_path( account_user.account ), \
-        /                                                   css_class: "panel panel-primary", \
-        /                                                   icon: 'fa fa-tachometer', \
-        /                                                   id: account_user.account.id, \
-        /                                                   account_user: account_user \
-        /                                                 }
-        /      
-        /
-        /
-        /
-        /
-        /
 
-      
-        /.row
-        /  .col-sm-6
-        /    == render 'users/shared/badge_button', locals: { \
-        /                                                blog_post: 'ASSETS', \
-        /                                                link: user_shared_assets_path(@user), \
-        /                                                css_class: 'btn btn-primary', \
-        /                                                icon: 'fa fa-archive' \
-        /                                              }
-        /
-        /.col-sm-6
-        /  == render 'users/shared/badge_button', locals: { \
-        /                                              blog_post: 'ACCOUNTS', \
-        /                                              link: user_user_accounts_path(@user), \
-        /                                              css_class: 'btn btn-primary', \
-        /                                              icon: 'fa fa-tachometer' \
-        /                                            }
-        /                                            
-        /      
-        /                                            
-        /.col-sm-6
-        /  == render 'users/shared/badge_button', locals: { \
-        /                                              blog_post: 'PROFILE', \
-        /                                              link: edit_user_path(@user), \
-        /                                              css_class: 'btn btn-success', \
-        /                                              icon: 'fa fa-user' \
-        /                                            }
-        /
-        /                                            
-        /.col-sm-6
-        /  == render 'users/shared/badge_button', locals: { \
-        /                                              blog_post: 'ACCOUNT', \
-        /                                              link: edit_user_account_path(@user, @user.account_id), \
-        /                                              css_class: 'btn btn-warning', \
-        /                                              icon: 'fa fa-pencil' \
-        /                                            }
-        /
       
       
 -cache (['footer', Admin.cached_find(1).version]) do      

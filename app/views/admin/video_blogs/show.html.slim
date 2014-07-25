@@ -26,9 +26,9 @@
           .panel-body
             -@video_blog.videos.order('title asc').each do |video|
               .row
-                .col-sm-6
+                .col-md-8
                   == render 'shared/video', video: video
-                .col-sm-6
+                .col-md-4
                   h3 = video.title
                   = simple_format video.body
                   br

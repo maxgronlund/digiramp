@@ -50,73 +50,8 @@
                          
                         
               
-          /== render 'shared/account_badge', locals: { \
-          /                                             title: account_user.account.title, \
-          /                                             body: account_user.account.description, \
-          /                                             link: account_path( account_user.account ), \
-          /                                             css_class: "panel panel-warning", \
-          /                                             icon: 'fa fa-tachometer', \
-          /                                             id: account_user.account.id, \
-          /                                             account_user: account_user \
-          /                                           }
-        /- account_users.each do |account_user|
-        /  - unless account_user.account.user_id == @user.id
-        /    .col-sm-4
-        /    
-        /      == render 'shared/account_badge', locals: { \
-        /                                                   title: account_user.account.title, \
-        /                                                   body: account_user.account.description, \
-        /                                                   link: account_path( account_user.account ), \
-        /                                                   css_class: "panel panel-primary", \
-        /                                                   icon: 'fa fa-tachometer', \
-        /                                                   id: account_user.account.id, \
-        /                                                   account_user: account_user \
-        /                                                 }
-        /      
-        /
-        /
-        /
-        /
-        /
 
       
-        /.row
-        /  .col-sm-6
-        /    == render 'users/shared/badge_button', locals: { \
-        /                                                blog_post: 'ASSETS', \
-        /                                                link: user_shared_assets_path(@user), \
-        /                                                css_class: 'btn btn-primary', \
-        /                                                icon: 'fa fa-archive' \
-        /                                              }
-        /
-        /.col-sm-6
-        /  == render 'users/shared/badge_button', locals: { \
-        /                                              blog_post: 'ACCOUNTS', \
-        /                                              link: user_user_accounts_path(@user), \
-        /                                              css_class: 'btn btn-primary', \
-        /                                              icon: 'fa fa-tachometer' \
-        /                                            }
-        /                                            
-        /      
-        /                                            
-        /.col-sm-6
-        /  == render 'users/shared/badge_button', locals: { \
-        /                                              blog_post: 'PROFILE', \
-        /                                              link: edit_user_path(@user), \
-        /                                              css_class: 'btn btn-success', \
-        /                                              icon: 'fa fa-user' \
-        /                                            }
-        /
-        /                                            
-        /.col-sm-6
-        /  == render 'users/shared/badge_button', locals: { \
-        /                                              blog_post: 'ACCOUNT', \
-        /                                              link: edit_user_account_path(@user, @user.account_id), \
-        /                                              css_class: 'btn btn-warning', \
-        /                                              icon: 'fa fa-pencil' \
-        /                                            }
-        /
-      
-      
+    == render 'shared/back', locals: {link: user_path(@user)}       
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  

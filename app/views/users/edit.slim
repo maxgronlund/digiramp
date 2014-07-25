@@ -33,14 +33,13 @@
                   a data-wysihtml5-command="italic" Italic
                 
                 =f.input :profile, label: false, :input_html => {  style: "height: 224px;", placeholder: "Profile", id: 'wysihtml5_editor'}
-      .row
-        .col-sm-12
-          hr
-          .pull-right
-            = link_to 'Cancel', user_path(@user), class: 'btn btn-default btn-lg'
-            '&nbsp;
-            = f.submit 'Save', class: 'btn btn-primary btn-lg'
+
+      .pull-right
+        = link_to 'Cancel', user_path(@user), class: 'btn btn-default btn-lg'
+        '&nbsp;
+        = f.submit 'Save', class: 'btn btn-primary btn-lg'
     
-      
+    
+    == render 'shared/back', locals: {link: user_path(@user)}      
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'  

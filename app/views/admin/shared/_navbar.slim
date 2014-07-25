@@ -41,12 +41,12 @@
 
           
           li  class="#{page == 'account' ? 'active' : ''}"
+            -if current_account.id != current_user.account_id && current_account.user.has_a_collection
+              = link_to account_path(current_account) do
+                i class="fa fa-tachometer"
+                '&nbsp;
+                = current_account.title.upcase 
             
-            = link_to account_path(current_account) do
-              i class="fa fa-tachometer"
-              '&nbsp;
-              = current_account.title.upcase 
-
 
           li class="#{page == 'profile' ? 'active' : ''}"
             = link_to user_path(current_user) do

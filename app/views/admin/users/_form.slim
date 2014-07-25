@@ -11,6 +11,7 @@
             -unless (@user.email == 'max@synthmax.dk') || (@user.email == 'peter@digiramp.org')
               = f.input :role, collection: User::ROLES
           = f.input :administrator, label: 'Administrator', hint: 'User can administrate other accounts'
+          = f.input :has_a_collection, label: 'Has a Collection', hint: 'Disable if the user only needs access to someone elses account '
           = f.input :name
           = f.input :email
           = f.input :password, autocomplete: :off

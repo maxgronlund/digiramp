@@ -70,9 +70,10 @@ class User < ActiveRecord::Base
   ROLES       = ["Super", "Customer"]
   SECRET_NAME = "RGeiHK8yUB6a"
   
-  scope :supers,          ->    { where( role: 'Super' ).order("email asc")  }
-  scope :administrators,  ->    { where( administrator: true ).order("email asc")  }
-  scope :customers,       ->    { where( role: 'Customer' ).order("email asc")  }
+  scope :supers,            ->    { where( role: 'Super' ).order("email asc")  }
+  scope :administrators,    ->    { where( administrator: true ).order("email asc")  }
+  scope :customers,         ->    { where( role: 'Customer' ).order("email asc")  }
+  scope :with_a_collection, ->    { where( has_a_collection: true)}
   
   after_commit :flush_cache
   
