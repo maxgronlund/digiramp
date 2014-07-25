@@ -3,7 +3,7 @@ class Admin::AdministratorsController < ApplicationController
   before_filter :admin_only
   
   def index
-    @admins = User.where(role: 'super')
+    @admins = User.supers
   end
 
   def update
