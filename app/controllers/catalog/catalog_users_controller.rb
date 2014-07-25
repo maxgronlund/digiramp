@@ -62,7 +62,7 @@ class Catalog::CatalogUsersController < ApplicationController
                                                       )
       
       # force the user uuid to update
-      @user.save!
+      #@user.save!
       
     else
       # invite a new user

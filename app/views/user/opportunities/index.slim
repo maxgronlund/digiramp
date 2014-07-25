@@ -7,45 +7,60 @@
     ==render 'admin/shared/messages'
     /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
     .do   
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: @user.name} 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path( @user )}, current: 'Opportunities'} 
       
       
                                                            
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Opportunities'), blog_post: 'Opportunities', \
-                                                                                        insert: 'create_opportunity'}
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Opportunities'), blog_post: 'Opportunities'}
       
-      .row
-        .col-sm-12
-          - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
-          - accounts = Account.order('title asc').where(id: account_ids)
+      .panel.panel-primary
+        .panel-heading
+          'Opportunities
+        .panel-body
+          .table-responsive
+            table class="table"
+              thead
+                tr
+                  th Title
+                  th Kind
+                  /th Submissions
+                  th Deadline
+                  th
+              tbody
+                - @user.opportunities.order('deadline desc').each do |opportunity|
+                  tr
+                    td = link_to link_to opportunity.title, opportunity_opportunity_path(opportunity), class: 'btn btn-default btn-lg'
+                    td = opportunity.kind
+                    /td 
+                    /  = link_to music_submissions_account_account_opportunity_path(@account, opportunity) do
+                    /    .btn.btn-info.btn-lg
+                    /      = opportunity.submission_count
+                    /      '&nbsp;
+                    /      'Submissions
+                    /      
+                    td 
+                      - if opportunity.deadline < Date.current
+                        .expired
+                          i class="fa fa-exclamation-circle"
+                          '&nbsp;
+                          'Expired
+                      - else
+                        = opportunity.deadline
+                        
+                      /= opportunity.deadline
+                    th
+                      .pull-right
+                        /= link_to edit_account_account_opportunity_path(@account, opportunity) do
+                        /  .btn.btn-primary.btn-lg
+                        /    i class="fa fa-pencil"
+                        /'&nbsp;
+                        /= link_to account_account_opportunity_path(@account, opportunity), data: { confirm: 'Are you sure?' } , :method => :delete do
+                        /  .btn.btn-danger.btn-lg
+                        /    i class="fa fa-times"
+                        /                                                               insert: 'create_opportunity'}
       
-      /.row
-      /  .col-sm-6
-      /    
-      /    
-      /    
-      /
-      /      
-      /    == render 'users/shared/badge_button', locals: { \
-      /                                                blog_post: 'OPPORTUNITIES', \
-      /                                                link: '#', \
-      /                                                css_class: 'btn btn-danger', \
-      /                                                icon: 'fa fa-plane' \
-      /                                              }
-      /    
-      /    
-      /    
-      /
-      /  .col-sm-6  
-      /    == render 'users/shared/badge_button', locals: { \
-      /                                                blog_post: 'SUBMISSIONS', \
-      /                                                link: '#', \
-      /                                                css_class: 'btn btn-danger', \
-      /                                                icon: 'fa fa-plane' \
-      /                                              }
-      /    
-      /                   
-      /                  
+      
+      
               
 
       

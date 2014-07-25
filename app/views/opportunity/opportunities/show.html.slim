@@ -5,14 +5,16 @@
       == render 'admin/shared/navbar', page: 'account'     
   .container
     == render 'admin/shared/messages' 
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { manage: account_account_path(@account), \
-                                                            crm: account_account_crm_index_path(@account),\
-                                                            opportunities: account_account_opportunities_path(@account)\
-                                                           }, current: @opportunity.title }
-    
-                                         
-    
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path( @account.user ) }, current: 'opportunities'} 
+    /== render 'shared/breadcrumbs', breadcrumbs: { links: { manage: account_account_path(@account), \
+    /                                                        crm: account_account_crm_index_path(@account),\
+    /                                                        opportunities: account_account_opportunities_path(@account)\
+    /                                                       }, current: @opportunity.title }
+    /
+    /                                     
+    /
     /== render 'shared/page_title_text', locals: {title: @opportunity.title, body: '', insert: 'submissions'}
+    
     == render 'shared/page_title_text', locals: {title: @opportunity.title, body: ''}
 
     .row
@@ -33,25 +35,9 @@
               tr
                 td Deadline:
                 td = @opportunity.deadline
-            -if current_account_user.update_opportunity
-              .pull-right
-                = link_to edit_account_account_opportunity_path(@account, @opportunity) do
-                  .bth.btn-primary.btn-lg
-                    i class="fa fa-pencil"
-                    /'&nbsp;
-                    /'Edit
+            
                   
-                  
-        .panel.panel-primary
-          .panel-heading
-            'Music Providers
-          .panel-body
-          
-            .pull-right
-              = link_to new_account_account_opportunity_opportunity_invitation_path(@account, @opportunity) do
-                .btn.btn-success.btn-lg
-                  i class="fa fa-plus-circle"
-                  '&nbsp; Invite Providers
+      .col-sm-6  
           
           
       .col-sm-6
@@ -97,35 +83,29 @@
                 /'&nbsp;    
                                                                                                           
                                                                                                           
-                = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), 'data-no-turbolink'=>true do 
-                  .btn.btn-info.btn-lg
-                    = music_request.music_submissions.size.to_s
-                    '&nbsp;Submissions
-                    /i class="fa fa-eye"
-                '&nbsp;
-                = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), \
-                                                                          data: { confirm: 'Are you sure?' } , \
-                                                                          :method => :delete  do
-                  .btn.btn-danger.btn-lg
-                    i class="fa fa-times"
-                '&nbsp;
-                = link_to edit_account_account_opportunity_music_request_path(@account, @opportunity, music_request) do
-                  .btn.btn-primary.btn-lg
-                    i class="fa fa-pencil"
+                /= link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), 'data-no-turbolink'=>true do 
+                /  .btn.btn-info.btn-lg
+                /    = music_request.music_submissions.size.to_s
+                /    '&nbsp;Submissions
+                /    /i class="fa fa-eye"
+                /'&nbsp;
+                /= link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), \
+                /                                                          data: { confirm: 'Are you sure?' } , \
+                /                                                          :method => :delete  do
+                /  .btn.btn-danger.btn-lg
+                /    i class="fa fa-times"
+                /'&nbsp;
+                /= link_to edit_account_account_opportunity_music_request_path(@account, @opportunity, music_request) do
+                /  .btn.btn-primary.btn-lg
+                /    i class="fa fa-pencil"
                     
-        .pull-right
-          = link_to new_account_account_opportunity_music_request_path(@account, @opportunity), 'data-no-turbolink'=>'true' do
-            .btn.btn-success.btn-lg
-              i class="fa fa-plus-circle"
-              '&nbsp;
-              'Add Music Request
-           
+        
              
             
               
 
         
          
-    == render 'shared/back', locals: {link: account_account_opportunities_path(@account)} 
+    == render 'shared/back', locals: {link: user_path(@account.user)} 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

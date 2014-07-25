@@ -4,6 +4,10 @@ Digiramp::Application.routes.draw do
 
   
   
+  get 'opportunities/index'
+
+  get 'opportunities/show'
+
   resources  :music_submissions_ratings, only: [:update]
 
   resources :gitter, only: [:index]
@@ -516,6 +520,11 @@ Digiramp::Application.routes.draw do
     end
     
   end
+  
+   namespace :opportunity do
+     
+     resources :opportunities, only: [:index, :show]
+   end
   
   #admin_constraint = lambda do |request|
   #  request.session[:init] = true # Starts up the session so we can access values from it later.

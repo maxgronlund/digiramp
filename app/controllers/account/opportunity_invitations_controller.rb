@@ -34,20 +34,18 @@ class Account::OpportunityInvitationsController < ApplicationController
     
     
     params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
+     
+      user = User.find_or_create_by_email( email )
+      OpportunityUser.create(opportunity_id: @opportunity.id, user_id: user.id)
+      
       OpportunityMailer.delay.invite(email, @opportunity_invitation.id)
-      #ap @opportunity_invitation
+       
+       
     end
-    
-    
 
-    
     redirect_to account_account_opportunity_path(@account, @opportunity)
-    
-    
-    
-    
-    
   end
+
 
   # PATCH/PUT /opportunity_invitations/1
   # PATCH/PUT /opportunity_invitations/1.json

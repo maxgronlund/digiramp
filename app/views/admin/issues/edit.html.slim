@@ -15,6 +15,6 @@
     == render 'form'
 
 
-
+    == render 'shared/back', locals: {link: admin_issue_path( @issue )} 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

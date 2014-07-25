@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   
   has_many :catalog_users, dependent: :destroy
   has_many :catalogs, through: :catalog_users
+  has_many :opportunity_users, dependent: :destroy
+  has_many :opportunities, through: :opportunity_users
   
   #################################
   # not sure if in use
@@ -355,6 +357,18 @@ class User < ActiveRecord::Base
     #end
     #
     #found_user
+  end
+  
+  def self.find_or_create_by_email( email)
+    if user    = User.where(email: email).first
+    else
+      user     = User.create_user_with_account email
+    end
+    user
+  end
+  
+  def self.create_user_with_account email
+    invite_user email
   end
   
   # invite a user based on an email 

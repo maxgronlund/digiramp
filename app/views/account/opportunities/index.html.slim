@@ -7,9 +7,9 @@
     /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
     .do
       == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                             manage: account_account_path(@account)}, \
-                                                             crm: account_account_crm_index_path(@account),\
-                                                             current:  'Opportunities'}
+                                                             manage: account_account_path(@account), \
+                                                             crm: account_account_crm_index_path(@account)\
+                                                             }, current: 'opportunities' }
       - blog = Blog.cached_find('Opportunities')
       == render 'shared/page_title', locals: {blog: blog, blog_post: 'Opportunities', insert: 'create_opportunity'}
       .panel.panel-primary
@@ -26,7 +26,7 @@
                   th Deadline
                   th
               tbody
-                - @opportunities.order(:deadline).each do |opportunity|
+                - @opportunities.order('deadline desc').each do |opportunity|
                   tr
                     td = link_to opportunity.title, account_account_opportunity_path(@account, opportunity), class: 'btn btn-default btn-lg'
                     td = opportunity.kind
@@ -37,7 +37,16 @@
                     /      '&nbsp;
                     /      'Submissions
                     /      
-                    td = opportunity.deadline
+                    td 
+                      - if opportunity.deadline < Date.current
+                        .expired
+                          i class="fa fa-exclamation-circle"
+                          '&nbsp;
+                          'Expired
+                      - else
+                        = opportunity.deadline
+                        
+                      /= opportunity.deadline
                     th
                       .pull-right
                         = link_to edit_account_account_opportunity_path(@account, opportunity) do

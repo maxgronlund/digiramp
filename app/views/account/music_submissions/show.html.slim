@@ -8,15 +8,15 @@
   .do           
     .container
       == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity),\
-                                                              @music_request.title.to_sym => account_account_opportunity_music_request_path(@account, @opportunity, @music_request) \
-                                                             }, current: 'Show' }
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account), \
+                                                             @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity),\
+                                                             @music_request.title.to_sym => account_account_opportunity_music_requests_path(@account, @opportunity),
+                                                             }, current: @recording.title }
                                                              
       -body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
       /- insert = 'account/recordings/edit'
       == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment} 
-      /== render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'show_common_work'} 
-      /== render 'shared/title', locals: {title: @recording.title, body: body, insert: insert} 
+      
       -index = @recording.id
       div class="player" id="#{index}"
       .just-load
