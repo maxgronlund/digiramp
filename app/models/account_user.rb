@@ -5,6 +5,7 @@
 class AccountUser < ActiveRecord::Base
   belongs_to :account
   belongs_to :user
+  belongs_to :administrator
   has_many :customer_events
   has_many :catalog_users, dependent: :destroy
   
@@ -28,8 +29,8 @@ class AccountUser < ActiveRecord::Base
   # 
   after_commit    :update_cache
   
-  before_save     :update_uuids
-  before_destroy  :update_uuids
+  before_save     :update_propperties
+  before_destroy  :update_propperties
   #after_create    :update_catalog_users
   #after_update    :update_catalog_users
 
@@ -37,35 +38,43 @@ class AccountUser < ActiveRecord::Base
   scope :supers,            ->  { where( role: 'Super User')  }
   scope :clients,           ->  { where( role: 'Client User') }
   scope :administrators,    ->  { where( role: 'Administrator') }
-  scope :owner,             ->  { where( role: 'Account Owner')  }
   scope :owners,            ->  { where( role: 'Account Owner')  }
   # users invited
   scope :invited,           ->  { where.not( role: ['Catalog User', 'Super', 'Client', 'Account Owner', 'Administrator'])  }
   scope :non_catalog_users, ->  { where.not( role: 'Catalog User' )  }
   
 
-  #scope :invited,   -> { joins(:dog).order('dogs.name') }
-
- 
-  after_create :post_created
-  def post_created
-    puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
-    puts '++++++++++++ ACCOUNT USER CREATED ++++++++++++++++'
-    puts self.role
-    puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
+  def update_to_super
+    unless self.role == 'Account Owner'
+      self.role     = 'Super User' 
+      grand_all_permissions
+    end
   end
+  
+  def downgrade
+    unless self.role == 'Account Owner'
+      self.destroy!
+    end
+  end
+
   
   # refrech memcach and force the segment cache to rerender
   def update_cache
     flush_cache
     # update uuid on the account
-    self.account.save!
+    # self.account.save!
   end
   
- 
+  def own_account? account
+    self.user.account_id == account.user.account_id
+  end
   
   def super?
-    self.role == 'Super'
+    self.user.role == 'Super'
+  end
+  
+  def administrates_account?
+    account.administrator_id == self.user_id
   end
   
   # can update account_user
@@ -123,7 +132,7 @@ class AccountUser < ActiveRecord::Base
   
   # set basic permissions to true
   def grand_basic_permissions
-    
+    remove_permissions
     self.create_recording     = true
     self.read_recording       = true
     self.update_recording     = true
@@ -137,12 +146,26 @@ class AccountUser < ActiveRecord::Base
     self.read_catalog         = true
     self.update_catalog       = true
     
-    save!
+    self.save!
     
   end
   
+  # set all permissions to false
+  def remove_permissions
+    Permissions::TYPES.each do |permission_type|
+      #eval "self.#{permission_type} = false" 
+      self[permission_type] = false
+    end
+    
+    self.create_client = false
+    self.read_client   = false
+    self.update_client = false
+    self.delete_client = false
+
+  end
+  
   # set all permissions to true
-  def grand_all_permissions
+  def grand_all_permissions 
     #  copy permissions 
     Permissions::TYPES.each do |permission_type|
       #eval "self.#{permission_type} = true" 
@@ -157,73 +180,15 @@ class AccountUser < ActiveRecord::Base
     
     # add to all catalogs
     self.account.catalogs.each do |catalog|
-      catalog.add_account_user self
+      catalog_user = catalog.add_account_user self
     end
 
   end
   
-  # set all permissions to false
-  def remove_all_permissions
-    Permissions::TYPES.each do |permission_type|
-      #eval "self.#{permission_type} = false" 
-      self[parmission_type] = false
-    end
-    
-    self.create_client = false
-    self.read_client   = false
-    self.update_client = false
-    self.delete_client = false
-    self.save!
-    
-    
-    # save and update uuid
-    self.save!
-    
-    # remove from all catalogs
-    #self.account.catalogs.each do |catalog|
-    #  catalog.remove_account_user self
-    #end
-    
-    
-  end
   
 
-  # if the user has no permissions to an accout 
-  # remove the user from the list of permitted_user_ids
-  def check_permissions
-    puts '++++++++++++++++++++++++++++++++++++++++++++++'
-    puts ' Obsolete AccountUser#check_permissions'
-    ## pessimistic
-    #permission = false;
-    ##  permissions 
-    #Permissions::TYPES.each do |permission_type|
-    #  if (eval "self.#{permission_type}") 
-    #    permission = true
-    #  end
-    #end
-    #if permission
-    #  # add permission
-    #  self.account.permitted_user_ids += [self.user_id]
-    #else
-    #  # remove permission
-    #  self.account.permitted_user_ids -= [self.user_id]
-    #end
-    ## only store on id on white list
-    #self.account.permitted_user_ids.uniq!
-    #self.account.save!
-  end
   
-  def add_to_permitted_user_ids
-    puts '++++++++++++++++++++++++++++++++++++++++++++++'
-    puts ' Obsolete AccountUser#add_to_permitted_user_ids'
-    #self.account.permitted_user_ids   += [self.user_id]
-    #self.account.permitted_user_ids.uniq!
-    #self.save!
-    #update_catalog_users
-  end
-
-  
-  
+  # strange to have this here?
   def mount_user
     if user_id == -1
       secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
@@ -270,11 +235,12 @@ class AccountUser < ActiveRecord::Base
 
   def can_manage_assets?   
     #return true if self.read_recording? 
-    #return true if self.read_common_work?           
+    #return true if self.read_common_work? 
+    return true if self.user.super?          
     return true if self.read_file?                
     return true if self.read_legal_document?        
     return true if self.read_financial_document?    
-    return true if self.user.super?
+    
     return false
   end
   
@@ -313,7 +279,6 @@ class AccountUser < ActiveRecord::Base
   # secure there is a catalog user for all catalogs on the account
   # only use this for account users
   def mount_to_catalogs
-   
     self.account.catalogs.each do |catalog|
       mount_to_catalog catalog                        
     end
@@ -343,7 +308,7 @@ class AccountUser < ActiveRecord::Base
       catalog_user.copy_permissions_from_account_user self
       
     end
-    update_cache
+    #update_cache
   end
   
   def has_access_to_opertunities
@@ -361,17 +326,9 @@ private
     Rails.cache.delete([self.class.name, self.account_id, self.user_id])
   end
   
-  #def remove_catalog_users
-  #  self.catalog_users.each do |catalog_user|
-  #    # only remove catalog users automatic generated for the account user
-  #    if catalog_user.role == 'Account User'
-  #      # but never remove super users
-  #      catalog_user.destroy! unless catalog_user.user.super?
-  #    end
-  #  end
-  #  
-  #  update_uuids
-  #end
+  def update_propperties
+    update_uuids
+  end
   
   def update_uuids
     # !!! what is account cache

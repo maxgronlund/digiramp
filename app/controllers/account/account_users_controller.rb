@@ -6,6 +6,7 @@ class Account::AccountUsersController < ApplicationController
 
 
   def index
+    ap current_account_user
     forbidden unless current_account_user && current_account_user.read_user
   end
   
@@ -114,6 +115,7 @@ class Account::AccountUsersController < ApplicationController
     
     @account_user = AccountUser.cached_find(params[:id])
     
+    
     set_access 
     
     # update the permission key will re-render cached views
@@ -133,29 +135,32 @@ class Account::AccountUsersController < ApplicationController
   
   # set the access
   def set_access 
-    has_access                          = false
-    has_access                          = true if params[:account_user][:read_crm]
-    has_access                          = true if params[:account_user][:read_opportunity]
-    has_access                          = true if params[:account_user][:read_client]
-    has_access                          = true if params[:account_user][:read_recording]
-    has_access                          = true if params[:account_user][:read_file]
-    has_access                          = true if params[:account_user][:read_legal_document]
-    has_access                          = true if params[:account_user][:read_financial_document]
-    has_access                          = true if params[:account_user][:read_common_work]
-    has_access                          = true if params[:account_user][:read_user]
-    has_access                          = true if params[:account_user][:read_catalog]
-    has_access                          = true if params[:account_user][:read_playlist]
-    has_access                          = true if params[:account_user][:read_artwork]
-    has_access                          = true if params[:account_user][:read_client]
-    has_access                          = true if params[:account_user][:read_file]
+    has_access   = false
+    has_access   = true if params[:account_user][:read_crm]
+    has_access   = true if params[:account_user][:read_opportunity]
+    has_access   = true if params[:account_user][:read_client]
+    has_access   = true if params[:account_user][:read_recording]
+    has_access   = true if params[:account_user][:read_file]
+    has_access   = true if params[:account_user][:read_legal_document]
+    has_access   = true if params[:account_user][:read_financial_document]
+    has_access   = true if params[:account_user][:read_common_work]
+    has_access   = true if params[:account_user][:read_user]
+    has_access   = true if params[:account_user][:read_catalog]
+    has_access   = true if params[:account_user][:read_playlist]
+    has_access   = true if params[:account_user][:read_crm]
+    has_access   = true if params[:account_user][:read_artwork]
+    has_access   = true if params[:account_user][:read_client]
+    has_access   = true if params[:account_user][:read_file]
+    has_access   = true if params[:account_user][:read_opportunity]
+    has_access   = true if params[:account_user][:read_client]
+    has_access   = true if params[:account_user][:role] == 'Super'
     params[:account_user][:access_account]  = has_access
+    
+    
   end
   
   def destroy
     account_user = AccountUser.cached_find(params[:id])
-
-    @account.permitted_user_ids -= [account_user.user_id]
-    @account.save!
     account_user.destroy!
     redirect_to account_account_account_users_path(@account)
 

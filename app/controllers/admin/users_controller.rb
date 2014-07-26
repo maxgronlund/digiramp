@@ -18,34 +18,35 @@ class Admin::UsersController < ApplicationController
   
   def update
     forbidden unless can_edit?
-    role = @user.role
+    old_role  = @user.role
+    
     if @user.update(user_params)
       flash[:info] = { title: "SUCCESS: ", body: "User updated" }
-      update_account_users if role != @user.role
     else
       flash[:danger] = { title: "Error", body: "User not updated" }
     end
       redirect_to admin_users_path
   end
   
-  def update_account_users
-    @user.account_users.each do |account_user|
-      
-      if @user.role == 'super'
-        # super users has all permissions
-        account_user.grand_all_permissions
-      else
-        # remove super account_user from all accounts
-        unless account_user.user.account_id   == account_user.account_id
-          if account_user.role == 'Super'
-            account_user.account.permitted_user_ids -= [account_user.user_id]
-            account_user.destroy!
-          end
-        end
-      end
-      
-    end
-  end
+  # this function is expencieve when the user 
+  # change role from and to 'SuperUser'
+  # move it to worker
+  #def update_account_users
+  #  if @user.super?
+  #    # time to create an account_user for all accounts
+  #    Account.all.each do |account|
+  #      account_user = AccountUser.where(user_id: @user.id, account_id: account.id)
+  #                                .first_or_create(user_id: @user.id, account_id: account.id)
+  #      # secure the account_user is 'Super User'                          
+  #      account_user.update_super 'upgrade'
+  #    end
+  #  else
+  #    @user.account_users.each do |account_user|
+  #      # remove 'Super Users' from account
+  #      account_users.update_super 'downgrade'
+  #    end
+  #  end
+  #end
   
   def destroy
     forbidden unless can_edit?

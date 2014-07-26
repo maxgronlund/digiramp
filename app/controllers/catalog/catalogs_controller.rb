@@ -46,13 +46,14 @@ class Catalog::CatalogsController < ApplicationController
   end
 
   def new
-    forbidden unless current_account_user.create_catalog
+    forbidden unless current_account_user.createx_catalog
     @catalog = Catalog.new
   end
   
   def create
+     puts '--------------------- CREATE ------------------------'
     @catalog = Catalog.create(catalog_params)
-    @catalog.add_account_users_to_catalog
+    
     flash[:info] = { title: "SUCCESS: ", body: "Catalog created" }
     redirect_to catalog_account_catalog_path( @account, @catalog)
   end

@@ -9,18 +9,14 @@ class Catalog< ActiveRecord::Base
   #belongs_to :catalog_itemable, polymorphic: true
   #attr_accessible :catalog_itemable_type, :catalog_itemable_id, :account_catalog_id
   
-  before_save  :update_uuid
+  #before_save  :update_uuid
   after_commit :flush_cache
-  #after_create :add_account_users_to_catalog
+
   before_destroy :remove_account_users
-  after_create :post_created
+  after_create :add_catalog_users
   
-  def post_created
-    puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
-    puts '++++++++++++ CATALOG CREATED ++++++++++++++++'
-    
-    puts self.id
-    puts '++++++++++++++++++++++++++++++++++++++++++++++++++'
+  def add_catalog_users
+    AccessManager.add_account_users_to_catalog self
   end
   
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
@@ -72,20 +68,11 @@ class Catalog< ActiveRecord::Base
   
   def common_works
     
-    
-    
     common_work_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
     CommonWork.where(id: common_work_ids)
 
   end
-  
-  # when the catalog is created add account users
-  def add_account_users_to_catalog
-    self.account.account_users.non_catalog_users.each do |account_user|
-      add_account_user account_user
-    end
-  end
-  
+
   # add a batch of recordings to the catalog
   def add_recordings recordings
     recordings.each do |recording|
@@ -130,14 +117,23 @@ class Catalog< ActiveRecord::Base
     @artworks = Artwork.order('title asc').where(id: artwork_ids)
   end
   
+  # when a new catalog is created add account users
+  # when a new account user is created add the user
+  # when a user is updated to super add the user
   def add_account_user account_user
    
     
     # find or create catalog user
-    catalog_user = CatalogUser.create(  user_id: account_user.user_id, 
+    catalog_user = CatalogUser.where(   user_id: account_user.user_id, 
                                         catalog_id: self.id,
-                                        account_id: account_user.account_id,
-                                        role: 'Account User')
+                                        account_id: self.account_id,
+                                        role: account_user.role)
+                                .first_or_create(  
+                                        user_id: account_user.user_id, 
+                                        catalog_id: self.id,
+                                        account_id: self.account_id,
+                                        role: account_user.role
+                                      )
     
     # copy permissions to catalog user                                    
     Permissions::TYPES.each do |permission|
@@ -145,6 +141,7 @@ class Catalog< ActiveRecord::Base
       catalog_user[permission] = account_user[permission]
     end
     catalog_user.save!
+    catalog_user
   end
   
   

@@ -4,8 +4,8 @@ class AddHasACollectionToUsers < ActiveRecord::Migration
     
     User.update_all(has_a_collection: true)
     
-    User.all.each do |user|
-      user.save!
-    end
+    #User.all.each do |user|
+    #  user.save!
+    #end
   end
 end

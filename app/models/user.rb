@@ -39,14 +39,10 @@ class User < ActiveRecord::Base
   # account_catalog a user administrates
   has_many :administrations
   has_many :account_catalogs, through: :administrations
-
-  
   #################################
   
   has_one :account
-  
   has_many :account_users,    dependent: :destroy
-  
   has_many :accounts, :through => :account_users  
   
   # for the crm
@@ -62,10 +58,13 @@ class User < ActiveRecord::Base
   
   has_many :activity_events, as: :activity_eventable
   
+  after_save :update_access
+  after_commit :set_propperties
+  
+  
+  
   
 
-  
-  
   
   ROLES       = ["Super", "Customer"]
   SECRET_NAME = "RGeiHK8yUB6a"
@@ -75,10 +74,53 @@ class User < ActiveRecord::Base
   scope :customers,         ->    { where( role: 'Customer' ).order("email asc")  }
   scope :with_a_collection, ->    { where( has_a_collection: true)}
   
-  after_commit :flush_cache
   
-  # force update of uuid
-  # before_save :set_uuid
+  def update_access
+    AccessManager.update_access self
+  end
+  
+  def set_propperties
+
+    #SuperUser.update_role self
+    flush_cache
+    #update_role_on_catalogs
+    #update_role_on_accounts
+    
+  end
+  
+  #def update_role
+  #  SuperUser.update_role self
+  #end
+  
+  #def update_role_on_catalogs
+  #  self.catalog_users.each do |catalog_user|
+  #    catalog_user.update_super( self.role    == 'Super' ? 'updagrade' : 'downgrade')
+  #  end
+  #end
+  #
+  #def update_role_on_accounts
+  #  self.accounts.each do |account_user|
+  #    account_user.update_super( self.role    == 'Super' ? 'updagrade' : 'downgrade')
+  #  end
+  #end
+  
+  
+  #def update_super old_status
+  #  if  old_status == 'Super'
+  #    account_users = AccountUser.where(user_id: self.id)
+  #    account_users = account_users.where.not(role: "Account Owner")
+  #    account_users.destroy_all!
+  #  elsif self.role == 'Super'
+  #    Account.all.each do |account|
+  #      account_user = AccountUser.where(user_id: self.id, account_id: account.id, role: 'Super User')
+  #      account_user.grand_all_permissions
+  #    end
+  #  end
+  #end
+  
+  
+  
+  
   
   # update the uuid to force rebuild of 
   # segment cached pages
@@ -152,8 +194,6 @@ class User < ActiveRecord::Base
         render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
       end
     end
-    
-    
   end
   
   def default_account
@@ -249,24 +289,15 @@ class User < ActiveRecord::Base
                               contact_email: user.email,
                               visits: 1,
                               account_type: 'Personal Account',
+                              administrator_id: user.id,
+                              create_opportunities: false,
+                              read_opportunities: false
                             )
                             
     # save the account without validation                        
     @account.save(validate: false)    
     
-    # creating the account user                 
-    account_user = AccountUser.create(user_id: user.id, 
-                                      account_id: @account.id, 
-                                      role: 'Account Owner')
-    # give the account user permissions                                  
-    account_user.grand_basic_permissions
-    
-    # limit user invite
-    #account_user.createx_user  = false
-    #account_user.read_user     = false
-    #account_user.update_user   = false
-    #account_user.delete_user   = false
-    #account_user.save!
+    AccessManager.add_users_to_new_account @account
     
     # set the account owned by the user
     user.account_id          = @account.id
@@ -277,7 +308,7 @@ class User < ActiveRecord::Base
     # save
     user.save!
     
-    # return the account
+
     @account
   end
   

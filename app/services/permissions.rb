@@ -40,7 +40,7 @@ class Permissions
              "update_user",   
              "delete_user",         
              
-             "create_catalog", 
+             "createx_catalog", 
                "read_catalog", 
              "update_catalog",   
              "delete_catalog",         
@@ -58,7 +58,7 @@ class Permissions
              "create_artwork", 
                "read_artwork", 
              "update_artwork",   
-             "delete_artwork",         
+             "delete_artwork" ,       
              
              "create_opportunity", 
                "read_opportunity", 

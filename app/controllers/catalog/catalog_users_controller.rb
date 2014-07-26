@@ -16,6 +16,10 @@ class Catalog::CatalogUsersController < ApplicationController
   
   def index
     forbidden unless current_catalog_user.read_user
+    #catalog_user_ids = @catalog.catalog_user_ids
+    #
+    #user_ids   = User.where(role: 'Super').pluck(:id)
+    
     #@catalog        = Catalog.cached_find(params[:catalog_id])
   end
   

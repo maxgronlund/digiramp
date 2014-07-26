@@ -38,7 +38,7 @@ class UsersController < ApplicationController
         # signout if you was signed in as another user
         cookies.delete(:auth_token)
         sign_in
-        redirect_to user_account_path(@user, @account)
+        redirect_to user_path(@user)
       else
         blog_post         = BlogPost.cached_find('Error', blog)
         flash[:error]   = { title: blog_post.title, body: blog_post.body }

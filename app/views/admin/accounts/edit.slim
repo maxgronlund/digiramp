@@ -55,6 +55,7 @@
                         label: false, \
                         hint: 'Curently not used'
               -  administrators = User.administrators << @account.account_owner 
+
               =f.input :administrator_id , \
                         :include_blank => false, \
                         :collection => administrators, \

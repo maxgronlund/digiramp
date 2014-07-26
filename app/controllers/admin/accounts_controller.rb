@@ -30,9 +30,7 @@ class Admin::AccountsController < ApplicationController
     if old_administrator_id != @account.administrator_id
       
       @account.reassign_administrator( old_administrator_id ) 
-      #options = {old_administrator_id: old_administrator_id, account_id: @account.id}
-      #ReassignAdministratorWorker.perform_async( options )
-      
+
       flash[:warning] = { title: "NOTICE: ", body: "Rebuilding all permissions, might take a few seconds before completed" }
     else
       flash[:success] = { title: "SUCCESS: ", body: "Account updated" }

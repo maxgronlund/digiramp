@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140725073731) do
+ActiveRecord::Schema.define(version: 20140726202907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20140725073731) do
     t.boolean  "read_user",                 default: false
     t.boolean  "update_user",               default: false
     t.boolean  "delete_user",               default: false
-    t.boolean  "create_catalog",            default: false
+    t.boolean  "createx_catalog",           default: false
     t.boolean  "read_catalog",              default: false
     t.boolean  "update_catalog",            default: false
     t.boolean  "delete_catalog",            default: false
@@ -128,7 +128,6 @@ ActiveRecord::Schema.define(version: 20140725073731) do
     t.integer  "default_catalog_id"
     t.string   "uuid",                 default: ""
     t.integer  "version",              default: 0
-    t.text     "permitted_user_ids",   default: "--- []\n"
     t.string   "works_uuid",           default: "first love 727"
     t.string   "recordings_uuid",      default: "first love 727"
     t.string   "customers_uuid",       default: "first love 727"
@@ -425,7 +424,7 @@ ActiveRecord::Schema.define(version: 20140725073731) do
     t.boolean  "read_playlist",             default: false
     t.boolean  "update_playlist",           default: false
     t.boolean  "delete_playlist",           default: false
-    t.boolean  "create_catalog",            default: false
+    t.boolean  "createx_catalog",           default: false
     t.boolean  "read_catalog",              default: true
     t.boolean  "update_catalog",            default: false
     t.boolean  "delete_catalog",            default: false
@@ -1551,6 +1550,7 @@ ActiveRecord::Schema.define(version: 20140725073731) do
     t.boolean  "invited",                default: false
     t.boolean  "administrator",          default: false
     t.boolean  "has_a_collection",       default: true
+    t.string   "old_role",               default: ""
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

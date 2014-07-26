@@ -20,6 +20,7 @@
           .panel
             .panel-body
               =simple_form_for [:catalog, @account, @catalog] do |f|
+                = hidden_field :account_id, value: @account.id
                 = render 'form', f:f
               
     

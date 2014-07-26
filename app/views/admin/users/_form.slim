@@ -9,7 +9,7 @@
           - if current_user.can_edit?
             = f.input :account_id , :include_blank => false, :collection => Account.all , label: 'Account'
             -unless (@user.email == 'max@synthmax.dk') || (@user.email == 'peter@digiramp.org')
-              = f.input :role, collection: User::ROLES
+              = f.input :role, collection: User::ROLES, :include_blank => false
           = f.input :administrator, label: 'Administrator', hint: 'User can administrate other accounts'
           = f.input :has_a_collection, label: 'Has a Collection', hint: 'Disable if the user only needs access to someone elses account '
           = f.input :name
