@@ -46,7 +46,18 @@
           .panel-heading
             'Music Providers
           .panel-body
+            table class="table"
+              tr
+                td User
+                td Submissions
+                
+              - @opportunity.opportunity_users.each do |opportunity_user|
+                tr
+                  td = opportunity_user.user.email
+                  td = opportunity_user.music_submissions.size
           
+          
+            
             .pull-right
               = link_to new_account_account_opportunity_opportunity_invitation_path(@account, @opportunity) do
                 .btn.btn-success.btn-lg

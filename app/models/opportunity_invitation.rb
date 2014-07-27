@@ -1,6 +1,6 @@
 class OpportunityInvitation < ActiveRecord::Base
-  belongs_to :opportunity
-  after_commit :flush_cache
+  belongs_to      :opportunity
+  after_commit    :flush_cache
   
   
   def self.cached_find(id)

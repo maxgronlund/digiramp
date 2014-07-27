@@ -13,9 +13,9 @@ class CommentsController < ApplicationController
   #end
   #
   ## GET /comments/new
-  #def new
-  #  @comment = Comment.new
-  #end
+  def new
+    #@comment = Comment.new
+  end
 
   # GET /comments/1/edit
   def edit
@@ -44,18 +44,7 @@ class CommentsController < ApplicationController
                      }
           PusherWorker.perform_async(options)
           
-          
-          
-          
-          
-          # channel = 'digiramp_radio_' + issue.user.email
-          #Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
-          #                                      "message" => " Acomment is posted on the issue #{issue.title}", 
-          #                                      "time"    => '4000', 
-          #                                      "sticky"  => 'true', 
-          #                                      "image"   => 'info'
-          #                                      })
-          #
+
         rescue
           puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
           puts 'ERROR: Unable send notification'

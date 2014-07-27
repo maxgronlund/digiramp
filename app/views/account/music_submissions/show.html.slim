@@ -1,41 +1,78 @@
-/= debug @recording.audio_upload
-- session[:return_url]  = request.url
-
 #wrap
   div class="#{'profile' if account_owner?}"
     .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .do           
-    .container
-      == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account), \
-                                                             @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity),\
-                                                             @music_request.title.to_sym => account_account_opportunity_music_requests_path(@account, @opportunity),
-                                                             }, current: @recording.title }
-                                                             
-      -body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
-      /- insert = 'account/recordings/edit'
-      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment} 
-      
-      -index = @recording.id
-      div class="player" id="#{index}"
-      .just-load
-      .panel.panel-primary
-        .panel-heading
-          = @recording.title
-        .panel-body
-          .digiramp_player
-            div class="permissions" value="submission" id="#{current_user.id}"
-            == render 'players/digramp_player', locals: {index: index , recording: @recording}
-      .row
-        .col-sm-6
-          == render 'recordings/shared/metadata'
-        .col-sm-6 
-          == render 'recordings/shared/description'   if @recording.comment.to_s != ''
-          == render 'recordings/shared/lyrics'        if @recording.lyrics.to_s != ''
-                                                                                      
-     
+      == render 'admin/shared/navbar', page: 'account'          
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account), \
+                                                           @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity),\
+                                                           @music_request.title.to_sym => account_account_opportunity_music_request_path(@account, @opportunity, @music_request),
+                                                           }, current: @recording.title }
+                                                           
+    -body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
+    /- insert = 'account/recordings/edit'
+    == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'back'} 
     
+
+    
+    
+    /= link_to download_original_recording_path(recording: @recording.id) do
+    /  .btn.btn-info.btn-lg
+    /    i class='fa fa-cloud-download'
+    /    '&nbsp;Download Original 
+    /'&nbsp;
+    /= link_to download_mp3_recording_path(recording: @recording.id) do
+    /  .btn.btn-info.btn-lg
+    /    i class='fa fa-cloud-download'
+    /    '&nbsp;Download MP3
+    /    
+    -index = @recording.id
+    div class="player" id="#{index}"
+    .just-load
+    .panel.panel-primary
+      .panel-heading
+        = @recording.title
+      .panel-body
+        .digiramp_player
+          div class="permissions" value="no_buttons" id="#{current_user.id}"
+          == render 'players/digramp_player', locals: {index: index , recording: @recording}
+    .row
+      .col-sm-6.col-md-5.col-lg-4
+        == render 'recordings/shared/metadata'
+        == render 'recordings/shared/description'   if @recording.comment.to_s != ''
+        == render 'recordings/shared/lyrics'        if @recording.lyrics.to_s != ''
+      .col-sm-6.col-md-7.col-lg-8 
+        
+        .row
+          .col-lg-5
+            .panel.panel-primary
+              .panel-heading
+                'Post Comment
+              .panel-body
+                = simple_form_for [ @commentable, @comment], :url => url_for(:action => 'create_comment', :controller => 'music_submissions'), :method => 'post'do |f|
+                  = f.hidden_field  :commentable_id,    value: @commentable.id
+                  = f.hidden_field  :commentable_type,  value: @commentable.class.name
+                  = f.input :title
+                  div id="toolbar" class="wysihtml5-toolbar"
+                    a data-wysihtml5-command="bold" Bold
+                    '&nbsp; 
+                    a data-wysihtml5-command="italic" Italic
+            
+                  =f.input :body, label: false, :input_html => {  style: "height: 120px;", placeholder: "Comment", id: 'wysihtml5_editor'}
+                  .pull-right
+                    = f.submit 'Post', class: 'btn btn-primary btn-lg'
+          
+          
+          .col-lg-7
+            .panel.panel-primary
+              .panel-heading
+                'Comments
+              .panel-body  
+               = render 'comments/comments'
+        
+              
+              
+    == render 'shared/back', locals: {link: account_account_opportunity_music_request_path(@account, @opportunity, @music_request)} 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
               

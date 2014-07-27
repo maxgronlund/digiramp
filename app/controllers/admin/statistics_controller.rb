@@ -1,5 +1,6 @@
 class Admin::StatisticsController < ApplicationController
   before_filter :admin_only
+  
   def index
     
     

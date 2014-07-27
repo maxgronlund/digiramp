@@ -16,10 +16,11 @@ class Opportunity::MusicSubmissionsController < ApplicationController
     
     # plain and simple, super users can search all recordings
     if current_user.role == 'Super'
-      @recordings =  Recording.search_all( params[:query]).order('title asc').page(params[:page]).per(48)
+      @recordings   =  Recording.search_all( params[:query]).order('title asc').page(params[:page]).per(48)
     else
       account_users =  AccountUser.where(user_id: current_user.id)
     
+      # !!! optimize
       recording_ids = []
       account_users.each do |account_user|
         recording_ids   += account_user.account.recording_ids

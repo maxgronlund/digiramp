@@ -59,7 +59,7 @@ class RecordingPermissionsController < ApplicationController
       
     when 'submission'
       
-      ap params
+      #ap params
       @music_request          = MusicRequest.cached_find(params[:permission_id])
       @opportunity            = @music_request.opportunity
 
@@ -67,6 +67,10 @@ class RecordingPermissionsController < ApplicationController
         @add_to_request        = "#add_to_request_#{params[:id]}"           if true
         @recording_id          = params[:id]
       end
+      
+    when 'no_buttons'
+      
+      
     else
       
       

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140726202907) do
+ActiveRecord::Schema.define(version: 20140727060123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1117,15 +1117,17 @@ ActiveRecord::Schema.define(version: 20140726202907) do
     t.integer  "supervisors_order"
     t.boolean  "supervisor_like"
     t.decimal  "relevance"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.integer  "stars",             default: 0
-    t.integer  "like",              default: 0
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "stars",               default: 0
+    t.integer  "like",                default: 0
     t.string   "account_id"
+    t.integer  "opportunity_user_id"
   end
 
   add_index "music_submissions", ["account_id"], name: "index_music_submissions_on_account_id", using: :btree
   add_index "music_submissions", ["music_request_id"], name: "index_scene_track_submissions_on_music_request_id", using: :btree
+  add_index "music_submissions", ["opportunity_user_id"], name: "index_music_submissions_on_opportunity_user_id", using: :btree
   add_index "music_submissions", ["recording_id"], name: "index_scene_track_submissions_on_recording_id", using: :btree
   add_index "music_submissions", ["user_id"], name: "index_scene_track_submissions_on_user_id", using: :btree
 

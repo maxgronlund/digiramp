@@ -7,7 +7,9 @@ Digiramp::Application.routes.draw do
   resources :gitter, only: [:index]
   #resources :footages
   #resources :pro_affiliations
-  resources :comments
+  
+
+
 
 
   get "albums/index"
@@ -20,7 +22,7 @@ Digiramp::Application.routes.draw do
 
   get "signup/index"
   get "tags/index"
-  get "user_genre_tags/index"
+  #get "user_genre_tags/index"
   get "permissions/index"
   resources :uploads
   require 'sidekiq/web'
@@ -92,9 +94,6 @@ Digiramp::Application.routes.draw do
     ##############################################
     
     resources :recordings do
-      member do
-        get :download
-      end
       get 'delete_all'
       #post 'select_category'
       #get 'select_category'
@@ -205,6 +204,8 @@ Digiramp::Application.routes.draw do
   get "download/image_file"
   get "download/artwork"
   get "download/document"
+  get "download/original_recording"
+  get "download/mp3_recording"
   #get 'signup', to: 'users#new', as: 'signup'
   #get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
@@ -336,7 +337,11 @@ Digiramp::Application.routes.draw do
           get  'recordings_destroy'
           post 'recordings_create'
         end
-        resources :recordings
+        resources :recordings do
+          member do
+            get :download
+          end
+        end
       end
       resources :client_groups do
         post :import_client_emails
@@ -364,8 +369,11 @@ Digiramp::Application.routes.draw do
           end
           
           resources :music_submissions do
+            
             member do
               get 'submit_recording'
+              post 'create_comment'
+              get 'download'
             end
           end
           
@@ -519,10 +527,14 @@ Digiramp::Application.routes.draw do
      
      resources :opportunities, only: [:index, :show] do
        resources :music_requests do
-         resources :music_submissions
+         resources :music_submissions do
+           resources :comments
+         end
        end
      end
    end
+   
+
   
   #admin_constraint = lambda do |request|
   #  request.session[:init] = true # Starts up the session so we can access values from it later.

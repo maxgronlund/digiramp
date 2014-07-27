@@ -37,6 +37,34 @@ class DownloadController < ApplicationController
       
     end
   end
+  
+  def mp3_recording
+    begin
+      @recording = Recording.cached_find(params[:recording])
+      ap @recording
+      data = open("#{@recording.mp3}") 
+      name = @recording.audio_upload[:name]
+      ext = @recording.audio_upload[:ext]
+      mime = 'audio/mpeg'
+      send_data data.read, filename: name, type: mime, stream: 'true', buffer_size: '4096'
+    rescue
+      redirect_to :back
+    end
+  end
+  
+  def original_recording
+    begin
+      @recording = Recording.cached_find(params[:recording])
+
+      data = open("#{@recording.audio_upload[:url]}") 
+      name = @recording.audio_upload[:name]
+      ext = @recording.audio_upload[:ext]
+      mime = 'Application/octet-stream'
+      send_data data.read, filename: name, type: mime, stream: 'true', buffer_size: '4096'
+    rescue
+      redirect_to :back
+    end
+  end
 
   
 end

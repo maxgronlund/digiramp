@@ -281,6 +281,19 @@ class Account::RecordingsController < ApplicationController
   end
   
   #def download
+  #  begin
+  #    @document= Recording.cached_find(params[:document])
+  #    data = open("#{@document.file}") 
+  #    mime = @document.mime || 'audio/mp3'
+  #    send_data data.read, filename: @document.title, type: mime, stream: 'true', buffer_size: '4096'
+  #  rescue
+  #    
+  #  end
+  #  
+  #  
+  #end
+  
+  #def download
   #  @recording = Recording.cached_find(params[:id])
   #  
   #  original_file_name = 'Audiofile'
@@ -294,11 +307,12 @@ class Account::RecordingsController < ApplicationController
   
   #def download
   #  @recording = Recording.cached_find(params[:id])
+  #  ap @recording
   #  AWS.config({
   #    access_key_id: "AKIAIVATNWTNMQZKK2VA",
   #    secret_access_key: "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"
   #  })
-  #
+  #  
   #  send_data( 
   #    AWS::S3.new.buckets["digiramp"].objects["0.mp3"].read, {
   #      filename: "0.mp3", 

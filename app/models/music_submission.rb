@@ -1,7 +1,9 @@
 class MusicSubmission < ActiveRecord::Base
-  belongs_to :recording
-  belongs_to :music_request
-  belongs_to :user
+  belongs_to          :recording
+  belongs_to          :music_request
+  belongs_to          :user
+  belongs_to          :opportunity_user
+  has_many            :comments, as: :commentable
 
   
   

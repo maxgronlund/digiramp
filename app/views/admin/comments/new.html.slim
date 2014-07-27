@@ -1,5 +1,11 @@
-h1 New comment
 
-== render 'form'
-
-= link_to 'Back', comments_path
+== simple_form_for [ :admin, @comment_able, Comment.new] do |f|
+  = f.hidden_field :commentable_id,   value: @comment_able.id
+  = f.hidden_field :commentable_type, value: @comment_able.class.name
+  = f.hidden_field :user_id, value: current_user.id
+  = f.input :title
+  = f.input :body
+  /= f.input :image
+  hr
+    .pull-right
+      = f.submit 'Post', class: 'btn btn-primary btn-lg'

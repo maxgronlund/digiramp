@@ -1,5 +1,7 @@
 class Admin::GenresController < ApplicationController
+  
   before_filter :admin_only
+  
   def index
     @genres = Genre.search(params[:query]).order('lower(title) ASC').page(params[:page]).per(32)
     #redirect_to admin_genres_path( query: )

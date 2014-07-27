@@ -1,0 +1,47 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'          
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @music_request.title.to_sym => account_account_opportunity_music_request_path(@account, @opportunity, @music_request), \
+                                                            'submission'.to_sym =>  account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, @music_submission),
+                                                                                                                                                     }, current: 'download'}
+                                                           
+    -body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
+    /- insert = 'account/recordings/edit'
+    - blog      = Blog.cached_find('Download')
+    == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'back_to_submission'} 
+
+
+    .col-sm-6
+      == render 'shared/badge', locals: {  \
+                                          blog: blog, \
+                                          post: BlogPost.cached_find( "ORIGINAL FILE" , blog ), \
+                                          link: @recording.audio_upload[:url], \
+                                          css_class: 'btn btn-info', \
+                                          icon: 'fa fa-cloud-download' \
+                                        }
+
+    .col-sm-6
+      == render 'shared/badge', locals: {  \
+                                          blog: blog, \
+                                          post: BlogPost.cached_find( "MP 3 FILE" , blog ), \
+                                          link: @recording.mp3, \
+                                          css_class: 'btn btn-warning', \
+                                          icon: 'fa fa-cloud-download' \
+                                        }
+      
+            
+              
+    == render 'shared/back', locals: {link: account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, @music_submission)} 
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
+
+            
+ 
+          
+          
+          
+        

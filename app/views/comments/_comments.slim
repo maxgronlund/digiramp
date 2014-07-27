@@ -1,0 +1,11 @@
+- @comments.each do |comment| 
+  .row
+    .col-md-7
+      h3  = comment.title
+    .col-md-5
+      .pull-right
+        h5 = "#{time_ago_in_words(comment.created_at) } ago"
+  = simple_format comment.body
+  
+    
+    

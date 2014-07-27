@@ -36,7 +36,9 @@ class Account::OpportunityInvitationsController < ApplicationController
     params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
      
       user = User.find_or_create_by_email( email )
-      OpportunityUser.create(opportunity_id: @opportunity.id, user_id: user.id)
+      OpportunityUser.create( opportunity_id:   @opportunity.id, 
+                              user_id:          user.id,
+                            )
       
       OpportunityMailer.delay.invite(email, @opportunity_invitation.id)
        
