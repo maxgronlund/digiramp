@@ -15,17 +15,16 @@ class OpportunityMailer < ActionMailer::Base
     blog                    = Blog.cached_find('Support')
     footer                  = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
     #url                     = url_for controller: 'account/opportunities', action: 'show', id: opportunity.id
-    @opportunity_link       = view_context.link_to("click here", opportunity_opportunity_path(opportunity))
-    puts '-------------------------------- +++++++++++++++++++++++++ ---------------------------------'
-    puts @opportunity_link
-    puts email
+    #@opportunity_link       = view_context.link_to("click here", opportunity_opportunity_path(opportunity))
+    @opportunity_link = url_for( controller: 'opportunity/opportunities', action: 'show', id: opportunity.id)
     @invitation             = opportunity_invitation.body
+    @footer                 = footer.body
     #@footer     = footer.body.gsub('--link--', "<a href='#{url}'>Show Opportunity</a>")
     
     
     
     
-    #
+    
 
     mail to: email, subject: opportunity_invitation.title
   end
