@@ -2,29 +2,27 @@
 = simple_form_for [ :account, @account, @opportunity, @opportunity_invitation] do |f|
   /= f.hidden_field :account_id, value: @account.id
   = f.hidden_field :opportunity_id, value: @opportunity.id
-  .row
-    .col-sm-6
-      .panel.panel-primary
-        .panel-heading
-          'Message
-        .panel-body
-          = f.input :title
-          
-          
-          div id="toolbar" class="wysihtml5-toolbar"
-            a data-wysihtml5-command="bold" Bold
-            '&nbsp; 
-            a data-wysihtml5-command="italic" Italic
-          
-          =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
+  .panel.panel-primary
+    .panel-heading
+      'Message
+    .panel-body
+      = f.input :title
+      
+      
+      div id="toolbar" class="wysihtml5-toolbar"
+        a data-wysihtml5-command="bold" Bold
+        '&nbsp; 
+        a data-wysihtml5-command="italic" Italic
+      
+      =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
 
-      .panel.panel-primary
-        .panel-heading
-          'Emails
-        .panel-body
-          = f.input :invitees
-   
-    
+  .panel.panel-primary
+    .panel-heading
+      'Emails
+    .panel-body
+      = f.input :invitees
+  
+  
 
  
 

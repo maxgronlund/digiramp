@@ -38,8 +38,9 @@
                                               link: edit_admin_blog_blog_post_path(blog, blog_post), \
                                               css_class: 'btn btn-primary', \
                                               icon: 'fa fa-bug', \
-                                              id: 'common-works' \
+                                              id: 'issue-resolved' \
                                             }
+        
         .col-sm-6
           - blog_post = BlogPost.cached_find( "INVITE TO CATALOG" , blog )
           == render 'shared/badge', locals: {  \
@@ -48,7 +49,17 @@
                                               link: edit_admin_blog_blog_post_path(blog, blog_post), \
                                               css_class: 'btn btn-warning', \
                                               icon: 'fa fa-archive', \
-                                              id: 'common-works' \
+                                              id: 'catalog' \
+                                            }
+        .col-sm-6
+          - blog_post = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: blog_post, \
+                                              link: edit_admin_blog_blog_post_path(blog, blog_post), \
+                                              css_class: 'btn btn-danger', \
+                                              icon: 'fa fa-plane', \
+                                              id: 'opportunity' \
                                             }
                                             
                                             
