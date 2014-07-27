@@ -25,7 +25,12 @@ class SessionsController < ApplicationController
         account.visits += 1
         account.save!
         
-        redirect_to user_path(current_user)
+        
+        #redirect_to user_path(current_user)
+        go_to = session[:landing_page] || user_path(current_user)
+        puts '-----------------------------------'
+        puts go_to
+        redirect_to go_to
       end
 
     else

@@ -3,6 +3,19 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
+  
+  before_filter :store_landing_page
+  
+  
+  def store_landing_page
+    if current_user.nil? && session[:landing_page].nil?
+      session[:landing_page]  = request.url 
+    end
+    puts '-----------------------------------------------'
+    puts session[:landing_page]
+    puts '-----------------------------------------------'
+  end
+  
   def current_user
     begin
       @current_user ||= User.cached_find_by_auth_token( cookies[:auth_token] ) if cookies[:auth_token]
