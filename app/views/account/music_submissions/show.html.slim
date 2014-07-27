@@ -16,16 +16,16 @@
 
     
     
-    = link_to download_original_recording_path(recording: @recording.id) do
-      .btn.btn-info.btn-lg
-        i class='fa fa-cloud-download'
-        '&nbsp;Download Original 
-    '&nbsp;
-    = link_to download_mp3_recording_path(recording: @recording.id) do
-      .btn.btn-info.btn-lg
-        i class='fa fa-cloud-download'
-        '&nbsp;Download MP3
-        
+    /= link_to download_original_recording_path(recording: @recording.id) do
+    /  .btn.btn-info.btn-lg
+    /    i class='fa fa-cloud-download'
+    /    '&nbsp;Download Original 
+    /'&nbsp;
+    /= link_to download_mp3_recording_path(recording: @recording.id) do
+    /  .btn.btn-info.btn-lg
+    /    i class='fa fa-cloud-download'
+    /    '&nbsp;Download MP3
+    /    
     -index = @recording.id
     div class="player" id="#{index}"
     .just-load
