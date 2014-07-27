@@ -4,17 +4,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   
-  before_filter :store_landing_page
+  #before_filter :store_landing_page
   
   
-  def store_landing_page
-    if current_user.nil? && session[:landing_page].nil?
-      session[:landing_page]  = request.url 
-    end
-    puts '-----------------------------------------------'
-    puts session[:landing_page]
-    puts '-----------------------------------------------'
-  end
+  #def store_landing_page
+  #  if current_user.nil? && session[:landing_page].nil?
+  #    session[:landing_page]  = request.url 
+  #  end
+  #  puts '-----------------------------------------------'
+  #  puts session[:landing_page]
+  #  puts '-----------------------------------------------'
+  #end
   
   def current_user
     begin
