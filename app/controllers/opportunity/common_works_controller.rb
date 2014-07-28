@@ -41,6 +41,15 @@ class Opportunity::CommonWorksController < ApplicationController
     end
   end
   
+  def destroy
+    @music_request   = MusicRequest.cached_find(params[:music_request_id])
+    @common_work     = CommonWork.cached_find(params[:id])
+    @common_work.destroy!
+    
+    redirect_to opportunity_opportunity_music_request_path(@opportunity, @music_request)
+    
+  end
+  
 private
 
   def common_work_params

@@ -10,58 +10,54 @@
                                                             @music_request.title.to_sym => opportunity_opportunity_music_request_path(@opportunity, @music_request), \
                                                             select: opportunity_opportunity_music_request_submit_from_index_path(@opportunity, @music_request), \
                                                           }, current: 'upload'}
-    /== render 'shared/breadcrumbs', breadcrumbs: { links: { manage: account_account_path(@account), \
-    /                                                        crm: account_account_crm_index_path(@account),\
-    /                                                        opportunities: account_account_opportunities_path(@account)\
-    /                                                       }, current: @opportunity.title }
-    /
-    /                                     
-    /
-    /== render 'shared/page_title_text', locals: {title: @opportunity.title, body: '', insert: 'submissions'}
-    
-    == render 'shared/page_title_text', locals: {title: @opportunity.title, body: ''}
-    - blog = Blog.cached_find('Opportunities')
 
-    = simple_form_for [ :opportunity, @opportunity, @music_request, @common_work],  :html => { :id => 'common_work' } do |f|
+    - blog = Blog.cached_find('Opportunities')
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Common Work info', body: @music_request.title}
+    /== render 'shared/page_title', locals: {title: @opportunity.title, body: '', insert: 'submissions'}
+    
+    /== render 'shared/page_title_text', locals: {title: @opportunity.title, body: ''}
+    
+
+    = simple_form_for [ :opportunity, @opportunity, @music_request, @common_work] do |f|
       = f.hidden_field :account_id,       value: @account.id
       /= f.hidden_field :opportunity_id,   value: @opportunity.id
       /= f.hidden_field :music_request_id, value: @music_request.id
                                             
-      = transloadit :image_files_to_s3 
+      /= transloadit :image_files_to_s3 
       .row
+        .col-sm-3
         .col-sm-6
           .panel.panel-primary
             .panel-heading
               'Info
             .panel-body
             
-              = f.label      :artwork, 'Thumbnail will be scaled to 184x184 pixels' 
-              = f.file_field :artwork, multiple: false
-              hr
+              /= f.label      :artwork, 'Thumbnail will be scaled to 184x184 pixels' 
+              /= f.file_field :artwork, multiple: false
               /= f.input :artwork
               = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
               = f.input :alternative_titles, :input_html => {  style: "height: 120px;", placeholder: "Alternative Titles"}
               = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "ISWC Code"}
-              = f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
+              /= f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
     
-        .col-sm-6
-          .panel.panel-primary
-            .panel-heading
-              'Lyrics
-            .panel-body
-              div id="toolbar" class="wysihtml5-toolbar"
-                a data-wysihtml5-command="bold" Bold
-                '&nbsp; 
-                a data-wysihtml5-command="italic" Italic
-            
-              =f.input :lyrics, label: false, :input_html => {  style: "height: 549px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
-      
-      .pull-right
-        = link_to 'Cancel', account_account_common_works_path( @account), class: 'btn btn-default btn-lg'
-        '&nbsp;
-        = f.submit 'Save', class: 'btn btn-primary btn-lg'
+          /.col-sm-6
+          /  .panel.panel-primary
+          /    .panel-heading
+          /      'Lyrics
+          /    .panel-body
+          /      div id="toolbar" class="wysihtml5-toolbar"
+          /        a data-wysihtml5-command="bold" Bold
+          /        '&nbsp; 
+          /        a data-wysihtml5-command="italic" Italic
+          /    
+          /      =f.input :lyrics, label: false, :input_html => {  style: "height: 549px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
+          /
+          .pull-right
+            = link_to 'Cancel', opportunity_opportunity_music_request_submit_from_index_path(@opportunity, @music_request), class: 'btn btn-default btn-lg'
+            '&nbsp;
+            = f.submit 'Continue', class: 'btn btn-primary btn-lg'
     
-    = transloadit_jquerify :common_work, :wait => true
+    /= transloadit_jquerify :common_work, :wait => true
       
 
         

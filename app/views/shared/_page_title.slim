@@ -13,7 +13,7 @@
           '&nbsp;
           = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
              i class="fa fa-pencil"
-    = simple_format blog_post.body
+    = simple_format  locals[:body] || blog_post.body
   .col-sm-4
     == render insert if insert
 .row        

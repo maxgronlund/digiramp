@@ -145,7 +145,7 @@ class Account::RecordingsController < ApplicationController
     @recording = Recording.find(params[:id])
     common_work = @recording.common_work
     @recording.destroy
-    common_work.update_completeness
+    common_work.update_completeness if common_work
     # jump back to recordings or common work
     redirect_to_return_url account_account_recordings_path( @account, page: params[:page], query: params[:query])
   end

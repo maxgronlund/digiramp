@@ -11,17 +11,7 @@
                                                              manage: account_account_path(@account), \
                                                              recordings: account_account_recordings_path(@account)\
                                                              }, current: @recording.title }
-      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-      /                                                        #assets: account_assets_path(@account), \
-      /                                                        recordings: account_account_recordings_path(@account), \
-      /                                                        }, current: @recording.title}
-      /
-      /
-      /
-      / add a link to 
-      / http://localhost:3000/accounts/6/common_works/6468/recordings/434/edit
-      -body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
-      /- insert = 'account/recordings/edit'
+
       == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'show_common_work'} 
       /== render 'shared/title', locals: {title: @recording.title, body: body, insert: insert} 
       -index = @recording.id

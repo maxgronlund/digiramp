@@ -103,7 +103,7 @@ class Opportunity::RecordingsController < ApplicationController
     else
       
     end
-    
+    ap @recording
     redirect_to opportunity_opportunity_music_request_path(@opportunity, @music_request)
   end
   
