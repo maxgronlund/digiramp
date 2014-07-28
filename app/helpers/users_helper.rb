@@ -133,7 +133,12 @@ module UsersHelper
   end
   
   def account_owner?
-    return true if current_user && current_user.account_id == @account.id
+    begin
+      return true if current_user && current_user.account_id == @account.id
+    rescue
+      cookies.delete(:auth_token)
+      current_user = nil
+    end
     return false
   end
   

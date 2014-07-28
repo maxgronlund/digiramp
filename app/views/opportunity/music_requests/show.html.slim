@@ -62,8 +62,8 @@
             'Please extend the deadline to add more music requests
         - else
          .pull-right    
-           = link_to new_opportunity_opportunity_music_request_music_submission_path(@opportunity, \
-                                                                                     @music_request) do 
+           = link_to opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
+                                                                                         @music_request) do 
              .btn.btn-success.btn-lg
                i class="fa fa-plus-circle"
                '&nbsp;Add Submission      

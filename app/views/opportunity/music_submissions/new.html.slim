@@ -5,10 +5,11 @@
       == render 'admin/shared/navbar', page: 'account'     
   .container
     == render 'admin/shared/messages' 
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path( @account.user), \
-                                                            @opportunity.title.to_sym => opportunity_opportunity_path(@opportunity), \
-                                                            @music_request.title.to_sym => opportunity_opportunity_music_request_path(@opportunity, @music_request) \
-                                                            }, current:  'New Submission'} 
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: user_user_opportunities_path(@account.user),  \
+                                                            @opportunity.title.to_sym => opportunity_opportunity_path(@opportunity),  \
+                                                            @music_request.title.to_sym => opportunity_opportunity_music_request_path(@opportunity, @music_request), \
+                                                            select: opportunity_opportunity_music_request_submit_from_index_path(@opportunity, @music_request), \
+                                                          }, current: 'recordings'}
 
     
     == render 'shared/page_title_text', locals: {title: @music_request.title, body: "Opportunity #{@opportunity.title}. \n Expires #{@opportunity.deadline}"}
@@ -49,6 +50,6 @@
         
         
         
-    == render 'shared/back', locals: {link: opportunity_opportunity_music_request_path(@opportunity, @music_request)} 
+    == render 'shared/back', locals: {link: opportunity_opportunity_music_request_submit_from_index_path(@opportunity, @music_request)} 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

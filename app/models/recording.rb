@@ -63,13 +63,8 @@ class Recording < ActiveRecord::Base
   
  
   def catalogs
-    puts '----------------------------------------------------------'
-    puts 'get catalogs'
-    puts '----------------------------------------------------------'
-    ap CatalogItem.where(catalog_itemable_type: "Recording", catalog_itemable_id: self.id)
     catalog_ids = CatalogItem.where(catalog_itemable_type: "Recording", catalog_itemable_id: self.id).pluck(:catalog_id)
     cats = Catalog.find(catalog_ids)
-    ap cats
     cats
   end
   

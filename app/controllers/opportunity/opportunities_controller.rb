@@ -6,6 +6,8 @@ class Opportunity::OpportunitiesController < ApplicationController
 
 
   def show
+    
+
   end
   
 end

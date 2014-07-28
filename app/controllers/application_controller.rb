@@ -28,10 +28,10 @@ class ApplicationController < ActionController::Base
   def current_account
     begin
       return  Account.cached_find( session[:account_id]) if session[:account_id]
-      return  Account.cached_find( current_user.account_id ) 
-    rescue
       session[:account_id] = current_user.account_id
       return  Account.cached_find( current_user.account_id ) 
+    rescue
+      return nil
     end
   end
   helper_method :current_account
@@ -87,6 +87,7 @@ class ApplicationController < ActionController::Base
   
   def access_user
     unless current_user
+    
       forbidden 
     else
       if params[:user_id]
@@ -109,6 +110,7 @@ class ApplicationController < ActionController::Base
   end
 
   def forbidden
+    session[:landing_page] = request.url
     render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
   end
   helper_method :forbidden

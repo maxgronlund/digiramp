@@ -154,9 +154,7 @@ class TransloaditParser
   
   
   def self.add_artwork_to recording
-    puts '---------------------- add artwork --------------------------------------'
-    puts recording.cover_art
-    puts '-------------------------------------------------------------------------'
+    
     artwork = Artwork.create!(  title:      recording.title,
                                 body:       recording.comment,
                                 account_id: recording.account_id, 
@@ -243,7 +241,7 @@ class TransloaditParser
       # start with adding to all catalogs
       #catalog_ids = CatalogItem.where(catalog_itemable_id: common_work_id, catalog_itemable_type: 'CommonWork').pluck(catalog_id)
       #catalogs = Catalog.find(catalog_ids)
-      puts '------------------- catalogs---------------------'
+      
       if account.catalogs
         
         account.catalogs.each do |catalog|

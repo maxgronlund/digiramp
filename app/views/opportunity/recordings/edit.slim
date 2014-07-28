@@ -1,0 +1,30 @@
+- session[:return_url]  = request.url
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'     
+  .container
+    == render 'admin/shared/messages' 
+    /== render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: user_user_opportunities_path(@account.user),  \
+    /                                                        @opportunity.title.to_sym => opportunity_opportunity_path(@opportunity),  \
+    /                                                        @music_request.title.to_sym => opportunity_opportunity_music_request_path(@opportunity, @music_request), \
+    /                                                        select: opportunity_opportunity_music_request_submit_from_index_path(@opportunity, @music_request), \
+    /                                                      }, current: 'upload'}
+    /
+    - blog = Blog.cached_find('Opportunities')
+    == render 'shared/page_title_text', locals: {title: 'Edit recording', body: @opportunity.title}
+    
+    = simple_form_for [:opportunity, @opportunity, @music_request, @common_work, @recording],  :html => { :id => 'recording_artwork' } do |f|
+      = transloadit :image_files_to_s3 
+      = f.hidden_field :account_id, value: @account.id
+      /= f.hidden_field :common_work_id, value: @recording.common_work_id
+      == render 'form', f: f
+    = transloadit_jquerify :recording_artwork, :wait => true
+
+    
+        
+         
+    /== render 'shared/back', locals: {link: opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
+    /                                                                                     @music_request)} 
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

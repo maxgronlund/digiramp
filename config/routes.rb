@@ -2,6 +2,7 @@
 Digiramp::Application.routes.draw do
 
 
+
   resources  :music_submissions_ratings, only: [:update]
 
   resources :gitter, only: [:index]
@@ -526,8 +527,14 @@ Digiramp::Application.routes.draw do
    namespace :opportunity do
      
      resources :opportunities, only: [:index, :show] do
+       
        resources :music_requests do
+         resources :submit_from, only: [:index]
+         resources :common_works do
+           resources :recordings
+         end
          resources :music_submissions do
+           
            resources :comments
          end
        end

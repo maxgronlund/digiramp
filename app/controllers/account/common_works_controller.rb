@@ -18,6 +18,32 @@ class Account::CommonWorksController < ApplicationController
     @common_work    = CommonWork.cached_find(params[:id])
   end
   
+  def new
+    @common_work    = CommonWork.new
+  end
+  
+  def create
+    forbidden unless current_account_user.create_common_work
+    artwork_url = TransloaditImageParser.get_image_url params[:transloadit]
+
+    # extract  parameters
+    params[:common_work]            = params["common_work"]
+    
+    # set the artwork url if any
+    params[:common_work][:artwork]  = artwork_url if artwork_url
+    
+
+   
+    
+   
+    if @common_work = CommonWork.create(common_work_params)
+      @common_work.update_completeness
+      render :show
+    else
+      render :new
+    end
+  end
+  
   def edit
     forbidden unless current_account_user.update_common_work
     @common_work    = CommonWork.find(params[:id])

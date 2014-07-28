@@ -2,12 +2,18 @@ class SessionsController < ApplicationController
 
   
   def create
+    #redirect_to user_path(current_user)
+    #go_to = session[:landing_page] || user_path(current_user)
+    puts '-----------------------------------'
+    puts session[:landing_page]
+    puts '------------------------------------'
+    
     
     params[:sessions][:email]  = params[:sessions][:email].downcase
     
     user = User.where(email: params[:sessions][:email]).first
 
-
+    
     if user && user.authenticate(params[:sessions][:password])
       flash[:info] = { title: "SUCCESS: ", body: "You are logged in" }
       
@@ -25,12 +31,9 @@ class SessionsController < ApplicationController
         account.visits += 1
         account.save!
         
-        
-        #redirect_to user_path(current_user)
-        #go_to = session[:landing_page] || user_path(current_user)
-        #puts '-----------------------------------'
-        #puts go_to
-        redirect_to user_path(current_user)
+        go_to = session[:landing_page]
+        session[:landing_page] = nil
+        redirect_to go_to|| user_path(current_user)
       end
 
     else

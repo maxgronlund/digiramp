@@ -1,0 +1,52 @@
+- session[:return_url]  = request.url
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account'     
+  .container
+    == render 'admin/shared/messages' 
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path( @account.user), \
+                                                            opportunities: user_user_opportunities_path(@account.user),  \
+                                                            @opportunity.title.to_sym => opportunity_opportunity_path(@opportunity),  \
+                                                            @music_request.title.to_sym => opportunity_opportunity_music_request_path(@opportunity, @music_request) \
+                                                          }, current: 'select'} 
+    /== render 'shared/breadcrumbs', breadcrumbs: { links: { manage: account_account_path(@account), \
+    /                                                        crm: account_account_crm_index_path(@account),\
+    /                                                        opportunities: account_account_opportunities_path(@account)\
+    /                                                       }, current: @opportunity.title }
+    /
+    /                                     
+    /
+    /== render 'shared/page_title_text', locals: {title: @opportunity.title, body: '', insert: 'submissions'}
+    
+    == render 'shared/page_title_text', locals: {title: @opportunity.title, body: ''}
+    - blog = Blog.cached_find('Opportunities')
+    .row
+      .col-sm-6
+        == render 'shared/badge', locals: {  \
+                                            blog: blog, \
+                                            post: BlogPost.cached_find( "SUBMIT FROM CATALOG" , blog ), \
+                                            link: new_opportunity_opportunity_music_request_music_submission_path(@opportunity, @music_request), \
+                                            css_class: 'btn btn-warning', \
+                                            icon: 'fa fa-headphones', \
+                                            id: 'recordings' \
+                                          }
+      .col-sm-6
+        == render 'shared/badge', locals: {  \
+                                            blog: blog, \
+                                            post: BlogPost.cached_find( "UPLOAD" , blog ), \
+                                            link: new_opportunity_opportunity_music_request_common_work_path(@opportunity, \
+                                                                                         @music_request), \
+                                            css_class: 'btn btn-info', \
+                                            icon: 'fa fa-cloud-upload' \
+                                          }
+      
+
+        
+              
+
+        
+         
+    == render 'shared/back', locals: {link: opportunity_opportunity_path( @opportunity)} 
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
