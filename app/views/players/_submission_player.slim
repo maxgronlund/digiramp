@@ -35,13 +35,20 @@ div class="account_id" id="#{recording.account_id}"
           /td
           /  div class="position" id="position_#{index}"
 
-  .col-sm-6
+  .col-sm-9
     div class="user_star_#{music_submission.id.to_s}"
-  .col-sm-3 
+  .col-sm-12 
 
     
     .pull-right
-
+      - comments = music_submission.comments.size
+      - if comments > 0
+        = link_to account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, music_submission) do
+          .btn.btn-info.btn-lg
+            i class="fa fa-comments"
+            '&nbsp;
+            =  music_submission.comments.size
+      '&nbsp;
       = link_to account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, music_submission) do
         .btn.btn-primary.btn-lg
           i class="fa fa-eye"

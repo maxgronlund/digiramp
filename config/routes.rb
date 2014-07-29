@@ -201,6 +201,7 @@ Digiramp::Application.routes.draw do
   resources :sessions
   resources :password_resets
   resources :accept_invitations
+  resources :activate_account
   
   get "download/image_file"
   get "download/artwork"
@@ -356,6 +357,7 @@ Digiramp::Application.routes.draw do
       
 
       resources :opportunities do
+        resources :opportunity_users, only: [:destroy, :show]
         member do
           get 'music_submissions'
         end

@@ -34,12 +34,21 @@ class Account::OpportunityInvitationsController < ApplicationController
 
     params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
      
-      user = User.find_or_create_by_email( email )
-      OpportunityUser.create( opportunity_id:   @opportunity.id, 
+      user   = User.find_or_create_by_email( email )
+      OpportunityUser.where(  opportunity_id:   @opportunity.id, 
+                              user_id:          user.id,
+                            )
+                            .first_or_create(  
+                              opportunity_id:   @opportunity.id, 
                               user_id:          user.id,
                             )
       
-      OpportunityMailer.delay.invite(email, @opportunity_invitation.id)
+      if user.account_activated
+        OpportunityMailer.delay.invite(email, @opportunity_invitation.id)
+      else
+        user.add_token
+        OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id)
+      end
        
        
     end

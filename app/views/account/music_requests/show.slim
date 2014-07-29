@@ -67,8 +67,12 @@
           -index = recording.id
           div class="player" id="#{index}"
           .just-load
-          
-          h3 = recording.title
+          .row
+            .col-sm-8
+              h3 = recording.title
+            .col-sm-4
+              .pull-right
+                h5 = music_submission.user.email
           
             
           .digiramp_player

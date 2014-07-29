@@ -18,10 +18,11 @@
           .panel-heading
             i class= 'fa fa-lock'
             '&nbsp;
-            'RESET PASSWORD
+            'ACTIVATE ACCOUNT
           .panel-body
 
-            = simple_form_for(  @user, :url => accept_invitations_path(params[:id]) ) do |f|
+            = simple_form_for(  @user, :url => activate_account_path(params[:id]) ) do |f|
+              = f.hidden_field :opportunity_id, value: @opportunity.id
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-key'
@@ -35,7 +36,7 @@
 
               .pull-right
                 br
-                = f.submit 'Reset', class: 'btn btn-green btn-lg'
+                = f.submit 'Activate', class: 'btn btn-green btn-lg'
 
         
 

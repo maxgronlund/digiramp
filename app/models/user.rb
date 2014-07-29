@@ -139,9 +139,6 @@ class User < ActiveRecord::Base
   
   
   def send_password_reset
-    #generate_token(:password_reset_token)
-    #self.password_reset_sent_at = Time.zone.now
-    #save!
     self.add_token
     UserMailer.delay.password_reset(self)
   end 
@@ -391,10 +388,12 @@ class User < ActiveRecord::Base
     #found_user
   end
   
+
+  
   def self.find_or_create_by_email( email)
-    if user    = User.where(email: email).first
+    if user  = User.where(email: email).first
     else
-      user     = User.create_user_with_account email
+      user   = User.create_user_with_account email
     end
     user
   end
@@ -410,7 +409,8 @@ class User < ActiveRecord::Base
                                           email: email, 
                                           invited: true, 
                                           password: secret_temp_password, 
-                                          password_confirmation: secret_temp_password
+                                          password_confirmation: secret_temp_password,
+                                          account_activated: false
                                         )
                             
      # apply a password reset token

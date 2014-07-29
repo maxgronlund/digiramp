@@ -50,11 +50,22 @@
               tr
                 td User
                 td Submissions
+                td
                 
               - @opportunity.opportunity_users.each do |opportunity_user|
                 tr
-                  td = opportunity_user.user.email
+                  td 
+                    = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user)
+                      .btn.btn-default.btn-lg
+                        = opportunity_user.user.email
                   td = opportunity_user.music_submissions.size
+                  td
+                    = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user), \
+                                                                                data: { confirm: 'Are you sure?' } ,\
+                                                                                :method => :delete do
+                      .btn.btn-danger.btn-lg
+                        i class="fa fa-times"
+
           
           
             

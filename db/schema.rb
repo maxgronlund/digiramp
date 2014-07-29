@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140727060123) do
+ActiveRecord::Schema.define(version: 20140729130110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1553,6 +1553,7 @@ ActiveRecord::Schema.define(version: 20140727060123) do
     t.boolean  "administrator",          default: false
     t.boolean  "has_a_collection",       default: true
     t.string   "old_role",               default: ""
+    t.boolean  "account_activated",      default: true
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
