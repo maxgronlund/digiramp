@@ -28,16 +28,7 @@
           div class="permissions" value="account_recordings" id="#{current_user.id}"
           - @common_work.recordings.each do |recording|
             == render 'recordings/recording', recording: recording
-        
-        
-        
-    
-    /== render 'works/shared/personas'             if @user_can_access_shared_with 
-    /== render 'works/shared/files'                if @user_can_access_files
-    /== render 'works/shared/legal_documents'      if @user_can_access_legal_documents
-    /== render 'works/shared/financial_documents'  if @user_can_access_financial_documents
-    /== render 'works/shared/ipis'                 if @user_can_access_ipis
-        
+
         
     .visible-xs   
       .row

@@ -1,10 +1,9 @@
 - index             = locals[:index]
 - recording         = locals[:recording]
-- music_submission  = locals[:music_submission]
-
+- account_id        = locals[:account_id]
 
 div class="index" id="{index}" 
-div class="account_id" id="#{recording.account_id}"
+div class="account_id" id="#{account_id}"
 
 
 #load-player
@@ -32,29 +31,7 @@ div class="account_id" id="#{recording.account_id}"
             i class="player-button fa fa-fast-backward" id="back_button_#{index}"
           td
             div class="play-button" id="play_button_#{index}"
-          /td
-          /  div class="position" id="position_#{index}"
 
-  .col-sm-9
-
-      
-    .pull-right
-
-      /= link_to account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, music_submission) do
-      /  .btn.btn-primary.btn-lg
-      /    i class="fa fa-eye"
-      /'&nbsp;
-      = link_to opportunity_opportunity_music_request_music_submission_path(@opportunity, @music_request, music_submission), \
-                                                                          data: { confirm: 'Are you sure?' } , \
-                                                                          :method => :delete   do
-        .btn.btn-danger.btn-lg
-          i class="fa fa-times"
-            
-      /= link_to 'Download', download_account_recording_path(@account, recording)
-      / shared recordings
-      /.btn-group
-      /  div class="player_action" id="show_shared_more_#{recording.id}"
-        
 
       
 

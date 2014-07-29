@@ -2,7 +2,7 @@ class Account::RecordingPermissionsController < ApplicationController
   #include CatalogsHelper
   
   def show
-
+    ap params
     
     #@recording             = Recording.cached_find(params[:id])
     #@account               = @recording.account if @recording.account

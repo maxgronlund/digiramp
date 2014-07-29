@@ -44,9 +44,20 @@
               -index = recording.id
               div class="player" id="#{index}"
               .just-load
-              .digiramp_player
-                div class="permissions" value="account_recordings" id="#{current_user.id}"
-                == render 'players/digramp_player', locals: {index: index , recording: recording}
+              .submission
+                .digiramp_player
+                  div class="permissions" value="no_buttons" id="#{@music_request.id}"
+                    == render 'players/simple_submission_player', locals: { index: index , \
+                                                                            recording: recording, \
+                                                                            account_id: @account.id \
+                                                                          }
+                                                                    
+                                                                  
+                                                                  
+                                                                  
+              /.digiramp_player
+              /  div class="permissions" value="submission" id="#{music_submission.id}"
+              /    == render 'players/simple_submission_player', locals: {index: index , recording: recording}
         - if current_account_user.update_opportunity
           .pull-right 
             = link_to edit_account_account_opportunity_music_request_path(@account, @opportunity, @music_request) do
@@ -59,7 +70,7 @@
 
       
         
-      .col-sm-6
+      .col-sm-6.submission
         h2 SUBMISSIONS
         hr
         - @music_request.music_submissions.order('stars desc').each do |music_submission|
@@ -74,12 +85,11 @@
               .pull-right
                 h5 = music_submission.user.email
           
-            
           .digiramp_player
-            div class="permissions" value="submission" id="#{current_user.id}"
-            == render 'players/submission_player', locals: {index: index , 
-                                                            recording: recording, 
-                                                            music_submission: music_submission}
+            div class="permissions" value="submission" id="#{music_submission.id}"
+              == render 'players/submission_player', locals: {index: index , 
+                                                              recording: recording, 
+                                                              music_submission: music_submission}
           hr
         - if @opportunity.deadline < Date.current
           div class="alert alert-danger"

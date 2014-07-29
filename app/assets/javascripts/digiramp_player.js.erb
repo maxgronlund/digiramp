@@ -58,7 +58,7 @@ function DigirampPlayer(  i,
 
   this.button         = play_button;
   this.index          = player_index;
-  console.log('DigirampPlayer');
+  /*console.log('DigirampPlayer');*/
 
   
   // when a player colapses: stop it
@@ -218,7 +218,7 @@ DigirampPlayer.prototype.stop = function(index) {
 
 /* LOAD THE PLAYERS */
 function loadDigirampPlayer(){
-
+  console.log( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>loadDigirampPlayer' );
   if ($('#load-player')[0]) {
     
     var permission_id = 0;
@@ -229,11 +229,16 @@ function loadDigirampPlayer(){
       /*console.log(permission_id);*/
     }
     
-    
+    console.log( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> account_id' );
     var account_id = 0;
     if ($('.account_id')[0]) {
+      console.log( '---------- account_id is on page ---------------' );
       account_id = $('.account_id').attr('id');
+      console.log( account_id );
     }
+    var fobar = 200;
+    console.log( fobar );
+    console.log( '-------------------------' );
     
     var catalog_id = 0;
     if ($('.catalog_id')[0]) {
