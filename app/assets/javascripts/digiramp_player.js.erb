@@ -58,7 +58,7 @@ function DigirampPlayer(  i,
 
   this.button         = play_button;
   this.index          = player_index;
-  /*console.log('DigirampPlayer');*/
+  
 
   
   // when a player colapses: stop it
@@ -125,7 +125,7 @@ function DigirampPlayer(  i,
       $(player_button).html('<i class="player-button fa fa-pause""></i>');
       
       playing = !playing;
-      /*console.log(smSound.playState);*/
+      
       // play
       if (playing) {
         stopAllPlayers(player_index);
@@ -218,7 +218,7 @@ DigirampPlayer.prototype.stop = function(index) {
 
 /* LOAD THE PLAYERS */
 function loadDigirampPlayer(){
-  console.log( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>loadDigirampPlayer' );
+  
   if ($('#load-player')[0]) {
     
     var permission_id = 0;
@@ -226,19 +226,16 @@ function loadDigirampPlayer(){
     if ($('.permissions')[0]) {
       permissions = $('.permissions').attr('value');
       permission_id = $('.permissions').attr('id');
-      /*console.log(permission_id);*/
+      
     }
     
-    console.log( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> account_id' );
+   
     var account_id = 0;
     if ($('.account_id')[0]) {
-      console.log( '---------- account_id is on page ---------------' );
       account_id = $('.account_id').attr('id');
-      console.log( account_id );
+      
     }
-    var fobar = 200;
-    console.log( fobar );
-    console.log( '-------------------------' );
+
     
     var catalog_id = 0;
     if ($('.catalog_id')[0]) {
@@ -318,8 +315,7 @@ function createSound(sm_sound_id, digiramp_player, progress_bar){
       var loaded = (this.bytesLoaded / this.bytesTotal) * 100;
       var pos = loaded.toString() + '%';
       $(progress_bar).css("width", pos);
-      //console.log(pos);
-      //$(progress_bar).html(pos);
+
     }
   });
   return smSound;

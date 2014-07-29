@@ -4,6 +4,11 @@
   = f.hidden_field :opportunity_id, value: @opportunity.id
   .panel.panel-primary
     .panel-heading
+      'Emails
+    .panel-body
+      = f.input :invitees
+  .panel.panel-primary
+    .panel-heading
       'Message
     .panel-body
       = f.input :title
@@ -16,11 +21,7 @@
       
       =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
 
-  .panel.panel-primary
-    .panel-heading
-      'Emails
-    .panel-body
-      = f.input :invitees
+  
   
   
 
