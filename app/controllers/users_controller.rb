@@ -29,7 +29,11 @@ class UsersController < ApplicationController
       params[:user][:email]   = params[:user][:email].downcase
       @user                   = User.new(user_params)
       blog                    = Blog.cached_find('Sign Up')
-      if @user.save!
+      ap params
+      if params[:user][:password]    != params[:user][:password_confirmation]
+        flash[:danger]   = { error: 'Sorry:', body: 'Password and Passoword confirmation mismatch' }
+        redirect_to signup_index_path
+      elsif @user.save
         @account          = User.create_a_new_account_for_the @user
         blog              = Blog.cached_find('Sign Up')
         blog_post         = BlogPost.cached_find('Sucess', blog)
@@ -39,11 +43,11 @@ class UsersController < ApplicationController
         cookies.delete(:auth_token)
         sign_in
         redirect_to user_path(@user)
+        
       else
-        blog_post         = BlogPost.cached_find('Error', blog)
-        flash[:error]   = { title: blog_post.title, body: blog_post.body }
+        flash[:danger]   = { title: 'Sorry:', body: 'Email has already been taken' }
         #flash[:error] = { title: "Error", body: "Something went wrong, please check Password. Password confirmation and email, you might already have an account?" }
-        redirect_to root_path
+        redirect_to signup_index_path
       end
     #else
     #  flash[:error] = { title: "Error", body: "A user with that email is already signed up" }
