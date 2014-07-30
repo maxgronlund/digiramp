@@ -73,9 +73,7 @@ class Account::RecordingsController < ApplicationController
       @recording.extract_instruments
       @recording.extract_moods
 
-      
-      
-      
+
       # artwork
       if params[:transloadit]
         if artworks = TransloaditImageParser.artwork( params[:transloadit], @account.id)
@@ -108,16 +106,7 @@ class Account::RecordingsController < ApplicationController
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+
       
       @recording.common_work.update_completeness if @recording.common_work
       
@@ -125,7 +114,7 @@ class Account::RecordingsController < ApplicationController
         redirect_to account_account_recordings_bucket_path(@account, @recording )
       else
         #redirect_to :back
-        redirect_to account_account_common_work_recording_path(@account, @recording.common_work, @recording, genre_category: @genre_category )
+        redirect_to account_account_recording_path(@account, @recording )
       end
       
       #if @genre_category
@@ -135,8 +124,8 @@ class Account::RecordingsController < ApplicationController
       #end
 
     else
-      # jump back to recordings or common work
-      redirect_to_return_url account_common_work_recording_path(@account, @recording.common_work, @recording)
+      # jump back to recordings
+      redirect_to_return_url account_account_recording_path(@account, @recording)
     end
   end
 
