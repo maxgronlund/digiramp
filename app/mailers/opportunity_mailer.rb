@@ -11,11 +11,12 @@ class OpportunityMailer < ActionMailer::Base
     opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
     opportunity             = opportunity_invitation.opportunity
     blog                    = Blog.cached_find('Support')
-    footer                  = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
+    @oppertunity            = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
 
     @opportunity_link       = url_for( controller: 'opportunity/opportunities', action: 'show', id: opportunity.id)
+    @fotter_link            = url_for( controller: 'contacts', action: 'new')
     @invitation             = opportunity_invitation.body
-    @footer                 = footer.body
+
     
 
     mail to: email, subject: opportunity_invitation.title
@@ -27,7 +28,7 @@ class OpportunityMailer < ActionMailer::Base
     puts 'INVITE TO ACCOUNT'
     puts '-------------------------------------------------'
     
-    user                      = User.cached_find(user_id)
+    user                    = User.cached_find(user_id)
     opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
     opportunity             = opportunity_invitation.opportunity
 
