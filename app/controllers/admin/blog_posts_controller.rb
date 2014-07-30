@@ -43,7 +43,7 @@ class Admin::BlogPostsController < ApplicationController
       #else
         flash[:info] = { title: "SUCCESS: ", body: "#{@blog_post.title}  updated" }
         redirect_to_return_url admin_blog_path(@blog_post.blog)
-        #end
+      #end
     else
 
       render :edit
@@ -55,23 +55,23 @@ class Admin::BlogPostsController < ApplicationController
     redirect_to admin_blog_path(@blog_post.blog)
   end
   
-  def crop
-    @crop_version = (params[:version] || :size_370x272).to_sym
-    @blog_post.get_crop_version! @crop_version
-    @version_geometry_width, @version_geometry_height = ArtworkUploader.version_dimensions[@crop_version]
-    render :layout => 'cropper'
-  end
-
-  def crop_update
-    @blog_post.crop_x = params[:blog_post]["crop_x"]
-    @blog_post.crop_y = params[:blog_post]["crop_y"]
-    @blog_post.crop_h = params[:blog_post]["crop_h"]
-    @blog_post.crop_w = params[:blog_post]["crop_w"]
-    @blog_post.crop_version = params[:blog_post]["crop_version"]
-    @blog_post.save
-    redirect_to_return_url admin_blog_path(@blog_post.blog)
-    
-  end
+  #def crop
+  #  @crop_version = (params[:version] || :size_370x272).to_sym
+  #  @blog_post.get_crop_version! @crop_version
+  #  @version_geometry_width, @version_geometry_height = ArtworkUploader.version_dimensions[@crop_version]
+  #  render :layout => 'cropper'
+  #end
+  #
+  #def crop_update
+  #  @blog_post.crop_x = params[:blog_post]["crop_x"]
+  #  @blog_post.crop_y = params[:blog_post]["crop_y"]
+  #  @blog_post.crop_h = params[:blog_post]["crop_h"]
+  #  @blog_post.crop_w = params[:blog_post]["crop_w"]
+  #  @blog_post.crop_version = params[:blog_post]["crop_version"]
+  #  @blog_post.save
+  #  redirect_to_return_url admin_blog_path(@blog_post.blog)
+  #  
+  #end
   
   def sort
     params[:blog_post].each_with_index do |id, index|
