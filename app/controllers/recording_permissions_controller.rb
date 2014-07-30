@@ -8,7 +8,6 @@ class RecordingPermissionsController < ApplicationController
     @account               = @recording.account     if @recording.account
     @common_work           = @recording.common_work if @recording.common_work
 
-    
  
     case params[:permissions]
     
