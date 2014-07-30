@@ -183,13 +183,6 @@ Digiramp::Application.routes.draw do
   get "support" => "support#index",       :as => :support_index
   get "flush_cache" => "admin#flush_cache", :as => :admin_flush_cache
 
-
-  
-  get "investors" => "investors#index", :as => :investors_index
-  get "features" => "features#index", :as => :features_index
-  get "about" => "about#index", :as => :about_index
-  get "solutions" => "solutions#index", :as => :solutions_index
-  #get "features" => "features#index", :as => :features_index
   
   resources :homes
   
@@ -283,7 +276,6 @@ Digiramp::Application.routes.draw do
     resources :export_genres, only: [:index]
     resources :export_instruments, only: [:index]
     resources :export_moods, only: [:index]
-    resources :features
     resources :genres
     resources :genre_imports
     resources :homes, only: [:edit, :update]
