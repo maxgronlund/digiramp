@@ -35,7 +35,7 @@
       .col-sm-12
         .digiramp_player
           div class="panel-group" id="accordion"
-            div class="permissions" value="submission" id="#{@music_request.id}"
+            div class="permissions" value="submission_recordings" id="#{@music_request.id}"
             - @recordings.each do |recording|
               == render 'recordings/recording', recording: recording
                      
