@@ -58,7 +58,7 @@ class RecordingPermissionsController < ApplicationController
       
     when 'submission'
       
-      ap params
+      #ap params
       #@music_request          = MusicRequest.cached_find(params[:permission_id])
       #@opportunity            = @music_request.opportunity
       #

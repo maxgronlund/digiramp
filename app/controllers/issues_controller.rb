@@ -5,17 +5,20 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
+    forbidden({forbidden: 'login', title: 'fobar'}) unless current_user
     @issues = Issue.page(params[:page]).per(10).order('created_at desc')
   end
 
   # GET /issues/1
   # GET /issues/1.json
   def show
+     forbidden unless current_user
     @user = User.cached_find(params[:user_id])
   end
 
   # GET /issues/new
   def new
+     forbidden unless current_user
     @issue = Issue.new
   end
 
@@ -26,6 +29,7 @@ class IssuesController < ApplicationController
   # POST /issues
   # POST /issues.json
   def create
+    forbidden unless current_user
     @issue = Issue.new(issue_params)
     @issue.status = 'new'
     if @issue.save
@@ -39,6 +43,7 @@ class IssuesController < ApplicationController
   # PATCH/PUT /issues/1
   # PATCH/PUT /issues/1.json
   def update
+     
     if @issue.update(issue_params)
       redirect_to user_issue_path(@user, @issue)
       #UserMailer.delay.invite_new_user_to_account(self.id, account_id, invitation_message)

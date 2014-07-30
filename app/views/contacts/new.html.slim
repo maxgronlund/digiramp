@@ -1,0 +1,13 @@
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account' 
+       
+  .container
+    ==render 'admin/shared/messages'
+    == render 'form'
+        
+
+
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

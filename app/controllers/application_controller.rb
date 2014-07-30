@@ -109,7 +109,15 @@ class ApplicationController < ActionController::Base
     AccountUser.cached_where(@account.id, current_user.id )
   end
 
-  def forbidden
+  def forbidden options = {}
+    
+    if options[:forbidden]
+      case options[:forbidden]
+      when 'login'
+        ap options
+      end
+      
+    end
     session[:landing_page] = request.url
     render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
   end

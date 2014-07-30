@@ -3,6 +3,12 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+
+  resources :contacts
+
+  resources :contacts, only: [:new, :create, :show ]
+
   resources  :music_submissions_ratings, only: [:update]
 
   resources :gitter, only: [:index]
@@ -244,6 +250,8 @@ Digiramp::Application.routes.draw do
   # Example resource route within a namespace:
   namespace :admin do
     get 'repair_permissions'
+    
+    resources :contacts
     
     resources :statistics do
       member do

@@ -8,16 +8,18 @@
         /== render 'shared/sign_up'
             
   .container
-    
+    ==render 'admin/shared/messages'
     .row
-      .col-sm-3
-      .col-sm-6
-        ==render 'admin/shared/messages'
-        .panel.panel-primary
-          .panel-heading
-            i class= 'fa fa-lock'
-            '&nbsp;
-            'RESET PASSWORD
+      .col-sm-4
+        
+
+      .col-sm-4
+        .panel.panel-default
+          .panel-heading.blue
+            h3 class="panel-title"
+              i class= 'fa fa-lock'
+              '&nbsp;
+              'Reset Password
           .panel-body
 
             = simple_form_for(  @user, :url => password_reset_path(params[:id]) ) do |f|

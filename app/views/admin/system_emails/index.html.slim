@@ -61,6 +61,26 @@
                                               icon: 'fa fa-plane', \
                                               id: 'opportunity' \
                                             }
+        .col-sm-6
+          - blog_post = BlogPost.cached_find( "RESET EMAIL" , blog )
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: blog_post, \
+                                              link: edit_admin_blog_blog_post_path(blog, blog_post), \
+                                              css_class: 'btn btn-default', \
+                                              icon: 'fa fa-unlock', \
+                                              id: 'reset-email' \
+                                            }
+        .col-sm-6
+          - blog_post = BlogPost.cached_find( "CONTACT REPLY" , blog )
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: blog_post, \
+                                              link: edit_admin_blog_blog_post_path(blog, blog_post), \
+                                              css_class: 'btn btn-default', \
+                                              icon: 'fa fa-unlock', \
+                                              id: 'reset-email' \
+                                            }
                                             
                                             
                                             

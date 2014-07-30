@@ -3,19 +3,23 @@ class UserMailer < ActionMailer::Base
 
   def password_reset user
     @user           = user
-    @message        = MailMessage.password_reset
+    
+    
+    blog            = Blog.cached_find('Support')
+    blog_post       = BlogPost.cached_find( "RESET EMAIL" , blog )
+    @reset_link     = url_for( controller: 'password_resets', action: 'edit', id: @user.password_reset_token)
+    @title          = blog_post.title
+    @body           = blog_post.body
+    @fotter_link    = url_for( controller: 'contacts', action: 'new')
+    
     mail to: @user.email, subject: "reset password"
   end
   
   def invite_new_user_to_account user_id, title, body
      @user         = User.cached_find(user_id)
      @body         = body
-     #puts '-----------------------------------------------------------------------------'
-     #puts 'invite_new_user_to_account'
-     #puts @user.email
-     #puts title
-     #puts @body
-     #puts '-----------------------------------------------------------------------------'
+     
+     
      mail to: @user.email,  subject: title
   end
   

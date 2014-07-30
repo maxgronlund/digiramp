@@ -1,3 +1,4 @@
 class Contact < ActiveRecord::Base
-  #attr_accessible :mail, :message, :mobile, :name
+  
+  validates :email, :title, :body, presence: true
 end
