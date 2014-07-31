@@ -42,17 +42,17 @@
                                               id: 'documents' \
                                             }
                                           
-      /.col-sm-6
-      /  == render 'shared/badge', locals: {  \
-      /                                      blog: blog, \
-      /                                      post: BlogPost.cached_find( "CREATE COMMON WORKS" , blog ), \
-      /                                      link: new_common_work_account_account_recordings_bucket_index_path(@account, recording_ids: @recording_ids), \
-      /                                      css_class: 'btn btn-warning', \
-      /                                      icon: 'fa fa-plus-circle', \
-      /                                      id: 'recordings' \
-      /                                    }
-      /
-      /
+      .col-sm-6
+        == render 'shared/badge', locals: {  \
+                                            blog: blog, \
+                                            post: BlogPost.cached_find( "CREATE COMMON WORKS" , blog ), \
+                                            link: new_common_work_account_account_recordings_bucket_index_path(@account, recording_ids: @recording_ids), \
+                                            css_class: 'btn btn-warning', \
+                                            icon: 'fa fa-plus-circle', \
+                                            id: 'recordings' \
+                                          }
+      
+      
   
     
 -cache (['footer', Admin.cached_find(1).version]) do      

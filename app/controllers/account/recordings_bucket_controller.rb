@@ -60,6 +60,9 @@ class Account::RecordingsBucketController < ApplicationController
 
     @recordings.reject! do |recording|
       recording.update_attributes( recording_params.reject { |k,v| v.blank? })
+      recording.extract_genres
+      recording.extract_instruments
+      recording.extract_moods
     end
     
     #build a nice little parameter block
