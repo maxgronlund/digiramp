@@ -405,7 +405,7 @@ Digiramp::Application.routes.draw do
           get :add_to_common_work
           get :select_common_work
           get :new_common_work
-          post :create_common_work
+          put :create_common_work
           get :use_common_work
           #post :update_shared
         end

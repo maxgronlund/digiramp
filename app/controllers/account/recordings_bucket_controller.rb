@@ -1,5 +1,5 @@
 class Account::RecordingsBucketController < ApplicationController
-  
+  include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
   before_filter :access_account
   
@@ -55,6 +55,7 @@ class Account::RecordingsBucketController < ApplicationController
   
 
   def update_shared
+    #ap params
     @recordings = Recording.find(params[:recording_ids])
 
     @recordings.reject! do |recording|
@@ -66,14 +67,16 @@ class Account::RecordingsBucketController < ApplicationController
     params[:recording_ids].each do |rec|
        recordings << rec
     end
-    params =  ActionController::Parameters.new( { "recording_ids"=>recordings })
     
+    params =  ActionController::Parameters.new( { "recording_ids"=>recordings })
     redirect_to add_to_common_work_account_account_recordings_bucket_index_path(@account, params)
     
   end
   
   def add_to_common_work
-    
+    @recording_ids = Recording.where(id: params[:recording_ids]).pluck(:id)
+    #@recordings
+    #@recording_ids = params[:recording_ids]
     #@recordings = Recording.find(session[:recording_ids])
   
   end
@@ -100,12 +103,41 @@ class Account::RecordingsBucketController < ApplicationController
   
   
   def new_common_work
-    #@common_work    = CommonWork.find(params[:id])
+    @common_work    = CommonWork.new
+    @recording_ids = Recording.where(id: params[:recording_ids]).pluck(:id)
   end
   
   def create_common_work
+    forbidden unless current_account_user.create_common_work
     
+    artwork_url = TransloaditImageParser.get_image_url params[:transloadit]
+    puts '-------------------------------------------'
+    puts artwork_url
+    puts '-------------------------------------------'
+    # set the artwork url if any
+    params[:common_work][:artwork]  = artwork_url if artwork_url
+    
+    @recording_ids    = eval(params[:common_work][:recording_ids])
+    @recordings       = Recording.where(id: @recording_ids  )
+    
+    params[:common_work].delete :recording_ids
+    if @common_work = CommonWork.create(common_work_params)
+      
+      @recordings.each do |recording|
+        recording.common_work_id = @common_work.id
+        recording.in_bucket = false
+        recording.save!
+      end
+      @common_work.update_completeness
+      redirect_to account_account_common_work_path(@account, @common_work)
+    else
+      redirect_to :back
+    end
   end
+  
+  
+  
+  
   
   def destroy
     @recording = Recording.cached_find(params[:id])
@@ -118,5 +150,9 @@ class Account::RecordingsBucketController < ApplicationController
   
   def recording_params
     params.require(:recording).permit!
+  end
+  
+  def common_work_params
+    params.require(:common_work).permit!
   end
 end

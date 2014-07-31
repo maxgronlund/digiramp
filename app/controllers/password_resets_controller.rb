@@ -8,7 +8,7 @@ class PasswordResetsController < ApplicationController
     user = User.find_by_email(email)
     if user
       user.send_password_reset 
-      flash[:info] = { title: "Request received", body: "You should receive an email with instructions in a few minutes" }
+      flash[:info] = { title: "Request received", body: "You should receive an email with instructions in a few moments" }
     else
       flash[:danger] = { title: "Sorry", body: "No user with that email  #{email}  on record" }
     end

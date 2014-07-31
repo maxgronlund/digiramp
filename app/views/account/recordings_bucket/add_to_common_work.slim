@@ -6,7 +6,9 @@
   
   .container
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                            manage: account_account_path(@account) \
+                                                            manage: account_account_path(@account), \
+                                                            documents: account_account_documents_path(@account), \
+                                                            'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account) \
                                                            }, \
                                                     current:  'add to common work'}
     ==render 'admin/shared/messages'
@@ -18,28 +20,39 @@
 
                                           
     .row
-                                          
-      .col-sm-6
-        == render 'shared/badge', locals: {  \
-                                            blog: blog, \
-                                            post: BlogPost.cached_find( "CREATE COMMON WORK" , blog ), \
-                                            link: new_common_work_account_account_recordings_bucket_index_path(@account), \
-                                            css_class: 'btn btn-success', \
-                                            icon: 'fa fa-plus-circle', \
-                                            id: 'recordings' \
-                                          }
-
+      -if current_account_user.create_common_work?
+        .col-sm-6
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "CREATE COMMON WORK" , blog ), \
+                                              link: new_common_work_account_account_recordings_bucket_index_path(@account, recording_ids: @recording_ids), \
+                                              css_class: 'btn btn-success', \
+                                              icon: 'fa fa-plus-circle', \
+                                              id: 'recordings' \
+                                            }
+        
       -if current_account_user.read_file?
         .col-sm-6
           == render 'shared/badge', locals: {  \
                                               blog: blog, \
-                                              post: BlogPost.cached_find( "ADD TO EXISTING" , blog ), \
+                                              post: BlogPost.cached_find( "ADD TO EXISTING COMMON WORK" , blog ), \
                                               link: select_common_work_account_account_recordings_bucket_index_path(@account), \
                                               css_class: 'btn btn-primary', \
                                               icon: 'fa fa-music', \
                                               id: 'documents' \
                                             }
-
+                                          
+      /.col-sm-6
+      /  == render 'shared/badge', locals: {  \
+      /                                      blog: blog, \
+      /                                      post: BlogPost.cached_find( "CREATE COMMON WORKS" , blog ), \
+      /                                      link: new_common_work_account_account_recordings_bucket_index_path(@account, recording_ids: @recording_ids), \
+      /                                      css_class: 'btn btn-warning', \
+      /                                      icon: 'fa fa-plus-circle', \
+      /                                      id: 'recordings' \
+      /                                    }
+      /
+      /
   
     
 -cache (['footer', Admin.cached_find(1).version]) do      

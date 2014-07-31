@@ -33,9 +33,6 @@ class Account::CommonWorksController < ApplicationController
     params[:common_work][:artwork]  = artwork_url if artwork_url
     
 
-   
-    
-   
     if @common_work = CommonWork.create(common_work_params)
       @common_work.update_completeness
       render :show
