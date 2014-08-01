@@ -30,7 +30,7 @@ class Account::RecordingsController < ApplicationController
     @recording.instruments  = @recording.instruments_tags_as_csv_string
     @recording.mood         = @recording.moods_tags_as_csv_string
     
-    #@recording.copy_genre_tags_in_to_genre_string
+    
     if params[:genre_category]
       redirect_to account_common_work_recording_genre_tags_path(@account, @common_work, @recording, genre_category: params[:genre_category])
     end
@@ -73,7 +73,6 @@ class Account::RecordingsController < ApplicationController
       @recording.extract_instruments
       @recording.extract_moods
 
-
       # artwork
       if params[:transloadit]
         if artworks = TransloaditImageParser.artwork( params[:transloadit], @account.id)
@@ -89,8 +88,6 @@ class Account::RecordingsController < ApplicationController
             # add the uploaded artwork
             # notice there is only one artwork file
             artworks.each do |artwork|
-              
-                                  
                                   
               RecordingItem.create( recording_id: @recording.id, 
                                     itemable_type: 'Artwork',
@@ -108,12 +105,13 @@ class Account::RecordingsController < ApplicationController
       
 
       
-      @recording.common_work.update_completeness if @recording.common_work
+      
       
       if @recording.in_bucket?
         redirect_to account_account_recordings_bucket_path(@account, @recording )
       else
         #redirect_to :back
+        @recording.common_work.update_completeness if @recording.common_work
         redirect_to account_account_recording_path(@account, @recording )
       end
       

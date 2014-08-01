@@ -24,6 +24,19 @@ class Account::CommonWorkIpisController < ApplicationController
     @common_work_ip = Ipi.new
   end
   
+  def create
+    
+    @ipi = Ipi.create(ipi_params)
+    redirect_to account_account_common_work_common_work_ipis_path(@account, @common_work)
+  end
+  
+  def update
+
+    @ipi = Ipi.cached_find(params[:id])
+    @ipi.update_attributes(ipi_params)
+    redirect_to account_account_common_work_common_work_ipis_path(@account, @common_work)
+  end
+  
   
 
   def edit
@@ -37,7 +50,7 @@ class Account::CommonWorkIpisController < ApplicationController
   def destroy
     @common_work_ip     = Ipi.cached_find(params[:id])
     @common_work_ip.destroy!
-    redirect_to catalog_account_catalog_common_work_common_work_ipis_path(@account, @catalog, @common_work)
+    redirect_to account_account_common_work_common_work_ipis_path(@account, @common_work)
     
   end
   
@@ -47,6 +60,10 @@ private
   # Use callbacks to share common setup or constraints between actions.
   def get_common_work
      @common_work = CommonWork.cached_find(params[:common_work_id])
+  end
+  
+  def ipi_params
+     params.require(:ipi).permit!
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

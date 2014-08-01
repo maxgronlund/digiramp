@@ -20,7 +20,9 @@
       
       
       == render 'shared/page_title', locals: {blog: Blog.cached_find('IP'), blog_post: 'Register Interested Party'}
-      == render 'form'
+      = simple_form_for [@account, @common_work, @common_work_ip], :url => url_for(:action => 'create', :controller => 'account/common_work_ipis'), :method => 'post' do |f|
+        = f.hidden_field :common_work_id, value: @common_work.id
+        == render 'form', f: f
           
                 
                 

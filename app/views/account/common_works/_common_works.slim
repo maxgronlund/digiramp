@@ -4,7 +4,7 @@
       tr
         th Title
         th Recordings
-        /th Uploaded
+        th IPI's
         th Health 
         th
     tbody
@@ -25,9 +25,15 @@
                   .btn.btn-success.btn-lg
                     i class="fa fa-plus-circle"
 
-                
+            
             td 
-              == render 'works/shared/health', health: common_work.health rescue []
+              = link_to account_account_common_work_common_work_ipis_path( @account, common_work) do
+                .btn.btn-info.btn-lg
+                  i class="fa fa-users"
+                  '&nbsp;
+                  = common_work.ipis.size    
+            td 
+              == render 'account/common_works/shared/health', health: common_work.health rescue []
             /td 
             /  = time_ago_in_words(common_work.created_at).titleize 
             /  '&nbsp; ago

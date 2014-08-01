@@ -31,6 +31,7 @@
 //= require jquery.raty
 //= require mindmup-editabletable.js
 //= require ipis_table.js
+//= require common_works_table.js
 
 
 

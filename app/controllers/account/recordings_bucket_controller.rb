@@ -114,9 +114,7 @@ class Account::RecordingsBucketController < ApplicationController
     forbidden unless current_account_user.create_common_work
     
     artwork_url = TransloaditImageParser.get_image_url params[:transloadit]
-    puts '-------------------------------------------'
-    puts artwork_url
-    puts '-------------------------------------------'
+
     # set the artwork url if any
     params[:common_work][:artwork]  = artwork_url if artwork_url
     
@@ -137,6 +135,37 @@ class Account::RecordingsBucketController < ApplicationController
       redirect_to :back
     end
   end
+  
+  def create_common_works
+
+    common_work_ids = []
+    @recordings       = Recording.where(id: params[:recording_ids]  )
+    @recordings.each do |recording|
+      
+      common_work = CommonWork.create(
+                                        account_id: recording.account_id,
+                                        title:      recording.title,
+                                        lyrics:     recording.lyrics,
+                                        genre:      recording.genre
+                                        
+                                      )
+      recording.common_work_id = common_work.id
+      recording.in_bucket      = false
+      recording.save!
+      common_work.update_completeness
+      common_work_ids << common_work.id
+
+    end
+    
+    redirect_to common_works_account_account_recordings_bucket_index_path(@account, common_work_ids: common_work_ids)
+    
+  end
+  
+  def common_works
+    @common_works       = CommonWork.where(id: params[:common_work_ids]  )
+  end
+  
+  
   
   
   
