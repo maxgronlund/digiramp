@@ -83,7 +83,8 @@
               h3 = recording.title
             .col-sm-4
               .pull-right
-                h5 = music_submission.user.email
+                h5 = music_submission.user.email rescue []
+                
           
           .digiramp_player
             div class="permissions" value="submission" id="#{music_submission.id}"

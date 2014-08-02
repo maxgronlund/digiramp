@@ -3,7 +3,12 @@ class Account::RecordingsController < ApplicationController
   include RecordingsHelper
   include AccountsHelper
   before_filter :access_account
-  #before_filter :read_recording, only:[:show]
+  before_filter :read_recording, only:[ :show, 
+                                        :files, 
+                                        :artwork,
+                                        :new_artwork,
+                                        :create_artwork
+                                      ]
   
   def index
     forbidden unless current_account_user.read_recording?
@@ -100,13 +105,7 @@ class Account::RecordingsController < ApplicationController
           end 
         end
       end
-      
-      
-      
 
-      
-      
-      
       if @recording.in_bucket?
         redirect_to account_account_recordings_bucket_path(@account, @recording )
       else
@@ -226,7 +225,7 @@ class Account::RecordingsController < ApplicationController
   
   def files
     forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
+    #@recording      = Recording.cached_find(params[:id])
   end
   
   def documents
@@ -241,21 +240,26 @@ class Account::RecordingsController < ApplicationController
   
   def artwork
     forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
+    @artwork = Artwork.new
   end
   
-  # ====================================================
-  # artwork
-  def artwork
-    forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
-  end
   
   def new_artwork
     forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
-    
-    redirect_to :back
+    @recording      = Recording.cached_find(params[:id])    
+  end
+  
+  def create_artwork
+    if params[:transloadit]
+      if artworks = TransloaditImageParser.artwork( params[:transloadit], @account.id )
+        artworks.each do |artwork|
+          RecordingItem.create( recording_id: @recording.id, 
+                                itemable_type: 'Artwork',
+                                itemable_id: artwork.id)
+        end
+      end
+    end
+    redirect_to artwork_account_account_recording_path(@account, @recording)
   end
   
  

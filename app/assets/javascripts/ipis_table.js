@@ -65,3 +65,12 @@ $.fn.numericIpiInput = function () {
 	initialTotal();
 	return this;
 };
+
+ready = function(){
+  $('#mainTable').editableTableWidget().numericIpiInput().find('td:first').focus();
+  $('#textAreaEditor').editableTableWidget({editor: $('<textarea>')});
+}
+
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

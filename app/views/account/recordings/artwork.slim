@@ -8,9 +8,7 @@
   .do           
     .container
       == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                             manage: account_account_path(@account), \
-                                                             recordings: account_account_recordings_path(@account),\
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {recordings: account_account_recordings_path(@account),\
                                                              @recording.title.to_sym => account_account_recording_path(@account, @recording), \
                                                              files: files_account_account_recording_path(@account, @recording) \
                                                              }, current: 'artwork' }
@@ -86,6 +84,7 @@
       /
       /                       
       /
+    == render 'shared/back', locals: {link: files_account_account_recording_path( @account, @recording)}
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

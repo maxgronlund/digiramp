@@ -2,9 +2,6 @@
 Digiramp::Application.routes.draw do
 
 
-
-  
-
   resources :contacts
 
   resources :contacts, only: [:new, :create, :show ]
@@ -219,30 +216,30 @@ Digiramp::Application.routes.draw do
   resources :sign_up
   
   resources :users do
-    resources :add_shared_catalog_assets, only: [:show]
+    #resources :add_shared_catalog_assets, only: [:show]
     resources :user_accounts, only: [:index]
     resources :accounts, only: [:edit, :show, :update]
     resources :issues do
       resources :comments
     end
     resources :issue_images, only: [:show]
-    resources :user_recordings
-    resources :user_recording_assets, only: [:show]
-    resources :shared_assets, only: [:index]
-    resources :shared_catalogs do
-      get "export_all"
-      get "export_found"
-      
-      resources :shared_recordings do
-        resources :shared_common_works do
-          resources :shared_common_work_ipis
-        end
-      end
-      resources :shared_recording_files
-      resources :shared_recording_artworks
-      resources :accept_invitaion_to_catalog, only: [:edit, :update]
-      resources :upload_shared_catalog_recordings
-    end
+    #resources :user_recordings
+    #resources :user_recording_assets, only: [:show]
+    #resources :shared_assets, only: [:index]
+    #resources :shared_catalogs do
+    #  get "export_all"
+    #  get "export_found"
+    #  
+    #  resources :shared_recordings do
+    #    resources :shared_common_works do
+    #      resources :shared_common_work_ipis
+    #    end
+    #  end
+    #  resources :shared_recording_files
+    #  resources :shared_recording_artworks
+    #  resources :accept_invitaion_to_catalog, only: [:edit, :update]
+    #  resources :upload_shared_catalog_recordings
+    #end
   end
 
 
@@ -413,15 +410,21 @@ Digiramp::Application.routes.draw do
         end
       end
       resources :recordings do
+        resources :recording_artworks
         
         member do
           get "files"
           
           get "documents"
           get "legal_documents"
-          get "artwork"
-          get "new_artwork"
+          
+          
           get "financial_documents"
+          
+          
+          #get "artwork"
+          #get "new_artwork"
+          #post "create_artwork"
         end
       end
      

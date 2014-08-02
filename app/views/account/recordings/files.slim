@@ -8,20 +8,11 @@
   .do           
     .container
       == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                             manage: account_account_path(@account), \
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {manage: account_account_path(@account), \
                                                              recordings: account_account_recordings_path(@account),\
                                                              @recording.title.to_sym => account_account_recording_path(@account, @recording) \
                                                              }, current: 'files' }
-      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-      /                                                        #assets: account_assets_path(@account), \
-      /                                                        recordings: account_account_recordings_path(@account), \
-      /                                                        }, current: @recording.title}
-      /
-      /
-      /
-      / add a link to 
-      / http://localhost:3000/accounts/6/common_works/6468/recordings/434/edit
+     
       -body = link_to 'RECORDING FILES', account_work_path(@account, @recording)
       == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment} 
       .row
@@ -33,7 +24,7 @@
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
                                                 post: BlogPost.cached_find( "ARTWORK" , blog ), \
-                                                link: artwork_account_account_recording_path(@account, @recording), \
+                                                link: account_account_recording_recording_artworks_path(@account, @recording), \
                                                 css_class: 'btn btn-default', \
                                                 icon: 'fa fa-picture-o', \
                                                 no_turbo: true \

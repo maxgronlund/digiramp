@@ -1,9 +1,11 @@
+
+
 /* global $ */
 /* this is an example for validation and change events */
 $.fn.numericCommonWorkInput = function () {
 	'use strict';
 	var element = $(this),
-		
+	
     /*footer = element.find('tfoot tr'),*/
 		dataRows = element.find('tbody tr')
 		/*
@@ -20,7 +22,7 @@ $.fn.numericCommonWorkInput = function () {
 		};
     */
 	element.find('td').on('change', function (evt, newValue) {
-    
+
 		var cell = $(this),
 		column  = cell.index(),
 		total   = 0;
@@ -41,14 +43,14 @@ $.fn.numericCommonWorkInput = function () {
       }
     );
 
-    
+  
     /*
 		element.find('tbody tr').each(function () {
 			var row = $(this);
 			total += parseFloat(row.children().eq(column).text());
 		});
-    
-   
+  
+ 
 		if (column > 0 && total > 200) {
 			$('.hide-alert').show();
 			return false; // changes can be rejected
@@ -57,7 +59,7 @@ $.fn.numericCommonWorkInput = function () {
 			footer.children().eq(column).text(total);
 		}
     */
-    
+  
 	}).on('validate', function (evt, value) {
     /*
 		var cell = $(this),
@@ -72,3 +74,13 @@ $.fn.numericCommonWorkInput = function () {
 	/*initialTotal();*/
 	return this;
 };
+
+
+ready = function(){
+  $('#mainTable').editableTableWidget().numericCommonWorkInput().find('td:first').focus();
+  $('#textAreaEditor').editableTableWidget({editor: $('<textarea>')});
+}
+
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

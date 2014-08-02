@@ -1,0 +1,62 @@
+-session[:return_url] = request.url
+/-@work_user        
+/-@can_administrate 
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'profile'     
+  .container
+    ==render 'admin/shared/messages'
+    
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym     =>  user_path(@user), \
+                                                         "ASSETS".to_sym          =>  user_shared_assets_path(@user), \
+                                                         "Catalogs".to_sym        =>  user_shared_catalogs_path(@user), \
+                                                          @catalog.title.to_sym   =>  user_shared_catalog_path(@user, @catalog), \
+                                                          "Recordings".to_sym     =>  user_shared_catalog_shared_recordings_path(@user, @catalog ), \
+                                                          @recording.title.to_sym =>  user_shared_catalog_shared_recording_path(@user, @catalog, @recording ) \
+                                                         }, current:  @common_work.title}
+    
+    /- insert = 'edit'
+    == render 'shared/title', locals: {title: @common_work.title, body: "ISWC CODE: #{@common_work.iswc_code}"}
+
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            'IPI's
+          .panel-body
+            .table-responsive
+              table class="table"
+                thead
+                  tr
+                    th Capacity
+                    th Full Name
+                    th Share
+                    th Mech Owned
+                    th Perf. Owned
+                    th Mech. Collected
+                    th Perf. Collected 
+                    td
+                tbody
+                  - @common_work.ipis.each do |ipi|
+                    tr
+                      td = ipi.role
+                      td = ipi.full_name
+                      td = number_to_percentage(ipi.share, precision: 0) 
+                      td = number_to_percentage(ipi.mech_owned, precision: 0) 
+                      td = number_to_percentage(ipi.perf_owned, precision: 0) 
+                      td = number_to_percentage(ipi.mech_collected, precision: 0) 
+                      td = number_to_percentage(ipi.perf_collected, precision: 0)
+                      
+       
+    .row
+      .col-sm-12                      
+        .pull-right
+          = link_to 'More', '#',\
+                    class: 'btn btn-primary btn-lg'
+        
+       
+       
+      
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

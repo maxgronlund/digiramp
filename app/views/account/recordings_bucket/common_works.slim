@@ -19,7 +19,7 @@
     == render 'shared/page_title', locals: {blog: blog, blog_post: 'Edit Common Works'}
     
     .table-responsive  
-      table id="mainTable" class="table table-striped"
+      table id="mainTable" class="table table-striped table-condensed table-bordered"
         thead
           tr
             th Title
@@ -59,9 +59,7 @@
       .col-sm-12
         .pull-right
           = link_to 'Done', account_account_recordings_bucket_index_path(@account), class: 'btn btn-default btn-lg'
-    javascript:
-      $('#mainTable').editableTableWidget().numericCommonWorkInput()
-      $('#textAreaEditor').editableTableWidget({editor: $('<textarea>')});
+
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
   

@@ -31,19 +31,10 @@ class Account::ArtworksController < ApplicationController
   def create
     #forbidden unless current_catalog_user.create_artwork
     forbidden unless current_account_user.create_artwork
+    artworks = TransloaditImageParser.artwork( params[:transloadit], @account.id)
 
-   artworks = TransloaditImageParser.artwork( params[:transloadit], @account.id)
-
-    
-    #redirect_to account_common_work_recording_image_files_path(@account, @common_work, @recording)
     redirect_to  account_account_artworks_path(@account)
-    #rescue
-    #flash[:danger] = { title: "Sorry: ", body: "Something went wrong" }
-    #redirect_to :back
-    #end
-  
-  
-  
+
   end
 
   # PATCH/PUT /artworks/1

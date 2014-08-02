@@ -1,0 +1,49 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+    /                                                        assets: account_assets_path(@account), \
+    /                                                        'manage works'.to_sym => account_account_works_path(@account),\
+    /                                                        'list works'.to_sym => account_works_path(@account),\
+    /                                                        @common_work.title.to_sym => account_work_path(@account, @common_work),\
+    /                                                        }, current: 'edit work'}
+    == render 'shared/title', locals: {title: @common_work.title, body: 'Update'}
+    .row
+      .col-sm-12
+        = simple_form_for [@user, @catalog, @recording, @common_work], url: url_for(action: 'update', controller: 'shared_common_works'), method: 'put' do |f|
+          .row
+            .col-sm-6
+              .panel.panel-primary
+                .panel-heading
+                  'Info
+                .panel-body
+              
+                  = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
+                  = f.input :alternative_titles, :input_html => {  style: "height: 120px;", placeholder: "Alternative Titles"}
+
+                  = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "ISWC Code"}
+                  = f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
+          
+
+            .col-sm-6
+              .panel.panel-primary
+                .panel-heading
+                  'Lyrics
+                .panel-body
+                  div id="toolbar" class="wysihtml5-toolbar"
+                    a data-wysihtml5-command="bold" Bold
+                    '&nbsp; 
+                    a data-wysihtml5-command="italic" Italic
+                  
+                  =f.input :lyrics, label: false, :input_html => {  style: "height: 461px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
+          hr
+          .pull-right
+            = f.submit 'Save', class: 'btn btn-primary btn-lg'
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

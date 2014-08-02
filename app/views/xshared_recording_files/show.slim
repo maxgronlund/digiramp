@@ -1,0 +1,61 @@
+- session[:return_url]  = request.url
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'profile'
+  .do           
+    .container
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym     =>  user_path(@user), \
+                                                           "ASSETS".to_sym          =>  user_shared_assets_path(@user), \
+                                                           "Catalogs".to_sym        =>  user_shared_catalogs_path(@user), \
+                                                            @catalog.title.to_sym   =>  user_shared_catalog_path(@user, @catalog), \
+                                                            "Recordings".to_sym     =>  user_shared_catalog_shared_recordings_path(@user, @catalog ) \
+                                                           }, current:  @recording.title}
+
+      - if @recording.update_recording_ids.include? current_user.id
+        == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'shared_recordings/edit'} 
+      - else
+        == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment}
+      .row
+        .col-sm-6
+           == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'INFO', \
+                                                      link: user_shared_catalog_shared_recording_path(@user, @catalog, @recording), \
+                                                      css_class: 'btn btn-info', \
+                                                      icon: 'fa fa-info-circle' \
+                                                    }
+        - if @recording.read_common_works_ids.include? current_user.id
+          .col-sm-6
+             == render 'shared/badge_button', locals: { \
+                                                        blog_post: 'COMMON WORK', \
+                                                        link: user_shared_catalog_shared_recording_shared_common_work_path(@user, @catalog, @recording, @recording.common_work), \
+                                                        css_class: 'btn btn-primary', \
+                                                        icon: 'fa fa-music' \
+                                                      }
+        - if @recording.read_files_ids.include? current_user.id
+          .col-sm-6
+            == render 'shared/badge_button', locals: { \
+                                                       blog_post: 'ARTWORK', \
+                                                       link: user_shared_catalog_shared_recording_artwork_path(@user, @catalog, @recording), \
+                                                       css_class: 'btn btn-primary', \
+                                                       icon: 'fa fa-picture-o' \
+                                                     }
+                                                     
+                                                   
+                                                   
+                                                   
+                                                    
+                                                    
+                                                    
+       
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              
+
+            
+ 
+          
+          
+          
+        

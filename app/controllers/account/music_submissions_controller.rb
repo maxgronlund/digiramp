@@ -15,11 +15,7 @@ class Account::MusicSubmissionsController < ApplicationController
   
   
   def create
-    #@music_submission = MusicSubmission.create(music_submission_params)
-    #@music_submission = MusicSubmission.create( recording_id: params[:recording_id],
-    #                                         music_request_id: params[:music_request_id]  
-    #                                        )                 
-    #redirect_to :back
+    
   end
   
   def create_comment
@@ -29,17 +25,19 @@ class Account::MusicSubmissionsController < ApplicationController
   end
   
   def submit_recording
-    ap params
+    
     opportunity_user  = OpportunityUser.where( opportunity_id:        params[:opportunity_id], user_id: current_user.id ).first
     
     @music_submission = MusicSubmission.where(  recording_id:         params[:id],
-                                                music_request_id:     params[:music_request_id]  
+                                                music_request_id:     params[:music_request_id],
+                                                 account_id:          @account.id           
                                               )
                                         .first_or_create( 
                                                           recording_id:         params[:id],
                                                           music_request_id:     params[:music_request_id] ,
                                                           user_id:              current_user.id,
-                                                          opportunity_user_id:  current_user.id
+                                                          opportunity_user_id:  current_user.id,
+                                                          account_id:           @account.id
                                                         ) 
                                                         
     

@@ -1,7 +1,7 @@
 -if current_account_user.create_file
   .pull-right
-    = link_to account_account_recordings_path(@account) do
+    = link_to new_artwork_account_account_recording_path(@account, @recording) do
       .btn.btn-info.btn-lg
         i class="fa fa-cloud-upload"
         '&nbsp;
-        'Add Artwork
+        'Upload Artwork

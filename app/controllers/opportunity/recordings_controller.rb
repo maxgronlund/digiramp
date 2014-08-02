@@ -92,14 +92,15 @@ class Opportunity::RecordingsController < ApplicationController
       @recording.common_work.update_completeness if @recording.common_work
       
       
-      opportunity_user = OpportunityUser.where(user_id: current_user.id, opportunity_id: @opportunity.id).first
+      if opportunity_user = OpportunityUser.where(user_id: current_user.id, opportunity_id: @opportunity.id).first
       
-      MusicSubmission.create(recording_id: @recording.id, 
-                            music_request_id: @music_request.id, 
-                            user_id: current_user.id, 
-                            opportunity_user_id: opportunity_user.id,
-                            account_id: @recording.account_id)
-
+        MusicSubmission.create( recording_id:         @recording.id, 
+                                music_request_id:     @music_request.id, 
+                                user_id:              current_user.id, 
+                                opportunity_user_id:  opportunity_user.id,
+                                account_id:           @recording.account_id
+                              )
+      end
     else
       
     end

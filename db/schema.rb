@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140801144100) do
+ActiveRecord::Schema.define(version: 20140802204219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1122,8 +1122,8 @@ ActiveRecord::Schema.define(version: 20140801144100) do
     t.datetime "updated_at",                      null: false
     t.integer  "stars",               default: 0
     t.integer  "like",                default: 0
-    t.string   "account_id"
     t.integer  "opportunity_user_id"
+    t.integer  "account_id"
   end
 
   add_index "music_submissions", ["account_id"], name: "index_music_submissions_on_account_id", using: :btree
