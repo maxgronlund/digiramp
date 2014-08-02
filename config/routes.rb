@@ -44,8 +44,8 @@ Digiramp::Application.routes.draw do
     
     #resources :add_catalog_assets, only: [:show]
     resources :account_users
-    resources :account_works, only: [:index]
-    resources :albums
+    #resources :account_works, only: [:index]
+    #resources :albums
     #resources :catalog_recordings, only: [:show, :edit, :update, :destroy]
     resources :common_works, only: [:show]
     
