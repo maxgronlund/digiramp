@@ -2,6 +2,14 @@
 Digiramp::Application.routes.draw do
 
 
+  get 'feature_request/index'
+
+  get 'feature_request/new'
+
+  get 'feature_request/edit'
+
+  get 'feature_request/show'
+
   resources :contacts
 
   resources :contacts, only: [:new, :create, :show ]
@@ -223,6 +231,10 @@ Digiramp::Application.routes.draw do
       resources :comments
     end
     resources :issue_images, only: [:show]
+    
+    resources :feature_requests do
+      resources :comments
+    end
     #resources :user_recordings
     #resources :user_recording_assets, only: [:show]
     #resources :shared_assets, only: [:index]
