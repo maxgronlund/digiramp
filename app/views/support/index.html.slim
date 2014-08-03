@@ -21,6 +21,13 @@
                                                     css_class: 'btn btn-primary', \
                                                     icon: 'fa fa-tasks' \
                                                   }
+      .col-sm-6
+        == render 'shared/badge_button', locals: { \
+                                                    blog_post: 'FEATURE REQUESTS', \
+                                                    link: user_feature_requests_path(current_user), \
+                                                    css_class: 'btn btn-info', \
+                                                    icon: 'fa fa-lightbulb-o' \
+                                                  }
 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

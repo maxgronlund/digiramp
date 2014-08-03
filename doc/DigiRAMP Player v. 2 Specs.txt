@@ -17,5 +17,40 @@ Multi track support / palaylist
 
 embed
 
-
+{
+  "steps": {
+    "mp3": {
+      "robot": "/audio/encode",
+      "preset": "mp3"
+    },
+    "waveform": {
+      "robot": "/audio/waveform",
+      "use": "mp3",
+      "width": 1920,
+      "height": 120,
+      "background_color": "20202000",
+      "outer_color": "2A3E5EFF",
+      "center_color": "436396FF"
+    },
+    "thumbnail": {
+      "robot": "/audio/waveform",
+      "use": "mp3",
+      "width": 300,
+      "height": 45,
+      "background_color": "FFFFFF00",
+      "outer_color": "2A3E5EFF",
+      "center_color": "436396FF"
+    },
+    "store": {
+      "robot": "/s3/store",
+      "use": [
+        "mp3",
+        "waveform"
+      ],
+      "key": "AKIAIVATNWTNMQZKK2VA",
+      "secret": "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",
+      "bucket": "digiramp"
+    }
+  }
+}
 

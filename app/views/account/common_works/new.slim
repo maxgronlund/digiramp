@@ -8,7 +8,7 @@
     ==render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
                                                            manage: account_account_path(@account), \
-                                                           common_works: account_account_common_works_path(@account), \
+                                                           'common works'.to_sym => account_account_common_works_path(@account), \
                                                            }, current: 'new' }
                                                             
     == render 'shared/title', locals: {title: @common_work.title, body: 'Update'}

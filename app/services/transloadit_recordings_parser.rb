@@ -59,6 +59,13 @@ class TransloaditRecordingsParser
         extracted[ mp3[:original_id] ][:original_name]       = mp3[:original_basename]
       end
     end
+    
+    if uploads[:results][:zipp]
+      # zipp file
+      uploads[:results][:zipp].each do |zipp|
+        extracted[ zipp[:original_id] ][:zipp]               = zipp[:url]
+      end
+    end
 
     
     if uploads[:results][:artwork_thumb]
@@ -148,7 +155,8 @@ class TransloaditRecordingsParser
                                             url:                 transloaded[:url],
                                             ext:                 transloaded[:ext],
                                             original_file_name:  transloaded[:original_file_name],
-                                            in_bucket:           in_bucket
+                                            in_bucket:           in_bucket,
+                                            zipp:                transloaded[:zipp]
                                            )
           
           

@@ -10,15 +10,17 @@ class Account::UploadsController < ApplicationController
   
   def common_works
     forbidden unless current_account_user.create_common_work?
+     @common_work = CommonWork.new
   end
   
   # audio files
   def audio_files
     forbidden unless current_account_user.create_recording?
+   
   end
   
   def audio_files_new
-    #redirect_to :back
+    
   end
   
   def audio_files_create
@@ -28,17 +30,18 @@ class Account::UploadsController < ApplicationController
     #ap params[:transloadit]
 
     result = TransloaditRecordingsParser.parse( params[:transloadit],  @account.id, false)
-    
+    go_to = account_account_common_works_path(@account)
     # success 
     unless result[:recordings].size == 0
       
       result[:recordings].each do |recording|
 
         
-        common_work = CommonWork.create(account_id: recording.account_id, title: recording.title, lyrics: recording.lyrics)
+        common_work = CommonWork.create(account_id: recording.account_id, title: params[:common_work][:title], lyrics: recording.lyrics)
         recording.common_work_id = common_work.id
         recording.save
         recording.common_work.update_completeness
+        go_to = edit_account_account_common_work_recording_path(@account, common_work, recording)
 
       end
       
@@ -59,7 +62,7 @@ class Account::UploadsController < ApplicationController
     
     
     
-    redirect_to account_account_common_works_path(@account)
+    redirect_to go_to
 
 
   end

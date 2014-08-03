@@ -22,10 +22,10 @@
         .col-sm-6
           == render 'shared/badge', locals: {  \
                                               blog: blog, \
-                                              post: BlogPost.cached_find( "CREATE COMMON WORKS" , blog ), \
+                                              post: BlogPost.cached_find( "UPLOAD FILE" , blog ), \
                                               link: account_account_uploads_common_works_path(@account), \
-                                              css_class: 'btn btn-success', \
-                                              icon: 'fa fa-music', \
+                                              css_class: 'btn btn-info', \
+                                              icon: 'fa fa-cloud-upload', \
                                               id: 'common-works', \
                                               no_turbo: 'true' \
                                             }

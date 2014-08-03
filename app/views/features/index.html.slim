@@ -1,28 +1,28 @@
-#wrap
-  .full-width-top
-    == render 'shared/navbar', page: 'features'
-
-            
-  .container
-    = @feature.title
-    .row
-      .col-sm-6
-        == render 'shared/video', video: @video1
-      .col-sm-6
-        h3 = @video1.title
-        = @video1.body
-    hr
-    .row
-      .col-sm-6
-        == render 'shared/video', video: @video2
-      .col-sm-6
-        h3 = @video2.title
-        = @video2.body
-
-  
-#footer
-  .container
-    .footer
-      .row
-        .col-sm-12
-          '©2014 All rights reserved
+/#wrap
+/  .full-width-top
+/    == render 'shared/navbar', page: 'features'
+/
+/            
+/  .container
+/    = @feature.title
+/    .row
+/      .col-sm-6
+/        == render 'shared/video', video: @video1
+/      .col-sm-6
+/        h3 = @video1.title
+/        = @video1.body
+/    hr
+/    .row
+/      .col-sm-6
+/        == render 'shared/video', video: @video2
+/      .col-sm-6
+/        h3 = @video2.title
+/        = @video2.body
+/
+/  
+/#footer
+/  .container
+/    .footer
+/      .row
+/        .col-sm-12
+/          '©2014 All rights reserved

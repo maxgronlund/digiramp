@@ -2,10 +2,13 @@ class BlogPost < ActiveRecord::Base
   
 
   
+  belongs_to :user, dependent: :destroy
+  belongs_to :blog, dependent: :destroy
   
-  belongs_to :blog
   has_many :comments, as: :commentable
-  #attr_accessible :author, :body, :crop_params, :image, :image_title, :title, :blog_id, :identifier, :position, :link, :teaser, :layout
+  has_many :comments, dependent: :destroy
+  
+  
   validates_presence_of :title
   serialize :crop_params, Hash
   mount_uploader :image, ArtworkUploader
@@ -14,6 +17,9 @@ class BlogPost < ActiveRecord::Base
   after_commit :flush_cache
   
 
+  def find_by_id(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
   
   def self.cached_find(identifier , blog)
     Rails.cache.fetch([name, identifier , blog.id]) { BlogPost.where(identifier: identifier, blog_id: blog.id)\
@@ -24,5 +30,6 @@ private
 
   def flush_cache
     Rails.cache.delete([self.class.name, identifier, blog.id])
+    Rails.cache.delete([self.class.name, id])
   end
 end

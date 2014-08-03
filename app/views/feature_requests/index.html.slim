@@ -1,0 +1,44 @@
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'support'
+
+  .container
+    .row
+      .col-sm-12
+        == render 'admin/shared/messages'
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { 'support'.to_sym => support_index_path,\
+                                                              }, current: 'feature requests'}
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('FEATURE REQUESTS'), \
+                                                blog_post: 'feature requests', insert: 'new'}
+   
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            'Feature requests
+          .panel-body
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr 
+                    th Requests
+                    th By
+                tbody
+                  - if @feature_requests.blog_posts
+                    - @feature_requests.blog_posts.order('created_at asc').each do |feature|
+                      tr
+                        td 
+                          = link_to user_feature_request_feature_path(current_user, @feature_requests, feature) do
+                            .btn.btn-default.btn-lg
+                              = feature.title
+                        td
+                          -if feature.user
+                            = feature.user.email
+                        td
+                          - if feature.user_id == current_user.id || current_user.super?
+                        
+                        
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

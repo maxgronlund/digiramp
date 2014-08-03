@@ -1,30 +1,23 @@
-= form_for @feature do |f|
-  - if @feature.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@feature.errors.count, "error")} prohibited this feature from being saved:"
-      ul
-        - @feature.errors.full_messages.each do |message|
-          li = message
 
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :body
-    = f.text_area :body
-  .field
-    = f.label :video1_id
-    = f.number_field :video1_id
-  .field
-    = f.label :video2_id
-    = f.number_field :video2_id
-  .field
-    = f.label :video3_id
-    = f.number_field :video3_id
-  .field
-    = f.label :video4_id
-    = f.number_field :video4_id
-  .field
-    = f.label :video5_id
-    = f.number_field :video5_id
-  .actions = f.submit 'Save'
+
+/- if @feature.errors.any?
+/  #error_explanation
+/    h2 = "#{pluralize(@feature.errors.count, "error")} prohibited this feature from being saved:"
+/    ul
+/      - @feature.errors.full_messages.each do |message|
+/        li = message
+
+.panel.panel-primary
+  .panel-heading
+    'FEATURE REQUEST
+  .panel-body
+    = f.input :title
+    div id="toolbar" class="wysihtml5-toolbar"
+      a data-wysihtml5-command="bold" Bold
+      '&nbsp; 
+      a data-wysihtml5-command="italic" Italic
+    
+    = f.input :body, label: 'Description', :input_html => {  style: "height: 284px;", placeholder: "Write here", id: 'wysihtml5_editor'}
+
+.pull-right
+  = f.submit 'Save', class: 'btn btn-primary btn-lg'

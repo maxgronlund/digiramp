@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140802211511) do
+ActiveRecord::Schema.define(version: 20140803115119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -332,9 +332,11 @@ ActiveRecord::Schema.define(version: 20140802211511) do
     t.string   "link"
     t.text     "teaser"
     t.string   "layout"
+    t.integer  "user_id"
   end
 
   add_index "blog_posts", ["blog_id"], name: "index_blog_posts_on_blog_id", using: :btree
+  add_index "blog_posts", ["user_id"], name: "index_blog_posts_on_user_id", using: :btree
 
   create_table "blogs", force: true do |t|
     t.string   "title",      default: ""
@@ -1440,6 +1442,7 @@ ActiveRecord::Schema.define(version: 20140802211511) do
     t.string   "ext",                 default: ""
     t.string   "original_file_name",  default: ""
     t.boolean  "in_bucket",           default: false
+    t.string   "zipp"
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

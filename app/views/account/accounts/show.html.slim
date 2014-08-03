@@ -19,8 +19,17 @@
 
                                           
     .row
-      -if current_account_user.read_user
-        .col-sm-6
+      .col-sm-6
+        -if current_account_user.read_opportunity
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "OPPORTUNITIES" , blog ), \
+                                              link: account_account_opportunities_path(@account), \
+                                              css_class: 'btn btn-danger', \
+                                              icon: 'fa fa-plane' \
+                                            }
+                                            
+        -if current_account_user.read_user
           == render 'shared/badge', locals: {  \
                                               blog: blog, \
                                               post: BlogPost.cached_find( "USERS" , blog ), \
@@ -29,12 +38,11 @@
                                               icon: 'fa fa-group', \
                                               no_turbo: true \
                                             }
-      
-
-
+        
+        
+        
             
-      -if current_account_user.read_recording
-        .col-sm-6
+        -if current_account_user.read_recording
           == render 'shared/badge', locals: {  \
                                               blog: blog, \
                                               post: BlogPost.cached_find( "RECORDINGS" , blog ), \
@@ -47,20 +55,23 @@
           
           
         -if current_account_user.read_common_work?
-          .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "COMMON WORKS" , blog ), \
-                                                link: account_account_common_works_path(@account), \
-                                                css_class: 'btn btn-primary', \
-                                                icon: 'fa fa-music', \
-                                                id: 'common-works' \
-                                              }
-                        
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "COMMON WORKS" , blog ), \
+                                              link: account_account_common_works_path(@account), \
+                                              css_class: 'btn btn-primary', \
+                                              icon: 'fa fa-music', \
+                                              id: 'common-works' \
+                                            }
+                      
         
         
+        
+            
+
+      .col-sm-6
         -if current_account_user.read_crm
-          .col-sm-6
+          .col-sm-12
             == render 'shared/badge', locals: {  \
                                                 blog: blog, \
                                                 post: BlogPost.cached_find( "CRM" , blog ), \
@@ -68,82 +79,51 @@
                                                 css_class: 'btn btn-danger', \
                                                 icon: 'fa fa-money' \
                                               }
-            
-        
-                                        
-        /-if current_account_user.add_music?
-        /  .col-sm-6
-        /    == render 'shared/badge', locals: {  \
-        /                                        blog: blog, \
-        /                                        post: BlogPost.cached_find( "ADD MUSIC" , blog ), \
-        /                                        link: account_add_content_index_path(@account), \
-        /                                        css_class: 'btn btn-success', \
-        /                                        icon: 'fa fa-plus-circle', \
-        /                                        id: 'add-music' \
-        /                                      }
-        /
-        -if current_account_user.read_file?
-          .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "DOCUMENTS AND FILES" , blog ), \
-                                                link: account_account_documents_path(@account), \
-                                                css_class: 'btn btn-success', \
-                                                icon: 'fa fa-folder-o', \
-                                                id: 'documents' \
-                                              }
-                                      
-        /-if current_account_user.read_playlist?
-        /  .col-sm-6
-        /    == render 'shared/badge', locals: {  \
-        /                                        blog: blog, \
-        /                                        post: BlogPost.cached_find( "PLAYLISTS" , blog ), \
-        /                                        link: account_playlists_path(@account), \
-        /                                        css_class: 'btn btn-default', \
-        /                                        icon: 'fa fa-headphones', \
-        /                                        id: 'playlists' \
-        /                                      }
-        /                              
-        
-                         
-        
                                       
         -if current_account_user.read_common_work_ipi
-          .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "IPI CODES" , blog ), \
-                                                link: account_account_account_ipis_path(@account), \
-                                                css_class: 'btn btn-primary', \
-                                                icon: 'fa fa-list-ul' \
-                                              }
-                                      
-        -if true
-          .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "UPLOAD" , blog ), \
-                                                link: account_account_uploads_path(@account), \
-                                                css_class: 'btn btn-info', \
-                                                icon: 'fa fa-cloud-upload' \
-                                              }
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "IPI CODES" , blog ), \
+                                              link: account_account_account_ipis_path(@account), \
+                                              css_class: 'btn btn-default', \
+                                              icon: 'fa fa-list-ul' \
+                                            }
+                                    
+                                              
+                                              
+        -if current_account_user.read_file?
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "DOCUMENTS AND FILES" , blog ), \
+                                              link: account_account_documents_path(@account), \
+                                              css_class: 'btn btn-warning', \
+                                              icon: 'fa fa-folder-o', \
+                                              id: 'documents' \
+                                            }
+        /-if true
+        /  == render 'shared/badge', locals: {  \
+        /                                      blog: blog, \
+        /                                      post: BlogPost.cached_find( "UPLOAD" , blog ), \
+        /                                      link: account_account_uploads_path(@account), \
+        /                                      css_class: 'btn btn-info', \
+        /                                      icon: 'fa fa-cloud-upload' \
+        /                                    }
         -if current_account_user.read_catalog                                     
-         .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "CATALOGS" , blog ), \
-                                                link: catalog_account_catalogs_path(@account), \
-                                                css_class: 'btn btn-primary', \
-                                                icon: 'fa fa-book', \
-                                                id: 'catalogs' \
-                                              }
-                        
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "CATALOGS" , blog ), \
+                                              link: catalog_account_catalogs_path(@account), \
+                                              css_class: 'btn btn-primary', \
+                                              icon: 'fa fa-book', \
+                                              id: 'catalogs' \
+                                            }
+                      
         
             
           
-          
-      
-    
+            
+        
+        
    
 
         

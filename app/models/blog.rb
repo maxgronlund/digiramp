@@ -7,14 +7,19 @@ class Blog < ActiveRecord::Base
 
   after_commit :flush_cache
   
+  include PgSearch
+  pg_search_scope :search_blog, against: [:title, :body], :using => [:tsearch],  :associated_against => {
+      :blog_posts => [:title, :body, :teaser]
+    }
   
+ 
 
   
-  def self.blog_search( query)
+  def self.search(  query)
     if query.present?
-     return Blog.search(query)
+      return Blog.search_blog(query)
     else
-      return Blog.all
+      return all
     end
   end
   

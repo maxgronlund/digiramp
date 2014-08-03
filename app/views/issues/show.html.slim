@@ -75,38 +75,37 @@
           .panel-body
             -comments = Comment.where(commentable_id: @issue.id, commentable_type: @issue.class.name)
             -comments.each do |comment|
-              .well
-                b = comment.title
-                hr
-                .row
-                  .col-sm-6
-                    'Posted&nbsp;
-                    = time_ago_in_words(comment.created_at).titleize 
-                    '&nbsp; ago
-                  .col-sm-6
-                    .pull-right
-                      i = comment.user.name
-                br
-                br
-                = simple_format comment.body
-                hr
-                .row
-                  .col-sm-6
- 
-                    = render 'shared/lightbox', locals: {image_url: comment.image_url(), thumb_url: comment.image_url(:small), id: comment.id, caption: comment.title}
-                  .col-sm-6
-                    .pull-right
-                      - if @issue.user_id == current_user.id || can_edit?
-                        = link_to user_issue_comment_path( @issue.user, @issue, comment ), data: {:confirm => 'Are you sure?'}, :method => :delete
-                          .btn.btn-danger.btn-lg
-                            i class="fa fa-times"
-                        '&nbsp;   
-                        = link_to edit_user_issue_comment_path( @issue.user, @issue, comment )
-                          .btn.btn-primary.btn-lg
-                            i class="fa fa-pencil"
-                
-
-      
+              h3 = comment.title
+              .row
+                .col-sm-6
+                  'Posted&nbsp;
+                  = time_ago_in_words(comment.created_at).titleize 
+                  '&nbsp; ago
+                .col-sm-6
+                  .pull-right
+                    i = comment.user.name
+              br
+              = simple_format comment.body
+              .row
+                .col-sm-6
+             
+                  = render 'shared/lightbox', locals: {image_url: comment.image_url(), \
+                                              thumb_url: comment.image_url(:small), \
+                                              id: comment.id, caption: comment.title}
+                  -if comment.image
+                    br
+                    i Click to enlarge
+                .col-sm-6
+                  .pull-right
+                    - if @issue.user_id == current_user.id || can_edit?
+                      = link_to user_issue_comment_path( @issue.user, @issue, comment ), data: {:confirm => 'Are you sure?'}, :method => :delete
+                        .btn.btn-danger.btn-lg
+                          i class="fa fa-times"
+                      '&nbsp;   
+                      = link_to edit_user_issue_comment_path( @issue.user, @issue, comment )
+                        .btn.btn-primary.btn-lg
+                          i class="fa fa-pencil"
+              hr
             
     
             

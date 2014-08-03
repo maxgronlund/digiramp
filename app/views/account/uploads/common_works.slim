@@ -23,27 +23,26 @@
     .row
       .col-sm-3
       .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            'SELECT FILES
-          .panel-body
-            = simple_form_for [ @account ], \
-                                :url => url_for(:action => 'audio_files_create', \
-                                :controller => 'account/uploads'), \
-                                :method => 'post',  \
-                                :html => { :id => 'recording' } do |f| 
-                                
+        = simple_form_for [ @account, @common_work ], \
+                            :url => url_for(:action => 'audio_files_create', \
+                            :controller => 'account/uploads'), \
+                            :method => 'post',  \
+                            :html => { :id => 'recording' } do |f| 
+          .panel.panel-primary
+            .panel-heading
+              'SELECT FILE
+            .panel-body                  
               = f.hidden_field :account_id, value: @account.id
-    
+              = f.input :title, placeholder: 'title'
               = transloadit :recording_with_thumbs 
-              /= form.label      :file, 'File to upload' 
-              = f.file_field :file, multiple: true
-              hr
-              .pull-right
-                = f.submit 'Done', class: 'btn btn-primary btn-lg'
-            
-            
-            = transloadit_jquerify :recording, :wait => true
+              
+              = f.file_field :file, multiple: false
+
+          .pull-right
+            = f.submit 'Continue', class: 'btn btn-primary btn-lg'
+        
+        
+        = transloadit_jquerify :recording, :wait => true
         
         
       .col-sm-3

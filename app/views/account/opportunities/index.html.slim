@@ -8,7 +8,6 @@
     .do
       == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
                                                              manage: account_account_path(@account), \
-                                                             crm: account_account_crm_index_path(@account)\
                                                              }, current: 'opportunities' }
       - blog = Blog.cached_find('Opportunities')
       == render 'shared/page_title', locals: {blog: blog, blog_post: 'Opportunities', insert: 'create_opportunity'}

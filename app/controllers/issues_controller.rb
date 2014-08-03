@@ -59,14 +59,14 @@ class IssuesController < ApplicationController
     redirect_to user_issues_path(current_user)
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_issue
-      @issue = Issue.find(params[:id])
-    end
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_issue
+    @issue = Issue.cached_find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def issue_params
-      params.require(:issue).permit!
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def issue_params
+    params.require(:issue).permit!
+  end
 end

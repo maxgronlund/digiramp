@@ -116,6 +116,8 @@ class Account < ActiveRecord::Base
   end
   
 
+  
+
   # !!! might be obsolete
   def has_no_name?
     title == Account::SECRET_NAME
