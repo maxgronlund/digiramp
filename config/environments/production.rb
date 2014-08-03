@@ -81,6 +81,13 @@ Digiramp::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
   
   Rails.application.routes.default_url_options[:host] = 'assets-manager.com'
+  
+  
+  
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
+  
+  
 end
 
 

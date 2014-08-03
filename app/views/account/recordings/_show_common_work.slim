@@ -1,9 +1,8 @@
 .pull-right
-  -if @recording.zipp
-    = link_to @recording.zipp do
-      .btn.btn-info.btn-lg
-        i class="fa fa-cloud-download"
-        '&nbsp;Download
+  = link_to download_account_account_common_work_recording_path( @account, @recording.common_work, @recording) do
+    .btn.btn-info.btn-lg
+      i class="fa fa-cloud-download"
+
 
   - if current_account_user.read_common_work && @recording.common_work
     '&nbsp;  
@@ -12,3 +11,4 @@
         i class="fa fa-eye"
         '&nbsp;
         'Common Work
+        

@@ -2,9 +2,7 @@ class PusherWorker
   include Sidekiq::Worker
   
   def perform options={}
-    
-    ap options
-    
+  
     Pusher.trigger(options['channel'], 'digiramp_event', 
                                           {"title"  => options['title'].to_s, 
                                           "message" => options["message"].to_s, 

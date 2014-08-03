@@ -270,51 +270,40 @@ class Account::RecordingsController < ApplicationController
     forbidden unless current_account_user.read_recording
     @recording      = Recording.cached_find(params[:id])
   end
+
+
+ 
+    
+  def download
+    @recording = Recording.cached_find(params[:id])
+    original_file_name = Pathname.new(@recording.mp3).basename 
+    
   
-  #def download
-  #  begin
-  #    @document= Recording.cached_find(params[:document])
-  #    data = open("#{@document.file}") 
-  #    mime = @document.mime || 'audio/mp3'
-  #    send_data data.read, filename: @document.title, type: mime, stream: 'true', buffer_size: '4096'
-  #  rescue
-  #    
-  #  end
-  #  
-  #  
-  #end
-  
-  #def download
-  #  @recording = Recording.cached_find(params[:id])
-  #  
-  #  original_file_name = 'Audiofile'
-  #  if @recording.mp3
-  #    original_file_name = Pathname.new(@recording.mp3).basename 
-  #  else
-  #    original_file_name = @recording.title
-  #  end
-  #  send_file @recording.mp3 , :type=>"audio/mp3", :filename => original_file_name
-  #end
-  
-  #def download
-  #  @recording = Recording.cached_find(params[:id])
-  #  ap @recording
-  #  AWS.config({
-  #    access_key_id: "AKIAIVATNWTNMQZKK2VA",
-  #    secret_access_key: "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"
-  #  })
-  #  
-  #  send_data( 
-  #    AWS::S3.new.buckets["digiramp"].objects["0.mp3"].read, {
-  #      filename: "0.mp3", 
-  #      type: "audio/mp3", 
-  #      disposition: 'attachment', 
-  #      stream: 'true', 
-  #      buffer_size: '4096'
-  #    }
-  #  )
-  #end
-  
+    
+    response.headers['Content-Type'] = 'audio/mp3'
+    response.headers['Content-Disposition'] = "attachment; filename=#{original_file_name}"
+    response.headers['Cache-Control'] =  "private"
+    response.headers['X-Accel-Redirect'] = @recording.download_url
+    render :nothing=>true
+    
+    # working but slow
+    # AWS.config(access_key_id: 'AKIAJN4UDAY5IF3CRYDA',  secret_access_key: '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' ) 
+    #send_data( 
+    #
+    #  AWS::S3.new.buckets['digiramp'].objects[@recording.mp3.gsub('http://digiramp.s3.amazonaws.com/', '')].read, {
+    #    filename: original_file_name, 
+    #    type: "audio/mp3", 
+    #    disposition: 'attachment', 
+    #    stream: 'true', 
+    #    buffer_size: '4096'
+    #  }
+    #)
+  end
+    
+    
+    
+    
+
   
   
 private

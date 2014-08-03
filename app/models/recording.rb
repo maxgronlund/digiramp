@@ -545,6 +545,22 @@ class Recording < ActiveRecord::Base
     comma_seperated_moods_tags.rstrip.gsub(/\W\z/, '') 
   end
   
+  #def download_url
+  #  s3 = AWS::S3.new.buckets[ 'digiramp' ]
+  #
+  #  s3.url_for( :read,
+  #              expires_in: 60.minutes, 
+  #              use_ssl: true, 
+  #              response_content_disposition: "recording; filename='#{mp3}'" ).to_s
+  #end
+  
+  def download_url(style = nil, expires_in = 90.minutes)
+
+    AWS.config(access_key_id: 'AKIAJN4UDAY5IF3CRYDA',  secret_access_key: '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' ) 
+    s3 = AWS::S3.new
+    bucket = s3.buckets['digiramp'] # makes no request
+    bucket.objects[self.mp3.gsub('http://digiramp.s3.amazonaws.com/', '')].url_for(:read, :secure => true, :expires => 10*60).to_s
+  end
 
 private
   #def update_counter_cache
@@ -642,6 +658,9 @@ private
     AccountCache.update_recordings_uuid(self.account) if self.account_id
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
+  
+  
+  
   
   
 end

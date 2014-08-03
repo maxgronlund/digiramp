@@ -92,7 +92,7 @@
                   = render 'shared/lightbox', locals: {image_url: comment.image_url(), \
                                               thumb_url: comment.image_url(:small), \
                                               id: comment.id, caption: comment.title}
-                  -if comment.image
+                  -if comment.image.to_s != ''
                     br
                     i Click to enlarge
                 .col-sm-6

@@ -135,6 +135,10 @@ gem 'thin'
 
 gem 'capistrano-sidekiq' , github: 'seuros/capistrano-sidekiq'
 
+
+gem 'aws-sdk', '~> 1.48.1'
+gem 'uuid', '~> 2.3.7'
+
 group :development do
   # Use Capistrano for deployment
   gem 'capistrano'

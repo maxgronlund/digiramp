@@ -32,7 +32,12 @@
               = f.hidden_field :commentable_type, value: @feature.class.name
               = f.hidden_field :user_id, value: current_user.id
               = f.input :title
-              = f.input :body
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+          
+              =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
               = f.input :image
               hr
                 .pull-right
@@ -58,23 +63,7 @@
               
               = simple_format comment.body
               hr
-              /hr
-              /.row
-              /  .col-sm-6
-              /
-              /    = render 'shared/lightbox', locals: {image_url: comment.image_url(), thumb_url: comment.image_url(:small), id: comment.id, caption: comment.title}
-              /  .col-sm-6
-              /    .pull-right
-              /      - if @issue.user_id == current_user.id || can_edit?
-              /        = link_to user_issue_comment_path( @issue.user, @issue, comment ), data: {:confirm => 'Are you sure?'}, :method => :delete
-              /          .btn.btn-danger.btn-lg
-              /            i class="fa fa-times"
-              /        '&nbsp;   
-              /        = link_to edit_user_issue_comment_path( @issue.user, @issue, comment )
-              /          .btn.btn-primary.btn-lg
-              /            i class="fa fa-pencil"
-              /
-              
+      
         
 
 

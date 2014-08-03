@@ -189,15 +189,7 @@ class RecordingsController < ApplicationController
   end
   
   def download
-    @recording = Recording.cached_find(params[:id])
     
-    original_file_name = 'Audiofile'
-    if @recording.mp3
-      original_file_name = Pathname.new(@recording.mp3).basename 
-    else
-      original_file_name = @recording.title
-    end
-    send_file @recording.mp3 , :type=>"audio/mp3", :filename => original_file_name
   end
   
   #def download

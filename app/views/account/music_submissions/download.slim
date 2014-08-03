@@ -24,17 +24,18 @@
     /  /                                    icon: 'fa fa-cloud-download' \
     /  /                                  }
     /  /
-    .col-sm-6
-      == render 'shared/badge', locals: {  \
-                                          blog: blog, \
-                                          post: BlogPost.cached_find( "MP 3 FILE" , blog ), \
-                                          link: @recording.mp3, \
-                                          css_class: 'btn btn-warning', \
-                                          icon: 'fa fa-cloud-download' \
-                                        }
-      
-            
+    .row
+      .col-sm-6
+        == render 'shared/badge', locals: {  \
+                                            blog: blog, \
+                                            post: BlogPost.cached_find( "MP 3 FILE" , blog ), \
+                                            link: @recording.mp3, \
+                                            css_class: 'btn btn-warning', \
+                                            icon: 'fa fa-cloud-download' \
+                                          }
+        
               
+      .col-sm-6          
     == render 'shared/back', locals: {link: account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, @music_submission)} 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

@@ -22,16 +22,40 @@
                 thead
                   tr 
                     th Issue
+                    th Status
                     th Raporter
                     th Created
                     th
                 tbody
-                  - @issues.open.order('created_at desc').each do |issue|
+                  - @issues.order('created_at desc').each do |issue|
                     - issue_email = issue.user.email
                     tr
                      td 
                        .truncate.width_350
                          = issue.title
+                     td
+                       -case issue.status
+                        
+                       -when 'New'
+                         .label.label-danger
+                           'New
+                        
+                       -when 'Confirmed'
+                         .label.label-success
+                           'Confirmed
+                        
+                       -when 'In Progress'
+                         .label.label-info
+                           'In Progress
+                        
+                       -when 'Resolved'
+                         .label.label-success
+                           'Resolved
+                        
+                       -when 'Closed'
+                         .label.label-default
+                           'Closed
+
                      td = issue_email
                      td = time_ago_in_words(issue.created_at).titleize 
                      td 
