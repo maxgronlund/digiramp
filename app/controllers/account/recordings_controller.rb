@@ -273,33 +273,48 @@ class Account::RecordingsController < ApplicationController
 
 
  
-    
-  def download
-    
-    # this has to work with nginx
-    # http://kovyrin.net/2010/07/24/nginx-fu-x-accel-redirect-remote/
-    
-    @recording = Recording.cached_find(params[:id])
-    original_file_name                        = Pathname.new(@recording.mp3).basename 
-    response.headers['Content-Type']          = 'audio/mp3'
-    response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
-    response.headers['Cache-Control']         =  "private"
-    response.headers['X-Accel-Redirect']      = @recording.download_url
-    render :nothing=>true
-    
-    # working but slow
-    # AWS.config(access_key_id: 'AKIAJN4UDAY5IF3CRYDA',  secret_access_key: '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' ) 
-    #send_data( 
-    #
-    #  AWS::S3.new.buckets['digiramp'].objects[@recording.mp3.gsub('http://digiramp.s3.amazonaws.com/', '')].read, {
-    #    filename: original_file_name, 
-    #    type: "audio/mp3", 
-    #    disposition: 'attachment', 
-    #    stream: 'true', 
-    #    buffer_size: '4096'
-    #  }
-    #)
+  def x_accel_url(url, file_name = nil)
+    uri = "/internal_redirect/#{url.gsub('http://', '')}"
+    uri << "?#{file_name}" if file_name
+    return uri
   end
+
+  def download
+    @recording                  = Recording.cached_find(params[:id])
+    original_file_name          = Pathname.new(@recording.mp3).basename 
+    headers['Content-Type']     = 'audio/mp3'
+    headers['Cache-Control']    =  "private"
+    headers['X-Accel-Redirect'] = x_accel_url(@recording.download_url, original_file_name)
+    render :nothing => true
+  end
+  
+    
+  #def download
+  #  
+  #  # this has to work with nginx
+  #  # http://kovyrin.net/2010/07/24/nginx-fu-x-accel-redirect-remote/
+  #  # working on localhost
+  #  #@recording = Recording.cached_find(params[:id])
+  #  #original_file_name                        = Pathname.new(@recording.mp3).basename 
+  #  #response.headers['Content-Type']          = 'audio/mp3'
+  #  #response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
+  #  #response.headers['Cache-Control']         =  "private"
+  #  #response.headers['X-Accel-Redirect']      = @recording.download_url
+  #  #render :nothing=>true
+  #  
+  #  # working but slow
+  #  # AWS.config(access_key_id: 'AKIAJN4UDAY5IF3CRYDA',  secret_access_key: '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' ) 
+  #  #send_data( 
+  #  #
+  #  #  AWS::S3.new.buckets['digiramp'].objects[@recording.mp3.gsub('http://digiramp.s3.amazonaws.com/', '')].read, {
+  #  #    filename: original_file_name, 
+  #  #    type: "audio/mp3", 
+  #  #    disposition: 'attachment', 
+  #  #    stream: 'true', 
+  #  #    buffer_size: '4096'
+  #  #  }
+  #  #)
+  #end
     
     
     
