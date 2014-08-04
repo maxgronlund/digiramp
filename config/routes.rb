@@ -3,6 +3,8 @@ Digiramp::Application.routes.draw do
 
 
 
+
+
   resources :contacts
 
   resources :contacts, only: [:new, :create, :show ]
@@ -347,6 +349,7 @@ Digiramp::Application.routes.draw do
           post 'recordings_create'
         end
         resources :recordings do
+         
           member do
             get :download
           end
@@ -421,6 +424,7 @@ Digiramp::Application.routes.draw do
       end
       resources :recordings do
         resources :recording_artworks
+        resources :recording_ipis
         
         member do
           get "files"

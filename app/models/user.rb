@@ -14,7 +14,9 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_presence_of :password, :on => :create
   validates_presence_of :name, :on => :update
-  before_create { generate_token(:auth_token) }
+  before_create :set_uuid
+
+  
   #before_destroy :delete_accounts
   
   serialize :crop_params, Hash
@@ -125,7 +127,7 @@ class User < ActiveRecord::Base
   # update the uuid to force rebuild of 
   # segment cached pages
   def set_uuid
-    logger.debug '--------------- set uuid -----------------------'
+    generate_token(:auth_token)
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
   

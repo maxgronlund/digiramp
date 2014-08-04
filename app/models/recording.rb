@@ -1,22 +1,17 @@
 # encoding: UTF-8
-
-
 class Recording < ActiveRecord::Base
   
   # virtual parameter for CommonWorksController#new_recording form
   attr_accessor :add_to_catalogs
   
-  has_many :recording_items, dependent: :destroy
+  
   
   serialize :audio_upload, Hash
   
 
-  
   include PgSearch
   pg_search_scope :search, against: [ :title, 
                                       :lyrics, 
-                                      :production_company, 
-                                      :isrc_code, 
                                       :genre, 
                                       :artist, 
                                       :bpm, 
@@ -34,6 +29,8 @@ class Recording < ActiveRecord::Base
                                       :instruments,
                                       :tempo 
                                     ], :using => [:tsearch]
+  
+  
   validates :title, :presence => true
   
   scope :bucket,            ->  { where( in_bucket: true)  }
@@ -48,8 +45,13 @@ class Recording < ActiveRecord::Base
   has_many :instrument_tags, as: :instrument_tagable,   dependent: :destroy
   has_many :mood_tags, as: :mood_tagable,               dependent: :destroy
   has_many :image_files,                                dependent: :destroy
+  has_many :recording_items,                            dependent: :destroy
+  has_many :recording_ipis,                             dependent: :destroy
   
-  
+  before_save :update_uuids
+  after_commit :flush_cache
+  before_destroy :remove_from_collections
+  after_create :count_stats_up
 
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
@@ -61,23 +63,15 @@ class Recording < ActiveRecord::Base
     VOCAL_HASH << [k,k]
   end
   
+  
+  
  
   def catalogs
     catalog_ids = CatalogItem.where(catalog_itemable_type: "Recording", catalog_itemable_id: self.id).pluck(:catalog_id)
     cats = Catalog.find(catalog_ids)
     cats
   end
-  
-  
-  before_save :update_uuids
-  after_commit :flush_cache
-  before_destroy :remove_from_collections
-  
-  after_create :count_stats_up
 
-
-  
-  
   
   def catalog_ids=(ids) 
     

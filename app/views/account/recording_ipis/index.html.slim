@@ -1,0 +1,105 @@
+/h1 Listing recording_ipis
+/
+/table
+/  thead
+/    tr
+/      th Role
+/      th Name
+/      th Share
+/      th User
+/      th User uuid
+/      th Recording
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @recording.recording_ipis.each do |recording_ipi|
+/      tr
+/        td = recording_ipi.role
+/        td = recording_ipi.name
+/        td = recording_ipi.share
+/        td = recording_ipi.user
+/        td = recording_ipi.user_uuid
+/        td = recording_ipi.recording
+/        td = link_to 'Show', recording_ipi
+/        td = link_to 'Edit', edit_recording_ipi_path(recording_ipi)
+/        td = link_to 'Destroy', recording_ipi, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Recording ipi', new_account_account_recording_recording_ipi_path(@account, @recording)
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {manage: account_account_path(@account), \
+                                                           recordings: account_account_crm_index_path(@account),\
+                                                           @recording.title.to_sym => files_account_account_recording_path(@account, @recording) \
+                                                           },current:  'ipis'}
+    
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('RECORDING IPIS'), blog_post: 'RECORDING IPIS', insert: 'new'}
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            'IPI's
+          .panel-body
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    /th User
+                    th Role
+                    th Name
+                    th Share
+                    th UUID
+   
+
+                tbody
+                  -total_share = 0
+                  - @recording.recording_ipis.each do |recording_ipi|
+                  
+                    tr
+                      td = recording_ipi.name
+                      td = recording_ipi.role
+                      td
+                        - total_share += recording_ipi.share
+                        = number_to_percentage(recording_ipi.share, precision: 0)   
+                      td = recording_ipi.user_uuid
+                      td
+                        .pull-right
+                          -if current_account_user.update_recording_ipi
+                            = link_to edit_account_account_recording_recording_ipi_path(@account, @recording, recording_ipi) do
+                              .btn.btn-primary.btn-lg
+                                i class='fa fa-pencil'
+                          -if current_account_user.update_recording_ipi
+                            '&nbsp;
+                            = link_to account_account_recording_recording_ipi_path(@account, @recording, recording_ipi), \
+                                                                    data: { confirm: 'Are you sure?' } , \
+                                                                    :method => :delete do
+                              .btn.btn-danger.btn-lg
+                                i class='fa fa-times'
+                    
+                  tr
+                    th Total 
+                    td
+                    td 
+                      -if total_share > 100
+                        .expired
+                          = number_to_percentage(total_share, precision: 0)  
+                      -else
+                        = number_to_percentage(total_share, precision: 0)  
+                    td 
+                    td
+                    
+   
+
+  
+    == render 'shared/back', locals: {link: files_account_account_recording_path(@account, @recording)}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+

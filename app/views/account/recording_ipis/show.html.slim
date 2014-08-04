@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Role:
+  = @recording_ipi.role
+p
+  strong Name:
+  = @recording_ipi.name
+p
+  strong Share:
+  = @recording_ipi.share
+p
+  strong User:
+  = @recording_ipi.user
+p
+  strong User uuid:
+  = @recording_ipi.user_uuid
+p
+  strong Recording:
+  = @recording_ipi.recording
+
+= link_to 'Edit', edit_recording_ipi_path(@recording_ipi)
+'|
+= link_to 'Back', recording_ipis_path

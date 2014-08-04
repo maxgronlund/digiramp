@@ -275,6 +275,10 @@ class Account::RecordingsController < ApplicationController
  
     
   def download
+    
+    # this has to work with nginx
+    # http://kovyrin.net/2010/07/24/nginx-fu-x-accel-redirect-remote/
+    
     @recording = Recording.cached_find(params[:id])
     original_file_name = Pathname.new(@recording.mp3).basename 
     

@@ -44,6 +44,10 @@ class AccountUser < ActiveRecord::Base
   scope :non_catalog_users, ->  { where.not( role: 'Catalog User' )  }
   
 
+  def uuid
+    self.user.uuid
+  end
+  
   def update_to_super
     unless self.role == 'Account Owner'
       self.role     = 'Super User' 

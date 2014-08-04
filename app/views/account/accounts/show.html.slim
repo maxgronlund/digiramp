@@ -71,15 +71,14 @@
 
       .col-sm-6
         -if current_account_user.read_crm
-          .col-sm-12
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "CRM" , blog ), \
-                                                link: account_account_crm_index_path(@account), \
-                                                css_class: 'btn btn-danger', \
-                                                icon: 'fa fa-money' \
-                                              }
-                                      
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "CRM" , blog ), \
+                                              link: account_account_crm_index_path(@account), \
+                                              css_class: 'btn btn-danger', \
+                                              icon: 'fa fa-money' \
+                                            }
+                                    
         -if current_account_user.read_common_work_ipi
           == render 'shared/badge', locals: {  \
                                               blog: blog, \

@@ -1,0 +1,26 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {manage: account_account_path(@account), \
+                                                           recordings: account_account_crm_index_path(@account),\
+                                                           @recording.title.to_sym => files_account_account_recording_path(@account, @recording), \
+                                                           ipis: account_account_recording_recording_ipis_path(@account, @recording), \
+                                                           },current:  'new'}
+    
+    
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('RECORDING IPIS'), blog_post: 'EDIT IPI'}
+    .row
+      .col-sm-3
+      .col-sm-6
+        == render 'form'
+    
+   
+
+  
+    == render 'shared/back', locals: {link: account_account_recording_recording_ipis_path(@account, @recording)}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+

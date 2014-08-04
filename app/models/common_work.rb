@@ -1,6 +1,26 @@
 class CommonWork < ActiveRecord::Base
   include PgSearch
-  pg_search_scope :search, against: [:title, :lyrics, :alternative_titles, :iswc_code, :description ], :using => [:tsearch]
+  pg_search_scope :search_common_work, against: [:title, :lyrics, :alternative_titles, :iswc_code, :description ], :using => [:tsearch],  :associated_against => {
+      :recordings => [ :title, 
+                       :lyrics, 
+                       :genre, 
+                       :artist, 
+                       :bpm, 
+                       :comment, 
+                       :vocal, 
+                       :isrc_code,
+                       :copyright,
+                       :production_company,
+                       :upc_code,
+                       :year,
+                       :album_name,
+                       :performer,
+                       :band,
+                       :mood,
+                       :instruments,
+                       :tempo ]
+    }
+
   
   belongs_to :account
   #belongs_to :ascap_import
@@ -158,7 +178,7 @@ class CommonWork < ActiveRecord::Base
   def self.account_search(account, query)
     common_works = account.common_works
     if query.present?
-     common_works = common_works.search(query)
+     common_works = common_works.search_common_work(query)
     end
     common_works
   end
@@ -184,7 +204,7 @@ class CommonWork < ActiveRecord::Base
     
     common_works = catalog.common_works
     if query.present?
-     common_works = common_works.search(query)
+     common_works = common_works.search_common_work(query)
     end
     common_works
   end

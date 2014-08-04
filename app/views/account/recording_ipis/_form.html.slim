@@ -1,0 +1,18 @@
+= simple_form_for [:account, @account, @recording, @recording_ipi] do |f|
+  .panel.panel-primary
+    .panel-heading
+      'IPI
+    .panel-body
+      = f.hidden_field :recording_id, value: @recording.id
+       
+      = f.input :role  , collection: RecordingIpi::ROLES, :include_blank => true
+      = f.input :name
+      = f.input :user_uuid, placeholder: 'find this on the account user', \
+                label: 'User UUID',\
+                hint: 'If you fill in the User UUID the name from the account user will be used'
+      
+      = f.input :share, label: 'Share in %'
+  .pull-right
+    = link_to 'Cancel', account_account_recording_recording_ipis_path(@account, @recording), class: 'btn btn-default btn-lg'
+    '&nbsp;
+    = f.submit 'Save', class: 'btn btn-primary btn-lg'

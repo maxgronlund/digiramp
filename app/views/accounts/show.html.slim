@@ -13,70 +13,47 @@
     /- insert = 'accounts/shared/leave_account'
     
     == render 'shared/page_title_text', locals: {title: @account.title, body: '', insert: 'edit'}
-    /-cache ([request.url, Admin.cached_find(1).version, current_account_user.uuid , @account.uuid]) do
-    .do
-      - blog = Blog.cached_find('Assets')
-      .row
-        .col-sm-6
-          .logo
-            .thumbnail
-              
-              = image_tag @account.logo_url(:default) || 'account-logo.jpg'
-          
-        .col-sm-6   
-          = simple_format @account.description
-          
-      
-      hr
-      .row
-        - if current_user && current_user.has_access_to_cattalogs_on( @account)
-          .col-sm-6
-            
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "CATALOGS" , blog ), \
-                                                link: catalog_account_catalogs_path(@account), \
-                                                css_class: 'btn btn-primary', \
-                                                icon: 'fa fa-book', \
-                                                id: 'catalogs' \
-                                              } 
-        
-        
-        -if current_account_user.read_recording
-          .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "RECORDINGS" , blog ), \
-                                                link: account_account_recordings_path(@account), \
-                                                css_class: 'btn btn-warning', \
-                                                icon: 'fa fa-headphones', \
-                                                id: 'recordings' \
-                                              }
-
-                                          
-    /br
-    /br
-    /.pull-right
-    /  -if current_account_user && current_account_user.read_user?
-    /    = link_to account_account_users_path(@account) do
-    /      .btn.btn-warning.btn-lg
-    /        i class="fa fa-group"
-    /        '&nbsp; People
-    /    '&nbsp;
-    /  -if current_account_user && current_account_user.can_manage_assets?
-    /    = link_to account_assets_path(@account)
-    /      .btn.btn-success.btn-lg
-    /        i class='fa fa-folder-o'
-    /        '&nbsp; Assets
-    /    '&nbsp;
-    /  -if current_user && current_user.account_id == @account.id
-    /    = link_to 'Edit', edit_user_account_path( current_user, @account), class: 'btn btn-primary btn-lg'
-          
-      
     
-   
 
+    - blog = Blog.cached_find('Assets')
+    .row
+      .col-sm-6
+        .logo
+          .thumbnail
+            
+            = image_tag @account.logo_url(:default) || 'account-logo.jpg'
         
+      .col-sm-6   
+        = simple_format @account.description
+        
+    
+    hr
+    .row
+      - if current_user && current_user.has_access_to_cattalogs_on( @account)
+        .col-sm-6
+          
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "CATALOGS" , blog ), \
+                                              link: catalog_account_catalogs_path(@account), \
+                                              css_class: 'btn btn-primary', \
+                                              icon: 'fa fa-book', \
+                                              id: 'catalogs' \
+                                            } 
+      
+      
+      -if current_account_user.read_recording
+        .col-sm-6
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "RECORDINGS" , blog ), \
+                                              link: account_account_recordings_path(@account), \
+                                              css_class: 'btn btn-warning', \
+                                              icon: 'fa fa-headphones', \
+                                              id: 'recordings' \
+                                            }
+
+
   
     
 -cache (['footer', Admin.cached_find(1).version]) do      
