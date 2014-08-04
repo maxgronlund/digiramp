@@ -280,14 +280,11 @@ class Account::RecordingsController < ApplicationController
     # http://kovyrin.net/2010/07/24/nginx-fu-x-accel-redirect-remote/
     
     @recording = Recording.cached_find(params[:id])
-    original_file_name = Pathname.new(@recording.mp3).basename 
-    
-  
-    
-    response.headers['Content-Type'] = 'audio/mp3'
-    response.headers['Content-Disposition'] = "attachment; filename=#{original_file_name}"
-    response.headers['Cache-Control'] =  "private"
-    response.headers['X-Accel-Redirect'] = @recording.download_url
+    original_file_name                        = Pathname.new(@recording.mp3).basename 
+    response.headers['Content-Type']          = 'audio/mp3'
+    response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
+    response.headers['Cache-Control']         =  "private"
+    response.headers['X-Accel-Redirect']      = @recording.download_url
     render :nothing=>true
     
     # working but slow

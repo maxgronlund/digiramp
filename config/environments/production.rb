@@ -85,8 +85,8 @@ Digiramp::Application.configure do
   
   
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
-  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
-  
+  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
+
   
 end
 
@@ -103,3 +103,7 @@ ActionMailer::Base.smtp_settings = {
 
 ENV["MAIL_USERNAME"] = 'info@digiramp.org'
 ENV["MAIL_PASSWORD"] = 'IS5pleyu'
+
+
+ENV["S3_KEY_ID"]      = 'AKIAJN4UDAY5IF3CRYDA'
+ENV["S3_ACCESS_KEY"]  = 'UDH4rSx4N6A267q/Tii+K+9APoElnIQzwdlqo530'
