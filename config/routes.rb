@@ -468,6 +468,7 @@ Digiramp::Application.routes.draw do
         put "generate_code"
         get "find_common_work_in_collection"
         get "common_works/export_common_works"
+        get "common_works/export_to_counterpoint"
         get "common_works/remove"
         
 

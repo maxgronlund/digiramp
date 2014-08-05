@@ -26,6 +26,15 @@
             == render 'players/digramp_player', locals: {index: index , recording: @recording}
       .row
         .col-sm-6
+          /= link_to "#", class: 'update-url'
+          /  'Download
+          
+          = link_to download_account_account_common_work_recording_path( @account, @recording.common_work, @recording ) do
+            .btn.btn-info.btn-lg
+              i class="fa fa-cloud-download"
+              '&nbsp;Download mp3
+          '&nbsp;
+          
           == render 'recordings/shared/metadata'
         .col-sm-6 
           == render 'recordings/shared/description'   if @recording.comment.to_s != ''
@@ -42,4 +51,11 @@
           
           
           
-        
+javascript:
+  $(".update-url").click(function(){
+
+    window.location = "#{@recording.download_url}";
+
+  })
+
+  

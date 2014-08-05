@@ -315,6 +315,23 @@ class CommonWork < ActiveRecord::Base
     Rails.cache.fetch([name, id]) { find(id) }
   end
   
+  def self.to_counter_point
+     CSV.generate do |csv|
+       csv << CounterPointColumns::COLUMNS
+       
+       all.each do |common_work|
+         
+         csv << [common_work.iswc_code, common_work.title ]
+       end
+       
+       #CounterPointColumns::COLUMNS.split(/, ?/).each do |column|
+       #  puts column
+       #  csv << column
+       #end
+
+     end
+  end
+  
   def to_csv
     # please dry this up
     CSV.generate do |csv|

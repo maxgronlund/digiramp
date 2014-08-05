@@ -294,13 +294,15 @@ class Account::RecordingsController < ApplicationController
   
     
   def download
+    
     # working on localhost
-    @recording = Recording.cached_find(params[:id])
+    @recording                                = Recording.cached_find(params[:id])
+    ap @recording
     original_file_name                        = Pathname.new(@recording.mp3).basename 
     response.headers['Content-Type']          = 'audio/mp3'
     response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
     response.headers['Cache-Control']         =  "private"
-    response.headers['X-Accel-Redirect']      = @recording.download_url
+    #response.headers['X-Accel-Redirect']      = @recording.download_url
     render :nothing=>true
 
   end

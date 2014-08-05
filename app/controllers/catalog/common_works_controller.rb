@@ -270,12 +270,16 @@ class Catalog::CommonWorksController < ApplicationController
       #format.csv { render text: @common_works.to_csv }
       format.csv { render text: @common_works.to_csv }
     end
+  end
+  
+  def export_to_counterpoint
+    @common_works  = CommonWork.catalog_search(@catalog, params[:query]).order('title asc')
     
-    
-    #puts '--------------------------------------------------------------------'
-    #ap @common_works.size
-    #puts '--------------------------------------------------------------------'
-    #redirect_to :back
+    respond_to do |format|
+      format.html
+      #format.csv { render text: @common_works.to_csv }
+      format.csv { render text: @common_works.to_counter_point }
+    end
   end
   
 private

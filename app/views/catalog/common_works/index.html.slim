@@ -30,6 +30,12 @@
                     i class="fa fa-cloud-download"
                     '&nbsp;
                     'Download CSV
+                '&nbsp;
+                = link_to catalog_account_catalog_common_works_export_to_counterpoint_path(@account, @catalog, params: params, format: "csv") do
+                  .btn.btn-info.btn-lg
+                    i class="fa fa-cloud-download"
+                    '&nbsp;
+                    'Export to CP
               
               
           
