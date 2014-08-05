@@ -7,7 +7,7 @@
   .container
     == render 'shared/breadcrumbs', breadcrumbs: { links: { documents: account_account_documents_path(@account), \
                                                             'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account), \
-                                                            'add to common work'.to_sym => add_to_common_work_account_account_recordings_bucket_index_path(@account, recording_ids: @recording_ids) \
+                                                            'add to common work'.to_sym => add_to_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids) \
                                                            }, \
                                                     current:  'create common work'}
     

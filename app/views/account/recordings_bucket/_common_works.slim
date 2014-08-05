@@ -27,7 +27,7 @@
             /  '&nbsp; ago
             td
               .pull-right
-                = link_to use_common_work_account_account_recordings_bucket_index_path(@account, common_work_id: common_work.id) do
+                = link_to use_common_work_account_account_recordings_bucket_index_path(@account, common_work_id: common_work.id, ids: @recording_ids) do
                   .btn.btn-success.btn-lg
                     i class="fa fa-plus-circle"
                     '&nbsp;

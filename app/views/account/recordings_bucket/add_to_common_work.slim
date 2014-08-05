@@ -20,38 +20,48 @@
 
                                           
     .row
-      -if current_account_user.create_common_work?
-        .col-sm-6
+      .col-sm-6
+        -if current_account_user.create_common_work?
           == render 'shared/badge', locals: {  \
                                               blog: blog, \
                                               post: BlogPost.cached_find( "CREATE COMMON WORK" , blog ), \
-                                              link: new_common_work_account_account_recordings_bucket_index_path(@account, recording_ids: @recording_ids), \
+                                              link: new_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
                                               css_class: 'btn btn-success', \
                                               icon: 'fa fa-plus-circle', \
                                               id: 'recordings' \
                                             }
         
-      -if current_account_user.read_file?
-        .col-sm-6
+        -if current_account_user.update_common_work?
           == render 'shared/badge', locals: {  \
                                               blog: blog, \
                                               post: BlogPost.cached_find( "ADD TO EXISTING COMMON WORK" , blog ), \
-                                              link: select_common_work_account_account_recordings_bucket_index_path(@account), \
+                                              link: select_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
                                               css_class: 'btn btn-primary', \
                                               icon: 'fa fa-music', \
                                               id: 'documents' \
                                             }
-                                          
+
       .col-sm-6
-        == render 'shared/badge', locals: {  \
-                                            blog: blog, \
-                                            post: BlogPost.cached_find( "CREATE COMMON WORKS" , blog ), \
-                                            link: create_common_works_account_account_recordings_bucket_index_path(@account, recording_ids: @recording_ids), \
-                                            css_class: 'btn btn-warning', \
-                                            icon: 'fa fa-plus-circle', \
-                                            id: 'recordings', \
-                                            no_turbo: true \
-                                          }
+        -if current_account_user.create_common_work?
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "CREATE COMMON WORKS" , blog ), \
+                                              link: create_common_works_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
+                                              css_class: 'btn btn-warning', \
+                                              icon: 'fa fa-plus-circle', \
+                                              id: 'recordings', \
+                                              no_turbo: true \
+                                            }
+                                            
+        -if current_account_user.create_common_work?
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "CREATE CATALOG WITH COMMON WORKS" , blog ), \
+                                              link: new_catalog_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
+                                              css_class: 'btn btn-danger', \
+                                              icon: 'fa fa-book', \
+                                              id: 'recordings'\
+                                            }
       
       
   

@@ -335,6 +335,7 @@ Digiramp::Application.routes.draw do
       resources :artworks 
       
       resources :audio_files
+      resources :catalogs
       resources :clients
       resources :client_imports
       resources :common_works do
@@ -355,6 +356,7 @@ Digiramp::Application.routes.draw do
           end
         end
       end
+      #resources :common_work_table, only: [:update]
       resources :client_groups do
         post :import_client_emails
         get '/remove-member/:client_group_client_id', :to => "client_groups#remove_member", as: :remove_member
@@ -412,13 +414,16 @@ Digiramp::Application.routes.draw do
           get :edit_shared
           post :update_shared
           
-          get :add_to_common_work
-          get :select_common_work
-          get :new_common_work
-          put :create_common_work
-          get :create_common_works
-          get :common_works
-          get :use_common_work
+          get  :add_to_common_work
+          get  :select_common_work
+          get  :new_common_work
+          put  :create_common_work
+          get  :create_common_works
+          get  :new_catalog
+          post :create_catalog
+          get  :common_works
+          put  :update_common_work
+          get  :use_common_work
           #post :update_shared
         end
       end

@@ -13,9 +13,9 @@
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Common Work Ipi'), blog_post: 'Edit IPIS'}
     
    
-    div class="account_id" id="#{@account.id}"
-  	div class="catalog_id" id="#{@catalog.id}"
-    div class="common_work_id" id="#{@common_work.id}"
+    div class="account_id"      id="#{@account.id}"
+  	div class="catalog_id"      id="#{@catalog.id}"
+    div class="common_work_id"  id="#{@common_work.id}"
     .hide-alert
       div class="alert alert-warning "
         b ALERT!
@@ -73,16 +73,3 @@
   =render 'shared/footer'
   
 
-/territory: ''
-/share: !ruby/object:BigDecimal 18:0.0
-/mech_owned: !ruby/object:BigDecimal 18:0.0
-/mech_collected: !ruby/object:BigDecimal 18:0.0
-/perf_owned: !ruby/object:BigDecimal 18:0.0
-/perf_collected: !ruby/object:BigDecimal 18:0.0
-/notes: ''
-/pro: 
-/has_agreement: 
-/linked_to_ascap_member: 
-/controlled_by_submitter: 
-/ascap_work_id: 
-/bmi_work_id: ''

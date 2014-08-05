@@ -17,45 +17,28 @@ class Account::RecordingsBucketController < ApplicationController
   end
   
   def edit_multiple
-    
-
-    recording_ids = []
     if params[:recording_ids].nil?
-      
       flash[:danger] = { title: "Error", body: "You have to check at least one recording to edit" }
       redirect_to account_account_recordings_bucket_index_path(@account)
     else
-      params[:recording_ids].each do |recording|
-        recording_ids <<  recording
-      end
-      session[:recording_ids]  = recording_ids
       @recordings = Recording.find(params[:recording_ids])
-      session[:recording_ids]
-     end
+    end
   end
   
   def update_multiple
+    
     Recording.update(params[:recordings].keys, params[:recordings].values)
-    
-    # build a nice little parameter block
-    recordings = {}
-    params[:recordings].each do |rec|
-       recordings[rec[0].to_s ] = nil
-    end
-    params =  ActionController::Parameters.new( { "recordings" => recordings})
-    
-    
-    redirect_to edit_shared_account_account_recordings_bucket_index_path(@account, params)
+    redirect_to edit_shared_account_account_recordings_bucket_index_path(@account, ids: params[:recordings].keys )
 
   end
   
   def edit_shared
-    @recordings = Recording.find(params[:recordings].keys )
+    @recordings = Recording.find(params[:ids] )
   end
   
 
   def update_shared
-    #ap params
+
     @recordings = Recording.find(params[:recording_ids])
 
     @recordings.reject! do |recording|
@@ -64,33 +47,25 @@ class Account::RecordingsBucketController < ApplicationController
       recording.extract_instruments
       recording.extract_moods
     end
-    
-    #build a nice little parameter block
-    recordings = []
-    params[:recording_ids].each do |rec|
-       recordings << rec
-    end
-    
-    params =  ActionController::Parameters.new( { "recording_ids"=>recordings })
-    redirect_to add_to_common_work_account_account_recordings_bucket_index_path(@account, params)
+
+    ids = params[:recording_ids].each { |x| x.to_s} #
+
+    redirect_to add_to_common_work_account_account_recordings_bucket_index_path(@account, ids: ids)
     
   end
   
   def add_to_common_work
-    @recording_ids = Recording.where(id: params[:recording_ids]).pluck(:id)
-    #@recordings
-    #@recording_ids = params[:recording_ids]
-    #@recordings = Recording.find(session[:recording_ids])
-  
+    @recording_ids = params[:ids].each { |x| x.to_s} #Recording.where(id: params[:recording_ids]).pluck(:id)
   end
   
   def select_common_work
     @common_works  = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
+    @recording_ids = params[:ids].each { |x| x.to_s}
   end
   
   def use_common_work
     @common_work  = CommonWork.find(params[:common_work_id])
-    @recordings   = Recording.find(session[:recording_ids])
+    @recordings   = Recording.find(params[:ids])
     
 
     @recordings.each do |recording|
@@ -107,7 +82,7 @@ class Account::RecordingsBucketController < ApplicationController
   
   def new_common_work
     @common_work    = CommonWork.new
-    @recording_ids = Recording.where(id: params[:recording_ids]).pluck(:id)
+    @recording_ids  = params[:ids].each { |x| x.to_s} #Recording.where(id: params[:recording_ids]).pluck(:id)
   end
   
   def create_common_work
@@ -136,10 +111,48 @@ class Account::RecordingsBucketController < ApplicationController
     end
   end
   
+  
+  
+  def new_catalog
+    forbidden unless current_account_user.createx_catalog?
+    @catalog = Catalog.new
+    @recording_ids  = params[:ids].each { |x| x.to_s} 
+  end
+  
+  
+  
+  def create_catalog
+    forbidden unless current_account_user.createx_catalog?
+
+    recording_ids    = eval(params[:catalog][:ids])
+    @recordings      = Recording.find( recording_ids )
+    
+    params[:catalog].delete :ids
+    
+    @catalog = Catalog.create(catalog_params)
+    @recordings.each do |recording|
+      
+      common_work = CommonWork.create(
+                                        account_id: recording.account_id,
+                                        title:      recording.title,
+                                        lyrics:     recording.lyrics,
+                                        genre:      recording.genre
+                                      )
+      recording.common_work_id = common_work.id
+      recording.in_bucket      = false
+      recording.save!
+      @catalog.add_recording recording
+      common_work.update_completeness
+    end
+    #
+    #redirect_to common_works_account_account_recordings_bucket_index_path(@account, common_work_ids: common_work_ids)
+    redirect_to catalog_account_catalog_path( @account, @catalog)
+  end
+  
   def create_common_works
 
     common_work_ids = []
-    @recordings       = Recording.where(id: params[:recording_ids]  )
+    @recordings       = Recording.where(id: params[:ids]  )
     @recordings.each do |recording|
       
       common_work = CommonWork.create(
@@ -163,14 +176,11 @@ class Account::RecordingsBucketController < ApplicationController
   
   def common_works
     @common_works       = CommonWork.where(id: params[:common_work_ids]  )
+    ap @account
   end
   
-  
-  
-  
-  
-  
-  
+
+
   def destroy
     @recording = Recording.cached_find(params[:id])
     @recording.destroy!
@@ -187,4 +197,9 @@ class Account::RecordingsBucketController < ApplicationController
   def common_work_params
     params.require(:common_work).permit!
   end
+
+  def catalog_params
+    params.require(:catalog).permit!
+  end
+  
 end

@@ -15,9 +15,10 @@
       .row
         .col-sm-3
         .col-sm-6
-          =simple_form_for [:catalog, @account, @catalog] do |f|
+          =simple_form_for [ :account, @account, @catalog], :url => url_for(:action => 'create_catalog', :controller => 'account/recordings_bucket'), :method => 'post' do |f|
             = f.hidden_field :account_id, value: @account.id
-            = render 'form', f: f
+            = f.hidden_field :ids, value: @recording_ids
+            = render 'catalog/catalogs/form', f:f
               
     
 

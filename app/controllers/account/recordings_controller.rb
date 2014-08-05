@@ -292,41 +292,21 @@ class Account::RecordingsController < ApplicationController
   #  render :nothing => true
   #end
   
-    
+  # use the original file if it was a mp3
+  # else use the converted file  
   def download
-    
-    # working on localhost
-    @recording                                = Recording.cached_find(params[:id])
-    ap @recording
-    original_file_name                        = Pathname.new(@recording.mp3).basename 
-    response.headers['Content-Type']          = 'audio/mp3'
-    response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
-    response.headers['Cache-Control']         =  "private"
-    #response.headers['X-Accel-Redirect']      = @recording.download_url
+    if current_user
+      @recording                                = Recording.cached_find(params[:id])
+      ap @recording
+      original_file_name                        = Pathname.new(@recording.mp3).basename 
+      response.headers['Content-Type']          = 'audio/mp3'
+      response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
+      response.headers['Cache-Control']         =  "private"
+      #response.headers['X-Accel-Redirect']      = @recording.download_url
+    end
     render :nothing=>true
-
   end
-  
-  # working but slow
-  #def download
-  #  AWS.config(access_key_id: 'AKIAJN4UDAY5IF3CRYDA',  secret_access_key: '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' ) 
-  #  send_data( 
-  #  
-  #    AWS::S3.new.buckets['digiramp'].objects[@recording.mp3.gsub('http://digiramp.s3.amazonaws.com/', '')].read, {
-  #      filename: original_file_name, 
-  #      type: "audio/mp3", 
-  #      disposition: 'attachment', 
-  #      stream: 'true', 
-  #      buffer_size: '4096'
-  #    }
-  #  )
-  #end
-    
-    
-    
-    
 
-  
   
 private
   

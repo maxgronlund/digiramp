@@ -33,7 +33,7 @@ $.fn.numericCommonWorkInput = function () {
     var id = cell.attr('id');
 
 
-    var url = "/account/accounts/" + account_id + "/common_works/" + id;
+    var url = "/account/accounts/" + account_id + "/common_work_table/" + id;
     var obj = jQuery.parseJSON( '{ "common_work": {"'+class_name+'": "'+newValue+'"} }' );
 
     $.ajax(
@@ -77,7 +77,7 @@ $.fn.numericCommonWorkInput = function () {
 
 
 ready = function(){
-  $('#mainTable').editableTableWidget().numericCommonWorkInput().find('td:first').focus();
+  $('#commonWorkTable').editableTableWidget().numericCommonWorkInput().find('td:first').focus();
   $('#textAreaEditor').editableTableWidget({editor: $('<textarea>')});
 }
 

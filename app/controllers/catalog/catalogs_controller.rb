@@ -41,8 +41,7 @@ class Catalog::CatalogsController < ApplicationController
   end
 
   def show
-    #puts '--------------------- SHOW ------------------------'
-    #Pusher.trigger('my-channel', 'my-event', {:message => 'hello world'})
+
   end
 
   def new
@@ -51,7 +50,6 @@ class Catalog::CatalogsController < ApplicationController
   end
   
   def create
-     puts '--------------------- CREATE ------------------------'
     @catalog = Catalog.create(catalog_params)
     
     flash[:info] = { title: "SUCCESS: ", body: "Catalog created" }
