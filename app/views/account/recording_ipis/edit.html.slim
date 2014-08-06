@@ -4,7 +4,7 @@
       == render 'admin/shared/navbar', page: 'account' 
   .container
     == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {manage: account_account_path(@account), \
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {dashboard: account_account_path(@account), \
                                                            recordings: account_account_crm_index_path(@account),\
                                                            @recording.title.to_sym => files_account_account_recording_path(@account, @recording), \
                                                            ipis: account_account_recording_recording_ipis_path(@account, @recording), \

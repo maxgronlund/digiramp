@@ -9,7 +9,7 @@
         == render 'admin/shared/messages'
         == render 'shared/breadcrumbs', breadcrumbs: { links: { 'support'.to_sym => support_index_path,\
                                                               }, current: 'issues'}
-        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'Issues'}
+        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'Issues', insert: 'new'}
    
     .row
       .col-sm-12
@@ -80,51 +80,6 @@
             .btn-group
               = link_to_previous_page @issues, '« Prev Page', class: 'btn btn-default mobile_pagination'
               = link_to_next_page @issues, 'Next Page »', class: 'btn btn-default mobile_pagination'                       
-    .row                
-      .col-sm-12
-        hr
-        .pull-right
-          = link_to 'New Issue', new_user_issue_path(current_user), class: 'btn btn-primary btn-lg'
 
 
-/table
-/  thead
-/    tr
-/      th Title
-/      th Body
-/      th Image
-/      th User
-/      th Account belongs to
-/      th Os
-/      th Browser
-/      th Link to page
-/      th Can reproducd
-/      th Status
-/      th Priority
-/      th Symtom
-/      th
-/      th
-/      th
-/
-/  tbody
-/    - @issues.each do |issue|
-/      tr
-/        td = issue.title
-/        td = issue.body
-/        td = issue.image
-/        td = issue.user
-/        td = issue.account_belongs_to
-/        td = issue.os
-/        td = issue.browser
-/        td = issue.link_to_page
-/        td = issue.can_reproducd
-/        td = issue.status
-/        td = issue.priority
-/        td = issue.symtom
-/        td = link_to 'Show', issue
-/        td = link_to 'Edit', edit_issue_path(issue)
-/        td = link_to 'Destroy', issue, data: {:confirm => 'Are you sure?'}, :method => :delete
-/
-/br
-/
-/= link_to 'New Issue', new_issue_path
+

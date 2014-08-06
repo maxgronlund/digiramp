@@ -48,10 +48,14 @@
                         td 
                           = link_to admin_user_path( user ) do 
                             .btn.btn-default.btn-lg
+                              i class='fa fa-user'
+                              '&nbsp;
                               = user.email
                         td 
                           = link_to user_path(user) do 
-                            .btn.btn-default.btn-lg
+                            .btn.btn-danger.btn-lg
+                              i class="fa fa-home"
+                              '&nbsp;
                               = user.account.title rescue[]
                         td 
                           - if user.administrator

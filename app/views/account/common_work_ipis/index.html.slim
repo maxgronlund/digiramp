@@ -12,7 +12,7 @@
       
       ==render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                             manage: account_account_path(@account), \
+                                                             dashboard: account_account_path(@account), \
                                                              common_works: account_account_common_works_path(@account), \
                                                              @common_work.title.to_sym => account_account_common_work_path(@account, @common_work) \
                                                              }, current: 'ipis' }

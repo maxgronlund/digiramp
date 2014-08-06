@@ -10,7 +10,7 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path(@user)}, current: 'collections'} 
       
                                                            
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Dashboard'}
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'ACCOUNTS YOU CAN ACCESS'}
       .row
         .col-sm-12
           - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
@@ -20,17 +20,22 @@
           
           .panel.panel-primary
             .panel-heading
-              'COLLECTIONS
+              'ACCOUNTS
             .panel-body
               .table-responsive
                 table class="table table-hover"
                   thead
                     tr
-                      th COLLECTION
+                      th ACCOUNTS
                   tbody
                     - accounts.each do |account|
                       tr
-                        td = link_to account.title, account_path( account ), class: 'btn btn-default btn-lg'
+                        td 
+                          = link_to account_account_path( account ) do
+                            .btn.btn-danger.btn-lg
+                              i class="fa fa-tachometer"
+                              '&nbsp;
+                              = account.title
         
          
     == render 'shared/back', locals: {link: user_path(@user)} 

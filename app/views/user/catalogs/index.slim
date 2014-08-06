@@ -32,7 +32,12 @@
                     -catalogs.each do |catalog|
                       - catalog_user = CatalogUser.cached_where(catalog.id, @user.id)
                       tr
-                        td = link_to catalog.title, catalog_account_catalog_path(catalog.account, catalog), class: 'btn btn-default btn-lg'
+                        td 
+                          = link_to catalog_account_catalog_path(catalog.account, catalog) do
+                            .btn.btn-primary.btn-lg
+                              i class='fa fa-book'
+                              '&nbsp;
+                              = catalog.title
                         td
                           = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do 
                              div class="btn btn-warning btn-lg #{'disabled' unless catalog_user.read_recording}"

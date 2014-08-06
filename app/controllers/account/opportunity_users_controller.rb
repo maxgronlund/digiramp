@@ -13,7 +13,7 @@ class Account::OpportunityUsersController < ApplicationController
   # GET /opportunities/1
   # GET /opportunities/1.json
   def show
-    redirect_to :back
+    @opportunity_user = OpportunityUser.cached_find(params[:id])
   end
 
   # GET /opportunities/new
@@ -52,7 +52,7 @@ class Account::OpportunityUsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_opportunity
-      @opportunity = Opportunity.cached_find(params[:id])
+      @opportunity = Opportunity.cached_find(params[:opportunity_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

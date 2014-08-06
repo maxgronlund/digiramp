@@ -290,9 +290,8 @@ class Catalog::CommonWorksController < ApplicationController
           disposition: "attachment; filename=#{@catalog.title}",
           type: 'text/csv',
           stream: 'true', 
-           buffer_size: '4096' 
+          buffer_size: '4096' 
         )
-        #render text: @common_work.to_csv 
       }
     end
   end

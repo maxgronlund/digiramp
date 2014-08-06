@@ -10,7 +10,7 @@
                                                             @opportunity.title.to_sym => opportunity_opportunity_path(@opportunity),  \
                                                             @music_request.title.to_sym => opportunity_opportunity_music_request_path(@opportunity, @music_request) \
                                                           }, current: 'select'} 
-    /== render 'shared/breadcrumbs', breadcrumbs: { links: { manage: account_account_path(@account), \
+    /== render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: account_account_path(@account), \
     /                                                        crm: account_account_crm_index_path(@account),\
     /                                                        opportunities: account_account_opportunities_path(@account)\
     /                                                       }, current: @opportunity.title }

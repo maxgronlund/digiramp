@@ -30,13 +30,13 @@ class Account::MusicSubmissionsController < ApplicationController
     
     @music_submission = MusicSubmission.where(  recording_id:         params[:id],
                                                 music_request_id:     params[:music_request_id],
-                                                 account_id:          @account.id           
+                                                account_id:          @account.id           
                                               )
                                         .first_or_create( 
                                                           recording_id:         params[:id],
                                                           music_request_id:     params[:music_request_id] ,
                                                           user_id:              current_user.id,
-                                                          opportunity_user_id:  current_user.id,
+                                                          opportunity_user_id:  opportunity_user.id,
                                                           account_id:           @account.id
                                                         ) 
                                                         

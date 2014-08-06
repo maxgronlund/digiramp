@@ -7,7 +7,7 @@
   .container
     ==render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account), \
-                                                           manage: account_account_path(@account),\
+                                                           dashboard: account_account_path(@account),\
                                                            @recording.title.to_sym => account_account_recording_path(@account, @recording)}, \
                                                            current:  'edit'}
 

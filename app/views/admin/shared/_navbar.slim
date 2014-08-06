@@ -25,34 +25,38 @@
           /li class="#{page == 'admin' ? 'active' : ''}"
           /  = link_to 'ADMIN', admin_index_path
 
+        -if user_signed_in?
+            li  class="#{page == 'support' ? 'active' : ''}"
+              = link_to support_index_path do
+                i class="fa fa-life-ring"
+                '&nbsp;
+                'SUPPORT
+                
+            /li class="#{page == 'admin' ? 'active' : ''}"
+            /  = link_to 'ADMIN', admin_index_path
+
       -if user_signed_in? && current_account
         ul class="nav navbar-nav navbar-right"
-          li  class="#{page == 'support' ? 'active' : ''}"
-            = link_to support_index_path do
-              i class="fa fa-life-ring"
-              '&nbsp;
-              'SUPPORT
-
-
           
           li  class="#{page == 'account' ? 'active' : ''}"
             -unless page == 'profile'
-              = link_to account_path(current_account) do
+              = link_to account_account_path(current_account) do
                 i class="fa fa-tachometer"
                 '&nbsp;
                 = current_account.title.upcase 
+                
+
+
+          li class="#{page == 'profile' ? 'active' : ''}"
+            = link_to account_account_path(current_user.account) do
+              i class="fa fa-tachometer"
             
 
           li class="#{page == 'profile' ? 'active' : ''}"
             = link_to user_path(current_user) do
               i class="fa fa-home"
-              '&nbsp;
-              'HOME
               
-          
-          
-
-
+              
           li 
             = link_to logout_path do
               i class="fa fa-unlock"

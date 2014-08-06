@@ -9,7 +9,7 @@
   
   .container
     == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           manage: account_account_path(@account)}, current:  'ipi codes'}
+                                                           dashboard: account_account_path(@account)}, current:  'ipi codes'}
     ==render 'admin/shared/messages'
 
     /- insert = 'accounts/shared/leave_account'

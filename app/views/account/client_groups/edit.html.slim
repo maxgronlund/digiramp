@@ -5,7 +5,7 @@
   .container
     == render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           manage: account_account_path(@account), \
+                                                           dashboard: account_account_path(@account), \
                                                            crm: account_account_crm_index_path(@account),\
                                                            projects: account_account_projects_path(@account), \
                                                            'Client Groups'.to_sym => account_account_client_groups_path(@account),\

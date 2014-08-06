@@ -10,7 +10,7 @@
     /-cache ([Admin.cached_find(1).version, request.url, @account.recordings_uuid, current_user.uuid  ]) do
     .do
       == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                             manage: account_account_path(@account), \
+                                                             dashboard: account_account_path(@account), \
                                                              crm: account_account_crm_index_path(@account),\
                                                              opportunities: account_account_opportunities_path(@account),\
                                                              @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity)\

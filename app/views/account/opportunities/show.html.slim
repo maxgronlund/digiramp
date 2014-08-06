@@ -5,7 +5,7 @@
       == render 'admin/shared/navbar', page: 'account'     
   .container
     == render 'admin/shared/messages' 
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { manage: account_account_path(@account), \
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: account_account_path(@account), \
                                                             opportunities: account_account_opportunities_path(@account)\
                                                            }, current: @opportunity.title }
     

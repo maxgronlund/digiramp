@@ -5,7 +5,7 @@
   .container
     == render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           manage: account_account_path(@account)}, current:  'common works'}
+                                                           dashboard: account_account_path(@account)}, current:  'common works'}
     
     
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'Manage Works', insert: 'new'}
