@@ -39,6 +39,8 @@ class DownloadController < ApplicationController
   end
   
   def mp3_recording
+    puts '>>>>>>>>>>>>>>>>>>>>>>>  downloads_controller#mp3_recording <<<<<<<<<<<<<<<<<<<<<<<<<'
+    puts '>>>>>>>>>>>>>>>>>>>>>>>           DEPRICATED                <<<<<<<<<<<<<<<<<<<<<<<<<'
     begin
       @recording = Recording.cached_find(params[:recording])
       #ap @recording
@@ -53,6 +55,8 @@ class DownloadController < ApplicationController
   end
   
   def original_recording
+    puts '>>>>>>>>>>>>>>>>>>>>>>>  downloads_controller#mp3_recording <<<<<<<<<<<<<<<<<<<<<<<<<'
+    puts '>>>>>>>>>>>>>>>>>>>>>>>           DEPRICATED                <<<<<<<<<<<<<<<<<<<<<<<<<'
     begin
       @recording = Recording.cached_find(params[:recording])
 

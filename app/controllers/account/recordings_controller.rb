@@ -7,7 +7,8 @@ class Account::RecordingsController < ApplicationController
                                         :files, 
                                         :artwork,
                                         :new_artwork,
-                                        :create_artwork
+                                        :create_artwork,
+                                        :download
                                       ]
   
   def index
@@ -294,18 +295,42 @@ class Account::RecordingsController < ApplicationController
   
   # use the original file if it was a mp3
   # else use the converted file  
+  #def download
+  #  if current_user
+  #    @recording                                = Recording.cached_find(params[:id])
+  #
+  #    original_file_name                        = Pathname.new(@recording.mp3).basename 
+  #    response.headers['Content-Type']          = 'audio/mp3'
+  #    response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
+  #    response.headers['Cache-Control']         =  "private"
+  #    #response.headers['X-Accel-Redirect']      = @recording.download_url
+  #  end
+  #  render :nothing=>true
+  #end
+  
+  
   def download
-    if current_user
-      @recording                                = Recording.cached_find(params[:id])
-      ap @recording
-      original_file_name                        = Pathname.new(@recording.mp3).basename 
-      response.headers['Content-Type']          = 'audio/mp3'
-      response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
-      response.headers['Cache-Control']         =  "private"
-      #response.headers['X-Accel-Redirect']      = @recording.download_url
+
+    @recording                  = Recording.cached_find(params[:id])
+    original_file_name          = Pathname.new(@recording.mp3).basename 
+    data                        = open("#{@recording.download_url}") 
+    
+    respond_to do |format|
+      format.html
+      format.mp3 { 
+        send_data(
+          data.read, 
+          disposition: "attachment; filename=#{original_file_name}",
+          filename: original_file_name, 
+          type: 'audio/mp3', 
+          stream: 'true', 
+          buffer_size: '4096' 
+        )  
+      }
     end
-    render :nothing=>true
   end
+  
+  
 
   
 private

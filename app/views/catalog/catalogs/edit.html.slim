@@ -18,12 +18,8 @@
       .row
         .col-sm-3
         .col-sm-6
-          .panel.panel-primary
-            .panel-heading
-              'Edit Catalog
-            .panel-body
-              =simple_form_for [:catalog, @account, @catalog] do |f|
-                = render 'form', f: f
+          =simple_form_for [:catalog, @account, @catalog] do |f|
+            = render 'form', f: f
               
     
 

@@ -263,13 +263,20 @@ class Catalog::CommonWorksController < ApplicationController
   end
   
   def export_common_works
-    @common_works  = CommonWork.catalog_search(@catalog, params[:query]).order('title asc').page(params[:page]).per(32)
+    puts '>>>>>>>>>>>>>>>>>>>>>>>>> DOWNLOAD <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+    @common_works                             = CommonWork.catalog_search(@catalog, params[:query]).order('title asc').page(params[:page]).per(32)
+    original_file_name                        = "#{@catalog.title}.csv"
+    response.headers['Content-Type']          = 'text/plain'
+    response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
+    response.headers['Cache-Control']         =  "private"
+    render text: @common_works.to_csv
     
-    respond_to do |format|
-      format.html
-      #format.csv { render text: @common_works.to_csv }
-      format.csv { render text: @common_works.to_csv }
-    end
+    #render :nothing=>true
+    #respond_to do |format|
+    #  format.html
+    #  #format.csv { render text: @common_works.to_csv }
+    #  format.csv { render text: @common_works.to_csv }
+    #end
   end
   
   def export_to_counterpoint
@@ -283,10 +290,20 @@ class Catalog::CommonWorksController < ApplicationController
   end
   
 private
-
   def common_work_params
     params.require(:common_work).permit!
   end
-  
-  
 end
+
+
+#def download
+#  if current_user
+#    @recording                                = Recording.cached_find(params[:id])
+#    original_file_name                        = Pathname.new(@recording.mp3).basename 
+#    response.headers['Content-Type']          = 'audio/mp3'
+#    response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
+#    response.headers['Cache-Control']         =  "private"
+#    #response.headers['X-Accel-Redirect']      = @recording.download_url
+#  end
+#  render :nothing=>true
+#end
