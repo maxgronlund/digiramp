@@ -262,21 +262,39 @@ class Catalog::CommonWorksController < ApplicationController
                                                )
   end
   
+  #def export_common_works
+  #  puts '>>>>>>>>>>>>>>>>>>>>>>>>> DOWNLOAD <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+  #  @common_works                             = CommonWork.catalog_search(@catalog, params[:query]).order('title asc').page(params[:page]).per(32)
+  #  original_file_name                        = "#{@catalog.title}.csv"
+  #  response.headers['Content-Type']          = 'text/plain'
+  #  response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
+  #  response.headers['Cache-Control']         =  "private"
+  #  render text: @common_works.to_csv
+  #  
+  #  #render :nothing=>true
+  #  #respond_to do |format|
+  #  #  format.html
+  #  #  #format.csv { render text: @common_works.to_csv }
+  #  #  format.csv { render text: @common_works.to_csv }
+  #  #end
+  #end
+  
   def export_common_works
-    puts '>>>>>>>>>>>>>>>>>>>>>>>>> DOWNLOAD <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-    @common_works                             = CommonWork.catalog_search(@catalog, params[:query]).order('title asc').page(params[:page]).per(32)
-    original_file_name                        = "#{@catalog.title}.csv"
-    response.headers['Content-Type']          = 'text/plain'
-    response.headers['Content-Disposition']   = "attachment; filename=#{original_file_name}"
-    response.headers['Cache-Control']         =  "private"
-    render text: @common_works.to_csv
-    
-    #render :nothing=>true
-    #respond_to do |format|
-    #  format.html
-    #  #format.csv { render text: @common_works.to_csv }
-    #  format.csv { render text: @common_works.to_csv }
-    #end
+    @common_works   = CommonWork.catalog_search(@catalog, params[:query]).order('title asc').page(params[:page]).per(32)
+    #data            = @common_works.to_csv 
+    respond_to do |format|
+      format.html
+      format.csv { 
+        send_data(
+          @common_works.to_csv, 
+          disposition: "attachment; filename=#{@catalog.title}",
+          type: 'text/csv',
+          stream: 'true', 
+           buffer_size: '4096' 
+        )
+        #render text: @common_work.to_csv 
+      }
+    end
   end
   
   def export_to_counterpoint
