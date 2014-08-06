@@ -1,0 +1,63 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+
+            
+  .container
+    == render 'admin/shared/messages'
+    - blog = Blog.cached_find('PLAYLISTS')
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           dashboard: account_account_path(@account)}, \
+                                                           current:  'playlists'}
+    
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'PLAYLISTS', insert: 'new'}                                                        
+
+
+    
+
+
+     
+
+    /.row
+    /  .col-sm-12
+    /    .panel
+    /      .panel-body
+    /        h3 Activities
+    /        .panel
+    /          .panel-body
+    /            .table-responsive
+    /              table class="table table-striped"
+    /                thead
+    /                  tr
+    /                    th Title
+    /                    th
+    /            
+    /                tbody
+    /                  -@account.playlists.each do |playlist|
+    /                    tr
+    /                      /td = link_to playlist.title, account_playlist_playlist_recordings_path( @account, playlist), class: 'btn btn-default btn-lg'
+    /                      td = link_to playlist.title, account_playlist_path( @account, playlist), class: 'btn btn-default btn-lg'
+    /                      td
+    /                        .pull-right
+    /                          = link_to account_playlist_path( @account, playlist)
+    /                            .btn.btn-info.btn-lg
+    /                              i class="fa fa-cloud"
+    /                              '&nbsp;Distribution
+    /                          '&nbsp;    
+    /                          = link_to edit_account_playlist_path( @account, playlist)
+    /                            .btn.btn-success.btn-lg
+    /                              i class="fa fa-pencil"
+    /                              '&nbsp;Edit Title
+    /                          '&nbsp;    
+    /                          = link_to account_playlist_path( @account, playlist), \
+    /                                                                        method: :delete ,\
+    /                                                                        data: {confirm: 'Are you sure?'}  do
+    /                            .btn.btn-danger.btn-lg
+    /                              i class="fa fa-times"
+    /
+    /
+    /
+    == render 'shared/back', locals: {link: account_account_path(@account)}  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

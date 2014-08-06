@@ -71,10 +71,10 @@ Digiramp::Application.routes.draw do
     resources :export_recordings, only: [:index]
     resources :export_works, only: [:index]
     resources :export_works_csv, only: [:index, :show]
-    resources :export_import_batches, only: [:index, :show, :edit]
-    resources :export_import_batch_works, only: [:show]
-    resources :import_batches, only: [:index, :show, :destroy, :edit, :update]
-    resources :private_playlists
+    #resources :export_import_batches, only: [:index, :show, :edit]
+    #resources :export_import_batch_works, only: [:show]
+    #resources :import_batches, only: [:index, :show, :destroy, :edit, :update]
+    #resources :private_playlists
     resources :customers do
       resources :customer_events
     end
@@ -84,14 +84,14 @@ Digiramp::Application.routes.draw do
     resources :recording_permissions
     resources :promotion, only: [:index]
     resources :playlist_keys
-    resources :playlists do
-      get "playlist_recordings/add_all"
-      resources :playlist_recordings
-      resources :playlist_keys
-      resources :playlist_items
-    end
+    #resources :playlists do
+    #  get "playlist_recordings/add_all"
+    #  resources :playlist_recordings
+    #  resources :playlist_keys
+    #  resources :playlist_items
+    #end
     
-    resources :playlist_wizards
+    #resources :playlist_wizards
     resources :leave_accounts
     
     resources :recording_common_work, only: [:edit, :update]
@@ -349,6 +349,7 @@ Digiramp::Application.routes.draw do
           get  'recordings_destroy'
           post 'recordings_create'
         end
+        
         resources :recordings do
          
           member do
@@ -395,7 +396,7 @@ Digiramp::Application.routes.draw do
           #resources :submissions
         end
       end
-      
+      resources :playlists
       resources :projects do
         resources :mail_campaigns
         resources :project_tasks

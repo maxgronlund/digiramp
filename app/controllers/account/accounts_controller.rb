@@ -6,9 +6,8 @@ class Account::AccountsController < ApplicationController
   
   
   def show
-
+    
     session[:account_id]  = @account.id
-
   end
   
   def edit

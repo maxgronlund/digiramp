@@ -63,6 +63,16 @@
                                               icon: 'fa fa-music', \
                                               id: 'common-works' \
                                             }
+                                    
+        -if current_account_user.read_playlist
+          == render 'shared/badge', locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( "PLAY LISTS" , blog ), \
+                                              link: account_account_playlists_path(@account), \
+                                              css_class: 'btn btn-default', \
+                                              icon: 'fa fa-list-ul' \
+                                            }
+                                    
                       
         
         

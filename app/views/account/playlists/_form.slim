@@ -1,0 +1,9 @@
+= simple_form_for [:account, @account, @playlist] do |f|
+  .panel
+    .panel-body
+      = f.input :title
+      = f.input :body, :input_html => { style: " height: 240px;"}, label: 'Description'
+  .pull-right
+    = link_to 'Cancel', account_playlist_path(@account, @playlist), class: 'btn btn-default btn-lg'
+    '&nbsp;
+    = f.submit 'Save', class: 'btn btn-primary btn-lg'
