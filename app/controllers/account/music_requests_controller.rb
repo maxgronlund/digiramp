@@ -167,7 +167,7 @@ class Account::MusicRequestsController < ApplicationController
   def find_recording
     forbidden unless current_account_user.read_recording?
     @opportunity    = Opportunity.cached_find(params[:opportunity_id])
-    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
+    @recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     
     #recordings_to_remove = []
     #@opportunity.music_requests.each do |music_request|

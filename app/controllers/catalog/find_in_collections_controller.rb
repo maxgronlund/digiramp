@@ -9,7 +9,7 @@ class Catalog::FindInCollectionsController < ApplicationController
   def index
     forbidden unless current_account_user.read_recording?
     @recordings     = Recording.not_in_bucket.find_in_collection(@catalog, @account, params[:query]).order('title asc').page(params[:page]).per(48)
-    #@recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
+    #@recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     #@recordings     -= @catalog.recordings
     @show_more      = true
   end
@@ -81,7 +81,7 @@ class Catalog::FindInCollectionsController < ApplicationController
     # find catalog
     @catalog        = Catalog.cached_find(params[:catalog_id])
     # add recordings not in the catalog
-    if @recordings  = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
+    if @recordings  = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
       @recordings.each do |recording|
         logger.debug '.'
         CatalogItem.where(catalog_id:                         @catalog.id, 

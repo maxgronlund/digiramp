@@ -13,7 +13,7 @@ class Account::RecordingsController < ApplicationController
   
   def index
     forbidden unless current_account_user.read_recording?
-    @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
+    @recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     @show_more      = true
   end
 

@@ -16,7 +16,7 @@ class PlaylistWizardsController < ApplicationController
 
   def edit
     @playlist_key     = PlaylistKey.find(params[:id])
-    @recordings       = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(12)
+    @recordings       = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(12)
     @add_to_playlist  = @playlist_key.playlist
   end
 

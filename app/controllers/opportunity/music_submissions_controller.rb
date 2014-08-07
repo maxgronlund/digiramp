@@ -16,7 +16,7 @@ class Opportunity::MusicSubmissionsController < ApplicationController
     
     # plain and simple, super users can search all recordings
     if current_user.role == 'Super'
-      @recordings   =  Recording.search_all( params[:query]).order('title asc').page(params[:page]).per(48)
+      @recordings   =  Recording.not_in_bucket.search_all( params[:query]).order('title asc').page(params[:page]).per(48)
     else
       account_users =  AccountUser.where(user_id: current_user.id)
     
@@ -25,7 +25,7 @@ class Opportunity::MusicSubmissionsController < ApplicationController
       account_users.each do |account_user|
         recording_ids   += account_user.account.recording_ids
       end
-      @recordings =  Recording.search_from_ids(recording_ids, params[:query]).order('title asc').page(params[:page]).per(48)
+      @recordings =  Recording.not_in_bucket.search_from_ids(recording_ids, params[:query]).order('title asc').page(params[:page]).per(48)
     end
 
   end

@@ -27,9 +27,9 @@ class AddRecordingsController < ApplicationController
     #
     #
     ## do the search
-    #@recordings      = Recording.catalogs_search( recordings , params[:query]).order('title asc').page(params[:page]).per(24)
+    #@recordings      = Recording.not_in_bucket.catalogs_search( recordings , params[:query]).order('title asc').page(params[:page]).per(24)
     
-    @recordings      = Recording.catalogs_search( @catalog.recordings , params[:query]).order('title asc').page(params[:page]).per(24)
+    @recordings      = Recording.not_in_bucket.catalogs_search( @catalog.recordings , params[:query]).order('title asc').page(params[:page]).per(24)
   end
   
   #def index
@@ -52,7 +52,7 @@ class AddRecordingsController < ApplicationController
   #  logger.debug @recordings.size
   #  
   #  # do the search
-  #  @recordings      = Recording.catalogs_search(@recordings, params[:query]).order('title asc').page(params[:page]).per(24)
+  #  @recordings      = Recording.not_in_bucket.catalogs_search(@recordings, params[:query]).order('title asc').page(params[:page]).per(24)
   #end
   
   
@@ -126,7 +126,7 @@ class AddRecordingsController < ApplicationController
     # find catalog
     @catalog        = Catalog.cached_find(params[:catalog_id])
     # add recordings not in the catalog
-    if @recordings  = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
+    if @recordings  = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
       @recordings.each do |recording|
         logger.debug '.'
         CatalogItem.where(catalog_id:                         @catalog.id, 

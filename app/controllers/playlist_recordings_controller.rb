@@ -4,7 +4,7 @@ class PlaylistRecordingsController < ApplicationController
   before_filter :access_account
   def index
      @playlist         = Playlist.cached_find(params[:playlist_id])
-     @recordings       = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
+     @recordings       = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
   end
   
   def new
@@ -29,7 +29,7 @@ class PlaylistRecordingsController < ApplicationController
   def add_all
      playlist   = Playlist.cached_find(params[:playlist_id])
     
-    if recordings  = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
+    if recordings  = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
       recordings.each do |recording|
         PlaylistItem.where( playlist_id: playlist.id, 
                             playlist_itemable_id: recording.id, 

@@ -5,11 +5,11 @@ class Account::MusicSubmissionsController < ApplicationController
   before_filter :access_account
   
   #def index
-  #  @recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
+  #  @recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
   #end
   
   def new
-
+    
   end
   
   

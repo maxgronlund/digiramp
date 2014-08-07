@@ -29,7 +29,7 @@ class CatalogRecordingsController < ApplicationController
     
     
     # do the search
-    @recordings      = Recording.catalogs_search( @catalog.recordings , params[:query]).order('title asc').page(params[:page]).per(24)
+    @recordings      = Recording.not_in_bucket.catalogs_search( @catalog.recordings , params[:query]).order('title asc').page(params[:page]).per(24)
   end
   
   #def index
@@ -52,7 +52,7 @@ class CatalogRecordingsController < ApplicationController
   #  logger.debug @recordings.size
   #  
   #  # do the search
-  #  @recordings      = Recording.catalogs_search(@recordings, params[:query]).order('title asc').page(params[:page]).per(24)
+  #  @recordings      = Recording.not_in_bucket.catalogs_search(@recordings, params[:query]).order('title asc').page(params[:page]).per(24)
   #end
   
   

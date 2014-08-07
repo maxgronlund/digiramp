@@ -14,7 +14,7 @@ class UserRecordingsController < ApplicationController
     @recordings       =  Recording.where(id: recording_ids)
 
     # find recordings
-    @recordings       =  Recording.catalogs_search(@recordings, params[:query]).order('title asc').page(params[:page]).per(56)
+    @recordings       =  Recording.not_in_bucket.catalogs_search(@recordings, params[:query]).order('title asc').page(params[:page]).per(56)
     
 
   end
