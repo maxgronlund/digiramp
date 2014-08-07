@@ -5,7 +5,11 @@ class UsersController < ApplicationController
   before_filter :access_user, only: [:show, :edit, :update, :destroy, :index]
 
   def show
-    session[:account_id] = @user.account_id
+    if @user.account_id.nil?
+       @user.account_id = Account.where(user_id: @user.id).first.id
+       @user.save!
+    end
+    session[:account_id] = @user.account_id 
     if current_user.current_account_id != current_user.account.id
       current_user.current_account_id  = current_user.account.id
       current_user.save!
