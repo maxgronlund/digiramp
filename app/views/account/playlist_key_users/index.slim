@@ -1,0 +1,44 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {playlists: account_account_playlists_path(@account), \
+                                                           @playlist.title.to_sym => account_account_playlist_path(@account, @playlist), \
+                                                           }, current:  'users'}
+
+    
+    - blog = Blog.cached_find('PLAYLISTS')
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'KEY USERS', insert: 'back'}
+    .row
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            'Shared with
+          .panel-body
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Name
+                    th
+                tbody
+                 /- @client_group.clients.each do |client|
+                 /  tr
+                 /    td
+                 /      = link_to client.email, account_account_client_path(@account.id, client.id), class: 'btn btn-default btn-lg'
+                 /    td
+                 /      .pull-right
+                 /        - client_group_client = ClientGroupsClients.where(client_group_id: @client_group.id, client_id: client.id).first
+                 /        = link_to account_account_client_group_remove_member_path(@account.id, @client_group.id, client_group_client.try(:id)), \
+                 /            confirm: 'Are you sure?' do 
+                 /              .btn.btn-danger.btn-lg
+                 /                i class="fa fa-times"
+      .col-sm-6
+        == render 'form'
+       
+    
+              
+                  
+        

@@ -74,7 +74,6 @@ Digiramp::Application.routes.draw do
     #resources :export_import_batches, only: [:index, :show, :edit]
     #resources :export_import_batch_works, only: [:show]
     #resources :import_batches, only: [:index, :show, :destroy, :edit, :update]
-    #resources :private_playlists
     resources :customers do
       resources :customer_events
     end
@@ -83,7 +82,7 @@ Digiramp::Application.routes.draw do
     resources :drm, only: [:index]
     resources :recording_permissions
     resources :promotion, only: [:index]
-    resources :playlist_keys
+    #resources :playlist_keys
     #resources :playlists do
     #  get "playlist_recordings/add_all"
     #  resources :playlist_recordings
@@ -127,14 +126,14 @@ Digiramp::Application.routes.draw do
     ##################################################   
     # CLEAN UP MOST OF THE BELOVE 
     # SHOULD NOT BE USED
-    resources :works do
-      resources :work_recordings, only: [:index]
-      resources :work_users, only: [:index]
-      resources :work_financial_documents, only: [:index]
-      resources :work_legal_documents, only: [:index]
-      resources :work_ipis, only: [:index]
-      resources :work_files, only: [:index]
-    end
+    #resources :works do
+    #  resources :work_recordings, only: [:index]
+    #  resources :work_users, only: [:index]
+    #  resources :work_financial_documents, only: [:index]
+    #  resources :work_legal_documents, only: [:index]
+    #  resources :work_ipis, only: [:index]
+    #  resources :work_files, only: [:index]
+    #end
     
     resources :assets, only: [:index]
     get "add_content/index"
@@ -396,7 +395,13 @@ Digiramp::Application.routes.draw do
           #resources :submissions
         end
       end
-      resources :playlists
+      resources :playlists do
+        resources :playlist_keys do
+          resources :playlist_key_users #, only: [:index, :create]
+        end
+      end
+      resources :playlist_previews
+      resources :playlist_keys 
       resources :projects do
         resources :mail_campaigns
         resources :project_tasks

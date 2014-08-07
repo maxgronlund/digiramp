@@ -1,0 +1,11 @@
+- if current_account_user.update_playlist?
+  .pull-right
+    = link_to edit_account_account_playlist_path(@account, @playlist) do
+      .btn.btn-primary.btn-lg
+        i class="fa fa-pencil"
+        '&nbsp;Edit
+    /'&nbsp;
+    /= link_to edit_account_account_playlist_path(@account, @playlist) do
+    /  .btn.btn-success.btn-lg
+    /    i class="fa fa-plus-circle"
+    /    '&nbsp;Add Recordings

@@ -1,0 +1,20 @@
+.panel.panel-primary
+  .panel-heading
+    'Add More Personas By Email
+    
+  .panel-body
+    /= debug @account
+    /= debug @playlist
+    /= debug @playlist_key
+    /= debug PlaylistKeyUser.new 
+    /= debug @playlist_key.client_groups_playlist_key_users
+    = simple_form_for [ :account, @account, @playlist, @playlist_key, @playlist_key_user ]  do |f|
+      = f.association :client_groups,   as: :check_boxes
+      /= f.input :client_group, collection: @account.client_groups, include_blank: true, label: 'Client Groups'
+      b CSV list of emails
+      = text_area_tag :emails, nil, style: "width:100%; height:320px;", placeholder: 'i.e. john@doe.com, jane@doe.com'
+      
+      .pull-right
+        = f.submit "Save", class: "btn btn-primary btn-lg"
+        
+        /account_account_playlist_playlist_key_playlist_key_users

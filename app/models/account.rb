@@ -31,6 +31,9 @@ class Account < ActiveRecord::Base
   # delete playlists when account is deleted
   has_many :playlists, dependent: :destroy
   
+  # playlist keys
+  has_many :playlist_keys
+  
   # delete common_works when account is deleted
   has_many :common_works, dependent: :destroy
   
@@ -54,6 +57,9 @@ class Account < ActiveRecord::Base
   has_many :users, :through => :account_users
   
   has_many :opportunities, dependent: :destroy
+  
+  # access to playlists
+  has_many :playlist_key_users
                 
 
   # account types

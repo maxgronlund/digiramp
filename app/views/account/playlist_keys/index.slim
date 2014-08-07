@@ -1,0 +1,104 @@
+
+/div class="playlist_id" id="#{@playlist.id}"
+
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  /-cache([ @account.id, @account.works_uuid, params]) do  
+  .do   
+    .container
+      
+      
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                             dashboard: account_account_path(@account),\
+                                                             playlists: account_account_playlists_path(@account), \
+                                                             @playlist.title.to_sym => account_account_playlist_path(@account, @playlist), \
+                                                             }, current:  'keys'}
+      
+      - blog = Blog.cached_find('PLAYLISTS')
+      == render 'shared/page_title', locals: {blog: blog, blog_post: 'PLAYLIST KEYS', insert: 'back'}                    
+      /== render 'shared/page_title_text', locals: {title: "Keys For: #{@playlist.title}", body: ''}
+      
+      
+      .row
+        .col-sm-12
+          .panel.panel-primary
+            .panel-heading
+              'Keys
+            .panel-body
+              .table-responsive
+                table class="table table-striped"
+                  thead
+                    tr
+                      th Title
+                      th Status
+                      th Expiration
+                      th Protecion
+                      th Users
+                      
+              
+                  tbody
+                    - @playlist_keys.each do |playlist_key|
+                      tr
+                        td 
+                          b = playlist_key.title
+                        td
+                          - if playlist_key.enable
+                            .positive
+                              i class="fa fa-check-circle"
+                              '&nbsp;
+                              'Enabled
+                          - else
+                            .negative
+                              i class="fa fa-minus-circle"
+                              '&nbsp;
+                              'Disabled
+                      
+                        td
+                          -if playlist_key.expires
+                            - if playlist_key.expiration_date > Date.current
+                              = playlist_key.expiration_date
+                            - else
+                              .negative
+                                i class="fa fa-exclamation-circle"
+                                '&nbsp;
+                                'Expired
+                          - else
+                            'Never
+                        td 
+                          - if playlist_key.secure_access
+                            .positive
+                              i class="fa fa-check-circle"
+                              '&nbsp;
+                              'Password
+                          - else
+                            .negative
+                              i class="fa fa-exclamation-circle"
+                              '&nbsp;
+                              'None
+                        td
+                          = link_to account_account_playlist_playlist_key_playlist_key_users_path(@account, @playlist, playlist_key) do
+                           .btn.btn-default.btn-lg
+                             i class="fa fa-users"
+                             '&nbsp;
+                             '125
+                          
+                        td
+                          .pull-right 
+                            = link_to  edit_account_account_playlist_playlist_key_path(@account, @playlist, playlist_key) do
+                              .btn.btn-primary.btn-lg
+                                i class="fa fa-pencil"
+                            '&nbsp;
+                            = link_to '#' do
+                              .btn.btn-danger.btn-lg
+                                i class="fa fa-times"
+                            
+                          
+      
+    == render 'shared/back', locals: {link: account_account_playlist_path(@account, @playlist)}      
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
+

@@ -1,0 +1,30 @@
+/= debug @playlist_key.playlist
+/-session[:return_url] = request.url
+#wrap
+  
+  /.full-width-top
+  /  == render 'admin/shared/navbar', page: 'account'         
+  .container
+    /==render 'admin/shared/messages'
+    /== render 'shared/page_title_text', locals: {title: @playlist_key.playlist.title, body: ''}
+    /- if @show_login
+    /  == render 'login'
+    /- else
+    /  = link_to 'Unauthorize', account_account_private_playlist_path( @account, @playlist_key.id) , method: :delete, class: 'btn btn-warning btn-lg'
+    /    /h4 Expires: #{@playlist_key.expiration_date} 
+    
+    .row
+      .col-sm-3
+      .col-sm-6
+        .text-center
+          h3 = @playlist.title
+        .panel
+          .panel-body.digiramp_player
+            - @playlist_items.each_with_index do |playlist_item, index|
+              == render playlist_item.playlist_itemable_type.downcase, playlist_item: playlist_item, index: index
+              
+    
+
+
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'

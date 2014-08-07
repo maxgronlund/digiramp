@@ -1,9 +1,22 @@
+
 = simple_form_for [:account, @account, @playlist] do |f|
-  .panel
+  .panel.panel-primary
+    .panel-heading
+      'PLAYLIST INFO
     .panel-body
       = f.input :title
-      = f.input :body, :input_html => { style: " height: 240px;"}, label: 'Description'
+      
+      
+      div id="toolbar" class="wysihtml5-toolbar"
+        a data-wysihtml5-command="bold" Bold
+        '&nbsp; 
+        a data-wysihtml5-command="italic" Italic
+      
+      =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
   .pull-right
-    = link_to 'Cancel', account_playlist_path(@account, @playlist), class: 'btn btn-default btn-lg'
+    -if new_playlist
+      = link_to 'Cancel', account_account_playlists_path(@account), class: 'btn btn-default btn-lg'
+    -else
+      = link_to 'Cancel', account_account_playlist_path(@account, @playlist), class: 'btn btn-default btn-lg'
     '&nbsp;
     = f.submit 'Save', class: 'btn btn-primary btn-lg'

@@ -1,8 +1,8 @@
 class PlaylistKey < ActiveRecord::Base
   belongs_to :playlist
   belongs_to :user
-  
   has_many :customer_events
+  has_one :playlist_key_user, dependent: :destroy
   validates_confirmation_of :password
   validates_presence_of :password, :on => :update, if: :secure_access?
   

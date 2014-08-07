@@ -1,0 +1,90 @@
+
+/div class="playlist_id" id="#{@playlist.id}"
+
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  /-cache([ @account.id, @account.works_uuid, params]) do  
+  .do   
+    .container
+      
+      
+      ==render 'admin/shared/messages'
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+      /                                                        assets: account_assets_path(@account), \
+      /                                                        playlists: account_playlists_path(@account), \
+      /                                                        @playlist_key.playlist.title.to_sym => account_playlist_path(@account, @playlist_key.playlist), \
+      /                                                        }, current: 'Edit Key'}
+      /                                                        
+      /
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {dashboard: account_account_path(@account),\
+                                                             playlists: account_account_playlists_path(@account), \
+                                                             @playlist_key.playlist.title.to_sym => account_account_playlist_path(@account, @playlist_key.playlist)\
+                                                             }, current:  'edit key'}
+                                                             
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('PLAYLISTS'), blog_post: 'EDIT KEY'}
+      .row
+        
+        .col-sm-3
+        .col-sm-6
+          = simple_form_for [ :account, @account, @playlist_key] do |f|
+            .panel.panel-primary
+              .panel-heading
+                'Edit Key
+                /= @playlist_key.user.email
+              .panel-body
+                = f.input :enable
+                = f.input :title
+                div id="toolbar" class="wysihtml5-toolbar"
+                  a data-wysihtml5-command="bold" Bold
+                  '&nbsp; 
+                  a data-wysihtml5-command="italic" Italic
+          
+                =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
+                    
+                
+                .row
+                  .col-sm-4
+                    = f.input :expires 
+                  .col-sm-8
+                    = f.input :secure_access, label: 'Password Protection'
+                .row
+                  .col-sm-4
+                    = f.input :expiration_date, type: "text", "data-behaviour".to_sym =>'datepicker'
+                  .col-md-8
+                    b Password
+                    .input-group
+                      span class="input-group-addon" 
+                        i class= 'fa fa-key'
+                      = f.input_field :password, placeholder: 'Password', autocomplete: :off, value: @playlist_key.password
+                    br
+                    .input-group
+                      span class="input-group-addon" 
+                        i class= 'fa fa-key'
+                      = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off, value: @playlist_key.password
+                    br
+                    - if @playlist_key.password
+                      b Current Password
+                      
+                      .panel
+                        = @playlist_key.password
+                    
+                  
+               
+            .pull-right
+              /-if @playlist_key.status == 'new'
+              /  = f.hidden_field :status, value: 'send'
+              /  = f.submit 'Send Invitation', class: 'btn btn-primary btn-lg'
+              /-else
+              /= f.hidden_field :status, value: 'updated'
+              = link_to 'Cancel', account_account_playlist_path(@account, @playlist_key.playlist), class: 'btn btn-default btn-lg'
+              '&nbsp;
+              = f.submit 'Save', class: 'btn btn-primary btn-lg'
+        .col-sm-3
+          
+    == render 'shared/back', locals: {link: account_account_playlist_path(@account, @playlist_key.playlist)}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
+

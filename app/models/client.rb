@@ -1,6 +1,7 @@
 class Client < ActiveRecord::Base
   belongs_to :account
   has_and_belongs_to_many :client_groups
+  has_many :playlist_key_users
   before_create :set_user_uuid
   
   

@@ -11,81 +11,142 @@
       
       
       ==render 'admin/shared/messages'
-      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-      /                                                        assets: account_assets_path(@account), \
-      /                                                        playlists: account_playlists_path(@account), \
-      /                                                        @playlist.title.to_sym => account_playlist_path(@account, @playlist), \
-      /                                                        }, current: 'show playlist'}
-      /                                                        
-      /
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                             dashboard: account_account_path(@account),\
+                                                             playlists: account_account_playlists_path(@account) \
+                                                             }, current:  @playlist.title}
       
-      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Playlist'), blog_post: 'Playlist Distribution'}
+      == render 'shared/page_title_text', locals: {title: @playlist.title, body: '', insert: 'edit'}
+      - blog = Blog.cached_find('PLAYLISTS')
+      .row
+        -if current_account_user.update_playlist?
+          .col-sm-6
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "KEYS" , blog ), \
+                                                link: account_account_playlist_playlist_keys_path(@account, @playlist), \
+                                                css_class: 'btn btn-default', \
+                                                icon: 'fa fa-key' \
+                                              }
+            
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "TRACKS" , blog ), \
+                                                link: account_account_account_users_path(@account), \
+                                                css_class: 'btn btn-success', \
+                                                icon: 'fa fa-plus-circle' \
+                                              }
+            
+            
+            
+          
+          .col-sm-6
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "WIDGETS" , blog ), \
+                                                link: account_account_recordings_path(@account), \
+                                                css_class: 'btn btn-primary', \
+                                                icon: 'fa fa-share-alt', \
+                                                id: 'widgets' \
+                                              }
+      
+      /= link_to account_account_playlist_preview_path(@account, @playlist.perview) do
+      / .btn.btn-primary.btn-lg
+      /   i class="fa fa-eye"
+      /   '&nbsp;
+      /   'Preview
+      /'&nbsp;
       /.row
       /  .col-sm-12
-      /    .panel
+      /    .panel.panel-primary
+      /      .panel-heading
+      /        'Keys
       /      .panel-body
-      /        .row
-      /          .col-sm-8
-      /            h3 = @playlist.title
-      /            = @playlist.body
-      /          .col-sm-4
-      /            .pull-right
-      /              = link_to edit_account_playlist_path( @account, @playlist) do
-      /                .btn.btn-primary.btn-lg
-      /                  i class="fa fa-pencil"
-      /                  '&nbsp;Title
-      /              '&nbsp;
-      /              = link_to account_playlist_playlist_recordings_path( @account, @playlist) do
-      /                .btn.btn-primary.btn-lg
-      /                  i class="fa fa-pencil"
-      /                  '&nbsp;Recordings
+      /        = simple_format @playlist.body
+      /    
+      /        /.col-sm-4
+      /        /  .pull-right
+      /        /    = link_to edit_account_playlist_path( @account, @playlist) do
+      /        /      .btn.btn-primary.btn-lg
+      /        /        i class="fa fa-pencil"
+      /        /        '&nbsp;Title
+      /        /    '&nbsp;
+      /        /    = link_to account_playlist_playlist_recordings_path( @account, @playlist) do
+      /        /      .btn.btn-primary.btn-lg
+      /        /        i class="fa fa-pencil"
+      /        /        '&nbsp;Recordings
       /        hr
       /        .table-responsive
       /          table class="table table-striped"
       /            thead
       /              tr
-      /                th Keys
-      /                th Expires
-      /                th Password
+      /                th Title
+      /                th Status
+      /                th Expiration
+      /                th Protecion
+      /                th Users
       /                
       /        
       /            tbody
-      /              -@playlist.playlist_keys.each do |playlist_key|
-      /                - if user = User.where(id: playlist_key.user_id).first
+      /              - @playlist.playlist_keys.each do |playlist_key|
+      /                - unless playlist_key.default? 
       /                  tr
       /                    td 
-      /                      = link_to account_private_playlist_path(@account, playlist_key.playlist_url) do
-      /                        .btn.btn-default.btn-lg
-      /                          i class="fa fa-eye"
-      /                          '&nbsp;#{user.email}
-      /
-      /                    td = playlist_key.expiration_date
-      /                    td = playlist_key.secure_access
+      /                      b = playlist_key.title
       /                    td
-      /                      .pull-right
-      /                        = link_to account_private_playlist_path(@account, playlist_key.playlist_url) do
+      /                      - if playlist_key.enable
+      /                        .positive
+      /                          i class="fa fa-check-circle"
+      /                          '&nbsp;
+      /                          'Enabled
+      /                      - else
+      /                        .negative
+      /                          i class="fa fa-minus-circle"
+      /                          '&nbsp;
+      /                          'Disabled
+      /                  
+      /                    td
+      /                      -if playlist_key.expires
+      /                        - if playlist_key.expiration_date > Date.current
+      /                          = playlist_key.expiration_date
+      /                        - else
+      /                          .negative
+      /                            i class="fa fa-exclamation-circle"
+      /                            '&nbsp;
+      /                            'Expired
+      /                      - else
+      /                        'Never
+      /                    td 
+      /                      - if playlist_key.secure_access
+      /                        .positive
+      /                          i class="fa fa-check-circle"
+      /                          '&nbsp;
+      /                          'Password
+      /                      - else
+      /                        .negative
+      /                          i class="fa fa-exclamation-circle"
+      /                          '&nbsp;
+      /                          'None
+      /                    td
+      /                      = link_to account_account_playlist_preview_path(@account, playlist_key.playlist_url) do
+      /                       .btn.btn-default.btn-lg
+      /                         i class="fa fa-users"
+      /                         '&nbsp;
+      /                         '125
+      /                      
+      /                    td
+      /                      .pull-right 
+      /                        = link_to  edit_account_account_playlist_key_path(@account, playlist_key) do
       /                          .btn.btn-primary.btn-lg
       /                            i class="fa fa-pencil"
-      /                            '&nbsp;Edit
-      /                        '&nbsp;
-      /                        - if playlist_key.status == 'new'
-      /                          = link_to  edit_account_playlist_key_path(@account, playlist_key) do
-      /                            .btn.btn-success.btn-lg
-      /                              i class="fa fa-key"
-      /                              '&nbsp;Activate
-      /                        - else 
-      /                          = link_to  edit_account_playlist_key_path(@account, playlist_key) do
-      /                            .btn.btn-warning.btn-lg
-      /                              i class="fa fa-key"
-      /                              '&nbsp;Update
       /                        '&nbsp;
       /                        = link_to '#' do
       /                          .btn.btn-danger.btn-lg
       /                            i class="fa fa-times"
-      /                      
-      /                  
-
-    
+      /                        
+      /                    
+      /
+    == render 'shared/back', locals: {link: account_account_playlists_path(@account)}      
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'
 

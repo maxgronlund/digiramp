@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804154306) do
+ActiveRecord::Schema.define(version: 20140807133028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -528,10 +528,21 @@ ActiveRecord::Schema.define(version: 20140804154306) do
     t.integer  "client_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "user_uuid"
   end
 
   add_index "client_groups_clients", ["client_group_id"], name: "index_client_groups_clients_on_client_group_id", using: :btree
   add_index "client_groups_clients", ["client_id"], name: "index_client_groups_clients_on_client_id", using: :btree
+
+  create_table "client_groups_playlist_key_users", force: true do |t|
+    t.integer  "client_group_id"
+    t.integer  "playlist_key_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "client_groups_playlist_key_users", ["client_group_id"], name: "index_client_groups_playlist_key_users_on_client_group_id", using: :btree
+  add_index "client_groups_playlist_key_users", ["playlist_key_user_id"], name: "index_client_groups_playlist_key_users_on_playlist_key_user_id", using: :btree
 
   create_table "client_imports", force: true do |t|
     t.integer  "account_id"
@@ -1284,6 +1295,19 @@ ActiveRecord::Schema.define(version: 20140804154306) do
   add_index "playlist_items", ["playlist_id"], name: "index_playlist_items_on_playlist_id", using: :btree
   add_index "playlist_items", ["playlist_itemable_id", "playlist_itemable_type"], name: "by_playlist_itemable_id_and_type", using: :btree
 
+  create_table "playlist_key_users", force: true do |t|
+    t.integer  "playlist_key_id"
+    t.integer  "account_id"
+    t.integer  "client_id"
+    t.string   "user_uuid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "playlist_key_users", ["account_id"], name: "index_playlist_key_users_on_account_id", using: :btree
+  add_index "playlist_key_users", ["client_id"], name: "index_playlist_key_users_on_client_id", using: :btree
+  add_index "playlist_key_users", ["playlist_key_id"], name: "index_playlist_key_users_on_playlist_key_id", using: :btree
+
   create_table "playlist_keys", force: true do |t|
     t.integer  "playlist_id"
     t.integer  "user_id"
@@ -1297,6 +1321,10 @@ ActiveRecord::Schema.define(version: 20140804154306) do
     t.datetime "updated_at"
     t.string   "status",          default: "new"
     t.string   "playlist_url",    default: ""
+    t.boolean  "enable"
+    t.string   "title"
+    t.text     "body"
+    t.boolean  "default"
   end
 
   add_index "playlist_keys", ["account_id"], name: "index_playlist_keys_on_account_id", using: :btree

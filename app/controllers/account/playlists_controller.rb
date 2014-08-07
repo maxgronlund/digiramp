@@ -7,7 +7,7 @@ class Account::PlaylistsController < ApplicationController
   
 
   def show
-    forbidden unless current_account_user.create_playlist?
+    forbidden unless current_account_user.read_playlist?
     @playlist     = Playlist.cached_find(params[:id])
     #@recordings   = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
   end
@@ -17,21 +17,27 @@ class Account::PlaylistsController < ApplicationController
   end
 
   def edit
-    @playlist = Playlist.cached_find(params[:id])
-    @recordings   = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
+    @playlist     = Playlist.cached_find(params[:id])
+    #@recordings   = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
   end
 
   def update
     @playlist = Playlist.cached_find(params[:id])
-    @playlist.update_attributes(playlist_params)
-    redirect_to account_playlist_path( @account, @playlist )
+    @playlist.update(playlist_params)
+    redirect_to account_account_playlist_path( @account, @playlist )
   end
   
   def destroy
     @playlist = Playlist.cached_find(params[:id])
     @playlist.destroy
 
-    redirect_to account_playlists_path( @account )
+    redirect_to account_account_playlists_path(@account)
+  end
+  
+  def create
+    forbidden unless current_account_user.create_playlist?
+    @playlist = Playlist.create(playlist_params)
+    redirect_to account_account_playlist_path(@account, @playlist)
   end
   
 private  
