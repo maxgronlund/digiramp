@@ -1,0 +1,59 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+
+            
+  .container
+    ==render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            #assets: account_assets_path(@account), \
+                                                            catalogs: account_catalogs_path(@account), \
+                                                            @catalog.title.to_sym => account_catalog_path(@account, @catalog), \
+                                                            }, current: 'edit'}
+                                                            
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Edit Recording'), blog_post: 'Edit Recording'} 
+    
+    
+    
+  
+    /= link_to account_common_work_recording_genre_tags_path(@account, @common_work, @recording) do
+    /  .btn.btn-success.btn-lg
+    /    i class="fa fa-tags"
+    /    '&nbsp;
+    /    'Add genres
+    /    
+    /
+    /'&nbsp;
+    /= link_to edit_account_common_work_lyric_path( @account, @common_work, @recording) do
+    /  .btn.btn-primary.btn-lg
+    /    i class="fa fa-pencil"
+    /    '&nbsp;
+    /    'Edit Lyrics
+    /    
+    /
+    /'&nbsp;
+    /= link_to edit_account_common_work_audio_file_path(@account, @common_work, @recording), 'data-no-turbolink'=>true do
+    /  .btn.btn-info.btn-lg
+    /    i class="fa fa-cloud-upload"
+    /    '&nbsp;
+    /    'Upload Recording
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            'Edit
+          .panel-body
+            /= debug @recording
+            = simple_form_for [@account, @catalog, @recording], :url => url_for(:action => 'update', :controller => 'catalog_recordings'), :method => 'put',  :html => { :id => 'catalog_recording' } do |f|
+              /= f.hidden_field :account_id, value: @account.id
+              /= f.hidden_field :common_work_id, value: @common_work.id
+              == render 'recordings/form', f: f
+    
+
+
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+              

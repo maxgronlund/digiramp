@@ -8,7 +8,7 @@ class Catalog::FindInCollectionsController < ApplicationController
   # list of recordings to add to the catalog
   def index
     forbidden unless current_account_user.read_recording?
-    @recordings     = Recording.find_in_collection(@catalog, @account, params[:query]).order('title asc').page(params[:page]).per(48)
+    @recordings     = Recording.not_in_bucket.find_in_collection(@catalog, @account, params[:query]).order('title asc').page(params[:page]).per(48)
     #@recordings     = Recording.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     #@recordings     -= @catalog.recordings
     @show_more      = true
