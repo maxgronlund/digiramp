@@ -67,11 +67,11 @@ class Admin::AccountsController < ApplicationController
   def destroy
     @account = Account.cached_find(params[:id])
     
-    begin
-      user = @account.user
-      user.destroy! unless AccountUser.where(user_id: user.id).size > 1
-    rescue
-    end
+    #begin
+    #  user = @account.user
+    #  user.destroy! unless AccountUser.where(user_id: user.id).size > 1
+    #rescue
+    #end
     flash[:info] = { title: "SUCCESS: ", body: "Account #{@account.title} deleted" }
     @account.destroy!
 

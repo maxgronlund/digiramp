@@ -25,16 +25,17 @@ class Account::OpportunityInvitationsController < ApplicationController
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
   end
 
-  # POST /opportunity_invitations
-  # POST /opportunity_invitations.json
+
+
   def create
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_invitation = OpportunityInvitation.create(opportunity_invitation_params)
     
 
     params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
-     
-      user   = User.find_or_create_by_email( email )
+      puts '----------------------------------'
+      puts email
+      user   = User.find_or_create_by_email( email.downcase )
       OpportunityUser.where(  opportunity_id:   @opportunity.id, 
                               user_id:          user.id,
                             )
@@ -44,11 +45,9 @@ class Account::OpportunityInvitationsController < ApplicationController
                             )
       
       if user.account_activated
-        #OpportunityMailer.delay.invite(email, @opportunity_invitation.id)
-        OpportunityMailer.delay.invite(email, @opportunity_invitation.id)
+        OpportunityMailer.delay.invite(email, @opportunity_invitation.id, user.id)
       else
         user.add_token
-        #OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id)
         OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id)
       end
        

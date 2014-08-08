@@ -373,7 +373,7 @@ Digiramp::Application.routes.draw do
         member do
           get 'music_submissions'
         end
-        resources :opportunity_invitations, only: [:new, :create]
+        resources :opportunity_invitations
         post :invite_provider_by_email
         resources :invite_providers, only: [:index]
         resources :music_requests do

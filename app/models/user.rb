@@ -17,8 +17,6 @@ class User < ActiveRecord::Base
   before_create :set_uuid
 
   
-  #before_destroy :delete_accounts
-  
   serialize :crop_params, Hash
   mount_uploader :image, AvatarUploader
   #include ImageCrop
