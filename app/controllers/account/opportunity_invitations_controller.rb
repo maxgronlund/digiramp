@@ -44,9 +44,11 @@ class Account::OpportunityInvitationsController < ApplicationController
                             )
       
       if user.account_activated
+        #OpportunityMailer.delay.invite(email, @opportunity_invitation.id)
         OpportunityMailer.delay.invite(email, @opportunity_invitation.id)
       else
         user.add_token
+        #OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id)
         OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id)
       end
        

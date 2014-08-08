@@ -13,7 +13,7 @@
                                                              @recording.title.to_sym => account_account_recording_path(@account, @recording) \
                                                              }, current: 'files' }
      
-      -body = link_to 'RECORDING FILES', account_work_path(@account, @recording)
+
       == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment} 
       .row
         .col-sm-6                         
