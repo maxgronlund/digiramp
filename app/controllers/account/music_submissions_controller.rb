@@ -26,27 +26,35 @@ class Account::MusicSubmissionsController < ApplicationController
   
   def submit_recording
     
-    opportunity_user  = OpportunityUser.where( opportunity_id:        params[:opportunity_id], user_id: current_user.id ).first
+    opportunity_user  = OpportunityUser.where( opportunity_id: params[:opportunity_id], 
+                                                      user_id: current_user.id ).first
     
-    @music_submission = MusicSubmission.where(  recording_id:         params[:id],
-                                                music_request_id:     params[:music_request_id],
-                                                account_id:          @account.id           
-                                              )
-                                        .first_or_create( 
-                                                          recording_id:         params[:id],
-                                                          music_request_id:     params[:music_request_id] ,
-                                                          user_id:              current_user.id,
-                                                          opportunity_user_id:  opportunity_user.id,
-                                                          account_id:           @account.id
-                                                        ) 
-                                                        
-    
-                                  
-    @remove_button = "#add_to_request_#{params[:id]}"
-    #puts '-----------------------------------------------------'
-    #puts @add_to_request
-    #@add_to_request
-    #puts '-----------------------------------------------------'
+    if opportunity_user
+      @music_submission = MusicSubmission.where(  recording_id:         params[:id],
+                                                  music_request_id:     params[:music_request_id],
+                                                  account_id:          @account.id           
+                                                )
+                                          .first_or_create( 
+                                                            recording_id:         params[:id],
+                                                            music_request_id:     params[:music_request_id] ,
+                                                            user_id:              current_user.id,
+                                                            opportunity_user_id:  opportunity_user.id,
+                                                            account_id:           @account.id
+                                                          ) 
+                                                          
+      
+                                    
+      @remove_button = "#add_to_request_#{params[:id]}"
+    else
+      channel = 'digiramp_radio_' + current_user.email
+      Pusher.trigger(channel, 'digiramp_event', {"title" => 'YOU ARE NOT A MUSIC PROVIDERS', 
+                                            "message" => 'Make sure you are on the list of authorized music providers', 
+                                            "time"    => '500', 
+                                            "sticky"  => 'true', 
+                                            "image"   => 'error'
+                                            })
+    end
+
   end
 
   def edit

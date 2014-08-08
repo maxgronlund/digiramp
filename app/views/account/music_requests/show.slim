@@ -98,15 +98,19 @@
             h4 Expired !
             'Please extend the deadline to add more music requests
         - else
-         .pull-right    
-           = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
-                                                                                         @opportunity, \
-                                                                                         @music_request) do 
-             .btn.btn-success.btn-lg
-               i class="fa fa-plus-circle"
-               '&nbsp;Add Submission      
-        
-        
+          - unless @opportunity.opportunity_users.empty?
+            - unless @opportunity.opportunity_users.where(user_id: current_user.id).first.nil?
+              .pull-right
+                = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
+                                                                                              @opportunity, \
+                                                                                              @music_request) do 
+                  .btn.btn-success.btn-lg
+                    i class="fa fa-plus-circle"
+                    '&nbsp;Add Submission
+                
+
+                 
+                 
 
          
     == render 'shared/back', locals: {link: account_account_opportunity_path(@account, @opportunity)} 

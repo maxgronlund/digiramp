@@ -75,11 +75,13 @@
               br
               
               .pull-right
-                = link_to opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
-                                                                                         music_request) do 
-                  .btn.btn-success.btn-lg
-                    i class="fa fa-plus-circle"
-                    '&nbsp;Add Submission
+                - unless @opportunity.opportunity_users.empty?
+                  - unless @opportunity.opportunity_users.where(user_id: current_user.id).first.nil?
+                    = link_to opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
+                                                                                             music_request) do 
+                      .btn.btn-success.btn-lg
+                        i class="fa fa-plus-circle"
+                        '&nbsp;Add Submission
                 '&nbsp;
                 = link_to opportunity_opportunity_music_request_path( @opportunity, music_request) do
                   .btn.btn-default.btn-lg
