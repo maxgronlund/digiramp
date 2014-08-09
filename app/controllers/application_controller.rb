@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
   
   
   def admins_only
-    forbidden unless current_user.can_edit?
+    forbidden unless current_user && current_user.can_edit?
   end
   helper_method :admins_only
   

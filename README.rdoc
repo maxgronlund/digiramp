@@ -39,7 +39,7 @@ $ cap production deploy
 * log the server
 cap production "logs:tail[production]"
 cap production "logs:tail[unicorn]"  <<< IMPORTANT if there is problems
-
+cap production "logs:tail[sidekiq]"
 
 * ...
 

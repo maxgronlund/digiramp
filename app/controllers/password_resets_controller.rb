@@ -5,7 +5,9 @@ class PasswordResetsController < ApplicationController
   
   def create
     email = params[:sessions][:email].to_s
-    user = User.find_by_email(email)
+    
+    user = User.find_by_email(email.downcase)
+    
     if user
       user.send_password_reset 
       flash[:info] = { title: "Request received", body: "You should receive an email with instructions in a few moments" }

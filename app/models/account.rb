@@ -239,8 +239,8 @@ class Account < ActiveRecord::Base
     if user = User.where(email: administrator_email).first
       user.invite_existing_user_to_account @account
     else
-      user = User.create( name: administrator_email, 
-                          email: administrator_email, 
+      user = User.create( name: administrator_email.downcase, 
+                          email: administrator_email.downcase, 
                           role: 'Administrator', 
                           password: 'rOUhPgxQYzWtMvIsby3kET5aKcLSmd0w', 
                           password_confirmation: 'rOUhPgxQYzWtMvIsby3kET5aKcLSmd0w',
@@ -254,7 +254,7 @@ class Account < ActiveRecord::Base
   
   # !!! might be obsolete
   def administrator_email
-    administrators_account_user.user.email
+    administrators_account_user.user.email.downcase
   end
   
   include Rails.application.routes.url_helpers

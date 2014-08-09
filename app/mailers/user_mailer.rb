@@ -1,9 +1,12 @@
 class UserMailer < ActionMailer::Base
   default from: "info@digiramp.org"
 
-  def password_reset user
-    @user           = user
-    
+  def password_reset user_id
+    @user        = User.cached_find(user_id)
+    puts '-----------------------------------------------------------------------------'
+    puts 'password_reset'
+    ap @user
+    puts '-----------------------------------------------------------------------------'
     
     blog            = Blog.cached_find('Support')
     blog_post       = BlogPost.cached_find( "RESET EMAIL" , blog )
@@ -12,7 +15,7 @@ class UserMailer < ActionMailer::Base
     @body           = blog_post.body
     @fotter_link    = url_for( controller: 'contacts', action: 'new')
     
-    mail to: @user.email, subject: "reset password"
+    mail to: @user.email, subject: blog_post.title
   end
   
   def invite_new_user_to_account user_id, title, body

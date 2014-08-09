@@ -61,7 +61,14 @@ class User < ActiveRecord::Base
   after_save :update_access
   after_commit :set_propperties
   
+  before_save :validate_info
   
+  def validate_info
+    self.email.downcase!
+    if self.name.to_s == ''
+      self.name = self.email
+    end
+  end
   
   
 
@@ -140,7 +147,7 @@ class User < ActiveRecord::Base
   
   def send_password_reset
     self.add_token
-    UserMailer.delay.password_reset(self)
+    UserMailer.delay.password_reset(self.id)
   end 
   
 
@@ -391,9 +398,9 @@ class User < ActiveRecord::Base
 
   
   def self.find_or_create_by_email( email)
-    if user  = User.where(email: email).first
+    if user  = User.find_by_email(email.downcase)
     else
-      user   = User.create_user_with_account email
+      user   = User.create_user_with_account email.downcase
     end
     user
   end
@@ -405,8 +412,8 @@ class User < ActiveRecord::Base
   # invite a user based on an email 
   def self.invite_user email
     secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
-    user                  = User.create(  name: email, 
-                                          email: email, 
+    user                  = User.create(  name: email.downcase, 
+                                          email: email.downcase, 
                                           invited: true, 
                                           password: secret_temp_password, 
                                           password_confirmation: secret_temp_password,
@@ -429,7 +436,7 @@ class User < ActiveRecord::Base
   def self.invite_to_account_by_email email, title, body, account_id
     
     # the user is already signed up
-    if found_user       = User.where(email: email).first
+    if found_user       = User.find_by_email(email.downcase)
       
       # invite found user to account
       UserMailer.delay.invite_existing_user_to_account found_user.id, account_id, body
@@ -440,8 +447,8 @@ class User < ActiveRecord::Base
     else
       # create user
       secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-      found_user = User.create( name: email, 
-                                email: email, 
+      found_user = User.create( name: email.downcase, 
+                                email: email.downcase, 
                                 invited: true, 
                                 password: secret_temp_password, 
                                 password_confirmation: secret_temp_password
