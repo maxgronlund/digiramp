@@ -80,17 +80,19 @@ class Admin::AccountsController < ApplicationController
                 
       flash[:info] = { title: "SUCCESS: ", body: "Account #{@account.title} deleted" }
       
-      user = @account.user
-      user.create_activity(  :destroyed, 
-                            owner: current_user,
-                        recipient: user,
-                   recipient_type: user.class.name,
-                       account_id: @account.id)
-                   
-      user.destroy!  
+      if @account.user
+        user = @account.user
+        user.create_activity(  :destroyed, 
+                              owner: current_user,
+                          recipient: user,
+                     recipient_type: user.class.name,
+                         account_id: @account.id)
+                     
+        user.destroy! 
+      end 
       @account.destroy!   
     rescue
-      flash[:info] = { title: "ERROR: ", body: "Unable to delete #{@account.title}" }
+      flash[:danger] = { title: "ERROR: ", body: "Unable to delete #{@account.title}" }
     end        
     redirect_to admin_accounts_path
   end

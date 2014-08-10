@@ -80,7 +80,7 @@ class Admin::UsersController < ApplicationController
       @account.destroy!
       
     rescue
-      flash[:info] = { title: "SUCCESS: ", body: "Something went wrong" }
+      flash[:danger] = { title: "ERROR: ", body: "Something went wrong" }
     end
     redirect_to admin_users_path
   end
