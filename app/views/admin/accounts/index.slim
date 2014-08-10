@@ -46,13 +46,16 @@
                               i class="fa fa-tachometer"
                               '&nbsp;
                               = account.title
-                        td 
-                          = link_to user_path(account.account_owner) do 
-                            .btn.btn-default.btn-lg
-                              i class="fa fa-user"
-                              '&nbsp;
-                              == account.account_owner.name_or_email
-
+                        td
+                          -if account.account_owner
+                            = link_to user_path(account.account_owner) do 
+                              .btn.btn-default.btn-lg
+                                i class="fa fa-user"
+                                '&nbsp;
+                                == account.account_owner.name_or_email
+                          - else
+                            .deleted
+                              'Owner deleted
                         /td = account.account_users.size
                         /td class="#{'expired' if account.expiration_date < Date.current }"
                         /  = account.expiration_date
