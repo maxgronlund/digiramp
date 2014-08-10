@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   after_commit :set_propperties
   
   before_save :validate_info
-  before_destroy :delete_account
+  #before_destroy :delete_account
   
   has_many :emails, dependent: :destroy
   
@@ -74,17 +74,17 @@ class User < ActiveRecord::Base
     end
   end
   
-  def delete_account
-    begin
-      self.account.create_activity(  :destroyed, 
-                            owner: current_user,
-                        recipient: self.account,
-                   recipient_type: self.account.class.name)
-                   
-      self.account.destroy!
-    rescue
-    end
-  end
+  #def delete_account
+  #  begin
+  #    self.account.create_activity(  :destroyed, 
+  #                          owner: current_user,
+  #                      recipient: self.account,
+  #                 recipient_type: self.account.class.name)
+  #                 
+  #    self.account.destroy!
+  #  rescue
+  #  end
+  #end
   
   
 

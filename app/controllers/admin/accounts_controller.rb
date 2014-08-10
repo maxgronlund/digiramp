@@ -71,21 +71,27 @@ class Admin::AccountsController < ApplicationController
   
   
   def destroy
-    @account = Account.cached_find(params[:id])
-    @account.create_activity(  :destroyed, 
-                          owner: current_user,
-                      recipient: @account,
-                 recipient_type: @account.class.name)
-              
-    flash[:info] = { title: "SUCCESS: ", body: "Account #{@account.title} deleted" }
-    user = @account.user
-    user.create_activity(  :destroyed, 
-                          owner: current_user,
-                      recipient: user,
-                 recipient_type: user.class.name,
-                     account_id: @account.id)
-                 
-    user.destroy!             
+    begin
+      @account = Account.cached_find(params[:id])
+      @account.create_activity(  :destroyed, 
+                            owner: current_user,
+                        recipient: @account,
+                   recipient_type: @account.class.name)
+                
+      flash[:info] = { title: "SUCCESS: ", body: "Account #{@account.title} deleted" }
+      
+      user = @account.user
+      user.create_activity(  :destroyed, 
+                            owner: current_user,
+                        recipient: user,
+                   recipient_type: user.class.name,
+                       account_id: @account.id)
+                   
+      user.destroy!  
+      @account.destroy!   
+    rescue
+      flash[:info] = { title: "ERROR: ", body: "Unable to delete #{@account.title}" }
+    end        
     redirect_to admin_accounts_path
   end
   

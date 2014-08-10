@@ -60,15 +60,28 @@ class Admin::UsersController < ApplicationController
   #end
   
   def destroy
-    forbidden unless can_edit?
-    @user = User.cached_find(params[:id])
-    @user.create_activity(  :destroyed, 
-                       owner: current_user,
-                   recipient: @user,
-              recipient_type: @user.class.name,
-                  account_id: @user.account_id)
-    #@user.account.destroy!
-    @user.destroy!
+    begin
+      @user = User.cached_find(params[:id])
+      @account = Accout.account
+      @user.create_activity(  :destroyed, 
+                         owner: current_user,
+                     recipient: @user,
+                recipient_type: @user.class.name,
+                    account_id: @user.account_id)
+      
+      flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} deleted" }
+      @user.destroy!
+      
+      @account.create_activity(  :destroyed, 
+                         owner: current_user,
+                     recipient: @account,
+                recipient_type: @account.class.name,
+                    account_id: @account.account_id)
+      @account.destroy!
+      
+    rescue
+      flash[:info] = { title: "SUCCESS: ", body: "Something went wrong" }
+    end
     redirect_to admin_users_path
   end
 
