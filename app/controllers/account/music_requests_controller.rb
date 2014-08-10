@@ -89,18 +89,7 @@ class Account::MusicRequestsController < ApplicationController
     @opportunity    = Opportunity.cached_find(params[:opportunity_id])
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
     #begin
