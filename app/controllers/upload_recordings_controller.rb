@@ -11,7 +11,7 @@ class UploadRecordingsController < ApplicationController
   
   # called when an  import is completed
   def create
-    @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @account.id )
+    @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @account.id, current_user )
     flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
     redirect_to account_import_batch_path(@account,   @import_batch)
   end

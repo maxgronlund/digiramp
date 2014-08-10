@@ -128,43 +128,9 @@ class Catalog::RecordingsController < ApplicationController
     
     ap  @recording.catalogs
     redirect_to :back
-    
-    
-    
-    
-    #common_work = @recording.common_work
-    #@recording.destroy
-    #common_work.update_completeness
-    ## jump back to recordings or common work
-    #
-    #if session[:after_delete_recording]
-    #  redirect_to session[:after_delete_recording]
-    #else
-    #  redirect_to_return_url catalog_account_catalog_recordings_path(@account, @catalog, page: params[:page], query: params[:query])
-    #end
-    
+
   end
-  
-  # after recordings returns from transloadet
-  #def upload_completed
-  #  @recording      = Recording.find(params[:recording_id])
-  #  @recording.extract_metadata
-  #
-  #  if @recording.common_work.nil? && !CommonWork.account_search(@account, @recording.title).empty? 
-  #    # If the common_work is not set and there is common_works with the same name as the recording
-  #    redirect_to edit_account_recording_common_work_path(@account, @recording)
-  #  elsif @recording.common_work.nil?
-  #    # else if the common_work is not set and there is no common_works with the same title
-  #    common_work = CommonWork.create(account_id: @recording.account_id, title: @recording.title, lyrics: @recording.lyrics)
-  #    @recording.common_work_id = common_work.id
-  #    @recording.cache_version += 1
-  #    @recording.save
-  #    @recording.common_work.update_completeness
-  #  end 
-  #  
-  #  @catalog.count_recordings                       
-  #end
-  
+
   
   def artwork
     @recording          = Recording.cached_find(params[:recording_id])

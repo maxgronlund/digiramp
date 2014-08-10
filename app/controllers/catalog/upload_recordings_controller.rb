@@ -57,7 +57,7 @@ class Catalog::UploadRecordingsController < ApplicationController
   # create the common work and add it to the catalog
   def create_and_add_common_work_to_catalog recording
     # create common work                   
-    common_work = CommonWork.attach( recording, @account.id )
+    common_work = CommonWork.attach( recording, @account.id, current_user )
     # add common work to catalog
     CatalogItem.create( catalog_id: @catalog.id,
                         catalog_itemable_type: 'CommonWork',

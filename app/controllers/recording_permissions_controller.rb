@@ -71,8 +71,7 @@ class RecordingPermissionsController < ApplicationController
       
       
     else
-      
-      
+
     
     end       
     

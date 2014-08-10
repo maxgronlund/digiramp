@@ -18,7 +18,7 @@ class Opportunity::CommonWorksController < ApplicationController
   end
   
   def create
-    ap params
+    
     forbidden unless current_account_user.create_common_work
     
     
@@ -33,6 +33,19 @@ class Opportunity::CommonWorksController < ApplicationController
     
     
     if @common_work = CommonWork.create(common_work_params)
+      
+      @common_work.create_activity(  :created, 
+                                owner: current_user,
+                            recipient: @common_work,
+                       recipient_type: @common_work.class.name,
+                           account_id: @common_work.account_id)
+                           
+      @common_work.create_activity(  :created, 
+                                owner: current_user,
+                            recipient: @common_work,
+                       recipient_type: @common_work.class.name,
+                           account_id: @common_work.account_id)
+                           
       @music_request   = MusicRequest.cached_find(params[:music_request_id])
       @common_work.update_completeness
       redirect_to opportunity_opportunity_music_request_common_work_path(@opportunity, @music_request, @common_work)

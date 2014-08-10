@@ -115,6 +115,14 @@ class RecordingsController < ApplicationController
     elsif @recording.common_work.nil?
       # else if the common_work is not set and there is no common_works with the same title
       common_work = CommonWork.create(account_id: @recording.account_id, title: @recording.title, lyrics: @recording.lyrics)
+      
+      common_work.create_activity(  :created, 
+                                owner: current_user,
+                            recipient: common_work,
+                       recipient_type: common_work.class.name,
+                           account_id: @account.id)
+                           
+                           
       @recording.common_work_id = common_work.id
       @recording.cache_version += 1
       @recording.save

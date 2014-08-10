@@ -162,13 +162,19 @@ class CommonWork < ActiveRecord::Base
     Recording.find(self.recording_preview_id).audio_file_url if Recording.exists?(self.recording_preview_id)
   end
   
-  def self.attach recording, account_id
+  def self.attach recording, account_id, current_user
 
     common_work = CommonWork.create(title: recording.title, 
                                     description: recording.comment, 
                                     lyrics: recording.lyrics, 
                                     account_id: account_id)
-                                    
+                                                         
+    common_work.create_activity(  :created, 
+                              owner: current_user,
+                          recipient: common_work,
+                     recipient_type: common_work.class.name,
+                         account_id: account_id)
+                             
     recording.common_work_id = common_work.id
     recording.save
     common_work.update_completeness

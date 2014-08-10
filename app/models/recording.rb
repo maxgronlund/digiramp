@@ -255,15 +255,7 @@ class Recording < ActiveRecord::Base
     
   
   end
-  
-  #def apply_common_work
-  #  
-  #  
-  #  unless common_work
-  #    CommonWork.create(account_id: self.account_id, title: self.title, lyrics: self.lyrics)
-  #  end
-  #    
-  #end
+
   
   def duration_string
 

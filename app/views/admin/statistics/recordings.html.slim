@@ -20,12 +20,22 @@
         .col-sm-6
           h3 Total: #{ Recording.all.size}
         .col-sm-6
-          h3 Uploaded last 8 weeks: #{@recording_uploads.size}
+          h3 Uploaded: #{@recording_uploads.size}
       .row
         .col-sm-12
           hr
-          h3 Activity: Uploads
+          h3 Created
           = line_chart @recordings_chart
+      .row
+        .col-sm-12
+          hr
+          h3 Playbacks
+          = line_chart @playback_chart
+      .row
+        .col-sm-12
+          hr
+          h3 Views
+          = line_chart @views_chart
       
       
 -cache (['footer', Admin.cached_find(1).version]) do      

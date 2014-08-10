@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
 
 
+  
+
   resources :contacts
 
   resources :contacts, only: [:new, :create, :show ]
@@ -256,6 +258,7 @@ Digiramp::Application.routes.draw do
   namespace :admin do
     get 'repair_permissions'
     resources :activities
+    resources :activity_counter
     resources :contacts
     
     resources :statistics do

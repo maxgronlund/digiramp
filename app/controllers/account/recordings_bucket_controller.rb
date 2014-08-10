@@ -98,7 +98,12 @@ class Account::RecordingsBucketController < ApplicationController
     
     params[:common_work].delete :recording_ids
     if @common_work = CommonWork.create(common_work_params)
-      
+      @common_work.create_activity(  :created, 
+                                owner: current_user,
+                            recipient: @common_work,
+                       recipient_type: @common_work.class.name,
+                           account_id: @account.id)
+                           
       @recordings.each do |recording|
         recording.common_work_id = @common_work.id
         recording.in_bucket = false
@@ -138,6 +143,13 @@ class Account::RecordingsBucketController < ApplicationController
                                         lyrics:     recording.lyrics,
                                         genre:      recording.genre
                                       )
+                                      
+      common_work.create_activity(  :created, 
+                                owner: current_user,
+                            recipient: common_work,
+                       recipient_type: common_work.class.name,
+                           account_id: @account.id)  
+                                                         
       recording.common_work_id = common_work.id
       recording.in_bucket      = false
       recording.save!
@@ -162,6 +174,14 @@ class Account::RecordingsBucketController < ApplicationController
                                         genre:      recording.genre
                                         
                                       )
+                                      
+      common_work.create_activity(  :created, 
+                                owner: current_user,
+                            recipient: common_work,
+                       recipient_type: common_work.class.name,
+                           account_id: @account.id)
+                           
+                           
       recording.common_work_id = common_work.id
       recording.in_bucket      = false
       recording.save!

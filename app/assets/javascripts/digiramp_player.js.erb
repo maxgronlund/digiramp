@@ -55,6 +55,7 @@ function DigirampPlayer(  i,
   var sm_sound_id      = "sound_"            + player_index;
   var playing          = false;
   var smSound          = null;
+  var recording_id     =  player_index;
 
   this.button         = play_button;
   this.index          = player_index;
@@ -128,6 +129,10 @@ function DigirampPlayer(  i,
       
       // play
       if (playing) {
+        
+        console.log(recording_id);
+        $.getScript("/admin/activity_counter/" + player_index);
+        
         stopAllPlayers(player_index);
         smSound.play({
           whileplaying: function() {
@@ -185,14 +190,14 @@ function DigirampPlayer(  i,
     smSound.setPosition(gotoSoundPosition);
   });
   // add buttons to player based on permissions
-  $.getScript("/accounts/" + account_id + 
-              "/recording_permissions/" + player_index + 
-              '?catalog=' + catalog_id + 
-              '&add_recordings_to_catalog=' + add_recordings_to_catalog_id + 
-              '&add_recordings_to_playlist=' + add_recordings_to_playlist_id +
-              '&shared_catalog=' + shared_catalog +
-              '&permissions=' + permissions +
-              '&permission_id=' + permission_id 
+  $.getScript("/accounts/" + account_id       + 
+              "/recording_permissions/"       + player_index + 
+              '?catalog=' + catalog_id        + 
+              '&add_recordings_to_catalog='   + add_recordings_to_catalog_id + 
+              '&add_recordings_to_playlist='  + add_recordings_to_playlist_id +
+              '&shared_catalog='              + shared_catalog +
+              '&permissions='                 + permissions +
+              '&permission_id='               + permission_id 
             );
 } 
 

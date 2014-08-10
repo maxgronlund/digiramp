@@ -140,7 +140,7 @@ class TransloaditParser
       recording.update_completeness
       recordings << recording
       
-      CommonWork.attach( recording, account_id).inspect
+      CommonWork.attach( recording, account_id, current_user)
   
       
 

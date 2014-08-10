@@ -26,7 +26,7 @@ class UploadSharedCatalogRecordingsController < ApplicationController
       
       # parse the hash returned from www.transloadit.com
       # and add the recordings to the catalog owners account
-      @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @catalog.account.id )
+      @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @catalog.account.id, current_user )
       
       # add to the catalog
       add_to_catalog @import_batch, @catalog.id
