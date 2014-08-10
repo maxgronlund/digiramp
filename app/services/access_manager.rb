@@ -52,7 +52,9 @@ class AccessManager
     
     account = catalog.account
 
-    account.account_users.each do |account_user|
+    account.account_users.where.not(role: 'Catalog User').each do |account_user|
+      
+      ap account_user
       
       catalog_user = CatalogUser.create(catalog_id:       catalog.id, 
                                         user_id:          account_user.user_id, 

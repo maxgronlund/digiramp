@@ -61,8 +61,8 @@ class Admin::UsersController < ApplicationController
   
   def destroy
     begin
-      @user = User.cached_find(params[:id])
-      @account = Accout.account
+      @user     = User.cached_find(params[:id])
+      @account  = @user.account
       @user.create_activity(  :destroyed, 
                          owner: current_user,
                      recipient: @user,
@@ -72,12 +72,14 @@ class Admin::UsersController < ApplicationController
       flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} deleted" }
       @user.destroy!
       
-      @account.create_activity(  :destroyed, 
-                         owner: current_user,
-                     recipient: @account,
-                recipient_type: @account.class.name,
-                    account_id: @account.account_id)
-      @account.destroy!
+      if 
+        @account.create_activity(  :destroyed, 
+                           owner: current_user,
+                       recipient: @account,
+                  recipient_type: @account.class.name,
+                      account_id: @account.account_id)
+        @account.destroy!
+      end
       
     rescue
       flash[:danger] = { title: "ERROR: ", body: "Something went wrong" }
