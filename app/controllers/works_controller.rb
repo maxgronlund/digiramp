@@ -37,6 +37,14 @@ class WorksController < ApplicationController
     
     @common_work    = CommonWork.cached_find(params[:id])
     if @common_work.update_attributes(common_work_params)
+      
+      @common_work.create_activity(  :updated, 
+                                owner: current_user,
+                            recipient: @common_work,
+                       recipient_type: @common_work.class.name,
+                           account_id: @account.id)
+                           
+                           
       @common_work.update_completeness
       redirect_to_return_url account_work_path(@account, @common_work)
     else

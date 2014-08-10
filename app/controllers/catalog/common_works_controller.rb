@@ -50,6 +50,14 @@ class Catalog::CommonWorksController < ApplicationController
     
     @common_work    = CommonWork.cached_find(params[:id])
     if @common_work.update_attributes!(common_work_params)
+      
+      @common_work.create_activity(  :updated, 
+                                owner: current_user,
+                            recipient: @common_work,
+                       recipient_type: @common_work.class.name,
+                           account_id: @account.id)
+                           
+                           
       @common_work.update_completeness
       redirect_to catalog_account_catalog_common_work_path( @account, @catalog, @common_work)
     else
