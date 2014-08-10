@@ -7,6 +7,7 @@
 
 class User < ActiveRecord::Base
   has_secure_password
+  include PublicActivity::Common
   
   include PgSearch
   pg_search_scope :search_user, against: [:name, :email, :profile], :using => [:tsearch]
@@ -62,11 +63,26 @@ class User < ActiveRecord::Base
   after_commit :set_propperties
   
   before_save :validate_info
+  before_destroy :delete_account
+  
+  has_many :emails, dependent: :destroy
   
   def validate_info
     self.email.downcase!
     if self.name.to_s == ''
       self.name = self.email
+    end
+  end
+  
+  def delete_account
+    begin
+      self.account.create_activity(  :destroyed, 
+                            owner: current_user,
+                        recipient: self.account,
+                   recipient_type: self.account.class.name)
+                   
+      self.account.destroy!
+    rescue
     end
   end
   
@@ -95,37 +111,7 @@ class User < ActiveRecord::Base
     
   end
   
-  #def update_role
-  #  SuperUser.update_role self
-  #end
-  
-  #def update_role_on_catalogs
-  #  self.catalog_users.each do |catalog_user|
-  #    catalog_user.update_super( self.role    == 'Super' ? 'updagrade' : 'downgrade')
-  #  end
-  #end
-  #
-  #def update_role_on_accounts
-  #  self.accounts.each do |account_user|
-  #    account_user.update_super( self.role    == 'Super' ? 'updagrade' : 'downgrade')
-  #  end
-  #end
-  
-  
-  #def update_super old_status
-  #  if  old_status == 'Super'
-  #    account_users = AccountUser.where(user_id: self.id)
-  #    account_users = account_users.where.not(role: "Account Owner")
-  #    account_users.destroy_all!
-  #  elsif self.role == 'Super'
-  #    Account.all.each do |account|
-  #      account_user = AccountUser.where(user_id: self.id, account_id: account.id, role: 'Super User')
-  #      account_user.grand_all_permissions
-  #    end
-  #  end
-  #end
-  
-  
+
   
   
   
@@ -273,9 +259,7 @@ class User < ActiveRecord::Base
     end
   end
   
-  def self.cached_find(id)
-    Rails.cache.fetch([name, id]) { find(id) }
-  end
+  
   
   def self.cached_find_by_auth_token( auth_token)
     Rails.cache.fetch([name, auth_token]) { User.find_by_auth_token( auth_token)  }
@@ -366,41 +350,15 @@ class User < ActiveRecord::Base
   
   
   def self.invite_to_catalog_by_email email, title, body, catalog_id
-    #if found_user       = User.where(email: email).first
-    #  # invite to existing user to catalog
-    #  UserMailer.delay.invite_existing_user_to_catalog( found_user.id , title, body, catalog_id )
-    #  
-    #  # force the uuid to update
-    #  found_user.save!
-    #else
-    #  # create user
-    #  secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-    #  found_user = User.create( name: email, 
-    #                            email: email, 
-    #                            invited: true, 
-    #                            password: secret_temp_password, 
-    #                            password_confirmation: secret_temp_password
-    #                          )
-    #  
-    #  # apply a password reset token
-    #  found_user.add_token
-    #  
-    #  # create account
-    #  create_a_new_account_for_the found_user
-    #
-    #  # invite to existing new to catalog
-    #  UserMailer.delay.invite_new_user_to_catalog( found_user.id , title, body,  catalog_id )
-    #end
-    #
-    #found_user
+
   end
   
 
   
-  def self.find_or_create_by_email( email)
-    if user  = User.find_by_email(email.downcase)
+  def self.find_or_invite_from_email( email)
+    if user  = User.find_by_email(email)
     else
-      user   = User.create_user_with_account email.downcase
+      user   = User.invite_user( email )
     end
     user
   end
@@ -412,12 +370,13 @@ class User < ActiveRecord::Base
   # invite a user based on an email 
   def self.invite_user email
     secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
-    user                  = User.create(  name: email.downcase, 
-                                          email: email.downcase, 
+    user                  = User.create(                   
+                                             name: email.downcase, 
+                                            email: email.downcase, 
                                           invited: true, 
-                                          password: secret_temp_password, 
-                                          password_confirmation: secret_temp_password,
-                                          account_activated: false
+                                         password: secret_temp_password, 
+                            password_confirmation: secret_temp_password,
+                                account_activated: false
                                         )
                             
      # apply a password reset token
@@ -481,16 +440,14 @@ class User < ActiveRecord::Base
     !CatalogUser.where(catalog_id: account.catalog_ids, user_id: self.id).nil?
   end
   
-  #def has_access_to_recordings_on account
-  #  !CatalogUser.where(catalog_id: account.catalog_ids, user_id: self.id).nil?
-  #end
-  #
-  #def has_access_to_cattalogs_on account
-  #  !CatalogUser.where(catalog_id: account.catalog_ids, user_id: self.id).nil?
-  #end
-  
-  
-  
+
+  def self.cached_find(id)
+    begin
+      return Rails.cache.fetch([name, id]) { find(id) }
+    rescue
+      return nil
+    end
+  end
 
 private
 
@@ -498,27 +455,6 @@ private
     Rails.cache.delete([self.class.name, id])
   end
 
-  
-  #def has_permission_for_record? action, record
-  #  ## This could be rewritten to a single sql query
-  #  permissions
-  #  .where(permissionable_type: record.class.to_s, permissionable_id: record.id)
-  #  .each do |permission|
-  #    return true if permission.permitted_actions.exists?(permitted_action: action)
-  #  end
-  #  
-  #  false
-  #end
-  
-  #def has_permission_for_model? action, id_name_or_record, _account_id
-  #  if record_class = get_record_class(id_name_or_record)
-  #    account_users.each do |account_user|
-  #      return true if account_user.has_permission_for_model? action, record_class, _account_id
-  #    end
-  #  end
-  #  
-  #  false
-  #end
   
   def get_record_class id_name_or_record
     return id_name_or_record if id_name_or_record.kind_of? String

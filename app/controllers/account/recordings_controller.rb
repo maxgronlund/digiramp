@@ -20,9 +20,13 @@ class Account::RecordingsController < ApplicationController
   def show
     
     forbidden unless current_account_user.read_recording
-    
-    #@common_work    = CommonWork.cached_find(params[:common_work_id])
     @recording      = Recording.cached_find(params[:id])
+    
+    @recording.create_activity(  :show, 
+                              owner: current_user,
+                          recipient: @recording,
+                     recipient_type: @recording.class.name,
+                         account_id: @account.id)
 
 
   end
@@ -75,6 +79,17 @@ class Account::RecordingsController < ApplicationController
     end
 
     if @recording.update_attributes(recording_params)
+      
+      
+      @recording.create_activity(  :updated, 
+                                owner: current_user,
+                            recipient: @recording,
+                       recipient_type: @recording.class.name,
+                           account_id: @account.id)
+                           
+                           
+                           
+                           
       @recording.extract_genres
       @recording.extract_instruments
       @recording.extract_moods
@@ -129,9 +144,18 @@ class Account::RecordingsController < ApplicationController
 
   
   def destroy
-    @recording = Recording.find(params[:id])
+    @recording  = Recording.find(params[:id])
     common_work = @recording.common_work
-    @recording.destroy
+    
+    @recording.create_activity(  :deleted, 
+                              owner: current_user,
+                          recipient: @recording,
+                     recipient_type: @recording.class.name,
+                         account_id: @account.id)
+                         
+                         
+                         
+    @recording.destroy!
     common_work.update_completeness if common_work
     # jump back to recordings or common work
     redirect_to_return_url account_account_recordings_path( @account, page: params[:page], query: params[:query])

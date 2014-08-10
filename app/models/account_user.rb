@@ -3,6 +3,7 @@
 # Roles: Catalog User is auto generated when an invitation to a catalog is send
 
 class AccountUser < ActiveRecord::Base
+  include PublicActivity::Common
   belongs_to :account
   belongs_to :user
   belongs_to :administrator

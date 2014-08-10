@@ -132,7 +132,7 @@ class CatalogUser < ActiveRecord::Base
     
     puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
     puts 'ERROR: Unable assign edit permmision for account user'
-    puts 'In AccountUser#has_permisions'
+    puts 'In CatalogUser#has_permisions'
     puts '+++++++++++++++++++++++++++++++++++++++++++++++++' 
     false
     

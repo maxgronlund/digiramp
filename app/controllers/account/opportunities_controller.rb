@@ -15,9 +15,11 @@ class Account::OpportunitiesController < ApplicationController
   # GET /opportunities/1.json
   def show
     forbidden unless current_account_user.read_opportunity
-    #if @opportunity.deadline < Date.current
-    #  flash[:danger]      = { title: "Expired", body: "This oppertunity is out of date" }
-    #end
+    @opportunity.create_activity(  :show, 
+                              owner: current_user,
+                          recipient: @opportunity,
+                     recipient_type: @opportunity.class.name,
+                         account_id: @opportunity.account_id)
   end
 
   # GET /opportunities/new

@@ -1,4 +1,5 @@
 class MusicSubmission < ActiveRecord::Base
+  include PublicActivity::Common
   belongs_to          :recording
   belongs_to          :music_request
   belongs_to          :user

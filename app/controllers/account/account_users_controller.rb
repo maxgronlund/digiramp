@@ -73,6 +73,13 @@ class Account::AccountUsersController < ApplicationController
   
       # update the account user
       @account_user.update_attributes!(account_user_params)
+      
+      # logg the activity
+      @account_user.create_activity(  :created, 
+                                owner: current_user,
+                            recipient: @account_user,
+                       recipient_type: @account_user.class.name,
+                           account_id: @account.id)
   
     else
       # create new account user
@@ -124,6 +131,12 @@ class Account::AccountUsersController < ApplicationController
     # update the account user
     @account_user.update(account_user_params)
     
+    @account_user.create_activity(  :updated, 
+                              owner: current_user,
+                          recipient: @account_user,
+                     recipient_type: @account_user.class.name,
+                         account_id: @account.id)
+    
     # copy permissions to all catalogs 
     @account_user.update_catalog_users
 
@@ -161,6 +174,14 @@ class Account::AccountUsersController < ApplicationController
   
   def destroy
     account_user = AccountUser.cached_find(params[:id])
+    
+    account_user.create_activity(  :destroyed, 
+                              owner: current_user,
+                          recipient: account_user,
+                     recipient_type: account_user.class.name,
+                         account_id: @account.id)
+                         
+                         
     account_user.destroy!
     redirect_to account_account_account_users_path(@account)
 

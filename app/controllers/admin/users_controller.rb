@@ -6,7 +6,6 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    forbidden unless can_edit?
     @users = User.search(params[:query]).order('lower(email) ASC').page(params[:page]).per(50)
   end
 
@@ -19,11 +18,21 @@ class Admin::UsersController < ApplicationController
   end
   
   def update
-    forbidden unless can_edit?
     old_role  = @user.role
     
     if @user.update(user_params)
       flash[:info] = { title: "SUCCESS: ", body: "User updated" }
+      
+      @user.create_activity(  :updated, 
+                         owner: current_user,
+                     recipient: @user,
+                recipient_type: @user.class.name,
+                    account_id: @user.account_id)
+      
+      
+      
+      
+      
     else
       flash[:danger] = { title: "Error", body: "User not updated" }
     end
@@ -53,6 +62,11 @@ class Admin::UsersController < ApplicationController
   def destroy
     forbidden unless can_edit?
     @user = User.cached_find(params[:id])
+    @user.create_activity(  :destroyed, 
+                       owner: current_user,
+                   recipient: @user,
+              recipient_type: @user.class.name,
+                  account_id: @user.account_id)
     #@user.account.destroy!
     @user.destroy!
     redirect_to admin_users_path

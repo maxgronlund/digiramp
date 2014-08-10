@@ -1,0 +1,22 @@
+td Update
+td Recording
+td = activity.created_at.strftime("%m/%d/%Y - %H:%M") 
+td 
+  'User:&nbsp;
+  - if user = User.cached_find(activity.owner_id) 
+    = link_to user.email, user_path(user)
+  - else
+    .deleted
+     '! Deleted
+td 
+  - if account = Account.cached_find(activity.account_id)
+    'Recording:&nbsp;
+    - if activity.trackable
+      = link_to activity.trackable.title, account_account_recording_path(account, activity.trackable_id)
+    - else
+      .deleted
+        '! Deleted
+  - else
+    '! Account:&nbsp;
+    .deleted
+      '! Deleted

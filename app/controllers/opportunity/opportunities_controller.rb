@@ -6,7 +6,11 @@ class Opportunity::OpportunitiesController < ApplicationController
 
 
   def show
-    
+    @opportunity.create_activity(  :show, 
+                              owner: current_user,
+                          recipient: @opportunity,
+                     recipient_type: @opportunity.class.name,
+                         account_id: @opportunity.account_id)
 
   end
   

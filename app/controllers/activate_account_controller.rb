@@ -18,6 +18,15 @@ class ActivateAccountController < ApplicationController
         reset has expired."
     
     elsif @user.update(user_params)
+      
+      @user.create_activity(  :account_activation, 
+                            owner: @user,
+                        recipient: @user,
+                   recipient_type: @user.class.name,
+                       account_id: @user.account_id,
+                           )
+                       
+                       
       flash[:info] = { title: "SUCCESS: ", body: "Your account has been activated" }
       cookies.permanent[:auth_token]  = nil
       cookies[:auth_token]            = @user.auth_token  
@@ -27,17 +36,14 @@ class ActivateAccountController < ApplicationController
       else
         redirect_to root_path
       end
-      #redirect_to login_index_path
-      
+
     else
       render :edit
     end
   end
   
   def user_params
-    #if can_edit?
-      params.require(:user).permit!
-    #end
+    params.require(:user).permit!
   end
   
 end

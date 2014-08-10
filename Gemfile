@@ -65,9 +65,10 @@ gem 'sinatra', require: false
 #gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0.2'
 
 
-# what is this in use for?
+# statistics
 gem "chartkick"
 gem 'groupdate'
+gem 'public_activity'
 
 #gem "nested_form"
 #gem 'private_pub'

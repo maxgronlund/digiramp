@@ -39,46 +39,45 @@
                       th 
                   tbody
                     -@accounts.each do |account|
-                      /-cache(account) do
-                      .do-so
-                        tr
-                          td 
-                            = link_to account_account_path( account ) do
-                              .btn.btn-danger.btn-lg
-                                i class="fa fa-tachometer"
-                                '&nbsp;
-                                = account.title
-                          td 
-                            = link_to user_path(account.account_owner) do 
-                              .btn.btn-default.btn-lg
-                                i class="fa fa-user"
-                                '&nbsp;
-                                == account.account_owner.name_or_email
+                      tr
+                        td 
+                          = link_to account_account_path( account ) do
+                            .btn.btn-danger.btn-lg
+                              i class="fa fa-tachometer"
+                              '&nbsp;
+                              = account.title
+                        td 
+                          = link_to user_path(account.account_owner) do 
+                            .btn.btn-default.btn-lg
+                              i class="fa fa-user"
+                              '&nbsp;
+                              == account.account_owner.name_or_email
 
-                          /td = account.account_users.size
-                          /td class="#{'expired' if account.expiration_date < Date.current }"
-                          /  = account.expiration_date
-                          td
-                            - if account.expiration_date < Date.current && account.account_type != 'Personal Account'
-                              .expired
-                                i class="fa fa-exclamation-circle"
-                          /td  class="#{'expired' if account.expiration_date < Date.current }"
-                          /  = account.expiration_date
-                          td = account.account_type
-                           
-                          td
-                            .pull-right
-                              = link_to admin_account_path( account) do
-                                .btn.btn-info.btn-lg
-                                  i class="fa fa-info-circle"
-                              '&nbsp;
-                              = link_to edit_admin_account_path( account) do
-                                .btn.btn-primary.btn-lg
-                                  i class="fa fa-pencil"
-                              '&nbsp;
-                              = link_to admin_account_path( account), method: :delete ,data: {confirm: 'Are you sure?'} ,id: "delete_account_#{account.id}" do
-                                .btn.btn-danger.btn-lg
-                                  i class="fa fa-times"
-                        
-                
+                        /td = account.account_users.size
+                        /td class="#{'expired' if account.expiration_date < Date.current }"
+                        /  = account.expiration_date
+                        td
+                          - if account.expiration_date < Date.current && account.account_type != 'Personal Account'
+                            .expired
+                              i class="fa fa-exclamation-circle"
+                        /td  class="#{'expired' if account.expiration_date < Date.current }"
+                        /  = account.expiration_date
+                        td = account.account_type
+                         
+                        td
+                          .pull-right
+                            = link_to admin_account_path( account) do
+                              .btn.btn-info.btn-lg
+                                i class="fa fa-info-circle"
+                            '&nbsp;
+                            = link_to edit_admin_account_path( account) do
+                              .btn.btn-primary.btn-lg
+                                i class="fa fa-pencil"
+                            '&nbsp;
+                            = link_to admin_account_path( account), data: { confirm: 'Are you sure?. All Recordings. Opportunities. Common Works, Account Users and other Assets wil be deleted ' } , :method => :delete do 
+                              .btn.btn-danger.btn-lg
+                                i class="fa fa-times"
+                      
+                     
+                              
               == paginate(@accounts)

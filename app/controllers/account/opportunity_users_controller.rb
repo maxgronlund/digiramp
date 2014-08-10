@@ -45,6 +45,21 @@ class Account::OpportunityUsersController < ApplicationController
   def destroy
     @opportunity      = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_user = OpportunityUser.cached_find(params[:id])
+    
+    
+    @opportunity_user.create_activity(   :destroyed, 
+                                   owner: current_user,
+                               recipient: @opportunity_user.user,
+                          recipient_type: @opportunity_user.user.class.name,
+                              account_id: @opportunity_user.user.account_id,
+                                  params: {    
+                                            opportunity_id: @opportunity.id,
+                                    opportunity_user_email: @opportunity_user.user.email
+                                            
+                                          }
+                                      ) 
+                                      
+    
     @opportunity_user.destroy!
     redirect_to account_account_opportunity_path(@account, @opportunity)
   end

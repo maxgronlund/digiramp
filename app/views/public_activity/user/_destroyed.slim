@@ -1,0 +1,13 @@
+td 
+  .deleted
+    '! Deleted
+td User
+td = activity.created_at.strftime("%m/%d/%Y - %H:%M") 
+td
+td 
+  'Account:&nbsp;
+  - if account = Account.cached_find(activity.account_id)
+    = link_to account.title, account_account_path(account)
+  - else
+    .deleted
+      '! Deleted

@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Really Simple HTML Email Template</title>
+<title>DigiRAMP invitation</title>
 <style>
 /* -------------------------------------
 		GLOBAL
@@ -190,22 +190,19 @@ ul li, ol li {
 			<table>
 				<tr>
 					<td>
-
-						<h1><%= @oppertunity.title%></h1>
-						<p><%= simple_format @oppertunity.body%></p>
-            <hr>
-            <p><%= simple_format @invitation%></p>
-            
-
+						<h1><%= @blog_post.title%></h1>
+						<p><%= simple_format @blog_post.body%></p>
+            <hr/>
+            <h3><%= @opportunity_invitation.title%></h3>
+            <p><%= simple_format @opportunity_invitation.body%></p>
 						<table>
 							<tr>
 								<td class="padding">
-									<p> <%= link_to 'Click here to view the opportunity', @opportunity_link, class: 'btn-primary'%> </p>
+									<p><%= link_to 'Click here to view the opportunity', @opportunity_link, class: 'btn-primary'%></p>
 								</td>
 							</tr>
 						</table>
 						
-						<p> </p>
 					</td>
 				</tr>
 			</table>
@@ -229,8 +226,7 @@ ul li, ol li {
 				<table>
 					<tr>
 						<td align="center">
-							<p>Not working or you don't like these annoying email? <%= link_to 'Click here to Contact Us', @fotter_link %></a>.
-							</p>
+							<p>Not working or you don't like these annoying email? <%= link_to 'Click here to Contact Us', @fotter_link %></p>
               <p>DigiRAMP ©2014 All rights reserved</p>
 						</td>
 					</tr>
@@ -246,4 +242,3 @@ ul li, ol li {
 
 </body>
 </html>
-

@@ -31,6 +31,14 @@ class SessionsController < ApplicationController
         account.visits += 1
         account.save!
         
+        user.create_activity(  :signed_in, 
+                           owner: current_user,
+                       recipient: current_user,
+                  recipient_type: current_user.class.name,
+                      account_id: user.account_id)
+                              
+                              
+        
         go_to = session[:landing_page]
         session[:landing_page] = nil
         redirect_to go_to|| user_path(current_user)
@@ -50,6 +58,14 @@ class SessionsController < ApplicationController
     begin 
       user = User.cached_find_by_auth_token( cookies[:auth_token] )
       user.flush_auth_token_cache(cookies[:auth_token])
+      
+      user.create_activity(  :logged_out, 
+                         owner: user,
+                     recipient: user,
+                recipient_type: user.class.name,
+                    account_id: user.account_id) 
+                
+                
     rescue
     end
     cookies.delete(:auth_token)

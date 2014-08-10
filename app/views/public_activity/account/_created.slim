@@ -1,0 +1,32 @@
+td Create
+td Account
+td = activity.created_at.strftime("%m/%d/%Y - %H:%M") 
+td 
+  'User:&nbsp;
+  - if user = User.cached_find(activity.owner_id) 
+    = link_to user.email, user_path(user)
+  - else
+    .deleted
+     '! Deleted
+td 
+  - if activity.trackable
+    'Email:&nbsp;
+    = link_to activity.trackable.content['title'], admin_email_path(activity.trackable_id) if activity.trackable
+  /- if email = Email.where(id: activity.parameters[:opportunity_id]).first
+  /  'Opportunity:&nbsp;
+  /  = link_to opportunity.title, account_account_opportunity_path( opportunity.account, opportunity)
+  /- if opportunity_user = OpportunityUser.where(id: activity.recipient_id).first 
+  /  -if user = User.where(id: opportunity_user.user_id).first
+  /    br
+  /    'Submitter:&nbsp;
+  /    = link_to user.email, account_account_opportunity_opportunity_user_path( activity.parameters[:account_id], opportunity_user.opportunity, opportunity_user)
+  /  -else
+  /    br
+  /    'User:&nbsp;
+  /    .deleted
+  /      '! Has been deleted
+  /- else
+  /  br
+  /  'Submitter:&nbsp;
+  /  .deleted
+  /    '! Has been deleted

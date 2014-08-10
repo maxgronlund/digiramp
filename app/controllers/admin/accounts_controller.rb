@@ -26,6 +26,12 @@ class Admin::AccountsController < ApplicationController
     # update
     @account.update_attributes(account_params)
     
+    @account.create_activity(  :updated, 
+                          owner: current_user,
+                      recipient: @account,
+                 recipient_type: @account.class.name,
+                 account_id:     @account.id)
+    
     # if the administrator is updated  
     if old_administrator_id != @account.administrator_id
       
@@ -66,15 +72,20 @@ class Admin::AccountsController < ApplicationController
   
   def destroy
     @account = Account.cached_find(params[:id])
-    
-    #begin
-    #  user = @account.user
-    #  user.destroy! unless AccountUser.where(user_id: user.id).size > 1
-    #rescue
-    #end
+    @account.create_activity(  :destroyed, 
+                          owner: current_user,
+                      recipient: @account,
+                 recipient_type: @account.class.name)
+              
     flash[:info] = { title: "SUCCESS: ", body: "Account #{@account.title} deleted" }
-    @account.destroy!
-
+    user = @account.user
+    user.create_activity(  :destroyed, 
+                          owner: current_user,
+                      recipient: user,
+                 recipient_type: user.class.name,
+                     account_id: @account.id)
+                 
+    user.destroy!             
     redirect_to admin_accounts_path
   end
   

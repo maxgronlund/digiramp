@@ -3,10 +3,7 @@ class UserMailer < ActionMailer::Base
 
   def password_reset user_id
     @user        = User.cached_find(user_id)
-    puts '-----------------------------------------------------------------------------'
-    puts 'password_reset'
-    ap @user
-    puts '-----------------------------------------------------------------------------'
+   
     
     blog            = Blog.cached_find('Support')
     blog_post       = BlogPost.cached_find( "RESET EMAIL" , blog )

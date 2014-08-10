@@ -2,9 +2,6 @@
 Digiramp::Application.routes.draw do
 
 
-
-
-
   resources :contacts
 
   resources :contacts, only: [:new, :create, :show ]
@@ -258,7 +255,7 @@ Digiramp::Application.routes.draw do
   # Example resource route within a namespace:
   namespace :admin do
     get 'repair_permissions'
-    
+    resources :activities
     resources :contacts
     
     resources :statistics do
@@ -288,6 +285,7 @@ Digiramp::Application.routes.draw do
     get "engine_room"   => "engine_room#index", :as => :engine_room_index
     get "content"   => "content#index", :as => :content_index
     get "development_log/index"
+    resources :emails
     resources :export_users, only: [:index]
     resources :export_genres, only: [:index]
     resources :export_instruments, only: [:index]
@@ -550,6 +548,7 @@ Digiramp::Application.routes.draw do
   namespace :user do
     
     resources :users do
+      resources :activities
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
       resources :opportunities, only: [:index]

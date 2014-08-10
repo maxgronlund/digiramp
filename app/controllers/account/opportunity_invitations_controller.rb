@@ -31,34 +31,63 @@ class Account::OpportunityInvitationsController < ApplicationController
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_invitation = OpportunityInvitation.create(opportunity_invitation_params)
     
+    
+    @opportunity_invitation.create_activity(   :created, 
+                                   owner: current_user,
+                               recipient: @opportunity_invitation,
+                          recipient_type: @opportunity_invitation.class.name,
+                                account_id: @account.id,
+                                  params: { opportunity_id: @opportunity.id
+                                          }
+                                      ) 
+                                      
+                                      
+    
 
     params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
-      puts '----------------------------------'
-      puts email
-      puts '----------------------------------'
-      user   = User.find_or_create_by_email( email.downcase )
-      OpportunityUser.where(  opportunity_id:   @opportunity.id, 
-                              user_id:          user.id,
-                            )
-                            .first_or_create(  
-                              opportunity_id:   @opportunity.id, 
-                              user_id:          user.id,
-                            )
+
+      user             = User.find_or_invite_from_email( email.downcase )
+
+      @opportunity_user = OpportunityUser.where( opportunity_id:   @opportunity.id, 
+                                                user_id:          user.id,
+                                              )
+                                              .first_or_create(  
+                                                opportunity_id:   @opportunity.id, 
+                                                user_id:          user.id,
+                                              )
       
       if user.account_activated
-        OpportunityMailer.delay.invite(email, @opportunity_invitation.id, user.id)
-        #OpportunityMailer.invite(email, @opportunity_invitation.id, user.id)
+        OpportunityMailer.delay.invite(email, @opportunity_invitation.id, user.id, current_user.id)
+
       else
         user.add_token
-        OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id)
-        #OpportunityMailer.invite_to_account(email, @opportunity_invitation.id, user.id)
+        OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id, current_user.id)
       end
        
-       
+      @opportunity_user.create_activity(   :created, 
+                                     owner: current_user,
+                                 recipient: @opportunity_user,
+                            recipient_type: @opportunity_user.class.name,
+                                account_id: @account.id,
+                                    params: { opportunity_id: @opportunity.id,
+                                      opportunity_user_email: email
+                                            }
+                                        ) 
+                            
+                            
     end
+    
+    
+    
+    
+
+    
+    
+    
 
     redirect_to account_account_opportunity_path(@account, @opportunity)
   end
+  
 
 
   # PATCH/PUT /opportunity_invitations/1

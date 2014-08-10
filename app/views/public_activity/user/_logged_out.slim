@@ -1,0 +1,25 @@
+td Logged Out
+td User
+td = activity.created_at.strftime("%m/%d/%Y - %H:%M") 
+td
+  'User:&nbsp;
+  - if user = User.cached_find(activity.owner_id) 
+    = link_to user.email, user_path(user)
+  - else
+    .deleted
+     '! Deleted
+td 
+  'Account:&nbsp;
+  - if account = Account.cached_find(activity.account_id)
+    = link_to account.title, account_account_path(account)
+  - else
+    .deleted
+      '! Deleted
+
+
+
+
+
+
+
+

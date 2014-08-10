@@ -1,4 +1,5 @@
 class OpportunityInvitation < ActiveRecord::Base
+  include PublicActivity::Common
   belongs_to      :opportunity
   after_commit    :flush_cache
   

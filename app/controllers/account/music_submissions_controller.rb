@@ -44,6 +44,12 @@ class Account::MusicSubmissionsController < ApplicationController
                                                           
       
                                     
+      @music_submission.create_activity(  :created, 
+                                owner: current_user,
+                            recipient: @music_submission,
+                       recipient_type: @music_submission.class.name,
+                           account_id: @account.id)
+      
       @remove_button = "#add_to_request_#{params[:id]}"
     else
       channel = 'digiramp_radio_' + current_user.email

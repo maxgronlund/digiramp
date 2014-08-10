@@ -35,9 +35,28 @@ class Account::UploadsController < ApplicationController
     unless result[:recordings].size == 0
       
       result[:recordings].each do |recording|
+        
+        recording.create_activity(  :created, 
+                                  owner: current_user,
+                              recipient: recording,
+                         recipient_type: recording.class.name,
+                             account_id: @account.id)
+                             
+                             
 
         
-        common_work = CommonWork.create(account_id: recording.account_id, title: params[:common_work][:title], lyrics: recording.lyrics)
+        common_work = CommonWork.create(account_id: recording.account_id, 
+                                        title: recording.title, 
+                                        lyrics: recording.lyrics)
+        
+        
+        common_work.create_activity(  :created, 
+                                  owner: current_user,
+                              recipient: common_work,
+                         recipient_type: common_work.class.name,
+                             account_id: @account.id)
+                             
+                             
         recording.common_work_id = common_work.id
         recording.save
         recording.common_work.update_completeness

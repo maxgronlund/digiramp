@@ -1,5 +1,5 @@
 class Account < ActiveRecord::Base
-  
+  include PublicActivity::Common
   # dont destroy user if account is deleted
   # the user might be active on another account
   belongs_to :user
@@ -60,6 +60,8 @@ class Account < ActiveRecord::Base
   
   # access to playlists
   has_many :playlist_key_users
+  
+  has_many :emails
                 
 
   # account types
@@ -103,7 +105,16 @@ class Account < ActiveRecord::Base
   
   # update the uuid so all cached segments expires
   before_save :set_uuid
-
+  
+  #before_destroy :delete_user
+  #
+  #def delete_user
+  #  begin
+  #    self.user.destroy
+  #  rescue
+  #  end
+  #end
+  #
 
   # make sure the administrator is the account owner up on creation
   #def initialize_account
@@ -155,16 +166,7 @@ class Account < ActiveRecord::Base
   
   # get the owner of the account
   def account_owner
-    begin
-      return User.cached_find(user_id)
-    rescue
-      puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-      puts 'ERROR: Unable to find account owner'
-      puts 'In Account#account_owner'
-      puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-      # !!! make a system super user to assign accounts to  
-      return User.supers.first
-    end
+    User.cached_find(user_id)
   end
   
   
@@ -435,6 +437,15 @@ class Account < ActiveRecord::Base
       catalog.update_assets_count
     end
   end
+  
+  def self.cached_find(id)
+    begin
+      return Rails.cache.fetch([name, id]) { find( id) }
+    rescue
+      return nil
+    end
+  end
+
 
   
 private

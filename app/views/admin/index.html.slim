@@ -36,6 +36,15 @@
                                                       css_class: 'btn btn-info', \
                                                       icon: 'fa fa-group' \
                                                     }
+                                                    
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'ACTIVITIES', \
+                                                      link: admin_activities_path, \
+                                                      css_class: 'btn btn-warning', \
+                                                      icon: 'fa fa-clock-o' \
+                                                    }
+      .row  
         .col-sm-6
           == render 'shared/badge_button', locals: { \
                                                       blog_post: 'ENGINE ROOM', \

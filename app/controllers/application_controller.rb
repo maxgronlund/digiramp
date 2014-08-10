@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
+  # activity logging
+  include PublicActivity::StoreController
   
   #before_filter :store_landing_page
   
@@ -24,6 +26,7 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :current_user
+  hide_action :current_user
   
   def current_account
     begin
@@ -102,7 +105,11 @@ class ApplicationController < ActionController::Base
       else
         @user = User.cached_find(params[:id])
       end
-      forbidden unless @user.permits? current_user
+      begin
+        forbidden unless @user.permits? current_user
+      rescue
+        not_found
+      end
     end
   end
   helper_method :access_user

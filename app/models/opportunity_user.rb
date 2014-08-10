@@ -1,4 +1,6 @@
 class OpportunityUser < ActiveRecord::Base
+  include PublicActivity::Common
+  
   belongs_to    :user
   belongs_to    :opportunity
   has_many      :music_submissions

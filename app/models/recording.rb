@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Recording < ActiveRecord::Base
-  
+  include PublicActivity::Common
   # virtual parameter for CommonWorksController#new_recording form
   attr_accessor :add_to_catalogs
   
@@ -278,7 +278,7 @@ class Recording < ActiveRecord::Base
   end
   
   def self.cached_find(id)
-    Rails.cache.fetch([name, id]) { find(id) }
+    Rails.cache.fetch([name, id]) { where(id: id).first }
   end
   
   
@@ -604,6 +604,7 @@ private
     remove_from_catalogs
     remove_from_albums
     count_stats_down
+    remove_from_submissions
   end
   
   def remove_from_catalogs
@@ -616,8 +617,13 @@ private
   end
   
   def remove_from_albums
-    
-    
+
+  end
+  
+  def remove_from_submissions
+    if music_submissions = MusicSubmission.where(recording_id: self.id)
+      music_submissions.destroy_all
+    end
   end
   
   def update_audio_file_attributes

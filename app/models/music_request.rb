@@ -27,7 +27,7 @@ class MusicRequest < ActiveRecord::Base
   
   
   def self.cached_find(id)
-    Rails.cache.fetch([name, id]) { find(id) }
+    Rails.cache.fetch([name, id]) { where(id: id) }
   end
   
 private
