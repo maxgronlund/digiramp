@@ -33,6 +33,13 @@ class Catalog::UploadRecordingsController < ApplicationController
       # add the artwork to the catalog
       add_artwork_to_catalog recording
       
+      # add to the activity log
+      recording.create_activity(  :created, 
+                         owner: current_user,
+                     recipient: recording,
+                recipient_type: recording.class.name,
+                    account_id: @account.id)
+      
     end
     
     flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
@@ -48,21 +55,49 @@ class Catalog::UploadRecordingsController < ApplicationController
   # add to recording to catalog
   def add_recording_to_catalog recording
     
-    CatalogItem.create( catalog_id: @catalog.id,
-                        catalog_itemable_type: 'Recording',
-                        catalog_itemable_id: recording.id
-                       )
+    catalog_item = CatalogItem.create( catalog_id: @catalog.id,
+                                       catalog_itemable_type: 'Recording',
+                                       catalog_itemable_id: recording.id
+                                      )
+     # activity log                   
+     catalog_item.create_activity(  :created, 
+                        owner: current_user,
+                    recipient: catalog_item,
+               recipient_type: catalog_item.class.name,
+                   account_id: @account.id)
   end
   
   # create the common work and add it to the catalog
   def create_and_add_common_work_to_catalog recording
     # create common work                   
     common_work = CommonWork.attach( recording, @account.id, current_user )
+                       
+                       
+    # activity log                    
+    common_work.create_activity(  :created, 
+                       owner: current_user,
+                   recipient: common_work,
+              recipient_type: common_work.class.name,
+                  account_id: common_work.account_id)
+    
+    
+    
+    
     # add common work to catalog
-    CatalogItem.create( catalog_id: @catalog.id,
-                        catalog_itemable_type: 'CommonWork',
-                        catalog_itemable_id: common_work.id
-                       )
+    catalog_item = CatalogItem.create( catalog_id: @catalog.id,
+                                       catalog_itemable_type: 'CommonWork',
+                                       catalog_itemable_id: common_work.id
+                                      )
+                       
+                       
+    # activity log                   
+    catalog_item.create_activity(  :created, 
+                       owner: current_user,
+                   recipient: catalog_item,
+              recipient_type: catalog_item.class.name,
+                  account_id: @account.id)
+    
+    
     
   end
   

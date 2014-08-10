@@ -29,9 +29,6 @@ class Catalog::CatalogsController < ApplicationController
                                         
                                        ]
 
-  
- 
-  
   def index
 
     forbidden unless current_user && current_user.has_access_to_cattalogs_on( @account )
@@ -52,17 +49,32 @@ class Catalog::CatalogsController < ApplicationController
   def create
     @catalog = Catalog.create(catalog_params)
     
+    @catalog.create_activity(  :created, 
+                       owner: current_user,
+                   recipient: @catalog,
+              recipient_type: @catalog.class.name,
+                  account_id: @catalog.account_id)
+                  
+    
     flash[:info] = { title: "SUCCESS: ", body: "Catalog created" }
     redirect_to catalog_account_catalog_path( @account, @catalog)
   end
 
   def edit
     @catalog = Catalog.cached_find(params[:id])
+    
   end
   
   def update
     #@catalog = Catalog.cached_find(params[:id])
     @catalog.update_attributes(catalog_params)
+    
+    @catalog.create_activity(  :updated, 
+                       owner: current_user,
+                   recipient: @catalog,
+              recipient_type: @catalog.class.name,
+                  account_id: @catalog.account_id)
+                  
     flash[:info] = { title: "SUCCESS: ", body: "Catalog updated" }
     redirect_to catalog_account_catalog_path( @account, @catalog)
   end
@@ -149,6 +161,14 @@ class Catalog::CatalogsController < ApplicationController
   
   def destroy
     @catalog = Catalog.find(params[:id])
+    
+    @catalog.create_activity(  :destroyed, 
+                       owner: current_user,
+                   recipient: @catalog,
+              recipient_type: @catalog.class.name,
+                  account_id: @catalog.account_id)
+                  
+                  
     @catalog.destroy
     redirect_to catalog_account_catalogs_path( @account)
   end

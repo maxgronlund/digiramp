@@ -1,0 +1,40 @@
+td Create
+td Catalog Item
+td = activity.created_at.strftime("%m/%d/%Y - %H:%M") 
+td 
+  'User:&nbsp;
+  - if user = User.cached_find(activity.owner_id) 
+    = link_to user.email, user_path(user)
+  - else
+    .deleted
+     '! Deleted
+     
+td 
+  - if account = Account.cached_find(activity.account_id)
+    - if catalog_item = CatalogItem.cached_find(activity.trackable_id)
+      'Cattalog:&nbsp;
+      - if activity.trackable
+        = link_to catalog_item.catalog.title, catalog_account_catalog_path( account, catalog_item.catalog)
+      - else
+        .deleted
+          '! Deleted
+      
+      - case catalog_item.catalog_itemable_type
+      -when 'Recording'
+        br
+        'Recording:&nbsp;
+        - recording =  Recording.cached_find( catalog_item.catalog_itemable_id)
+        = link_to recording.title, catalog_account_catalog_recording_info_path(account, catalog_item.catalog, recording)
+      -when 'CommonWork'
+        br
+        'CommonWork:&nbsp;
+        - common_work =  CommonWork.cached_find( catalog_item.catalog_itemable_id)
+        = link_to common_work.title, catalog_account_catalog_common_work_path(account, catalog_item.catalog, common_work)
+        
+  - else
+    '! Account:&nbsp;
+    .deleted
+      '! Deleted
+      
+      
+

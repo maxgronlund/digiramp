@@ -17,6 +17,12 @@ class Catalog::RecordingsController < ApplicationController
 
   def show
     @recording      = Recording.cached_find(params[:id])
+    # activity logging
+    @recording.create_activity(  :show, 
+                       owner: current_user,
+                   recipient: @recording,
+              recipient_type: @recording.class.name,
+                  account_id: @recording.account_id)
   end
   
   def edit
@@ -74,7 +80,13 @@ class Catalog::RecordingsController < ApplicationController
        @recording.extract_genres
        @recording.extract_instruments
        @recording.extract_moods
-
+       
+       # activity logging
+       @recording.create_activity(  :updated, 
+                          owner: current_user,
+                      recipient: @recording,
+                 recipient_type: @recording.class.name,
+                     account_id: @recording.account_id)
       
       # artwork
       if params[:transloadit]
@@ -126,7 +138,7 @@ class Catalog::RecordingsController < ApplicationController
     @recording  = Recording.find(params[:id])
     
     
-    ap  @recording.catalogs
+   
     redirect_to :back
 
   end

@@ -17,6 +17,13 @@ class Catalog::CommonWorksController < ApplicationController
   def show
     forbidden unless current_catalog_user.read_common_work?
     @common_work = CommonWork.cached_find(params[:id])
+    @common_work.create_activity(  :show, 
+                       owner: current_user,
+                   recipient: @common_work,
+              recipient_type: @common_work.class.name,
+                  account_id: @common_work.account_id)
+                  
+    
   end
 
   def new
@@ -68,6 +75,12 @@ class Catalog::CommonWorksController < ApplicationController
   def recordings
     @common_work = CommonWork.cached_find(params[:common_work_id])
     @recordings = @common_work.recordings
+    
+    @common_work.create_activity(  :show, 
+                       owner: current_user,
+                   recipient: @common_work,
+              recipient_type: @common_work.class.name,
+                  account_id: @common_work.account_id)
     
   end
 

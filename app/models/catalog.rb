@@ -1,5 +1,5 @@
 class Catalog< ActiveRecord::Base
-  
+  include PublicActivity::Common
   belongs_to :account
   has_many :catalog_items, dependent: :destroy
   has_many :catalog_users, dependent: :destroy

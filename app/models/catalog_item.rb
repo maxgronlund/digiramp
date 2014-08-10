@@ -1,5 +1,5 @@
 class CatalogItem < ActiveRecord::Base
-  
+  include PublicActivity::Common
   belongs_to :catalog
   belongs_to :catalog_itemable, polymorphic: true
   
@@ -46,17 +46,20 @@ class CatalogItem < ActiveRecord::Base
     rescue
       puts '>>>>>>>>>>>>>>>>>> no recordings removed <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
     end
-    #
-    #catalog_items = CatalogItem.where( catalog_id: self.id,
-    #                                   catalog_itemable_type: 'Recording',
-    #                                   catalog_itemable_id: recording_ids.first) 
-    #                                  
-    ##puts '----------------------------- remove_recordings ---------------------------------'
-    #ap catalog_items.first
-    #
+  end
+  
+  def self.cached_find(id)
+    begin
+      return Rails.cache.fetch([name, id]) { find(id) }
+    rescue
+      return nil
+    end
   end
 
+private
   
-  
+  def flush_cache
+    Rails.cache.delete([self.class.name, id])
+  end
 
 end

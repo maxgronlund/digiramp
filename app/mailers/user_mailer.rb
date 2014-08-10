@@ -32,12 +32,14 @@ class UserMailer < ActionMailer::Base
     #puts '-----------------------------------------------------------------------------'
     #puts 'invite_existing_user_to_catalog'
     #puts '-----------------------------------------------------------------------------'
+    
     @user       = User.cached_find(user_id)
     @title      = title
     @body       = body
     @catalog    = Catalog.cached_find(catalog_id)
+    
     mail to: @user.email, subject: title
-    puts ' SUCCESS '
+    
   end
   
   def invite_new_user_to_catalog user_id , title, body , catalog_id
