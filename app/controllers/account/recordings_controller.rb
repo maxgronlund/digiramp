@@ -20,14 +20,18 @@ class Account::RecordingsController < ApplicationController
   def show
     
     forbidden unless current_account_user.read_recording
-    @recording      = Recording.cached_find(params[:id])
-    
-    @recording.create_activity(  :show, 
-                              owner: current_user,
-                          recipient: @recording,
-                     recipient_type: @recording.class.name,
-                         account_id: @account.id)
-
+    begin
+      @recording      = Recording.cached_find(params[:id])
+      
+      @recording.create_activity(  :show, 
+                                owner: current_user,
+                            recipient: @recording,
+                       recipient_type: @recording.class.name,
+                           account_id: @account.id)
+      rescue
+        not_found
+      end
+      
 
   end
   
