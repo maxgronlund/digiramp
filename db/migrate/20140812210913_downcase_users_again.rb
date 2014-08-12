@@ -1,4 +1,4 @@
-class DowncaseAllUserEmails < ActiveRecord::Migration
+class DowncaseUsersAgain < ActiveRecord::Migration
   def change
     User.all.order(:email).each do |user|
       user.email.downcase!

@@ -52,7 +52,7 @@ class Catalog::CatalogUsersController < ApplicationController
   
     
     # if the user already is in the system
-    if @user    = User.where(email: email).first
+    if @user    = User.where(email: email.downcase).first
 
       flash[:info] = { title: "User Invited: ", 
                        body: "You have invited a DigiRAMP member with the email #{email} to the #{catalog.title} catalog" 
