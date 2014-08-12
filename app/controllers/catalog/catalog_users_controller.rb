@@ -57,29 +57,30 @@ class Catalog::CatalogUsersController < ApplicationController
       flash[:info] = { title: "User Invited: ", 
                        body: "You have invited a DigiRAMP member with the email #{email} to the #{catalog.title} catalog" 
                      }
-      
-      # invite existing user to catalog
-      UserMailer.delay.invite_existing_user_to_catalog( @user.id, 
-                                                        title, 
-                                                        body, 
-                                                        catalog.id 
-                                                      )
-      
-      # force the user uuid to update
-      #@user.save!
-      
+      # send email
+      UserMailer.delay.invite_user_to_catalog( email,
+                                               title, 
+                                               body,  
+                                               current_user.id,  
+                                               @user.id,
+                                               @account.id,
+                                               catalog.id,   
+                                               true
+                                              )
     else
       # invite a new user
       if @user = User.invite_user( email )
-
-        # send invitation email for to new DigiRAMP account and the catalog
-        UserMailer.delay.invite_new_user_to_catalog(  @user.id, 
-                                                      title, 
-                                                      body,  
-                                                      catalog.id 
-                                                    )
+        # send email
+        UserMailer.delay.invite_user_to_catalog( email,
+                                                 title, 
+                                                 body,  
+                                                 current_user.id, 
+                                                 @user.id, 
+                                                 @account.id,
+                                                 catalog.id,   
+                                                 false
+                                                )
         
-        # confirm for current user
         flash[:info] = { title: "User Invited: ", body: "You have invited #{email} to the #{catalog.title.upcase} catalog" }
       else
         

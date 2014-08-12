@@ -199,6 +199,7 @@ Digiramp::Application.routes.draw do
   resources :password_resets
   resources :accept_invitations
   resources :activate_account
+  resources :activate_catalog_user
   
   get "download/image_file"
   get "download/artwork"

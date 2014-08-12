@@ -51,7 +51,7 @@ class OpportunityMailer < ActionMailer::Base
                 )
     
     email.create_activity(:created, 
-                             owner: User.cached_find(@current_user_id),
+                              owner: User.cached_find(@current_user_id),
                           recipient: @user,
                      recipient_type: @user.class.name,
                          account_id: @user.account_id,

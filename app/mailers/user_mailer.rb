@@ -28,29 +28,86 @@ class UserMailer < ActionMailer::Base
     mail to: @user.email, subject: "You are invited to an account on DigiRAMP"
   end
   
-  def invite_existing_user_to_catalog user_id , title, body, catalog_id 
-    #puts '-----------------------------------------------------------------------------'
-    #puts 'invite_existing_user_to_catalog'
-    #puts '-----------------------------------------------------------------------------'
+
+  
+  
+  def invite_user_to_catalog( email, 
+                              title, 
+                              body, 
+                              current_user_id, 
+                              invited_user_id, 
+                              account_id, 
+                              catalog_id, 
+                              user_exists
+                              )
+
     
-    @user       = User.cached_find(user_id)
     @title      = title
     @body       = body
-    @catalog    = Catalog.cached_find(catalog_id)
     
-    mail to: @user.email, subject: title
+    
+    blog        = Blog.cached_find('Support')
+    @blog_post  = BlogPost.cached_find( "INVITE TO CATALOG" , blog )
+    
+
+    
+
+    if user_exists
+      @invitation_link  = url_for( controller: 'catalog/catalogs', 
+                                       action: 'show', 
+                                   account_id: account_id, 
+                                           id: catalog_id)
+    else 
+      user = User.cached_find(invited_user_id)               
+      @invitation_link  = url_for( controller: 'activate_catalog_user', 
+                                       action: 'edit', 
+                                           id: user.password_reset_token, 
+                                   catalog_id: catalog_id
+                                 )
+    end
+    @fotter_link             = url_for( controller: 'contacts', action: 'new')
+    
+    log_activity( email,
+                  'Catalog Invitation', 
+                  current_user_id, 
+                  invited_user_id, 
+                  account_id, 
+                  catalog_id 
+                )
+
+    mail to: email, subject: @title
     
   end
   
-  def invite_new_user_to_catalog user_id , title, body , catalog_id
-    #puts '-----------------------------------------------------------------------------'
-    #puts 'invite_new_user_to_catalog'
-    #puts '-----------------------------------------------------------------------------'
-    @user       = User.cached_find(user_id)
-    @title      = title
-    @body       = body
-    @catalog    = Catalog.cached_find(catalog_id)
-    mail to: @user.email, subject: title
+
+
+  # add the invitaion to the log
+  def log_activity( email, email_type, current_user_id, invited_user_id, account_id, catalog_id )
+   
+    current_user = User.cached_find(current_user_id)
+    recipient    = User.cached_find(invited_user_id)
+    # create an email to store in the db               
+    mail = Email.create(
+                                  email: email,
+                                user_id: current_user_id,
+                        send_to_user_id: invited_user_id,
+                             account_id: account_id,
+                           content_type: 'Invitation to Catalog',
+                                content: {title: @title, body: @body}
+                        )
+    
+
+    mail.create_activity(:created, 
+                             owner: current_user,
+                         recipient: recipient,
+                    recipient_type: recipient.class.name,
+                        account_id: account_id,
+                                   params: { title: @title,
+                                              body: @body,
+                             invited_to_catalog_id: catalog_id
+                                            }
+                          ) 
   end
+
 
 end

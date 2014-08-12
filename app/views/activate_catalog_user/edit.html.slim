@@ -1,0 +1,46 @@
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account' 
+  .hidden-xs
+    .full-width-sign-up
+      .container
+        /== render 'shared/sign_up'
+            
+  .container
+    ==render 'admin/shared/messages'
+    .row
+      .col-sm-3
+        
+
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            i class= 'fa fa-lock'
+            '&nbsp;
+            'ACCEPT INVITATION TO CATALOG
+          .panel-body
+
+            = simple_form_for(  @user, :url => activate_catalog_user_path(params[:id]) ) do |f|
+              = f.hidden_field :catalog_id, value: @catalog.id
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-key'
+                = f.input_field :password, placeholder: 'Password', autocomplete: :off
+              br
+              
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-key'
+                = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+
+              .pull-right
+                br
+                = f.submit 'Activate', class: 'btn btn-green btn-lg'
+
+        
+
+  
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
