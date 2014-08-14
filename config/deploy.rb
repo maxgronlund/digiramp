@@ -6,7 +6,7 @@ set :deploy_user, 'deploy'
 # setup repo details
 set :scm, :git
 set :repo_url, 'git@github.com:maxgronlund/digiramp.git'
-set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
+#set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 
 
 # setup rvm.
