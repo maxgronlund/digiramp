@@ -60,6 +60,8 @@ $ thin -e production start
 ############################
 # SIDEKIQ
 
+# find the pid
+ps -ef 
 
 # Check if sidekiq is running and for how long, It shoule restart after each deploy
 ps aux | grep sidekiq
