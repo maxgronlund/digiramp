@@ -46,8 +46,8 @@
         - if @opportunity.deadline < Date.current
           div class="alert alert-danger"
             button type="button" class="close" data-dismiss="alert" ×
-            h4 Expired !
-            'This oppertunity is no more open for submissions
+            h4 Expired!
+            'This opportunity is no longer open for submissions.
         - @opportunity.music_requests.order('created_at asc').each do |music_request|
           .panel.panel-primary
             .panel-heading

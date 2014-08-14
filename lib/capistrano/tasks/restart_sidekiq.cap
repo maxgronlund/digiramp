@@ -1,9 +1,9 @@
-#namespace :deploy do
-#  desc 'Restart sidekiq'
-#  task :restart_sidekiq do
-#    on roles(:app), in: :sequence, wait: 5 do
-#      sudo "/etc/init.d/sidekiq_digiramp_production stop"
-#      sudo "/etc/init.d/sidekiq_digiramp_production start"
-#    end
-#  end
-#end
+namespace :deploy do
+  desc 'Restart sidekiq'
+  task :restart_sidekiq do
+    on roles(:app), in: :sequence, wait: 5 do
+      sudo "/etc/init.d/sidekiq_digiramp_production stop"
+      sudo "/etc/init.d/sidekiq_digiramp_production start"
+    end
+  end
+end
