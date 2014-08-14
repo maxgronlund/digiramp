@@ -7,7 +7,12 @@ class OpportunityMailer < ActionMailer::Base
   #   en.opportunity_mailer.invite.subject
   #
   def invite email, opportunity_invitation_id, user_id, current_user_id
-   
+    puts '-----------------------------------------------------'
+    puts email
+    puts opportunity_invitation_id
+    puts user_id
+    puts current_user_id
+    puts '-----------------------------------------------------'
     @user                    = User.cached_find(user_id)
     @current_user_id         = current_user_id
     @opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
