@@ -65,7 +65,8 @@ class Account::OpportunityInvitationsController < ApplicationController
       #end
       
       #OpportunityInvitationWorker.perform_async(email, @opportunity_invitation.id, user.id, current_user.id)
-      OpportunityInvitationWorker.perform_async()
+      #OpportunityInvitationWorker.perform_async()
+      OpportunityMailer.delay.invite()
       
       @opportunity_user.create_activity(   :created, 
                                      owner: current_user,
