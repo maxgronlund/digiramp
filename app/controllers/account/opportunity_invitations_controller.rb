@@ -56,17 +56,17 @@ class Account::OpportunityInvitationsController < ApplicationController
                                                 user_id:          user.id,
                                               )
       
-      #if user.account_activated
-      #  OpportunityMailer.delay.invite(email, @opportunity_invitation.id, user.id, current_user.id)
-      #
-      #else
-      #  user.add_token
-      #  OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id, current_user.id)
-      #end
+      if user.account_activated
+        OpportunityMailer.delay.invite(email, @opportunity_invitation.id, user.id, current_user.id)
+      
+      else
+        user.add_token
+        OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id, current_user.id)
+      end
       
       #OpportunityInvitationWorker.perform_async(email, @opportunity_invitation.id, user.id, current_user.id)
       #OpportunityInvitationWorker.perform_async()
-      OpportunityMailer.delay.invite()
+      #OpportunityMailer.delay.invite()
       
       @opportunity_user.create_activity(   :created, 
                                      owner: current_user,
