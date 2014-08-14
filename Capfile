@@ -25,6 +25,7 @@ require 'capistrano/deploy'
  #require 'capistrano/sidekiq'
  require 'capistrano/sidekiq'
  require 'capistrano/sidekiq/monit'
+
  
  #require './config/boot'
  #require 'airbrake/capistrano' 
