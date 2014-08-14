@@ -53,12 +53,12 @@ set(:config_files, %w(
 
 # which config files should be made executable after copying
 # by deploy:setup_config
-set(:executable_config_files, %w(
-  unicorn_init.sh sidekiq_init.sh
-))
 #set(:executable_config_files, %w(
-#  unicorn_init.sh
+#  unicorn_init.sh sidekiq_init.sh
 #))
+set(:executable_config_files, %w(
+  unicorn_init.sh
+))
 
 
 # files which need to be symlinked to other parts of the
@@ -80,11 +80,12 @@ set(:symlinks, [
   {
     source: "monit",
     link: "/etc/monit/conf.d/{{full_app_name}}.conf"
-  },
-  {
-    source: "sidekiq_init.sh",
-    link: "/etc/init.d/sidekiq_{{full_app_name}}"
   }
+  #,
+  #{
+  #  source: "sidekiq_init.sh",
+  #  link: "/etc/init.d/sidekiq_{{full_app_name}}"
+  #}
 ])
 
 # this:
