@@ -17,40 +17,78 @@ Multi track support / palaylist
 
 embed
 
-{
-  "steps": {
-    "mp3": {
-      "robot": "/audio/encode",
-      "preset": "mp3"
-    },
-    "waveform": {
-      "robot": "/audio/waveform",
-      "use": "mp3",
-      "width": 1920,
-      "height": 120,
-      "background_color": "20202000",
-      "outer_color": "2A3E5EFF",
-      "center_color": "436396FF"
-    },
-    "thumbnail": {
-      "robot": "/audio/waveform",
-      "use": "mp3",
-      "width": 300,
-      "height": 45,
-      "background_color": "FFFFFF00",
-      "outer_color": "2A3E5EFF",
-      "center_color": "436396FF"
-    },
-    "store": {
-      "robot": "/s3/store",
-      "use": [
-        "mp3",
-        "waveform"
-      ],
-      "key": "AKIAIVATNWTNMQZKK2VA",
-      "secret": "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",
-      "bucket": "digiramp"
-    }
-  }
-}
+
+AngularJS
+Player MVC
+EventDispatcher
+Factory
+SoundManager2
+CSS Adaptive
+Test
+JQuery
+
+
+
+Cover Art / Waveforms
+Play
+Stop
+GoTo
+Keyboard input
+Like
+Comment
+Download
+Share
+Add from collection
+Search in collection
+
+Style
+Link to info
+Email
+
+
+Interface
+
+CRUD Playlist
+CRUD PlaylistUsers
+Permission on Playlist
+Email Invitation on playlist
+Single Player /  Multi Player
+
+
+===============================================
+Implementation plan
+===============================================
+Prove of technoligy
+
+
+1:  Integrate AngularJS
+
+1:  Rudimentary Interface for picking up track id's of 2 tracks
+
+    
+    
+2:  Setup organized structure for source code
+    Load multiply files from folder structure
+    Useage of name spaces
+    
+    Player wrapper around Soundmanager2
+    Factory/ prototype for Player
+   
+3:  MCV for interaction with play button
+    Press start show spinner
+    Angular ajax to Controller
+    Render 'hello world'
+    
+5:  Comand Pattern
+    Dispatch events
+    Respond to events
+    
+6:  Test framework
+    BDD
+    
+7:  Use cases in Pivotal
+
+8:  Load custom CSS
+
+9:  Flexible selection of GUI from html file
 

@@ -20,7 +20,7 @@ class OpportunityMailer < ActionMailer::Base
     mail to: email, subject: @opportunity_invitation.title
     
     store_mail 'opportunity invitation'
-    puts '----------------------- SUCCESS 33 -----------------------------'
+    #puts '----------------------- SUCCESS 33 -----------------------------'
   end
   
   def invite_to_account email, opportunity_invitation_id, user_id, current_user_id
