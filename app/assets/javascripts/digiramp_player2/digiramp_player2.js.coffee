@@ -1,8 +1,10 @@
 
+#ready = ->
+#  console.log 'Loaded'
+#
+#  
+#$(document).ready(ready)
+#$(document).on('page:load', ready)
 
-ready = ->
-  console.log('fobar')
 
-  
-$(document).ready(ready)
-$(document).on('page:load', ready)
+

@@ -34,7 +34,7 @@
 //= require common_works_table.js
 //= require angular
 //= require angular-resource
-//= require digiramp_player2/digiramp_player2
+//= require_tree ./digiramp_player2
 
 
 

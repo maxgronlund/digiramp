@@ -1,10 +1,12 @@
 
 Digiramp::Application.routes.draw do
 
-
+  scope "api" do
+    resources :players
+  end
   
 
-  resources :player_alphas, only: [:index]
+  resources :player_alphas
 
   resources :contacts
 
