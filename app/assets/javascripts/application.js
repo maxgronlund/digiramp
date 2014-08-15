@@ -32,7 +32,9 @@
 //= require mindmup-editabletable.js
 //= require ipis_table.js
 //= require common_works_table.js
-
+//= require angular
+//= require angular-resource
+//= require digiramp_player2/digiramp_player2
 
 
 

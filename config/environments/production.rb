@@ -83,7 +83,7 @@ Digiramp::Application.configure do
   Rails.application.routes.default_url_options[:host] = 'assets-manager.com'
   
   
-  
+  config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   #config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 

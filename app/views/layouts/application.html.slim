@@ -1,43 +1,45 @@
 doctype html
-html
+<html ng-app>
   head
-  title DigiRAMP
-  /link href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'
-  = stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css", media: "all"
-  = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-  /= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Cinzel|Junge'
-  
-  = javascript_include_tag "//www.google.com/jsapi", "chartkick"
-  = javascript_include_tag "application", "data-turbolinks-track" => true
-  = javascript_include_tag "assets.transloadit.com/js/jquery.transloadit2-v2-latest.js" => true
-  = javascript_include_tag "//cdn.sublimevideo.net/js/w21x4dlf.js"
-  
-  
-
-  
-  / gritter
-  /= javascript_include_tag "html5-realtime-push-notifications/src/js/gritter/js/jquery.gritter.min.js"
-  /= stylesheet_link_tag "html5-realtime-push-notifications/src/js/gritter/css/jquery.gritter.css", media: "all"
-  
-  / pusher
-  = javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
-  /= javascript_include_tag "//js/jquery.gritter.js"
-  
-  /= javascript_include_tag "//realtime-notifications/src/PusherNotifier.js"
- 
-  
-  
-  meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  = csrf_meta_tags
+   title DigiRAMP
+   /link href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'
+   = stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css", media: "all"
+   = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+   /= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Cinzel|Junge'
+   
+   = javascript_include_tag "//www.google.com/jsapi", "chartkick"
+   = javascript_include_tag "application", "data-turbolinks-track" => true
+   = javascript_include_tag "assets.transloadit.com/js/jquery.transloadit2-v2-latest.js" => true
+   = javascript_include_tag "//cdn.sublimevideo.net/js/w21x4dlf.js"
+   
+   
+   
+   
+   / gritter
+   /= javascript_include_tag "html5-realtime-push-notifications/src/js/gritter/js/jquery.gritter.min.js"
+   /= stylesheet_link_tag "html5-realtime-push-notifications/src/js/gritter/css/jquery.gritter.css", media: "all"
+   
+   / pusher
+   = javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
+   /= javascript_include_tag "//js/jquery.gritter.js"
+   
+   /= javascript_include_tag "//realtime-notifications/src/PusherNotifier.js"
+   
+   
+   
+   meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+   = csrf_meta_tags
   
   
   == render 'layouts/pusher'
   
   
   
-body
-  = yield :charts_js
-  = yield
+  body
+    = yield :charts_js
+    = yield
+    
+</html>
   
   
   

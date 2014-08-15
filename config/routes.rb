@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  resources :player_alphas, only: [:index]
+
   resources :contacts
 
   resources :contacts, only: [:new, :create, :show ]
