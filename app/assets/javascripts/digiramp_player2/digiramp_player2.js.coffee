@@ -1,10 +1,11 @@
+# make sure it works with turbolinks
+ready = ->
+ digiWhamsNamespace.loadWhams()
+  
 
-#ready = ->
-#  console.log 'Loaded'
-#
-#  
-#$(document).ready(ready)
-#$(document).on('page:load', ready)
+  
+$(document).ready(ready)
+$(document).on('page:load', ready)
 
 
 

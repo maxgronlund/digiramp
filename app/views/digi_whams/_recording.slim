@@ -1,0 +1,11 @@
+
+
+.row
+  .col-sm-12
+    - art = recording.cover_art || 'default-cover.jpg'
+    = image_tag art, width: "136", height: "136", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
+    .play-button
+      i class="fa fa-fast-backward"
+    .title-and-artist
+      h3 = recording.title
+      = recording.artist

@@ -2,11 +2,11 @@
 Digiramp::Application.routes.draw do
 
   scope "api" do
-    resources :players
+    resources :digi_wham_resources
   end
   
 
-  resources :player_alphas
+  resources :digi_whams
 
   resources :contacts
 

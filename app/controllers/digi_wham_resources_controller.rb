@@ -1,9 +1,9 @@
-class PlayersController < ApplicationController
+class DigiWhamResourcesController < ApplicationController
   respond_to :json
   
   def index
     ap params
-    respond_with Recording.find(352,351)
+    @recordings = Recording.find(352,351)
   end
   
   def show

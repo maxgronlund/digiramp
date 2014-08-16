@@ -1,13 +1,9 @@
-class PlayerAlphasController < ApplicationController
+class DigiWhamsController < ApplicationController
   respond_to :html, :xml, :json
   
   def index
     ap params
-    @recordings = Recording.find(352,351)
-    #respond_to do |format|
-    #  format.html 
-    #  format.json { render json: @recordings }
-    #end
+    #@recordings = Recording.find(352,351)
     respond_with Recording.find(352,351)
   end
   
