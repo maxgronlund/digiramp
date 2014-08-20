@@ -28,8 +28,9 @@ class CommentsController < ApplicationController
 
     if @comment = Comment.create!(comment_params)
       case @comment.commentable_type
+      when 'Recording'
+        redirect_to comment_append_comment_to_recording_path( @comment)
       when 'Issue'
-        
         begin
           issue = Issue.cached_find(@comment.commentable_id)
           # send notification to issue owner
@@ -43,7 +44,6 @@ class CommentsController < ApplicationController
                        "image"   => 'notice'
                      }
           PusherWorker.perform_async(options)
-          
 
         rescue
           puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
@@ -52,11 +52,14 @@ class CommentsController < ApplicationController
           puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
         end
         redirect_to user_issue_path(@comment.user, @comment.commentable_id)
-        
       end
     else
       redirect_to :back
     end
+  end
+  
+  def append_comment_to_recording
+    
   end
 
   # PATCH/PUT /comments/1

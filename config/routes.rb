@@ -18,7 +18,7 @@ Digiramp::Application.routes.draw do
   #resources :footages
   #resources :pro_affiliations
   
-
+  resources :comments
 
 
 
@@ -37,11 +37,15 @@ Digiramp::Application.routes.draw do
   resources :uploads
   require 'sidekiq/web'
   
+  resources :comments do
 
+    get 'append_comment_to_recording'
 
-  get "selling_points/selling_point_1"
-  get "selling_points/selling_point_2"
-  get "selling_points/selling_point_3"
+  end
+
+  #get "selling_points/selling_point_1"
+  #get "selling_points/selling_point_2"
+  #get "selling_points/selling_point_3"
   
   resources :terms_and_conditions, only: [:index]
   

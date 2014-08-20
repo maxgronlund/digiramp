@@ -40,10 +40,10 @@ class Recording < ActiveRecord::Base
   belongs_to :common_work
   belongs_to :import_batch
   
-
-  has_many :genre_tags, as: :genre_tagable,             dependent: :destroy
+  has_many :comments,        as: :commentable,          dependent: :destroy
+  has_many :genre_tags,      as: :genre_tagable,        dependent: :destroy
   has_many :instrument_tags, as: :instrument_tagable,   dependent: :destroy
-  has_many :mood_tags, as: :mood_tagable,               dependent: :destroy
+  has_many :mood_tags,       as: :mood_tagable,         dependent: :destroy
   has_many :image_files,                                dependent: :destroy
   has_many :recording_items,                            dependent: :destroy
   has_many :recording_ipis,                             dependent: :destroy
@@ -52,6 +52,7 @@ class Recording < ActiveRecord::Base
   after_commit :flush_cache
   before_destroy :remove_from_collections
   after_create :count_stats_up
+  
 
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]

@@ -1,6 +1,5 @@
 
 soundManager.setup({
- 
   // disable or enable debug output
   debugMode: false,
   // use HTML5 audio for MP3/MP4, if available
@@ -15,13 +14,10 @@ soundManager.setup({
 
 
 function recreateSoundManager() {
-
   if( window.soundManager.ok() ){
     window.soundManager.stopAll();
     loadDigirampPlayer();
-    
   }
-
 }
 
 soundManager.onready(function() {

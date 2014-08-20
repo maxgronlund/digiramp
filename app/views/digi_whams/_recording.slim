@@ -1,11 +1,26 @@
 
+.digi-wham id="#{recording.id}" mp3="#{recording.download_url}"
+  .right-pane
+    .play-button-title-and-artist
+      .title-and-artist
+        h3 = recording.title
+        p = recording.artist
+      
+      == render 'digi_whams/playback_button', recording: recording
+      
+    
+    .waveform
+      = image_tag recording.waveform, class: "audio-waveform", id: "#{recording.id}"
+    .playhead id="#{recording.id}"
 
-.row
-  .col-sm-12
+  .cover-art
     - art = recording.cover_art || 'default-cover.jpg'
-    = image_tag art, width: "136", height: "136", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
-    .play-button
-      i class="fa fa-fast-backward"
-    .title-and-artist
-      h3 = recording.title
-      = recording.artist
+    = image_tag art, alt: "#{recording.title}"
+    
+
+== render 'digi_whams/digi_wham_buttons', recording: recording     
+== render 'digi_whams/comments', recording: recording   
+
+
+      
+      

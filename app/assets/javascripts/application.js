@@ -32,7 +32,9 @@
 //= require mindmup-editabletable.js
 //= require ipis_table.js
 //= require common_works_table.js
-//= require_tree ./digiramp_player2
+//= require_tree ./digi_whams
+
+Turbolinks.enableTransitionCache();
 
 
 

@@ -49,7 +49,7 @@
               .panel-heading
                 'Post Comment
               .panel-body
-                = simple_form_for [ @commentable, @comment], :url => url_for(:action => 'create_comment', :controller => 'music_submissions'), :method => 'post'do |f|
+                = simple_form_for [ @commentable, @comment ], :url => url_for(:action => 'create_comment', :controller => 'music_submissions'), :method => 'post'do |f|
                   = f.hidden_field  :commentable_id,    value: @commentable.id
                   = f.hidden_field  :commentable_type,  value: @commentable.class.name
                   = f.input :title

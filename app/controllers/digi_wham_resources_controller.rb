@@ -3,7 +3,7 @@ class DigiWhamResourcesController < ApplicationController
   
   def index
     ap params
-    @recordings = Recording.find(352,351)
+    @recordings = Recording.find(352,351,350,490)
   end
   
   def show
