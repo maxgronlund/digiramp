@@ -37,11 +37,7 @@ Digiramp::Application.routes.draw do
   resources :uploads
   require 'sidekiq/web'
   
-  resources :comments do
-
-    get 'append_comment_to_recording'
-
-  end
+  resources :comments
 
   #get "selling_points/selling_point_1"
   #get "selling_points/selling_point_2"
@@ -541,20 +537,15 @@ Digiramp::Application.routes.draw do
         resources :upload_csvs
         resources :upload_recordings, only: [:index, :create]
         
-        
-        
-        #get "move"
-        #get "get_code"
-        #get "get_catalog"
-        #put "receive"
-        #put "generate_code"
-        
-        
       end
-      
-    
     end
-    
+  end
+  # end of catalog namespace
+  
+  namespace :digiwham do
+    resources :recordings, only: [:index]
+    resources :comments, only: [:index, :create]
+    resources :playlists, only: [:index, :create]
   end
   
   namespace :user do

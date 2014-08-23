@@ -1,8 +1,8 @@
 class RecordingsController < ApplicationController
   
-  def add_comment
-    @comment = Comment.create!(comment_params)
-  end
+  #def add_comment
+  #  @comment = Comment.create!(comment_params)
+  #end
   #include Transloadit::Rails::ParamsDecoder
   #include RecordingsHelper
   #include AccountsHelper

@@ -1,0 +1,16 @@
+.comments id="#{recording.id}"  
+  = simple_form_for [ recording, Comment.new], url: url_for(action:'create', controller: 'digiwham/comments'), \
+                                                            remote: true, \
+                                                            method: 'post' do |f|
+                                                              
+    = f.hidden_field  :commentable_id,    value: recording.id
+    = f.hidden_field  :commentable_type,  value: recording.class.name
+    - if current_user
+      = f.hidden_field  :user_id,  value: current_user.id
+    = f.input :title, placeholder: 'Post a Comment', label: false, class: 'comment', input_html: {id: "#{recording.id}"}
+                                                            
+    
+    .list
+      table class='recording_comments' id="#{recording.id}"
+        - recording.comments.order('created_at desc').first(20).each do |comment|
+          == render 'digiwham/comments/show', comment: comment

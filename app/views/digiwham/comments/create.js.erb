@@ -1,0 +1,2 @@
+$("#<%= @comment.commentable_id %>.recording_comments").prepend('<%=j render("digiwham/comments/show", comment: @comment) %>');
+$("#<%= @comment.commentable_id %>.form-control").val("");

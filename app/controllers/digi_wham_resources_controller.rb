@@ -2,8 +2,8 @@ class DigiWhamResourcesController < ApplicationController
   respond_to :json
   
   def index
-    ap params
-    @recordings = Recording.find(352,351,350,490)
+    #ap params
+    #@recordings = Recording.find(352,351,350,490)
   end
   
   def show

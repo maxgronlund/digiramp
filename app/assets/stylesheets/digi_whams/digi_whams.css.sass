@@ -3,9 +3,11 @@
 
 $main-color: #eee
 $text-color: #A3A3A3
+$line-color: #CCC
 
 $digiwham-button-size:     46px
-$digiwham-hight:           120px
+$digiwham-hight:           100px
+$digiwham-waveform-hight:  34px
 $digiwham-button-border:    2px
 
 @mixin truncate 
@@ -20,12 +22,12 @@ $digiwham-button-border:    2px
   width: 100%
   img
     width: 100%
-    z-index: -1
+
   .digi-wham
     width:                auto
     height:               $digiwham-hight
-    border-bottom-width: 1px
-    margin-bottom:       10px
+    //border-bottom:        1px solid #EEE
+    margin-bottom:        16px
     
     .right-pane
       width:              auto
@@ -59,16 +61,16 @@ $digiwham-button-border:    2px
       .waveform
         positon:            relative
         width:              100%
-        height:             54px
+        height:             $digiwham-waveform-hight
         .audio-waveform
-          height:           54px
+          height:           $digiwham-waveform-hight
           
       .playhead
         position:           absolute
         float:              top
-        margin-top:         -54px
+        margin-top:         -$digiwham-waveform-hight
         width:              1px
-        height:             54px
+        height:             $digiwham-waveform-hight
         background-color:   #f00
         
         
@@ -84,16 +86,50 @@ $digiwham-button-border:    2px
   .digi-wham-buttons
     width:                auto
     height:               32px
-    border-bottom:        1px solid #EEE
-    margin-bottom:        16px
+    
     .add_to_playlist, .like, .share, .comment
       display: inline
-  .comments
-    background-color: #ddf
+  .comments, .playlists
+    //background-color: #ddf
     width: 100%
-    height: 200px
+    height: 250px
     display: none
-    overflow-y: scroll
+    .form-group 
+      margin-bottom: 0px
+    .form-control 
+      height: 35px
+      border-radius: 0px
+      margin-bottom: 0px
+      font-size:     14px !important
+      
+      
+    .list
+      width: auto
+      height: 200px
+      overflow-y: scroll
+      border: solid 1px $line-color
+
+      padding: 8px
+      .gravatar, .comment-o
+        width: 16px
+        height: 16px
+        display: inline
+        margin-right: 2px
+        color: $line-color
+      .comment-title
+        display: inline
+        margin-left: 10px
+      table, tr
+        width: 100%
+        font-size: 14px
+        
+        
+      td
+        padding-right: 10px
+        width:         100%
+    
+    
+    
     
     
     
