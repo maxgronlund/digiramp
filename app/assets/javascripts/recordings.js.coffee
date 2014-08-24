@@ -1,5 +1,9 @@
 ready = ->
-  soundManager = recreateSoundManager()
+  
+  if $('.digiramp_player')[0]
+    soundManager = recreateSoundManager()
+  
+  
 
   
 $(document).ready(ready)

@@ -259,15 +259,12 @@ class Recording < ActiveRecord::Base
 
   
   def duration_string
-
-      hours   = (self.duration / 3600).to_i
-      minutes = (self.duration / 60).to_i - hours
-      seconds = self.duration.to_i - (minutes * 60)
-      msec    = (self.duration * 100).to_i - (self.duration.to_i * 100)
-      timeString = convertToTwoDigitString(hours) + ':' + convertToTwoDigitString(minutes) + ':' + convertToTwoDigitString(seconds) + ':' + convertToTwoDigitString(msec)
-      return timeString
-
-
+    hours   = (self.duration / 3600).to_i
+    minutes = (self.duration / 60).to_i - hours
+    seconds = self.duration.to_i - (minutes * 60)
+    msec    = (self.duration * 100).to_i - (self.duration.to_i * 100)
+    timeString = convertToTwoDigitString(minutes) + ':' + convertToTwoDigitString(seconds) + ':' + convertToTwoDigitString(msec)
+    return timeString
   end
   
   def self.cached_find(id)

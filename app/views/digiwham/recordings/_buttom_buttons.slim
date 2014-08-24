@@ -1,0 +1,24 @@
+/ buttons under artwork and waveform 
+.digi-wham-buttons  id="#{recording.id}"
+  .add_to_playlist  id="#{recording.id}"
+    button class="digiwam-button"
+      i class="fa fa-list"
+
+  '&nbsp; 
+  .comment  id="#{recording.id}"
+    button class="digiwam-button"
+      i class="fa fa-comments"
+      '&nbsp;
+      = recording.comments.size
+   
+  .pull-right 
+    .like  id="#{recording.id}"
+      button class="digiwam-button"
+        i class="fa fa-heart"
+        /'&nbsp;
+        /'678
+    '&nbsp; 
+    .share  id="#{recording.id}"
+      button class="digiwam-button"
+        i class="fa fa-share"
+    

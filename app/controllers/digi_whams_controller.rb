@@ -2,9 +2,7 @@ class DigiWhamsController < ApplicationController
   respond_to :html, :xml, :json
   
   def index
-    ap params
-    #@recordings = Recording.find(352,351)
-    respond_with Recording.find(352,351)
+
   end
   
   def show

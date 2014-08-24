@@ -1,0 +1,21 @@
+/ Play button
+.play id="#{recording.id}" mp3="#{recording.download_url}"
+  .play-button
+    .round-button 
+      .round-button-circle 
+        .play-triangle
+          i class="fa fa-play"
+
+/ Spinner button  
+.loading id="#{recording.id}"
+  .play-button
+    .round-button 
+      .round-button-circle 
+        i class="fa fa-spinner fa-spin"
+
+/ Pause button  
+.pause id="#{recording.id}"
+  .play-button
+    .round-button 
+      .round-button-circle 
+        i class="fa fa-pause"

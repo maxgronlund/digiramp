@@ -1,9 +1,9 @@
 
 Digiramp::Application.routes.draw do
 
-  scope "api" do
-    resources :digi_wham_resources
-  end
+  #scope "api" do
+  #  resources :digi_wham_resources
+  #end
   
 
   resources :digi_whams
@@ -543,7 +543,7 @@ Digiramp::Application.routes.draw do
   # end of catalog namespace
   
   namespace :digiwham do
-    resources :recordings, only: [:index]
+    resources :recordings, only: [:index, :show]
     resources :comments, only: [:index, :create]
     resources :playlists, only: [:index, :create]
   end

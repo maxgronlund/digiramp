@@ -1,17 +1,4 @@
-
-soundManager.setup({
-  // disable or enable debug output
-  debugMode: false,
-  // use HTML5 audio for MP3/MP4, if available
-  preferFlash: false,
-  useFlashBlock: true,
-  // path to directory containing SM2 SWF
-  url: '../../swf/',
-  // optional: enable MPEG-4/AAC support (requires flash 9)
-  flashVersion: 9,
-  html5PollingInterval: 100
-});
-
+var digiramp_players = [];
 
 function recreateSoundManager() {
   if( window.soundManager.ok() ){
@@ -24,8 +11,6 @@ soundManager.onready(function() {
   loadDigirampPlayer();
   
 });
-
-var digiramp_players = [];
 
 
 function DigirampPlayer(  i, 
@@ -126,7 +111,7 @@ function DigirampPlayer(  i,
       // play
       if (playing) {
         
-        console.log(recording_id);
+        /*console.log(recording_id);*/
         $.getScript("/admin/activity_counter/" + player_index);
         
         stopAllPlayers(player_index);

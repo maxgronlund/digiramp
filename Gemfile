@@ -56,6 +56,7 @@ gem 'headless'
 #gem 'linguistics'
 gem 'levenshtein'
 gem 'chosen-rails', '0.12.0'
+gem 'soundmanager-rails'
 #
 
 #gem 'mailcheckjs-rails'
@@ -63,7 +64,7 @@ gem 'chosen-rails', '0.12.0'
 
 
 
-gem 'bootstrap-editable-rails'
+#gem 'bootstrap-editable-rails'
 gem 'jQuery-Validation-Engine-rails'
 gem 'sinatra', require: false
 
