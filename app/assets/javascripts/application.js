@@ -21,8 +21,8 @@
 //= require wysihtml5-0.4.0pre
 // require soundmanager2-nodebug-jsmin
 //= require soundmanager2
-//= require soundmanager2-jsmin
-//= require soundmanager2-nodebug
+// require soundmanager2-jsmin
+// require soundmanager2-nodebug
 //= require soundmanager2-nodebug-jsmin
 //= require soundmanager2-setup
 //= require digiramp_player

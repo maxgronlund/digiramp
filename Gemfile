@@ -56,7 +56,7 @@ gem 'headless'
 #gem 'linguistics'
 gem 'levenshtein'
 gem 'chosen-rails', '0.12.0'
-gem 'soundmanager-rails'
+#gem 'soundmanager-rails'
 #
 
 #gem 'mailcheckjs-rails'
