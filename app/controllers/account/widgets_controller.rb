@@ -12,9 +12,12 @@ class Account::WidgetsController < ApplicationController
   # GET /widgets/1
   # GET /widgets/1.json
   def show
-    #@snippet = "<iframe width='#{@widget.width}' height='#{@widget.height}' src=\"#{url_for(controller: 'embed', action: 'show', id: @widget.secret_key)}\" frameborder='0' allowfullscreen></iframe>"
-    #@snippet =  <iframe width="#{@widget.width}" height="#{@widget.height}" src="#{url_for(controller: 'embed', action: 'show', id: @widget.secret_key)}" frameborder="0" allowfullscreen></iframe>
-    @snippet = 'fo'
+    if Rails.env == 'development'
+      @snippet = "<iframe width='#{@widget.width}' height='#{@widget.height}' src=\"http://localhost:3000/embed/#{@widget.secret_key}\" frameborder='0' allowfullscreen></iframe>"
+    else
+      @snippet = "<iframe width='#{@widget.width}' height='#{@widget.height}' src=\"http://assets-manager.com/embed/#{@widget.secret_key}\" frameborder='0' allowfullscreen></iframe>"
+    end
+
   end
 
   # GET /widgets/new
