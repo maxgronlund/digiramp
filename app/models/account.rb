@@ -62,6 +62,9 @@ class Account < ActiveRecord::Base
   has_many :playlist_key_users
   
   has_many :emails
+  
+  # widgets
+  has_many :widgets
                 
 
   # account types

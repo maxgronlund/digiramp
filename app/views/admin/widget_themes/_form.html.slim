@@ -1,0 +1,11 @@
+= simple_form_for [:admin, @widget_theme] do |f|
+  = f.input :title
+  = f.input :background_color
+  = f.input :waveform_back
+  = f.input :loadbar_color
+  = f.input :hover_color
+  = f.input :heading_color
+  = f.input :text_color
+  = f.input :border_color
+  
+  = f.submit 'Save', class: 'btn btn-primary btn-lg'

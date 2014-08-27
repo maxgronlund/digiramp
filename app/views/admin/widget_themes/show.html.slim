@@ -1,0 +1,27 @@
+p#notice = notice
+
+p
+  strong Background color:
+  = @widget_theme.background_color
+p
+  strong Waveform back:
+  = @widget_theme.waveform_back
+p
+  strong Hover color:
+  = @widget_theme.hover_color
+p
+  strong Heading color:
+  = @widget_theme.heading_color
+p
+  strong Text color:
+  = @widget_theme.text_color
+p
+  strong Border color:
+  = @widget_theme.border_color
+p
+  strong Text color:
+  = @widget_theme.text_color
+
+= link_to 'Edit', edit_widget_theme_path(@widget_theme)
+'|
+= link_to 'Back', widget_themes_path

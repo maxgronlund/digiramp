@@ -1,0 +1,39 @@
+
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+
+            
+  .container
+    == render 'admin/shared/messages'
+    - blog = Blog.cached_find('WIDGETS')
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           dashboard: account_account_path(@account), \
+                                                           widgets: account_account_widgets_path(@account), \
+                                                           }, current:  @widget.title}
+    
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'WIDGET'}                                                        
+    .row
+      .col-sm-4
+        == render 'form'
+      .col-sm-8
+        h4 Snippet
+        = form_tag
+          = text_field_tag "snippet", "", value: @snippet, :class => 'form-control'
+        hr
+        - if Rails.env == 'development'
+          <iframe width="#{@widget.width}" height="#{@widget.height}" src="http://localhost:3000/embed/#{@widget.secret_key}" frameborder="0" allowfullscreen></iframe>
+        - else 
+          <iframe width="#{@widget.width}" height="#{@widget.height}" src="http://assets-manager.com/embed/#{@widget.secret_key}" frameborder="0" allowfullscreen></iframe>
+        
+        
+
+
+          
+        
+
+    == render 'shared/back', locals: {link: account_account_widgets_path(@account)}
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+

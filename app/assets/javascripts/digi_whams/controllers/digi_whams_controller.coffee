@@ -11,7 +11,10 @@ class @DigiWhamsController
   constructor: ->
     # request recordings from backend
     if ($('#digiWhams')[0])
-      $.getScript("/digiwham/recordings" )
+      #console.log '--------------------------------------'
+      secret_key = $('#digiWhams').attr("class")
+      $.getScript("/digiwham/recordings/?key=" + secret_key  )
+      #$.getScript("/digiwham/recordings")
 
 
   # public function called when all players are loaded    

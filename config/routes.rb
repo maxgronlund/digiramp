@@ -1,10 +1,14 @@
 
 Digiramp::Application.routes.draw do
 
+  
+
+  
+
   #scope "api" do
   #  resources :digi_wham_resources
   #end
-  
+  resources :embed, only: [:index, :show]
 
   resources :digi_whams
 
@@ -38,6 +42,12 @@ Digiramp::Application.routes.draw do
   require 'sidekiq/web'
   
   resources :comments
+  
+
+  
+  get 'account/embed/:id', to: 'embed#show'
+  
+
 
   #get "selling_points/selling_point_1"
   #get "selling_points/selling_point_2"
@@ -261,6 +271,7 @@ Digiramp::Application.routes.draw do
 
   # Example resource route within a namespace:
   namespace :admin do
+    resources :widget_themes
     get 'repair_permissions'
     resources :activities
     resources :activity_counter
@@ -328,7 +339,9 @@ Digiramp::Application.routes.draw do
     
   end
   namespace :account do
+    #resources :embed
     resources :accounts do
+      resources :widgets
       member do
         #get 'find_recording_in_bucket'
         get "legal_documents"
@@ -361,6 +374,7 @@ Digiramp::Application.routes.draw do
             get :download
           end
         end
+        
       end
       #resources :common_work_table, only: [:update]
       resources :client_groups do
@@ -386,19 +400,14 @@ Digiramp::Application.routes.draw do
           member do
             get :find_recording
             get :upload_recording
-            
           end
-          
           resources :music_submissions do
-            
             member do
               get 'submit_recording'
               post 'create_comment'
               get 'download'
             end
           end
-          
-          #resources :submissions
         end
       end
       resources :playlists do
@@ -411,10 +420,7 @@ Digiramp::Application.routes.draw do
       resources :projects do
         resources :mail_campaigns
         resources :project_tasks
-        
       end
-      
-      # make this member do
       post "uploads/audio_files_create"
       get "uploads/audio_files_new"
       get "uploads/audio_files"
@@ -423,9 +429,8 @@ Digiramp::Application.routes.draw do
         collection do
           post :edit_multiple
           post :update_multiple
-          get :edit_shared
+          get  :edit_shared
           post :update_shared
-          
           get  :add_to_common_work
           get  :select_common_work
           get  :new_common_work
@@ -436,42 +441,23 @@ Digiramp::Application.routes.draw do
           get  :common_works
           put  :update_common_work
           get  :use_common_work
-          #post :update_shared
         end
       end
       resources :recordings do
         resources :recording_artworks
-        resources :recording_ipis
-        
+        resources :recording_ipis 
         member do
           get "files"
-          
           get "documents"
           get "legal_documents"
-          
-          
           get "financial_documents"
-          
-          
-          #get "artwork"
-          #get "new_artwork"
-          #post "create_artwork"
         end
       end
-     
-      #resources :recordings do
-      #  get "new_from_catalog_artworks"
-      #  post "create_from_catalog_artworks"
-      #  post "use_artwork"
-      #  resources :recording_artworks, only: [:index]
-      #  resources :image_files
-      #  get "info"
-      #end
-      
       resources :uploads, only: [:index]
     end
-    
   end
+  # end of account namespace
+  
   namespace :catalog do
     
     resources :accounts do

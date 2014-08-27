@@ -1,0 +1,17 @@
+= simple_form_for [:account, @account,  @widget] do |f|
+  = f.hidden_field :account_id, value: @account.id
+  = f.hidden_field :user_id, value: current_user.id
+  .panel.panel-primary
+    .panel-heading
+      'CONFIGURATION
+    .panel-body
+      = f.input :image
+      = f.input :title
+      = f.input :body
+      /= f.input :secret_key
+      = f.input :width
+      = f.input :height
+      = f.input :catalog_id, collection: @account.catalogs
+      = f.input :layout, collection: WidgetTheme.all
+  .pull-right  
+    = f.submit 'Show', class: 'btn btn-primary btn-lg'

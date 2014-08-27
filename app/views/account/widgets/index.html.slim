@@ -1,0 +1,89 @@
+/h1 Listing widgets
+/
+/table
+/  thead
+/    tr
+/      th Title
+/      th Body
+/      th Image
+/      th Secret key
+/      th Width
+/      th Height
+/      th Catalog
+/      th Layout
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @widgets.each do |widget|
+/      tr
+/        td = widget.title
+/        td = widget.body
+/        td = widget.image
+/        td = widget.secret_key
+/        td = widget.width
+/        td = widget.height
+/        td = widget.catalog_id
+/        td = widget.layout
+/        td = link_to 'Show', widget
+/        td = link_to 'Edit', edit_widget_path(widget)
+/        td = link_to 'Destroy', widget, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Widget', new_account_account_widget_path( @account )
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  .container
+    == render 'admin/shared/messages'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            dashboard: account_account_path(@account) \
+                                                           }, \
+                                                    current:  'widgets'}
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Widgets'), blog_post: 'Widgets', insert: 'new'}
+    .do
+      .row
+        .col-sm-12
+          .panel.panel-primary
+            .panel-heading
+              'Widgets
+            .panel-body
+              .table-responsive
+                table class="table table-hover"
+                  thead
+                    tr
+                      th
+                      th Title
+                      th Catalog
+                      th 
+
+                  tbody
+                    /= debug @account.clients.first
+                     - @account.widgets.each do |widget|
+                      
+                      tr
+                        td = widget.image
+                        td = widget.title
+                        td Catalog ?
+                        td
+                          .pull-right
+                            = link_to edit_account_account_widget_path(@account, widget) do
+                              .btn.btn-primary.btn-lg
+                                i class="fa fa-pencil"
+                            '&nbsp;
+                            = link_to account_account_widget_path(@account, widget), data: { confirm: 'Are you sure?' } , :method => :delete do
+                              .btn.btn-danger.btn-lg
+                                i class="fa fa-times"
+                    
+            
+              
+        
+
+  
+/    == render 'shared/back', locals: {link: account_account_path(@account)}
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+

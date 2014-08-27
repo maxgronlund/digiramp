@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812210913) do
+ActiveRecord::Schema.define(version: 20140826205841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1742,6 +1742,38 @@ ActiveRecord::Schema.define(version: 20140812210913) do
   add_index "videos", ["account_id"], name: "index_videos_on_account_id", using: :btree
   add_index "videos", ["song_id"], name: "index_videos_on_song_id", using: :btree
   add_index "videos", ["video_blog_id"], name: "index_videos_on_video_blog_id", using: :btree
+
+  create_table "widget_themes", force: true do |t|
+    t.string   "title"
+    t.string   "background_color", default: "#F7F7F7"
+    t.string   "waveform_back",    default: "#D6D6D6"
+    t.string   "loadbar_color",    default: "#999"
+    t.string   "hover_color",      default: "#F7F7F7"
+    t.string   "heading_color",    default: "#999"
+    t.string   "text_color",       default: "#333"
+    t.string   "border_color",     default: "#CCC"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "widgets", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "image"
+    t.string   "secret_key"
+    t.integer  "width",      default: 480
+    t.integer  "height",     default: 640
+    t.string   "layout"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.integer  "catalog_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "widgets", ["account_id"], name: "index_widgets_on_account_id", using: :btree
+  add_index "widgets", ["catalog_id"], name: "index_widgets_on_catalog_id", using: :btree
+  add_index "widgets", ["user_id"], name: "index_widgets_on_user_id", using: :btree
 
   create_table "work_users", force: true do |t|
     t.integer  "common_work_id"
