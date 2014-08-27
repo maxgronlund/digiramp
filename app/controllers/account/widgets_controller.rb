@@ -6,7 +6,7 @@ class Account::WidgetsController < ApplicationController
   # GET /widgets
   # GET /widgets.json
   def index
-    
+
   end
 
   # GET /widgets/1
