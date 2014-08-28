@@ -2,6 +2,7 @@ class Digiwham::LikesController < ApplicationController
 
   # count likes
   def show
+    puts '------------------- LOVE THIS ----------------------'
     recording               = Recording.cached_find(params[:id])
     recording.likes_count   += 1
     recording.save!
