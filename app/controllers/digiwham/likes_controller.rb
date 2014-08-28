@@ -14,7 +14,7 @@ class Digiwham::LikesController < ApplicationController
                 user_id: user_id, 
                 account_id: recording.account_id 
               )
-    get_ip_address
+    get_lovers_id
     render nothing: true
   end
   
