@@ -11,7 +11,11 @@ class Digiwham::RecordingsController < ApplicationController
     @recording.playbacks_count  += 1
     @recording.save!
     user_id                     = current_user ? current_user.id : nil
-    Playback.create(recording_id: recording.id, user_id: user_id, account_id: recording.account_id )
+    Playback.create(
+                      recording_id: @recording.id, 
+                      user_id: user_id, 
+                      account_id: @recording.account_id 
+                    )
     render nothing: true
   end
 

@@ -19,8 +19,18 @@ class Digiwham::LikesController < ApplicationController
   end
   
   def get_lovers_id
-    ap request.remote_ip
-    ap request.env["HTTP_X_FORWARDED_FOR"]
+    begin
+      puts 'try request.remote_ip'
+      ap request.remote_ip
+    rescue
+      puts 'error on request.remote_ip'
+    end
+    begin
+      puts 'try request.remote_ip'
+      ap request.env["HTTP_X_FORWARDED_FOR"]
+    rescue
+      puts 'error on  request.env["HTTP_X_FORWARDED_FOR"]'
+    end
   end
 
 end
