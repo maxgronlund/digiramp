@@ -26,7 +26,7 @@ class Digiwham::LikesController < ApplicationController
       puts 'error on request.remote_ip'
     end
     begin
-      puts 'try request.remote_ip'
+      puts 'try HTTP_X_FORWARDED_FOR'
       ap request.env["HTTP_X_FORWARDED_FOR"]
     rescue
       puts 'error on  request.env["HTTP_X_FORWARDED_FOR"]'
