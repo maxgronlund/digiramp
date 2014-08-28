@@ -65,6 +65,12 @@ class Account < ActiveRecord::Base
   
   # widgets
   has_many :widgets
+  
+  # statistick on playbacks
+  has_many :playbacks
+  
+  # statistick on likes
+  has_many :likes
                 
 
   # account types

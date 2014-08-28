@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140826205841) do
+ActiveRecord::Schema.define(version: 20140827195648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1067,6 +1067,18 @@ ActiveRecord::Schema.define(version: 20140826205841) do
 
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
+  create_table "likes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "recording_id"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "likes", ["account_id"], name: "index_likes_on_account_id", using: :btree
+  add_index "likes", ["recording_id"], name: "index_likes_on_recording_id", using: :btree
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
+
   create_table "mail_campaigns", force: true do |t|
     t.integer  "account_id"
     t.integer  "user_id"
@@ -1313,6 +1325,18 @@ ActiveRecord::Schema.define(version: 20140826205841) do
   add_index "permitted_models", ["account_user_id"], name: "index_permitted_models_on_account_user_id", using: :btree
   add_index "permitted_models", ["user_id"], name: "index_permitted_models_on_user_id", using: :btree
 
+  create_table "playbacks", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "recording_id"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "playbacks", ["account_id"], name: "index_playbacks_on_account_id", using: :btree
+  add_index "playbacks", ["recording_id"], name: "index_playbacks_on_recording_id", using: :btree
+  add_index "playbacks", ["user_id"], name: "index_playbacks_on_user_id", using: :btree
+
   create_table "playlist_items", force: true do |t|
     t.integer  "playlist_id"
     t.integer  "playlist_itemable_id"
@@ -1520,6 +1544,8 @@ ActiveRecord::Schema.define(version: 20140826205841) do
     t.string   "original_file_name",  default: ""
     t.boolean  "in_bucket",           default: false
     t.string   "zipp"
+    t.integer  "playbacks_count",     default: 0
+    t.integer  "likes_count",         default: 0
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -1761,14 +1787,17 @@ ActiveRecord::Schema.define(version: 20140826205841) do
     t.text     "body"
     t.string   "image"
     t.string   "secret_key"
-    t.integer  "width",      default: 480
-    t.integer  "height",     default: 640
+    t.integer  "width",        default: 480
+    t.integer  "height",       default: 640
     t.string   "layout"
     t.integer  "user_id"
     t.integer  "account_id"
     t.integer  "catalog_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "widget_link"
+    t.boolean  "show_headder", default: false
+    t.string   "title_color",  default: "#888"
   end
 
   add_index "widgets", ["account_id"], name: "index_widgets_on_account_id", using: :btree

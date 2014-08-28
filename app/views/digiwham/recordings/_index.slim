@@ -1,2 +1,12 @@
+- if @widget.show_headder
+  - if @widget.widget_link.to_s == ''
+    = image_tag( @widget.image_url(:default), width: @widget.width )
+  - else
+    = link_to image_tag( @widget.image_url(:default), width: @widget.width ), @widget.widget_link, target: '_top'
+  .widget-title
+    h3 = @widget.title
+    = @widget.body
+
+    
 - @recordings.each do |recording|
   == render 'digiwham/recordings/show', recording: recording

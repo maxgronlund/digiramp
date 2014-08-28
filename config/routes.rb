@@ -529,9 +529,10 @@ Digiramp::Application.routes.draw do
   # end of catalog namespace
   
   namespace :digiwham do
-    resources :recordings, only: [:index, :show]
     resources :comments, only: [:index, :create]
+    resources :likes, only: [:show]
     resources :playlists, only: [:index, :create]
+    resources :recordings, only: [:index, :show]
   end
   
   namespace :user do

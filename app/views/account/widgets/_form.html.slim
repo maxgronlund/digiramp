@@ -5,9 +5,13 @@
     .panel-heading
       'CONFIGURATION
     .panel-body
-      = f.input :image
+      = f.input :show_headder
+      = f.input :image, hint: 'Ratio 4:1'
+      = f.input :widget_link, label: 'Image Link To', placeholder: 'i.e. http://youtube.com', hint: 'Format: http://YOUR-LINK-HERE'
       = f.input :title
+      = f.input :title_color
       = f.input :body
+      hr
       = f.input :width
       = f.input :height
       = f.input :catalog_id, collection: @account.catalogs

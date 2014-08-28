@@ -67,6 +67,12 @@ class User < ActiveRecord::Base
   
   has_many :emails, dependent: :destroy
   
+  # statistic on playbacks
+  has_many :playbacks
+  
+  # statistic on likes
+  has_many :likes
+  
   def validate_info
     self.email.downcase!
     if self.name.to_s == ''

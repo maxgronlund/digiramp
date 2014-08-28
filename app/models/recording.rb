@@ -47,6 +47,8 @@ class Recording < ActiveRecord::Base
   has_many :image_files,                                dependent: :destroy
   has_many :recording_items,                            dependent: :destroy
   has_many :recording_ipis,                             dependent: :destroy
+  has_many :playbacks,                                  dependent: :destroy
+  has_many :likes,                                      dependent: :destroy
   
   before_save :update_uuids
   after_commit :flush_cache

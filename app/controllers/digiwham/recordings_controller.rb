@@ -1,17 +1,17 @@
 class Digiwham::RecordingsController < ApplicationController
   
-
   def index
-    puts '----------------------------------------- GOT THIS'
-    ap params[:key]
-    widget = Widget.where(secret_key: params[:key]).first
-    @recordings = widget.catalog.recordings
-    #@recordings = Recording.find(352,351,350,490)
+    @widget     = Widget.where(secret_key: params[:key]).first
+    @recordings = @widget.catalog.recordings
   end
   
   # count playbacks
   def show
-    puts '----------------------------------------- COUNT UP'
+    @recording                  = Recording.cached_find(params[:id])
+    @recording.playbacks_count  += 1
+    @recording.save!
+    user_id                     = current_user ? current_user.id : nil
+    Playback.create(recording_id: recording.id, user_id: user_id, account_id: recording.account_id )
     render nothing: true
   end
 

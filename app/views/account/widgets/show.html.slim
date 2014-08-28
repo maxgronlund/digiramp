@@ -19,6 +19,7 @@
         == render 'form'
       .col-sm-8
         h4 Snippet
+        
         = form_tag
           = text_field_tag "snippet", "", value: @snippet, :class => 'form-control'
         hr

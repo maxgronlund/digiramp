@@ -5,7 +5,10 @@ class @BottomsController
       show_playlists( $(this).attr 'id' )
     
     $('.like').on 'click', ->
-      alert $(this).attr 'id' 
+      id = $(this).attr 'id' 
+      # count playbacks
+      $.getScript("/digiwham/likes/" + id)
+
     
     $('.share').on 'click', ->
       alert $(this).attr 'id' 

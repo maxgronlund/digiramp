@@ -108,3 +108,4 @@ ENV["MAIL_PASSWORD"] = 'IS5pleyu'
 
 ENV["S3_KEY_ID"]      = 'AKIAJN4UDAY5IF3CRYDA'
 ENV["S3_ACCESS_KEY"]  = 'UDH4rSx4N6A267q/Tii+K+9APoElnIQzwdlqo530'
+ENV["AWS_S3_BUCKET"]  = 'digiramp-widget'
