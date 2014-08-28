@@ -18,8 +18,9 @@ class Digiwham::LikesController < ApplicationController
     render nothing: true
   end
   
-  def get_ip_address
+  def get_lovers_id
     ap request.remote_ip
+    ap request.env["HTTP_X_FORWARDED_FOR"]
   end
 
 end
