@@ -15,8 +15,9 @@
     .like  id="#{recording.id}"
       button class="digiwam-button"
         i class="fa fa-heart"
-        /'&nbsp;
-        /'678
+        '&nbsp;
+        = recording.likes_count
+        
     '&nbsp; 
     .share  id="#{recording.id}"
       button class="digiwam-button"
