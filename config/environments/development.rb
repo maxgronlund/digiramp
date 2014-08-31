@@ -44,9 +44,24 @@ ActionMailer::Base.smtp_settings = {
 }
 
 
-ENV["MAIL_USERNAME"]  = 'info@digiramp.org'
-ENV["MAIL_PASSWORD"]  = 'IS5pleyu'
+ENV["MAIL_USERNAME"]    = 'info@digiramp.org'
+ENV["MAIL_PASSWORD"]    = 'IS5pleyu'
 
-ENV["S3_KEY_ID"]      = 'AKIAJN4UDAY5IF3CRYDA'
-ENV["S3_ACCESS_KEY"]  = 'UDH4rSx4N6A267q/Tii+K+9APoElnIQzwdlqo530'
-ENV["AWS_S3_BUCKET"]  = 'digiramp-widget'
+ENV["S3_KEY_ID"]        = 'AKIAJN4UDAY5IF3CRYDA'
+ENV["S3_ACCESS_KEY"]    = 'UDH4rSx4N6A267q/Tii+K+9APoElnIQzwdlqo530'
+ENV["AWS_S3_BUCKET"]    = 'digiramp-widget'
+
+ENV['TWITTER_KEY']      = 'sxnwvjajuSgGiWWVlWMRXj6Qq'
+ENV['TWITTER_SECRET']   = 'HVZQ8tlkDGTeOvaZnFjK4vAwmHPyfHtzDg6tbu98gslj6moCh9'
+
+ENV['FACEBOOK_KEY']      = '728817730525571'
+ENV['FACEBOOK_SECRET']   = 'ea195389a4534ee17a2b62b123e42bc4'
+
+ENV['LINKEDIN_KEY']      = '77geot159kgi5l'
+ENV['LINKEDIN_SECRET']   = 'VztOr48kHMunUq1L'
+
+ENV['GPLUS_KEY']         = '49205251565-g2eq19fs28jcuotor86o9ls075nnovnk.apps.googleusercontent.com'
+ENV['GPLUS_SECRET']      = 'Ox9KrfvCX9FCrTEyPBb6oQ94'
+
+
+

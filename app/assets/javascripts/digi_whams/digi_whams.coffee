@@ -6,6 +6,7 @@ ready = ->
   window.digi_wahms_controller = new DigiWhamsController
   window.audio_engine          = new AudioEngine
   window.playhead_display      = new PlayheadDisplay
+  
 
   
 $(document).ready(ready)
@@ -20,3 +21,5 @@ $(document).on('page:load', ready)
 @initialize =()  ->
   window.digi_wahms_controller.initialize()
   window.audio_engine.initialize()
+  
+  

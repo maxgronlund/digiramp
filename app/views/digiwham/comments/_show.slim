@@ -1,7 +1,7 @@
 tr
   td 
     .gravatar
-      -if comment.user_id
+      -if comment.user
         = gravatar_tag comment.user.email, :size => 16, class: "media-object"
       -else
        i class="fa fa-user"

@@ -7,6 +7,7 @@ class Digiwham::RecordingsController < ApplicationController
   
   # count playbacks
   def show
+    
     @recording                  = Recording.cached_find(params[:id])
     @recording.playbacks_count  += 1
     @recording.save!
@@ -16,6 +17,9 @@ class Digiwham::RecordingsController < ApplicationController
                       user_id: user_id, 
                       account_id: @recording.account_id 
                     )
+    widget = Widget.cached_find(params[:widget_id])
+    widget.playback_count += 1
+    widget.save!
     render nothing: true
   end
 

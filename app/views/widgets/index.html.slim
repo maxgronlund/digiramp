@@ -1,0 +1,25 @@
+#wrap
+  .container
+    .row
+      .col-sm-3
+        h4 Latest Widgets
+        - Widget.order('created_at desc').last(10).each do |widget|
+          = widget.title
+          br
+        hr
+      .col-sm-9 
+        h4 Popular Widgets
+        hr
+        .row
+          - Widget.popular.each do |widget|
+            .col-sm-6 id="digi_width"
+              'Created #{widget.created_at}
+              = link_to widget_path(widget.secret_key) do
+                'Show
+              br
+              - if Rails.env == 'development'
+                <iframe width="660" height="650" src="http://localhost:3000/embed/#{widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
+              - else 
+                <iframe width="660" height="650" src="http://assets-manager.com/embed/#{widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
+              hr
+        

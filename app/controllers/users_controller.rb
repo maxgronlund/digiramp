@@ -82,6 +82,7 @@ class UsersController < ApplicationController
 
   def update
     @account = @user.account
+    params[:user][:email_missing] = false
     if @user.update(user_params)
       flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} successfully updatet" }
 

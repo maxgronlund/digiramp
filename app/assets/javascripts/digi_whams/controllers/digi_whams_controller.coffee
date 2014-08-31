@@ -23,7 +23,8 @@ class @DigiWhamsController
     playback_controller   = new PlaybackController
     comments_controller   = new CommentsController
     bottoms_controller    = new BottomsController
-    #playback_controller.initialize()
+    
+    
 
   # wrapper function
   set_loadbar: (id, progress) ->
@@ -33,3 +34,22 @@ class @DigiWhamsController
     
   set_playhead: (id, position) ->
     playback_controller.set_playhead( id, position )
+    
+  
+  set_width =() ->
+    width =  $("#digi_width").width()
+    $(".digiwham_iframe").each (index, element) =>
+      $(element).css("width", width )
+    
+
+  $( window ).resize ->
+    if $("#digi_width")[0] 
+      set_width()
+
+      
+  $(document).ready(set_width)
+  $(document).on('page:load', set_width)
+  
+
+      
+

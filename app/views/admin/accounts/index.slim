@@ -60,9 +60,11 @@
                         /td class="#{'expired' if account.expiration_date < Date.current }"
                         /  = account.expiration_date
                         td
-                          - if account.expiration_date < Date.current && account.account_type != 'Personal Account'
-                            .expired
-                              i class="fa fa-exclamation-circle"
+                          - if account.expiration_date.nil?
+                            'expiration date missing
+                          /- if account.expiration_date < Date.current && account.account_type != 'Personal Account'
+                          /  .expired
+                          /    i class="fa fa-exclamation-circle"
                         /td  class="#{'expired' if account.expiration_date < Date.current }"
                         /  = account.expiration_date
                         td = account.account_type

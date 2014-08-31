@@ -25,6 +25,9 @@ class User < ActiveRecord::Base
   has_one :account_users
   has_many :account_users
   
+  # omniauth
+  has_many :authorization_providers, dependent: :destroy
+  
   has_many :catalog_users, dependent: :destroy
   has_many :catalogs, through: :catalog_users
   has_many :opportunity_users, dependent: :destroy
@@ -269,6 +272,7 @@ class User < ActiveRecord::Base
   
   def self.cached_find_by_auth_token( auth_token)
     Rails.cache.fetch([name, auth_token]) { User.find_by_auth_token( auth_token)  }
+    
   end
   
   def flush_auth_token_cache auth_token
@@ -454,6 +458,16 @@ class User < ActiveRecord::Base
       return nil
     end
   end
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
 
 private
 

@@ -8,10 +8,11 @@ class @PlaybackController
     # listen for clicks on play button
     $('.play').on 'click', ->
       reset_play_buttons()
-      id  = $(this).attr 'id'
-      mp3 = $(this).attr 'mp3'
+      id        = $(this).attr 'id'
+      mp3       = $(this).attr 'mp3'
+      widget_id = $(this).attr 'widget_id'
       # count playbacks
-      $.getScript("/digiwham/recordings/" + id)
+      $.getScript("/digiwham/recordings/" + id + '?widget_id=' + widget_id )
       window.audio_engine.play(id, mp3)
       show_loading_button(id)
 

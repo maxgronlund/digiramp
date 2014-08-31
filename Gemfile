@@ -65,6 +65,12 @@ gem 'chosen-rails', '0.12.0'
 gem 'fog'
 
 
+# autorization
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-linkedin'
+gem "omniauth-gplus"
+
 
 
 #gem 'bootstrap-editable-rails'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140827195648) do
+ActiveRecord::Schema.define(version: 20140831111421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -335,6 +335,16 @@ ActiveRecord::Schema.define(version: 20140827195648) do
 
   add_index "attachments", ["account_id"], name: "index_attachments_on_account_id", using: :btree
   add_index "attachments", ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type", using: :btree
+
+  create_table "authorization_providers", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authorization_providers", ["user_id"], name: "index_authorization_providers_on_user_id", using: :btree
 
   create_table "blog_posts", force: true do |t|
     t.string   "title"
@@ -1639,8 +1649,8 @@ ActiveRecord::Schema.define(version: 20140827195648) do
     t.string   "password_digest"
     t.boolean  "admin"
     t.string   "role"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "image"
     t.text     "crop_params"
     t.text     "profile"
@@ -1661,6 +1671,10 @@ ActiveRecord::Schema.define(version: 20140827195648) do
     t.boolean  "has_a_collection",       default: true
     t.string   "old_role",               default: ""
     t.boolean  "account_activated",      default: true
+    t.string   "provider",               default: "DigiRAMP"
+    t.string   "uid",                    default: ""
+    t.boolean  "email_missing",          default: false
+    t.string   "social_avatar",          default: ""
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
@@ -1787,8 +1801,8 @@ ActiveRecord::Schema.define(version: 20140827195648) do
     t.text     "body"
     t.string   "image"
     t.string   "secret_key"
-    t.integer  "width",        default: 480
-    t.integer  "height",       default: 640
+    t.integer  "width",           default: 480
+    t.integer  "height",          default: 640
     t.string   "layout"
     t.integer  "user_id"
     t.integer  "account_id"
@@ -1796,8 +1810,12 @@ ActiveRecord::Schema.define(version: 20140827195648) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "widget_link"
-    t.boolean  "show_headder", default: false
-    t.string   "title_color",  default: "#888"
+    t.boolean  "show_headder",    default: false
+    t.string   "title_color",     default: "#888"
+    t.integer  "comments_count",  default: 0
+    t.integer  "playback_count",  default: 0
+    t.integer  "playlists_count", default: 0
+    t.integer  "likes_count",     default: 0
   end
 
   add_index "widgets", ["account_id"], name: "index_widgets_on_account_id", using: :btree

@@ -27,7 +27,7 @@ class SignUpController < ApplicationController
         go_to = login_index_path
       else
         account.destroy
-        flash[:error]      = { title: "Hmmm", body: "Check email and password" }
+        flash[:error]      = { title: "Hmmm", body: "Please Check email and password" }
       end
     end
     

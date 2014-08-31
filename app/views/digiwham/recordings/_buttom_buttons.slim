@@ -12,14 +12,14 @@
       = recording.comments.size
    
   .pull-right 
-    .like  id="#{recording.id}"
+    .like  id="#{recording.id}" widget_id="#{@widget.id}"
       button class="digiwam-button"
         i class="fa fa-heart"
         '&nbsp;
         = recording.likes_count
         
     '&nbsp; 
-    .share  id="#{recording.id}"
+    .share  id="#{recording.id}" widget_id="#{@widget.id}"
       button class="digiwam-button"
         i class="fa fa-share"
     

@@ -1,7 +1,8 @@
 
 Digiramp::Application.routes.draw do
 
-  
+
+  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
 
   
 
@@ -23,7 +24,7 @@ Digiramp::Application.routes.draw do
   #resources :pro_affiliations
   
   resources :comments
-
+  resources :widgets
 
 
   get "albums/index"
@@ -341,6 +342,7 @@ Digiramp::Application.routes.draw do
   namespace :account do
     #resources :embed
     resources :accounts do
+      
       resources :widgets
       member do
         #get 'find_recording_in_bucket'
@@ -538,6 +540,7 @@ Digiramp::Application.routes.draw do
   namespace :user do
     
     resources :users do
+      resources :authorization_providers
       resources :activities
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]

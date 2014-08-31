@@ -119,7 +119,8 @@ class Account::RecordingsBucketController < ApplicationController
   
   
   def new_catalog
-    forbidden unless current_account_user.createx_catalog?
+    # !!! update permissions 
+    #forbidden unless current_account_user.createx_catalog?
     @catalog = Catalog.new
     @recording_ids  = params[:ids].each { |x| x.to_s} 
   end

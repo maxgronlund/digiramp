@@ -2,59 +2,51 @@ class SessionsController < ApplicationController
 
   
   def create
-    #redirect_to user_path(current_user)
-    #go_to = session[:landing_page] || user_path(current_user)
-    puts '-----------------------------------'
-    puts session[:landing_page]
-    puts '------------------------------------'
+    #raise env['omniauth.auth'].to_yaml
     
-    
-    params[:sessions][:email]  = params[:sessions][:email].downcase
-    
-    user = User.where(email: params[:sessions][:email]).first
-
-    
-    if user && user.authenticate(params[:sessions][:password])
-      flash[:info] = { title: "SUCCESS: ", body: "You are logged in" }
-      
-      if params[:remember_me]
-        cookies.permanent[:auth_token] = user.auth_token
+    if current_user
+      # the user is all readdy logged in so attach a provider to an existing account
+      unless Omniauth.attach_provider( env, current_user )
+        flash[:info] = { title: "Notice: ", body: "Provider already attached to account" }
       else
-        cookies[:auth_token] = user.auth_token  
+        flash[:info] = { title: "SUCCESS: ", body: "#{env['omniauth.auth'][:provider].upcase} is linked to your account" }
+      end
+      redirect_to user_user_authorization_providers_path(current_user)
+    elsif env['omniauth.auth']
+      user = Omniauth.authorize_with_omniauth( env['omniauth.auth'] )
+      if user[:user]
+        flash[:info] = { title: "SUCCESS: ", body: user[:message] }
+        initialize_session_for user[:user]
+        # redirect to a welcome / take the tour screen
+      else
+        flash[:danger] = { title: "Sorry", body: user[:message]}
+        redirect_to login_new_path
       end
       
-      if current_user
-        session[:user_id] = current_user.id
-        session[:account_id] = user.account_id
-        
-        account           = Account.cached_find(user.account_id)
-        account.visits += 1
-        account.save!
-        
-        user.create_activity(  :signed_in, 
-                           owner: current_user,
-                       recipient: current_user,
-                  recipient_type: current_user.class.name,
-                      account_id: user.account_id)
-                              
-                              
-        
-        go_to = session[:landing_page]
-        session[:landing_page] = nil
-        redirect_to go_to|| user_path(current_user)
-      end
-
     else
-      #, notice: "Email or password is invalid! If you don't have an account? Please contact us"
-      #redirect_to login_index_path
-      flash[:danger] = { title: "Error", body: "You are not logged in" }
+      params[:sessions][:email]  = params[:sessions][:email].downcase
+      user = User.where(email: params[:sessions][:email]).first
       
-      redirect_to login_new_path
+      if user && user.authenticate(params[:sessions][:password])
+      
+        if params[:remember_me]
+          cookies.permanent[:auth_token] = user.auth_token
+        else
+          cookies[:auth_token]          = user.auth_token  
+        end
+        initialize_session_for user
+      else
+        # Please trye againg
+        flash[:danger] = { title: "Sorry", body: "No user we can't authorize found.
+                                                  If you have signed up directly on DigiRAMP we can resend you password.
+                                                  Otherwize make sure you are signed in with you authorization provider" }
+        redirect_to login_new_path
+      end
     end
   end
+  
 
   def destroy
-    #session[:user_id] = nil
     begin 
       user = User.cached_find_by_auth_token( cookies[:auth_token] )
       user.flush_auth_token_cache(cookies[:auth_token])
@@ -63,9 +55,7 @@ class SessionsController < ApplicationController
                          owner: user,
                      recipient: user,
                 recipient_type: user.class.name,
-                    account_id: user.account_id) 
-                
-                
+                    account_id: user.account_id)       
     rescue
     end
     cookies.delete(:auth_token)
@@ -73,4 +63,26 @@ class SessionsController < ApplicationController
     redirect_to root_url, notice: "Logged out!"
   end
   
+private
+  
+  def initialize_session_for user
+    
+    session[:user_id]     = user.id
+    session[:account_id]  = user.account_id
+    
+    account               = Account.cached_find(user.account_id)
+    account.visits        += 1
+    account.save!
+
+    user.create_activity(  :signed_in, 
+                       owner: current_user,
+                   recipient: current_user,
+              recipient_type: current_user.class.name,
+                  account_id: user.account_id)
+     
+    go_to = session[:landing_page] 
+    session[:landing_page]    = nil            
+    redirect_to go_to|| user_path(current_user)      
+  end
+
 end

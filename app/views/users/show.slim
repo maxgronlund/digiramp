@@ -46,6 +46,7 @@
               .media
                 .pull-left
                   .logo
+                    / !!! use social_avatar
                     - unless @user.image == "/assets/fallback/avatar_120x120_account-logo.jpg"
                       = image_tag @user.image_url :avatar_120x120
                     -else
@@ -102,6 +103,15 @@
                                                       link: user_user_activities_path(@user), \
                                                       css_class: 'btn btn-warning', \
                                                       icon: 'fa fa-clock-o' \
+                                                    }
+                                                    
+          
+            
+          == render 'users/shared/badge_button', locals: { \
+                                                      blog_post: 'AUTHORIZATION', \
+                                                      link: user_user_authorization_providers_path(@user), \
+                                                      css_class: 'btn btn-default', \
+                                                      icon: 'fa fa-lock' \
                                                     }
                           
           

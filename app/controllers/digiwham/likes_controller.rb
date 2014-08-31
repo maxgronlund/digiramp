@@ -15,6 +15,9 @@ class Digiwham::LikesController < ApplicationController
                 user_id: user_id, 
                 account_id: recording.account_id 
               )
+    widget = Widget.cached_find(params[:widget_id])
+    widget.likes_count += 1
+    widget.save!
     get_lovers_id
     render nothing: true
   end
