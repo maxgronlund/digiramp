@@ -10,55 +10,35 @@
         = f.hidden_field  :user_id,  value: current_user.id
         /= f.hidden_field :authenticity_token
       = f.input :title, placeholder: 'Post a Comment', label: false, class: 'comment', input_html: {id: "#{recording.id}"}
-                                                              
-      
-      .list
-        table class='recording_comments' id="#{recording.id}"
-          - recording.comments.order('created_at desc').first(20).each do |comment|
-            == render 'digiwham/comments/show', comment: comment
   - else
-    h4 Use an existing account
-    .social-icons
-      table 
+    - if Rails.env == 'development'
+      - link_to_digiramp = "http://localhost:3000/login/new?login_from_widget=true"
+    -else
+      - link_to_digiramp = "http://assets-manager.com/login/new?login_from_widget=true"
+    .widget-signup
+      table
         tr
           td
-            = link_to "/auth/twitter" do
-              .float-right
-                .twitter
-          td Sign in with your Twitter account
+            .social-icons
+              = link_to link_to_digiramp, :target => "_blank" do
+                .signup-login
           td
-            = link_to  "/auth/facebook" do
-              .facebook
-          td Sign in with your Facebook account 
-        tr
-          td
-            = link_to "/auth/linkedin" do
-              .float-right
-                .linkedin
-          td Sign in with your Linkedin account
-          td
-            = link_to  "/auth/gplus" do
-              .google
-          td Sign in with your Google+ account
+            = link_to "Signup / Login to Comment", link_to_digiramp, :target => "_blank" 
+                
+          
     
-    
-    hr
-    h4 Use You DigiRAMP Password
+                                                           
+      
+  .list
+    table class='recording_comments' id="#{recording.id}"
+      - recording.comments.order('created_at desc').first(20).each do |comment|
+        == render 'digiwham/comments/show', comment: comment
 
-    = simple_form_for(  :sessions, :url => sessions_path ) do |f|
+      
+          
+          
+          
 
-      .input-group
-        span class="input-group-addon" @
-        = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
-      br
-      .input-group
-        span class="input-group-addon" 
-          i class= 'fa fa-key'
-        = f.input_field :password, placeholder: 'Password', autocomplete: :off
-      br
-      .remember-me
-        = f.input :remember_me, as: :boolean, input_html: { value: '1' }
-      .row
-        .col-sm-12
-          .pull-right
-            = f.submit 'Log in', class: 'btn btn-primary btn-lg btn-top-margin', id: 'log_in_form_button'
+  
+
+      
