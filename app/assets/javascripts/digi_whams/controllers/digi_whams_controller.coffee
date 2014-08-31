@@ -5,15 +5,18 @@ class @DigiWhamsController
   
   playback_controller = {}
   comments_controller = {}
-  bottoms_controller = {}
+  bottoms_controller  = {}
+  revision            = -1
   
   
   constructor: ->
     # request recordings from backend
     if ($('#digiWhams')[0])
-      #console.log '--------------------------------------'
+      console.log '--------------------------------------'
+      console.log $('#digiWhams').attr("revision")
       secret_key = $('#digiWhams').attr("class")
       $.getScript("/digiwham/recordings/?key=" + secret_key  )
+     
       #$.getScript("/digiwham/recordings")
 
 

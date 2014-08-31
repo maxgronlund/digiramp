@@ -17,7 +17,7 @@ class @AudioEngine
   setup_soundmanager = () ->
     if window.soundManager.ok() 
       window.soundManager.stopAll()
-      console.log 'soundmanager ok and all sounds stopped'
+      
 
   create_sound = (id, mp3) ->
     
