@@ -11,6 +11,7 @@ class MusicRequest < ActiveRecord::Base
   #has_many :genre_tags,       as: :genre_tagable
   
   after_commit :flush_cache
+  #before_destroy :destroy_music_submissions
   
   def duration_text
     duration.try(:strftime, "%H:%M:%S")

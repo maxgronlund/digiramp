@@ -5,6 +5,11 @@ class OpportunityUser < ActiveRecord::Base
   belongs_to    :opportunity
   has_many      :music_submissions
   after_commit  :flush_cache
+  before_destroy :destroy_music_submissions
+  
+  def destroy_music_submissions
+    self.music_submissions.destroy_all
+  end
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
