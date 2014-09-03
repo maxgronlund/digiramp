@@ -14,10 +14,32 @@ class Catalog< ActiveRecord::Base
   after_commit :flush_cache
 
   before_destroy :remove_account_users
-  after_create :add_catalog_users
+  after_create :add_related_objects
   
-  def add_catalog_users
-    AccessManager.add_account_users_to_catalog self
+  def add_related_objects
+    AccessManager.add_account_users_to_catalog 
+    self.uuid               = UUIDTools::UUID.timestamp_create().to_s
+    
+    self.save
+    add_default_widget
+  end
+  
+  def add_default_widget
+    self.default_widget_key = self.uuid
+    self.save!
+    Widget.create(
+                    title:            self.title,
+                    body:             self.body,
+                    secret_key:       self.default_widget_key,
+                    widget_theme_id:  WidgetTheme.where(title: 'Default').first.id,# !!! make system default
+                    user_id:          self.account.user_id,
+                    account_id:       self.account_id,
+                    catalog_id:       self.id
+                  )
+  end
+  
+  def default_widget
+    Widget.where(secret_key: self.default_widget_key).first
   end
   
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
@@ -64,12 +86,23 @@ class Catalog< ActiveRecord::Base
   end
   
   def recording_ids
-    recording_ids = catalog_items.where(catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
+    recording_ids = self.catalog_items.where(catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
+  end
+  
+  # !!! cache this
+  def playlist
+    Playlist.where(uuid: self.uuid)
+            .first_or_create(uuid: self.uuid, 
+                             user_id: self.user_id,
+                             account_id: self.account_id,
+                             )
   end
   
   def common_works
     
-    common_work_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
+    common_work_ids = CatalogItem.where(catalog_id: self.id, 
+                                        catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
+                                        
     CommonWork.where(id: common_work_ids)
 
   end
@@ -97,6 +130,8 @@ class Catalog< ActiveRecord::Base
                                 
     add_common_work recording.common_work 
   end
+  
+  
   
   # add a common work to a catalog
   def add_common_work common_work,

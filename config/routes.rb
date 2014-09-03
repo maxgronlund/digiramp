@@ -2,6 +2,10 @@
 Digiramp::Application.routes.draw do
 
 
+
+
+
+
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
 
   
@@ -343,7 +347,7 @@ Digiramp::Application.routes.draw do
     #resources :embed
     resources :accounts do
       
-      resources :widgets
+      
       member do
         #get 'find_recording_in_bucket'
         get "legal_documents"
@@ -355,7 +359,7 @@ Digiramp::Application.routes.draw do
       resources :artworks 
       
       resources :audio_files
-      resources :catalogs
+      resources :catalogs 
       resources :clients
       resources :client_imports
       resources :common_works do
@@ -416,6 +420,7 @@ Digiramp::Application.routes.draw do
         resources :playlist_keys do
           resources :playlist_key_users #, only: [:index, :create]
         end
+        resources :playlist_tracks
       end
       resources :playlist_previews
       resources :playlist_keys 
@@ -456,6 +461,7 @@ Digiramp::Application.routes.draw do
         end
       end
       resources :uploads, only: [:index]
+      resources :widgets
     end
   end
   # end of account namespace
@@ -526,6 +532,7 @@ Digiramp::Application.routes.draw do
         resources :upload_recordings, only: [:index, :create]
         
       end
+      resources :create_playlists
     end
   end
   # end of catalog namespace

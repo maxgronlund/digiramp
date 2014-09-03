@@ -69,7 +69,7 @@
                          = image_tag widget.image_url(:thumbnail)
                        td = widget.title
                        td = widget.playback_count
-                       td = widget.catalog.title
+                       td = widget.catalog.title if widget.catalog
                        td
                          .pull-right
                            = link_to account_account_widget_path(@account, widget) do

@@ -1,8 +1,8 @@
 class UpdateUuids < ActiveRecord::Migration
   def change
     
-    remove_column :playlists, :uuid
-    add_column :playlists, :uuid, :string, default: 'novel player'
+    #remove_column :playlists, :uuid
+    add_column :playlists, :uuid, :string, default: UUIDTools::UUID.timestamp_create().to_s
     
     # force new uuids
     Recording.all.each do |recording|

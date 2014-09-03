@@ -1,5 +1,13 @@
 .pull-right
+  = link_to catalog_account_create_playlist_path(@account, @catalog), :remote => true do
+    .btn.btn-default.btn-lg
+      i class="fa list-all"
+      '&nbsp;Udate Playlist
+  '&nbsp;
   = link_to edit_catalog_account_catalog_path( @account, @catalog) do
     .btn.btn-primary.btn-lg
       i class="fa fa-pencil"
       '&nbsp;Edit Catalog
+      
+      
+/

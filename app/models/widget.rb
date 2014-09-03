@@ -2,8 +2,11 @@ class Widget < ActiveRecord::Base
   
    
   belongs_to :catalog
+  belongs_to :playlist
   belongs_to :account
   belongs_to :user
+  
+  
   mount_uploader :image, WidgetUploader
   after_commit :flush_cache
   
@@ -14,6 +17,16 @@ class Widget < ActiveRecord::Base
   def self.cached_find(id)
     return Rails.cache.fetch([name, id]) { find(id) }
   end
+  
+  def widget_theme
+    begin
+      WidgetTheme.cached_find(self.widget_theme_id)
+    rescue
+      WidgetTheme.first # !!! default here
+    end
+  end
+  
+  
   
 private
 

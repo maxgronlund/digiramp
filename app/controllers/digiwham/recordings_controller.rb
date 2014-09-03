@@ -1,11 +1,17 @@
 class Digiwham::RecordingsController < ApplicationController
   
+  # render the views for the playlist
   def index
     @widget     = Widget.where(secret_key: params[:key]).first
-    @recordings = @widget.catalog.recordings
+    ap @widget
+    if @widget.catalog
+      @recordings = @widget.catalog.recordings
+    elsif @widget.playlist
+      @recordings = @widget.playlist.recordings
+    end
   end
   
-  # count playbacks
+  # the show function is used for count of playbacks
   def show
     
     @recording                  = Recording.cached_find(params[:id])

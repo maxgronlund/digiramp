@@ -18,10 +18,12 @@
       .col-sm-6
         .text-center
           h3 = @playlist.title
+          = debug @playlist.playlist_items
         .panel
           .panel-body.digiramp_player
-            - @playlist_items.each_with_index do |playlist_item, index|
-              == render playlist_item.playlist_itemable_type.downcase, playlist_item: playlist_item, index: index
+            - @playlist.playlist_items.each_with_index do |playlist_item, index|
+              = debug playlist_item
+              /== render playlist_item.playlist_itemable_type.downcase, playlist_item: playlist_item, index: index
               
     
 

@@ -1,6 +1,6 @@
 class Playlist < ActiveRecord::Base
   belongs_to :account
-  
+  has_one :widget
   has_many :playlist_items, dependent: :destroy
   has_many :playlist_keys, dependent: :destroy
   #has_many :activity_events, as: :activity_eventable
@@ -10,11 +10,15 @@ class Playlist < ActiveRecord::Base
   after_commit :flush_cache
   #before_save :update_uuids
   #before_destroy :update_uuids
-  after_create :add_default_key
+  after_create :add_default_objects
   
   
+  def add_default_objects
+    add_default_playlist_key
+    add_default_widget
+  end
   
-  def add_default_key
+  def add_default_playlist_key
     
     secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
     playlist_key          = PlaylistKey.create(
@@ -33,8 +37,29 @@ class Playlist < ActiveRecord::Base
                                                         body: '',
                                                 playlist_url: UUIDTools::UUID.timestamp_create().to_s
                                                )
-    ap playlist_key
     
+    
+  end
+  
+  def add_default_widget
+    self.default_widget_key = UUIDTools::UUID.timestamp_create().to_s
+    self.save
+    @widget     = Widget.create(
+                                  title:            self.title,
+                                  body:             self.body,
+                                  secret_key:       self.default_widget_key,
+                                  account_id:       self.account_id,
+                                  user_id:          self.user_id,
+                                  playlist_id:      self.id,
+                                  catalog_id:       nil,
+                                  widget_theme_id:  WidgetTheme.where(title: 'Default').first.id
+                                )
+    
+   
+  end
+  
+  def default_widget
+    Widget.where(secret_key: self.default_widget_key).first
   end
   
   
@@ -60,6 +85,11 @@ class Playlist < ActiveRecord::Base
                                                )
     playlist_key.id
                                       
+  end
+  
+  def recordings
+    recording_ids = self.playlist_items.where(playlist_itemable_type: 'Recording').pluck(:playlist_itemable_id)
+    Recording.find(recording_ids)
   end
   
   def perview

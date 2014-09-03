@@ -14,7 +14,8 @@
       hr
       = f.input :width
       = f.input :height
-      = f.input :catalog_id, collection: @account.catalogs, include_blank: false
-      = f.input :layout, collection: WidgetTheme.all, include_blank: false
+      = f.input :catalog_id, collection: @account.catalogs
+      = f.input :playlist_id, collection: @account.playlists
+      = f.input :widget_theme_id, collection: WidgetTheme.all, include_blank: false
   .pull-right  
     = f.submit 'Show', class: 'btn btn-primary btn-lg'

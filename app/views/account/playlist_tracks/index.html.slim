@@ -1,0 +1,41 @@
+
+/div class="playlist_id" id="#{@playlist.id}"
+
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  /-cache([ @account.id, @account.works_uuid, params]) do  
+  .do   
+    .container
+      
+      
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                             dashboard: account_account_path(@account),\
+                                                             playlists: account_account_playlists_path(@account) \
+                                                             }, current:  @playlist.title}
+      
+      /- blog = Blog.cached_find('PLAYLISTS')
+      /- blog_post = BlogPost.cached_find( 'ADD TRACKS' , blog )
+      == render 'shared/page_title_text', locals: {title: @playlist.title, body: 'Manage tracks' }
+      
+      .row
+        .col-sm-3
+          'some selection here
+          br
+          'Preview / find
+          br
+          'select catalog
+        .col-sm-9  id="digi_width"
+          'cool search
+          hr
+          'cool widget player 
+          
+          #digiWhams class="#{'/digiwham/recordings/?key='+@playlist.widget.secret_key}"
+
+    == render 'shared/back', locals: {link: account_account_playlists_path(@account)}      
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
+
+

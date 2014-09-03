@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140831111421) do
+ActiveRecord::Schema.define(version: 20140902203749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -508,16 +508,18 @@ ActiveRecord::Schema.define(version: 20140831111421) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "move_code"
-    t.boolean  "movable",         default: false
-    t.boolean  "include_all",     default: false
+    t.boolean  "movable",            default: false
+    t.boolean  "include_all",        default: false
     t.integer  "nr_recordings"
     t.integer  "nr_common_works"
     t.integer  "nr_assets"
     t.integer  "nr_users"
     t.string   "uuid"
+    t.integer  "default_widget_key"
   end
 
   add_index "catalogs", ["account_id"], name: "index_catalogs_on_account_id", using: :btree
+  add_index "catalogs", ["default_widget_key"], name: "index_catalogs_on_default_widget_key", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "title"
@@ -1404,15 +1406,19 @@ ActiveRecord::Schema.define(version: 20140831111421) do
     t.integer  "account_id"
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "url"
     t.string   "url_title"
     t.string   "link_title"
-    t.string   "uuid",       default: "novel player"
+    t.string   "uuid",               default: "novel player"
+    t.integer  "user_id"
+    t.string   "default_widget_key"
   end
 
   add_index "playlists", ["account_id"], name: "index_playlists_on_account_id", using: :btree
+  add_index "playlists", ["default_widget_key"], name: "index_playlists_on_default_widget_key", using: :btree
+  add_index "playlists", ["user_id"], name: "index_playlists_on_user_id", using: :btree
 
   create_table "price_plans", force: true do |t|
     t.string   "title"
@@ -1816,11 +1822,15 @@ ActiveRecord::Schema.define(version: 20140831111421) do
     t.integer  "playback_count",  default: 0
     t.integer  "playlists_count", default: 0
     t.integer  "likes_count",     default: 0
+    t.integer  "playlist_id"
+    t.integer  "widget_theme_id"
   end
 
   add_index "widgets", ["account_id"], name: "index_widgets_on_account_id", using: :btree
   add_index "widgets", ["catalog_id"], name: "index_widgets_on_catalog_id", using: :btree
+  add_index "widgets", ["playlist_id"], name: "index_widgets_on_playlist_id", using: :btree
   add_index "widgets", ["user_id"], name: "index_widgets_on_user_id", using: :btree
+  add_index "widgets", ["widget_theme_id"], name: "index_widgets_on_widget_theme_id", using: :btree
 
   create_table "work_users", force: true do |t|
     t.integer  "common_work_id"
