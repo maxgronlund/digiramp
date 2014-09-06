@@ -11,11 +11,16 @@ class @DigiWhamsController
   
   constructor: ->
     # request recordings from backend
-    if ($('#digiWhams')[0])
-      console.log '--------------------------------------'
+    if $('#digiWhams')[0]
+      #query = ''
+      #if $('#digiWhams').attr("query")
+      #  query ='?utf8=✓&query=File&commit=Search' #''$('#digiWhams').attr("query")
+      
+      
       
       controller = $('#digiWhams').attr("class")
-      $.getScript( controller )
+      console.log controller
+      $.getScript( controller)
 
 
 

@@ -7,6 +7,12 @@ class WidgetTheme < ActiveRecord::Base
     return Rails.cache.fetch([name, id]) { find(id) }
   end
   
+  def self.default
+    WidgetTheme.where(title: 'Default')
+               .first_or_create( title: 'Default')
+    
+  end
+  
 private
 
   def flush_cache

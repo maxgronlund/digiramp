@@ -9,6 +9,7 @@ class Catalog::RecordingsController < ApplicationController
   
   def index
     @recordings      = Recording.not_in_bucket.catalogs_search( @catalog.recordings , params[:query]).order('title asc').page(params[:page]).per(24)
+    @widget = @catalog.default_widget
   end
   
   def info

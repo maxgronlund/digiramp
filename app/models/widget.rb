@@ -26,6 +26,32 @@ class Widget < ActiveRecord::Base
     end
   end
   
+  def recordings
+    self.playlist.recordings if self.playlist
+  end
+  
+  def add_recordings new_recordings
+    playlist.add_recordings new_recordings
+  end
+  
+  def add_recording new_recording
+    playlist.add_recording new_recording
+  end
+  
+  
+  # !!! cache this
+  def playlist
+    ##################################### ALL PLAYLIST AND SHOULD HAVE A WIDGET 
+    return self.playlist if self.playlist
+    
+    plaulest = Playlist.create(uuid: self.default_widget_key, 
+                                user_id: self.account.user_id,
+                                account_id: self.account_id,
+                                title: self.title,
+                                body: self.body
+                             )
+  end
+  
   
   
 private

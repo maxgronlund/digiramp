@@ -52,7 +52,7 @@ class Playlist < ActiveRecord::Base
                                   user_id:          self.user_id,
                                   playlist_id:      self.id,
                                   catalog_id:       nil,
-                                  widget_theme_id:  WidgetTheme.where(title: 'Default').first.id
+                                  widget_theme_id:  WidgetTheme.default.id
                                 )
     
    
@@ -70,21 +70,33 @@ class Playlist < ActiveRecord::Base
     playlist = Playlist.create( account_id: account.id,
                                 title: "Playlist for #{account_user.get_name}"
                               )
-    # make a PlaylistKey 
-    secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
-    playlist_key          = PlaylistKey.create(
-                                                 playlist_id: playlist.id,
-                                                 user_id: account_user.user_id,
-                                                 account_id: account.id,
-                                                 secure_access: true,
-                                                 password: secret_temp_password,
-                                                 expires: false,
-                                                 expiration_date: Date.current() >> 1,
-                                                 page_link: 'google.com',
-                                                 status: 'new'
-                                               )
+  
+    playlist_key = create_playlist_key(   playlist,
+                                         account, 
+                                         account_user
+                                      )
+    
     playlist_key.id
-                                      
+  end
+  
+  # make a PlaylistKey 
+  def create_playlist_key playlist, account, account_user
+    playlist_key          = PlaylistKey.where(playlist_id: playlist.id,
+                                              user_id: account_user.id, 
+                                              account_id: account.id)
+                                       .first_or_create(
+                                                         playlist_id: playlist.id,
+                                                         user_id: account_user.user_id,
+                                                         account_id: account.id,
+                                                         secure_access: true,
+                                                         password: UUIDTools::UUID.timestamp_create().to_s,
+                                                         expires: false,
+                                                         expiration_date: Date.current() >> 1,
+                                                         page_link: 'http://digiramp.com',
+                                                         status: 'new'
+                                                       )
+    
+    playlist_key.id
   end
   
   def recordings
@@ -92,14 +104,22 @@ class Playlist < ActiveRecord::Base
     Recording.find(recording_ids)
   end
   
-  def perview
-     
-    begin
-      return self.playlist_keys.first.playlist_url
-    rescue
-      return nil
+  def add_recording new_recording
+    self.playlist_items.where(playlist_itemable_type: 'Recording', 
+                              playlist_itemable_id: new_recording.id)
+                       .first_or_create(playlist_itemable_type: 'Recording', 
+                                        playlist_itemable_id: new_recording.id)
+  end
+  
+  def add_recordings new_recordings
+    new_recordings.each do |new_recording|
+      add_recording new_recording
     end
-    #self.playlist_keys.where(default: true).first
+  end
+
+  
+  def preview
+    playlist_keys.where(default: true)
   end
   
   def self.cached_find(id)

@@ -1,7 +1,6 @@
 class UpdateWidgetsCatalogsPalylists < ActiveRecord::Migration
   def up
     Widget.all.each do |widget|
-      puts '............... update layout ................'
       widget.widget_theme_id = widget.layout.to_i
       widget.save!
     end

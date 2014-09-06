@@ -38,9 +38,7 @@ class Catalog< ActiveRecord::Base
                   )
   end
   
-  def default_widget
-    Widget.where(secret_key: self.default_widget_key).first
-  end
+  
   
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
   
@@ -89,13 +87,28 @@ class Catalog< ActiveRecord::Base
     recording_ids = self.catalog_items.where(catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
   end
   
-  # !!! cache this
-  def playlist
-    Playlist.where(uuid: self.uuid)
-            .first_or_create(uuid: self.uuid, 
-                             user_id: self.user_id,
-                             account_id: self.account_id,
-                             )
+  def add_recording new_recording
+    default_widget.add_recordings new_recording
+    
+    #playlist.add_recording new_recording
+  end
+  
+  #def add_recordings new_recordings
+  #  playlist.add_recordings new_recordings
+  #end
+  
+  
+  
+  def default_widget
+    Widget.where(secret_key: self.default_widget_key)
+          .first_or_create(  secret_key: self.default_widget_key,
+                             title: self.title,
+                             body:  self.body,
+                             catalog_id: self.id,
+                             widget_theme_id: WidgetTheme.default.id,
+                             user_id:  self.account.user_id,
+                             playlist_id: self.playlist.id
+                           )
   end
   
   def common_works

@@ -29,8 +29,8 @@
                   -@account.playlists.each do |playlist|
                     tr
                       td
-                        - if preview = playlist.perview
-                          = link_to account_account_playlist_preview_path(@account, preview) do
+                        - if preview = playlist.preview
+                          = link_to account_account_playlist_preview_path(@account, preview ) do
                            .btn.btn-primary.btn-lg
                              i class="fa fa-eye"
                              '&nbsp;

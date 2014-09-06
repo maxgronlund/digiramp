@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140902203749) do
+ActiveRecord::Schema.define(version: 20140904195250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -515,7 +515,7 @@ ActiveRecord::Schema.define(version: 20140902203749) do
     t.integer  "nr_assets"
     t.integer  "nr_users"
     t.string   "uuid"
-    t.integer  "default_widget_key"
+    t.string   "default_widget_key"
   end
 
   add_index "catalogs", ["account_id"], name: "index_catalogs_on_account_id", using: :btree

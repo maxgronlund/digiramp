@@ -3,9 +3,10 @@ class Digiwham::RecordingsController < ApplicationController
   # render the views for the playlist
   def index
     @widget     = Widget.where(secret_key: params[:key]).first
-    ap @widget
+    
     if @widget.catalog
       @recordings = @widget.catalog.recordings
+      @recordings = Recording.catalogs_search(@recordings, params[:query]) if params[:query]
     elsif @widget.playlist
       @recordings = @widget.playlist.recordings
     end

@@ -133,12 +133,19 @@ group :doc do
 end
 
 # For cucumber
+#group :test do
+#  gem 'cucumber-rails', :require => false
+#  gem 'rspec-rails'
+#  gem 'database_cleaner'
+#  gem 'factory_girl'
+#  gem 'selenium-webdriver'
+#end
+
+gem "rspec-rails", :group => [:test, :development]
 group :test do
-  gem 'cucumber-rails', :require => false
-  gem 'rspec-rails'
-  gem 'database_cleaner'
-  gem 'factory_girl'
-  gem 'selenium-webdriver'
+  gem "factory_girl_rails"
+  gem "capybara"
+  gem "guard-rspec"
 end
 
 

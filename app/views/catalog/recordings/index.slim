@@ -16,7 +16,9 @@
                                     blog_post: 'Manage Recordings', \
                                      insert: 'catalog/recordings/add_recording'}
       .row
-        .col-sm-12
+        .col-sm-3
+          'catalog navigation
+        .col-sm-9
           .panel
             .panel-body
               .row
@@ -28,19 +30,24 @@
                   .col-sm-6
                     = submit_tag 'Search', class: 'btn btn-primary btn-lg'
                     '&nbsp;
-                    = link_to 'Show All',catalog_account_catalog_recordings_path(@account, @catalog), class: 'btn btn-default btn-lg'
+                    = link_to 'Show All',catalog_account_catalog_recordings_path(@account, @catalog), \
+                                                                                  class: 'btn btn-default btn-lg'
                        
-   
-      .row
-        .col-sm-12
-          .digiramp_player
-            div class="panel-group" id="accordion"
-              div class="permissions" value="catalog_recordings" id="#{@catalog.id}"
-              - @recordings.each do |recording|
-                == render 'recordings/recording', recording: recording
-                       
-                  
-                 
+          == render 'widgets/widget_theme'
+          style type="text/css"
+            '#digiWhams{ background-color: #{@widget.widget_theme.background_color}; padding: 4px; } 
+      
+          #digiWhams class="#{'/digiwham/recordings/?key='+@catalog.default_widget.secret_key+'&query='+ params[:query].to_s }" query="#{params[:query]}"                                                                      
+      /.row
+      /  .col-sm-12
+      /    .digiramp_player
+      /      div class="panel-group" id="accordion"
+      /        div class="permissions" value="catalog_recordings" id="#{@catalog.id}"
+      /        - @recordings.each do |recording|
+      /          == render 'recordings/recording', recording: recording
+      /                 
+      /            
+      /           
             .hidden-xs
               == paginate(@recordings)
             .visible-xs
