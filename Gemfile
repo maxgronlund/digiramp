@@ -7,10 +7,12 @@ gem 'rails', '4.1.4'
 gem 'pg'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+#gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0.0.beta1'
 
 # Use compass for mixin stylesheets
-gem 'compass-rails'
+#gem 'compass-rails'
+gem 'compass', '~> 1.0.0.alpha.21'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -55,7 +57,7 @@ gem 'nokogiri'
 gem 'headless'
 #gem 'linguistics'
 gem 'levenshtein'
-gem 'chosen-rails', '0.12.0'
+#gem 'chosen-rails', '0.12.0'
 #gem 'soundmanager-rails'
 #
 
@@ -141,11 +143,13 @@ end
 #  gem 'selenium-webdriver'
 #end
 
-gem "rspec-rails", :group => [:test, :development]
-group :test do
+
+group :test, :development do
+  gem "rspec-rails", '~> 3.1.0'
   gem "factory_girl_rails"
   gem "capybara"
   gem "guard-rspec"
+  gem "rb-fsevent"
 end
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140904195250) do
+ActiveRecord::Schema.define(version: 20140906060113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -778,6 +778,12 @@ ActiveRecord::Schema.define(version: 20140904195250) do
     t.integer  "video3_id"
     t.integer  "video4_id"
     t.integer  "video5_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "fobars", force: true do |t|
+    t.string   "index"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

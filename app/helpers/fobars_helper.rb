@@ -1,0 +1,2 @@
+module FobarsHelper
+end

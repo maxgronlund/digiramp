@@ -1,0 +1,21 @@
+h1 Listing fobars
+
+table
+  thead
+    tr
+      th Index
+      th
+      th
+      th
+
+  tbody
+    - @fobars.each do |fobar|
+      tr
+        td = fobar.index
+        td = link_to 'Show', fobar
+        td = link_to 'Edit', edit_fobar_path(fobar)
+        td = link_to 'Destroy', fobar, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Fobar', new_fobar_path
