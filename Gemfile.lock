@@ -123,8 +123,6 @@ GEM
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
-    domain_name (0.5.20)
-      unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.39.5)
@@ -178,8 +176,6 @@ GEM
     headless (1.0.2)
     hike (1.2.3)
     hitimes (1.2.2)
-    http-cookie (1.0.2)
-      domain_name (~> 0.5)
     httpclient (2.4.0)
     i18n (0.6.11)
     inflecto (0.0.2)
@@ -211,15 +207,6 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mechanize (2.7.2)
-      domain_name (~> 0.5, >= 0.5.1)
-      http-cookie (~> 1.0.0)
-      mime-types (~> 1.17, >= 1.17.2)
-      net-http-digest_auth (~> 1.1, >= 1.1.1)
-      net-http-persistent (~> 2.5, >= 2.5.2)
-      nokogiri (~> 1.4)
-      ntlm-http (~> 0.1, >= 0.1.1)
-      webrobots (>= 0.0.9, < 0.2)
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_magick (3.8.0)
@@ -229,15 +216,12 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    net-http-digest_auth (1.4)
-    net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
     netrc (0.7.7)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
-    ntlm-http (0.1.1)
     oauth (0.4.7)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
@@ -427,9 +411,6 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.6)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
@@ -442,7 +423,6 @@ GEM
       watir-webdriver
     watir-webdriver (0.6.10)
       selenium-webdriver (>= 2.18.0)
-    webrobots (0.1.1)
     websocket (1.0.7)
     whenever (0.9.2)
       activesupport (>= 2.3.4)
@@ -471,7 +451,6 @@ DEPENDENCIES
   capistrano-sidekiq!
   capybara
   carrierwave
-  celluloid
   chartkick
   coffee-rails (~> 4.0.0)
   compass (~> 1.0.0.alpha.21)
@@ -490,7 +469,6 @@ DEPENDENCIES
   kaminari
   kaminari-bootstrap (~> 3.0.1)
   levenshtein
-  mechanize
   mini_magick
   nokogiri (~> 1.6.3.1)
   omniauth-facebook
@@ -521,7 +499,7 @@ DEPENDENCIES
   unicorn
   uuid (~> 2.3.7)
   uuidtools
-  watir
-  watir-webdriver
+  watir (~> 5.0.0)
+  watir-webdriver (~> 0.6.10)
   whenever
   yomu

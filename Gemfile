@@ -49,10 +49,11 @@ gem 'whenever', require: false
 #gem "fog"
 
 # not in use
-gem 'celluloid'
-gem 'mechanize'
-gem 'watir'
-gem 'watir-webdriver'
+#gem 'celluloid'
+#gem 'mechanize'
+gem 'watir', '~> 5.0.0'
+gem 'watir-webdriver', '~> 0.6.10'
+#gem 'selenium-webdriver', '~> 2.42.0'
 gem 'nokogiri', '~> 1.6.3.1'
 gem 'headless'
 #gem 'linguistics'
