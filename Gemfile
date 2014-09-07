@@ -53,7 +53,7 @@ gem 'celluloid'
 gem 'mechanize'
 gem 'watir'
 gem 'watir-webdriver'
-gem 'nokogiri'
+gem 'nokogiri', '~> 1.6.3.1'
 gem 'headless'
 #gem 'linguistics'
 gem 'levenshtein'
@@ -115,7 +115,7 @@ gem "airbrake"
 gem 'traceroute'
 
 
-gem 'selenium-webdriver'
+
 
 
 
