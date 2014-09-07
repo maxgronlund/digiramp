@@ -40,15 +40,20 @@ class FobarsController < ApplicationController
   # PATCH/PUT /fobars/1
   # PATCH/PUT /fobars/1.json
   def update
-    respond_to do |format|
-      if @fobar.update(fobar_params)
-        format.html { redirect_to @fobar, notice: 'Fobar was successfully updated.' }
-        format.json { render :show, status: :ok, location: @fobar }
-      else
-        format.html { render :edit }
-        format.json { render json: @fobar.errors, status: :unprocessable_entity }
-      end
+    if @fobar.update(fobar_params)
+      redirect_to fobar_path @fobar
+    else
+      redirect_to edit_fobar_path @fobar
     end
+    #respond_to do |format|
+    #  if @fobar.update(fobar_params)
+    #    format.html { redirect_to @fobar, notice: 'Fobar was successfully updated.' }
+    #    format.json { render :show, status: :ok, location: @fobar }
+    #  else
+    #    format.html { render :edit }
+    #    format.json { render json: @fobar.errors, status: :unprocessable_entity }
+    #  end
+    #end
   end
 
   # DELETE /fobars/1

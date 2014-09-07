@@ -60,7 +60,8 @@ class AccessManager
                                         user_id:          account_user.user_id, 
                                         role:             account_user.role,
                                         account_user_id:  account_user.id,
-                                        account_id:       catalog.account_id )
+                                        account_id:       catalog.account_id,
+                                        uuid:             UUIDTools::UUID.timestamp_create().to_s )
                                         
       catalog_user.copy_permissions_from_account_user account_user
       #ap catalog_user.user

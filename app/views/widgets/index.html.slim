@@ -13,14 +13,13 @@
         .row
           - Widget.popular.each do |widget|
             .col-sm-6 id="digi_width"
-              = debug widget
-              /'Created #{widget.created_at}
-              /= link_to widget_path(widget.secret_key) do
-              /  'Show
-              /br
-              /- if Rails.env == 'development'
-              /  <iframe width="660" height="650" src="http://localhost:3000/embed/#{widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
-              /- else 
-              /  <iframe width="660" height="650" src="http://assets-manager.com/embed/#{widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
-              /hr
+              'Created #{widget.created_at}
+              = link_to widget_path(widget.secret_key) do
+                'Show
+              br
+              - if Rails.env == 'development'
+                <iframe width="660" height="650" src="http://localhost:3000/embed/#{widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
+              - else 
+                <iframe width="660" height="650" src="http://assets-manager.com/embed/#{widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
+              hr
         

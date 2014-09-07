@@ -23,11 +23,14 @@
         = form_tag
           = text_field_tag "snippet", "", value: @snippet, :class => 'form-control'
         hr
-        - if Rails.env == 'development'
-          <iframe width="#{@widget.width}" height="#{@widget.height}" src="http://localhost:3000/embed/#{@widget.secret_key}" frameborder="0" allowfullscreen></iframe>
-        - else 
-          <iframe width="#{@widget.width}" height="#{@widget.height}" src="http://assets-manager.com/embed/#{@widget.secret_key}" frameborder="0" allowfullscreen></iframe>
+        == render 'widgets/widget_theme'
         
+        #digiWhams class="/digiwham/recordings/?key=#{@widget.secret_key}"
+        /- if Rails.env == 'development'
+        /  <iframe width="#{@widget.width}" height="#{@widget.height}" src="http://localhost:3000/embed/#{@widget.secret_key}" frameborder="0" allowfullscreen></iframe>
+        /- else 
+        /  <iframe width="#{@widget.width}" height="#{@widget.height}" src="http://assets-manager.com/embed/#{@widget.secret_key}" frameborder="0" allowfullscreen></iframe>
+        /
         
 
 

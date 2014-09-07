@@ -12,7 +12,8 @@ class CatalogUsersController < ApplicationController
     @catalog        = Catalog.cached_find(params[:catalog_id])
     @catalog_user   = CatalogUser.new( title: "You have been invited to a DigiRAMP Catalog by #{current_user.name}", 
                                        body: "You are invited to a Catalog on DigiRAMP. You can access it from #{@catalog.account.title} on your home page",
-                                       account_id: @catalog.account_id)
+                                       account_id: @catalog.account_id,
+                                       uuid:       UUIDTools::UUID.timestamp_create().to_s)
   end
   
   def create
@@ -25,6 +26,7 @@ class CatalogUsersController < ApplicationController
     
       params[:catalog_user][:user_id]      = @user.id 
       params[:catalog_user][:account_id]   = @account.id
+      params[:catalog_user][:uuid]         = UUIDTools::UUID.timestamp_create().to_s
       @catalog_user                        = CatalogUser.create!(catalog_user_params)
     end
     redirect_to account_catalog_catalog_users_path(@account, @catalog)

@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   has_many :account_catalogs, through: :administrations
   #################################
   
-  has_one :account
+  has_one  :account
   has_many :account_users,    dependent: :destroy
   has_many :accounts, :through => :account_users  
   
@@ -75,6 +75,8 @@ class User < ActiveRecord::Base
   
   # statistic on likes
   has_many :likes
+  
+  has_many :playlists
   
   def validate_info
     self.email.downcase!

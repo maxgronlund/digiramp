@@ -36,7 +36,8 @@ class Catalog::CatalogUsersController < ApplicationController
     
     @catalog_user   = CatalogUser.new( title: "You have been invited the #{@catalog.title.upcase!} Catalog by #{current_user.name}", 
                                        body: "You can access the #{@catalog.title.upcase!} Catalog from #{@catalog.account.title} on your HOME screen",
-                                       account_id: @catalog.account_id)
+                                       account_id: @catalog.account_id,
+                                       uuid: UUIDTools::UUID.timestamp_create().to_s)
   end
   
   # create a new catalog user
@@ -89,6 +90,7 @@ class Catalog::CatalogUsersController < ApplicationController
     end
     params[:catalog_user][:user_id]       = @user.id 
     params[:catalog_user][:account_id]    = @account.id 
+    params[:catalog_user][:uuid]          = UUIDTools::UUID.timestamp_create().to_s
     unless @user && @catalog_user         = CatalogUser.create!( catalog_user_params ) 
       # notify if something went wrong
       flash[:danger] = { title: "Error: ", body: "User not invited, If this error persists please contact support" }

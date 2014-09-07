@@ -34,10 +34,7 @@
                                                                                   class: 'btn btn-default btn-lg'
                        
           == render 'widgets/widget_theme'
-          style type="text/css"
-            '#digiWhams{ background-color: #{@widget.widget_theme.background_color}; padding: 4px; } 
-      
-          #digiWhams class="#{'/digiwham/recordings/?key='+@catalog.default_widget.secret_key+'&query='+ params[:query].to_s }" query="#{params[:query]}"                                                                      
+          #digiWhams class="#{@query_string}"                                                               
       /.row
       /  .col-sm-12
       /    .digiramp_player

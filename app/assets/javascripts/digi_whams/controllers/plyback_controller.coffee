@@ -71,16 +71,20 @@ class @PlaybackController
      set_playhead(id, position)
   
   set_playhead = (id, position) ->
-    width =  $('#'+ id + '.audio-waveform').width()
+    width =  $('#'+ id + '.audio-waveform').width() - 1
     $('#'+ id + '.playhead').css 'margin-left': (position * width )
   
   move_playhead = (waveform, event) ->
-    id        = waveform.attr 'id'
-    width     = waveform.width()
-    offset    = waveform.offset()
-    position = (event.pageX - offset.left) / width
-  
-    window.audio_engine.set_position(id, position)
+
+    if window.audio_engine.is_playing()
+      id        = waveform.attr 'id'
+      width     = waveform.width()
+      offset    = waveform.offset()
+      position = (event.pageX - offset.left) / width
+      window.audio_engine.set_position(id, position)
+
+      
+      
   
 
   

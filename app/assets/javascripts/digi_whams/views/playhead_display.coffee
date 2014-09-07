@@ -6,13 +6,13 @@ class @PlayheadDisplay
   set_text: (id, position, playhead_position) ->
     update_display( id, convertTimeToString(position * 0.001) )
     
-    width =  $('#'+ id + '.audio-waveform').width()
+    width =  $('#'+ id + '.audio-waveform').width() - 1
     margin_left = (playhead_position * width) - 22
     
     if margin_left < 0
       margin_left = 0
-    if margin_left > width - 44
-      margin_left = width  - 44
+    if margin_left > width - 46
+      margin_left = width  - 46
       
     $('#'+ id + '.playhead-time').css 'margin-left': margin_left 
     

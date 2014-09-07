@@ -2,7 +2,7 @@ class Widget < ActiveRecord::Base
   
    
   belongs_to :catalog
-  belongs_to :playlist
+  #has_one :playlist
   belongs_to :account
   belongs_to :user
   
@@ -22,36 +22,28 @@ class Widget < ActiveRecord::Base
     begin
       WidgetTheme.cached_find(self.widget_theme_id)
     rescue
-      WidgetTheme.first # !!! default here
+      WidgetTheme.default
     end
   end
   
   def recordings
-    self.playlist.recordings if self.playlist
+    self.playlist.recordings
   end
   
-  def add_recordings new_recordings
-    playlist.add_recordings new_recordings
-  end
+  #def add_items new_items
+  #  puts '---------------- add_items --------------------------'
+  #  ap self
+  #  #playlist.add_items new_items
+  #end
+  #
+  #def add_item new_item
+  #  #playlist.add_item new_item
+  #end
   
-  def add_recording new_recording
-    playlist.add_recording new_recording
-  end
-  
-  
-  # !!! cache this
   def playlist
-    ##################################### ALL PLAYLIST AND SHOULD HAVE A WIDGET 
-    return self.playlist if self.playlist
-    
-    plaulest = Playlist.create(uuid: self.default_widget_key, 
-                                user_id: self.account.user_id,
-                                account_id: self.account_id,
-                                title: self.title,
-                                body: self.body
-                             )
+    Playlist.cached_find(self.playlist_id)
   end
-  
+
   
   
 private

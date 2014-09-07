@@ -43,7 +43,8 @@ class BuildCatalogUsers < ActiveRecord::Migration
           catalog_user = CatalogUser.create(user_id: account_user.user_id,
                                             catalog_id: catalog.id,
                                             role: account_user.role,
-                                            account_id: catalog.account_id
+                                            account_id: catalog.account_id,
+                                            uuid:       UUIDTools::UUID.timestamp_create().to_s
                                             )
           catalog_user.grand_all_permissions
         

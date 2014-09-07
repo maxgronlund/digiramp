@@ -10,7 +10,7 @@ class Account::PlaylistPreviewsController < ApplicationController
     @account          = Account.cached_find(params[:account_id])
     @playlist_key     = PlaylistKey.where(playlist_url: params[:id]).first
     @playlist         = @playlist_key.playlist
-    @playlist_items   = @playlist.playlist_items
+    #@playlist_items   = @playlist.playlist_items
     
     # pessimistic locking
     @show_login       = true

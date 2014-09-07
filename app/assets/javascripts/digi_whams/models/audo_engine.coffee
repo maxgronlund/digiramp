@@ -1,14 +1,17 @@
 # wrapper around soundmanager2
 class @AudioEngine
   sm_sounds = {}
+  playing = false
 
   constructor: ->
   
   play: (id, mp3) ->
+    playing = true
     soundManager.pauseAll()
     create_sound(id , mp3)
 
   pause: ->
+    playing = false
     soundManager.pauseAll()
     
   initialize: ->
@@ -31,6 +34,7 @@ class @AudioEngine
       )
 
     sm_sounds[id].play(
+      
       whileplaying: ->
         if this.position and sm_sounds[id]['sound_loading']
           sm_sounds[id]['sound_loading'] = false
@@ -47,27 +51,7 @@ class @AudioEngine
     possition *= sm_sounds[id]['durationEstimate']
     sm_sounds[id].setPosition( possition )
     
-    
-  #update_display = ( id, text ) ->
-  #  $('#'+ id + '.playhead-time').text( text )
-  #
-  #  
-  #convertTimeToString = (timeFloat) ->
-  #  hours   = parseInt(timeFloat / 3600)
-  #  minutes = parseInt(timeFloat / 60) - hours
-  #  seconds = parseInt(timeFloat) - (minutes * 60)
-  #  msec    = parseInt(timeFloat * 100) - (parseInt(timeFloat) * 100)
-  #  text = convertToTwoDigitString(minutes) + ':' + convertToTwoDigitString(seconds) + ':' + convertToTwoDigitString(msec)
-  #  
-  #  
-  #
-  #
-  #convertToTwoDigitString = (inInt) ->
-  #  if inInt < 10
-  #    return "0" + inInt
-  #  inInt
+  is_playing: ->
+    playing
     
     
-    
-  #$(possition_tag).text(convertTimeToString(this.position * 0.001));
-  

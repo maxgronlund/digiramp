@@ -15,18 +15,12 @@
     
     .row
       .col-sm-3
-      .col-sm-6
-        .text-center
-          h3 = @playlist.title
-          = debug @playlist.playlist_items
-        .panel
-          .panel-body.digiramp_player
-            - @playlist.playlist_items.each_with_index do |playlist_item, index|
-              = debug playlist_item
-              /== render playlist_item.playlist_itemable_type.downcase, playlist_item: playlist_item, index: index
-              
-    
-
-
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
+        h3 = @playlist.title
+        hr
+      .col-sm-9  id="digi_width"
+        #digiWhams class="#{'/digiwham/recordings/?key='+@playlist_key.playlist.default_widget.secret_key}"
+         /- if Rails.env == 'development'
+         /  <iframe width="660" height="1000" src="http://localhost:3000/embed/#{@playlist_key.playlist.default_widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
+         /- else 
+         /  <iframe width="660" height="1000" src="http://assets-manager.com/embed/#{@playlist_key.playlist.default_widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
+         /  hr

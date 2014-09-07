@@ -1,3 +1,7 @@
+# A catalog is an aggreation of catalog items
+# A catalog always has one widget so it can be shown
+# The widget is refered true a UUID 'uuid'
+
 class Catalog< ActiveRecord::Base
   include PublicActivity::Common
   belongs_to :account
@@ -5,7 +9,7 @@ class Catalog< ActiveRecord::Base
   has_many :catalog_users, dependent: :destroy
   has_many :common_works_imports, dependent: :destroy
   has_many :widgets, dependent: :destroy
-  
+  ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
 
   #belongs_to :catalog_itemable, polymorphic: true
   #attr_accessible :catalog_itemable_type, :catalog_itemable_id, :account_catalog_id
@@ -14,35 +18,39 @@ class Catalog< ActiveRecord::Base
   after_commit :flush_cache
 
   before_destroy :remove_account_users
-  after_create :add_related_objects
+  after_create   :add_related_objects
   
   def add_related_objects
-    AccessManager.add_account_users_to_catalog 
-    self.uuid               = UUIDTools::UUID.timestamp_create().to_s
-    
+    AccessManager.add_account_users_to_catalog self
+    self.uuid     = UUIDTools::UUID.timestamp_create().to_s
     self.save
-    add_default_widget
+    default_playlist
   end
   
-  def add_default_widget
-    self.default_widget_key = self.uuid
-    self.save!
-    Widget.create(
-                    title:            self.title,
-                    body:             self.body,
-                    secret_key:       self.default_widget_key,
-                    widget_theme_id:  WidgetTheme.where(title: 'Default').first.id,# !!! make system default
-                    user_id:          self.account.user_id,
-                    account_id:       self.account_id,
-                    catalog_id:       self.id
-                  )
+  def default_playlist
+    Playlist.where( uuid: self.uuid)
+            .first_or_create( uuid:       self.uuid,
+                              user_id:    self.user_id,
+                              account_id: self.account_id,
+                              title:      self.title,
+                              body:       self.body,
+                              url:        UUIDTools::UUID.timestamp_create().to_s,
+                              url_title:  self.title,
+                              link_title: self.title
+                            )
+
+
   end
   
+  def update_widget
+    default_playlist.add_items self.recordings
+    ap default_playlist
+  end
   
-  
-  ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
-  
-  
+  def default_widget 
+    default_playlist.default_widget
+  end
+
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
@@ -86,48 +94,23 @@ class Catalog< ActiveRecord::Base
   def recording_ids
     recording_ids = self.catalog_items.where(catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
   end
-  
-  def add_recording new_recording
-    default_widget.add_recordings new_recording
-    
-    #playlist.add_recording new_recording
-  end
-  
-  #def add_recordings new_recordings
-  #  playlist.add_recordings new_recordings
-  #end
-  
-  
-  
-  def default_widget
-    Widget.where(secret_key: self.default_widget_key)
-          .first_or_create(  secret_key: self.default_widget_key,
-                             title: self.title,
-                             body:  self.body,
-                             catalog_id: self.id,
-                             widget_theme_id: WidgetTheme.default.id,
-                             user_id:  self.account.user_id,
-                             playlist_id: self.playlist.id
-                           )
-  end
+
   
   def common_works
-    
     common_work_ids = CatalogItem.where(catalog_id: self.id, 
                                         catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
                                         
     CommonWork.where(id: common_work_ids)
 
   end
-
-  # add a batch of recordings to the catalog
-  def add_recordings recordings
-    recordings.each do |recording|
+  
+  def add_recording new_recordings
+    new_recordings.each do |recording|
       add_recording recording
     end
   end
-  
-  
+
+
   # add a recording to the catalog
   # after added also create a catalog item for the common work
   def add_recording recording
@@ -142,19 +125,20 @@ class Catalog< ActiveRecord::Base
                                                )
                                 
     add_common_work recording.common_work 
+    default_widget.add_item recording
   end
   
   
   
   # add a common work to a catalog
   def add_common_work common_work,
-    catalog_item = CatalogItem.where( catalog_itemable_id: common_work.id,
-                                      catalog_itemable_type: 'CommonWork',
-                                      catalog_id: self.id
+    catalog_item = CatalogItem.where( catalog_itemable_id:    common_work.id,
+                                      catalog_itemable_type:  'CommonWork',
+                                      catalog_id:              self.id
                                      )
-                              .first_or_create( catalog_itemable_id: common_work.id,
+                              .first_or_create( catalog_itemable_id:    common_work.id,
                                                 catalog_itemable_type: 'CommonWork',
-                                                catalog_id: self.id
+                                                catalog_id:             self.id
                                                )
   end
   

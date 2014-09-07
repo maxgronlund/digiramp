@@ -2,14 +2,15 @@ class Digiwham::RecordingsController < ApplicationController
   
   # render the views for the playlist
   def index
-    @widget     = Widget.where(secret_key: params[:key]).first
-    
-    if @widget.catalog
-      @recordings = @widget.catalog.recordings
-      @recordings = Recording.catalogs_search(@recordings, params[:query]) if params[:query]
-    elsif @widget.playlist
-      @recordings = @widget.playlist.recordings
+    puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+    @catalog_user = nil
+    if params[:catalog]
+      @catalog_user = CatalogUser.where(uuid: params[:catalog_user]).first
     end
+    @widget     = Widget.where(secret_key: params[:key]).first
+    @recordings = Recording.recordings_search( @widget.recordings, params[:query]) 
+      
+
   end
   
   # the show function is used for count of playbacks

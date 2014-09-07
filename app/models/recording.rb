@@ -175,6 +175,13 @@ class Recording < ActiveRecord::Base
     recordings
   end
   
+  def self.recordings_search(recordings, query)
+    if query.present?
+     recordings = recordings.search(query)
+    end
+    recordings
+  end
+  
   
   # remove disk_number, disk_count, track_count, available_date
   def update_completeness
@@ -539,7 +546,7 @@ class Recording < ActiveRecord::Base
       AWS.config(access_key_id: ENV["S3_KEY_ID"],  secret_access_key: ENV["S3_ACCESS_KEY"] ) 
       s3 = AWS::S3.new
       bucket = s3.buckets['digiramp'] # makes no request
-      bucket.objects[self.mp3.gsub('http://digiramp.s3.amazonaws.com/', '')].url_for(:read, :secure => true, :expires => 10*60).to_s
+      bucket.objects[self.mp3.gsub('http://digiramp.s3.amazonaws.com/', '')].url_for(:read, :secure => true, :expires => expires_in)
     rescue
     end
   end

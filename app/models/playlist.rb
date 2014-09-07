@@ -1,140 +1,128 @@
+# A playlist is an aggreation of playlist items
+
+
 class Playlist < ActiveRecord::Base
   belongs_to :account
-  has_one :widget
+  belongs_to :user
   has_many :playlist_items, dependent: :destroy
-  has_many :playlist_keys, dependent: :destroy
-  #has_many :activity_events, as: :activity_eventable
-  #has_many :invites,         as: :inviteable
-  #has_many :permissions, as: :permissionable
+  has_many :playlist_keys,  dependent: :destroy
+  has_many :widgets
+
   
   after_commit :flush_cache
   #before_save :update_uuids
   #before_destroy :update_uuids
-  after_create :add_default_objects
+  after_create :create_default_objects
   
-  
-  def add_default_objects
-    add_default_playlist_key
-    add_default_widget
+  def create_default_objects
+    create_default_widget
+    create_default_key
   end
   
-  def add_default_playlist_key
-    
-    secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
-    playlist_key          = PlaylistKey.create(
-                                                     default: true,
-                                                 playlist_id: self.id,
-                                                     user_id: self.account.user_id,
-                                                  account_id: self.account_id,
-                                               secure_access: true,
-                                                    password: secret_temp_password,
-                                                     expires: false,
-                                             expiration_date: Date.current() >> 365,
-                                                   page_link: '',
-                                                      status: 'new',
-                                                      enable: 'false',
-                                                       title: 'Default Key',
-                                                        body: '',
-                                                playlist_url: UUIDTools::UUID.timestamp_create().to_s
-                                               )
-    
-    
-  end
-  
-  def add_default_widget
-    self.default_widget_key = UUIDTools::UUID.timestamp_create().to_s
+  def create_default_widget
+    default_widget = Widget.create(
+                              title:            self.title,
+                              body:             self.body,
+                              secret_key:       UUIDTools::UUID.timestamp_create().to_s,
+                              widget_theme_id:  WidgetTheme.default.id,
+                              user_id:          self.user_id,
+                              account_id:       self.account_id,
+                              #catalog_id:       self.id,
+                              playlist_id:      self.id
+                            )
+    self.default_widget_id = default_widget.id
     self.save
-    @widget     = Widget.create(
-                                  title:            self.title,
-                                  body:             self.body,
-                                  secret_key:       self.default_widget_key,
-                                  account_id:       self.account_id,
-                                  user_id:          self.user_id,
-                                  playlist_id:      self.id,
-                                  catalog_id:       nil,
-                                  widget_theme_id:  WidgetTheme.default.id
-                                )
-    
-   
   end
-  
-  def default_widget
-    Widget.where(secret_key: self.default_widget_key).first
-  end
-  
-  
-  
-  def self.create_playlist_with_key account, account_user
-    
-    # create a playlist
-    playlist = Playlist.create( account_id: account.id,
-                                title: "Playlist for #{account_user.get_name}"
-                              )
-  
-    playlist_key = create_playlist_key(   playlist,
-                                         account, 
-                                         account_user
-                                      )
-    
-    playlist_key.id
+
+  def create_default_key 
+
+    PlaylistKey.create(
+                             default: true,
+                         playlist_id: self.id,
+                             user_id: self.user_id,
+                          account_id: self.account_id,
+                       secure_access: true,
+                            password: UUIDTools::UUID.timestamp_create().to_s,
+                             expires: false,
+                     expiration_date: Date.current() >> 365,
+                           page_link: '',
+                              status: 'new',
+                              enable: 'false',
+                               title: 'Default Key',
+                                body: '',
+                        playlist_url: UUIDTools::UUID.timestamp_create().to_s
+                       )
+
   end
   
   # make a PlaylistKey 
-  def create_playlist_key playlist, account, account_user
-    playlist_key          = PlaylistKey.where(playlist_id: playlist.id,
-                                              user_id: account_user.id, 
-                                              account_id: account.id)
-                                       .first_or_create(
-                                                         playlist_id: playlist.id,
-                                                         user_id: account_user.user_id,
-                                                         account_id: account.id,
-                                                         secure_access: true,
-                                                         password: UUIDTools::UUID.timestamp_create().to_s,
-                                                         expires: false,
-                                                         expiration_date: Date.current() >> 1,
-                                                         page_link: 'http://digiramp.com',
-                                                         status: 'new'
-                                                       )
+  def playlist_key
+    PlaylistKey.where(playlist_id:  self.id
+               .first_or_create( playlist_id: self.id,
+                                 user_id:     self.account.user_id,
+                                 account_id:  self.account_id),
+                                 secure_access: true,
+                                 password: UUIDTools::UUID.timestamp_create().to_s,
+                                 expires: false,
+                                 expiration_date: Date.current() >> 1,
+                                 page_link: 'http://digiramp.com',
+                                 status: 'new'
+                               )
     
-    playlist_key.id
+
   end
   
   def recordings
     recording_ids = self.playlist_items.where(playlist_itemable_type: 'Recording').pluck(:playlist_itemable_id)
-    Recording.find(recording_ids)
+    Recording.where(id: recording_ids)
   end
   
-  def add_recording new_recording
-    self.playlist_items.where(playlist_itemable_type: 'Recording', 
-                              playlist_itemable_id: new_recording.id)
-                       .first_or_create(playlist_itemable_type: 'Recording', 
-                                        playlist_itemable_id: new_recording.id)
+  def add_item new_item
+    self.playlist_items.where(playlist_id:            self.id,
+                              playlist_itemable_type: new_item.class.name, 
+                              playlist_itemable_id:   new_item.id)
+                       .first_or_create( playlist_id:            self.id,
+                                         playlist_itemable_type: new_item.class.name,
+                                         playlist_itemable_id:   new_item.id)
   end
   
-  def add_recordings new_recordings
-    new_recordings.each do |new_recording|
-      add_recording new_recording
+  def add_items new_items
+    new_items.each do |item|
+      add_item item
     end
+  end
+  
+  def remove_item item
+    ap item
+    if item = PlaylistItem.where(  playlist_id:           self.id, 
+                                   playlist_itemable_id:  item.id,
+                                  playlist_itemable_type: item.class.name
+                                )
+                                            
+      item.destroy 
+      return true                                 
+    end
+    false
+  end
+  
+  def default_widget
+    Widget.cached_find(self.default_widget_id)
   end
 
   
   def preview
-    playlist_keys.where(default: true)
+    playlist_keys.where(default: true).first.playlist_url
   end
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end 
   
-private                  
+private     
+             
   def flush_cache
     Rails.cache.delete([self.class.name, id])
   end
-  
-  def update_uuids
-    AccountCache.update_playlists_uuid account
-    self.uuid =  UUIDTools::UUID.timestamp_create().to_s
-  end
-  
+
   
 end
