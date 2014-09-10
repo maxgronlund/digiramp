@@ -11,7 +11,7 @@
                                                               catalogs: catalog_account_catalogs_path(@account), \
                                                               @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
                                                               }, current: 'recordings'}
-                                                                 
+                                                           
       == render 'shared/page_title', locals: {blog: Blog.cached_find('Recordings'), \
                                     blog_post: 'Manage Recordings', \
                                      insert: 'catalog/recordings/add_recording'}
@@ -34,7 +34,7 @@
                                                                                   class: 'btn btn-default btn-lg'
                        
           == render 'widgets/widget_theme'
-          #digiWhams class="#{@query_string}"                                                               
+          #digiWhams class="#{@query_string}" show_controller="fobar"                                                            
       /.row
       /  .col-sm-12
       /    .digiramp_player

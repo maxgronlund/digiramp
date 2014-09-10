@@ -90,6 +90,6 @@ class Account::OpportunitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def opportunity_params
-      params.require(:opportunity).permit(:title, :body, :kind, :budget, :deadline, :account_id)
+      params.require(:opportunity).permit!
     end
 end

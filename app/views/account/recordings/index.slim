@@ -10,7 +10,7 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account), \
                                                              dashboard: account_account_path(@account)}, \
                                                              current:  'recordings'}
-                                                                                                                 
+                                                                                                                
       == render 'shared/page_title', locals: {blog: Blog.cached_find('Recordings'), \
                                       blog_post: 'Manage Recordings', insert: 'account/recordings/new'}
       .row

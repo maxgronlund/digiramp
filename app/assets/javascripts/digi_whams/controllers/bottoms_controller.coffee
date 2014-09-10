@@ -12,7 +12,9 @@ class @BottomsController
 
     
     $('.share').on 'click', ->
-      alert $(this).attr 'id' 
+      console.log $(this).attr 'show_controller'
+      # window.location.href = 'http://google.com'
+      # alert $(this).attr 'id' 
     
     $('.comment').on 'click', ->
       show_comments( $(this).attr 'id' )

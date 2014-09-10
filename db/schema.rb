@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140907064242) do
+ActiveRecord::Schema.define(version: 20140910174319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1244,6 +1244,7 @@ ActiveRecord::Schema.define(version: 20140907064242) do
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "territory",  default: ""
   end
 
   add_index "opportunities", ["account_id"], name: "index_opportunities_on_account_id", using: :btree
@@ -1416,17 +1417,19 @@ ActiveRecord::Schema.define(version: 20140907064242) do
     t.integer  "account_id"
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "url"
     t.string   "url_title"
     t.string   "link_title"
-    t.string   "uuid",              default: "novel player"
+    t.string   "uuid",               default: "novel player"
     t.integer  "user_id"
+    t.string   "default_widget_key"
     t.integer  "default_widget_id"
   end
 
   add_index "playlists", ["account_id"], name: "index_playlists_on_account_id", using: :btree
+  add_index "playlists", ["default_widget_key"], name: "index_playlists_on_default_widget_key", using: :btree
   add_index "playlists", ["user_id"], name: "index_playlists_on_user_id", using: :btree
 
   create_table "price_plans", force: true do |t|
