@@ -1,4 +1,7 @@
 class @BottomsController
+  
+  show_controller = ''
+  
   constructor: ->
 
     $('.add_to_playlist').on 'click', ->
@@ -12,9 +15,11 @@ class @BottomsController
 
     
     $('.share').on 'click', ->
-      console.log $(this).attr 'show_controller'
+      # console.log $(this).attr 'show_controller'
       # window.location.href = 'http://google.com'
-      # alert $(this).attr 'id' 
+      id =  $(this).attr 'id' 
+      console.log show_controller 
+      window.location.href = show_controller + id 
     
     $('.comment').on 'click', ->
       show_comments( $(this).attr 'id' )
@@ -23,6 +28,12 @@ class @BottomsController
       close_bottom_panes()
       id = $(this).attr 'id'
       reset_buttom_buttons(id)
+      
+
+    if $('#digiWhams')[0]
+      show_controller = $('#digiWhams').attr("show_controller")   
+      console.log show_controller 
+
 
         
       

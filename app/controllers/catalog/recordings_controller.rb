@@ -16,7 +16,6 @@ class Catalog::RecordingsController < ApplicationController
       @query_string += '&catalog_user='             + @catalog_user.uuid   
       @query_string += '&query=' + params[:query].to_s if params[:query]
     end
-            
   end
   
   def info
