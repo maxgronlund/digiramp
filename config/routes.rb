@@ -6,6 +6,10 @@ Digiramp::Application.routes.draw do
 
 
 
+  namespace :account do
+  get 'catalog_common_works/index'
+  end
+
   resources :fobars
 
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
@@ -361,7 +365,10 @@ Digiramp::Application.routes.draw do
       resources :artworks 
       
       resources :audio_files
-      resources :catalogs 
+      resources :catalogs do
+        #resources :catalog_recordings
+        #resources :catalog_common_works
+      end
       resources :clients
       resources :client_imports
       resources :common_works do

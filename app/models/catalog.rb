@@ -44,7 +44,7 @@ class Catalog< ActiveRecord::Base
   
   def update_widget
     default_playlist.add_items self.recordings
-    ap default_playlist
+    #ap default_playlist
   end
   
   def default_widget 
@@ -125,7 +125,7 @@ class Catalog< ActiveRecord::Base
                                                )
                                 
     add_common_work recording.common_work 
-    default_widget.add_item recording
+    default_playlist.add_item recording
   end
   
   
@@ -142,6 +142,7 @@ class Catalog< ActiveRecord::Base
                                                )
   end
   
+
   
   
   # fetch all artwork in the catalog

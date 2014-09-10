@@ -100,14 +100,15 @@ class RecordingsController < ApplicationController
   #end
   #
   #
-  #def destroy
-  #  @recording = Recording.find(params[:id])
-  #  common_work = @recording.common_work
-  #  @recording.destroy
-  #  common_work.update_completeness
-  #  # jump back to recordings or common work
-  #  redirect_to_return_url account_account_recordings_path( @account, page: params[:page], query: params[:query])
-  #end
+  def destroy
+    @recording = Recording.find(params[:id])
+    common_work = @recording.common_work
+    @recording.destroy
+    common_work.update_completeness
+    # jump back to recordings or common work
+    #redirect_to_return_url account_account_recordings_path( @account, page: params[:page], query: params[:query])
+    redirect_to :back
+  end
   #
   #def upload_completed
   #  @recording      = Recording.find(params[:recording_id])

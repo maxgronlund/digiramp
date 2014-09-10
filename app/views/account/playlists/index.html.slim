@@ -16,7 +16,7 @@
       .col-sm-12
         .panel.panel-primary
           .panel-heading
-            'Recordings
+            'Playlists
           .panel-body
             .table-responsive
               table class="table table-striped"
@@ -41,7 +41,7 @@
                         /    '&nbsp;
                         /    = playlist.title
 
-                        
+                      td = playlist.recordings.size 
                       td
                         .pull-right
                           - if current_account_user.update_playlist?

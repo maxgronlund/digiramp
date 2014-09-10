@@ -59,10 +59,11 @@ class CatalogRecordingsController < ApplicationController
   
   
   def new
+    
     # add the recording to the catalog
     @catalog   = Catalog.cached_find(params[:catalog_id])
     @recording = Recording.cached_find(params[:recording])
-    
+    ap @recording
     catalog_item = CatalogItem.where(catalog_id: @catalog.id, 
                                      catalog_itemable_id: @recording.id, 
                                      catalog_itemable_type: @recording.class.name)
@@ -88,6 +89,8 @@ class CatalogRecordingsController < ApplicationController
                                                catalog_itemable_id: common_work.id, 
                                              catalog_itemable_type: common_work.class.name)
                               
+    # !!! all the above has to move in to the catalog model
+    @catalog.add_recording @recording
     # activity log                   
     catalog_item.create_activity(  :created, 
                        owner: current_user,

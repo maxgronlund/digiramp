@@ -162,8 +162,8 @@ gem 'unicorn'
 
 gem 'thin'
 
-gem 'capistrano-sidekiq' , github: 'seuros/capistrano-sidekiq'
-
+#gem 'capistrano-sidekiq' , github: 'seuros/capistrano-sidekiq'
+#gem 'capistrano-sidekiq'
 
 gem 'aws-sdk', '~> 1.48.1'
 gem 'uuid', '~> 2.3.7'
@@ -182,6 +182,7 @@ group :development do
   
   #gem "capistrano-sidekiq"
   #gem 'capistrano-sidekiq'
+  gem 'capistrano-sidekiq'
   
   # if you are using RVM
   #gem 'capistrano-rvm'

@@ -1,0 +1,27 @@
+#wrap
+  div class="#{'profile' if account_owner?}"
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'account' 
+  /-cache([ @account.id, @account.works_uuid, params]) do  
+  .do   
+    .container
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                              catalogs: catalog_account_catalogs_path(@account), \
+                                                              }, current: 'new catalog'}
+      
+      
+      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'New Catalog'}
+      .row
+        .col-sm-3
+        .col-sm-6
+          =simple_form_for [:catalog, @account, @catalog] do |f|
+            = f.hidden_field :account_id, value: @account.id
+            = render 'form', f: f
+              
+    
+
+  
+    
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'

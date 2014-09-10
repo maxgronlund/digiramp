@@ -22,17 +22,17 @@
       
       .row
         .col-sm-3
-          'some selection here
-          br
-          'Preview / find
-          br
-          'select catalog
+          /'some selection here
+          /br
+          /'Preview / find
+          /br
+          /'select catalog
         .col-sm-9  id="digi_width"
-          'cool search
+          /'cool search
           hr
-          'cool widget player 
+          /'cool widget player 
           
-          #digiWhams class="#{'/digiwham/recordings/?key='+@playlist.widget.secret_key}"
+          #digiWhams class="#{'/digiwham/recordings/?key='+@playlist.default_widget.secret_key}"
 
     == render 'shared/back', locals: {link: account_account_playlists_path(@account)}      
 -cache (['footer', Admin.cached_find(1).version]) do      

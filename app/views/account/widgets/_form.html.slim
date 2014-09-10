@@ -14,8 +14,12 @@
       hr
       = f.input :width
       = f.input :height
-      = f.input :catalog_id, collection: @account.catalogs
-      = f.input :playlist_id, collection: @account.playlists
+      /= f.input :catalog_id, collection: @account.catalogs
+      - if @widget.playlist.default_widget_id === @widget.id
+        .alert.alert-info
+          'Default widget for a playlist
+      - else
+        = f.input :playlist_id, collection: @account.playlists
       = f.input :widget_theme_id, collection: WidgetTheme.all, include_blank: false
   .pull-right  
     = f.submit 'Show', class: 'btn btn-primary btn-lg'

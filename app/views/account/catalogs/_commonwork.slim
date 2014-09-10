@@ -1,0 +1,12 @@
+-common_work = catalog_item.catalog_itemable
+
+/= debug common_work
+
+.row
+  .col-sm-4
+    h3 = common_work.title
+  .col-sm-8
+    .pull-right
+      = link_to 'show', account_work_path( @account, common_work), class: 'btn btn-primary btn-lg'
+    
+== render 'shared/line'
