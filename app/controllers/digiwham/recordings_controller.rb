@@ -2,7 +2,7 @@ class Digiwham::RecordingsController < ApplicationController
   
   # render the views for the playlist
   def index
-    puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+    
     @catalog_user = nil
     if params[:catalog]
       @catalog_user = CatalogUser.where(uuid: params[:catalog_user]).first

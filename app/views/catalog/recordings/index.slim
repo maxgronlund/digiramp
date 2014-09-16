@@ -1,65 +1,102 @@
-- session[:after_delete_recording] = request.url
-#wrap
+#wrapper
   div class="#{'profile' if account_owner?}"
     .full-width-top
-      == render 'admin/shared/navbar', page: 'account'         
-  .container
-    ==render 'admin/shared/messages'
-    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
-    .do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              }, current: 'recordings'}
-                                                           
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Recordings'), \
-                                    blog_post: 'Manage Recordings', \
-                                     insert: 'catalog/recordings/add_recording'}
-      .row
-        .col-sm-3
-          'catalog navigation
-        .col-sm-9
-          .panel
-            .panel-body
-              .row
-                = form_tag catalog_account_catalog_recordings_path(@account, @catalog), :method => 'get' do
-                  .col-sm-6
-                    = text_field_tag "query", "", :class => 'search-query form-control', \
-                                                  :placeholder => 'Search string', \
-                                                  value: params[:query]
-                  .col-sm-6
-                    = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-                    '&nbsp;
-                    = link_to 'Show All',catalog_account_catalog_recordings_path(@account, @catalog), \
-                                                                                  class: 'btn btn-default btn-lg'
-                       
-      /   == render 'widgets/widget_theme'
-      /   #digiWhams class="#{@query_string}" show_controller="recordings/"    
-      /   /accounts/6/catalogs/960/common_works/7728/recordings                                          
-      .row
-        .col-sm-12
-          .digiramp_player
-            div class="panel-group" id="accordion"
-              div class="permissions" value="catalog_recordings" id="#{@catalog.id}"
-              - @recordings.each do |recording|
-                == render 'recordings/recording', recording: recording
-                       
-                  
-                 
-            .hidden-xs
-              == paginate(@recordings)
-            .visible-xs
-              .btn-group
-                = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
-                = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
-            
-            -if current_user.can_administrate @account
-              hr
-              .row
-                .col-sm-12
-                  .pull-right
-                    = link_to 'Export All to CSV', account_export_recordings_path(@account, format: "csv"), \
-                                                  class: 'btn btn-primary btn-lg'
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+      == render 'shared/navigationbar', page: 'account'         
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'catalog/catalogs/sidebar', selected: 'recordings'
+      li
+        hr
+      -if current_catalog_user.create_recording
+        li
+          = link_to catalog_account_catalog_add_recordings_path(@account, @catalog) do
+            i class="fa fa-plus-circle"
+            '&nbsp;
+            'Add Recording
+      - if current_user.can_administrate @account 
+        li
+          = link_to account_export_recordings_path(@account, format: "csv") do
+            i class="fa fa-cloud-download"
+            '&nbsp;
+            'Download CSV
+      /-if current_catalog_user.create_recording
+      /  br 
+      /  .pull-right
+      /    = link_to catalog_account_catalog_add_recordings_path(@account, @catalog) do
+      /      .btn.btn-success.btn-lg
+      /        i class="fa fa-plus-circle"
+      /        '&nbsp;
+      /        'Add Recording
+      /-if current_user.can_administrate @account
+      /  .pull-right
+      /    = link_to 'Export All to CSV', account_export_recordings_path(@account, format: "csv"), \
+      /                                  class: 'btn btn-primary btn-lg'
+        
+      
+
+  #page-content-wrapper
+    .container-fluid
+
+      == render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
+      #digiWhams  class="/catalog/accounts/#{@account.id}/catalogs/#{@catalog.id}/recordings"
+      
+        - @recordings.each_with_index do |recording, index |
+          == render 'audio_player/show', recording: recording 
+          .btn-group.btn-group-xs
+            = link_to catalog_account_catalog_recording_path(@account, @catalog, recording), \
+                      class: "btn btn-default" do
+              i class="fa fa-eye"
+              '&nbsp;
+              'Show
+              
+            = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
+                      class: "btn btn-default"  do
+              i class="fa fa-pencil"
+              '&nbsp;
+              'Edit
+        
+              
+            = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
+                      class: "btn btn-default"  do
+              i class="fa fa-heart"
+              '&nbsp;
+              'Like
+        
+              
+            = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
+                      class: "btn btn-default"  do
+              i class="fa fa-trash-o"
+              '&nbsp;
+              'Delete
+        
+              
+        
+          
+          .pull-right
+            .btn-group.btn-group-xs
+              = link_to catalog_account_catalog_recording_path(@account, @catalog, recording), \
+                        class: "btn btn-default"  do
+                'Remove
+           
+          hr
+      /.digiramp_player
+      /  div class="panel-group" id="accordion"
+      /    div class="permissions" value="catalog_recordings" id="#{@catalog.id}"
+      /    - @recordings.each do |recording|
+      /      == render 'recordings/recording', recording: recording
+      /             
+      /        
+      /       
+        .hidden-xs
+          == paginate(@recordings)
+        .visible-xs
+          .btn-group
+            = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
+            = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+        
+        
+        
+        
+  
+  

@@ -38,6 +38,7 @@
 //= require ipis_table.js
 //= require common_works_table.js
 //= require_tree ./digi_whams
+//= require sidebar
 
 Turbolinks.enableTransitionCache();
 

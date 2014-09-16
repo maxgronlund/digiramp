@@ -1,4 +1,4 @@
-.navbar.navbar-digiramp.navbar-fixed-top
+.navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
   .container-fluid 
     .navbar-header
       button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -11,12 +11,16 @@
       = link_to root_path, 'data-no-turbolink'=>true do
         .navbar-brand
           = image_tag('logo.svg', size: "80x50")
+          
+          = link_to "#menu-toggle", id: "menu-toggle" do
+            i class="fa fa-caret-square-o-left"
 
 
     .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
       ul class="nav navbar-nav"
-
+        
         -if can_edit?
+
           li  class="#{page == 'admin' ? 'active' : ''}"
             = link_to admin_index_path do
               i class="fa fa-wrench"
@@ -33,37 +37,54 @@
                 '&nbsp;
                 'SUPPORT
                 
-            /li class="#{page == 'admin' ? 'active' : ''}"
-            /  = link_to 'ADMIN', admin_index_path
+        
 
       -if user_signed_in? && current_account
         ul class="nav navbar-nav navbar-right"
-          
+                
           li  class="#{page == 'account' ? 'active' : ''}"
             -unless page == 'profile'
               = link_to account_account_path(current_account) do
-                i class="fa fa-tachometer"
+                i class="fa fa-group"
                 '&nbsp;
                 = current_account.title.upcase 
                 
+          
 
-
-          li class="#{page == 'profile' ? 'active' : ''}"
-            = link_to account_account_path(current_user.account) do
-              i class="fa fa-tachometer"
-            
-
-          li class="#{page == 'profile' ? 'active' : ''}"
-            = link_to user_path(current_user) do
-              i class="fa fa-home"
               
               
-          li 
-            = link_to logout_path do
-              i class="fa fa-unlock"
+          
+   
+          li class="dropdown"
+            = link_to '#', id: "drop2", role: "button", class: "dropdown-toggle", 'data-toggle'.to_sym =>"dropdown" do
+              = image_tag current_user.image_url(:avatar_32x32)
               '&nbsp;
-              'LOG OUT
-      
+              span class="caret"
+            ul class="dropdown-menu" role="menu" aria-labelledby="drop2"
+              li 
+                = link_to user_path(current_user) do
+                  i class="fa fa-user"
+                  '&nbsp;
+                  'Account
+              li 
+                = link_to account_account_path(current_user.account) do
+                  i class="fa fa-tachometer"
+                  '&nbsp;
+                  'Dashboard
+              li 
+                = link_to user_user_collections_path(current_user) do
+                  i class="fa fa-group"
+                  '&nbsp;
+                  'Groups
+                  
+  
+
+              li 
+                = link_to logout_path do
+                  i class="fa fa-unlock"
+                  '&nbsp;
+                  'LOG OUT
+              
       
       -else
         ul class="nav navbar-nav navbar-right"

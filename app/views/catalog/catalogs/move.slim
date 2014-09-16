@@ -1,28 +1,98 @@
-#wrap
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  /-cache([ @account.id, @account.works_uuid, params]) do  
+/  .do   
+/    .container
+/      div class="catalog_id" id="#{@catalog.id}"
+/      
+/      ==render 'admin/shared/messages'
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              assets: account_assets_path(@account), \
+/                                                              catalogs: account_catalogs_path(@account), \
+/                                                              }, current: @catalog.title}
+/      
+/
+/      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog', insert: 'catalogs/links'}
+/      == render 'shared/title', locals: {title: @account.title, body: @account.account_type}
+/      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Move ', insert: 'edit'}
+/
+/      - blog      = Blog.cached_find('Catalogs')
+/      - blog_post = BlogPost.cached_find('Move Catalog', blog)
+/      .row
+/        .col-sm-3
+/        .col-sm-6
+/          .panel.panel-primary
+/            .panel-heading
+/              = blog_post.title
+/              -if can_edit?
+/                '&nbsp;
+/                = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+/                   i class="fa fa-pencil"
+/            .panel-body
+/             
+/              
+/              = simple_form_for  [@account, @catalog], :url => url_for(:action => 'generate_code', :controller => 'catalogs'), :method => 'put'do |f|
+/                = f.hidden_field :account_id, value: @account.id
+/                = f.hidden_field :catalog_id, value: @catalog.id
+/                = f.input :movable, label: 'Make Catalog Transferable'
+/                = f.input :include_all, label: 'Include All documents and Common Works'
+/                
+/                br
+/                - if @catalog.move_code != ''
+/                  = simple_format blog_post.body
+/                  .input-group
+/                    span class="input-group-addon"
+/                      i class= 'fa fa-key'
+/                    = f.input_field :move_code, placeholder: 'Unlock Catalog To Generate Key', autocomplete: :off
+/                br
+/                hr
+/                .pull-right
+/                  = link_to 'Done',  catalog_account_catalog_path( @account, @catalog) , class: 'btn btn-default btn-lg'
+/                  '&nbsp;
+/                  = f.submit 'Save', class: 'btn btn-primary btn-lg'
+/                
+/                  
+/                  
+/              /h4
+/              /  span class="label label-default"
+/              /    = @catalog.move_code
+/              /    
+/              /br
+/              /br
+/              /.pull-right
+/              /  = link_to 'Done', account_catalog_path( @account, @catalog), class: 'btn btn-default btn-lg' 
+/              /  '&nbsp;
+/              /  = link_to 'Generate New Code', account_catalog_get_code_path(@account, @catalog), class: 'btn btn-primary btn-lg' 
+/        .col-sm-3
+/          
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+
+#wrapper
   div class="#{'profile' if account_owner?}"
     .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  /-cache([ @account.id, @account.works_uuid, params]) do  
-  .do   
-    .container
-      div class="catalog_id" id="#{@catalog.id}"
-      
-      ==render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              assets: account_assets_path(@account), \
-                                                              catalogs: account_catalogs_path(@account), \
-                                                              }, current: @catalog.title}
-      
+      == render 'admin/shared/navbar', page: 'account'         
 
-      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog', insert: 'catalogs/links'}
-      == render 'shared/title', locals: {title: @account.title, body: @account.account_type}
-      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Move ', insert: 'edit'}
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'catalog/catalogs/sidebar', selected: 'move'
 
+
+          
+
+  #page-content-wrapper
+    .container-fluid
+
+      = link_to "#menu-toggle", id: "menu-toggle" do
+        i class="fa fa-caret-square-o-left"
+      == render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
       - blog      = Blog.cached_find('Catalogs')
       - blog_post = BlogPost.cached_find('Move Catalog', blog)
       .row
-        .col-sm-3
-        .col-sm-6
+        .col-sm-8
           .panel.panel-primary
             .panel-heading
               = blog_post.title
@@ -53,20 +123,6 @@
                   '&nbsp;
                   = f.submit 'Save', class: 'btn btn-primary btn-lg'
                 
-                  
-                  
-              /h4
-              /  span class="label label-default"
-              /    = @catalog.move_code
-              /    
-              /br
-              /br
-              /.pull-right
-              /  = link_to 'Done', account_catalog_path( @account, @catalog), class: 'btn btn-default btn-lg' 
-              /  '&nbsp;
-              /  = link_to 'Generate New Code', account_catalog_get_code_path(@account, @catalog), class: 'btn btn-primary btn-lg' 
-        .col-sm-3
-          
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+      
+      

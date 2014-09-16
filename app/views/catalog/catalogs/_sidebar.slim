@@ -1,0 +1,40 @@
+
+li class="#{'sidebar-selected' if selected == 'info'}"
+  = link_to catalog_account_catalog_path( @account, @catalog) do
+    i class="fa fa-info-circle"
+    '&nbsp;
+    'Info
+- if current_catalog_user.read_recording 
+  li class="#{'sidebar-selected' if selected == 'recordings'}"
+    = link_to catalog_account_catalog_recordings_path(@account, @catalog) do
+      i class="fa fa-headphones"
+      '&nbsp;
+      'Recordings
+  
+- if current_catalog_user.read_common_work
+  li class="#{'sidebar-selected' if selected == 'common-works'}"
+    = link_to catalog_account_catalog_common_works_path(@account, @catalog) do
+      i class="fa fa-music"
+      '&nbsp;
+      'Common Works
+
+-if current_catalog_user.access_assets?  
+  li class="#{'sidebar-selected' if selected == 'assets'}"
+    = link_to catalog_account_catalog_assets_path(@account, @catalog) do
+      i class="fa fa-folder"
+      '&nbsp;
+      'Assets
+
+-if current_catalog_user.read_user?
+  li class="#{'sidebar-selected' if selected == 'members'}"
+    = link_to catalog_account_catalog_catalog_users_path(@account, @catalog) do
+      i class="fa fa-group"
+      '&nbsp;
+      'Members
+
+-if can_edit? || current_user.id == @account.administrator.id 
+  li class="#{'sidebar-selected' if selected == 'move'}"
+    = link_to catalog_account_catalog_move_path(@account, @catalog) do
+      i class="fa fa-truck"
+      '&nbsp;
+      'Move

@@ -1,21 +1,29 @@
 @import compass/css3
-$navbar-color: #272F3A
+$navbar-color: #fff
 
 .navbar-digiramp 
   background-color: $navbar-color
-  border-color: #000
-  +single-box-shadow
+  border-color: #d0d0d0
+  +box-shadow(#ddd 0px 0px 10px)
   a
     color: #999
     
   .nav > li > a:hover, .nav > li > a:focus 
-    background-color: lighten($navbar-color, 10%)
+    background-color: darken($navbar-color, 10%)
     
   .navbar-brand 
     padding: 0px
     
   .navbar-toggle .icon-bar 
     background-color: #A5B7EB
+    
+    
+    
+  .nav > li > a > img 
+    max-width: none
+    margin-bottom: -10px !important
+    margin-top: -10px
+
   
   
   

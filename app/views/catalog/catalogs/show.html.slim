@@ -1,95 +1,124 @@
 
-#wrap
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  
+/  .do   
+/    .container
+/      div class="catalog_id" id="#{@catalog.id}"
+/      
+/      ==render 'admin/shared/messages'
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              #assets: account_assets_path(@account), \
+/                                                              catalogs: catalog_account_catalogs_path(@account), \
+/                                                              }, current: @catalog.title}
+/      
+/                                                              
+/      - insert = current_account_user.update_catalog ? 'edit' : nil
+/      == render 'shared/page_title_text', locals: {title: @catalog.title, body: @catalog.body, insert: insert}
+/      
+/      .row
+/        .col-sm-6
+/          br
+/          .panel.panel-primary
+/            .panel-heading
+/              'Info
+/            .panel-body
+/              .table-responsive
+/                table class="table table-hover"
+/                  thead
+/                    tr
+/                      th Recordings:
+/                      th = @catalog.recordings.size
+/                    tr
+/                      th Works:
+/                      th = @catalog.common_works.size
+/                    tr
+/                      th Belongs to:
+/                      th = @catalog.account.title
+/
+/                      
+/        .col-sm-6
+/
+/          /= debug current_catalog_user  @catalog
+/          - if current_catalog_user.read_recording 
+/            == render 'badge_button', locals: { \
+/                                                 blog_post: 'RECORDINGS', \
+/                                                 link: catalog_account_catalog_recordings_path(@account, @catalog), \
+/                                                 css_class: 'btn btn-warning', \
+/                                                 icon: 'fa fa-headphones'\
+/                                               }
+/          
+/          - if current_catalog_user.read_common_work
+/            == render 'badge_button', locals: { \
+/                                                 blog_post: 'COMMON WORKS', \
+/                                                 link: catalog_account_catalog_common_works_path(@account, @catalog), \
+/                                                 css_class: 'btn btn-primary', \
+/                                                 icon: 'fa fa-music'\
+/                                               }
+/          
+/          -if current_catalog_user.access_assets?  
+/            == render 'badge_button', locals: { \
+/                                                 blog_post: 'ASSETS', \
+/                                                 link: catalog_account_catalog_assets_path(@account, @catalog), \
+/                                                 css_class: 'btn btn-success', \
+/                                                 icon: 'fa fa-folder-o' \
+/                                               }
+/          -if current_catalog_user.read_user? 
+/            == render 'badge_button', locals: { \
+/                                                 blog_post: 'USERS', \
+/                                                 link: catalog_account_catalog_catalog_users_path(@account, @catalog), \
+/                                                 css_class: 'btn btn-default', \
+/                                                 icon: 'fa fa-group' \
+/                                               }
+/                                               
+/          -if can_edit? || current_user.id == @account.administrator.id 
+/            == render 'badge_button', locals: { \
+/                                                 blog_post: 'MOVE CATALOG', \
+/                                                 link: catalog_account_catalog_move_path(@account, @catalog), \
+/                                                 css_class: 'btn btn-danger', \
+/                                                 icon: 'fa fa-truck' \
+/                                               }
+/        /.col-sm-6
+/        /  == render 'badge_button', locals: { \
+/        /                                       blog_post: 'ADD DOCUMENTS', \
+/        /                                       link: account_add_catalog_asset_path(@account, @catalog), \
+/        /                                       css_class: 'btn btn-danger', \
+/        /                                       icon: 'fa fa-folder-o' \
+/        /                                     }
+/        /                                     
+/          
+/                                             
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+
+#wrapper
   div class="#{'profile' if account_owner?}"
     .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  
-  .do   
-    .container
-      div class="catalog_id" id="#{@catalog.id}"
-      
-      ==render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              #assets: account_assets_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              }, current: @catalog.title}
-      
-                                                              
-      - insert = current_account_user.update_catalog ? 'edit' : nil
-      == render 'shared/page_title_text', locals: {title: @catalog.title, body: @catalog.body, insert: insert}
-      
-      .row
-        .col-sm-6
-          br
-          .panel.panel-primary
-            .panel-heading
-              'Info
-            .panel-body
-              .table-responsive
-                table class="table table-hover"
-                  thead
-                    tr
-                      th Recordings:
-                      th = @catalog.recordings.size
-                    tr
-                      th Works:
-                      th = @catalog.common_works.size
-                    tr
-                      th Belongs to:
-                      th = @catalog.account.title
+      == render 'admin/shared/navbar', page: 'account'         
 
-                      
-        .col-sm-6
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'catalog/catalogs/sidebar', selected: 'info'
 
-          /= debug current_catalog_user  @catalog
-          - if current_catalog_user.read_recording 
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'RECORDINGS', \
-                                                 link: catalog_account_catalog_recordings_path(@account, @catalog), \
-                                                 css_class: 'btn btn-warning', \
-                                                 icon: 'fa fa-headphones'\
-                                               }
-          
-          - if current_catalog_user.read_common_work
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'COMMON WORKS', \
-                                                 link: catalog_account_catalog_common_works_path(@account, @catalog), \
-                                                 css_class: 'btn btn-primary', \
-                                                 icon: 'fa fa-music'\
-                                               }
-          
-          -if current_catalog_user.access_assets?  
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'ASSETS', \
-                                                 link: catalog_account_catalog_assets_path(@account, @catalog), \
-                                                 css_class: 'btn btn-success', \
-                                                 icon: 'fa fa-folder-o' \
-                                               }
-          -if current_catalog_user.read_user? 
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'USERS', \
-                                                 link: catalog_account_catalog_catalog_users_path(@account, @catalog), \
-                                                 css_class: 'btn btn-default', \
-                                                 icon: 'fa fa-group' \
-                                               }
-                                               
-          -if can_edit? || current_user.id == @account.administrator.id 
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'MOVE CATALOG', \
-                                                 link: catalog_account_catalog_move_path(@account, @catalog), \
-                                                 css_class: 'btn btn-danger', \
-                                                 icon: 'fa fa-truck' \
-                                               }
-        /.col-sm-6
-        /  == render 'badge_button', locals: { \
-        /                                       blog_post: 'ADD DOCUMENTS', \
-        /                                       link: account_add_catalog_asset_path(@account, @catalog), \
-        /                                       css_class: 'btn btn-danger', \
-        /                                       icon: 'fa fa-folder-o' \
-        /                                     }
-        /                                     
-          
-                                             
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
+
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Recordings:
+              th = @catalog.recordings.size
+            tr
+              th Works:
+              th = @catalog.common_works.size
+            tr
+              th Belongs to:
+              th = @catalog.account.title
+      
+       
