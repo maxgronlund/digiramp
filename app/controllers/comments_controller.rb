@@ -27,6 +27,14 @@ class CommentsController < ApplicationController
   def create
 
     if @comment = Comment.create!(comment_params)
+      
+      @comment.user.create_activity(  :created, 
+                                 owner: @comment, # the recording has many comments
+                             recipient: @comment.commentable,
+                        recipient_type: @comment.commentable_type,
+                            account_id: @comment.user.account_id) 
+                            
+                    
       case @comment.commentable_type
       
       when 'Issue'
@@ -51,6 +59,16 @@ class CommentsController < ApplicationController
           puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
         end
         redirect_to user_issue_path(@comment.user, @comment.commentable_id)
+      when 'Recording'
+        #ap @comment.commentable
+        #user.create_activity(  :created, 
+        #                   owner: @comment.user,
+        #               recipient: @comment.commentable,
+        #          recipient_type: @comment.commentable_type,
+        #              account_id: @comment.user.account_id) 
+      else
+        
+      
       end
     else
       redirect_to :back
@@ -75,13 +93,16 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    return_to = root_path
+    
     case @comment.commentable_type
     when 'Issue'
-      return_to  = user_issue_path(@comment.user, @comment.commentable_id)
+      @comment.destroy
+      redirect_to  = user_issue_path(@comment.user, @comment.commentable_id)
+    else
+      @hide_comment = "#comment_#{@comment.id}"
+      #@comment.destroy
     end
-    @comment.destroy
-    redirect_to return_to
+
     
   end
 

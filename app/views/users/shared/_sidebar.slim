@@ -1,0 +1,145 @@
+li class="#{'sidebar-selected' if selected == 'user'}"
+  = link_to user_path(@user) do
+    i class="fa fa-user"
+    '&nbsp;
+    =@user.name 
+    
+li class="#{'sidebar-selected' if selected == 'recordings'}"
+  = link_to user_recordings_path(@user) do
+    i class="fa fa-headphones"
+    '&nbsp;
+    = pluralize(@user.recordings.count, 'Recording')  
+
+    
+li class="#{'sidebar-selected' if selected == 'likes'}"
+  = link_to user_likes_path(@user) do
+    i class="fa fa-heart"
+    '&nbsp;
+    = @user.likes.count
+    '&nbsp;
+    'Likes  
+    
+li class="#{'sidebar-selected' if selected == 'followers'}"
+  = link_to user_followers_path(@user) do
+    i class="fa fa-users"
+    '&nbsp;
+    = pluralize(@user.followers.count, 'Follower')  
+    
+li class="#{'sidebar-selected' if selected == 'following'}"
+  = link_to user_following_index_path(@user) do
+    i class="fa fa-users"
+    '&nbsp;
+    'Following
+    = pluralize(@user.followed_users.count, 'User')  
+    
+    
+    
+
+    
+    
+ 
+- if @authorized  
+  li class="#{'sidebar-selected' if selected == 'authorizations'}"
+    = link_to user_user_authorization_providers_path(@user) do
+      i class="fa fa-lock"
+      '&nbsp;
+      'Authorizations
+      
+- if @authorized
+  li class="#{'sidebar-selected' if selected == 'account'}"
+    = link_to account_account_path( @user.account ) do
+      i class="fa fa-tachometer"
+      '&nbsp;
+      'Account
+/li class="#{'sidebar-selected' if selected == 'account'}"
+/  = link_to users_path do
+/    i class="fa fa-users"
+/    '&nbsp;
+/    'Users
+      
+      
+      
+/- if current_catalog_user.read_recording 
+/  li class="#{'sidebar-selected' if selected == 'recordings'}"
+/    = link_to catalog_account_catalog_recordings_path(@account, @catalog) do
+/      i class="fa fa-headphones"
+/      '&nbsp;
+/      'Recordings
+/  
+/- if current_catalog_user.read_common_work
+/  li class="#{'sidebar-selected' if selected == 'common-works'}"
+/    = link_to catalog_account_catalog_common_works_path(@account, @catalog) do
+/      i class="fa fa-music"
+/      '&nbsp;
+/      'Common Works
+/
+/-if current_catalog_user.access_assets?  
+/  li class="#{'sidebar-selected' if selected == 'assets'}"
+/    = link_to catalog_account_catalog_assets_path(@account, @catalog) do
+/      i class="fa fa-folder"
+/      '&nbsp;
+/      'Assets
+/
+/-if current_catalog_user.read_user?
+/  li class="#{'sidebar-selected' if selected == 'members'}"
+/    = link_to catalog_account_catalog_catalog_users_path(@account, @catalog) do
+/      i class="fa fa-group"
+/      '&nbsp;
+/      'Members
+/
+/-if can_edit? || current_user.id == @account.administrator.id 
+/  li class="#{'sidebar-selected' if selected == 'move'}"
+/    = link_to catalog_account_catalog_move_path(@account, @catalog) do
+/      i class="fa fa-truck"
+/      '&nbsp;
+/      'Move
+/      
+      
+/          - if @user.has_a_collection
+/            == render 'users/shared/badge_button', locals: { \
+/                                                        blog_post: 'MANAGE COLLECTION', \
+/                                                        link: account_account_path( @user.account ), \
+/                                                        css_class: 'btn btn-default', \
+/                                                        icon: 'fa fa-tachometer' \
+/                                                      }
+/            
+/          == render 'users/shared/badge_button', locals: { \
+/                                                      blog_post: 'COLLECTIONS', \
+/                                                      link: user_user_collections_path(@user), \
+/                                                      css_class: 'btn btn-warning', \
+/                                                      icon: 'fa fa-list' \
+/                                                    }
+/
+/          == render 'users/shared/badge_button', locals: { \
+/                                                      blog_post: 'CATALOGS', \
+/                                                      link: user_user_catalogs_path(@user), \
+/                                                      css_class: 'btn btn-primary', \
+/                                                      icon: 'fa fa-book' \
+/                                                    }
+/                                                    
+/          
+/            
+/          == render 'users/shared/badge_button', locals: { \
+/                                                      blog_post: 'OPPORTUNITIES', \
+/                                                      link: user_user_opportunities_path(@user), \
+/                                                      css_class: 'btn btn-danger', \
+/                                                      icon: 'fa fa-plane' \
+/                                                    }
+/                                                    
+/          
+/            
+/          == render 'users/shared/badge_button', locals: { \
+/                                                      blog_post: 'ACTIVITIES', \
+/                                                      link: user_user_activities_path(@user), \
+/                                                      css_class: 'btn btn-warning', \
+/                                                      icon: 'fa fa-clock-o' \
+/                                                    }
+/                                                    
+/          
+/            
+/          == render 'users/shared/badge_button', locals: { \
+/                                                      blog_post: 'AUTHORIZATION', \
+/                                                      link: user_user_authorization_providers_path(@user), \
+/                                                      css_class: 'btn btn-default', \
+/                                                      icon: 'fa fa-lock' \
+/                                                    }

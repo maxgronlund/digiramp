@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140910174319) do
+ActiveRecord::Schema.define(version: 20140921211830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1574,12 +1574,26 @@ ActiveRecord::Schema.define(version: 20140910174319) do
     t.string   "zipp"
     t.integer  "playbacks_count",     default: 0
     t.integer  "likes_count",         default: 0
+    t.integer  "user_id"
+    t.boolean  "published",           default: false
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
   add_index "recordings", ["common_work_id"], name: "index_recordings_on_common_work_id", using: :btree
   add_index "recordings", ["image_file_id"], name: "index_recordings_on_image_file_id", using: :btree
   add_index "recordings", ["import_batch_id"], name: "index_recordings_on_import_batch_id", using: :btree
+  add_index "recordings", ["user_id"], name: "index_recordings_on_user_id", using: :btree
+
+  create_table "relationships", force: true do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
+  add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
+  add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
 
   create_table "representatives", force: true do |t|
     t.integer  "user_id"
@@ -1693,9 +1707,24 @@ ActiveRecord::Schema.define(version: 20140910174319) do
     t.string   "uid",                    default: ""
     t.boolean  "email_missing",          default: false
     t.string   "social_avatar",          default: ""
+    t.string   "slug"
+    t.string   "user_name"
+    t.string   "default_widget_key"
+    t.integer  "default_playlist_id"
+    t.boolean  "fan",                    default: false
+    t.boolean  "writer",                 default: false
+    t.boolean  "author",                 default: false
+    t.boolean  "producer",               default: false
+    t.boolean  "composer",               default: false
+    t.boolean  "remixer",                default: false
+    t.boolean  "musician",               default: false
+    t.boolean  "dj",                     default: false
+    t.string   "location",               default: ""
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
+  add_index "users", ["default_playlist_id"], name: "index_users_on_default_playlist_id", using: :btree
+  add_index "users", ["default_widget_key"], name: "index_users_on_default_widget_key", using: :btree
 
   create_table "video_blogs", force: true do |t|
     t.string   "title"

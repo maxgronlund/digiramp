@@ -1,0 +1,71 @@
+.fellow
+  .fellow-image
+    .avatar
+      .thumbnail
+        / !!! use social_avatar
+        - unless user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
+          = link_to image_tag( user.image_url :avatar_120x120), user_path(user)
+        -else
+          = link_to  user_path(user) do
+            = gravatar_tag user.email, :size => 120, class: "media-object"
+  .fellow-info      
+    h4 = user.user_name
+    - unless user.location.to_s == '' 
+      b Location: 
+      = user.location
+    .row
+      .col-xs-2
+        == render 'users/shared/follow' , user: user
+      .col-xs-10
+        .pull-right
+          = user.followers.count
+          '&nbsp;
+          i class="fa fa-group"
+          '&nbsp;|
+          = user.recordings.count
+          '&nbsp;
+          i class="fa fa-headphones"
+      
+      
+      
+  h5  
+    - if user.composer
+      span class="label label-default"
+        'Composer  
+      '&nbsp;
+      
+    - if user.writer
+      span class="label label-default"
+        'Writer
+      '&nbsp;
+      
+    - if user.fan
+      span class="label label-default"
+        'Fan
+      '&nbsp;
+      
+    - if user.author
+      span class="label label-default"
+        'Author
+      '&nbsp;
+      
+    - if user.producer
+      span class="label label-default"
+        'Producer
+      '&nbsp;
+      
+    - if user.musician
+      span class="label label-default"
+        'Musician
+      '&nbsp;
+      
+    - if user.remixer
+      span class="label label-default"
+        'Remixer
+      '&nbsp;
+      
+    - if user.dj
+      span class="label label-default"
+        'DJ
+      '&nbsp;
+  hr

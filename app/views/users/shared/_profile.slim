@@ -1,0 +1,49 @@
+.avatar
+  .thumbnail
+    / !!! use social_avatar
+    - unless @user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
+      = image_tag @user.image_url :avatar_270x270
+    -else
+      = gravatar_tag @user.email, :size => 270, class: "media-object"
+    
+h3 =@user.full_name
+- if @authorized  
+  = link_to edit_user_path(@user), class: 'button button-default' do
+    i class="fa fa-pencil"
+    '&nbsp;
+    'Edit
+  hr
+
+/---------- follow / unfollow -----------------
+== render 'users/shared/follow' , user: @user
+
+      
+
+
+/br
+/'following
+/= @user.followed_users.count 
+//br
+//'followers
+//
+/
+/br
+/
+/
+    /<%= render 'follow' %>
+
+
+/<div class="stats">
+/  <a href="<%= following_user_path(@user) %>">
+/    <strong id="following" class="stat">
+/      <%= @user.followed_users.count %>
+/    </strong>
+/    following
+/  </a>
+/  <a href="<%= followers_user_path(@user) %>">
+/    <strong id="followers" class="stat">
+/      <%= @user.followers.count %>
+/    </strong>
+/    followers
+/  </a>
+/</div>

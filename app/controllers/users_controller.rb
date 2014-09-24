@@ -2,17 +2,31 @@ class UsersController < ApplicationController
   #respond_to :html, :xml, :json, :js
  
   #before_filter :find_user, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user, only: [:show, :edit, :update, :destroy, :index]
+  before_filter :access_user, only: [:edit, :update, :destroy]
+  
+  def index
+    @users = User.search(params[:query]).order('lower(user_name) ASC').page(params[:page]).per(48)
+  end
 
   def show
+    @user = User.friendly.find(params[:id])
+    #@activities = PublicActivity::Activity.where(owner_id: @user.id).order('created_at desc').first(10)
+    
     if @user.account_id.nil?
        @user.account_id = Account.where(user_id: @user.id).first.id
        @user.save!
     end
     session[:account_id] = @user.account_id 
-    if current_user.current_account_id != current_user.account.id
-      current_user.current_account_id  = current_user.account.id
-      current_user.save!
+    
+    if current_user 
+      if current_user.current_account_id != current_user.account.id
+        current_user.current_account_id  = current_user.account.id
+        current_user.save!
+      end
+      @authorized = false
+      if current_user.id == @user.id || current_user.super?
+        @authorized = true
+      end
     end
 
   end
@@ -30,8 +44,11 @@ class UsersController < ApplicationController
     params[:user][:role]    = 'Customer'
     params[:user][:email].downcase! if params[:user][:email]
     @user                   = User.new(user_params)
+    
+    
+    @user.user_name         = @user.email.gsub('@', '-').gsub('.', '-').downcase.strip
     blog                    = Blog.cached_find('Sign Up')
-    ap params
+
     if params[:user][:password]    != params[:user][:password_confirmation]
       flash[:danger]   = { error: 'Sorry:', body: 'Password and Passoword confirmation mismatch' }
       redirect_to signup_index_path
@@ -82,12 +99,11 @@ class UsersController < ApplicationController
 
   def update
     @account = @user.account
+    @user.slug = nil
     params[:user][:email_missing] = false
     if @user.update(user_params)
-      flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} successfully updatet" }
-
       @user.flush_auth_token_cache(cookies[:auth_token])
-      
+
       @user.create_activity(  :updated, 
                          owner: @user,
                      recipient: @user,
@@ -96,9 +112,13 @@ class UsersController < ApplicationController
 
       redirect_to user_path(@user)
     else
-      flash[:danger] = { title: "Error", body: "Check if password and password confirmation matched" }
+      #if User.where(user_name: params[:user_name])
+      #  flash[:danger] = { title: "Error", body: "User name alreaddy used" }
+      #else
+      #  flash[:danger] = { title: "Error", body: "Check if password and password confirmation" }
+      #end
       
-      redirect_to user_path( @user)
+      render :edit
     end
     
   end

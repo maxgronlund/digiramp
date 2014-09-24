@@ -67,7 +67,6 @@ class Catalog< ActiveRecord::Base
   # counter cache
   def count_recordings
     self.nr_recordings  = self.catalog_items.where(catalog_itemable_type: 'Recording').size
-
   end
   
   # counter cache

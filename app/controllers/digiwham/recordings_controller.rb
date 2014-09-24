@@ -20,14 +20,22 @@ class Digiwham::RecordingsController < ApplicationController
     @recording.playbacks_count  += 1
     @recording.save!
     user_id                     = current_user ? current_user.id : nil
-    Playback.create(
+    playback = Playback.create(
                       recording_id: @recording.id, 
                       user_id: user_id, 
                       account_id: @recording.account_id 
                     )
-    widget = Widget.cached_find(params[:widget_id])
-    widget.playback_count += 1
-    widget.save!
+
+    if current_user                
+      current_user.create_activity(  :created, 
+                                 owner: playback, # the recording has many comments
+                             recipient: @recording,
+                        recipient_type: 'Recording',
+                            account_id: @recording.user.account_id) 
+    end
+    #widget = Widget.cached_find(params[:widget_id])
+    #widget.playback_count += 1
+    #widget.save!
     render nothing: true
   end
 

@@ -1,0 +1,30 @@
+.digiwham id="#{recording.id}"
+  .top-pane id="#{recording.id}"
+    /.cover-art  id="#{recording.id}"
+    /  - art = recording.cover_art || 'default-cover.jpg'
+    /  = image_tag art, alt: "#{recording.title}"
+    .top-right 
+      .play-button-pane
+        == render 'digiwham/recordings/playback_button', recording: recording
+      .info
+        .title
+          /h3 = recording.title
+          /p = recording.artist
+          
+        .description
+          
+
+      
+      .track-duration
+
+        .start-time
+          '0
+        .end-time
+          = recording.duration_string
+      .waveform
+        = image_tag recording.waveform, class: "audio-waveform", id: "#{recording.id}"
+      
+      .playhead id="#{recording.id}"  
+      .loadbar  id="#{recording.id}"
+      .playhead-time  id="#{recording.id}"
+        '00:00:00

@@ -96,6 +96,7 @@ class ApplicationController < ActionController::Base
   helper_method :admins_only
   
   
+  # depricated ?
   def access_user
     unless current_user
     
@@ -114,6 +115,30 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :access_user
+  
+  # v 2
+  def get_user
+    @user = User.friendly.find(params[:user_id])
+    if @user.account_id.nil?
+       @user.account_id = Account.where(user_id: @user.id).first.id
+       @user.save!
+    end
+    session[:account_id] = @user.account_id 
+    
+    if current_user 
+      if current_user.current_account_id != current_user.account.id
+        current_user.current_account_id  = current_user.account.id
+        current_user.save!
+      end
+      @authorized = false
+      if current_user.id == @user.id || current_user.super?
+        @authorized = true
+      end
+    end
+  end
+  helper_method :access_user
+  
+  
   
   
   def account_belongs_to_current_user

@@ -33,12 +33,14 @@ class Recording < ActiveRecord::Base
   
   validates :title, :presence => true
   
-  scope :bucket,            ->  { where( in_bucket: true)  }
-  scope :not_in_bucket,     ->  { where.not( in_bucket: true)  }
+  scope :bucket,            -> { where( in_bucket: true)  }
+  scope :not_in_bucket,     -> { where.not( in_bucket: true)  }
+  scope :published,         -> { where(published: true)}
   
   belongs_to :account
   belongs_to :common_work
   belongs_to :import_batch
+  belongs_to :user
   
   has_many :comments,        as: :commentable,          dependent: :destroy
   has_many :genre_tags,      as: :genre_tagable,        dependent: :destroy
@@ -107,6 +109,10 @@ class Recording < ActiveRecord::Base
                                       
     Artwork.where(id: artwork_ids )
     
+  end
+  
+  def artwork
+    self.cover_art || 'default-cover.jpg'
   end
   
   

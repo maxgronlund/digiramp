@@ -1,0 +1,7 @@
+.alert.alert-danger
+  b = pluralize(errors.count, "error") 
+    'prohibited this user from being saved:
+  ul
+    - errors.full_messages.each do |message| 
+      li
+        = message 

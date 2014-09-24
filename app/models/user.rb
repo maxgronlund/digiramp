@@ -1,4 +1,4 @@
-# a user can be created by someone else than the user
+## a user can be created by someone else than the user
 # E:G: an other user can add the user as a client to his account.
 # In that case there is send no notification to the user
 # and the user is marked as not signed up
@@ -6,13 +6,23 @@
 
 
 class User < ActiveRecord::Base
+  
+  extend FriendlyId
+  friendly_id :user_name, use: :slugged
+  
+  
   has_secure_password
   include PublicActivity::Common
   
   include PgSearch
-  pg_search_scope :search_user, against: [:name, :email, :profile], :using => [:tsearch]
+  pg_search_scope :search_user, against: [:name, :email, :profile, :user_name], :using => [:tsearch]
   
   validates_uniqueness_of :email
+  validates_presence_of   :email, :on => :update
+  
+  validates_uniqueness_of :user_name
+  validates_presence_of   :user_name, :on => :update
+  
   validates_presence_of :password, :on => :create
   validates_presence_of :name, :on => :update
   before_create :set_uuid
@@ -24,6 +34,10 @@ class User < ActiveRecord::Base
   
   has_one :account_users
   has_many :account_users
+  has_many :recordings
+  
+  # used to display the users recordings
+  has_many :widgets, dependent: :destroy
   
   # omniauth
   has_many :authorization_providers, dependent: :destroy
@@ -78,25 +92,26 @@ class User < ActiveRecord::Base
   
   has_many :playlists
   
+  # followers
+  has_many :followed_users, through: :relationships, source: :followed
+  
+  has_many :relationships, foreign_key: "follower_id"
+  
+  has_many :reverse_relationships, foreign_key: "followed_id",
+                                     class_name:  "Relationship",
+                                     dependent:   :destroy
+  
+  has_many :followers, through: :reverse_relationships, source: :follower
+  # followers end
+  
+  
+  
   def validate_info
     self.email.downcase!
     if self.name.to_s == ''
       self.name = self.email
     end
   end
-  
-  #def delete_account
-  #  begin
-  #    self.account.create_activity(  :destroyed, 
-  #                          owner: current_user,
-  #                      recipient: self.account,
-  #                 recipient_type: self.account.class.name)
-  #                 
-  #    self.account.destroy!
-  #  rescue
-  #  end
-  #end
-  
   
 
   
@@ -109,12 +124,25 @@ class User < ActiveRecord::Base
   scope :with_a_collection, ->    { where( has_a_collection: true)}
   
   
+  def following?(other_user)
+    self.relationships.find_by(followed_id: other_user.id)
+  end
+
+  def follow!(other_user)
+    self.relationships.create!(followed_id: other_user.id)
+  end
+  
+  def unfollow!(other_user)
+    self.relationships.find_by(followed_id: other_user.id).destroy
+  end
+    
   def update_access
     AccessManager.update_access self
   end
   
+  # obsolere, move flus_cache to public
+  # cached_find is not in use anymore
   def set_propperties
-
     #SuperUser.update_role self
     flush_cache
     #update_role_on_catalogs
@@ -122,9 +150,42 @@ class User < ActiveRecord::Base
     
   end
   
+  # create module for this
+  # same in catalog
+  
+  # when is this ever used ?
+  # where is it used from ?
+  # could be usefull for handling over all recordings for a user 
+  def update_widget
+    default_playlist.add_items self.recordings
+  end
+  
+  def default_widget 
+    default_playlist.default_widget
+  end
+  
+  # add parameters to this
+  def default_playlist
+    Playlist.where( uuid: self.uuid)
+            .first_or_create( uuid:       self.uuid,
+                              user_id:    self.id,
+                              account_id: self.account_id,
+                              title:      self.full_name,
+                              #body:       self.body,
+                              url:        UUIDTools::UUID.timestamp_create().to_s,
+                              url_title:  self.full_name,
+                              link_title: self.full_name
+                            )
 
+
+  end
   
   
+  # end of module
+  
+  
+  
+
   
   # update the uuid to force rebuild of 
   # segment cached pages
@@ -136,12 +197,10 @@ class User < ActiveRecord::Base
   
   ## !!!! should be depricated! Moved to AccountUser
   def can? action, id_name_or_record, _account_id
+    logger.info 'OBSOLETE: user / can?'
     return true
   end 
-  
-  
-  
-  
+
   def send_password_reset
     self.add_token
     UserMailer.delay.password_reset(self.id)
@@ -452,10 +511,12 @@ class User < ActiveRecord::Base
     !CatalogUser.where(catalog_id: account.catalog_ids, user_id: self.id).nil?
   end
   
-
+  # not cached anymore
   def self.cached_find(id)
+    logger.info 'OBSOLETE: user / cached_find'
     begin
-      return Rails.cache.fetch([name, id]) { find(id) }
+      #return Rails.cache.fetch([name, id]) { find(id) }
+      return User.friendly.find(id)
     rescue
       return nil
     end
@@ -473,7 +534,9 @@ class User < ActiveRecord::Base
 
 private
 
+  # obsolete
   def flush_cache
+    logger.info 'OBSOLETE: user / flush_cache'
     Rails.cache.delete([self.class.name, id])
   end
 

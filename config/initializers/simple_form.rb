@@ -11,6 +11,8 @@ inputs = %w[
   StringInput
   TextInput
 ]
+
+
  
 inputs.each do |input_type|
   superclass = "SimpleForm::Inputs::#{input_type}".constantize

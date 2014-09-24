@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     elsif env['omniauth.auth']
       user = Omniauth.authorize_with_omniauth( env['omniauth.auth'] )
       if user[:user]
-        flash[:info] = { title: "SUCCESS: ", body: user[:message] }
+        #flash[:info] = { title: "SUCCESS: ", body: user[:message] }
         initialize_session_for user[:user]
         # redirect to a welcome / take the tour screen
       else

@@ -1,117 +1,193 @@
-
+- user_account                  = Account.cached_find(@user.account_id)
 - session[:go_to_after_update]  = request.url
 #wrap
-  .profile
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'profile'     
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
   .container
-    ==render 'admin/shared/messages'
-    /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
-    .do   
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: 'home'} 
-      
-                                                           
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Authorizations'), blog_post: 'Linked Accounts'}
+    .row
+      .col-sm-3
+        == render 'users/shared/profile'
+        ul class="sidebar"
+          == render 'users/shared/sidebar', selected: 'followers'
+        
+        
+      .col-sm-9
+        h3 Authorizations
+        - twitter   = @user.authorization_providers.where(provider: 'twitter').first
+        - facebook  = @user.authorization_providers.where(provider: 'facebook').first
+        - linkedin  = @user.authorization_providers.where(provider: 'linkedin').first
+        - gplus     = @user.authorization_providers.where(provider: 'gplus').first
+        .social-icons
+          row
+            .col-sm-4
+              .panel.panel-default
+                .panel-body
+                  .center-block
+                    h4 Twitter
+                    .twitter
+                    br
+                    - if twitter
+                     = link_to user_user_authorization_provider_path(@user, twitter), data: { confirm: 'Are you sure?' } , :method => :delete do 
+                        .button.button-danger
+                          i class="fa fa-lock"
+                          '&nbsp;
+                          'Unlink
+                    -else
+                      = link_to "/auth/twitter" do
+                        .button.button-default
+                          i class="fa fa-unlock"
+                          '&nbsp;
+                          'Link
+            .col-sm-4
+              .panel.panel-default
+                .panel-body
+                  .center-block
+                    h4 Facebook
+                    .facebook
+                    br
+                    - if facebook
+                     = link_to user_user_authorization_provider_path(@user, facebook), data: { confirm: 'Are you sure?' } , :method => :delete do 
+                        .button.button-danger
+                          i class="fa fa-lock"
+                          '&nbsp;
+                          'Unlink
+                    -else
+                      = link_to "/auth/facebook" do
+                        .button.button-default
+                          i class="fa fa-unlock"
+                          '&nbsp;
+                          'Link
+            .col-sm-4
+              .panel.panel-default
+                .panel-body
+                  .center-block
+                    h4 Linkedin
+                    .linkedin
+                    br
+                    - if linkedin
+                     = link_to user_user_authorization_provider_path(@user, linkedin), data: { confirm: 'Are you sure?' } , :method => :delete do 
+                        .button.button-danger
+                          i class="fa fa-lock"
+                          '&nbsp;
+                          'Unlink
+                    -else
+                      = link_to "/auth/linkedin" do
+                        .button.button-default
+                          i class="fa fa-unlock"
+                          '&nbsp;
+                          'Link
+            .col-sm-4
+              .panel.panel-default
+                .panel-body
+                  .center-block
+                    h4 Google+
+                    .google
+                    br
+                    - if gplus
+                     = link_to user_user_authorization_provider_path(@user, gplus), data: { confirm: 'Are you sure?' } , :method => :delete do 
+                        .button.button-danger
+                          i class="fa fa-lock"
+                          '&nbsp;
+                          'Unlink
+                    -else
+                      = link_to "/auth/gplus" do
+                        .button.button-default
+                          i class="fa fa-unlock"
+                          '&nbsp;
+                          'Link
+              
 
-
-
-
-
-      - twitter   = @user.authorization_providers.where(provider: 'twitter').first
-      - facebook  = @user.authorization_providers.where(provider: 'facebook').first
-      - linkedin  = @user.authorization_providers.where(provider: 'linkedin').first
-      - gplus     = @user.authorization_providers.where(provider: 'gplus').first
-      
-      .social-icons
-        table 
-          tr
-            td
-              .pull-right
-                .twitter
-            td 
-              - if twitter
-                'Your account is linked to twitter
-                br
-                = link_to user_user_authorization_provider_path(@user, twitter), data: { confirm: 'Are you sure?' } , :method => :delete do 
-                   .btn.btn-danger.btn-lg
-                     i class="fa fa-lock"
-                     '&nbsp;
-                     'Unlink
-              -else
-                'Attach your Twitter account
-                = link_to "/auth/twitter" do
-                  .btn.btn-success.btn-lg
-                    i class="fa fa-unlock"
-                    '&nbsp;
-                    'Link
-            
-            
-            / FACEBOOK
-            td
-              pull-right
-                .facebook
-            td 
-              - if facebook
-                'Your account is linked to Facebook
-                br
-                = link_to user_user_authorization_provider_path(@user, facebook), data: { confirm: 'Are you sure?' } , :method => :delete do 
-                   .btn.btn-danger.btn-lg
-                     i class="fa fa-lock"
-                     '&nbsp;
-                     'Unlink
-              -else
-                'Attach your Facebook account
-                br
-                = link_to  "/auth/facebook" do
-                  .btn.btn-success.btn-lg
-                    i class="fa fa-unlock"
-                    '&nbsp;
-                    'Link
-          tr
-            td
-              .pull-right
-                .linkedin
-            td 
-              - if linkedin
-                'Your account is linked to Linkedin
-                br
-                = link_to user_user_authorization_provider_path(@user, linkedin), data: { confirm: 'Are you sure?' } , :method => :delete do 
-                   .btn.btn-danger.btn-lg
-                     i class="fa fa-lock"
-                     '&nbsp;
-                     'Unlink
-              -else
-                'Attach your Linkedin account
-                br
-                = link_to  "/auth/linkedin" do
-                  .btn.btn-success.btn-lg
-                    i class="fa fa-unlock"
-                    '&nbsp;
-                    'Link
-            td
-              .pull-right
-                .google
-            td 
-              - if gplus
-                'Your account is linked to Google+
-                br
-                = link_to user_user_authorization_provider_path(@user, gplus), data: { confirm: 'Are you sure?' } , :method => :delete do 
-                   .btn.btn-danger.btn-lg
-                     i class="fa fa-lock"
-                     '&nbsp;
-                     'Unlink
-              -else
-                'Attach your Google+ account
-                br
-                = link_to  "/auth/gplus" do
-                  .btn.btn-success.btn-lg
-                    i class="fa fa-unlock"
-                    '&nbsp;
-                    'Link
-            /td
-            /  /= link_to  "/auth/google" do
-            /  = link_to  "#" do
-            /    pull-right
-            /      .google
-            /td Attach your Google+ account
-      
+/      .social-icons
+/        table 
+/          tr
+/            td
+/              .pull-right
+/                .twitter
+/            td 
+/              - if twitter
+/                'Your account is linked to twitter
+/                br
+/                = link_to user_user_authorization_provider_path(@user, twitter), data: { confirm: 'Are you sure?' } , :method => :delete do 
+/                   .btn.btn-danger.btn-lg
+/                     i class="fa fa-lock"
+/                     '&nbsp;
+/                     'Unlink
+/              -else
+/                'Attach your Twitter account
+/                = link_to "/auth/twitter" do
+/                  .btn.btn-success.btn-lg
+/                    i class="fa fa-unlock"
+/                    '&nbsp;
+/                    'Link
+/            
+/            
+/            / FACEBOOK
+/            td
+/              pull-right
+/                .facebook
+/            td 
+/              - if facebook
+/                'Your account is linked to Facebook
+/                br
+/                = link_to user_user_authorization_provider_path(@user, facebook), data: { confirm: 'Are you sure?' } , :method => :delete do 
+/                   .btn.btn-danger.btn-lg
+/                     i class="fa fa-lock"
+/                     '&nbsp;
+/                     'Unlink
+/              -else
+/                'Attach your Facebook account
+/                br
+/                = link_to  "/auth/facebook" do
+/                  .btn.btn-success.btn-lg
+/                    i class="fa fa-unlock"
+/                    '&nbsp;
+/                    'Link
+/          tr
+/            td
+/              .pull-right
+/                .linkedin
+/            td 
+/              - if linkedin
+/                'Your account is linked to Linkedin
+/                br
+/                = link_to user_user_authorization_provider_path(@user, linkedin), data: { confirm: 'Are you sure?' } , :method => :delete do 
+/                   .btn.btn-danger.btn-lg
+/                     i class="fa fa-lock"
+/                     '&nbsp;
+/                     'Unlink
+/              -else
+/                'Attach your Linkedin account
+/                br
+/                = link_to  "/auth/linkedin" do
+/                  .btn.btn-success.btn-lg
+/                    i class="fa fa-unlock"
+/                    '&nbsp;
+/                    'Link
+/            td
+/              .pull-right
+/                .google
+/            td 
+/              - if gplus
+/                'Your account is linked to Google+
+/                br
+/                = link_to user_user_authorization_provider_path(@user, gplus), data: { confirm: 'Are you sure?' } , :method => :delete do 
+/                   .btn.btn-danger.btn-lg
+/                     i class="fa fa-lock"
+/                     '&nbsp;
+/                     'Unlink
+/              -else
+/                'Attach your Google+ account
+/                br
+/                = link_to  "/auth/gplus" do
+/                  .btn.btn-success.btn-lg
+/                    i class="fa fa-unlock"
+/                    '&nbsp;
+/                    'Link
+/            /td
+/            /  /= link_to  "/auth/google" do
+/            /  = link_to  "#" do
+/            /    pull-right
+/            /      .google
+/            /td Attach your Google+ account
+/      
+/

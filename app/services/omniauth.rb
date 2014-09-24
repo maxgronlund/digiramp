@@ -19,9 +19,10 @@ class Omniauth
   
   # authorice or create an new account
   def self.authorize_with_omniauth env
-    authorization_provider = AuthorizationProvider.where( env.slice("provider", "uid")).first
+    #authorization_provider = AuthorizationProvider.where( env.slice("provider", "uid")).first
+    authorization_provider = AuthorizationProvider.where(provider: env.provider, uid: env.uid).first
     if authorization_provider
-      return {user: authorization_provider.user, message: "Logged in with #{authorization_provider.provider}"}
+      return {user: authorization_provider.user}
     else
       user = create_from_omniauth(env)
       ap user

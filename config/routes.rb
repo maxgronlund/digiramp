@@ -2,7 +2,13 @@
 Digiramp::Application.routes.draw do
 
 
+  #get 'following/index'
+  #
+  #get 'followers/index'
+  #
+  #get 'likes/index'
 
+  #resources :user
 
 
 
@@ -241,9 +247,20 @@ Digiramp::Application.routes.draw do
   
   
   resources :sign_up
-  
+  resources :relationships, only: [:create, :destroy]
   resources :users do
-    #resources :add_shared_catalog_assets, only: [:show]
+    # hui v. 2
+    #member do
+    #  get :following, :followers
+    #end
+    resources :recordings do
+      resources :likes
+    end
+    resources :likes, only: [:index, :destroy]
+    resources :followers, only: [:index]
+    resources :following, only: [:index]
+    
+    # hui v. 1
     resources :user_accounts, only: [:index]
     resources :accounts, only: [:edit, :show, :update]
     resources :issues do
@@ -259,23 +276,7 @@ Digiramp::Application.routes.draw do
         
       end
     end
-    #resources :user_recordings
-    #resources :user_recording_assets, only: [:show]
-    #resources :shared_assets, only: [:index]
-    #resources :shared_catalogs do
-    #  get "export_all"
-    #  get "export_found"
-    #  
-    #  resources :shared_recordings do
-    #    resources :shared_common_works do
-    #      resources :shared_common_work_ipis
-    #    end
-    #  end
-    #  resources :shared_recording_files
-    #  resources :shared_recording_artworks
-    #  resources :accept_invitaion_to_catalog, only: [:edit, :update]
-    #  resources :upload_shared_catalog_recordings
-    #end
+    
   end
 
 
@@ -475,75 +476,76 @@ Digiramp::Application.routes.draw do
   end
   # end of account namespace
   
-  namespace :catalog do
-    
-    resources :accounts do
-      resources :catalogs do
-        
-        get "move"
-        get "get_code"
-        get "get_catalog"
-        get "copy_code"
-        put "receive"
-        put "generate_code"
-        get "find_common_work_in_collection"
-        get "common_works/export_common_works"
-        get "common_works/export_to_counterpoint"
-        get "common_works/remove"
-        
-
-        
-        
-        resources :add_common_works, only: [:index]
-        resources :add_recordings, only: [:index]
-        resources :artworks 
-        resources :assets
-        resources :attachments
-        resources :catalog_users
-        # scrape from performance rights organizations
-        resources :common_works_imports do
-          get "create_pro"
-          
-          get "select_pro"
-          get "from_ascap"
-          post "ascap_import"
-          get "from_bmi"
-          post "bmi_import"
-        end
-        resources :common_works do
-          
-          resources :common_work_ipis
-          get  "recordings"
-          get  "new_recordings"
-          post "create_recordings"
-          post "create_common_work_ip"
-          put  "update_common_work_ip"
-          post "add_common_work_from_collection"
-          get  "remove_common_work_from_catalog"
-          get  "edit_common_work_ipi_spread_sheet"
-          patch  "update_common_work_ipi_spread_sheet/:ipi_id", :to => "common_works#update_common_work_ipi_spread_sheet", as: :update_common_work_ipi_spread_sheet 
-        end
-        resources :documents
-        resources :find_in_collections
-        resources :financial_documents
-        resources :legal_documents
-        resources :recordings do
-          get "new_from_catalog_artworks"
-          post "create_from_catalog_artworks"
-          post "use_artwork"
-          resources :recording_artworks, only: [:index]
-          resources :image_files
-          get "info"
-        end
-        resources :recording_artworks, only: [:destroy]
-        resources :select_artwork_from
-        resources :upload_csvs
-        resources :upload_recordings, only: [:index, :create]
-        
-      end
-      resources :create_playlists
-    end
-  end
+  #namespace :catalog do
+  # hui v. 2 Removed
+  #  
+  #  resources :accounts do
+  #    resources :catalogs do
+  #      
+  #      get "move"
+  #      get "get_code"
+  #      get "get_catalog"
+  #      get "copy_code"
+  #      put "receive"
+  #      put "generate_code"
+  #      get "find_common_work_in_collection"
+  #      get "common_works/export_common_works"
+  #      get "common_works/export_to_counterpoint"
+  #      get "common_works/remove"
+  #      
+  #
+  #      
+  #      
+  #      resources :add_common_works, only: [:index]
+  #      resources :add_recordings, only: [:index]
+  #      resources :artworks 
+  #      resources :assets
+  #      resources :attachments
+  #      resources :catalog_users
+  #      # scrape from performance rights organizations
+  #      resources :common_works_imports do
+  #        get "create_pro"
+  #        
+  #        get "select_pro"
+  #        get "from_ascap"
+  #        post "ascap_import"
+  #        get "from_bmi"
+  #        post "bmi_import"
+  #      end
+  #      resources :common_works do
+  #        
+  #        resources :common_work_ipis
+  #        get  "recordings"
+  #        get  "new_recordings"
+  #        post "create_recordings"
+  #        post "create_common_work_ip"
+  #        put  "update_common_work_ip"
+  #        post "add_common_work_from_collection"
+  #        get  "remove_common_work_from_catalog"
+  #        get  "edit_common_work_ipi_spread_sheet"
+  #        patch  "update_common_work_ipi_spread_sheet/:ipi_id", :to => "common_works#update_common_work_ipi_spread_sheet", as: :update_common_work_ipi_spread_sheet 
+  #      end
+  #      resources :documents
+  #      resources :find_in_collections
+  #      resources :financial_documents
+  #      resources :legal_documents
+  #      resources :recordings do
+  #        get "new_from_catalog_artworks"
+  #        post "create_from_catalog_artworks"
+  #        post "use_artwork"
+  #        resources :recording_artworks, only: [:index]
+  #        resources :image_files
+  #        get "info"
+  #      end
+  #      resources :recording_artworks, only: [:destroy]
+  #      resources :select_artwork_from
+  #      resources :upload_csvs
+  #      resources :upload_recordings, only: [:index, :create]
+  #      
+  #    end
+  #    resources :create_playlists
+  #  end
+  #end
   # end of catalog namespace
   
   namespace :digiwham do

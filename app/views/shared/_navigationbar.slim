@@ -12,8 +12,8 @@
         .navbar-brand
           = image_tag('logo.svg', size: "80x50")
           
-          = link_to "#menu-toggle", id: "menu-toggle" do
-            i class="fa fa-caret-square-o-left"
+          /= link_to "#menu-toggle", id: "menu-toggle" do
+          /  i class="fa fa-caret-square-o-left"
 
 
     .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
@@ -36,7 +36,11 @@
                 i class="fa fa-life-ring"
                 '&nbsp;
                 'SUPPORT
-                
+        li
+          = link_to users_path do
+            i class="fa fa-users"
+            '&nbsp;
+            'USERS
         
 
       -if user_signed_in? && current_account
@@ -65,17 +69,41 @@
                 = link_to user_path(current_user) do
                   i class="fa fa-user"
                   '&nbsp;
-                  'Account
+                  'Profile
+              li 
+                = link_to user_recordings_path(current_user) do
+                  i class="fa fa-headphones"
+                  '&nbsp;
+                  'Recordings
+                  
+              li class="red-icon"
+                = link_to user_recordings_path(current_user) do
+                  i class="fa fa-heart"
+                  '&nbsp;
+                  'Likes
+                  
+              li
+                = link_to user_followers_path(current_user) do
+                  i class="fa fa-group"
+                  '&nbsp;
+                  'Followers
+                  
+              li
+                = link_to user_following_index_path(current_user) do
+                  i class="fa fa-group"
+                  '&nbsp;
+                  'Following
+              
               li 
                 = link_to account_account_path(current_user.account) do
                   i class="fa fa-tachometer"
                   '&nbsp;
                   'Dashboard
-              li 
-                = link_to user_user_collections_path(current_user) do
-                  i class="fa fa-group"
-                  '&nbsp;
-                  'Groups
+              /li 
+              /  = link_to user_user_collections_path(current_user) do
+              /    i class="fa fa-group"
+              /    '&nbsp;
+              /    'Groups
                   
   
 

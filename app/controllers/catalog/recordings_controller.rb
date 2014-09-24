@@ -70,7 +70,7 @@ class Catalog::RecordingsController < ApplicationController
   end
   
   def update
-    ap params
+
     forbidden unless current_catalog_user.update_recording?
     #@catalog        = Catalog.find(params[:catalog_id])
     @recording      = Recording.find(params[:id])

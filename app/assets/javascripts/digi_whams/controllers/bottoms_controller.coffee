@@ -9,9 +9,10 @@ class @BottomsController
     
     $('.like').on 'click', ->
       id = $(this).attr 'id' 
-      widget_id = $(this).attr 'widget_id'
+      #widget_id = $(this).attr 'widget_id'
       # count playbacks
-      $.getScript("/digiwham/likes/" + id+ '?widget_id=' + widget_id )
+      #$.getScript("/digiwham/likes/" + id+ '?widget_id=' + widget_id )
+      $.getScript("/digiwham/likes/" + id )
 
     
     $('.share').on 'click', ->
