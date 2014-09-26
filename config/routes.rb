@@ -477,7 +477,7 @@ Digiramp::Application.routes.draw do
   # end of account namespace
   
   namespace :catalog do
-   hui v. 2 Removed
+
     
     resources :accounts do
       resources :catalogs do
@@ -546,7 +546,7 @@ Digiramp::Application.routes.draw do
       resources :create_playlists
     end
   end
-  # end of catalog namespace
+
   
   namespace :digiwham do
     resources :comments, only: [:index, :create]
