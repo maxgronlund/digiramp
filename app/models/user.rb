@@ -107,6 +107,7 @@ class User < ActiveRecord::Base
   
   
   def validate_info
+    self.email.strip!
     self.email.downcase!
     if self.name.to_s == ''
       self.name = self.email

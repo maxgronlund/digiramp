@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926145008) do
+ActiveRecord::Schema.define(version: 20140926155522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1709,7 +1709,6 @@ ActiveRecord::Schema.define(version: 20140926145008) do
     t.boolean  "email_missing",          default: false
     t.string   "social_avatar",          default: ""
     t.string   "slug"
-    t.string   "user_name"
     t.string   "default_widget_key"
     t.integer  "default_playlist_id"
     t.boolean  "fan",                    default: false
@@ -1721,6 +1720,7 @@ ActiveRecord::Schema.define(version: 20140926145008) do
     t.boolean  "musician",               default: false
     t.boolean  "dj",                     default: false
     t.string   "location",               default: ""
+    t.string   "user_name",              default: ""
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
