@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :on => :create
   validates_presence_of :name, :on => :update
   before_create :set_uuid
+  
+  has_many :comments,        as: :commentable,          dependent: :destroy
 
   
   serialize :crop_params, Hash

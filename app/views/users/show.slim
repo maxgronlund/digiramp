@@ -22,38 +22,55 @@
                 = f.hidden_field  :commentable_id,    value: @user.id
                 = f.hidden_field  :commentable_type,  value: @user.class.name
                 = f.hidden_field  :user_id,  value: current_user.id
-                h4 Write a comment
+                h4 Guest book
                 = f.input :title, placeholder: 'Title', label: false
-                =f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Comment"}
+                =f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Message"}
             
                 = f.submit 'Post', class: 'button button-primary'
               
             - else
                'Sign in to comment
-            /- @user.activities.where(recipient_type: ['Recording', 'Relationship']).order('id desc').first(10).each do |activity|
+            /- @user.activities.where(recipient_type: ['Recording', 'Relationship', 'User']).order('id desc').first(10).each do |activity|
             /  = debug activity
+            / ------------------ comments ---------------   
+            br
+            .rec-comments
+              - @user.comments.order('created_at desc').each do |comment|
+                == render 'comments/show', comment: comment
           .col-sm-4
             h4 Recent activities
             
-            - @user.activities.where(recipient_type: ['Recording', 'Relationship']).order('id desc').first(20).each do |activity|
+            - @user.activities.where(recipient_type: ['Recording', 'Relationship', 'User']).order('id desc').first(20).each do |activity|
               -case activity.owner_type
+              
               -when 'Comment'
-                .simple-panel
+                
+                - if activity.recipient_type == 'Playback'
                   - if recording = Recording.where(id: activity.recipient_id).first
-                    h6 
-                      i class="fa fa-comment"
-                      '&nbsp; Recording
-                      /i #{time_ago_in_words(activity.created_at).titleize } ago
-                    = link_to recording.title, user_recording_path(recording.user, recording)
-                    /= image_tag( recording.artwork, alt: "#{recording.title}")
-                    
+                    .simple-panel
+                      h6 
+                        i.fa.fa-comment
+                        '&nbsp; Recording
+                        /i #{time_ago_in_words(activity.created_at).titleize } ago
+                        = link_to recording.title, user_recording_path(recording.user, recording)
+                      /= image_tag( recording.artwork, alt: "#{recording.title}")
+                    / comments on the account
+                - elsif  activity.recipient_type == 'User'
+                  - if user = User.where(id: activity.recipient_id).first
+                    .simple-panel
+                      h6 
+                        i.fa.fa-comment
+                        '&nbsp; User
+                        = link_to user.full_name, user_path(user)
+                        
+                      
               -when 'Like'
                 .simple-panel
                   - if recording = Recording.where(id: activity.recipient_id).first
                     h6 
                       i class="fa fa-heart"
                       '&nbsp; Recording
-                    = link_to recording.title, user_recording_path(recording.user, recording)
+                      = link_to recording.title, user_recording_path(recording.user, recording)
                     
               -when 'Playback'
                 .simple-panel
@@ -61,7 +78,7 @@
                     h6 
                       i class="fa fa-headphones"
                       '&nbsp; Recording
-                    = link_to recording.title, user_recording_path(recording.user, recording)
+                      = link_to recording.title, user_recording_path(recording.user, recording)
                     
               -when 'Relationship'
                 .simple-panel
@@ -69,7 +86,13 @@
                     h6 
                       i class="fa fa-user"
                       '&nbsp; Following
-                    = link_to user.full_name, user_path(user)
+                      = link_to user.full_name, user_path(user)
+              
+                  /- if user = User.where(id: activity.recipient_id).first
+                  /  h6 
+                  /    i class="fa fa-comment"
+                  /    '&nbsp; User
+                  /  = link_to user.full_name, user_path(user)
                     
 
                   

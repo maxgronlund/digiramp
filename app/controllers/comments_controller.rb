@@ -99,6 +99,7 @@ class CommentsController < ApplicationController
       @comment.destroy
       redirect_to  = user_issue_path(@comment.user, @comment.commentable_id)
     else
+      @comment.destroy
       @hide_comment = "#comment_#{@comment.id}"
       #@comment.destroy
     end
