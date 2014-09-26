@@ -13,11 +13,23 @@ class CreateFriendlyIdSlugs < ActiveRecord::Migration
     #add_index :friendly_id_slugs, :sluggable_type
     
     add_column :users, :slug, :string, unique: true
+    add_column :users, :user_name, :string
     
     User.all.each do |user|
-
-      user.save!
-      puts user.friendly_id
+      
+      if user.name.to_s == ''
+        user.name = user.email
+        user.save!
+      end
+      
+      if users = User.where(name: user.name).all.count > 1
+        users.each_with_index do |usr, index|
+          usr.name = user.name + '_' + index.to_s
+          usr.save!
+        end
+      end
+      
+      
 
     end
   end

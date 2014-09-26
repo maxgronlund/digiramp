@@ -2,25 +2,32 @@ doctype html
 html
   head
   title DigiRAMP
+  meta name="digital rights and assets management" content=""
+  meta name="author" content="digiramp"
+  link rel="shortcut icon" href="img/ico/favicon.ico"
   /link href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'
   
   
   
   /= stylesheet_link_tag "https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Open+Sans"
-  = stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css", media: "all"
-  = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-  = stylesheet_link_tag "home", media: "all", "data-turbolinks-track" => true
-  /= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Cinzel|Junge'
-  = javascript_include_tag "application", "data-turbolinks-track" => true
-  = javascript_include_tag "assets.transloadit.com/js/jquery.transloadit2-v2-latest.js" => true
-  = javascript_include_tag "//cdn.sublimevideo.net/js/w21x4dlf.js"
+  //= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css", media: "all"
+  = stylesheet_link_tag "apulum", media: "all"
+  /= stylesheet_link_tag "home", media: "all", "data-turbolinks-track" => true
+  = javascript_include_tag "home"
+  
+  
+  
+  
+  = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,latin-ext,cyrillic'
+  
+
   
   / gritter
   /= javascript_include_tag "html5-realtime-push-notifications/src/js/gritter/js/jquery.gritter.min.js"
   /= stylesheet_link_tag "html5-realtime-push-notifications/src/js/gritter/css/jquery.gritter.css", media: "all"
   
   / pusher
-  = javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
+  /= javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
   /= javascript_include_tag "//js/jquery.gritter.js"
   
   /= javascript_include_tag "//realtime-notifications/src/PusherNotifier.js"
@@ -31,12 +38,13 @@ html
   = csrf_meta_tags
   
   
-  == render 'layouts/pusher'
+  /== render 'layouts/pusher'
   
   
   
-body
+body data-spy="scroll" data-target=".main_h"
   = yield
+  
   
   
   
