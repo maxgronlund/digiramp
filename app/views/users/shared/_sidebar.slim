@@ -30,7 +30,13 @@ li class="#{'sidebar-selected' if selected == 'following'}"
     i class="fa fa-users"
     '&nbsp;
     'Following
-    = pluralize(@user.followed_users.count, 'User')  
+    = pluralize(@user.followed_users.count, 'User')   
+    
+li class="#{'sidebar-selected' if selected == 'playlists'}"
+  = link_to user_playlists_path(@user) do
+    i class="fa fa-list"
+    '&nbsp;
+    = pluralize(@user.playlists.count, 'Playlists')  
     
     
     

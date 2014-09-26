@@ -1,59 +1,95 @@
+/- user_account                  = Account.cached_find(@user.account_id)
+/- session[:go_to_after_update]  = request.url
 #wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-
-            
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
   .container
-    ==render 'admin/shared/messages'
-    -cache ([request.url, Admin.cached_find(1).version, @account.playlists_uuid  ]) do
-      -blog = Blog.cached_find('Playlists')
-      -blog_post = BlogPost.cached_find('Playlists' , blog)
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              assets: account_assets_path(@account), \
-                                                              }, current:  blog_post.title}
-
-      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Playlists'}  
-
-      .row
-        .col-sm-12
-          .panel
-            .panel-body
-              h3 Activities
-              .panel
-                .panel-body
-                  .table-responsive
-                    table class="table table-striped"
-                      thead
-                        tr
-                          th Title
-                          th
-                  
-                      tbody
-                        -@account.playlists.each do |playlist|
-                          tr
-                            /td = link_to playlist.title, account_playlist_playlist_recordings_path( @account, playlist), class: 'btn btn-default btn-lg'
-                            td = link_to playlist.title, account_playlist_path( @account, playlist), class: 'btn btn-default btn-lg'
-                            td
-                              .pull-right
-                                = link_to account_playlist_path( @account, playlist)
-                                  .btn.btn-info.btn-lg
-                                    i class="fa fa-cloud"
-                                    '&nbsp;Distribution
-                                '&nbsp;    
-                                = link_to edit_account_playlist_path( @account, playlist)
-                                  .btn.btn-success.btn-lg
-                                    i class="fa fa-pencil"
-                                    '&nbsp;Edit Title
-                                '&nbsp;    
-                                = link_to account_playlist_path( @account, playlist), \
-                                                                              method: :delete ,\
-                                                                              data: {confirm: 'Are you sure?'}  do
-                                  .btn.btn-danger.btn-lg
-                                    i class="fa fa-times"
+    .row
+      .col-sm-3
+        == render 'users/shared/profile'
+        ul class="sidebar"
+          == render 'users/shared/sidebar', selected: 'playlists'
+        
+        
+      .col-sm-9
+        h3 Playlists
+        hr
+        - @user.playlists.each do |playlist|
+          .row
+            .col-sm-9
+              h4 
+                = link_to playlist.title, user_playlist_path( @user, playlist)
+              - if @authorized 
+                = link_to 'Edit', edit_user_playlist_path( current_user, playlist), class: 'button button-default'
+            .col-sm-3
+              .pull-right
+                i.fa.fa-headphones
+                '&nbsp;
+                = pluralize(playlist.recordings.count, 'Recording')  
+          hr
+          /= debug playlist.default_widget
+          /== render 'widgets/widget_theme'
+        
+          /#digiWhams class="/digiwham/recordings/?key=#{playlist.default_widget.secret_key}"
 
 
-
-  
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/
+/            
+/  .container
+/    ==render 'admin/shared/messages'
+/    -cache ([request.url, Admin.cached_find(1).version, @account.playlists_uuid  ]) do
+/      -blog = Blog.cached_find('Playlists')
+/      -blog_post = BlogPost.cached_find('Playlists' , blog)
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              assets: account_assets_path(@account), \
+/                                                              }, current:  blog_post.title}
+/
+/      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Playlists'}  
+/
+/      .row
+/        .col-sm-12
+/          .panel
+/            .panel-body
+/              h3 Activities
+/              .panel
+/                .panel-body
+/                  .table-responsive
+/                    table class="table table-striped"
+/                      thead
+/                        tr
+/                          th Title
+/                          th
+/                  
+/                      tbody
+/                        -@account.playlists.each do |playlist|
+/                          tr
+/                            /td = link_to playlist.title, account_playlist_playlist_recordings_path( @account, playlist), class: 'btn btn-default btn-lg'
+/                            td = link_to playlist.title, account_playlist_path( @account, playlist), class: 'btn btn-default btn-lg'
+/                            td
+/                              .pull-right
+/                                = link_to account_playlist_path( @account, playlist)
+/                                  .btn.btn-info.btn-lg
+/                                    i class="fa fa-cloud"
+/                                    '&nbsp;Distribution
+/                                '&nbsp;    
+/                                = link_to edit_account_playlist_path( @account, playlist)
+/                                  .btn.btn-success.btn-lg
+/                                    i class="fa fa-pencil"
+/                                    '&nbsp;Edit Title
+/                                '&nbsp;    
+/                                = link_to account_playlist_path( @account, playlist), \
+/                                                                              method: :delete ,\
+/                                                                              data: {confirm: 'Are you sure?'}  do
+/                                  .btn.btn-danger.btn-lg
+/                                    i class="fa fa-times"
+/
+/
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/

@@ -253,6 +253,7 @@ Digiramp::Application.routes.draw do
     #member do
     #  get :following, :followers
     #end
+    resources :playlists
     resources :recordings do
       resources :likes
     end

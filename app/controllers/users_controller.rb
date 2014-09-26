@@ -10,6 +10,12 @@ class UsersController < ApplicationController
 
   def show
     @user = User.friendly.find(params[:id])
+    
+    # count views
+    unless current_user && @user == current_user
+      @user.views += 1 
+      @user.save
+    end
     #@activities = PublicActivity::Activity.where(owner_id: @user.id).order('created_at desc').first(10)
     
     if @user.account_id.nil?
