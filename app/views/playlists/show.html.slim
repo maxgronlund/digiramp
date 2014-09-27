@@ -10,10 +10,11 @@
         h3 = @playlist.title
         = @playlist.body
         br
-        = link_to edit_user_playlist_path(@user, @playlist), class: 'button button-default' do
-          i.fa.fa-pencil
-          '&nbsp;
-          'Edit
+        - if @authorized
+          = link_to edit_user_playlist_path(@user, @playlist), class: 'button button-default' do
+            i.fa.fa-pencil
+            '&nbsp;
+            'Edit
         hr
         /== render 'users/shared/profile'
         
