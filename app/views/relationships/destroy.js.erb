@@ -1,2 +1,2 @@
-$( "div" ).remove( ".unfollow" );
+$( "div" ).remove( ".unfollow_#{@user.id.so_s}" );
 $(".follow-unfollow").prepend('<%=j render("relationships/follow") %>');
