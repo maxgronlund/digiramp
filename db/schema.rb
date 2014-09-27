@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926185122) do
+ActiveRecord::Schema.define(version: 20140927122334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1414,6 +1414,16 @@ ActiveRecord::Schema.define(version: 20140926185122) do
   add_index "playlist_keys", ["playlist_id"], name: "index_playlist_keys_on_playlist_id", using: :btree
   add_index "playlist_keys", ["user_id"], name: "index_playlist_keys_on_user_id", using: :btree
 
+  create_table "playlist_recordings", force: true do |t|
+    t.integer  "playlist_id"
+    t.integer  "recording_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "playlist_recordings", ["playlist_id"], name: "index_playlist_recordings_on_playlist_id", using: :btree
+  add_index "playlist_recordings", ["recording_id"], name: "index_playlist_recordings_on_recording_id", using: :btree
+
   create_table "playlists", force: true do |t|
     t.integer  "account_id"
     t.string   "title"
@@ -1427,11 +1437,22 @@ ActiveRecord::Schema.define(version: 20140926185122) do
     t.integer  "user_id"
     t.string   "default_widget_key"
     t.integer  "default_widget_id"
+    t.string   "playlist_image",     default: ""
   end
 
   add_index "playlists", ["account_id"], name: "index_playlists_on_account_id", using: :btree
   add_index "playlists", ["default_widget_key"], name: "index_playlists_on_default_widget_key", using: :btree
   add_index "playlists", ["user_id"], name: "index_playlists_on_user_id", using: :btree
+
+  create_table "playlists_recordings", force: true do |t|
+    t.integer  "playlist_id"
+    t.integer  "recording_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "playlists_recordings", ["playlist_id"], name: "index_playlists_recordings_on_playlist_id", using: :btree
+  add_index "playlists_recordings", ["recording_id"], name: "index_playlists_recordings_on_recording_id", using: :btree
 
   create_table "price_plans", force: true do |t|
     t.string   "title"
@@ -1719,9 +1740,11 @@ ActiveRecord::Schema.define(version: 20140926185122) do
     t.boolean  "remixer",                default: false
     t.boolean  "musician",               default: false
     t.boolean  "dj",                     default: false
-    t.string   "location",               default: ""
     t.string   "user_name",              default: ""
     t.integer  "views",                  default: 0
+    t.string   "profession"
+    t.string   "country"
+    t.string   "city"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

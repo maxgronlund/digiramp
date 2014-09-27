@@ -1,0 +1,22 @@
+.panel
+  .panel-body
+
+    = simple_form_for [@user, @playlist] do |f|
+    
+      = f.hidden_field :user_id, value: @user.id
+      /= f.hidden_field :playlist_id, value: @playlist.id
+      = f.input :title
+      = f.input :playlist_image
+      = f.input :body
+      /= f.association :recordings, collection: @recordings
+      = f.association :recordings, collection: @recordings, include_blank: true, input_html: { class: 'chosen-select' }
+      
+      
+      /= f.association :recordings, collection: @recordings,  include_blank: false, input_html: { class: 'tokenize' }
+      /
+      /= f.association :recordings, collection: @recordings,  include_blank: false, input_html: { class: 'tokenize' }, as: :text
+      /<%= f.label :author_ids, "Authors" %><br />
+      /= f.collection_select :playlist_recording_ids, @recordings, :id, :title, {}, {multiple: true} 
+      = link_to 'Cancel', user_playlist_path(@user, @playlist), class: 'button button-default'
+      '&nbsp;
+      = f.submit 'Save', class: 'button button-primary'

@@ -4,12 +4,19 @@
   .container
     .row
       .col-sm-3
+        .logo
+          .thumbnail
+            = image_tag @playlist.playlist_image_url :image_270x270
         h3 = @playlist.title
+        = @playlist.body
+        br
         = link_to edit_user_playlist_path(@user, @playlist), class: 'button button-default' do
           i.fa.fa-pencil
           '&nbsp;
           'Edit
+        hr
         /== render 'users/shared/profile'
+        
         ul class="sidebar"
           == render 'users/shared/sidebar', selected: 'playlists'
         
@@ -70,8 +77,11 @@
               '&nbsp;
               i class="fa fa-headphones" 
           
-          
-
+        .row
+          .col-sm-12
+            hr
+            == render 'shared/comments', commentable: @playlist
+            
 
 
 

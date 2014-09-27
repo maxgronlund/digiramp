@@ -39,6 +39,11 @@
 //= require common_works_table.js
 //= require_tree ./digi_whams
 //= require sidebar
+// require bootstrap-tokenfield
+// require chosen-jquery
+// require jquery.tokeninput
+//= require chosen-jquery
+
 
 Turbolinks.enableTransitionCache();
 

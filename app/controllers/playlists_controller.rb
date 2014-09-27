@@ -1,7 +1,7 @@
 class PlaylistsController < ApplicationController
   #include AccountsHelper
   #before_filter :access_account
-  before_filter :get_user, only: [:show, :index, :edit, :update]
+  before_filter :get_user, only: [:create, :show, :index, :edit, :update]
   def index
     #@playlists = @user.playlists
     #if @authorized  
@@ -14,23 +14,40 @@ class PlaylistsController < ApplicationController
   def show
     @playlist     = Playlist.cached_find(params[:id])
   end
+  
+  def new
+    @playlist = Playlist.new
+  end
+  
+  def create
+    if @playlist = Playlist.create(playlist_params)
+      redirect_to user_playlist_path( @user, @playlist)
+    else
+      render new
+    end
+  end
 
   def edit
     @playlist = Playlist.cached_find(params[:id])
-    #@recordings   = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
+    @recordings   = @user.recordings.not_in_bucket
   end
 
   def update
+    
     @playlist = Playlist.cached_find(params[:id])
-    @playlist.update_attributes(playlist_params)
-    redirect_to account_playlist_path( @account, @playlist )
+    if @playlist.update_attributes(playlist_params)
+      ap @playlist
+      redirect_to user_playlist_path( @user, @playlist )
+    else
+      render :edit
+    end
   end
   
   def destroy
     @playlist = Playlist.cached_find(params[:id])
     @playlist.destroy
 
-    redirect_to account_playlists_path( @account )
+    redirect_to user_playlists_path( @user )
   end
   
 private  

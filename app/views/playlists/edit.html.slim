@@ -4,7 +4,9 @@
   .container
     .row
       .col-sm-3
-        == render 'users/shared/profile'
+        .logo
+          .thumbnail
+            = image_tag @playlist.playlist_image_url :image_270x270
         ul class="sidebar"
           == render 'users/shared/sidebar', selected: 'playlists'
         
@@ -12,6 +14,7 @@
       .col-sm-9
         h3 Edit Playlists
         hr
+        == render 'form'
         
 
 

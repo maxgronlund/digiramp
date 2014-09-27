@@ -15,18 +15,37 @@
         h3 Playlists
         hr
         - @user.playlists.each do |playlist|
-          .row
-            .col-sm-9
-              h4 
-                = link_to playlist.title, user_playlist_path( @user, playlist)
-              - if @authorized 
-                = link_to 'Edit', edit_user_playlist_path( current_user, playlist), class: 'button button-default'
-            .col-sm-3
+          .show-playlist
+            .show-playlist-image
+              = link_to image_tag(playlist.playlist_image_url :image_120x120), \
+                  user_playlist_path( @user, playlist)
+            .show-playlist-info 
+              h4 = link_to playlist.title, user_playlist_path( @user, playlist)
+              = playlist.body
+
               .pull-right
                 i.fa.fa-headphones
                 '&nbsp;
-                = pluralize(playlist.recordings.count, 'Recording')  
-          hr
+                = pluralize(playlist.recordings.count, 'Recording')
+            .btn-group.btn-group-xs
+              = link_to user_playlist_path( current_user, playlist), class: 'btn btn-default' do
+                i.fa.fa-eye
+                '&nbsp;
+                'Show
+              - if @authorized
+                = link_to edit_user_playlist_path( current_user, playlist), class: 'btn btn-default' do
+                  i.fa.fa-pencil
+                  '&nbsp;
+                  'Edit
+                = link_to user_playlist_path( current_user, playlist), \
+                      class: 'btn btn-default red-icon', \
+                      data: { confirm: 'Are you sure?' }, \
+                      method: :delete do
+                  i.fa.fa-times
+                  '&nbsp;
+                  'Delete
+              
+            hr
           /= debug playlist.default_widget
           /== render 'widgets/widget_theme'
         

@@ -69,17 +69,17 @@ class Admin::UsersController < ApplicationController
                 recipient_type: @user.class.name,
                     account_id: @user.account_id)
       
-      flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} deleted" }
       @user.destroy!
       
-      if 
-        @account.create_activity(  :destroyed, 
-                           owner: current_user,
-                       recipient: @account,
-                  recipient_type: @account.class.name,
-                      account_id: @account.account_id)
-        @account.destroy!
-      end
+
+      #@account.create_activity(  :destroyed, 
+      #                   owner: current_user,
+      #               recipient: @account,
+      #          recipient_type: @account.class.name,
+      #              account_id: @account.account_id)
+      #              
+      #@account.destroy!
+
       
     rescue
       flash[:danger] = { title: "ERROR: ", body: "Something went wrong" }

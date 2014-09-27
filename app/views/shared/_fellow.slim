@@ -10,9 +10,10 @@
             = gravatar_tag user.email, :size => 120, class: "media-object"
   .fellow-info      
     h4 = user.user_name
-    - unless user.location.to_s == '' 
+    - unless user.country.to_s == '' 
       b Location: 
-      = user.location
+      .location
+        = "#{user.country}, #{user.city}"
     .row
       .col-xs-2
         == render 'users/shared/follow' , user: user

@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.0'
 
 # DigiRAMP
 gem "slim-rails"
+#gem 'countries'
 gem 'country_select'
 gem 'simple_form'
 #gem 'backbone-on-rails'
@@ -74,6 +75,9 @@ gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 gem "omniauth-gplus"
 
+# auto complete fields
+#gem 'bootstrap_tokenfield_rails'
+gem 'chosen-rails'
 
 
 #gem 'bootstrap-editable-rails'

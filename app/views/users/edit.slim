@@ -16,9 +16,7 @@
 
       .row
         .col-sm-6
-          .panel.panel-primary
-            .panel-heading
-              'Login
+          .panel
             .panel-body
               
                 = f.input :name
@@ -26,10 +24,18 @@
                 = f.input :email
                 = f.input :password, autocomplete: :off
                 = f.input :password_confirmation, autocomplete: :off
+                .row
+                  .col-sm-6
+                    = f.input :profession
+                .row
+                  .col-sm-6
+                    = f.input :country
+                  .col-sm-6
+                    = f.input :city
+                    
+                    
         .col-sm-6
-          .panel.panel-primary
-            .panel-heading
-              'Personal Profile
+          .panel
             .panel-body
               .row
                 .col-sm-6
@@ -42,7 +48,8 @@
                   = f.input :composer
                   = f.input :remixer
                   = f.input :dj
-              = f.input :location, placeholder: 'Country, State, City'
+              
+             
               = f.input :image
               div id="toolbar" class="wysihtml5-toolbar"
                 a data-wysihtml5-command="bold" Bold
@@ -50,7 +57,7 @@
                 a data-wysihtml5-command="italic" Italic
               
               =f.input :profile, label: false, :input_html => {  style: "height: 224px;", placeholder: "Profile", id: 'wysihtml5_editor'}
-
+      
       .pull-right
         = link_to 'Cancel', user_path(@user), class: 'button button-default'
         '&nbsp;

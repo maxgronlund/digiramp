@@ -4,15 +4,21 @@
 class Playlist < ActiveRecord::Base
   belongs_to :account
   belongs_to :user
-  has_many :playlist_items, dependent: :destroy
+  #has_many :playlist_items, dependent: :destroy
   has_many :playlist_keys,  dependent: :destroy
   has_many :widgets
+  has_and_belongs_to_many :recordings, dependent: :destroy
+  has_many :comments,        as: :commentable,          dependent: :destroy
 
   
   after_commit :flush_cache
   #before_save :update_uuids
   #before_destroy :update_uuids
   after_create :create_default_objects
+  
+  #mount_uploader :image, PlaylistUploader
+  mount_uploader :playlist_image, PlaylistUploader
+
   
   def create_default_objects
     create_default_widget
@@ -72,10 +78,10 @@ class Playlist < ActiveRecord::Base
 
   end
   
-  def recordings
-    recording_ids = self.playlist_items.where(playlist_itemable_type: 'Recording').pluck(:playlist_itemable_id)
-    Recording.where(id: recording_ids)
-  end
+  #def recordings
+  #  recording_ids = self.playlist_items.where(playlist_itemable_type: 'Recording').pluck(:playlist_itemable_id)
+  #  Recording.where(id: recording_ids)
+  #end
   
   def add_item new_item
     self.playlist_items.where(playlist_id:            self.id,

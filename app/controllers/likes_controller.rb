@@ -38,7 +38,10 @@ class LikesController < ApplicationController
   
   def destroy
     user = User.friendly.find(params[:user_id])
-    like = Like.where(user_id: user.id, recording_id: params[:id]).first          
+    like = Like.where(user_id: user.id, recording_id: params[:id]).first   
+    @unlike = '.recording_' + params[:id].to_s   
+    puts '-----------------------------------------'
+    puts @unlike    
     like.destroy 
     render nothing: true
   end

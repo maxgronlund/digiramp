@@ -1,11 +1,30 @@
-.avatar
-  .thumbnail
-    / !!! use social_avatar
-    - unless @user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
-      = image_tag @user.image_url :avatar_270x270
-    -else
-      = gravatar_tag @user.email, :size => 270, class: "media-object"
-    
+
+.row
+  .col-sm-6
+    .avatar
+      .thumbnail
+        / !!! use social_avatar
+        - unless @user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
+          = image_tag @user.image_url :avatar_270x270
+        -else
+          = gravatar_tag @user.email, :size => 270, class: "media-object"
+  .col-sm-6
+    .location
+      h5 = " #{@user.city}, #{@user.country}"
+      i class="fa fa-eye"
+      '&nbsp;
+      = pluralize(@user.views, 'View')
+
+
+/.row
+/  .avatar
+/    .thumbnail
+/      / !!! use social_avatar
+/      - unless @user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
+/        = image_tag @user.image_url :avatar_270x270
+/      -else
+/        = gravatar_tag @user.email, :size => 270, class: "media-object"
+/    
 h3 =@user.full_name
 - if @authorized  
   = link_to edit_user_path(@user), class: 'button button-default' do
