@@ -1,0 +1,7 @@
+.unfollow
+  = form_for(current_user.relationships.find_by(followed_id: @user.id), remote: true, html: { method: :delete }) do |f| 
+    /= f.submit "Unfollow", class: "button button-default" 
+    = button_tag(type: 'submit', class: "button button-default red-icon") do 
+      i.fa.fa-times
+      '&nbsp;
+      'Unfollow

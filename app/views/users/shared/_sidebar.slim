@@ -1,9 +1,9 @@
-li class="#{'sidebar-selected' if selected == 'user'}"
-  = link_to user_path(@user) do
-    i class="fa fa-user"
-    '&nbsp;
-    =@user.name 
-    
+/li class="#{'sidebar-selected' if selected == 'user'}"
+/  = link_to user_path(@user) do
+/    i class="fa fa-user"
+/    '&nbsp;
+/    =@user.name 
+/    
 li class="#{'sidebar-selected' if selected == 'recordings'}"
   = link_to user_recordings_path(@user) do
     i class="fa fa-headphones"

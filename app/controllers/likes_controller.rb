@@ -28,7 +28,8 @@ class LikesController < ApplicationController
                           account_id: recording.account_id) 
                           
                           
-    render nothing: true
+    @unlike = '.unlike_recording_' + params[:recording_id].to_s   
+    @like   = '.like_recording_' + params[:recording_id].to_s 
     #@like = 'like_' + like.id.to_s
   end
   
@@ -39,11 +40,11 @@ class LikesController < ApplicationController
   def destroy
     user = User.friendly.find(params[:user_id])
     like = Like.where(user_id: user.id, recording_id: params[:id]).first   
-    @unlike = '.recording_' + params[:id].to_s   
-    puts '-----------------------------------------'
-    puts @unlike    
+    @unlike = '.unlike_recording_' + params[:id].to_s   
+    @like   = '.like_recording_' + params[:id].to_s  
+  
     like.destroy 
-    render nothing: true
+    #render nothing: true
   end
 end
 

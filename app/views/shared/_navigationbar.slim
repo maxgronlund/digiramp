@@ -52,6 +52,11 @@
                 i class="fa fa-group"
                 '&nbsp;
                 = current_account.title.upcase 
+          li class="#{page == 'home' ? 'active' : ''}"
+            = link_to user_path(current_user) do
+              i class="fa fa-home"
+              '&nbsp;
+              'HOME
                 
           
 
@@ -65,11 +70,11 @@
               '&nbsp;
               span class="caret"
             ul class="dropdown-menu" role="menu" aria-labelledby="drop2"
-              li 
-                = link_to user_path(current_user) do
-                  i class="fa fa-user"
-                  '&nbsp;
-                  'Profile
+              /li 
+              /  = link_to user_path(current_user) do
+              /    i class="fa fa-user"
+              /    '&nbsp;
+              /    'Profile
               li 
                 = link_to user_recordings_path(current_user) do
                   i class="fa fa-headphones"
