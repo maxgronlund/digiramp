@@ -1,7 +1,7 @@
 class PlaylistsController < ApplicationController
   #include AccountsHelper
   #before_filter :access_account
-  before_filter :get_user, only: [:create, :show, :index, :edit, :update]
+  before_filter :get_user, only: [:create, :show, :index, :edit, :update, :new]
   def index
     #@playlists = @user.playlists
     #if @authorized  
@@ -17,6 +17,7 @@ class PlaylistsController < ApplicationController
   
   def new
     @playlist = Playlist.new
+    @recordings   = @user.recordings.not_in_bucket
   end
   
   def create

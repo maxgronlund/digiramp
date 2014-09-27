@@ -16,24 +16,62 @@
             '&nbsp;
             'Edit
           '&nbsp;
-        - if current_user
-          - if Like.where(recording_id: @recording.id, user_id: current_user.id).any?
-            = link_to user_like_path( current_user, @recording), \
-                      method: :delete, \
-                      remote: true,\
-                      class: "button button-default red-icon"  do
-              i class="fa fa-heart"
-              '&nbsp;
-              'Unlike
-
-          - else
-            = link_to new_user_recording_like_path(current_user, @recording), \
-                      remote: true,\
-                      class: "button button-default"  do
-              i class="fa fa-heart"
-              '&nbsp;
-              'Like
-        
+        -if current_user
+          - like = Like.where(recording_id: @recording.id, user_id: current_user.id).any?
+          /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
+          = link_to user_like_path( current_user, @recording), method: :delete, remote: true, \
+                    class: "button button-default red-icon #{'unlike_recording_'+@recording.id.to_s}", style: "#{'display: none;' unless like}"  do
+            i class="fa fa-heart "
+            '&nbsp;
+            'Unlike
+          /-else
+          = link_to new_user_recording_like_path(current_user, @recording), remote: true, \
+                    class: "button button-default #{'like_recording_'+@recording.id.to_s}", style: "#{'display: none;' if like}"  do
+            i class="fa fa-heart"
+            '&nbsp;
+            'Like
+        -else
+          = link_to login_new_path, \
+                    class: "btn btn-default"  do
+            i class="fa fa-heart"
+            '&nbsp;
+            'Like  
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        /- if current_user
+        /  - if Like.where(recording_id: @recording.id, user_id: current_user.id).any?
+        /    = link_to user_like_path( current_user, @recording), \
+        /              method: :delete, \
+        /              remote: true,\
+        /              class: "button button-default red-icon"  do
+        /      i class="fa fa-heart"
+        /      '&nbsp;
+        /      'Unlike
+        /
+        /  - else
+        /    = link_to new_user_recording_like_path(current_user, @recording), \
+        /              remote: true,\
+        /              class: "button button-default"  do
+        /      i class="fa fa-heart"
+        /      '&nbsp;
+        /      'Like
+        /
         h3 = @recording.title
         
         h5 = @recording.artist

@@ -12,7 +12,13 @@
         
         
       .col-sm-9
-        h3 Playlists
+        .row
+          .col-sm-8
+            h3 Playlists
+          .col-sm-4
+            - if @authorized
+              .pull-right
+                = link_to 'Create playlist', new_user_playlist_path(@user), class: 'button button-default'
         hr
         - @user.playlists.each do |playlist|
           .show-playlist

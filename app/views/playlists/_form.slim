@@ -17,6 +17,10 @@
       /= f.association :recordings, collection: @recordings,  include_blank: false, input_html: { class: 'tokenize' }, as: :text
       /<%= f.label :author_ids, "Authors" %><br />
       /= f.collection_select :playlist_recording_ids, @recordings, :id, :title, {}, {multiple: true} 
-      = link_to 'Cancel', user_playlist_path(@user, @playlist), class: 'button button-default'
+      - if  @playlist.new_record?
+        = link_to 'Cancel', user_playlists_path(@user), class: 'button button-default'
+      -else
+        = link_to 'Cancel', user_playlist_path(@user, @playlist), class: 'button button-default'
       '&nbsp;
       = f.submit 'Save', class: 'button button-primary'
+      

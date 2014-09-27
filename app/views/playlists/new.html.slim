@@ -6,7 +6,7 @@
       .col-sm-3
         .logo
           .thumbnail
-            = image_tag @playlist.playlist_image_url :image_270x270
+            /= image_tag @playlist.playlist_image_url :image_270x270
         ul class="sidebar"
           == render 'users/shared/sidebar', selected: 'playlists'
         
