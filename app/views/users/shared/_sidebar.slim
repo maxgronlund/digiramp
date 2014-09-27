@@ -50,13 +50,71 @@ li class="#{'sidebar-selected' if selected == 'playlists'}"
       i class="fa fa-lock"
       '&nbsp;
       'Authorizations
-      
+
+hr      
 - if @authorized
   li class="#{'sidebar-selected' if selected == 'account'}"
     = link_to account_account_path( @user.account ) do
       i class="fa fa-tachometer"
       '&nbsp;
-      'Account
+      'ACCOUNT
+      
+  li class="#{'sidebar-selected' if selected == 'account'}"
+    = link_to user_user_collections_path( @user ) do
+      i class="fa fa-list"
+      '&nbsp;
+      'COLLECTIONS
+      
+  li class="#{'sidebar-selected' if selected == 'account'}"
+    = link_to user_user_catalogs_path( @user ) do
+      i class="fa fa-book"
+      '&nbsp;
+      'CATALOGS
+      
+  li class="#{'sidebar-selected' if selected == 'account'}"
+    = link_to user_user_activities_path( @user ) do
+      i class="fa fa-tachometer"
+      '&nbsp;
+      'ACTIVITIES
+      
+  li class="#{'sidebar-selected' if selected == 'account'}"
+    = link_to user_user_opportunities_path(@user ) do
+      i class="fa fa-book"
+      '&nbsp;
+      'OPPORTUNITIES
+      
+/  li class="#{'sidebar-selected' if selected == 'account'}"
+/    = link_to user_user_activities_path( @user.account ) do
+/      i class="fa fa-tachometer"
+/      '&nbsp;
+/      'ACTIVITIES
+/      
+      
+      
+      
+      
+      
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
 /li class="#{'sidebar-selected' if selected == 'account'}"
 /  = link_to users_path do
 /    i class="fa fa-users"

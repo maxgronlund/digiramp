@@ -37,6 +37,7 @@
             .rec-comments
               - @user.comments.order('created_at desc').each do |comment|
                 == render 'comments/show', comment: comment
+            
           .col-sm-4
             h4 Recent activities
             
