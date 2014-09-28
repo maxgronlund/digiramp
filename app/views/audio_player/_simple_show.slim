@@ -7,14 +7,21 @@
       .play-button-pane
         == render 'digiwham/recordings/playback_button', recording: recording
       .info
-        .title
-          /h3 = recording.title
-          /p = recording.artist
-          
-        .description
-          
-
-      
+        .long-title
+          h3 = recording.title
+          .recording
+            .by 
+              'By:
+            .artist
+              = @recording.artist
+        /.title
+        /  h3 = recording.title
+        /  p = recording.artist
+        /  
+        /.description
+        /  
+        /
+        /
       .track-duration
 
         .start-time

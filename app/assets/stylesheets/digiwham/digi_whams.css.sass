@@ -91,6 +91,7 @@ $digiwham-info:                  50px
           //width: 100%
           height:             $digiwham-hight-small - 50px
           margin-left:        $digiwham-button-size
+          
           .title
             width: 40%
             height:       $digiwham-info
@@ -107,7 +108,16 @@ $digiwham-info:                  50px
               font-size: 12px
               color:              #555
               font-weight: bold
-              
+          .long-title
+            padding: 4px
+            width: 100%
+            h3
+              font-size:          15px
+              margin-top:         0px
+              margin-bottom:      4px
+              @include            truncate
+              line-height:        120%
+              color:              #999
           .description
             width: 60%
             //max-height:             $digiwham-hight-small - 40
@@ -169,6 +179,9 @@ $digiwham-info:                  50px
 
         //.waveform
 .simple-show
+  border: 1px solid #cdcdcd
+  margin-top: 4px
+  margin-bottom: 4px
   #digiWhams 
     .digiwham 
       .top-pane 

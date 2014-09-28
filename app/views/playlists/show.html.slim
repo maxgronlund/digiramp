@@ -3,13 +3,11 @@
     == render 'shared/navigationbar', page: 'home' 
   .container
     .row
-      .col-sm-3
+      .col-sm-3.border-right
         .logo
           .thumbnail
             = image_tag @playlist.playlist_image_url :image_270x270
-        h3 = @playlist.title
-        = @playlist.body
-        br
+        
         - if @authorized
           = link_to edit_user_playlist_path(@user, @playlist), class: 'button button-default' do
             i.fa.fa-pencil
@@ -23,16 +21,47 @@
         
         
       .col-sm-9
-        #digiWhams 
-          - @playlist.recordings.each do |recording|
-            == render 'recordings/show', recording: recording
-
-          
         .row
-          .col-sm-12
+          .col-sm-7.border-right
+            h3 = @playlist.title
+            = @playlist.body
+            br
             hr
-            == render 'shared/comments', commentable: @playlist
+            #digiWhams 
+              - @playlist.recordings.each do |recording|
+                == render 'recordings/show', recording: recording
+                hr
             
+          .col-sm-5
+            == render 'shared/comments', commentable: @playlist
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,29 +1,30 @@
 - if comment.user
   div id="comment_#{comment.id}"
-    hr
-    .row
-      .col-sm-12
-        
-        .pull-left
-          .avatar
-            .thumbnail
-              / !!! use social_avatar
-              - if comment.user
-                - unless comment.user.image == "/assets/fallback/avatar_70x70_account-logo.jpg"
-                  = link_to image_tag( comment.user.image_url :avatar_64x64),  user_path( comment.user)
-                -else
-                  = gravatar_tag comment.user.email, :size => 64, class: "media-object"
-        .comment-content
-          = link_to comment.user.name, user_path( comment.user)
-          '&nbsp;
-          = "#{time_ago_in_words(comment.created_at) } ago"
-          .pull-right
-            = link_to  comment_path(comment), data: {:confirm => 'Are you sure?'}, :method => :delete , remote: true do
-              i class="fa fa-times"
-          h4  = comment.title
-          = simple_format comment.body
+    .comments-content
+      .row
+        .col-sm-12
           
+          .pull-left
+            .avatar
+              .thumbnail
+                / !!! use social_avatar
+                - if comment.user
+                  - unless comment.user.image == "/assets/fallback/avatar_70x70_account-logo.jpg"
+                    = link_to image_tag( comment.user.image_url :avatar_64x64),  user_path( comment.user)
+                  -else
+                    = gravatar_tag comment.user.email, :size => 64, class: "media-object"
+          .comment-content
+            h6
+              = link_to comment.user.name, user_path( comment.user)
+              '&nbsp;
+              = "#{time_ago_in_words(comment.created_at) } ago"
+              .pull-right
+                = link_to  comment_path(comment), data: {:confirm => 'Are you sure?'}, :method => :delete , remote: true do
+                  i class="fa fa-times"
+            h4  = comment.title
+            = simple_format comment.body
             
-        
+              
+          
 - else 
   -comment.destroy

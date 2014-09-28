@@ -9,8 +9,12 @@
         -else
           = gravatar_tag @user.email, :size => 270, class: "media-object"
   .col-sm-6
+    h5 =@user.full_name
     .location
-      h5 = " #{@user.city}, #{@user.country}"
+      - if @user.country.to_s != ''
+        - c = Country.find_country_by_alpha2(@user.country)
+        = " #{@user.city}, #{c.name}"
+      br
       i class="fa fa-eye"
       '&nbsp;
       = pluralize(@user.views, 'View')
@@ -25,7 +29,7 @@
 /      -else
 /        = gravatar_tag @user.email, :size => 270, class: "media-object"
 /    
-h3 =@user.full_name
+
 - if @authorized  
   = link_to edit_user_path(@user), class: 'button button-default' do
     i class="fa fa-pencil"

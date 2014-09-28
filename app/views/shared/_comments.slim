@@ -3,18 +3,17 @@
     = f.hidden_field  :commentable_id,    value: commentable.id
     = f.hidden_field  :commentable_type,  value: commentable.class.name
     = f.hidden_field  :user_id,  value: current_user.id
-    h4 Write a comment
+    h5 Comment
     = f.input :title, placeholder: 'Title', label: false
     =f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Comment"}
-
-    = f.submit 'Post', class: 'button button-primary'
+    .row
+      .col-sm-12
+        .pull-right
+          = f.submit 'Post', class: 'button button-primary'
   
 - else
    'Sign in to comment
-
-
-/ ------------------ comments ---------------   
-h4 Comments
+br
 .rec-comments
   - commentable.comments.order('created_at desc').each do |comment|
     == render 'comments/show', comment: comment

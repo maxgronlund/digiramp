@@ -37,7 +37,7 @@ gem 'jbuilder', '~> 2.0'
 
 # DigiRAMP
 gem "slim-rails"
-#gem 'countries'
+gem 'countries'
 gem 'country_select'
 gem 'simple_form'
 #gem 'backbone-on-rails'

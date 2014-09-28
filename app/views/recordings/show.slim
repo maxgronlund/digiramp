@@ -5,11 +5,13 @@
     == render 'shared/navigationbar', page: 'home' 
   .container
     .row
-      .col-sm-3
-        = image_tag @recording.artwork, alt: "#{@recording.title}"
-        br
+      .col-sm-3.border-right
+        .avatar
+          .thumbnail
+            = image_tag @recording.artwork, alt: "#{@recording.title}"
+        
         - if @authorized
-          br
+
           = link_to edit_user_recording_path(current_user, @recording), \
                     class: "button button-default"  do
             i class="fa fa-pencil"
@@ -37,76 +39,41 @@
             '&nbsp;
             'Like  
           
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-        /- if current_user
-        /  - if Like.where(recording_id: @recording.id, user_id: current_user.id).any?
-        /    = link_to user_like_path( current_user, @recording), \
-        /              method: :delete, \
-        /              remote: true,\
-        /              class: "button button-default red-icon"  do
-        /      i class="fa fa-heart"
-        /      '&nbsp;
-        /      'Unlike
-        /
-        /  - else
-        /    = link_to new_user_recording_like_path(current_user, @recording), \
-        /              remote: true,\
-        /              class: "button button-default"  do
-        /      i class="fa fa-heart"
-        /      '&nbsp;
-        /      'Like
-        /
-        h3 = @recording.title
+
         
-        h5 = @recording.artist
         
-        b Uploaded by:
-        '&nbsp;
-        i = link_to @recording.user.name, user_path( @recording.user)
-        br
+        hr
+        .recording
+          .by
+            'Uploaded by:
+          .artist
+            i = link_to @recording.user.name, user_path( @recording.user)
+
         
         h5 Description:
         = simple_format @recording.comment
-        - if @recording.lyrics != ''
-          h5 Lyrics:
-          = simple_format @recording.lyrics
+        
           
-        h5 Genre:
-        h5
-          - @recording.genre_tags.each do |genre_tag|
-            span class="label label-default"
-              = genre_tag.genre.title
-            '&nbsp; 
-             
-        h5 Instruments:
-        h5
-          - @recording.instrument_tags.each do |instrument_tag|
-            span class="label label-success"
-              = instrument_tag.instrument.title
-            '&nbsp; 
-             
-        h5 Moods:
-        h5
-          - @recording.mood_tags.each do |mood_tag|
-            span class="label label-warning"
-              = mood_tag.mood.title
-            '&nbsp; 
+        /h5 Genre:
+        /h5
+        /  - @recording.genre_tags.each do |genre_tag|
+        /    span class="label label-default"
+        /      = genre_tag.genre.title
+        /    '&nbsp; 
+        /     
+        /h5 Instruments:
+        /h5
+        /  - @recording.instrument_tags.each do |instrument_tag|
+        /    span class="label label-success"
+        /      = instrument_tag.instrument.title
+        /    '&nbsp; 
+        /     
+        /h5 Moods:
+        /h5
+        /  - @recording.mood_tags.each do |mood_tag|
+        /    span class="label label-warning"
+        /      = mood_tag.mood.title
+        /    '&nbsp; 
         /== render 'users/shared/profile'
         /ul class="sidebar"
         /  == render 'users/shared/sidebar', selected: 'recordings'
@@ -121,9 +88,48 @@
           #digiWhams  
             == render 'audio_player/simple_show', recording: @recording 
         
-        
-        / ----------------- comments form ----------------------------
-        == render 'shared/comments', commentable: @recording
+        .row
+          .col-sm-7.border-right
+            .row.tags
+              .col-sm-4
+                - if @recording.genre_tags.count > 0
+                  h6 Genre:
+                  h5
+                    - @recording.genre_tags.each do |genre_tag|
+                      span class="label label-default"
+                        = genre_tag.genre.title
+                      '&nbsp; 
+              .col-sm-4
+                - if @recording.instrument_tags.count > 0
+                  h6 Instruments:
+                  h5
+                    - @recording.instrument_tags.each do |instrument_tag|
+                      span class="label label-success"
+                        = instrument_tag.instrument.title
+                      '&nbsp; 
+              .col-sm-4
+                - if @recording.mood_tags.count > 0  
+                  h6 Moods:
+                  h5
+                    - @recording.mood_tags.each do |mood_tag|
+                      span class="label label-warning"
+                        = mood_tag.mood.title
+                      '&nbsp;
+                  
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            - if @recording.lyrics != ''
+              h5 Lyrics:
+              = simple_format @recording.lyrics 
+          .col-sm-5
+            == render 'shared/comments', commentable: @recording
         /- if current_user
         /  = simple_form_for [ Comment.new ], remote: true do |f|
         /    = f.hidden_field  :commentable_id,    value: @recording.id

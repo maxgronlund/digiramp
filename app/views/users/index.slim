@@ -27,14 +27,18 @@
               = link_to_previous_page @users, '« Prev Page', class: 'btn btn-default mobile_pagination'
               = link_to_next_page @users, 'Next Page »', class: 'btn btn-default mobile_pagination'
               
-                
-    - @users.each do |user|
-      .person
-        - unless user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
-          = link_to image_tag( user.image_url :avatar_270x270),  user_path( user)
-        -else
-          = gravatar_tag user.email, :size => 64, class: "media-object"
-        h5 = link_to user.user_name, user_path(user)
-        i class="fa fa-headphones"
-        '&nbsp;
-        = user.recordings.count    
+  
+
+  .container
+    .row
+      .col-sm-12
+        - @users.each do |user|
+          .person
+            - unless user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
+              = link_to image_tag( user.image_url :avatar_270x270),  user_path( user)
+            -else
+              = gravatar_tag user.email, :size => 64, class: "media-object"
+            h5 = link_to user.user_name, user_path(user)
+            i class="fa fa-headphones"
+            '&nbsp;
+            = user.recordings.count    

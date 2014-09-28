@@ -7,7 +7,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   storage :file
-  # storage :fog
+  #storage :fog
 
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
@@ -24,26 +24,58 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #process :resize_to_limit => [1170, 1170]
 
   # Create different versions of your uploaded files:  
-  cattr_accessor :version_dimensions
-  self.version_dimensions = {
-    :avatar_32x32     => [32,32],
-    :avatar_64x64     => [64,64],
-    :avatar_120x120   => [120,120],
-    :avatar_170x170   => [170, 170],
-    :avatar_270x270   => [270, 270],
-    :avatar_370x370   => [370, 370]
-  }
+  #cattr_accessor :version_dimensions
+  #self.version_dimensions = {
+  #  :avatar_32x32     => [32,32],
+  #  :avatar_64x64     => [64,64],
+  #  :avatar_120x120   => [120,120],
+  #  :avatar_170x170   => [170, 170],
+  #  :avatar_270x270   => [270, 270],
+  #  :avatar_370x370   => [370, 370]
+  #}
+  
+  version :avatar_32x32    do process :resize_to_fill => [32,32   , 'Center']       end
+  version :avatar_64x64    do process :resize_to_fill => [64,64   , 'Center']      end
+  version :avatar_120x120  do process :resize_to_fill => [120,120 , 'Center']     end
+  version :avatar_170x170  do process :resize_to_fill => [170, 170, 'Center']    end
+  version :avatar_270x270  do process :resize_to_fill => [270, 270, 'Center']    end
+  version :avatar_370x370  do process :resize_to_fill => [370, 370, 'Center']    end
+    
+  #version :avatar_32x32    do 
+  #  process :convert => 'png'  
+  #  resize_and_pad(32, 32,:transparent,'Center')
+  #end
+  #version :avatar_64x64    do   
+  #  process :convert => 'png'  
+  #  resize_and_pad(64,64,:transparent,'Center')
+  #end
+  #version :avatar_120x120  do  
+  #  process :convert => 'png'  
+  #  resize_and_pad(120,120,:transparent,'Center') 
+  #end
+  #version :avatar_170x170  do 
+  #  process :convert => 'png'  
+  #  resize_and_pad(170,170,:transparent,'Center')  
+  #end
+  #version :avatar_270x270  do 
+  #  process :convert => 'png'  
+  #  resize_and_pad(270,270,:transparent,'Center')  
+  #end
+  #version :avatar_370x370  do
+  #  process :convert => 'png'  
+  #  resize_and_pad(370,370,:transparent,'Center')   
+  #end
 
-  RESIZE_GRAVITY = 'NorthWest'
-
-  # define versions from dimensions above
-  self.version_dimensions.keys.each do |a_version|
-    eval <<-EOT
-      version :#{a_version} do
-        process :resize_to_fill => self.version_dimensions[:#{a_version}] << RESIZE_GRAVITY
-      end
-EOT
-  end
+#  RESIZE_GRAVITY = 'NorthWest'
+#
+#  # define versions from dimensions above
+#  self.version_dimensions.keys.each do |a_version|
+#    eval <<-EOT
+#      version :#{a_version} do
+#        process :resize_to_fill => self.version_dimensions[:#{a_version}]
+#      end
+#EOT
+#  end
 
   #def manualcrop
   #  return unless model.cropping?
