@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
 
 
+  
+
   #get 'following/index'
   #
   #get 'followers/index'
@@ -284,6 +286,7 @@ Digiramp::Application.routes.draw do
 
   # Example resource route within a namespace:
   namespace :admin do
+    resources :front_end_contents, only: [:edit, :update]
     resources :widget_themes
     get 'repair_permissions'
     resources :activities

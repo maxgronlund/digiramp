@@ -32,7 +32,7 @@ section id="home" class="homepage"
     .row
       .col-sm-5
         /img src="http://www.wowthemes.net/demo/apulum/img/homeimg.png" class="img-responsive wow flipInY animated" alt=""
-        = image_tag "http://www.wowthemes.net/demo/apulum/img/homeimg.png", class: "img-responsive wow flipInY animated",  alt: ""
+        = image_tag @content.page_1_image_url, class: "img-responsive wow flipInY animated",  alt: ""
 		
       .col-sm-7.text-right	
         h1 id="logo"
@@ -40,16 +40,17 @@ section id="home" class="homepage"
             = image_tag 'digiramp-logo2.png' ,  alt: "DigiRAMP", class: "wow fadeInDown animated", 'data-wow-delay'.to_sym => "0.3s"
              
         .rotate-description.wow-fadeInLeft.animated
-          'Creativity &
+          = @content.page1_title_1
+          '&nbsp;&#38;
           span class="highlight"
-            'Professional 
-          'business
+            = @content.page1_title_2
+          '&nbsp;
+          = @content.page1_title_3
           
         
         .small-text.wow.bounceIn.animated
           span
-            'Imagine a world where pure creative is the road to success. No need for: Promotion. Contracts. Layers. All people have equal opportunities.
-            br What really matters is the joy of music
+            =simple_format @content.page_1_body
 
 
         .home-buttons
@@ -84,9 +85,9 @@ section id="home" class="homepage"
 section id="features"
   .wrapsection
     .container.sectionhead
-      h1.heading Let the music speak for it self
+      h1.heading = @content.page2_title
       p.lead
-        'Distribute your content in a manner that best suits you and your audience.
+        = simple_format @content.page_2_headline
         br Make beautiful promotion!
       
       .row.text-center
@@ -94,31 +95,31 @@ section id="features"
           .feature-icon
             i.fa.fa-cog
       
-          h4 Manage all you assets
-          p.description Original files, Contracts, Rights
+          h4 = @content.page_2_option_1_title
+          p.description = @content.page_2_option_1_headline
       
           span.sep
-          p A work has many users, interested parties tracks and fottage and more bla bla
+          p = @content.page_2_option_1_body
       
         .col-sm-4.feature-item.wow.flipInY.animated*{'data-wow-delay'=>"0.3s" }
         	.feature-icon
         		i.fa.fa-cloud-upload
         
-        	h4 Cloud Distribution
-        	p.description Automate the distribution
+        	h4 = @content.page_2_option_2_title
+        	p.description = @content.page_2_option_2_headline
         
         	span.sep
-        	p You can send playlists and widgets, emails and respond to opportunities
+        	p = @content.page_2_option_2_body
         
         .col-sm-4.feature-item.wow.flipInY.animated*{'data-wow-delay'=>"0.6s" }
         	.feature-icon
         		i.fa.fa-heart
         
-        	h4 Connect with you audience
-        	p.description Get feedback and comments directly
+        	h4 = @content.page_2_option_3_title
+        	p.description = @content.page_2_option_3_headline
         
         	span.sep
-        	p Connect music and feedback from music lovers directly to you creations
+        	p = @content.page_2_option_3_body
             
 
 /!-- BEGIN SIGNUP
@@ -128,22 +129,22 @@ section id="features"
     .container
       .row
         .col-md-6.wow.bounceIn.animated
-          h2 Get started right now!
-          p Try the creative account today and se how we help you promote your music across the net. 
+          h2 = @content.page_3_title
+          p = @content.page_3_headline
           
 
           ul.iconlist.unstyle
             li
               h4
                 i.fa.fa-magic
-                'Present you work
-              p Share music on social media and with you relatives using hour stylish customable widget
+                = @content.page_3_option_1_title
+              p = @content.page_3_option_1_body
 
             li
               h4
                 i.fa.fa-cog
-                'Profeccional usage
-              p Share you businness and profit with you own network op profeccionals.
+                = @content.page_3_option_2_title
+              p = @content.page_3_option_2_body
           br
           - if current_user
             = link_to user_path(current_user), class: "btn btn-default btn-lg wow slideInRight animated" do
@@ -154,7 +155,8 @@ section id="features"
           /a.btn.btn-lg.btn-simple.whitebg href="#"
           /  i.fa.fa-user  Sign up
         .col-md-6
-          img src="img/desk-top.jpg" class="img-responsive wow flipInY animated" alt=""
+          = image_tag @content.page_3_image_url, class: "img-responsive wow flipInY animated" 
+          /img src="img/desk-top.jpg" class="img-responsive wow flipInY animated" alt=""
 
 
 /!-- BEGIN pricePlans
@@ -162,7 +164,8 @@ section id="pricePlans"
   .wrapsection
     .container
       .sectionhead
-        h1.margbottom50 Acount types
+        h1.margbottom50 = @content.page_4_title
+        p = @content.page_4_body
       .row
         .col-md-12
           ul id="plans"
@@ -171,22 +174,18 @@ section id="pricePlans"
             li.plan.wow.bounceIn.animated*{ 'data-wow-delay'=>"0.1s", 'data-wow-duration'=>"2s"}
               ul.planContainer
                 li.title
-                  h2 Creative
+                  h2 = @content.page_4_account_1_title
                 li.price
                   p
-                    '0/<span>month</span>
+                    = @content.page_4_account_1_price
                   
                 ul.options
-                  li 
-                    '3 Hours <span>Music</span>
-                  li 
-                    'Unlimited <span>Playlists</span>
-                  li 
-                    'Unlimited <span>Widgets</span>
-                  li 
-                    '1000 hours <span>Streaming</span>
-                  li Social features
-                  li &nbsp;
+                  li = @content.page_4_account_1_option_1
+                  li = @content.page_4_account_1_option_2
+                  li = @content.page_4_account_1_option_3
+                  li = @content.page_4_account_1_option_4
+                  li = @content.page_4_account_1_option_5
+                  li = @content.page_4_account_1_option_6
                 - if current_user
                   li.button
                     = link_to user_path(current_user) do
@@ -201,20 +200,20 @@ section id="pricePlans"
             
               ul.planContainer
               	li.title
-              	h2.bestPlanTitle Pro
+              	h2.bestPlanTitle = @content.page_4_account_2_title
               
               	li.price
                   p.bestPlanPrice
-              		  '$19/month
+              		  = @content.page_4_account_2_price
               
                 li
                   ul.options
-                    li Creative ++
-                    li One <span>Catalog</span>
-                    li Unlimited <span>Works</span>
-                    li Unlimited <span>IPI's</span>
-                    li 50 GB <span>Storage</span>
-                    li &nbsp;
+                    li = @content.page_4_account_2_option_1
+                    li = @content.page_4_account_2_option_2
+                    li = @content.page_4_account_2_option_3
+                    li = @content.page_4_account_2_option_4
+                    li = @content.page_4_account_2_option_5
+                    li = @content.page_4_account_2_option_6
               
               
                 li.button
@@ -224,20 +223,18 @@ section id="pricePlans"
             li.plan.wow.bounceIn.animated*{ 'data-wow-delay'=>"0.1s", 'data-wow-duration'=>"2s"}
               ul.planContainer
                 li.title
-                  h2 Business
+                  h2 = @content.page_4_account_3_title
                 li.price
                   p
-                    '149/<span>month</span>
+                    = @content.page_4_account_3_price
                   
                 ul.options
-                  li Pro ++
-                  li 
-                    '100 <span>Catalogs</span>
-                  li Access management
-                  li 
-                    '25 <span>Users</span>
-                  li CRM
-                  li Business Documents
+                  li = @content.page_4_account_3_option_1
+                  li = @content.page_4_account_3_option_2
+                  li = @content.page_4_account_3_option_3
+                  li = @content.page_4_account_3_option_4
+                  li = @content.page_4_account_3_option_5
+                  li = @content.page_4_account_3_option_6
 
                 li.button
                   a href="#"
@@ -247,23 +244,18 @@ section id="pricePlans"
             li.plan.wow.bounceIn.animated*{ 'data-wow-delay'=>"0.1s", 'data-wow-duration'=>"2s"}
               ul.planContainer
                 li.title
-                  h2 Enterprice
+                  h2 = @content.page_4_account_4_title
                 li.price
                   p
-                    'Contact us
+                    = @content.page_4_account_4_price
                   
                 ul.options
-                  li Business ++
-                  li 
-                    'Dedicated <span>Server</span>
-                  li 
-                    'Task Management
-                  li 
-                    'Deleviry <span>DDEX</span>
-                  li 
-                    'FTP
-                  li 
-                    'Workers
+                  li = @content.page_4_account_4_option_1
+                  li = @content.page_4_account_4_option_2
+                  li = @content.page_4_account_4_option_3
+                  li = @content.page_4_account_4_option_4
+                  li = @content.page_4_account_4_option_5
+                  li = @content.page_4_account_4_option_6
 
                 li.button
                   a href="#"
@@ -283,23 +275,24 @@ section id="showcase" class="text-center"
       .row
         .col-md-12
           .sectionhead
-            h1.heading Application Screenshots
+            h1.heading = @content.page_5_title
             p class="lead"
-              'Use this area to showcase screenshots of your app
-              br The structure is simply, just add your images and done!
+              = simple_format @content.page_5_body
 
           .owl-carousel id="wowcarousel"
             .item
-              img src="http://www.wowthemes.net/demo-vesta/wp-content/uploads/sites/12/2014/06/vestaportfolio6.jpg" alt=""
+              = image_tag @content.page_5_image_1_url
+            .item
+              = image_tag @content.page_5_image_2_url
 				    
             .item
-              img src="http://www.wowthemes.net/demo-vesta/wp-content/uploads/sites/12/2014/06/vestaportfolio5.jpg" alt=""
+              = image_tag @content.page_5_image_3_url
 				    
             .item
-              img src="http://www.wowthemes.net/demo-vesta/wp-content/uploads/sites/12/2014/06/vestaportfolio21.jpg" alt=""
+              = image_tag @content.page_5_image_4_url
 				    
             .item
-              img src="http://www.wowthemes.net/demo-vesta/wp-content/uploads/sites/12/2014/06/vestaportfolio4.jpg" alt=""
+              = image_tag @content.page_5_image_5_url
             
 
 
@@ -313,57 +306,77 @@ section.testimonials.whitetext id="testimonials"
           /!-- testimonial 1
           .item
             a.client-image			
-              img src="http://wowthemes.net/demo/salique/salique-boxed/images/temp/avatar4.png" class="avatar" alt="Client"
+              = image_tag @content.page_6_testimonial_1_image, class: "avatar"
 	
-            h1.client-name.uppercase Erny Keirstead 	
-            h3.client-pos.uppercase Hypnos Theme
+            h1.client-name.uppercase = @content.page_6_testimonial_1_name
+            h3.client-pos.uppercase = @content.page_6_testimonial_1_headline
             p.client-msg
-              'Great themes with equally amazing customer service to go with it. Very prompt responses and very knowledgable staff that truly cares about their customer. I stand 100% behind this website and will make sure to recommend it to my friends.
+              = simple_format @content.page_6_testimonial_1_body
           
           /!-- testimonial 2
           .item
             a.client-image			
-              img src="http://wowthemes.net/demo/salique/salique-boxed/images/temp/avatar2.png" class="avatar" alt="Client"
+              = image_tag @content.page_6_testimonial_2_image, class: "avatar"
 	
-            h1.client-name.uppercase Erny Keirstead 	
-            h3.client-pos.uppercase Hypnos Theme
+            h1.client-name.uppercase = @content.page_6_testimonial_2_name
+            h3.client-pos.uppercase = @content.page_6_testimonial_2_headline
             p.client-msg
-              'This is a great theme for multipurpose use. Great features, catchy look. Also, I have on a few occasions needed to contact the support team, and they have been extremely helpful. I'm new to navigating these things so this has been invaluable!
+              = simple_format @content.page_6_testimonial_2_body
           
           /!-- testimonial 3
           .item
             a.client-image			
-              img src="http://wowthemes.net/demo/salique/salique-boxed/images/temp/avatar5.png" class="avatar" alt="Client"
+              = image_tag @content.page_6_testimonial_3_image, class: "avatar"
 	
-            h1.client-name.uppercase Erny Keirstead 	
-            h3.client-pos.uppercase Hypnos Theme
+            h1.client-name.uppercase = @content.page_6_testimonial_3_name
+            h3.client-pos.uppercase = @content.page_6_testimonial_3_headline
             p.client-msg
-              'The support... I can only say it's awesome. You make a product and you help people out any way you can even if it means that you have to log in on their dashboard to sort out any problems that customer might have. Simply Outstanding!
-          
-          /!-- testimonial 3
+              = simple_format @content.page_6_testimonial_3_body
+              
+          /!-- testimonial 4
           .item
             a.client-image			
-              img src="http://wowthemes.net/demo/salique/salique-boxed/images/temp/avatar5.png" class="avatar" alt="Client"
+              = image_tag @content.page_6_testimonial_4_image, class: "avatar"
 	
-            h1.client-name.uppercase Erny Keirstead 	
-            h3.client-pos.uppercase Hypnos Theme
+            h1.client-name.uppercase = @content.page_6_testimonial_4_name
+            h3.client-pos.uppercase = @content.page_6_testimonial_4_headline
             p.client-msg
-              'The support... I can only say it's awesome. You make a product and you help people out any way you can even if it means that you have to log in on their dashboard to sort out any problems that customer might have. Simply Outstanding!
-
+              = simple_format @content.page_6_testimonial_4_body
+          
+          /!-- testimonial 5
+          .item
+            a.client-image			
+              = image_tag @content.page_6_testimonial_5_image, class: "avatar"
+	
+            h1.client-name.uppercase = @content.page_6_testimonial_5_name
+            h3.client-pos.uppercase = @content.page_6_testimonial_5_headline
+            p.client-msg
+              = simple_format @content.page_6_testimonial_5_body
+              
+          /!-- testimonial 6
+          .item
+            a.client-image			
+              = image_tag @content.page_6_testimonial_6_image, class: "avatar"
+	
+            h1.client-name.uppercase = @content.page_6_testimonial_6_name
+            h3.client-pos.uppercase = @content.page_6_testimonial_6_headline
+            p.client-msg
+              = simple_format @content.page_6_testimonial_6_body
 
 /!-- BEGIN PRESENTATION
 section id="presentation"
   .wrapsection
     .container
       .sectionhead
-        h1 Perfect Marketing Theme
+        h1 = @content.page_7_title
         .smallsep
-        p.lead We are especially beautiful and fully responsive.
+        p.lead = @content.page_7_headline
 
         p.max80.wow.bounceIn.animated data-wow-delay="0.1s"
-          'Lorem ipsum dolor sit amet, consectetur Morbi sagittis, sem quis lacinia faucibus, orci ipsum gravida tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis, sem quis lacinia faucibus, orci ipsum gravida tortor. Nulla varius consequat magna, id molestie ipsum volutpat quis. Suspendisse consectetur fringilla suctus. Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor quis lacinia faucibus, orci ipsum gravida tortor.
+          = simple_format @content.page_7_body
         br
-        img src="img/desktop3.png" alt="" class="img-responsive pxauto wow bounceIn animatedUp" style="margin-bottom:-60px;"
+        /img src="img/desktop3.png" alt="" class="img-responsive pxauto wow bounceIn animatedUp" style="margin-bottom:-60px;"
+        = image_tag @content.page_7_image_url, class: "img-responsive pxauto wow bounceIn animatedUp", style: "margin-bottom:-60px;"
 
 
 /!-- BEGIN CONTACT-PAGE
@@ -372,11 +385,11 @@ section.contact-page.whitetext id="contact-page"
     .overlay.highlightbg
     .container
       .sectionhead
-        h1 Contact
+        h1 = @content.page_8_title
         .smallsep
           p.lead
-            'Our technical support teams stand ready to assist you
-            br with all of your technical questions concerning Apulum
+            = simple_format @content.page_8_body
+
 
       /!-- begin contact form
       /= simple_form_for Contact.new do |f|

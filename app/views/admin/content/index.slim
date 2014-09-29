@@ -63,6 +63,13 @@
                                                       css_class: 'btn btn-primary', \
                                                       icon: 'fa fa-film' \
                                                     }
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'FRONT PAGE', \
+                                                      link: edit_admin_front_end_content_path(1), \
+                                                      css_class: 'btn btn-primary', \
+                                                      icon: 'fa fa-home' \
+                                                    }
                                                     
                                                     
                                                     

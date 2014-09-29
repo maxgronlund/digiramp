@@ -1,0 +1,20 @@
+#wrap
+  .admin
+    .full-width-top
+      == render 'admin/shared/navbar', page: 'admin'
+       
+  .container
+   
+
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                            content: admin_content_index_path, \
+                                                            }, current: 'Frontend Content'}
+
+      
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Frontend'), blog_post: 'Edit Landing Page'}
+    = render 'form'
+
+
+
+
+

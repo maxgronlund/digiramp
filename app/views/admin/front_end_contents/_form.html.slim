@@ -1,0 +1,119 @@
+= simple_form_for [:admin, @front_end_content] do |f|
+  = f.error_notification
+
+  .form-inputs
+    .row
+      .col-sm-6
+        .panel
+          .panel-body
+            = f.input :page1_title_1
+            = f.input :page1_title_2
+            = f.input :page1_title_3
+            = f.input :page_1_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_1_image
+        .panel
+          .panel-body
+            = f.input :page2_title
+            = f.input :page_2_headline, :input_html => {  style: "height: 72px;"}
+            = f.input :page_2_option_1_title
+            = f.input :page_2_option_1_headline
+            = f.input :page_2_option_1_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_2_option_2_title
+            = f.input :page_2_option_2_headline
+            = f.input :page_2_option_2_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_2_option_3_title
+            = f.input :page_2_option_3_headline
+            = f.input :page_2_option_3_body, :input_html => {  style: "height: 72px;"}
+        .panel
+          .panel-body
+            = f.input :page_3_title
+            = f.input :page_3_headline
+            = f.input :page_3_option_1_title
+            = f.input :page_3_option_1_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_3_option_2_title
+            = f.input :page_3_option_2_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_3_image
+        .panel
+          .panel-body
+            = f.input :page_4_title
+            = f.input :page_4_body
+            = f.input :page_4_account_1_title
+            = f.input :page_4_account_1_price
+            = f.input :page_4_account_1_option_1
+            = f.input :page_4_account_1_option_2
+            = f.input :page_4_account_1_option_3
+            = f.input :page_4_account_1_option_4
+            = f.input :page_4_account_1_option_5
+            = f.input :page_4_account_1_option_6
+            = f.input :page_4_account_2_title
+            = f.input :page_4_account_2_price
+            = f.input :page_4_account_2_option_1
+            = f.input :page_4_account_2_option_2
+            = f.input :page_4_account_2_option_3
+            = f.input :page_4_account_2_option_4
+            = f.input :page_4_account_2_option_5
+            = f.input :page_4_account_2_option_6
+            = f.input :page_4_account_3_title
+            = f.input :page_4_account_3_price
+            = f.input :page_4_account_3_option_1
+            = f.input :page_4_account_3_option_2
+            = f.input :page_4_account_3_option_3
+            = f.input :page_4_account_3_option_4
+            = f.input :page_4_account_3_option_5
+            = f.input :page_4_account_3_option_6
+            = f.input :page_4_account_4_title
+            = f.input :page_4_account_4_price
+            = f.input :page_4_account_4_option_1
+            = f.input :page_4_account_4_option_2
+            = f.input :page_4_account_4_option_3
+            = f.input :page_4_account_4_option_4
+            = f.input :page_4_account_4_option_5
+            = f.input :page_4_account_4_option_6
+      .col-sm-6
+        .panel
+          .panel-body
+            = f.input :page_5_title
+            = f.input :page_5_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_5_image_1
+            = f.input :page_5_image_2
+            = f.input :page_5_image_3
+            = f.input :page_5_image_4
+            = f.input :page_5_image_5
+            = f.input :page_5_image_6
+        .panel
+          .panel-body
+            = f.input :page_6_testimonial_1_image
+            = f.input :page_6_testimonial_1_name
+            = f.input :page_6_testimonial_1_headline
+            = f.input :page_6_testimonial_1_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_6_testimonial_2_image
+            = f.input :page_6_testimonial_2_name
+            = f.input :page_6_testimonial_2_headline
+            = f.input :page_6_testimonial_2_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_6_testimonial_3_image
+            = f.input :page_6_testimonial_3_name
+            = f.input :page_6_testimonial_3_headline
+            = f.input :page_6_testimonial_3_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_6_testimonial_4_image
+            = f.input :page_6_testimonial_4_name
+            = f.input :page_6_testimonial_4_headline
+            = f.input :page_6_testimonial_4_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_6_testimonial_5_image
+            = f.input :page_6_testimonial_5_name
+            = f.input :page_6_testimonial_5_headline
+            = f.input :page_6_testimonial_5_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_6_testimonial_6_image
+            = f.input :page_6_testimonial_6_headline
+            = f.input :page_6_testimonial_6_name
+            = f.input :page_6_testimonial_6_body, :input_html => {  style: "height: 72px;"}
+        .panel
+          .panel-body
+            = f.input :page_7_title
+            = f.input :page_7_headline
+            = f.input :page_7_body, :input_html => {  style: "height: 72px;"}
+            = f.input :page_7_image
+            = f.input :page_8_title
+            = f.input :page_8_body, :input_html => {  style: "height: 72px;"}
+      
+  .form-actions
+    = f.button :submit
