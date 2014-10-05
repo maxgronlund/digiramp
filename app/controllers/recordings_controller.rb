@@ -1,5 +1,5 @@
 class RecordingsController < ApplicationController
-  before_filter :get_user, only: [:show, :index, :edit, :update]
+  before_filter :get_user, only: [:show, :index, :edit, :update, :new]
   def index
     @widget = @user.default_widget
     if @authorized  
@@ -8,6 +8,10 @@ class RecordingsController < ApplicationController
       @recordings =  @user.recordings.published.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(48)
     end
 
+  end
+  
+  def new
+    @recording = Recording.new
   end
   
   def show
@@ -33,6 +37,8 @@ class RecordingsController < ApplicationController
   
   def update
     @recording      = Recording.find(params[:id])
+    
+
     if @recording.update_attributes(recording_params)
        @recording.extract_genres
        @recording.extract_instruments

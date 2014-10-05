@@ -16,11 +16,16 @@
     /          i class="fa fa-picture-open"
     /          '&nbsp;Find Artwork
     .row
-      .col-sm-6
-        = f.input :image_file_id , :include_blank => true, :collection => @recording.artworks , label: 'Cover Art'
+
       .col-sm-6
         'Artwork
         = f.file_field :cover_art, multiple: false
+      .col-sm-6
+        - unless @recording.artworks.empty?
+          = f.input :image_file_id , :include_blank => true, :collection => @recording.artworks , label: 'Cover Art'
+      br
+      br
+      br
     /= transloadit :recording_with_thumbs 
     //= f.file_field :file
     /= f.input :audio_file

@@ -9,9 +9,9 @@ class Admin::FrontEndContentsController < ApplicationController
   end
 
   def update
-    @front_end_content = FrontEndContent.find(params[:id])
+    @front_end_content = FrontEndContent.get_content
     if @front_end_content.update(front_end_content_params)
-      redirect_to edit_admin_front_end_content_path(1)
+      redirect_to edit_admin_front_end_content_path(@front_end_content)
     else
       render :edit  
     end

@@ -250,6 +250,10 @@ Digiramp::Application.routes.draw do
   
   resources :sign_up
   resources :relationships, only: [:create, :destroy]
+  
+  #####################################################################################
+  # hui v. 2
+  #####################################################################################
   resources :users do
     # hui v. 2
     #member do
@@ -260,6 +264,7 @@ Digiramp::Application.routes.draw do
       resources :likes
     end
     resources :likes, only: [:index, :destroy]
+    resources :lyrics, only: [:update]
     resources :followers, only: [:index]
     resources :following, only: [:index]
     

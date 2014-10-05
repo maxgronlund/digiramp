@@ -123,11 +123,59 @@
             
             
             
+            .panel-group id="accordion"
+              - if @recording.comment != ''
+                .panel.panel-default
+                  .panel-heading
+                    h4 class="panel-title"
+                      a data-toggle="collapse" data-parent="#accordion" href="#description"
+                        'Description
+                
+                
+                  .panel-collapse.collapse id="description" 
+                    .panel-body
+                      = simple_format @recording.comment
+                    
+              - if @recording.lyrics != ''
+                .panel.panel-default
+                  .panel-heading
+                    h5 class="panel-title"
+                      a data-toggle="collapse" data-parent="#accordion" href="#lyrics"
+                        .green-icon
+                          i.fa.fa-circle
+                          '&nbsp;
+                          'Lytics
+                
+                
+                  .panel-collapse.collapse id="lyrics" 
+                    .panel-body
+                      = simple_format @recording.lyrics 
+                
+                
+              - else
+                .lyrics-form
+                  .panel.panel-default
+                    .panel-heading
+                      h5 class="panel-title"
+                        a data-toggle="collapse" data-parent="#accordion" href="#lyrics"
+                          .red-icon
+                            i.fa.fa-circle
+                            '&nbsp;
+                            'No Lytics
+                  
+                  
+                    .panel-collapse.collapse id="lyrics" 
+                      .panel-body
+                        == render 'recordings/shared/lyrics_form', recording: @recording
+                  
+                .show-lyrics
+              
+              
+              
             
-            
-            - if @recording.lyrics != ''
-              h5 Lyrics:
-              = simple_format @recording.lyrics 
+            /- if @recording.lyrics != ''
+            /  h5 Lyrics:
+            /  = simple_format @recording.lyrics 
           .col-sm-5
             == render 'shared/comments', commentable: @recording
         /- if current_user

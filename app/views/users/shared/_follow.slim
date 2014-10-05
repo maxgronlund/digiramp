@@ -1,21 +1,21 @@
--if current_user && current_user.id != user.id 
-  -if current_user.following?(user)
-    .unfollow
-      = form_for(current_user.relationships.find_by(followed_id: user.id),remote: true, html: { method: :delete }) do |f| 
-        = button_tag(type: 'submit', class: "button button-default red-icon") do 
-          i.fa.fa-times
-          '&nbsp;
-          'Unfollow
-  
-  - else
-    .follow
-      = form_for(current_user.relationships.build(followed_id: user.id),remote: true) do |f| 
-        = f.hidden_field :followed_id 
-        /= f.submit 'Follow', class: "button button-default"
-        = button_tag(type: 'submit', class: "button button-default") do 
-          i.fa.fa-eye
-          '&nbsp;
-          'Follow
-
-  
-  .follow-unfollow
+.follow-unfollow
+  -if current_user && current_user.id != user.id 
+    div id="follow_unfollow_#{user.id.to_s}"  
+      -if current_user.following?(user)
+        div id="unfollow_user_#{user.id}"
+          = form_for(current_user.relationships.find_by(followed_id: user.id),remote: true, html: { method: :delete }) do |f| 
+            = button_tag(type: 'submit', class: "button button-default red-icon") do 
+              i.fa.fa-times
+              '&nbsp;
+              'Unfollow
+      
+      - else
+        div id="follow_user_#{user.id}"
+          = form_for(current_user.relationships.build(followed_id: user.id),remote: true) do |f| 
+            = f.hidden_field :followed_id 
+            /= f.submit 'Follow', class: "button button-default"
+            = button_tag(type: 'submit', class: "button button-default") do 
+              i.fa.fa-eye
+              '&nbsp;
+              'Follow
+      

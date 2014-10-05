@@ -1,2 +1,3 @@
-$( "div" ).remove( ".follow" );
-$(".follow-unfollow").prepend('<%=j render("relationships/unfollow") %>');
+$( "div" ).remove( "<%= @remove_button %>" );
+
+$("<%= @add_button %>").prepend('<%=j render("relationships/unfollow_button") %>');

@@ -13,14 +13,15 @@ class RelationshipsController < ApplicationController
                           account_id: current_user.account_id) 
                           
                           
-                          
-    #redirect_to :back
+    @remove_button    = "#follow_user_#{@user.id.to_s}"  
+    @add_button       = "#follow_unfollow_#{@user.id.to_s}"                    
+
   end
 
   def destroy
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow!(@user)
-    
-    #redirect_to :back
+    @remove_button    = "#unfollow_user_#{@user.id.to_s}"
+    @add_button       = "#follow_unfollow_#{@user.id.to_s}"  
   end
 end

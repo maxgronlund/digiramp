@@ -23,6 +23,8 @@
               = submit_tag 'Search', class: 'button button-warning'
               '&nbsp;
               = link_to 'Show All',user_recordings_path(@user), class: 'button button-default'
+              '&nbsp;
+              = link_to 'Upload New',new_user_recording_path(@user), class: 'button button-primary'
               br
         /= debug @widget
         /#digiWhams class="#{'/digiwham/recordings/?key='+@widget.secret_key}"
