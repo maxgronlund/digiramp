@@ -20,15 +20,9 @@
       = pluralize(@user.views, 'View')
 
 
-/.row
-/  .avatar
-/    .thumbnail
-/      / !!! use social_avatar
-/      - unless @user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
-/        = image_tag @user.image_url :avatar_270x270
-/      -else
-/        = gravatar_tag @user.email, :size => 270, class: "media-object"
-/    
+.row
+  .col-xs-12
+    = simple_format @user.profile
 
 - if @authorized  
   = link_to edit_user_path(@user), class: 'button button-default' do
@@ -37,7 +31,7 @@
     'Edit
   '&nbsp;
 == render 'users/shared/follow' , user: @user
-hr
+.sexy_line
 
 
 

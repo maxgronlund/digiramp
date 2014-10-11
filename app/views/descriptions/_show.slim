@@ -1,0 +1,6 @@
+/h5 = @recording.title
+= @recording.comment
+- if @authorized  
+  .pull-right
+    = link_to edit_user_description_path(@user, @recording), remote: true do
+      i.fa.fa-pencil 

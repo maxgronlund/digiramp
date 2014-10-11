@@ -3,85 +3,82 @@
 /    i class="fa fa-user"
 /    '&nbsp;
 /    =@user.name 
-/    
-li class="#{'sidebar-selected' if selected == 'recordings'}"
-  = link_to user_recordings_path(@user) do
-    i class="fa fa-headphones"
-    '&nbsp;
-    = pluralize(@user.recordings.count, 'Recording')  
-
-    
-li class="#{'sidebar-selected' if selected == 'likes'}"
-  = link_to user_likes_path(@user) do
-    i class="fa fa-heart"
-    '&nbsp;
-    = @user.likes.count
-    '&nbsp;
-    'Likes  
-    
-li class="#{'sidebar-selected' if selected == 'followers'}"
-  = link_to user_followers_path(@user) do
-    i class="fa fa-users"
-    '&nbsp;
-    = pluralize(@user.followers.count, 'Follower')  
-    
-li class="#{'sidebar-selected' if selected == 'following'}"
-  = link_to user_following_index_path(@user) do
-    i class="fa fa-users"
-    '&nbsp;
-    'Following
-    = pluralize(@user.followed_users.count, 'User')   
-    
-li class="#{'sidebar-selected' if selected == 'playlists'}"
-  = link_to user_playlists_path(@user) do
-    i class="fa fa-list"
-    '&nbsp;
-    = pluralize(@user.playlists.count, 'Playlists')  
-    
-    
-    
-
-    
-    
- 
-- if @authorized  
-  li class="#{'sidebar-selected' if selected == 'authorizations'}"
-    = link_to user_user_authorization_providers_path(@user) do
-      i class="fa fa-lock"
+/  
+.hidden-xs  
+  li class="#{'sidebar-selected' if selected == 'recordings'}"
+    = link_to user_recordings_path(@user) do
+      i class="fa fa-headphones"
       '&nbsp;
-      'Authorizations
-
-hr      
-- if @authorized
-  li class="#{'sidebar-selected' if selected == 'account'}"
-    = link_to account_account_path( @user.account ) do
-      i class="fa fa-tachometer"
-      '&nbsp;
-      'ACCOUNT
+      = pluralize(@user.recordings.count, 'Recording')  
+  
       
-  li class="#{'sidebar-selected' if selected == 'account'}"
-    = link_to user_user_collections_path( @user ) do
+  li class="#{'sidebar-selected' if selected == 'likes'}"
+    = link_to user_likes_path(@user) do
+      i class="fa fa-heart"
+      '&nbsp;
+      = @user.likes.count
+      '&nbsp;
+      'Likes  
+      
+  li class="#{'sidebar-selected' if selected == 'followers'}"
+    = link_to user_followers_path(@user) do
+      i class="fa fa-users"
+      '&nbsp;
+      = pluralize(@user.followers.count, 'Follower')  
+      
+  li class="#{'sidebar-selected' if selected == 'following'}"
+    = link_to user_following_index_path(@user) do
+      i class="fa fa-users"
+      '&nbsp;
+      'Following
+      = pluralize(@user.followed_users.count, 'User')   
+      
+  
+  
+  li class="#{'sidebar-selected' if selected == 'playlists'}"
+    = link_to user_playlists_path(@user) do
       i class="fa fa-list"
       '&nbsp;
-      'COLLECTIONS
-      
-  li class="#{'sidebar-selected' if selected == 'account'}"
-    = link_to user_user_catalogs_path( @user ) do
-      i class="fa fa-book"
-      '&nbsp;
-      'CATALOGS
-      
-  li class="#{'sidebar-selected' if selected == 'account'}"
-    = link_to user_user_activities_path( @user ) do
-      i class="fa fa-tachometer"
-      '&nbsp;
-      'ACTIVITIES
-      
-  li class="#{'sidebar-selected' if selected == 'account'}"
-    = link_to user_user_opportunities_path(@user ) do
-      i class="fa fa-book"
-      '&nbsp;
-      'OPPORTUNITIES
+      = pluralize(@user.playlists.count, 'Playlists')      
+   
+  - if @authorized  
+    li class="#{'sidebar-selected' if selected == 'authorizations'}"
+      = link_to user_user_authorization_providers_path(@user) do
+        i class="fa fa-lock"
+        '&nbsp;
+        'Authorizations
+  
+  .sexy_line_dark      
+  - if @authorized
+    li class="#{'sidebar-selected' if selected == 'account'}"
+      = link_to account_account_path( @user.account ) do
+        i class="fa fa-tachometer"
+        '&nbsp;
+        'ACCOUNT
+        
+    li class="#{'sidebar-selected' if selected == 'account'}"
+      = link_to user_user_collections_path( @user ) do
+        i class="fa fa-list"
+        '&nbsp;
+        'COLLECTIONS
+        
+    li class="#{'sidebar-selected' if selected == 'account'}"
+      = link_to user_user_catalogs_path( @user ) do
+        i class="fa fa-book"
+        '&nbsp;
+        'CATALOGS
+        
+    li class="#{'sidebar-selected' if selected == 'account'}"
+      = link_to user_user_activities_path( @user ) do
+        i class="fa fa-tachometer"
+        '&nbsp;
+        'ACTIVITIES
+        
+    li class="#{'sidebar-selected' if selected == 'account'}"
+      = link_to user_user_opportunities_path(@user ) do
+        i class="fa fa-book"
+        '&nbsp;
+        'OPPORTUNITIES
       
 /  li class="#{'sidebar-selected' if selected == 'account'}"
 /    = link_to user_user_activities_path( @user.account ) do

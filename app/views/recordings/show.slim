@@ -22,13 +22,15 @@
           - like = Like.where(recording_id: @recording.id, user_id: current_user.id).any?
           /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
           = link_to user_like_path( current_user, @recording), method: :delete, remote: true, \
-                    class: "button button-default red-icon #{'unlike_recording_'+@recording.id.to_s}", style: "#{'display: none;' unless like}"  do
+                    class: "button button-default red-icon #{'unlike_recording_'+@recording.id.to_s}", \
+                    style: "#{'display: none;' unless like}"  do
             i class="fa fa-heart "
             '&nbsp;
             'Unlike
           /-else
           = link_to new_user_recording_like_path(current_user, @recording), remote: true, \
-                    class: "button button-default #{'like_recording_'+@recording.id.to_s}", style: "#{'display: none;' if like}"  do
+                    class: "button button-default #{'like_recording_'+@recording.id.to_s}", \
+                    style: "#{'display: none;' if like}"  do
             i class="fa fa-heart"
             '&nbsp;
             'Like
@@ -42,43 +44,19 @@
 
         
         
-        hr
+        br
+        br
         .recording
           .by
             'Uploaded by:
           .artist
             i = link_to @recording.user.name, user_path( @recording.user)
+        .sexy_line
+        ul class="sidebar"
+          == render 'users/shared/sidebar', selected: 'recordings'
 
-        
-        h5 Description:
-        = simple_format @recording.comment
-        
           
-        /h5 Genre:
-        /h5
-        /  - @recording.genre_tags.each do |genre_tag|
-        /    span class="label label-default"
-        /      = genre_tag.genre.title
-        /    '&nbsp; 
-        /     
-        /h5 Instruments:
-        /h5
-        /  - @recording.instrument_tags.each do |instrument_tag|
-        /    span class="label label-success"
-        /      = instrument_tag.instrument.title
-        /    '&nbsp; 
-        /     
-        /h5 Moods:
-        /h5
-        /  - @recording.mood_tags.each do |mood_tag|
-        /    span class="label label-warning"
-        /      = mood_tag.mood.title
-        /    '&nbsp; 
-        /== render 'users/shared/profile'
-        /ul class="sidebar"
-        /  == render 'users/shared/sidebar', selected: 'recordings'
-        
-        
+
       .col-sm-9
         = link_to user_recordings_path(@user) do
           i.fa.fa-arrow-left
@@ -90,86 +68,18 @@
         
         .row
           .col-sm-7.border-right
-            .row.tags
-              .col-sm-4
-                - if @recording.genre_tags.count > 0
-                  h6 Genre:
-                  h5
-                    - @recording.genre_tags.each do |genre_tag|
-                      span class="label label-default"
-                        = genre_tag.genre.title
-                      '&nbsp; 
-              .col-sm-4
-                - if @recording.instrument_tags.count > 0
-                  h6 Instruments:
-                  h5
-                    - @recording.instrument_tags.each do |instrument_tag|
-                      span class="label label-success"
-                        = instrument_tag.instrument.title
-                      '&nbsp; 
-              .col-sm-4
-                - if @recording.mood_tags.count > 0  
-                  h6 Moods:
-                  h5
-                    - @recording.mood_tags.each do |mood_tag|
-                      span class="label label-warning"
-                        = mood_tag.mood.title
-                      '&nbsp;
-                  
-            
-            
-            
-            
-            
-            
-            
+
+            / Description
+           
             .panel-group id="accordion"
-              - if @recording.comment != ''
-                .panel.panel-default
-                  .panel-heading
-                    h4 class="panel-title"
-                      a data-toggle="collapse" data-parent="#accordion" href="#description"
-                        'Description
-                
-                
-                  .panel-collapse.collapse id="description" 
-                    .panel-body
-                      = simple_format @recording.comment
-                    
-              - if @recording.lyrics != ''
-                .panel.panel-default
-                  .panel-heading
-                    h5 class="panel-title"
-                      a data-toggle="collapse" data-parent="#accordion" href="#lyrics"
-                        .green-icon
-                          i.fa.fa-circle
-                          '&nbsp;
-                          'Lytics
-                
-                
-                  .panel-collapse.collapse id="lyrics" 
-                    .panel-body
-                      = simple_format @recording.lyrics 
-                
-                
-              - else
-                .lyrics-form
-                  .panel.panel-default
-                    .panel-heading
-                      h5 class="panel-title"
-                        a data-toggle="collapse" data-parent="#accordion" href="#lyrics"
-                          .red-icon
-                            i.fa.fa-circle
-                            '&nbsp;
-                            'No Lytics
-                  
-                  
-                    .panel-collapse.collapse id="lyrics" 
-                      .panel-body
-                        == render 'recordings/shared/lyrics_form', recording: @recording
-                  
-                .show-lyrics
-              
+              / Description
+              == render 'descriptions/description' 
+              / Lyrics
+              == render 'lyrics/lyrics'
+              / Tags
+              == render 'tags/tags'
+              / Artists
+              == render 'artists/artists'
               
               
             
@@ -178,26 +88,6 @@
             /  = simple_format @recording.lyrics 
           .col-sm-5
             == render 'shared/comments', commentable: @recording
-        /- if current_user
-        /  = simple_form_for [ Comment.new ], remote: true do |f|
-        /    = f.hidden_field  :commentable_id,    value: @recording.id
-        /    = f.hidden_field  :commentable_type,  value: @recording.class.name
-        /    = f.hidden_field  :user_id,  value: current_user.id
-        /    h4 Write a comment
-        /    = f.input :title, placeholder: 'Title', label: false
-        /    =f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Comment"}
-        /    
-        /    = f.submit 'Post', class: 'button button-primary'
-        /      
-        /- else
-        /   'Sign in to comment
-        /
-        /
-        // ------------------ comments ---------------   
-        /h4 Comments
-        /.rec-comments
-        /  - @recording.comments.order('created_at desc').each do |comment|
-        /    == render 'comments/show', comment: comment
-        /    
+        
         
           

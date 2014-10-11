@@ -1,0 +1,5 @@
+= simple_format @recording.lyrics 
+- if @authorized 
+  .pull-right
+    = link_to edit_user_lyric_path(@user, @recording), remote: true do
+      i.fa.fa-pencil 

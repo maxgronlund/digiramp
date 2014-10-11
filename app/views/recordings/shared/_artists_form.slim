@@ -1,0 +1,10 @@
+= simple_form_for [ @user, recording ], remote: true, url: url_for(action: 'update', controller: 'artists'), method: 'put'  do |f|
+
+
+  = f.input :artist
+  = f.input :composer
+  = f.input :performer
+  = f.input :band
+
+  .pull-right  
+    = f.submit 'Save', class: 'button button-primary'

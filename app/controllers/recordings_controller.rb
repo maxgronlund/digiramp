@@ -1,5 +1,7 @@
 class RecordingsController < ApplicationController
-  before_filter :get_user, only: [:show, :index, :edit, :update, :new]
+  before_filter :get_user, only: [:show, :index, :edit, :update, :new, :create]
+  include Transloadit::Rails::ParamsDecoder
+  
   def index
     @widget = @user.default_widget
     if @authorized  
@@ -12,6 +14,52 @@ class RecordingsController < ApplicationController
   
   def new
     @recording = Recording.new
+  end
+  
+  def create
+    
+    result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account_id, false)
+    if result[:recordings].size != 0
+      
+      result[:recordings].each do |recording|
+        
+        #recording.create_activity(  :created, 
+        #                          owner: current_user,
+        #                      recipient: recording,
+        #                 recipient_type: recording.class.name,
+        #                     account_id: @user.account_id)
+        #                     
+        #                     
+        current_user.create_activity(  :created, 
+                                   owner: recording,
+                               recipient: @user,
+                          recipient_type: 'Recording',
+                              account_id: current_user.account_id) 
+                              
+        
+        common_work = CommonWork.create(account_id: recording.account_id, 
+                                        title: recording.title, 
+                                        lyrics: recording.lyrics)
+        
+        
+        #common_work.create_activity(  :created, 
+        #                          owner: current_user,
+        #                      recipient: common_work,
+        #                 recipient_type: common_work.class.name,
+        #                     account_id: @user.account_id)
+        #                     
+        #                     
+        recording.common_work_id = common_work.id
+        recording.save
+        recording.common_work.update_completeness
+        @recording = recording
+
+      end
+      redirect_to edit_user_recording_path(@user, @recording)
+    else
+      flash[:error]      = { title: "Error", body: "Unable to upload recording" }
+      render new
+    end
   end
   
   def show

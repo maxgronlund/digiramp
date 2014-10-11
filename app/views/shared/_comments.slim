@@ -12,7 +12,11 @@
           = f.submit 'Post', class: 'button button-primary'
   
 - else
-   'Sign in to comment
+   = link_to login_new_path, \
+             class: "btn btn-default"  do
+     i class="fa fa-comment"
+     '&nbsp;
+     'Comment
 br
 .rec-comments
   - commentable.comments.order('created_at desc').each do |comment|

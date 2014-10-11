@@ -1,3 +1,5 @@
 $( "div" ).remove( ".lyrics-form" );
+$( "div" ).remove( ".old-lyrics-label" );
 
-$("<%= @add_button %>").prepend('<%=j render("relationships/unfollow_button") %>');*/
+$(".show-lyrics ").prepend('<%=j render("lyrics/show") %>');
+$(".lyrics-label").prepend('<%=j render("lyrics/label") %>');

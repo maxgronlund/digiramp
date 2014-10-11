@@ -1,0 +1,25 @@
+/ dont show empty lyrics to unauthorizied users
+- if @authorized || @recording.lyrics != ''
+
+  .panel.panel-default
+    .panel-heading
+      h5 class="panel-title"
+        a data-toggle="collapse" data-parent="#accordion" href="#lyrics"
+          .lyrics-label
+          == render 'lyrics/label'
+  
+    .panel-collapse.collapse id="lyrics" 
+      .panel-body
+        .edit-lyrics 
+        .show-lyrics
+          - if @recording.lyrics != ''
+            = simple_format @recording.lyrics 
+            - if @authorized
+              .pull-right
+                = link_to edit_user_lyric_path(@user, @recording), remote: true do
+                  i.fa.fa-pencil
+          - elsif @authorized
+            .lyrics-form
+              == render 'recordings/shared/lyrics_form', recording: @recording
+            
+          

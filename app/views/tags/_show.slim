@@ -1,0 +1,31 @@
+.row.tags
+  .col-sm-4
+    - if @recording.genre_tags.count > 0
+      h6 Genre:
+      h5
+        - @recording.genre_tags.each do |genre_tag|
+          span class="label label-default"
+            = genre_tag.genre.title
+          '&nbsp; 
+  .col-sm-4
+    - if @recording.instrument_tags.count > 0
+      h6 Instruments:
+      h5
+        - @recording.instrument_tags.each do |instrument_tag|
+          span class="label label-success"
+            = instrument_tag.instrument.title
+          '&nbsp; 
+  .col-sm-4
+    - if @recording.mood_tags.count > 0  
+      h6 Moods:
+      h5
+        - @recording.mood_tags.each do |mood_tag|
+          span class="label label-warning"
+            = mood_tag.mood.title
+          '&nbsp;
+          
+- if @authorized          
+  .pull-right
+    = link_to edit_user_tag_path(@user, @recording), remote: true do
+      i.fa.fa-pencil
+  

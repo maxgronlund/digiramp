@@ -1,0 +1,5 @@
+= simple_form_for [ @user, recording ], remote: true, url: url_for(action: 'update', controller: 'descriptions'), method: 'put'  do |f|
+  /= f.input :title
+  = f.input :comment, label: 'Description'
+  .pull-right  
+    = f.submit 'Save', class: 'button button-primary'

@@ -1,0 +1,17 @@
+= simple_form_for [ @user, recording ], remote: true, url: url_for(action: 'update', controller: 'tags'), method: 'put'  do |f|
+  /div id="toolbar" class="wysihtml5-toolbar"
+  /  a data-wysihtml5-command="bold" Bold
+  /  '&nbsp; 
+  /  a data-wysihtml5-command="italic" Italic
+  /
+  .row
+    .col-sm-12
+      = f.input :mood, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Happy, Uplifting, Scary, Action"}
+  .row
+    .col-sm-12
+      = f.input :genre, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Pop, Cinimatic, Hip-Hop, Christmas"}
+  .row
+    .col-sm-12
+      = f.input :instruments, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Drums, Banjo, Choir, Electric Guitar"}
+  .pull-right  
+    = f.submit 'Save', class: 'button button-primary'

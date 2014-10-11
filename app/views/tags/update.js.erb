@@ -1,0 +1,8 @@
+$( "div" ).remove( ".tags-form" );
+$( "div" ).remove( ".old-tags-label" );
+
+$(".show-tags").prepend('<%=j render("tags/show") %>');
+$(".tags-label").prepend('<%=j render("tags/label") %>');
+
+
+

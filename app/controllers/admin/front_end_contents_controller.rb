@@ -20,8 +20,6 @@ class Admin::FrontEndContentsController < ApplicationController
  
 
   private
-
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def front_end_content_params
       params.require(:front_end_content).permit!

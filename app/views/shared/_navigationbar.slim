@@ -10,7 +10,7 @@
 
       = link_to root_path, 'data-no-turbolink'=>true do
         .navbar-brand
-          = image_tag('logo.svg', size: "80x50")
+          = image_tag('logo2.png', size: "128x50")
           
           /= link_to "#menu-toggle", id: "menu-toggle" do
           /  i class="fa fa-caret-square-o-left"
@@ -46,12 +46,12 @@
       -if user_signed_in? && current_account
         ul class="nav navbar-nav navbar-right"
                 
-          li  class="#{page == 'account' ? 'active' : ''}"
-            -unless page == 'profile'
-              = link_to account_account_path(current_account) do
-                i class="fa fa-group"
-                '&nbsp;
-                = current_account.title.upcase 
+          /li  class="#{page == 'account' ? 'active' : ''}"
+          /  -unless page == 'profile'
+          /    = link_to account_account_path(current_account) do
+          /      i class="fa fa-group"
+          /      '&nbsp;
+          /      = current_account.title.upcase 
           li class="#{page == 'home' ? 'active' : ''}"
             = link_to user_path(current_user) do
               i class="fa fa-home"

@@ -5,10 +5,10 @@
     /  = image_tag art, alt: "#{recording.title}"
     .top-right 
       .play-button-pane
-        == render 'digiwham/recordings/playback_button', recording: recording
+        == render 'digiwham/recordings/playback_button', recording: @recording
       .info
-        .long-title
-          h3 = recording.title
+        .title
+          h3 = @recording.title
           .recording
             .by 
               'By:
@@ -18,20 +18,21 @@
         /  h3 = recording.title
         /  p = recording.artist
         /  
-        /.description
-        /  
-        /
-        /
+        .comment
+          .comment-content
+            = @recording.comment
+        
+        
       .track-duration
 
         .start-time
           '0
         .end-time
-          = recording.duration_string
+          = @recording.duration_string
       .waveform
-        = image_tag recording.waveform, class: "audio-waveform", id: "#{recording.id}"
+        = image_tag @recording.waveform, class: "audio-waveform", id: "#{@recording.id}"
       
-      .playhead id="#{recording.id}"  
-      .loadbar  id="#{recording.id}"
-      .playhead-time  id="#{recording.id}"
+      .playhead id="#{@recording.id}"  
+      .loadbar  id="#{@recording.id}"
+      .playhead-time  id="#{@recording.id}"
         '00:00:00

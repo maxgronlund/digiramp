@@ -1,0 +1,12 @@
+.old-description-label
+  - if @recording.comment != ''
+    .green-icon
+      i.fa.fa-circle
+      '&nbsp;
+      'Description
+    
+  - elsif @authorized
+    .red-icon
+      i.fa.fa-circle
+      '&nbsp;
+      'No Description

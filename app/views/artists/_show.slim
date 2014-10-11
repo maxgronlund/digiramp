@@ -1,0 +1,22 @@
+table.artists
+  tr
+    th 
+      .pull-right Artist: &nbsp;
+    td = @recording.artist 
+  tr
+    th 
+      .pull-right  Performer: &nbsp;
+    td = @recording.performer 
+  tr
+    th 
+      .pull-right  Composer: &nbsp;
+    td = @recording.composer 
+  tr
+    th 
+      .pull-right  Band: &nbsp;
+    td = @recording.band 
+    
+- if @authorized 
+  .pull-right
+    = link_to edit_user_artist_path(@user, @recording), remote: true do
+      i.fa.fa-pencil 

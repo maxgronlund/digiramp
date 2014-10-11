@@ -31,9 +31,11 @@ section id="home" class="homepage"
   .container
     .row
       .col-sm-5
+        .img-responsive.wow.flipInY.animated
+          == render 'home/video'
         /img src="http://www.wowthemes.net/demo/apulum/img/homeimg.png" class="img-responsive wow flipInY animated" alt=""
-        = image_tag @content.page_1_image_url, class: "img-responsive wow flipInY animated",  alt: ""
-		
+        /= image_tag @content.page_1_image_url, class: "img-responsive wow flipInY animated",  alt: ""
+		    
       .col-sm-7.text-right	
         h1 id="logo"
           = link_to '#' do

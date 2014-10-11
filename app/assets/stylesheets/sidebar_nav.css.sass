@@ -27,6 +27,7 @@
   -moz-transition: all 0.5s ease 
   -o-transition: all 0.5s ease 
   transition: all 0.5s ease 
+  background-color: #32323C
   
   
 #wrapper.toggled #sidebar-wrapper  
@@ -35,7 +36,7 @@
 #page-content-wrapper  
   width: 100% 
   //padding: 15px 
-  padding: 54px 15px
+  padding: 60px 15px
  
 #wrapper.toggled #page-content-wrapper  
   position: absolute 
@@ -51,15 +52,17 @@
   top: 0 
   width: 200px 
   margin: 0 
-  padding-top: 64px 
+  padding-top: 50px 
   list-style: none 
   
   .sidebar-selected 
-    background: rgba(200,200,200,0.2) 
-    color: #000
+    //background: rgba(200,200,200,0.2) 
+    background-color: #1B1B20
+    
+    //color: #000
     font-weight: 500
-    a
-      color: #000
+    //a
+    //  color: #000
     
   li  
     text-indent: 10px 
@@ -72,7 +75,7 @@
       
     a:hover  
       text-decoration: none 
-      color: #000 
+      //color: #000 
       background: rgba(200,200,200,0.2) 
 
     a:active, a:focus  
@@ -108,7 +111,7 @@
     width: 0 
     
   #page-content-wrapper  
-    padding: 54px 0px 
+    padding: 60px 0px 
     
   #wrapper.toggled #page-content-wrapper  
     position: relative 

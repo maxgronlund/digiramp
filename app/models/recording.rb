@@ -116,6 +116,21 @@ class Recording < ActiveRecord::Base
     self.cover_art || 'default-cover.jpg'
   end
   
+  def has_meta_data?
+    return true unless self.genre       == ''
+    return true unless self.mood        == ''
+    return true unless self.instruments == ''
+    false
+  end
+  
+  def has_artists?
+    return true unless self.composer   == ''
+    return true unless self.artist     == ''
+    return true unless self.band       == ''
+    return true unless self.performer  == ''
+    false
+  end
+  
   
   #def extract_id3_tags_from_audio_file
   # 

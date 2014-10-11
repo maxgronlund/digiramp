@@ -1,0 +1,12 @@
+.old-tags-label
+  - if @recording.has_meta_data?
+    .green-icon
+      i.fa.fa-circle
+      '&nbsp;
+      'Tags
+    
+  - elsif @authorized
+    .red-icon
+      i.fa.fa-circle
+      '&nbsp;
+      'No Tags

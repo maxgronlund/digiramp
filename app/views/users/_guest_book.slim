@@ -1,0 +1,13 @@
+- if current_user
+  = simple_form_for [ Comment.new ], remote: true do |f|
+    = f.hidden_field  :commentable_id,    value: @user.id
+    = f.hidden_field  :commentable_type,  value: @user.class.name
+    = f.hidden_field  :user_id,  value: current_user.id
+    h4 Guest book
+    = f.input :title, placeholder: 'Title', label: false
+    =f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Message"}
+
+    = f.submit 'Post', class: 'button button-primary'
+  
+- else
+   'Sign in to comment

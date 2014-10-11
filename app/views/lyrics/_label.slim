@@ -1,0 +1,17 @@
+.old-lyrics-label
+  - if @recording.vocal == 'Instrumental'
+    .green-icon
+      i.fa.fa-circle
+      '&nbsp;
+      'Instrumental
+  - elsif @recording.lyrics != ''
+    .green-icon
+      i.fa.fa-circle
+      '&nbsp;
+      'Lyrics
+    
+  - elsif @authorized
+    .red-icon
+      i.fa.fa-circle
+      '&nbsp;
+      'No Lyrics

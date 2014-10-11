@@ -1,0 +1,8 @@
+$( "div" ).remove( ".description-form" );
+$( "div" ).remove( ".old-description-label" );
+$( "div" ).remove( ".comment-content" );
+
+
+$(".show-description ").prepend('<%=j render("descriptions/show") %>');
+$(".description-label").prepend('<%=j render("descriptions/label") %>');
+$(".comment").prepend('<%=j render("descriptions/comment_content") %>');

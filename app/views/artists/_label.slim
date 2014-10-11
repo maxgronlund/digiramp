@@ -1,0 +1,12 @@
+.old-artists-label
+  - if @recording.has_artists?
+    .green-icon
+      i.fa.fa-circle
+      '&nbsp;
+      'Artists
+
+  - elsif @authorized
+    .red-icon
+      i.fa.fa-circle
+      '&nbsp;
+      'No Artists

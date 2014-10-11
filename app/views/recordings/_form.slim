@@ -62,7 +62,10 @@
         = f.input :band, :input_html => {  style: "height: 80px;", placeholder: "Band"}
     .row
       .col-sm-6
-        = f.input :duration,:input_html => {  placeholder: "Seconds"}
+        //= f.input :duration,:input_html => {  placeholder: "Seconds"}
+        /'Duration
+        /br
+        /b = @recording.duration
     .row
       .col-sm-6
         = f.input :year
@@ -103,6 +106,8 @@
             
 
 .pull-right  
+  = link_to 'Cancel', user_recording_path(@user, @recording), class: 'button button-default'
+  '&nbsp;
   = f.submit 'Save', class: 'button button-primary'
   
   /'&nbsp;

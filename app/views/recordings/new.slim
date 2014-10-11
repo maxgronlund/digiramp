@@ -10,9 +10,26 @@
         ul class="sidebar"
           == render 'users/shared/sidebar', selected: 'recordings'
         
-        
-      .col-sm-9
-       = simple_form_for [@user, @recording],  :html => { :id => 'cover_art' }  do |f|
-         = f.hidden_field :user_id, value: @user.id
-         == render 'form', f: f
+      
+      .col-sm-1  
+      .col-sm-4
+        .panel.panel-default
+          .panel-heading
+            'New Recording
+
+          .panel-body
+            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+            /= simple_form_for [ @account ], :url => url_for(:action => 'create', :controller => 'account/audio_files'), :method => 'post',  :html => { :id => 'audio_files' } do |f| 
+            = simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
+              = transloadit :recording_with_thumbs 
+              = f.hidden_field :user_id, value: @user.id
+              = f.input :title
+              = f.input :comment
+              = f.file_field :file, multiple: false
+      
+              .pull-right
+                = f.submit 'Continue', class: 'button button-primary'
+    
+    
+            = transloadit_jquerify :audio_files, :wait => true
           

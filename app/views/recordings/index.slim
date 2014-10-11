@@ -1,71 +1,48 @@
-- user_account                  = Account.cached_find(@user.account_id)
-- session[:go_to_after_update]  = request.url
-#wrap
+
+#wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
-  .container
-    .row
-      .col-sm-3
-        == render 'users/shared/profile'
-        ul class="sidebar"
-          == render 'users/shared/sidebar', selected: 'recordings'
-        
-        
-      .col-sm-9
-        .row
-          = form_tag user_recordings_path(@user), :method => 'get' do
-            .col-sm-6
-              = text_field_tag "query", "", :class => 'search-query form-control', \
-                                            :placeholder => 'Search string', \
-                                            value: params[:query]
-              br
-            .col-sm-6
-              = submit_tag 'Search', class: 'button button-warning'
-              '&nbsp;
-              = link_to 'Show All',user_recordings_path(@user), class: 'button button-default'
-              '&nbsp;
-              = link_to 'Upload New',new_user_recording_path(@user), class: 'button button-primary'
-              br
-        /= debug @widget
-        /#digiWhams class="#{'/digiwham/recordings/?key='+@widget.secret_key}"
-        .row
-          .col-sm-12
-            .pull-right
-              .hidden-xs
-                == paginate(@recordings)
-              .visible-xs
-                .btn-group
-                  = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
-                  = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
-        hr
-        #digiWhams  
-          - @recordings.each do |recording, |
-            == render 'show', recording: recording
+  
 
-              
-              
-            /
-            /  
-            /  = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
-            /            class: "btn btn-default"  do
-            /    i class="fa fa-heart"
-            /    '&nbsp;
-            /    'Like
-            /
-            /  
-            /  = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
-            /            class: "btn btn-default"  do
-            /    i class="fa fa-trash-o"
-            /    '&nbsp;
-            /    'Delete
-            /
-            /  
-            /
-            /
-            /.pull-right
-            /  .btn-group.btn-group-xs
-            /    = link_to catalog_account_catalog_recording_path(@account, @catalog, recording), \
-            /              class: "btn btn-default"  do
-            /      'Remove
-           
-            hr
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid   
+      .row.top-form
+        = simple_form_for  [ @user ], :url => url_for(:action => 'index', :controller => 'recordings'), :method => 'get' do |f|
+          .col-sm-6
+            = text_field_tag "query", "", :class => 'search-query form-control', \
+                                          :placeholder => 'Search string', \
+                                          value: params[:query]
+            
+          .col-sm-6
+            .recording-top-buttons
+              = f.submit 'Search', class: 'button button-default'
+              /'&nbsp;
+              /= link_to 'Show All',user_recordings_path(@user), class: 'button button-default'
+              .pull-right
+                = link_to new_user_recording_path(@user) do
+                  .button.button-primary
+                    i.fa.fa-cloud-upload
+                    '&nbsp;
+                    'Upload
+
+      .row
+        .col-sm-12
+          .pull-right
+            .hidden-xs
+              == paginate(@recordings)
+            .visible-xs
+              .btn-group
+                = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
+                = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+      .sexy_line
+      #digiWhams  
+        - @recordings.each do |recording, |
+          == render 'show', recording: recording

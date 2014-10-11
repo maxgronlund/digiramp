@@ -1,0 +1,5 @@
+$( "div" ).remove( ".artists-form" );
+$( "div" ).remove( ".old-artists-label" );
+
+$(".show-artists ").prepend('<%=j render("artists/show") %>');
+$(".artists-label").prepend('<%=j render("artists/label") %>');

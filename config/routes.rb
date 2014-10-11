@@ -264,7 +264,12 @@ Digiramp::Application.routes.draw do
       resources :likes
     end
     resources :likes, only: [:index, :destroy]
-    resources :lyrics, only: [:update]
+    # forms on the recording page
+    resources :lyrics, only: [:update, :edit]
+    resources :descriptions, only: [:update, :edit]
+    resources :tags, only: [:update, :edit]
+    resources :artists, only: [:update, :edit]
+    #
     resources :followers, only: [:index]
     resources :following, only: [:index]
     
