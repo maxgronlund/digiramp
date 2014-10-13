@@ -43,9 +43,10 @@
     '&nbsp;
     i class="fa fa-comments"
     '&nbsp;|
-    = recording.likes.count
-    '&nbsp;
-    i class="fa fa-heart"
+    = link_to user_recording_likes_path(recording.user, recording)
+      =recording.likes.count
+      '&nbsp;
+      i class="fa fa-heart red-heart"
     '&nbsp;|
     = recording.playbacks_count
     '&nbsp;

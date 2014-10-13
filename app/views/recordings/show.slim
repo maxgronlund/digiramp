@@ -1,93 +1,110 @@
-- user_account                  = Account.cached_find(@user.account_id)
-- session[:go_to_after_update]  = request.url
-#wrap
+#wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
-  .container
-    .row
-      .col-sm-3.border-right
-        .avatar
-          .thumbnail
-            = image_tag @recording.artwork, alt: "#{@recording.title}"
-        
-        - if @authorized
+  
 
-          = link_to edit_user_recording_path(current_user, @recording), \
-                    class: "button button-default"  do
-            i class="fa fa-pencil"
-            '&nbsp;
-            'Edit
-          '&nbsp;
-        -if current_user
-          - like = Like.where(recording_id: @recording.id, user_id: current_user.id).any?
-          /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
-          = link_to user_like_path( current_user, @recording), method: :delete, remote: true, \
-                    class: "button button-default red-icon #{'unlike_recording_'+@recording.id.to_s}", \
-                    style: "#{'display: none;' unless like}"  do
-            i class="fa fa-heart "
-            '&nbsp;
-            'Unlike
-          /-else
-          = link_to new_user_recording_like_path(current_user, @recording), remote: true, \
-                    class: "button button-default #{'like_recording_'+@recording.id.to_s}", \
-                    style: "#{'display: none;' if like}"  do
-            i class="fa fa-heart"
-            '&nbsp;
-            'Like
-        -else
-          = link_to login_new_path, \
-                    class: "btn btn-default"  do
-            i class="fa fa-heart"
-            '&nbsp;
-            'Like  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-md-6
+          .simple-show
+            #digiWhams  
+              == render 'audio_player/simple_show', recording: @recording
           
-
-        
-        
-        br
-        br
-        .recording
-          .by
-            'Uploaded by:
-          .artist
-            i = link_to @recording.user.name, user_path( @recording.user)
-        .sexy_line
-        ul class="sidebar"
-          == render 'users/shared/sidebar', selected: 'recordings'
-
-          
-
-      .col-sm-9
-        = link_to user_recordings_path(@user) do
-          i.fa.fa-arrow-left
-          '&nbsp;
-          'Back to recordings
-        .simple-show
-          #digiWhams  
-            == render 'audio_player/simple_show', recording: @recording 
-        
-        .row
-          .col-sm-7.border-right
-
-            / Description
+          .small-symbols
+            i class="fa fa-comments"
+            '&nbsp;
+            = pluralize(@recording.comments.count, 'Comment')
+            '&nbsp;|
+            = link_to user_recording_likes_path(@recording.user, @recording)
+              i class="fa fa-heart red-heart"
+              '&nbsp;
+              = pluralize(@recording.likes.count, 'Like')  
+              
+            '&nbsp;|
+            i class="fa fa-headphones"
+            '&nbsp;
+            = pluralize(@recording.playbacks_count, 'Playback')
+          .sexy_line
+          .show-recording
+            .cover
+              = image_tag @recording.artwork, alt: "#{@recording.title}"
            
-            .panel-group id="accordion"
-              / Description
-              == render 'descriptions/description' 
-              / Lyrics
-              == render 'lyrics/lyrics'
-              / Tags
-              == render 'tags/tags'
-              / Artists
-              == render 'artists/artists'
+            .info
+              
+              = link_to user_path(@recording.user) do
+                .user-avatar
+                  =  image_tag @recording.user.image_url(:avatar_32x32)
+                  '&nbsp;
+                .user-name
+                  = @recording.user.name
+              = simple_format @recording.comment
+          
+            .buttons
+              - if @authorized
+              
+                = link_to edit_user_recording_path(current_user, @recording), \
+                          class: "button button-default"  do
+                  i class="fa fa-pencil"
+                  '&nbsp;
+                  'Edit
+                '&nbsp;
               
               
+              
+              
+              -if current_user
+                - like = Like.where(recording_id: @recording.id, user_id: current_user.id).any?
+                /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
+                = link_to user_like_path( current_user, @recording), method: :delete, remote: true, \
+                          class: "button button-default red-icon #{'unlike_recording_'+@recording.id.to_s}", \
+                          style: "#{'display: none;' unless like}"  do
+                  i class="fa fa-heart "
+                  '&nbsp;
+                  'Unlike
+                /-else
+                = link_to new_user_recording_like_path(current_user, @recording), remote: true, \
+                          class: "button button-default #{'like_recording_'+@recording.id.to_s}", \
+                          style: "#{'display: none;' if like}"  do
+                  i class="fa fa-heart"
+                  '&nbsp;
+                  'Like
+              -else
+                = link_to login_new_path, \
+                          class: "btn btn-default"  do
+                  i class="fa fa-heart"
+                  '&nbsp;
+                  'Like  
+          .sexy_line  
+          .panel-group id="accordion"
+            / Description
+            == render 'descriptions/description' 
+            / Lyrics
+            == render 'lyrics/lyrics'
+            / Tags
+            == render 'tags/tags'
+            / Artists
+            == render 'artists/artists'
+          
+          
+
+      
             
-            /- if @recording.lyrics != ''
-            /  h5 Lyrics:
-            /  = simple_format @recording.lyrics 
-          .col-sm-5
-            == render 'shared/comments', commentable: @recording
+      
+        .col-md-6
+          /= link_to user_recordings_path(@user) do
+          /  i.fa.fa-arrow-left
+          /  '&nbsp;
+          /  'Back to recordings
+          - if @recording.has_meta_data?
+            == render 'tags/show'
+            .sexy_line
+            
+          == render 'shared/comments', commentable: @recording
         
         
           

@@ -34,12 +34,15 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #  :avatar_370x370   => [370, 370]
   #}
   
-  version :avatar_32x32    do process :resize_to_fill => [32,32   , 'Center']       end
+  version :avatar_32x32    do process :resize_to_fill => [32,32   , 'Center']      end
+  version :avatar_48x48    do process :resize_to_fill => [48,48   , 'Center']      end
   version :avatar_64x64    do process :resize_to_fill => [64,64   , 'Center']      end
-  version :avatar_120x120  do process :resize_to_fill => [120,120 , 'Center']     end
-  version :avatar_170x170  do process :resize_to_fill => [170, 170, 'Center']    end
-  version :avatar_270x270  do process :resize_to_fill => [270, 270, 'Center']    end
-  version :avatar_370x370  do process :resize_to_fill => [370, 370, 'Center']    end
+  version :avatar_92x92    do process :resize_to_fill => [92,92   , 'Center']      end
+  version :avatar_120x120  do process :resize_to_fill => [120,120 , 'Center']      end
+  version :avatar_145x145  do process :resize_to_fill => [145,145 , 'Center']      end
+  version :avatar_170x170  do process :resize_to_fill => [170, 170, 'Center']      end
+  version :avatar_270x270  do process :resize_to_fill => [270, 270, 'Center']      end
+  version :avatar_370x370  do process :resize_to_fill => [370, 370, 'Center']      end
     
   #version :avatar_32x32    do 
   #  process :convert => 'png'  

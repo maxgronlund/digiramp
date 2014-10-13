@@ -1,9 +1,14 @@
 class LikesController < ApplicationController
   before_filter :get_user
+  
   def index
     @likes = Like.order('created_at desc').where(user_id: @user.id)
-    
-    
+    if params[:recording_id]
+      @recording = Recording.cached_find(params[:recording_id])
+      @show = 'likes for a recording'
+    else
+      @show = 'what the user likes'
+    end
   end
   
   def new

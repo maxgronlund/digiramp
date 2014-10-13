@@ -40,12 +40,12 @@
     /= f.input :lyrics, :input_html => {  style: "height: 480px;", placeholder: "Lyrics"}
     b Lyrics
     br
-    div id="toolbar" class="wysihtml5-toolbar"
-      a data-wysihtml5-command="bold" Bold
-      '&nbsp; 
-      a data-wysihtml5-command="italic" Italic
-    
-    =f.input :lyrics, label: false, :input_html => {  style: "height: 480px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
+    /div id="toolbar" class="wysihtml5-toolbar"
+    /  a data-wysihtml5-command="bold" Bold
+    /  '&nbsp; 
+    /  a data-wysihtml5-command="italic" Italic
+    /
+    =f.input :lyrics, label: false, :input_html => {  style: "height: 480px;", placeholder: "Lyrics"}
   
   /------------------------------------ ROW 2 --------------------------------
   .col-sm-6
@@ -66,16 +66,17 @@
         /'Duration
         /br
         /b = @recording.duration
+    /.row
+    /  .col-sm-6
+    /    = f.input :year
+    /  .col-sm-6
+    /    = f.input :vocal,   collection: Recording::VOCAL
     .row
-      .col-sm-6
-        = f.input :year
       .col-sm-6
         = f.input :vocal,   collection: Recording::VOCAL
-    .row
+        /=f.input :disc
       .col-sm-6
-        =f.input :disc
-      .col-sm-6
-        =f.input :track     
+        /=f.input :track     
     = f.input :copyright,  :input_html => {  placeholder: "i.e. © 2014 Entertainment Company, Inc"}
     
     /  All rights reserved ℗ 2010

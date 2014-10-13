@@ -9,10 +9,11 @@
               .thumbnail
                 / !!! use social_avatar
                 - if comment.user
-                  - unless comment.user.image == "/assets/fallback/avatar_70x70_account-logo.jpg"
-                    = link_to image_tag( comment.user.image_url :avatar_64x64),  user_path( comment.user)
-                  -else
-                    = gravatar_tag comment.user.email, :size => 64, class: "media-object"
+                  = link_to image_tag( comment.user.image_url :avatar_48x48),  user_path( comment.user)
+                  /- unless comment.user.image == "/assets/fallback/avatar_70x70_account-logo.jpg"
+                  /  = link_to image_tag( comment.user.image_url :avatar_64x64),  user_path( comment.user)
+                  /-else
+                  /  = gravatar_tag comment.user.email, :size => 64, class: "media-object"
           .comment-content
             h6
               = link_to comment.user.name, user_path( comment.user)
@@ -21,8 +22,9 @@
               .pull-right
                 = link_to  comment_path(comment), data: {:confirm => 'Are you sure?'}, :method => :delete , remote: true do
                   i class="fa fa-times"
-            h4  = comment.title
+            /h4  = comment.title
             = simple_format comment.body
+            .sexy_line
             
               
           

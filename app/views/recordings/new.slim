@@ -1,35 +1,70 @@
-- user_account                  = Account.cached_find(@user.account_id)
-- session[:go_to_after_update]  = request.url
-#wrap
+#wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
-  .container
-    .row
-      .col-sm-3
-        == render 'users/shared/profile'
-        ul class="sidebar"
-          == render 'users/shared/sidebar', selected: 'recordings'
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
         
       
-      .col-sm-1  
-      .col-sm-4
-        .panel.panel-default
-          .panel-heading
-            'New Recording
 
-          .panel-body
-            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
-            /= simple_form_for [ @account ], :url => url_for(:action => 'create', :controller => 'account/audio_files'), :method => 'post',  :html => { :id => 'audio_files' } do |f| 
-            = simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
-              = transloadit :recording_with_thumbs 
-              = f.hidden_field :user_id, value: @user.id
-              = f.input :title
-              = f.input :comment
-              = f.file_field :file, multiple: false
+  #page-content-wrapper
+    .container-fluid   
+      .col-sm-9.col-md-6
+
+        = simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
+          = transloadit :recording_with_thumbs 
+          = f.hidden_field :user_id, value: @user.id
+          /= f.input :title
+          = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
+          = f.file_field :file, multiple: false
+          br
+          
+          .sexy_line
+          .pull-right
+            = link_to 'Cancel', user_recordings_path(@user), class: 'button button-default'
+            '&nbsp;
+            = f.submit 'Continue', class: 'button button-primary'
+    
+    
+        = transloadit_jquerify :audio_files, :wait => true
       
-              .pull-right
-                = f.submit 'Continue', class: 'button button-primary'
-    
-    
-            = transloadit_jquerify :audio_files, :wait => true
+        
+        
+        
+/#wrap
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'home' 
+/  .container
+/    .row
+/      .col-sm-3
+/        == render 'users/shared/profile'
+/        ul class="sidebar"
+/          == render 'users/shared/sidebar', selected: 'recordings'
+/        
+/      
+/      .col-sm-1  
+/      .col-sm-4
+/        .panel.panel-default
+/          .panel-heading
+/            'New Recording
+/
+/          .panel-body
+/            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+/            /= simple_form_for [ @account ], :url => url_for(:action => 'create', :controller => 'account/audio_files'), :method => 'post',  :html => { :id => 'audio_files' } do |f| 
+/            = simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
+/              = transloadit :recording_with_thumbs 
+/              = f.hidden_field :user_id, value: @user.id
+/              = f.input :title
+/              = f.input :comment
+/              = f.file_field :file, multiple: false
+/      
+/              .pull-right
+/                = f.submit 'Continue', class: 'button button-primary'
+/    
+/    
+/            = transloadit_jquerify :audio_files, :wait => true
           

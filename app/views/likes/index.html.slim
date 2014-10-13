@@ -1,20 +1,10 @@
-- user_account                  = Account.cached_find(@user.account_id)
-- session[:go_to_after_update]  = request.url
-#wrap
-  .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
-  .container
-    .row
-      .col-sm-3
-        == render 'users/shared/profile'
-        ul class="sidebar"
-          == render 'users/shared/sidebar', selected: 'likes'
+- case @show
+
+- when 'what the user likes'
+  = render 'what_the_user_likes'
+- when 'likes for a recording'
+  = render 'likes_for_a_recording'
+
+
         
-        
-      .col-sm-9
-        #digiWhams 
-          - @likes.each do |like|
-            - recording = like.recording
-            div class="#{'unlike_recording_'+recording.id.to_s}"
-              == render 'recordings/show', recording: recording
             

@@ -1,0 +1,17 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'likes'
+  
+  #page-content-wrapper
+    .container-fluid 
+      #digiWhams 
+        - @likes.each do |like|
+          - recording = like.recording
+          div class="#{'unlike_recording_'+recording.id.to_s}"
+            == render 'recordings/show', recording: recording

@@ -19,13 +19,18 @@
         == render 'users/shared/follow' , user: user
       .col-xs-10
         .pull-right
-          = user.followers.count
-          '&nbsp;
-          i class="fa fa-group"
-          '&nbsp;|
-          = user.recordings.count
-          '&nbsp;
-          i class="fa fa-headphones"
+          .small-symbols
+            = user.followers.count
+            '&nbsp;
+            i class="fa fa-group"
+            '&nbsp;|
+            = user.likes.count
+            '&nbsp;
+            i class="fa fa-heart red-heart"
+            '&nbsp;|
+            = user.recordings.count
+            '&nbsp;
+            i class="fa fa-headphones"
       
       
       

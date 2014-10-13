@@ -1,19 +1,35 @@
-- user_account                  = Account.cached_find(@user.account_id)
-- session[:go_to_after_update]  = request.url
-#wrap
+
+/#wrap
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'home' 
+/  .container
+/    .row
+/      .col-sm-3
+/        == render 'users/shared/profile'
+/        ul class="sidebar"
+/          == render 'users/shared/sidebar', selected: 'recordings'
+/        
+/        
+/      .col-sm-9
+/        = simple_form_for [@user, @recording],  :html => { :id => 'cover_art' }  do |f|
+/          = f.hidden_field :user_id, value: @user.id
+/          == render 'form', f: f
+/          
+#wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
-  .container
-    .row
-      .col-sm-3
-        == render 'users/shared/profile'
-        ul class="sidebar"
-          == render 'users/shared/sidebar', selected: 'recordings'
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
         
-        
-      .col-sm-9
-        = simple_form_for [@user, @recording],  :html => { :id => 'cover_art' }  do |f|
-          = f.hidden_field :user_id, value: @user.id
-          == render 'form', f: f
-          
-       
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      = simple_form_for [@user, @recording],  :html => { :id => 'cover_art' }  do |f|
+        = f.hidden_field :user_id, value: @user.id
+        == render 'form', f: f

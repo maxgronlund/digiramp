@@ -1,0 +1,21 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+  
+  #page-content-wrapper
+    .container-fluid 
+      #digiWhams  
+        == render 'recordings/show', recording: @recording
+
+
+      h4
+        'Liked by
+        = pluralize(@recording.likes.count, 'user')
+      - @recording.likes.each do |like|
+        - user = like.user
+        == render 'users/person', user: user

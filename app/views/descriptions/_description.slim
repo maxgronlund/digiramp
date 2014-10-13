@@ -1,5 +1,5 @@
 / dont show empty description to unauthorizied users
-- if @authorized || @recording.comment != ''
+- if @authorized
 
   .panel.panel-default
     .panel-heading
@@ -13,11 +13,6 @@
       .panel-body
         .edit-description 
         .show-description
-          - if @recording.comment != ''
-            == render 'descriptions/show'
-            
-
-          - elsif @authorized
-            .description-form
-              == render 'recordings/shared/description_form', recording: @recording
+          .description-form
+            == render 'recordings/shared/description_form', recording: @recording
           

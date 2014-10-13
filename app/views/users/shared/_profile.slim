@@ -1,14 +1,7 @@
-
-.row
-  .col-sm-6
-    .avatar
-      .thumbnail
-        / !!! use social_avatar
-        - unless @user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
-          = image_tag @user.image_url :avatar_270x270
-        -else
-          = gravatar_tag @user.email, :size => 270, class: "media-object"
-  .col-sm-6
+.profile
+  .avatar
+    = image_tag @user.image_url :avatar_145x145
+  .info
     h5 =@user.full_name
     .location
       - if @user.country.to_s != ''
@@ -18,19 +11,16 @@
       i class="fa fa-eye"
       '&nbsp;
       = pluralize(@user.views, 'View')
+      br
+      br
+    
 
-
-.row
-  .col-xs-12
-    = simple_format @user.profile
-
-- if @authorized  
-  = link_to edit_user_path(@user), class: 'button button-default' do
-    i class="fa fa-pencil"
-    '&nbsp;
-    'Edit
-  '&nbsp;
+  = simple_format @user.profile
+  - if @authorized
+    = link_to 'Edit', edit_user_path(@user), class: 'button button-default'
 == render 'users/shared/follow' , user: @user
+
+
 .sexy_line
 
 
@@ -39,30 +29,3 @@
       
 
 
-/br
-/'following
-/= @user.followed_users.count 
-//br
-//'followers
-//
-/
-/br
-/
-/
-    /<%= render 'follow' %>
-
-
-/<div class="stats">
-/  <a href="<%= following_user_path(@user) %>">
-/    <strong id="following" class="stat">
-/      <%= @user.followed_users.count %>
-/    </strong>
-/    following
-/  </a>
-/  <a href="<%= followers_user_path(@user) %>">
-/    <strong id="followers" class="stat">
-/      <%= @user.followers.count %>
-/    </strong>
-/    followers
-/  </a>
-/</div>

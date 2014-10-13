@@ -1,5 +1,3 @@
-/- user_account                  = Account.cached_find(@user.account_id)
-- session[:go_to_after_update]  = request.url
 #wrap
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
@@ -33,12 +31,13 @@
     .row
       .col-sm-12
         - @users.each do |user|
-          .person
-            - unless user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
-              = link_to image_tag( user.image_url :avatar_270x270),  user_path( user)
-            -else
-              = gravatar_tag user.email, :size => 64, class: "media-object"
-            h5 = link_to user.user_name, user_path(user)
-            i class="fa fa-headphones"
-            '&nbsp;
-            = user.recordings.count    
+          == render 'users/person', user: user
+          /.person
+          /  - unless user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
+          /    = link_to image_tag( user.image_url :avatar_270x270),  user_path( user)
+          /  -else
+          /    = gravatar_tag user.email, :size => 64, class: "media-object"
+          /  h5 = link_to user.user_name, user_path(user)
+          /  i class="fa fa-headphones"
+          /  '&nbsp;
+          /  = user.recordings.count    
