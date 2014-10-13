@@ -18,4 +18,7 @@
         = pluralize(@recording.likes.count, 'user')
       - @recording.likes.each do |like|
         - user = like.user
-        == render 'users/person', user: user
+        -if user
+          == render 'users/person', user: user
+        -else
+          - like.destroy
