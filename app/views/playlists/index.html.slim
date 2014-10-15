@@ -1,120 +1,45 @@
-/- user_account                  = Account.cached_find(@user.account_id)
-/- session[:go_to_after_update]  = request.url
-#wrap
-  .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
-  .container
-    .row
-      .col-sm-3
-        == render 'users/shared/profile'
-        ul class="sidebar"
-          == render 'users/shared/sidebar', selected: 'playlists'
-        
-        
-      .col-sm-9
-        .row
-          .col-sm-8
-            h3 Playlists
-          .col-sm-4
-            - if @authorized
-              .pull-right
-                = link_to 'Create playlist', new_user_playlist_path(@user), class: 'button button-default'
-        hr
-        - @user.playlists.each do |playlist|
-          .show-playlist
-            .show-playlist-image
-              = link_to image_tag(playlist.playlist_image_url :image_120x120), \
-                  user_playlist_path( @user, playlist)
-            .show-playlist-info 
-              h4 = link_to playlist.title, user_playlist_path( @user, playlist)
-              = playlist.body
 
-              .pull-right
-                i.fa.fa-headphones
-                '&nbsp;
-                = pluralize(playlist.recordings.count, 'Recording')
-            .btn-group.btn-group-xs
-              = link_to user_playlist_path( @user, playlist), class: 'btn btn-default' do
-                i.fa.fa-eye
-                '&nbsp;
-                'Show
-              - if @authorized
-                = link_to edit_user_playlist_path( @user, playlist), class: 'btn btn-default' do
-                  i.fa.fa-pencil
-                  '&nbsp;
-                  'Edit
-                = link_to user_playlist_path( @user, playlist), \
-                      class: 'btn btn-default red-icon', \
-                      data: { confirm: 'Are you sure?' }, \
-                      method: :delete do
-                  i.fa.fa-times
-                  '&nbsp;
-                  'Delete
-              
-            hr
-          /= debug playlist.default_widget
-          /== render 'widgets/widget_theme'
-        
-          /#digiWhams class="/digiwham/recordings/?key=#{playlist.default_widget.secret_key}"
+#wrapper
+ .full-width-top
+   == render 'shared/navigationbar', page: 'home' 
+ 
 
+ #sidebar-wrapper
+   ul class="sidebar-nav"
+     == render 'users/shared/sidebar', selected: 'playlists'
 
-/#wrap
-/  div class="#{'profile' if account_owner?}"
-/    .full-width-top
-/      == render 'admin/shared/navbar', page: 'account' 
-/
-/            
-/  .container
-/    ==render 'admin/shared/messages'
-/    -cache ([request.url, Admin.cached_find(1).version, @account.playlists_uuid  ]) do
-/      -blog = Blog.cached_find('Playlists')
-/      -blog_post = BlogPost.cached_find('Playlists' , blog)
-/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-/                                                              assets: account_assets_path(@account), \
-/                                                              }, current:  blog_post.title}
-/
-/      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Playlists'}  
-/
-/      .row
-/        .col-sm-12
-/          .panel
-/            .panel-body
-/              h3 Activities
-/              .panel
-/                .panel-body
-/                  .table-responsive
-/                    table class="table table-striped"
-/                      thead
-/                        tr
-/                          th Title
-/                          th
-/                  
-/                      tbody
-/                        -@account.playlists.each do |playlist|
-/                          tr
-/                            /td = link_to playlist.title, account_playlist_playlist_recordings_path( @account, playlist), class: 'btn btn-default btn-lg'
-/                            td = link_to playlist.title, account_playlist_path( @account, playlist), class: 'btn btn-default btn-lg'
-/                            td
-/                              .pull-right
-/                                = link_to account_playlist_path( @account, playlist)
-/                                  .btn.btn-info.btn-lg
-/                                    i class="fa fa-cloud"
-/                                    '&nbsp;Distribution
-/                                '&nbsp;    
-/                                = link_to edit_account_playlist_path( @account, playlist)
-/                                  .btn.btn-success.btn-lg
-/                                    i class="fa fa-pencil"
-/                                    '&nbsp;Edit Title
-/                                '&nbsp;    
-/                                = link_to account_playlist_path( @account, playlist), \
-/                                                                              method: :delete ,\
-/                                                                              data: {confirm: 'Are you sure?'}  do
-/                                  .btn.btn-danger.btn-lg
-/                                    i class="fa fa-times"
-/
-/
-/
-/  
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
-/
+ #page-content-wrapper
+   .container-fluid
+     - @user.playlists.each do |playlist|
+       .show-playlist
+         .show-playlist-image
+           = link_to image_tag(playlist.playlist_image_url :image_120x120), \
+               user_playlist_path( @user, playlist)
+         .show-playlist-info 
+           h4 = link_to playlist.title, user_playlist_path( @user, playlist)
+           = playlist.body
+
+           .pull-right
+             i.fa.fa-headphones
+             '&nbsp;
+             = pluralize(playlist.recordings.count, 'Recording')
+         .btn-group.btn-group-xs
+           = link_to user_playlist_path( @user, playlist), class: 'btn btn-default' do
+             i.fa.fa-eye
+             '&nbsp;
+             'Show
+           - if @authorized
+             = link_to edit_user_playlist_path( @user, playlist), class: 'btn btn-default' do
+               i.fa.fa-pencil
+               '&nbsp;
+               'Edit
+             = link_to user_playlist_path( @user, playlist), \
+                   class: 'btn btn-default red-icon', \
+                   data: { confirm: 'Are you sure?' }, \
+                   method: :delete do
+               i.fa.fa-times
+               '&nbsp;
+               'Delete
+           
+         .sexy_line
+     

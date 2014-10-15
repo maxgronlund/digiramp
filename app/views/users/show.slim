@@ -1,61 +1,29 @@
 
-/#wrap
-/  .full-width-top
-/    == render 'shared/navigationbar', page: 'home' 
-/  .container
-/    .row
-/      .col-sm-3.border-right
-/        == render 'users/shared/profile'
-/        ul class="sidebar"
-/          == render 'users/shared/sidebar', selected: 'user'
-/        
-/        
-/      .col-sm-9
-/        = simple_format @user.profile
-/        hr
-/        .row
-/          .col-sm-8
-/            == render 'users/guest_book'
-/            
-/            br
-/            .rec-comments
-/              - @user.comments.order('created_at desc').each do |comment|
-/                == render 'comments/show', comment: comment
-/            
-/          .col-sm-4
-/            == render 'users/activities'
-/
- 
 #wrapper
-  .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
-  
+ .full-width-top
+   == render 'shared/navigationbar', page: 'home' 
+ 
 
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
-      
+ #sidebar-wrapper
+   ul class="sidebar-nav"
+     == render 'users/shared/sidebar', selected: 'user'
 
-
-
-
-        
-  #page-content-wrapper
-    .container-fluid
-      .row
-        .col-sm-6
-          == render 'users/shared/mobile_links'
-          == render 'users/shared/profile'
-          
-          == render 'users/activities'
-        .col-sm-6
-          == render 'users/guest_book'
-              
-          br
-          .rec-comments
-            - @user.comments.order('created_at desc').each do |comment|
-              == render 'comments/show', comment: comment
-              
-      
+ #page-content-wrapper
+   .container-fluid
+     .row
+       .col-sm-6
+         == render 'users/shared/mobile_links'
+         == render 'users/shared/profile'
+         
+         == render 'users/activities'
+       .col-sm-6
+         == render 'users/guest_book'
+             
+         br
+         .rec-comments
+           - @user.comments.order('created_at desc').each do |comment|
+             == render 'comments/show', comment: comment
+             
+     
                  
               

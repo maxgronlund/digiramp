@@ -1,40 +1,70 @@
-#wrap
-  .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
-  .container
-    .row
-      .col-sm-3.border-right
-        .logo
-          .thumbnail
-            = image_tag @playlist.playlist_image_url :image_270x270
-        
-        - if @authorized
-          = link_to edit_user_playlist_path(@user, @playlist), class: 'button button-default' do
-            i.fa.fa-pencil
-            '&nbsp;
-            'Edit
-        hr
-        /== render 'users/shared/profile'
-        
-        ul class="sidebar"
-          == render 'users/shared/sidebar', selected: 'playlists'
-        
-        
-      .col-sm-9
-        .row
-          .col-sm-7.border-right
-            h3 = @playlist.title
-            = @playlist.body
-            br
-            hr
-            #digiWhams 
-              - @playlist.recordings.each do |recording|
-                == render 'recordings/show', recording: recording
-                hr
-            
-          .col-sm-5
-            == render 'shared/comments', commentable: @playlist
-              
+
+#wrapper
+ .full-width-top
+   == render 'shared/navigationbar', page: 'home' 
+ 
+
+ #sidebar-wrapper
+   ul class="sidebar-nav"
+     == render 'users/shared/sidebar', selected: 'playlists'
+
+ #page-content-wrapper
+   .container-fluid
+     .col-sm-7.border-right
+       h3 = @playlist.title
+       = @playlist.body
+       br
+       hr
+       #digiWhams 
+         - @playlist.recordings.each do |recording|
+           == render 'recordings/show', recording: recording
+           
+       
+     .col-sm-5
+       == render 'shared/comments', commentable: @playlist
+     
+
+
+
+
+
+/#wrap
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'home' 
+/  .container
+/    .row
+/      .col-sm-3.border-right
+/        .logo
+/          .thumbnail
+/            = image_tag @playlist.playlist_image_url :image_270x270
+/        
+/        - if @authorized
+/          = link_to edit_user_playlist_path(@user, @playlist), class: 'button button-default' do
+/            i.fa.fa-pencil
+/            '&nbsp;
+/            'Edit
+/        hr
+/        /== render 'users/shared/profile'
+/        
+/        ul class="sidebar"
+/          == render 'users/shared/sidebar', selected: 'playlists'
+/        
+/        
+/      .col-sm-9
+/        .row
+/          .col-sm-7.border-right
+/            h3 = @playlist.title
+/            = @playlist.body
+/            br
+/            hr
+/            #digiWhams 
+/              - @playlist.recordings.each do |recording|
+/                == render 'recordings/show', recording: recording
+/                hr
+/            
+/          .col-sm-5
+/            == render 'shared/comments', commentable: @playlist
+/              
 
 
 
