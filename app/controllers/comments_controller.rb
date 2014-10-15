@@ -61,11 +61,12 @@ class CommentsController < ApplicationController
         redirect_to user_issue_path(@comment.user, @comment.commentable_id)
       when 'Recording'
         #ap @comment.commentable
-        #user.create_activity(  :created, 
-        #                   owner: @comment.user,
-        #               recipient: @comment.commentable,
-        #          recipient_type: @comment.commentable_type,
-        #              account_id: @comment.user.account_id) 
+        
+        @comment.user.create_activity(  :created, 
+                           owner: @comment,
+                       recipient: @comment.commentable,
+                  recipient_type: 'Recording',
+                      account_id: @comment.user.account_id) 
       else
         
       

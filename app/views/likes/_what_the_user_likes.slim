@@ -10,6 +10,8 @@
   
   #page-content-wrapper
     .container-fluid 
+      == render 'users/shared/page_title', title: 'Recordings I like'
+      .sexy_line
       #digiWhams 
         - @likes.each do |like|
           - recording = like.recording
