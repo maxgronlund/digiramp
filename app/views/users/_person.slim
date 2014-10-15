@@ -1,9 +1,42 @@
 .person
-  = link_to image_tag( user.image_url :avatar_270x270),  user_path( user)
-  /- unless user.image == "/assets/fallback/avatar_270x270_account-logo.jpg"
-  /  = link_to image_tag( user.image_url :avatar_270x270),  user_path( user)
-  /-else
-  /  = gravatar_tag user.email, :size => 64, class: "media-object"
+  = link_to user_path( user) do
+    .avatar
+      = image_tag( user.image_url :avatar_270x270) 
+      .user-tags
+        - if user.composer
+          .user-tag
+            'Composer
+      
+        - if user.writer
+          .user-tag
+            'Writer
+
+        - if user.fan
+          .user-tag
+            'Fan
+
+        - if user.author
+          .user-tag
+            'Author
+          
+        - if user.producer
+          .user-tag
+            'Producer
+          
+        - if user.musician
+          .user-tag
+            'Musician
+          
+        - if user.remixer
+          .user-tag
+            'Remixer
+          
+        - if user.dj
+          .user-tag
+            'DJ
+                
+        
+
   h5 = link_to user.user_name, user_path(user)
   .small-symbols
     = link_to user_recordings_path(user) do

@@ -41,12 +41,27 @@
   
 .person 
   @include rowMachine(7, 2%)
-  background: #f0f0f0
   padding: 4px
   float: left
   text-overflow: ellipsis
   white-space: nowrap
   overflow: hidden
+  .avatar
+    position: relative
+    .user-tags
+      position: absolute
+      top: 0px
+      .user-tag
+        //display: inline
+        padding: 0px
+        color: #EEE
+        background: rgb(0, 0, 0)
+        background: rgba(0, 0, 0, 0.5)
+        height: 17px
+        font-size: 12px
+        padding-left: 4px
+        padding-right: 4px
+        margin-bottom: 2px
   
   a
     color: #555
