@@ -19,6 +19,8 @@
             i.fa.fa-pencil
             '&nbsp;
             'Edit
+        '&nbsp;
+      == render 'users/shared/follow' , user: @user
 
   = simple_format @user.profile
   .clearfix
@@ -62,8 +64,7 @@
       span class="label label-default"
         'DJ
       '&nbsp;
-    '&nbsp;
-  == render 'users/shared/follow' , user: @user
+    
 
 
 .sexy_line
