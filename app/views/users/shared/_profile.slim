@@ -13,7 +13,12 @@
       = pluralize(@user.views, 'View')
       br
       br
-    
+      - if @authorized
+        = link_to edit_user_path(@user) do
+          .button.button-default
+            i.fa.fa-pencil
+            '&nbsp;
+            'Edit
 
   = simple_format @user.profile
   .clearfix
@@ -57,12 +62,6 @@
       span class="label label-default"
         'DJ
       '&nbsp;
-  - if @authorized
-    = link_to edit_user_path(@user) do
-      .button.button-default
-        i.fa.fa-pencil
-        '&nbsp;
-        'Edit
     '&nbsp;
   == render 'users/shared/follow' , user: @user
 
