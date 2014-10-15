@@ -26,5 +26,10 @@
       
   #page-content-wrapper
     .container-fluid
-      - @followed_users.each do |user|
-        == render 'shared/fellow', user: user             
+      == render 'users/shared/page_title', title: 'Following'
+      .row
+        .col-sm-12
+          - @followed_users.each do |user|
+            == render 'users/person', user: user
+            
+        

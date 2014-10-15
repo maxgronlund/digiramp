@@ -5,6 +5,8 @@ class RelationshipsController < ApplicationController
     @user = User.find(params[:relationship][:followed_id])
     relationship = current_user.follow!(@user)
     
+    @user.followers_count += 1
+    @user.save
     
     current_user.create_activity(  :created, 
                                owner: relationship,
@@ -20,6 +22,10 @@ class RelationshipsController < ApplicationController
 
   def destroy
     @user = Relationship.find(params[:id]).followed
+    
+    @user.followers_count -= 1
+    @user.save
+    
     current_user.unfollow!(@user)
     @remove_button    = "#unfollow_user_#{@user.id.to_s}"
     @add_button       = "#follow_unfollow_#{@user.id.to_s}"  

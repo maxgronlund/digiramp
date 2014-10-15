@@ -5,7 +5,9 @@ class UsersController < ApplicationController
   before_filter :access_user, only: [:edit, :update, :destroy]
   
   def index
-    @users = User.search(params[:query]).order('lower(user_name) ASC').page(params[:page]).per(48)
+    #@users = User.search(params[:query]).order('lower(user_name) ASC').page(params[:page]).per(48)
+    @users = User.search(params[:query]).order('followers_count desc').page(params[:page]).per(48)
+    
   end
 
   def show

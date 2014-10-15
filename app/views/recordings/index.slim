@@ -13,7 +13,7 @@
 
   #page-content-wrapper
     .container-fluid 
-      == render 'users/shared/page_title', title: 'Recordings', url: root_path
+      == render 'users/shared/page_title', title: 'Recordings'
       .row.top-form
         = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
                                                       :controller => 'recordings'), \

@@ -25,6 +25,8 @@ class LikesController < ApplicationController
                         account_id: @user.account_id
                         )
     recording = Recording.cached_find(params[:recording_id])
+    recording.likes_count += 1
+    recording.save
     
     @user.create_activity(   :created, 
                                owner: like, 
@@ -45,6 +47,12 @@ class LikesController < ApplicationController
   def destroy
     user = User.friendly.find(params[:user_id])
     like = Like.where(user_id: user.id, recording_id: params[:id]).first   
+    
+    recording = Recording.cached_find(params[:recording_id])
+    recording.likes_count -= 1
+    recording.save
+    
+    
     @unlike = '.unlike_recording_' + params[:id].to_s   
     @like   = '.like_recording_' + params[:id].to_s  
   
