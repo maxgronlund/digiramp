@@ -10,7 +10,7 @@
 
  #page-content-wrapper
    .container-fluid
-     .col-sm-7.border-right
+     .col-lg-6.border-right
        h3 = @playlist.title
        = @playlist.body
        br
@@ -20,7 +20,7 @@
            == render 'recordings/show', recording: recording
            
        
-     .col-sm-5
+     .col-lg-6
        == render 'shared/comments', commentable: @playlist
      
 
