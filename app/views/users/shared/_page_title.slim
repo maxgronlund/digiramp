@@ -1,0 +1,8 @@
+.visible-xs
+  .page-title
+    = link_to user_path(@user) do
+      .user-avatar
+        =  image_tag @user.image_url(:avatar_32x32)
+      .title
+        h3 = title
+  .clearfix

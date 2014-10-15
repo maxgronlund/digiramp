@@ -2,7 +2,7 @@
   .avatar
     = image_tag @user.image_url :avatar_145x145
   .info
-    h5 =@user.full_name
+    h4 =@user.full_name
     .location
       - if @user.country.to_s != ''
         - c = Country.find_country_by_alpha2(@user.country)
@@ -16,9 +16,54 @@
     
 
   = simple_format @user.profile
+  h5  
+    - if @user.composer
+      span class="label label-default"
+        'Composer  
+      '&nbsp;
+      
+    - if @user.writer
+      span class="label label-default"
+        'Writer
+      '&nbsp;
+      
+    - if @user.fan
+      span class="label label-default"
+        'Fan
+      '&nbsp;
+      
+    - if @user.author
+      span class="label label-default"
+        'Author
+      '&nbsp;
+      
+    - if @user.producer
+      span class="label label-default"
+        'Producer
+      '&nbsp;
+      
+    - if @user.musician
+      span class="label label-default"
+        'Musician
+      '&nbsp;
+      
+    - if @user.remixer
+      span class="label label-default"
+        'Remixer
+      '&nbsp;
+      
+    - if @user.dj
+      span class="label label-default"
+        'DJ
+      '&nbsp;
   - if @authorized
-    = link_to 'Edit', edit_user_path(@user), class: 'button button-default'
-== render 'users/shared/follow' , user: @user
+    = link_to edit_user_path(@user) do
+      .button.button-default
+        i.fa.fa-pencil
+        '&nbsp;
+        'Edit
+    '&nbsp;
+  == render 'users/shared/follow' , user: @user
 
 
 .sexy_line

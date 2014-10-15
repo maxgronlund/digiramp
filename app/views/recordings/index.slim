@@ -12,9 +12,12 @@
       
 
   #page-content-wrapper
-    .container-fluid   
+    .container-fluid 
+      == render 'users/shared/page_title', title: 'Recordings', url: root_path
       .row.top-form
-        = simple_form_for  [ @user ], :url => url_for(:action => 'index', :controller => 'recordings'), :method => 'get' do |f|
+        = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                      :controller => 'recordings'), \
+                                                      :method => 'get' do |f|
           .col-sm-6
             = text_field_tag "query", "", :class => 'search-query form-control', \
                                           :placeholder => 'Search string', \
@@ -39,8 +42,11 @@
               == paginate(@recordings)
             .visible-xs
               .btn-group
-                = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
-                = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+
+                br
+                
+                = link_to_previous_page @recordings, '« Prev', class: 'button button-default mobile_pagination'
+                = link_to_next_page @recordings, 'Next »',     class: 'button button-default mobile_pagination'
       .sexy_line
       #digiWhams  
         - @recordings.each do |recording, |

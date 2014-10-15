@@ -15,7 +15,7 @@
                   /-else
                   /  = gravatar_tag comment.user.email, :size => 64, class: "media-object"
           .comment-content
-            h6
+            h5
               = link_to comment.user.name, user_path( comment.user)
               '&nbsp;
               = "#{time_ago_in_words(comment.created_at) } ago"

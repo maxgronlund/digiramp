@@ -35,14 +35,18 @@
               = image_tag @recording.artwork, alt: "#{@recording.title}"
            
             .info
-              
+              / this user
               = link_to user_path(@recording.user) do
                 .user-avatar
-                  =  image_tag @recording.user.image_url(:avatar_32x32)
+                  =  image_tag @recording.user.image_url(:avatar_48x48)
                   '&nbsp;
                 .user-name
                   = @recording.user.name
-              = simple_format @recording.comment
+                  
+              
+              .description    
+              .description-content    
+                = simple_format @recording.comment
           
             .buttons
               - if @authorized
@@ -52,6 +56,15 @@
                   i class="fa fa-pencil"
                   '&nbsp;
                   'Edit
+                '&nbsp;
+              
+                = link_to user_recording_path(current_user, @recording), \
+                          class: "button button-default", \
+                          data: { confirm: 'Are you sure?' } , \
+                          :method => :delete  do
+                  i class="fa fa-trash-o"
+                  '&nbsp;
+                  'Delete
                 '&nbsp;
               
               
@@ -65,7 +78,7 @@
                           style: "#{'display: none;' unless like}"  do
                   i class="fa fa-heart "
                   '&nbsp;
-                  'Unlike
+                  'Liked
                 /-else
                 = link_to new_user_recording_like_path(current_user, @recording), remote: true, \
                           class: "button button-default #{'like_recording_'+@recording.id.to_s}", \
@@ -79,16 +92,17 @@
                   i class="fa fa-heart"
                   '&nbsp;
                   'Like  
-          .sexy_line  
-          .panel-group id="accordion"
-            / Description
-            == render 'descriptions/description' 
-            / Lyrics
-            == render 'lyrics/lyrics'
-            / Tags
-            == render 'tags/tags'
-            / Artists
-            == render 'artists/artists'
+          .sexy_line 
+          .recording 
+            .panel-group id="accordion"
+              / Description
+              == render 'descriptions/description' 
+              / Lyrics
+              == render 'lyrics/lyrics'
+              / Tags
+              == render 'tags/tags'
+              / Artists
+              == render 'artists/artists'
           
           
 

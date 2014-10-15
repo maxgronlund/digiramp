@@ -1,55 +1,103 @@
 == render 'audio_player/show', recording: recording 
 
-.btn-group.btn-group-xs
-  = link_to user_recording_path(@user, recording), \
-            class: "btn btn-default" do
-    i.fa.fa-info-circle
-    '&nbsp;
-    'Info
-    
 
-  -if current_user
-    - like = Like.where(recording_id: recording.id, user_id: current_user.id).any?
-    /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
-    = link_to user_like_path( current_user, recording), method: :delete, remote: true, \
-              class: "btn btn-default red-icon #{'unlike_recording_'+recording.id.to_s}", \
-              style: "#{'display: none;' unless like}"  do
-      i class="fa fa-heart "
-      '&nbsp;
-      'Unlike
-    /-else
-    = link_to new_user_recording_like_path(current_user, recording), remote: true, \
-              class: "btn btn-default #{'like_recording_'+recording.id.to_s}", \
-              style: "#{'display: none;' if like}"  do
-      i class="fa fa-heart"
-      '&nbsp;
-      'Like
-  -else
-    = link_to login_new_path, \
-              class: "btn btn-default"  do
-      i class="fa fa-heart"
-      '&nbsp;
-      'Like
+
+
+
+
+
+.btn-group
+  .visible-xs.btn-group-xs
+    = link_to user_recording_path(@user, recording), \
+              class: "btn btn-default" do
+      .blue-info
+        i.fa.fa-info-circle
+      
     
-  - if @authorized 
-    = link_to edit_user_recording_path(current_user, recording), \
-              class: "btn btn-default"  do
-      i class="fa fa-pencil"
-      '&nbsp;
-      'Edit
+    -if current_user
+      - like = Like.where(recording_id: recording.id, user_id: current_user.id).any?
+      /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
+      = link_to user_like_path( current_user, recording), method: :delete, remote: true, \
+                class: "btn btn-default red-icon #{'unlike_recording_'+recording.id.to_s}", \
+                style: "#{'display: none;' unless like}"  do
+        i class="fa fa-heart "
+      /-else
+      = link_to new_user_recording_like_path(current_user, recording), remote: true, \
+                class: "btn btn-default #{'like_recording_'+recording.id.to_s}", \
+                style: "#{'display: none;' if like}"  do
+        i class="fa fa-heart"
+    -else
+      = link_to login_new_path, \
+                class: "btn btn-default"  do
+        i class="fa fa-heart"
+      
+    - if @authorized 
+      = link_to edit_user_recording_path(current_user, recording), \
+                class: "btn btn-default"  do
+        i class="fa fa-pencil"
+  .hidden-xs.btn-group-xs
+    = link_to user_recording_path(@user, recording), \
+              class: "btn btn-default" do
+      .blue-info
+        i.fa.fa-info-circle
+        '&nbsp;
+        'Info
+      
+    
+    -if current_user
+      - like = Like.where(recording_id: recording.id, user_id: current_user.id).any?
+      /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
+      = link_to user_like_path( current_user, recording), method: :delete, remote: true, \
+                class: "btn btn-default red-icon #{'unlike_recording_'+recording.id.to_s}", \
+                style: "#{'display: none;' unless like}"  do
+        i class="fa fa-heart "
+        '&nbsp;
+        'Liked
+      /-else
+      = link_to new_user_recording_like_path(current_user, recording), remote: true, \
+                class: "btn btn-default #{'like_recording_'+recording.id.to_s}", \
+                style: "#{'display: none;' if like}"  do
+        i class="fa fa-heart"
+        '&nbsp;
+        'Like
+    -else
+      = link_to login_new_path, \
+                class: "btn btn-default"  do
+        i class="fa fa-heart"
+        '&nbsp;
+        'Like
+      
+    - if @authorized 
+      = link_to edit_user_recording_path(current_user, recording), \
+                class: "btn btn-default"  do
+        i class="fa fa-pencil"
+        '&nbsp;
+        'Edit
+        
 .pull-right
-  .small-symbols
-    = recording.comments.count
-    '&nbsp;
-    i class="fa fa-comments"
-    '&nbsp;|
-    = link_to user_recording_likes_path(recording.user, recording)
-      =recording.likes.count
+  .hidden-xs
+    .small-symbols
+      i class="fa fa-comments"
       '&nbsp;
-      i class="fa fa-heart red-heart"
-    '&nbsp;|
-    = recording.playbacks_count
-    '&nbsp;
-    i class="fa fa-headphones"
+      = pluralize(recording.comments.count, 'Comment')
+      '&nbsp;|
+      = link_to user_recording_likes_path(recording.user, recording)
+        i class="fa fa-heart red-heart"
+        '&nbsp;
+        = pluralize(recording.likes.count, 'Like')  
+        
+      '&nbsp;|
+      i class="fa fa-headphones"
+      '&nbsp;
+      = pluralize(recording.playbacks_count, 'Playback')
+  .visible-xs
+    .small-symbols
+      i class="fa fa-comments"
+      '&nbsp;|
+      = link_to user_recording_likes_path(recording.user, recording)
+        i class="fa fa-heart red-heart"
+        
+      '&nbsp;|
+      i class="fa fa-headphones"
   
 .sexy_line 
