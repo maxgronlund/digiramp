@@ -1,5 +1,5 @@
 class RecordingsController < ApplicationController
-  before_filter :get_user, only: [:show, :index, :edit, :update, :new, :create]
+  before_filter :get_user, only: [:show, :index, :edit, :update, :new, :create, :destroy]
   include Transloadit::Rails::ParamsDecoder
   
   def index
@@ -72,9 +72,9 @@ class RecordingsController < ApplicationController
     @recording = Recording.find(params[:id])
     common_work = @recording.common_work
     @recording.destroy
-    common_work.update_completeness
+    common_work.update_completeness if common_work
 
-    redirect_to :back
+    redirect_to user_recordings_path(@user)
   end
   
   def edit
