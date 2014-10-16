@@ -1,29 +1,42 @@
 #wrapper
- .full-width-top
-   == render 'shared/navigationbar', page: 'home' 
- 
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
 
- #sidebar-wrapper
-   ul class="sidebar-nav"
-     == render 'users/shared/sidebar', selected: 'playlists'
-
- #page-content-wrapper
-   .container-fluid
-     == render 'users/shared/page_title', title: ''
-     .col-lg-8
-       h3 = @playlist.title
-       = @playlist.body
-       br
-       hr
-       #digiWhams 
-         - @playlist.recordings.each do |recording|
-           == render 'recordings/show', recording: recording
-           
-       
-     .col-lg-4
-       == render 'shared/comments', commentable: @playlist
-     
-
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'playlists'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'users/shared/page_title', title: ''
+      .col-lg-8
+        .row
+          .col-sm-12
+            .show-playlist
+              h3 = @playlist.title
+              .playlist-image
+                = image_tag( @playlist.playlist_image_url :image_470x250)
+              .playlist-info
+                = @playlist.body
+                br
+                = link_to edit_user_playlist_path(@user, @playlist) do
+                  .button.button-default
+                    i.fa.fa-pencil
+                    '&nbsp;Edit
+            
+        .sexy_line
+        .row
+          .col-sm-12
+            #digiWhams 
+              - @playlist.recordings.each do |recording|
+                == render 'recordings/show', recording: recording
+                
+        
+      .col-lg-4
+        == render 'shared/comments', commentable: @playlist
+      
+    
 
 
 

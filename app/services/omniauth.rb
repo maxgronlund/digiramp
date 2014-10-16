@@ -17,7 +17,7 @@ class Omniauth
 
   end
   
-  # authorice or create an new account
+  # authorize or create an new account
   def self.authorize_with_omniauth env
     #authorization_provider = AuthorizationProvider.where( env.slice("provider", "uid")).first
     authorization_provider = AuthorizationProvider.where(provider: env.provider, uid: env.uid).first
@@ -25,7 +25,6 @@ class Omniauth
       return {user: authorization_provider.user}
     else
       user = create_from_omniauth(env)
-      ap user
       return { user: user[:user], message: user[:message]}
     end
     

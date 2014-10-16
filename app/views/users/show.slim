@@ -1,29 +1,30 @@
 
 #wrapper
- .full-width-top
-   == render 'shared/navigationbar', page: 'home' 
- 
-
- #sidebar-wrapper
-   ul class="sidebar-nav"
-     == render 'users/shared/sidebar', selected: 'user'
-
- #page-content-wrapper
-   .container-fluid
-     .row
-       .col-sm-6
-         == render 'users/shared/mobile_links'
-         == render 'users/shared/profile'
-         
-         == render 'users/activities'
-       .col-sm-6
-         == render 'users/guest_book'
-             
-         br
-         .rec-comments
-           - @user.comments.order('created_at desc').each do |comment|
-             == render 'comments/show', comment: comment
-             
-     
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          == render 'users/shared/mobile_links'
+          == render 'users/shared/profile'
+          /== debug current_user.facebook.get_object("me")
+          /== debug current_user.authorization_providers.where(provider: 'facebook').first
+          == render 'users/activities'
+        .col-sm-6
+          == render 'users/guest_book'
+              
+          br
+          .rec-comments
+            - @user.comments.order('created_at desc').each do |comment|
+              == render 'comments/show', comment: comment
+              
+      
                  
               

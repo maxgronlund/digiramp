@@ -1,0 +1,62 @@
+.playlist-badge
+  = link_to user_playlist_path( @user, playlist) do
+    .avatar
+      = image_tag( playlist.playlist_image_url :image_270x270) 
+      .playlist-text
+        .playlist-title
+          =playlist.title
+      /
+      /  - if user.writer
+      /    .user-tag
+      /      'Writer
+      /
+      /  - if user.fan
+      /    .user-tag
+      /      'Fan
+      /
+      /  - if user.author
+      /    .user-tag
+      /      'Author
+      /    
+      /  - if user.producer
+      /    .user-tag
+      /      'Producer
+      /    
+      /  - if user.musician
+      /    .user-tag
+      /      'Musician
+      /    
+      /  - if user.remixer
+      /    .user-tag
+      /      'Remixer
+      /    
+      /  - if user.dj
+      /    .user-tag
+      /      'DJ
+                
+        
+
+  
+  .small-symbols
+    i class="fa fa-headphones"
+    '&nbsp;
+    = playlist.recordings.count
+    '&nbsp;|&nbsp;
+    i class="fa fa-comment"
+    '&nbsp;
+    = playlist.comments.count
+    '&nbsp;|&nbsp;
+    i class="fa fa-heart red-heart"
+    '&nbsp;
+    = playlist.comments.count
+  /  = link_to user_likes_path(user) do
+  /    i class="fa fa-heart red-heart"
+  /    '&nbsp;
+  /    = user.likes.count
+  /  '&nbsp;|&nbsp;
+  /  = link_to user_followers_path(user) do
+  /    i class="fa fa-users"
+  /    '&nbsp;
+  /    = user.followers.count
+    
+  

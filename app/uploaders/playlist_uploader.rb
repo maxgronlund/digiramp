@@ -41,6 +41,12 @@ class PlaylistUploader < CarrierWave::Uploader::Base
   version :image_270x270 do
      process  resize_to_fill: [270, 270, gravity = 'Center']
   end
+  
+  version :image_470x250 do
+     process  resize_to_fill: [470, 250, gravity = 'Center']
+  end
+  
+  
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

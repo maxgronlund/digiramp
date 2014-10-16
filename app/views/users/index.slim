@@ -30,5 +30,6 @@
     .container
       .row
         .col-sm-12
-          - @users.each do |user|
-            == render 'users/person', user: user
+          .person-badges
+            - @users.each do |user|
+              == render 'users/person', user: user
