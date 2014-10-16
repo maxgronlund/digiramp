@@ -12,10 +12,10 @@
     .container-fluid
       /= debug @user.playlists.first
       .playlist-badges
-        - @user.playlists.each do |playlist|
-          == render 'playlists/playlist', playlist: playlist
         - if @authorized  
           == render 'playlists/create_playlist'
+        - @user.playlists.each do |playlist|
+          == render 'playlists/playlist', playlist: playlist
        
      
   == render 'shared/site_footer'     
