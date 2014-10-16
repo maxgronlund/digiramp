@@ -534,7 +534,13 @@ class User < ActiveRecord::Base
   
   
   def facebook
-    @facebook ||= Koala::Facebook::API.new('CAACEdEose0cBAPpApgIjB4AAL2sPebyHZAwM8tGGv57zskPrNMbI5KvWGSIwudgd3iqUO5sztobNLU0bJrNvvcm7S2D0GjxefThq88Y9eYyhcrLMvQM2Tt3SQO2cLtTnSjmeNDMPpvjMtW7jOsb0hHA9tpy4k2lAXD6vlaZB0ZAdUIOsvVKlm6LGSoO3ySGr75ilFKyI6NKH9mQ3qaoy4o2DyG5i9QZD')
+    begin
+      fb = authorization_providers.where(provider: 'facebook').first
+      @facebook ||= Koala::Facebook::API.new(fb.oauth_token)
+    rescue
+      @facebook = nil
+    end
+    @facebook
   end
     
     

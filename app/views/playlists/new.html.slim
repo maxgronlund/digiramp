@@ -1,17 +1,20 @@
-#wrap
+#wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
-  .container
-    .row
-      .col-sm-3
-        .logo
-          .thumbnail
-            /= image_tag @playlist.playlist_image_url :image_270x270
-        ul class="sidebar"
-          == render 'users/shared/sidebar', selected: 'playlists'
-        
-        
-      .col-sm-9
-        h3 New Playlists
-        hr
-        == render 'form'
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'playlists'
+  
+  #page-content-wrapper
+    .container-fluid
+
+      h3 Create playlist
+      .sexy_line
+      .row
+        .col-sm-6
+          == render 'form'
+       
+     
+  == render 'shared/site_footer'     

@@ -4,13 +4,21 @@ class Omniauth
   end
   # atttaching an provider to an existing user'
   def self.attach_provider env, user
+    
     if new_provider = AuthorizationProvider.where(user_id: user.id, provider: env['omniauth.auth']["provider"]).present?
+      
       return nil
     else  
+      puts '============================ FOBAR ============================='
+      credentials =  env['omniauth.auth']["credentials"]
+      ap credentials
       return AuthorizationProvider.create! do |provider|
-                        provider.provider      = env['omniauth.auth']["provider"]
-                        provider.uid           = env['omniauth.auth']["uid"]
-                        provider.user_id       = user.id
+                        provider.provider           = env['omniauth.auth']["provider"]
+                        provider.uid                = env['omniauth.auth']["uid"]
+                        provider.oauth_token        = credentials['token']
+                        provider.oauth_expires_at   = credentials["expires_at"]
+                        provider.oauth_expires      = credentials["expires"]
+                        provider.user_id            = user.id
                         
       end
     end
@@ -33,18 +41,23 @@ class Omniauth
 private
 
   def self.create_from_omniauth(env)
+    ap env
     #raise env.to_yaml
     # create a user
     user = create_user( env )
-    ap user[:user]
+    #ap user[:user]
     if user[:user]                
       if create_account_for( user[:user], env ) 
         update_user( user[:user], env)
-        
+        credentials =  env["credentials"]
+        ap credentials
         AuthorizationProvider.create! do |provider|
-               provider.provider      = env["provider"]
-               provider.uid           = env["uid"]
-               provider.user_id       = user[:user].id
+               provider.provider            = env["provider"]
+               provider.uid                 = env["uid"]
+               provider.oauth_token        = credentials['token']
+               provider.oauth_expires_at   = credentials["expires_at"]
+               provider.oauth_expires      = credentials["expires"]
+               provider.user_id             = user[:user].id
       
         end
         return {user: user[:user], message: user[:message]}
@@ -59,11 +72,11 @@ private
   
   def self.create_user( env )
     puts '=======================================++==============================================='
-    ap env[:info][:image]
+    ap env
     email         = UUIDTools::UUID.timestamp_create().to_s
     email_missing = true
     case env[:provider]
-    when 'linkedin', 'gplus'
+    when 'linkedin', 'gplus', 'facebook'
       info = env[:info]
       if email = info[:email]
         email_missing = false
@@ -77,7 +90,8 @@ private
                          password:       UUIDTools::UUID.timestamp_create().to_s, 
                          social_avatar:  env[:info][:image],
                          email:          email,
-                         email_missing:  email_missing)
+                         email_missing:  email_missing,
+                         user_name:      env[:info][:name])
                               
     return {user: user, message: "#{env["provider"].upcase} has created a DigiRAMP account for you"}
   end

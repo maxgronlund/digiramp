@@ -3,9 +3,32 @@
 
 
 //--------------------------------------------------
+#wrapper
+  height: 100%
 // default values
 #page-content-wrapper 
   padding: 58px 0px
+  min-height: 100%
+  margin-bottom: -30px
+  
+
+#page-content-wrapper:after 
+  content: ""
+  display: block
+
+#site-footer, #page-content-wrapper:after 
+  // .push must be the same height as footer 
+  height: 30px
+
+#site-footer 
+  background: #EAEAEA
+  text-align: center
+  padding-top: 6px
+
+
+
+
+    
 .container-fluid 
   margin-right: 5px
   margin-left:  5px

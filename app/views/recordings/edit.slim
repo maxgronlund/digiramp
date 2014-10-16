@@ -33,3 +33,5 @@
       = simple_form_for [@user, @recording],  :html => { :id => 'cover_art' }  do |f|
         = f.hidden_field :user_id, value: @user.id
         == render 'form', f: f
+        
+  == render 'shared/site_footer'  
