@@ -29,7 +29,8 @@
       == render 'users/shared/page_title', title: 'Following'
       .row
         .col-sm-12
-          - @followed_users.each do |user|
-            == render 'users/person', user: user
+          .person-badges
+            - @followed_users.each do |user|
+              == render 'users/person', user: user
             
         
