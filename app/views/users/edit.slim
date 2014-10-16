@@ -1,72 +1,71 @@
-#wrap
-  .profile
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'profile' 
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
 
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      h3 Edit Profile
+      .sexy_line
+      = simple_form_for @user do |f|
+        
+        -if @user.errors.any?
+          = render 'shared/errors', errors: @user.errors
+      
+        .row
+          .col-sm-6
+            = f.input :name
+            = f.input :user_name, placeholder: 'Used for the url'
+            = f.input :email
+            = f.input :password, autocomplete: :off
+            = f.input :password_confirmation, autocomplete: :off
+            .row
+              .col-sm-6
+                = f.input :profession
+            .row
+              .col-sm-6
+                = f.input :country
+              .col-sm-6
+                = f.input :city
+                
+                
+          .col-sm-6
+            .row
+              .col-sm-6
+                = f.input :fan        
+                = f.input :author
+                = f.input :producer
+                = f.input :writer
+              .col-sm-6
+                = f.input :musician
+                = f.input :composer
+                = f.input :remixer
+                = f.input :dj
             
-  .container
-    ==render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path(@user), \
-                                                            }, current:  'edit profile'}
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Edit User Profile'}
-    = simple_form_for @user do |f|
+            
+            = f.input :image, hint: 'Dimentions 1:1 '
+            div id="toolbar" class="wysihtml5-toolbar"
+              a data-wysihtml5-command="bold" Bold
+              '&nbsp; 
+              a data-wysihtml5-command="italic" Italic
+            
+            =f.input :profile, label: false, :input_html => {  style: "height: 240px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+        
+        .pull-right
+          = link_to 'Cancel', user_path(@user), class: 'button button-default'
+          '&nbsp;
+          = f.submit 'Save', class: 'button button-primary'
       
-      -if @user.errors.any?
-        = render 'shared/errors', errors: @user.errors
-
-      .row
-        .col-sm-6
-          .panel
-            .panel-body
-              
-                = f.input :name
-                = f.input :user_name, placeholder: 'Used for the url'
-                = f.input :email
-                = f.input :password, autocomplete: :off
-                = f.input :password_confirmation, autocomplete: :off
-                .row
-                  .col-sm-6
-                    = f.input :profession
-                .row
-                  .col-sm-6
-                    = f.input :country
-                  .col-sm-6
-                    = f.input :city
-                    
-                    
-        .col-sm-6
-          .panel
-            .panel-body
-              .row
-                .col-sm-6
-                  = f.input :fan        
-                  = f.input :author
-                  = f.input :producer
-                  = f.input :writer
-                .col-sm-6
-                  = f.input :musician
-                  = f.input :composer
-                  = f.input :remixer
-                  = f.input :dj
-              
-             
-              = f.input :image, hint: 'Dimentions 1:1 '
-              div id="toolbar" class="wysihtml5-toolbar"
-                a data-wysihtml5-command="bold" Bold
-                '&nbsp; 
-                a data-wysihtml5-command="italic" Italic
-              
-              =f.input :profile, label: false, :input_html => {  style: "height: 224px;", placeholder: "Profile", id: 'wysihtml5_editor'}
-      
-      .pull-right
-        = link_to 'Cancel', user_path(@user), class: 'button button-default'
-        '&nbsp;
-        = f.submit 'Save', class: 'button button-primary'
     
-    
-    == render 'shared/back', locals: {link: user_path(@user)}      
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'  
+  == render 'shared/site_footer'     
   
   
   
