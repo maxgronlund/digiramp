@@ -532,16 +532,37 @@ class User < ActiveRecord::Base
   
   
   
-  
   def facebook
-    begin
-      fb = authorization_providers.where(provider: 'facebook').first
-      @facebook ||= Koala::Facebook::API.new(fb.oauth_token)
-    rescue
-      @facebook = nil
-    end
-    @facebook
+    provider = authorization_providers.where(provider: 'facebook').first
+    @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
+    block_given? ? yield(@facebook) : @facebook
+  rescue Koala::Facebook::APIError
+    logger.info e.to_s
+    nil
   end
+  
+  def friends_count
+    facebook { |fb| fb.get_connection("me", "friends").size }
+  end
+  
+  def facebook_publish_actions
+    if self.facebook
+      permissions                         = self.facebook.get_connection("me", "permissions") 
+      publish_actions_permission          = permissions.find { |permission| permission["permission"] == "publish_actions" }
+      publish_actions_permission_granted  = publish_actions_permission && publish_actions_permission["status"] == "granted"
+      return publish_actions_permission_granted
+    end
+    false
+  end
+  #def facebook
+  #  begin
+  #    fb = authorization_providers.where(provider: 'facebook').first
+  #    @facebook ||= Koala::Facebook::API.new(fb.oauth_token)
+  #  rescue
+  #    @facebook = nil
+  #  end
+  #  @facebook
+  #end
     
     
     

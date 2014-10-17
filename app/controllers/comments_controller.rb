@@ -67,12 +67,20 @@ class CommentsController < ApplicationController
                        recipient: @comment.commentable,
                   recipient_type: 'Recording',
                       account_id: @comment.user.account_id) 
+        post_on_social_media
       else
         
       
       end
     else
       redirect_to :back
+    end
+  end
+  
+  def post_on_social_media
+    user = @comment.user
+    if user.facebook_publish_actions
+      user.facebook.put_wall_post(@comment.body)
     end
   end
   

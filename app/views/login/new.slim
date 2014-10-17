@@ -8,63 +8,66 @@
       .col-sm-3
       .col-sm-6
         ==render 'admin/shared/messages'
-        .panel.panel-primary
-          .panel-heading
-            i class= 'fa fa-lock'
-            '&nbsp;
-            'LOG IN
-          .panel-body
-            h4 Use an existing account
-            .social-icons
-              table 
-                tr
-                  td
-                    = link_to "/auth/twitter" do
-                      .float-right
-                        .twitter
-                  td Sign in with your Twitter account
-                  td
-                    = link_to  "/auth/facebook" do
-                      .facebook
-                  td Sign in with your Facebook account 
-                tr
-                  td
-                    = link_to "/auth/linkedin" do
-                      .float-right
-                        .linkedin
-                  td Sign in with your Linkedin account
-                  td
-                    = link_to  "/auth/gplus" do
-                      .google
-                  td Sign in with your Google+ account
-            
-            
-            hr
-            h4 Use You DigiRAMP Password
+        
+        h3 Login
 
-            = simple_form_for(  :sessions, :url => sessions_path ) do |f|
+        = simple_form_for(  :sessions, :url => sessions_path ) do |f|
     
-              .input-group
-                span class="input-group-addon" @
-                = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
-              br
-              .input-group
-                span class="input-group-addon" 
-                  i class= 'fa fa-key'
-                = f.input_field :password, placeholder: 'Password', autocomplete: :off
-              br
-              .remember-me
-                = f.input :remember_me, as: :boolean, input_html: { value: '1' }
-              .row
-                .col-sm-12
-                  .pull-right
-                    = f.submit 'Log in', class: 'btn btn-primary btn-lg btn-top-margin', id: 'log_in_form_button'
+          .input-group
+            span class="input-group-addon" @
+            = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+          br
+          .input-group
+            span class="input-group-addon" 
+              i class= 'fa fa-key'
+            = f.input_field :password, placeholder: 'Password', autocomplete: :off
+          br
+          .remember-me
+            = f.input :remember_me, as: :boolean, input_html: { value: '1' }
+          .row
+            .col-sm-12
+              .pull-right
+                = f.submit 'Log in', class: 'button button-default', id: 'log_in_form_button'
+        br
+        .sexy_line
+        br
+        h4 Login / Signup with your favorite network
+        .social-icons
+          table 
+            tr
+              td
+                = link_to "/auth/twitter" do
+                  .float-right
+                    .twitter
+              td Use your Twitter account
+              td
+                = link_to  "/auth/facebook" do
+                  .facebook
+              td Use your Facebook account 
+            tr
+              td
+                = link_to "/auth/linkedin" do
+                  .float-right
+                    .linkedin
+              td Use your Linkedin account
+              td
+                = link_to  "/auth/gplus" do
+                  .google
+              td Use your Google+ account
+        
+        
+        
+        
+        
         .row
           .col-sm-12
+            br
+            .sexy_line
+            br
             .pull-right
-              = link_to "Sign Up", signup_index_path, class: 'btn btn-default btn-lg btn-top-margin'
+              = link_to "Sign Up", signup_index_path, class: 'button button-default'
               '&nbsp;
-              = link_to "Forgot Password?", new_password_reset_path, class: 'btn btn-default btn-lg btn-top-margin'
+              = link_to "Forgot Password?", new_password_reset_path, class: 'button button-default'
               '&nbsp;
       .col-sm-3
       /.col-sm-6
