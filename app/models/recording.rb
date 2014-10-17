@@ -58,6 +58,8 @@ class Recording < ActiveRecord::Base
   before_destroy :remove_from_collections
   after_create :count_stats_up
   
+  #mount_uploader :cover_art, ArtworkUploader
+  
 
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
