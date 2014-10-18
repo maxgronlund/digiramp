@@ -68,6 +68,8 @@ class CommentsController < ApplicationController
                   recipient_type: 'Recording',
                       account_id: @comment.user.account_id) 
         post_on_social_media
+        
+        render nothing: true
       else
         
       
@@ -78,7 +80,9 @@ class CommentsController < ApplicationController
   end
   
   def post_on_social_media
-    FbRecordingCommentWorker.perform_async(@comment.id)
+    if @comment.user.user.facebook_publish_actions
+      FbRecordingCommentWorker.perform_async(@comment.id)
+    end
     
   end
   
