@@ -1,3 +1,17 @@
+/-content_for :head do 
+/  = tag :meta, property: "fb:app_id", content: ENV["FACEBOOK_KEY"] 
+/  = tag :meta, property: "og:site_name", content: "DigiRAMP" 
+/  = tag :meta, property: "og:type", content: "cinematron:movie" 
+/  = tag :meta, property: "og:title", content: @movie.name 
+/  = tag :meta, property: "og:url", content: movie_url(@movie) 
+/  = tag :meta, property: "og:image", content: request.protocol + \
+/                                        request.host_with_port +  \
+/                                        image_path(@movie.image) \
+
+
+
+
+
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 

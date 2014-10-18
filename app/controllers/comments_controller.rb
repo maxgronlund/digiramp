@@ -28,13 +28,13 @@ class CommentsController < ApplicationController
 
     if @comment = Comment.create!(comment_params)
       
-      @comment.user.create_activity(  :created, 
-                                 owner: @comment, # the recording has many comments
-                             recipient: @comment.commentable,
-                        recipient_type: @comment.commentable_type,
-                            account_id: @comment.user.account_id) 
-                            
-                    
+      #@comment.user.create_activity(  :created, 
+      #                           owner: @comment, # the recording has many comments
+      #                       recipient: @comment.commentable,
+      #                  recipient_type: @comment.commentable_type,
+      #                      account_id: @comment.user.account_id) 
+      #                      
+      #              
       case @comment.commentable_type
       
       when 'Issue'
@@ -78,10 +78,8 @@ class CommentsController < ApplicationController
   end
   
   def post_on_social_media
-    user = @comment.user
-    if user.facebook_publish_actions
-      user.facebook.put_wall_post(@comment.body)
-    end
+    FbRecordingCommentWorker.perform_async(@comment.id)
+    
   end
   
  
