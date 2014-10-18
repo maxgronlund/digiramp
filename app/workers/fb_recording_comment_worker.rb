@@ -9,7 +9,7 @@ class FbRecordingCommentWorker
          user.facebook.put_wall_post(comment.body,
                                       {
                                       "name" => "#{recording.title}",
-                                      "link" => "http://www.assets-manager.com/#{user.slug}recordings/#{recording.id}",
+                                      "link" => "http://www.assets-manager.com/#{recording.user.slug}/recordings/#{recording.id}",
                                       "caption" => "#{user.name} posted a new review",
                                       "description" => "#{recording.comment}",
                                       "picture" => "#{recording.artwork}"
