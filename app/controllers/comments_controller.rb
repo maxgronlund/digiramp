@@ -80,10 +80,7 @@ class CommentsController < ApplicationController
   end
   
   def post_on_social_media
-    if @comment.user.user.facebook_publish_actions
-      FbRecordingCommentWorker.perform_async(@comment.id)
-    end
-    
+    FbRecordingCommentWorker.perform_async(@comment.id)
   end
   
  
