@@ -69,7 +69,7 @@ class CommentsController < ApplicationController
                       account_id: @comment.user.account_id) 
         post_on_social_media
         
-        render nothing: true
+        #render nothing: true
       else
         
       
