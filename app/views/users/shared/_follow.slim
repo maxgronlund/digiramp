@@ -4,7 +4,7 @@
       -if current_user.following?(user)
         div id="unfollow_user_#{user.id}"
           = form_for(current_user.relationships.find_by(followed_id: user.id),remote: true, html: { method: :delete }) do |f| 
-            = button_tag(type: 'submit', class: "button button-default red-icon") do 
+            = button_tag(type: 'submit', class: "btn btn-default btn-xs red-icon") do 
               i.fa.fa-times
               '&nbsp;
               'Following
@@ -14,7 +14,7 @@
           = form_for(current_user.relationships.build(followed_id: user.id),remote: true) do |f| 
             = f.hidden_field :followed_id 
             /= f.submit 'Follow', class: "button button-default"
-            = button_tag(type: 'submit', class: "button button-default") do 
+            = button_tag(type: 'submit', class: "btn btn-default btn-xs") do 
               i.fa.fa-eye
               '&nbsp;
               'Follow

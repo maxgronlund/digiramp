@@ -25,10 +25,11 @@
     .container-fluid
       .row
         .col-md-6
+          / the player
           .simple-show
             #digiWhams  
               == render 'audio_player/simple_show', recording: @recording
-          
+          / info about comments likes playbacks
           .small-symbols
             i class="fa fa-comments"
             '&nbsp;
@@ -44,6 +45,7 @@
             '&nbsp;
             = pluralize(@recording.playbacks_count, 'Playback')
           .sexy_line
+          / info
           .show-recording
             .cover
               = image_tag @recording.artwork, alt: "#{@recording.title}"
@@ -56,56 +58,60 @@
                   '&nbsp;
                 .user-name
                   = @recording.user.name
+              div
+                == render 'users/shared/follow' , user: @recording.user
                   
               
+              / description can be updated with AJAX
               .description    
               .description-content    
                 = simple_format @recording.comment
           
             .buttons
-              - if @authorized
-              
-                = link_to edit_user_recording_path(current_user, @recording), \
-                          class: "button button-default"  do
-                  i class="fa fa-pencil"
+              .btn-group.btn-group-xs
+                - if @authorized
+                
+                  = link_to edit_user_recording_path(current_user, @recording), \
+                            class: "btn btn-default"  do
+                    i class="fa fa-pencil"
+                    '&nbsp;
+                    'Edit
                   '&nbsp;
-                  'Edit
-                '&nbsp;
-              
-                = link_to user_recording_path(current_user, @recording), \
-                          class: "button button-default", \
-                          data: { confirm: 'Are you sure?' } , \
-                          :method => :delete  do
-                  i class="fa fa-trash-o"
+                
+                  = link_to user_recording_path(current_user, @recording), \
+                            class: "btn btn-default", \
+                            data: { confirm: 'Are you sure?' } , \
+                            :method => :delete  do
+                    i class="fa fa-trash-o"
+                    '&nbsp;
+                    'Delete
                   '&nbsp;
-                  'Delete
-                '&nbsp;
-              
-              
-              
-              
-              -if current_user
-                - like = Like.where(recording_id: @recording.id, user_id: current_user.id).any?
-
-                = link_to user_like_path( current_user, @recording), method: :delete, remote: true, \
-                          class: "button button-default red-icon #{'unlike_recording_'+@recording.id.to_s}", \
-                          style: "#{'display: none;' unless like}"  do
-                  i class="fa fa-heart "
-                  '&nbsp;
-                  'Liked
-                /-else
-                = link_to new_user_recording_like_path(current_user, @recording), remote: true, \
-                          class: "button button-default #{'like_recording_'+@recording.id.to_s}", \
-                          style: "#{'display: none;' if like}"  do
-                  i class="fa fa-heart"
-                  '&nbsp;
-                  'Like
-              -else
-                = link_to login_new_path, \
-                          class: "btn btn-default"  do
-                  i class="fa fa-heart"
-                  '&nbsp;
-                  'Like  
+                
+                
+                
+                
+                -if current_user
+                  - like = Like.where(recording_id: @recording.id, user_id: current_user.id).any?
+                
+                  = link_to user_like_path( current_user, @recording), method: :delete, remote: true, \
+                            class: "btn btn-default red-icon #{'unlike_recording_'+@recording.id.to_s}", \
+                            style: "#{'display: none;' unless like}"  do
+                    i class="fa fa-heart "
+                    '&nbsp;
+                    'Liked
+                  /-else
+                  = link_to new_user_recording_like_path(current_user, @recording), remote: true, \
+                            class: "btn btn-default #{'like_recording_'+@recording.id.to_s}", \
+                            style: "#{'display: none;' if like}"  do
+                    i class="fa fa-heart"
+                    '&nbsp;
+                    'Like
+                -else
+                  = link_to login_new_path, \
+                            class: "btn btn-default"  do
+                    i class="fa fa-heart"
+                    '&nbsp;
+                    'Like  
           .sexy_line 
           .recording 
             .panel-group id="accordion"
@@ -124,13 +130,12 @@
             
       
         .col-md-6
-          /= link_to user_recordings_path(@user) do
-          /  i.fa.fa-arrow-left
-          /  '&nbsp;
-          /  'Back to recordings
-          - if @recording.has_meta_data?
-            == render 'tags/show'
-            .sexy_line
+          / artists can be updated with AJAX
+          == render 'artists/artists_content'
+          / description can be updated with AJAX
+          .tags    
+          .tags-content    
+            == render 'tags/tags_content'
             
           == render 'shared/comments', commentable: @recording
         

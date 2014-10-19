@@ -9,9 +9,12 @@ class Omniauth
       
       return nil
     else  
-      puts '============================ FOBAR ============================='
+      
       credentials =  env['omniauth.auth']["credentials"]
-      ap credentials
+      
+      
+      ap  env['omniauth.auth']["info"]
+
       return AuthorizationProvider.create! do |provider|
                         provider.provider           = env['omniauth.auth']["provider"]
                         provider.uid                = env['omniauth.auth']["uid"]
@@ -19,6 +22,8 @@ class Omniauth
                         provider.oauth_expires_at   = credentials["expires_at"]
                         provider.oauth_expires      = credentials["expires"]
                         provider.user_id            = user.id
+                        provider.info               = env['omniauth.auth']["info"]
+                        #provider.profile_name       
                         
       end
     end

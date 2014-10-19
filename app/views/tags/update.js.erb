@@ -1,8 +1,19 @@
-$( "div" ).remove( ".tags-form" );
+/*
+$( "div" ).remove( ".old-tags" );
 $( "div" ).remove( ".old-tags-label" );
 
-$(".show-tags").prepend('<%=j render("tags/show") %>');
+$(".new-tags").prepend('<%=j render("tags/show") %>');
 $(".tags-label").prepend('<%=j render("tags/label") %>');
+*/
+
+$( "div" ).remove( ".tags-form" );
+$( "div" ).remove( ".old-tags-label" );
+$( "div" ).remove( ".tags-content" );
+
+
+$(".show-tags ").prepend('<%=j render("tags/show") %>');
+$(".tags-label").prepend('<%=j render("tags/label") %>');
+$(".tags").prepend('<%=j render("tags/tags_content") %>');
 
 
 

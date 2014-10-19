@@ -36,7 +36,7 @@ class LikesController < ApplicationController
                           
                           
     @unlike = '.unlike_recording_' + params[:recording_id].to_s   
-    @like   = '.like_recording_' + params[:recording_id].to_s 
+    @like   = '.like_recording_'   + params[:recording_id].to_s 
     #@like = 'like_' + like.id.to_s
   end
   
@@ -48,13 +48,13 @@ class LikesController < ApplicationController
     user = User.friendly.find(params[:user_id])
     like = Like.where(user_id: user.id, recording_id: params[:id]).first   
     
-    recording = Recording.cached_find(params[:recording_id])
+    recording = Recording.cached_find(params[:id])
     recording.likes_count -= 1
     recording.save
     
     
-    @unlike = '.unlike_recording_' + params[:id].to_s   
-    @like   = '.like_recording_' + params[:id].to_s  
+    @unlike = '.unlike_recording_'  + params[:id].to_s   
+    @like   = '.like_recording_'    + params[:id].to_s  
   
     like.destroy 
     #render nothing: true

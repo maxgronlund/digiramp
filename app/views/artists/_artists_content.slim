@@ -1,0 +1,25 @@
+- if @recording.has_artists?
+  table.artists
+    - if @recording.artist.to_s != ''
+      tr
+        th 
+          .pull-right Artist: &nbsp;
+        td = @recording.artist 
+    - if @recording.performer.to_s != ''
+      tr
+        th 
+          .pull-right  Performer: &nbsp;
+        td = @recording.performer 
+    - if @recording.composer.to_s != ''
+      tr
+        th 
+          .pull-right  Composer: &nbsp;
+        td = @recording.composer 
+    - if @recording.band.to_s != ''
+      tr
+        th 
+          .pull-right  Band: &nbsp;
+        td = @recording.band 
+  
+  
+    

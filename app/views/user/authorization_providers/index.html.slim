@@ -1,104 +1,32 @@
-
+- blog      = Blog.cached_find('Authorization')
 #wrapper
- .full-width-top
-   == render 'shared/navigationbar', page: 'home' 
- 
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+  
+      h3 Authorizations
+      .sexy_line
+      
+      
+      
+      .social-icons
+        == render 'user/authorization_providers/facebook', blog: blog
+        == render 'user/authorization_providers/twitter', blog: blog
+        == render 'user/authorization_providers/linkedin', blog: blog
+        == render 'user/authorization_providers/google', blog: blog
+        
 
- #sidebar-wrapper
-   ul class="sidebar-nav"
-     == render 'users/shared/sidebar', selected: 'user'
-
- #page-content-wrapper
-   .container-fluid
-
-     h3 Authorizations
-     - twitter   = @user.authorization_providers.where(provider: 'twitter').first
-     - facebook  = @user.authorization_providers.where(provider: 'facebook').first
-     - linkedin  = @user.authorization_providers.where(provider: 'linkedin').first
-     - gplus     = @user.authorization_providers.where(provider: 'gplus').first
-     .social-icons
-       row
-         .col-sm-3
-           .panel.panel-default
-             .panel-body
-               .center-block
-                 h4 Twitter
-                 .twitter
-                 br
-                 - if twitter
-                  = link_to user_user_authorization_provider_path(@user, twitter), data: { confirm: 'Are you sure?' } , :method => :delete do 
-                     .button.button-danger
-                       i class="fa fa-lock"
-                       '&nbsp;
-                       'Unlink
-                 -else
-                   = link_to "/auth/twitter" do
-                     .button.button-default
-                       i class="fa fa-unlock"
-                       '&nbsp;
-                       'Link
-         .col-sm-3
-           .panel.panel-default
-             .panel-body
-               .center-block
-                 h4 Facebook
-                 .facebook
-                 br
-                 - if facebook
-                  = link_to user_user_authorization_provider_path(@user, facebook), data: { confirm: 'Are you sure?' } , :method => :delete do 
-                     .button.button-danger
-                       i class="fa fa-lock"
-                       '&nbsp;
-                       'Unlink
-                 -else
-                   = link_to "/auth/facebook" do
-                     .button.button-default
-                       i class="fa fa-unlock"
-                       '&nbsp;
-                       'Link
-         .col-sm-3
-           .panel.panel-default
-             .panel-body
-               .center-block
-                 h4 Linkedin
-                 .linkedin
-                 br
-                 - if linkedin
-                  = link_to user_user_authorization_provider_path(@user, linkedin), data: { confirm: 'Are you sure?' } , :method => :delete do 
-                     .button.button-danger
-                       i class="fa fa-lock"
-                       '&nbsp;
-                       'Unlink
-                 -else
-                   = link_to "/auth/linkedin" do
-                     .button.button-default
-                       i class="fa fa-unlock"
-                       '&nbsp;
-                       'Link
-         .col-sm-3
-           .panel.panel-default
-             .panel-body
-               .center-block
-                 h4 Google+
-                 .google
-                 br
-                 - if gplus
-                  = link_to user_user_authorization_provider_path(@user, gplus), data: { confirm: 'Are you sure?' } , :method => :delete do 
-                     .button.button-danger
-                       i class="fa fa-lock"
-                       '&nbsp;
-                       'Unlink
-                 -else
-                   = link_to "/auth/gplus" do
-                     .button.button-default
-                       i class="fa fa-unlock"
-                       '&nbsp;
-                       'Link
-           
-            
-            
-            
+    
              
+             
+              
 /#wrap
 /  .full-width-top
 /    == render 'shared/navigationbar', page: 'account' 

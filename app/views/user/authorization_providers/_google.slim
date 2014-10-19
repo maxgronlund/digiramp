@@ -1,0 +1,74 @@
+.icon
+  .google
+.info
+  - if gplus  = @user.authorization_providers.where(provider: 'gplus').first
+    = debug gplus
+    - google_instructions = BlogPost.cached_find('Your Google+ account is linked to your DikiRAMP account', blog)
+    h4 = google_instructions.title
+    'Google+ account:
+    '&nbsp;
+    = debug google.info
+    /= link_to twitter.info['urls']['Twitter'] do
+    /  i.fa.fa-eye
+    /  '&nbsp;
+    /  =  twitter.info['name']
+    br
+    = google_instructions.body 
+    
+    
+  
+  - else   
+    - google_instructions = BlogPost.cached_find('Link you Google+ account to DigiRAMP', blog)
+    h4 = google_instructions.title
+    = simple_format google_instructions.body
+
+ 
+
+
+      
+
+br
+.clearfix
+- if gplus
+  = link_to user_user_authorization_provider_path(@user, gplus), data: { confirm: 'Are you sure?' } , :method => :delete do 
+          .btn.btn-danger.btn-xs
+            i class="fa fa-lock"
+            '&nbsp;
+            'Unlink
+- else
+  = link_to "/auth/gplus" do
+      .btn.btn-default.brn.btn-xs
+        i class="fa fa-unlock"
+        '&nbsp;
+        'Link
+  
+-if can_edit?
+  = link_to edit_admin_blog_blog_post_path(blog, google_instructions) do
+    .btn.btn-default.btn-xs
+      i.fa.fa-pencil
+      '&nbsp;
+      'Edit instruction  
+.sexy_line
+/- gplus     = @user.authorization_providers.where(provider: 'gplus').first
+
+ /  .col-sm-3
+ /    .panel.panel-default
+ /      .panel-body
+ /        .center-block
+ /          h4 Google+
+ /          .google
+ /          br
+ /          - if gplus
+ /           = link_to user_user_authorization_provider_path(@user, gplus), data: { confirm: 'Are you sure?' } , :method => :delete do 
+ /              .button.button-danger
+ /                i class="fa fa-lock"
+ /                '&nbsp;
+ /                'Unlink
+ /          -else
+ /            = link_to "/auth/gplus" do
+ /              .button.button-default
+ /                i class="fa fa-unlock"
+ /                '&nbsp;
+ /                'Link
+ /    
+ / 
