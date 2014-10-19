@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  
+
   #get 'following/index'
   #
   #get 'followers/index'
@@ -30,12 +32,13 @@ Digiramp::Application.routes.draw do
   resources :embed, only: [:index, :show]
 
   resources :digi_whams
-
+  resources :comments
   resources :contacts
 
   resources :contacts, only: [:new, :create, :show ]
 
   resources  :music_submissions_ratings, only: [:update]
+  resources  :recordings, only: [:index]
 
   resources :gitter, only: [:index]
   #resources :footages
@@ -49,6 +52,9 @@ Digiramp::Application.routes.draw do
   get "albums/show"
   get "albums/new"
   get "albums/edit"
+  
+
+  resources :explore, only: [:index]
   #get "export_works_csv/index"
   #get "export_works/index"
   resources :video_posts
@@ -60,7 +66,7 @@ Digiramp::Application.routes.draw do
   resources :uploads
   require 'sidekiq/web'
   
-  resources :comments
+  
   
 
   

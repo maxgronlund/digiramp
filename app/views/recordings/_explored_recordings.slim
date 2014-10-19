@@ -1,0 +1,14 @@
+#wrap
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  .container
+    #digiWhams 
+      - @recordings.each do |recording|
+        == render 'show', recording: recording
+    == paginate(@recordings)
+    .explore-badges
+      .explore-badge
+
+        
+
+== render 'shared/site_footer'   

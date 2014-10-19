@@ -2,7 +2,7 @@
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
   .container
-
+    br
     = form_tag users_path, :method => 'get' do
       .col-sm-6
         = text_field_tag "query", "", :class => 'search-query form-control', \
@@ -28,10 +28,8 @@
   
   .users-container
     .container
-      .row
-        .col-sm-12
-          .person-badges
-            - @users.each do |user|
-              == render 'users/person', user: user
+      .person-badges
+        - @users.each do |user|
+          == render 'users/person', user: user
 
   == render 'shared/site_footer'    

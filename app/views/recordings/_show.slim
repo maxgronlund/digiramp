@@ -3,7 +3,7 @@
 
 .btn-group
   .visible-xs.btn-group-xs
-    = link_to user_recording_path(@user, recording), \
+    = link_to user_recording_path(recording.user, recording), \
               class: "btn btn-default" do
       .blue-info
         i.fa.fa-info-circle
@@ -31,7 +31,7 @@
                 class: "btn btn-default"  do
         i class="fa fa-pencil"
   .hidden-xs.btn-group-xs
-    = link_to user_recording_path(@user, recording), \
+    = link_to user_recording_path(recording.user, recording), \
               class: "btn btn-default" do
       .blue-info
         i.fa.fa-info-circle

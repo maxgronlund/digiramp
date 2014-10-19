@@ -1,3 +1,5 @@
+@import "row_machine"
+
 .users
   .row
     .col-sm-3
@@ -20,20 +22,6 @@
 * 
   box-sizing: border-box
 
-
-
-
-
-@mixin rowMachine($numPerRow, $margin) 
-  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow)
-  &:nth-child(n) 
-    margin-bottom: $margin
-    margin-right: $margin
-  
-  &:nth-child(#{$numPerRow}n) 
-    margin-right: 0
-    margin-bottom: 0
-    
 
 .follow-unfollow
   display: inline-block

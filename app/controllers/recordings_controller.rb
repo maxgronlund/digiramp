@@ -1,15 +1,18 @@
 class RecordingsController < ApplicationController
-  before_filter :get_user, only: [:show, :index, :edit, :update, :new, :create, :destroy]
+  before_filter :get_user, only: [:show, :edit, :update, :new, :create, :destroy, :index]
   include Transloadit::Rails::ParamsDecoder
   
   def index
-    @widget = @user.default_widget
-    if @authorized  
-      @recordings =   Recording.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(48)
-    else
-      @recordings =  @user.recordings.published.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(48)
-    end
+    #@widget = @user.default_widget
 
+    if  @user && @authorized
+      @recordings =   Recording.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(48)
+    elsif @user
+      #@recordings =  @user.recordings.published.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(48)
+      @recordings =  @user.recordings.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(48)
+    else
+      @recordings =  Recording.recordings_search(Recording.all, params[:query]).page(params[:page]).per(48)
+    end
   end
   
   def new

@@ -37,21 +37,16 @@
                 '&nbsp;
                 'SUPPORT
         li
-          = link_to users_path do
-            i class="fa fa-users"
+          = link_to explore_index_path do
+            i class="fa fa-globe"
             '&nbsp;
-            'USERS
+            'DISCOVER
         
 
       -if user_signed_in? && current_account
         ul class="nav navbar-nav navbar-right"
                 
-          /li  class="#{page == 'account' ? 'active' : ''}"
-          /  -unless page == 'profile'
-          /    = link_to account_account_path(current_account) do
-          /      i class="fa fa-group"
-          /      '&nbsp;
-          /      = current_account.title.upcase 
+
           li
             = link_to user_path(current_user) do
               = image_tag current_user.image_url(:avatar_32x32)
@@ -64,58 +59,7 @@
               'LOG OUT   
           
 
-              
-              
-          
-   
-          /li class="dropdown"
-          /  = link_to '#', id: "drop2", role: "button", class: "dropdown-toggle", 'data-toggle'.to_sym =>"dropdown" do
-          /    = image_tag current_user.image_url(:avatar_32x32)
-          /    '&nbsp;
-          /    span class="caret"
-          /  ul class="dropdown-menu" role="menu" aria-labelledby="drop2"
-          /    /li 
-          /    /  = link_to user_path(current_user) do
-          /    /    i class="fa fa-user"
-          /    /    '&nbsp;
-          /    /    'Profile
-          /    li 
-          /      = link_to user_recordings_path(current_user) do
-          /        i class="fa fa-headphones"
-          /        '&nbsp;
-          /        'Recordings
-          /        
-          /    li class="red-icon"
-          /      = link_to user_recordings_path(current_user) do
-          /        i class="fa fa-heart"
-          /        '&nbsp;
-          /        'Likes
-          /        
-          /    li
-          /      = link_to user_followers_path(current_user) do
-          /        i class="fa fa-group"
-          /        '&nbsp;
-          /        'Followers
-          /        
-          /    li
-          /      = link_to user_following_index_path(current_user) do
-          /        i class="fa fa-group"
-          /        '&nbsp;
-          /        'Following
-          /    
-          /    /li 
-          /    /  = link_to user_user_collections_path(current_user) do
-          /    /    i class="fa fa-group"
-          /    /    '&nbsp;
-          /    /    'Groups
-          /        
-          /
-          /
-          /    li 
-          /      = link_to logout_path do
-          /        i class="fa fa-unlock"
-          /        '&nbsp;
-          /        'LOG OUT
+
               
       
       -else
