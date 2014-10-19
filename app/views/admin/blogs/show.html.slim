@@ -22,12 +22,14 @@
       .col-sm-12
         .panel
           .panel-body
-            -@blog_posts.each do |blog_post|
-              .row
-                = render 'blog_post', blog_post: blog_post[0] if blog_post[0]
-                = render 'blog_post', blog_post: blog_post[1] if blog_post[1]
-                .col-sm-12
-                  hr
+            - @blog.blog_posts.order("position").each do |blog_post|
+               = render 'blog_post', blog_post: blog_post
+            /-@blog_posts.each do |blog_post|
+            /  .row
+            /    = render 'blog_post', blog_post: blog_post[0] if blog_post[0]
+            /    = render 'blog_post', blog_post: blog_post[1] if blog_post[1]
+            /    .col-sm-12
+            /      hr
     .row
       .col-sm-12
         .pull-right

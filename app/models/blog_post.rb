@@ -3,10 +3,10 @@ class BlogPost < ActiveRecord::Base
 
   
   belongs_to :user, dependent: :destroy
-  belongs_to :blog, dependent: :destroy
+  belongs_to :blog
   
   has_many :comments, as: :commentable
-  has_many :comments, dependent: :destroy
+  has_many :comments
   
   
   validates_presence_of :title
@@ -15,6 +15,16 @@ class BlogPost < ActiveRecord::Base
   #include ImageCrop
   LAYOUTS = %w[layout_6_6  layout_4_8 layout_3_9 layout_12]
   after_commit :flush_cache
+  
+  before_destroy :delete_comments
+  
+  def delete_comments
+    comments = Comment.where(commentable_id: self.id)
+    if comments
+      comments.destroy_all
+    end
+    
+  end
   
 
   def find_by_id(id)

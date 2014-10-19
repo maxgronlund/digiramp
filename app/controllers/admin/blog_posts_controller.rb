@@ -16,8 +16,8 @@ class Admin::BlogPostsController < ApplicationController
   end
   
   def show
-     @blog = Blog.find(params[:blog_id])
-     render :layout => 'clean_canvas'
+     #@blog = Blog.find(params[:blog_id])
+     #render :layout => 'clean_canvas'
   end
 
   def create
@@ -51,8 +51,9 @@ class Admin::BlogPostsController < ApplicationController
   end
 
   def destroy
+
     @blog_post.destroy
-    redirect_to admin_blog_path(@blog_post.blog)
+    redirect_to admin_blog_path(params[:blog_id])
   end
   
   #def crop
@@ -82,7 +83,8 @@ class Admin::BlogPostsController < ApplicationController
   
 private
   def find_blog_post
-    @blog_post = BlogPost.find(params[:id])
+    @blog_post = BlogPost.find_by_id(params[:id])
+
   end
   
   def blog_post_params

@@ -9,17 +9,17 @@ class Admin::BlogsController < ApplicationController
   end
   
   def show
-    posts = @blog.blog_posts.order("position")
+    #posts = @blog.blog_posts.order("position")
     
-    @blog_posts = [[]]
-    index = 0
-    posts.each_with_index do |post, post_index|
-      @blog_posts[index] << post
-      if post_index % 2 == 1
-        index += 1
-        @blog_posts[index] = []
-      end
-    end
+    #@blog_posts = [[]]
+    #index = 0
+    #posts.each_with_index do |post, post_index|
+    #  @blog_posts[index] << post
+    #  if post_index % 2 == 1
+    #    index += 1
+    #    @blog_posts[index] = []
+    #  end
+    #end
 
   end
 
