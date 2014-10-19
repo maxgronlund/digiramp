@@ -7,11 +7,11 @@
     h4 = google_instructions.title
     'Google+ account:
     '&nbsp;
-    = debug gplus.info
-    /= link_to twitter.info['urls']['Twitter'] do
-    /  i.fa.fa-eye
-    /  '&nbsp;
-    /  =  twitter.info['name']
+    /= debug gplus.info
+    = link_to gplus.info['urls']['Google+'] do
+      i.fa.fa-eye
+      '&nbsp;
+      =  gplus.info['name']
     br
     = google_instructions.body 
     
