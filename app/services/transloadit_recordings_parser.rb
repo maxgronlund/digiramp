@@ -114,7 +114,7 @@ class TransloaditRecordingsParser
     transloadets
   end
   
-  def self.parse uploads, account_id, in_bucket
+  def self.parse uploads, account_id, in_bucket, user_id
 
     transloadets  = extract( uploads )
     
@@ -156,7 +156,8 @@ class TransloaditRecordingsParser
                                             ext:                 transloaded[:ext],
                                             original_file_name:  transloaded[:original_file_name],
                                             in_bucket:           in_bucket,
-                                            zipp:                transloaded[:zipp]
+                                            zipp:                transloaded[:zipp],
+                                            user_id:             user_id,
                                            )
           
           

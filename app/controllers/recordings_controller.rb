@@ -21,7 +21,7 @@ class RecordingsController < ApplicationController
   
   def create
     
-    result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account_id, false)
+    result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account_id, false, @user.id)
     if result[:recordings].size != 0
       
       result[:recordings].each do |recording|

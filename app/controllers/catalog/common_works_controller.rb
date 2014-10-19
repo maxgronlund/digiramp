@@ -139,7 +139,7 @@ class Catalog::CommonWorksController < ApplicationController
     begin
       #puts params[:recording][:add_to_catalogs]
       #params[:recording].delete :add_to_catalog
-      result = TransloaditRecordingsParser.parse( params[:transloadit], @account.id, false )
+      result = TransloaditRecordingsParser.parse( params[:transloadit], @account.id, false, current_catalog_user.user_id )
       
       nr_files_uploaded = 0
       if result[:recordings]

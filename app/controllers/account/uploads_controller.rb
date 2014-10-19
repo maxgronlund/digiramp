@@ -29,7 +29,7 @@ class Account::UploadsController < ApplicationController
     
     #ap params[:transloadit]
 
-    result = TransloaditRecordingsParser.parse( params[:transloadit],  @account.id, false)
+    result = TransloaditRecordingsParser.parse( params[:transloadit],  @account.id, false, current_account_user.user_id)
     go_to = account_account_common_works_path(@account)
     # success 
     unless result[:recordings].size == 0

@@ -12,7 +12,7 @@ class Opportunity::RecordingsController < ApplicationController
     @common_work    = CommonWork.cached_find(params[:common_work_id])
     @music_request  = MusicRequest.cached_find(params[:music_request_id])
     #begin
-      result = TransloaditRecordingsParser.parse params[:transloadit],  @account.id, false
+      result = TransloaditRecordingsParser.parse params[:transloadit],  @account.id, false, @account.user_id
       
       
       # success mesage

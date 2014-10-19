@@ -39,7 +39,7 @@ class Account::MusicRequestsController < ApplicationController
     
     
     begin
-     result = TransloaditRecordingsParser.parse params[:transloadit],  nil, true
+     result = TransloaditRecordingsParser.parse params[:transloadit],  current_account_user.account_id, true, current_account_user.user_id
      # success mesage
      unless result[:recordings].size == 0
        flash[:info]      = { title: "Succes", body: "#{pluralize(result[:recordings].size, "File")} uploaded" }
@@ -93,7 +93,7 @@ class Account::MusicRequestsController < ApplicationController
     
     
     #begin
-     result = TransloaditRecordingsParser.parse params[:transloadit],  nil, true
+     result = TransloaditRecordingsParser.parse params[:transloadit],  current_account_user.account_id , true, current_account_user.user_id
      # success mesage
      unless result[:recordings].size == 0
        flash[:info]      = { title: "Succes", body: "#{pluralize(result[:recordings].size, "File")} uploaded" }

@@ -18,7 +18,7 @@ class Catalog::UploadRecordingsController < ApplicationController
     forbidden unless current_catalog_user.create_recording
 
     
-    result = TransloaditRecordingsParser.parse( params[:transloadit], @account.id, false )
+    result = TransloaditRecordingsParser.parse( params[:transloadit], @account.id, false, current_catalog_user.user_id )
     
     recordings = result[:recordings]
     
