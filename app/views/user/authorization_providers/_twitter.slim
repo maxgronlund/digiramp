@@ -3,7 +3,7 @@
 .info
   - if twitter  = @user.authorization_providers.where(provider: 'twitter').first
     /= debug twitter
-    - twitter_instructions = BlogPost.cached_find('Your Twitter account is linked to your DikiRAMP account', blog)
+    - twitter_instructions = BlogPost.cached_find('Your Twitter account is linked to your DigiRAMP account', blog)
     h4 = twitter_instructions.title
     'Twitter account:
     '&nbsp;

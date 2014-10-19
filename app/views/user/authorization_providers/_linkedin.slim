@@ -3,7 +3,7 @@
 .info
   - if linkedin  = @user.authorization_providers.where(provider: 'linkedin').first
     /= debug linkedin
-    - linkedin_instructions = BlogPost.cached_find('Your Linkedin account is linked to your DikiRAMP account', blog)
+    - linkedin_instructions = BlogPost.cached_find('Your Linkedin account is linked to your DigiRAMP account', blog)
     h4 = linkedin_instructions.title
     'Linkedin account:
     '&nbsp;

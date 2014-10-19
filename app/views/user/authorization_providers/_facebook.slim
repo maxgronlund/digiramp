@@ -3,7 +3,7 @@
 .info
   - if facebook  = @user.authorization_providers.where(provider: 'facebook').first
     /= debug facebook
-    - facebook_instructions = BlogPost.cached_find('Your Facebook account is linked to your DikiRAMP account', blog)
+    - facebook_instructions = BlogPost.cached_find('Your Facebook account is linked to your DigiRAMP account', blog)
     h4 = facebook_instructions.title
     'Facebook account:
     '&nbsp;

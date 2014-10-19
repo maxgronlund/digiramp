@@ -3,7 +3,7 @@
 .info
   - if gplus  = @user.authorization_providers.where(provider: 'gplus').first
     /= debug gplus
-    - google_instructions = BlogPost.cached_find('Your Google+ account is linked to your DikiRAMP account', blog)
+    - google_instructions = BlogPost.cached_find('Your Google+ account is linked to your DigiRAMP account', blog)
     h4 = google_instructions.title
     'Google+ account:
     '&nbsp;
