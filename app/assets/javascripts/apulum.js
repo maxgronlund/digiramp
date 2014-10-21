@@ -18,3 +18,4 @@
 //= require apulum/wow.min 
 //= require apulum/validate 
 //= require apulum/common 
+//= require jquery.fitvids

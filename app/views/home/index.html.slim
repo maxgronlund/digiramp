@@ -31,8 +31,10 @@ section id="home" class="homepage"
   .container
     .row
       .col-sm-5
-        .img-responsive.wow.flipInY.animated
-          == render 'home/video'
+        /.img-responsive.wow.flipInY.animated
+        .video-container
+          iframe src="http://player.vimeo.com/video/109593195" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+          /== render 'home/video'
         /img src="http://www.wowthemes.net/demo/apulum/img/homeimg.png" class="img-responsive wow flipInY animated" alt=""
         /= image_tag @content.page_1_image_url, class: "img-responsive wow flipInY animated",  alt: ""
 		    
@@ -481,3 +483,9 @@ section.contact-page.whitetext id="contact-page"
           '&copy; DigiRAMP 2014. All rights reserved.
 
 
+
+javascript:
+  $(".video-container").fitVids();
+
+
+      
