@@ -1,7 +1,5 @@
-/- if @user
-/  == render 'recordings/user_recordings'
-/-else
-/  == render 'recordings/explored_recordings'
+
+
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
@@ -41,6 +39,7 @@
 
       
       .sexy_line
+      .endless-pages
       .add_recordings
         == render 'recordings/index', recordings: @recordings
       == paginate(@recordings)
