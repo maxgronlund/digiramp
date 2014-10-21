@@ -4,7 +4,7 @@
   .container
     .explore-badges
       .explore-badge
-        = link_to songs_path do
+        = link_to songs_path(recording: {order: 'likes_count', direction: 'desc'}) do
         
           = image_tag 'discover-music.jpg'
           h3 Songs

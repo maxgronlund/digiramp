@@ -3,35 +3,51 @@
     == render 'shared/navigationbar', page: 'account' 
   #sidebar-wrapper
     ul class="sidebar-nav"
-      li class="#{'sidebar-selected' if true}"
-        = link_to '#' do
+      li class="#{'sidebar-selected' if params[:recording][:order] == 'likes_count'}"
+        = link_to songs_path(recording: {order: 'likes_count', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
           i class="fa fa-heart"
           '&nbsp;
           'Most Liked
-      li class="#{'sidebar-selected' if false}"
-        = link_to '#' do
+      li class="#{'sidebar-selected' if params[:recording][:order] ==  'playbacks_count'}"
+        = link_to songs_path(recording: {order: 'playbacks_count', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
           i class="fa fa-headphones"
           '&nbsp;
           'Most Played
-      li class="#{'sidebar-selected' if false}"
-        = link_to '#' do
+      li class="#{'sidebar-selected' if params[:recording][:order] ==  'created_at'}"
+        = link_to songs_path(recording: {order: 'created_at', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
           i class="fa fa-clock-o"
           '&nbsp;
-          'New
-      li class="#{'sidebar-selected' if false}"
-        = link_to '#' do
-          i class="fa fa-thumbs-o-up"
-          '&nbsp;
-          'Featured
+          'Newest
+      /li class="#{'sidebar-selected' if false}"
+      /  = link_to '#' do
+      /    i class="fa fa-thumbs-o-up"
+      /    '&nbsp;
+      /    'Featured
     .clearfix
     .sexy_line_dark
     .static-content
       h5 GENRE
-      - Genre.where('recordings_count > 0').order('recordings_count desc').first(10).each do |genre|
-        = genre.genre_tags.count
-        ': &nbsp;
-        =  genre.title
-        br
+    .tag
+      div class="#{'tag-selected' unless params[:genre]}"
+        .tag-title
+           = link_to 'All Genre', songs_path(recording: {order: params[:recording][:order], direction: params[:recording][:direction]}) 
+        .tag-count
+
+    .clearfix
+    - Genre.where('recordings_count > 0').order('recordings_count desc').first(16).each do |genre|
+      - parameters = { recording: {order: params[:recording][:order], direction: params[:recording][:direction]}, query: params[:query], genre: genre.title }
+      = link_to songs_path( parameters ) do
+        .tag
+          div class="#{'tag-selected' if params[:genre] == genre.title}"
+            .tag-title
+              = genre.title
+            .tag-count
+              = genre.genre_tags.count
+        .clearfix
+
+    
+     
+      
      
     
    
@@ -39,20 +55,26 @@
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-6
+        .col-sm-5
           h3 Songs
-        .col-sm-6
+        .col-sm-7
           .search-recording
+            
             = simple_form_for :recording, :url => url_for(:action => 'index', \
                                                         :controller => 'songs'), \
                                                         :method => 'get' do |f|
             
+              
+              = f.hidden_field :order,      value: params[:recording][:order]
+              = f.hidden_field :direction,  value: params[:recording][:direction]
+              = f.hidden_field :genre,  value: params[:genre]
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-search'
                 = text_field_tag "query", "", :class => 'search-query form-control', \
                                               :placeholder => 'Search', \
                                               value: params[:query]
+            
       .sexy_line
       .endless-pages
       .add_songs
