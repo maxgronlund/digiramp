@@ -1,5 +1,8 @@
 class CleanupTags < ActiveRecord::Migration
   def change
+    add_column :instruments, :recordings_count, :integer, default: 0
+    add_column :moods, :recordings_count, :integer, default: 0
+    
     GenreTag.where(genre_tagable_id: nil).destroy_all
     InstrumentTag.where(instrument_tagable_id: nil).destroy_all
     MoodTag.where(mood_tagable_id: nil).destroy_all
