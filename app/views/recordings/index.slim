@@ -1,6 +1,66 @@
-- if @user
-  == render 'recordings/user_recordings'
--else
-  == render 'recordings/explored_recordings'
+/- if @user
+/  == render 'recordings/user_recordings'
+/-else
+/  == render 'recordings/explored_recordings'
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'users/shared/page_title', title: 'Recordings'
+      .row.top-form
+        = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                      :controller => 'recordings'), \
+                                                      :method => 'get' do |f|
+          .col-sm-6
+            = text_field_tag "query", "", :class => 'search-query form-control', \
+                                          :placeholder => 'Search string', \
+                                          value: params[:query]
+            
+          .col-sm-6
+            .recording-top-buttons
+              = f.submit 'Search', class: 'button button-default'
+              /'&nbsp;
+              /= link_to 'Show All',user_recordings_path(@user), class: 'button button-default'
+              .pull-right
+                = link_to new_user_recording_path(@user) do
+                  .button.button-primary
+                    i.fa.fa-cloud-upload
+                    '&nbsp;
+                    'Upload
+
+      
+      .sexy_line
+      .add_recordings
+        == render 'recordings/index', recordings: @recordings
+      == paginate(@recordings)
+        
+      /#digiWhams  
+      /  - @recordings.each do |recording, |
+      /    == render 'show', recording: recording
+      /.row
+      /  .col-sm-12
+      /    .pull-right
+      /      .hidden-xs
+      /        == paginate(@recordings)
+      /      .visible-xs
+      /        .btn-group
+      /
+      /          br
+      /          
+      /          = link_to_previous_page @recordings, '« Prev', class: 'button button-default mobile_pagination'
+      /          = link_to_next_page @recordings, 'Next »',     class: 'button button-default mobile_pagination'
+          
+  == render 'shared/site_footer'  
 
 

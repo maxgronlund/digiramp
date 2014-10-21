@@ -43,9 +43,16 @@ class Recording < ActiveRecord::Base
   belongs_to :user
   
   has_many :comments,        as: :commentable,          dependent: :destroy
+  
+  
+  #has_many :genre_tags
+  #has_many :recordings, through: :genre_tags
+  
   has_many :genre_tags,      as: :genre_tagable,        dependent: :destroy
   has_many :instrument_tags, as: :instrument_tagable,   dependent: :destroy
   has_many :mood_tags,       as: :mood_tagable,         dependent: :destroy
+  
+  
   has_many :image_files,                                dependent: :destroy
   has_many :recording_items,                            dependent: :destroy
   has_many :recording_ipis,                             dependent: :destroy

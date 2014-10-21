@@ -2,22 +2,31 @@ class RecordingsController < ApplicationController
   before_filter :get_user, only: [:show, :edit, :update, :new, :create, :destroy, :index]
   include Transloadit::Rails::ParamsDecoder
   
-  def index
-    #@widget = @user.default_widget
+  
+  
 
-    if  @user && @authorized
-      @recordings =   Recording.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(48)
-    elsif @user
-      #@recordings =  @user.recordings.published.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(48)
-      @recordings =  @user.recordings.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(48)
-    else
-      @recordings =  Recording.recordings_search(Recording.all, params[:query]).page(params[:page]).per(48)
-    end
+  def index
+    @recordings =  Recording.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(4)
+    #puts '----------------------------------------------------------------'
+    #puts Recording.recordings_search(@user.recordings, params[:query]).count
+    #puts '----------------------------------------------------------------'
   end
+  
+  
+  
+  
+  
+  
+  
+  
   
   def new
     @recording = Recording.new
   end
+  
+  
+  
+
   
   def create
     
@@ -26,13 +35,7 @@ class RecordingsController < ApplicationController
       
       result[:recordings].each do |recording|
         
-        #recording.create_activity(  :created, 
-        #                          owner: current_user,
-        #                      recipient: recording,
-        #                 recipient_type: recording.class.name,
-        #                     account_id: @user.account_id)
-        #                     
-        #                     
+                  
         current_user.create_activity(  :created, 
                                    owner: recording,
                                recipient: @user,
@@ -44,14 +47,7 @@ class RecordingsController < ApplicationController
                                         title: recording.title, 
                                         lyrics: recording.lyrics)
         
-        
-        #common_work.create_activity(  :created, 
-        #                          owner: current_user,
-        #                      recipient: common_work,
-        #                 recipient_type: common_work.class.name,
-        #                     account_id: @user.account_id)
-        #                     
-        #                     
+                   
         recording.common_work_id = common_work.id
         recording.save
         recording.common_work.update_completeness
@@ -67,8 +63,6 @@ class RecordingsController < ApplicationController
   
   def show
     @recording = Recording.find(params[:id])
-    #@widget = @user.default_widget
-    #@recordings = @widget.recordings
   end
   
   def destroy

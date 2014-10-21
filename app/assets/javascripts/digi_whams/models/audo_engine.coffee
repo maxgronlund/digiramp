@@ -18,8 +18,9 @@ class @AudioEngine
     setup_soundmanager()
       
   setup_soundmanager = () ->
-    if window.soundManager.ok() 
-      window.soundManager.stopAll()
+    #if window.soundManager.ok() 
+    #  
+    #  window.soundManager.stopAll()
       
 
   create_sound = (id, mp3) ->

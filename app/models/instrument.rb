@@ -1,6 +1,6 @@
 class Instrument < ActiveRecord::Base
   
-  has_many :instrument_tags
+  has_many :instrument_tags, dependent: :destroy
   has_many :recordings, through: :instrument_tags
     
   #scope :by_users,    -> { where('user_tag IS TRUE') }
@@ -42,10 +42,15 @@ class Instrument < ActiveRecord::Base
   validates_uniqueness_of :title
   after_commit :flush_cache
 
-  before_destroy :delete_instrument_tags
+  #before_destroy :delete_instrument_tags
   
-  def delete_instrument_tags
-    instrument_tags.delete_all
+  #def delete_instrument_tags
+  #  instrument_tags.delete_all
+  #end
+  
+  def recordings
+    recording_ids = self.instrument_tags.where(instrument_tagable_type: 'Recording').pluck(:instrument_tagable_id)
+    Recording.where(id: recording_ids)
   end
   
   
@@ -121,6 +126,10 @@ class Instrument < ActiveRecord::Base
     end
   end
   
+  def reset_count
+    self.recordings_count = self.recordings.count
+    save
+  end
   
   
 private

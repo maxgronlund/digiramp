@@ -1,0 +1,22 @@
+#wrap
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  .container
+    .explore-badges
+      .explore-badge
+        = link_to songs_path do
+        
+          = image_tag 'discover-music.jpg'
+          h3 Songs
+      .explore-badge
+        = link_to users_path do  
+        
+          = image_tag 'discover-people.jpg'
+          h3 Users
+      .explore-badge
+        = link_to users_path do 
+          = image_tag 'discover-playlists.jpg'
+          h3 Playlists
+        
+
+== render 'shared/site_footer'    

@@ -1,9 +1,9 @@
 class Genre < ActiveRecord::Base
   
-  has_many :genre_tags
+  has_many :genre_tags, dependent: :destroy
   has_many :recordings, through: :genre_tags
   
-  before_destroy :delete_genre_tags
+  #before_destroy :delete_genre_tags
   
   include PgSearch
   pg_search_scope :search_genre, against: [:title, :category], :using => [:tsearch]
@@ -80,6 +80,10 @@ class Genre < ActiveRecord::Base
   scope :user_tags,     -> { where(user_tag: true)}
   
   
+  def recordings
+    recording_ids = self.genre_tags.where(genre_tagable_type: 'Recording').pluck(:genre_tagable_id)
+    Recording.where(id: recording_ids)
+  end
     
   #scope :by_users,    -> { where('user_tag IS TRUE') }
   #scope :by_digiramp, -> { where('user_tag IS NOT TRUE') }
@@ -87,9 +91,9 @@ class Genre < ActiveRecord::Base
   validates_uniqueness_of :title
   after_commit :flush_cache
   
-  def delete_genre_tags
-    genre_tags.delete_all
-  end
+  #def delete_genre_tags
+  #  genre_tags.delete_all
+  #end
   
   def category_name
     self.category.gsub('_', ' ').capitalize
@@ -155,6 +159,11 @@ class Genre < ActiveRecord::Base
         @genre.destroy
       end
     end
+  end
+  
+  def reset_count
+    self.recordings_count = self.recordings.count
+    save
   end
   
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019220919) do
+ActiveRecord::Schema.define(version: 20141020220431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -961,6 +961,7 @@ ActiveRecord::Schema.define(version: 20141019220919) do
     t.string   "ingrooves_genre",    default: ""
     t.string   "itunes_category",    default: ""
     t.string   "itunes_genre",       default: ""
+    t.integer  "recordings_count",   default: 0
   end
 
   create_table "homes", force: true do |t|
@@ -1094,10 +1095,11 @@ ActiveRecord::Schema.define(version: 20141019220919) do
 
   create_table "instruments", force: true do |t|
     t.string   "title"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.boolean  "user_tag"
-    t.string   "category",   default: "other"
+    t.string   "category",         default: "other"
+    t.integer  "recordings_count", default: 0
   end
 
   create_table "instruments_imports", force: true do |t|
@@ -1254,10 +1256,11 @@ ActiveRecord::Schema.define(version: 20141019220919) do
 
   create_table "moods", force: true do |t|
     t.string   "title"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.boolean  "user_tag"
-    t.string   "category",   default: ""
+    t.string   "category",         default: ""
+    t.integer  "recordings_count", default: 0
   end
 
   create_table "moods_imports", force: true do |t|

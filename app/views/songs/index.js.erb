@@ -1,0 +1,9 @@
+$('.add_songs').append("<%= j render 'songs/index', songs: @songs %>");
+
+<% if (@songs.next_page) %>
+        $('.pagination').replaceWith('<%= j paginate(@songs) %>');
+<% else %>
+        $('.pagination').remove();
+<% end %>
+
+initialize_digi_wahms();

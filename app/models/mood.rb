@@ -1,6 +1,6 @@
 class Mood < ActiveRecord::Base
   
-  has_many :mood_tags
+  has_many :mood_tags, dependent: :destroy
   has_many :recordings, through: :mood_tags
     
   scope :by_users,    -> { where('user_tag IS TRUE') }
@@ -23,14 +23,14 @@ class Mood < ActiveRecord::Base
   scope :user_moods,           -> { where(category: 'User Mood')}
   scope :user_tags,            -> { where(user_tag: true)}
                      
-  before_destroy :delete_mood_tags
+  #before_destroy :delete_mood_tags
   
   include PgSearch
   pg_search_scope :search_moods, against: [:title, :category], :using => [:tsearch]
   
-  def delete_mood_tags
-    mood_tags.delete_all
-  end
+  #def delete_mood_tags
+  #  mood_tags.delete_all
+  #end
   
   def self.search( query)
     if query.present?
@@ -38,6 +38,11 @@ class Mood < ActiveRecord::Base
     else
       return all
     end
+  end
+  
+  def recordings
+    recording_ids = self.mood_tags.where(mood_tagable_type: 'Recording').pluck(:mood_tagable_id)
+    Recording.where(id: recording_ids)
   end
   
   
@@ -87,6 +92,11 @@ class Mood < ActiveRecord::Base
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
+  end
+  
+  def reset_count
+    self.recordings_count = self.recordings.count
+    save
   end
   
 private

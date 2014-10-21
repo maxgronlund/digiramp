@@ -6,6 +6,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  resources :songs, only: [:index]
+
   #get 'following/index'
   #
   #get 'followers/index'
@@ -54,7 +56,7 @@ Digiramp::Application.routes.draw do
   get "albums/edit"
   
 
-  resources :explore, only: [:index]
+  resources :discover, only: [:index]
   #get "export_works_csv/index"
   #get "export_works/index"
   resources :video_posts

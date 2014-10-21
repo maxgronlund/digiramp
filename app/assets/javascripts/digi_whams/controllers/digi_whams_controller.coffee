@@ -13,7 +13,7 @@ class @DigiWhamsController
     # request recordings from backend
     if $('#digiWhams')[0]
       controller = $('#digiWhams').attr("class")
-      $.getScript( controller)
+      #$.getScript( controller)
 
 
 
