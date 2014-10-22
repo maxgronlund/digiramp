@@ -1,12 +1,12 @@
 ready = ->
-  
+  console.log 'readdy'
   window.digi_wahms_controller = new DigiWhamsController
   window.audio_engine          = new AudioEngine
   window.playhead_display      = new PlayheadDisplay
-  initialize_digi_wahms()
+  #initialize_digi_wahms()
   
   
-  window.digi_wahms_controller.refresh_global_player()
+  
   
 $(document).ready(ready)
 $(document).on('page:load', ready)
@@ -19,5 +19,8 @@ $(document).on('page:load', ready)
   
   window.digi_wahms_controller.initialize()
   window.audio_engine.initialize()
+  
+  window.digi_wahms_controller.refresh_global_player()
+  
   
   

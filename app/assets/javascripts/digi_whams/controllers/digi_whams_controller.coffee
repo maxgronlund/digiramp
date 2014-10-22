@@ -4,9 +4,9 @@
 class @DigiWhamsController
   
   playback_controller = {}
-  comments_controller = {}
-  bottoms_controller  = {}
-  #controller          = "/digiwham/recordings/?key="
+  #comments_controller = {}
+  #bottoms_controller  = {}
+  
   
   
   constructor: ->
@@ -21,8 +21,8 @@ class @DigiWhamsController
   initialize: (root) ->
 
     playback_controller   = new PlaybackController
-    comments_controller   = new CommentsController
-    bottoms_controller    = new BottomsController
+    #comments_controller   = new CommentsController
+    #bottoms_controller    = new BottomsController
     
     
 
@@ -50,7 +50,7 @@ class @DigiWhamsController
   $(document).ready(set_width)
   $(document).on('page:load', set_width)
   
-  refresh_global_player =() ->
+  refresh_global_player: () ->
     playback_controller.refresh_global_player()
   
 

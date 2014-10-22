@@ -8,6 +8,7 @@ class SongsController < ApplicationController
     else
       recordings = Recording.order(order)
     end
+    recordings.uniq!
     @songs =  Recording.recordings_search(recordings, params[:query]).page(params[:page]).per(4)
     #@songs =  Recording.recordings_search(Recording.all, params[:query]).page(params[:page]).per(4)
   end
