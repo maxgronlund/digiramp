@@ -6,6 +6,8 @@ class @PlaybackController
   
   global_id  = -1
   global_mp3 = ''
+  window.song_title   = ''
+  window.song_artist  = ''
   
   constructor: ->
     
@@ -18,10 +20,10 @@ class @PlaybackController
       window.audio_engine.play(id, mp3)
       show_loading_button(id)
       
-      title  =  $(".recording_title_" + id).text()
-      artist =  $(".recording_artist_" + id).text()
-      $('.global-player-song-title').text(title )
-      $('.global-player-song-artist').text(artist )
+      window.song_title   =  $(".recording_title_" + id).text()
+      window.song_artist  =  $(".recording_artist_" + id).text()
+      $('.global-player-song-title').text(window.song_title)
+      $('.global-player-song-artist').text(window.song_artist)
       
 
 
@@ -120,6 +122,8 @@ class @PlaybackController
   # maintain playstate when entering a new page
   refresh_global_player: () ->
     set_global_play( window.audio_engine.is_playing() )
+    $('.global-player-song-title').text(window.song_title)
+    $('.global-player-song-artist').text(window.song_artist)
 
   
   # shift buttons on global player    

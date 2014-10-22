@@ -1,5 +1,5 @@
 ready = ->
-  console.log 'readdy'
+  
   window.digi_wahms_controller = new DigiWhamsController
   window.audio_engine          = new AudioEngine
   window.playhead_display      = new PlayheadDisplay
