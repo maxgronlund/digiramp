@@ -7,7 +7,7 @@
         = link_to songs_path(recording: {order: 'likes_count', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
           i class="fa fa-heart"
           '&nbsp;
-          'Most Liked
+          'Most Popular
       li class="#{'sidebar-selected' if params[:recording][:order] ==  'playbacks_count'}"
         = link_to songs_path(recording: {order: 'playbacks_count', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
           i class="fa fa-headphones"
@@ -24,7 +24,7 @@
       /    '&nbsp;
       /    'Featured
     .clearfix
-    .sexy_line_dark
+    .sexy_line
     .static-content
       h5 GENRE
     .tag

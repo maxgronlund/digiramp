@@ -50,6 +50,9 @@ class @DigiWhamsController
   $(document).ready(set_width)
   $(document).on('page:load', set_width)
   
+  refresh_global_player =() ->
+    playback_controller.refresh_global_player()
+  
 
       
 

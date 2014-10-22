@@ -1,77 +1,89 @@
 .navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
-  .container-fluid 
-    .navbar-header
-      button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-        span class="sr-only"
-          Toggle navigation
-        span class="icon-bar"
-        span class="icon-bar"
-        span class="icon-bar"
+  .navbar-header
+    button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+      span class="sr-only"
+        Toggle navigation
+      span class="icon-bar"
+      span class="icon-bar"
+      span class="icon-bar"
 
-      = link_to root_path, 'data-no-turbolink'=>true do
-        .navbar-brand
-          = image_tag('logo2.png', size: "128x50")
-          
-          /= link_to "#menu-toggle", id: "menu-toggle" do
-          /  i class="fa fa-caret-square-o-left"
-
-
-    .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
-      ul class="nav navbar-nav"
+    = link_to root_path, 'data-no-turbolink'=>true do
+      /.navbar-brand
+      = image_tag 'logo2.png', size: "128x50", class: 'large-logo'
+      = image_tag 'logo3.png', size: "50x50", class: 'small-logo'
         
-        -if can_edit?
+      
+    .global-player
+      .global-stop-button
+        i.fa.fa-pause
+      .global-play-button
+        i.fa.fa-play
+      .title
+        h3 Micro player goes here
+        h6 artists name bla
+      /= link_to "#menu-toggle", id: "menu-toggle" do
+      /  i class="fa fa-caret-square-o-left"
 
-          li  class="#{page == 'admin' ? 'active' : ''}"
-            = link_to admin_index_path do
-              i class="fa fa-wrench"
-              '&nbsp;
-              'ADMIN
-              
-          /li class="#{page == 'admin' ? 'active' : ''}"
-          /  = link_to 'ADMIN', admin_index_path
 
-        -if user_signed_in?
+  .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
+    ul class="nav navbar-nav"
+
+    ul class="nav navbar-nav navbar-right"   
+      li
+        = link_to discover_index_path do
+          i class="fa fa-globe"
+          '&nbsp;
+          'DISCOVER
+      - if user_signed_in? && current_account
+       li
+         = link_to user_path(current_user) do
+           = image_tag current_user.image_url(:avatar_32x32)
+           '&nbsp;
+           = current_user.name
+       
+      
+      li class="dropdown"
+        /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+        = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
+          i.fa.fa-cog
+        ul class="dropdown-menu" role="menu"
+          -if can_edit?
+            li  class="#{page == 'admin' ? 'active' : ''}"
+              = link_to admin_index_path do
+                i class="fa fa-wrench"
+                '&nbsp;
+                'ADMIN
+                
+          /<li><a href="#">Something else here</a></li>
+          /<li class="divider"></li>
+          /<li><a href="#">Separated link</a></li>
+          /<li class="divider"></li>
+          /<li><a href="#">One more separated link</a></li>
+
+
+      
+          -if user_signed_in?
             li  class="#{page == 'support' ? 'active' : ''}"
               = link_to support_index_path do
                 i class="fa fa-life-ring"
                 '&nbsp;
                 'SUPPORT
-        li
-          = link_to discover_index_path do
-            i class="fa fa-globe"
+            li    
+              = link_to logout_path do
+                i class="fa fa-unlock"
+                '&nbsp;
+                'LOG OUT
+
+
+            
+    
+    - unless current_user
+      ul class="nav navbar-nav navbar-right"
+        li 
+          = link_to login_new_path do
+            i class="fa fa-lock"
             '&nbsp;
-            'DISCOVER
-        
-
-      -if user_signed_in? && current_account
-        ul class="nav navbar-nav navbar-right"
-                
-
-          li
-            = link_to user_path(current_user) do
-              = image_tag current_user.image_url(:avatar_32x32)
-              '&nbsp;
-              = current_user.name
-          li 
-            = link_to logout_path do
-              i class="fa fa-unlock"
-              '&nbsp;
-              'LOG OUT   
-          
-
-
-              
-      
-      -else
-        ul class="nav navbar-nav navbar-right"
-          /li  = link_to 'LOG IN',  login_new_path
-
-
-          li 
-            = link_to login_new_path do
-              i class="fa fa-lock"
-              '&nbsp;
-              'LOG IN
+            'LOG IN
       
 
 

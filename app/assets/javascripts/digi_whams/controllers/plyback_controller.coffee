@@ -1,7 +1,8 @@
 class @PlaybackController
   # keep track of the need for showing the spinner
   sounds_loaded = {}
-  
+  id  = 0
+  mp3 = ''
   
   constructor: ->
     
@@ -10,30 +11,43 @@ class @PlaybackController
       reset_play_buttons()
       id        = $(this).attr 'id'
       mp3       = $(this).attr 'mp3'
-      #widget_id = $(this).attr 'widget_id'
-      # count playbacks
-      #$.getScript("/digiwham/recordings/" + id + '?widget_id=' + widget_id )
       $.getScript("/digiwham/recordings/" + id )
       window.audio_engine.play(id, mp3)
       show_loading_button(id)
+      set_global_player_state(true)
 
+    
     # Set all players to default  
-    $('.loading').click =>
+    $('.loading').on 'click', ->
       window.audio_engine.pause()
       reset_play_buttons
       id  = $(this).attr 'id'
       show_play_button(id)
+      set_global_player_state(false)
      
+    
     $('.pause').on 'click', ->
       window.audio_engine.pause()
       reset_play_buttons
       id  = $(this).attr 'id'
       show_play_button(id)
+      set_global_player_state(false)
+
     
     $('.audio-waveform').click (event) ->
       move_playhead( $(this), event)
       
-
+    $('.global-stop-button').on 'click', ->
+      window.audio_engine.pause()
+      reset_play_buttons
+      show_play_button(id)
+      set_global_player_state(false)
+      
+    $('.global-play-button').on 'click', ->
+      reset_play_buttons()
+      $.getScript("/digiwham/recordings/" + id )
+      window.audio_engine.play(id, mp3)
+      set_global_player_state(true)
      
   # when a play button is pressed reset all buttons    
   reset_play_buttons = () ->
@@ -83,6 +97,20 @@ class @PlaybackController
       offset    = waveform.offset()
       position = (event.pageX - offset.left) / width
       window.audio_engine.set_position(id, position)
+      
+  # maintain playstate when entering a new page
+  refresh_global_player: ->
+      set_global_player_state( window.audio_engine.is_playing() )
+
+  
+  # shift buttons on global player    
+  set_global_player_state =(state) ->
+    if state
+      $('.global-play-button').css 'display': 'none'
+      $('.global-stop-button').css 'display': 'inline'
+    else
+      $('.global-play-button').css 'display': 'inline'
+      $('.global-stop-button').css 'display': 'none'
 
       
       

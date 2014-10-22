@@ -1,0 +1,47 @@
+@import compass/css3
+$navbar-color: #2B2B38 
+//#1B1B20
+
+.navbar-digiramp 
+  background-color: $navbar-color
+  border-color: #d0d0d0
+  //+box-shadow(#ddd 0px 0px 10px)
+  a
+    color: #aaa
+    
+  .nav > li > a:hover, .nav > li > a:focus 
+    background-color: darken($navbar-color, 10%)
+    
+  .navbar-brand 
+    padding: 0px
+    
+  .small-logo
+    display: inline
+  .large-logo
+    display: none
+    
+  .navbar-toggle .icon-bar 
+    background-color: #A5B7EB
+    
+    
+    
+  .nav > li > a > img 
+    max-width: none
+    margin-bottom: -10px !important
+    margin-top: -10px
+.navbar-fixed-top 
+  border-width: 0 0 0px
+
+  
+
+@media (min-width: 600px)
+  .navbar-digiramp 
+    .large-logo
+      display: inline
+      
+    .small-logo
+      display: none
+  
+//@media (min-width: 1200px)
+//
+//@media (min-width: 1200px)

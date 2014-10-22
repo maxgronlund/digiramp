@@ -5,6 +5,9 @@ ready = ->
   window.playhead_display      = new PlayheadDisplay
   initialize_digi_wahms()
   
+  
+  window.digi_wahms_controller.refresh_global_player()
+  
 $(document).ready(ready)
 $(document).on('page:load', ready)
 

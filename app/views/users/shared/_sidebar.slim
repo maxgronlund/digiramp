@@ -56,7 +56,7 @@
         '&nbsp;
         'Authorizations
   
-  .sexy_line_dark      
+  .sexy_line
   - if @authorized
     li class="#{'sidebar-selected' if selected == 'account'}"
       = link_to account_account_path( @user.account ) do
