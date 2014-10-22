@@ -2,18 +2,18 @@
   .google
 .info
   - if gplus  = @user.authorization_providers.where(provider: 'gplus').first
-    = debug gplus
-    /- google_instructions = BlogPost.cached_find('Your Google+ account is linked to your DigiRAMP account', blog)
-    /h4 = google_instructions.title
-    /'Google+ account:
-    /'&nbsp;
-    //= debug gplus.info
-    /= link_to gplus.info['urls']['Google+'] do
-    /  i.fa.fa-eye
-    /  '&nbsp;
-    /  =  gplus.info['name']
-    /br
-    /= google_instructions.body 
+    
+    - google_instructions = BlogPost.cached_find('Your Google+ account is linked to your DigiRAMP account', blog)
+    h4 = google_instructions.title
+    'Google+ account:
+    '&nbsp;
+    /= debug gplus.info
+    = link_to gplus.info['urls']['Google+'] do
+      i.fa.fa-eye
+      '&nbsp;
+      =  gplus.info['name']
+    br
+    = google_instructions.body 
     
     
   
@@ -49,26 +49,3 @@ br
       '&nbsp;
       'Edit instruction  
 .sexy_line
-/- gplus     = @user.authorization_providers.where(provider: 'gplus').first
-
- /  .col-sm-3
- /    .panel.panel-default
- /      .panel-body
- /        .center-block
- /          h4 Google+
- /          .google
- /          br
- /          - if gplus
- /           = link_to user_user_authorization_provider_path(@user, gplus), data: { confirm: 'Are you sure?' } , :method => :delete do 
- /              .button.button-danger
- /                i class="fa fa-lock"
- /                '&nbsp;
- /                'Unlink
- /          -else
- /            = link_to "/auth/gplus" do
- /              .button.button-default
- /                i class="fa fa-unlock"
- /                '&nbsp;
- /                'Link
- /    
- / 
