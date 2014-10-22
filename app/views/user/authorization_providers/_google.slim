@@ -2,16 +2,18 @@
   .google
 .info
   - if gplus  = @user.authorization_providers.where(provider: 'gplus').first
-    
+    = debug gplus
     - google_instructions = BlogPost.cached_find('Your Google+ account is linked to your DigiRAMP account', blog)
     h4 = google_instructions.title
     'Google+ account:
     '&nbsp;
-    /= debug gplus.info
-    = link_to gplus.info['urls']['Google+'] do
-      i.fa.fa-eye
-      '&nbsp;
-      =  gplus.info['name']
+    -if debug gplus.info
+      = link_to gplus.info['urls']['Google+'] do
+        i.fa.fa-eye
+        '&nbsp;
+        =  gplus.info['name']
+    - else
+      ' Please relink to get more informations
     br
     = google_instructions.body 
     
@@ -22,10 +24,7 @@
     h4 = google_instructions.title
     = simple_format google_instructions.body
 
- 
 
-
-      
 
 br
 .clearfix
