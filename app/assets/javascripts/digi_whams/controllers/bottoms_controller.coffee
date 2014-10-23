@@ -32,8 +32,9 @@ class @BottomsController
       
 
     if $('#digiWhams')[0]
+      
       show_controller = $('#digiWhams').attr("show_controller")   
-      console.log show_controller 
+      
 
 
         

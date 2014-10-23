@@ -39,8 +39,8 @@ Digiramp::Application.routes.draw do
 
   resources :contacts, only: [:new, :create, :show ]
 
-  resources  :music_submissions_ratings, only: [:update]
-  resources  :recordings, only: [:index]
+  resources :music_submissions_ratings, only: [:update]
+  resources :recordings, only: [:index, :show]
 
   resources :gitter, only: [:index]
   #resources :footages

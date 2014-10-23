@@ -9,11 +9,14 @@ class @DigiWhamsController
   
   
   
+  
+  
   constructor: ->
     # request recordings from backend
     if $('#digiWhams')[0]
+      #console.log 'show_controller' 
       controller = $('#digiWhams').attr("class")
-      #$.getScript( controller)
+      $.getScript( controller)
 
 
 
@@ -51,7 +54,8 @@ class @DigiWhamsController
   $(document).on('page:load', set_width)
   
   refresh_global_player: () ->
-    playback_controller.refresh_global_player()
+    if(playback_controller.refresh_global_player?)
+      playback_controller.refresh_global_player()
   
 
       

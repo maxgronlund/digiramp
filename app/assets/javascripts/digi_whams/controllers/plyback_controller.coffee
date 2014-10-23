@@ -10,9 +10,10 @@ class @PlaybackController
   window.song_artist  = ''
   
   constructor: ->
-    
+    console.log '----------------- constructed ------------------------'
     # listen for clicks on play button
     $('.play').on 'click', ->
+      console.log 'fobar'
       reset_play_buttons()
       id        = $(this).attr 'id'
       mp3       = $(this).attr 'mp3'
@@ -54,7 +55,7 @@ class @PlaybackController
       reset_play_buttons
       show_play_button(id)
       #set_global_play(false)
-      console.log global_id  
+      #console.log global_id  
       
     $('.global-play-button').on 'click', ->
       reset_play_buttons()

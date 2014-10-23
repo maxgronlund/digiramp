@@ -8,12 +8,10 @@
         == render 'digiwham/recordings/playback_button', recording: @recording
       .info
         .title
-          h3 = @recording.title
-          .recording
-            .by 
-              'By:
-            .artist
-              = @recording.artist
+          h3 class="recording_title_#{recording.id}"
+            = @recording.title
+          p class="recording_artist_#{recording.id}"
+            = @recording.artist
         /.title
         /  h3 = recording.title
         /  p = recording.artist
