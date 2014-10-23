@@ -42,6 +42,7 @@ class @PlaybackController
       move_playhead( $(this), event)
       
     $('.global-stop-button').on 'click', ->
+      console.log 'global-stop-button'
       window.audio_engine.pause()
       reset_play_buttons()
       show_play_button(window.global_id )
@@ -87,7 +88,6 @@ class @PlaybackController
       
   show_loading_button = (id) ->
     
-
     if( sounds_loaded[id]?)
       show_stop_button(id)
       #set_global_play(true)
@@ -147,6 +147,23 @@ class @PlaybackController
     # title artist
     $('.global-player-song-title').text(window.song_title)
     $('.global-player-song-artist').text(window.song_artist)
+    
+    $('.global-stop-button').on 'click', ->
+      console.log 'global-stop-button'
+      window.audio_engine.pause()
+      reset_play_buttons()
+      show_play_button(window.global_id )
+      #set_global_play(false)
+      #console.log global_id  
+      
+    $('.global-play-button').on 'click', ->
+      console.log window.global_id
+      if( window.global_id != -1)
+        reset_play_buttons()
+        $.getScript("/digiwham/recordings/" +      window.global_id  )
+        window.audio_engine.play(window.global_id, window.global_mp3 )
+        
+        show_loading_button( window.global_id )
 
 
       
