@@ -7,27 +7,16 @@ class RecordingsController < ApplicationController
 
   def index
     @recordings =  Recording.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(4)
+
     #puts '----------------------------------------------------------------'
     #puts Recording.recordings_search(@user.recordings, params[:query]).count
     #puts '----------------------------------------------------------------'
   end
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   def new
     @recording = Recording.new
   end
-  
-  
-  
 
-  
   def create
     
     result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account_id, false, @user.id)

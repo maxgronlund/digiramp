@@ -14,9 +14,11 @@ class @DigiWhamsController
   constructor: ->
     # request recordings from backend
     if $('#digiWhams')[0]
-      #console.log 'show_controller' 
+      
       controller = $('#digiWhams').attr("class")
-      $.getScript( controller)
+      console.log '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+      if(controller?) 
+        $.getScript( controller)
 
 
 

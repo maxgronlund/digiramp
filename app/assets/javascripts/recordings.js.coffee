@@ -1,5 +1,4 @@
 ready = ->
-  #console.log '-----------------------ready-----------------------'
   
   if $('.digiramp_player')[0]
     soundManager = recreateSoundManager()
