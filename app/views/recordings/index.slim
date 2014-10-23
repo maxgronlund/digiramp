@@ -38,27 +38,18 @@
                     'Upload
 
       
+      /.sexy_line
+      /.endless-pages
+      /.add_recordings
+      /  == render 'recordings/index', recordings: @recordings
+      /== paginate(@recordings)
       .sexy_line
       .endless-pages
       .add_recordings
         == render 'recordings/index', recordings: @recordings
-      == paginate(@recordings)
-        
-      /#digiWhams  
-      /  - @recordings.each do |recording, |
-      /    == render 'show', recording: recording
-      /.row
-      /  .col-sm-12
-      /    .pull-right
-      /      .hidden-xs
-      /        == paginate(@recordings)
-      /      .visible-xs
-      /        .btn-group
-      /
-      /          br
-      /          
-      /          = link_to_previous_page @recordings, '« Prev', class: 'button button-default mobile_pagination'
-      /          = link_to_next_page @recordings, 'Next »',     class: 'button button-default mobile_pagination'
+       
+      == paginate(@recordings) 
+      
           
   == render 'shared/site_footer'  
 

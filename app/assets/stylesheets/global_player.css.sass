@@ -1,4 +1,11 @@
+
 @import "compass/css3/box-shadow"
+
+@mixin truncate 
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
 //$default-box-shadow-inset = 0
 .global-player
   background-color: #28375E
@@ -13,6 +20,7 @@
   padding: 3px 8px 3px 10px
   display: inline
   margin-left: 10px
+
   
   
   
@@ -31,16 +39,19 @@
   .title
     margin-left: 10px
     float: left
+    @include            truncate
     //display: inline-table
     font-family: 'Pontano Sans', sans-serif
     h3
       font-size: 13px
       margin-top: 4px
       margin-bottom: 3px
+      
     h6
       font-size: 10px
       margin-top: 0px
       margin-bottom: 0px
+      
       
       
 

@@ -1,6 +1,6 @@
 class SongsController < ApplicationController
   def index
-    ap params
+    
     order = params[:recording][:order] + ' ' + params[:recording][:direction]
     if params[:genre]
       genre = Genre.where(title: params[:genre]).first
