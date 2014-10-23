@@ -40,23 +40,24 @@ class @PlaybackController
     
     $('.audio-waveform').click (event) ->
       move_playhead( $(this), event)
-      
-    $('.global-stop-button').on 'click', ->
-      console.log 'global-stop-button'
-      window.audio_engine.pause()
-      reset_play_buttons()
-      show_play_button(window.global_id )
-      #set_global_play(false)
-      #console.log global_id  
-      
-    $('.global-play-button').on 'click', ->
-      console.log window.global_id
-      if( window.global_id != -1)
-        reset_play_buttons()
-        $.getScript("/digiwham/recordings/" +      window.global_id  )
-        window.audio_engine.play(window.global_id, window.global_mp3 )
-        
-        show_loading_button( window.global_id )
+    
+    connect_global_buttons()  
+    #$('.global-stop-button').on 'click', ->
+    #  console.log 'global-stop-button'
+    #  window.audio_engine.pause()
+    #  reset_play_buttons()
+    #  show_play_button(window.global_id )
+    #  #set_global_play(false)
+    #  #console.log global_id  
+    #  
+    #$('.global-play-button').on 'click', ->
+    #  console.log window.global_id
+    #  if( window.global_id != -1)
+    #    reset_play_buttons()
+    #    $.getScript("/digiwham/recordings/" +      window.global_id  )
+    #    window.audio_engine.play(window.global_id, window.global_mp3 )
+    #    
+    #    show_loading_button( window.global_id )
       
     
 
@@ -135,6 +136,20 @@ class @PlaybackController
       position = (event.pageX - offset.left) / width
       window.audio_engine.set_position(id, position)
       
+  connect_global_buttons = () ->
+    $('.global-stop-button').on 'click', ->
+      window.audio_engine.pause()
+      reset_play_buttons()
+      show_play_button(window.global_id )
+      
+    $('.global-play-button').on 'click', ->
+      if( window.global_id != -1)
+        reset_play_buttons()
+        $.getScript("/digiwham/recordings/" +      window.global_id  )
+        window.audio_engine.play(window.global_id, window.global_mp3 )
+        
+        show_loading_button( window.global_id )
+      
   # maintain playstate when entering a new page
   refresh_global_player: () ->
     # play button
@@ -147,23 +162,9 @@ class @PlaybackController
     # title artist
     $('.global-player-song-title').text(window.song_title)
     $('.global-player-song-artist').text(window.song_artist)
+    connect_global_buttons()
     
-    $('.global-stop-button').on 'click', ->
-      console.log 'global-stop-button'
-      window.audio_engine.pause()
-      reset_play_buttons()
-      show_play_button(window.global_id )
-      #set_global_play(false)
-      #console.log global_id  
-      
-    $('.global-play-button').on 'click', ->
-      console.log window.global_id
-      if( window.global_id != -1)
-        reset_play_buttons()
-        $.getScript("/digiwham/recordings/" +      window.global_id  )
-        window.audio_engine.play(window.global_id, window.global_mp3 )
-        
-        show_loading_button( window.global_id )
+    
 
 
       
