@@ -19,6 +19,16 @@
           '&nbsp;
           'Edit
       '&nbsp;
+      = link_to user_user_authorization_providers_path(@user) do
+        .btn.btn-default.btn-xs
+          i.fa.fa-lock
+          '&nbsp;
+          'Authorize
+      '&nbsp;
+      
+      
+      
+      
     == render 'users/shared/follow' , user: @user
 
   = simple_format @user.profile

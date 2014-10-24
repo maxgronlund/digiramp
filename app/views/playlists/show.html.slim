@@ -25,13 +25,17 @@
                     i.fa.fa-pencil
                     '&nbsp;Edit
             
+        /.sexy_line
+        /#digiWhams 
+        /  - @playlist.recordings.each do |recording|
+        /    == render 'recordings/show', recording: recording
+        
+        /= debug @recordings
         .sexy_line
-        .row
-          .col-sm-12
-            #digiWhams 
-              - @playlist.recordings.each do |recording|
-                == render 'recordings/show', recording: recording
-                
+        .endless-pages
+        .add_songs
+          == render 'playlists/index', recordings: @recordings   
+        /== paginate(@recordings)
         
       .col-lg-4
         == render 'shared/comments', commentable: @playlist

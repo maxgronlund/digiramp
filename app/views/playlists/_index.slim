@@ -1,0 +1,3 @@
+#digiWhams class="/users/#{@user.slug}/playlists/#{@playlist.id.to_s}"
+  - recordings.each do |recording|
+    == render 'show', recording: recording

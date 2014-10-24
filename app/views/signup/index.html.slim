@@ -1,50 +1,41 @@
 #wrap
   .full-width-top
-    == render 'admin/shared/navbar', page: 'account' 
-  /-unless current_user
-  /  .hidden-xs
-  /    .full-width-sign-up
-  /      .container
-  /        == render 'shared/sign_up'
-  /          
-  .container
-    
-    
-    .row
-      .col-sm-3
-      .col-sm-6
-        ==render 'admin/shared/messages'
-        .panel.panel-primary
-          .panel-heading
-            h3 class="panel-title"
-              i class= 'fa fa-lock'
-              '&nbsp;
-              'SIGN UP
-          .panel-body
+    == render 'shared/navigationbar', page: 'account'  
 
-            = simple_form_for(User.new)    do |f|
+
+  #page-content-wrapper
+    .container-fluid
     
-              .input-group
-                span class="input-group-addon" @
-                = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
-              br
-              .input-group
-                span class="input-group-addon" 
-                  i class= 'fa fa-key'
-                = f.input_field :password, placeholder: 'Password', autocomplete: :off
+    
+      .row
+        .col-sm-3
+        .col-sm-6
+          ==render 'admin/shared/messages'
+          h3 Sign up
       
-              br
-              .input-group
-                span class="input-group-addon" 
-                  i class= 'fa fa-key'
-                = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+      
+          = simple_form_for(User.new)    do |f|
+      
+            .input-group
+              span class="input-group-addon" @
+              = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+            br
+            .input-group
+              span class="input-group-addon" 
+                i class= 'fa fa-key'
+              = f.input_field :password, placeholder: 'Password', autocomplete: :off
         
-              .pull-right
-                br
-                = f.submit 'Sign Up', class: 'btn btn-orange btn-lg', id: 'sign_up_form_button'
-      .col-sm-3
-      /.col-sm-6
-      /  == render 'shared/sign_up'
-
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+            br
+            .input-group
+              span class="input-group-addon" 
+                i class= 'fa fa-key'
+              = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+          
+            .pull-right
+              br
+              = f.submit 'Sign Up', class: 'btn btn-default', id: 'sign_up_form_button'
+        .col-sm-3
+        /.col-sm-6
+        /  == render 'shared/sign_up'
+      
+  == render 'shared/site_footer'

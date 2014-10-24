@@ -2,6 +2,8 @@ class PlaylistsController < ApplicationController
   #include AccountsHelper
   #before_filter :access_account
   before_filter :get_user, only: [:create, :show, :index, :edit, :update, :new, :destroy]
+  before_filter :authorized, except: [:show, :index]
+  
   def index
     #@playlists = @user.playlists
     #if @authorized  
@@ -13,63 +15,48 @@ class PlaylistsController < ApplicationController
 
   def show
     @playlist     = Playlist.cached_find(params[:id])
+    @recordings   = @playlist.recordings
   end
   
   def new
-    if @authorized
-      @playlist = Playlist.new
-      @recordings   = @user.recordings.not_in_bucket
-    else 
-      forbidden
-    end
+    @playlist = Playlist.new
+    @recordings   = @user.recordings.not_in_bucket
   end
   
   def create
-    if @authorized
-      if @playlist = Playlist.create(playlist_params)
-        redirect_to user_playlist_path( @user, @playlist)
-      else
-        render new
-      end
+    if @playlist = Playlist.create(playlist_params)
+      redirect_to user_playlist_path( @user, @playlist)
     else
-      forbidden
+      render new
     end
   end
 
   def edit
-    if @authorized
-      @playlist = Playlist.cached_find(params[:id])
-      @recordings   = @user.recordings.not_in_bucket
-    else
-      forbidden
-    end
+    @playlist = Playlist.cached_find(params[:id])
+    @recordings   = @user.recordings.not_in_bucket
   end
 
   def update
-    if @authorized
-      @playlist = Playlist.cached_find(params[:id])
-      if @playlist.update_attributes(playlist_params)
-        ap @playlist
-        redirect_to user_playlist_path( @user, @playlist )
-      else
-        render :edit
-      end
+    @playlist = Playlist.cached_find(params[:id])
+    if @playlist.update_attributes(playlist_params)
+      ap @playlist
+      redirect_to user_playlist_path( @user, @playlist )
     else
-      forbidden
+      render :edit
     end
   end
   
   def destroy
-    if @authorized
-      @playlist = Playlist.cached_find(params[:id])
-      @playlist.destroy
-      redirect_to user_playlists_path( @user )
-    else
-      forbidden
-    end
+    @playlist = Playlist.cached_find(params[:id])
+    @playlist.destroy
+    redirect_to user_playlists_path( @user )
   end
   
-private  
+private 
+
+  def authorized
+    forbidden unless @authorized
+  end
 
   def playlist_params
      params.require(:playlist).permit!

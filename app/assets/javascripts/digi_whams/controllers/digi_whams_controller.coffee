@@ -17,6 +17,7 @@ class @DigiWhamsController
       
       controller = $('#digiWhams').attr("class")
       console.log '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+      console.log controller 
       if(controller?) 
         $.getScript( controller)
 

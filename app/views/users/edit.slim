@@ -13,58 +13,73 @@
 
   #page-content-wrapper
     .container-fluid 
-      h3 Edit Profile
-      .sexy_line
-      = simple_form_for @user do |f|
-        
-        -if @user.errors.any?
-          = render 'shared/errors', errors: @user.errors
-      
-        .row
-          .col-sm-6
-            = f.input :name
-            = f.input :user_name, placeholder: 'Used for the url'
-            = f.input :email
-            = f.input :password, autocomplete: :off
-            = f.input :password_confirmation, autocomplete: :off
+      .row
+        .col-sm-12
+          h3 Edit Profile
+          .sexy_line
+          = simple_form_for @user do |f|
+            
+            -if @user.errors.any?
+              = render 'shared/errors', errors: @user.errors
+          
             .row
               .col-sm-6
-                = f.input :profession
-            .row
+                = f.input :name
+                = f.input :user_name, placeholder: 'Used for the url'
+                = f.input :email
+                = f.input :password, autocomplete: :off
+                = f.input :password_confirmation, autocomplete: :off
+                .row
+                  .col-sm-6
+                    = f.input :profession
+                .row
+                  .col-sm-6
+                    = f.input :country
+                  .col-sm-6
+                    = f.input :city
+                    
+                    
               .col-sm-6
-                = f.input :country
-              .col-sm-6
-                = f.input :city
+                .row
+                  .col-sm-6
+                    = f.input :fan        
+                    = f.input :author
+                    = f.input :producer
+                    = f.input :writer
+                  .col-sm-6
+                    = f.input :musician
+                    = f.input :composer
+                    = f.input :remixer
+                    = f.input :dj
                 
                 
-          .col-sm-6
-            .row
-              .col-sm-6
-                = f.input :fan        
-                = f.input :author
-                = f.input :producer
-                = f.input :writer
-              .col-sm-6
-                = f.input :musician
-                = f.input :composer
-                = f.input :remixer
-                = f.input :dj
+                = f.input :image, hint: 'Dimentions 1:1 '
+                div id="toolbar" class="wysihtml5-toolbar"
+                  a data-wysihtml5-command="bold" Bold
+                  '&nbsp; 
+                  a data-wysihtml5-command="italic" Italic
+                
+                =f.input :profile, label: false, :input_html => {  style: "height: 240px;", placeholder: "Profile", id: 'wysihtml5_editor'}
             
-            
-            = f.input :image, hint: 'Dimentions 1:1 '
-            div id="toolbar" class="wysihtml5-toolbar"
-              a data-wysihtml5-command="bold" Bold
-              '&nbsp; 
-              a data-wysihtml5-command="italic" Italic
-            
-            =f.input :profile, label: false, :input_html => {  style: "height: 240px;", placeholder: "Profile", id: 'wysihtml5_editor'}
-        
-        .pull-right
-          = link_to 'Cancel', user_path(@user), class: 'button button-default'
-          '&nbsp;
-          = f.submit 'Save', class: 'button button-primary'
-      
-    
+            .pull-right
+              = link_to 'Cancel', user_path(@user), class: 'button button-default'
+              '&nbsp;
+              = f.submit 'Save', class: 'button button-primary'
+          
+
+      /.row
+      /  .col-sm-12
+      /    .sexy_line
+      /    - blog      = Blog.cached_find('Authorization')
+      /      
+      /    h3 Authorizations
+      /    
+      /    .social-icons
+      /      == render 'user/authorization_providers/facebook', blog: blog
+      /      == render 'user/authorization_providers/twitter', blog: blog
+      /      == render 'user/authorization_providers/linkedin', blog: blog
+      /      == render 'user/authorization_providers/google', blog: blog
+      /    
   == render 'shared/site_footer'     
   
   
