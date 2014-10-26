@@ -15,6 +15,16 @@
 /div id="og_url"  data-og_url="#{request.url}"
 /div id="og_image"  data-og_image="#{image_tag @recording.artwork}"
 
+=content_for :head do
+  <meta property="og:title" content="#{@recording.title}" />
+  <meta property="og:description" content="#{strip_tags @recording.comment}" />
+  <meta property="og:type" content="music.song" />
+  <meta property="og:url" content="#{request.url}" />
+  <meta property="og:site_name" content="DigiRAMP" />
+  <meta property="og:image" content="#{'http://assets-manager.com'+ @recording.artwork}" />
+  <meta property="fb:app_id" content="728817730525571" />
+
+
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
