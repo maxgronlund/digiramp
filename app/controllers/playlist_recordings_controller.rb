@@ -54,10 +54,15 @@ class PlaylistRecordingsController < ApplicationController
     # ajax here
     @prepend_tag = "#add_recording_"    + @recording.id.to_s  + "_to_playlist"
     @remove_tag  = "#remove_recording_" + @recording.id.to_s  + "_from_playlist"
-    
-    
+
   end
   
+  
+  #ap params
+  #@recording  = Recording.cached_find(params[:recording])
+  #@playlist   = Playlist.cached_find(params[:id])
+  #ap @recording
+  #ap @playlist
   
   
 end

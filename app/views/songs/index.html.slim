@@ -3,38 +3,41 @@
     == render 'shared/navigationbar', page: 'account' 
   #sidebar-wrapper
     ul class="sidebar-nav"
-      li class="#{'sidebar-selected' if params[:recording][:order] == 'likes_count'}"
-        = link_to songs_path(recording: {order: 'likes_count', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
-          i class="fa fa-heart"
-          '&nbsp;
-          'Most Popular
-      li class="#{'sidebar-selected' if params[:recording][:order] ==  'playbacks_count'}"
-        = link_to songs_path(recording: {order: 'playbacks_count', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
-          i class="fa fa-headphones"
-          '&nbsp;
-          'Most Played
-      li class="#{'sidebar-selected' if params[:recording][:order] ==  'created_at'}"
-        = link_to songs_path(recording: {order: 'created_at', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
-          i class="fa fa-clock-o"
-          '&nbsp;
-          'Newest
-      /li class="#{'sidebar-selected' if false}"
-      /  = link_to '#' do
-      /    i class="fa fa-thumbs-o-up"
-      /    '&nbsp;
-      /    'Featured
+      .sidebar
+        li class="#{'sidebar-selected' if params[:recording][:order] == 'uniq_likes_count'}"
+          = link_to songs_path(recording: {order: 'uniq_likes_count', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
+            i class="fa fa-heart"
+            '&nbsp;
+            'Most Popular
+        li class="#{'sidebar-selected' if params[:recording][:order] ==  'uniq_playbacks_count'}"
+          = link_to songs_path(recording: {order: 'uniq_playbacks_count', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
+            i class="fa fa-headphones"
+            '&nbsp;
+            'Most Played
+        li class="#{'sidebar-selected' if params[:recording][:order] ==  'created_at'}"
+          = link_to songs_path(recording: {order: 'created_at', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
+            i class="fa fa-clock-o"
+            '&nbsp;
+            'Newest
+        /li class="#{'sidebar-selected' if false}"
+        /  = link_to '#' do
+        /    i class="fa fa-thumbs-o-up"
+        /    '&nbsp;
+        /    'Featured
     .clearfix
     .sexy_line
+
     .static-content
-      h5 GENRE
+      h4 Genre
+
     .tag
       div class="#{'tag-selected' unless params[:genre]}"
         .tag-title
-           = link_to 'All Genre', songs_path(recording: {order: params[:recording][:order], direction: params[:recording][:direction]}) 
+           = link_to 'All', songs_path(recording: {order: params[:recording][:order], direction: params[:recording][:direction]}) 
         .tag-count
 
     .clearfix
-    - Genre.where('recordings_count > 0').order('recordings_count desc').first(16).each do |genre|
+    - Genre.where('recordings_count > 0').order('recordings_count desc').first(20).each do |genre|
       - parameters = { recording: {order: params[:recording][:order], direction: params[:recording][:direction]}, query: params[:query], genre: genre.title }
       = link_to songs_path( parameters ) do
         .tag
@@ -56,7 +59,7 @@
     .container-fluid
       .row
         .col-sm-5
-          h3 Songs
+          h3 Recordings
         .col-sm-7
           .search-recording
             
@@ -85,7 +88,8 @@
       
       
       == paginate(@songs)
-
+      javascript:
+        initialize_digi_wahms();
 
         
 

@@ -16,28 +16,30 @@
   #page-content-wrapper
     .container-fluid 
       == render 'users/shared/page_title', title: 'Recordings'
-      .row.top-form
+      .row
         = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
                                                       :controller => 'recordings'), \
                                                       :method => 'get' do |f|
           .col-sm-6
-            = text_field_tag "query", "", :class => 'search-query form-control', \
-                                          :placeholder => 'Search string', \
-                                          value: params[:query]
-            
+            .pull-down-8
+              = text_field_tag "query", "", :class => 'search-query form-control', \
+                                            :placeholder => 'Search string', \
+                                            value: params[:query]
+              
           .col-sm-6
-            .recording-top-buttons
-              = f.submit 'Search', class: 'button button-default'
-              /'&nbsp;
-              /= link_to 'Show All',user_recordings_path(@user), class: 'button button-default'
-              .pull-right
-                = link_to new_user_recording_path(@user) do
-                  .button.button-primary
-                    i.fa.fa-cloud-upload
-                    '&nbsp;
-                    'Upload
-
-
+            .pull-down-8
+              = f.submit 'Search', class: 'btn btn-default'
+              '&nbsp;
+              = link_to 'Show All', user_recordings_path(@user), class: 'btn btn-default'
+              - if @authorized
+                .pull-right
+                  = link_to new_user_recording_path(@user) do
+                    .btn.btn-primary
+                      i.fa.fa-cloud-upload
+                      '&nbsp;
+                      'Upload
+                
+      
       .sexy_line
       .endless-pages
       .add_recordings
@@ -47,5 +49,6 @@
       
           
   == render 'shared/site_footer'  
+
 
 

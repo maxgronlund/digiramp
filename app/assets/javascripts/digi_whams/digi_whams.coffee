@@ -14,8 +14,9 @@ $(document).on('page:load', ready)
 # when all recordings are loaded    
 @initialize_digi_wahms =()  ->
   
-  window.digi_wahms_controller.initialize()
-  window.audio_engine.initialize()
+  if(window.digi_wahms_controller?)
+    window.digi_wahms_controller.initialize()
+    window.audio_engine.initialize()
   
   
   

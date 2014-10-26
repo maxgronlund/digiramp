@@ -87,7 +87,6 @@ class Genre < ActiveRecord::Base
   
   def ordered_recordings order
     recording_ids = self.genre_tags.where(genre_tagable_type: 'Recording').pluck(:genre_tagable_id)
-    recording_ids.uniq!
     Recording.order(order).where(id: recording_ids)
   end
     

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141021010617) do
+ActiveRecord::Schema.define(version: 20141025100655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1642,70 +1642,72 @@ ActiveRecord::Schema.define(version: 20141021010617) do
 
   create_table "recordings", force: true do |t|
     t.integer  "common_work_id"
-    t.string   "title",               default: "no title"
-    t.string   "isrc_code",           default: ""
-    t.text     "artist",              default: ""
-    t.text     "lyrics",              default: ""
-    t.integer  "bpm",                 default: 0
-    t.text     "comment",             default: ""
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.string   "title",                default: "no title"
+    t.string   "isrc_code",            default: ""
+    t.text     "artist",               default: ""
+    t.text     "lyrics",               default: ""
+    t.integer  "bpm",                  default: 0
+    t.text     "comment",              default: ""
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "account_id"
-    t.boolean  "explicit",            default: false
-    t.integer  "documents_count",     default: 0,          null: false
+    t.boolean  "explicit",             default: false
+    t.integer  "documents_count",      default: 0,          null: false
     t.string   "file_size"
-    t.boolean  "clearance",           default: false
+    t.boolean  "clearance",            default: false
     t.string   "version"
-    t.text     "copyright",           default: ""
-    t.string   "production_company",  default: ""
+    t.text     "copyright",            default: ""
+    t.string   "production_company",   default: ""
     t.date     "available_date"
-    t.string   "upc_code",            default: ""
+    t.string   "upc_code",             default: ""
     t.integer  "track_count"
     t.integer  "disk_number"
     t.integer  "disk_count"
     t.string   "album_artist"
     t.string   "album_title"
     t.string   "grouping"
-    t.text     "composer",            default: ""
+    t.text     "composer",             default: ""
     t.boolean  "compilation"
     t.integer  "bitrate"
     t.integer  "samplerate"
     t.integer  "channels"
     t.text     "audio_upload"
-    t.integer  "completeness_in_pct", default: 0
+    t.integer  "completeness_in_pct",  default: 0
     t.string   "mp3"
     t.string   "thumbnail"
-    t.string   "year",                default: ""
-    t.decimal  "duration",            default: 0.0
-    t.text     "album_name",          default: ""
-    t.text     "genre",               default: ""
-    t.text     "performer",           default: ""
-    t.text     "band",                default: ""
-    t.string   "disc",                default: ""
-    t.string   "track",               default: ""
-    t.string   "waveform",            default: ""
+    t.string   "year",                 default: ""
+    t.decimal  "duration",             default: 0.0
+    t.text     "album_name",           default: ""
+    t.text     "genre",                default: ""
+    t.text     "performer",            default: ""
+    t.text     "band",                 default: ""
+    t.string   "disc",                 default: ""
+    t.string   "track",                default: ""
+    t.string   "waveform",             default: ""
     t.string   "cover_art"
-    t.integer  "cache_version",       default: 0
-    t.string   "vocal",               default: ""
+    t.integer  "cache_version",        default: 0
+    t.string   "vocal",                default: ""
     t.integer  "import_batch_id"
-    t.text     "mood",                default: ""
-    t.text     "instruments",         default: ""
-    t.string   "tempo",               default: ""
-    t.string   "original_md5hash",    default: ""
+    t.text     "mood",                 default: ""
+    t.text     "instruments",          default: ""
+    t.string   "tempo",                default: ""
+    t.string   "original_md5hash",     default: ""
     t.string   "uuid"
-    t.string   "artwork",             default: ""
-    t.string   "original_file",       default: ""
+    t.string   "artwork",              default: ""
+    t.string   "original_file",        default: ""
     t.integer  "image_file_id"
-    t.string   "ssl_url",             default: ""
-    t.string   "url",                 default: ""
-    t.string   "ext",                 default: ""
-    t.string   "original_file_name",  default: ""
-    t.boolean  "in_bucket",           default: false
+    t.string   "ssl_url",              default: ""
+    t.string   "url",                  default: ""
+    t.string   "ext",                  default: ""
+    t.string   "original_file_name",   default: ""
+    t.boolean  "in_bucket",            default: false
     t.string   "zipp"
-    t.integer  "playbacks_count",     default: 0
-    t.integer  "likes_count",         default: 0
+    t.integer  "playbacks_count",      default: 0
+    t.integer  "likes_count",          default: 0
     t.integer  "user_id"
-    t.boolean  "published",           default: false
+    t.boolean  "published",            default: false
+    t.string   "uniq_playbacks_count", default: ""
+    t.string   "uniq_likes_count",     default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

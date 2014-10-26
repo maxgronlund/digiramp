@@ -39,17 +39,20 @@ class PlaylistsController < ApplicationController
   def update
     @playlist = Playlist.cached_find(params[:id])
     if @playlist.update_attributes(playlist_params)
-      ap @playlist
-      redirect_to user_playlist_path( @user, @playlist )
+      #redirect_to user_playlist_path( @user, @playlist )
+      @recordings   = @playlist.recordings
+      render :show
     else
       render :edit
     end
   end
   
   def destroy
-    @playlist = Playlist.cached_find(params[:id])
+    @playlist_id = params[:id]
+    @playlist = Playlist.cached_find(@playlist_id)
     @playlist.destroy
-    redirect_to user_playlists_path( @user )
+    
+    #redirect_to user_playlists_path( @user )
   end
   
 private 

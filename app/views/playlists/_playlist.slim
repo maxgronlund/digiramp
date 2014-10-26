@@ -1,40 +1,12 @@
-.playlist-badge
+
+.playlist-badge id="remove_playlist_#{playlist.id.to_s}"
   = link_to user_playlist_path( @user, playlist) do
     .avatar
-      = image_tag( playlist.playlist_image_url :image_270x270) 
+      = image_tag playlist.playlist_image_url(:image_270x270)
       .playlist-text
         .playlist-title
           =playlist.title
-      /
-      /  - if user.writer
-      /    .user-tag
-      /      'Writer
-      /
-      /  - if user.fan
-      /    .user-tag
-      /      'Fan
-      /
-      /  - if user.author
-      /    .user-tag
-      /      'Author
-      /    
-      /  - if user.producer
-      /    .user-tag
-      /      'Producer
-      /    
-      /  - if user.musician
-      /    .user-tag
-      /      'Musician
-      /    
-      /  - if user.remixer
-      /    .user-tag
-      /      'Remixer
-      /    
-      /  - if user.dj
-      /    .user-tag
-      /      'DJ
-                
-        
+ 
 
   
   .small-symbols
@@ -49,3 +21,12 @@
     i class="fa fa-heart red-heart"
     '&nbsp;
     = playlist.comments.count
+    - if @authorized
+      = link_to edit_user_playlist_path( @user, playlist) do
+        '&nbsp;|&nbsp;
+        i class="fa fa-pencil"
+        '&nbsp;
+      = link_to user_playlist_path( @user, playlist), method: :delete, remote: true, data: { confirm: "You are about to delete #{playlist.title}" } do
+        '&nbsp;|&nbsp;
+        i class="fa fa-times"
+  

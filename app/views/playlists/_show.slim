@@ -29,7 +29,14 @@
     - if @authorized 
       = link_to edit_user_recording_path(current_user, recording), \
                 class: "btn btn-default"  do
-        i class="fa fa-pencil"
+        i class="fa fa-times"
+        
+      = link_to edit_user_recording_path(current_user, recording), \
+                class: "btn btn-default"  do
+        i class="fa fa-pencil" 
+      
+        
+        
   .hidden-xs.btn-group-xs
     = link_to user_recording_path(recording.user, recording), \
               class: "btn btn-default" do
@@ -63,36 +70,15 @@
         'Likes
       
     - if @authorized 
+        
       = link_to edit_user_recording_path(current_user, recording), \
                 class: "btn btn-default"  do
         i class="fa fa-pencil"
         '&nbsp;
         'Edit
-        
-.pull-right
-  .hidden-xs
-    .small-symbols
-      i class="fa fa-comments"
-      '&nbsp;
-      = pluralize(recording.comments.count, 'Comment')
-      '&nbsp;|
-      = link_to user_recording_likes_path(recording.user, recording)
-        i class="fa fa-heart red-heart"
+
+      = link_to remove_from_playlist_path( @playlist, recording: recording), method: :delete, remote: true, \
+                class: "btn btn-default"  do
+        i class="fa fa-times"
         '&nbsp;
-        = pluralize(recording.likes.count, 'Like')  
-        
-      '&nbsp;|
-      i class="fa fa-headphones"
-      '&nbsp;
-      = pluralize(recording.playbacks_count, 'Playback')
-  .visible-xs
-    .small-symbols
-      i class="fa fa-comments"
-      '&nbsp;|
-      = link_to user_recording_likes_path(recording.user, recording)
-        i class="fa fa-heart red-heart"
-        
-      '&nbsp;|
-      i class="fa fa-headphones"
-  
-.sexy_line 
+        'Remove

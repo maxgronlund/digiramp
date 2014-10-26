@@ -29,6 +29,7 @@ class LikesController < ApplicationController
                         )
     recording = Recording.cached_find(params[:recording_id])
     recording.likes_count += 1
+    recording.uniq_likes_count = Uniqifyer.uniqify(recording.likes_count)
     recording.save
     
     @user.create_activity(   :created, 
@@ -53,6 +54,7 @@ class LikesController < ApplicationController
     
     recording = Recording.cached_find(params[:id])
     recording.likes_count -= 1
+    recording.uniq_likes_count = Uniqifyer.uniqify(recording.likes_count)
     recording.save
     
     

@@ -1,0 +1,9 @@
+$("#old_select_playlist_form_" + "<%= @recording.id.to_s %>" ).remove()
+
+$("#create_playlist_form_" + "<%= @recording.id.to_s %>" ).append("<%= j render 'create_playlists/create_playlist_form' %>");
+
+
+
+
+
+

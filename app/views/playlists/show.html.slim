@@ -21,7 +21,7 @@
                 = @playlist.body
                 br
                 = link_to edit_user_playlist_path(@user, @playlist) do
-                  .button.button-default
+                  .btn.btn-default
                     i.fa.fa-pencil
                     '&nbsp;Edit
             
@@ -30,11 +30,16 @@
         /  - @playlist.recordings.each do |recording|
         /    == render 'recordings/show', recording: recording
         
-        /= debug @recordings
+        
         .sexy_line
         .endless-pages
         .add_songs
-          == render 'playlists/index', recordings: @recordings   
+          /== render 'playlists/index', recordings: @recordings 
+          #digiWhams class="/users/#{@user.slug}/playlists/#{@playlist.id.to_s}"
+            - @recordings.each do |recording|
+              div id="remove_recording_#{recording.id.to_s}"
+                == render 'show', recording: recording  
+                .sexy_line
         /== paginate(@recordings)
         
       .col-lg-4

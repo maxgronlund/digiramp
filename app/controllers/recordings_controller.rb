@@ -1,4 +1,7 @@
 class RecordingsController < ApplicationController
+  
+  protect_from_forgery only: :show
+  
   before_filter :get_user, only: [:show, :edit, :update, :new, :create, :destroy, :index]
   include Transloadit::Rails::ParamsDecoder
   
@@ -55,12 +58,17 @@ class RecordingsController < ApplicationController
   end
   
   def destroy
-    @recording = Recording.find(params[:id])
+    @recording_id = params[:id]
+    @recording = Recording.find(@recording_id)
+
     common_work = @recording.common_work
     @recording.destroy
+    
     common_work.update_completeness if common_work
-
-    redirect_to user_recordings_path(@user)
+    
+    unless params[:public]
+      redirect_to user_recordings_path(@user)
+    end
   end
   
   def edit

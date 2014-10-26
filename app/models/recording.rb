@@ -80,7 +80,10 @@ class Recording < ActiveRecord::Base
   
   
   
- 
+  def playlist
+    
+  end
+  
   def catalogs
     catalog_ids = CatalogItem.where(catalog_itemable_type: "Recording", catalog_itemable_id: self.id).pluck(:catalog_id)
     cats = Catalog.find(catalog_ids)
@@ -213,6 +216,13 @@ class Recording < ActiveRecord::Base
     recordings
   end
   
+  def self.search_recordings( query)
+    if query.present?
+     return search(query)
+    else
+      return all
+    end
+  end
   
   # remove disk_number, disk_count, track_count, available_date
   def update_completeness
@@ -635,6 +645,7 @@ private
     remove_from_albums
     count_stats_down
     remove_from_submissions
+    remove_from_playlists
   end
   
   def remove_from_catalogs
@@ -662,6 +673,10 @@ private
       self.file_size        = audio_file.size
 
     end
+  end
+  
+  def remove_from_playlists
+    PlaylistRecordings.where(recording_id: self.id).destroy_all
   end
   
   

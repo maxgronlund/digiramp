@@ -2,27 +2,19 @@
 Digiramp::Application.routes.draw do
 
 
-  
-
-  
-
-  resources :songs, only: [:index]
-
-  #get 'following/index'
-  #
-  #get 'followers/index'
-  #
-  #get 'likes/index'
-
-  #resources :user
-
-
-
   namespace :account do
   get 'catalog_common_works/index'
   end
+  resources :add_to_playlists, only: [:create]
+  resources :remove_from_playlists, only: [:destroy]
 
-  resources :fobars
+  resources :comments
+  resources :contacts
+  resources :contacts, only: [:new, :create, :show ]
+  resources :create_playlists, only: [:new, :create]
+  resources :digi_whams
+  resources :discover, only: [:index]
+  #resources :fobars
 
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
 
@@ -32,21 +24,22 @@ Digiramp::Application.routes.draw do
   #  resources :digi_wham_resources
   #end
   resources :embed, only: [:index, :show]
+  resources :gitter, only: [:index]
 
-  resources :digi_whams
-  resources :comments
-  resources :contacts
-
-  resources :contacts, only: [:new, :create, :show ]
 
   resources :music_submissions_ratings, only: [:update]
-  resources :recordings, only: [:index, :show]
+  resources :playlists 
+  resources :playlist_recordings, only: [:destroy]
+  resources :recordings, only: [:index, :show] 
+  resources :remove_from_playlists, only: [:destroy]
+  
+  resources :songs, only: [:index]
 
-  resources :gitter, only: [:index]
+  
   #resources :footages
   #resources :pro_affiliations
   
-  resources :comments
+  
   resources :widgets
 
 
@@ -56,7 +49,7 @@ Digiramp::Application.routes.draw do
   get "albums/edit"
   
 
-  resources :discover, only: [:index]
+  
   #get "export_works_csv/index"
   #get "export_works/index"
   resources :video_posts

@@ -1,0 +1,37 @@
+.modal.fade  id="playlistModal_#{recording.id.to_s}" tabindex="-1" role="dialog" aria-labelledby="playlistModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal"
+          span aria-hidden="true"
+            i.fa.fa-times
+
+        h4 class="modal-title" id="playlistModalLabel"
+          'Add to Playlist
+        = recording.title
+        
+        div id="playlist_confirmation_#{recording.id.to_s}"
+
+      .sexy_line
+      / the create new playlist form goes here
+      div id="create_playlist_form_#{recording.id.to_s}"
+      
+      / the select playlist form goes here
+      div id="select_playlist_form_#{recording.id.to_s}" 
+        / this will be removed, should also be added dynamicaly
+        div id="old_select_playlist_form_#{recording.id.to_s}"  
+          = simple_form_for  [recording] , :url => url_for(:action => 'create', :controller => 'add_to_playlists'), :method => 'post', remote: true do |f|
+            .modal-body
+              
+              = f.hidden_field :recording_id, value: recording.id
+              = f.input :playlist, collection: @playlists, include_blank: false, label: 'Select Playlist'
+          
+            .modal-footer
+              = link_to new_create_playlist_path( user_id: current_user.id, recording_id: recording.id ), class: 'btn btn-default', remote: true  do
+                i.fa.fa-list
+                '&nbsp;New
+              
+              button type="button" class="btn btn-default" data-dismiss="modal"
+                'Close
+              = f.submit 'Save', class: 'btn btn-primary'
+          
