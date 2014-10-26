@@ -2,6 +2,7 @@ doctype html
 html
   head
    title DigiRAMP
+   = content_for?(:head) ? yield(:head) : ''
    /<meta property="og:title" content="CINEMARE"/>
    /<meta property="og:type" content="music.song"
    /<meta property="og:image" content="http://digiramp.s3.amazonaws.com/3e/a810d017c711e4bef1cfdcb50afc4c/maxresdefault.jpg"/>
