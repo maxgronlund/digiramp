@@ -62,7 +62,7 @@
                     .input-group
                       span class="input-group-addon" 
                         i class= 'fa fa-key'
-                      = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off, value: @playlist_key.password
+                      = f.input_field :password_btn btn-defaultation, placeholder: 'Password Confirmation', autocomplete: :off, value: @playlist_key.password
                     br
                     - if @playlist_key.password
                       b Current Password

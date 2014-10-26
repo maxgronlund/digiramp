@@ -31,7 +31,7 @@
                 = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
                    i class="fa fa-pencil"
             .panel-body
-              = simple_form_for  [@account, @catalog ], :url => url_for(:action => 'confirm', :controller => 'catalogs'), :method => 'put'do |f|
+              = simple_form_for  [@account, @catalog ], :url => url_for(:action => 'btn btn-default', :controller => 'catalogs'), :method => 'put'do |f|
                 = f.hidden_field :account_id, value: @account.id
                 = f.hidden_field :catalog_id, value: @catalog.id
                 .input-group

@@ -59,7 +59,7 @@
                             .btn.btn-primary.btn-lg
                               i class="fa fa-pencil"
                           '&nbsp;
-                          = link_to account_account_project_path(@account, project), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          = link_to account_account_project_path(@account, project), data: { btn btn-default: 'Are you sure?' } , :method => :delete do
                             .btn.btn-danger.btn-lg
                               i class="fa fa-times"
                   
@@ -119,7 +119,7 @@
 /        td = project.stage
 /        td = link_to 'Show', project
 /        td = link_to 'Edit', edit_project_path(project)
-/        td = link_to 'Destroy', project, data: {:confirm => 'Are you sure?'}, :method => :delete
+/        td = link_to 'Destroy', project, data: {:btn btn-default => 'Are you sure?'}, :method => :delete
 /
 /br
 /

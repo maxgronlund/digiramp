@@ -43,6 +43,7 @@
 // require chosen-jquery
 // require jquery.tokeninput
 //= require chosen-jquery
+//= require opengraph
 
 
 Turbolinks.enableTransitionCache();

@@ -1,6 +1,6 @@
 -unless current_account_user.user_id == @account.user_id
  .pull-right
    = link_to 'Leave Account', account_account_user_path(@account, current_account_user), \
-                       data: { confirm: "You are about to leave the account #{current_account_user.account.title}! Are you sure}?" } , \
+                       data: { btn btn-default: "You are about to leave the account #{current_account_user.account.title}! Are you sure}?" } , \
                        method: :delete, id: "delete_account_user_#{current_account_user.id.to_s}",\
                        class: 'btn btn-default btn-lg'

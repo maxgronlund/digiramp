@@ -24,7 +24,7 @@
 /        td = recording_ipi.recording
 /        td = link_to 'Show', recording_ipi
 /        td = link_to 'Edit', edit_recording_ipi_path(recording_ipi)
-/        td = link_to 'Destroy', recording_ipi, data: {:confirm => 'Are you sure?'}, :method => :delete
+/        td = link_to 'Destroy', recording_ipi, data: {:btn btn-default => 'Are you sure?'}, :method => :delete
 /
 /br
 /
@@ -79,7 +79,7 @@
                           -if current_account_user.update_recording_ipi
                             '&nbsp;
                             = link_to account_account_recording_recording_ipi_path(@account, @recording, recording_ipi), \
-                                                                    data: { confirm: 'Are you sure?' } , \
+                                                                    data: { btn btn-default: 'Are you sure?' } , \
                                                                     :method => :delete do
                               .btn.btn-danger.btn-lg
                                 i class='fa fa-times'

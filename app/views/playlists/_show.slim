@@ -1,84 +1,89 @@
-== render 'audio_player/show', recording: recording 
-
-
-.btn-group
-  .visible-xs.btn-group-xs
-    = link_to user_recording_path(recording.user, recording), \
-              class: "btn btn-default" do
-      .blue-info
-        i.fa.fa-info-circle
-      
-    
-    -if current_user
-      - like = Like.where(recording_id: recording.id, user_id: current_user.id).any?
-      /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
-      = link_to user_like_path( current_user, recording), method: :delete, remote: true, \
-                class: "btn btn-default red-icon #{'unlike_recording_'+recording.id.to_s}", \
-                style: "#{'display: none;' unless like}"  do
-        i class="fa fa-heart "
-      /-else
-      = link_to new_user_recording_like_path(current_user, recording), remote: true, \
-                class: "btn btn-default #{'like_recording_'+recording.id.to_s}", \
-                style: "#{'display: none;' if like}"  do
-        i class="fa fa-heart"
-    -else
-      = link_to login_new_path, \
-                class: "btn btn-default"  do
-        i class="fa fa-heart"
-      
-    - if @authorized 
-      = link_to edit_user_recording_path(current_user, recording), \
-                class: "btn btn-default"  do
-        i class="fa fa-times"
-        
-      = link_to edit_user_recording_path(current_user, recording), \
-                class: "btn btn-default"  do
-        i class="fa fa-pencil" 
-      
-        
-        
-  .hidden-xs.btn-group-xs
-    = link_to user_recording_path(recording.user, recording), \
-              class: "btn btn-default" do
-      .blue-info
-        i.fa.fa-info-circle
-        '&nbsp;
-        'Info
-      
-    
-    -if current_user
-      - like = Like.where(recording_id: recording.id, user_id: current_user.id).any?
-      /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
-      = link_to user_like_path( current_user, recording), method: :delete, remote: true, \
-                class: "btn btn-default red-icon #{'unlike_recording_'+recording.id.to_s}", \
-                style: "#{'display: none;' unless like}"  do
-        i class="fa fa-heart "
-        '&nbsp;
-        'Liked
-      /-else
-      = link_to new_user_recording_like_path(current_user, recording), remote: true, \
-                class: "btn btn-default #{'like_recording_'+recording.id.to_s}", \
-                style: "#{'display: none;' if like}"  do
-        i class="fa fa-heart"
-        '&nbsp;
-        'Like
-    -else
-      = link_to login_new_path, \
-                class: "btn btn-default"  do
-        i class="fa fa-heart"
-        '&nbsp;
-        'Likes
-      
-    - if @authorized 
-        
-      = link_to edit_user_recording_path(current_user, recording), \
-                class: "btn btn-default"  do
-        i class="fa fa-pencil"
-        '&nbsp;
-        'Edit
-
-      = link_to remove_from_playlist_path( @playlist, recording: recording), method: :delete, remote: true, \
-                class: "btn btn-default"  do
-        i class="fa fa-times"
-        '&nbsp;
-        'Remove
+== render 'recordings/recording_with_icons', recording: recording, \
+                                             add_to_playlist: false, \
+                                             remove_from_playlist: true, \
+                                             edit: false, \
+                                             delete: false
+/== render 'audio_player/show', recording: recording 
+/
+/
+/.btn-group
+/  .visible-xs.btn-group-xs
+/    = link_to user_recording_path(recording.user, recording), \
+/              class: "btn btn-default" do
+/      .blue-info
+/        i.fa.fa-info-circle
+/      
+/    
+/    -if current_user
+/      - like = Like.where(recording_id: recording.id, user_id: current_user.id).any?
+/      /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
+/      = link_to user_like_path( current_user, recording), method: :delete, remote: true, \
+/                class: "btn btn-default red-icon #{'unlike_recording_'+recording.id.to_s}", \
+/                style: "#{'display: none;' unless like}"  do
+/        i class="fa fa-heart "
+/      = link_to new_user_recording_like_path(current_user, recording), remote: true, \
+/                class: "btn btn-default #{'like_recording_'+recording.id.to_s}", \
+/                style: "#{'display: none;' if like}"  do
+/        i class="fa fa-heart"
+/    -else
+/      = link_to login_new_path, \
+/                class: "btn btn-default"  do
+/        i class="fa fa-heart"
+/      
+/    - if @authorized 
+/      = link_to edit_user_recording_path(current_user, recording), \
+/                class: "btn btn-default"  do
+/        i class="fa fa-times"
+/        
+/      = link_to edit_user_recording_path(current_user, recording), \
+/                class: "btn btn-default"  do
+/        i class="fa fa-pencil" 
+/      
+/        
+/        
+/  .hidden-xs.btn-group-xs
+/    = link_to user_recording_path(recording.user, recording), \
+/              class: "btn btn-default" do
+/      .blue-info
+/        i.fa.fa-info-circle
+/        '&nbsp;
+/        'Info
+/      
+/    
+/    -if current_user
+/      - like = Like.where(recording_id: recording.id, user_id: current_user.id).any?
+/      /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
+/      = link_to user_like_path( current_user, recording), method: :delete, remote: true, \
+/                class: "btn btn-default red-icon #{'unlike_recording_'+recording.id.to_s}", \
+/                style: "#{'display: none;' unless like}"  do
+/        i class="fa fa-heart "
+/        '&nbsp;
+/        'Liked
+/      /-else
+/      = link_to new_user_recording_like_path(current_user, recording), remote: true, \
+/                class: "btn btn-default #{'like_recording_'+recording.id.to_s}", \
+/                style: "#{'display: none;' if like}"  do
+/        i class="fa fa-heart"
+/        '&nbsp;
+/        'Like
+/    -else
+/      = link_to login_new_path, \
+/                class: "btn btn-default"  do
+/        i class="fa fa-heart"
+/        '&nbsp;
+/        'Likes
+/      
+/    - if @authorized 
+/        
+/      = link_to edit_user_recording_path(current_user, recording), \
+/                class: "btn btn-default"  do
+/        i class="fa fa-pencil"
+/        '&nbsp;
+/        'Edit
+/
+/      = link_to remove_from_playlist_path( @playlist, recording: recording), method: :delete, remote: true, \
+/                class: "btn btn-default"  do
+/        i class="fa fa-times"
+/        '&nbsp;
+/        'Remove
+/

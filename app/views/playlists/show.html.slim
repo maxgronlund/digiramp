@@ -39,7 +39,7 @@
             - @recordings.each do |recording|
               div id="remove_recording_#{recording.id.to_s}"
                 == render 'show', recording: recording  
-                .sexy_line
+                
         /== paginate(@recordings)
         
       .col-lg-4

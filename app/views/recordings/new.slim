@@ -25,9 +25,9 @@
           
           .sexy_line
           .pull-right
-            = link_to 'Cancel', user_recordings_path(@user), class: 'button button-default'
+            = link_to 'Cancel', user_recordings_path(@user), class: 'btn btn-default'
             '&nbsp;
-            = f.submit 'Continue', class: 'button button-primary'
+            = f.submit 'Continue', class: 'btn btn-primary'
     
     
         = transloadit_jquerify :audio_files, :wait => true

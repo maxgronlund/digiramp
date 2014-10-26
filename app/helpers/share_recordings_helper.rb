@@ -1,0 +1,2 @@
+module ShareRecordingsHelper
+end

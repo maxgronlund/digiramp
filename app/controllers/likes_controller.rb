@@ -7,10 +7,12 @@ class LikesController < ApplicationController
     if params[:recording_id]
       @recording = Recording.cached_find(params[:recording_id])
       @show = 'likes for a recording'
+      @playlists = current_user.playlists if current_user
     else
       recording_ids = Like.order('created_at desc').where(user_id: @user.id).pluck(:recording_id)
-      @show = 'what the user likes'
-      @songs = Recording.where(id: recording_ids).page(params[:page]).per(4)
+      @show       = 'what the user likes'
+      @songs      = Recording.where(id: recording_ids).page(params[:page]).per(4)
+      @playlists  = current_user.playlists if current_user
     end
   end
   

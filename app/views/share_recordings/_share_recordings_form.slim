@@ -1,0 +1,37 @@
+.modal.fade  id="shareRecordingModal_#{recording.id.to_s}" tabindex="-1" role="dialog" aria-labelledby="shareRecordingModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal"
+          span aria-hidden="true"
+            i.fa.fa-times
+
+        h4 class="modal-title" id="shareRecordingModalLabel"
+          'Share x
+
+
+      .sexy_line
+      
+      .modal-body
+        'Facebook
+
+      
+      .modal-footer
+        button type="button" class="btn btn-default" data-dismiss="modal"
+          'Close
+        /= link_to new_create_playlist_path( user_id: current_user.id, recording_id: recording.id ), class: 'btn btn-default', remote: true  do
+        /  i.fa.fa-list
+        /  '&nbsp;New
+        /
+        /button type="button" class="btn btn-default" data-dismiss="modal"
+        /  'Close
+        /= f.submit 'Add', class: 'btn btn-primary'
+      / the create new playlist form goes here
+      /div id="create_playlist_form_#{recording.id.to_s}"
+      /
+      // the select playlist form goes here
+      /div id="select_playlist_form_#{recording.id.to_s}" 
+      /  / this will be removed, should also be added dynamicaly
+      /  div id="old_select_playlist_form_#{recording.id.to_s}"  
+      
+      

@@ -75,7 +75,7 @@
                                   i class="fa fa-eye"
                             -if current_account_user.update_recording?
                               '&nbsp;
-                              = link_to account_account_recordings_bucket_path(@account , recording), data: {:confirm => 'Are you sure?'} , :method => :delete do
+                              = link_to account_account_recordings_bucket_path(@account , recording), data: {:btn btn-default => 'Are you sure?'} , :method => :delete do
                                 .btn.btn-danger.btn-lg
                                   i class="fa fa-times"
                 .pull-right

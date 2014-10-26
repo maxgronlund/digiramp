@@ -98,7 +98,7 @@
                               i class="fa fa-pencil"
                           /-if can_edit?
                           /  '&nbsp;
-                          /  = link_to user_issue_path(issue.user, issue), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          /  = link_to user_issue_path(issue.user, issue), data: { btn btn-default: 'Are you sure?' } , :method => :delete do
                           /    .btn.btn-danger.btn-lg'
                           /      i class=" fa fa-times"
                           /

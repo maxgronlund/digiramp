@@ -64,7 +64,7 @@
                     td = opportunity_user.music_submissions.size
                     td
                       = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user), \
-                                                                                  data: { confirm: 'Are you sure?' } ,\
+                                                                                  data: { btn btn-default: 'Are you sure?' } ,\
                                                                                   :method => :delete do
                         .btn.btn-danger.btn-lg
                           i class="fa fa-times"
@@ -129,7 +129,7 @@
                     /i class="fa fa-eye"
                 '&nbsp;
                 = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), \
-                                                                          data: { confirm: 'Are you sure?' } , \
+                                                                          data: { btn btn-default: 'Are you sure?' } , \
                                                                           :method => :delete  do
                   .btn.btn-danger.btn-lg
                     i class="fa fa-times"

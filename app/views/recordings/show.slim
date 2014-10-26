@@ -1,3 +1,4 @@
+
 /-content_for :head do 
 /  = tag :meta, property: "fb:app_id", content: ENV["FACEBOOK_KEY"] 
 /  = tag :meta, property: "og:site_name", content: "DigiRAMP" 
@@ -9,8 +10,10 @@
 /                                        image_path(@movie.image) \
 
 
-
-
+div id="og_title" data-title="#{@recording.title}"
+div id="og_type"  data-og_type="music.song"
+div id="og_url"  data-og_url="#{request.url}"
+div id="og_image"  data-og_image="#{image_tag @recording.artwork}"
 
 #wrapper
   .full-width-top
@@ -23,28 +26,37 @@
       
   #page-content-wrapper
     .container-fluid
+      #digiWhams  class="/recordings/#{@recording.id.to_s}"
+        == render 'recordings/recording_with_icons', recording: @recording, \
+                                                     add_to_playlist: true, \
+                                                     remove_from_playlist: false, \
+                                                     edit: true, \
+                                                     delete: false
       .row
+        
         .col-md-6
           / the player
-          .simple-show
-            #digiWhams  class="/recordings/#{@recording.id.to_s}"
-              == render 'audio_player/simple_show', recording: @recording
-          /info about comments likes playbacks
-          .small-symbols
-            i class="fa fa-comments"
-            '&nbsp;
-            = pluralize(@recording.comments.count, 'Comment')
-            '&nbsp;|
-            = link_to user_recording_likes_path(@recording.user, @recording)
-              i class="fa fa-heart red-heart"
-              '&nbsp;
-              = pluralize(@recording.likes.count, 'Like')  
-              
-            '&nbsp;|
-            i class="fa fa-headphones"
-            '&nbsp;
-            = pluralize(@recording.playbacks_count, 'Playback')
-          .sexy_line
+          /.simple-show
+          /  #digiWhams  class="/recordings/#{@recording.id.to_s}"
+          /    == render 'audio_player/simple_show', recording: @recording
+          //info about comments likes playbacks
+          /.small-symbols
+          /  / comments
+          /  i class="fa fa-comments"
+          /  '&nbsp;
+          /  = pluralize(@recording.comments.count, 'Comment')
+          /  '&nbsp;|
+          /  / likes
+          /  = link_to user_recording_likes_path(@recording.user, @recording)
+          /    i class="fa fa-heart red-heart"
+          /    '&nbsp;
+          /    = pluralize(@recording.likes.count, 'Like')  
+          /  /playbacks  
+          /  '&nbsp;|
+          /  i class="fa fa-headphones"
+          /  '&nbsp;
+          /  = pluralize(@recording.playbacks_count, 'Playback')
+          /.sexy_line
           / info
           .show-recording
             .cover
@@ -71,12 +83,6 @@
               .btn-group.btn-group-xs
                 - if @authorized
                 
-                  = link_to edit_user_recording_path(current_user, @recording), \
-                            class: "btn btn-default"  do
-                    i class="fa fa-pencil"
-                    '&nbsp;
-                    'Edit
-                  '&nbsp;
                 
                   = link_to user_recording_path(current_user, @recording), \
                             class: "btn btn-default", \
@@ -90,28 +96,28 @@
                 
                 
                 
-                -if current_user
-                  - like = Like.where(recording_id: @recording.id, user_id: current_user.id).any?
-                
-                  = link_to user_like_path( current_user, @recording), method: :delete, remote: true, \
-                            class: "btn btn-default red-icon #{'unlike_recording_'+@recording.id.to_s}", \
-                            style: "#{'display: none;' unless like}"  do
-                    i class="fa fa-heart "
-                    '&nbsp;
-                    'Liked
-                  /-else
-                  = link_to new_user_recording_like_path(current_user, @recording), remote: true, \
-                            class: "btn btn-default #{'like_recording_'+@recording.id.to_s}", \
-                            style: "#{'display: none;' if like}"  do
-                    i class="fa fa-heart"
-                    '&nbsp;
-                    'Like
-                -else
-                  = link_to login_new_path, \
-                            class: "btn btn-default"  do
-                    i class="fa fa-heart"
-                    '&nbsp;
-                    'Like  
+                /-if current_user
+                /  - like = Like.where(recording_id: @recording.id, user_id: current_user.id).any?
+                /
+                /  = link_to user_like_path( current_user, @recording), method: :delete, remote: true, \
+                /            class: "btn btn-default red-icon #{'unlike_recording_'+@recording.id.to_s}", \
+                /            style: "#{'display: none;' unless like}"  do
+                /    i class="fa fa-heart "
+                /    '&nbsp;
+                /    'Liked
+                /  
+                /  = link_to new_user_recording_like_path(current_user, @recording), remote: true, \
+                /            class: "btn btn-default #{'like_recording_'+@recording.id.to_s}", \
+                /            style: "#{'display: none;' if like}"  do
+                /    i class="fa fa-heart"
+                /    '&nbsp;
+                /    'Like
+                /-else
+                /  = link_to login_new_path, \
+                /            class: "btn btn-default"  do
+                /    i class="fa fa-heart"
+                /    '&nbsp;
+                /    'Like  
           .sexy_line 
           .recording 
             .panel-group id="accordion"
