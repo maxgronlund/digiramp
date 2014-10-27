@@ -43,6 +43,7 @@ class Recording < ActiveRecord::Base
   belongs_to :user
   
   has_many :comments,        as: :commentable,          dependent: :destroy
+  has_many :share_on_facebooks
   
   
   #has_many :genre_tags
@@ -651,6 +652,15 @@ private
     count_stats_down
     remove_from_submissions
     remove_from_playlists
+    remove_share_on_facebooks
+  end
+  
+  def remove_share_on_facebooks
+    begin
+      self.share_on_facebooks.destroy_all
+    rescue
+    end
+    
   end
   
   def remove_from_catalogs

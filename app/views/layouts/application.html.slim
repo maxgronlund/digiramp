@@ -38,7 +38,7 @@ html
   
   
   body
-    == render 'layouts/fb'
+    /== render 'layouts/fb' unless Rails.env.development?
     = yield :charts_js
     = yield
     

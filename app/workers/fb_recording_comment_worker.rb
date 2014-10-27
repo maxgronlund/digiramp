@@ -2,11 +2,13 @@ class FbRecordingCommentWorker
   include Sidekiq::Worker
   
   def perform comment_id
-    if comment = Comment.cached_find(comment_id)
-      user = comment.user
-      recording = comment.commentable
+    if share_on_facebook = ShareOnFacebook.cached_find(comment_id)
+      
+      user      = share_on_facebook.user
+      recording = share_on_facebook.recording
+      
       if user.facebook_publish_actions
-         user.facebook.put_wall_post(comment.body,
+         user.facebook.put_wall_post(share_on_facebook.message,
                                       {
                                       "name" => "#{recording.title}",
                                       "link" => "http://www.assets-manager.com/users/#{recording.user.slug}/recordings/#{recording.id}",

@@ -1,0 +1,5 @@
+$(".old-confirmation").remove()
+$("#facebook_confirmation_" + "<%= @recording.id.to_s%>").append("<%= j render 'share_on_facebooks/confirmation' %>");
+$(".old-confirmation").fadeOut(5000)
+
+

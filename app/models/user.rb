@@ -78,6 +78,8 @@ class User < ActiveRecord::Base
   
   has_many :activity_events, as: :activity_eventable
   
+  has_many :share_on_facebooks, dependent: :destroy
+  
   after_save :update_access
   after_commit :set_propperties
   

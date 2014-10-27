@@ -7,13 +7,65 @@
             i.fa.fa-times
 
         h4 class="modal-title" id="shareRecordingModalLabel"
-          'Share x
+          'Share 
 
 
-      .sexy_line
+
       
-      .modal-body
-        'Facebook
+      .share-dialog
+        .modal-body
+          ul.nav.nav-tabs role="tablist"
+            li class="active"
+              a href="#facebook" role="tab" data-toggle="tab"
+                h3.fa.fa-facebook-square
+            li
+              a href="#twitter" role="tab" data-toggle="tab"
+                h3.fa.fa-twitter-square
+            li
+              a href="#gplus" role="tab" data-toggle="tab"
+                h3.fa.fa-google-plus-square
+            li
+              a href="#linkedin" role="tab" data-toggle="tab"
+                h3.fa.fa-linkedin-square
+            li
+              a href="#embed" role="tab" data-toggle="tab"
+                h3.fa.fa-code
+            li
+              a href="#email" role="tab" data-toggle="tab"
+                h3.fa.fa-envelope
+          
+          .sexy_line
+          .tab-content
+            .tab-pane.fade.in.active id="facebook"
+              h4 Facebook
+              
+              div id="facebook_confirmation_#{recording.id.to_s}"
+
+              = simple_form_for [ShareOnFacebook.new], remote: true do |f|
+                = f.error_notification
+              
+                .form-inputs
+                  - if current_user
+                    = f.hidden_field :user_id, value: current_user.id
+                  = f.hidden_field :recording_id, value: recording.id
+                  = f.input :message
+              
+                .form-actions
+                  = f.submit 'Post on wall', class: 'btn btn-primary'
+              
+              
+            .tab-pane.fade id="twitter"
+              h4 Twitter
+            .tab-pane.fade id="gplus"
+              h4 + Google
+            .tab-pane.fade id="linkedin"
+              h4 Linkedin
+            .tab-pane.fade id="embed"
+              h4 Embed
+            .tab-pane.fade id="email"
+              h4 Email
+          
+
 
       
       .modal-footer
