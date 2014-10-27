@@ -32,12 +32,33 @@
       .row
         
         .col-md-6
-          div class="fb-like" data-send="true" data-width="450" data-show-faces="true"
+          / the player
+          /.simple-show
+          /  #digiWhams  class="/recordings/#{@recording.id.to_s}"
+          /    == render 'audio_player/simple_show', recording: @recording
+          //info about comments likes playbacks
+          /.small-symbols
+          /  / comments
+          /  i class="fa fa-comments"
+          /  '&nbsp;
+          /  = pluralize(@recording.comments.count, 'Comment')
+          /  '&nbsp;|
+          /  / likes
+          /  = link_to user_recording_likes_path(@recording.user, @recording)
+          /    i class="fa fa-heart red-heart"
+          /    '&nbsp;
+          /    = pluralize(@recording.likes.count, 'Like')  
+          /  /playbacks  
+          /  '&nbsp;|
+          /  i class="fa fa-headphones"
+          /  '&nbsp;
+          /  = pluralize(@recording.playbacks_count, 'Playback')
+          /.sexy_line
+          / info
           .show-recording
             .cover
               = image_tag @recording.artwork, alt: "#{@recording.title}"
-
-
+           
             .info
               / this user
               = link_to user_path(@recording.user) do
@@ -69,31 +90,7 @@
                     'Delete
                   '&nbsp;
                 
-                
-                
-                
-                /-if current_user
-                /  - like = Like.where(recording_id: @recording.id, user_id: current_user.id).any?
-                /
-                /  = link_to user_like_path( current_user, @recording), method: :delete, remote: true, \
-                /            class: "btn btn-default red-icon #{'unlike_recording_'+@recording.id.to_s}", \
-                /            style: "#{'display: none;' unless like}"  do
-                /    i class="fa fa-heart "
-                /    '&nbsp;
-                /    'Liked
-                /  
-                /  = link_to new_user_recording_like_path(current_user, @recording), remote: true, \
-                /            class: "btn btn-default #{'like_recording_'+@recording.id.to_s}", \
-                /            style: "#{'display: none;' if like}"  do
-                /    i class="fa fa-heart"
-                /    '&nbsp;
-                /    'Like
-                /-else
-                /  = link_to login_new_path, \
-                /            class: "btn btn-default"  do
-                /    i class="fa fa-heart"
-                /    '&nbsp;
-                /    'Like  
+  
           .sexy_line 
           .recording 
             .panel-group id="accordion"
@@ -118,7 +115,7 @@
           .tags    
           .tags-content    
             == render 'tags/tags_content'
-            
+          div class="fb-like" data-send="true" data-width="450" data-show-faces="true" 
           == render 'shared/comments', commentable: @recording
         
   == render 'shared/site_footer'          
