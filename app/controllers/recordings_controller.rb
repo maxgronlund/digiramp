@@ -56,6 +56,12 @@ class RecordingsController < ApplicationController
   
   def show
     @recording = Recording.find(params[:id])
+    respond_to do |format|
+        format.html
+        format.js
+        format.xml { render xml: @recording }
+      end
+      
   end
   
   def destroy
