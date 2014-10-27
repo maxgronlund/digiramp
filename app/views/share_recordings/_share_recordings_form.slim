@@ -37,10 +37,11 @@
           .sexy_line
           .tab-content
             .tab-pane.fade.in.active id="facebook"
-              h4 Facebook
+              h4 Share on Facebook
               
               div id="facebook_confirmation_#{recording.id.to_s}"
-
+              
+              
               = simple_form_for [ShareOnFacebook.new], remote: true do |f|
                 = f.error_notification
               
@@ -51,7 +52,7 @@
                   = f.input :message
               
                 .form-actions
-                  = f.submit 'Post on wall', class: 'btn btn-primary'
+                  = f.submit 'Share', class: 'btn btn-primary'
               
               
             .tab-pane.fade id="twitter"

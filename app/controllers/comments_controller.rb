@@ -79,9 +79,9 @@ class CommentsController < ApplicationController
     end
   end
   
-  def post_on_social_media
-    FbRecordingCommentWorker.perform_async(@comment.id)
-  end
+  #def post_on_social_media
+  #  FbRecordingCommentWorker.perform_async(@comment.id)
+  #end
   
  
 
