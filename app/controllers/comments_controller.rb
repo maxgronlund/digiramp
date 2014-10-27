@@ -67,7 +67,7 @@ class CommentsController < ApplicationController
                        recipient: @comment.commentable,
                   recipient_type: 'Recording',
                       account_id: @comment.user.account_id) 
-        post_on_social_media
+        #post_on_social_media
         
         #render nothing: true
       else
