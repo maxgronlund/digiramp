@@ -1,38 +1,26 @@
 
-/-content_for :head do 
-/  = tag :meta, property: "fb:app_id", content: ENV["FACEBOOK_KEY"] 
-/  = tag :meta, property: "og:site_name", content: "DigiRAMP" 
-/  = tag :meta, property: "og:type", content: "cinematron:movie" 
-/  = tag :meta, property: "og:title", content: @movie.name 
-/  = tag :meta, property: "og:url", content: movie_url(@movie) 
-/  = tag :meta, property: "og:image", content: request.protocol + \
-/                                        request.host_with_port +  \
-/                                        image_path(@movie.image) \
-
-
-/div id="og_title" data-title="#{@recording.title}"
-/div id="og_type"  data-og_type="music.song"
-/div id="og_url"  data-og_url="#{request.url}"
-/div id="og_image"  data-og_image="#{image_tag @recording.artwork}"
-
-==content_for :head do
-  <meta property="og:title" content="DigiRamp"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="http://assets-manager.com"/>
-  <meta property="og:image" content="#{@recording.artwork}"/>
-  <meta property="og:image:type" content="image/jpg"/>
-  <meta property="og:image:width" content="360"/>
-  <meta property="og:image:height" content="360"/>
-  <meta property="og:description" content="#{strip_tags @recording.comment}"/>
-  <meta property="fb:app_id" content="728817730525571"/>
-     
-  /<meta property="og:title" content="#{@recording.title}" />
-  /<meta property="og:description" content="#{strip_tags @recording.comment}" />
-  /<meta property="og:type" content="music.song" />
-  /<meta property="og:url" content="#{request.url}" />
-  /<meta property="og:site_name" content="DigiRAMP" />
-  /<meta property="og:image" content="#{@recording.artwork}" />
-  /<meta property="og:audio" content="#{@recording.mp3}"/>
+/==content_for :head do
+/  <meta property="og:title" content="DigiRamp"/>
+/  <meta property="og:type" content="website"/>
+/  <meta property="og:url" content="http://assets-manager.com"/>
+/  <meta property="og:image" content="#{@recording.artwork}}"/>
+/  <meta property="og:image:type" content="image/jpg"/>
+/  <meta property="og:image:width" content="360"/>
+/  <meta property="og:image:height" content="360"/>
+/  <meta property="og:description" content="#{strip_tags @recording.comment}"/>
+/  <meta property="fb:app_id" content="728817730525571"/>
+=content_for :head do
+  <meta property="og:title" content="fobar" />
+  <meta property="og:description" content="chunky beacon" />
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="#{request.url}" />
+  <meta property="og:price:amount" content="25.5" />
+  <meta property="og:price:currency" content="DKK" />
+  <meta property="og:availability" content="instock" />
+  <meta property="og:site_name" content="DigiRAMP" />
+  <meta property="og:image" content="#{@recording.artwork}" />
+  <meta property="fb:app_id" content="728817730525571" />
+  <meta property="fb:app_id" content="728817730525571" />
 
 
 #wrapper
