@@ -3,12 +3,7 @@ html
   head
    title DigiRAMP
    = content_for?(:head) ? yield(:head) : ''
-   /<meta property="og:title" content="CINEMARE"/>
-   /<meta property="og:type" content="music.song"
-   /<meta property="og:image" content="http://digiramp.s3.amazonaws.com/3e/a810d017c711e4bef1cfdcb50afc4c/maxresdefault.jpg"/>
-   /<meta property="og:url" content="http://assets-manager.com/users/peter-musicintomedia-com/recordings/507"/>
-   /<meta property="og:audio" content="https://digiramp.s3.amazonaws.com/1e/e3ae90eaa811e3acddbdc87d7bdda1/FDC-CINEMARE-5.mp3?AWSAccessKeyId=AKIAJN4UDAY5IF3CRYDA&Expires=1414369752&Signature=BZF6L1J4iMhPNcN1byCBEOgOXyc%3D"/>
-   /link href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'
+   
    = stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css", media: "all"
    = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Pontano+Sans" , media: "all"
    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
@@ -27,7 +22,7 @@ html
    /= stylesheet_link_tag "html5-realtime-push-notifications/src/js/gritter/css/jquery.gritter.css", media: "all"
    
    / pusher
-   = javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
+   /= javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
    /= javascript_include_tag "//js/jquery.gritter.js"
    
    /= javascript_include_tag "//realtime-notifications/src/PusherNotifier.js"
@@ -38,13 +33,13 @@ html
    = csrf_meta_tags
   
   
-  == render 'layouts/pusher'
+  /== render 'layouts/pusher'
   
   
   
   body
-    = yield :charts_js
-    = yield
+    /= yield :charts_js
+    /= yield
     
 
   
