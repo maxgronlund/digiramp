@@ -1,6 +1,7 @@
 class RecordingsController < ApplicationController
   
-  protect_from_forgery only: :show
+  #protect_from_forgery only: :show
+  skip_before_action :verify_authenticity_token
   
   before_filter :get_user, only: [:show, :edit, :update, :new, :create, :destroy, :index]
   include Transloadit::Rails::ParamsDecoder

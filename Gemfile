@@ -120,6 +120,9 @@ gem "airbrake"
 # maintaince
 gem 'traceroute'
 
+# avoid ActionController::InvalidCrossOriginRequest
+# gem 'rack-cors', :require => 'rack/cors'
+
 
 gem 'friendly_id', '~> 5.0.0' 
 
