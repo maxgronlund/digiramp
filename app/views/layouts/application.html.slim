@@ -22,7 +22,7 @@ html
    /= stylesheet_link_tag "html5-realtime-push-notifications/src/js/gritter/css/jquery.gritter.css", media: "all"
    
    / pusher
-   /= javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
+   = javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
    /= javascript_include_tag "//js/jquery.gritter.js"
    
    /= javascript_include_tag "//realtime-notifications/src/PusherNotifier.js"
@@ -33,13 +33,13 @@ html
    = csrf_meta_tags
   
   
-  /== render 'layouts/pusher'
+  == render 'layouts/pusher'
   
   
   
   body
-    /= yield :charts_js
-    /= yield
+    = yield :charts_js
+    = yield
     
 
   
