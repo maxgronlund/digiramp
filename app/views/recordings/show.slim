@@ -7,18 +7,9 @@
   <meta property="og:image"              content="#{@recording.cover_art}" /> 
   <meta property="music:album:url"       content="#{request.url}" /> 
   <meta property="music:preview_url:url" content="Sample Preview URL: URL" />
-  <meta property="og:description"        content="#{strip_tags @recording.comment}"/>
+  <meta property="og:description"        content="#{strip_tags @recording.get_comment}"/>
   <meta property="og:audio"              content="#{@recording.mp3}" />
   
-  /<meta property="og:title" content="DigiRamp"/>
-  /<meta property="og:type" content="website"/>
-  /<meta property="og:url" content="http://assets-manager.com"/>
-  /<meta property="og:image" content="#{@recording.artwork}}"/>
-  /<meta property="og:image:type" content="image/jpg"/>
-  /<meta property="og:image:width" content="360"/>
-  /<meta property="og:image:height" content="360"/>
-  /<meta property="og:description" content="#{strip_tags @recording.comment}"/>
-  /<meta property="fb:app_id" content="728817730525571"/>
 
 
 #wrapper
@@ -41,33 +32,12 @@
       .row
         
         .col-md-6
-          / the player
-          /.simple-show
-          /  #digiWhams  class="/recordings/#{@recording.id.to_s}"
-          /    == render 'audio_player/simple_show', recording: @recording
-          //info about comments likes playbacks
-          /.small-symbols
-          /  / comments
-          /  i class="fa fa-comments"
-          /  '&nbsp;
-          /  = pluralize(@recording.comments.count, 'Comment')
-          /  '&nbsp;|
-          /  / likes
-          /  = link_to user_recording_likes_path(@recording.user, @recording)
-          /    i class="fa fa-heart red-heart"
-          /    '&nbsp;
-          /    = pluralize(@recording.likes.count, 'Like')  
-          /  /playbacks  
-          /  '&nbsp;|
-          /  i class="fa fa-headphones"
-          /  '&nbsp;
-          /  = pluralize(@recording.playbacks_count, 'Playback')
-          /.sexy_line
-          / info
+          div class="fb-like" data-send="true" data-width="450" data-show-faces="true"
           .show-recording
             .cover
               = image_tag @recording.artwork, alt: "#{@recording.title}"
-           
+
+
             .info
               / this user
               = link_to user_path(@recording.user) do

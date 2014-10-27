@@ -434,6 +434,11 @@ class Recording < ActiveRecord::Base
     end
   end
   
+  def get_comment
+    return self.comment unless self.comment.to_s == ''
+    return 'Provided by DigiRAMP'
+  end
+  
   # update the genre
   def extract_genres
 
