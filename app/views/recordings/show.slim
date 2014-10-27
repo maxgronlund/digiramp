@@ -7,6 +7,7 @@
   <meta property="og:image"              content="#{@recording.cover_art}" /> 
   <meta property="music:album:url"       content="#{request.url}" /> 
   <meta property="music:preview_url:url" content="Sample Preview URL: URL" />
+  <meta property="og:description" content="#{strip_tags @recording.comment}"/>
   
   /<meta property="og:title" content="DigiRamp"/>
   /<meta property="og:type" content="website"/>
