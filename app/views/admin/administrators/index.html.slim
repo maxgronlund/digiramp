@@ -39,9 +39,9 @@
                             = link_to 'Edit', edit_admin_administrator_path( user), class: 'btn btn-primary'
                             '&nbsp;
                             -unless (user.email == 'max@synthmax.dk') || (user.email == 'peter@digiramp.org')
-                              = link_to 'Delete', admin_user_path( user), data: { btn btn-default: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+                              = link_to 'Delete', admin_user_path( user), data: { data: { confirm: 'Are you sure?' } 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
                             -else
-                              = link_to 'Delete', admin_user_path( user), data: { btn btn-default: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning disabled'
+                              = link_to 'Delete', admin_user_path( user), data: { data: { confirm: 'Are you sure?' } 'Are you sure?' } , :method => :delete, class: 'btn btn-warning disabled'
                         /td
                         /  .pull-right
                         /    = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'

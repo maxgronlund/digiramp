@@ -59,7 +59,7 @@
                               i class="fa fa-pencil"
                           '&nbsp;
                           = link_to account_account_client_group_path(@account, client_group), \
-                                                                    data: { btn btn-default: 'Are you sure?' } , \
+                                                                    data: { data: { confirm: 'Are you sure?' } 'Are you sure?' } , \
                                                                     :method => :delete do
                             .btn.btn-danger.btn-lg
                               i class="fa fa-times"

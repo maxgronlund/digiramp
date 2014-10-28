@@ -46,7 +46,7 @@
         /                .pull-right
         /                  - client_group_client = ClientGroupsClients.where(client_group_id: @client_group.id, client_id: client.id).first
         /                  = link_to account_account_client_group_remove_member_path(@account.id, @client_group.id, client_group_client.try(:id)), \
-        /                      btn btn-default: 'Are you sure?' do 
+        /                      data: { confirm: 'Are you sure?' } 'Are you sure?' do 
         /                        .btn.btn-danger.btn-lg
         /                          i class="fa fa-times"
       .col-sm-6
