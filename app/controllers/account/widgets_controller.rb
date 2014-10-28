@@ -15,7 +15,7 @@ class Account::WidgetsController < ApplicationController
     if Rails.env == 'development'
       @snippet = "<iframe width='#{@widget.width}' height='#{@widget.height}' src=\"http://localhost:3000/embed/#{@widget.secret_key}\" frameborder='0' allowfullscreen></iframe>"
     else
-      @snippet = "<iframe width='#{@widget.width}' height='#{@widget.height}' src=\"http://assets-manager.com/embed/#{@widget.secret_key}\" frameborder='0' allowfullscreen></iframe>"
+      @snippet = "<iframe width='#{@widget.width}' height='#{@widget.height}' src=\"http://digiramp.com/embed/#{@widget.secret_key}\" frameborder='0' allowfullscreen></iframe>"
     end
 
   end

@@ -59,17 +59,13 @@ class CommentsController < ApplicationController
           puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
         end
         redirect_to user_issue_path(@comment.user, @comment.commentable_id)
-      when 'Recording'
-        #ap @comment.commentable
-        
+      when 'Recording', 'User'
         @comment.user.create_activity(  :created, 
                            owner: @comment,
                        recipient: @comment.commentable,
-                  recipient_type: 'Recording',
+                  recipient_type: @comment.commentable.class.name,
                       account_id: @comment.user.account_id) 
-        #post_on_social_media
-        
-        #render nothing: true
+
       else
         
       

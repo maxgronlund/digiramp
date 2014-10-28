@@ -81,7 +81,7 @@ Digiramp::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
   
-  Rails.application.routes.default_url_options[:host] = 'assets-manager.com'
+  Rails.application.routes.default_url_options[:host] = 'digiramp.com'
   
   
   #config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
@@ -95,7 +95,7 @@ end
 ActionMailer::Base.smtp_settings = {
     :address => "smtp.sendgrid.net",
     :port => 587,
-    :domain => "assets-manager.com",
+    :domain => "digiramp.com",
     :authentication => :plain,
     :user_name => "info-digiramp",
     :password => "GnoDg4jq7Wm"
