@@ -83,7 +83,7 @@
                                     i class="fa fa-pencil"
                                 '&nbsp;
                               -if current_account_user.delete_catalog?
-                                = link_to catalog_account_catalog_path( @account, catalog) , data: { data: { confirm: 'Are you sure?' } 'Are you sure?' } , method: :delete do
+                                = link_to catalog_account_catalog_path( @account, catalog) , data: { confirm: 'Are you sure?' } , method: :delete do
                                   .btn.btn-danger.btn-lg
                                     i class="fa fa-trash-o"
                         
