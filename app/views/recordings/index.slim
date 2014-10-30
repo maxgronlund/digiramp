@@ -43,7 +43,7 @@
       .sexy_line
       .endless-pages
       .add_recordings
-        -if current_user && current_user.id = @user.id
+        -if current_user && current_user.id == @user.id
           .new-recording
             = link_to new_user_recording_path(@user) do
               .new-recording-badge
