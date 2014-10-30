@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027202005) do
+ActiveRecord::Schema.define(version: 20141029092046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1705,9 +1705,10 @@ ActiveRecord::Schema.define(version: 20141027202005) do
     t.integer  "playbacks_count",      default: 0
     t.integer  "likes_count",          default: 0
     t.integer  "user_id"
-    t.boolean  "published",            default: false
     t.string   "uniq_playbacks_count", default: ""
     t.string   "uniq_likes_count",     default: ""
+    t.string   "privacy",              default: "Anyone"
+    t.boolean  "acceptance_of_terms"
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

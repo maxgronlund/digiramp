@@ -51,6 +51,8 @@ ENV["S3_KEY_ID"]        = 'AKIAJN4UDAY5IF3CRYDA'
 ENV["S3_ACCESS_KEY"]    = 'UDH4rSx4N6A267q/Tii+K+9APoElnIQzwdlqo530'
 ENV["AWS_S3_BUCKET"]    = 'digiramp-widget'
 
+#ENV['TWITTER_KEY']      = 'sxnwvjajuSgGiWWVlWMRXj6Qq'
+#ENV['TWITTER_SECRET']   = 'HVZQ8tlkDGTeOvaZnFjK4vAwmHPyfHtzDg6tbu98gslj6moCh9'
 ENV['TWITTER_KEY']      = 'sxnwvjajuSgGiWWVlWMRXj6Qq'
 ENV['TWITTER_SECRET']   = 'HVZQ8tlkDGTeOvaZnFjK4vAwmHPyfHtzDg6tbu98gslj6moCh9'
 

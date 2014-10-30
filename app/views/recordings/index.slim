@@ -31,18 +31,32 @@
               = f.submit 'Search', class: 'btn btn-default'
               '&nbsp;
               = link_to 'Show All', user_recordings_path(@user), class: 'btn btn-default'
-              - if @authorized
-                .pull-right
-                  = link_to new_user_recording_path(@user) do
-                    .btn.btn-primary
-                      i.fa.fa-cloud-upload
-                      '&nbsp;
-                      'Upload
+              /- if @authorized
+              /  .pull-right
+              /    = link_to new_user_recording_path(@user) do
+              /      .btn.btn-primary
+              /        i.fa.fa-cloud-upload
+              /        '&nbsp;
+              /        'Upload
                 
       
       .sexy_line
       .endless-pages
       .add_recordings
+        -if current_user && current_user.id = @user.id
+          .new-recording
+            = link_to new_user_recording_path(@user) do
+              .new-recording-badge
+                .new-recording-badge-content
+                  i.fa.fa-plus-circle
+
+              .new-recording-content
+                .new-recording-text
+                  h3 Upload Recording
+                .new-recording-waveform
+                  = image_tag 'default_waveform.png'
+          .sexy_line
+          
         == render 'recordings/index', recordings: @recordings
        
       == paginate(@recordings) 

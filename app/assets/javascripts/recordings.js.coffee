@@ -7,6 +7,22 @@ ready = ->
   $('#playlist_recording_ids').chosen()
   
   
+
+  
+  #$('#recording_title').keyup ->
+  #  #can_submit_text = $("#recording_title").val() != ''
+
+
+      
+  $("input[type='checkbox']").click ->
+    enable_next_button()
+    
+
+
+  $("#recording_file").change ->
+    enable_next_button()
+    
+  
   
   if $('.endless-pages').length
     if $('.pagination').length
@@ -20,6 +36,22 @@ ready = ->
         
     
 
+
   
 $(document).ready(ready)
 $(document).on('page:load', ready)
+
+
+enable_next_button =() ->
+  
+  allowedExtension = ["mp3", "wave", "gif", "png"]
+ 
+  enable_next=  $("input[type='checkbox']").prop( "checked" )
+  if $("#recording_file").val() == ''
+    enable_next = false
+
+  if enable_next 
+    $(".btn-next").removeAttr("disabled")
+  else
+    $(".btn-next").attr('disabled', 'disabled');
+    

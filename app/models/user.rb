@@ -567,7 +567,47 @@ class User < ActiveRecord::Base
   #end
     
     
+  def tweet message
     
+    self.authorization_providers.each do | authorization_provider|
+      
+      ap authorization_provider
+      
+    end
+    
+    if self.authorization_providers
+       
+      # get twitter provider
+      if provider_twitter = self.authorization_providers.where(provider: 'twitter')
+
+          client = Twitter::REST::Client.new do |config|
+            config.consumer_key        = ENV['TWITTER_KEY'] 
+            config.consumer_secret     = ENV['TWITTER_SECRET'] 
+            config.access_token        = provider_twitter[:oauth_token]
+            config.access_token_secret = provider_twitter[:oauth_secret]
+          end
+    
+          client.update(message)
+
+
+      end
+    end
+    
+    #client = Twitter::REST::Client.new do |config|
+    #  config.consumer_key        =  ENV['TWITTER_KEY']  
+    #  config.consumer_secret     =  ENV['TWITTER_SECRET'] 
+    #  config.access_token        =  ENV['TWITTER_KEY']  
+    #  config.access_token_secret =  ENV['TWITTER_SECRET'] 
+    #end
+    
+
+    
+  end
+  
+  
+  def send_tweet
+    self.twitter.update("I'm tweeting with @gem!")
+  end
     
 
 private

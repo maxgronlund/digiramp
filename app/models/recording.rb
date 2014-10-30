@@ -32,10 +32,14 @@ class Recording < ActiveRecord::Base
   
   
   validates :title, :presence => true
+  validates :acceptance_of_terms, acceptance: true
   
   scope :bucket,            -> { where( in_bucket: true)  }
   scope :not_in_bucket,     -> { where.not( in_bucket: true)  }
-  scope :published,         -> { where(published: true)}
+  scope :public_access,     -> { where(privacy: 'Anyone')}
+  scope :private_access,    -> { where(privacy: 'Only me')}
+  scope :invited_access,    -> { where(privacy: 'Only people I choose')}
+  scope :account_access,    -> { where(privacy: 'Only people I invite to my account')}
   
   belongs_to :account
   belongs_to :common_work
@@ -73,12 +77,13 @@ class Recording < ActiveRecord::Base
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
   TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
   
+  PRIVACY = [ "Anyone", "Only me", "Only people I choose", 'Only people I invite to my account']
+  
   VOCAL_HASH = []
   
   VOCAL.each do |k|
     VOCAL_HASH << [k,k]
   end
-  
   
   
   def playlist

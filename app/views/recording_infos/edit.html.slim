@@ -1,0 +1,29 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      h3 Edit recording #{@recording.title}
+      .sexy_line
+
+                                                     
+      /= simple_form_for [@user, @recording],  :html => { :id => 'recording_artwork' } do |f|
+      = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_infos'), 
+                                               :html => { :id => 'recording_artwork' }, 
+                                               :method => 'put' do |f|
+        = transloadit :image_files_to_s3 
+        /= f.hidden_field :user_id, value: @user.id
+        == render 'form', f: f
+      = transloadit_jquerify :recording_artwork, :wait => true
+        
+  == render 'shared/site_footer'  

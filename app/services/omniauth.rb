@@ -6,10 +6,9 @@ class Omniauth
   def self.attach_provider env, user
     
     if new_provider = AuthorizationProvider.where(user_id: user.id, provider: env['omniauth.auth']["provider"]).present?
-      
       return nil
     else  
-      
+      ap env['omniauth.auth']
       credentials =  env['omniauth.auth']["credentials"]
       
       

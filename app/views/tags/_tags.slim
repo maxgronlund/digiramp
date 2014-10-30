@@ -1,25 +1,23 @@
-/ dont show empty tags to unauthorizied users
-- if @authorized
-  .panel.panel-default
-    .panel-heading
-      h5 class="panel-title"
-        a data-toggle="collapse" data-parent="#accordion" href="#tags"
-          .tags-label
-          == render 'tags/label'
-  
-    .panel-collapse.collapse id="tags" 
-      .panel-body
-        .edit-tags 
-        .show-tags
-          .tags-form
-            == render 'recordings/shared/tags_form', recording: @recording
-        /== render 'recordings/shared/tags_form', recording: @recording
-        /.edit-tags 
-        /.show-tags
-        /  - if @recording.has_meta_data?
-        /    == render 'tags/show'
-        /  - elsif @authorized
-        /    .tags-form
-        /      == render 'recordings/shared/tags_form', recording: @recording
-            
+.panel.panel-default
+  .panel-heading
+    h5 class="panel-title"
+      a data-toggle="collapse" data-parent="#accordion" href="#tags"
+        .tags-label
+        == render 'tags/label'
+
+  .panel-collapse.collapse id="tags" 
+    .panel-body
+      .edit-tags 
+      .show-tags
+        .tags-form
+          == render 'recordings/shared/tags_form', recording: @recording
+      /== render 'recordings/shared/tags_form', recording: @recording
+      /.edit-tags 
+      /.show-tags
+      /  - if @recording.has_meta_data?
+      /    == render 'tags/show'
+      /  - elsif @authorized
+      /    .tags-form
+      /      == render 'recordings/shared/tags_form', recording: @recording
+          
   

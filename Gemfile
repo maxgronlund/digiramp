@@ -74,7 +74,11 @@ gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 gem "omniauth-gplus"
 
+# API's
+# facebook
 gem "koala", "~> 1.10.0rc"
+# twitter
+gem 'twitter'
 
 # auto complete fields
 #gem 'bootstrap_tokenfield_rails'

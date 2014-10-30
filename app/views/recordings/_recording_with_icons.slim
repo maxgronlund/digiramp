@@ -1,13 +1,14 @@
-== render 'audio_player/show', recording: recording 
+== render 'audio_player/show', recording: recording , description: description
 
 
 .btn-group
   .visible-xs.btn-group-xs
-    = link_to user_recording_path(recording.user, recording), \
-              class: "btn btn-default" do
-      .blue-info
-        i.fa.fa-info-circle
-      
+    - if info
+      = link_to user_recording_path(recording.user, recording), \
+                class: "btn btn-default" do
+        .blue-info
+          i.fa.fa-info-circle
+        
     
     -if current_user
       - like = Like.where(recording_id: recording.id, user_id: current_user.id).any?
@@ -39,7 +40,7 @@
       
     - if @authorized 
       - if edit
-        = link_to edit_user_recording_path(current_user, recording), \
+        = link_to edit_user_recording_privacy_path(current_user, recording), \
                   class: "btn btn-default"  do
           i class="fa fa-pencil"
 
@@ -60,13 +61,14 @@
 
         
   .hidden-xs.btn-group-xs
-    = link_to user_recording_path(recording.user, recording), \
-              class: "btn btn-default" do
-      .blue-info
-        i.fa.fa-info-circle
-        '&nbsp;
-        'Info
-      
+    - if info
+      = link_to user_recording_path(recording.user, recording), \
+                class: "btn btn-default" do
+        .blue-info
+          i.fa.fa-info-circle
+          '&nbsp;
+          'Info
+        
     
     -if current_user
       - like = Like.where(recording_id: recording.id, user_id: current_user.id).any?
@@ -126,7 +128,7 @@
       
     - if @authorized 
       - if edit
-        = link_to edit_user_recording_path(current_user, recording), \
+        = link_to edit_user_recording_privacy_path(current_user, recording), \
                   class: "btn btn-default"  do
           i class="fa fa-pencil"
           '&nbsp;

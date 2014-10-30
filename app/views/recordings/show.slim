@@ -24,84 +24,50 @@
   #page-content-wrapper
     .container-fluid
       #digiWhams  class="/recordings/#{@recording.id.to_s}"
-        == render 'recordings/recording_with_icons', recording: @recording, \
-                                                     add_to_playlist: true, \
-                                                     remove_from_playlist: false, \
-                                                     edit: true, \
-                                                     delete: false
+        == render 'recordings/recording_with_icons', recording: @recording, 
+                                                     info: false,
+                                                     add_to_playlist: true, 
+                                                     remove_from_playlist: false, 
+                                                     edit: true, 
+                                                     delete: false,
+                                                     description: false
       .row
         
         .col-md-6
-          / the player
-          /.simple-show
-          /  #digiWhams  class="/recordings/#{@recording.id.to_s}"
-          /    == render 'audio_player/simple_show', recording: @recording
-          //info about comments likes playbacks
-          /.small-symbols
-          /  / comments
-          /  i class="fa fa-comments"
-          /  '&nbsp;
-          /  = pluralize(@recording.comments.count, 'Comment')
-          /  '&nbsp;|
-          /  / likes
-          /  = link_to user_recording_likes_path(@recording.user, @recording)
-          /    i class="fa fa-heart red-heart"
-          /    '&nbsp;
-          /    = pluralize(@recording.likes.count, 'Like')  
-          /  /playbacks  
-          /  '&nbsp;|
-          /  i class="fa fa-headphones"
-          /  '&nbsp;
-          /  = pluralize(@recording.playbacks_count, 'Playback')
-          /.sexy_line
-          / info
+          / description can be updated with AJAX
+          .tags    
+          .tags-content    
+            == render 'tags/tags_content'
           .show-recording
-            .cover
-              = image_tag @recording.artwork, alt: "#{@recording.title}"
-           
+            == render 'artists/artists_content'
+            /.cover
+            /  = image_tag @recording.artwork, alt: "#{@recording.title}"
+            /
             .info
-              / this user
-              = link_to user_path(@recording.user) do
-                .user-avatar
-                  =  image_tag @recording.user.image_url(:avatar_48x48)
-                  '&nbsp;
-                .user-name
-                  = @recording.user.name
-              div
-                == render 'users/shared/follow' , user: @recording.user
-                  
-              
               / description can be updated with AJAX
-              .description    
-              .description-content    
-                = simple_format @recording.comment
-          
-            .buttons
-              .btn-group.btn-group-xs
-                - if @authorized
-                
-                
-                  = link_to user_recording_path(current_user, @recording), \
-                            class: "btn btn-default", \
-                            data: { confirm: 'Are you sure?' } , \
-                            :method => :delete  do
-                    i class="fa fa-trash-o"
-                    '&nbsp;
-                    'Delete
-                  '&nbsp;
-                
-  
-          .sexy_line 
-          .recording 
-            .panel-group id="accordion"
-              / Description
-              == render 'descriptions/description' 
-              / Lyrics
-              == render 'lyrics/lyrics'
-              / Tags
-              == render 'tags/tags'
-              / Artists
-              == render 'artists/artists'
+              .description-text    
+              .description-content 
+                - if @recording.comment.to_s != ''
+                  br
+                  i Description
+                  = simple_format @recording.comment
+                - if @recording.lyrics.to_s != ''
+                  i Lyrics
+                  = simple_format @recording.lyrics
+           
+               
+          - if @authorized
+            h4 Quick Edit
+            .recording 
+              .panel-group id="accordion"
+                / Description
+                == render 'descriptions/description' 
+                / Lyrics
+                == render 'lyrics/lyrics'
+                / Tags
+                == render 'tags/tags'
+                / Artists
+                == render 'artists/artists'
           
           
 
@@ -109,12 +75,20 @@
             
       
         .col-md-6
-          / artists can be updated with AJAX
-          == render 'artists/artists_content'
-          / description can be updated with AJAX
-          .tags    
-          .tags-content    
-            == render 'tags/tags_content'
+          
+          .show-recording
+            i Uploaded by
+            .info
+              = link_to user_path(@recording.user) do
+                .user-avatar
+                  =  image_tag @recording.user.image_url(:avatar_48x48)
+                  '&nbsp;
+              .user-name
+                = @recording.user.name
+                br
+                == render 'users/shared/follow' , user: @recording.user
+             
+          .sexy_line
           /div class="fb-like" data-send="true" data-width="450" data-show-faces="true" 
           == render 'shared/comments', commentable: @recording
         

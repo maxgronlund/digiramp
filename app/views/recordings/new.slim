@@ -13,22 +13,44 @@
 
   #page-content-wrapper
     .container-fluid   
-      .col-sm-9.col-md-6
+      h3 Upload Recording
+      == render 'shared/flash_message'
+      .sexy_line
+      br
+      = simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
+        .row
+          .col-sm-6.col-md-5.col-lg-4
+            = transloadit :recording_with_thumbs 
+            
+            = f.hidden_field :user_id, value: @user.id
 
-        = simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
-          = transloadit :recording_with_thumbs 
-          = f.hidden_field :user_id, value: @user.id
-          /= f.input :title
-          = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
-          = f.file_field :file, multiple: false
-          br
+            /= f.input :title, hint: 'Dont change to extract title from file'
+            
+            
+            = f.file_field :file, multiple: false, label: 'Select Audio File'
+            br
+            
+            = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  as: :radio_buttons, label: 'Privacy'
+           
+          .col-sm-6.col-md-4.col-lg-3
+            
+            = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
+            = f.input :acceptance_of_terms, 
+                      id: 'acceptance_of_terms',
+                      label: false, 
+                      inline_label:  raw( "*I Have <a href=#{terms_and_conditions_path}>Read and Agree</a>  to The Terms and Conditions")
+            .pull-right
+              
+              = link_to 'Cancel', user_recordings_path(@user), class: 'btn btn-default'
+              '&nbsp;
+              = f.submit 'Next', class: 'btn btn-primary btn-next', disabled: "disabled"
           
-          .sexy_line
-          .pull-right
-            = link_to 'Cancel', user_recordings_path(@user), class: 'btn btn-default'
-            '&nbsp;
-            = f.submit 'Continue', class: 'btn btn-primary'
-    
+        .row
+          .col-sm-12
+          
+
+            
+            
     
         = transloadit_jquerify :audio_files, :wait => true
       

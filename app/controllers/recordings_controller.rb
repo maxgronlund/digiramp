@@ -24,6 +24,10 @@ class RecordingsController < ApplicationController
   def create
     
     result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account_id, false, @user.id)
+
+    title = params[:recording][:title]
+
+    
     if result[:recordings].size != 0
       
       result[:recordings].each do |recording|
@@ -42,20 +46,22 @@ class RecordingsController < ApplicationController
         
                    
         recording.common_work_id = common_work.id
+        recording.title = title unless title == 'no title'
         recording.save
         recording.common_work.update_completeness
         @recording = recording
 
       end
-      redirect_to edit_user_recording_path(@user, @recording)
+      redirect_to edit_user_recording_privacy_path(@user, @recording)
     else
-      flash[:error]      = { title: "Error", body: "Unable to upload recording" }
-      render new
+      flash[:danger]      = { title: "Unknown fileformat", body: "Please check it's a real audio file you are uploading" }
+      redirect_to new_user_recording_path(@user)
     end
   end
   
   def show
     @recording = Recording.find(params[:id])
+    @playlists  = current_user.playlists if current_user
     respond_to do |format|
         format.html
         format.js

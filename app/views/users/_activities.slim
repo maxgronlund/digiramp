@@ -1,6 +1,6 @@
 h4 Recent activities
 
-.box-content.scrollable  style="height: 300px; overflow-y: auto"
+.box-content.scrollable  style="height: 312px; overflow-y: auto"
   .activities
     - @user.activities.where(recipient_type: ['Recording', 'Relationship', 'User']).order('id desc').first(64).each do |activity|
       /.sexy_line

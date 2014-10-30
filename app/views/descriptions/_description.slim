@@ -1,18 +1,15 @@
-/ dont show empty description to unauthorizied users
-- if @authorized
+.panel.panel-default
+  .panel-heading
+    h5 class="panel-title"
+      a data-toggle="collapse" data-parent="#accordion" href="#description"
+        .description-label
+        == render 'descriptions/label'
 
-  .panel.panel-default
-    .panel-heading
-      h5 class="panel-title"
-        a data-toggle="collapse" data-parent="#accordion" href="#description"
-          .description-label
-          == render 'descriptions/label'
-  
-  
-    .panel-collapse.collapse id="description" 
-      .panel-body
-        .edit-description 
-        .show-description
-          .description-form
-            == render 'recordings/shared/description_form', recording: @recording
-          
+
+  .panel-collapse.collapse id="description" 
+    .panel-body
+      .edit-description 
+      .show-description
+        .description-form
+          == render 'recordings/shared/description_form', recording: @recording
+        

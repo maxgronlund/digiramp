@@ -14,7 +14,8 @@
             = recording.artist
           
         .description
-          = simple_format recording.comment
+          - if description
+            = simple_format recording.comment
 
       
       .track-duration

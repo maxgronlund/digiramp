@@ -1,2 +1,5 @@
 .comment-content
-  = @recording.comment
+  .old-description
+    - if @recording.comment.to_s != ''
+      .sexy_line
+      = simple_format @recording.comment
