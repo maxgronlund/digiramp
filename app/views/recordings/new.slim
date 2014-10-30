@@ -19,22 +19,16 @@
       br
       = simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
         .row
-          .col-sm-6.col-md-5.col-lg-4
+          .col-sm-3
+          .col-sm-4.col-lg-3
             = transloadit :recording_with_thumbs 
             
             = f.hidden_field :user_id, value: @user.id
-
-            /= f.input :title, hint: 'Dont change to extract title from file'
-            
             
             = f.file_field :file, multiple: false, label: 'Select Audio File'
             br
             
-            = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  as: :radio_buttons, label: 'Privacy'
-           
-          .col-sm-6.col-md-4.col-lg-3
-            
-            = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
+            /= f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
             = f.input :acceptance_of_terms, 
                       id: 'acceptance_of_terms',
                       label: false, 

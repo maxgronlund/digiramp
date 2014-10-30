@@ -4,7 +4,7 @@ Digiramp::Application.routes.draw do
 
 
   namespace :account do
-  get 'catalog_common_works/index'
+    get 'catalog_common_works/index'
   end
   resources :add_to_playlists, only: [:create]
   resources :remove_from_playlists, only: [:destroy]
@@ -262,10 +262,12 @@ Digiramp::Application.routes.draw do
     #member do
     #  get :following, :followers
     #end
-    resources :recording_infos, only: [:edit, :update]
+    resources :recording_basics, only: [:edit, :update]
+    resources :recording_personas, only: [:edit, :update]
     resources :recording_tags, only: [:edit, :update]
     resources :recording_rights, only: [:edit, :update]
-    resources :recording_privacy, only: [:edit, :update]
+    
+    resources :recording_lyrics, only: [:edit, :update]
     
     resources :playlists
     resources :recordings do

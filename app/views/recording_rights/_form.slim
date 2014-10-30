@@ -1,34 +1,21 @@
 
 
 .row
+  .col-sm-3
   .col-sm-6
+    = f.input :clearance, label: '200% clearance'
     = f.input :copyright,  :input_html => {  placeholder: "i.e. © 2014 Entertainment Company, Inc"}
-  
-  .col-sm-6
     = f.input :isrc_code, label: 'ISRC Code',:input_html => {  placeholder: "CC-XXX-YY-NNNNN"}
-
-/.row
-/  .col-sm-6
-/    = f.input :mood, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Happy, Uplifting, Scary, Action"}
-/  .col-sm-6
-/    = f.input :genre, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Pop, Cinimatic, Hip-Hop, Christmas"}
-/.row
-/  .col-sm-6
-/    = f.input :instruments, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Drums, Banjo, Choir, Electric Guitar"}
-    
-
-
-
 
 
 
          
 
     
-.pull-right  
-  = link_to 'Skip Step', user_recording_path(@user, @recording), class: 'btn btn-default'
-  '&nbsp;
-  = f.submit 'Next', class: 'btn btn-primary'
+    .pull-right  
+      = link_to 'Skip Step', user_recording_path(@user, @recording), class: 'btn btn-default'
+      '&nbsp;
+      = f.submit 'Next', class: 'btn btn-primary'
   
 
 

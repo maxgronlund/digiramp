@@ -1,0 +1,90 @@
+
+.row
+  .col-sm-12
+
+    .wizard-steps
+      ul class="wizard-steps"
+      	li data-target="#step1" class="#{'active' if step == 1 } #{'complete' if step > 1 }" style="min-width: 20%; max-width: 20%;"
+      		span
+            .step  
+              -if step == 1 
+                '1
+              -else
+                i.fa.fa-check
+      		span.title 
+            i.fa.fa-pencil
+            '&nbsp;Basic
+    
+      
+      	li data-target="#step2" class="#{'active' if step == 2 } #{'complete' if step > 2 }"  style="min-width: 20%; max-width: 20%;"
+      		span
+            .step  
+              -if step <= 2 
+                '2
+              -else
+                i.fa.fa-check
+      		span.title 
+            i.fa.fa-comment
+            '&nbsp;Lyrics
+    
+      
+      	li data-target="#step3" class="#{'active' if step == 3 } #{'complete' if step > 3 }"  style="min-width: 20%; max-width: 20%;"
+      		span
+            .step  
+              -if step <= 3 
+                '3
+              -else
+                i.fa.fa-check
+      		span.title 
+            i.fa.fa-comment
+            '&nbsp;Tags
+    
+      
+      	li data-target="#step4" class="#{'active' if step == 4 } #{'complete' if step > 4 }"  style="min-width: 20%; max-width: 20%;"
+      		span
+            .step  
+              -if step <= 4 
+                '4
+              -else
+                i.fa.fa-check
+      		span.title 
+            i.fa.fa-comment
+            '&nbsp;Personas
+    
+      
+      	li data-target="#step5" class="#{'active' if step == 5 } #{'complete' if step > 5 }"  style="min-width: 20%; max-width: 20%;"
+      		span
+            .step  
+              -if step <= 5 
+                '5
+              -else
+                i.fa.fa-check
+      		span.title 
+            /i.fa.fa-copyright
+            '&#169;&nbsp;Rights
+      		
+      		
+    
+      
+
+
+  /table
+  /  tr
+  /    td 
+  /      i.fa.fa-pencil
+  /    td
+  /      i.fa.fa-comment
+  /    td
+  /      i.fa.fa-tags
+  /    td
+  /      i.fa.fa-user
+  /    td
+  /      /i.fa.fa-copyright
+  /      b &#169;
+  /  tr
+  /    td Basic
+  /    td Lyrics
+  /    td Tags
+  /    td Personas
+  /    td Rights
+      

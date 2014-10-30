@@ -1,33 +1,32 @@
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'profile'     
-  .container
-    ==render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                            assets: account_assets_path(@account), \
-                                                            recordings: account_account_recordings_path(@account), \
-                                                            "#{@recording.title}" => account_recording_path(@account, @recording), \
-                                                            }, current: 'Confirm Mata Data'}
-    .row
-      .col-sm-12
-        h1 Lyrics
-        hr
-    = simple_form_for [ @account, @recording ], :url => url_for(:action => 'update', :controller => 'recording_lyrics'), :method => 'put',  :html => { :id => 'recording' } do |f| 
-      .row
-        .col-sm-6
-          div id="toolbar" class="wysihtml5-toolbar"
-            a data-wysihtml5-command="bold" Bold
-            '&nbsp; 
-            a data-wysihtml5-command="italic" Italic
-          
-          =f.input :lyrics, label: false, :input_html => {  style: "height: 460px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
-       
-      .row
-        .col-sm-12
-          .pull-right
-            = f.submit "Save", class: 'btn btn-primary btn-lg'
+    == render 'shared/navigationbar', page: 'home' 
+  
 
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
+        
+      
 
+  #page-content-wrapper
+    .container-fluid 
+      /#digiWhams  class="/recordings/#{@recording.id.to_s}"
+      /  == render 'recordings/recording_with_icons', recording: @recording, 
+      /                                               info: false,
+      /                                               add_to_playlist: false, 
+      /                                               remove_from_playlist: false, 
+      /                                               edit: false, 
+      /                                               delete: false,
+      /                                               description: true
+      /
+      == render 'recordings/wizard_step', step: 2
+      = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_lyrics'), 
+                                               :method => 'put' do |f|
 
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'  
+        == render 'form', f: f
+      
+        
+  == render 'shared/site_footer'  

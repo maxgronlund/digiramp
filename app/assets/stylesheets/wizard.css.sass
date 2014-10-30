@@ -1,0 +1,125 @@
+/* wizard */
+.wizard-steps 
+  color: #888
+  list-style: none 
+  display: block 
+  width: 100% 
+  padding: 0 
+  margin: 0 
+  //position: relative 
+  margin-top: 10px
+  height: 76px
+  margin-bottom: 20px
+  li  
+    display: block 
+    text-align: center 
+    float: left 
+ 
+    .step  
+      border: 5px solid #ced1d6 
+      color: #546474 
+      font-size: 15px 
+      border-radius: 100% 
+      background-color: #FFF 
+      position: relative 
+      z-index: 2 
+      display: inline-block 
+      width: 40px 
+      height: 40px 
+      line-height: 32px 
+      text-align: center 
+ 
+  li:before  
+    display: block 
+    content: "" 
+    width: 100% 
+    height: 1px 
+    font-size: 0 
+    overflow: hidden 
+    border-top: 4px solid #CED1D6 
+    position: relative 
+    top: 21px 
+    z-index: 1 
+ 
+  li:last-child:before  
+    max-width: 50% 
+    width: 50% 
+ 
+  li:first-child:before  
+    max-width: 51% 
+    left: 50% 
+ 
+  li.active:before,
+  li.complete:before,
+  li.active .step,
+  li.complete .step  
+    border-color: #69ACC8 
+ 
+  li.complete 
+    .step  
+      cursor: default 
+      color: #FFF 
+      -webkit-transition: transform ease 0.1s 
+      -moz-transition: transform ease 0.1s 
+      -o-transition: transform ease 0.1s 
+    transition: transform ease 0.1s 
+ 
+  //.step:before  
+  //  display: block 
+  //  position: absolute 
+  //  top: 0 
+  //  left: 0 
+  //  bottom: 0 
+  //  right: 0 
+  //  line-height: 30px 
+  //  text-align: center 
+  //  border-radius: 100% 
+  //  content: "\f00c" 
+  //  background-color: #FFF 
+  //  z-index: 3 
+  //  font-family: FontAwesome 
+  //  font-size: 17px 
+  //  color: #87ba21 
+ 
+  li.complete:hover .step  
+    -moz-transform: scale(1.1) 
+    -webkit-transform: scale(1.1) 
+    -o-transform: scale(1.1) 
+    -ms-transform: scale(1.1) 
+    transform: scale(1.1) 
+    border-color: #80afd4 
+ 
+  li.complete:hover:before  
+    border-color: #80afd4 
+ 
+  li .title  
+    display: block 
+    margin-top: 4px 
+    max-width: 100% 
+    color: #949ea7 
+    font-size: 14px 
+    z-index: 104 
+    text-align: center 
+    table-layout: fixed 
+    word-wrap: break-word 
+ 
+  li.complete .title,
+  li.active .title  
+    color: #2b3d53 
+    
+  .step
+    .fa
+      color: #87ba21
+ 
+.step-content 
+  .step-pane  
+    display: none 
+    min-height: 200px 
+    padding: 4px 8px 12px 
+ 
+  .active  
+    display: block 
+ 
+.wizard-actions  
+  text-align: right 
+ 

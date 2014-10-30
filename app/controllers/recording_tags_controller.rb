@@ -1,4 +1,5 @@
 class RecordingTagsController < ApplicationController
+  
   def edit
     @recording      = Recording.cached_find(params[:id])
     @user           = User.cached_find(params[:user_id])

@@ -1,22 +1,19 @@
 class RecordingLyricsController < ApplicationController
-  include AccountsHelper
-  before_filter :access_account
+  
   def edit
-     @recording      = Recording.find(params[:id])
-     @recording.extract_metadata
+    @recording      = Recording.cached_find(params[:id])
+    @user           = User.cached_find(params[:user_id])
   end
-  
+
   def update
-     @recording      = Recording.find(params[:id])
-     @recording.update_attributes(recording_params)
-     @recording.common_work.update_completeness
-
-     redirect_to account_recording_upload_completed_path(@account, @recording)
-
+    @recording      = Recording.cached_find(params[:id])
+    @recording.update_attributes(recording_params)
+    
+    redirect_to edit_user_recording_tag_path(@recording.user, @recording)
   end
   
-  private
-  
+private
+
   def recording_params
     params.require(:recording).permit!
   end

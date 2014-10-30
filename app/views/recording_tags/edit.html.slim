@@ -13,10 +13,16 @@
 
   #page-content-wrapper
     .container-fluid 
-
-      h3 Edit recording #{@recording.title}
-      .sexy_line
-      
+      /#digiWhams  class="/recordings/#{@recording.id.to_s}"
+      /  == render 'recordings/recording_with_icons', recording: @recording, 
+      /                                               info: false,
+      /                                               add_to_playlist: false, 
+      /                                               remove_from_playlist: false, 
+      /                                               edit: false, 
+      /                                               delete: false,
+      /                                               description: true
+      /
+      == render 'recordings/wizard_step', step: 3
       = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_tags'), 
                                                :method => 'put' do |f|
 
