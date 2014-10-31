@@ -1,0 +1,53 @@
+- @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
+  
+  h4 Request: #{index + 1}
+  
+  b = music_request.title
+  
+ 
+  .no-borders.table-responsive
+    table class="table table-condensed"
+      tr
+        th.description Fee:
+        td = number_to_currency(music_request.fee, locale: :en, precision: 2)
+
+      - unless  music_request.link.to_s == ''
+        tr
+          th.description Duration:
+          td = music_request.duration_text
+      - unless  music_request.link.to_s == ''
+        tr
+          th.description Sound like:
+          td = link_to 'click here', music_request.link
+  = simple_format music_request.body
+      
+    
+
+  
+  .row
+    .col-sm-12
+  
+      .pull-right
+        = link_to new_account_account_opportunity_music_request_music_submission_path(@account, @opportunity, music_request) do 
+          .btn.btn-xs.btn-default
+            i class="fa fa-plus-circle"
+            '&nbsp;Make Submission
+        '&nbsp;    
+                                                                                              
+                                                                                              
+        = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request)
+          .btn.btn-xs.btn-default
+            = music_request.music_submissions.size.to_s
+            '&nbsp;Submissions
+
+        '&nbsp;
+        = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), 
+                                                                  data: { confirm: 'Are you sure?' } , 
+                                                                  :method => :delete  do
+          .btn.btn-xs.btn-default
+            i class="fa fa-times"
+        '&nbsp;
+        = link_to edit_account_account_opportunity_music_request_path(@account, @opportunity, music_request) do
+          .btn.btn-xs.btn-default
+            i class="fa fa-pencil"
+  .sexy_line      
