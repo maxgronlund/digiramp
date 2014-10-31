@@ -1,5 +1,5 @@
 .row
-  .col-sm-9
+  .col-sm-12
     .hidden-xs
       -links = breadcrumbs[:links]
       ol class="breadcrumb"
@@ -10,17 +10,17 @@
 
         li class="active" 
           = breadcrumbs[:current].upcase
-  .col-sm-3
-    .pull-right
-      ol class="breadcrumb"
-        li
-          - if current_user.email_missing
-            = link_to 'Personalize you account ', edit_user_path(current_user)
-          - else
-            = link_to current_user.email, user_path(current_user)
-          '&nbsp;
-          .label.label-success
-            = current_user.role if current_user.role == 'Super'
+  /.col-sm-3
+  /  .pull-right
+  /    ol class="breadcrumb"
+  /      li
+  /        - if current_user.email_missing
+  /          = link_to 'Personalize you account ', edit_user_path(current_user)
+  /        - else
+  /          = link_to current_user.email, user_path(current_user)
+  /        '&nbsp;
+  /        .label.label-success
+  /          = current_user.role if current_user.role == 'Super'
 
 
               

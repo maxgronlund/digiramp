@@ -196,6 +196,7 @@ class ApplicationController < ActionController::Base
 private
 
   def set_authorized
+    return false unless current_user
     @authorized = false
     if current_user.id == @user.id || current_user.super?
       @authorized = true
