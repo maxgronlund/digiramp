@@ -1,0 +1,77 @@
+@import "row_machine"
+.account-account
+  align: center
+  .account-top  
+    .account-logo  
+      width: 30% 
+      float: left
+      padding-right: 10px
+      img
+        width: 100%
+        height: auto
+      
+    .account-info  
+      width: 70% 
+      float: left
+      
+      
+      
+  
+  .account-badges
+    width: 100%
+    .account-badge 
+      @include rowMachine(7, 2%)
+      padding: 8px
+      float: left
+      height: 140px
+      h4
+        margin-top: 10px
+     
+      
+      
+      a
+        color: #888
+        
+      a:hover
+        color: #555
+    
+      
+      h4
+        a
+          color: #555 !important
+        a:hover
+          color: #000  !important
+  
+      @media (min-width: 1800px) 
+        @include rowMachine(6, 2%)
+      
+      @media (max-width: 1800px) 
+        @include rowMachine(5, 2%)
+  
+      @media (max-width: 1440px) 
+        @include rowMachine(4, 2%)
+  
+      @media (max-width: 1216px) 
+        @include rowMachine(3, 2%)
+  
+      @media (max-width: 992px) 
+        @include rowMachine(2, 4%)
+    
+  
+      @media (max-width: 768px) 
+        @include rowMachine(2, 4%)
+        
+      @media (max-width: 650px) 
+        @include rowMachine(2, 4%)
+    
+  
+      @media (max-width: 500px) 
+        @include rowMachine(1, 4%)
+    
+  
+      img 
+        max-width: 100%
+    .account-badge:hover
+      border: 1px solid #eee
+      padding: 7px
+  

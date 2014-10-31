@@ -284,6 +284,7 @@ class User < ActiveRecord::Base
     self.role == 'Super'
   end
   
+  # user by?
   def permits? current_user
     # users can access their own profile
     return true if current_user.id == self.id
@@ -535,11 +536,14 @@ class User < ActiveRecord::Base
   
   
   def facebook
-    provider = authorization_providers.where(provider: 'facebook').first
-    @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
-    block_given? ? yield(@facebook) : @facebook
-  rescue Koala::Facebook::APIError
-    logger.info e.to_s
+    begin
+      provider = authorization_providers.where(provider: 'facebook').first
+      @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
+      block_given? ? yield(@facebook) : @facebook
+    rescue Koala::Facebook::APIError
+      logger.info e.to_s
+    end
+
     nil
   end
   

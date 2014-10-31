@@ -1,18 +1,16 @@
 class Account::OpportunitiesController < ApplicationController
   before_action :set_opportunity, only: [:show, :edit, :update, :destroy, :music_submissions]
   
-  include AccountsHelper
-  before_filter :access_account
+  #include AccountsHelper
+  #before_filter :access_account
+  before_filter :get_account_user
 
-  # GET /opportunities
-  # GET /opportunities.json
   def index
-    forbidden unless current_account_user.read_opportunity
+    #forbidden unless current_account_user.read_opportunity
     @opportunities = @account.opportunities
   end
 
-  # GET /opportunities/1
-  # GET /opportunities/1.json
+
   def show
     forbidden unless current_account_user.read_opportunity
     @opportunity.create_activity(  :show, 

@@ -12,9 +12,7 @@ class RecordingsController < ApplicationController
   def index
     @recordings =  Recording.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(4)
     @playlists  = current_user.playlists if current_user
-    #puts '----------------------------------------------------------------'
-    #puts Recording.recordings_search(@user.recordings, params[:query]).count
-    #puts '----------------------------------------------------------------'
+
   end
 
   def new

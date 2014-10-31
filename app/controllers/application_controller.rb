@@ -119,28 +119,34 @@ class ApplicationController < ActionController::Base
   # v 2
   def get_user
     if params[:user_id]
-      @user = User.friendly.find(params[:user_id])
-      if @user.account_id.nil?
-         @user.account_id = Account.where(user_id: @user.id).first.id
-         @user.save!
+      if @user = User.friendly.find(params[:user_id])
+        set_authorized
+        set_account
+        return @user
       end
-      session[:account_id] = @user.account_id 
-      
-      if current_user 
-        if current_user.current_account_id != current_user.account.id
-          current_user.current_account_id  = current_user.account.id
-          current_user.save!
-        end
-        @authorized = false
-        if current_user.id == @user.id || current_user.super?
-          @authorized = true
-        end
-      end
-      return @user
     end
-    nil
   end
-  helper_method :access_user
+  helper_method :get_user
+  
+  # v2 
+  # used by the account namespace to find the right account
+  # and the accounts user
+  def get_account_user
+    if params[:id]
+      if @account = Account.cached_find(params[:id])
+        @user = @account.user
+        set_authorized
+        set_account
+      end
+    else
+      not_found
+    end
+    
+  end
+  helper_method :get_account_user
+  
+  
+  
   
   
   
@@ -174,5 +180,27 @@ class ApplicationController < ActionController::Base
   
 private
 
+  def set_authorized
+    @authorized = false
+    if current_user.id == @user.id || current_user.super?
+      @authorized = true
+    end
+  end
+  
+  def set_account
+    if @user.account_id.nil?
+       @user.account_id = Account.where(user_id: @user.id).first.id
+       @user.save!
+    end
+    session[:account_id] = @user.account_id 
+    
+    if current_user 
+      if current_user.current_account_id != current_user.account.id
+        current_user.current_account_id  = current_user.account.id
+        current_user.save!
+      end
+      set_authorized
+    end
+  end
   
 end

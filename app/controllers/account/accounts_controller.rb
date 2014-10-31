@@ -2,12 +2,11 @@ class Account::AccountsController < ApplicationController
   
   include AccountsHelper
   before_filter :access_account
-  #before_filter :access_user, only: [:edit, :show]
+  before_filter :get_account_user
   
   
   def show
     
-    session[:account_id]  = @account.id
   end
   
   def edit

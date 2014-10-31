@@ -1,9 +1,4 @@
-/li class="#{'sidebar-selected' if selected == 'user'}"
-/  = link_to user_path(@user) do
-/    i class="fa fa-user"
-/    '&nbsp;
-/    =@user.name 
-/  
+
 .sidebar
   .hidden-xs   
     li class="#{'sidebar-selected' if selected == 'user'}"
@@ -50,20 +45,15 @@
         '&nbsp;
         = pluralize(@user.playlists.count, 'Playlists')      
      
-    /- if @authorized  
-    /  li class="#{'sidebar-selected' if selected == 'authorizations'}"
-    /    = link_to user_user_authorization_providers_path(@user) do
-    /      i class="fa fa-lock"
-    /      '&nbsp;
-    /      'Authorizations
-    /
-    .sexy_line
+
     - if @authorized
+      .sexy_line
+    
       li class="#{'sidebar-selected' if selected == 'account'}"
         = link_to account_account_path( @user.account ) do
           i class="fa fa-tachometer"
           '&nbsp;
-          'ACCOUNT
+          'Pro Account
           
       li class="#{'sidebar-selected' if selected == 'account'}"
         = link_to user_user_collections_path( @user ) do
