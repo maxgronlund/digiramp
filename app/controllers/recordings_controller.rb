@@ -10,9 +10,14 @@ class RecordingsController < ApplicationController
   
 
   def index
-    @recordings =  Recording.recordings_search(@user.recordings, params[:query]).page(params[:page]).per(4)
+    
+    if current_user && current_user.id == @user.id
+      @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
+    else
+      @recordings =  Recording.public_access.recordings_search(@user.recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
+    end
+    
     @playlists  = current_user.playlists if current_user
-
   end
 
   def new

@@ -25,10 +25,9 @@
       /                                               
       == render 'recordings/wizard_step', step: 4
       = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_personas'), 
-                                               :html => { :id => 'recording_artwork' }, 
                                                :method => 'put' do |f|
-        = transloadit :image_files_to_s3 
+
         == render 'form', f: f
-      = transloadit_jquerify :recording_artwork, :wait => true
+     
         
   == render 'shared/site_footer'  

@@ -43,7 +43,15 @@
       = link_to user_playlists_path(@user) do
         i class="fa fa-list"
         '&nbsp;
-        = pluralize(@user.playlists.count, 'Playlists')      
+        = pluralize(@user.playlists.count, 'Playlists')   
+        
+    
+    
+    li class="#{'sidebar-selected' if selected == 'widgets'}"
+      = link_to user_playlists_path(@user) do
+        i class="fa fa-list"
+        '&nbsp;
+        = pluralize(@user.playlists.count, 'Widgets')      
      
 
     - if @authorized

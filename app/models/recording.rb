@@ -718,6 +718,7 @@ private
     #AccountCache.update_works_uuid self.account
     AccountCache.update_recordings_uuid(self.account) if self.account_id
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
+    self.uniq_title = self.title.to_uniq
   end
   
   

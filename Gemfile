@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6'
+gem 'rails', '4.1.7'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
@@ -173,6 +173,9 @@ gem 'bcrypt-ruby'
 gem 'unicorn'
 
 gem 'thin'
+
+# uniqify names to work with caminari
+gem 'uuid_stamper', '~> 0.0.3', git: 'git://github.com/maxgronlund/uuid_stamper.git'
 
 #gem 'capistrano-sidekiq' , github: 'seuros/capistrano-sidekiq'
 #gem 'capistrano-sidekiq'

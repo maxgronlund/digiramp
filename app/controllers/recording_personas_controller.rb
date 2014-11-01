@@ -19,7 +19,7 @@ class RecordingPersonasController < ApplicationController
     @recording      = Recording.cached_find(params[:id])
     @recording.update_attributes(recording_params)
     
-    redirect_to edit_user_recording_info_path(@recording.user, @recording)
+    redirect_to edit_user_recording_right_path(@recording.user, @recording)
   end
   
   #def update
