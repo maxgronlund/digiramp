@@ -3,6 +3,10 @@ Digiramp::Application.routes.draw do
 
 
 
+  get 'recording_wizard/edit'
+
+  get 'recording_wizard/update'
+
   namespace :account do
     get 'catalog_common_works/index'
   end

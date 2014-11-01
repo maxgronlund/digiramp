@@ -542,9 +542,11 @@ class User < ActiveRecord::Base
       block_given? ? yield(@facebook) : @facebook
     rescue Koala::Facebook::APIError
       logger.info e.to_s
+      @facebook =  nil
     end
 
-    nil
+    
+    @facebook
   end
   
   def friends_count

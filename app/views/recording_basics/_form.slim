@@ -18,8 +18,16 @@
 
 .pull-right  
   = link_to 'Skip Step', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
+  /'&nbsp;
+  /= f.submit 'Next', class: 'btn btn-primary', value: 'next'
+  /'&nbsp;
+  /= f.submit 'Done', class: 'btn btn-primary', value: 'done'
   '&nbsp;
-  = f.submit 'Next', class: 'btn btn-primary'
+  = f.button :submit, 'Next', class: 'btn btn-primary', name: "subaction", value: 'next'
+  '&nbsp;
+  = f.button :submit, 'Done', class: 'btn btn-primary', name: "subaction", value: 'done'
+  
+  
   
 
 

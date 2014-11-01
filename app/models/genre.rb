@@ -89,6 +89,11 @@ class Genre < ActiveRecord::Base
     recording_ids = self.genre_tags.where(genre_tagable_type: 'Recording').pluck(:genre_tagable_id)
     Recording.order(order).where(id: recording_ids)
   end
+  
+  def ordered_recordings_with_public_access order
+    recording_ids = self.genre_tags.where(genre_tagable_type: 'Recording').pluck(:genre_tagable_id)
+    Recording.public_access.order(order).where(id: recording_ids, privacy: 'Anyone')
+  end
     
   #scope :by_users,    -> { where('user_tag IS TRUE') }
   #scope :by_digiramp, -> { where('user_tag IS NOT TRUE') }

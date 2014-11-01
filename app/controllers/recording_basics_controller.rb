@@ -8,7 +8,7 @@ class RecordingBasicsController < ApplicationController
 
   def update
 
-
+    ap params
 
     @recording      = Recording.find(params[:id])
 

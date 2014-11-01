@@ -5,9 +5,7 @@ class RecordingsController < ApplicationController
   
   before_filter :get_user, only: [:show, :edit, :update, :new, :create, :destroy, :index]
   include Transloadit::Rails::ParamsDecoder
-  
-  
-  
+
 
   def index
     
