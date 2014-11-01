@@ -544,8 +544,6 @@ class User < ActiveRecord::Base
       logger.info e.to_s
       @facebook =  nil
     end
-
-    
     @facebook
   end
   
