@@ -14,7 +14,7 @@ class FbRecordingCommentWorker
                                       "link" => "http://www.digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}",
                                       "caption" => "#{user.name} posted a new review",
                                       "description" => "#{recording.comment}",
-                                      "picture" => "#{recording.artwork}"
+                                      "picture" => "#{recording.cover_art}"
                                     })
          
          
