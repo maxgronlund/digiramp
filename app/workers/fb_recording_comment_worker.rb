@@ -14,13 +14,22 @@ class FbRecordingCommentWorker
                                       "link" => "http://www.digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}",
                                       "caption" => "#{user.name} posted a new review",
                                       "description" => "#{recording.comment}",
-                                      "picture" => "#{recording.cover_art}"
+                                      "picture" => "#{recording.artwork}"
                                     })
          
          
          
                                      
-         puts 'year posted'
+         # also add a comment
+         # Parameters: {"utf8"=>"✓", "comment"=>{"commentable_id"=>"1327", "commentable_type"=>"Recording", "user_id"=>"1", "body"=>"fobar\r\n"}, "commit"=>"Post"}
+         #if @comment = Comment.create!(commentable_id: recording.id, commentable_type: "Recording", user_id: user.id, body: recording.comment )
+         #  
+         # @comment.user.create_activity(  :created, 
+         #                    owner: @comment,
+         #                recipient: @comment.commentable,
+         #           recipient_type: @comment.commentable.class.name,
+         #               account_id: @comment.user.account_id)
+         #end 
       end
     end
   end

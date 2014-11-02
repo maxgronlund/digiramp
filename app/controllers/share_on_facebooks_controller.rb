@@ -5,7 +5,7 @@ class ShareOnFacebooksController < ApplicationController
   # GET /share_on_facebooks.json
   
   def create
-    ap params
+
     @recording  = Recording.cached_find(params[:share_on_facebook][:recording_id])
     @user       = User.cached_find(params[:share_on_facebook][:user_id])
     
@@ -16,19 +16,19 @@ class ShareOnFacebooksController < ApplicationController
     end
     
     
+    # also add a comment
+    # Parameters: {"utf8"=>"✓", "comment"=>{"commentable_id"=>"1327", "commentable_type"=>"Recording", "user_id"=>"1", "body"=>"fobar\r\n"}, "commit"=>"Post"}
+    if @comment = Comment.create!(commentable_id: @recording.id, commentable_type: "Recording", user_id: @user.id, body: @share_on_facebook.message )
+      
+     @comment.user.create_activity(  :created, 
+                        owner: @comment,
+                    recipient: @comment.commentable,
+               recipient_type: @comment.commentable.class.name,
+                   account_id: @comment.user.account_id)
+    end 
     
     
-    #@share_on_facebook = ShareOnFacebook.new(share_on_facebook_params)
-    #
-    #respond_to do |format|
-    #  if @share_on_facebook.save
-    #    format.html { redirect_to @share_on_facebook, notice: 'Share on facebook was successfully created.' }
-    #    format.json { render :show, status: :created, location: @share_on_facebook }
-    #  else
-    #    format.html { render :new }
-    #    format.json { render json: @share_on_facebook.errors, status: :unprocessable_entity }
-    #  end
-    #end
+
   end
 
  
