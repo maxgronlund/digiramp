@@ -64,7 +64,8 @@
             .tab-pane.fade id="embed"
               h4 Embed
               .recording_widget
-                = text_field nil, :code, class: 'recording_snippet', :value => "#{url_for( controller: 'opportunity/opportunities', action: 'show', id: 123)}", readonly: true
+                /= text_field nil, :code, class: 'recording_snippet', :value => "#{url_for( controller: 'recording_widgets', action: 'show', id: recording.id, :only_path=> false)}", readonly: true
+                = text_field nil, :code, class: 'recording_snippet', :value => "#{recording.widget_snippet url_for( controller: 'recording_widgets', action: 'show', id: recording.id, :only_path=> false)}", readonly: true
 
               
 

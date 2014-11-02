@@ -615,6 +615,10 @@ class Recording < ActiveRecord::Base
     rescue
     end
   end
+  
+  def widget_snippet widget_url
+    "<iframe width='100%' height='137' src='#{widget_url}' frameborder='0' allowfullscreen></iframe>"
+  end
 
 private
   #def update_counter_cache
