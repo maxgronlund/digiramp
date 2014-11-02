@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  resources :share_on_twitters
+
   namespace :account do
     get 'catalog_common_works/index'
   end

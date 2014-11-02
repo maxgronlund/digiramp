@@ -43,7 +43,7 @@
               
               
               = simple_form_for [ShareOnFacebook.new], remote: true do |f|
-                = f.error_notification
+                /= f.error_notification
               
                 .form-inputs
                   - if current_user
@@ -57,6 +57,23 @@
               
             .tab-pane.fade id="twitter"
               h4 Twitter
+              div id="facebook_confirmation_#{recording.id.to_s}"
+              
+              -tweet = ShareOnTwitter.new
+              -tweet.message = "Checkout ‘#{recording.title}’ by #{current_user.name} on #DigiRamp https://digiramp.com/#{current_user.slug}/recordings/#{recording.id}"
+              = simple_form_for [tweet], remote: true do |f|
+                /= f.error_notification
+              
+                .form-inputs
+                  - if current_user
+                    = f.hidden_field :user_id, value: current_user.id
+                  = f.hidden_field :recording_id, value: recording.id
+                  = f.input :message
+              
+                .form-actions
+                  = f.submit 'Share', class: 'btn btn-primary'
+              
+              
             .tab-pane.fade id="gplus"
               h4 + Google
             .tab-pane.fade id="linkedin"

@@ -1,0 +1,10 @@
+= simple_form_for(@share_on_twitter) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :user
+    = f.association :recording
+    = f.input :message
+
+  .form-actions
+    = f.button :submit

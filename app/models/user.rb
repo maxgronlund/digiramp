@@ -79,6 +79,7 @@ class User < ActiveRecord::Base
   has_many :activity_events, as: :activity_eventable
   
   has_many :share_on_facebooks, dependent: :destroy
+  has_many :share_on_twitters, dependent: :destroy
   
   after_save :update_access
   after_commit :set_propperties
@@ -560,29 +561,14 @@ class User < ActiveRecord::Base
     end
     false
   end
-  #def facebook
-  #  begin
-  #    fb = authorization_providers.where(provider: 'facebook').first
-  #    @facebook ||= Koala::Facebook::API.new(fb.oauth_token)
-  #  rescue
-  #    @facebook = nil
-  #  end
-  #  @facebook
-  #end
-    
-    
+
+
   def tweet message
-    
-    self.authorization_providers.each do | authorization_provider|
-      
-      ap authorization_provider
-      
-    end
-    
+
     if self.authorization_providers
        
       # get twitter provider
-      if provider_twitter = self.authorization_providers.where(provider: 'twitter')
+      if provider_twitter = self.authorization_providers.where(provider: 'twitter').first
 
           client = Twitter::REST::Client.new do |config|
             config.consumer_key        = ENV['TWITTER_KEY'] 
@@ -592,26 +578,16 @@ class User < ActiveRecord::Base
           end
     
           client.update(message)
-
-
       end
     end
     
-    #client = Twitter::REST::Client.new do |config|
-    #  config.consumer_key        =  ENV['TWITTER_KEY']  
-    #  config.consumer_secret     =  ENV['TWITTER_SECRET'] 
-    #  config.access_token        =  ENV['TWITTER_KEY']  
-    #  config.access_token_secret =  ENV['TWITTER_SECRET'] 
-    #end
-    
 
-    
   end
   
   
-  def send_tweet
-    self.twitter.update("I'm tweeting with @gem!")
-  end
+  #def send_tweet
+  #  self.twitter.update("I'm tweeting with @gem!")
+  #end
     
 
 private

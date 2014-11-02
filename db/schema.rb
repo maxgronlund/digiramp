@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102133224) do
+ActiveRecord::Schema.define(version: 20141102151238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1791,6 +1791,17 @@ ActiveRecord::Schema.define(version: 20141102133224) do
 
   add_index "share_on_facebooks", ["recording_id"], name: "index_share_on_facebooks_on_recording_id", using: :btree
   add_index "share_on_facebooks", ["user_id"], name: "index_share_on_facebooks_on_user_id", using: :btree
+
+  create_table "share_on_twitters", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "recording_id"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "share_on_twitters", ["recording_id"], name: "index_share_on_twitters_on_recording_id", using: :btree
+  add_index "share_on_twitters", ["user_id"], name: "index_share_on_twitters_on_user_id", using: :btree
 
   create_table "songs", force: true do |t|
     t.datetime "created_at", null: false

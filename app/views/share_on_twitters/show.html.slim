@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong User:
+  = @share_on_twitter.user
+p
+  strong Recording:
+  = @share_on_twitter.recording
+p
+  strong Message:
+  = @share_on_twitter.message
+
+= link_to 'Edit', edit_share_on_twitter_path(@share_on_twitter)
+'|
+= link_to 'Back', share_on_twitters_path

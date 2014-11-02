@@ -1,0 +1,25 @@
+h1 Listing share_on_twitters
+
+table
+  thead
+    tr
+      th User
+      th Recording
+      th Message
+      th
+      th
+      th
+
+  tbody
+    - @share_on_twitters.each do |share_on_twitter|
+      tr
+        td = share_on_twitter.user
+        td = share_on_twitter.recording
+        td = share_on_twitter.message
+        td = link_to 'Show', share_on_twitter
+        td = link_to 'Edit', edit_share_on_twitter_path(share_on_twitter)
+        td = link_to 'Destroy', share_on_twitter, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Share on twitter', new_share_on_twitter_path

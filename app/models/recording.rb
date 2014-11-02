@@ -48,6 +48,7 @@ class Recording < ActiveRecord::Base
   
   has_many :comments,        as: :commentable,          dependent: :destroy
   has_many :share_on_facebooks
+  has_many :share_on_twitters
   
   
   #has_many :genre_tags
