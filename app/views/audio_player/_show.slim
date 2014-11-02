@@ -2,7 +2,7 @@
   .top-pane id="#{recording.id}"
     .cover-art  id="#{recording.id}"
       - art = recording.cover_art || 'default-cover.jpg'
-      = link_to image_tag( art, alt: "#{recording.title}" ), user_recording_path(recording.user, recording)
+      = link_to image_tag( art, alt: "#{recording.title}" ), user_recording_path(recording.user, recording), target: "_parent"
     .top-right 
       .play-button-pane
         == render 'digiwham/recordings/playback_button', recording: recording

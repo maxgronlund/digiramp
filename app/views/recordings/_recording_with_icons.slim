@@ -4,7 +4,8 @@
 .btn-group
   .visible-xs.btn-group-xs
     - if info
-      = link_to user_recording_path(recording.user, recording), \
+      = link_to user_recording_path(recording.user, recording),
+                target: "_parent",
                 class: "btn btn-default" do
         .blue-info
           i.fa.fa-info-circle
@@ -34,7 +35,8 @@
 
         
     -else
-      = link_to login_new_path, \
+      = link_to login_new_path, 
+                target: "_parent",
                 class: "btn btn-default"  do
         i class="fa fa-heart"
       
@@ -62,7 +64,8 @@
         
   .hidden-xs.btn-group-xs
     - if info
-      = link_to user_recording_path(recording.user, recording), \
+      = link_to user_recording_path(recording.user, recording), 
+                target: "_parent",
                 class: "btn btn-default" do
         .blue-info
           i.fa.fa-info-circle
@@ -108,19 +111,22 @@
       /  'Share
       
     -else
-      = link_to login_new_path, \
+      = link_to login_new_path,  
+                target: "_parent",
                 class: "btn btn-default"  do
         i class="fa fa-heart"
         '&nbsp;
         'Likes
       - if add_to_playlist
-        = link_to login_new_path, \
+        = link_to login_new_path, 
+                  target: "_parent",
                   class: "btn btn-default"  do
           i.fa.fa-list
           '&nbsp;
           'Playlists
         
-      = link_to login_new_path, \
+      = link_to login_new_path,  
+                target: "_parent",
                 class: "btn btn-default"  do
         i class="fa fa-share"
         '&nbsp;
