@@ -3,7 +3,7 @@ class ShareOnTwittersController < ApplicationController
 
  
   def create
-    ap params
+    #ap params
     @share_on_twitter = ShareOnTwitter.create(share_on_twitter_params)
     @user = User.find(params[:share_on_twitter][:user_id])
     
@@ -19,6 +19,8 @@ class ShareOnTwittersController < ApplicationController
             config.consumer_secret     = ENV['TWITTER_SECRET'] 
             config.access_token        = provider_twitter[:oauth_token]
             config.access_token_secret = provider_twitter[:oauth_secret]
+            #ap provider_twitter[:oauth_token]
+            #ap provider_twitter[:oauth_secret]
             #config.access_token        = "15994070-Jgnqxzf10LboGnXxeCP3y9Tevu9khqRmlvrKzZzmw"#provider_twitter[:oauth_token]
             #config.access_token_secret = "hn0prX2igSGsXGD0shuIKl9nNMvKhtOXd3zDVlRxB98Jn"#provider_twitter[:oauth_secret]
           end
