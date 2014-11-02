@@ -29,9 +29,10 @@
           i.fa.fa-list
 
       
-      /share
-      button class="btn btn-default" data-toggle="modal" data-target="#shareRecordingModal_#{recording.id.to_s}"
-        i.fa.fa-share
+      - if share
+        /share
+        button class="btn btn-default" data-toggle="modal" data-target="#shareRecordingModal_#{recording.id.to_s}"
+          i.fa.fa-share
 
         
     -else
@@ -96,10 +97,11 @@
           '&nbsp;
           'Playlists
       
-      button class="btn btn-default" data-toggle="modal" data-target="#shareRecordingModal_#{recording.id.to_s}"
-        i.fa.fa-share
-        '&nbsp;
-        'Share
+      - if share
+        button class="btn btn-default" data-toggle="modal" data-target="#shareRecordingModal_#{recording.id.to_s}"
+          i.fa.fa-share
+          '&nbsp;
+          'Share
         
       
         
@@ -125,12 +127,13 @@
           '&nbsp;
           'Playlists
         
-      = link_to login_new_path,  
-                target: "_parent",
-                class: "btn btn-default"  do
-        i class="fa fa-share"
-        '&nbsp;
-        'Share
+      - if share
+        = link_to login_new_path,  
+                  target: "_parent",
+                  class: "btn btn-default"  do
+          i class="fa fa-share"
+          '&nbsp;
+          'Share
       
     - if @authorized 
       - if edit
@@ -189,4 +192,4 @@
 
 -if current_user
   == render 'playlists/select_playlist_form', recording: recording
-  == render 'share_recordings/share_recordings_form', recording: recording
+  == render 'share_recordings/share_recordings_form', recording: recording if share

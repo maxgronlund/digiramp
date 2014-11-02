@@ -625,7 +625,7 @@ class Recording < ActiveRecord::Base
   end
   
   def widget_snippet widget_url
-    "<iframe width='100%' height='137' src='#{widget_url}' frameborder='0' allowfullscreen></iframe>"
+    "<iframe width='100%' height='150' src='#{widget_url}' frameborder='0' allowfullscreen></iframe>"
   end
 
 private
