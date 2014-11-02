@@ -16,27 +16,27 @@
         .modal-body
           ul.nav.nav-tabs role="tablist"
             li class="active"
-              a href="#facebook" role="tab" data-toggle="tab"
+              a href="#facebook_#{recording.id.to_s}" role="tab" data-toggle="tab"
                 h3.fa.fa-facebook-square
             li
-              a href="#twitter" role="tab" data-toggle="tab"
+              a href="#twitter_#{recording.id.to_s}" role="tab" data-toggle="tab"
                 h3.fa.fa-twitter-square
             li
-              a href="#gplus" role="tab" data-toggle="tab"
+              a href="#gplus_#{recording.id.to_s}" role="tab" data-toggle="tab"
                 h3.fa.fa-google-plus-square
             li
-              a href="#linkedin" role="tab" data-toggle="tab"
+              a href="#linkedin_#{recording.id.to_s}" role="tab" data-toggle="tab"
                 h3.fa.fa-linkedin-square
             li
-              a href="#embed" role="tab" data-toggle="tab"
+              a href="#embed_#{recording.id.to_s}" role="tab" data-toggle="tab"
                 h3.fa.fa-code
             li
-              a href="#email" role="tab" data-toggle="tab"
+              a href="#email_#{recording.id.to_s}" role="tab" data-toggle="tab"
                 h3.fa.fa-envelope
           
           .sexy_line
           .tab-content
-            .tab-pane.fade.in.active id="facebook"
+            .tab-pane.fade.in.active id="facebook_#{recording.id.to_s}"
               h4 Share on Facebook
               
               div id="facebook_confirmation_#{recording.id.to_s}"
@@ -55,7 +55,7 @@
                   = f.submit 'Share', class: 'btn btn-primary'
               
               
-            .tab-pane.fade id="twitter"
+            .tab-pane.fade id="twitter_#{recording.id.to_s}"
               h4 Twitter
               div id="facebook_confirmation_#{recording.id.to_s}"
               
@@ -74,11 +74,11 @@
                   = f.submit 'Share', class: 'btn btn-primary'
               
               
-            .tab-pane.fade id="gplus"
+            .tab-pane.fade id="gplus_#{recording.id.to_s}"
               h4 + Google
-            .tab-pane.fade id="linkedin"
+            .tab-pane.fade id="linkedin_#{recording.id.to_s}"
               h4 Linkedin
-            .tab-pane.fade id="embed"
+            .tab-pane.fade id="embed_#{recording.id.to_s}"
               h4 Embed
               .recording_widget
                 /= text_field nil, :code, class: 'recording_snippet', :value => "#{url_for( controller: 'recording_widgets', action: 'show', id: recording.id, :only_path=> false)}", readonly: true

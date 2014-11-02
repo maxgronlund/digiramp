@@ -4,10 +4,12 @@ class ShareOnTwittersController < ApplicationController
  
   def create
     ap params
-    @share_on_twitter = ShareOnTwitter.new(share_on_twitter_params)
+    @share_on_twitter = ShareOnTwitter.create(share_on_twitter_params)
     @user = User.find(params[:share_on_twitter][:user_id])
+    
+    ap @share_on_twitter.recording
 
-    if @user.authorization_providers
+    if @user.authorization_providers && @share_on_twitter
        
       # get twitter provider
       if provider_twitter = @user.authorization_providers.where(provider: 'twitter').first
@@ -20,7 +22,8 @@ class ShareOnTwittersController < ApplicationController
           end
     
           client.update(@share_on_twitter.message)
-          #client.update("I'm tweeting with @gem!")
+          #client.update_with_media(@share_on_twitter.message, File.new(@share_on_twitter.recording.get_artwork))
+          #client.update_with_media("I'm tweeting with @gem!", File.new("/path/to/sensitive-media.png"), :possibly_sensitive => true)
       end
     end
     
@@ -36,6 +39,9 @@ class ShareOnTwittersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def share_on_twitter_params
-      params.require(:share_on_twitter).permit(:user_id, :recording_id, :message)
+      params.require(:share_on_twitter).permit!
     end
 end
+
+
+#client.update_with_media("I'm tweeting with @gem!", File.new("/path/to/sensitive-media.png"), :possibly_sensitive => true)

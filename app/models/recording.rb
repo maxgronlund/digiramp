@@ -441,6 +441,13 @@ class Recording < ActiveRecord::Base
     end
   end
   
+  def get_artwork
+    return self.artwork unless self.artwork.to_s ==''
+    return self.cover_art unless self.cover_art == ''
+    'http://digiramp.com/assets/digiramp-logo2-b204530a32a3b4098e35bbc3f7c57b62.png'
+    
+  end
+  
   def get_comment
     return self.comment unless self.comment.to_s == ''
     return 'Provided by DigiRAMP'
