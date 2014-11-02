@@ -3,9 +3,6 @@ Digiramp::Application.routes.draw do
 
 
 
-  get 'recording_wizard/edit'
-
-  get 'recording_wizard/update'
 
   namespace :account do
     get 'catalog_common_works/index'
@@ -36,6 +33,7 @@ Digiramp::Application.routes.draw do
   resources :playlists 
   resources :playlist_recordings, only: [:destroy]
   resources :recordings, only: [:index, :show] 
+  resources :recording_widgets, only: [:show]
   resources :remove_from_playlists, only: [:destroy]
   resources :share_on_facebooks, only: [:create]
   resources :share_recordings, only: [:new, :edit, :create, :destroy]

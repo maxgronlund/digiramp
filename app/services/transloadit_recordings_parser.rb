@@ -39,7 +39,7 @@ class TransloaditRecordingsParser
     if uploads[:results][:thumbnail]
       # thumbnail
       uploads[:results][:thumbnail].each do |thumbnail|
-        extracted[ thumbnail[:original_id] ][:original_file] = thumbnail[:url]
+        extracted[ thumbnail[:original_id] ][:thumbnail]     = thumbnail[:url]
       end
     end
     
@@ -126,6 +126,10 @@ class TransloaditRecordingsParser
     else
       
       transloadets.each do |transloaded|
+        
+        #puts '*********************************************************'
+        #ap transloadets
+        #puts '*********************************************************'
       
         begin
           recording =   Recording.create!(  title:               extract_title_from( transloaded ), 
@@ -163,7 +167,7 @@ class TransloaditRecordingsParser
           
           
           if account_id
-            add_artwork_to recording unless recording.thumbnail.nil?
+            add_artwork_to recording
             recording.extract_genres                                 
             recording.update_completeness
           end
@@ -179,6 +183,8 @@ class TransloaditRecordingsParser
   end
 
   def self.add_artwork_to recording
+    
+    
 
     artwork = Artwork.create!(  title:      recording.title,
                                 body:       recording.comment,

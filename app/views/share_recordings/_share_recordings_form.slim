@@ -63,11 +63,17 @@
               h4 Linkedin
             .tab-pane.fade id="embed"
               h4 Embed
+              .recording_widget
+                = text_field nil, :code, class: 'recording_snippet', :value => "#{url_for( controller: 'opportunity/opportunities', action: 'show', id: 123)}", readonly: true
+
+              
+
+   
             .tab-pane.fade id="email"
               h4 Email
           
 
-
+              
       
       .modal-footer
         button type="button" class="btn btn-default" data-dismiss="modal"
@@ -88,3 +94,7 @@
       /  div id="old_select_playlist_form_#{recording.id.to_s}"  
       
       
+/cript:
+/ocument).ready(function() {
+/ $("input:text").focus(function() { $(this).select(); } );
+/

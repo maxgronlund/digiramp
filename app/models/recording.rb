@@ -130,9 +130,9 @@ class Recording < ActiveRecord::Base
     
   end
   
-  def artwork
-    self.cover_art || 'default-cover.jpg'
-  end
+  #def artwork
+  #  self.cover_art || 'default-cover.jpg'
+  #end
   
   def has_meta_data?
     return true unless self.genre       == ''
@@ -444,6 +444,19 @@ class Recording < ActiveRecord::Base
     return self.comment unless self.comment.to_s == ''
     return 'Provided by DigiRAMP'
   end
+  
+  #def get_full_size_artwork
+  #  
+  #  begin
+  #    return Artwork.cached_find(self.image_file_id).file 
+  #  rescue
+  #  end
+  #  begin
+  #    return self.audio_upload[:artwork]
+  #  rescue
+  #  end
+  #  self.cover_art
+  #end
   
   # update the genre
   def extract_genres
