@@ -19,7 +19,7 @@ class ShareOnTwittersController < ApplicationController
             config.access_token_secret = "hn0prX2igSGsXGD0shuIKl9nNMvKhtOXd3zDVlRxB98Jn"#provider_twitter[:oauth_secret]
           end
     
-          client.update(message)
+          client.update(@share_on_twitter.message)
           #client.update("I'm tweeting with @gem!")
       end
     end
