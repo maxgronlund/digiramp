@@ -17,8 +17,10 @@ class ShareOnTwittersController < ApplicationController
           client = Twitter::REST::Client.new do |config|
             config.consumer_key        = ENV['TWITTER_KEY'] 
             config.consumer_secret     = ENV['TWITTER_SECRET'] 
-            config.access_token        = "15994070-Jgnqxzf10LboGnXxeCP3y9Tevu9khqRmlvrKzZzmw"#provider_twitter[:oauth_token]
-            config.access_token_secret = "hn0prX2igSGsXGD0shuIKl9nNMvKhtOXd3zDVlRxB98Jn"#provider_twitter[:oauth_secret]
+            config.access_token        = provider_twitter[:oauth_token]
+            config.access_token_secret = provider_twitter[:oauth_secret]
+            #config.access_token        = "15994070-Jgnqxzf10LboGnXxeCP3y9Tevu9khqRmlvrKzZzmw"#provider_twitter[:oauth_token]
+            #config.access_token_secret = "hn0prX2igSGsXGD0shuIKl9nNMvKhtOXd3zDVlRxB98Jn"#provider_twitter[:oauth_secret]
           end
     
           client.update(@share_on_twitter.message)
