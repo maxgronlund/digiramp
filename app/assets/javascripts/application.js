@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require jquery.blockUI
 //= require bootstrap/bootstrap
 // require moment
 // require bootstrap-datetimepicker
@@ -41,6 +42,7 @@
 //= require sidebar
 //= require recording_widget
 //= require jasny-bootstrap
+//= require wait_overlay
 // require bootstrap-tokenfield
 // require chosen-jquery
 // require jquery.tokeninput

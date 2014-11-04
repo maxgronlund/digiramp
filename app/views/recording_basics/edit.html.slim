@@ -52,11 +52,11 @@
     
 
         .pull-right  
-          = f.button :submit, 'Finish', class: 'btn btn-default', id: 'done'
+          = f.button :submit, 'Finish', class: 'btn btn-default please_wait', id: 'done'
           '&nbsp;
           = link_to 'Skip Step', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
           '&nbsp;
-          = f.button :submit, 'Next >', class: 'btn btn-primary', name: "subaction"
+          = f.button :submit, 'Next >', class: 'btn btn-primary please_wait'
         /== render 'form', f: f
       = transloadit_jquerify :recording_artwork, :wait => true
       

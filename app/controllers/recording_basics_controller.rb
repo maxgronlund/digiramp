@@ -60,7 +60,7 @@ class RecordingBasicsController < ApplicationController
     if go_to == 'next_step'
       redirect_to edit_user_recording_lyric_path( @user, @recording )
     else
-      redirect_to user_recording_path( @user, @recording )
+      redirect_to user_recording_path( @recording.user, @recording )
     end
   end
   
