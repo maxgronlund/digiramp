@@ -19,13 +19,29 @@
       br
       = simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
         .row
-          .col-sm-3
-          .col-sm-4.col-lg-3
+          .col-sm-8.col-lg-6
             = transloadit :recording_with_thumbs 
             
             = f.hidden_field :user_id, value: @user.id
             
-            = f.file_field :file, multiple: false, label: 'Select Audio File'
+            
+            
+            
+            .fileinput.fileinput-new.input-group data-provides="fileinput"
+              .form-control data-trigger="fileinput"
+                i.glyphicon.glyphicon-file.fileinput-exists
+                span.fileinput-filename
+
+              span.input-group-addon.btn.btn-default.btn-file
+                <span class="fileinput-new">Select file</span>
+                <span class="fileinput-exists">
+                  'Change
+                </span>
+                  /<input type="file" name="...">
+                  = f.file_field :file, multiple: false, label: 'Select Audio File'
+                </span>
+              <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+
             br
             
             /= f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
