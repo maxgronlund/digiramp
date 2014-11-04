@@ -1,19 +1,23 @@
-.mobile_links
-  .btn-group
-    .visible-xs.btn-group-xs
-      = link_to user_recordings_path(@user), \
-                class: "btn btn-default" do
-        i.fa.fa-headphones
-        '&nbsp;
-        'Recordings
-      = link_to user_likes_path(@user), \
-                class: "btn btn-default" do
-        i.fa.fa-heart
-        '&nbsp;
-        'Likes
-      = link_to user_followers_path(@user), \
-                class: "btn btn-default" do
-        i.fa.fa-users
-        '&nbsp;
-        = pluralize(@user.followers.count, 'Follower')
+.sidebar-toggle
+  .visible-xs.btn-group-xs
+    .btn.btn-default id='menu-toggle'
+      i.fa.fa-caret-square-o-right
+      '&nbsp;
+      'Sidebar
+        
+/= link_to user_recordings_path(@user), \
+/          class: "btn btn-default" do
+/  i.fa.fa-headphones
+/  '&nbsp;
+/  'Recordings
+/= link_to user_likes_path(@user), \
+/          class: "btn btn-default" do
+/  i.fa.fa-heart
+/  '&nbsp;
+/  'Likes
+/= link_to user_followers_path(@user), \
+/          class: "btn btn-default" do
+/  i.fa.fa-users
+/  '&nbsp;
+/  = pluralize(@user.followers.count, 'Follower')
         

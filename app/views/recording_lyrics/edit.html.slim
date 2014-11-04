@@ -13,20 +13,32 @@
 
   #page-content-wrapper
     .container-fluid 
-      /#digiWhams  class="/recordings/#{@recording.id.to_s}"
-      /  == render 'recordings/recording_with_icons', recording: @recording, 
-      /                                               info: false,
-      /                                               add_to_playlist: false, 
-      /                                               remove_from_playlist: false, 
-      /                                               edit: false, 
-      /                                               delete: false,
-      /                                               description: true
-      /
+
       == render 'recordings/wizard_step', step: 2
       = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_lyrics'), 
                                                :method => 'put' do |f|
+        
+        .row
 
-        == render 'form', f: f
+          .col-sm-6
+            = f.input :lyrics, :input_html => {  style: "height: 480px;", placeholder: "Lyrics"}
+          .col-sm-6
+            = f.input :vocal,   collection: Recording::VOCAL
+            = f.input :explicit
+            = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
+
+
+        .row
+          .col-sm-12
+            .pull-right   
+              = f.button :submit, 'Finish', class: 'btn btn-default', id: 'done'
+              '&nbsp; 
+              = link_to 'Skip Step', edit_user_recording_tag_path(@user, @recording), class: 'btn btn-default'
+              '&nbsp;
+              = f.submit 'Next', class: 'btn btn-primary'
+
+        /== render 'form', f: f
       
         
   == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'

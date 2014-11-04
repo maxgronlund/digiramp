@@ -13,20 +13,26 @@
 
   #page-content-wrapper
     .container-fluid 
-      /#digiWhams  class="/recordings/#{@recording.id.to_s}"
-      /  == render 'recordings/recording_with_icons', recording: @recording, 
-      /                                               info: false,
-      /                                               add_to_playlist: false, 
-      /                                               remove_from_playlist: false, 
-      /                                               edit: false, 
-      /                                               delete: false,
-      /                                               description: true
-      /
       == render 'recordings/wizard_step', step: 5
       = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_rights'), 
                                                :method => 'put' do |f|
 
-        == render 'form', f: f
+        .row
+          .col-sm-3
+          .col-sm-6
+            = f.input :clearance, label: '200% clearance'
+            = f.input :copyright,  :input_html => {  placeholder: "i.e. © 2014 Entertainment Company, Inc"}
+            = f.input :isrc_code, label: 'ISRC Code',:input_html => {  placeholder: "CC-XXX-YY-NNNNN"}
+
+
+
+         
+
+    
+            .pull-right  
+              = link_to 'Skip Step', user_recording_path(@user, @recording), class: 'btn btn-default'
+              '&nbsp;
+              = f.submit 'Done', class: 'btn btn-primary'
       
         
   == render 'shared/site_footer'  

@@ -27,7 +27,30 @@
       = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_personas'), 
                                                :method => 'put' do |f|
 
-        == render 'form', f: f
+        .row
+          .col-sm-6
+            = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
+            = f.input :artist, :input_html => {  style: "height: 80px;", placeholder: "Artist"}
+          .col-sm-6
+            = f.input :performer, :input_html => {  style: "height: 80px;", placeholder: "Performer"}
+        .row
+          .col-sm-6
+            = f.input :composer, :input_html => {  style: "height: 80px;", placeholder: "Composer"}
+          .col-sm-6
+            = f.input :band, :input_html => {  style: "height: 80px;", placeholder: "Band"}
+
+
+
+         
+
+    
+        .pull-right   
+          = f.button :submit, 'Finish', class: 'btn btn-default', id: 'done'
+          '&nbsp;
+          = link_to 'Skip Step', edit_user_recording_right_path(@user, @recording), class: 'btn btn-default'
+          '&nbsp;
+          = f.submit 'Next', class: 'btn btn-primary'
      
         
   == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'

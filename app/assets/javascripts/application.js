@@ -40,6 +40,7 @@
 //= require_tree ./digi_whams
 //= require sidebar
 //= require recording_widget
+//= require jasny-bootstrap
 // require bootstrap-tokenfield
 // require chosen-jquery
 // require jquery.tokeninput

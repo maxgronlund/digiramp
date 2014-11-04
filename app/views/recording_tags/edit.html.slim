@@ -13,20 +13,35 @@
 
   #page-content-wrapper
     .container-fluid 
-      /#digiWhams  class="/recordings/#{@recording.id.to_s}"
-      /  == render 'recordings/recording_with_icons', recording: @recording, 
-      /                                               info: false,
-      /                                               add_to_playlist: false, 
-      /                                               remove_from_playlist: false, 
-      /                                               edit: false, 
-      /                                               delete: false,
-      /                                               description: true
-      /
       == render 'recordings/wizard_step', step: 3
       = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_tags'), 
                                                :method => 'put' do |f|
 
-        == render 'form', f: f
+
+        .row
+          .col-sm-6
+            = f.input :bpm
+            = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
+  
+          .col-sm-6
+            = f.input :tempo,   collection: Recording::TEMPO
+
+        .row
+          .col-sm-6
+            = f.input :mood, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Happy, Uplifting, Scary, Action"}
+          .col-sm-6
+            = f.input :genre, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Pop, Cinimatic, Hip-Hop, Christmas"}
+        .row
+          .col-sm-6
+            = f.input :instruments, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Drums, Banjo, Choir, Electric Guitar"}
+
+        .pull-right    
+          = f.button :submit, 'Finish', class: 'btn btn-default', id: 'done'
+          '&nbsp; 
+          = link_to 'Skip Step', edit_user_recording_persona_path(@user, @recording), class: 'btn btn-default'
+          '&nbsp;
+          = f.submit 'Next', class: 'btn btn-primary'
       
         
   == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'

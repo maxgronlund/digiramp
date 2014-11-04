@@ -3,6 +3,16 @@ ready = ->
   $("#menu-toggle").click (e)->
     e.preventDefault()
     $("#wrapper").toggleClass("toggled")
+    
+  $("#sidebar-toggle").click (e)->
+    e.preventDefault()
+    $("#wrapper").toggleClass("toggled")
+    
+  $( window ).resize ->
+    if $(window).width() > 753
+      console.log $('#wrapper').toggleClass("toggled", false)
+      
+      
 
   
 

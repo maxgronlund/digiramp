@@ -6,32 +6,60 @@
   #sidebar-wrapper
     ul class="sidebar-nav"
       == render 'users/shared/sidebar', selected: 'recordings'
-      
-                        
-        
-      
+
 
   #page-content-wrapper
     .container-fluid 
-      /#digiWhams  class="/recordings/#{@recording.id.to_s}"
-      /  == render 'recordings/recording_with_icons', recording: @recording, 
-      /                                               info: false,
-      /                                               add_to_playlist: false, 
-      /                                               remove_from_playlist: false, 
-      /                                               edit: false, 
-      /                                               delete: false,
-      /                                               description: true
-      /
-      
+
       == render 'recordings/wizard_step', step: 1
-      = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_basics'), 
-                                               :html => { :id => 'recording_artwork' }, 
-                                               :method => 'put' do |f|
+      = simple_form_for  [@user, @recording ], url: url_for(:action => 'update', :controller => 'recording_basics'), 
+                                               html: { :id => 'recording_artwork' }, 
+                                               method: 'put' do |f|
 
 
         = transloadit :image_files_to_s3 
-        == render 'form', f: f
+        .row
+          .col-sm-6
+
+  
+            .fileinput.fileinput-new data-provides="fileinput"
+              .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+                = image_tag @recording.cover_art, size: '184x184'
+
+              div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+              div
+                span.btn.btn-default.btn-file
+                  span class="fileinput-new"
+                    'Select image
+                  '&nbsp;
+                  span class="fileinput-exists"
+                    'Change
+                  = f.file_field :cover_art, multiple: false
+
+                '&nbsp;
+                a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                  'Remove
+
+            br
+            br
+            br
+        
+            = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  as: :radio_buttons, label: 'Privacy'
+
+          .col-sm-6
+            = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
+            = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
+    
+
+        .pull-right  
+          = f.button :submit, 'Finish', class: 'btn btn-default', id: 'done'
+          '&nbsp;
+          = link_to 'Skip Step', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
+          '&nbsp;
+          = f.button :submit, 'Next >', class: 'btn btn-primary', name: "subaction"
+        /== render 'form', f: f
       = transloadit_jquerify :recording_artwork, :wait => true
       
         
   == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'

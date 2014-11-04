@@ -1,4 +1,4 @@
-== render 'audio_player/show', recording: recording , description: description
+== render 'audio_player/show', recording: recording , description: description, target: target
 
 
 .btn-group
@@ -37,7 +37,7 @@
         
     -else
       = link_to login_new_path, 
-                target: "_parent",
+                target: target,
                 class: "btn btn-default"  do
         i class="fa fa-heart"
       
@@ -66,7 +66,7 @@
   .hidden-xs.btn-group-xs
     - if info
       = link_to user_recording_path(recording.user, recording), 
-                target: "_parent",
+                target: target,
                 class: "btn btn-default" do
         .blue-info
           i.fa.fa-info-circle
@@ -114,14 +114,14 @@
       
     -else
       = link_to login_new_path,  
-                target: "_parent",
+                target: target,
                 class: "btn btn-default"  do
         i class="fa fa-heart"
         '&nbsp;
         'Likes
       - if add_to_playlist
         = link_to login_new_path, 
-                  target: "_parent",
+                  target: target,
                   class: "btn btn-default"  do
           i.fa.fa-list
           '&nbsp;
@@ -129,7 +129,7 @@
         
       - if share
         = link_to login_new_path,  
-                  target: "_parent",
+                  target: target,
                   class: "btn btn-default"  do
           i class="fa fa-share"
           '&nbsp;

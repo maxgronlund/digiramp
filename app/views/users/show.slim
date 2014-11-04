@@ -12,11 +12,8 @@
     .container-fluid
       .row
         .col-sm-6
-          == render 'users/shared/mobile_links'
+          
           == render 'users/shared/profile'
-          /- if current_user.facebook
-          /  == debug current_user.facebook.get_object("me")
-          /== debug current_user.authorization_providers.where(provider: 'facebook').first
           == render 'users/activities'
         .col-sm-6
           == render 'users/guest_book'
@@ -30,3 +27,4 @@
                  
               
   == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

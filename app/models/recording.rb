@@ -441,6 +441,10 @@ class Recording < ActiveRecord::Base
     end
   end
   
+  def next_step
+    
+  end
+  
   def get_artwork
     return self.artwork unless self.artwork.to_s ==''
     return self.cover_art unless self.cover_art == ''

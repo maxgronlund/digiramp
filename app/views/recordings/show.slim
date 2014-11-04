@@ -32,7 +32,8 @@
                                                      edit: true, 
                                                      delete: false,
                                                      description: false,
-                                                    share: true
+                                                    share: true,
+                                                    target: ""
       .row
         
         .col-md-6
@@ -95,4 +96,4 @@
           == render 'shared/comments', commentable: @recording
         
   == render 'shared/site_footer'          
-          
+== render 'users/shared/mobile_links'

@@ -6,10 +6,21 @@ class RecordingLyricsController < ApplicationController
   end
 
   def update
+    
+    go_to = params[:recording][:next_step]
+    params[:recording].delete :next_step
+    
+    
     @recording      = Recording.cached_find(params[:id])
     @recording.update_attributes(recording_params)
     
-    redirect_to edit_user_recording_tag_path(@recording.user, @recording)
+    if go_to == 'next_step'
+      redirect_to edit_user_recording_tag_path(@recording.user, @recording)
+    else
+      redirect_to user_recording_path( @user, @recording )
+    end
+    
+    
   end
   
 private
