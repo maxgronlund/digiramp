@@ -1,25 +1,55 @@
-#wrap
-  .container
-    .row
-      .col-sm-3
-        h4 Latest Widgets
-        - Widget.order('created_at desc').last(10).each do |widget|
-          = widget.title
-          br
-        hr
-      .col-sm-9 
-        h4 Popular Widgets
-        hr
-        .row
-          - Widget.popular.each do |widget|
-            .col-sm-6 id="digi_width"
-              'Created #{widget.created_at}
-              = link_to widget_path(widget.secret_key) do
-                'Show
-              br
-              - if Rails.env == 'development'
-                <iframe width="660" height="650" src="http://localhost:3000/embed/#{widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
-              - else 
-                <iframe width="660" height="650" src="http://digiramp.com/embed/#{widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
-              hr
-        
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'widgets'
+  
+  #page-content-wrapper
+    .container-fluid
+      h3 Widgets
+      .sexy_line
+      .widget-badges
+        /- if @authorized  
+        /  == render 'playlists/create_playlist'
+        - @user.widgets.each do |widget|
+          == render 'widgets/widget', widget: widget
+      
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+/#wrap
+/  .container
+/    .row
+/      .col-sm-3
+/        h4 Latest Widgets
+/        - Widget.order('created_at desc').last(10).each do |widget|
+/          = widget.title
+/          br
+/        hr
+/      .col-sm-9 
+/        h4 Popular Widgets
+/        hr
+/        .row
+/          - Widget.popular.each do |widget|
+/            .col-sm-6 id="digi_width"
+/              'Created #{widget.created_at}
+/              = link_to widget_path(widget.secret_key) do
+/                'Show
+/              br
+/              - if Rails.env == 'development'
+/                <iframe width="660" height="650" src="http://localhost:3000/embed/#{widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
+/              - else 
+/                <iframe width="660" height="650" src="http://digiramp.com/embed/#{widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
+/              hr
+/        

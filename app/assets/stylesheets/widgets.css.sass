@@ -4,3 +4,124 @@
 .thumb
   img
     width: 100%
+    
+    
+
+.show-widget
+  width: 100%
+  height: 100%
+
+  .widget-image
+    width: 50%
+    //max-width: 245px
+    float: left
+    margin-right: 10px
+    margin-bottom: 10px
+    
+    img
+      max-width: 100%
+      height:    auto
+    //position: relative
+    //width: 130px
+    //height: 120px
+    //float: left
+    
+  .widget-info 
+    //left: 0px
+    //width: 100% px
+    //height: 120px
+    //margin-left: 124px
+    //text-overflow: ellipsis
+    //white-space: nowrap
+    //overflow: hidden
+    
+    h4
+      margin-top: 0px
+    
+@mixin rowMachine($numPerRow, $margin) 
+  
+  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow)
+  
+  &:nth-child(n) 
+    margin-bottom: $margin
+    margin-right: $margin
+  
+  &:nth-child(#{$numPerRow}n) 
+    margin-right: 0
+    margin-bottom: 0
+    
+
+    
+.widget-badges    
+  width: 100%
+  .small-symbols
+    margin-top: 6px
+  .widget-badge 
+    @include rowMachine(7, 2%)
+    padding: 4px
+    float: left
+    text-overflow: ellipsis
+    //white-space: nowrap
+    overflow: hidden
+    .avatar
+      img
+        max-width: 100%
+        height:    auto
+      position: relative
+      .widget-text
+        position: absolute
+        top: 0px
+        .widget-title
+          //display: inline
+          padding: 0px
+          color: #EEE
+          background: rgb(0, 0, 0)
+          background: rgba(0, 0, 0, 0.5)
+          //height: 22px
+          font-size: 15px
+          padding-left: 4px
+          padding-right: 4px
+          margin-bottom: 2px
+      .widget-new
+        position: absolute
+        top: 10px
+        font-size: 64px
+        text-align: center
+        width: 100%
+        i , .fa
+          color: #7AB056
+        h3
+          margin-top: 10px
+
+    
+    a
+      color: #555
+  
+    
+    @media (min-width: 1800px) 
+      @include rowMachine(8, 2%)
+      
+    @media (max-width: 1800px) 
+      @include rowMachine(6, 2%)
+  
+    @media (max-width: 1440px) 
+      @include rowMachine(5, 2%)
+  
+    @media (max-width: 1216px) 
+      @include rowMachine(4, 2%)
+  
+    @media (max-width: 992px) 
+      @include rowMachine(3, 4%)
+    
+  
+    @media (max-width: 768px) 
+      @include rowMachine(3, 4%)
+    
+  
+    @media (max-width: 544px) 
+      @include rowMachine(2, 4%)
+    
+  
+    img 
+      max-width: 100%
+        

@@ -1,50 +1,110 @@
-- user = @widget.user
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'guest' 
 
-            
-  .container
-    .row
-      .col-sm-3
-
-        -if user
-          i Created by
-          .thumb
-             = image_tag @widget.user.image_url(:avatar_270x270)
-          h4 = user.name
-          hr
-        
-        .table.table-responsive
-          table
-            tr
-              td
-                .pull-right
-                  'Playbacks:
-              td
-                = @widget.playback_count
-            tr
-              td
-                .pull-right
-                  'Likes:
-              td
-                = @widget.likes_count
-                
-            
-          
-          
-          
-            
-            
-      .col-sm-9  id="digi_width"
-         - if Rails.env == 'development'
-           <iframe width="660" height="1000" src="http://localhost:3000/embed/#{@widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
-         - else 
-           <iframe width="660" height="1000" src="http://digiramp.com/embed/#{@widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
-         hr
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'widgets'
+  
+  #page-content-wrapper
+    .container-fluid
+      h3 = @widget.title
+      .sexy_line
+      = image_tag( @widget.image_url :image_470x250)
+      = debug @widget.playlist
+      
+      
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
 
 
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/- user = @widget.user
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'guest' 
+/
+/            
+/  .container
+/    .row
+/      .col-sm-3
+/
+/        -if user
+/          i Created by
+/          .thumb
+/             = image_tag @widget.user.image_url(:avatar_270x270)
+/          h4 = user.name
+/          hr
+/        
+/        .table.table-responsive
+/          table
+/            tr
+/              td
+/                .pull-right
+/                  'Playbacks:
+/              td
+/                = @widget.playback_count
+/            tr
+/              td
+/                .pull-right
+/                  'Likes:
+/              td
+/                = @widget.likes_count
+/                
+/            
+/          
+/          
+/          
+/            
+/            
+/      .col-sm-9  id="digi_width"
+/         - if Rails.env == 'development'
+/           <iframe width="660" height="1000" src="http://localhost:3000/embed/#{@widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
+/         - else 
+/           <iframe width="660" height="1000" src="http://digiramp.com/embed/#{@widget.secret_key}" frameborder="0" allowfullscreen id="digiwham_width" class="digiwham_iframe"></iframe>
+/         hr
+/
+/
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
 

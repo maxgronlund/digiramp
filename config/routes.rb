@@ -270,7 +270,6 @@ Digiramp::Application.routes.draw do
     resources :recording_personas, only: [:edit, :update]
     resources :recording_tags, only: [:edit, :update]
     resources :recording_rights, only: [:edit, :update]
-    
     resources :recording_lyrics, only: [:edit, :update]
     
     resources :playlists
@@ -286,6 +285,8 @@ Digiramp::Application.routes.draw do
     #
     resources :followers, only: [:index]
     resources :following, only: [:index]
+    
+    resources :widgets
     
     # hui v. 1
     resources :user_accounts, only: [:index]

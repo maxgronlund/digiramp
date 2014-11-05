@@ -49,6 +49,10 @@ class WidgetUploader < CarrierWave::Uploader::Base
     process  resize_to_fill: [200, 50, gravity = 'Center']
   end
   
+  version :image_470x250 do
+     process  resize_to_fill: [470, 250, gravity = 'Center']
+  end
+  
   
   
   # Add a white list of extensions which are allowed to be uploaded.

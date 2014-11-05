@@ -1,0 +1,36 @@
+
+.widget-badge id="remove_widget_#{widget.id.to_s}"
+  = link_to user_widget_path( @user, widget) do
+    .avatar
+      = image_tag widget.image_url(:image_470x250), size: '470x250'
+      .widget-text
+        .widget-title
+          = widget.title
+ 
+
+  
+  .small-symbols
+    i class="fa fa-headphones"
+    '&nbsp;
+    '5
+    /= widget.recordings.count
+    '&nbsp;|&nbsp;
+    i class="fa fa-comment"
+    '&nbsp;
+    '5
+    /= widget.comments.count
+    '&nbsp;|&nbsp;
+    i class="fa fa-heart red-heart"
+    '5
+    /&nbsp;
+    /= widget.comments.count
+    '5
+    /- if @authorized
+    /  = link_to edit_user_widget_path( @user, widget) do
+    /    '&nbsp;|&nbsp;
+    /    i class="fa fa-pencil"
+    /    '&nbsp;
+    /  = link_to user_widget_path( @user, widget), method: :delete, remote: true, data: { confirm: "You are about to delete #{widget.title}" } do
+    /    '&nbsp;|&nbsp;
+    /    i class="fa fa-times"
+  

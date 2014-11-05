@@ -10,7 +10,6 @@
   
   #page-content-wrapper
     .container-fluid
-      /= debug @user.playlists.first
       .playlist-badges
         - if @authorized  
           == render 'playlists/create_playlist'

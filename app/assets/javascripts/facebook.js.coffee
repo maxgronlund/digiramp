@@ -1,3 +1,5 @@
+#https://developers.facebook.com/docs/javascript/howto/jquery
+
 jQuery ->
   $('body').prepend('<div id="fb-root"></div>')
 
