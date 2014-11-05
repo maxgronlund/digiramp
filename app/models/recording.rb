@@ -446,10 +446,17 @@ class Recording < ActiveRecord::Base
   end
   
   def get_artwork
-    return self.artwork unless self.artwork.to_s ==''
-    return self.cover_art unless self.cover_art == ''
-    'http://digiramp.com/assets/digiramp-logo2-b204530a32a3b4098e35bbc3f7c57b62.png'
+
+    begin
+      art = Artwork.cached_find(self.image_file_id)
+      return art.file
+    rescue
+      return self.artwork unless self.artwork.to_s ==''
+      return self.cover_art unless self.cover_art == ''
+    end
     
+
+    'http://digiramp.com/assets/digiramp-logo2-b204530a32a3b4098e35bbc3f7c57b62.png'
   end
   
   def get_comment
