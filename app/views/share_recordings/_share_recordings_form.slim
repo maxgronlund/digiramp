@@ -45,25 +45,25 @@
               = simple_form_for [ShareOnFacebook.new], remote: true do |f|
                 /= f.error_notification
               
-                /.form-inputs
-                /  - if current_user
-                /    = f.hidden_field :user_id, value: current_user.id
-                /  = f.hidden_field :recording_id, value: recording.id
-                /  = f.input :message
-                /
-                /.form-actions
-                /  = f.submit 'Share', class: 'btn btn-primary'
-                /  
+                .form-inputs
+                  - if current_user
+                    = f.hidden_field :user_id, value: current_user.id
+                  = f.hidden_field :recording_id, value: recording.id
+                  = f.input :message
+                
+                .form-actions
+                  = f.submit 'Share', class: 'btn btn-primary'
+                  
                   
                 
                 /-if can_edit?
                 br
-                input type="button" value="Share" class='btn btn-primary' onclick="FB.ui({ method: 'share_open_graph', \
-                                                                     action_type: 'og.likes', \
-                                                                     action_properties: JSON.stringify({ \
-                                                                      object:'https://digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}', \
-                                                                     }) \
-                                                                    }, function(response){});"
+                /input type="button" value="Share" class='btn btn-primary' onclick="FB.ui({ method: 'share_open_graph', \
+                /                                                     action_type: 'og.likes', \
+                /                                                     action_properties: JSON.stringify({ \
+                /                                                      object:'https://digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}', \
+                /                                                     }) \
+                /                                                    }, function(response){});"
                 
                 
                 

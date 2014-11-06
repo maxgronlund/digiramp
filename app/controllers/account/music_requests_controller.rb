@@ -3,12 +3,14 @@ class Account::MusicRequestsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include ActionView::Helpers::TextHelper
   include AccountsHelper
-  before_filter :access_account
+  #before_filter :access_account
+  before_filter :get_account_account
 
   # GET /opportunities
   # GET /opportunities.json
   def index
     forbidden unless current_account_user.read_opportunity
+    
     #@opportunities = Opportunity.all
   end
 
@@ -16,6 +18,7 @@ class Account::MusicRequestsController < ApplicationController
   def show
     forbidden unless current_account_user.read_opportunity
     @opportunity    = Opportunity.cached_find(params[:opportunity_id])
+    @user           = current_user
   end
 
   # GET /opportunities/new
@@ -29,7 +32,7 @@ class Account::MusicRequestsController < ApplicationController
   def edit
     forbidden unless current_account_user.update_opportunity
     @opportunity    = Opportunity.cached_find(params[:opportunity_id])
-    
+    @user           = current_user
   end
 
 

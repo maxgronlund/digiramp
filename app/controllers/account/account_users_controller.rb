@@ -2,12 +2,14 @@ class Account::AccountUsersController < ApplicationController
 
   include AccountsHelper
   include UsersHelper
-  before_filter :access_account
-
+  #before_filter :access_account
+  before_filter :get_account_account
 
   def index
-    ap current_account_user
-    forbidden unless current_account_user && current_account_user.read_user
+    forbidden unless current_account_user.read_user
+    @user       = current_user
+    
+    #forbidden unless current_account_user && current_account_user.read_user
   end
   
   def show
@@ -110,11 +112,9 @@ class Account::AccountUsersController < ApplicationController
   
 
   def edit
-    
     forbidden unless current_account_user.update_user
     @account_user = AccountUser.cached_find(params[:id])
-
-
+    @user         = current_user
   end
   
   def update

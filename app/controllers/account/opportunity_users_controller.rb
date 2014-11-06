@@ -15,7 +15,7 @@ class Account::OpportunityUsersController < ApplicationController
   def show
     @opportunity_user = OpportunityUser.cached_find(params[:id])
     @user             = current_user
-    #@playlists        = current_user.playlists
+    @playlists        = current_user.playlists
   end
   #
   ## GET /opportunities/new

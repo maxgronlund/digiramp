@@ -135,13 +135,12 @@ class ApplicationController < ActionController::Base
     if params[:id]
       if @account = Account.cached_find(params[:id])
         @user = @account.user
-        set_authorized
+        #set_authorized
         set_account
       end
     else
       not_found
     end
-    
   end
   helper_method :get_account_user
   
@@ -149,13 +148,12 @@ class ApplicationController < ActionController::Base
     if params[:account_id]
       if @account = Account.cached_find(params[:account_id])
         @user = @account.user
-        set_authorized
+        #set_authorized
         set_account
       end
     else
       not_found
     end
-    
   end
   helper_method :get_account
 

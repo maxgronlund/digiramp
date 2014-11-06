@@ -1,23 +1,23 @@
-/-cache ( [@account.uuid, request.url, current_user.uuid ] ) do
-.do
+.account_users
   .row
     .col-sm-12
       #accordion
         -@account.account_users.non_catalog_users.each do |account_user|
           -if account_user.role == "Account User" || current_user.super?
-            .panel.panel-primary
-              .panel-heading
-                .panel-title
-                  a data-toggle="collapse" data-parent="#accordion" href="#collapse_#{account_user.id.to_s}"
-                    = account_user.user.name.upcase
+            .panel.panel-default
+              a data-toggle="collapse" data-parent="#accordion" href="#collapse_#{account_user.id.to_s}"
+                .panel-heading
+                  .panel-title
+                  
+                    = account_user.user.name
                     .pull-right
                       
                       - if account_user.administrates_account?
-                        'ADMINISTRATOR&nbsp;/
+                        'Administrator&nbsp;/
                       - if account_user.own_account? @account
-                        'ACCOUNT OWNER
+                        'Account Owner
                       - else
-                        = account_user.role.upcase
+                        = account_user.role
                       
                     
               div id="collapse_#{account_user.id.to_s}" class="panel-collapse collapse"   
@@ -26,7 +26,7 @@
                     table class="table table-hover"
                       thead
                         tr
-                          th = account_user.user.email
+                          th 
                           th Create
                           th Read
                           th Update
@@ -149,11 +149,13 @@
                         
                         = link_to edit_account_account_account_user_path(@account, account_user) do
                           - if current_account_user.can_update_account_user account_user
-                            .btn.btn-primary.btn-lg
-                              i class="fa fa-pencil"
+                            .btn.btn-xs.btn-default
+                              i.fa.fa-pencil
+                              '&nbsp;Edit Permissions
                           -else
-                            .btn.btn-primary.btn-lg disabled="disabled"
-                              i class="fa fa-pencil"
+                            .btn.btn-xs.btn-default disabled="disabled"
+                              i.fa.fa-pencil
+                              '&nbsp;Edit Permissions
                         '&nbsp;
                         
                         
@@ -161,14 +163,20 @@
                         = link_to  account_account_account_user_path(@account, account_user),\
                                   data: { confirm: 'Are you sure?' } , :method => :delete do
                           - if current_account_user.can_delete_account_user account_user
-                            .btn.btn-danger.btn-lg
-                              i class="fa fa-times"
+                            .btn.btn-xs.btn-danger
+                              i.fa.fa-times
+                              '&nbsp;Remove
                           -else
-                            .btn.btn-danger.btn-lg disabled="disabled"
-                              i class="fa fa-times"
+                            .btn.btn-xs.btn-danger disabled="disabled"
+                              i.fa.fa-times
+                              '&nbsp;Remove
+                          
                         
-/hr
-/.pull-right
-/  == link_to 'Invite Users', new_account_catalog_catalog_user_path(@account, @catalog), class: 'btn btn-primary btn-lg'
+                    
+                  .row
+                    .col-sm-12
+                      br
+                        
+  
               
      

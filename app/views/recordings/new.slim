@@ -33,13 +33,13 @@
                 span.fileinput-filename
 
               span.input-group-addon.btn.btn-default.btn-file
-                <span class="fileinput-new">Select file</span>
-                <span class="fileinput-exists">
+                span.fileinput-new
+                  'Select file
+                span.fileinput-exists
                   'Change
-                </span>
-                  /<input type="file" name="...">
-                  = f.file_field :file, multiple: false, label: 'Select Audio File'
-                </span>
+
+                
+                = f.file_field :file, multiple: false, label: 'Select Audio File'
               <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 
             br

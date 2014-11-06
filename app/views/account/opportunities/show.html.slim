@@ -10,8 +10,9 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account) }, current: @opportunity.title }
-      h3 = @opportunity.title
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account) }, current: ''}
+      h3 =@account.title
+      = @opportunity.title
       .sexy_line  
       .opportunity 
         .row

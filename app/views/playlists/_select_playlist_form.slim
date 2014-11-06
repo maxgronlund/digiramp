@@ -21,7 +21,7 @@
         div id="select_playlist_form_#{recording.id.to_s}" 
           / this will be removed, should also be added dynamicaly
           div id="old_select_playlist_form_#{recording.id.to_s}"  
-            = simple_form_for  [recording] , :url => url_for(:action => 'create', :controller => 'add_to_playlists'), :method => 'post', remote: true do |f|
+            = simple_form_for  [recording] , :url => url_for(:action => 'create', :controller => '/add_to_playlists'), :method => 'post', remote: true do |f|
               .modal-body
                 
                 = f.hidden_field :recording_id, value: recording.id

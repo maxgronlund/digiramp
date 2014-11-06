@@ -75,12 +75,12 @@
                                                          post: BlogPost.cached_find( "CATALOGS" , blog ),
                                                          link: account_account_catalogs_path(@account) }
                                                        
-          -if current_account_user.read_catalog  
-             == render 'account/shared/badge', locals: {  blog: blog, 
-                                                         post: BlogPost.cached_find( "WIDGETS" , blog ),
-                                                         link: account_account_widgets_path(@account) }
-                                                      
-                                                        
+          /-if current_account_user.read_catalog  
+          /   == render 'account/shared/badge', locals: {  blog: blog, 
+          /                                               post: BlogPost.cached_find( "WIDGETS" , blog ),
+          /                                               link: account_account_widgets_path(@account) }
+          /                                            
+          /                                              
          
       .clearfix 
 

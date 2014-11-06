@@ -368,6 +368,11 @@ class Account < ActiveRecord::Base
                                 )                           
   end
   
+  def can_be_accessed_by user_id
+    return true if User.cached_find(user_id).super?
+    AccountUser.exists?( account_id: self.id, user_id: user_id)
+  end
+  
   
   
   

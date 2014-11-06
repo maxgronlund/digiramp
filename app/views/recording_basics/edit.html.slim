@@ -20,8 +20,7 @@
         = transloadit :image_files_to_s3 
         .row
           .col-sm-6
-
-  
+            = f.input :title
             .fileinput.fileinput-new data-provides="fileinput"
               .fileinput-new.thumbnail style="width: 184px; height: 184px;"
                 = image_tag @recording.cover_art, size: '184x184'
