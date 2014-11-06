@@ -2,7 +2,7 @@ class Opportunity < ActiveRecord::Base
   include PublicActivity::Common
   has_many        :opportunity_invitations
   has_many        :music_requests, dependent: :destroy
-  has_many        :opportunity_users
+  has_many        :opportunity_users, dependent: :destroy
   belongs_to      :account
   after_commit    :flush_cache
   

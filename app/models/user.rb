@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
   after_commit :set_propperties
   
   before_save :validate_info
+  before_create :validate_info
   #before_destroy :delete_account
   
   has_many :emails, dependent: :destroy
@@ -116,11 +117,10 @@ class User < ActiveRecord::Base
   
   
   def validate_info
-    self.email.strip!
+    self.email.gsub(' ', '')
     self.email.downcase!
-    if self.name.to_s == ''
-      self.name = self.email
-    end
+    self.name = self.email                                    if self.name.to_s == ''
+    self.user_name = UUIDTools::UUID.timestamp_create().to_s  if self.user_name == ''
   end
   
 
@@ -352,6 +352,9 @@ class User < ActiveRecord::Base
   end
   
   def self.create_a_new_account_for_the user
+    puts '======================= create_a_new_account_for_the =========================='
+    ap user
+    puts '================================================='
     # creating the acount
     @account = Account.new(   title: user.email, 
                               user_id: user.id, 
@@ -376,6 +379,9 @@ class User < ActiveRecord::Base
     user.current_account_id  = @account.id
     
     # save
+    puts '======================= CRASH! =========================='
+    ap user
+    puts '================================================='
     user.save!
     
 
@@ -438,9 +444,11 @@ class User < ActiveRecord::Base
 
   
   def self.find_or_invite_from_email( email)
-    if user  = User.find_by_email(email)
-    else
-      user   = User.invite_user( email )
+    puts '================= find_or_invite_from_email ========================'
+    puts email
+    puts '========================================='
+    unless user   = User.where(email: email).first
+      user        = invite_user( email )
     end
     user
   end
@@ -451,10 +459,13 @@ class User < ActiveRecord::Base
   
   # invite a user based on an email 
   def self.invite_user email
+    puts '=================== invite_user ======================'
+    puts email
+    puts '========================================='
     secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
     user                  = User.create(                   
-                                             name: email.downcase, 
-                                            email: email.downcase, 
+                                             name: email, 
+                                            email: email, 
                                           invited: true, 
                                          password: secret_temp_password, 
                             password_confirmation: secret_temp_password,

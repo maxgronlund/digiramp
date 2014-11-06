@@ -7,10 +7,11 @@
 
 ready = ->
   #alert 'fo'
-  #$(".share_on_facebook").click ->
-  #  console.log 'bar'
-  #
-  #
+  $(".share_on_facebook").click ->
+    recording_url = $(this).attr 'value' 
+    console.log recording_url
+  
+  
   #$("#share_on_facebook").on 'click', ->
 
         

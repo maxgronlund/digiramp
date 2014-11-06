@@ -16,6 +16,7 @@ class Account::OpportunityInvitationsController < ApplicationController
 
   # GET /opportunity_invitations/new
   def new
+    @user                   = current_user
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_invitation = OpportunityInvitation.new
   end
@@ -28,6 +29,13 @@ class Account::OpportunityInvitationsController < ApplicationController
 
 
   def create
+    
+    # validates email here
+    
+    #/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+    
+    
+    
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_invitation = OpportunityInvitation.create(opportunity_invitation_params)
     
@@ -40,13 +48,13 @@ class Account::OpportunityInvitationsController < ApplicationController
                                   params: { opportunity_id: @opportunity.id
                                           }
                                       ) 
-                                      
-                                      
-    
+
 
     params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
-
-      user             = User.find_or_invite_from_email( email.downcase )
+      #puts '========================================='
+      #puts email
+      #puts '========================================='
+      user             = User.find_or_invite_from_email( email.downcase.gsub(' ', '') )
 
       @opportunity_user = OpportunityUser.where( opportunity_id:   @opportunity.id, 
                                                 user_id:          user.id,
@@ -58,16 +66,12 @@ class Account::OpportunityInvitationsController < ApplicationController
       
       if user.account_activated
         OpportunityMailer.delay.invite(email, @opportunity_invitation.id, user.id, current_user.id)
-        #OpportunityInvitationWorker.perform_async(email, @opportunity_invitation.id, user.id, current_user.id)
       else
         user.add_token
         OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id, current_user.id)
       end
       
-      #OpportunityInvitationWorker.perform_async(email, @opportunity_invitation.id, user.id, current_user.id)
-      #OpportunityInvitationWorker.perform_async()
-      #OpportunityMailer.delay.invite()
-      
+ 
       @opportunity_user.create_activity(   :created, 
                                      owner: current_user,
                                  recipient: @opportunity_user,

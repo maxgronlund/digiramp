@@ -1,0 +1,34 @@
+.row
+  .col-sm-12      
+    .sexy_line
+    h4 Providers
+    br
+    table class="table"
+      - @opportunity.opportunity_users.each do |opportunity_user|
+        tr
+          td
+            = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user), \
+                                                                        data: { confirm: 'Are you sure?' } ,\
+                                                                        :method => :delete do
+              .pull-left
+                .btn.btn-default.btn-xs
+                  i class="fa fa-times"
+            '&nbsp;
+            = opportunity_user.user.email
+
+
+          td 
+            .pull-right
+              = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user) do
+                .btn.btn-xs.btn-primary
+                  'Submissions
+                  '&nbsp;
+                  = opportunity_user.music_submissions.size
+    
+    
+
+    .pull-right
+      = link_to new_account_account_opportunity_opportunity_invitation_path(@account, @opportunity) do
+        .btn.btn-default.btn-xs
+          i class="fa fa-plus-circle"
+          '&nbsp; Invite Providers

@@ -55,24 +55,18 @@
                         '&nbsp;
                         'Add Request
                     '&nbsp;
-                    = link_to new_account_account_opportunity_opportunity_invitation_path(@account, @opportunity) do
-                      .btn.btn-default.btn-xs
-                        i class="fa fa-plus-circle"
-                        '&nbsp; Invite Providers
-                    '&nbsp;
                     = link_to edit_account_account_opportunity_path(@account, @opportunity) do
                       .btn.btn-xs.btn-default
                         i class="fa fa-pencil"
                         '&nbsp;
                         'Edit
-                  
+             
+            == render 'account/opportunities/providers'
             
-            
-            
-    
             .sexy_line
           .col-sm-6  
             == render 'account/opportunities/requests'
+
             
               
               
@@ -82,13 +76,5 @@
                                             
       
   == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'
 
-
-
-/                    
-/        .pull-right
-/          = link_to new_account_account_opportunity_music_request_path(@account, @opportunity), 'data-no-turbolink'=>'true' do
-/            .btn.btn-success.btn-lg
-/              i class="fa fa-plus-circle"
-/              '&nbsp;
-/              'Add Music Request
