@@ -43,6 +43,7 @@
 //= require recording_widget
 //= require jasny-bootstrap
 //= require wait_overlay
+//= require share_on_facebooks
 // require bootstrap-tokenfield
 // require chosen-jquery
 // require jquery.tokeninput

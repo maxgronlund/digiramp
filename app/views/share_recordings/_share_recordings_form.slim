@@ -15,8 +15,8 @@
       .share-dialog
         .modal-body
           ul.nav.nav-tabs role="tablist"
-            li class="active"
-              a href="#facebook_#{recording.id.to_s}" role="tab" data-toggle="tab"
+            li 
+              a href="#facebook_#{recording.id.to_s}" role="tab" data-toggle="tab" class="share_on_facebook" value="https://digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}"
                 h3.fa.fa-facebook-square
             li
               a href="#twitter_#{recording.id.to_s}" role="tab" data-toggle="tab"
@@ -45,25 +45,20 @@
               = simple_form_for [ShareOnFacebook.new], remote: true do |f|
                 /= f.error_notification
               
-                .form-inputs
-                  - if current_user
-                    = f.hidden_field :user_id, value: current_user.id
-                  = f.hidden_field :recording_id, value: recording.id
-                  = f.input :message
-              
-                .form-actions
-                  = f.submit 'Share', class: 'btn btn-primary'
+                /.form-inputs
+                /  - if current_user
+                /    = f.hidden_field :user_id, value: current_user.id
+                /  = f.hidden_field :recording_id, value: recording.id
+                /  = f.input :message
+                /
+                /.form-actions
+                /  = f.submit 'Share', class: 'btn btn-primary'
+                /  
                   
-                  
-                /.fb-share-button data-href="https://developers.facebook.com/docs/plugins/" data-width="500" data-layout="link"
                 
-                /.fb-share-button data-href="https://digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}" data-width="500" data-layout="link" 
-                
-                /input type="button" value="Share" onclick="FB.ui()"
-                
-                -if can_edit?
-                  br
-                  input type="button" value="Experimental Share" class='btn btn-primary' onclick="FB.ui({ method: 'share_open_graph', \
+                /-if can_edit?
+                br
+                input type="button" value="Share" class='btn btn-primary' onclick="FB.ui({ method: 'share_open_graph', \
                                                                      action_type: 'og.likes', \
                                                                      action_properties: JSON.stringify({ \
                                                                       object:'https://digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}', \
