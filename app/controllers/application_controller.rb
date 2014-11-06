@@ -118,9 +118,10 @@ class ApplicationController < ActionController::Base
   
   # v 2
   def get_user
+    ap params
     if params[:user_id]
       if @user = User.friendly.find(params[:user_id])
-        set_authorized
+        #set_authorized
         set_account
         return @user
       end
@@ -215,8 +216,9 @@ private
         current_user.current_account_id  = current_user.account.id
         current_user.save!
       end
-      set_authorized
+      
     end
+    set_authorized
   end
   
 end

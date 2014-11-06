@@ -28,6 +28,7 @@ class Account::AccountUsersController < ApplicationController
     @roles = AccountUser::ROLES
     @roles.delete("Account Owner")
     @roles.delete("Client")
+    @user       = current_user
     
   end
   

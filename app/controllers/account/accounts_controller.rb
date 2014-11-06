@@ -1,12 +1,12 @@
 class Account::AccountsController < ApplicationController
   
   include AccountsHelper
-  before_filter :access_account
-  before_filter :get_account_user
+  #before_filter :access_account
+  before_filter :get_account_account
   
   
   def show
-
+    @user = current_user
   end
   
   def edit
