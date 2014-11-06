@@ -1,114 +1,93 @@
-.panel.panel-primary
-  .panel-heading
-    - if @account_user.user
-      'Permissions for &nbsp;
-      = @account_user.user.email 
-    - else
-      ' Permissions
-    
-  .panel-body
-    .table-responsive
-      table class="table table-hover"
 
-        tbody
-          tr
-            td
-              h4 Recordings
-            td = f.input :create_recording, label: 'Create'
-            td = f.input :read_recording,   label: 'Read'
-            td = f.input :update_recording, label: 'Update'
-            td = f.input :delete_recording, label: 'Delete'
-          tr
-            td
-              h4 Recordings IPI's
-            td = f.input :create_recording_ipi, label: 'Create'
-            td = f.input :read_recording_ipi,   label: 'Read'
-            td = f.input :update_recording_ipi, label: 'Update'
-            td = f.input :delete_recording_ipi, label: 'Delete'
-          tr
-            td
-              h4 Files
-            td = f.input :create_file, label: 'Create'
-            td = f.input :read_file,   label: 'Read'
-            td = f.input :update_file, label: 'Update'
-            td = f.input :delete_file, label: 'Delete'
-          tr
-            td Artwork
-            td = f.input :create_artwork, label: 'Create'
-            td = f.input   :read_artwork,   label: 'Read'
-            td = f.input :update_artwork, label: 'Update'
-            td = f.input :delete_artwork, label: 'Delete'
-          tr
-            td
-              h4 Legal Documents
-            td = f.input :create_legal_document, label: 'Create'
-            td = f.input :read_legal_document,   label: 'Read'
-            td = f.input :update_legal_document, label: 'Update'
-            td = f.input :delete_legal_document, label: 'Delete'
-          tr
-            td
-              h4 Financial Documents
-            td = f.input :create_financial_document, label: 'Create'
-            td = f.input :read_financial_document,   label: 'Read'
-            td = f.input :update_financial_document, label: 'Update'
-            td = f.input :delete_financial_document, label: 'Delete'
-          tr
-            td
-              h4 Common Works
-            td = f.input :create_common_work, label: 'Create'
-            td = f.input :read_common_work,   label: 'Read'
-            td = f.input :update_common_work, label: 'Update'
-            td = f.input :delete_common_work, label: 'Delete'
-          tr
-            td
-              h4 Common Works IPI's
-            td = f.input :create_common_work_ipi, label: 'Create'
-            td = f.input :read_common_work_ipi,   label: 'Read'
-            td = f.input :update_common_work_ipi, label: 'Update'
-            td = f.input :delete_common_work_ipi, label: 'Delete'
-          tr
-            td
-              h4 Users
-            td = f.input :createx_user, label: 'Create'
-            td = f.input   :read_user, label: 'Read'
-            td = f.input :update_user, label: 'Update'
-            td = f.input :delete_user, label: 'Delete'
-          tr
-            td
-              h4 Catalogs
-            td = f.input :createx_catalog, label: 'Create'
-            td = f.input   :read_catalog, label: 'Read'
-            td = f.input :update_catalog, label: 'Update'
-            td = f.input :delete_catalog, label: 'Delete'
-          tr
-            td
-              h4 Playlists
-            td = f.input :create_playlist, label: 'Create'
-            td = f.input   :read_playlist, label: 'Read'
-            td = f.input :update_playlist, label: 'Update'
-            td = f.input :delete_playlist, label: 'Delete'
-          
-          -if @account.create_opportunities || @account.read_opportunities 
-            tr
-              td
-                h4 Opportunities
-              td
-                -if @account.create_opportunities
-                  = f.input :create_opportunity, label: 'Create'
-              td 
-                = f.input   :read_opportunity, label: 'Read'
-              td 
-                -if @account.create_opportunities
-                  = f.input :update_opportunity, label: 'Update'
-              td
-                -if @account.create_opportunities
-                  = f.input :delete_opportunity, label: 'Delete'
-          tr
-            td
-              h4 CRM
-            td = f.input :create_crm, label: 'Create'
-            td = f.input   :read_crm, label: 'Read'
-            td = f.input :update_crm, label: 'Update'
-            td = f.input :delete_crm, label: 'Delete'
-        
+.table-responsive
+  table class="table table-hover"
+    tbody
+      tr
+        td Recordings
+        td = f.input :create_recording, label: 'Create'
+        td = f.input :read_recording,   label: 'Read'
+        td = f.input :update_recording, label: 'Update'
+        td = f.input :delete_recording, label: 'Delete'
+      tr
+        td Recordings IPI's
+        td = f.input :create_recording_ipi, label: 'Create'
+        td = f.input :read_recording_ipi,   label: 'Read'
+        td = f.input :update_recording_ipi, label: 'Update'
+        td = f.input :delete_recording_ipi, label: 'Delete'
+      tr
+        td Files
+        td = f.input :create_file, label: 'Create'
+        td = f.input :read_file,   label: 'Read'
+        td = f.input :update_file, label: 'Update'
+        td = f.input :delete_file, label: 'Delete'
+      tr
+        td Artwork
+        td = f.input :create_artwork, label: 'Create'
+        td = f.input   :read_artwork,   label: 'Read'
+        td = f.input :update_artwork, label: 'Update'
+        td = f.input :delete_artwork, label: 'Delete'
+      tr
+        td Legal Documents
+        td = f.input :create_legal_document, label: 'Create'
+        td = f.input :read_legal_document,   label: 'Read'
+        td = f.input :update_legal_document, label: 'Update'
+        td = f.input :delete_legal_document, label: 'Delete'
+      tr
+        td Financial Documents
+        td = f.input :create_financial_document, label: 'Create'
+        td = f.input :read_financial_document,   label: 'Read'
+        td = f.input :update_financial_document, label: 'Update'
+        td = f.input :delete_financial_document, label: 'Delete'
+      tr
+        td Common Works
+        td = f.input :create_common_work, label: 'Create'
+        td = f.input :read_common_work,   label: 'Read'
+        td = f.input :update_common_work, label: 'Update'
+        td = f.input :delete_common_work, label: 'Delete'
+      tr
+        td Common Works IPI's
+        td = f.input :create_common_work_ipi, label: 'Create'
+        td = f.input :read_common_work_ipi,   label: 'Read'
+        td = f.input :update_common_work_ipi, label: 'Update'
+        td = f.input :delete_common_work_ipi, label: 'Delete'
+      tr
+        td Users
+        td = f.input :createx_user, label: 'Create'
+        td = f.input   :read_user, label: 'Read'
+        td = f.input :update_user, label: 'Update'
+        td = f.input :delete_user, label: 'Delete'
+      tr
+        td Catalogs
+        td = f.input :createx_catalog, label: 'Create'
+        td = f.input   :read_catalog, label: 'Read'
+        td = f.input :update_catalog, label: 'Update'
+        td = f.input :delete_catalog, label: 'Delete'
+      tr
+        td Playlists
+        td = f.input :create_playlist, label: 'Create'
+        td = f.input   :read_playlist, label: 'Read'
+        td = f.input :update_playlist, label: 'Update'
+        td = f.input :delete_playlist, label: 'Delete'
+      
+      -if @account.create_opportunities || @account.read_opportunities 
+        tr
+          td Opportunities
+          td
+            -if @account.create_opportunities
+              = f.input :create_opportunity, label: 'Create'
+          td 
+            = f.input   :read_opportunity, label: 'Read'
+          td 
+            -if @account.create_opportunities
+              = f.input :update_opportunity, label: 'Update'
+          td
+            -if @account.create_opportunities
+              = f.input :delete_opportunity, label: 'Delete'
+      tr
+        td CRM
+        td = f.input :create_crm, label: 'Create'
+        td = f.input   :read_crm, label: 'Read'
+        td = f.input :update_crm, label: 'Update'
+        td = f.input :delete_crm, label: 'Delete'
+      
         

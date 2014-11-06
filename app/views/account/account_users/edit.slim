@@ -9,13 +9,22 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'admin/shared/messages'
-      h3 = @account.title
-      'Edit account permissions for&nbsp;
-      = @account_user.email
-      .sexy_line
-     
-                 
+      .account_users
+        == render 'admin/shared/messages'
+        h3 = @account.title
+        'Edit account permissions for&nbsp;
+        = @account_user.email
+        .sexy_line
+        .row
+          .col-sm-12
+            =simple_form_for [:account, @account, @account_user] do |f|
+              /= f.hidden_field :account_id, value: @account.id
+              /= f.hidden_field :user_id, value: @account_user.user_id
+              == render 'form', f: f
+              .sexy_line
+              .pull-right
+                =f.submit 'Update', class: 'btn btn-default'
+                   
               
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
