@@ -5,33 +5,35 @@ class Account::OpportunityUsersController < ApplicationController
 
   # GET /opportunities
   # GET /opportunities.json
-  def index
-    forbidden unless current_account_user.read_opportunity
-    @opportunities = @account.opportunities
-  end
-
-  # GET /opportunities/1
-  # GET /opportunities/1.json
+  #def index
+  #  forbidden unless current_account_user.read_opportunity
+  #  @opportunities = @account.opportunities
+  #end
+  #
+  ## GET /opportunities/1
+  ## GET /opportunities/1.json
   def show
     @opportunity_user = OpportunityUser.cached_find(params[:id])
+    @user             = current_user
+    #@playlists        = current_user.playlists
   end
-
-  # GET /opportunities/new
-  def new
-    forbidden unless current_account_user.create_opportunity
-    @opportunity = Opportunity.new
-  end
-
-  # GET /opportunities/1/edit
-  def edit
-    forbidden unless current_account_user.update_opportunity
-  end
-
-  # POST /opportunities
-  # POST /opportunities.json
-  def create
-    
-  end
+  #
+  ## GET /opportunities/new
+  #def new
+  #  forbidden unless current_account_user.create_opportunity
+  #  @opportunity = Opportunity.new
+  #end
+  #
+  ## GET /opportunities/1/edit
+  #def edit
+  #  forbidden unless current_account_user.update_opportunity
+  #end
+  #
+  ## POST /opportunities
+  ## POST /opportunities.json
+  #def create
+  #  
+  #end
 
   # PATCH/PUT /opportunities/1
   # PATCH/PUT /opportunities/1.json
