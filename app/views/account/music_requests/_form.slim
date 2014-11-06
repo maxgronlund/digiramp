@@ -16,8 +16,23 @@
       br
       b Sounds Like
       br
-      = f.file_field :audio_file, multiple: false
+      .fileinput.fileinput-new.input-group data-provides="fileinput"
+        .form-control data-trigger="fileinput"
+          i.glyphicon.glyphicon-file.fileinput-exists
+          span.fileinput-filename
+        span.input-group-addon.btn.btn-default.btn-file
+          span.fileinput-new
+            'Select file
+          span.fileinput-exists
+            'Change
+          = f.file_field :audio_file, multiple: false, label: 'Select Audio File'
+        a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+          'Remove
+
       br
+      
+      /= f.file_field :audio_file, multiple: false
+      /br
       
       = f.input :duration_text, label: 'Duration', placeholder: 'HH:MM:SS'
       = f.input :up_to_full_use
@@ -33,9 +48,9 @@
   .row
     .col-sm-12
       .pull-right
-        = link_to 'Cancel', account_account_opportunity_path(@account, @opportunity), class: 'btn btn-default btn-lg'
+        = link_to 'Cancel', account_account_opportunity_path(@account, @opportunity), class: 'btn btn-default'
         '&nbsp;
-        = f.submit 'Save', class: 'btn btn-primary btn-lg'
+        = f.submit 'Save', class: 'btn btn-primary'
       
 
 

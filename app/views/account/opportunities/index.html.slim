@@ -40,14 +40,14 @@
                   /= opportunity.deadline
                 th
                   .pull-right
-                    = link_to edit_account_account_opportunity_path(@account, opportunity) do
-                      .btn.btn-default
-                        i class="fa fa-pencil"
-                        '&nbsp;
-                        'Edit
-                    '&nbsp;
+                    /= link_to edit_account_account_opportunity_path(@account, opportunity) do
+                    /  .btn.btn-default
+                    /    i class="fa fa-pencil"
+                    /    '&nbsp;
+                    /    'Edit
+                    /'&nbsp;
                     = link_to account_account_opportunity_path(@account, opportunity), data: { confirm: 'Are you sure?' } , :method => :delete do
-                      .btn.btn-danger
+                      .btn.btn-default
                         i class="fa fa-times"
                         '&nbsp;
                         'Delete
