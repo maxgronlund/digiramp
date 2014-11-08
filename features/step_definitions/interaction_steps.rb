@@ -9,6 +9,29 @@ When(/^I click on the link "(.*?)"$/) do |link|
   click_on link
 end
 
+Then(/^I clik on the link with the id "(.*?)"$/) do |id|
+  find_by_id(id).click
+end
+
+Then(/^I clik on an item with id "(.*?)"$/) do |id|
+  find_by_id(id).click
+end
+
+
+When(/^I scroll page to position "(.*?)"$/) do |position|
+  
+  page.execute_script("window.scrollTo(0, document.body.scrollHeight/#{position});")
+end
+
+Then(/^I wait for "(.*?)" seconds$/) do |seconds|
+  sleep(seconds.to_i)
+end
+
+Then(/^Does it look right$/) do
+  ask('does that look right?')
+end
+
+
 #When(/^I scroll page$/) do
 #  page.execute_script('window.scrollTo(0,200000)')
 #end

@@ -1,0 +1,16 @@
+b = music_request.title
+.no-borders.table-responsive
+  table class="table table-condensed"
+    tr
+      th.description Fee:
+      td = number_to_currency(music_request.fee, locale: :en, precision: 2)
+
+    - unless  music_request.link.to_s == ''
+      tr
+        th.description Duration:
+        td = music_request.duration_text
+    - unless  music_request.link.to_s == ''
+      tr
+        th.description Sound like:
+        td = link_to 'click here', music_request.link
+= simple_format music_request.body

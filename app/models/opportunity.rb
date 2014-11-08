@@ -6,6 +6,8 @@ class Opportunity < ActiveRecord::Base
   belongs_to      :account
   after_commit    :flush_cache
   
+  validates_presence_of :title
+  
   
   
   def submission_count

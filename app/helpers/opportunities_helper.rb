@@ -9,6 +9,7 @@ module OpportunitiesHelper
       @opportunity_users  = OpportunityUser.where(opportunity_id: @opportunity.id, user_id: current_user.id)
       forbidden unless @opportunity_users
       not_fount unless @account         = current_user.account
+      @authorized         = true
       return
     rescue
       

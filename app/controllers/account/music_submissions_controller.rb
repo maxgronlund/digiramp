@@ -2,14 +2,18 @@ class Account::MusicSubmissionsController < ApplicationController
   before_action :set_music_request_and_submission, only: [:index, :show, :new, :edit, :update, :destroy, :download]
   
   include AccountsHelper
-  before_filter :access_account
+  #before_filter :access_account
+  before_filter :get_account_account
   
   #def index
   #  @recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
   #end
   
   def new
-    
+    ap params
+    @recordings   = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
+    @user         = current_user
+    @music_request = MusicRequest.cached_find(params[:music_request_id])
   end
   
   
@@ -29,7 +33,9 @@ class Account::MusicSubmissionsController < ApplicationController
     opportunity_user  = OpportunityUser.where( opportunity_id: params[:opportunity_id], 
                                                       user_id: current_user.id ).first
     
+    
     if opportunity_user
+      @recording        = Recording.cached_find(params[:id])
       @music_submission = MusicSubmission.where(  recording_id:         params[:id],
                                                   music_request_id:     params[:music_request_id],
                                                   account_id:          @account.id           
@@ -51,6 +57,16 @@ class Account::MusicSubmissionsController < ApplicationController
                             recipient: @music_submission,
                        recipient_type: @music_submission.class.name,
                            account_id: @account.id)
+                           
+      channel = 'digiramp_radio_' + current_user.email
+      Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SUBMITTED', 
+                                            "message" => "#{@recording.title} is submitted to #{@music_submission.music_request.title}", 
+                                            "time"    => '5000', 
+                                            "sticky"  => 'false', 
+                                            "image"   => 'success'
+                                            })
+                                            
+      
       
       @remove_button = "#add_to_request_#{params[:id]}"
     else

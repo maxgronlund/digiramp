@@ -1,0 +1,20 @@
+.opportunity-badge id="opportunity_#{opportunity.id.to_s}"
+  = link_to opportunity_opportunity_path(opportunity) do
+    .opportunity-title
+      h4 = opportunity.title
+    == render 'account/opportunities/description', opportunity: opportunity
+    .row
+      .col-sm-12
+        .pull-right
+          .btn.btn-xs.btn-primary.btn-opportunity
+            'Show More
+  .sexy_line
+    /- if @authorized
+    /  = link_to edit_user_opportunity_path( @user, opportunity) do
+    /    '&nbsp;|&nbsp;
+    /    i class="fa fa-pencil"
+    /    '&nbsp;
+    /  = link_to user_opportunity_path( @user, opportunity), method: :delete, remote: true, data: { confirm: "You are about to delete #{opportunity.title}" } do
+    /    '&nbsp;|&nbsp;
+    /    i class="fa fa-times"
+  

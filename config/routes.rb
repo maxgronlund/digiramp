@@ -2,13 +2,13 @@
 Digiramp::Application.routes.draw do
 
 
-
+  resources :enterprise_account_info, only: [:index]
+  resources :business_account_info, only: [:index]
+  resources :pro_account_info, only: [:index]
+  resources :social_account_info, only: [:index]
 
   resources :share_on_twitters
 
-  namespace :account do
-    get 'catalog_common_works/index'
-  end
   resources :add_to_playlists, only: [:create]
   resources :remove_from_playlists, only: [:destroy]
 
@@ -380,7 +380,11 @@ Digiramp::Application.routes.draw do
     
   end
   namespace :account do
-    #resources :embed
+    get 'catalog_common_works/index'
+    # flat structure in links
+    resources :music_requests do
+      resources :music_submission_uploads, only: [:new, :create]
+    end
     resources :accounts do
       
       
@@ -442,10 +446,10 @@ Digiramp::Application.routes.draw do
         post :invite_provider_by_email
         resources :invite_providers, only: [:index]
         resources :music_requests do
-          member do
-            get :find_recording
-            get :upload_recording
-          end
+          #member do
+          #  get :find_recording
+          #  get :upload_recording
+          #end
           resources :music_submissions do
             member do
               get 'submit_recording'

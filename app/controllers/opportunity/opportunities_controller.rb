@@ -11,7 +11,7 @@ class Opportunity::OpportunitiesController < ApplicationController
                           recipient: @opportunity,
                      recipient_type: @opportunity.class.name,
                          account_id: @opportunity.account_id)
-
+    @user = current_user
   end
   
 end

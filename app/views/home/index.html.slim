@@ -64,7 +64,7 @@ section id="home" class="homepage"
             i.fa.fa-rocket &nbsp; Learn more
           - if current_user
             = link_to user_path(current_user), class: "btn btn-default btn-lg wow slideInRight animated" do
-              i.fa.fa-key &nbsp; Login
+              i.fa.fa-user &nbsp; Go to Account
           - else
             = link_to login_new_path, class: "btn btn-default btn-lg wow slideInRight animated" do
               i.fa.fa-key &nbsp; Login
@@ -152,7 +152,7 @@ section id="features"
           br
           - if current_user
             = link_to user_path(current_user), class: "btn btn-default btn-lg wow slideInRight animated" do
-              i.fa.fa-user &nbsp; Sign up
+              i.fa.fa-user &nbsp; Go to Account
           - else
             = link_to signup_index_path, class: "btn btn-lg btn-simple whitebg" do
               i.fa.fa-user &nbsp; Sign up
@@ -190,14 +190,10 @@ section id="pricePlans"
                   li = @content.page_4_account_1_option_4
                   li = @content.page_4_account_1_option_5
                   li = @content.page_4_account_1_option_6
-                - if current_user
-                  li.button
-                    = link_to user_path(current_user) do
-                      'Sign up
-                - else
-                  li.button
-                    = link_to signup_index_path do
-                      'Sign up
+                
+                li.button 
+                  = link_to social_account_info_index_path, id: "get_social_account_info" do
+                    'Learn more
             
             /!-- begin plan 2
             li class="plan wow rollIn animated" data-wow-delay="0.1s" data-wow-duration="2s"
@@ -220,8 +216,11 @@ section id="pricePlans"
                     li = @content.page_4_account_2_option_6
               
               
-                li.button
-                  = link_to 'Learn more', '#', class: 'bestPlanButton'
+                li.button 
+                  = link_to pro_account_info_index_path, id: "get_pro_account_info", class: 'bestPlanButton' do
+                    'Learn more
+                /li.button
+                /  = link_to 'Learn more', '#', class: 'bestPlanButton'
             
             /!-- begin plan 1 --
             li.plan.wow.bounceIn.animated*{ 'data-wow-delay'=>"0.1s", 'data-wow-duration'=>"2s"}

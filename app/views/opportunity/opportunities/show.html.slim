@@ -1,96 +1,114 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
 
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'     
-  .container
-    == render 'admin/shared/messages' 
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path( @account.user), \
-                                                            opportunities: user_user_opportunities_path(@account.user)  \
-                                                          }, current: @opportunity.title} 
-    /== render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: account_account_path(@account), \
-    /                                                        crm: account_account_crm_index_path(@account),\
-    /                                                        opportunities: account_account_opportunities_path(@account)\
-    /                                                       }, current: @opportunity.title }
-    /
-    /                                     
-    /
-    /== render 'shared/page_title_text', locals: {title: @opportunity.title, body: '', insert: 'submissions'}
-    
-    == render 'shared/page_title_text', locals: {title: @opportunity.title, body: ''}
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+  
+  #page-content-wrapper
+    .container-fluid 
+      h3 Opportunity
+      = @opportunity.title
+      .sexy_line
+      .opportunity 
+        .row
+          .col-sm-6
+            == render 'account/opportunities/description', opportunity: @opportunity
 
-    .row
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            = @opportunity.title
-          .panel-body
-            = simple_format @opportunity.body
-            /.table-responsive
-            table class="table"
-              tr
-                td Kind:
-                td = @opportunity.kind
-              tr
-                td Budget:
-                td = number_to_currency(@opportunity.budget, locale: :en, precision: 2)
-              tr
-                td Deadline:
-                td = @opportunity.deadline
+          .col-sm-6  
+            == render 'opportunity/music_requests/index'
             
-                  
-      .col-sm-6  
-          
-          
-      .col-sm-6
-        - if @opportunity.deadline < Date.current
-          div class="alert alert-danger"
-            button type="button" class="close" data-dismiss="alert" ×
-            h4 Expired!
-            'This opportunity is no longer open for submissions.
-        - @opportunity.music_requests.order('created_at asc').each do |music_request|
-          .panel.panel-primary
-            .panel-heading
-              = music_request.title
-              '&nbsp;
-            .panel-body
-              /.table-responsive
-              table class="table"
-                tr
-                  th Fee:
-                  td = number_to_currency(music_request.fee, locale: :en, precision: 2)
-                - unless  music_request.link.to_s == ''
-                  tr
-                    th Duration:
-                    td = music_request.duration_text
-                - unless  music_request.link.to_s == ''
-                  tr
-                    th Sound like:
-                    td = link_to 'click here', music_request.link
-                    
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'  
 
-              b Description:
-              br
-              = simple_format music_request.body
-              br
-              
-              .pull-right
-                - unless @opportunity.opportunity_users.empty?
-                  - unless @opportunity.opportunity_users.where(user_id: current_user.id).first.nil?
-                    = link_to opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
-                                                                                             music_request) do 
-                      .btn.btn-success.btn-lg
-                        i class="fa fa-plus-circle"
-                        '&nbsp;Add Submission
-                '&nbsp;
-                = link_to opportunity_opportunity_music_request_path( @opportunity, music_request) do
-                  .btn.btn-default.btn-lg
-                    i class="fa fa-eye"
 
-              
-
-        
-         
-    == render 'shared/back', locals: {link: user_user_opportunities_path(@account.user)} 
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account'     
+/  .container
+/    == render 'admin/shared/messages' 
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path( @account.user), \
+/                                                            opportunities: user_user_opportunities_path(@account.user)  \
+/                                                          }, current: @opportunity.title} 
+/    
+/    == render 'shared/page_title_text', locals: {title: @opportunity.title, body: ''}
+/
+/    .row
+/      .col-sm-6
+/        .panel.panel-primary
+/          .panel-heading
+/            = @opportunity.title
+/          .panel-body
+/            = simple_format @opportunity.body
+/            /.table-responsive
+/            table class="table"
+/              tr
+/                td Kind:
+/                td = @opportunity.kind
+/              tr
+/                td Budget:
+/                td = number_to_currency(@opportunity.budget, locale: :en, precision: 2)
+/              tr
+/                td Deadline:
+/                td = @opportunity.deadline
+/            
+/                  
+/      .col-sm-6  
+/          
+/          
+/      .col-sm-6
+/        - if @opportunity.deadline < Date.current
+/          div class="alert alert-danger"
+/            button type="button" class="close" data-dismiss="alert" ×
+/            h4 Expired!
+/            'This opportunity is no longer open for submissions.
+/        - @opportunity.music_requests.order('created_at asc').each do |music_request|
+/          .panel.panel-primary
+/            .panel-heading
+/              = music_request.title
+/              '&nbsp;
+/            .panel-body
+/              /.table-responsive
+/              table class="table"
+/                tr
+/                  th Fee:
+/                  td = number_to_currency(music_request.fee, locale: :en, precision: 2)
+/                - unless  music_request.link.to_s == ''
+/                  tr
+/                    th Duration:
+/                    td = music_request.duration_text
+/                - unless  music_request.link.to_s == ''
+/                  tr
+/                    th Sound like:
+/                    td = link_to 'click here', music_request.link
+/                    
+/
+/              b Description:
+/              br
+/              = simple_format music_request.body
+/              br
+/              
+/              .pull-right
+/                - unless @opportunity.opportunity_users.empty?
+/                  - unless @opportunity.opportunity_users.where(user_id: current_user.id).first.nil?
+/                    = link_to opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
+/                                                                                             music_request) do 
+/                      .btn.btn-success.btn-lg
+/                        i class="fa fa-plus-circle"
+/                        '&nbsp;Add Submission
+/                '&nbsp;
+/                = link_to opportunity_opportunity_music_request_path( @opportunity, music_request) do
+/                  .btn.btn-default.btn-lg
+/                    i class="fa fa-eye"
+/
+/              
+/
+/        
+/         
+/    == render 'shared/back', locals: {link: user_user_opportunities_path(@account.user)} 
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/

@@ -5,7 +5,8 @@ class Opportunity::MusicSubmissionsController < ApplicationController
   
   
   def index
-    
+    @music_request   = MusicRequest.cached_find(params[:music_request_id])
+    @user            = current_user
   end
 
   def show

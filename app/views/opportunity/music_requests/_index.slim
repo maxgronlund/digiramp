@@ -1,0 +1,29 @@
+- @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
+  
+  h4 Request: #{index + 1}
+  == render 'account/music_requests/info', music_request: music_request
+
+  .row
+    .col-sm-12
+  
+      .pull-right
+        = link_to opportunity_opportunity_music_request_music_submissions_path( @opportunity, music_request) do 
+          .btn.btn-xs.btn-default
+            i class="fa fa-eye"
+            '&nbsp;Submissions
+        '&nbsp;
+        = link_to new_opportunity_opportunity_music_request_music_submission_path( @opportunity, music_request) do 
+          .btn.btn-xs.btn-primary
+            i class="fa fa-plus-circle"
+            '&nbsp;Submit Recording
+        '&nbsp;    
+                                                                                              
+        /- requests_from_the_pro_account                                                                                     
+        /= link_to opportunity_opportunity_music_request_music_submission_path( @opportunity, music_request)
+        /  .btn.btn-xs.btn-default
+        /    = music_request.music_submissions.size.to_s
+        /    '&nbsp;Submissions
+        /
+
+       
+  .sexy_line      

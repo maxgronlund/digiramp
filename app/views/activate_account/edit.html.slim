@@ -2,45 +2,34 @@
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'account' 
-  .hidden-xs
-    .full-width-sign-up
-      .container
-        /== render 'shared/sign_up'
-            
+
   .container
     ==render 'admin/shared/messages'
     .row
       .col-sm-3
-        
-
       .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            i class= 'fa fa-lock'
-            '&nbsp;
-            'ACTIVATE ACCOUNT
-          .panel-body
+        h3 Welcome to DigiRAMP
+        'You have been invited to a secure aray. Please create a password
+        br
+        br
+        br
+        = simple_form_for(  @user, :url => activate_account_path(params[:id]) ) do |f|
+          = f.hidden_field :opportunity_id, value: @opportunity.id
+          .input-group
+            span class="input-group-addon"
+              i class= 'fa fa-key'
+            = f.input_field :password, placeholder: 'Password', autocomplete: :off
+          br
+          
+          .input-group
+            span class="input-group-addon"
+              i class= 'fa fa-key'
+            = f.input_field :password , placeholder: 'Password Confirmation', autocomplete: :off
 
-            = simple_form_for(  @user, :url => activate_account_path(params[:id]) ) do |f|
-              = f.hidden_field :opportunity_id, value: @opportunity.id
-              .input-group
-                span class="input-group-addon"
-                  i class= 'fa fa-key'
-                = f.input_field :password, placeholder: 'Password', autocomplete: :off
-              br
-              
-              .input-group
-                span class="input-group-addon"
-                  i class= 'fa fa-key'
-                = f.input_field :password , class: "btn btn-defaultation", placeholder: 'Password Confirmation', autocomplete: :off
-
-              .pull-right
-                br
-                = f.submit 'Activate', class: 'btn btn-green btn-lg'
+          .pull-right
+            br
+            = f.submit 'Create', class: 'btn btn-default'
 
         
 
   
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-

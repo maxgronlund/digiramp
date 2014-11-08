@@ -2,30 +2,48 @@
   = f.hidden_field :account_id, value: @account.id
   .row
     .col-sm-6
-      .panel.panel-primary
-        .panel-heading
-          'Description
-        .panel-body
-          = f.input :title
-          
-          div id="toolbar" class="wysihtml5-toolbar"
-            a data-wysihtml5-command="bold" Bold
-            '&nbsp; 
-            a data-wysihtml5-command="italic" Italic
-          
-          =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
+      = f.input :title
+      
+      div id="toolbar" class="wysihtml5-toolbar"
+        a data-wysihtml5-command="bold" Bold
+        '&nbsp; 
+        a data-wysihtml5-command="italic" Italic
+      
+      =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
     .col-sm-6
-      .panel.panel-primary
-        .panel-heading
-          'Info
-        .panel-body
-          = f.input :kind
-          = f.input :budget
-          = f.input :deadline
-          = f.input :territory
+      = f.input :kind
+      = f.input :budget
+      
+      b Deadline
+      = f.text_field :deadline, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+      br
+      /= f.input :deadline, class: 'datepicker'
+      /= f.text_field :deadline
+      /input type="text" class='datepicker'
+      = f.input :territory
+      
+      
+      
+
+
+
+      
+      /<div class='input-group date' id='datetimepicker5'>
+      /  
+      /  = f.text_field :deadline, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+      /  <span class="input-group-addon">
+      /    <span class="glyphicon glyphicon-calendar"></span>
+      /  </span>
+      /</div>
+
+
+      		
+
+
+      
 
 
  
 
   .pull-right
-    = f.submit 'Save', class: 'btn btn-primary btn-lg'
+    = f.submit 'Save', class: 'btn btn-primary please_wait'

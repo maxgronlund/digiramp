@@ -9,6 +9,7 @@
   
   #page-content-wrapper
     .container-fluid
+      ==render 'admin/shared/messages'
       h3 = @account.title 
       'Opportunities
       .sexy_line
@@ -29,7 +30,7 @@
                 td = opportunity.kind
        
                 td 
-                  - if opportunity.deadline < Date.current
+                  - if opportunity.deadline && opportunity.deadline < Date.current
                     .expired
                       i class="fa fa-exclamation-circle"
                       '&nbsp;
@@ -54,8 +55,14 @@
 
       
       
-     
-      
+      -if current_account_user.create_opportunity
+        .pull-right
+          = link_to new_account_account_opportunity_path(@account) do
+            .btn.btn-primary
+              i class="fa fa-plus-circle"
+              '&nbsp;
+              'Create Opportunity
+       
     
   == render 'shared/site_footer'  
 == render 'users/shared/mobile_links'  

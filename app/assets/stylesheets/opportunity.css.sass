@@ -1,4 +1,72 @@
+// Place all the styles related to the opportunitys controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
 .opportunity
-  .description
-    width: 75px
-    //text-align: right
+
+      
+  @mixin rowMachine($numPerRow, $margin) 
+    
+    width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow)
+    
+    &:nth-child(n) 
+      margin-bottom: $margin
+      margin-right: $margin
+    
+    &:nth-child(#{$numPerRow}n) 
+      margin-right: 0
+      margin-bottom: 0
+      
+  .btn-opportunity
+    margin-top: 8px
+  .oppoptunity-description
+    height: 260px
+    text-overflow: ellipsis
+    overflow: hidden
+    
+  .opportunity-badges    
+    width: 100%
+    .small-symbols
+      margin-top: 6px
+    .opportunity-badge 
+      @include rowMachine(7, 2%)
+      padding: 4px
+      float: left
+      text-overflow: ellipsis
+      overflow: hidden
+      position: relative
+
+
+      .opportunity-title
+        min-height: 40px
+        h4
+          color: #111
+
+      a
+        color: #555
+      
+      @media (min-width: 1800px) 
+        @include rowMachine(7, 2%)
+        
+      @media (max-width: 1800px) 
+        @include rowMachine(5, 2%)
+    
+      @media (max-width: 1440px) 
+        @include rowMachine(4, 2%)
+    
+      @media (max-width: 1216px) 
+        @include rowMachine(3, 2%)
+    
+      @media (max-width: 992px) 
+        @include rowMachine(2, 4%)
+      
+    
+      @media (max-width: 768px) 
+        @include rowMachine(2, 4%)
+      
+    
+      @media (max-width: 544px) 
+        @include rowMachine(1, 4%)
+      
+
+        

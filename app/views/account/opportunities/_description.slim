@@ -1,0 +1,32 @@
+.oppoptunity-info
+  .no-borders.table-responsive
+    table class="table table-condensed"
+      tr
+        th.description Kind:
+        td = opportunity.kind
+      tr
+        th.description Budget:
+        td = number_to_currency(opportunity.budget, locale: :en, precision: 2)
+      tr
+        th.description Deadline:
+        td
+          - if opportunity.deadline && opportunity.deadline < Date.current
+            .expired
+              i class="fa fa-exclamation-circle"
+              '&nbsp;
+              = opportunity.deadline
+          - else
+            = opportunity.deadline
+  
+      - if opportunity.territory == ''
+        tr
+          th &nbsp;
+          td &nbsp;
+      - else
+        tr
+          th.description Territory:
+          td = opportunity.territory
+  
+.oppoptunity-description
+  h4 Description:
+  = simple_format opportunity.body

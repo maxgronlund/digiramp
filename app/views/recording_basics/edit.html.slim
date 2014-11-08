@@ -10,7 +10,7 @@
 
   #page-content-wrapper
     .container-fluid 
-
+      == render 'admin/shared/messages'
       == render 'recordings/wizard_step', step: 1
       = simple_form_for  [@user, @recording ], url: url_for(:action => 'update', :controller => 'recording_basics'), 
                                                html: { :id => 'recording_artwork' }, 

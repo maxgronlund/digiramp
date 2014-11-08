@@ -1,26 +1,50 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'         
-  .container
-    ==render 'admin/shared/messages'
-    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
-    .do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {dashboard: account_account_path(@account), \
-                                                             opportunities: account_account_opportunities_path(@account),\
-                                                             @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity)\
-                                                             }, current: 'New' }
-      - blog = Blog.cached_find('Music Requests')
-      == render 'shared/page_title', locals: {blog: blog, blog_post: 'New Music Request'}
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account'         
+/  .container
+/    ==render 'admin/shared/messages'
+/    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
+/    .do
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: {dashboard: account_account_path(@account), \
+/                                                             opportunities: account_account_opportunities_path(@account),\
+/                                                             @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity)\
+/                                                             }, current: 'New' }
+/      - blog = Blog.cached_find('Music Requests')
+/      == render 'shared/page_title', locals: {blog: blog, blog_post: 'New Music Request'}
+/
+/      == render 'form'
+/            
+/    == render 'shared/back', locals: {link: account_account_opportunity_path(@account, @opportunity)}
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/              
 
+
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity),}, current:'' }
+      h3 = @account.title
+      'New Music request
+      .sexy_line
       == render 'form'
-            
-    == render 'shared/back', locals: {link: account_account_opportunity_path(@account, @opportunity)}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-              
-
-
-
-
+      
+      
+      
+     
+      
+    
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'  
 

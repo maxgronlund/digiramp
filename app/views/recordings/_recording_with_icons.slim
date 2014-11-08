@@ -159,6 +159,14 @@
           i class="fa fa-times"
           '&nbsp;
           'Delete
+      - if music_request_link
+        = link_to music_request_link, \
+                  remote: true, \
+                  class: "btn btn-default"  do
+          i class="fa fa-plus-circle"
+          '&nbsp;
+          'Submit
+
         
 .pull-right
   .hidden-xs

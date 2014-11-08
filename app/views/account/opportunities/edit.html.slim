@@ -1,26 +1,27 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'         
-  .container
-    ==render 'admin/shared/messages'
-    - blog = Blog.cached_find('Opportunities')
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {dashboard: account_account_path(@account),\
-                                                           opportunities: account_account_opportunities_path(@account),\
-                                                           @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity)\
-                                                           }, \
-                                                           current:  'Edit'}
-                                                           
-                                                           
-    /- blog = Blog.cached_find('account_account_recordings_path')
-    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Edit Opportunity'}
-    == render 'form'
-          
-    == render 'shared/back', locals: {link: account_account_opportunity_path(@account, @opportunity)}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-              
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+     
+  
 
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      ==render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) }, current:  ''}
+      h3 =@account.title
+      'Edit&nbsp;
+      = @opportunity.title
+      .sexy_line  
+      .opportunity 
+        == render 'form'
+                           
+      
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'
 
 
 

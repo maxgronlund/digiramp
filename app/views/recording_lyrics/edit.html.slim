@@ -13,7 +13,7 @@
 
   #page-content-wrapper
     .container-fluid 
-
+      
       == render 'recordings/wizard_step', step: 2
       = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_lyrics'), 
                                                :method => 'put' do |f|
@@ -23,7 +23,7 @@
           .col-sm-6
             = f.input :lyrics, :input_html => {  style: "height: 480px;", placeholder: "Lyrics"}
           .col-sm-6
-            = f.input :vocal,   collection: Recording::VOCAL
+            = f.input :vocal,   collection: Recording::VOCAL,     as: :radio_buttons
             = f.input :explicit
             = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
 

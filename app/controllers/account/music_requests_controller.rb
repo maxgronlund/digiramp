@@ -19,6 +19,7 @@ class Account::MusicRequestsController < ApplicationController
     forbidden unless current_account_user.read_opportunity
     @opportunity    = Opportunity.cached_find(params[:opportunity_id])
     @user           = current_user
+    @playlists      = current_user.playlists
   end
 
   # GET /opportunities/new
@@ -26,6 +27,7 @@ class Account::MusicRequestsController < ApplicationController
     forbidden unless current_account_user.update_opportunity
     @opportunity    = Opportunity.cached_find(params[:opportunity_id])
     @music_request  = MusicRequest.new
+    @user           = current_user
   end
 
   # GET /opportunities/1/edit
@@ -61,10 +63,6 @@ class Account::MusicRequestsController < ApplicationController
        end
        flash[:danger]    = { title: "Errors", body: errors }
      end
-    
-    
-    
-     #redirect_to account_account_recordings_bucket_index_path(@account)
     rescue
       flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
       #redirect_to new_account_account_audio_file_path(@account, @common_work )
@@ -156,23 +154,23 @@ class Account::MusicRequestsController < ApplicationController
     redirect_to account_account_opportunity_path(@account, opportunity)
   end
   
-  def find_recording
-    forbidden unless current_account_user.read_recording?
-    @opportunity    = Opportunity.cached_find(params[:opportunity_id])
-    @recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
-    
-    #recordings_to_remove = []
-    #@opportunity.music_requests.each do |music_request|
-    #  music_request.music_submissions.each do |music_submission|
-    #    recordings_to_remove << music_submission.recording
-    #  end
-    #end
-    #puts '-------------------- @recordings.class.name -------------------------'
-    #puts @recordings.class.name
-    #puts '---------------------------------------------------------------------'
-    #@recordings
-    @show_more      = true
-  end
+  #def find_recording
+  #  forbidden unless current_account_user.read_recording?
+  #  @opportunity    = Opportunity.cached_find(params[:opportunity_id])
+  #  @recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
+  #  
+  #  #recordings_to_remove = []
+  #  #@opportunity.music_requests.each do |music_request|
+  #  #  music_request.music_submissions.each do |music_submission|
+  #  #    recordings_to_remove << music_submission.recording
+  #  #  end
+  #  #end
+  #  #puts '-------------------- @recordings.class.name -------------------------'
+  #  #puts @recordings.class.name
+  #  #puts '---------------------------------------------------------------------'
+  #  #@recordings
+  #  @show_more      = true
+  #end
   
   def upload_recording
     forbidden unless current_account_user.create_recording?
