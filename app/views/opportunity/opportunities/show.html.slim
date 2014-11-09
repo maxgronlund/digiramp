@@ -5,7 +5,7 @@
 
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'recordings'
+      == render 'users/shared/sidebar', selected: 'opportunities'
   
   #page-content-wrapper
     .container-fluid 
@@ -18,7 +18,7 @@
             == render 'account/opportunities/description', opportunity: @opportunity
 
           .col-sm-6  
-            == render 'opportunity/music_requests/index'
+            == render 'opportunity/music_requests/requests'
             
   == render 'shared/site_footer'  
 == render 'users/shared/mobile_links'  

@@ -2,6 +2,9 @@
 
 
 .btn-group
+  / -------------------------------------------------------------------
+  / small without text on mobile
+  / -------------------------------------------------------------------
   .visible-xs.btn-group-xs
     - if info
       = link_to user_recording_path(recording.user, recording),
@@ -60,10 +63,20 @@
                   remote: true, \
                   data: {confirm: "You are about to delete #{recording.title}"}, \
                   class: "btn btn-default"  do
-          i class="fa fa-times"
+          i class="fa fa-trash"
+      
+      - if music_request_link
+        = link_to music_request_link, \
+                  remote: true, \
+                  class: "btn btn-primary"  do
+          i class="fa fa-plus-circle"
+
 
         
   .hidden-xs.btn-group-xs
+    / -------------------------------------------------------------------
+    / normal size
+    / -------------------------------------------------------------------
     - if info
       = link_to user_recording_path(recording.user, recording), 
                 target: target,
@@ -103,14 +116,7 @@
           '&nbsp;
           'Share
         
-      
-        
-      /= link_to new_share_recording_path(recording), \
-      /          remote: true, \
-      /          class: "btn btn-default"  do
-      /  i class="fa fa-share"
-      /  '&nbsp;
-      /  'Share
+
       
     -else
       = link_to login_new_path,  
@@ -134,67 +140,68 @@
           i class="fa fa-share"
           '&nbsp;
           'Share
+
+      - if music_request_link
+        = link_to music_request_link, \
+                  remote: true, \
+                  class: "btn btn-primary"  do
+          i class="fa fa-plus-circle"
+          '&nbsp;
+          'Submit
+
+    - if recording.downlodable
+      = link_to recording.zipp, \
+                class: "btn btn-default"  do
+        i class="fa fa-download"
+        '&nbsp;Download
       
     - if @authorized 
       - if edit
         = link_to edit_user_recording_basic_path(current_user, recording), \
                   class: "btn btn-default"  do
           i class="fa fa-pencil"
-          '&nbsp;
-          'Edit
-        
+
+      
       - if remove_from_playlist
         = link_to remove_from_playlist_path( @playlist, recording: recording), method: :delete, remote: true, \
                   class: "btn btn-default"  do
           i class="fa fa-times"
-          '&nbsp;
-          'Remove
-        
+
+
+      
       - if delete
         = link_to user_recording_path(current_user, recording, public: true), \
                   method: :delete, \
                   remote: true, \
                   data: {confirm: "You are about to delete #{recording.title}"}, \
                   class: "btn btn-default"  do
-          i class="fa fa-times"
-          '&nbsp;
-          'Delete
-      - if music_request_link
-        = link_to music_request_link, \
-                  remote: true, \
-                  class: "btn btn-default"  do
-          i class="fa fa-plus-circle"
-          '&nbsp;
-          'Submit
-
-        
+          i class="fa fa-trash"
+      
+/-----------------------------------------
+/ tool tips        
 .pull-right
-  .hidden-xs
-    .small-symbols
+  .small-symbols 
+    span id="comments_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Comments"
       i class="fa fa-comments"
       '&nbsp;
-      = pluralize(recording.comments.count, 'Comment')
+      = recording.comments.count
+    
+    span id="likes_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Likes"
       '&nbsp;|
       = link_to user_recording_likes_path(recording.user, recording)
         i class="fa fa-heart red-heart"
         '&nbsp;
-        = pluralize(recording.likes.count, 'Like')  
-        
-
-        
+        =recording.likes.count
+    span id="playbacks_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Playbacks"
       '&nbsp;|
-      i class="fa fa-headphones"
+      i class="fa fa-headphones" 
       '&nbsp;
-      = pluralize(recording.playbacks_count, 'Playback')
-  .visible-xs
-    .small-symbols
-      i class="fa fa-comments"
-      '&nbsp;|
-      = link_to user_recording_likes_path(recording.user, recording)
-        i class="fa fa-heart red-heart"
-        
-      '&nbsp;|
-      i class="fa fa-headphones"
+      = recording.playbacks_count
+
+javascript:
+  $('#comments_count_#{recording.id.to_s}').tooltip('hide')
+  $('#likes_count_#{recording.id.to_s}').tooltip('hide')
+  $('#playbacks_count_#{recording.id.to_s}').tooltip('hide')
   
 .sexy_line 
 

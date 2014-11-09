@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141105141859) do
+ActiveRecord::Schema.define(version: 20141109070217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1711,6 +1711,7 @@ ActiveRecord::Schema.define(version: 20141105141859) do
     t.boolean  "acceptance_of_terms"
     t.string   "uniq_title",           default: ""
     t.string   "fb_badge"
+    t.boolean  "downlodable",          default: false
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

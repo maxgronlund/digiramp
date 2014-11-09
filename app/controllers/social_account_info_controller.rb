@@ -4,7 +4,7 @@ class SocialAccountInfoController < ApplicationController
                 .first_or_create(identifier: 'accounts info', title: 'Accounts Info')
                 
     @info_1 =    blog.blog_posts.where(identifier: 'social account info page headding')
-                                    .first_or_create(identifier: 'social account info', 
+                                    .first_or_create(identifier: 'social account info page headding', 
                                                      title: 'Social Account',
                                                      teaser: 'Get all the basic funcionality right now')
                 

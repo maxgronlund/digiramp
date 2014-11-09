@@ -29,7 +29,7 @@ class Account::MusicSubmissionsController < ApplicationController
   end
   
   def submit_recording
-    
+    @music_request = MusicRequest.cached_find(params[:music_request_id])
     opportunity_user  = OpportunityUser.where( opportunity_id: params[:opportunity_id], 
                                                       user_id: current_user.id ).first
     
@@ -51,11 +51,16 @@ class Account::MusicSubmissionsController < ApplicationController
                                                           ) 
                                                           
       
-                                    
-      @music_submission.create_activity(  :created, 
-                                owner: current_user,
-                            recipient: @music_submission,
-                       recipient_type: @music_submission.class.name,
+      #@user.create_activity(   :created, 
+      #                           owner: like, 
+      #                       recipient: recording,
+      #                  recipient_type: 'Recording',
+      #                      account_id: recording.account_id)  
+                                   
+      current_user.create_activity(  :created, 
+                                owner: @recording,
+                            recipient: @music_request,
+                       recipient_type: 'MusicRequest',
                            account_id: @account.id)
                            
       channel = 'digiramp_radio_' + current_user.email

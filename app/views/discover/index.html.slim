@@ -1,26 +1,81 @@
-#wrap
+#wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'account' 
-  .container
-    .explore-badges
-      .explore-badge
-        = link_to songs_path do
-        
-          = image_tag 'discover-music.jpg'
-          h3 Recordings
-      .explore-badge
-        = link_to users_path do  
-        
-          = image_tag 'discover-people.jpg'
-          h3 Users
-      .explore-badge
-        = link_to users_path do 
-          = image_tag 'discover-playlists.jpg'
-          h3 Playlists
-      .explore-badge
-        = link_to users_path do 
-          = image_tag 'discover-people.jpg'
-          h3 Artists
-        
+    == render 'shared/navigationbar', page: 'discover' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      /== render 'users/shared/sidebar', selected: 'playlists'
+  
+  #page-content-wrapper
+    .container-fluid
+      .explore-badges
+        .explore-badge
+          = link_to songs_path do
+          
+            = image_tag 'discover-music.jpg'
+            h3 Recordings
+        .explore-badge
+          = link_to users_path do  
+          
+            = image_tag 'discover-people.jpg'
+            h3 Users
+        .explore-badge
+          = link_to users_path do 
+            = image_tag 'discover-playlists.jpg'
+            h3 Playlists
+        .explore-badge
+          = link_to users_path do 
+            = image_tag 'discover-people.jpg'
+            h3 Artists
+       
+     
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links' 
 
-== render 'shared/site_footer'    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'account' 
+/  .container
+/    .explore-badges
+/      .explore-badge
+/        = link_to songs_path do
+/        
+/          = image_tag 'discover-music.jpg'
+/          h3 Recordings
+/      .explore-badge
+/        = link_to users_path do  
+/        
+/          = image_tag 'discover-people.jpg'
+/          h3 Users
+/      .explore-badge
+/        = link_to users_path do 
+/          = image_tag 'discover-playlists.jpg'
+/          h3 Playlists
+/      .explore-badge
+/        = link_to users_path do 
+/          = image_tag 'discover-people.jpg'
+/          h3 Artists
+/        
+/
+/== render 'shared/site_footer'    

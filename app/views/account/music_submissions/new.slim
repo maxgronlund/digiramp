@@ -15,7 +15,7 @@
   #page-content-wrapper
     .container-fluid 
       == render 'shared/breadcrumbs', breadcrumbs: { links: {@opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity)}, current: '' }
-      h3 = @account.title 
+      h3 #{@account.title} <funky>Pro</funky> 
       'Submit Recording 
       br
       br

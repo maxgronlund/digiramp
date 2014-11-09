@@ -7,21 +7,22 @@
     .col-sm-12
   
       .pull-right
-        = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
-                                @opportunity, \
-                                music_request) do 
-          .btn.btn-xs.btn-default
-            i class="fa fa-plus-circle"
-            '&nbsp;Make Submission
-        '&nbsp;    
-                                                                                              
-                                                                                              
         = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request)
           .btn.btn-xs.btn-default
             = music_request.music_submissions.size.to_s
             '&nbsp;Submissions
 
         '&nbsp;
+        = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
+                                @opportunity, \
+                                music_request) do 
+          .btn.btn-xs.btn-primary
+            i class="fa fa-plus-circle"
+            '&nbsp;Submit Recording
+        '&nbsp;    
+                                                                                              
+                                                                                              
+        
         = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), 
                                                                   data: { confirm: 'Are you sure?' } , 
                                                                   :method => :delete  do

@@ -1,9 +1,6 @@
 
 .sidebar 
 
-  
-  
-  
   .visible-xs
     li id="sidebar-toggle"
        = link_to '#' do
@@ -73,6 +70,12 @@
         i class="fa fa-tachometer"
         '&nbsp;
         'Pro Account
+        
+    li class="#{'sidebar-selected' if selected == 'opportunities'}"
+      = link_to user_user_opportunities_path(@user ) do
+        i class="fa fa-book"
+        '&nbsp;
+        'Opportunities
     .sexy_line   
     li class="#{'sidebar-selected' if selected == 'collections'}"
       = link_to user_user_collections_path( @user ) do
@@ -91,12 +94,6 @@
         i class="fa fa-tachometer"
         '&nbsp;
         'ACTIVITIES
-        
-    li class="#{'sidebar-selected' if selected == 'opportunities'}"
-      = link_to user_user_opportunities_path(@user ) do
-        i class="fa fa-book"
-        '&nbsp;
-        'OPPORTUNITIES
       
 /  li class="#{'sidebar-selected' if selected == 'account'}"
 /    = link_to user_user_activities_path( @user.account ) do

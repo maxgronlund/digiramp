@@ -2,7 +2,7 @@ h4 Recent activities
 
 .box-content.scrollable  style="height: 312px; overflow-y: auto"
   .activities
-    - @user.activities.where(recipient_type: ['Recording', 'Relationship', 'User']).order('id desc').first(64).each do |activity|
+    - @user.activities.where(recipient_type: ['Recording', 'Relationship', 'User', 'MusicSubmission']).order('id desc').first(64).each do |activity|
       /.sexy_line
       /= debug activity
       -case activity.owner_type
@@ -88,9 +88,27 @@ h4 Recent activities
           .activity-link
             = time_ago_in_words(activity.created_at).titleize 
         /= debug activity.key == 'user.signed_in'
+      -when 'Recording'
+        - if activity.recipient_type ==  'MusicSubmission'
+          i.fa.fa-plus-circle
+          .activity-title Submsn...
+          .activity-link
+            ruby: 
+              begin
+                music_submission = activity.recipient
+                music_request    = music_submission.music_request
+                opportunity      = music_request.opportunity
+                url              = opportunity_opportunity_music_request_path(opportunity, music_request)
+              rescue
+                url              = nil
+              end
+            = link_to( music_request.title, url) if url
+
       - else
         i.fa.fa-exclamation-triangle
-        .activity-title Un Known
+        .activity-title  
+          = activity.owner_type
+          
       
         /- if user = User.where(id: activity.recipient_id).first
         /  h6 

@@ -5,7 +5,7 @@ class ProAccountInfoController < ApplicationController
                 .first_or_create(identifier: 'accounts info', title: 'Accounts Info')
               
     @info_1 =    blog.blog_posts.where(identifier: 'pro account info page headding')
-                                    .first_or_create(identifier: 'pro account info', 
+                                    .first_or_create(identifier: 'pro account info page headding', 
                                                      title: 'Pro Account',
                                                      teaser: 'Do more, Make monet')
               
