@@ -99,7 +99,6 @@ class ApplicationController < ActionController::Base
   # depricated ?
   def access_user
     unless current_user
-    
       forbidden 
     else
       if params[:user_id]

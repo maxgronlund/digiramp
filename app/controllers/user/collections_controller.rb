@@ -4,7 +4,7 @@ class User::CollectionsController < ApplicationController
 
   
   def index
-    
+    @authorized = true
   end
 
   

@@ -1,43 +1,97 @@
-- user_account = Account.cached_find(@user.account_id)
-#wrap
-  .profile
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'profile'     
-  .container
-    ==render 'admin/shared/messages'
-    /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
-    .do   
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path(@user)}, current: 'collections'} 
+/ - user_account = Account.cached_find(@user.account_id)
+/  - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
+/  - unless @user.has_a_collection
+/    - account_ids -= [@user.account_id]
+/  - accounts    = Account.order('title asc').where(id: account_ids)
+
+ruby: 
+   user_account = Account.cached_find(@user.account_id)
+   account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
+   account_ids -= [@user.account_id] unless @user.has_a_collection
+   accounts    = Account.order('title asc').where(id: account_ids)
+  
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h3 = @user.user_name
+      'Has Access to the following
+      .sexy_line
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th ACCOUNTS
+          tbody
+            - accounts.each do |account|
+              tr
+                td 
+                  = link_to account_account_path( account ) do
+                    .btn.btn-default
+                      i class="fa fa-tachometer"
+                      '&nbsp;
+                      = account.title
+              
       
-                                                           
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'ACCOUNTS YOU CAN ACCESS'}
-      .row
-        .col-sm-12
-          - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
-          - unless @user.has_a_collection
-            - account_ids -= [@user.account_id]
-          - accounts    = Account.order('title asc').where(id: account_ids)
-          
-          .panel.panel-primary
-            .panel-heading
-              'ACCOUNTS
-            .panel-body
-              .table-responsive
-                table class="table table-hover"
-                  thead
-                    tr
-                      th ACCOUNTS
-                  tbody
-                    - accounts.each do |account|
-                      tr
-                        td 
-                          = link_to account_account_path( account ) do
-                            .btn.btn-danger.btn-lg
-                              i class="fa fa-tachometer"
-                              '&nbsp;
-                              = account.title
-        
-         
-    == render 'shared/back', locals: {link: user_path(@user)} 
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'  
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+/- user_account = Account.cached_find(@user.account_id)
+/#wrap
+/  .profile
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'profile'     
+/  .container
+/    ==render 'admin/shared/messages'
+/    /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
+/    .do   
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path(@user)}, current: 'collections'} 
+/      
+/                                                           
+/      == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'ACCOUNTS YOU CAN ACCESS'}
+/      .row
+/        .col-sm-12
+/          - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
+/          - unless @user.has_a_collection
+/            - account_ids -= [@user.account_id]
+/          - accounts    = Account.order('title asc').where(id: account_ids)
+/          
+/          .panel.panel-primary
+/            .panel-heading
+/              'ACCOUNTS
+/            .panel-body
+/              .table-responsive
+/                table class="table table-hover"
+/                  thead
+/                    tr
+/                      th ACCOUNTS
+/                  tbody
+/                    - accounts.each do |account|
+/                      tr
+/                        td 
+/                          = link_to account_account_path( account ) do
+/                            .btn.btn-danger.btn-lg
+/                              i class="fa fa-tachometer"
+/                              '&nbsp;
+/                              = account.title
+/        
+/         
+/    == render 'shared/back', locals: {link: user_path(@user)} 
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'  
