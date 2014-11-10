@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
       session[:account_id] = current_user.account_id
       return  Account.cached_find( current_user.account_id ) 
     rescue
+      puts '************************************************* AUTCH ********************************'
       return nil
     end
   end

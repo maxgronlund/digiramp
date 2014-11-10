@@ -11,7 +11,7 @@ class UserMailer < ActionMailer::Base
     @title          = blog_post.title
     @body           = blog_post.body
     @fotter_link    = url_for( controller: 'contacts', action: 'new')
-    ap @user
+    #ap @user
     mail to: @user.email, subject: blog_post.title
   end
   
@@ -23,9 +23,21 @@ class UserMailer < ActionMailer::Base
      mail to: @user.email,  subject: title
   end
   
-  def invite_existing_user_to_account user_id, account_id, invitation
+  def invite_existing_user_to_account user_id, account_id, invitation, current_user_id
     @user = User.cached_find(user_id)
+    
     mail to: @user.email, subject: "You are invited to an account on DigiRAMP"
+    
+    
+    
+    #current_user = User.cached_find(current_user_id)
+    #channel = 'digiramp_radio_' + current_user.email
+    #Pusher.trigger(channel, 'digiramp_event', {"title" => 'EMAIL SEND', 
+    #                                      "message" => "An invitation is send to #{@user.email}", 
+    #                                      "time"    => '15000', 
+    #                                      "sticky"  => 'false', 
+    #                                      "image"   => 'notice'
+    #                                      })
   end
   
 

@@ -247,20 +247,25 @@ class Account < ActiveRecord::Base
   # !!! might be obsolete
   def administrator_email=(administrator_email)
     
-    if user = User.where(email: administrator_email).first
-      user.invite_existing_user_to_account @account
-    else
-      user = User.create( name: administrator_email.downcase, 
-                          email: administrator_email.downcase, 
-                          role: 'Administrator', 
-                          password: 'rOUhPgxQYzWtMvIsby3kET5aKcLSmd0w', 
-                          password_confirmation: 'rOUhPgxQYzWtMvIsby3kET5aKcLSmd0w',
-                          current_account_id: self.id)
-      user.new_account_and_user_confirmation( @account )
-    end
+    console.log '+++++++++++++++++++++++++++++++++++++++++++++++++'
+    console.log 'ERROR: User#administrator_email'
+    console.log 'not supported emailer broken'
+    console.log '+++++++++++++++++++++++++++++++++++++++++++++++++'
     
-    self.administrator_id = user.id
-    self.save!
+    #if user = User.where(email: administrator_email).first
+    #  user.invite_existing_user_to_account @account
+    #else
+    #  user = User.create( name: administrator_email.downcase, 
+    #                      email: administrator_email.downcase, 
+    #                      role: 'Administrator', 
+    #                      password: 'rOUhPgxQYzWtMvIsby3kET5aKcLSmd0w', 
+    #                      password_confirmation: 'rOUhPgxQYzWtMvIsby3kET5aKcLSmd0w',
+    #                      current_account_id: self.id)
+    #  user.new_account_and_user_confirmation( @account )
+    #end
+    #
+    #self.administrator_id = user.id
+    #self.save!
   end
   
   # !!! might be obsolete

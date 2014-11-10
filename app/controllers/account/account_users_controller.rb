@@ -33,7 +33,11 @@ class Account::AccountUsersController < ApplicationController
   end
   
   def create_user
+    ap params 
+    ap current_account_user
+    ap current_user
     forbidden unless current_account_user.createx_user
+    
     activated = params[:account_user][:role] == 'Client' ? false : true
     # make a temporary password
     secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
@@ -51,44 +55,60 @@ class Account::AccountUsersController < ApplicationController
   
   # create an account user and send an invitation email
   def create
+
     # secure the permissions is in place
     forbidden unless current_account_user.createx_user
     
-    # validate the email
-    validate_email
-    
-    # set the acces
-    set_access
-    
-    # get the user and send invitation
-    invited_user = User.invite_to_account_by_email( 
-                                                    params[:account_user][:email], 
-                                                    params[:account_user][:invitation_title], 
-                                                    params[:account_user][:invitation_message], 
-                                                    @account.id
-                                                   )
-   
-    # If there allready is an account user for the invited user
-    if @account_user = AccountUser.where(user_id: invited_user.id, account_id: @account.id).first
-  
-      # make sure the role is set to account user
-      params[:account_user][:role] = 'Account User'
-  
-      # update the account user
-      @account_user.update_attributes!(account_user_params)
-      
-      # logg the activity
-      @account_user.create_activity(  :created, 
-                                owner: current_user,
-                            recipient: @account_user,
-                       recipient_type: @account_user.class.name,
-                           account_id: @account.id)
-  
+    # if the account user alreaddy exists
+    if AccountUser.where(email: params[:account_user][:email], account_id: params[:account_user][:account_id]).first
+      flash[:info] = { title: "Notice: ", body: "User already a member" }                                    
     else
-      # create new account user
-      params[:account_user][:user_id] = invited_user.id
-      params[:account_user][:role]    = 'Account User'
-      @account_user = AccountUser.create!(account_user_params)
+      # validate the email
+      validate_email
+      
+      # set the acces
+      set_access
+      
+      # get the user and send invitation
+      invited_user = User.invite_to_account_by_email( 
+                                                      params[:account_user][:email], 
+                                                      params[:account_user][:invitation_title], 
+                                                      params[:account_user][:invitation_message], 
+                                                      @account.id,
+                                                      current_user
+                                                     )
+     
+      # If there allready is an account user for the invited user
+      if @account_user = AccountUser.where(user_id: invited_user.id, account_id: @account.id).first
+      
+        # make sure the role is set to account user
+        params[:account_user][:role] = 'Account User'
+      
+        # update the account user
+        @account_user.update_attributes!(account_user_params)
+        
+        # logg the activity
+        @account_user.create_activity(  :created, 
+                                  owner: current_user,
+                              recipient: @account_user,
+                         recipient_type: @account_user.class.name,
+                             account_id: @account.id)
+      
+      else
+        # create new account user
+        params[:account_user][:user_id] = invited_user.id
+        params[:account_user][:role]    = 'Account User'
+        @account_user = AccountUser.create!(account_user_params)
+      end
+      
+      #channel = 'digiramp_radio_' + current_user.email
+      #Pusher.trigger(channel, 'digiramp_event', {"title" => 'User already a member', 
+      #                                      "message" => "#{params[:account_user][:email]} is already added", 
+      #                                      "time"    => '7000', 
+      #                                      "sticky"  => 'false', 
+      #                                      "image"   => 'notice'
+      #                                      })
+      # 
     end
     # notice!
     # Permissions for the account user are copied to the catalog users

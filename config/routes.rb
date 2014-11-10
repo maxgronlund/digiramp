@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
 
 
+  
+
   resources :enterprise_account_info, only: [:index]
   resources :business_account_info, only: [:index]
   resources :pro_account_info, only: [:index]
@@ -34,7 +36,9 @@ Digiramp::Application.routes.draw do
   resources :music_submissions_ratings, only: [:update]
   resources :playlists 
   resources :playlist_recordings, only: [:destroy]
-  resources :recordings, only: [:index, :show] 
+  resources :recordings, only: [:index, :show] do
+    resources :share_recording_with_emails
+  end
   resources :recording_widgets, only: [:show]
   resources :remove_from_playlists, only: [:destroy]
   resources :share_on_facebooks, only: [:create]

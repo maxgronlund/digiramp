@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141109070217) do
+ActiveRecord::Schema.define(version: 20141110164134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1803,6 +1803,19 @@ ActiveRecord::Schema.define(version: 20141109070217) do
 
   add_index "share_on_twitters", ["recording_id"], name: "index_share_on_twitters_on_recording_id", using: :btree
   add_index "share_on_twitters", ["user_id"], name: "index_share_on_twitters_on_user_id", using: :btree
+
+  create_table "share_recording_with_emails", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "recording_id"
+    t.text     "recipients"
+    t.string   "title"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "share_recording_with_emails", ["recording_id"], name: "index_share_recording_with_emails_on_recording_id", using: :btree
+  add_index "share_recording_with_emails", ["user_id"], name: "index_share_recording_with_emails_on_user_id", using: :btree
 
   create_table "songs", force: true do |t|
     t.datetime "created_at", null: false

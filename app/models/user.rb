@@ -217,8 +217,8 @@ class User < ActiveRecord::Base
   end 
   
 
-  def invite_existing_user_to_account account_id , invitation_message
-    UserMailer.delay.invite_existing_user_to_account self.id, account_id, invitation_message
+  def invite_existing_user_to_account account_id , invitation_message, current_user_id
+    UserMailer.delay.invite_existing_user_to_account self.id, account_id, invitation_message, current_user_id
   end
   
   def invite_new_user_to_account( account_id , invitation_message)
@@ -352,9 +352,6 @@ class User < ActiveRecord::Base
   end
   
   def self.create_a_new_account_for_the user
-    puts '======================= create_a_new_account_for_the =========================='
-    ap user
-    puts '================================================='
     # creating the acount
     @account = Account.new(   title: user.email, 
                               user_id: user.id, 
@@ -379,12 +376,7 @@ class User < ActiveRecord::Base
     user.current_account_id  = @account.id
     
     # save
-    puts '======================= CRASH! =========================='
-    ap user
-    puts '================================================='
     user.save!
-    
-
     @account
   end
   
@@ -485,13 +477,13 @@ class User < ActiveRecord::Base
   
   # find or create a user 
   # and send an email invitation
-  def self.invite_to_account_by_email email, title, body, account_id
+  def self.invite_to_account_by_email email, title, body, account_id, current_user_id
     
     # the user is already signed up
     if found_user       = User.find_by_email(email.downcase)
       
       # invite found user to account
-      UserMailer.delay.invite_existing_user_to_account found_user.id, account_id, body
+      UserMailer.delay.invite_existing_user_to_account found_user.id, account_id, body, current_user_id
       #UserMailer.delay.invite_existing_user_to_account( found_user.id , title, body, account_id )
       
       # force uuid to update
