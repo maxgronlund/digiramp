@@ -17,3 +17,11 @@ Pusher.trigger(channel, 'digiramp_event', {"title" => 'User already a member',
   
 # usage
 # EmailValidator.validate email
+
+#-----------------------------------------------
+# model caching
+#-----------------------------------------------
+
+def flush_cache
+  Rails.cache.delete([self.class.name, id])
+end

@@ -6,11 +6,11 @@ class ShareRecordingWithEmail < ActiveRecord::Base
   
   def send_emails
     
-    #self.recipients.split(',').each do |email|
-    #  if EmailValidator.validate( email )
-    #    puts email
-    #  end
-    #end
+    self.recipients.split(',').each do |email|
+      if EmailValidator.validate( email )
+        ShareRecordingWithEmailMailer.delay.share( self.id )                         
+      end
+    end
     
     
   end

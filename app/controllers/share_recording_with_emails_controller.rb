@@ -29,8 +29,8 @@ class ShareRecordingWithEmailsController < ApplicationController
     #@share_recording_with_email = ShareRecordingWithEmail.create(share_recording_with_email_params)
     
     channel = 'digiramp_radio_' + current_user.email
-    Pusher.trigger(channel, 'digiramp_event', {"title" => 'An email is send', 
-                                          "message" => "fo", 
+    Pusher.trigger(channel, 'digiramp_event', {"title" => 'EMAILS SEND', 
+                                          "message" => "All valid recipients will receive an invitation", 
                                           "time"    => '15000', 
                                           "sticky"  => 'false', 
                                           "image"   => 'notice'
