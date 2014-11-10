@@ -110,14 +110,14 @@
               h4 Email
               = simple_form_for [ recording , ShareRecordingWithEmail.new ], remote: true do |f|
                 = f.error_notification
-
+              
                 .form-inputs
                   = f.hidden_field :user_id, value: current_user.id 
                   = f.hidden_field :recording_id, value: recording.id
                   = f.input :recipients
                   = f.input :title
                   = f.input :message
-
+              
                 .form-actions
                   = f.submit 'Send emails', class: 'btn btn-primary'
           
