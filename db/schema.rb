@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110164134) do
+ActiveRecord::Schema.define(version: 20141111194902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1283,7 +1283,6 @@ ActiveRecord::Schema.define(version: 20141110164134) do
   create_table "music_requests", force: true do |t|
     t.string   "title"
     t.text     "body"
-    t.decimal  "fee"
     t.time     "duration"
     t.string   "audio_file"
     t.datetime "created_at",                            null: false
@@ -1295,6 +1294,7 @@ ActiveRecord::Schema.define(version: 20141110164134) do
     t.integer  "opportunity_id"
     t.string   "link_title",     default: "Click Here"
     t.integer  "recording_id"
+    t.string   "fee"
   end
 
   add_index "music_requests", ["oppertunity_id"], name: "index_music_requests_on_oppertunity_id", using: :btree

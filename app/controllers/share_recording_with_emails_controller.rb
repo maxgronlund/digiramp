@@ -24,17 +24,15 @@ class ShareRecordingWithEmailsController < ApplicationController
   # POST /share_recording_with_emails
   # POST /share_recording_with_emails.json
   def create
-    ap params
+    #ap params
     
-    #@share_recording_with_email = ShareRecordingWithEmail.create(share_recording_with_email_params)
     
-    channel = 'digiramp_radio_' + current_user.email
-    Pusher.trigger(channel, 'digiramp_event', {"title" => 'EMAILS SEND', 
-                                          "message" => "All valid recipients will receive an invitation", 
-                                          "time"    => '15000', 
-                                          "sticky"  => 'false', 
-                                          "image"   => 'notice'
-                                          })
+    
+    @share_recording_with_email = ShareRecordingWithEmail.create(share_recording_with_email_params)
+    
+    
+                                          
+                                          
 
     #respond_to do |format|
     #  if @share_recording_with_email.save
