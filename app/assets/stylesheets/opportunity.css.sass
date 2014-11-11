@@ -3,7 +3,6 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .opportunity
-
       
   @mixin rowMachine($numPerRow, $margin) 
     
@@ -21,20 +20,14 @@
     margin-top: 8px
   .oppoptunity-description
     height: 180px
-
-    
     overflow: hidden
 
-    
-    
   .opportunity-badges
-    
     width: 100%
     .small-symbols
       margin-top: 6px
     .opportunity-badge 
       @include rowMachine(7, 2%)
-      padding: 4px
       float: left
       text-overflow: ellipsis
       overflow: hidden
@@ -43,8 +36,7 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.3)
       padding: 10px
       background-color: #fff
-
-
+      
       .opportunity-title
         min-height: 40px
         h4
@@ -63,27 +55,28 @@
         color: #555
       
       @media (min-width: 1800px) 
-        @include rowMachine(6, 2%)
+        @include rowMachine(6, 0.6%)
         
       @media (max-width: 1800px) 
-        @include rowMachine(4, 2%)
+        @include rowMachine(4, 1%)
     
       @media (max-width: 1440px) 
-        @include rowMachine(3, 2%)
+        @include rowMachine(3, 1.3%)
     
       @media (max-width: 1216px) 
-        @include rowMachine(3, 2%)
+        @include rowMachine(3, 1.6%)
     
       @media (max-width: 992px) 
-        @include rowMachine(2, 4%)
+        @include rowMachine(2, 2%)
       
     
       @media (max-width: 768px) 
-        @include rowMachine(2, 4%)
+        @include rowMachine(2, 2%)
       
     
       @media (max-width: 544px) 
-        @include rowMachine(1, 4%)
+        @include rowMachine(1, 0%)
+        margin-bottom: 10px !important
         
     .opportunity-badge:hover   
       background-color: #f8f8f8
