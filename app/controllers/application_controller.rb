@@ -205,6 +205,7 @@ private
   end
   
   def set_account
+    
     if @user.account_id.nil?
        @user.account_id = Account.where(user_id: @user.id).first.id
        @user.save!
