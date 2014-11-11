@@ -3,7 +3,9 @@
     table class="table table-condensed"
       tr
         th.description Kind:
-        td = opportunity.kind
+        td 
+          .kind
+            = opportunity.kind
       tr
         th.description Budget:
         td = number_to_currency(opportunity.budget, locale: :en, precision: 2)
@@ -18,15 +20,13 @@
           - else
             = opportunity.deadline
   
-      - if opportunity.territory == ''
-        tr
-          th &nbsp;
-          td &nbsp;
-      - else
+      - unless opportunity.territory == ''
         tr
           th.description Territory:
           td = opportunity.territory
   
-.oppoptunity-description
+div class="#{show_full_description ? '' : 'oppoptunity-description'}"
+
   h4 Description:
   = simple_format opportunity.body
+  

@@ -11,11 +11,10 @@
   #page-content-wrapper
     .container-fluid
       h3 Opportunities
-      'You have 
+      'You can submit to 
       .sexy_line
       .opportunity
         .opportunity-badges
-          /- if @authorized  
           - @user.opportunities.order('deadline desc').each do |opportunity|
             == render 'opportunity/opportunity', opportunity: opportunity
                  

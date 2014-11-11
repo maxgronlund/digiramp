@@ -15,7 +15,7 @@
       .opportunity 
         .row
           .col-sm-6
-            == render 'account/opportunities/description', opportunity: @opportunity
+            == render 'account/opportunities/description', opportunity: @opportunity, show_full_description: true
 
           .col-sm-6  
             == render 'opportunity/music_requests/requests'

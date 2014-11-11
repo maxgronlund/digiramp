@@ -4,7 +4,7 @@ class User::OpportunitiesController < ApplicationController
 
   
   def index
-    
+    @authorized = true if current_user.id = @user.id
   end
 
   

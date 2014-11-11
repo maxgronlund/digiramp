@@ -118,7 +118,7 @@ class ApplicationController < ActionController::Base
   
   # v 2
   def get_user
-    ap params
+    #ap params
     if params[:user_id]
       if @user = User.friendly.find(params[:user_id])
         #set_authorized
@@ -205,7 +205,7 @@ private
   end
   
   def set_account
-    
+    #@user = current_user if @user.nil
     if @user.account_id.nil?
        @user.account_id = Account.where(user_id: @user.id).first.id
        @user.save!

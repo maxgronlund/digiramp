@@ -20,11 +20,15 @@
   .btn-opportunity
     margin-top: 8px
   .oppoptunity-description
-    height: 260px
-    text-overflow: ellipsis
-    overflow: hidden
+    height: 180px
+
     
-  .opportunity-badges    
+    overflow: hidden
+
+    
+    
+  .opportunity-badges
+    
     width: 100%
     .small-symbols
       margin-top: 6px
@@ -35,24 +39,37 @@
       text-overflow: ellipsis
       overflow: hidden
       position: relative
+      border-radius: 3px
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+      padding: 10px
+      background-color: #fff
 
 
       .opportunity-title
         min-height: 40px
         h4
           color: #111
+          margin-top: 0px
+
+          
+      .oppoptunity-info
+        height: 90px
+        //.kind
+        //  height: 45px
+
+            
 
       a
         color: #555
       
       @media (min-width: 1800px) 
-        @include rowMachine(7, 2%)
+        @include rowMachine(6, 2%)
         
       @media (max-width: 1800px) 
-        @include rowMachine(5, 2%)
+        @include rowMachine(4, 2%)
     
       @media (max-width: 1440px) 
-        @include rowMachine(4, 2%)
+        @include rowMachine(3, 2%)
     
       @media (max-width: 1216px) 
         @include rowMachine(3, 2%)
@@ -67,6 +84,7 @@
     
       @media (max-width: 544px) 
         @include rowMachine(1, 4%)
-      
-
+        
+    .opportunity-badge:hover   
+      background-color: #f8f8f8
         

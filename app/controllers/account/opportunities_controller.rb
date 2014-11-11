@@ -3,11 +3,14 @@ class Account::OpportunitiesController < ApplicationController
   
   include AccountsHelper
   before_filter :access_account
-  before_filter :get_account
+  before_filter :current_user_authorized, only: [:index, :show, :new, :edit]
+  #before_filter :get_account
 
+  
   def index
-    #forbidden unless current_account_user.read_opportunity
+    forbidden unless current_account_user.read_opportunity
     @opportunities = @account.opportunities
+    
   end
 
 
@@ -18,6 +21,7 @@ class Account::OpportunitiesController < ApplicationController
                           recipient: @opportunity,
                      recipient_type: @opportunity.class.name,
                          account_id: @opportunity.account_id)
+    @user = current_user
   end
 
   # GET /opportunities/new
@@ -25,11 +29,13 @@ class Account::OpportunitiesController < ApplicationController
     forbidden unless current_account_user.create_opportunity
     @opportunity = Opportunity.new
     @opportunity.deadline = Date.today + 4.weeks
+    @user = current_user
   end
 
   # GET /opportunities/1/edit
   def edit
     forbidden unless current_account_user.update_opportunity
+    @user = current_user
   end
 
   # POST /opportunities
@@ -93,5 +99,10 @@ class Account::OpportunitiesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def opportunity_params
       params.require(:opportunity).permit!
+    end
+    
+    def current_user_authorized
+      @user        = current_user
+      @authorized = true if current_user
     end
 end
