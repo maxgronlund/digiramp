@@ -16,7 +16,14 @@
         .row
           .col-sm-6
             == render 'account/opportunities/description', opportunity: @opportunity, show_full_description: true
-
+            
+            /- if current_account_user.update_opportunity
+            /  .pull-right
+            /    = link_to edit_opportunity_opportunity_path( @opportunity) do
+            /      .btn.btn-xs.btn-default
+            /        i class="fa fa-pencil"
+            /        '&nbsp;
+            /        'Edit
           .col-sm-6  
             == render 'opportunity/music_requests/requests'
             

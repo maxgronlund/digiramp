@@ -85,6 +85,9 @@ class AccountUser < ActiveRecord::Base
   # can update account_user
   def can_update_account_user account_user
     # only if there is permissions to update
+    if self.user.super?
+      return true unless account_user.user.super?
+    end
     return false unless self.update_user
     handle_user_permissions_for account_user
   end

@@ -1,55 +1,131 @@
 
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'     
-  .container
-    == render 'admin/shared/messages' 
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: user_user_opportunities_path(@account.user),  \
-                                                            @opportunity.title.to_sym => opportunity_opportunity_path(@opportunity),  \
-                                                            @music_request.title.to_sym => opportunity_opportunity_music_request_path(@opportunity, @music_request), \
-                                                            select: opportunity_opportunity_music_request_submit_from_index_path(@opportunity, @music_request), \
-                                                          }, current: 'recordings'}
-
-    
-    == render 'shared/page_title_text', locals: {title: @music_request.title, body: "Opportunity #{@opportunity.title}. \n Expires #{@opportunity.deadline}"}
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
   
-    .row
-      .col-sm-12
-        .panel
-          .panel-body
-            .row
-              = form_tag new_opportunity_opportunity_music_request_music_submission_path(@opportunity, @music_request), :method => 'get' do
-                .col-sm-6
-                  = text_field_tag "query", "", :class => 'search-query form-control', \
-                                                :placeholder => 'Search string', \
-                                                value: params[:query]
-                .col-sm-6
-                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-                  '&nbsp;
-                  = link_to 'Show All',new_opportunity_opportunity_music_request_music_submission_path(@opportunity, @music_request), class: 'btn btn-default btn-lg'
-                  
-                     
- 
-    .row
-      .col-sm-12
-        .digiramp_player
-          div class="panel-group" id="accordion"
-            div class="permissions" value="submission_recordings" id="#{@music_request.id}"
-            - @recordings.each do |recording|
-              == render 'recordings/recording', recording: recording
-                     
-                
-               
-          .hidden-xs
-            == paginate(@recordings)
-          .visible-xs
-            .btn-group
-              = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
-              = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => opportunity_opportunity_path(@opportunity) }, current: ''}
+      
+      .row
+        .col-sm-6
+          h3 Opportunity
+          'Submit recordings to music request
+        .col-sm-6
+          = simple_form_for :recording, :url => url_for(:action => 'index', \
+                                                      :controller => 'music_submissions'), \
+                                                      :method => 'get' do |f|
+          
+          
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-search'
+              = text_field_tag "query", "", :class => 'search-query form-control', \
+                                            :placeholder => 'Search for recordings', \
+                                            value: params[:query]
+      .sexy_line
+        - @recordings.each do |recording|
+          #digiWhams  class="/recordings/#{recording.id.to_s}"
+            == render 'recording', recording: recording
+      /- @recordings.each do |recording|
         
-        
-        
-    == render 'shared/back', locals: {link: opportunity_opportunity_music_request_submit_from_index_path(@opportunity, @music_request)} 
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+      
+      
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account'     
+/  .container
+/    == render 'admin/shared/messages' 
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: user_user_opportunities_path(@account.user),  \
+/                                                            @opportunity.title.to_sym => opportunity_opportunity_path(@opportunity),  \
+/                                                            @music_request.title.to_sym => opportunity_opportunity_music_request_path(@opportunity, @music_request), \
+/                                                            select: opportunity_opportunity_music_request_submit_from_index_path(@opportunity, @music_request), \
+/                                                          }, current: 'recordings'}
+/
+/    
+/    == render 'shared/page_title_text', locals: {title: @music_request.title, body: "Opportunity #{@opportunity.title}. \n Expires #{@opportunity.deadline}"}
+/  
+/    .row
+/      .col-sm-12
+/        .panel
+/          .panel-body
+/            .row
+/              = form_tag new_opportunity_opportunity_music_request_music_submission_path(@opportunity, @music_request), :method => 'get' do
+/                .col-sm-6
+/                  = text_field_tag "query", "", :class => 'search-query form-control', \
+/                                                :placeholder => 'Search string', \
+/                                                value: params[:query]
+/                .col-sm-6
+/                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+/                  '&nbsp;
+/                  = link_to 'Show All',new_opportunity_opportunity_music_request_music_submission_path(@opportunity, @music_request), class: 'btn btn-default btn-lg'
+/                  
+/                     
+/ 
+/    .row
+/      .col-sm-12
+/        .digiramp_player
+/          div class="panel-group" id="accordion"
+/            div class="permissions" value="submission_recordings" id="#{@music_request.id}"
+/            - @recordings.each do |recording|
+/              == render 'recordings/recording', recording: recording
+/                     
+/                
+/               
+/          .hidden-xs
+/            == paginate(@recordings)
+/          .visible-xs
+/            .btn-group
+/              = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
+/              = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+/        
+/        
+/        
+/    == render 'shared/back', locals: {link: opportunity_opportunity_music_request_submit_from_index_path(@opportunity, @music_request)} 
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
