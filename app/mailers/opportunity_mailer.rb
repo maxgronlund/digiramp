@@ -56,6 +56,8 @@ class OpportunityMailer < ActionMailer::Base
                      recipient_type: @user.class.name,
                          account_id: @user.account_id,
                                     params: { opportunity_id: @opportunity.id}) 
+                                    
+    
   end
   
   
