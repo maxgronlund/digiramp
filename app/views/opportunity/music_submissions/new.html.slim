@@ -16,7 +16,7 @@
       .row
         .col-sm-6
           h3 Opportunity
-          'Submit recordings to music request
+          'Submit recordings to #{@music_request.title}
         .col-sm-6
           = simple_form_for :recording, :url => url_for(:action => 'index', \
                                                       :controller => 'music_submissions'), \
@@ -31,8 +31,9 @@
                                             value: params[:query]
       .sexy_line
         - @recordings.each do |recording|
-          #digiWhams  class="/recordings/#{recording.id.to_s}"
-            == render 'recording', recording: recording
+          div id="remove_recording_#{recording.id.to_s}"
+            #digiWhams  class="/recordings/#{recording.id.to_s}"
+              == render 'recording', recording: recording
       /- @recordings.each do |recording|
         
 

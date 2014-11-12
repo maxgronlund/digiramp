@@ -17,6 +17,12 @@ class Opportunity::MusicSubmissionsController < ApplicationController
   def new
     @music_request   = MusicRequest.cached_find(params[:music_request_id])
     
+
+    
+    submitted_recording_ids = MusicSubmission.where(music_request_id: @music_request.id).pluck(:recording_id)
+    
+    ap submitted_recording_ids
+    
     # plain and simple, super users can search all recordings
     #if current_user.role == 'Super'
     #  @recordings   =  Recording.not_in_bucket.search_all( params[:query]).order('title asc').page(params[:page]).per(48)
@@ -31,7 +37,9 @@ class Opportunity::MusicSubmissionsController < ApplicationController
       # add some permissions here
       # if account user can submit to requests
       recording_ids   += account_user.account.recording_ids
+      
     end
+    recording_ids   -= submitted_recording_ids
     @recordings =  Recording.not_in_bucket.search_from_ids(recording_ids, params[:query]).order('title asc').page(params[:page]).per(48)
     #end
     @user = current_user

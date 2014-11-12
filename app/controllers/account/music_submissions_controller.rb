@@ -10,7 +10,7 @@ class Account::MusicSubmissionsController < ApplicationController
   #end
   
   def new
-    ap params
+    #ap params
     @recordings   = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     @user         = current_user
     @music_request = MusicRequest.cached_find(params[:music_request_id])
@@ -72,8 +72,8 @@ class Account::MusicSubmissionsController < ApplicationController
                                             })
                                             
       
+                                            ap params
       
-      @remove_button = "#add_to_request_#{params[:id]}"
     else
       channel = 'digiramp_radio_' + current_user.email
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'YOU ARE NOT A MUSIC PROVIDERS', 

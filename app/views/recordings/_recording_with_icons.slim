@@ -115,6 +115,14 @@
           i.fa.fa-share
           '&nbsp;
           'Share
+
+      - if music_request_link
+        = link_to music_request_link, \
+                  remote: true, \
+                  class: "btn btn-primary"  do
+          i class="fa fa-plus-circle"
+          '&nbsp;
+          'Submit
         
 
       
@@ -140,14 +148,6 @@
           i class="fa fa-share"
           '&nbsp;
           'Share
-
-      - if music_request_link
-        = link_to music_request_link, \
-                  remote: true, \
-                  class: "btn btn-primary"  do
-          i class="fa fa-plus-circle"
-          '&nbsp;
-          'Submit
 
     - if recording.downlodable
       = link_to recording.zipp, \

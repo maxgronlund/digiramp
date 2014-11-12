@@ -60,7 +60,7 @@
               - @recordings.each do |recording|
                 #digiWhams  class="/recordings/#{recording.id.to_s}"
                   == render 'recording', recording: recording 
-              /== render 'recordings/index', recordings: @recordings
+              
        
             == paginate(@recordings)
               

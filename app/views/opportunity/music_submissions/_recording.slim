@@ -1,10 +1,10 @@
 == render 'recordings/recording_with_icons', recording: recording, 
                                              info: true,
-                                             add_to_playlist: true, 
+                                             add_to_playlist: false, 
                                              remove_from_playlist: false, 
                                              edit: false, 
                                              delete: false,
                                              description: true,
                                              share: false,
                                              target: "",
-                                             music_request_link: false
+                                             music_request_link: submit_recording_account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, recording.id)
