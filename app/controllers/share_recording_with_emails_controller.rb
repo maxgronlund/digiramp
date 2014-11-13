@@ -24,13 +24,28 @@ class ShareRecordingWithEmailsController < ApplicationController
   # POST /share_recording_with_emails
   # POST /share_recording_with_emails.json
   def create
-    #ap params
+    ap params
     
     
     
     @share_recording_with_email = ShareRecordingWithEmail.create(share_recording_with_email_params)
     
+
+
+    @share_recording_with_email.recipients.split(',').each do |email|
+      if EmailValidator.validate( email )
+        ShareRecordingWithEmailMailer.delay.send_email( @share_recording_with_email.id, email )                         
+      end
+    end
     
+    sender = User.cached_find(params[:share_recording_with_email][:user_id])
+    channel = 'digiramp_radio_' + sender.email
+    Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SHARED', 
+                                          "message" => "An email is send", 
+                                          "time"    => '15000', 
+                                          "sticky"  => 'false', 
+                                          "image"   => 'notice'
+                                          })
                                           
                                           
 

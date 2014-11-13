@@ -2,7 +2,7 @@ class ShareRecordingWithEmail < ActiveRecord::Base
   belongs_to :user
   belongs_to :recording
   
-  after_create :send_emails
+  #after_create :send_emails
   after_commit :flush_cache
   
   def send_emails

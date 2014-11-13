@@ -20,24 +20,28 @@
         = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
                                                       :controller => 'recordings'), \
                                                       :method => 'get' do |f|
-          .col-sm-6
+          .col-sm-12.col-md-8.col-lg-6
             .pull-down-8
-              = text_field_tag "query", "", :class => 'search-query form-control', \
-                                            :placeholder => 'Search string', \
-                                            value: params[:query]
+              /= text_field_tag "query", "", :class => 'search-query form-control', \
+              /                              :placeholder => 'Search string', \
+              /                              value: params[:query]
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search for recordings', \
+                                              value: params[:query]
+                .input-group-btn
+                  = f.submit 'Go', class: "btn btn-primary please_wait"
+                  '&nbsp;
+                  = link_to 'Clear', user_recordings_path(@user), class: 'btn btn-default please_wait'
               
-          .col-sm-6
-            .pull-down-8
-              = f.submit 'Search', class: 'btn btn-default'
-              '&nbsp;
-              = link_to 'Show All', user_recordings_path(@user), class: 'btn btn-default'
-              /- if @authorized
-              /  .pull-right
-              /    = link_to new_user_recording_path(@user) do
-              /      .btn.btn-primary
-              /        i.fa.fa-cloud-upload
-              /        '&nbsp;
-              /        'Upload
+          /=.col-sm-6
+          /=  .pull-down-8
+          /=    = f.submit 'Search', class: 'btn btn-default'
+          /=    '&nbsp;
+          /=    = link_to 'Show All', user_recordings_path(@user), class: 'btn btn-default'
+              
                 
       
       .sexy_line

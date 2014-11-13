@@ -35,8 +35,10 @@
         .endless-pages
         .add_songs
           /== render 'playlists/index', recordings: @recordings 
-          #digiWhams class="/users/#{@user.slug}/playlists/#{@playlist.id.to_s}"
-            - @recordings.each do |recording|
+         
+          - @recordings.each do |recording|
+            #digiWhams  class="/recordings/#{recording.id.to_s}"
+              /#digiWhams class="/users/#{@user.slug}/playlists/#{@playlist.id.to_s}"
               div id="remove_recording_#{recording.id.to_s}"
                 == render 'show', recording: recording  
                 

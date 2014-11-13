@@ -18,17 +18,26 @@
           h3 Opportunity
           'Submit recordings to #{@music_request.title}
         .col-sm-6
-          = simple_form_for :recording, :url => url_for(:action => 'index', \
+          = simple_form_for :recording, :url => url_for(:action => 'new', \
                                                       :controller => 'music_submissions'), \
                                                       :method => 'get' do |f|
           
           
+            
             .input-group
               span class="input-group-addon"
                 i class= 'fa fa-search'
               = text_field_tag "query", "", :class => 'search-query form-control', \
                                             :placeholder => 'Search for recordings', \
                                             value: params[:query]
+              .input-group-btn
+                = f.submit 'Go', class: "btn btn-primary please_wait"
+                '&nbsp;
+                = link_to 'Clear', new_opportunity_opportunity_music_request_music_submission_path( @opportunity, @music_request), class: 'btn btn-default please_wait'
+
+                                            
+            
+
       .sexy_line
         - @recordings.each do |recording|
           div id="remove_recording_#{recording.id.to_s}"
