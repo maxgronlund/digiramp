@@ -1,5 +1,5 @@
 class ShareRecordingWithEmailMailer < ActionMailer::Base
-  default from: "info@digiramp.org"
+  default from: "info@digiramp.com"
   
   def send_email id , email
      
