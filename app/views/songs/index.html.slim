@@ -77,6 +77,12 @@
                 = text_field_tag "query", "", :class => 'search-query form-control', \
                                               :placeholder => 'Search', \
                                               value: params[:query]
+                                              
+
+                .input-group-btn
+                  = f.submit 'Go', class: "btn btn-primary please_wait"
+                  '&nbsp;
+                  = link_to 'Clear', songs_path, class: 'btn btn-default please_wait'
             
       .sexy_line
       .endless-pages

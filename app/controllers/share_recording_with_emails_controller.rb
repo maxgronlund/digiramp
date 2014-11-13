@@ -33,6 +33,7 @@ class ShareRecordingWithEmailsController < ApplicationController
 
     # !!! make a limitation here to avoid spammers
     @share_recording_with_email.recipients.split(',').each do |email|
+      email.gsub!(',', '')
       if EmailValidator.validate( email )
         ShareRecordingWithEmailMailer.delay.send_email( @share_recording_with_email.id, email )                         
       end
@@ -41,7 +42,7 @@ class ShareRecordingWithEmailsController < ApplicationController
     sender = User.cached_find(params[:share_recording_with_email][:user_id])
     channel = 'digiramp_radio_' + sender.email
     Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SHARED', 
-                                          "message" => "An email is send", 
+                                          "message" => "Your email was sent", 
                                           "time"    => '15000', 
                                           "sticky"  => 'false', 
                                           "image"   => 'notice'
