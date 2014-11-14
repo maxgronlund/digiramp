@@ -13,11 +13,11 @@
       h3 #{@account.title} <funky>Pro</funky>
       'Opportunities you have created
       .sexy_line
-        .opportunity
-          .opportunity-badges
-            - @opportunities.order('deadline desc').each do |opportunity|
-              == render 'opportunity/opportunity', opportunity: opportunity, opportunity_link: account_account_opportunity_path(@account, opportunity)
-          
+      .opportunity
+        .opportunity-badges
+          - @opportunities.order('deadline desc').each do |opportunity|
+            == render 'opportunity/opportunity', opportunity: opportunity, opportunity_link: account_account_opportunity_path(@account, opportunity)
+        
 
 
 

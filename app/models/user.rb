@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :user_name, use: :slugged
   
+  scope :public_profiles,  ->  { where( private_profile: false)  }
+  
   
   has_secure_password
   include PublicActivity::Common

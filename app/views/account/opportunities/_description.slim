@@ -8,7 +8,7 @@
             = opportunity.kind
       tr
         th.description Budget:
-        td = number_to_currency(opportunity.budget, locale: :en, precision: 2)
+        td = opportunity.budget
       tr
         th.description Deadline:
         td

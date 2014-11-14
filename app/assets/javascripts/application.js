@@ -47,8 +47,9 @@
 //= require share_on_facebooks
 //= require moment
 //= require bootstrap-datetimepicker
-// require bootstrap-datepicker
 //= require date_picker
+//= require masonry.pkgd.min
+//= require masonry
 // require bootstrap-tokenfield
 // require chosen-jquery
 // require jquery.tokeninput

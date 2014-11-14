@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   
   def index
     #@users = User.search(params[:query]).order('lower(user_name) ASC').page(params[:page]).per(48)
-    @users = User.search(params[:query]).order('followers_count desc').page(params[:page]).per(48)
+    @users = User.public_profiles.search(params[:query]).order('followers_count desc').page(params[:page]).per(48)
     
   end
 
