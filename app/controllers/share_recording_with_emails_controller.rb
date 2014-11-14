@@ -33,7 +33,6 @@ class ShareRecordingWithEmailsController < ApplicationController
 
     # !!! make a limitation here to avoid spammers
     @share_recording_with_email.recipients.split(',').each do |email|
-      email.gsub!(',', '')
       if EmailValidator.validate( email )
         ShareRecordingWithEmailMailer.delay.send_email( @share_recording_with_email.id, email )                         
       end

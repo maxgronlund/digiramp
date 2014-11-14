@@ -11,61 +11,82 @@
     .container-fluid
       ==render 'admin/shared/messages'
       h3 #{@account.title} <funky>Pro</funky>
-      'Opportunities
+      'Opportunities you have created
       .sexy_line
-
-      .table-responsive
-        table class="table"
-          thead
-            tr
-              th Title
-              th Kind
-              /th Submissions
-              th Deadline
-              th
-          tbody
+        .opportunity
+          .opportunity-badges
             - @opportunities.order('deadline desc').each do |opportunity|
-              tr
-                td = link_to opportunity.title, account_account_opportunity_path(@account, opportunity), class: 'btn btn-default'
-                td = opportunity.kind
-       
-                td 
-                  - if opportunity.deadline && opportunity.deadline < Date.current
-                    .expired
-                      i class="fa fa-exclamation-circle"
-                      '&nbsp;
-                      'Expired
-                  - else
-                    = opportunity.deadline
-                    
-                  /= opportunity.deadline
-                th
-                  .pull-right
-                    /= link_to edit_account_account_opportunity_path(@account, opportunity) do
-                    /  .btn.btn-default
-                    /    i class="fa fa-pencil"
-                    /    '&nbsp;
-                    /    'Edit
-                    /'&nbsp;
-                    = link_to account_account_opportunity_path(@account, opportunity), data: { confirm: 'Are you sure?' } , :method => :delete do
-                      .btn.btn-default
-                        i class="fa fa-times"
-                        '&nbsp;
-                        'Delete
+              == render 'opportunity/opportunity', opportunity: opportunity, opportunity_link: account_account_opportunity_path(@account, opportunity)
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       
-      
-      -if current_account_user.create_opportunity
-        .pull-right
-          = link_to new_account_account_opportunity_path(@account) do
-            .btn.btn-primary
-              i class="fa fa-plus-circle"
-              '&nbsp;
-              'Create Opportunity
-       
-    
   == render 'shared/site_footer'  
-== render 'users/shared/mobile_links'  
+== render 'users/shared/mobile_links'
+
+/      .table-responsive
+/        table class="table"
+/          thead
+/            tr
+/              th Title
+/              th Kind
+/              /th Submissions
+/              th Deadline
+/              th
+/          tbody
+/            - @opportunities.order('deadline desc').each do |opportunity|
+/              tr
+/                td = link_to opportunity.title, account_account_opportunity_path(@account, opportunity), class: 'btn btn-default'
+/                td = opportunity.kind
+/       
+/                td 
+/                  - if opportunity.deadline && opportunity.deadline < Date.current
+/                    .expired
+/                      i class="fa fa-exclamation-circle"
+/                      '&nbsp;
+/                      'Expired
+/                  - else
+/                    = opportunity.deadline
+/                    
+/                  /= opportunity.deadline
+/                th
+/                  .pull-right
+/                    = link_to account_account_opportunity_path(@account, opportunity), data: { confirm: 'Are you sure?' } , :method => :delete do
+/                      .btn.btn-default
+/                        i class="fa fa-times"
+/                        '&nbsp;
+/                        'Delete
+/
+/      
+/      
+/      -if current_account_user.create_opportunity
+/        .pull-right
+/          = link_to new_account_account_opportunity_path(@account) do
+/            .btn.btn-primary
+/              i class="fa fa-plus-circle"
+/              '&nbsp;
+/              'Create Opportunity
+/       
+/    
+/  == render 'shared/site_footer'  
+/== render 'users/shared/mobile_links'  
 
 
 

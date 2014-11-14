@@ -1,5 +1,6 @@
+
 .opportunity-badge id="opportunity_#{opportunity.id.to_s}"
-  = link_to opportunity_opportunity_path(opportunity) do
+  = link_to opportunity_link do
     .opportunity-title
       h4 = opportunity.title
     == render 'account/opportunities/description', opportunity: opportunity, show_full_description: false

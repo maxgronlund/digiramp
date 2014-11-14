@@ -6,7 +6,7 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+      == render 'users/shared/sidebar', selected: 'opportunities'
   
   #page-content-wrapper
     .container-fluid
@@ -16,7 +16,7 @@
       .opportunity
         .opportunity-badges
           - @user.opportunities.order('deadline desc').each do |opportunity|
-            == render 'opportunity/opportunity', opportunity: opportunity
+            == render 'opportunity/opportunity', opportunity: opportunity, opportunity_link: opportunity_opportunity_path(opportunity)
                  
               
   == render 'shared/site_footer'    
