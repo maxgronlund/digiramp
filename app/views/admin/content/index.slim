@@ -1,85 +1,118 @@
-#wrap
-  .admin
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'admin'
-
-               
-  .container
-    ==render 'admin/shared/messages'
-    / fix cache expiration here
-    -cache (['content', Admin.cached_find(1).version ]) do
-      /.do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path}, current: 'content'}
-
-      
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Manage Content'} 
-      .row
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'EXPORT USERS', \
-                                                      link: admin_export_users_path(format: "csv"), \
-                                                      css_class: 'btn btn-info', \
-                                                      icon: 'fa fa-cloud-download' \
-                                                    }
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'BLOGS', \
-                                                      link: admin_blogs_path, \
-                                                      css_class: 'btn btn-primary', \
-                                                      icon: 'fa fa-comments' \
-                                                    }
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'TAGS', \
-                                                      link: admin_tags_path, \
-                                                      css_class: 'btn btn-warning', \
-                                                      icon: 'fa fa-tags' \
-                                                    }
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'EMAILS', \
-                                                      link: admin_system_emails_path, \
-                                                      css_class: 'btn btn-success', \
-                                                      icon: 'fa fa-envelope' \
-                                                    }
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'PRO AFFILIATIONS', \
-                                                      link: admin_pro_affiliations_path, \
-                                                      css_class: 'btn btn-default', \
-                                                      icon: 'fa fa-envelope' \
-                                                    }
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'LEGAL', \
-                                                      link: admin_legal_documents_path, \
-                                                      css_class: 'btn btn-danger', \
-                                                      icon: 'fa fa-gavel' \
-                                                    }
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'VIDEO BLOGS', \
-                                                      link: admin_video_blogs_path, \
-                                                      css_class: 'btn btn-primary', \
-                                                      icon: 'fa fa-film' \
-                                                    }
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'FRONT PAGE', \
-                                                      link: edit_admin_front_end_content_path(1), \
-                                                      css_class: 'btn btn-primary', \
-                                                      icon: 'fa fa-home' \
-                                                    }
-                                                    
-                                                    
-                                                    
-                      
-                                                    
-        
-       
-
-
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
   
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path}, current: 'content'}
+      == render 'admin/shared/messages'
+      
+      h3 Content
+      .sexy_line
+      .admin
+        .admin-badges
+          .admin-badge-container
+            = link_to admin_export_users_path(format: "csv") do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-cloud-download
+                    '&nbsp;Export users
+                .body
+                  'Download a full list of all DigiRAMP users in csv format 
+                  
+          .admin-badge-container
+            = link_to admin_blogs_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-cloud-download
+                    '&nbsp;Blogs
+                .body
+                  'Edit content used on the site 
+                  
+          .admin-badge-container
+            = link_to admin_tags_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-tags
+                    '&nbsp;Tags
+                .body
+                  'Genre, Instruments and Moods in iTunes and INgrooves format 
+                  
+          .admin-badge-container
+            = link_to admin_system_emails_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-envelope
+                    '&nbsp;Emails
+                .body
+                  'Emails automaticaly send by the system 
+                  
+          .admin-badge-container
+            = link_to admin_pro_affiliations_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-university
+                    '&nbsp;Pro affiliations
+                .body
+                  'BMI, ASCAP and many more 
+                  
+          .admin-badge-container
+            = link_to admin_legal_documents_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-gavel
+                    '&nbsp;Legal
+                .body
+                  'Terms and condtions and othere legal stuff
+                  
+          .admin-badge-container
+            = link_to admin_video_blogs_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-film
+                    '&nbsp;Video blogs
+                .body
+                  'Terms and condtions and othere legal stuff
+                  
+          .admin-badge-container
+            = link_to edit_admin_front_end_content_path(1) do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-home
+                    '&nbsp;Front page
+                .body
+                  'Text and images on the front page
+                  
+          .admin-badge-container
+            = link_to admin_default_images_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-picture-o
+                    '&nbsp;Default images
+                .body
+                  'User avatars, company logos and more
+          
+          
+          
+            
+          
+
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
   

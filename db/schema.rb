@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141114205046) do
+ActiveRecord::Schema.define(version: 20141115192419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -744,6 +744,14 @@ ActiveRecord::Schema.define(version: 20141114205046) do
   add_index "customer_events", ["account_id"], name: "index_customer_events_on_account_id", using: :btree
   add_index "customer_events", ["account_user_id"], name: "index_customer_events_on_account_user_id", using: :btree
   add_index "customer_events", ["playlist_key_id"], name: "index_customer_events_on_playlist_key_id", using: :btree
+
+  create_table "default_images", force: true do |t|
+    t.string   "recording_artwork"
+    t.string   "user_avatar"
+    t.string   "company_logo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "documents", force: true do |t|
     t.string   "title"
@@ -1824,6 +1832,14 @@ ActiveRecord::Schema.define(version: 20141114205046) do
   end
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
+
+  create_table "system_settings", force: true do |t|
+    t.integer  "recording_artwork_id"
+    t.integer  "user_avatar_id"
+    t.integer  "company_logo_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "upload_csvs", force: true do |t|
     t.string   "file"

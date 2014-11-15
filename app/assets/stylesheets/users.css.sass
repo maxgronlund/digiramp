@@ -1,4 +1,5 @@
 @import "row_machine"
+@import "colors"
 
 .users
   .row
@@ -85,6 +86,9 @@
     
 .profile
   min-height: 150px
+  @include panel-default-color
+  padding: 5px
+  margin-bottom: 10px
   .avatar
     width: 33%
     max-width: 145px
@@ -96,8 +100,10 @@
       height: auto
   .info
     //margin-left: 150px
-
-
+.activities
+  @include panel-default-color
+  padding: 5px
+  margin-bottom: 10px
     
 .users-container
   .container

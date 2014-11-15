@@ -51,7 +51,10 @@
                   = f.hidden_field :recording_id, value: recording.id
                   = f.input :message
                 
-                .form-actions
+                .modal-footer
+                  button type="button" class="btn btn-default" data-dismiss="modal"
+                    'Close
+                  '&nbsp;
                   = f.submit 'Share', class: 'btn btn-primary'
                   
                   
@@ -75,8 +78,8 @@
               h4 Twitter
               div id="facebook_confirmation_#{recording.id.to_s}"
               
-              -tweet          = ShareOnTwitter.new
-              -tweet.message = "Checkout ‘#{recording.title}’ by #{current_user.name} on #DigiRamp https://digiramp.com/#{recording.user.slug}/recordings/#{recording.id}"
+              - tweet          = ShareOnTwitter.new
+              - tweet.message = "Checkout ‘#{recording.title}’ by #{current_user.name} on #DigiRamp https://digiramp.com/#{recording.user.slug}/recordings/#{recording.id}"
               = simple_form_for [tweet], remote: true do |f|
                 /= f.error_notification
               
@@ -86,7 +89,10 @@
                   = f.hidden_field :recording_id, value: recording.id
                   = f.input :message
               
-                .form-actions
+                .modal-footer
+                  button type="button" class="btn btn-default" data-dismiss="modal"
+                    'Close
+                  '&nbsp;
                   = f.submit 'Share', class: 'btn btn-primary'
               
               
@@ -97,9 +103,11 @@
             .tab-pane.fade id="embed_#{recording.id.to_s}"
               h4 Embed
               .recording_widget
-                /= text_field nil, :code, class: 'recording_snippet', :value => "#{url_for( controller: 'recording_widgets', action: 'show', id: recording.id, :only_path=> false)}", readonly: true
                 = text_field nil, :code, class: 'recording_snippet', :value => "#{recording.widget_snippet url_for( controller: 'recording_widgets', action: 'show', id: recording.id, :only_path=> false)}", readonly: true
-
+              
+              .modal-footer
+                button type="button" class="btn btn-default" data-dismiss="modal"
+                  'Close
               
 
    
@@ -110,17 +118,23 @@
               - if current_user
                 
                 h4 Email
-                = simple_form_for [ recording , ShareRecordingWithEmail.new ], remote: true do |f|
+                - share_recording_with_email = ShareRecordingWithEmail.new
+                - share_recording_with_email.title    = "#{current_user.user_name} has shared a recording with you on DigiRAMP"
+                - share_recording_with_email.message  = "Hi! You should try to listen to this recording"
+                = simple_form_for [ recording , share_recording_with_email ], remote: true do |f|
                   = f.error_notification
                 
                   .form-inputs
                     = f.hidden_field :user_id, value: current_user.id 
                     = f.hidden_field :recording_id, value: recording.id
-                    = f.input :recipients
-                    = f.input :title, value: "A recording has been shared with you on DigiRAMP"
-                    = f.input :message, value: "Hi Please try to listen to this recording"
+                    = f.input :recipients, placeholder: 'superman@nasa.gov, batman@gotham.city', hint: 'Use a comma seperated list to sendt to multiply recipients'
+                    = f.input :title
+                    = f.input :message
                 
-                  .form-actions
+                  .modal-footer
+                    button type="button" class="btn btn-default" data-dismiss="modal"
+                      'Close
+                    '&nbsp;
                     = f.submit 'Send', class: 'btn btn-primary'
               - else
                 'You have to be logged in to share recordings
@@ -128,9 +142,7 @@
 
               
       
-      .modal-footer
-        button type="button" class="btn btn-default" data-dismiss="modal"
-          'Close
+      
         /= link_to new_create_playlist_path( user_id: current_user.id, recording_id: recording.id ), class: 'btn btn-default', remote: true  do
         /  i.fa.fa-list
         /  '&nbsp;New

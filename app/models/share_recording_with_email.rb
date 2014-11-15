@@ -2,30 +2,41 @@ class ShareRecordingWithEmail < ActiveRecord::Base
   belongs_to :user
   belongs_to :recording
   
-  #after_create :send_emails
+  after_create :send_emails
   after_commit :flush_cache
   
   def send_emails
+
+    send_emails = 0
     
-    ap self
-    
+    # !!! make a limitation here to avoid spammers
     self.recipients.split(',').each do |email|
+      email.strip!
       if EmailValidator.validate( email )
-        ShareRecordingWithEmailMailer.delay.send_email( self.id, email )                         
+        
+        ShareRecordingWithEmailMailer.delay_for(5.seconds).send_email( self.id, email )  
+        send_emails += 1                       
       end
     end
-    
-    sender = User.cached_find(self.user_id)
-    
-    channel = 'digiramp_radio_' + sender.email
+
+    if send_emails == 0
+      message = 'No emails was send'
+    elsif send_emails == 1
+      message = 'An email was send'
+    else
+      message = send_emails.to_s
+      message << ' emails was send'
+    end
+      
+    channel = 'digiramp_radio_' + self.user.email
     Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SHARED', 
-                                          "message" => "An email is send", 
+                                          "message" => message, 
                                           "time"    => '15000', 
                                           "sticky"  => 'false', 
                                           "image"   => 'notice'
                                           })
-    
-    
+
+
   end
   
   

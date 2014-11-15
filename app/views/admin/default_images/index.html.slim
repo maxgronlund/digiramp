@@ -1,0 +1,47 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, content: admin_content_index_path}, current: ''}
+      == render 'admin/shared/messages'
+      h3 Default images
+      'Used for avatars, logos e.t.c
+      .sexy_line
+      table
+        thead
+          tr
+            th Recording artwork
+            th User avatar
+            th Company logo
+            th
+            th
+            th
+
+        tbody
+          - @default_images.each do |default_image|
+            tr
+              td = default_image.recording_artwork
+              td = default_image.user_avatar
+              td = default_image.company_logo
+              td = link_to 'Show', default_image
+              td = link_to 'Edit', edit_default_image_path(default_image)
+              td = link_to 'Destroy', default_image, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+      br
+
+      = link_to 'New Default image set', new_admin_default_image_path, class: 'btn btn-primary'
+          
+          
+            
+          
+
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

@@ -1,0 +1,44 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { content: admin_content_index_path, 'default images'.to_sym => admin_default_images_path}, current: ''}
+      == render 'admin/shared/messages'
+      h3 Default image set
+      'Copy and paste url's for developers, admin system in progress (system_settings)
+      .sexy_line
+      = image_tag @default_image.recording_artwork_url(:avatar_120x120)
+      br
+      = @default_image.recording_artwork_url
+      .sexy_line
+      
+      = image_tag @default_image.user_avatar_url(:avatar_120x120)
+      br
+      = @default_image.user_avatar_url
+      .sexy_line
+      
+      = image_tag @default_image.company_logo_url(:avatar_120x120)
+      br
+      = @default_image.company_logo_url
+      .sexy_line
+
+      .pull-right
+
+        = link_to 'Edit', edit_admin_default_image_path(@default_image), class: 'btn btn-default'
+
+      
+          
+          
+            
+          
+
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

@@ -1,90 +1,100 @@
-- session[:return_url] = request.url
-#wrap
-  .admin
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'admin'
-
-               
-  .container
-    ==render 'admin/shared/messages'
-    -cache (['admin', Admin.cached_find(1).version]) do      
-
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
-
-      
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Admin'} 
-      .row
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'ACCOUNTS', \
-                                                      link: admin_accounts_path, \
-                                                      css_class: 'btn btn-primary', \
-                                                      icon: 'fa fa-list-alt' \
-                                                    }
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'CONTENT', \
-                                                      link: admin_content_index_path, \
-                                                      css_class: 'btn btn-success', \
-                                                      icon: 'fa fa-folder-o' \
-                                                    }
-      
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'USERS', \
-                                                      link: admin_users_path, \
-                                                      css_class: 'btn btn-info', \
-                                                      icon: 'fa fa-group' \
-                                                    }
-                                                    
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'ACTIVITIES', \
-                                                      link: admin_activities_path, \
-                                                      css_class: 'btn btn-warning', \
-                                                      icon: 'fa fa-clock-o' \
-                                                    }
-      .row  
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'ENGINE ROOM', \
-                                                      link: admin_engine_room_index_path, \
-                                                      css_class: 'btn btn-danger', \
-                                                      icon: 'fa fa-cogs' \
-                                                    }
-                                                    
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'DEVELOPMENT LOG', \
-                                                      link: admin_development_log_index_path, \
-                                                      css_class: 'btn btn-default', \
-                                                      icon: 'fa fa-bullhorn' \
-                                                    }
-                                                    
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'ISSUES', \
-                                                      link: admin_issues_path, \
-                                                      css_class: 'btn btn-warning', \
-                                                      icon: 'fa fa-bug' \
-                                                    }
-                                                    
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'STATISTICS', \
-                                                      link: admin_statistics_path, \
-                                                      css_class: 'btn btn-info', \
-                                                      icon: 'fa fa-bar-chart-o' \
-                                                    }
-                                                    
-                                                    
-                                                    
-      /.row
-      /  
-      /  .col-sm-6
-      /    == render 'admin/shared/badge_buttons/genre'
-      /
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
   
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
   
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h3 Admin
+      .sexy_line
+      .admin
+        .admin-badges
+          .admin-badge-container
+            = link_to admin_accounts_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-list-alt
+                    '&nbsp;Accounts
+                .body
+                  'Access and manage all DigiRAMP accounts 
+          
+          .admin-badge-container
+            = link_to admin_users_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-group
+                    '&nbsp;Users
+                .body
+                  'Access and manage all DigiRAMP users 
+          
+          .admin-badge-container
+            = link_to admin_content_index_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-folder-o
+                    '&nbsp;Content
+                .body
+                  'Tags. Genre. Blogs and other content for the site 
+          
+          .admin-badge-container
+            = link_to admin_activities_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-clock-o
+                    '&nbsp;Activities
+                .body
+                  'Watch what happens on DigiRAMP 
+          
+          .admin-badge-container
+            = link_to admin_engine_room_index_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-cogs
+                    '&nbsp;Engine room
+                .body
+                  'Clear cache, inspect robots and more
+          
+          .admin-badge-container
+            = link_to admin_development_log_index_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-bullhorn
+                    '&nbsp;Development log
+                .body
+                  'Latest news and progress from the development HQ
+          
+          .admin-badge-container
+            = link_to admin_issues_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-warning
+                    '&nbsp;Issues
+                .body
+                  'Bugs and glitches
+          
+          .admin-badge-container
+            = link_to admin_statistics_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-bar-chart-o
+                    '&nbsp;Statistics
+                .body
+                  'Numbers and usage
+            
+          
+
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+

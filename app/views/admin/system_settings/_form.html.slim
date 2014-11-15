@@ -1,0 +1,10 @@
+= simple_form_for(@system_setting) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :recording_artwork_id
+    = f.input :user_avatar_id
+    = f.input :company_logo_id
+
+  .form-actions
+    = f.button :submit

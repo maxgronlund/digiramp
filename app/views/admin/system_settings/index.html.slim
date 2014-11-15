@@ -1,0 +1,25 @@
+h1 Listing system_settings
+
+table
+  thead
+    tr
+      th Recording artwork
+      th User avatar
+      th Company logo
+      th
+      th
+      th
+
+  tbody
+    - @system_settings.each do |system_setting|
+      tr
+        td = system_setting.recording_artwork_id
+        td = system_setting.user_avatar_id
+        td = system_setting.company_logo_id
+        td = link_to 'Show', system_setting
+        td = link_to 'Edit', edit_system_setting_path(system_setting)
+        td = link_to 'Destroy', system_setting, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New System setting', new_system_setting_path

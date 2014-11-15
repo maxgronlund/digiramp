@@ -1,0 +1,121 @@
+@import "row_machine"
+@import "colors"
+
+
+
+.admin
+ 
+  .admin-badges
+    width: 100%
+    .admin-badge-container:hover
+      background-color: #F8F8F8
+    .admin-badge-container
+      @include rowMachine(7, 0.5%)
+      float: left
+      -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+      background-color: #FFF
+      margin-bottom: 5px !important
+
+      @media (max-width: 1473px) 
+        @include rowMachine(6, 0.5%)
+
+      @media (max-width: 1253px) 
+        @include rowMachine(5, 0.5%)
+        
+      @media (max-width: 1133px) 
+        @include rowMachine(4, 0.75%)
+        
+      @media (max-width: 963px) 
+        @include rowMachine(3, 1%)
+
+      @media (max-width: 768px) 
+        @include rowMachine(2, 1.5%)
+
+      @media (max-width: 544px) 
+        @include rowMachine(1, 0.0%)
+
+      a
+        color: #888
+      .admin-badge 
+        .title
+          min-height: 40px
+          @include panel-title-green
+          padding: 10px
+          h4
+            color: #fff
+            margin: 0px
+
+        .body
+          position: relative
+          padding: 10px
+          min-height: 100px
+
+      
+     
+
+      
+
+//.admin
+//  width: 100%
+//  a
+//    color: #888
+//  a:hover
+//    color: #333
+//  .admin-badges    
+//    width: 100%
+//
+//    .admin-badge 
+//      @include rowMachine(7, 2%)
+//      text-overflow: ellipsis
+//      overflow: hidden
+//      position: relative
+//      background-color: #fff
+//      height: 150px
+//      float: left
+//      
+//      .title
+//        min-height: 40px
+//        background-color: #5F9E79
+//        padding: 10px
+//        h4
+//          color: #fff
+//          margin-top: 0px
+//          margin-bottom: 0px
+//    
+//      .body
+//        position: relative
+//        padding: 10px
+//        
+//
+//   
+//      @media (min-width: 1800px) 
+//        @include rowMachine(8, 2%)
+//        
+//      @media (max-width: 1800px) 
+//        @include rowMachine(6, 2%)
+//    
+//      @media (max-width: 1440px) 
+//        @include rowMachine(5, 2%)
+//    
+//      @media (max-width: 1216px) 
+//        @include rowMachine(4, 2%)
+//    
+//      @media (max-width: 992px) 
+//        @include rowMachine(3, 4%)
+//      
+//    
+//      @media (max-width: 768px) 
+//        @include rowMachine(3, 4%)
+//      
+//    
+//      @media (max-width: 544px) 
+//        @include rowMachine(2, 4%)
+//      
+//    
+//      img 
+//        max-width: 100%
+//      
+//    .admin-badge:hover   
+//      background-color: #f0f0f0
+//        

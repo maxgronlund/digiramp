@@ -10,13 +10,8 @@
   
   #page-content-wrapper
     .container-fluid 
-      == render 'users/shared/page_title', title: 'Recordings I like'
-      /#digiWhams 
-      /  - @likes.each do |like|
-      /    - recording = like.recording
-      /    div class="#{'unlike_recording_'+recording.id.to_s}"
-      /      == render 'recordings/show', recording: recording
-      .sexy_line
+      h3 Likes
+      .sexy_line 
       .endless-pages
       .add_songs
         == render 'songs/index', songs: @songs

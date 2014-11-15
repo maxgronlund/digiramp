@@ -2,7 +2,9 @@ class AdminController < ApplicationController
   
   before_filter :admin_only
   def index
-    @users = User.where(role: 'super')
+    @users      = User.where(role: 'super')
+    @user       = current_user
+    @authorized = true
     #where.('lower(email) ASC')
   end
   

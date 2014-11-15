@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  
+
   resources :enterprise_account_info, only: [:index]
   resources :business_account_info, only: [:index]
   resources :pro_account_info, only: [:index]
@@ -321,6 +323,7 @@ Digiramp::Application.routes.draw do
     resources :activities
     resources :activity_counter
     resources :contacts
+    resources :default_images
     
     resources :statistics do
       member do
@@ -369,6 +372,7 @@ Digiramp::Application.routes.draw do
     resources :tags, only: [:index]
     get "emails/index"
     resources :system_emails
+    resources :system_settings
     resources :users
     resources :user_genres, only: [:index]
     resources :user_instruments, only: [:index]

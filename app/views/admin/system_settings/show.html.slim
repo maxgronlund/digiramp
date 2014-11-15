@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Recording artwork:
+  = @system_setting.recording_artwork_id
+p
+  strong User avatar:
+  = @system_setting.user_avatar_id
+p
+  strong Company logo:
+  = @system_setting.company_logo_id
+
+= link_to 'Edit', edit_system_setting_path(@system_setting)
+'|
+= link_to 'Back', system_settings_path

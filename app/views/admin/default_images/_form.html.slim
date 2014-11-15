@@ -1,0 +1,74 @@
+= simple_form_for [:admin, @default_image ]  do |f|
+  = f.error_notification
+
+  .form-inputs
+    .row
+      .col-sm-4
+        .fileinput.fileinput-new data-provides="fileinput"
+          .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+            = image_tag @default_image.recording_artwork, size: '184x184'
+
+          div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+          div
+            span.btn.btn-default.btn-file
+              span class="fileinput-new"
+                'Select image
+              '&nbsp;
+              span class="fileinput-exists"
+                'Change
+              = f.file_field :recording_artwork, multiple: false
+
+            '&nbsp;
+            a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+              'Remove
+
+        br
+        br
+        br
+        
+        
+        /= f.input :recording_artwork
+      .col-sm-4
+        .fileinput.fileinput-new data-provides="fileinput"
+          .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+            = image_tag @default_image.user_avatar, size: '184x184'
+
+          div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+          div
+            span.btn.btn-default.btn-file
+              span class="fileinput-new"
+                'Select image
+              '&nbsp;
+              span class="fileinput-exists"
+                'Change
+              = f.file_field :user_avatar, multiple: false
+
+            '&nbsp;
+            a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+              'Remove
+              
+              
+        /= f.input :user_avatar
+      .col-sm-4
+        .fileinput.fileinput-new data-provides="fileinput"
+          .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+            = image_tag @default_image.company_logo, size: '184x184'
+
+          div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+          div
+            span.btn.btn-default.btn-file
+              span class="fileinput-new"
+                'Select image
+              '&nbsp;
+              span class="fileinput-exists"
+                'Change
+              = f.file_field :company_logo, multiple: false
+
+            '&nbsp;
+            a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+              'Remove
+        /= f.input :company_logo
+
+  .pull-right
+    .form-actions
+      = f.submit 'Save', class: 'btn btn-primary'
