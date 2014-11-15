@@ -1,8 +1,29 @@
-h1 Editing default_image
 
-== render 'form'
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, content: admin_content_index_path}, current: ''}
+      == render 'admin/shared/messages'
+      h3 Edit default image set
+      'Used for avatars, logos e.t.c
+      .sexy_line
+      == render 'form'
+          
+          
+            
+          
 
-= link_to 'Show', @default_image
-'|
-= link_to 'Back', default_images_path
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
 

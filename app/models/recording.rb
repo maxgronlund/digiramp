@@ -454,8 +454,6 @@ class Recording < ActiveRecord::Base
       return self.artwork unless self.artwork.to_s ==''
       return self.cover_art unless self.cover_art == ''
     end
-    
-
     'http://digiramp.com/assets/digiramp-logo2-b204530a32a3b4098e35bbc3f7c57b62.png'
   end
   

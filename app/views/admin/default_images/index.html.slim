@@ -28,12 +28,12 @@
         tbody
           - @default_images.each do |default_image|
             tr
-              td = default_image.recording_artwork
-              td = default_image.user_avatar
-              td = default_image.company_logo
-              td = link_to 'Show', default_image
-              td = link_to 'Edit', edit_default_image_path(default_image)
-              td = link_to 'Destroy', default_image, data: {:confirm => 'Are you sure?'}, :method => :delete
+              td = image_tag  default_image.recording_artwork_url(:avatar_92x92)
+              td = image_tag  default_image.user_avatar_url(:avatar_92x92)
+              td = image_tag  default_image.company_logo_url(:avatar_92x92)
+              td = link_to 'Show', admin_default_image_path(default_image)
+              td = link_to 'Edit', edit_admin_default_image_path(default_image)
+              td = link_to 'Destroy', admin_default_image_path(default_image), data: {:confirm => 'Are you sure?'}, :method => :delete
 
       br
 
