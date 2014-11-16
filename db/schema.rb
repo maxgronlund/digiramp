@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141115192419) do
+ActiveRecord::Schema.define(version: 20141116203923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -751,6 +751,7 @@ ActiveRecord::Schema.define(version: 20141115192419) do
     t.string   "company_logo"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   create_table "documents", force: true do |t|
@@ -1647,6 +1648,18 @@ ActiveRecord::Schema.define(version: 20141115192419) do
 
   add_index "recording_items", ["itemable_id", "itemable_type"], name: "index_recording_items_on_itemable_id_and_itemable_type", using: :btree
   add_index "recording_items", ["recording_id"], name: "index_recording_items_on_recording_id", using: :btree
+
+  create_table "recording_views", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "recording_id"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "recording_views", ["account_id"], name: "index_recording_views_on_account_id", using: :btree
+  add_index "recording_views", ["recording_id"], name: "index_recording_views_on_recording_id", using: :btree
+  add_index "recording_views", ["user_id"], name: "index_recording_views_on_user_id", using: :btree
 
   create_table "recordings", force: true do |t|
     t.integer  "common_work_id"

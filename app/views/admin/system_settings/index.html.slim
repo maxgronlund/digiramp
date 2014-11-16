@@ -1,25 +1,75 @@
-h1 Listing system_settings
+/h1 Listing system_settings
+/
+/table
+/  thead
+/    tr
+/      th Recording artwork
+/      th User avatar
+/      th Company logo
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @system_settings.each do |system_setting|
+/      tr
+/        td = system_setting.recording_artwork_id
+/        td = system_setting.user_avatar_id
+/        td = system_setting.company_logo_id
+/        td = link_to 'Show', system_setting
+/        td = link_to 'Edit', edit_system_setting_path(system_setting)
+/        td = link_to 'Destroy', system_setting, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New System setting', new_system_setting_path
 
-table
-  thead
-    tr
-      th Recording artwork
-      th User avatar
-      th Company logo
-      th
-      th
-      th
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path}, current: ''}
+      == render 'admin/shared/messages'
+      h3 System settings
+      'Default settings
+      .sexy_line
+      h4 Default Images
+      .row
+        .col-sm-6
+          = simple_form_for [:admin, @system_setting] do |f|
+            = f.error_notification
+          
+            .form-inputs
+              = f.input :recording_artwork_id, collection: DefaultImage.all, value_method: :id,  include_blank: false
+              = f.input :user_avatar_id, collection: DefaultImage.all, value_method: :id,  include_blank: false
+              = f.input :company_logo_id, collection: DefaultImage.all, value_method: :id,  include_blank: false
+          
+            .form-actions
+              .pull-right
+                = f.submit 'Save', class: 'btn btn-primary'
+          
 
-  tbody
-    - @system_settings.each do |system_setting|
-      tr
-        td = system_setting.recording_artwork_id
-        td = system_setting.user_avatar_id
-        td = system_setting.company_logo_id
-        td = link_to 'Show', system_setting
-        td = link_to 'Edit', edit_system_setting_path(system_setting)
-        td = link_to 'Destroy', system_setting, data: {:confirm => 'Are you sure?'}, :method => :delete
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
 
-br
 
-= link_to 'New System setting', new_system_setting_path
+
+/== simple_form_for(@system_setting) do |f|
+/=  = f.error_notification
+/=
+/=  .form-inputs
+/=    = f.input :defatul_artwork, collection: DefaultImage.all, value_method: :id, include_blank: false
+/=    /= f.input :recording_artwork_id, collection: 18..60
+/=    = f.input :user_avatar_id
+/=    = f.input :company_logo_id
+/=
+/=  .form-actions
+/=    = f.button :submit
+/=

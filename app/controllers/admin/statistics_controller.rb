@@ -7,6 +7,9 @@ class Admin::StatisticsController < ApplicationController
 
   def recordings
     
+    @user = current_user
+    @authorized = true
+    
     # !!! optimization
     # create model to hold informations
     # run background task once a day to gather informations
@@ -15,12 +18,17 @@ class Admin::StatisticsController < ApplicationController
     @recordings_chart = @recording_uploads.group_by_day(:created_at).count
     
     
-    @playbacks      = PublicActivity::Activity.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
-    @playback_chart = @playbacks.where( trackable_type: "Recording", key: "recording.playback").group_by_day(:created_at).count 
+    #@playbacks      = PublicActivity::Activity.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    #@playback_chart = @playbacks.where( trackable_type: "Recording", key: "recording.playback").group_by_day(:created_at).count 
     
-    @views      = PublicActivity::Activity.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
-    @views_chart = @views.where( trackable_type: "Recording", key: "recording.show").group_by_day(:created_at).count 
-
+    @playbacks      = Playback.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @playback_chart = @playbacks.group_by_day(:created_at).count 
+    
+    
+    @views      = RecordingView.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @views_chart = @views.group_by_day(:created_at).count 
+    
+   
     
     
    

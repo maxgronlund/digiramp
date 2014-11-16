@@ -63,6 +63,7 @@ class Recording < ActiveRecord::Base
   has_many :recording_items,                            dependent: :destroy
   has_many :recording_ipis,                             dependent: :destroy
   has_many :playbacks,                                  dependent: :destroy
+  has_many :recording_views,                            dependent: :destroy
   has_many :likes,                                      dependent: :destroy
   #has_and_belongs_to_many :recordings,                  dependent: :destroy
   

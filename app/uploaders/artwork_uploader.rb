@@ -35,18 +35,21 @@ class ArtworkUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:  
   cattr_accessor :version_dimensions
   self.version_dimensions = {
+    :size_48x48     => [48,48],
     :size_62x62     => [62,62],
-    :size_302x174   => [302, 174],
-    :size_370x272   => [370, 272],
+    :size_184x184   => [184,184],
+    #:size_302x174   => [302, 174],
+    :size_360x360   => [360,360],
+    #:size_370x272   => [370, 272],
     :size_423x228   => [423, 228],
-    :size_481x430   => [481, 430],
-    :size_470x346   => [470, 346],
+    #:size_481x430   => [481, 430],
+    #:size_470x346   => [470, 346],
     :size_570x320   => [570, 320], # 16/9 format
-    :size_600x400   => [600, 400],
-    :size_770x567   => [770, 567],
-    :size_870x489   => [870, 489],
-    :size_1170x377  => [1170, 377],
-    :size_1170x658  => [1170, 658]
+    #:size_600x400   => [600, 400],
+    #:size_770x567   => [770, 567],
+    #:size_870x489   => [870, 489],
+    #:size_1170x377  => [1170, 377],
+    #:size_1170x658  => [1170, 658]
   }
 
   RESIZE_GRAVITY = 'NorthWest'

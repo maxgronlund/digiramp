@@ -94,6 +94,7 @@ class User < ActiveRecord::Base
   
   # statistic on playbacks
   has_many :playbacks
+  has_many :recording_views
   
   # statistic on likes
   has_many :likes

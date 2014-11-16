@@ -61,13 +61,20 @@ class RecordingsController < ApplicationController
   end
   
   def show
+    
+    
     @recording = Recording.find(params[:id])
     @playlists  = current_user.playlists if current_user
-    respond_to do |format|
-        format.html
-        format.js
-        format.xml { render xml: @recording }
-      end
+    
+    
+    unless request.xhr?
+      user_id = current_user ? current_user.id : nil
+    
+      RecordingView.create( recording_id: @recording.id, 
+                             user_id: user_id, 
+                             account_id: @recording.account_id 
+                           )
+    end
       
   end
   

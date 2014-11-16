@@ -2,72 +2,88 @@
   = f.error_notification
 
   .form-inputs
-    .row
-      .col-sm-4
-        .fileinput.fileinput-new data-provides="fileinput"
-          .fileinput-new.thumbnail style="width: 184px; height: 184px;"
-            = image_tag @default_image.recording_artwork, size: '184x184'
+    = f.input :title
+    br
+    h4 Recordings
+    .fileinput.fileinput-new data-provides="fileinput"
+      .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+        = image_tag @default_image.recording_artwork_url(:size_184x184), size: '184x184'
 
-          div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
-          div
-            span.btn.btn-default.btn-file
-              span class="fileinput-new"
-                'Select image
-              '&nbsp;
-              span class="fileinput-exists"
-                'Change
-              = f.file_field :recording_artwork, multiple: false
+      div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+      div
+        span.btn.btn-default.btn-file
+          span class="fileinput-new"
+            'Select image
+          '&nbsp;
+          span class="fileinput-exists"
+            'Change
+          = f.file_field :recording_artwork, multiple: false
 
-            '&nbsp;
-            a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-              'Remove
+        '&nbsp;
+        a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+          'Remove
 
-        br
-        br
-        br
-        
-        
-        /= f.input :recording_artwork
-      .col-sm-4
-        .fileinput.fileinput-new data-provides="fileinput"
-          .fileinput-new.thumbnail style="width: 184px; height: 184px;"
-            = image_tag @default_image.user_avatar, size: '184x184'
+    .sexy_line
 
-          div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
-          div
-            span.btn.btn-default.btn-file
-              span class="fileinput-new"
-                'Select image
-              '&nbsp;
-              span class="fileinput-exists"
-                'Change
-              = f.file_field :user_avatar, multiple: false
+    h4 Users
+    .fileinput.fileinput-new data-provides="fileinput"
+      .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+        = image_tag @default_image.user_avatar_url(:avatar_184x184), size: '184x184'
 
-            '&nbsp;
-            a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-              'Remove
-              
-              
-        /= f.input :user_avatar
-      .col-sm-4
-        .fileinput.fileinput-new data-provides="fileinput"
-          .fileinput-new.thumbnail style="width: 184px; height: 184px;"
-            = image_tag @default_image.company_logo, size: '184x184'
+      div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+      div
+        span.btn.btn-default.btn-file
+          span class="fileinput-new"
+            'Select image
+          '&nbsp;
+          span class="fileinput-exists"
+            'Change
+          = f.file_field :user_avatar, multiple: false
 
-          div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
-          div
-            span.btn.btn-default.btn-file
-              span class="fileinput-new"
-                'Select image
-              '&nbsp;
-              span class="fileinput-exists"
-                'Change
-              = f.file_field :company_logo, multiple: false
+        '&nbsp;
+        a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+          'Remove
+    .sexy_line
 
-            '&nbsp;
-            a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-              'Remove
-        /= f.input :company_logo
+    h4 Logos
+    .fileinput.fileinput-new data-provides="fileinput"
+      .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+        = image_tag @default_image.company_logo_url(:size_184x184), size: '184x184'
+
+      div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+      div
+        span.btn.btn-default.btn-file
+          span class="fileinput-new"
+            'Select image
+          '&nbsp;
+          span class="fileinput-exists"
+            'Change
+          = f.file_field :company_logo, multiple: false
+
+        '&nbsp;
+        a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+          'Remove
+    .sexy_line  
+         
+    /h4 Logos
+    /.fileinput.fileinput-new data-provides="fileinput"
+    /  .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+    /    = image_tag @default_image.company_logo_url(:size_184x184), size: '184x184'
+    /
+    /  div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+    /  div
+    /    span.btn.btn-default.btn-file
+    /      span class="fileinput-new"
+    /        'Select image
+    /      '&nbsp;
+    /      span class="fileinput-exists"
+    /        'Change
+    /      = f.file_field :company_logo, multiple: false
+    /
+    /    '&nbsp;
+    /    a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+    /      'Remove
+
 
   .pull-right
     .form-actions

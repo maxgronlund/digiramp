@@ -5,6 +5,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
 
+
   # Choose what kind of storage to use for this uploader:
   storage :file
   #storage :fog
@@ -15,7 +16,8 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url
-    "/assets/fallback/" + [version_name, "account-logo.jpg"].compact.join('_')
+    #"/assets/fallback/" + [version_name, "default.jpg"].compact.join('_')
+    ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.jpg"].compact.join('_'))
     #"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
@@ -41,8 +43,9 @@ class AvatarUploader < CarrierWave::Uploader::Base
   version :avatar_120x120  do process :resize_to_fill => [120,120 , 'Center']      end
   version :avatar_145x145  do process :resize_to_fill => [145,145 , 'Center']      end
   version :avatar_170x170  do process :resize_to_fill => [170, 170, 'Center']      end
+  version :avatar_184x184  do process :resize_to_fill => [184, 184, 'Center']      end
   version :avatar_270x270  do process :resize_to_fill => [270, 270, 'Center']      end
-  version :avatar_370x370  do process :resize_to_fill => [370, 370, 'Center']      end
+  #version :avatar_370x370  do process :resize_to_fill => [370, 370, 'Center']      end
     
   #version :avatar_32x32    do 
   #  process :convert => 'png'  

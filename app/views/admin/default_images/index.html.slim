@@ -15,29 +15,41 @@
       h3 Default images
       'Used for avatars, logos e.t.c
       .sexy_line
-      table
+
+      table.table.table-hover
         thead
           tr
+            th Title
             th Recording artwork
             th User avatar
             th Company logo
             th
-            th
-            th
+
 
         tbody
           - @default_images.each do |default_image|
             tr
-              td = image_tag  default_image.recording_artwork_url(:avatar_92x92)
-              td = image_tag  default_image.user_avatar_url(:avatar_92x92)
-              td = image_tag  default_image.company_logo_url(:avatar_92x92)
-              td = link_to 'Show', admin_default_image_path(default_image)
-              td = link_to 'Edit', edit_admin_default_image_path(default_image)
-              td = link_to 'Destroy', admin_default_image_path(default_image), data: {:confirm => 'Are you sure?'}, :method => :delete
+              th = default_image.title
+              td
+                .thumbnail style="width :56px"
+                  = image_tag  default_image.recording_artwork_url(:size_48x48)
+              td
+                .thumbnail style="width :56px"
+                  = image_tag  default_image.user_avatar_url(:avatar_48x48)
+              td
+                .thumbnail style="width :56px"
+                  = image_tag  default_image.company_logo_url(:small)
+              td 
+                .pull-right
+                  = link_to 'Show', admin_default_image_path(default_image), class: 'btn btn-default'
+                  '&nbsp;
+                  = link_to 'Edit', edit_admin_default_image_path(default_image), class: 'btn btn-default'
+                  '&nbsp;
+                  = link_to 'Destroy', admin_default_image_path(default_image), data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'btn btn-default'
 
       br
-
-      = link_to 'New Default image set', new_admin_default_image_path, class: 'btn btn-primary'
+      .pull-right
+        = link_to 'New Default image set', new_admin_default_image_path, class: 'btn btn-primary'
           
           
             

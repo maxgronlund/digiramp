@@ -68,6 +68,7 @@ class Account < ActiveRecord::Base
   
   # statistick on playbacks
   has_many :playbacks
+  has_many :recording_views
   
   # statistick on likes
   has_many :likes

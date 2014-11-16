@@ -54,6 +54,6 @@ class Admin::DefaultImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def default_image_params
-      params.require(:default_image).permit(:recording_artwork, :user_avatar, :company_logo)
+      params.require(:default_image).permit!
     end
 end

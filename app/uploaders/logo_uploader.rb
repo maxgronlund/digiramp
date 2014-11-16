@@ -19,12 +19,11 @@ class LogoUploader < CarrierWave::Uploader::Base
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-  #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
+  def default_url
+    #"/assets/fallback/" + [version_name, "default.jpg"].compact.join('_')
+    ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.jpg"].compact.join('_'))
+    #"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
 
   # Process files as they are uploaded:
   # process :scale => [200, 300]
@@ -33,20 +32,35 @@ class LogoUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  # Create different versions of your uploaded files:
-  version :default do
-    #process :resize_to_fit => [200, 113]
-    #resize_and_pad(340, 96,:transparent,'Center')
-    #process :convert => 'png'
-    process :resize_to_fit => [640, 640]
-  end
   
-  version :small do
-    #process :resize_to_fit => [200, 113]
-    #resize_and_pad(170, 48,:transparent,'Center')
-    #process :convert => 'png'
-    process :resize_to_fit => [150, 150]
-  end
+  version :default         do process :resize_to_fill => [32,32     , 'Center']      end
+  version :small           do process :resize_to_fill => [48,48     , 'Center']      end
+  version :size_184x184    do process :resize_to_fill => [184,184   , 'Center']      end
+  version :size_270x270    do process :resize_to_fill => [270,270   , 'Center']      end
+  
+  
+  
+  # Create different versions of your uploaded files:
+  #version :default do
+  #  #process :resize_to_fit => [200, 113]
+  #  #resize_and_pad(340, 96,:transparent,'Center')
+  #  #process :convert => 'png'
+  #  process :resize_to_fit => [640, 640]
+  #end
+  #
+  #version :small do
+  #  #process :resize_to_fit => [200, 113]
+  #  #resize_and_pad(170, 48,:transparent,'Center')
+  #  #process :convert => 'png'
+  #  process :resize_to_fit => [150, 150]
+  #end
+  #
+  #version :size_184x184 do
+  #  #process :resize_to_fit => [200, 113]
+  #  #resize_and_pad(170, 48,:transparent,'Center')
+  #  #process :convert => 'png'
+  #  process :resize_to_fit => [184, 184]
+  #end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

@@ -1,44 +1,96 @@
-#wrap
-  .admin
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'admin'
 
-               
-  .container
-    ==render 'admin/shared/messages'
-    /-cache (['statistics', Admin.cached_find(1).version]) do      
-    .do
 
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,\
                                                               statistics: admin_statistics_path \
-                                                             }, current: 'Recordings'}
+                                                             }, current: ''}
+      h3 Recordings
+      'Playback, uploads and views 
+      .sexy_line
 
+      h4 Created
+      = line_chart @recordings_chart
       
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Statistics'), blog_post: 'Recordings'} 
+      h4 Playbacks
+      = line_chart @playback_chart
 
-      .row
-        .col-sm-6
-          h3 Total: #{ Recording.all.size}
-        .col-sm-6
-          h3 Uploaded: #{@recording_uploads.size}
-      .row
-        .col-sm-12
-          hr
-          h3 Created
-          = line_chart @recordings_chart
-      .row
-        .col-sm-12
-          hr
-          h3 Playbacks
-          = line_chart @playback_chart
-      .row
-        .col-sm-12
-          hr
-          h3 Views
-          = line_chart @views_chart
+      h4 Views
+      = line_chart @views_chart
       
-      
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-  
+          
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  .admin
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'admin'
+/
+/               
+/  .container
+/    ==render 'admin/shared/messages'
+/    /-cache (['statistics', Admin.cached_find(1).version]) do      
+/    .do
+/
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,\
+/                                                              statistics: admin_statistics_path \
+/                                                             }, current: 'Recordings'}
+/
+/      
+/      == render 'shared/page_title', locals: {blog: Blog.cached_find('Statistics'), blog_post: 'Recordings'} 
+/
+/      .row
+/        .col-sm-6
+/          h3 Total: #{ Recording.all.size}
+/        .col-sm-6
+/          h3 Uploaded: #{@recording_uploads.size}
+/      .row
+/        .col-sm-12
+/          hr
+/          h3 Created
+/          = line_chart @recordings_chart
+/      .row
+/        .col-sm-12
+/          hr
+/          h3 Playbacks
+/          = line_chart @playback_chart
+/      .row
+/        .col-sm-12
+/          hr
+/          h3 Views
+/          = line_chart @views_chart
+/      
+/      
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/  
 
