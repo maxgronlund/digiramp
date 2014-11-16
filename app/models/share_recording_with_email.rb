@@ -13,7 +13,7 @@ class ShareRecordingWithEmail < ActiveRecord::Base
     self.recipients.split(',').each do |email|
       email.strip!
       if EmailValidator.validate( email )
-        ShareRecordingWithEmailMailer.delay_for(5.seconds).send_email( self.id, email )  
+        ShareRecordingWithEmailMailer.delay_for(8.seconds).send_email( self.id, email )  
         send_emails += 1                       
       end
     end
@@ -21,7 +21,7 @@ class ShareRecordingWithEmail < ActiveRecord::Base
     if send_emails == 0
       message = 'No emails sent'
     elsif send_emails == 1
-      message = 'One email was sent'
+      message = 'One email sent'
     else
       message = send_emails.to_s
       message << 'emails sent'

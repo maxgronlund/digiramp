@@ -39,55 +39,54 @@
     .container-fluid
 
       == render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
-      #digiWhams  class="/catalog/accounts/#{@account.id}/catalogs/#{@catalog.id}/recordings"
+      - @recordings.each do |recording|
+        #digiWhams  class="/recordings/#{recording.id.to_s}"
+          == render 'show', recording: recording
+      /- @recordings.each do |recording|
+      /  == render 'catalog/recordings/show', recording: recording
       
-        - @recordings.each_with_index do |recording, index |
-          == render 'audio_player/show', recording: recording 
-          .btn-group.btn-group-xs
-            = link_to catalog_account_catalog_recording_path(@account, @catalog, recording), \
-                      class: "btn btn-default" do
-              i class="fa fa-eye"
-              '&nbsp;
-              'Show
-              
-            = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
-                      class: "btn btn-default"  do
-              i class="fa fa-pencil"
-              '&nbsp;
-              'Edit
-        
-              
-            = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
-                      class: "btn btn-default"  do
-              i class="fa fa-heart"
-              '&nbsp;
-              'Like
-        
-              
-            = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
-                      class: "btn btn-default"  do
-              i class="fa fa-trash-o"
-              '&nbsp;
-              'Delete
-        
-              
-        
-          
-          .pull-right
-            .btn-group.btn-group-xs
-              = link_to catalog_account_catalog_recording_path(@account, @catalog, recording), \
-                        class: "btn btn-default"  do
-                'Remove
-           
-          hr
-      /.digiramp_player
-      /  div class="panel-group" id="accordion"
-      /    div class="permissions" value="catalog_recordings" id="#{@catalog.id}"
-      /    - @recordings.each do |recording|
-      /      == render 'recordings/recording', recording: recording
-      /             
+      /#digiWhams  class="/catalog/accounts/#{@account.id}/catalogs/#{@catalog.id}/recordings"
+      /
+      /  - @recordings.each_with_index do |recording, index |
+      /    == render 'audio_player/show', recording: recording 
+      /    .btn-group.btn-group-xs
+      /      = link_to catalog_account_catalog_recording_path(@account, @catalog, recording), \
+      /                class: "btn btn-default" do
+      /        i class="fa fa-eye"
+      /        '&nbsp;
+      /        'Show
       /        
-      /       
+      /      = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
+      /                class: "btn btn-default"  do
+      /        i class="fa fa-pencil"
+      /        '&nbsp;
+      /        'Edit
+      /  
+      /        
+      /      = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
+      /                class: "btn btn-default"  do
+      /        i class="fa fa-heart"
+      /        '&nbsp;
+      /        'Like
+      /  
+      /        
+      /      = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
+      /                class: "btn btn-default"  do
+      /        i class="fa fa-trash-o"
+      /        '&nbsp;
+      /        'Delete
+      /  
+      /        
+      /  
+      /    
+      /    .pull-right
+      /      .btn-group.btn-group-xs
+      /        = link_to catalog_account_catalog_recording_path(@account, @catalog, recording), \
+      /                  class: "btn btn-default"  do
+      /          'Remove
+      /     
+      /    hr
+           
         .hidden-xs
           == paginate(@recordings)
         .visible-xs
