@@ -13,19 +13,18 @@ class ShareRecordingWithEmail < ActiveRecord::Base
     self.recipients.split(',').each do |email|
       email.strip!
       if EmailValidator.validate( email )
-        
         ShareRecordingWithEmailMailer.delay_for(5.seconds).send_email( self.id, email )  
         send_emails += 1                       
       end
     end
 
     if send_emails == 0
-      message = 'No emails was send'
+      message = 'No emails sent'
     elsif send_emails == 1
-      message = 'An email was send'
+      message = 'One email was sent'
     else
       message = send_emails.to_s
-      message << ' emails was send'
+      message << 'emails sent'
     end
       
     channel = 'digiramp_radio_' + self.user.email
