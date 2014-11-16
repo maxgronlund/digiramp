@@ -30,15 +30,9 @@
           - @default_images.each do |default_image|
             tr
               th = default_image.title
-              td
-                .thumbnail style="width :56px"
-                  = image_tag  default_image.recording_artwork_url(:size_48x48)
-              td
-                .thumbnail style="width :56px"
-                  = image_tag  default_image.user_avatar_url(:avatar_48x48)
-              td
-                .thumbnail style="width :56px"
-                  = image_tag  default_image.company_logo_url(:small)
+              td = image_tag  default_image.recording_artwork_url(:size_48x48)
+              td = image_tag  default_image.user_avatar_url(:avatar_48x48)
+              td = image_tag  default_image.company_logo_url(:small)
               td 
                 .pull-right
                   = link_to 'Show', admin_default_image_path(default_image), class: 'btn btn-default'

@@ -8,9 +8,10 @@ class ShareRecordingWithEmailMailer < ActionMailer::Base
     @title                      = share_recording_with_email.title
     @message                    = share_recording_with_email.message
     @recording                  = share_recording_with_email.recording
-    @cover_art                  = @recording.cover_art || 'http://digiramp.com/uploads/default_image/recording_artwork/1/image_270x270_playlist.jpg'
+    @cover_art                  = @recording.cover_art || @recording.get_cover_art
     #@cover_art                  = @recording.get_artwork
-    
+    puts '==========================================='
+    puts @cover_art
     @recording_link             = url_for( controller: 'recordings', action: 'show', user_id: @recording.user_id, id: @recording.id  )
     @fotter_link                = url_for( controller: 'contacts', action: 'new')
 

@@ -454,8 +454,22 @@ class Recording < ActiveRecord::Base
     rescue
       return self.artwork unless self.artwork.to_s ==''
       return self.cover_art unless self.cover_art == ''
+      return self.get_cover_art unless self.get_cover_art == ''
     end
+    
     'http://digiramp.com/assets/digiramp-logo2-b204530a32a3b4098e35bbc3f7c57b62.png'
+  end
+  
+  def get_cover_art
+    begin
+      system_settings = SystemSetting.first_or_create
+      system_settings.recording_artwork_id
+      default_image   = DefaultImage.find(system_settings.recording_artwork_id)
+      return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
+      #https://digiramp.com/uploads/default_image/recording_artwork/3/size_184x184_logo-03.jpg'
+    rescue
+      return ''
+    end
   end
   
   def get_comment
