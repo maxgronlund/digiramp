@@ -1,11 +1,10 @@
-div id="delete_recording_#{recording.id.to_s}"
-  == render 'recordings/recording_with_icons', recording: recording,
-                                               info: true,
-                                               add_to_playlist: true, 
-                                               remove_from_playlist: false, 
-                                               edit: true, 
-                                               delete: true,
-                                               description: true,
-                                               share: true,
-                                               target: "",
-                                               music_request_link: false
+== render 'recordings/recording_with_icons', recording: recording,
+                                             info: true,
+                                             add_to_playlist: true, 
+                                             remove_from_playlist: false, 
+                                             edit: true, 
+                                             delete: true,
+                                             description: true,
+                                             share: true,
+                                             target: "",
+                                             music_request_link: false

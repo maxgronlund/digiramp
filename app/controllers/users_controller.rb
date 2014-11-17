@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-
+    @authorized = true
   end
 
   def create

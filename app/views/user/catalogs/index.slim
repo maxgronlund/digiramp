@@ -1,62 +1,153 @@
-- user_account = Account.cached_find(@user.account_id)
-#wrap
-  .profile
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'profile'     
-  .container
-    ==render 'admin/shared/messages'
-    /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
-    .do   
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {home: user_path(@user) }, current: 'catalogs'} 
-      
-                                                           
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Catalogs'}
-      .row
-        .col-sm-12
-          - catalog_ids = CatalogUser.where(user_id: @user.id ).pluck(:catalog_id)
-          - catalogs = Catalog.order('title asc').where(id: catalog_ids)
-          .panel.panel-primary
-            .panel-heading
-              'CATALOGS
-            .panel-body
-              .table-responsive
-                table class="table table-hover"
-                  thead
-                    tr
-                      th CATALOG
-                      th RECORDINGS
-                      th COMMON WORKS
-                      
-                  
-                  tbody
-                    -catalogs.each do |catalog|
-                      - catalog_user = CatalogUser.cached_where(catalog.id, @user.id)
-                      tr
-                        td 
-                          = link_to catalog_account_catalog_path(catalog.account, catalog) do
-                            .btn.btn-primary.btn-lg
-                              i class='fa fa-book'
-                              '&nbsp;
-                              = catalog.title
-                        td
-                          = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do 
-                             div class="btn btn-warning btn-lg #{'disabled' unless catalog_user.read_recording}"
-                                i class='fa fa-headphones'
-                                '&nbsp;
-                                =catalog.nr_recordings
-                        td
-                          = link_to catalog_account_catalog_common_works_path(catalog.account, catalog) do 
-                             div class="btn btn-primary btn-lg #{'disabled' unless catalog_user.read_recording}"
-                                i class='fa fa-music'
-                                '&nbsp;
-                                =catalog.nr_common_works
-                          
-        
-                         
-                        
-              
 
-      
-    == render 'shared/back', locals: {link: user_path(@user)}       
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'  
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'catalogs'
+  
+  #page-content-wrapper
+    .container-fluid
+      ==render 'admin/shared/messages'
+      h3 Catalogs
+      'Catalogs you have access to
+      .sexy_line
+      .catalog
+        .catalog-badges
+          - @catalogs.each do |catalog|
+            - catalog_user = CatalogUser.cached_where(catalog.id, @user.id)
+            .catalog-badge-container
+              .catalog-badge 
+                .title
+                  h4 = catalog.title
+                .body
+                  i class='fa fa-headphones'
+                  '&nbsp;
+                  'Recordings:
+                  '&nbsp;
+                  =catalog.nr_recordings
+                  .pull-right
+                    = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do
+                      .btn.btn-default.btn-xs
+                        'Show
+                        
+                  .sexy_line
+                  i class='fa fa-music'
+                  '&nbsp;
+                  'Common works:
+                  '&nbsp;
+                  =catalog.nr_common_works
+                  .pull-right
+                    = link_to catalog_account_catalog_common_works_path(catalog.account, catalog) do
+                      .btn.btn-default.btn-xs
+                        'Show
+                        
+                  .sexy_line
+                  i class='fa fa-user'
+                  '&nbsp;
+                  'Administrator:
+                  br
+                  = catalog.account.title
+                  
+        
+      /.table-responsive
+      /  table class="table table-hover"
+      /    thead
+      /      tr
+      /        th CATALOG
+      /        th RECORDINGS
+      /        th COMMON WORKS
+      /        
+      /    
+      /    tbody
+      /      - @catalogs.each do |catalog|
+      /        - catalog_user = CatalogUser.cached_where(catalog.id, @user.id)
+      /        tr
+      /          th 
+      /            = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do
+      /              .btn.btn-default
+      /                i class='fa fa-book'
+      /                '&nbsp;
+      /                = catalog.title
+      /          td
+      /            = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do 
+      /               div class="btn btn-warning #{'disabled' unless catalog_user.read_recording}"
+      /                  i class='fa fa-headphones'
+      /                  '&nbsp;
+      /                  =catalog.nr_recordings
+      /          td
+      /            = link_to catalog_account_catalog_common_works_path(catalog.account, catalog) do 
+      /               div class="btn btn-primary #{'disabled' unless catalog_user.read_recording}"
+      /                  i class='fa fa-music'
+      /                  '&nbsp;
+      /                  =catalog.nr_common_works
+      /
+      /
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+/- user_account = Account.cached_find(@user.account_id)
+/#wrap
+/  .profile
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'profile'     
+/  .container
+/    ==render 'admin/shared/messages'
+/    /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
+/    .do   
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: {home: user_path(@user) }, current: 'catalogs'} 
+/      
+/                                                           
+/      == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Catalogs'}
+/      .row
+/        .col-sm-12
+/          - catalog_ids = CatalogUser.where(user_id: @user.id ).pluck(:catalog_id)
+/          - catalogs = Catalog.order('title asc').where(id: catalog_ids)
+/          .panel.panel-primary
+/            .panel-heading
+/              'CATALOGS
+/            .panel-body
+/              .table-responsive
+/                table class="table table-hover"
+/                  thead
+/                    tr
+/                      th CATALOG
+/                      th RECORDINGS
+/                      th COMMON WORKS
+/                      
+/                  
+/                  tbody
+/                    -catalogs.each do |catalog|
+/                      - catalog_user = CatalogUser.cached_where(catalog.id, @user.id)
+/                      tr
+/                        td 
+/                          = link_to catalog_account_catalog_path(catalog.account, catalog) do
+/                            .btn.btn-primary.btn-lg
+/                              i class='fa fa-book'
+/                              '&nbsp;
+/                              = catalog.title
+/                        td
+/                          = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do 
+/                             div class="btn btn-warning btn-lg #{'disabled' unless catalog_user.read_recording}"
+/                                i class='fa fa-headphones'
+/                                '&nbsp;
+/                                =catalog.nr_recordings
+/                        td
+/                          = link_to catalog_account_catalog_common_works_path(catalog.account, catalog) do 
+/                             div class="btn btn-primary btn-lg #{'disabled' unless catalog_user.read_recording}"
+/                                i class='fa fa-music'
+/                                '&nbsp;
+/                                =catalog.nr_common_works
+/                          
+/        
+/                         
+/                        
+/              
+/
+/      
+/    == render 'shared/back', locals: {link: user_path(@user)}       
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'  

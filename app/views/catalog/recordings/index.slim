@@ -1,7 +1,6 @@
 #wrapper
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'shared/navigationbar', page: 'account'         
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account'         
 
   #sidebar-wrapper
     ul class="sidebar-nav"
@@ -37,7 +36,7 @@
 
   #page-content-wrapper
     .container-fluid
-
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {catalogs: user_user_catalogs_path( current_user) }, current: ''} 
       == render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
       - @recordings.each do |recording|
         #digiWhams  class="/recordings/#{recording.id.to_s}"

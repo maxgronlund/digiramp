@@ -1,0 +1,56 @@
+@import "row_machine"
+@import "colors"
+
+
+
+.catalog
+ 
+  .catalog-badges
+    width: 100%
+    .catalog-badge-container:hover
+      background-color: #F8F8F8
+    .catalog-badge-container
+      @include rowMachine(6, 0.5%)
+      float: left
+      -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+      background-color: #FFF
+      margin-bottom: 5px !important
+      height: 250px
+
+      @media (max-width: 1693px) 
+        @include rowMachine(5, 0.5%)
+
+      @media (max-width: 1473px) 
+        @include rowMachine(4, 0.5%)
+
+      @media (max-width: 1253px) 
+        @include rowMachine(4, 0.5%)
+        
+      @media (max-width: 1133px) 
+        @include rowMachine(3, 0.75%)
+        
+      @media (max-width: 963px) 
+        @include rowMachine(2, 1%)
+
+      @media (max-width: 768px) 
+        @include rowMachine(2, 1.5%)
+
+      @media (max-width: 544px) 
+        @include rowMachine(1, 0.0%)
+
+      a
+        color: #888
+      .catalog-badge 
+        .title
+          min-height: 40px
+          background-color: $common-work-color
+          padding: 10px
+          h4
+            color: #fff
+            margin: 0px
+
+        .body
+          position: relative
+          padding: 10px
+          min-height: 100px

@@ -1,7 +1,8 @@
 - recordings.each do |recording|
-  #digiWhams  class="/recordings/#{recording.id.to_s}"
-    == render 'show', recording: recording
-
+  div id="delete_recording_#{recording.id.to_s}"
+    #digiWhams  class="/recordings/#{recording.id.to_s}"
+      == render 'show', recording: recording
+    
 
 
 

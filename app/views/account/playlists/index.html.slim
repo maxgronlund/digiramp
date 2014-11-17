@@ -50,7 +50,7 @@
                                 i class="fa fa-pencil"
                           -if current_account_user.delete_playlist?
                             '&nbsp;
-                            = link_to account_account_playlist_path(@account, playlist), data: {data: { confirm: 'Are you sure?' } 'Are you sure?'}, method: :delete do
+                            = link_to account_account_playlist_path(@account, playlist), data:  { confirm: 'Are you sure?' }, method: :delete do
                               .btn.btn-danger.btn-lg
                                 i class="fa fa-times"
                         

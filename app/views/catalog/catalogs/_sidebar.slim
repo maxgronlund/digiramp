@@ -1,9 +1,9 @@
 
-li class="#{'sidebar-selected' if selected == 'info'}"
-  = link_to catalog_account_catalog_path( @account, @catalog) do
-    i class="fa fa-info-circle"
-    '&nbsp;
-    'Info
+/li class="#{'sidebar-selected' if selected == 'info'}"
+/  = link_to catalog_account_catalog_path( @account, @catalog) do
+/    i class="fa fa-info-circle"
+/    '&nbsp;
+/    'Info
 - if current_catalog_user.read_recording 
   li class="#{'sidebar-selected' if selected == 'recordings'}"
     = link_to catalog_account_catalog_recordings_path(@account, @catalog) do
@@ -30,7 +30,7 @@ li class="#{'sidebar-selected' if selected == 'info'}"
     = link_to catalog_account_catalog_catalog_users_path(@account, @catalog) do
       i class="fa fa-group"
       '&nbsp;
-      'Members
+      'Users
 
 -if can_edit? || current_user.id == @account.administrator.id 
   li class="#{'sidebar-selected' if selected == 'move'}"

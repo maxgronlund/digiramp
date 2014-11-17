@@ -1,13 +1,16 @@
 @import "row_machine"
+@import "colors"
 .account-account
-  align: center
+  //align: center
   .account-top  
     .account-logo  
       width: 30% 
+      max-width: 250px
       float: left
       padding-right: 10px
       img
         width: 100%
+        
         height: auto
       
     .account-info  
@@ -16,66 +19,70 @@
       
       
       
-  
-  .account-badges
+  .account-account-badges
     width: 100%
-    .account-badge 
-      @include rowMachine(7, 2%)
-      padding: 8px
+    .account-account-badge-container:hover
+      background-color: #F8F8F8
+    .account-account-badge-container
+      @include rowMachine(6, 0.5%)
       float: left
-      border-radius: 3px
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
-      background-color: #fff
-      height: 180px
-      margin-top: 6px
-      h4
-        margin-top: 10px
-     
-      
-      
+      -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+      background-color: #FFF
+      margin-bottom: 5px !important
+      height: 200px
+
+      @media (max-width: 1473px) 
+        @include rowMachine(5, 0.5%)
+
+      @media (max-width: 1253px) 
+        @include rowMachine(4, 0.5%)
+        
+      @media (max-width: 1133px) 
+        @include rowMachine(3, 0.75%)
+        
+      @media (max-width: 963px) 
+        @include rowMachine(2, 1%)
+
+      @media (max-width: 768px) 
+        @include rowMachine(2, 1.5%)
+
+      @media (max-width: 544px) 
+        @include rowMachine(1, 0.0%)
+
       a
         color: #888
+      .account-account-badge 
+        .title
+          min-height: 40px
+          //@include panel-title-green
+          padding: 10px
+          h4
+            color: #fff
+            margin: 0px
+
+        .body
+          position: relative
+          padding: 10px
+          min-height: 100px
+          
+        .opportunity-title
+          background-color: $opportunity-color
         
-      a:hover
-        color: #555
-    
-      
-      h4
-        a
-          color: #555 !important
-        a:hover
-          color: #000  !important
-  
-      @media (min-width: 1800px) 
-        @include rowMachine(6, 2%)
-      
-      @media (max-width: 1800px) 
-        @include rowMachine(5, 2%)
-  
-      @media (max-width: 1440px) 
-        @include rowMachine(4, 2%)
-  
-      @media (max-width: 1216px) 
-        @include rowMachine(3, 2%)
-  
-      @media (max-width: 992px) 
-        @include rowMachine(2, 4%)
-    
-  
-      @media (max-width: 768px) 
-        @include rowMachine(2, 4%)
+        .users-title
+          background-color: $account-color
         
-      @media (max-width: 650px) 
-        @include rowMachine(2, 4%)
-    
-  
-      @media (max-width: 500px) 
-        @include rowMachine(1, 4%)
-    
-  
-      img 
-        max-width: 100%
-    .account-badge:hover
-      border: 1px solid #eee
-      padding: 7px
-  
+        .recordings-title
+          background-color: $recording-color
+        
+        .common-works-title
+          background-color: $common-work-color
+        
+        .crm-title
+          background-color: $primary-color
+        
+        .admin-title
+          background-color: $admin-color
+        
+        .account-title
+          background-color: $account-color

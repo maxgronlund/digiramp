@@ -1,39 +1,10 @@
-/-session[:return_url] = request.url
-//-@work_user        
-//-@can_administrate 
-/#wrap
-/  div class="#{'profile' if account_owner?}"
-/    .full-width-top
-/      == render 'admin/shared/navbar', page: 'account' 
-/
-/            
-/  .container
-/    ==render 'admin/shared/messages'
-/    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-/                                                            catalogs: catalog_account_catalogs_path(@account), \
-/                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-/                                                            }, current: 'users'}
-/                                                            
-/    
-/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Catalog Users', insert: 'invite_user'}
-/
-/    == render 'personas'  
-/    
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
-/
 #wrapper
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'         
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
 
   #sidebar-wrapper
     ul class="sidebar-nav"
       == render 'catalog/catalogs/sidebar', selected: 'members'
-      li
-        hr
-      .pull-right
-        == link_to 'Invite Users', new_catalog_account_catalog_catalog_user_path(@account, @catalog), class: 'btn btn-primary btn-lg'
 
           
 
@@ -42,10 +13,15 @@
 
       = link_to "#menu-toggle", id: "menu-toggle" do
         i class="fa fa-caret-square-o-left"
-      == render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
-      
-      
+      /== render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
+      h3 = @catalog.title
+      'Users with accedd to this catalog
+      .sexy_line
       == render 'personas'
+      br
+      
+      .pull-right
+        == link_to 'Invite Users', new_catalog_account_catalog_catalog_user_path(@account, @catalog), class: 'btn btn-primary'
       
       
       

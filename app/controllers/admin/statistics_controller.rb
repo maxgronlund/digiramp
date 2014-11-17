@@ -25,8 +25,8 @@ class Admin::StatisticsController < ApplicationController
     @playback_chart = @playbacks.group_by_day(:created_at).count 
     
     
-    @views      = RecordingView.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
-    @views_chart = @views.group_by_day(:created_at).count 
+    @views          = RecordingView.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @views_chart    = @views.group_by_day(:created_at).count 
     
    
     

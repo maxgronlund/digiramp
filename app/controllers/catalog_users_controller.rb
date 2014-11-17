@@ -5,6 +5,7 @@ class CatalogUsersController < ApplicationController
   
   def index
     @catalog        = Catalog.cached_find(params[:catalog_id])
+    @user           = current_user
   end
   
   

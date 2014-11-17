@@ -87,13 +87,19 @@
       = link_to user_user_catalogs_path( @user ) do
         i class="fa fa-book"
         '&nbsp;
-        'CATALOGS
+        'Catalogs
+    - if current_user && current_user.super?    
+      li class="#{'sidebar-selected' if selected == 'admin'}"
+        = link_to admin_index_path do
+          i class="fa fa-gear"
+          '&nbsp;
+          'Admin
         
-    li class="#{'sidebar-selected' if selected == 'activities'}"
-      = link_to user_user_activities_path( @user ) do
-        i class="fa fa-tachometer"
-        '&nbsp;
-        'ACTIVITIES
+    / li class="#{'sidebar-selected' if selected == 'activities'}"
+    /   = link_to user_user_activities_path( @user ) do
+    /     i class="fa fa-tachometer"
+    /     '&nbsp;
+    /     'ACTIVITIES
       
 /  li class="#{'sidebar-selected' if selected == 'account'}"
 /    = link_to user_user_activities_path( @user.account ) do

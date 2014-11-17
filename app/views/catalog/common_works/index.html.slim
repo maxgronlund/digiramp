@@ -80,9 +80,8 @@
 /-cache (['footer', Admin.cached_find(1).version]) do      
 /  =render 'shared/footer'
 #wrapper
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'         
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account'         
 
   #sidebar-wrapper
     ul class="sidebar-nav"

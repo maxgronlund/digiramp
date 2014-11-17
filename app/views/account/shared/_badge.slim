@@ -4,16 +4,28 @@
 -title      = post.title
 -body       = post.body
 
-.account-badge
-  h4 
-    = link_to title,  link
-    - if can_edit?
-      = link_to edit_admin_blog_blog_post_path(blog, post) do
-        '&nbsp;
-        i.fa.fa-pencil
-    -if can_edit?
-      '&nbsp;
+/.account-badge
+/  h4 
+/    = link_to title,  link
+/    - if can_edit?
+/      = link_to edit_admin_blog_blog_post_path(blog, post) do
+/        '&nbsp;
+/        i.fa.fa-pencil
+/    -if can_edit?
+/      '&nbsp;
+/  = link_to link do
+/    = simple_format body
+/    
+    
+.account-account-badge-container
   = link_to link do
-    = simple_format body
+    .account-account-badge
+      div class="#{locals[:title_color]}"
+        h4
+          i class="#{locals[:icon]}"
+          '&nbsp;
+          = title
+      .body
+        = simple_format body
 
 

@@ -1,20 +1,18 @@
-.do
+.account_users
   .row
     .col-sm-12
       #accordion
         -@catalog.catalog_users.order("email asc").each do |catalog_user|
           - if current_catalog_user.can_read_catalog_user( catalog_user )
-            .panel.panel-primary
+            .panel.panel-default
               .panel-heading
                 .panel-title
                   a data-toggle="collapse" data-parent="#accordion" href="#collapse_#{catalog_user.id.to_s}"
-                    i  class="fa fa-eye"
-                    '&nbsp;
-                    = catalog_user.user.email.upcase
+                    = catalog_user.user.email
                     .pull-right
                       //- if catalog_user.user.role == 'Super'
                       //  'SUPER USER&nbsp;/
-                      = catalog_user.role.upcase
+                      = catalog_user.role
                     
               
               div id="collapse_#{catalog_user.id.to_s}" class="panel-collapse collapse"  
@@ -122,25 +120,30 @@
                   .pull-right
                     = link_to edit_catalog_account_catalog_catalog_user_path(@account, @catalog, catalog_user) do
                       - if current_catalog_user.can_update_catalog_user( catalog_user )
-                        .btn.btn-primary.btn-lg
+                        .btn.btn-default.btn-xs
                           i class="fa fa-pencil"
+                          '&nbsp;Edit permissions
                       -else
-                        .btn.btn-primary.btn-lg disabled="disabled"
+                        .btn.btn-default.btn-xs disabled="disabled"
                           i class="fa fa-pencil"
+                          '&nbsp;Edit permissions
                     '&nbsp;
                     
                     
                     
                     = link_to  catalog_account_catalog_catalog_user_path(@account, @catalog, catalog_user),\
                               data: { confirm: 'Are you sure?' } , :method => :delete do
-                      - if current_catalog_user.can_delete_catalog_user( catalog_user )
-                        .btn.btn-danger.btn-lg
+                      - if current_catalog_user.can_delete_catalog_user( catalog_user ) && catalog_user.role != 'Account User'
+                        .btn.btn-danger.btn-xs
                           i class="fa fa-times"
+                          '&nbsp;Remove
                       -else
-                        .btn.btn-danger.btn-lg disabled="disabled"
+                        .btn.btn-danger.btn-xs disabled="disabled"
                           i class="fa fa-times"
+                          '&nbsp;Remove
                   
-     
+                    br
+                    br
                   
                       
                       
