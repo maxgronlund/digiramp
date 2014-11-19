@@ -4,12 +4,12 @@
     .col-sm-6
       = f.input :title
       
-      div id="toolbar" class="wysihtml5-toolbar"
-        a data-wysihtml5-command="bold" Bold
-        '&nbsp; 
-        a data-wysihtml5-command="italic" Italic
-      
-      =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
+      /div id="toolbar" class="wysihtml5-toolbar"
+      /  a data-wysihtml5-command="bold" Bold
+      /  '&nbsp; 
+      /  a data-wysihtml5-command="italic" Italic
+      /= f.input :body, label: false, :input_html => {  style: "height: 300px;", placeholder: "Description", id: 'wysihtml5_editor'}
+      = f.input :body, label: 'Description', :input_html => {  style: "height: 300px;", placeholder: "Description"}
     .col-sm-6
       = f.input :kind
       = f.input :budget

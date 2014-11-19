@@ -1,0 +1,31 @@
+nav.navbar.navbar-default role="navigation"
+  ul.nav.navbar-nav.navbar-right
+    li.dropdown
+      a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
+        i.fa.fa-gear
+        '&nbsp;
+        'Opportunities
+        span.caret
+      ul class="dropdown-menu" role="menu"
+        -if true
+          li
+            = link_to user_user_opportunities_path(current_user) do
+              i.fa.fa-book
+              '&nbsp;
+              'Opportunities you are invited to
+        -if true
+          li
+            = link_to account_account_opportunities_path(current_user.account) do
+              i.fa.fa-book
+              '&nbsp;
+              'Opportunities you have created
+
+        li.divider
+
+        -if true
+          li
+            = link_to new_account_account_opportunity_path(current_user.account) do
+              i.fa.fa-book
+              '&nbsp;
+              'Create Opportunity
+

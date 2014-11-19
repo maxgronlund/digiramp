@@ -4,87 +4,34 @@
 
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'catalog/catalogs/sidebar', selected: 'recordings'
-      li
-        hr
-      -if current_catalog_user.create_recording
-        li
-          = link_to catalog_account_catalog_add_recordings_path(@account, @catalog) do
-            i class="fa fa-plus-circle"
-            '&nbsp;
-            'Add Recording
-      - if current_user.can_administrate @account 
-        li
-          = link_to account_export_recordings_path(@account, format: "csv") do
-            i class="fa fa-cloud-download"
-            '&nbsp;
-            'Download CSV
-      /-if current_catalog_user.create_recording
-      /  br 
-      /  .pull-right
-      /    = link_to catalog_account_catalog_add_recordings_path(@account, @catalog) do
-      /      .btn.btn-success.btn-lg
-      /        i class="fa fa-plus-circle"
-      /        '&nbsp;
-      /        'Add Recording
-      /-if current_user.can_administrate @account
-      /  .pull-right
-      /    = link_to 'Export All to CSV', account_export_recordings_path(@account, format: "csv"), \
-      /                                  class: 'btn btn-primary btn-lg'
-        
-      
+      == render 'users/shared/sidebar', selected: 'catalogs'
 
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {catalogs: user_user_catalogs_path( current_user) }, current: ''} 
-      == render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
+      == render 'catalog/shared/catalog_title'
+          
+
+      .sexy_line
+      .endless-pages
+      
+      -if current_catalog_user.create_recording
+        .add_recordings
+          .new-recording
+            = link_to catalog_account_catalog_add_recordings_path(@account, @catalog) do
+              .new-recording-badge
+                .new-recording-badge-content
+                  i.fa.fa-plus-circle
+
+              .new-recording-content
+                .new-recording-text
+                  h3 Click here to add recordings
+                .new-recording-waveform
+                  = image_tag 'default_waveform.png'
+
       - @recordings.each do |recording|
         #digiWhams  class="/recordings/#{recording.id.to_s}"
           == render 'show', recording: recording
-      /- @recordings.each do |recording|
-      /  == render 'catalog/recordings/show', recording: recording
-      
-      /#digiWhams  class="/catalog/accounts/#{@account.id}/catalogs/#{@catalog.id}/recordings"
-      /
-      /  - @recordings.each_with_index do |recording, index |
-      /    == render 'audio_player/show', recording: recording 
-      /    .btn-group.btn-group-xs
-      /      = link_to catalog_account_catalog_recording_path(@account, @catalog, recording), \
-      /                class: "btn btn-default" do
-      /        i class="fa fa-eye"
-      /        '&nbsp;
-      /        'Show
-      /        
-      /      = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
-      /                class: "btn btn-default"  do
-      /        i class="fa fa-pencil"
-      /        '&nbsp;
-      /        'Edit
-      /  
-      /        
-      /      = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
-      /                class: "btn btn-default"  do
-      /        i class="fa fa-heart"
-      /        '&nbsp;
-      /        'Like
-      /  
-      /        
-      /      = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
-      /                class: "btn btn-default"  do
-      /        i class="fa fa-trash-o"
-      /        '&nbsp;
-      /        'Delete
-      /  
-      /        
-      /  
-      /    
-      /    .pull-right
-      /      .btn-group.btn-group-xs
-      /        = link_to catalog_account_catalog_recording_path(@account, @catalog, recording), \
-      /                  class: "btn btn-default"  do
-      /          'Remove
-      /     
-      /    hr
+     
            
         .hidden-xs
           == paginate(@recordings)
@@ -94,7 +41,70 @@
             = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
         
         
+  == render 'shared/site_footer'          
+== render 'users/shared/mobile_links'       
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+/- @recordings.each do |recording|
+/  == render 'catalog/recordings/show', recording: recording
+
+/#digiWhams  class="/catalog/accounts/#{@account.id}/catalogs/#{@catalog.id}/recordings"
+/
+/  - @recordings.each_with_index do |recording, index |
+/    == render 'audio_player/show', recording: recording 
+/    .btn-group.btn-group-xs
+/      = link_to catalog_account_catalog_recording_path(@account, @catalog, recording), \
+/                class: "btn btn-default" do
+/        i class="fa fa-eye"
+/        '&nbsp;
+/        'Show
+/        
+/      = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
+/                class: "btn btn-default"  do
+/        i class="fa fa-pencil"
+/        '&nbsp;
+/        'Edit
+/  
+/        
+/      = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
+/                class: "btn btn-default"  do
+/        i class="fa fa-heart"
+/        '&nbsp;
+/        'Like
+/  
+/        
+/      = link_to edit_catalog_account_catalog_recording_path(@account, @catalog, recording), \
+/                class: "btn btn-default"  do
+/        i class="fa fa-trash-o"
+/        '&nbsp;
+/        'Delete
+/  
+/        
+/  
+/    
+/    .pull-right
+/      .btn-group.btn-group-xs
+/        = link_to catalog_account_catalog_recording_path(@account, @catalog, recording), \
+/                  class: "btn btn-default"  do
+/          'Remove
+/     
+/    hr
   
+
   

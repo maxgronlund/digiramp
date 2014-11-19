@@ -12,6 +12,8 @@ class Catalog::FindInCollectionsController < ApplicationController
     #@recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     #@recordings     -= @catalog.recordings
     @show_more      = true
+    @user = current_user
+    @authorized = true
   end
 
   def new

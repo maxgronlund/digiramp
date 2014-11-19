@@ -1,0 +1,59 @@
+nav.navbar.navbar-default role="navigation"
+  ul.nav.navbar-nav.navbar-right
+    li.dropdown
+      a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
+        i.fa.fa-gear
+        '&nbsp;
+        'Manage Catalog
+        span.caret
+      ul class="dropdown-menu" role="menu"
+        -if current_catalog_user.read_recording
+          li
+            = link_to catalog_account_catalog_recordings_path(@account, @catalog) do
+              i.fa.fa-headphones
+              '&nbsp;
+              'Recordings
+
+        -if current_catalog_user.read_common_work
+          li
+            = link_to catalog_account_catalog_common_works_path(@account, @catalog) do
+              i.fa.fa-music
+              '&nbsp;
+              'Common Works
+        -if current_catalog_user.read_user
+          li
+            = link_to catalog_account_catalog_catalog_users_path(@account, @catalog) do
+              i.fa.fa-users
+              '&nbsp;
+              'Catalog Users
+        li.divider
+        -if current_catalog_user.read_artwork
+          li
+            = link_to catalog_account_catalog_artworks_path(@account, @catalog) do
+              i.fa.fa-picture-o
+              '&nbsp;
+              'Artwork
+        -if current_catalog_user.read_legal_document
+          li
+            = link_to catalog_account_catalog_legal_documents_path(@account, @catalog) do
+              i.fa.fa-gavel
+              '&nbsp;
+              'Legal Documents
+        -if current_catalog_user.read_financial_document
+          li
+            = link_to catalog_account_catalog_financial_documents_path(@account, @catalog) do
+              i.fa.fa-money
+              '&nbsp;
+              'Financial Documents
+        -if current_catalog_user.read_file
+          li
+            = link_to catalog_account_catalog_documents_path(@account, @catalog) do
+              i.fa.fa-folder
+              '&nbsp;
+              'Documents
+        li.divider
+        li
+          = link_to account_export_recordings_path(@account, format: "csv") do
+            i class="fa fa-cloud-download"
+            '&nbsp;
+            'Download CSV

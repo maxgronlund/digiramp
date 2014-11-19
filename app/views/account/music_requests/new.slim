@@ -3,7 +3,7 @@
 /    .full-width-top
 /      == render 'admin/shared/navbar', page: 'account'         
 /  .container
-/    ==render 'admin/shared/messages'
+/    /==render 'admin/shared/messages'
 /    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
 /    .do
 /      == render 'shared/breadcrumbs', breadcrumbs: { links: {dashboard: account_account_path(@account), \

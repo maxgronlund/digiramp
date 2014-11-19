@@ -9,7 +9,7 @@
   
   #page-content-wrapper
     .container-fluid
-      ==render 'admin/shared/messages'
+      /==render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { users: account_account_account_users_path(@account) }, current:  ''}
       .account_users
         == render 'admin/shared/messages'
@@ -49,7 +49,7 @@
 /
 /            
 /  .container
-/    ==render 'admin/shared/messages'
+/    /==render 'admin/shared/messages'
 /    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
 /                                                            dashboard: account_account_path(@account), \
 /                                                            users: account_account_account_users_path(@account) \

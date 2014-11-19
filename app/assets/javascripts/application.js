@@ -16,6 +16,8 @@
 //= require turbolinks
 //= require jquery.blockUI
 //= require bootstrap/bootstrap
+//= require jquery.ThreeDots
+//= require eclipsis
 // require moment
 // require bootstrap-datetimepicker
 // require jquery_nested_form

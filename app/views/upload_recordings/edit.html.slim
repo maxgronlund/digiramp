@@ -5,7 +5,7 @@
 
             
   .container
-    ==render 'admin/shared/messages'
+    /==render 'admin/shared/messages'
     /=debug @recording
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             assets: account_assets_path(@account), \

@@ -3,7 +3,7 @@
   .full-width-top
     == render 'admin/shared/navbar', page: 'profile'     
   .container
-    ==render 'admin/shared/messages'
+    /==render 'admin/shared/messages'
                                                           
                                                             
     == render 'shared/page_title', locals: {blog: Blog.cached_find( @attachable.class.to_s ), blog_post: 'Attach File'}

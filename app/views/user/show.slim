@@ -5,7 +5,7 @@
     .full-width-top
       == render 'admin/shared/navbar', page: 'profile'     
   .container
-    ==render 'admin/shared/messages'
+    /==render 'admin/shared/messages'
     /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
     .do   
       /== render 'shared/breadcrumbs', breadcrumbs: { links: { }, current: 'home'} 

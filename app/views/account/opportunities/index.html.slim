@@ -9,9 +9,14 @@
   
   #page-content-wrapper
     .container-fluid
-      ==render 'admin/shared/messages'
-      h3 #{@account.title} <funky>Pro</funky>
-      'Opportunities you have created
+      .row
+        .col-sm-7
+          /==render 'admin/shared/messages'
+          h3 #{@account.title} <funky>Pro</funky>
+          'Opportunities you have created
+        .col-sm-5
+          .pull-right
+            == render 'opportunity/shared/opportunity_navigation'
       .sexy_line
       .opportunity
         .opportunity-badges
@@ -113,7 +118,7 @@
 /    .full-width-top
 /      == render 'admin/shared/navbar', page: 'account'         
 /  .container
-/    ==render 'admin/shared/messages'
+/    /==render 'admin/shared/messages'
 /    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
 /    .do
 /      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),

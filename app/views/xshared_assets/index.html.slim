@@ -6,7 +6,7 @@
   .full-width-top
     == render 'admin/shared/navbar', page: 'profile'     
   .container
-    ==render 'admin/shared/messages'
+    /==render 'admin/shared/messages'
     -cache ([ Admin.cached_find(1).version, request.url, user_account.uuid ]) do       
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym =>  user_path(current_user), \
                                                               }, current: 'ASSETS'}

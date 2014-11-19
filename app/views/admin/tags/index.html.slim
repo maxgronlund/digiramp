@@ -5,7 +5,7 @@
 
                
   .container
-    ==render 'admin/shared/messages'
+    /==render 'admin/shared/messages'
     -cache ([request.url, Admin.cached_find(1).version  ]) do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
                                                               content: admin_content_index_path, \

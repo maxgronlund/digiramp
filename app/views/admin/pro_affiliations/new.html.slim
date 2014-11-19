@@ -5,7 +5,7 @@
 
                
   .container
-    ==render 'admin/shared/messages'
+    /==render 'admin/shared/messages'
     -cache ([ request.url, Admin.cached_find(1).pro_affilications_uuid  ]) do
       == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
                                                               'engine room'.to_sym => admin_engine_room_index_path, \

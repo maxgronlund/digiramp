@@ -5,7 +5,7 @@
   /-cache([ @account.id, @account.works_uuid, params]) do  
   .do   
     .container
-      ==render 'admin/shared/messages'
+      /==render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym     =>  user_path(@user), \
                                                            "ASSETS".to_sym   =>  user_shared_assets_path(@user), \
                                                            "Catalogs".to_sym =>  user_shared_catalogs_path(@user), \

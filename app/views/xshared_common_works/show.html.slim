@@ -5,7 +5,7 @@
   .full-width-top
     == render 'admin/shared/navbar', page: 'profile'     
   .container
-    ==render 'admin/shared/messages'
+    /==render 'admin/shared/messages'
     
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @user.name.to_sym     =>  user_path(@user), \
                                                          "ASSETS".to_sym          =>  user_shared_assets_path(@user), \

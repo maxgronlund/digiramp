@@ -1,5 +1,5 @@
 ready = ->
-  #alert 'fo'
+
   $('.opportunity-badges').masonry ->
     columnWidth: '.container-fluid',
     itemSelector: '.opportunity-container'

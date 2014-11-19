@@ -13,6 +13,10 @@ class Catalog::RecordingsController < ApplicationController
       @recordings   = Recording.not_in_bucket.catalogs_search( @catalog.recordings , params[:query]).order('title asc').page(params[:page]).per(24)
       @widget       = @catalog.default_widget  
       @playlists    = current_user.playlists
+      @user         = current_user
+      
+      
+      @authorized  = true
       #@query_string = '/digiwham/recordings/?key='  + @catalog.default_widget.secret_key
       #@query_string += '&catalog='                  + @catalog.uuid 
       #@query_string += '&catalog_user='             + @catalog_user.uuid   

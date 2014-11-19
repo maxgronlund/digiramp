@@ -4,11 +4,11 @@
     .full-width-top
       == render 'admin/shared/navbar', page: 'account' 
   .container
-    ==render 'admin/shared/messages'
+    /==render 'admin/shared/messages'
     
     == render 'shared/page_title', locals: {blog: @blog, blog_post: @add_description}
 
-    ==render 'admin/shared/messages'
+    /==render 'admin/shared/messages'
     = simple_form_for [@account, @common_work], url: url_for(action: 'update', controller: 'single_work'), method: 'post' do |f|
       = f.error_notification
       = f.hidden_field :account_id, value: @account.id

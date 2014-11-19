@@ -6,7 +6,7 @@
   .container
     .row
       .col-sm-12
-        ==render 'admin/shared/messages'
+        /==render 'admin/shared/messages'
 
         = simple_form_for [:admin, @home] do |f|
           - if @home.errors.any?

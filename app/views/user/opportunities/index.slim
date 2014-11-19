@@ -10,8 +10,13 @@
   
   #page-content-wrapper
     .container-fluid
-      h3 Opportunities
-      'You can submit to 
+      .row
+        .col-sm-7
+          h3 Opportunities
+          'You can submit to 
+        .col-sm-5
+          .pull-right
+            == render 'opportunity/shared/opportunity_navigation'
       .sexy_line
       .opportunity
         .opportunity-badges
@@ -59,7 +64,7 @@
 /    .full-width-top
 /      == render 'admin/shared/navbar', page: 'profile'     
 /  .container
-/    ==render 'admin/shared/messages'
+/    /==render 'admin/shared/messages'
 /    /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
 /    .do   
 /      == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path( @user )}, current: 'Opportunities'} 
