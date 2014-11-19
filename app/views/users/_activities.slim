@@ -27,7 +27,7 @@
                 i.fa.fa-comment
                 .activity-title User
                 .activity-link
-                  = link_to user.full_name, user_path(user)
+                  = link_to user.user_name, user_path(user)
             - else
               i.fa.fa-headphones
               .activity-title Recording
@@ -75,7 +75,7 @@
           - if user = User.where(id: activity.recipient_id).first
             i class="fa fa-user"
             '&nbsp; Following
-            = link_to user.full_name, user_path(user)
+            = link_to user.user_name, user_path(user)
           - else
             i.fa.fa-headphones
             .activity-title Recording

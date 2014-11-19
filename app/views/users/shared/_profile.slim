@@ -2,7 +2,7 @@
   .avatar
     = image_tag @user.image_url :avatar_145x145
   .info
-    h4 =@user.full_name
+    h4 =@user.user_name
     - if @user.country.to_s != ''
       .location
         - c = Country.find_country_by_alpha2(@user.country)

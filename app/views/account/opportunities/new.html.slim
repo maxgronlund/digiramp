@@ -10,10 +10,13 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account) }, current: ''}
-      h3 =@account.title
-      'Create new opportunity
+      .row
+        .col-sm-7
+          h3 Opportunities
+          'Create new opportunity
+        .col-sm-5
+          .pull-right
+            == render 'opportunity/shared/opportunity_navigation'
       .sexy_line  
       .opportunity 
         == render 'form'

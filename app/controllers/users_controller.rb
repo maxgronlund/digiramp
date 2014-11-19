@@ -49,20 +49,22 @@ class UsersController < ApplicationController
 
   def create
   
-    params[:user][:role]    = 'Customer'
+    params[:user][:role]      = 'Customer'
     params[:user][:email].downcase! if params[:user][:email]
-    @user                   = User.new(user_params)
-    
-    
-    @user.user_name         = @user.email.gsub('@', '-').gsub('.', '-').downcase.strip
-    blog                    = Blog.cached_find('Sign Up')
+    user_name                 = User.create_uniq_user_name_from_email (params[:user][:email])
+    params[:user][:user_name] = user_name
+    @user                     = User.new(user_params)
+                              
+    blog                      = Blog.cached_find('Sign Up')
 
     if params[:user][:password]    != params[:user][:password_confirmation]
       flash[:danger]   = { error: 'Sorry:', body: 'Password and Passoword confirmation mismatch' }
       redirect_to signup_index_path
+    
     elsif  params[:user][:email].to_s == ''
       flash[:danger]   = { error: 'Sorry:', body: 'Email is missing' }
       redirect_to signup_index_path
+    
     elsif @user.save
       @account          = User.create_a_new_account_for_the @user
       blog              = Blog.cached_find('Sign Up')

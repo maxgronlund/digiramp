@@ -16,7 +16,7 @@
         =  image_tag @user.image_url(:avatar_32x32)
         '&nbsp;
       .user-name
-        = @user.name   
+        = @user.user_name   
   li class="#{'sidebar-selected' if selected == 'recordings'}"
     = link_to user_recordings_path(@user) do
       i class="fa fa-headphones"

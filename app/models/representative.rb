@@ -13,8 +13,15 @@ class Representative < ActiveRecord::Base
     else
 
       password = ('0'..'z').to_a.shuffle.first(8).join
-      account = Account.create( title: self.email, account_type: 'representative', contact_email: self.email)
-      created_user = account.users.create(email: self.email, password: password, role: 'representative', name: self.email, account_id: account.id)
+      account = Account.create( title: User.create_uniq_user_name_from_email(self.email), 
+                                account_type: 'representative', 
+                                contact_email: self.email,
+                                user_id: self.user_id)
+      
+      created_user = account.users.create( email: self.email, 
+                                           password: password, 
+                                           role: 'representative',
+                                           account_id: account.id)
       account.user_id = created_user.id
       account.save!
       self.user_id = created_user.id

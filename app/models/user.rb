@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   
   validates_presence_of :password, :on => :create
   validates_presence_of :name, :on => :update
-  before_create :set_uuid
+  #before_create :set_uuid
   
   has_many :comments,        as: :commentable,          dependent: :destroy
 
@@ -86,7 +86,8 @@ class User < ActiveRecord::Base
   after_save :update_access
   after_commit :set_propperties
   
-  before_save :validate_info
+  before_save   :validate_info
+  before_create :set_token
   before_create :validate_info
   #before_destroy :delete_account
   
@@ -118,12 +119,27 @@ class User < ActiveRecord::Base
   #    country.translations[I18n.locale.to_s] || country.name
   #end
   
+
+  
+  def set_token
+    puts '------------- set_token --------------'
+    generate_token(:auth_token)
+  end
+  
   
   def validate_info
+    puts '------------- validate_info --------------'
     self.email.gsub(' ', '')
     self.email.downcase!
-    self.name = self.email                                    if self.name.to_s == ''
-    self.user_name = UUIDTools::UUID.timestamp_create().to_s  if self.user_name == ''
+    
+    
+    if EmailValidator.validate( self.email )
+      self.user_name = User.create_uniq_user_name_from_email(self.email)    if self.user_name.to_s  == ''
+      self.name      = user_name                                            if self.name.to_s       == ''
+      self.first_name = user_name.split('@').first                          if self.first_name.to_s == ''
+      self.last_name = user_name.split('@').last.gsup('_', '')              if self.first_name.to_s == ''
+      self.uuid      = UUIDTools::UUID.timestamp_create().to_s              if self.uuid.to_s       == ''
+    end
   end
   
 
@@ -202,12 +218,16 @@ class User < ActiveRecord::Base
   
   # update the uuid to force rebuild of 
   # segment cached pages
+  # 
   def set_uuid
-    generate_token(:auth_token)
-    self.uuid = UUIDTools::UUID.timestamp_create().to_s
+    puts '==============================================='
+    puts 'ERROR'
+    puts 'User#set_uuid is outdated'
+    puts '==============================================='
+    
+    #self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
-  
-  
+
   ## !!!! should be depricated! Moved to AccountUser
   def can? action, id_name_or_record, _account_id
     logger.info 'OBSOLETE: user / can?'
@@ -356,7 +376,7 @@ class User < ActiveRecord::Base
   
   def self.create_a_new_account_for_the user
     # creating the acount
-    @account = Account.new(   title: user.email, 
+    @account = Account.new(   title: user.user_name, 
                               user_id: user.id, 
                               expiration_date: Date.current()>>1,
                               contact_email: user.email,
@@ -439,9 +459,7 @@ class User < ActiveRecord::Base
 
   
   def self.find_or_invite_from_email( email)
-    puts '================= find_or_invite_from_email ========================'
-    puts email
-    puts '========================================='
+
     unless user   = User.where(email: email).first
       user        = invite_user( email )
     end
@@ -454,17 +472,15 @@ class User < ActiveRecord::Base
   
   # invite a user based on an email 
   def self.invite_user email
-    puts '=================== invite_user ======================'
-    puts email
-    puts '========================================='
+    #user_name             = create_uniq_user_name_from_email( email )
+    
     secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
-    user                  = User.create(                   
-                                             name: email, 
-                                            email: email, 
-                                          invited: true, 
-                                         password: secret_temp_password, 
-                            password_confirmation: secret_temp_password,
-                                account_activated: false
+    user                  = User.create(    
+                                            email:      email, 
+                                          invited:      true, 
+                                         password:      secret_temp_password, 
+                            password_confirmation:      secret_temp_password,
+                                account_activated:      false
                                         )
                             
      # apply a password reset token
@@ -475,6 +491,14 @@ class User < ActiveRecord::Base
      
      # return the new user
      user
+  end
+  
+  def self.create_uniq_user_name_from_email email
+    user_name = email.split('@').first
+    if last_user = User.last
+      user_name = [ user_name, (last_user.id + 1 ).to_s].compact.join('_')
+    end
+    user_name
   end
   
   
@@ -493,9 +517,9 @@ class User < ActiveRecord::Base
       found_user.save!
     else
       # create user
+      #user_name = User.create_uniq_user_name_from_email(email)
       secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-      found_user = User.create( name: email.downcase, 
-                                email: email.downcase, 
+      found_user = User.create(  
                                 invited: true, 
                                 password: secret_temp_password, 
                                 password_confirmation: secret_temp_password

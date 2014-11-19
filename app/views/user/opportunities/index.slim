@@ -16,11 +16,12 @@
           'You can submit to 
         .col-sm-5
           .pull-right
+            /== debug current_account_user
             == render 'opportunity/shared/opportunity_navigation'
       .sexy_line
       .opportunity
         .opportunity-badges
-          - @user.opportunities.order('deadline desc').each do |opportunity|
+          - @user.opportunities.where.not(account_id: @user.account_id).order('deadline desc').each do |opportunity|
             == render 'opportunity/opportunity', opportunity: opportunity, opportunity_link: opportunity_opportunity_path(opportunity)
                  
               

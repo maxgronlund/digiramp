@@ -17,6 +17,7 @@ class Digiwham::RecordingsController < ApplicationController
   
   # the show function is used for count of playbacks
   def show
+    puts '------------------------------------------------------------------------'
     begin
       @recording                      = Recording.cached_find(params[:id])
       @recording.playbacks_count      += 1

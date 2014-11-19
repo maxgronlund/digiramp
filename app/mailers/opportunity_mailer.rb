@@ -24,7 +24,7 @@ class OpportunityMailer < ActionMailer::Base
   end
   
   def invite_to_account email, opportunity_invitation_id, user_id, current_user_id
-    
+
     @user                    = User.cached_find(user_id)
     @current_user_id         = current_user_id 
     @opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)

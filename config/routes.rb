@@ -45,7 +45,7 @@ Digiramp::Application.routes.draw do
   resources :remove_from_playlists, only: [:destroy]
   resources :share_on_facebooks, only: [:create]
   resources :share_recordings, only: [:new, :edit, :create, :destroy]
-  resources :songs, only: [:index]
+  resources :songs, only: [:index, :show]
 
   
   #resources :footages
