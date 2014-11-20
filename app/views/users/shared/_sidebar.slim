@@ -70,13 +70,13 @@
         '&nbsp;
         'Opportunities
     
-  
-    li class="#{'sidebar-selected' if selected == 'account'}"
-      = link_to account_account_path( @user.account ) do
-        i class="fa fa-tachometer"
-        '&nbsp;
-        'Pro Account
-        
+    - unless @user.account.account_type  == "Personal Account"
+      li class="#{'sidebar-selected' if selected == 'account'}"
+        = link_to account_account_path( @user.account ) do
+          i class="fa fa-tachometer"
+          '&nbsp;
+          'Pro Account
+          
      
     li class="#{'sidebar-selected' if selected == 'collections'}"
       = link_to user_user_collections_path( @user ) do

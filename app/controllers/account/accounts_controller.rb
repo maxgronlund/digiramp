@@ -7,6 +7,7 @@ class Account::AccountsController < ApplicationController
   
   def show
     @user = current_user
+    forbidden if @user.account.account_type == "Personal Account"
   end
   
   def edit
