@@ -35,6 +35,8 @@ class Admin::AccountsController < ApplicationController
     # if the administrator is updated  
     if old_administrator_id != @account.administrator_id
       
+     
+      
       @account.reassign_administrator( old_administrator_id ) 
 
       flash[:warning] = { title: "NOTICE: ", body: "Rebuilding all permissions, might take a few seconds before completed" }

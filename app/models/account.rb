@@ -186,7 +186,7 @@ class Account < ActiveRecord::Base
   # update the whitelist
   def reassign_administrator old_administrator_id
 
-    puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>remove the old administrators account_user'
+    #puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>remove the old administrators account_user'
     #begin
       if old_administrator = AccountUser.where(user_id: old_administrator_id, account_id: self.id).first
         #old_administrator     = User.cached_find(old_administrator_id)
@@ -214,7 +214,10 @@ class Account < ActiveRecord::Base
     #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
     #end
     
-    new_administrator = AccountUser.where(user_id: administrator_id, account_id: self.id).first
+    user = User.cached_find(administrator_id)
+    new_administrator = AccountUser.where(user_id: user.id, account_id: self.id)
+                                    .first_or_create(user_id: user.id, account_id: self.id)
+    
     new_administrator.grand_all_permissions
 
   end

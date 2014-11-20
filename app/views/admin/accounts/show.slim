@@ -3,7 +3,7 @@
     .full-width-top
       == render 'admin/shared/navbar', page: 'admin'
   .container
-    /==render 'admin/shared/messages'
+    ==render 'admin/shared/messages'
     == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
                                                             accounts: admin_accounts_path \
                                                           },current: @account.title}
@@ -68,7 +68,7 @@
                     td = @account.common_works.size
                     td
                       .pull-right
-                        = link_to admin_account_delete_common_works_path(@account) ,data: {data: { confirm: 'Are you sure?' } 'Are you sure?'} do
+                        = link_to admin_account_delete_common_works_path(@account) ,data: { confirm: 'Are you sure?' } do
                           .btn.btn-danger.btn-lg
                             i class="fa fa-times-circle"
                   tr
@@ -76,7 +76,7 @@
                     td = @account.recordings.size
                     td
                       .pull-right
-                        = link_to = link_to admin_account_delete_recordings_path(@account) ,data: {data: { confirm: 'Are you sure?' } 'Are you sure?'} do
+                        = link_to = link_to admin_account_delete_recordings_path(@account) ,data: { confirm: 'Are you sure?' }  do
                           .btn.btn-danger.btn-lg
                             i class="fa fa-times-circle"
                   tr
@@ -84,7 +84,7 @@
                     td = @account.attachments.size
                     td
                       .pull-right
-                        = link_to admin_account_delete_documents_path(@account) ,data: {data: { confirm: 'Are you sure?' } 'Are you sure?'} do
+                        = link_to admin_account_delete_documents_path(@account) ,data: { confirm: 'Are you sure?' }  do
                           .btn.btn-danger.btn-lg
                             i class="fa fa-times-circle"
                   tr
@@ -92,7 +92,7 @@
                     td = @account.clients.size
                     td
                       .pull-right
-                        = link_to admin_account_delete_clients_path(@account) ,data: {data: { confirm: 'Are you sure?' } 'Are you sure?'} do
+                        = link_to admin_account_delete_clients_path(@account) ,data: { confirm: 'Are you sure?' }  do
                           .btn.btn-danger.btn-lg
                             i class="fa fa-times-circle"
                   tr
@@ -198,7 +198,7 @@
           '&nbsp;
           = link_to 'Edit Account', edit_admin_account_path(@account), class: 'btn btn-primary btn-lg'
           '&nbsp;
-          = link_to 'Delete Account', admin_account_path(@account), method: :delete ,data: {data: { confirm: 'Are you sure?' } 'Are you sure?'} , class: 'btn btn-danger btn-lg'
+          = link_to 'Delete Account', admin_account_path(@account), method: :delete ,data: { confirm: 'Are you sure?' }  , class: 'btn btn-danger btn-lg'
         
         
 -cache (['footer', Admin.cached_find(1).version]) do      
