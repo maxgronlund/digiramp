@@ -8,8 +8,7 @@ ruby:
    user_account = Account.cached_find(@user.account_id)
    account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
    
-   account_ids -= [@user.account_id] if user_account.account_type == "Personal Account"
-   account_ids -= [@user.account_id] unless @user.has_a_collection
+   account_ids -= [@user.account_id] 
    accounts    = Account.order('title asc').where(id: account_ids)
   
 #wrapper
