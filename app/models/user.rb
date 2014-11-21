@@ -119,16 +119,16 @@ class User < ActiveRecord::Base
   #    country.translations[I18n.locale.to_s] || country.name
   #end
   
-
+  
   
   def set_token
-    puts '------------- set_token --------------'
+   
     generate_token(:auth_token)
   end
   
   
   def validate_info
-    puts '------------- validate_info --------------'
+    
     self.email.gsub(' ', '')
     self.email.downcase!
     
@@ -140,6 +140,49 @@ class User < ActiveRecord::Base
       self.last_name = user_name.split('@').last.gsup('_', '')              if self.first_name.to_s == ''
       self.uuid      = UUIDTools::UUID.timestamp_create().to_s              if self.uuid.to_s       == ''
     end
+    update_completeness
+  end
+  
+  def update_completeness
+    
+    nr_required_params   = 0.0
+    completeness         = 0.0
+    default_name        = User.create_uniq_user_name_from_email(self.email)
+    
+    # user name is still default name
+    completeness        += 1 unless self.name               == default_name
+    nr_required_params  += 1                                                                    
+                                                            
+    # user user_name is still default name                                                                                            
+    completeness        += 1 unless self.user_name          == default_name
+    nr_required_params  += 1    
+    
+    completeness        += 1 unless self.profile.to_s       == ''
+    nr_required_params  += 1 
+    
+    completeness        += 1 unless self.profession.to_s    == ''
+    nr_required_params  += 1  
+    
+    completeness        += 1 unless self.country.to_s       == ''
+    nr_required_params  += 1   
+    
+    completeness        += 1 unless self.city.to_s          == ''
+    nr_required_params  += 1    
+    
+    completeness        += 1 unless self.image.to_s    == ''
+    nr_required_params  += 1    
+      
+    self.completeness = (completeness / nr_required_params * 100).to_i
+
+    #artist        
+    #author
+    #composer
+    #writer
+    #
+    #musician
+    #producer
+    #remixer
+    #dj
   end
   
 
@@ -496,7 +539,7 @@ class User < ActiveRecord::Base
   def self.create_uniq_user_name_from_email email
     user_name = email.split('@').first
     if last_user = User.last
-      user_name = [ user_name, (last_user.id + 1 ).to_s].compact.join('_')
+      user_name = [ user_name, (last_user.id ).to_s].compact.join('_')
     end
     user_name
   end

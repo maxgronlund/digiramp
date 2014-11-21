@@ -25,11 +25,16 @@
             .row
               .col-sm-6
                 = f.input :private_profile, label: 'Hide my profile'
-                = f.input :name
-                = f.input :user_name, placeholder: 'Used for the url'
+                - if @user.name == User.create_uniq_user_name_from_email(@user.email)
+                  = f.input :name, hint: 'Change to improve completeness'
+                - else
+                  = f.input :name
+                - if @user.user_name == User.create_uniq_user_name_from_email(@user.email)  
+                  = f.input :user_name, placeholder: 'Used for the url', hint: 'Change to improve completeness'
+                - else
+                  = f.input :user_name, placeholder: 'Used for the url'
                 = f.input :email
-                = f.input :password, autocomplete: :off
-                = f.input :password_confirmation, autocomplete: :off
+              
                 .row
                   .col-sm-6
                     = f.input :profession
@@ -38,6 +43,20 @@
                     = f.input :country
                   .col-sm-6
                     = f.input :city
+                .row
+                  .col-sm-12
+                    a data-toggle="collapse" data-parent="#accordion" href="#change_email"
+                      i.fa.fa-pencil
+                      b &nbsp;Change Password
+                     
+                    br
+                    br
+                    div id="change_email" class="panel-collapse collapse"  
+                      .row
+                        .col-sm-6
+                          = f.input :password, autocomplete: :off, placeholder: '•••••••••••', hint: 'New password'
+                        .col-sm-6
+                          = f.input :password_confirmation, autocomplete: :off, placeholder: '•••••••••••', hint: 'Confirm new password'
                     
                     
               .col-sm-6

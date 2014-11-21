@@ -6,7 +6,7 @@
   = f.input :invitees, placeholder: 'e.g. john@doe.com, elvis@presley.com', hint: 'Only valid emails will be accepted'
 
 
-  = f.input :title,  input_html:{ value: "You have been invitet to an opportunity on DigiRAMP"} 
+  = f.input :title,  input_html:{ value: "You have been invited to the opportunity on DigiRAMP:  #{@opportunity.title}"} 
   
   
   div id="toolbar" class="wysihtml5-toolbar"

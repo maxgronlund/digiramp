@@ -1,4 +1,23 @@
 .profile
+  / encourage users to update their profile
+  
+  - if @authorized && @user.completeness < 100  && session[:show_profile_completeness]
+    - session[:show_profile_completeness] = false
+    .complete
+      .improve-title
+        /.alert.alert-danger role="alert"
+        = "Your profile is #{@user.completeness}% complete "
+      .improve-bar 
+        .progress
+          .progress-bar role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: #{@user.completeness}%;"
+            
+      .improve-button
+        .pull-right
+          = link_to edit_user_path(@user) do
+            .btn.btn-primary.btn-xs
+              'Impove now  
+
+            
   .avatar
     = image_tag @user.image_url :avatar_145x145
   .info

@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   
   def create
     #raise env['omniauth.auth'].to_yaml
-    
+    session[:show_profile_completeness] = true
     if current_user
       # the user is all readdy logged in so attach a provider to an existing account
       unless Omniauth.attach_provider( env, current_user )
@@ -47,6 +47,7 @@ class SessionsController < ApplicationController
   
 
   def destroy
+    session[:show_profile_completeness] = true
     begin 
       user = User.cached_find_by_auth_token( cookies[:auth_token] )
       user.flush_auth_token_cache(cookies[:auth_token])

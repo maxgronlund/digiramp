@@ -27,11 +27,20 @@
       = opportunity.territory
 
   .sexy_line
-
-div class="#{show_full_description ? '' : 'oppoptunity-description'}"
-  br
-  h4 Description:
-  .oppoptunity-description
-    .ellipsis_text
+  
+- if show_full_description
+  div class="#{show_full_description ? '' : 'oppoptunity-description'}"
+    br
+    h4 Description:
+    .oppoptunity-description
       = opportunity.body
+    
+
+- else show_full_description
+  div class="#{show_full_description ? '' : 'oppoptunity-description'}"
+    br
+    h4 Description:
+    .oppoptunity-description
+      .ellipsis_text
+        = opportunity.body
     

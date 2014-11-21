@@ -52,8 +52,8 @@
     
 
         .pull-right  
-          = f.button :submit, 'Finish', class: 'btn btn-default please_wait', id: 'done'
-          '&nbsp;
+          /= f.button :submit, 'Finish', class: 'btn btn-default please_wait', id: 'done'
+          /'&nbsp;
           = link_to 'Skip Step', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
           '&nbsp;
           = f.button :submit, 'Next >', class: 'btn btn-primary please_wait'

@@ -12,9 +12,9 @@
     .container-fluid
       .row
         .col-sm-6
-          
           == render 'users/shared/profile'
-          == render 'users/activities'
+          -if current_user && current_user.id == @user.id
+            == render 'users/activities'
         .col-sm-6
           .comments
             == render 'users/guest_book'

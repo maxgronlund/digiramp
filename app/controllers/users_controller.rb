@@ -12,7 +12,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.friendly.find(params[:id])
-    
+    #channel = 'digiramp_radio_' + @user.email
+    #Pusher.trigger(channel, 'digiramp_event', {"title" => 'PROFILE UPDATED', 
+    #                                      "message" => "Your profile is #{@user.completeness} pct. complete ", 
+    #                                      "time"    => '5000', 
+    #                                      "sticky"  => 'false', 
+    #                                      "image"   => 'success'
+    #                                      })
     # count views
     unless current_user && @user == current_user
       @user.views += 1 
@@ -48,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def create
-  
+    session[:show_profile_completeness] = true
     params[:user][:role]      = 'Customer'
     params[:user][:email].downcase! if params[:user][:email]
     user_name                 = User.create_uniq_user_name_from_email (params[:user][:email])
@@ -84,7 +90,12 @@ class UsersController < ApplicationController
       
       
       
-      redirect_to user_path(@user)
+      
+      
+      
+      redirect_to edit_user_path(@user)
+      
+      
       
     else
       flash[:danger]   = { title: 'Sorry:', body: 'Email has already been taken' }
@@ -112,6 +123,8 @@ class UsersController < ApplicationController
     @user.slug = nil
     params[:user][:email_missing] = false
     if @user.update(user_params)
+      # show completeness if needed
+      session[:show_profile_completeness] = true
       @user.flush_auth_token_cache(cookies[:auth_token])
 
       @user.create_activity(  :updated, 
@@ -119,7 +132,11 @@ class UsersController < ApplicationController
                      recipient: @user,
                 recipient_type: @user.class.name,
                     account_id: @user.account_id)
-
+                    
+                    
+                    
+      
+                                            
       redirect_to user_path(@user)
     else
       #if User.where(user_name: params[:user_name])
