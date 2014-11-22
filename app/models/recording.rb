@@ -28,11 +28,13 @@ class Recording < ActiveRecord::Base
                                       :mood,
                                       :instruments,
                                       :tempo 
-                                    ], using => {  :tsearch => { :prefix => true, :any_word => true, dictionary: "english"},
+                                    ], :using => {  :tsearch => { :prefix => true, :any_word => true, dictionary: "english"},
                                                     :dmetaphone => {:any_word => true, :sort_only => true},
                                                     :trigram => {:threshold => 0.1 }
                                                   }
-                                        #,ignoring: :accents
+                                                  
+                                        #,
+                                        #ignoring: :accents
   
   
   validates :title, :presence => true

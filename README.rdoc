@@ -71,6 +71,8 @@ $ ssh deploy@78.46.19.136
 $ cd apps/digiramp_production/current
 $ RAILS_ENV=production bundle exec sidekiq
 
+RAILS_ENV=production bundle exec db:rollback
+
 
 ssh deploy@78.46.19.136
       sudo "../../etc/init.d/sidekiq_digiramp_production stop"
