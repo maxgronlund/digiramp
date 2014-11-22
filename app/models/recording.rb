@@ -33,7 +33,7 @@ class Recording < ActiveRecord::Base
                                                     :dmetaphone => {:any_word => true, :sort_only => true},
                                                     :trigram => {:threshold => 0.1 }
                                                   },
-                                        ignoring: :accents
+                                        :ignoring => "accents"
   
   
   
