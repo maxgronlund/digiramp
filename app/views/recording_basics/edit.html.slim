@@ -41,9 +41,8 @@
 
             br
             br
-            br
         
-            = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  as: :radio_buttons, label: 'Privacy'
+            = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
 
           .col-sm-6
             = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
@@ -55,11 +54,11 @@
           /= f.button :submit, 'Cancel', class: 'btn btn-default please_wait', id: 'done'
           /'&nbsp;
 
-          = f.button :submit, 'Save and Close', class: 'btn btn-default please_wait', id: 'done'
+          = f.button :submit, 'Save & Close', class: 'btn btn-default please_wait', id: 'done'
           '&nbsp;
           = link_to 'Skip', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
           '&nbsp;
-          = f.button :submit, 'Save >', class: 'btn btn-primary please_wait'
+          = f.button :submit, 'Save', class: 'btn btn-primary please_wait'
         /== render 'form', f: f
       = transloadit_jquerify :recording_artwork, :wait => true
       

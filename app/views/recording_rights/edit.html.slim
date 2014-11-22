@@ -30,9 +30,9 @@
 
     
             .pull-right  
-              = link_to 'Skip Step', user_recording_path(@user, @recording), class: 'btn btn-default'
+              = link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
               '&nbsp;
-              = f.submit 'Done', class: 'btn btn-primary please_wait'
+              = f.submit 'Save', class: 'btn btn-primary please_wait'
       
         
   == render 'shared/site_footer'  

@@ -8,16 +8,18 @@ class Omniauth
     if new_provider = AuthorizationProvider.where(user_id: user.id, provider: env['omniauth.auth']["provider"]).present?
       return nil
     else  
-      ap env['omniauth.auth']
+      #ap env['omniauth.auth']
       credentials =  env['omniauth.auth']["credentials"]
+
       
       
-      ap  env['omniauth.auth']["info"]
+      #ap  env['omniauth.auth']["info"]
 
       return AuthorizationProvider.create! do |provider|
                         provider.provider           = env['omniauth.auth']["provider"]
                         provider.uid                = env['omniauth.auth']["uid"]
                         provider.oauth_token        = credentials['token']
+                        provider.oauth_secret       = credentials['secret']
                         provider.oauth_expires_at   = credentials["expires_at"]
                         provider.oauth_expires      = credentials["expires"]
                         provider.user_id            = user.id
