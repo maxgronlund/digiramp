@@ -4,7 +4,7 @@ class UpdateRoleOnUsers < ActiveRecord::Migration
     User.find_each do |user|
       unless user.role == 'Super'
         user.role = 'Customer'
-        user.save!
+        user.save(:validate => false)
       end
     end
   end
