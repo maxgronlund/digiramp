@@ -2,8 +2,15 @@ class RecordingBasicsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   before_filter :get_user, only: [ :edit, :update]
   def edit
-    @recording      = Recording.cached_find(params[:id])
+    
     @user           = User.cached_find(params[:user_id])
+    @recording      = Recording.cached_find(params[:id])
+    
+    forbidden unless current_user
+    unless current_user.super?
+      forbidden unless @recording.user_id == current_user.id
+    end
+    
   end
 
   def update

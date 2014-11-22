@@ -31,11 +31,11 @@
         .row
           .col-sm-12
             .pull-right   
-              = f.button :submit, 'Finish', class: 'btn btn-default please_wait', id: 'done'
+              = f.button :submit, 'Save and Close', class: 'btn btn-default please_wait', id: 'done'
               '&nbsp; 
-              = link_to 'Skip Step', edit_user_recording_tag_path(@user, @recording), class: 'btn btn-default'
+              = link_to 'Skip', edit_user_recording_tag_path(@user, @recording), class: 'btn btn-default'
               '&nbsp;
-              = f.submit 'Next', class: 'btn btn-primary please_wait'
+              = f.submit 'Save', class: 'btn btn-primary please_wait'
 
         /== render 'form', f: f
       
