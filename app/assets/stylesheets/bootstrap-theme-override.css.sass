@@ -1,4 +1,5 @@
 @import "compass/css3/opacity"
+@import "colors"
 
 html, body
   height: 100%
@@ -263,8 +264,7 @@ hr
   border-color: #d2d2ac
   
   
-$danger-color:   #E45642
-$danger-active-color:   #C94B3A
+
   
   
 // ---------------------- danger button -----------------------------  
@@ -290,6 +290,28 @@ $danger-active-color:   #C94B3A
   background-color: $danger-active-color
   border-color: #danger-active-color
   
+// ---------------------- warning button -----------------------------  
+.btn-warning 
+  background-image: -webkit-linear-gradient(top, $warning-color 0%, $warning-color 100%)
+  background-image: linear-gradient(to bottom, $warning-color 0%, $warning-color 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFE45642', endColorstr='#FFE45642', GradientType=0)
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)
+  
+  webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.0)
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.0)
+  
+  text-shadow: 0 0px 0 $warning-color
+  border-color: $warning-color
+  color: #fff
+  .fa
+    color: #fff
+
+.btn-warning:hover, .btn-danger:focus
+  background-color: $warning-active-color
+  background-position: 0 -15px
+.btn-warning:active, .btn-warning.active 
+  background-color: $warning-active-color
+  border-color: #warning-active-color
   
 //.btn-info 
 //  background-image: -webkit-linear-gradient(top, #70c8c4 0%, #46b5b0 100%)

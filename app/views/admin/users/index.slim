@@ -15,7 +15,7 @@
           .row
             .col-sm-6
 
-              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search'
+              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search', value: params[:query]
             .col-sm-6
 
               = submit_tag 'Search', class: 'btn btn-primary btn-lg'

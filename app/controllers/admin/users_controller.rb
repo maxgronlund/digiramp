@@ -7,6 +7,8 @@ class Admin::UsersController < ApplicationController
 
   def index
     @users = User.search(params[:query]).order('lower(email) ASC').page(params[:page]).per(50)
+    @user   = current_user
+    @authorized = true
   end
 
   def show

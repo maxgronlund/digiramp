@@ -71,7 +71,11 @@ class AccountUser < ActiveRecord::Base
   end
   
   def own_account? account
-    self.user.account_id == account.user.account_id
+    begin 
+      self.user.account_id == account.user.account_id
+    rescue
+      false
+    end
   end
   
   def super?
