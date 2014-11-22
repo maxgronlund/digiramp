@@ -28,13 +28,32 @@ class Recording < ActiveRecord::Base
                                       :mood,
                                       :instruments,
                                       :tempo 
-                                    ], :using => {  :tsearch => { :prefix => true, :any_word => true, dictionary: "english"},
-                                                    :dmetaphone => {:any_word => true, :sort_only => true},
-                                                    :trigram => {:threshold => 0.1 }
-                                                  }
-                                                  
-                                        #,
-                                        #ignoring: :accents
+                                    ], :using => [:tsearch, :dmetaphone, :trigram]
+                                    
+                                    #pg_search_scope :search, against: [ :title, 
+                                    #                                    :lyrics, 
+                                    #                                    :genre, 
+                                    #                                    :artist, 
+                                    #                                    :bpm, 
+                                    #                                    :comment, 
+                                    #                                    :vocal, 
+                                    #                                    :isrc_code,
+                                    #                                    :copyright,
+                                    #                                    :production_company,
+                                    #                                    :upc_code,
+                                    #                                    :year,
+                                    #                                    :album_name,
+                                    #                                    :performer,
+                                    #                                    :band,
+                                    #                                    :mood,
+                                    #                                    :instruments,
+                                    #                                    :tempo 
+                                    #                                  ], :using => {  :tsearch => { :prefix => true, :any_word => true, dictionary: "english"},
+                                    #                                                  :dmetaphone => {:any_word => true, :sort_only => true},
+                                    #                                                  :trigram => {:threshold => 0.1 }
+                                    #                                                },
+                                    #                                      ignoring: :accents
+                                    #
   
   
   validates :title, :presence => true
