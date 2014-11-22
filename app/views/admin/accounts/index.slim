@@ -33,162 +33,76 @@
                   '&nbsp;
                   = link_to 'Clear', admin_accounts_path, class: 'btn btn-default please_wait'
                   
-                  
-                  
-                  
-      /= form_tag admin_accounts_path, :method => 'get' do
-      / .row
-      /   .col-sm-6
-      /     = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search'
-      /   .col-sm-6
-      /     = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-      /     '&nbsp;
-      /     = link_to 'Show All',admin_accounts_path, class: 'btn btn-default btn-lg'
-      /
       .sexy_line
-      .table-responsive
-        table class="table table-hover"
-          -@accounts.each do |account|
-            tr
-              td
-                / user
-                - if account.account_owner
-                  = link_to user_path(account.account_owner) do 
-                    .btn.btn-default.btn-xs
-                      i class="fa fa-user"
-                - else
-                  .btn.btn-default.btn-xs.btn-warning
-                    i class="fa fa-exclamation-triangle"
-                
-                '&nbsp;
-                / dashboard
-                = link_to account_account_path( account ) do
-                  .btn.btn-default.btn-xs
-                    i class="fa fa-tachometer"
-                
-                '&nbsp; 
-                / front page     
-                = link_to account.title, account, class: 'btn btn-default btn-xs'
-              td  
-                .pull-right
-                  / dashboard
+      .users
+        .table-responsive
+          table class="table table-hover"
+            -@accounts.order('lower(title) ASC').each do |account|
+              tr id="delete_account_#{account.id.to_s}"
+                td
+                  / delete
+                  = link_to admin_account_path( account ), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do 
+                    - unless account.user && account.user.role == 'Super'
+                      .btn.btn-danger.btn-xs
+                        i class="fa fa-times"
+                    -else 
+                      .btn.btn-danger.btn-xs disabled="disabled"
+                        i class="fa fa-times"
+                  '&nbsp;
+                  / edit
                   = link_to edit_admin_account_path( account ) do
                     .btn.btn-default.btn-xs
                       i class="fa fa-pencil"
                       '&nbsp;Edit
                   '&nbsp;
-                  / dashboard
-                  = link_to admin_account_path( account ), data: { confirm: 'Are you sure?' 'Are you sure?. All Recordings. Opportunities. Common Works, Account Users and other Assets wil be deleted ' } , :method => :delete do 
-                    .btn.btn-danger.btn-xs
-                      i class="fa fa-times"
+                  / edit
+                  = link_to admin_account_path( account ) do
+                    .btn.btn-default.btn-xs
+                      i class="fa fa-bar-chart"
+                  '&nbsp;
                       
-        
-        .sexy_line
+                  / dashboard
+                  = link_to account_account_path( account ) do
+                    .btn.btn-default.btn-xs
+                      i class="fa fa-tachometer"
+                  
+                  '&nbsp;
+                  / user
+                  - if account.account_owner
+                    = link_to user_path(account.account_owner) do 
+                      .btn.btn-default.btn-xs
+                        i class="fa fa-user"
+
+                  - else
+                    .btn.btn-default.btn-xs.btn-warning
+                      i class="fa fa-exclamation-triangle"
+                  
+                  '&nbsp; 
+                  / front page     
+                  = link_to account.title, account, class: 'btn btn-default btn-xs'
+                  
                 
+                
+                td  
+                  = account.account_type
+                td
+                  - unless account.account_type == 'Social'
+                    - if account.expiration_date.nil?
+                      .expired
+                        i class="fa fa-exclamation-circle"
+                    - elsif account.expiration_date < Date.current
+                      .expired
+                        i class="fa fa-exclamation-circle"
+                        '&nbsp;
+                        = account.expiration_date
+                    
+                        
+                
+        .sexy_line
+        == paginate(@accounts)        
             
                  
               
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/#wrap
-/  .admin
-/    .full-width-top
-/      == render 'admin/shared/navbar', page: 'admin'
-/
-/  .container
-/    .row
-/      .col-sm-12
-/        == render 'admin/shared/messages'
-/        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: 'accounts'}
-/        == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'All DigiRAMP Accounts'}
-/    /-cache([request.url, Admin.cached_find(1).accounts_version]) do  
-/    .do
-/      .row
-/        .col-sm-12
-/          
-/          = form_tag admin_accounts_path, :method => 'get' do
-/            .row
-/              .col-sm-6
-/                = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search'
-/              .col-sm-6
-/                = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-/                '&nbsp;
-/                = link_to 'Show All',admin_accounts_path, class: 'btn btn-default btn-lg'
-/      .row
-/        .col-sm-12
-/          .panel.panel-primary
-/            .panel-heading
-/              'Accounts
-/            .panel-body
-/              .table-responsive
-/                table class="table table-hover"
-/                  thead
-/                    tr
-/                      th Account
-/                      th User
-/                      th Expired
-/                      th Account Type
-/                      th 
-/                  tbody
-/                    -@accounts.each do |account|
-/                      tr
-/                        td 
-/                          = link_to account_account_path( account ) do
-/                            .btn.btn-danger.btn-lg
-/                              i class="fa fa-tachometer"
-/                              '&nbsp;
-/                              = account.title
-/                        td
-/                          -if account.account_owner
-/                            = link_to user_path(account.account_owner) do 
-/                              .btn.btn-default.btn-lg
-/                                i class="fa fa-user"
-/                                '&nbsp;
-/                                == account.account_owner.name_or_email
-/                          - else
-/                            .deleted
-/                              'Owner deleted
-/                        /td = account.account_users.size
-/                        /td class="#{'expired' if account.expiration_date < Date.current }"
-/                        /  = account.expiration_date
-/                        td
-/                          - if account.expiration_date.nil?
-/                            'expiration date missing
-/                          /- if account.expiration_date < Date.current && account.account_type != 'Personal Account'
-/                          /  .expired
-/                          /    i class="fa fa-exclamation-circle"
-/                        /td  class="#{'expired' if account.expiration_date < Date.current }"
-/                        /  = account.expiration_date
-/                        td = account.account_type
-/                         
-/                        td
-/                          .pull-right
-/                            = link_to admin_account_path( account) do
-/                              .btn.btn-info.btn-lg
-/                                i class="fa fa-info-circle"
-/                            '&nbsp;
-/                            = link_to edit_admin_account_path( account) do
-/                              .btn.btn-primary.btn-lg
-/                                i class="fa fa-pencil"
-/                            '&nbsp;
-/                            = link_to admin_account_path( account), data: { confirm: 'Are you sure?' 'Are you sure?. All Recordings. Opportunities. Common Works, Account Users and other Assets wil be deleted ' } , :method => :delete do 
-/                              .btn.btn-danger.btn-lg
-/                                i class="fa fa-times"
-/                      
-/                     
-/                              
-/              == paginate(@accounts)

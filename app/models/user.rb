@@ -336,7 +336,7 @@ class User < ActiveRecord::Base
 
     if self.account_users.size > 1
       self.account_users.each do |account_user|
-        return account_user.account unless account_user.account.account_type == 'supervisor'
+        return account_user.account unless account_user.account.account_type == 'business'
       end
     end
 

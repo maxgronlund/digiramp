@@ -9,7 +9,9 @@ class Admin::AccountsController < ApplicationController
   end
   
   def show
-     @account = Account.cached_find(params[:id])
+     @account    = Account.cached_find(params[:id])
+     @user       = current_user
+     @authorized = true
   end
   
   def new
@@ -18,6 +20,8 @@ class Admin::AccountsController < ApplicationController
   
   def edit
     @account = Account.cached_find(params[:id])
+    @user       = current_user
+    @authorized = true
   end
   
   def update
@@ -77,6 +81,7 @@ class Admin::AccountsController < ApplicationController
   def destroy
     begin
       @account = Account.cached_find(params[:id])
+      @account_id = @account.id
       @account.create_activity(  :destroyed, 
                             owner: current_user,
                         recipient: @account,
@@ -98,7 +103,7 @@ class Admin::AccountsController < ApplicationController
     rescue
       flash[:danger] = { title: "ERROR: ", body: "Unable to delete #{@account.title}" }
     end        
-    redirect_to admin_accounts_path
+    #redirect_to admin_accounts_path
   end
   
   def delete_common_works

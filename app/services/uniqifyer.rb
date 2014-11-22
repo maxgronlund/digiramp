@@ -17,5 +17,5 @@ class Uniqifyer
   
 end
 
-#
+# Uniqifyer.uniqify_string not_uniq_string
 

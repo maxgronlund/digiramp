@@ -75,7 +75,7 @@ class Account < ActiveRecord::Base
                 
 
   # account types
-  ACCOUNT_TYPES =  ['Personal Account', 'Pro Account','Enterprise Account']
+  ACCOUNT_TYPES =  ['Social','Pro','Business', 'Enterprise']
   
   
   # !!! might be obsolete
@@ -139,6 +139,7 @@ class Account < ActiveRecord::Base
   #end
   
   def set_uuid
+    self.title = self.title.strip
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
   
