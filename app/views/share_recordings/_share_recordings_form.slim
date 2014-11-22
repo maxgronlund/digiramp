@@ -79,7 +79,7 @@
               div id="facebook_confirmation_#{recording.id.to_s}"
               
               - tweet          = ShareOnTwitter.new
-              - tweet.message = "Checkout ‘#{recording.title}’ by #{current_user.name} on #DigiRamp https://digiramp.com/#{recording.user.slug}/recordings/#{recording.id}"
+              - tweet.message = "Checkout ‘#{recording.title}’ by #{current_user.name} on #DigiRamp https://digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}"
               = simple_form_for [tweet], remote: true do |f|
                 /= f.error_notification
               
