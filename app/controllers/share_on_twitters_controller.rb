@@ -24,9 +24,9 @@ class ShareOnTwittersController < ApplicationController
 
           end
     
-          #client.update(@share_on_twitter.message)
+          client.update(@share_on_twitter.message)
           #client.update_with_media(@share_on_twitter.message, File.new(@share_on_twitter.recording.get_artwork))
-          client.update_with_media(@share_on_twitter.message, File.new(@share_on_twitter.recording.get_cover_art), :possibly_sensitive => true)
+          #client.update_with_media(@share_on_twitter.message, File.new(@share_on_twitter.recording.get_cover_art), :possibly_sensitive => true)
       end
     end
     
