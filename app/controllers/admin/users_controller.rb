@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   include UsersHelper
   before_filter :admin_only
   
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy]
 
   def index
     @users = User.search(params[:query]).order('lower(email) ASC').page(params[:page]).per(50)
@@ -16,7 +16,9 @@ class Admin::UsersController < ApplicationController
   end
   
   def edit
-    
+    @user   = current_user
+    @edit_user =  User.friendly.find(params[:id])
+    @authorized = true
   end
   
   def update

@@ -9,172 +9,183 @@
   
   #page-content-wrapper
     .container-fluid
-      
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { accounts: admin_accounts_path }, current: ''}
+      h3 Account Info
+      = @account.title
+      .sexy_line
+      .row
+        .col-sm-6
+          .users
+            .table-responsive
+              table class="table table-hover"
+                tbody
+                  tr
+                    td Account
+                    td 
+                      = link_to @account do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-tachometer
+                          '&nbsp;
+                          =@account.title
+                  - unless false
+                    tr
+                      td Pro Account
+                      td 
+                        = link_to account_account_path(@account) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-tachometer
+                            '&nbsp;
+                            =@account.title
+                  tr
+                    td Owner
+                    td 
+                      - if @account.user
+                        = link_to @account.user do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-user
+                            '&nbsp;
+                            =@account.user.name
+                      - else
+                        .expired
+                          i class="fa fa-exclamation-circle"
+                          '&nbsp;Missing
+                  tr
+                    td Administrator
+                    td 
+                      = link_to @account.administrator do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-eye
+                          '&nbsp;
+                          =@account.administrator.name
+
+                  tr
+                    td Account Type:
+                    td = @account.account_type
+                  tr
+                    td Expires:
+                    td 
+                      - if @account.expiration_date < Date.current
+                        .expired
+                          i class="fa fa-exclamation-circle"
+                          '&nbsp;Expired  
+                      - else
+                        = @account.expiration_date
+                  tr
+                    td Contact Email:
+                    td = @account.contact_email
+                  tr
+                    td Visits:
+                    td = @account.visits
+                  tr
+                    td Recordings
+                    td = @account.recordings.count
+                  tr
+                    td Playbacks
+                    td = @account.playbacks.count
+                  tr
+                    td Users
+                    td = @account.account_users.where.not(role: [  "Account Owner", "Administrator", "Client User", "Super User","Catalog User" ]).count
+                  tr
+                    td Documents
+                    td = @account.attachments.count
+                  tr
+                    td Clients
+                    td = @account.clients.count
+                  
+          br
+          a data-toggle="collapse" data-parent="#accordion" href="#delete_content"
+            i.fa.fa-times
+            b &nbsp;Delete Content
+           
+          br
+          br
+          div id="delete_content" class="panel-collapse collapse"
+            .users 
+              .table-responsive
+                table class="table table-hover"
+                  tbody
+                    tr
+                      
+                      td = pluralize(@account.common_works.count, 'Work')      
+                      td
+                        .pull-right
+                          = link_to admin_account_delete_common_works_path(@account) ,data: { confirm: 'Are you sure?' } do
+                            .btn.btn-danger.btn-xs
+                              i class="fa fa-times"
+                              '&nbsp;
+                              'Delete all
+                    tr
+                      
+                      td = pluralize(@account.recordings.count, 'Recording')    
+                      td
+                        .pull-right
+                          = link_to = link_to admin_account_delete_recordings_path(@account) ,data: { confirm: 'Are you sure?' }  do
+                            .btn.btn-danger.btn-xs
+                              i class="fa fa-times"
+                              '&nbsp;
+                              'Delete all
+                    tr
+                      
+                      td = pluralize(@account.attachments.count, 'Document')    
+                      td
+                        .pull-right
+                          = link_to admin_account_delete_documents_path(@account) ,data: { confirm: 'Are you sure?' }  do
+                            .btn.btn-danger.btn-xs
+                              i class="fa fa-times"
+                              '&nbsp;
+                              'Delete all
+                    tr
+                      
+                      td = pluralize(@account.clients.count, 'Client')     
+                      td
+                        .pull-right
+                          = link_to admin_account_delete_clients_path(@account) ,data: { confirm: 'Are you sure?' }  do
+                            .btn.btn-danger.btn-xs
+                              i class="fa fa-times"
+                              '&nbsp;
+                              'Delete all
+                    
                 
             
-                 
-              
+        .col-sm-6
+          b Address
+          .users
+            .table-responsive
+              table class="table table-hover"
+                tbody
+                  tr
+                    td Fax:
+                    td = @account.fax
+                  tr
+                    td Country:
+                    td  = @account.country
+                  tr
+                    td Street Address:
+                    td  = @account.street_address
+                  tr
+                    td Postal code
+                    td = @account.postal_code
+                  tr
+                    td Contact First Name:
+                    td  = @account.contact_first_name
+                  tr
+                    td Contact Last Name:
+                    td  = @account.contact_last_name
+      .row  
+        .col-sm-12  
+          .sexy_line
+          .pull-right
+
+            = link_to edit_admin_account_path(@account) do
+               .btn.btn-primary
+                 i.fa.fa-pencil
+                 '&nbsp;
+                 'Edit Account
+
+                  
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
-/#wrap
-/  .admin
-/    .full-width-top
-/      == render 'admin/shared/navbar', page: 'admin'
-/  .container
-/    ==render 'admin/shared/messages'
-/    == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
-/                                                            accounts: admin_accounts_path \
-/                                                          },current: @account.title}
-/
-/    == render 'shared/title', locals: {title: @account.title, body: @account.account_type}
-/    .row
-/      .col-sm-6
-/        .panel.panel-primary
-/          .panel-heading
-/            'Description
-/          .panel-body
-/            = simple_format @account.description
-/
-/        .panel.panel-primary
-/          .panel-heading
-/            'Info
-/          .panel-body
-/            .table-responsive
-/              table class="table table-hover"
-/                tbody
-/                  tr
-/                    td Owner
-/                    td 
-/                      - if @account.user
-/                        = @account.user.name
-/                      - else
-/                        .expired
-/                          i class="fa fa-exclamation-circle"
-/                          '&nbsp;Missing
-/                  tr
-/                    td Administrator
-/                    td =@account.administrator.name
-/                  tr
-/                    td Account Type:
-/                    td = @account.account_type
-/                  tr
-/                    td Expires:
-/                    td 
-/                      - if @account.expiration_date < Date.current
-/                        .expired
-/                          i class="fa fa-exclamation-circle"
-/                          '&nbsp;Expired  
-/                      - else
-/                        = @account.expiration_date
-/                  tr
-/                    td Contact Email:
-/                    td = @account.contact_email
-/                  tr
-/                    td Visits:
-/                    td = @account.visits
-/                    
-/
-/        .panel.panel-primary
-/          .panel-heading
-/            'Assets
-/          .panel-body
-/            .table-responsive
-/              table class="table table-hover"
-/                tbody
-/                  tr
-/                    td Works:
-/                    td = @account.common_works.size
-/                    td
-/                      .pull-right
-/                        = link_to admin_account_delete_common_works_path(@account) ,data: { confirm: 'Are you sure?' } do
-/                          .btn.btn-danger.btn-lg
-/                            i class="fa fa-times-circle"
-/                  tr
-/                    td Recordings:
-/                    td = @account.recordings.size
-/                    td
-/                      .pull-right
-/                        = link_to = link_to admin_account_delete_recordings_path(@account) ,data: { confirm: 'Are you sure?' }  do
-/                          .btn.btn-danger.btn-lg
-/                            i class="fa fa-times-circle"
-/                  tr
-/                    td Documents:
-/                    td = @account.attachments.size
-/                    td
-/                      .pull-right
-/                        = link_to admin_account_delete_documents_path(@account) ,data: { confirm: 'Are you sure?' }  do
-/                          .btn.btn-danger.btn-lg
-/                            i class="fa fa-times-circle"
-/                  tr
-/                    td Clients:
-/                    td = @account.clients.size
-/                    td
-/                      .pull-right
-/                        = link_to admin_account_delete_clients_path(@account) ,data: { confirm: 'Are you sure?' }  do
-/                          .btn.btn-danger.btn-lg
-/                            i class="fa fa-times-circle"
-/                  tr
-/                    td Storage:
-/                    td 
-/                    td
-/            
-/                    
-/            
-/             
-/                      
-/                      
-/      .col-sm-6               
-/
-/        .panel.panel-primary
-/          .panel-heading
-/            'Address
-/          .panel-body
-/            .table-responsive
-/              table class="table table-hover"
-/                tbody
-/                  tr
-/                    td Fax:
-/                    td = @account.fax
-/                  tr
-/                    td Country:
-/                    td  = @account.country
-/                  tr
-/                    td Street Address:
-/                    td  = @account.street_address
-/                  tr
-/                    td Postal code
-/                    td = @account.postal_code
-/                  tr
-/                    td Contact First Name:
-/                    td  = @account.contact_first_name
-/                  tr
-/                    td Contact Last Name:
-/                    td  = @account.contact_last_name
-/                    
-/                    
-/        .panel.panel-primary
-/          .panel-heading
-/            'Users
-/          .panel-body
-/            .table-responsive
-/              table class="table table-hover"
-/                thead
-/                  tr
-/                    th Email
-/                    /th Role
-/                    th 
-/                tbody
-/                  - @account.account_users.invited.each do |account_user|
-/                    tr
-/                      td = account_user.user.email
-/                      /td 
-/                      /  = account_user.role
-/                      td
-/                        .pull-right
-/                          = link_to admin_user_path(account_user.user) do
-/                            .btn.btn-default.btn-lg
-/                              i class="fa fa-eye"
-/                  
+
 /                    
 /                    
 /        /.panel.panel-primary
@@ -208,17 +219,5 @@
 /        /
 /
 /                      
-/    .row
-/      .col-sm-12
-/        hr
-/        .pull-right
-/          = link_to 'Go to Account', account_path(@account), class: 'btn btn-default btn-lg'
-/          '&nbsp;
-/          = link_to 'Edit Account', edit_admin_account_path(@account), class: 'btn btn-primary btn-lg'
-/          '&nbsp;
-/          = link_to 'Delete Account', admin_account_path(@account), method: :delete ,data: { confirm: 'Are you sure?' }  , class: 'btn btn-danger btn-lg'
-/        
-/        
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'      
+
     

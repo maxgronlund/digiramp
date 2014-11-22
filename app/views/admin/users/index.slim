@@ -1,95 +1,170 @@
-#wrap
-  .admin
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'admin'
-   
-  .container
-    .row
-      .col-sm-12
-        /== render 'admin/shared/messages'
-        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: 'users'}
-        == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'All DigiRAMP Users'}
-    .row
-      .col-sm-12
-        = form_tag admin_users_path, :method => 'get' do
-          .row
-            .col-sm-6
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      .row
+        .col-sm-5
 
-              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search', value: params[:query]
-            .col-sm-6
+          h3 Users
+      
+        .col-sm-7
+          .search-recording
+            = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                          :controller => 'users'), \
+                                                          :method => 'get' do |f|
+            
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search for user', \
+                                              value: params[:query]
+                .input-group-btn
+                  = f.submit 'Search', class: "btn btn-primary please_wait"
+                  '&nbsp;
+                  = link_to 'Clear', admin_users_path, class: 'btn btn-default please_wait'        
+            
+                 
+      .sexy_line
+      .users
+        .table-responsive
+          table class="table table-hover"
 
-              = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-              '&nbsp;
-              = link_to 'Show All',admin_users_path, class: 'btn btn-default btn-lg'
-    .row
-      .col-sm-12
-        .panel.panel-primary
-          .panel-heading
-            'Users
-          .panel-body
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr
-                    /th User
-                    th Email
-                    th Account
-                    th Admin
-                    th Super
-                    /th Activated
-                    th 
+          
+            tbody
+              - @users.each do |user|
+                tr
+                  /td = debug user
+                  td 
+                    - if user.role == 'Super'
+                      .btn.btn-danger.btn-xs disabled="disabled"
+                        i class="fa fa-times"
+                    - else
+                      = link_to admin_user_path( user), data: { confirm: 'Are you sure?. \nAll Recordings. Opportunities. Common Works, Account Users and other Assets wil be deleted ' } , :method => :delete do 
+                        .btn.btn-danger.btn-xs
+                          i class="fa fa-times"
+                    '&nbsp;
+                    = link_to edit_admin_user_path( user) do 
+                      .btn.btn-default.btn-xs
+                        i class="fa fa-pencil"
+                        '&nbsp;
+                        'Edit
+                    '&nbsp;
+                    = link_to user_path(user) do 
+                      .btn.btn-default.btn-xs
+                        i class="fa fa-tachometer"
+                        '&nbsp;
+                        = user.email
+     
+                  td = user.role
+                  td 
+                    - if user.administrator
+                      'Administrator
 
-                tbody
-                  -@users.each do |user|
-                    /-cache (user) do
-                    .do
-                      tr
-                        /td = debug user
-                        td 
-                          = link_to admin_user_path( user ) do 
-                            .btn.btn-default.btn-lg
-                              i class='fa fa-user'
-                              '&nbsp;
-                              = user.email
-                        td 
-                          = link_to user_path(user) do 
-                            .btn.btn-danger.btn-lg
-                              i class="fa fa-home"
-                              '&nbsp;
-                              = user.account.title rescue[]
-                        td 
-                          - if user.administrator
-                            = link_to edit_admin_user_path( user) do 
-                              .btn.btn-success.btn-lg
-                                '√
-                        td 
-                          - if user.role == 'Super'
-                            = link_to edit_admin_user_path( user) do 
-                              .btn.btn-danger.btn-lg
-                                i class="fa fa-rocket"
-                                
-
-                              
-                        /td = user.role
-                        /td = user.activated ? '√' : ''
-                        td 
-                          .pull-right
-                            = link_to admin_user_path( user ) do 
-                              .btn.btn-default.btn-lg
-                                i class="fa fa-eye"
-                            '&nbsp;
-                            = link_to edit_admin_user_path( user) do 
-                              .btn.btn-primary.btn-lg
-                                i class="fa fa-pencil"
-                            '&nbsp;
-                            = link_to admin_user_path( user), data: { confirm: 'Are you sure?. \nAll Recordings. Opportunities. Common Works, Account Users and other Assets wil be deleted ' } , :method => :delete do 
-                              .btn.btn-danger.btn-lg
-                                i class="fa fa-times"
-
-                        /td
-                        /  .pull-right
-                        /    = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'
-                  
-              
-            hr  
-            == paginate(@users)
+      .sexy_line
+      == paginate(@users)        
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+/#wrap
+/  .admin
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'admin'
+/   
+/  .container
+/    .row
+/      .col-sm-12
+/        /== render 'admin/shared/messages'
+/        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: 'users'}
+/        == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'All DigiRAMP Users'}
+/    .row
+/      .col-sm-12
+/        = form_tag admin_users_path, :method => 'get' do
+/          .row
+/            .col-sm-6
+/
+/              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search', value: params[:query]
+/            .col-sm-6
+/
+/              = submit_tag 'Search', class: 'btn btn-primary btn-xs'
+/              '&nbsp;
+/              = link_to 'Show All',admin_users_path, class: 'btn btn-default btn-xs'
+/    .row
+/      .col-sm-12
+/        .panel.panel-primary
+/          .panel-heading
+/            'Users
+/          .panel-body
+/            .table-responsive
+/              table class="table table-hover"
+/                thead
+/                  tr
+/                    /th User
+/                    th Email
+/                    th Account
+/                    th Admin
+/                    th Super
+/                    /th Activated
+/                    th 
+/
+/                tbody
+/                  -@users.each do |user|
+/                    /-cache (user) do
+/                    .do
+/                      tr
+/                        /td = debug user
+/                        td 
+/                          = link_to admin_user_path( user ) do 
+/                            .btn.btn-default.btn-xs
+/                              i class='fa fa-user'
+/                              '&nbsp;
+/                              = user.email
+/                        td 
+/                          = link_to user_path(user) do 
+/                            .btn.btn-danger.btn-xs
+/                              i class="fa fa-home"
+/                              '&nbsp;
+/                              = user.account.title rescue[]
+/                        td 
+/                          - if user.administrator
+/                            = link_to edit_admin_user_path( user) do 
+/                              .btn.btn-success.btn-xs
+/                                '√
+/                        td 
+/                          - if user.role == 'Super'
+/                            = link_to edit_admin_user_path( user) do 
+/                              .btn.btn-danger.btn-xs
+/                                i class="fa fa-rocket"
+/                                
+/
+/                              
+/                        /td = user.role
+/                        /td = user.activated ? '√' : ''
+/                        td 
+/                          .pull-right
+/                            = link_to admin_user_path( user ) do 
+/                              .btn.btn-default.btn-xs
+/                                i class="fa fa-eye"
+/                            '&nbsp;
+/                            = link_to edit_admin_user_path( user) do 
+/                              .btn.btn-primary.btn-xs
+/                                i class="fa fa-pencil"
+/                            '&nbsp;
+/                            = link_to admin_user_path( user), data: { confirm: 'Are you sure?. \nAll Recordings. Opportunities. Common Works, Account Users and other Assets wil be deleted ' } , :method => :delete do 
+/                              .btn.btn-danger.btn-xs
+/                                i class="fa fa-times"
+/
+/                        /td
+/                        /  .pull-right
+/                        /    = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'
+/                  
+/              
+/            hr  
+/            == paginate(@users)

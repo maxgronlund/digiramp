@@ -113,7 +113,7 @@ class AccountUser < ActiveRecord::Base
     return true if account_user.role        == 'Account User'
                                             
     # never edit a super user               
-    return false if account_user.role       == 'Super'
+    return false if account_user.role       == 'Super User'
     
   
     # only administrators and supers can edit the account owner

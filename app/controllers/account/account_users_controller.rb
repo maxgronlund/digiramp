@@ -6,8 +6,11 @@ class Account::AccountUsersController < ApplicationController
   before_filter :get_account_account
 
   def index
-    forbidden unless current_account_user.read_user
+    unless current_user.role == 'Super'
+      forbidden unless current_account_user.read_user
+    end
     @user       = current_user
+    @authorized = true
     
     #forbidden unless current_account_user && current_account_user.read_user
   end
@@ -57,7 +60,9 @@ class Account::AccountUsersController < ApplicationController
   def create
 
     # secure the permissions is in place
-    forbidden unless current_account_user.createx_user
+    unless current_user.role == 'Super'
+      forbidden unless current_account_user.createx_user
+    end
     
     # if the account user alreaddy exists
     if AccountUser.where(email: params[:account_user][:email], account_id: params[:account_user][:account_id]).first

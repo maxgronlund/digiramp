@@ -550,19 +550,19 @@ class User < ActiveRecord::Base
   def self.invite_to_account_by_email email, title, body, account_id, current_user_id
     
     # the user is already signed up
-    if found_user       = User.find_by_email(email.downcase)
+    if found_user       = User.where(email: email.downcase).first
       
       # invite found user to account
       UserMailer.delay.invite_existing_user_to_account found_user.id, account_id, body, current_user_id
       #UserMailer.delay.invite_existing_user_to_account( found_user.id , title, body, account_id )
       
       # force uuid to update
-      found_user.save!
+      #found_user.save!
     else
       # create user
       #user_name = User.create_uniq_user_name_from_email(email)
       secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-      found_user = User.create(  
+      found_user = User.create( email: email, 
                                 invited: true, 
                                 password: secret_temp_password, 
                                 password_confirmation: secret_temp_password
