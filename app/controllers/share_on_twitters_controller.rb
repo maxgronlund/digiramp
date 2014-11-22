@@ -13,27 +13,20 @@ class ShareOnTwittersController < ApplicationController
        
       # get twitter provider
       if provider_twitter = @user.authorization_providers.where(provider: 'twitter').first
-          ap provider_twitter[:oauth_token]
-          ap provider_twitter[:oauth_secret]
+          #ap provider_twitter[:oauth_token]
+          #ap provider_twitter[:oauth_secret]
           client = Twitter::REST::Client.new do |config|
             config.consumer_key        = ENV['TWITTER_KEY'] 
             config.consumer_secret     = ENV['TWITTER_SECRET'] 
             
             config.access_token        = provider_twitter[:oauth_token]
             config.access_token_secret = provider_twitter[:oauth_secret]
-            
-            
-            
-            
-            
-            
-            #config.access_token        = "15994070-Jgnqxzf10LboGnXxeCP3y9Tevu9khqRmlvrKzZzmw"#provider_twitter[:oauth_token]
-            #config.access_token_secret = "hn0prX2igSGsXGD0shuIKl9nNMvKhtOXd3zDVlRxB98Jn"#provider_twitter[:oauth_secret]
+
           end
     
-          client.update(@share_on_twitter.message)
+          #client.update(@share_on_twitter.message)
           #client.update_with_media(@share_on_twitter.message, File.new(@share_on_twitter.recording.get_artwork))
-          #client.update_with_media("I'm tweeting with @gem!", File.new("/path/to/sensitive-media.png"), :possibly_sensitive => true)
+          client.update_with_media(@share_on_twitter.message, File.new(@share_on_twitter.recording.get_cover_art), :possibly_sensitive => true)
       end
     end
     
