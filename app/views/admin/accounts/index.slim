@@ -11,6 +11,7 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
       .row
         .col-sm-5
 

@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   
   #has_many :permissions
   #has_many :permitted_models, dependent: :destroy #!!! moving to account_user
-  
+  # Activities
   has_many :activity_events, as: :activity_eventable
   
   has_many :share_on_facebooks, dependent: :destroy
@@ -112,13 +112,18 @@ class User < ActiveRecord::Base
                                      dependent:   :destroy
   
   has_many :followers, through: :reverse_relationships, source: :follower
-  # followers end
   
-  #def country_name
-  #    country = ISO3166::Country[country_code]
-  #    country.translations[I18n.locale.to_s] || country.name
-  #end
   
+  # the creator of the event
+  has_many :follower_events, dependent: :destroy
+  
+  
+  #has_many :wall_posts, through: :follower_event_users, source: :follower_event_user
+  
+  has_many :wall_posts, :through => :follower_event_users, :source => :follower_event
+  
+  
+  has_many :follower_event_users
   
   
   def set_token
@@ -657,10 +662,8 @@ class User < ActiveRecord::Base
 
   end
   
+
   
-  #def send_tweet
-  #  self.twitter.update("I'm tweeting with @gem!")
-  #end
     
 
 private

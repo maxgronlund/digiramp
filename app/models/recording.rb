@@ -99,7 +99,11 @@ class Recording < ActiveRecord::Base
   before_save :update_uuids
   after_commit :flush_cache
   before_destroy :remove_from_collections
-  after_create :count_stats_up
+  #after_create :count_stats_up
+  
+  # owners followers gets a new post on their dashboard
+  has_many      :follower_events, as: :postable,    dependent: :destroy
+  after_create  :notify_followers
   
   #mount_uploader :cover_art, ArtworkUploader
   
@@ -505,6 +509,19 @@ class Recording < ActiveRecord::Base
     return self.comment unless self.comment.to_s == ''
     return 'Provided by DigiRAMP'
   end
+  
+  def notify_followers
+    if self.privacy == "Anyone"
+
+      FollowerEvent.create(  user_id:               self.user_id,
+                             body:                  'has uploaded an recording',
+                             postable_type:         self.class.name,
+                             postable_id:           self.id  
+                            )
+    end
+  end
+  
+
   
   #def get_full_size_artwork
   #  

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141122225830) do
+ActiveRecord::Schema.define(version: 20141123143508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -809,6 +809,29 @@ ActiveRecord::Schema.define(version: 20141122225830) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "follower_event_users", force: true do |t|
+    t.integer  "follower_event_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "follower_event_users", ["follower_event_id"], name: "index_follower_event_users_on_follower_event_id", using: :btree
+  add_index "follower_event_users", ["user_id"], name: "index_follower_event_users_on_user_id", using: :btree
+
+  create_table "follower_events", force: true do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.string   "url"
+    t.integer  "postable_id"
+    t.string   "postable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "follower_events", ["postable_id", "postable_type"], name: "index_follower_events_on_postable_id_and_postable_type", using: :btree
+  add_index "follower_events", ["user_id"], name: "index_follower_events_on_user_id", using: :btree
 
   create_table "footages", force: true do |t|
     t.string   "title"
