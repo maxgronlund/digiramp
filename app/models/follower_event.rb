@@ -9,8 +9,11 @@ class FollowerEvent < ActiveRecord::Base
   def notify_followers
 
     self.user.followers.each do |follower|
-      ap FollowerEventUser.create(follower_event_id: self.id, user_id: follower.id) 
+      FollowerEventUser.create(follower_event_id: self.id, user_id: follower.id) 
     end
+    
+    # also post it on my own dashboard
+    FollowerEventUser.create(follower_event_id: self.id, user_id: self.user.id) 
   end
   
   

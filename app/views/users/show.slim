@@ -15,7 +15,7 @@
           -if current_user && current_user.id == @user.id
             == render 'users/activities'
           
-          - @user.wall_posts.each do |wall_post|
+          - @user.wall_posts.last(20).each do |wall_post|
             == render "wall_posts/" + wall_post.postable_type.downcase , wall_post: wall_post
         .col-sm-4
           .comments
