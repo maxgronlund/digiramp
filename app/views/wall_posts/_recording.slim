@@ -1,26 +1,7 @@
 - user = wall_post.user
 - recording = Recording.cached_find(wall_post.postable_id)
 
-/= debug user
-/h4 = user.user_name
-/= wall_post.body
-/div id="delete_recording_#{recording.id.to_s}"
-/  #digiWhams  class="/recordings/#{recording.id.to_s}"
-/    == render 'recordings/recording_with_icons', recording: recording,
-/                                                 info: true,
-/                                                 add_to_playlist: true, 
-/                                                 remove_from_playlist: false, 
-/                                                 edit: false, 
-/                                                 delete: false,
-/                                                 description: true,
-/                                                 share: true,
-/                                                 target: "",
-/                                                 music_request_link: false
-/
-/
-
-
-
+.sexy_line
 .comments-content
   .row
     .col-sm-12
@@ -41,7 +22,7 @@
 #digiWhams  class="/recordings/#{recording.id.to_s}"
   == render 'recordings/recording_with_icons', recording: recording,
                                                info: true,
-                                               add_to_playlist: true, 
+                                               add_to_playlist: false, 
                                                remove_from_playlist: false, 
                                                edit: false, 
                                                delete: false,
