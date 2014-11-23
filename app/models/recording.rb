@@ -514,7 +514,7 @@ class Recording < ActiveRecord::Base
     if self.privacy == "Anyone"
 
       FollowerEvent.create(  user_id:               self.user_id,
-                             body:                  'has uploaded an recording',
+                             body:                  'Has uploaded a recording',
                              postable_type:         self.class.name,
                              postable_id:           self.id  
                             )
