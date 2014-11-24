@@ -17,6 +17,10 @@
           .item
             = link_to user_recording_path(recording.user, recording) do
               = image_tag(recording.cover_art || 'default-cover.jpg')
+
+        .item
+          = link_to songs_path do
+            = image_tag('default-cover.jpg')
      
       .sexy_line
       h4 = link_to 'Users', users_path
@@ -58,7 +62,8 @@ javascript:
 		navigationText : ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
 		navigation : true,
 		rewind : false,
-    showItems: 10
+		responsiveMode : 'itemWidthRange',
+		itemWidthRange : [100, 130],
 	});
   
 
@@ -67,7 +72,8 @@ javascript:
 		navigationText : ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
 		navigation : true,
 		rewind : false,
-    showItems: 10
+		responsiveMode : 'itemWidthRange',
+		itemWidthRange : [100, 130],
 	});
   
 
