@@ -17,10 +17,12 @@
           .item
             = link_to user_recording_path(recording.user, recording) do
               = image_tag(recording.cover_art || 'default-cover.jpg')
+              = recording.title
 
         .item
           = link_to songs_path do
             = image_tag('default-cover.jpg')
+            'Show all
      
       .sexy_line
       h4 = link_to 'Users', users_path
@@ -29,6 +31,8 @@
           .item
             = link_to user_path(user) do
               = image_tag user.image_url(:avatar_92x92)
+              = user.user_name
+            
         
         
       /.explore-badges
@@ -63,7 +67,7 @@ javascript:
 		navigation : true,
 		rewind : false,
 		responsiveMode : 'itemWidthRange',
-		itemWidthRange : [100, 130],
+		itemWidthRange : [160, 220],
 	});
   
 
@@ -73,7 +77,7 @@ javascript:
 		navigation : true,
 		rewind : false,
 		responsiveMode : 'itemWidthRange',
-		itemWidthRange : [100, 130],
+		itemWidthRange : [160, 220],
 	});
   
 
