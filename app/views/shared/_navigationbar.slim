@@ -41,7 +41,7 @@
         = link_to discover_index_path do
           i class="fa fa-globe"
           '&nbsp;
-          'DISCOVER
+          'Discover
       - if user_signed_in? && current_account
         li
           = link_to user_path(current_user) do
@@ -91,10 +91,15 @@
     - unless current_user
       ul class="nav navbar-nav navbar-right"
         li 
+          = link_to signup_index_path do
+            .signup
+              .btn.btn-warning
+                'Sign up
+        li 
           = link_to login_new_path do
             i class="fa fa-lock"
             '&nbsp;
-            'LOG IN
+            'Log in
       
 
 

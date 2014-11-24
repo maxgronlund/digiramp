@@ -27,7 +27,9 @@
           .row
             .col-sm-12
               .pull-right
-                = f.submit 'Log in', class: 'btn btn-default', id: 'log_in_form_button'
+                /= link_to "Sign Up", signup_index_path, class: 'btn btn-warning'
+                /'&nbsp;
+                = f.submit 'Log in', class: 'btn btn-primary', id: 'log_in_form_button'
         br
         .sexy_line
         br
@@ -65,7 +67,7 @@
             .sexy_line
             br
             .pull-right
-              = link_to "Sign Up", signup_index_path, class: 'btn btn-default'
+              = link_to "Sign Up", signup_index_path, class: 'btn btn-warning'
               '&nbsp;
               = link_to "Forgot Password?", new_password_reset_path, class: 'btn btn-default'
               '&nbsp;

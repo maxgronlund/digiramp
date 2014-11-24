@@ -1,0 +1,42 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      h3 Playbacks
+      = @recording.title
+      .sexy_line
+      = debug @recording.playbacks
+      /.endless-pages
+      /.add_recordings
+      /  -if current_user && current_user.id == @user.id
+      /    .new-recording
+      /      = link_to new_user_recording_path(@user) do
+      /        .new-recording-badge
+      /          .new-recording-badge-content
+      /            i.fa.fa-plus-circle
+      /
+      /        .new-recording-content
+      /          .new-recording-text
+      /            h3 Click here to upload recording
+      /          .new-recording-waveform
+      /            = image_tag 'default_waveform.png'
+      /    /.sexy_line
+      /    
+      /  == render 'recordings/index', recordings: @recordings
+      / 
+      /== paginate(@recordings) 
+      
+          
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'
