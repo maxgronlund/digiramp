@@ -480,13 +480,13 @@ class Recording < ActiveRecord::Base
   end
   
   def get_artwork
-
+    
     begin
       art = Artwork.cached_find(self.image_file_id)
       return art.file
     rescue
-      return self.artwork unless self.artwork.to_s ==''
       return self.cover_art unless self.cover_art == ''
+      return self.artwork unless self.artwork.to_s ==''
       return self.get_cover_art unless self.get_cover_art == ''
     end
     

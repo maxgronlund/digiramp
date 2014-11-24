@@ -9,29 +9,67 @@
   
   #page-content-wrapper
     .container-fluid
-      .explore-badges
-        .explore-badge
-          = link_to songs_path do
-          
-            = image_tag 'discover-music.jpg'
-            h3 Recordings
-        .explore-badge
-          = link_to users_path do  
-          
-            = image_tag 'discover-people.jpg'
-            h3 Users
-        .explore-badge
-          = link_to users_path do 
-            = image_tag 'discover-playlists.jpg'
-            h3 Playlists
-        .explore-badge
-          = link_to users_path do 
-            = image_tag 'discover-people.jpg'
-            h3 Artists
-       
+      h3 Discover DigiRAMP
+      .sexy_line
+      h4 = link_to 'Recordings', songs_path
+      .util-carousel.normal-imglist id="recordings-imglist"
+        - Recording.last(20).each do |recording|
+          .item
+            = link_to user_recording_path(recording.user, recording) do
+              = image_tag(recording.cover_art || 'default-cover.jpg')
+     
+      .sexy_line
+      h4 = link_to 'Users', users_path
+      .util-carousel.normal-imglist id="users-imglist"
+        - @users.each do |user|
+          .item
+            = link_to user_path(user) do
+              = image_tag user.image_url(:avatar_92x92)
+        
+        
+      /.explore-badges
+      /  .explore-badge
+      /    = link_to songs_path do
+      /    
+      /      = image_tag 'discover-music.jpg'
+      /      h3 Recordings
+      /  .explore-badge
+      /    = link_to users_path do  
+      /    
+      /      = image_tag 'discover-people.jpg'
+      /      h3 Users
+      /  .explore-badge
+      /    = link_to users_path do 
+      /      = image_tag 'discover-playlists.jpg'
+      /      h3 Playlists
+      /  .explore-badge
+      /    = link_to users_path do 
+      /      = image_tag 'discover-people.jpg'
+      /      h3 Artists
+      / 
      
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links' 
+
+
+javascript:
+	$('#recordings-imglist').utilCarousel({
+		pagination : false,
+		navigationText : ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+		navigation : true,
+		rewind : false,
+    showItems: 10
+	});
+  
+
+	$('#users-imglist').utilCarousel({
+		pagination : false,
+		navigationText : ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+		navigation : true,
+		rewind : false,
+    showItems: 10
+	});
+  
 
 
 
