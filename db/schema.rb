@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124175036) do
+ActiveRecord::Schema.define(version: 20141125210720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1190,18 +1190,18 @@ ActiveRecord::Schema.define(version: 20141124175036) do
     t.string   "role"
     t.integer  "common_work_id"
     t.integer  "import_ipi_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "user_id"
     t.string   "ipi_code"
     t.string   "cae_code"
     t.boolean  "controlled"
     t.string   "territory"
-    t.decimal  "share",                   default: 0.0, null: false
-    t.decimal  "mech_owned",              default: 0.0, null: false
-    t.decimal  "mech_collected",          default: 0.0, null: false
-    t.decimal  "perf_owned",              default: 0.0, null: false
-    t.decimal  "perf_collected",          default: 0.0, null: false
+    t.decimal  "share",                   default: 0.0,   null: false
+    t.decimal  "mech_owned",              default: 0.0,   null: false
+    t.decimal  "mech_collected",          default: 0.0,   null: false
+    t.decimal  "perf_owned",              default: 0.0,   null: false
+    t.decimal  "perf_collected",          default: 0.0,   null: false
     t.text     "notes"
     t.string   "pro"
     t.boolean  "has_agreement"
@@ -1209,6 +1209,16 @@ ActiveRecord::Schema.define(version: 20141124175036) do
     t.boolean  "controlled_by_submitter"
     t.string   "ascap_work_id"
     t.string   "bmi_work_id",             default: ""
+    t.boolean  "writer",                  default: false
+    t.boolean  "composer",                default: false
+    t.boolean  "administrator",           default: false
+    t.boolean  "producer",                default: false
+    t.boolean  "original_publisher",      default: false
+    t.boolean  "artist",                  default: false
+    t.boolean  "distributor",             default: false
+    t.boolean  "remixer",                 default: false
+    t.boolean  "other",                   default: false
+    t.boolean  "publisher",               default: false
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree

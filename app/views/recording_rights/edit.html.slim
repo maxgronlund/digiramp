@@ -14,25 +14,41 @@
   #page-content-wrapper
     .container-fluid 
       == render 'recordings/wizard_step', step: 5
-      = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_rights'), 
-                                               :method => 'put' do |f|
+      
 
+      
+      /.col-sm-6
+      /  = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_rights'), 
+      /                                           :method => 'put' do |f|
+      /    = f.input :clearance, label: '200% clearance'
+      /    = f.input :copyright,  :input_html => {  placeholder: "i.e. © 2014 Entertainment Company, Inc"}
+      /  .sexy_line
+      /  
+      /
+      /  
+
+      = simple_form_for [ @recording.account, @recording.common_work],  :html => { :id => 'common_work' } do |f|
+        = f.hidden_field :recording_id, value: @recording.id
+        = f.hidden_field :user_id, value: @recording.user_id
         .row
-          .col-sm-3
-          .col-sm-6
-            = f.input :clearance, label: '200% clearance'
-            = f.input :copyright,  :input_html => {  placeholder: "i.e. © 2014 Entertainment Company, Inc"}
-            /= f.input :isrc_code, label: 'ISRC Code',:input_html => {  placeholder: "CC-XXX-YY-NNNNN"}
-
-
-
-         
-
-    
-            .pull-right  
+          .col-sm-12
+            h4 Songwriters and composers
+            
+            #ipis
+              = f.simple_fields_for :ipis do |ipi|
+                = render 'recording_rights/ipi_fields', :f => ipi
+              .links
+                = link_to_add_association 'Add ipi', f, :ipis, class: 'btn btn-primary'
+        .row
+          .col-sm-12    
+            /.sexy_line
+            .pull-right
               = link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
               '&nbsp;
               = f.submit 'Save', class: 'btn btn-primary please_wait'
-      
+              
+            
+            
+          
         
   == render 'shared/site_footer'  

@@ -521,6 +521,12 @@ class Recording < ActiveRecord::Base
     end
   end
   
+  def attach_to_common_work
+    unless CommonWork.exists?(self.common_work_id)
+      CommonWork.attach self, self.account_id, self.user
+    end
+  end
+  
 
   
   #def get_full_size_artwork

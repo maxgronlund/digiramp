@@ -5,24 +5,71 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
+      .visible-xs
+        li id="sidebar-toggle"
+           = link_to '#' do
+            i.fa.fa-caret-square-o-left
+            '&nbsp;
+            'Hide
+      li 
+        = link_to songs_path(@user) do
+          i class="fa fa-headphones"
+          '&nbsp;
+          'Recording
+      li 
+        = link_to users_path(@user) do
+          i class="fa fa-users"
+          '&nbsp;
+          'Users
+
+      /li Most popular
+      /li Reccomendednted
       /== render 'users/shared/sidebar', selected: 'playlists'
   
   #page-content-wrapper
     .container-fluid
       h3 Discover DigiRAMP
       .sexy_line
-      h4 = link_to 'Recordings', songs_path
+      .row
+        .col-sm-5
+          h4 = link_to 'Recordings', songs_path
+        .col-sm-7
+          .search-recording
+            
+            = simple_form_for :recording, :url => url_for(:action => 'index', \
+                                                        :controller => 'songs'), \
+                                                        :method => 'get' do |f|
+            
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search', \
+                                              value: params[:query]
+                                              
+
+                .input-group-btn
+                  = f.submit 'Go', class: "btn btn-primary please_wait"
+                  '&nbsp;
+                  = link_to 'Clear', songs_path, class: 'btn btn-default please_wait'
+      
+      
+      
+      
       .util-carousel.normal-imglist id="recordings-imglist"
         - Recording.last(20).each do |recording|
           .item
-            = link_to user_recording_path(recording.user, recording) do
-              = image_tag(recording.cover_art || 'default-cover.jpg')
-              = recording.title
+            == render 'discover/recording', recording: recording
 
         .item
           = link_to songs_path do
-            = image_tag('default-cover.jpg')
-            'Show all
+            .recording
+              h4 Discover more
+              = image_tag( 'default-cover.jpg', class: "img-lazy")
+              br
+              
+
+            
      
       .sexy_line
       h4 = link_to 'Users', users_path
@@ -30,31 +77,14 @@
         - @users.each do |user|
           .item
             = link_to user_path(user) do
-              = image_tag user.image_url(:avatar_92x92)
-              = user.user_name
+              .recording
+                h4 = user.user_name
+                = image_tag user.image_url(:avatar_92x92, class: "img-lazy")
+              
             
         
         
-      /.explore-badges
-      /  .explore-badge
-      /    = link_to songs_path do
-      /    
-      /      = image_tag 'discover-music.jpg'
-      /      h3 Recordings
-      /  .explore-badge
-      /    = link_to users_path do  
-      /    
-      /      = image_tag 'discover-people.jpg'
-      /      h3 Users
-      /  .explore-badge
-      /    = link_to users_path do 
-      /      = image_tag 'discover-playlists.jpg'
-      /      h3 Playlists
-      /  .explore-badge
-      /    = link_to users_path do 
-      /      = image_tag 'discover-people.jpg'
-      /      h3 Artists
-      / 
+
      
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links' 
@@ -68,6 +98,7 @@ javascript:
 		rewind : false,
 		responsiveMode : 'itemWidthRange',
 		itemWidthRange : [140, 200],
+    lazyLoad: true
 	});
   
 
@@ -78,6 +109,7 @@ javascript:
 		rewind : false,
 		responsiveMode : 'itemWidthRange',
 		itemWidthRange : [140, 200],
+    lazyLoad: true
 	});
   
 

@@ -1,7 +1,12 @@
 class RecordingRightsController < ApplicationController
+  
+  before_filter :get_user, only: [:edit, :update]
+  
   def edit
+    forbidden unless @authorized
     @recording      = Recording.cached_find(params[:id])
-    @user           = User.cached_find(params[:user_id])
+    #@user           = User.cached_find(params[:user_id])
+
   end
 
   def update

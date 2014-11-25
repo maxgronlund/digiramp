@@ -99,7 +99,7 @@ gem "chartkick"
 gem 'groupdate'
 gem 'public_activity'
 
-#gem "nested_form"
+#gem "nested_form" << use cocoon instead
 #gem 'private_pub'
 #gem "taglib-ruby"
 #gem 'id3_tags'
@@ -121,6 +121,7 @@ gem 'gravatarify', '~> 3.0.0'
 gem 'pusher'
 gem "gritter", "1.1.0"
 gem "airbrake"
+gem "cocoon"
 
 # maintaince
 gem 'traceroute'

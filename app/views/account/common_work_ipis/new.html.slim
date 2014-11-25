@@ -13,8 +13,6 @@
       /==render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                               assets: account_assets_path(@account), \
-                                                              'Common Works'.to_sym => account_works_path(@account), \
-                                                              @common_work.title.to_sym => account_work_path(@account, @common_work), \
                                                               }, current: 'register ip'}
                                                               
       

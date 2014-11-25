@@ -1,0 +1,31 @@
+
+= link_to user_recording_path(recording.user, recording) do
+  .recording
+    h4 = recording.title
+    = image_tag(recording.cover_art || 'default-cover.jpg', class: "img-lazy")
+    
+    
+    
+    .pull-right
+      .small-symbols 
+        span id="comments_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Comments"
+          i class="fa fa-comments"
+          '&nbsp;
+          = recording.comments.count
+        
+        span id="likes_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Likes"
+          '&nbsp;|
+          i class="fa fa-heart red-heart"
+          '&nbsp;
+          =recording.likes.count
+        span id="playbacks_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Playbacks"
+          '&nbsp;|
+          i class="fa fa-headphones" 
+          '&nbsp;
+          = recording.playbacks_count
+
+    
+/javascript:
+/  $('#comments_count_#{recording.id.to_s}').tooltip('hide')
+/  $('#likes_count_#{recording.id.to_s}').tooltip('hide')
+/  $('#playbacks_count_#{recording.id.to_s}').tooltip('hide')

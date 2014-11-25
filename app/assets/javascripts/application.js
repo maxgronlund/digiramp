@@ -53,6 +53,7 @@
 //= require masonry.pkgd.min
 //= require masonry
 //= require jquery.utilcarousel.min
+//= require cocoon
 // require bootstrap-tokenfield
 // require chosen-jquery
 // require jquery.tokeninput

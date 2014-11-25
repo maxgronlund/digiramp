@@ -31,8 +31,15 @@ class CommonWork < ActiveRecord::Base
   #accepts_nested_attributes_for  :recordings, allow_destroy: true
   
   has_many :attachments, as: :attachable,       dependent: :destroy
+  
+  
+  
   has_many :ipis,       dependent: :destroy
-  accepts_nested_attributes_for :ipis, allow_destroy: true
+  #accepts_nested_attributes_for :ipis, allow_destroy: true
+  accepts_nested_attributes_for :ipis, :reject_if => :all_blank, :allow_destroy => true
+  
+  
+  
   #has_many :activity_events, as: :activity_eventable
   #has_many :documents,       as: :documentable, dependent: :destroy
   has_many :work_users, dependent: :destroy

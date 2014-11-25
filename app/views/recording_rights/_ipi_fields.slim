@@ -1,0 +1,77 @@
+.nested-fields
+  .row
+    .col-sm-8
+      = f.input :full_name
+      .row
+        .col-sm-6
+          = f.input :writer,                :as => :boolean
+          = f.input :composer,              :as => :boolean
+        .col-sm-6
+          = f.input :administrator,         :as => :boolean
+          = f.input :original_publisher,    :as => :boolean
+      
+      
+      - uuid =  UUIDTools::UUID.timestamp_create().to_s
+      a data-toggle="collapse" data-parent="#accordion" href="##{uuid}"
+        i.fa.fa-pencil
+        b &nbsp;Address
+       
+      br
+      br
+      div id="#{uuid}" class="panel-collapse collapse"
+        .row
+          .col-sm-6
+            = f.input :address, :input_html => {  style: "height: 108px;", placeholder: "Address"}
+          .col-sm-6
+            = f.input :email
+            = f.input :phone_number
+      .row
+        .col-sm-6
+          = f.input :ipi_code
+        .col-sm-6
+          = f.input :territory
+      .row
+        .col-sm-3
+           = f.input :mech_owned
+        .col-sm-3
+           = f.input :mech_collected
+        .col-sm-3
+           = f.input :perf_owned
+        .col-sm-3
+           = f.input :perf_collected
+      .row
+        .col-sm-6
+          = f.input :notes, :input_html => {  style: "height: 108px;", placeholder: "Notes"}
+        .col-sm-6
+          = f.input :pro, collection: ProAffiliation.order(:title).all, include_blank: false, label: 'Performance Rights Organization'
+     
+    .col-sm-4
+      = f.input :share
+  .row
+    .col-sm-12
+      .pull-right
+        = link_to_remove_association "Remove ipi", f  , class: 'btn btn-default' 
+  
+  .row
+    .col-sm-12
+      .sexy_line
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+/writer",            
+/composer",          
+/administrator",     
+/producer",          
+/original_publisher",
+/artist",            
+/distributor",       
+/remixer",           
+/other",             
+/publisher",         
