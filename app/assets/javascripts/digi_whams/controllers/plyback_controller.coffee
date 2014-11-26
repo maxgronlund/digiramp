@@ -147,7 +147,6 @@ class @PlaybackController
         reset_play_buttons()
         $.getScript("/digiwham/recordings/" +      window.global_id  )
         window.audio_engine.play(window.global_id, window.global_mp3 )
-        
         show_loading_button( window.global_id )
       
   # maintain playstate when entering a new page

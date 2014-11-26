@@ -103,7 +103,7 @@ class Recording < ActiveRecord::Base
   
   # owners followers gets a new post on their dashboard
   has_many      :follower_events, as: :postable,    dependent: :destroy
-  after_create  :notify_followers
+  after_create  :send_notifications_on_create
   
   #mount_uploader :cover_art, ArtworkUploader
   
@@ -120,6 +120,41 @@ class Recording < ActiveRecord::Base
     VOCAL_HASH << [k,k]
   end
   
+  
+  
+  
+  def send_notifications_on_create
+    attach_to_common_work
+    notify_followers 'Has uploaded a recording', self.user_id 
+  end
+
+  def notify_followers notification, user_id
+    #puts '********************************************************************************'
+    #puts notification
+    #puts '********************************************************************************'
+    # only end if recording is public
+    if self.privacy == "Anyone"
+      # dont save the same messages to many times
+      if follower_event = FollowerEvent.where(user_id: user_id, postable_type: 'Recording', postable_id: self.id).last
+        if follower_event.created_at + 10.minute  < Time.now
+          send_notification( notification, user_id )
+        end
+      else 
+        send_notification( notification, user_id )
+      end
+    end
+  end
+  
+  def send_notification  notification, user_id
+    FollowerEvent.create(  user_id:               user_id,
+                           body:                  notification,
+                           postable_type:         'Recording',
+                           postable_id:           self.id  
+                          )
+    
+  end
+  
+
   
   def playlist
     
@@ -510,16 +545,8 @@ class Recording < ActiveRecord::Base
     return 'Provided by DigiRAMP'
   end
   
-  def notify_followers
-    if self.privacy == "Anyone"
-
-      FollowerEvent.create(  user_id:               self.user_id,
-                             body:                  'Has uploaded a recording',
-                             postable_type:         self.class.name,
-                             postable_id:           self.id  
-                            )
-    end
-  end
+  
+  
   
   def attach_to_common_work
     unless CommonWork.exists?(self.common_work_id)

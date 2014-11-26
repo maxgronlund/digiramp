@@ -17,7 +17,7 @@ class Digiwham::RecordingsController < ApplicationController
   
   # the show function is used for count of playbacks
   def show
-   
+    
     begin
       @recording                      = Recording.cached_find(params[:id])
       @recording.playbacks_count      += 1
@@ -38,12 +38,18 @@ class Digiwham::RecordingsController < ApplicationController
                           recipient_type: 'Recording',
                               account_id: @recording.user.account_id) 
       end
+    
+
+      @recording.notify_followers 'Listen to this recording', current_user.id
+      
     rescue
     end
-    #widget = Widget.cached_find(params[:widget_id])
-    #widget.playback_count += 1
-    #widget.save!
+    
+    
+    
     render nothing: true
   end
+  
+
 
 end

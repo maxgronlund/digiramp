@@ -14,9 +14,8 @@
   #page-content-wrapper
     .container-fluid 
       == render 'recordings/wizard_step', step: 5
-      
-
-      
+      - @recording.attach_to_common_work
+      /= debug @recording.common_work
       /.col-sm-6
       /  = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_rights'), 
       /                                           :method => 'put' do |f|

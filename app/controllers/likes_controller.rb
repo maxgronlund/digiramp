@@ -43,7 +43,7 @@ class LikesController < ApplicationController
                           
     @unlike = '.unlike_recording_' + params[:recording_id].to_s   
     @like   = '.like_recording_'   + params[:recording_id].to_s 
-    #@like = 'like_' + like.id.to_s
+    
   end
   
   def show

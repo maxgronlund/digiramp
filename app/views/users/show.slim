@@ -15,7 +15,8 @@
           -if current_user && current_user.id == @user.id
             == render 'users/activities'
           
-          - @user.wall_posts.last(20).each do |wall_post|
+          / make endless pages here
+          - @user.wall_posts.order('created_at desc').first(20).each do |wall_post|
             == render "wall_posts/" + wall_post.postable_type.downcase , wall_post: wall_post
         .col-sm-4
           .comments
@@ -31,3 +32,5 @@
               
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
+
+/id desc').first(64)
