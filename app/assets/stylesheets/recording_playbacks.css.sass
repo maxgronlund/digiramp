@@ -1,0 +1,76 @@
+// Place all the styles related to the recording_playbacks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "row_machine"
+@import "colors"
+@import "truncate"
+
+.recording_playbacks
+  width: 100%
+  .user
+    @include rowMachine(6, 1%)
+    padding: 4px
+    float: left
+    @ include panel-default-color
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+    .container
+      //padding: 55px 0px 15px 30px; */
+      margin: 0px
+      width: 100%
+      padding: 0px
+
+      
+    
+      .avatar
+        float: left
+        width: 50%
+        height: 100%
+        img
+          max-width: 100%
+          height: auto
+        
+      .info
+        float: left
+        box-sizing
+        width: 50%
+        height: 100%
+        padding-left: 10px
+        h4
+          @include    truncate
+          margin-top: 5px
+          a
+            color: #666
+            font-size: 17px
+        
+    .footer
+      height: 20px
+      padding-left: 5px
+      margin-top: -20px
+      width: 50%
+      float: right
+      color: #888
+    
+    @media (max-width: 2200px) 
+      @include rowMachine(5, 1%)
+      
+    @media (max-width: 1800px) 
+      @include rowMachine(4, 2%)
+  
+    @media (max-width: 1440px) 
+      @include rowMachine(4, 2%)
+  
+    @media (max-width: 1216px) 
+      @include rowMachine(3, 2%)
+  
+    @media (max-width: 992px) 
+      @include rowMachine(2, 3%)
+    
+  
+    @media (max-width: 768px) 
+      @include rowMachine(2, 4%)
+    
+  
+    @media (max-width: 544px) 
+      @include rowMachine(1, 4%)    

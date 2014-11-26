@@ -80,7 +80,20 @@
               .recording
                 h4 = user.user_name
                 = image_tag user.image_url(:avatar_92x92, class: "img-lazy")
-              
+                .pull-right
+                  .small-symbols
+                    i class="fa fa-headphones"
+                    '&nbsp;
+                    = user.recordings.count
+                    '&nbsp;|&nbsp;
+                    i class="fa fa-heart red-heart"
+                    '&nbsp;
+                    = user.likes.count
+                    '&nbsp;|&nbsp;
+                    i class="fa fa-users"
+                    '&nbsp;
+                    = user.followers.count
+            
             
         
         
