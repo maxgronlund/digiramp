@@ -129,14 +129,12 @@ class Recording < ActiveRecord::Base
   end
 
   def notify_followers notification, user_id
-    #puts '********************************************************************************'
-    #puts notification
-    #puts '********************************************************************************'
+
     # only end if recording is public
     if self.privacy == "Anyone"
       # dont save the same messages to many times
       if follower_event = FollowerEvent.where(user_id: user_id, postable_type: 'Recording', postable_id: self.id).last
-        if follower_event.created_at + 10.minute  < Time.now
+        if follower_event.created_at + 10.minute  > Time.now
           send_notification( notification, user_id )
         end
       else 
