@@ -17,7 +17,8 @@
           
           / make endless pages here
           - @user.wall_posts.order('created_at desc').first(20).each do |wall_post|
-            == render "wall_posts/" + wall_post.postable_type.downcase , wall_post: wall_post
+            div id="delete_wall_post_#{wall_post.id.to_s}"
+              == render "wall_posts/" + wall_post.postable_type.downcase , wall_post: wall_post
         .col-sm-4
           .comments
             == render 'users/guest_book'

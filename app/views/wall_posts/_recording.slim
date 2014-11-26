@@ -5,7 +5,10 @@
 .comments-content
   .row
     .col-sm-12
-      
+      - if current_user.id == @user.id
+        .pull-right
+          = link_to follower_event_path(user, wall_post_id: wall_post.id), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
+            i.fa.fa-times
       .pull-left
         .avatar
           .thumbnail

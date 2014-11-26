@@ -7,7 +7,7 @@ Digiramp::Application.routes.draw do
   
 
   
-
+  resources :follower_events, only: [:destroy]
   resources :enterprise_account_info, only: [:index]
   resources :business_account_info, only: [:index]
   resources :pro_account_info, only: [:index]
