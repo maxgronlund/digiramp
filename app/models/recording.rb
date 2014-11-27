@@ -134,7 +134,7 @@ class Recording < ActiveRecord::Base
     if self.privacy == "Anyone"
       # dont save the same messages to many times
       if follower_event = FollowerEvent.where(user_id: user_id, postable_type: 'Recording', postable_id: self.id).last
-        if follower_event.created_at + 10.minute  > Time.now
+        if follower_event.created_at + 10.minutes  < Time.now
           send_notification( notification, user_id )
         end
       else 
