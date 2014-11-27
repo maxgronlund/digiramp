@@ -39,8 +39,8 @@ class Digiwham::RecordingsController < ApplicationController
                               account_id: @recording.user.account_id) 
       end
     
-
-      @recording.notify_followers 'Listen to this recording', current_user.id
+      Activity.notify_followers(  'Listen to this recording', user_id, 'Recording', @recording.id )
+      #@recording.notify_followers 'Listen to this recording', current_user.id
       
     rescue
     end

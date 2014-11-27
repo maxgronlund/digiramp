@@ -125,32 +125,24 @@ class Recording < ActiveRecord::Base
   
   def send_notifications_on_create
     attach_to_common_work
-    notify_followers 'Has uploaded a recording', self.user_id 
+    #notify_followers 'Has uploaded a recording', self.user_id 
+    Activity.notify_followers( 'Recording', self.user_id, 'Recording', self.id )
   end
 
-  def notify_followers notification, user_id
-
-    # only end if recording is public
-    if self.privacy == "Anyone"
-      # dont save the same messages to many times
-      if follower_event = FollowerEvent.where(user_id: user_id, postable_type: 'Recording', postable_id: self.id).last
-        if follower_event.created_at + 10.minutes  < Time.now
-          send_notification( notification, user_id )
-        end
-      else 
-        send_notification( notification, user_id )
-      end
-    end
-  end
+  #def notify_followers notification, user_id, postable_type, postable_id
+  #
+  #  Activity.notify_followers( notification, user_id, 'Recording', self.id ) if self.privacy == "Anyone"
+  #
+  #end
   
-  def send_notification  notification, user_id
-    FollowerEvent.create(  user_id:               user_id,
-                           body:                  notification,
-                           postable_type:         'Recording',
-                           postable_id:           self.id  
-                          )
-    
-  end
+  #def send_notification  notification, user_id
+  #  FollowerEvent.create(  user_id:               user_id,
+  #                         body:                  notification,
+  #                         postable_type:         'Recording',
+  #                         postable_id:           self.id  
+  #                        )
+  #  
+  #end
   
 
   

@@ -5,6 +5,9 @@ ready = ->
     
   $('.oppoptunity-description').ThreeDots
     max_rows: 10
+    
+  $('.following-profile').ThreeDots
+    max_rows: 3
 
     
 	

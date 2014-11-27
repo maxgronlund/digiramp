@@ -44,7 +44,8 @@ class LikesController < ApplicationController
     @unlike = '.unlike_recording_' + params[:recording_id].to_s   
     @like   = '.like_recording_'   + params[:recording_id].to_s 
     
-    recording.notify_followers 'Like this', @user.id
+    #recording.notify_followers 'Like this', @user.id, 'Recording', recording
+    Activity.notify_followers(  'Like this', @user.id, 'Recording', recording.id )
     
   end
   

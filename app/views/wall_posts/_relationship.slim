@@ -1,0 +1,30 @@
+
+h1 Relationship
+= debug follower_event
+
+/- if follower_event.postable_id.to_s == ''
+/  h1 = follower_event
+/  = follower_event.destroy
+/- else
+/  - user = follower_event.user
+/
+/  
+/  
+/
+.sexy_line
+.comments-content
+  .row
+    .col-sm-12
+      - if current_user.id == @user.id
+        .pull-right
+          = link_to follower_event_path(follower_event.id), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
+              i.fa.fa-times
+/        .pull-left
+/          .avatar
+/            .thumbnail
+/              = link_to image_tag( user.image_url :avatar_48x48),  user_path( user)
+/              
+/              
+/  = debug follower_event.postable_id
+/  /- if user_id  Relationship.cached_find(follower_event.postable_id).followed_id
+/  /  = debug User.cached_find(user_id)

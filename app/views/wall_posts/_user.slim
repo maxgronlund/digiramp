@@ -1,0 +1,87 @@
+.following
+  - if follower_event.postable_id.to_s == ''
+    h1 = follower_event
+    = follower_event.destroy
+  - else
+    
+    .sexy_line
+    
+    .row
+      .col-sm-12
+        .comments-content
+          - if current_user.id == @user.id
+            .pull-right
+              = link_to follower_event_path(follower_event.id), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
+                i.fa.fa-times
+          .pull-left
+            .avatar
+              .thumbnail
+                = link_to image_tag( @user.image_url :avatar_48x48),  user_path( @user)
+          
+          .comment-content
+            h5
+              = link_to @user.user_name, user_path( @user)
+              '&nbsp;
+              = "#{time_ago_in_words(follower_event.created_at) } ago"
+              br = follower_event.body
+          
+              
+    - if user = User.cached_find(follower_event.postable_id)
+      .row
+        .col-sm-12  
+          .following-container
+            .following-avatar
+              = link_to image_tag( user.image_url :avatar_92x92),  user_path( user)
+              
+            .following-content
+              h4 = user.user_name
+              .following-profile
+                .ellipsis_text
+                  = simple_format strip_tags( user.profile)
+              
+            .fotter
+              h5  
+                - if user.composer
+                  span class="label label-default"
+                    'Composer  
+                  '&nbsp;
+      
+                - if user.writer
+                  span class="label label-default"
+                    'Writer
+                  '&nbsp;
+      
+                - if user.artist
+                  span class="label label-default"
+                    'Artist
+                  '&nbsp;
+      
+                - if user.author
+                  span class="label label-default"
+                    'Author
+                  '&nbsp;
+      
+                - if user.producer
+                  span class="label label-default"
+                    'Producer
+                  '&nbsp;
+      
+                - if user.musician
+                  span class="label label-default"
+                    'Musician
+                  '&nbsp;
+      
+                - if user.remixer
+                  span class="label label-default"
+                    'Remixer
+                  '&nbsp;
+      
+                - if user.dj
+                  span class="label label-default"
+                    'DJ
+                  '&nbsp;
+    /.row
+    /  .col-sm-12
+    /    br
+    /    = debug user
+    /    .sexy_line

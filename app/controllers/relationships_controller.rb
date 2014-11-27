@@ -8,15 +8,17 @@ class RelationshipsController < ApplicationController
     @user.followers_count += 1
     @user.save
     
-    current_user.create_activity(  :created, 
-                               owner: relationship,
-                           recipient: @user,
-                      recipient_type: 'Relationship',
-                          account_id: current_user.account_id) 
-                          
-                          
+    #current_user.create_activity(  :created, 
+    #                           owner: relationship,
+    #                       recipient: @user,
+    #                  recipient_type: 'Relationship',
+    #                      account_id: current_user.account_id) 
+    #                      
+    #                      
     @remove_button    = "#follow_user_#{@user.id.to_s}"  
-    @add_button       = "#follow_unfollow_#{@user.id.to_s}"                    
+    @add_button       = "#follow_unfollow_#{@user.id.to_s}"        
+    
+    Activity.notify_followers( 'is following', current_user.id, 'User' , relationship.followed_id )            
 
   end
 
