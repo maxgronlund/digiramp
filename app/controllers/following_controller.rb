@@ -1,7 +1,7 @@
 class FollowingController < ApplicationController
-  #before_filter :get_user
+  before_filter :get_user
   
   def index
-    ap params
+    @followed_users = @user.followed_users
   end
 end
