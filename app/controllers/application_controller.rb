@@ -115,7 +115,7 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :access_user
-  
+
   # v 2
   def get_user
     #ap params

@@ -1,28 +1,72 @@
-h1 Listing opportunity_invitations
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
 
-table
-  thead
-    tr
-      th Opportunity
-      th Title
-      th Body
-      th Invitees
-      th
-      th
-      th
-
-  tbody
-    - if @opportunity_invitations
-      - @opportunity_invitations.each do |opportunity_invitation|
-        tr
-          td = opportunity_invitation.opportunity
-          td = opportunity_invitation.title
-          td = opportunity_invitation.body
-          td = opportunity_invitation.invitees
-          td = link_to 'Show', opportunity_invitation
-          td = link_to 'Edit', edit_opportunity_invitation_path(opportunity_invitation)
-          td = link_to 'Destroy', opportunity_invitation, data: { confirm:  'Are you sure?'}, :method => :delete
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'opportunities'
+  
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) }, current: ''}
+      h3 Invitations send
+      .sexy_line
+      - if @opportunity_invitations
+        - @opportunity_invitations.each do |opportunity_invitation|
+          h5 = opportunity_invitation.title
+          .row
+            .col-sm-6
+              =  opportunity_invitation.body
+            .col-sm-6
+              b Send to
+              br
+              - opportunity_invitation.invitees.split(',').each do |invitee|
+                = invitee
+                br
+          .sexy_line
+          /- opportunity_invitation.invitees.split(',').each do |invitee|
+          /  = invitees
       
-br
+      /= debug @opportunity_invitations.first
+            
+      
+            
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links' 
 
-/= link_to 'New Opportunity invitation', new_opportunity_invitation_path
+
+/=======================================================================================
+/=======================================================================================
+/=======================================================================================
+
+
+
+/h1 Listing opportunity_invitations
+/
+/table
+/  thead
+/    tr
+/      /th Opportunity
+/      th Title
+/      /th Body
+/      /th Invitees
+/      /th
+/      /th
+/      /th
+/
+/  tbody
+/    - if @opportunity_invitations
+/      - @opportunity_invitations.each do |opportunity_invitation|
+/        tr
+/          /td = opportunity_invitation.opportunity
+/          td = opportunity_invitation.title
+/          /td = opportunity_invitation.body
+/          /td = opportunity_invitation.invitees
+/          /td = link_to 'Show', opportunity_invitation
+/          /td = link_to 'Edit', edit_opportunity_invitation_path(opportunity_invitation)
+/          /td = link_to 'Destroy', opportunity_invitation, data: { confirm:  'Are you sure?'}, :method => :delete
+/      
+/br
+/
+//= link_to 'New Opportunity invitation', new_opportunity_invitation_path

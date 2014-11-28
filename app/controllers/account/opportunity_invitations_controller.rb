@@ -5,9 +5,12 @@ class Account::OpportunityInvitationsController < ApplicationController
 
   # GET /opportunity_invitations
   # GET /opportunity_invitations.json
-  #def index
-  #  @opportunity_invitations = OpportunityInvitation.all
-  #end
+  def index
+    @opportunity            = Opportunity.cached_find(params[:opportunity_id])
+    @opportunity_invitations = @opportunity.opportunity_invitations
+    @user = current_user
+    @authorized = true
+  end
   #
   ## GET /opportunity_invitations/1
   ## GET /opportunity_invitations/1.json

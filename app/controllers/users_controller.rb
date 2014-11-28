@@ -3,6 +3,7 @@ class UsersController < ApplicationController
  
   #before_filter :find_user, only: [:show, :edit, :update, :destroy]
   before_filter :access_user, only: [:edit, :update, :destroy]
+  before_filter :find_user, only: [:show]
   
   def index
     #@users = User.search(params[:query]).order('lower(user_name) ASC').page(params[:page]).per(48)
@@ -11,7 +12,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.friendly.find(params[:id])
+    
+    #@user = User.friendly.find(params[:id])
     #channel = 'digiramp_radio_' + @user.email
     #Pusher.trigger(channel, 'digiramp_event', {"title" => 'PROFILE UPDATED', 
     #                                      "message" => "Your profile is #{@user.completeness} pct. complete ", 
@@ -44,6 +46,17 @@ class UsersController < ApplicationController
     end
 
   end
+  
+  def find_user
+    @user = User.cached_find(params[:id])
+    # If an old id or a numeric id was used to find the record, then
+    # the request path will not match the post_path, and we should do
+    # a 301 redirect that uses the current friendly id.
+    if request.path != user_path(@user)
+      return redirect_to @user, :status => :moved_permanently
+    end
+  end
+
 
   def new
 

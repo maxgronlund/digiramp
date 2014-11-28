@@ -8,7 +8,8 @@
 class User < ActiveRecord::Base
   
   extend FriendlyId
-  friendly_id :user_name, use: :slugged
+  friendly_id :user_name, :use => :history
+  #friendly_id :user_name, use: :slugged
   
   scope :public_profiles,  ->  { where( private_profile: false)  }
   
