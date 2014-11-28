@@ -61,7 +61,12 @@ class SessionsController < ApplicationController
     end
     cookies.delete(:auth_token)
     reset_session
-    redirect_to root_url, notice: "Logged out!"
+    
+    if params[:opportunity_id]
+      redirect_to :back
+    else
+      redirect_to root_url, notice: "Logged out!"
+    end
   end
   
 private

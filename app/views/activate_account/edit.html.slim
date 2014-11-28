@@ -10,26 +10,31 @@
       .col-sm-6
         h3 Welcome to DigiRAMP
         'You have been invited to a secure aray. Please create a password
-        br
-        br
-        br
-        = simple_form_for(  @user, :url => activate_account_path(params[:id]) ) do |f|
-          = f.hidden_field :opportunity_id, value: @opportunity.id
-          .input-group
-            span class="input-group-addon"
-              i class= 'fa fa-key'
-            = f.input_field :password, placeholder: 'Password', autocomplete: :off
+        .sexy_line
+        - if @error
+          h3 = @error
+          = link_to 'Log out', logout_path(params: params), class: 'btn btn-primary'
+        - else
           br
-          
-          .input-group
-            span class="input-group-addon"
-              i class= 'fa fa-key'
-            = f.input_field :password , placeholder: 'Password Confirmation', autocomplete: :off
-
-          .pull-right
+          br
+          br
+          = simple_form_for(  @user, :url => activate_account_path(params[:id]) ) do |f|
+            = f.hidden_field :opportunity_id, value: @opportunity.id
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-key'
+              = f.input_field :password, placeholder: 'Password', autocomplete: :off
             br
-            = f.submit 'Create', class: 'btn btn-default'
-
+            
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-key'
+              = f.input_field :password , placeholder: 'Password Confirmation', autocomplete: :off
+          
+            .pull-right
+              br
+              = f.submit 'Create', class: 'btn btn-default'
+          
         
 
   
