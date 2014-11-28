@@ -17,6 +17,7 @@ class Account::OpportunityInvitationsController < ApplicationController
   # GET /opportunity_invitations/new
   def new
     @user                   = current_user
+    @authorized             = true
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_invitation = OpportunityInvitation.new
   end

@@ -520,11 +520,13 @@ class User < ActiveRecord::Base
   
   # invite a user based on an email 
   def self.invite_user email
-    
+    user_name = create_uniq_user_name_from_email email
+    puts '=================================================================='
+    puts user_name
     
     secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
     user                  = User.create(    
-                                        user_name:      create_uniq_user_name_from_email email
+                                        user_name:      user_name
                                             email:      email, 
                                           invited:      true, 
                                          password:      secret_temp_password, 
