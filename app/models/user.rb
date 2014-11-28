@@ -526,7 +526,7 @@ class User < ActiveRecord::Base
     
     secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
     user                  = User.create(    
-                                        user_name:      user_name
+                                        user_name:      user_name,
                                             email:      email, 
                                           invited:      true, 
                                          password:      secret_temp_password, 
