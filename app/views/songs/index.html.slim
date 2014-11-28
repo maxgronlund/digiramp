@@ -85,17 +85,18 @@
                   = link_to 'Clear', songs_path, class: 'btn btn-default please_wait'
             
       .sexy_line
-      .endless-pages
-      .add_songs
-        == render 'songs/index', songs: @songs
+      /.endless-pages
+      /.add_songs
+      == render 'songs/index', songs: @songs
         
       
       
       
       
       == paginate(@songs)
-      javascript:
-        initialize_digi_wahms();
+      /javascript:
+      /  initialize_digi_wahms();
+        
 
         
 

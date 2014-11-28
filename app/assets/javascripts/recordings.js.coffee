@@ -33,7 +33,8 @@ ready = ->
           $('.pagination').text('Fetching more songs...')
           $.getScript(url)
       $(window).scroll()
-      
+  
+    
       
   $('#done').click ->
     $('#next_step').val('done');
