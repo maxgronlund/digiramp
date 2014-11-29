@@ -34,12 +34,8 @@ class Account::OpportunityInvitationsController < ApplicationController
 
   def create
     
-    # validates email here
-    
-    #/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
-    
-    
-    
+
+
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_invitation = OpportunityInvitation.create(opportunity_invitation_params)
     
@@ -55,10 +51,10 @@ class Account::OpportunityInvitationsController < ApplicationController
 
 
     params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
-      #puts '========================================='
-      #puts email
-      #puts '========================================='
-      if user  = User.find_or_invite_from_email( email.downcase.gsub(' ', '') )
+      
+      sanitized_email =  EmailValidator.saintize email
+
+      if user  = User.find_or_invite_from_email( sanitized_email )
 
         @opportunity_user = OpportunityUser.where( opportunity_id:   @opportunity.id, 
                                                   user_id:          user.id,
@@ -72,7 +68,7 @@ class Account::OpportunityInvitationsController < ApplicationController
           OpportunityMailer.delay.invite(email, @opportunity_invitation.id, user.id, current_user.id)
         else
           user.add_token
-          OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id, current_user.id)
+          OpportunityMailer.delay.invite_to_account(sanitized_email, @opportunity_invitation.id, user.id, current_user.id)
         end
         
        
@@ -81,8 +77,8 @@ class Account::OpportunityInvitationsController < ApplicationController
                                    recipient: @opportunity_user,
                               recipient_type: @opportunity_user.class.name,
                                   account_id: @account.id,
-                                      params: { opportunity_id: @opportunity.id,
-                                        opportunity_user_email: email
+                                      params: {         opportunity_id: @opportunity.id,
+                                                opportunity_user_email: sanitized_email
                                               }
                                           ) 
                               

@@ -22,7 +22,11 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
-    @user = User.find_by_password_reset_token!(params[:id])
+    begin
+      @user = User.find_by_password_reset_token!(params[:id])
+    rescue
+      not_found
+    end
   end
   
   def update

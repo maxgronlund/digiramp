@@ -1,44 +1,101 @@
 #wrap
   .full-width-top
-    == render 'admin/shared/navbar', page: 'account' 
-  .hidden-xs
-    .full-width-sign-up
-      .container
-        /== render 'shared/sign_up'
-            
+    == render 'shared/navigationbar', page: 'account' 
+       
   .container
-    /==render 'admin/shared/messages'
     .row
       .col-sm-3
-        
-
+      
+    
       .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            i class= 'fa fa-lock'
-            '&nbsp;
-            'Create Password
-          .panel-body
+        - if @status    == 'logged in'
+          h3 = @error
+          .sexy_line
+          .pull-right
+            = link_to 'OK', current_user, class: 'btn btn-primary'
+        - elsif @status == 'logged in on other account'
+          h3 = @error
+          .sexy_line
+          .pull-right
+            = link_to 'Log out', logout_path(params: params), class: 'btn btn-primary'
+        - elsif @status == 'This invitation is no longer valid'
+          h3 = @error
+          .sexy_line
+          .pull-right
+            = link_to 'OK', current_user ? current_user : root_path , class: 'btn btn-primary'
+        -else
 
-            = simple_form_for(  @user, :url => accept_invitation_path(params[:id]) ) do |f|
-              .input-group
-                span class="input-group-addon"
-                  i class= 'fa fa-key'
-                = f.hidden_field :name, value: @user.email
-                = f.input_field :password, placeholder: 'Password', autocomplete: :off
+          h3 Create pasword
+          .sexy_line
+          br
+          = simple_form_for(  @user, :url => accept_invitation_path(params[:id]) ) do |f|
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-key'
+              = f.hidden_field :name, value: @user.email
+              = f.input_field :password, placeholder: 'Password', autocomplete: :off
+            br
+          
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-key'
+              = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+          
+            .pull-right
               br
-              
-              .input-group
-                span class="input-group-addon"
-                  i class= 'fa fa-key'
-                = f.input_field :password_btn btn-defaultation, placeholder: 'Password Confirmation', autocomplete: :off
+              = f.submit 'OK', class: 'btn btn-primary'
+          
+          
+          
+          
 
-              .pull-right
-                br
-                = f.submit 'Create', class: 'btn btn-green btn-lg'
 
-        
 
-  
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+
+
+
+
+
+
+
+
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'account' 
+/  .hidden-xs
+/    .full-width-sign-up
+/      .container
+/        /== render 'shared/sign_up'
+/            
+/  .container
+/    /==render 'admin/shared/messages'
+/    .row
+/      .col-sm-3
+/        
+/
+/      .col-sm-6
+/        h3 Create pasword
+/        .sexy_line
+/          = simple_form_for(  @user, :url => accept_invitation_path(params[:id]) ) do |f|
+/            .input-group
+/              span class="input-group-addon"
+/                i class= 'fa fa-key'
+/              = f.hidden_field :name, value: @user.email
+/              = f.input_field :password, placeholder: 'Password', autocomplete: :off
+/            br
+/            
+/            .input-group
+/              span class="input-group-addon"
+/                i class= 'fa fa-key'
+/              = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+/          
+/            .pull-right
+/              br
+/              = f.submit 'OK', class: 'btn btn-primary'
+/          
+/        
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'

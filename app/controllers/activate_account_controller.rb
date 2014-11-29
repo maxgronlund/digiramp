@@ -2,21 +2,44 @@ class ActivateAccountController < ApplicationController
 
 
   def edit
+    #begin
+    #  @user         = User.find_by_password_reset_token!(params[:id])
+    #  @opportunity  = Opportunity.cached_find(params[:opportunity_id])
+    #  if current_user
+    #    unless current_user.id == @user.id
+    #      @error = 'Aperently you not logged in as the user that received the invitation'
+    #      
+    #      
+    #    else
+    #      @error = 'you are alreaddy logged in'
+    #    end 
+    #  end
+    #rescue
+    #  @error = 'This invitation is no longer valid'
+    #end
+    
+    
+    
     begin
       @user         = User.find_by_password_reset_token!(params[:id])
       @opportunity  = Opportunity.cached_find(params[:opportunity_id])
+      
       if current_user
-        unless current_user.id == @user.id
-          @error = 'Aperently you not logged in as the user that received the invitation'
-          
-          
+        if current_user.id == @user.id
+          @error = 'You are alreaddy logged in'
+          @status = 'logged in'
         else
-          @error = 'you are alreaddy logged in'
-        end 
-      end
+          @error = 'You not logged in as the user that received the invitation'
+          @status = 'logged in on another account'
+        end
+      end 
     rescue
       @error = 'This opportunity invitation is no longer valid'
+      @status = 'opportunity not valid'
     end
+    
+    
+    
   end
   
   def update

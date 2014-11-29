@@ -47,7 +47,7 @@ class SessionsController < ApplicationController
   
 
   def destroy
-    session[:show_profile_completeness] = true
+    session[:show_profile_completeness] = nil
     begin 
       user = User.cached_find_by_auth_token( cookies[:auth_token] )
       user.flush_auth_token_cache(cookies[:auth_token])
@@ -64,6 +64,9 @@ class SessionsController < ApplicationController
     
     if params[:opportunity_id]
       redirect_to :back
+    elsif params[:opportunity_invitation]
+      redirect_to login_new_path(params)
+      flash[:info] = { title: "Ok", body: "Please login as the user invited to the opportunity" }
     else
       redirect_to root_url, notice: "Logged out!"
     end

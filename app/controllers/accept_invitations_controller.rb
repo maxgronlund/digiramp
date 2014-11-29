@@ -1,7 +1,21 @@
 class AcceptInvitationsController < ApplicationController
 
   def edit
-    @user = User.find_by_password_reset_token!(params[:id])
+    begin
+      @user = User.find_by_password_reset_token!(params[:id])
+      if current_user && current_user.id == @user.id
+        @error = 'you are alreaddy logged in'
+        @status = 'logged in'
+      elsif @user
+        
+      else
+         @error = 'You are not logged in as the user that received the invitation'
+         @status = 'logged in on other account'
+      end 
+    rescue
+      @error = 'This invitation is no longer valid'
+    end
+        
     
   end
   
@@ -15,7 +29,7 @@ class AcceptInvitationsController < ApplicationController
       cookies[:auth_token]            = @user.auth_token  
       
       if @user.current_account
-        redirect_to edit_user_account_path( @user, @user.account) 
+        redirect_to edit_user_path( @user ) 
       else
         redirect_to root_path
       end

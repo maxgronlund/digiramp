@@ -1,33 +1,34 @@
 
-
-nav.navbar.navbar-default role="navigation"
-  ul.nav.navbar-nav.navbar-right
-    li.dropdown
-      a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
-        i.fa.fa-gear
-        '&nbsp;
-        'Options
-        span.caret
-      ul class="dropdown-menu" role="menu"
-        -if current_account_user.read_opportunity
-          li
-            = link_to user_user_opportunities_path(current_user) do
-              i.fa.fa-book
-              '&nbsp;
-              'Opportunities I'm invited to
-        -if current_account_user.read_opportunity
-          li
-            = link_to account_account_opportunities_path(@user.account) do
-              i.fa.fa-book
-              '&nbsp;
-              'Opportunities I have created
-
-        li.divider
-
-        -if current_account_user.create_opportunity
-          li
-            = link_to new_account_account_opportunity_path(@user.account) do
-              i.fa.fa-book
-              '&nbsp;
-              'Create Opportunity
-
+- if current_account_user.read_opportunity || current_account_user.create_opportunity 
+  nav.navbar.navbar-default role="navigation"
+    ul.nav.navbar-nav.navbar-right
+      li.dropdown
+        a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
+          i.fa.fa-gear
+          '&nbsp;
+          'Options
+          span.caret
+        ul class="dropdown-menu" role="menu"
+          -if current_account_user.read_opportunity
+            li
+              = link_to account_account_opportunities_path(@user.account) do
+                i.fa.fa-book
+                '&nbsp;
+                'Opportunities I have created
+                
+            li
+              = link_to user_user_opportunities_path(current_user) do
+                i.fa.fa-book
+                '&nbsp;
+                'Opportunities I'm invited to
+  
+            li.divider
+  
+          -if current_account_user.create_opportunity
+            li
+              = link_to new_account_account_opportunity_path(@user.account) do
+                i.fa.fa-book
+                '&nbsp;
+                'Create Opportunity
+  
+  

@@ -12,7 +12,6 @@
         h3 Login
 
         = simple_form_for(  :sessions, :url => sessions_path ) do |f|
-    
           .input-group
             span class="input-group-addon" @
             = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
@@ -27,9 +26,10 @@
           .row
             .col-sm-12
               .pull-right
-                /= link_to "Sign Up", signup_index_path, class: 'btn btn-warning'
-                /'&nbsp;
-                = f.submit 'Log in', class: 'btn btn-primary', id: 'log_in_form_button'
+                - if current_user
+                  = link_to "Log out", logout_path(params), class: 'btn btn-primary'
+                - else  
+                  = f.submit 'Log in', class: 'btn btn-primary', id: 'log_in_form_button'
         br
         .sexy_line
         br

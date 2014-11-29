@@ -14,7 +14,7 @@ class OpportunityMailer < ActionMailer::Base
     @opportunity             = @opportunity_invitation.opportunity
     blog                     = Blog.cached_find('Support')
     @blog_post               = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
-    @opportunity_link        = url_for( controller: 'opportunity/opportunities', action: 'show', id: @opportunity.id)
+    @opportunity_link        = url_for( controller: 'opportunity/opportunities', action: 'show', id: @opportunity.id, opportunity_invitation: 'true', user_id: user_id)
     @fotter_link             = url_for( controller: 'contacts', action: 'new')
     
     mail to: email, subject: @opportunity_invitation.title

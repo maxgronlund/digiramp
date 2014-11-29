@@ -8,16 +8,24 @@
     .row
       .col-sm-3
       .col-sm-6
-        h3 Welcome to DigiRAMP
-        'You have been invited to a secure aray. Please create a password
-        .sexy_line
+        
         - if @error
           h3 = @error
-          = link_to 'Log out', logout_path(params: params), class: 'btn btn-primary'
+          .sexy_line
+          .pull-right
+            - if @status == 'logged in'
+              = link_to 'OK', opportunity_opportunity_path(@opportunity), class: 'btn btn-primary'
+            - elsif @status == 'logged in on another account'
+              = link_to 'Log out', logout_path(params: params), class: 'btn btn-primary'
+            - elsif @status == 'opportunity not valid'
+              = link_to 'OK', current_user ? current_user : root_path , class: 'btn btn-primary'
+
+              
         - else
-          br
-          br
-          br
+          h3 Welcome to DigiRAMP
+          'You have been invited to a secure aray. Please create a password
+          .sexy_line
+
           = simple_form_for(  @user, :url => activate_account_path(params[:id]) ) do |f|
             = f.hidden_field :opportunity_id, value: @opportunity.id
             .input-group
