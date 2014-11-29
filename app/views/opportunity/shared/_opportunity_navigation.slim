@@ -17,7 +17,7 @@ nav.navbar.navbar-default role="navigation"
               'Opportunities I'm invited to
         -if current_account_user.read_opportunity
           li
-            = link_to account_account_opportunities_path(current_account_user.account) do
+            = link_to account_account_opportunities_path(@user.account) do
               i.fa.fa-book
               '&nbsp;
               'Opportunities I have created
@@ -26,7 +26,7 @@ nav.navbar.navbar-default role="navigation"
 
         -if current_account_user.create_opportunity
           li
-            = link_to new_account_account_opportunity_path(current_account_user.account) do
+            = link_to new_account_account_opportunity_path(@user.account) do
               i.fa.fa-book
               '&nbsp;
               'Create Opportunity

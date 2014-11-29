@@ -3,7 +3,7 @@
   /= f.hidden_field :account_id, value: @account.id
   = f.hidden_field :opportunity_id, value: @opportunity.id
 
-  = f.input :invitees, placeholder: 'e.g. john@doe.com, elvis@presley.com', hint: 'Only valid emails will be accepted'
+  = f.input :invitees, placeholder: 'e.g. john@doe.com, elvis@presley.com', hint: 'Only valid emails will be accepted', :input_html => {  style: "height: 244px;"}
 
 
   = f.input :title,  input_html:{ value: "You have been invited to the opportunity on DigiRAMP:  #{@opportunity.title}"} 

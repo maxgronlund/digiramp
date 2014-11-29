@@ -44,59 +44,62 @@ class Catalog::CatalogUsersController < ApplicationController
   # send invitation by email
   def create
     forbidden unless current_catalog_user.create_user
-    
-    email   = params[:catalog_user][:email]
-    title   = params[:catalog_user][:title]
-    body    = params[:catalog_user][:body]
-    catalog = Catalog.cached_find(params[:catalog_user][:catalog_id])
-    
-  
-    
-    # if the user already is in the system
-    if user    = User.where(email: email.downcase).first
 
-      flash[:info] = { title: "User Invited: ", 
-                       body: "You have invited a DigiRAMP member with the email #{email} to the #{catalog.title} catalog" 
-                     }
-      # send email
-      UserMailer.delay.invite_user_to_catalog( email,
-                                               title, 
-                                               body,  
-                                               current_user.id,  
-                                               user.id,
-                                               @account.id,
-                                               catalog.id,   
-                                               true
-                                              )
-    else
-      # invite a new user
-      if user = User.invite_user( email )
+    if email    = EmailValidator.saintize( params[:catalog_user][:email])
+      title     = params[:catalog_user][:title]
+      body      = params[:catalog_user][:body]
+      catalog   = Catalog.cached_find(params[:catalog_user][:catalog_id])
+      
+      
+      
+      # if the user already is in the system
+      if user    = User.where(email: email).first
+      
+        flash[:info] = { title: "User Invited: ", 
+                         body: "You have invited a DigiRAMP member with the email #{email} to the #{catalog.title} catalog" 
+                       }
         # send email
         UserMailer.delay.invite_user_to_catalog( email,
                                                  title, 
                                                  body,  
-                                                 current_user.id, 
-                                                 user.id, 
+                                                 current_user.id,  
+                                                 user.id,
                                                  @account.id,
                                                  catalog.id,   
-                                                 false
+                                                 true
                                                 )
-        
-        flash[:info] = { title: "User Invited: ", body: "You have invited #{email} to the #{catalog.title.upcase} catalog" }
       else
+        # invite a new user
+        if user = User.invite_user( email )
+          # send email
+          UserMailer.delay.invite_user_to_catalog( email,
+                                                   title, 
+                                                   body,  
+                                                   current_user.id, 
+                                                   user.id, 
+                                                   @account.id,
+                                                   catalog.id,   
+                                                   false
+                                                  )
+          
+          flash[:info] = { title: "User Invited: ", body: "You have invited #{email} to the #{catalog.title.upcase} catalog" }
+        else
+          
+        end
         
       end
-      
+      params[:catalog_user][:user_id]       = user.id 
+      params[:catalog_user][:account_id]    = @account.id 
+      params[:catalog_user][:uuid]          = UUIDTools::UUID.timestamp_create().to_s
+      unless user && @catalog_user         = CatalogUser.create!( catalog_user_params ) 
+        # notify if something went wrong
+        flash[:danger] = { title: "Error: ", body: "User not invited, If this error persists please contact support" }
+      end
+      @catalog_user.attach_to_account_user
+      @user = current_user
+    else
+      flash[:danger] = { title: "Error: ", body: "Unable to validate email" }
     end
-    params[:catalog_user][:user_id]       = user.id 
-    params[:catalog_user][:account_id]    = @account.id 
-    params[:catalog_user][:uuid]          = UUIDTools::UUID.timestamp_create().to_s
-    unless user && @catalog_user         = CatalogUser.create!( catalog_user_params ) 
-      # notify if something went wrong
-      flash[:danger] = { title: "Error: ", body: "User not invited, If this error persists please contact support" }
-    end
-    @catalog_user.attach_to_account_user
-    @user = current_user
     redirect_to catalog_account_catalog_catalog_users_path(@account, @catalog)
   end
 

@@ -58,6 +58,8 @@ class Account::AccountUsersController < ApplicationController
   
   # create an account user and send an invitation email
   def create
+    
+    sanitized_email = EmailValidator.saintize params[:account_user][:email]
 
     # secure the permissions is in place
     unless current_user.role == 'Super'
@@ -65,18 +67,20 @@ class Account::AccountUsersController < ApplicationController
     end
     
     # if the account user alreaddy exists
-    if AccountUser.where(email: params[:account_user][:email], account_id: params[:account_user][:account_id]).first
+    if AccountUser.where(email: sanitized_email, account_id: params[:account_user][:account_id]).first
       flash[:info] = { title: "Notice: ", body: "User already a member" }                                    
     else
-      # validate the email
+      # validate the email, returns to the user if unapproved
       validate_email
+      
+      
       
       # set the acces
       set_access
       
       # get the user and send invitation
       invited_user = User.invite_to_account_by_email( 
-                                                      params[:account_user][:email], 
+                                                      sanitized_email, 
                                                       params[:account_user][:invitation_title], 
                                                       params[:account_user][:invitation_message], 
                                                       @account.id,
@@ -125,6 +129,7 @@ class Account::AccountUsersController < ApplicationController
   def validate_email
     # simple validation move to model
     # missing email
+    
     if params[:account_user][:email].to_s == ""
       flash[:danger] = { title: "Email can't be blank", body: "" }
       redirect_to new_account_account_account_user_path( @account )

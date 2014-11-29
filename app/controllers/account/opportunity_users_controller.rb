@@ -45,9 +45,9 @@ class Account::OpportunityUsersController < ApplicationController
   # DELETE /opportunities/1
   # DELETE /opportunities/1.json
   def destroy
-    @opportunity      = Opportunity.cached_find(params[:opportunity_id])
-    @opportunity_user = OpportunityUser.cached_find(params[:id])
-    
+    @opportunity          = Opportunity.cached_find(params[:opportunity_id])
+    @opportunity_user     = OpportunityUser.cached_find(params[:id])
+    @opportunity_user_id  = @opportunity_user.id
     
     @opportunity_user.create_activity(   :destroyed, 
                                    owner: current_user,
@@ -63,7 +63,7 @@ class Account::OpportunityUsersController < ApplicationController
                                       
     
     @opportunity_user.destroy!
-    redirect_to account_account_opportunity_path(@account, @opportunity)
+    #redirect_to account_account_opportunity_path(@account, @opportunity)
   end
 
   private

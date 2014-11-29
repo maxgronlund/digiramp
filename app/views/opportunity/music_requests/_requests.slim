@@ -11,7 +11,6 @@
       .pull-right
         = link_to opportunity_opportunity_music_request_path( @opportunity, music_request) do 
           .btn.btn-xs.btn-default
-            = music_request.music_submissions.count
             '&nbsp;Submissions
         '&nbsp;
         = link_to new_opportunity_opportunity_music_request_music_submission_path( @opportunity, music_request) do 

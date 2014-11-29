@@ -135,8 +135,8 @@ class User < ActiveRecord::Base
   
   def validate_info
     
-    self.email.gsub(' ', '')
-    self.email.downcase!
+    #self.email.gsub(' ', '')
+    #self.email.downcase!
     
     
     if EmailValidator.validate( self.email )
@@ -521,28 +521,32 @@ class User < ActiveRecord::Base
   
   # invite a user based on an email 
   def self.invite_user email
-    user_name = create_uniq_user_name_from_email email
-    puts '=================================================================='
-    puts user_name
     
-    secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
-    user                  = User.create(    
-                                        user_name:      user_name,
-                                            email:      email, 
-                                          invited:      true, 
-                                         password:      secret_temp_password, 
-                            password_confirmation:      secret_temp_password,
-                                account_activated:      false
-                                        )
-                            
-     # apply a password reset token
-     user.add_token
-     
-     # create an account
-     create_a_new_account_for_the user
-     
-     # return the new user
-     user
+    if email = EmailValidator.saintize( email )
+      user_name = create_uniq_user_name_from_email email
+      
+      
+      secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
+      user                  = User.create(    
+                                          user_name:      user_name,
+                                              email:      email, 
+                                            invited:      true, 
+                                           password:      secret_temp_password, 
+                              password_confirmation:      secret_temp_password,
+                                  account_activated:      false
+                                          )
+                              
+      # apply a password reset token
+      user.add_token
+      
+      # create an account
+      create_a_new_account_for_the user
+      
+      # return the new user
+      return user
+    end
+    false
+    
   end
   
   def self.create_uniq_user_name_from_email email
@@ -558,8 +562,13 @@ class User < ActiveRecord::Base
   # and send an email invitation
   def self.invite_to_account_by_email email, title, body, account_id, current_user_id
     
+    
+    sanitized_email = EmailValidator.saintize email
+    #ap '============================================'
+    #ap sanitized_email
+    #ap '============================================'
     # the user is already signed up
-    if found_user       = User.where(email: email.downcase).first
+    if found_user       = User.where(email: sanitized_email).first
       
       # invite found user to account
       UserMailer.delay.invite_existing_user_to_account found_user.id, account_id, body, current_user_id
@@ -571,7 +580,7 @@ class User < ActiveRecord::Base
       # create user
       #user_name = User.create_uniq_user_name_from_email(email)
       secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-      found_user = User.create( email: email, 
+      found_user = User.create( email: sanitized_email, 
                                 invited: true, 
                                 password: secret_temp_password, 
                                 password_confirmation: secret_temp_password

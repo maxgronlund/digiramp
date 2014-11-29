@@ -20,7 +20,23 @@
             -recording =  music_submission.recording
             #digiWhams  class="/recordings/#{recording.id.to_s}"
               == render 'recording', recording: recording
-        .col-sm-8
+          /- if @opportunity.deadline < Date.current
+          /          div class="alert alert-danger"
+          /            button type="button" class="close" data-dismiss="alert" ×
+          /            h4 Expired !
+          /            'Please extend the deadline to add more music requests
+          /        - else
+          .pull-right
+            - unless @opportunity.opportunity_users.empty?
+              - unless @opportunity.opportunity_users.where(user_id: current_user.id).first.nil?  
+                = link_to opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
+                                                                                              @music_request) do 
+                  .btn.btn-primary.btn
+                    i class="fa fa-plus-circle"
+                    '&nbsp;Add Submission
+        .col-sm-4
+          = @music_request.body
+          
       
             
   == render 'shared/site_footer'  

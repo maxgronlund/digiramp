@@ -3,17 +3,20 @@ class SignUpController < ApplicationController
   def create
 
     email = params['/sign_up']['email']
-    #@user = User.where(email: email).first
     
+    sanitized_email = EmailValidator.saintize email
+    params['/sign_up']['email']  =  sanitized_email
     go_to = :back
     
-    if User.exists?(email: email)
+    if User.exists?(email: sanitized_email)
       flash[:error]      = { title: "User exists", body: "You are already signed up for an account. Please login" }
       go_to = login_index_path
       
     else
       # set uniq user_name
       #user_params[:user_name] = User.create_uniq_user_name_from_email(email)
+      
+      
       
       @user   = User.create(user_params)
       

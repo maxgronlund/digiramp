@@ -62,7 +62,8 @@ class Account::MusicSubmissionsController < ApplicationController
                             recipient: @music_request,
                        recipient_type: 'MusicRequest',
                            account_id: @account.id)
-                           
+       
+      ap current_user                     
       channel = 'digiramp_radio_' + current_user.email
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SUBMITTED', 
                                             "message" => "#{@recording.title} is submitted to #{@music_submission.music_request.title}", 
@@ -75,7 +76,7 @@ class Account::MusicSubmissionsController < ApplicationController
                                             ap params
       
     else
-      channel = 'digiramp_radio_' + current_user.email
+      channel = 'digiramp_radio_' + opportunity_user.email
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'YOU ARE NOT A MUSIC PROVIDERS', 
                                             "message" => 'Make sure you are on the list of authorized music providers', 
                                             "time"    => '500', 

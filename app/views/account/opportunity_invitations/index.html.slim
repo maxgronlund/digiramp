@@ -13,8 +13,12 @@
       h3 Invitations send
       .sexy_line
       - if @opportunity_invitations
-        - @opportunity_invitations.each do |opportunity_invitation|
+        - @opportunity_invitations.order('created_at desc').each do |opportunity_invitation|
           h5 = opportunity_invitation.title
+          'Send:&nbsp
+          i = opportunity_invitation.created_at.to_formatted_s(:short) 
+          br
+          br
           .row
             .col-sm-6
               =  opportunity_invitation.body
@@ -36,37 +40,3 @@
 == render 'users/shared/mobile_links' 
 
 
-/=======================================================================================
-/=======================================================================================
-/=======================================================================================
-
-
-
-/h1 Listing opportunity_invitations
-/
-/table
-/  thead
-/    tr
-/      /th Opportunity
-/      th Title
-/      /th Body
-/      /th Invitees
-/      /th
-/      /th
-/      /th
-/
-/  tbody
-/    - if @opportunity_invitations
-/      - @opportunity_invitations.each do |opportunity_invitation|
-/        tr
-/          /td = opportunity_invitation.opportunity
-/          td = opportunity_invitation.title
-/          /td = opportunity_invitation.body
-/          /td = opportunity_invitation.invitees
-/          /td = link_to 'Show', opportunity_invitation
-/          /td = link_to 'Edit', edit_opportunity_invitation_path(opportunity_invitation)
-/          /td = link_to 'Destroy', opportunity_invitation, data: { confirm:  'Are you sure?'}, :method => :delete
-/      
-/br
-/
-//= link_to 'New Opportunity invitation', new_opportunity_invitation_path

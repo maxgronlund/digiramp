@@ -58,35 +58,35 @@ class Account::OpportunityInvitationsController < ApplicationController
       #puts '========================================='
       #puts email
       #puts '========================================='
-      user             = User.find_or_invite_from_email( email.downcase.gsub(' ', '') )
+      if user  = User.find_or_invite_from_email( email.downcase.gsub(' ', '') )
 
-      @opportunity_user = OpportunityUser.where( opportunity_id:   @opportunity.id, 
-                                                user_id:          user.id,
-                                              )
-                                              .first_or_create(  
-                                                opportunity_id:   @opportunity.id, 
-                                                user_id:          user.id,
-                                              )
-      
-      if user.account_activated
-        OpportunityMailer.delay.invite(email, @opportunity_invitation.id, user.id, current_user.id)
-      else
-        user.add_token
-        OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id, current_user.id)
-      end
-      
- 
-      @opportunity_user.create_activity(   :created, 
-                                     owner: current_user,
-                                 recipient: @opportunity_user,
-                            recipient_type: @opportunity_user.class.name,
-                                account_id: @account.id,
-                                    params: { opportunity_id: @opportunity.id,
-                                      opportunity_user_email: email
-                                            }
-                                        ) 
-                            
-                            
+        @opportunity_user = OpportunityUser.where( opportunity_id:   @opportunity.id, 
+                                                  user_id:          user.id,
+                                                )
+                                                .first_or_create(  
+                                                  opportunity_id:   @opportunity.id, 
+                                                  user_id:          user.id,
+                                                )
+        
+        if user.account_activated
+          OpportunityMailer.delay.invite(email, @opportunity_invitation.id, user.id, current_user.id)
+        else
+          user.add_token
+          OpportunityMailer.delay.invite_to_account(email, @opportunity_invitation.id, user.id, current_user.id)
+        end
+        
+       
+        @opportunity_user.create_activity(   :created, 
+                                       owner: current_user,
+                                   recipient: @opportunity_user,
+                              recipient_type: @opportunity_user.class.name,
+                                  account_id: @account.id,
+                                      params: { opportunity_id: @opportunity.id,
+                                        opportunity_user_email: email
+                                              }
+                                          ) 
+                              
+      end                      
     end
     
     

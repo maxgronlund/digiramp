@@ -8,14 +8,16 @@ class Account::OpportunitiesController < ApplicationController
 
   
   def index
-    forbidden unless current_account_user.read_opportunity
+
+    forbidden unless current_account_user && current_account_user.read_opportunity
+
     @opportunities = @account.opportunities
     
   end
 
 
   def show
-    forbidden unless current_account_user.read_opportunity
+    forbidden unless current_account_user && current_account_user.read_opportunity
     @opportunity.create_activity(  :show, 
                               owner: current_user,
                           recipient: @opportunity,
@@ -26,7 +28,7 @@ class Account::OpportunitiesController < ApplicationController
 
   # GET /opportunities/new
   def new
-    forbidden unless current_account_user.create_opportunity
+    forbidden unless current_account_user && current_account_user.create_opportunity
     @opportunity = Opportunity.new
     @opportunity.deadline = Date.today + 4.weeks
     @user = current_user
@@ -42,7 +44,7 @@ class Account::OpportunitiesController < ApplicationController
   # POST /opportunities.json
   def create
     
-    forbidden unless current_account_user.create_opportunity
+    forbidden unless current_account_user &&  current_account_user.create_opportunity
     @opportunity = Opportunity.new(opportunity_params)
     
     if @opportunity.save
@@ -61,7 +63,7 @@ class Account::OpportunitiesController < ApplicationController
   def update
     #params[:opportunity][:deadline] = Date.strptime("#{params[:opportunity][:deadline]}", "%m/%d/%Y")
     # params[:opportunity][:deadline].gsub('/','-')
-    forbidden unless current_account_user.update_opportunity
+    forbidden unless current_account_user &&  current_account_user.update_opportunity
     if @opportunity.update(opportunity_params)
       flash[:info]      = { title: "Success", body: "Opportunity Updated" }
       redirect_to account_account_opportunity_path(@account, @opportunity)
@@ -72,7 +74,7 @@ class Account::OpportunitiesController < ApplicationController
   end
   
   def music_submissions
-    forbidden unless current_account_user.read_opportunity
+    forbidden unless current_account_user &&  current_account_user.read_opportunity
   end
   
   def invite_provider_by_email
