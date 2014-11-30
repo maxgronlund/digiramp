@@ -11,9 +11,16 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity),}, current:'' }
-      h3 #{@account.title} <funky>Pro</funky>
-      'Submissions for&nbsp;
-      = @music_request.title  
+      .row
+        .col-sm-8
+          h3 #{@account.title} <funky>Pro</funky>
+          'Submissions for&nbsp;
+          = @music_request.title  
+        .col-sm-4
+          .pull-right
+            = link_to 'Show all', '#', class: 'btn btn-primary'
+            '&nbsp;
+            = link_to 'Show Selected', '#', class: 'btn btn-default'
       .sexy_line  
       - @music_request.music_submissions.order('stars desc').each do |music_submission|
         -recording =  music_submission.recording
@@ -24,6 +31,19 @@
               = music_submission.user.user_name
               br
               i = music_submission.created_at.to_formatted_s(:short)
+              br
+              br
+              b Messages
+              br
+              '4 Old  
+              br
+              '2 New 
+              br
+              '+ Create 
+              
+              
+              .pull-right
+                = link_to 'Select', '#', class: 'btn btn-success'
             .col-sm-8
               #digiWhams  class="/recordings/#{recording.id.to_s}"
                 == render 'recording', recording: recording

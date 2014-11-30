@@ -1,16 +1,16 @@
 class EmailValidator
   
   def self.validate email
-    if email.instance_of?( String)
-       return /^\S+@\S+\.\S+$/.match(email).nil? ? false : true
-    end
-    false
+    return /^\S+@\S+\.\S+$/.match(email).nil? ? false : true
   end
   
   def self.saintize email
-    if validate email  && email.instance_of?( String)
-      sanitized_email = email.strip.gsub(/\s+/, ' ')
-      return  sanitized_email.downcase.gsub(' ', '')
+    if email.instance_of? String 
+      if validate email
+        sanitized_email = email.strip.gsub(/\s+/, ' ')
+        puts sanitized_email.downcase.gsub(' ', '')
+        return  sanitized_email.downcase.gsub(' ', '')
+      end
     end
     false
   end
