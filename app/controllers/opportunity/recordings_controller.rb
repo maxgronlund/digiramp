@@ -7,19 +7,34 @@ class Opportunity::RecordingsController < ApplicationController
   before_filter :access_opportunity
   
   def index
-    puts '=========================================== FOBAR =================================='
-    if params[:query]
-      @user           = User.cached_find(params[:opportunity][:user_id])
-      @opportunity    = Opportunity.cached_find(params[:opportunity_id])
-      @music_request  = MusicRequest.cached_find(params[:opportunity][:music_request_id])
-      #ap @user
-      @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
-    else
-      @user           = User.cached_find(params[:user_id])
-      @opportunity    = Opportunity.cached_find(params[:opportunity_id])
-      @music_request  = MusicRequest.cached_find(params[:music_request_id])
-      @recordings     = @user.recordings.order('uniq_title asc').page(params[:page]).per(4)
-      #@recordings = 
+    @recordings = []
+    begin
+      if params[:query]
+      
+        @user                 = User.cached_find(params[:opportunity][:user_id])
+        @opportunity          = Opportunity.cached_find(params[:opportunity_id])
+        @music_request        = MusicRequest.cached_find(params[:opportunity][:music_request_id])
+        
+        user_recording_ids    = @user.recording_ids
+        music_submission_ids  = MusicSubmission.where(id: @music_request.music_submission_ids).pluck(:recording_id)
+        recording_ids         = user_recording_ids - music_submission_ids
+        recordings            = Recording.where(id: recording_ids)
+        
+        @recordings           = Recording.recordings_search(recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
+      else
+        
+        @user                 = User.cached_find(params[:user_id])                 
+        @opportunity          = Opportunity.cached_find(params[:opportunity_id])
+        @music_request        = MusicRequest.cached_find(params[:music_request_id])
+        
+        user_recording_ids    = @user.recording_ids
+        music_submission_ids  = MusicSubmission.where(id: @music_request.music_submission_ids).pluck(:recording_id)
+        recording_ids         = user_recording_ids - music_submission_ids
+        @recordings           = Recording.where(id: recording_ids).order('uniq_title asc').page(params[:page]).per(4)
+      
+      end
+    rescue
+      
     end
     #.page(params[:page]).per(4)
   end
