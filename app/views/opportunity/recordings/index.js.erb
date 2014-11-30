@@ -1,0 +1,9 @@
+$('.add_recordings').append("<%= j render 'recordings/index', recordings: @recordings %>");
+
+<% if (@recordings.next_page) %>
+        $('.pagination').replaceWith('<%= j paginate(@recordings) %>');
+<% else %>
+        $('.pagination').remove();
+<% end %>
+
+initialize_digi_wahms();

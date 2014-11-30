@@ -10,8 +10,8 @@ module OpportunitiesHelper
       begin
         opportunity_id      = params[:opportunity_id] || params[:id]
         @opportunity        = Opportunity.cached_find(opportunity_id)
-        @opportunity_users  = OpportunityUser.where(opportunity_id: @opportunity.id, user_id: current_user.id)
-        forbidden unless @opportunity_users
+        @opportunity_user  = OpportunityUser.where(opportunity_id: @opportunity.id, user_id: current_user.id).first
+        forbidden unless @opportunity_user
         #not_fount unless @account  == current_user.account
         @authorized         = true
         return

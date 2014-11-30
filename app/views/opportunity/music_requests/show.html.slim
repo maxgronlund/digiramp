@@ -11,31 +11,90 @@
     .container-fluid 
       == render 'admin/shared/messages' 
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => opportunity_opportunity_path(@opportunity) }, current: '' }
-      h3 Music Request
-      = @music_request.title
+      .row
+        .col-sm-4
+          h3 Music Request
+        .col-sm-8
+          = simple_form_for  [ :opportunity, @opportunity], :url => url_for(:action => 'index', \
+                                                        :controller => 'recordings'), \
+                                                        :method => 'get' do |f|
+            = f.hidden_field :music_request_id , value:  @music_request.id
+            = f.hidden_field :user_id          , value:  @user.id
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-search'
+              = text_field_tag "query", "", :class => 'search-query form-control', \
+                                            :placeholder => 'Search for recordings you already uploaded', \
+                                            value: params[:query]
+              .input-group-btn
+                = f.submit 'Go', class: "btn btn-primary please_wait"
+                '&nbsp;
+                = link_to 'Clear', user_recordings_path(@user), class: 'btn btn-default please_wait'
       .sexy_line
       .row
+        .col-sm-4
+          == render 'account/music_requests/info', music_request: @music_request
+
         .col-sm-8
+          .row
+            .col-sm-6
+              .new-recording
+                = link_to new_account_music_request_music_submission_upload_path(@music_request) do
+                  .new-recording-badge
+                    .new-recording-badge-content
+                      i.fa.fa-cloud-upload
+              
+                  .new-recording-content
+                    .new-recording-text
+                      h3 Upload New Recording
+                    .new-recording-waveform
+                      = image_tag 'default_waveform.png'
+            .col-sm-6
+              .new-recording
+                = link_to opportunity_opportunity_recordings_path(@opportunity, music_request_id: @music_request.id, user_id: @user.id) do
+                  .new-recording-badge
+                    .new-recording-badge-content
+                      i.fa.fa-search
+              
+                  .new-recording-content
+                    .new-recording-text
+                      h3 Find in recordings you already uploaded
+                    .new-recording-waveform
+                      = image_tag 'default_waveform.png'
+          br
+          
+          h4 Submitted recordings
           - @music_submissions.each do |music_submission|
             -recording =  music_submission.recording
-            #digiWhams  class="/recordings/#{recording.id.to_s}"
-              == render 'recording', recording: recording
+            div id="delete_music_submission_#{music_submission.id.to_s}"
+              #digiWhams  class="/recordings/#{recording.id.to_s}"
+                == render 'recording', recording: recording
+                
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
           /- if @opportunity.deadline < Date.current
           /          div class="alert alert-danger"
           /            button type="button" class="close" data-dismiss="alert" ×
           /            h4 Expired !
           /            'Please extend the deadline to add more music requests
           /        - else
-          .pull-right
-            - unless @opportunity.opportunity_users.empty?
-              - unless @opportunity.opportunity_users.where(user_id: current_user.id).first.nil?  
-                = link_to opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
-                                                                                              @music_request) do 
-                  .btn.btn-primary.btn
-                    i class="fa fa-plus-circle"
-                    '&nbsp;Add Submission
-        .col-sm-4
-          = @music_request.body
+          /.pull-right
+          /  - unless @opportunity.opportunity_users.empty?
+          /    - unless @opportunity.opportunity_users.where(user_id: current_user.id).first.nil?  
+          /      = link_to opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
+          /                                                                                    @music_request) do 
+          /        .btn.btn-primary.btn
+          /          i class="fa fa-plus-circle"
+          /          '&nbsp;Add Submission
           
       
             

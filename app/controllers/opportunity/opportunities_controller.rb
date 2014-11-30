@@ -6,7 +6,6 @@ class Opportunity::OpportunitiesController < ApplicationController
 
 
   def show
-    
     @opportunity.create_activity(  :show, 
                               owner: current_user,
                           recipient: @opportunity,

@@ -41,18 +41,33 @@
       .sexy_line
       .add_recordings
         -if current_user && current_user.id == @user.id
-          .new-recording
-            = link_to new_account_music_request_music_submission_upload_path(@music_request) do
-              .new-recording-badge
-                .new-recording-badge-content
-                  i.fa.fa-plus-circle
-      
-              .new-recording-content
-                .new-recording-text
-                  h3 Upload Recording
-                .new-recording-waveform
-                  = image_tag 'default_waveform.png'
-          .sexy_line
+          .row
+            .col-sm-6
+              .new-recording
+                = link_to new_account_music_request_music_submission_upload_path(@music_request) do
+                  .new-recording-badge
+                    .new-recording-badge-content
+                      i.fa.fa-search
+              
+                  .new-recording-content
+                    .new-recording-text
+                      h3 Find Recording
+                    .new-recording-waveform
+                      = image_tag 'default_waveform.png'
+            .col-sm-6
+              .new-recording
+                = link_to new_account_music_request_music_submission_upload_path(@music_request) do
+                  .new-recording-badge
+                    .new-recording-badge-content
+                      i.fa.fa-cloud-upload
+              
+                  .new-recording-content
+                    .new-recording-text
+                      h3 Upload Recording
+                    .new-recording-waveform
+                      = image_tag 'default_waveform.png'
+        h3 Submitted recordings
+        .sexy_line
         - @recordings.each do |recording|
           div id="remove_recording_#{recording.id.to_s}"
             #digiWhams  class="/recordings/#{recording.id.to_s}"

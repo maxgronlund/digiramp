@@ -24,7 +24,8 @@
                                                      description: false,
                                                      share: true,
                                                      target: "",
-                                                     music_request_link: false
+                                                     music_request_link: false,
+                                                     remove_from_request: false
       
       /=  Playback.where(recording_id: @recording.id).pluck(:user_id)
       /- @recording.playbacks.each do |playback|

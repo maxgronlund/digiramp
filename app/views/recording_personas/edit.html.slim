@@ -12,17 +12,7 @@
       
 
   #page-content-wrapper
-    .container-fluid 
-      /#digiWhams  class="/recordings/#{@recording.id.to_s}"
-      /  == render 'recordings/recording_with_icons', recording: @recording, 
-      /                                               info: false,
-      /                                               add_to_playlist: false, 
-      /                                               remove_from_playlist: false, 
-      /                                               edit: false, 
-      /                                               delete: false,
-      /                                               description: true
-      /
-      /                                               
+    .container-fluid                                  
       == render 'recordings/wizard_step', step: 4
       = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_personas'), 
                                                :method => 'put' do |f|

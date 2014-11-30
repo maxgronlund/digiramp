@@ -5,7 +5,7 @@
 
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'account'
+      == render 'users/shared/sidebar', selected: 'opportunities'
   
   #page-content-wrapper
     .container-fluid
@@ -13,7 +13,7 @@
         .col-sm-7
           /==render 'admin/shared/messages'
           h3 #{@account.title} <funky>Pro</funky>
-          'Opportunities you have created
+          'Opportunities you can manage
         .col-sm-5
           .pull-right
             == render 'opportunity/shared/opportunity_navigation'

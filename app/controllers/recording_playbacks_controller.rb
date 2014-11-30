@@ -13,7 +13,7 @@ class RecordingPlaybacksController < ApplicationController
     
     if user_ids =  Playback.where(recording_id: @recording.id).pluck(:user_id)
       user_ids.uniq!
-      @users = User.find(user_ids)
+      @users = User.where(id: user_ids)
     end
     
   end

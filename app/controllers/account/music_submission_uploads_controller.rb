@@ -4,9 +4,10 @@ class Account::MusicSubmissionUploadsController < ApplicationController
   
   
   def new
-    @recording      = Recording.new
-    @user           = current_user
-    @music_request  = MusicRequest.cached_find(params[:music_request_id])
+    @recording                  = Recording.new
+    @user                       = current_user
+    @music_request              = MusicRequest.cached_find(params[:music_request_id])
+    session[:music_request_id ] = @music_request.id
     
   end
 

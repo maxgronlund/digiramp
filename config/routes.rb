@@ -271,6 +271,8 @@ Digiramp::Application.routes.draw do
   #####################################################################################
   # hui v. 2
   #####################################################################################
+  resources :music_submissions, only: [ :destroy]
+  
   resources :users do
     # hui v. 2
     #member do
@@ -613,22 +615,23 @@ Digiramp::Application.routes.draw do
     
   end
   
-   namespace :opportunity do
-     
-     resources :opportunities, only: [:index, :show] do
-       
-       resources :music_requests do
-         resources :submit_from, only: [:index]
-         resources :common_works do
-           resources :recordings
-         end
-         resources :music_submissions do
-           
-           resources :comments
-         end
-       end
-     end
-   end
+  namespace :opportunity do
+    
+    
+    resources :opportunities, only: [:index, :show] do
+      resources :recordings
+      resources :music_requests do
+        resources :submit_from, only: [:index]  # <<<<<<<<<<<<< kil this
+        resources :common_works do
+          resources :recordings
+        end
+        resources :music_submissions do
+          
+          resources :comments
+        end
+      end
+    end
+  end
    
 
   

@@ -12,17 +12,21 @@
     .container-fluid
       .row
         .col-sm-7
-          h3 Opportunities
-          'You can submit to 
+          h3 Opportunities for submissions
+          'You are permitted to submit to the following opportunities 
+        /.col-sm-5
+        /  .pull-right
+        /    /== debug current_account_user
+        /    == render 'opportunity/shared/opportunity_navigation'
         .col-sm-5
           .pull-right
-            /== debug current_account_user
-            == render 'opportunity/shared/opportunity_navigation'
+            = link_to 'Create opportunity', new_account_account_opportunity_path(@user.account), class: 'btn btn-primary'
       .sexy_line
       .opportunity
         .opportunity-badges
-          - @user.opportunities.where.not(account_id: @user.account_id).order('deadline desc').each do |opportunity|
-            == render 'opportunity/opportunity', opportunity: opportunity, opportunity_link: opportunity_opportunity_path(opportunity)
+          - @user.opportunities.order('deadline desc').each do |opportunity|
+            - opportunity_link = @user.account_id == opportunity.account_id ? account_account_opportunity_path(@user.account, opportunity)  : opportunity_opportunity_path(opportunity)
+            == render 'opportunity/opportunity', opportunity: opportunity, opportunity_link: opportunity_link
                  
               
   == render 'shared/site_footer'    

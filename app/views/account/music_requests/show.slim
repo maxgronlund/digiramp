@@ -15,28 +15,37 @@
       'Submissions for&nbsp;
       = @music_request.title  
       .sexy_line  
-      .row
-        .col-sm-8
-          - @music_request.music_submissions.order('stars desc').each do |music_submission|
-            -recording =  music_submission.recording
-            #digiWhams  class="/recordings/#{recording.id.to_s}"
-              == render 'recording', recording: recording
-        .col-sm-4
-          .no-borders.table-responsive
-            table class="table table-condensed"
-              tr
-                th.description Fee:
-                td = @music_request.fee
-
-              - unless  @music_request.link.to_s == ''
-                tr
-                  th.description Duration:
-                  td = @music_request.duration_text
-              - unless  @music_request.link.to_s == ''
-                tr
-                  th.description Sound like:
-                  td = link_to @music_request.link_title, @music_request.link, target: '_blank'
-          = simple_format @music_request.body
+      - @music_request.music_submissions.order('stars desc').each do |music_submission|
+        -recording =  music_submission.recording
+        div id="delete_music_submission_#{music_submission.id.to_s}"
+          .row
+            .col-sm-4
+              'Submitted by:&nbsp;
+              = music_submission.user.user_name
+              br
+              i = music_submission.created_at.to_formatted_s(:short)
+            .col-sm-8
+              #digiWhams  class="/recordings/#{recording.id.to_s}"
+                == render 'recording', recording: recording
+          .row
+            .col-sm-12
+              .sexy_line
+        /.col-sm-4
+        /  .no-borders.table-responsive
+        /    table class="table table-condensed"
+        /      tr
+        /        th.description Fee:
+        /        td = @music_request.fee
+        /
+        /      - unless  @music_request.link.to_s == ''
+        /        tr
+        /          th.description Duration:
+        /          td = @music_request.duration_text
+        /      - unless  @music_request.link.to_s == ''
+        /        tr
+        /          th.description Sound like:
+        /          td = link_to @music_request.link_title, @music_request.link, target: '_blank'
+        /  = simple_format @music_request.body
 
       == render 'shared/back', locals: {link: account_account_opportunity_path(@account, @opportunity)} 
 

@@ -100,9 +100,9 @@ class Account::MusicSubmissionsController < ApplicationController
   end
 
   def destroy
-    @music_submission  = MusicSubmission.cached_find(params[:id])
-    @music_submission.destroy!
-    redirect_to account_account_opportunity_music_request_path(@account, @opportunity, @music_request)
+    #@music_submission  = MusicSubmission.cached_find(params[:id])
+    #@music_submission.destroy!
+    #redirect_to account_account_opportunity_music_request_path(@account, @opportunity, @music_request)
   end
 
   def update

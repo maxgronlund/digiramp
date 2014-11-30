@@ -25,16 +25,17 @@ ready = ->
   
   
   if $('.endless-pages').length
+    
     if $('.pagination').length
+      
       $(window).scroll ->
         url = $('.pagination .next a').attr('href')
         if url &&  $(window).scrollTop() > $(document).height() - $(window).height() - 200
-    
           $('.pagination').text('Fetching more songs...')
           $.getScript(url)
       $(window).scroll()
   
-    
+  
       
   $('#done').click ->
     $('#next_step').val('done');

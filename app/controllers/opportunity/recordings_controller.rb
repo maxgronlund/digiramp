@@ -1,8 +1,73 @@
 class Opportunity::RecordingsController < ApplicationController
+  
+  
   include ActionView::Helpers::TextHelper
   include Transloadit::Rails::ParamsDecoder
   include OpportunitiesHelper
   before_filter :access_opportunity
+  
+  def index
+    puts '=========================================== FOBAR =================================='
+    if params[:query]
+      @user           = User.cached_find(params[:opportunity][:user_id])
+      @opportunity    = Opportunity.cached_find(params[:opportunity_id])
+      @music_request  = MusicRequest.cached_find(params[:opportunity][:music_request_id])
+      #ap @user
+      @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
+    else
+      @user           = User.cached_find(params[:user_id])
+      @opportunity    = Opportunity.cached_find(params[:opportunity_id])
+      @music_request  = MusicRequest.cached_find(params[:music_request_id])
+      @recordings     = @user.recordings.order('uniq_title asc').page(params[:page]).per(4)
+      #@recordings = 
+    end
+    #.page(params[:page]).per(4)
+  end
+  
+  # from pagination
+  # Parameters: {"music_request_id"=>"4", "page"=>"3", "user_id"=>"1", "opportunity_id"=>"5"}
+  
+  
+  # from a search
+  #{
+  #              "utf8" => "✓",
+  #       "opportunity" => {
+  #        "music_request_id" => "4",
+  #                 "user_id" => "1"
+  #    },
+  #             "query" => "pop",
+  #            "commit" => "Go",
+  #            "action" => "index",
+  #        "controller" => "opportunity/recordings",
+  #    "opportunity_id" => "5",
+  #       "transloadit" => nil
+  #}
+  
+  
+  
+  
+  # from direct link
+  #{
+  #    "music_request_id" => "4",
+  #             "user_id" => "1",
+  #              "action" => "index",
+  #          "controller" => "opportunity/recordings",
+  #      "opportunity_id" => "5",
+  #         "transloadit" => nil
+  #}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

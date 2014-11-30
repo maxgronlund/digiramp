@@ -29,7 +29,7 @@ class ActivateAccountController < ApplicationController
           @error = 'You are alreaddy logged in'
           @status = 'logged in'
         else
-          @error = 'You not logged in as the user that received the invitation'
+          @error = 'You are currently logged in as different user than the one who received this invitation.'
           @status = 'logged in on another account'
         end
       end 
