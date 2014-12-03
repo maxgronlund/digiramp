@@ -1,3 +1,6 @@
+if("<%= @remove_old_recordings %>"){
+  $('.old-recordings').remove();
+}
 
 $('.add_songs').append("<%= j render 'songs/index', songs: @songs %>");
 

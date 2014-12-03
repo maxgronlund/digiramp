@@ -73,12 +73,14 @@ class AccessManager
   def self.add_users_to_new_account account
     
     User.supers.each do |super_user|
-      account_user = AccountUser.create(account_id: account.id, user_id: super_user.id, role: 'Super User')                 
+      account_user = AccountUser.where(account_id: account.id, user_id: super_user.id, role: 'Super User')     
+                                .first_or_create(account_id: account.id, user_id: super_user.id, role: 'Super User')     
       account_user.update_to_super
     end
     
     # create a account user for the account owner
-    account_owner = AccountUser.create(account_id: account.id, user_id: account.user.id, role: 'Account Owner')
+    account_owner = AccountUser.where(account_id: account.id, user_id: account.user.id, role: 'Account Owner')
+                               .first_or_create(account_id: account.id, user_id: account.user.id, role: 'Account Owner')
     # downgrade the owner
     account_owner.grand_basic_permissions
     make_zebulon_admin account

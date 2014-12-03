@@ -22,7 +22,8 @@
           .search-recording
             = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
                                                           :controller => 'recordings'), \
-                                                          :method => 'get' do |f|
+                                                          :method => 'get',\
+                                                          remote: true do |f|
             
               .input-group
                 span class="input-group-addon"
@@ -31,10 +32,10 @@
                                               :placeholder => 'Search for recordings', \
                                               value: params[:query]
                 .input-group-btn
-                  = f.submit 'Go', class: "btn btn-primary please_wait"
+                  = f.submit 'Go', class: "btn btn-primary"
                   '&nbsp;
-                  = link_to 'Clear', user_recordings_path(@user), class: 'btn btn-default please_wait'
-              
+                  = link_to 'Clear', user_recordings_path(@user), class: 'btn btn-default'
+                  /please_wait
             
                 
                   
@@ -55,7 +56,8 @@
                 .new-recording-waveform
                   = image_tag 'default_waveform.png'
           /.sexy_line
-          
+        
+        .found-recordings
         == render 'recordings/index', recordings: @recordings
        
       == paginate(@recordings) 

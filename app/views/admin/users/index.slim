@@ -37,8 +37,12 @@
       .users
         .table-responsive
           table class="table table-hover"
-
-          
+            thead
+              tr
+                th Admin
+                th Role
+                th Administrator
+                th Id
             tbody
               - @users.each do |user|
                 tr
@@ -68,6 +72,8 @@
                   td 
                     - if user.administrator
                       'Administrator
+                  td
+                    = user.id
 
       .sexy_line
       == paginate(@users)        

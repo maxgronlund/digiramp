@@ -380,7 +380,9 @@ Digiramp::Application.routes.draw do
     get "emails/index"
     resources :system_emails
     resources :system_settings
-    resources :users
+    resources :users do
+      resources :accounts, only: [:new]
+    end
     resources :user_genres, only: [:index]
     resources :user_instruments, only: [:index]
     resources :user_moods, only: [:index]

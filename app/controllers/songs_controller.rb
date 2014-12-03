@@ -2,6 +2,12 @@ class SongsController < ApplicationController
   
   def index
     
+    if  params[:commit] == 'Go'
+      @remove_old_recordings = true
+      ap '============================== YEAR GO GO ======================'
+    end
+    
+    
     if params[:recording].nil?
       params[:recording] = {order: 'uniq_likes_count', direction: 'desc'}
     end
