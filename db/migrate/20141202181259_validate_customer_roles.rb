@@ -6,7 +6,12 @@ class ValidateCustomerRoles < ActiveRecord::Migration
         if user.name.to_s == ''
           user.name = User.create_uniq_user_name_from_email user.email
         end
-        user.save!
+        begin
+          user.save!
+        rescue
+          puts '-------------------'
+          puts user.email
+        end
       end
     end
   end
