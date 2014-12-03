@@ -3,8 +3,8 @@ class SongsController < ApplicationController
   def index
     
     if  params[:commit] == 'Go'
+      params.delete :commit
       @remove_old_recordings = true
-      ap '============================== YEAR GO GO ======================'
     end
     
     

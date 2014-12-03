@@ -10,6 +10,7 @@ class RecordingsController < ApplicationController
   def index
     
     if  params[:commit] == 'Go'
+      params.delete :commit
       @remove_old_recordings = true
     end
     
