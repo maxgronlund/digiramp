@@ -10,7 +10,7 @@ class Account::MusicSubmissionsController < ApplicationController
   #end
   
   def new
-    #ap params
+
     @recordings   = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     @user         = current_user
     @music_request = MusicRequest.cached_find(params[:music_request_id])
@@ -29,7 +29,7 @@ class Account::MusicSubmissionsController < ApplicationController
   end
   
   def submit_recording
-    @music_request = MusicRequest.cached_find(params[:music_request_id])
+    @music_request    = MusicRequest.cached_find(params[:music_request_id])
     opportunity_user  = OpportunityUser.where( opportunity_id: params[:opportunity_id], 
                                                       user_id: current_user.id ).first
     
@@ -63,7 +63,7 @@ class Account::MusicSubmissionsController < ApplicationController
                        recipient_type: 'MusicRequest',
                            account_id: @account.id)
        
-      ap current_user                     
+                    
       channel = 'digiramp_radio_' + current_user.email
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SUBMITTED', 
                                             "message" => "#{@recording.title} is submitted to #{@music_submission.music_request.title}", 
@@ -73,7 +73,6 @@ class Account::MusicSubmissionsController < ApplicationController
                                             })
                                             
       
-                                            ap params
       
     else
       channel = 'digiramp_radio_' + opportunity_user.email

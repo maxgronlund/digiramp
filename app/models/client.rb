@@ -69,7 +69,7 @@ class Client < ActiveRecord::Base
       #Product.create! row.to_hash
       client_info                 =  row.to_hash
       
-      ap client_info
+
 
       if client_info["Email"].to_s != ''
         client   = Client.where(email: client_info["Email"], account_id:  client_import.account_id ).first_or_create(email: client_info["Email"])

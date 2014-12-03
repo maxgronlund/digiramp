@@ -2,11 +2,8 @@
 Digiramp::Application.routes.draw do
 
 
-  
 
-  
 
-  
   resources :follower_events, only: [:destroy]
   resources :enterprise_account_info, only: [:index]
   resources :business_account_info, only: [:index]
@@ -271,13 +268,16 @@ Digiramp::Application.routes.draw do
   #####################################################################################
   # hui v. 2
   #####################################################################################
-  resources :music_submissions, only: [ :destroy]
+  resources :music_submissions, only: [ :destroy, :update]
   
   resources :users do
     # hui v. 2
     #member do
     #  get :following, :followers
     #end
+    resources :messages
+    resources :received_messages, only: [:index]
+    resources :send_messages, only: [:index]
     resources :recording_basics, only: [:edit, :update]
     resources :recording_personas, only: [:edit, :update]
     resources :recording_tags, only: [:edit, :update]

@@ -1,0 +1,3 @@
+$("#old_music_submission_selected_" + "<%= @music_submission.id.to_s %>").remove();
+$("#music_submission_selected_" + "<%= @music_submission.id.to_s %>").append("<%= j render 'music_submissions/selected', music_submission: @music_submission %>");
+

@@ -27,7 +27,7 @@ class Account::UploadsController < ApplicationController
     
     forbidden unless current_account_user.create_recording?
     
-    #ap params[:transloadit]
+
 
     result = TransloaditRecordingsParser.parse( params[:transloadit],  @account.id, false, current_account_user.user_id)
     go_to = account_account_common_works_path(@account)

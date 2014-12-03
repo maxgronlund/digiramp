@@ -13,11 +13,11 @@ class Account::PlaylistKeyUsersController < ApplicationController
   def create
     
     emails = params[:playlist_key_user][:emails]
-    ap emails
+
     params[playlist_key_user_params].delete :emails if emails
     @playlist_key_user = PlaylistKeyUser.create(playlist_key_user_params)
     
-    ap @playlist_key_user
+
     
     redirect_to :back
   end
@@ -25,12 +25,12 @@ class Account::PlaylistKeyUsersController < ApplicationController
   def update
     
     emails = params[:playlist_key_user][:emails]
-    ap emails
+
     params[playlist_key_user_params].delete :emails if emails
     @playlist_key_user = PlaylistKeyUser.find(params[:id])
     @playlist_key_user = @playlist_key_user.update(playlist_key_user_params)
     
-    ap @playlist_key_user
+
     
     redirect_to :back
   end

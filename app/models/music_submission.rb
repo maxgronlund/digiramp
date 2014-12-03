@@ -6,7 +6,7 @@ class MusicSubmission < ActiveRecord::Base
   belongs_to          :account
   belongs_to          :opportunity_user
   has_many            :comments, as: :commentable
-  
+  after_commit        :flush_cache
   
   validates :recording_id, :music_request_id, :user_id, :account_id, :opportunity_user_id, presence: true
 

@@ -44,7 +44,6 @@ class Catalog< ActiveRecord::Base
   
   def update_widget
     default_playlist.add_items self.recordings
-    #ap default_playlist
   end
   
   def default_widget 

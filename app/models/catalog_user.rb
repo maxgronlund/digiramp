@@ -179,7 +179,7 @@ class CatalogUser < ActiveRecord::Base
   end
   
   def copy_permissions_from_account_user account_user
-    ap account_user
+
     
     Permissions::TYPES.each do |permission|
       self[permission]    = account_user[permission]

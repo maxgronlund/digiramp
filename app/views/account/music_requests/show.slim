@@ -18,11 +18,11 @@
           = @music_request.title  
         .col-sm-4
           .pull-right
-            = link_to 'Show all', '#', class: 'btn btn-primary'
-            '&nbsp;
-            = link_to 'Show Selected', '#', class: 'btn btn-default'
+            = link_to 'Selected on top', account_account_opportunity_music_request_path(@account, @opportunity, @music_request), class: 'btn btn-primary'
+        /    '&nbsp;
+        /    = link_to 'Show Selected', '#', class: 'btn btn-default'
       .sexy_line  
-      - @music_request.music_submissions.order('stars desc').each do |music_submission|
+      - @music_request.music_submissions.order('selected desc').each do |music_submission|
         -recording =  music_submission.recording
         div id="delete_music_submission_#{music_submission.id.to_s}"
           .row
@@ -31,19 +31,22 @@
               = music_submission.user.user_name
               br
               i = music_submission.created_at.to_formatted_s(:short)
-              br
-              br
-              b Messages
-              br
-              '4 Old  
-              br
-              '2 New 
-              br
-              '+ Create 
+         
               
+              div id="music_submission_selected_#{music_submission.id.to_s}"
+                == render 'music_submissions/selected', music_submission: music_submission
               
-              .pull-right
-                = link_to 'Select', '#', class: 'btn btn-success'
+              br
+              - if current_user  
+                h6
+                = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal" do
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-envelope
+                    '&nbsp;Send message  
+      
+                == render 'messages/modal', recipient: music_submission.user, subjebtable: music_submission
+                '&nbsp; 
+                    
             .col-sm-8
               #digiWhams  class="/recordings/#{recording.id.to_s}"
                 == render 'recording', recording: recording

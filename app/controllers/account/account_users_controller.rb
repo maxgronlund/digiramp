@@ -36,9 +36,7 @@ class Account::AccountUsersController < ApplicationController
   end
   
   def create_user
-    ap params 
-    ap current_account_user
-    ap current_user
+
     forbidden unless current_account_user.createx_user
     
     activated = params[:account_user][:role] == 'Client' ? false : true

@@ -73,9 +73,6 @@ class Catalog::CommonWorksImportsController < ApplicationController
     @common_work_import = CommonWorksImport.cached_find(params[:common_works_import_id])
     if @common_work_import.update_attributes!(common_work_import_params)
     
-      ap @common_work_import
-      #CommonWorksImport.post_info current_user.email, info = {start: :bmi_import}
-      #
       BmiScraperWorker.perform_async( params[:common_works_import][:user_name], 
                                         params[:common_works_import][:password],
                                         @common_work_import.id

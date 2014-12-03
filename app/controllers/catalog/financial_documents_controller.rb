@@ -23,9 +23,7 @@ class Catalog::FinancialDocumentsController < ApplicationController
   end
 
   def show
-    puts '---------------------------------------------------------------------'
-    ap @document
-    puts '---------------------------------------------------------------------'
+
   end
 
   def new

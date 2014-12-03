@@ -56,6 +56,14 @@ class UsersController < ApplicationController
       return redirect_to @user, :status => :moved_permanently
     end
   end
+  
+  #def find_user
+  #  if current_user
+  #    @user = User.cached_find(params[:id])
+  #  else
+  #    render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+  #  end
+  #end
 
 
   def new
@@ -201,13 +209,13 @@ private
   
   
   
-  def find_user
-    if current_user
-      @user = User.cached_find(params[:id])
-    else
-      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
-    end
-  end
+  #def find_user
+  #  if current_user
+  #    @user = User.cached_find(params[:id])
+  #  else
+  #    render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+  #  end
+  #end
   
   
   

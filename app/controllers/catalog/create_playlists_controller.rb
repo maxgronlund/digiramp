@@ -20,7 +20,7 @@ class Catalog::CreatePlaylistsController < ApplicationController
     end
     
     playlist.recordings.each do |recording|
-      ap recording
+
     end
     
     

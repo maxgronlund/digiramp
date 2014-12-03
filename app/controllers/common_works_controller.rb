@@ -62,7 +62,7 @@ class CommonWorksController < ApplicationController
   #end
   
   def update
-    ap params
+
     recording_id   = params[:common_work][:recording_id]
     user_id       = params[:common_work][:user_id]
     params[:common_work].delete :recording_id

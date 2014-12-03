@@ -44,6 +44,10 @@
           'Discover
       - if user_signed_in? && current_account
         li
+          = link_to user_messages_path(current_user, box: 'received') do
+            i.fa.fa-envelope
+            
+        li
           = link_to user_path(current_user) do
             = image_tag current_user.image_url(:avatar_32x32)
             '&nbsp;

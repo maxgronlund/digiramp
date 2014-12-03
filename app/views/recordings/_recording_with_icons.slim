@@ -6,6 +6,14 @@
   / small without text on mobile
   / -------------------------------------------------------------------
   .visible-xs.btn-group-xs
+    - if remove_from_request
+      = link_to music_submission_path(remove_from_request, user_id: current_user.id, opportunity_id: @opportunity.id), \
+                  method: :delete, \
+                  data: {confirm: "Remove #{recording.title} from submission" }, \
+                  remote: true, \
+                  class: "btn btn-danger"  do
+          i class="fa fa-times"
+
     - if info
       = link_to user_recording_path(recording.user, recording),
                 target: "_parent",
@@ -84,7 +92,8 @@
                   remote: true, \
                   class: "btn btn-danger"  do
           i class="fa fa-times"
-          
+          '&nbsp;
+          'Remove
     - if info
       = link_to user_recording_path(recording.user, recording), 
                 target: target,

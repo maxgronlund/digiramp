@@ -118,7 +118,7 @@ class ApplicationController < ActionController::Base
 
   # v 2
   def get_user
-    #ap params
+
     if params[:user_id]
       if @user = User.friendly.find(params[:user_id])
         #set_authorized

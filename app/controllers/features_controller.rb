@@ -20,7 +20,7 @@ class FeaturesController < ApplicationController
   end
   
   def create
-    ap params
+
     params[:feature][:user_id]      = current_user.id
     params[:feature][:blog_id]      = @feature_requests.id
     params[:feature][:identifier]   = UUIDTools::UUID.timestamp_create().to_s
@@ -39,7 +39,7 @@ class FeaturesController < ApplicationController
 
       feature = BlogPost.find_by_id(@comment.commentable_id)
       # send notification to issue owner
-      #ap issue.user.email
+
       channel = 'digiramp_radio_' + feature.user.email
       options = {  "channel" => channel, 
                    "title"   => 'Info', 

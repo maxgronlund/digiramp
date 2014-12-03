@@ -22,8 +22,9 @@ ruby:
   
   #page-content-wrapper
     .container-fluid
-      h3 = @user.user_name
-      'Has Access to the following
+      h3 #{@user.account.title} <funky>Pro</funky>
+      = @user.user_name
+      '&nbsp;has Access to the following accounts
       .sexy_line
       .table-responsive
         table class="table table-hover"

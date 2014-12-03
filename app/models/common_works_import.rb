@@ -182,8 +182,7 @@ class CommonWorksImport < ActiveRecord::Base
   end
   
   def parse_works_from_bmi 
-   
-    ap self.params
+
     
     imports = 0
     self.params.each do |catalog|
@@ -195,11 +194,7 @@ class CommonWorksImport < ActiveRecord::Base
                               .first_or_create( bmi_work_id:  work[:bmi_work_id],
                                                 account_id:   self.account_id)
       
-      #if work[:registration_origin]  == 'Cue Sheet'
-      #  puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   Cue Sheet   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-      #  ap work
-      #  puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   Cue Sheet   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-      #end 
+
       common_work.common_works_import_id    = self.id
       common_work.bmi_catalog               = catalog[:catalog]
       common_work.iswc_code                 = work[:iswc]
@@ -242,8 +237,7 @@ class CommonWorksImport < ActiveRecord::Base
   end
   
   def self.post_info user_email, info
-    #puts '---------------------------------------------'
-    #ap info
+
     
     if info[:error]
       channel = 'digiramp_radio_' + user_email

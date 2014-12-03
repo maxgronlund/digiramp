@@ -22,7 +22,6 @@ class Opportunity::MusicSubmissionsController < ApplicationController
     
     submitted_recording_ids = MusicSubmission.where(music_request_id: @music_request.id).pluck(:recording_id)
     
-    ap submitted_recording_ids
     
     # plain and simple, super users can search all recordings
     #if current_user.role == 'Super'

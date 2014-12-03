@@ -20,6 +20,7 @@
             
   .avatar
     = image_tag @user.image_url :avatar_145x145
+    
   .info
     h4 =@user.user_name
     - if @user.country.to_s != ''
@@ -44,10 +45,16 @@
           '&nbsp;
           'Authorize
       '&nbsp;
+    
+    - if current_user  
+      h6
+      = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal" do
+        .btn.btn-default.btn-xs
+          i.fa.fa-envelope
+          '&nbsp;Send message  
       
-      
-      
-      
+      == render 'messages/modal', recipient: @user, subjebtable: @user
+      '&nbsp;  
     == render 'users/shared/follow' , user: @user
 
   = simple_format @user.profile

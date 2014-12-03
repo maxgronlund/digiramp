@@ -43,7 +43,7 @@ class DownloadController < ApplicationController
     puts '>>>>>>>>>>>>>>>>>>>>>>>           DEPRICATED                <<<<<<<<<<<<<<<<<<<<<<<<<'
     begin
       @recording = Recording.cached_find(params[:recording])
-      #ap @recording
+
       data = open("#{@recording.mp3}") 
       name = @recording.title
       ext = @recording.audio_upload[:ext]

@@ -63,7 +63,7 @@ class CatalogRecordingsController < ApplicationController
     # add the recording to the catalog
     @catalog   = Catalog.cached_find(params[:catalog_id])
     @recording = Recording.cached_find(params[:recording])
-    ap @recording
+
     catalog_item = CatalogItem.where(catalog_id: @catalog.id, 
                                      catalog_itemable_id: @recording.id, 
                                      catalog_itemable_type: @recording.class.name)

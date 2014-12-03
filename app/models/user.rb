@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
   before_save   :validate_info
   before_create :set_token
   before_create :validate_info
-  #before_destroy :delete_account
+  before_destroy :sanitize_relations
   
   has_many :emails, dependent: :destroy
   
@@ -103,6 +103,7 @@ class User < ActiveRecord::Base
   
   has_many :playlists
   
+  # -----------------------------------------------------------------
   # followers
   has_many :followed_users, through: :relationships, source: :followed
   
@@ -114,30 +115,39 @@ class User < ActiveRecord::Base
   
   has_many :followers, through: :reverse_relationships, source: :follower
   
-  
+  #------------------------------------------------------------------
   # the creator of the event
   has_many :follower_events, dependent: :destroy
+  #------------------------------------------------------------------
+  # messages
+  has_many :received_massages,  class_name: "Message", foreign_key: "recipient_id"
+  has_many :send_massages,      class_name: "Message", foreign_key: "sender_id"
   
-  
-  #has_many :wall_posts, through: :follower_event_users, source: :follower_event_user
+
   
   has_many :wall_posts, :through => :follower_event_users, :source => :follower_event
-  
-  
   has_many :follower_event_users
   
   
+  
+  def sanitize_relations
+    # messages
+    send_messages       = Message.where(sender_id: self.id)
+    send_messages.update_all(sender_removed: true)
+    
+    received_messages   = Message.where(recipient_id: self.id)
+    received_messages.update_all(recipient_id: true)
+    
+  end
   def set_token
-   
     generate_token(:auth_token)
   end
   
   
   def validate_info
     
-    #self.email.gsub(' ', '')
-    #self.email.downcase!
-    
+    # always start as a customer
+    self.role = 'Customer' if self.role.to_s == ''
     
     if EmailValidator.validate( self.email )
       self.user_name = User.create_uniq_user_name_from_email(self.email)    if self.user_name.to_s  == ''
@@ -564,9 +574,7 @@ class User < ActiveRecord::Base
     
     
     sanitized_email = EmailValidator.saintize email
-    #ap '============================================'
-    #ap sanitized_email
-    #ap '============================================'
+
     # the user is already signed up
     if found_user       = User.where(email: sanitized_email).first
       

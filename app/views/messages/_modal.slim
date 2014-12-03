@@ -1,0 +1,28 @@
+
+
+
+.modal.fade id="pmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal"
+          span aria-hidden="true" &times;
+          span class="sr-only" Close
+
+        h4 class="modal-title" id="myModalLabel"
+          'New message
+        .sexy_line
+
+      = simple_form_for [current_user, Message.new(title: "From #{current_user.user_name}")], remote: true do |f|
+        .modal-body
+          /= f.hidden_field :sender_id, value: current_user.id
+          = f.hidden_field :recipient_id, value: recipient.id
+          = f.hidden_field :sender_id, value: current_user.id
+          = f.hidden_field :subjebtable_id, value: subjebtable.id
+          = f.hidden_field :subjebtable_type, value: subjebtable.class.name
+          = f.input :title, label: 'Subject'
+          = f.input :body, :input_html => {  style: "height: 280px;", placeholder: "Message"}
+          
+        .modal-footer
+          = f.submit 'Send', class: 'btn btn-primary'
+/  data-dismiss="modal"

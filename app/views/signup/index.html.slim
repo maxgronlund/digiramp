@@ -30,10 +30,33 @@
               span class="input-group-addon" 
                 i class= 'fa fa-key'
               = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
-          
-            .pull-right
-              br
-              = f.submit 'Sign Up', class: 'btn btn-primary', id: 'sign_up_form_button'
+            .row
+              .col-sm-12
+                .pull-right
+                  br
+                  = f.submit 'Sign Up', class: 'btn btn-primary please_wait', id: 'sign_up_form_button'
+            br
+            .sexy_line
+            br
+            
+            h4 Signup with your favorite network
+            .social-icons
+              .social-icon
+                = link_to "/auth/twitter" do
+                  .twitter
+                  'Twitter
+              .social-icon
+                = link_to  "/auth/facebook" do
+                  .facebook
+                  'Facebook 
+              .social-icon
+                = link_to "/auth/linkedin" do
+                  .linkedin
+                  'Linkedin
+              .social-icon
+                = link_to  "/auth/gplus" do
+                  .google
+                  'Google+ 
         .col-sm-3
         /.col-sm-6
         /  == render 'shared/sign_up'

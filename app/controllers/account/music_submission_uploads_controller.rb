@@ -12,11 +12,7 @@ class Account::MusicSubmissionUploadsController < ApplicationController
   end
 
   def create
-    puts '==============================================================='
-    ap params[:music_request_id]
-    ap params[:recording]
-    puts '==============================================================='
-    #ap params
+
     
     @music_request           = MusicRequest.cached_find(params[:music_request_id])
     

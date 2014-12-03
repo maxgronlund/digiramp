@@ -18,7 +18,6 @@ class Account::CatalogRecordingsController < ApplicationController
   end
   
   def new
-    ap @account
-    
+
   end
 end

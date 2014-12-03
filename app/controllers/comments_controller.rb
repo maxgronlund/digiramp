@@ -41,7 +41,6 @@ class CommentsController < ApplicationController
         begin
           issue = Issue.cached_find(@comment.commentable_id)
           # send notification to issue owner
-          #ap issue.user.email
           channel = 'digiramp_radio_' + issue.user.email
           options = {  "channel" => channel, 
                        "title"   => 'Info', 

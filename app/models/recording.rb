@@ -756,8 +756,7 @@ private
     #Statistics.first.recordings -= 1
     #Statistics.first.save!
     
-    #ap CatalogItem.where(catalog_itemable_id: self.id)
-    
+
     # optimization
     #catalogs.each do |catalog|
     #  catalog.nr_recordings -= 1

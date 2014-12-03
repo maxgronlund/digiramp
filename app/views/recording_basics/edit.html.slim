@@ -21,9 +21,18 @@
         .row
           .col-sm-6
             = f.input :title
+            b Original file:
+            br
+            = @recording.original_file_name
+            br
+            = link_to 'Replace', '#', class: 'btn btn-default btn-xs'
+            .sexy_line
             .fileinput.fileinput-new data-provides="fileinput"
               .fileinput-new.thumbnail style="width: 184px; height: 184px;"
-                = image_tag @recording.cover_art, size: '184x184'
+                - if @recording.cover_art
+                  = image_tag @recording.cover_art, size: '184x184'
+                - else
+                  = image_tag 'default-cover.jpg'
 
               div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
               div
@@ -42,9 +51,9 @@
             br
             br
         
-            = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
-
+           
           .col-sm-6
+            = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
             = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
             = f.input :downlodable, hint: 'Enabling this will allow the file to be downloaded'
             = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
@@ -54,7 +63,7 @@
           /= f.button :submit, 'Cancel', class: 'btn btn-default please_wait', id: 'done'
           /'&nbsp;
 
-          = f.button :submit, 'Save & Close', class: 'btn btn-default please_wait', id: 'done'
+          = f.button :submit,'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
           '&nbsp;
           = link_to 'Skip', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
           '&nbsp;

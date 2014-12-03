@@ -17,7 +17,7 @@ class AccessManager
       account_user = AccountUser.where(account_id: account.id, user_id: user.id)
                                 .first_or_create(account_id: account.id, user_id: user.id)
       account_user.update_to_super
-      ap account_user
+
     end
   end
   
@@ -54,7 +54,7 @@ class AccessManager
 
     account.account_users.where.not(role: 'Catalog User').each do |account_user|
       
-      ap account_user
+
       
       catalog_user = CatalogUser.create(catalog_id:       catalog.id, 
                                         user_id:          account_user.user_id, 
@@ -64,7 +64,7 @@ class AccessManager
                                         uuid:             UUIDTools::UUID.timestamp_create().to_s )
                                         
       catalog_user.copy_permissions_from_account_user account_user
-      #ap catalog_user.user
+
     end
 
   end
@@ -87,15 +87,17 @@ class AccessManager
   
   def self.make_zebulon_admin account
     # this is a temporary thing to make peter administrator for all accounts
-    # notice peter is 'Super User'
-    if zebulon              = User.where(email: 'peter@musicintomedia.com').first
-      # update the administrator
-      account.administrator_id = zebulon.id
-      account.save!
-      # update the role
-      account_administrator = AccountUser.where(account_id: account.id, user_id: zebulon.id).first 
-      account_administrator.role = 'Administrator'
-      account_administrator.save!
+    # notice it's required that zwbulon is super
+    if zebulon                      = User.where(email: 'peter@musicintomedia.com').first
+      if account_administrator      = AccountUser.where(account_id: account.id, user_id: zebulon.id).first 
+        # update the administrator
+        account.administrator_id = zebulon.id
+        account.save!
+        # update the role
+        account_administrator       = AccountUser.where(account_id: account.id, user_id: zebulon.id).first 
+        zebulon.role= 'Administrator'
+        account_administrator.save!
+      end
     end
     
   end

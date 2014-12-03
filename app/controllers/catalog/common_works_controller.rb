@@ -44,7 +44,7 @@ class Catalog::CommonWorksController < ApplicationController
   end
   
   def update
-    ap params
+
     # get the artwork url
     artwork_url = TransloaditImageParser.get_image_url params[:transloadit]
 
@@ -175,8 +175,7 @@ class Catalog::CommonWorksController < ApplicationController
       when 'This Only'
         @catalog.add_recordings recordings
       end
-      puts '*********************************************'
-      ap result
+
       redirect_to catalog_account_catalog_common_work_path( @account, @catalog, @common_work )
     rescue
       flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }

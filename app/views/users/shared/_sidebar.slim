@@ -69,35 +69,36 @@
         '&nbsp;
         'Opportunities
   
-  - if @authorized 
-    - unless @user.account.account_type  == "Social"
+  - if current_user 
+    - unless current_user.account.account_type  == "Social"
       .sexy_line 
       li class="#{'sidebar-selected' if selected == 'account'}"
-        = link_to account_account_path( @user.account ) do
+        = link_to account_account_path( current_user.account ) do
           i class="fa fa-tachometer"
           '&nbsp;
           'Pro Account
         
      
       li class="#{'sidebar-selected' if selected == 'collections'}"
-        = link_to user_user_collections_path( @user ) do
+        = link_to user_user_collections_path( current_user ) do
           i class="fa fa-tachometer"
           '&nbsp;
           'Accounts
           
       li class="#{'sidebar-selected' if selected == 'catalogs'}"
-        = link_to user_user_catalogs_path( @user ) do
+        = link_to user_user_catalogs_path( current_user ) do
           i class="fa fa-book"
           '&nbsp;
           'Catalogs
-  - if current_user && current_user.super? 
-    .sexy_line
-    li class="#{'sidebar-selected' if selected == 'admin'}"
-      = link_to admin_index_path do
-        i class="fa fa-gear"
-        '&nbsp;
-        'Admin
     
+    - if current_user.super? 
+      .sexy_line
+      li class="#{'sidebar-selected' if selected == 'admin'}"
+        = link_to admin_index_path do
+          i class="fa fa-gear"
+          '&nbsp;
+          'Admin
+      
     / li class="#{'sidebar-selected' if selected == 'activities'}"
     /   = link_to user_user_activities_path( @user ) do
     /     i class="fa fa-tachometer"

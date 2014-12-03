@@ -1,0 +1,35 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      .messages
+        .row
+          .col-sm-7
+            h3 Message center
+            'All messages
+          .col-sm-5
+            .pull-right
+              ul.nav.nav-pills
+                li  
+                  = link_to 'Received', user_received_messages_path(@user)
+                li
+                  = link_to 'Send', user_send_messages_path(@user)
+                li class="active"
+                  = link_to 'All', "#"
+
+        .sexy_line
+        - @messages.each do |message|
+          == render 'messages/message', message: message
+      
+                
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+/id desc').first(64)

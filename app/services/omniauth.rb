@@ -8,12 +8,12 @@ class Omniauth
     if new_provider = AuthorizationProvider.where(user_id: user.id, provider: env['omniauth.auth']["provider"]).present?
       return nil
     else  
-      #ap env['omniauth.auth']
+
       credentials =  env['omniauth.auth']["credentials"]
 
       
       
-      #ap  env['omniauth.auth']["info"]
+
 
       return AuthorizationProvider.create! do |provider|
                         provider.provider           = env['omniauth.auth']["provider"]
@@ -51,7 +51,7 @@ private
     #raise env.to_yaml
     # create a user
     user = create_user( env )
-    #ap user[:user]
+
     if user[:user]                
       if create_account_for( user[:user], env ) 
         update_user( user[:user], env)
@@ -77,8 +77,7 @@ private
   end
   
   def self.create_user( env )
-    puts '=======================================++==============================================='
-    ap env
+
     email         = UUIDTools::UUID.timestamp_create().to_s
     email_missing = true
     case env[:provider]

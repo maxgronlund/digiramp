@@ -87,6 +87,7 @@ class Admin::UsersController < ApplicationController
       
     rescue
       flash[:danger] = { title: "ERROR: ", body: "Something went wrong" }
+      puts '===============================   ERROR ==================================='
     end
     redirect_to admin_users_path
   end

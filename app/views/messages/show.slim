@@ -1,0 +1,52 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      .messages
+        .row
+          .col-sm-7
+            h3 Message center
+            'All messages
+          .col-sm-5
+            .pull-right
+              ul.nav.nav-pills
+                li  
+                  = link_to 'Received', user_received_messages_path(@user)
+                li
+                  = link_to 'Send', user_send_messages_path(@user)
+                li 
+                  = link_to 'All', user_messages_path(@user)
+
+        .sexy_line
+        = debug @message
+        'Title
+        br
+        h4 = @message.title
+        b
+          - if @message.sender_id == @user.id
+            'Send mesage
+          - else
+            'Received message
+        br
+        i Subject
+        br
+        = @message.subjebtable_type
+        br
+        
+        
+        
+        
+        
+        
+        
+        
+        
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

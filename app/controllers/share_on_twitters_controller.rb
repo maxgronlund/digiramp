@@ -5,18 +5,17 @@ class ShareOnTwittersController < ApplicationController
 
  
   def create
-    #ap params
+
     @share_on_twitter = ShareOnTwitter.create(share_on_twitter_params)
     @user = User.find(params[:share_on_twitter][:user_id])
     
-    #ap @share_on_twitter.recording
+
 
     if @user.authorization_providers && @share_on_twitter
        
       # get twitter provider
       if provider_twitter = @user.authorization_providers.where(provider: 'twitter').first
-          #ap provider_twitter[:oauth_token]
-          #ap provider_twitter[:oauth_secret]
+
           client = Twitter::REST::Client.new do |config|
             config.consumer_key        = ENV['TWITTER_KEY'] 
             config.consumer_secret     = ENV['TWITTER_SECRET'] 

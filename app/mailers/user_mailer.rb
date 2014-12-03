@@ -11,7 +11,7 @@ class UserMailer < ActionMailer::Base
     @title          = blog_post.title
     @body           = blog_post.body
     @fotter_link    = url_for( controller: 'contacts', action: 'new')
-    #ap @user
+
     mail to: @user.email, subject: blog_post.title
   end
   

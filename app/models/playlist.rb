@@ -99,7 +99,7 @@ class Playlist < ActiveRecord::Base
   end
   
   def remove_item item
-    ap item
+
     if item = PlaylistItem.where(  playlist_id:           self.id, 
                                    playlist_itemable_id:  item.id,
                                   playlist_itemable_type: item.class.name

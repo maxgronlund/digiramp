@@ -29,6 +29,15 @@
       = simple_form_for [ @recording.account, @recording.common_work],  :html => { :id => 'common_work' } do |f|
         = f.hidden_field :recording_id, value: @recording.id
         = f.hidden_field :user_id, value: @recording.user_id
+        .sexy_line
+        h4 Master infromations
+        'bla
+        'bla
+        'bla
+        'bla
+        'bla
+        .sexy_line
+        
         .row
           .col-sm-12
             h4 Songwriters and composers
@@ -37,7 +46,7 @@
               = f.simple_fields_for :ipis do |ipi|
                 = render 'recording_rights/ipi_fields', :f => ipi
               .links
-                = link_to_add_association 'Add ipi', f, :ipis, class: 'btn btn-primary'
+                = link_to_add_association 'Add Intereted partiy', f, :ipis, class: 'btn btn-primary'
         .row
           .col-sm-12    
             /.sexy_line

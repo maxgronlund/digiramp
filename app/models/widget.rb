@@ -30,16 +30,7 @@ class Widget < ActiveRecord::Base
     self.playlist.recordings
   end
   
-  #def add_items new_items
-  #  puts '---------------- add_items --------------------------'
-  #  ap self
-  #  #playlist.add_items new_items
-  #end
-  #
-  #def add_item new_item
-  #  #playlist.add_item new_item
-  #end
-  
+
   def playlist
     Playlist.cached_find(self.playlist_id)
   end

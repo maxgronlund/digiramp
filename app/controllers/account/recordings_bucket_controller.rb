@@ -197,7 +197,7 @@ class Account::RecordingsBucketController < ApplicationController
   
   def common_works
     @common_works       = CommonWork.where(id: params[:common_work_ids]  )
-    ap @account
+
   end
   
 

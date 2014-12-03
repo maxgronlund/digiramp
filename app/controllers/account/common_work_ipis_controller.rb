@@ -42,7 +42,6 @@ class Account::CommonWorkIpisController < ApplicationController
   def edit
     forbidden unless current_account_user.update_common_work_ipi?
     @common_work_ip     = Ipi.cached_find(params[:id])
-    ap @common_work_ip
     @common_work_ip
     #redirect_to edit_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, @common_work_ip)
   end

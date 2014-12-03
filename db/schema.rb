@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141129113705) do
+ActiveRecord::Schema.define(version: 20141203095916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1287,6 +1287,23 @@ ActiveRecord::Schema.define(version: 20141129113705) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "messages", force: true do |t|
+    t.integer  "recipient_id"
+    t.integer  "sender_id"
+    t.string   "title"
+    t.text     "body"
+    t.integer  "subjebtable_id"
+    t.string   "subjebtable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "sender_removed",    default: false
+    t.boolean  "recipient_removed", default: false
+  end
+
+  add_index "messages", ["recipient_id"], name: "index_messages_on_recipient_id", using: :btree
+  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id", using: :btree
+  add_index "messages", ["subjebtable_id", "subjebtable_type"], name: "index_messages_on_subjebtable_id_and_subjebtable_type", using: :btree
+
   create_table "mood_tags", force: true do |t|
     t.integer  "recording_id"
     t.integer  "mood_id"
@@ -1355,12 +1372,13 @@ ActiveRecord::Schema.define(version: 20141129113705) do
     t.integer  "supervisors_order"
     t.boolean  "supervisor_like"
     t.decimal  "relevance"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "stars",               default: 0
     t.integer  "like",                default: 0
     t.integer  "opportunity_user_id"
     t.integer  "account_id"
+    t.boolean  "selected",            default: false
   end
 
   add_index "music_submissions", ["account_id"], name: "index_music_submissions_on_account_id", using: :btree
