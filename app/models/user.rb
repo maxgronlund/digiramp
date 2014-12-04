@@ -143,6 +143,10 @@ class User < ActiveRecord::Base
     generate_token(:auth_token)
   end
   
+  def unread_messages
+    self.received_massages.where(read: false).count
+  end
+  
   
   def validate_info
     
@@ -440,7 +444,7 @@ class User < ActiveRecord::Base
                               expiration_date: Date.current()>>1,
                               contact_email: user.email,
                               visits: 1,
-                              account_type: 'Personal Account',
+                              account_type: 'Social',
                               administrator_id: user.id,
                               create_opportunities: false,
                               read_opportunities: false

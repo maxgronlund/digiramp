@@ -1,4 +1,4 @@
-#wrapper
+#wrapper.discover
   .full-width-top
     == render 'shared/navigationbar', page: 'discover' 
   
@@ -11,16 +11,21 @@
             i.fa.fa-caret-square-o-left
             '&nbsp;
             'Hide
+      li
+        .covers        
+          = link_to songs_path(@user) do
+            h4 More Recordings
+            = image_tag 'recording-covers.jpg'
       li 
-        = link_to songs_path(@user) do
-          i class="fa fa-headphones"
-          '&nbsp;
-          'Recording
-      li 
-        = link_to users_path(@user) do
-          i class="fa fa-users"
-          '&nbsp;
-          'Users
+        .avatars
+          h4 More users
+          = link_to users_path(@user) do
+            -@users.last(36).each do |avatar|
+              .micro-avatar
+                = image_tag avatar.image_url(:avatar_32x32)
+            /i class="fa fa-users"
+          /'&nbsp;
+          /'Users
 
       /li Most popular
       /li Reccomendednted
@@ -28,36 +33,34 @@
   
   #page-content-wrapper
     .container-fluid
-      h3 Discover DigiRAMP
-      .sexy_line
       .row
         .col-sm-5
-          h4 = link_to 'Recordings', songs_path
+          h3 = link_to 'Featured Recordings', songs_path
         .col-sm-7
           .search-recording
-            
+          
             = simple_form_for :recording, :url => url_for(:action => 'index', \
                                                         :controller => 'songs'), \
                                                         :method => 'get' do |f|
-            
+          
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-search'
                 = text_field_tag "query", "", :class => 'search-query form-control', \
                                               :placeholder => 'Search', \
                                               value: params[:query]
-                                              
+                                            
 
                 .input-group-btn
-                  = f.submit 'Go', class: "btn btn-primary please_wait"
+                  = f.submit 'Go', class: "btn btn-primary"
                   '&nbsp;
-                  = link_to 'Clear', songs_path, class: 'btn btn-default please_wait'
+                  = link_to 'Clear', songs_path, class: 'btn btn-default'
+        
+      br
       
-      
-      
-      
+
       .util-carousel.normal-imglist id="recordings-imglist"
-        - Recording.last(20).each do |recording|
+        - @recordings.each do |recording|
           .item
             == render 'discover/recording', recording: recording
 
@@ -70,9 +73,9 @@
               
 
             
-     
+      br
       .sexy_line
-      h4 = link_to 'Users', users_path
+      h3 = link_to 'Featured Users', users_path
       .util-carousel.normal-imglist id="users-imglist"
         - @users.each do |user|
           .item

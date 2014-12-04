@@ -20,6 +20,7 @@
         = transloadit :image_files_to_s3 
         .row
           .col-sm-6
+            = f.input :featured if current_user.super?
             = f.input :title
             b Original file:
             br

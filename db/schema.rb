@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203095916) do
+ActiveRecord::Schema.define(version: 20141204194256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1295,6 +1295,7 @@ ActiveRecord::Schema.define(version: 20141203095916) do
     t.datetime "updated_at"
     t.boolean  "sender_removed",    default: false
     t.boolean  "recipient_removed", default: false
+    t.boolean  "read",              default: false
   end
 
   add_index "messages", ["recipient_id"], name: "index_messages_on_recipient_id", using: :btree
@@ -1785,6 +1786,7 @@ ActiveRecord::Schema.define(version: 20141203095916) do
     t.string   "uniq_title",           default: ""
     t.string   "fb_badge"
     t.boolean  "downlodable",          default: false
+    t.boolean  "featured",             default: false
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -1978,6 +1980,7 @@ ActiveRecord::Schema.define(version: 20141203095916) do
     t.boolean  "private_profile",        default: false
     t.boolean  "artist",                 default: false
     t.integer  "completeness",           default: 0
+    t.integer  "unread_messages",        default: 0
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

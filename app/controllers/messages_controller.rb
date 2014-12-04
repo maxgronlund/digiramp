@@ -24,6 +24,8 @@ class MessagesController < ApplicationController
   
   def show
     @message = Message.cached_find(params[:id])
+    @message.read = true
+    @message.save
   end
 
   def create

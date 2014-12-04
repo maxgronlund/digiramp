@@ -1,4 +1,4 @@
-class UpdateAccountTypes < ActiveRecord::Migration
+class UpdatePersonalAccounts < ActiveRecord::Migration
   def change
     
     Account.find_each do |account|
@@ -17,4 +17,3 @@ class UpdateAccountTypes < ActiveRecord::Migration
     end
   end
 end
-#['Personal Account', 'Pro Account','Enterprise Account']
