@@ -1,4 +1,5 @@
 .old-recordings
+  .query id="#{params[:query]}"
   - songs.each do |song|
     #digiWhams  class="/recordings/#{song.id.to_s}"
       == render 'show', recording: song

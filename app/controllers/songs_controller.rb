@@ -1,12 +1,19 @@
 class SongsController < ApplicationController
   
   def index
-    
+    puts '-----------------------------------------------------------'
+    ap params
+    puts '-----------------------------------------------------------'
+    #session[:query] = 'Kendall'
+    #params[:query] = session[:query]
     if  params[:commit] == 'Go'
-      params.delete :commit
       @remove_old_recordings = true
+      session[:query] = params[:query]
     end
-    
+    if params[:clear] == 'clear'
+      session[:query] = nil
+    end
+    params[:query] = session[:query]
     
     if params[:recording].nil?
       params[:recording] = {order: 'uniq_likes_count', direction: 'desc'}

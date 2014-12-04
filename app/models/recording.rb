@@ -39,6 +39,7 @@ class Recording < ActiveRecord::Base
   #                          ignoring: :accents
   #                                  
   pg_search_scope :search, against: [ :title, 
+                                      :composer,
                                       :lyrics, 
                                       :genre, 
                                       :artist, 
@@ -55,6 +56,7 @@ class Recording < ActiveRecord::Base
                                       :band,
                                       :mood,
                                       :instruments,
+                                      :original_file_name,
                                       :tempo 
                                     ], using:  [:tsearch ]
   
