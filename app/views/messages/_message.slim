@@ -2,15 +2,25 @@ div id="delete_message_#{message.id.to_s}"
 
   .row
     .col-sm-4
-      - if message.sender_id == @user.id
-        - if user = message.sender
-          = link_to image_tag( user.image_url :avatar_32x32),  user_path( user)
-        'Received
-      - else
-        = image_tag( message.receiver.image_url :avatar_32x32)
-        'Send
-      '&nbsp;
+
       = message.created_at.to_formatted_s(:short)
+      '&nbsp;
+      = debug message
+      
+      - if message.sender_id == @user.id
+        - if message.receiver
+          = image_tag( message.receiver.image_url :avatar_32x32)
+        i.fa.fa-arrow-left 
+        = image_tag( message.sender.image_url :avatar_32x32)
+      
+      - else
+        - if user = message.sender
+          = link_to image_tag( message.sender.image_url :avatar_32x32),  user_path( user)
+        i.fa.fa-arrow-right 
+        = image_tag( message.receiver.image_url :avatar_32x32)
+        
+      '&nbsp;
+      '&nbsp;
       '&nbsp;
       b = message.title
   .sexy_line

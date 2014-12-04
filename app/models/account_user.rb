@@ -184,10 +184,15 @@ class AccountUser < ActiveRecord::Base
       self[permission_type] = true
     end
     
-    self.create_client = true
-    self.read_client   = true
-    self.update_client = true
-    self.delete_client = true
+    self.create_client      = true
+    self.read_client        = true
+    self.update_client      = true
+    self.delete_client      = true
+    self.create_opportunity = true
+    self.read_opportunity   = true
+    self.update_opportunity = true
+    self.delete_opportunity = true
+    
     self.save!
     
     # add to all catalogs

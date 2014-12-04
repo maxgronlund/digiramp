@@ -14,7 +14,7 @@ class Message < ActiveRecord::Base
   
   def receiver
     begin
-      User.cached_find(self.sender_id)
+      User.cached_find(self.recipient_id)
     rescue
       nil
     end
