@@ -32,8 +32,9 @@
     '&nbsp;
     = pluralize(@user.views, 'View')
     br
-    - if current_user.super?
+    - ifcurrent_user && current_user.super?
       = link_to 'Edit account', edit_admin_account_path(@user.account), class: 'btn btn-default btn-xs'
+      '&nbsp;
     - if @authorized
       = link_to edit_user_path(@user) do
         .btn.btn-default.btn-xs

@@ -1,48 +1,64 @@
 div id="delete_message_#{message.id.to_s}"
-  .message
-    .sender
-      - if user = message.sender
-        .message-headder
-          .message-avatar
-            = link_to image_tag( user.image_url :avatar_48x48),  user_path( user)
-          .message-sender
-            b = user.user_name
-            
-          .message-info
-            
-            .remove-button
-              = link_to user_message_path(@user, message) do
-                .btn.btn-default.btn-xs
-                  i.fa.fa-eye
-                  '&nbsp;
-                  'Read
-              = link_to user_message_path(@user, message), data:  { confirm: 'Are you sure?' }, method: :delete, remote: true  do
-                .btn.btn-danger.btn-xs
-                  i.fa.fa-times
-      - else
-       '! Unable to contact sender
-       = link_to user_message_path(@user, message), data:  { confirm: 'Are you sure?' }, method: :delete, remote: true  do
-         .btn.btn-danger.btn-xs
-           i.fa.fa-times
-      .message-title
-        = message.created_at.to_formatted_s(:short)
-        h4 = message.title
-      .message-body
-        = message.body
-        /= debug message
-      
-  .sexy_line
-/= debug message
 
-/.comment-content
-/  h5
-/    = link_to user.user_name, user_path( user)
-/    '&nbsp;
-/    = "#{time_ago_in_words(comment.created_at) } ago"
-/    .pull-right
-/      = link_to  comment_path(comment), data: {:confirm => 'Are you sure?'}, :method => :delete , remote: true do
-/        i class="fa fa-times"
-/  /h4  = comment.title
-/  = simple_format comment.body
+  .row
+    .col-sm-4
+      - if message.sender_id == @user.id
+        - if user = message.sender
+          = link_to image_tag( user.image_url :avatar_32x32),  user_path( user)
+        'Received
+      - else
+        = image_tag( message.receiver.image_url :avatar_32x32)
+        'Send
+      '&nbsp;
+      = message.created_at.to_formatted_s(:short)
+      '&nbsp;
+      b = message.title
+  .sexy_line
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/  .message
+/    .sender
+/      - if user = message.sender
+/        .message-headder
+/          .message-avatar
+/            = link_to image_tag( user.image_url :avatar_48x48),  user_path( user)
+/          .message-sender
+/            b = user.user_name
+/            
+/          .message-info
+/            
+/            .remove-button
+/              = link_to user_message_path(@user, message) do
+/                .btn.btn-default.btn-xs
+/                  i.fa.fa-eye
+/                  '&nbsp;
+/                  'Read
+/              = link_to user_message_path(@user, message), data:  { confirm: 'Are you sure?' }, method: :delete, remote: true  do
+/                .btn.btn-danger.btn-xs
+/                  i.fa.fa-times
+/      - else
+/       '! Unable to contact sender
+/       = link_to user_message_path(@user, message), data:  { confirm: 'Are you sure?' }, method: :delete, remote: true  do
+/         .btn.btn-danger.btn-xs
+/           i.fa.fa-times
+/      .message-title
+/        = message.created_at.to_formatted_s(:short)
+/        h4 = message.title
+/      .message-body
+/        = message.body
+/        /= debug message
+/      
 /  .sexy_line
-/  
+  
