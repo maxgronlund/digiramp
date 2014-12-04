@@ -1,9 +1,6 @@
 class SongsController < ApplicationController
   
   def index
-    puts '-----------------------------------------------------------'
-    ap params
-    puts '-----------------------------------------------------------'
     #session[:query] = 'Kendall'
     #params[:query] = session[:query]
     if  params[:commit] == 'Go'
