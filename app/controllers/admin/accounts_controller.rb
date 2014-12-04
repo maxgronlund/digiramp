@@ -61,7 +61,7 @@ class Admin::AccountsController < ApplicationController
     
     # the account owner can create opertunities
     if @account.create_opportunities
-      account_user = AccountUser.cached_where(@account.id, @account.user_id)
+      account_user = AccountUser.where(account_id: @account.id, user_id: @account.user_id).first
       account_user.create_opportunity = true
       account_user.read_opportunity   = true
       account_user.save!

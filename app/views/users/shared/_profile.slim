@@ -32,6 +32,8 @@
     '&nbsp;
     = pluralize(@user.views, 'View')
     br
+    - if current_user.super?
+      = link_to 'Edit account', edit_admin_account_path(@user.account), class: 'btn btn-default btn-xs'
     - if @authorized
       = link_to edit_user_path(@user) do
         .btn.btn-default.btn-xs
@@ -52,7 +54,6 @@
         .btn.btn-default.btn-xs
           i.fa.fa-envelope
           '&nbsp;Send message  
-      
       == render 'messages/modal', recipient: @user, subjebtable: @user
       '&nbsp;  
     == render 'users/shared/follow' , user: @user

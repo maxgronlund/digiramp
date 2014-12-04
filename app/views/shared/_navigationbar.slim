@@ -46,8 +46,9 @@
         li
           
           = link_to user_messages_path(current_user, box: 'received') do
-            span class="badge badge-dark-red"
-              = current_user.unread_messages
+            - if  current_user.unread_messages != 0
+              span class="badge badge-dark-red"
+                = current_user.unread_messages
             i.fa.fa-envelope
             
         li
