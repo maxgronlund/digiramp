@@ -18,7 +18,7 @@
       .user-name
         = @user.user_name   
   li class="#{'sidebar-selected' if selected == 'recordings'}"
-    = link_to user_recordings_path(@user) do
+    = link_to user_recordings_path(@user, clear: 'clear') do
       i class="fa fa-headphones"
       '&nbsp;
       = pluralize(@user.recordings.count, 'Recording')  

@@ -64,11 +64,7 @@ enable_next_button =() ->
     if $('.pagination').length
       $(window).scroll ->
         url = $('.pagination .next a').attr('href')
-        
-        #if $('.query').length
-        #  query= $('.query').attr 'id'
-        #  console.log fobar
-        
+
         if url &&  $(window).scrollTop() > $(document).height() - $(window).height() - 200
           $('.pagination').text('Fetching more songs...')
           $.getScript(url)

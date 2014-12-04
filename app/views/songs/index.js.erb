@@ -1,7 +1,4 @@
-
-
 if("<%= @remove_old_recordings %>"){
-  
   $('.old-recordings').empty();
   endless_pages();
   history.replaceState(null, "", "?query=<%=params[:query]%>")

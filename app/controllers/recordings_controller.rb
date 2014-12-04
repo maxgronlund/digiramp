@@ -9,10 +9,12 @@ class RecordingsController < ApplicationController
 
   def index
     
-    if  params[:commit] == 'Go'
-      params.delete :commit
+    if params[:commit] == 'Go'
       @remove_old_recordings = true
+      session[:query] = params[:query]
     end
+    session[:query] = nil if params[:clear] == 'clear'
+    params[:query]  = session[:query]
     
     if current_user && current_user.id == @user.id
       @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
