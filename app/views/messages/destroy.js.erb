@@ -1,1 +1,4 @@
 $("#delete_message_" + "<%= @message.id.to_s %>").fadeOut( "slow" );
+
+$("#old_message_count").remove()
+$("#message_count").append("<%= j render 'messages/count' %>");

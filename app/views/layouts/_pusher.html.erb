@@ -3,30 +3,10 @@
 
 <% if current_user%>
   <script type="text/javascript">
-  
-
-    // Enable pusher logging - don't include this in production
-    Pusher.log = function(message) {
-      if (window.console && window.console.log) {
-        window.console.log(message);
-      }
-    };
 
     var pusher = new Pusher('d70ad0d20fdef342dd05');
     var channel = pusher.subscribe('<%= current_user ? 'digiramp_radio_'+current_user.email : 'null' %>');
     channel.bind('digiramp_event', sayHello);
-    /*
-      function xinspect(o,i){
-          if(typeof i=='undefined')i='';
-          if(i.length>50)return '[MAX ITERATIONS]';
-          var r=[];
-          for(var p in o){
-              var t=typeof o[p];
-              r.push(i+'"'+p+'" ('+t+') => '+(t=='object' ? 'object:'+xinspect(o[p],i+'  ') : o[p]+''));
-          }
-          return r.join(i+'\n');
-      }
-    */
 
   </script>
 
