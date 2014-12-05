@@ -574,6 +574,7 @@ class User < ActiveRecord::Base
   
   # find or create a user 
   # and send an email invitation
+  
   def self.invite_to_account_by_email email, title, body, account_id, current_user_id
     
     
@@ -592,10 +593,14 @@ class User < ActiveRecord::Base
       # create user
       #user_name = User.create_uniq_user_name_from_email(email)
       secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-      found_user = User.create( email: sanitized_email, 
-                                invited: true, 
-                                password: secret_temp_password, 
-                                password_confirmation: secret_temp_password
+      found_user = User.create( email:                  sanitized_email, 
+                                name:                   create_uniq_user_name_from_email(sanitized_email),
+                                user_name:              create_uniq_user_name_from_email(sanitized_email),
+                                invited:                true, 
+                                password:               secret_temp_password, 
+                                password_confirmation:  secret_temp_password,
+                                role:                   'Customer'
+                                
                               )
       
       # apply a password reset token
