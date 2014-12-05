@@ -1,11 +1,11 @@
 
-
+- received_message = message.receiver == @user.id
 
   
 tr id="delete_message_#{message.id.to_s}"
   td.message-unread
-    - received_message = message.receiver == @user.id
-    - unless message.read
+    
+    - if message.read  == false && message.sender.id != @user.id
       i.fa.fa-exclamation-circle
       '&nbsp;New
   td

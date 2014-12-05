@@ -41,7 +41,7 @@ class MessagesController < ApplicationController
     channel = 'digiramp_radio_' + @receiver.email
     Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
                                           "message" => "#{sender.user_name} has send you a message", 
-                                          "time"    => '2000', 
+                                          "time"    => '5000', 
                                           "sticky"  => 'false', 
                                           "image"   => 'notice'
                                           })
