@@ -1,29 +1,59 @@
-div id="delete_message_#{message.id.to_s}"
 
-  .row
-    .col-sm-4
 
-      = message.created_at.to_formatted_s(:short)
-      '&nbsp;
-      = debug message
-      
-      - if message.sender_id == @user.id
-        - if message.receiver
-          = image_tag( message.receiver.image_url :avatar_32x32)
-        i.fa.fa-arrow-left 
-        = image_tag( message.sender.image_url :avatar_32x32)
-      
+
+  
+tr id="delete_message_#{message.id.to_s}"
+  td.message-unread
+    - received_message = message.receiver == @user.id
+    - unless message.read
+      i.fa.fa-exclamation-circle
+      '&nbsp;New
+  td
+    .pull-right
+      - if received_message
+        = message.receiver.user_name
       - else
-        - if user = message.sender
-          = link_to image_tag( message.sender.image_url :avatar_32x32),  user_path( user)
-        i.fa.fa-arrow-right 
+        b= message.sender.user_name
+  td.message-avatars
+    - if received_message
+      - if message.sender
+        = image_tag( message.sender.image_url :avatar_32x32)
+      '&nbsp;
+      i.fa.fa-arrow-left 
+      '&nbsp;
+      - if message.receiver
         = image_tag( message.receiver.image_url :avatar_32x32)
-        
+      
+    - else
+
+      - if message.sender
+        = image_tag( message.sender.image_url :avatar_32x32)
+      '&nbsp;
+      i.fa.fa-arrow-right 
+      '&nbsp;
+      - if message.receiver
+        = image_tag( message.receiver.image_url :avatar_32x32)
       '&nbsp;
       '&nbsp;
+      = message.created_at.to_formatted_s(:short)
+  
+  
+  
+
+  td
+    b = link_to message.title, user_message_path(@user, message)
+  td
+    .pull-right
+      = link_to user_message_path(@user, message) do
+        .btn.btn-default.btn-xs
+          i.fa.fa-eye
+          '&nbsp;
+          'Read
       '&nbsp;
-      b = message.title
-  .sexy_line
+      = link_to user_message_path(@user, message), data:  { confirm: 'Are you sure?' }, method: :delete, remote: true  do
+        .btn.btn-danger.btn-xs
+          i.fa.fa-times
+
 
 
 

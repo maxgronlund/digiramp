@@ -1,7 +1,7 @@
 
 
 
-.modal.fade id="pmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+.modal.fade id="#{modal_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
   .modal-dialog
     .modal-content
       .modal-header
@@ -13,7 +13,7 @@
           'New message
         .sexy_line
 
-      = simple_form_for [current_user, Message.new(title: "From #{current_user.user_name}")], remote: true do |f|
+      = simple_form_for [current_user, Message.new], remote: true do |f|
         .modal-body
           /= f.hidden_field :sender_id, value: current_user.id
           = f.hidden_field :recipient_id, value: recipient.id

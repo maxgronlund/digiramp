@@ -21,8 +21,10 @@
             = link_to 'Selected on top', account_account_opportunity_music_request_path(@account, @opportunity, @music_request), class: 'btn btn-primary'
         /    '&nbsp;
         /    = link_to 'Show Selected', '#', class: 'btn btn-default'
-      .sexy_line  
+      .sexy_line
+      
       - @music_request.music_submissions.order('selected desc').each do |music_submission|
+        
         -recording =  music_submission.recording
         div id="delete_music_submission_#{music_submission.id.to_s}"
           .row
@@ -39,12 +41,12 @@
               br
               - if current_user  
                 h6
-                = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal" do
+                = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{music_submission.id.to_s}" do
                   .btn.btn-default.btn-xs
                     i.fa.fa-envelope
                     '&nbsp;Send message  
       
-                == render 'messages/modal', recipient: music_submission.user, subjebtable: music_submission
+                == render 'messages/modal', modal_id: "pmModal_#{music_submission.id.to_s}",  recipient: music_submission.user, subjebtable: music_submission
                 '&nbsp; 
                     
             .col-sm-8

@@ -29,8 +29,9 @@ class MessagesController < ApplicationController
   end
 
   def create
+    ap params
     message = Message.create(message_params)
-    
+    ap message
     
     receiver = User.cached_find(message.recipient_id)
     sender   = User.cached_find(message.sender_id)
@@ -64,11 +65,8 @@ class MessagesController < ApplicationController
     else
       @message.recipient_removed = true
     end
-    
-    ap @message
     @message.save
-    
-    
+
   end
   
 private  

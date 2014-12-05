@@ -9,36 +9,80 @@
   
   #page-content-wrapper
     .container-fluid
+      - received_message = @message.receiver != @user.id
       .messages
-        .row
-          .col-sm-7
-            h3 Message center
-            'All messages
-          .col-sm-5
-            .pull-right
-              ul.nav.nav-pills
-                li  
-                  = link_to 'Received', user_received_messages_path(@user)
-                li
-                  = link_to 'Send', user_send_messages_path(@user)
-                li 
-                  = link_to 'All', user_messages_path(@user)
+        h3 = @message.title
+        -if received_message
+          'Message received
+        - else
+          'Send Message
+        '&nbsp;
+        = @message.created_at.to_formatted_s(:short)
 
         .sexy_line
-        = debug @message
-        'Title
-        br
-        h4 = @message.title
-        b
-          - if @message.sender_id == @user.id
-            'Send mesage
-          - else
-            'Received message
-        br
-        i Subject
-        br
-        = @message.subjebtable_type
-        br
+        .row
+          .col-sm-3
+            .message-person-badge
+              -if received_message
+                - if @message.sender
+                  == render 'users/person', user: @message.sender
+              -else
+                - if @message.receiver
+                  == render 'users/person', user: @message.receiver
+             
+          .col-sm-6
+            = simple_format @message.body
+          .col-sm-3
+        .row
+          .col-sm-3
+            h4 Regarding
+          .col-sm-9
+            - case @message.subjebtable_type
+            - when 'User'
+              '&nbsp;
+            - when 'Recording'
+              '&nbsp;
+            -when 'MusicSubmission'
+              - if MusicSubmission.exists?(@message.subjebtable_id)
+                - music_submission =  MusicSubmission.find(@message.subjebtable_id)
+                - recording = music_submission.recording
+                /= debug music_submission.recording
+                #digiWhams  class="/recordings/#{recording.id.to_s}"
+                  == render 'recording', recording: recording
+          .col-sm-3
+            
+                  
+            
+            
+            /= debug @message
+        .row
+          .col-sm-12
+            .sexy_line
+          
+        .row
+          .col-sm-12
+            .pull-right
+              -if received_message
+                /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal" do
+                = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@message.id.to_s}" do
+                  .btn.btn-primary
+                    i.fa.fa-reply
+                    '&nbsp;Reply
+
+
+
+                == render 'messages/modal', modal_id: "pmModal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message
+          
+        
+        /  - if @message.sender_id == @user.id
+        /    'Send mesage
+        /  - else
+        /    'Received message
+        /br
+        /i Subject
+        /br
+        /= @message.subjebtable_type
+        /br
         
         
         

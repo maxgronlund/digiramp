@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
   end
   
   def unread_messages
-    self.received_massages.where(read: false).count
+    self.received_massages.where(read: false, recipient_removed: false).count
   end
   
   
