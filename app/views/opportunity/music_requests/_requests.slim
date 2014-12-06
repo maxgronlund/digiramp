@@ -12,20 +12,9 @@
         = link_to opportunity_opportunity_music_request_path( @opportunity, music_request) do 
           .btn.btn-primary
             i.fa.fa-eye
-            '&nbsp;Open
+            '&nbsp;Show request
         '&nbsp;
-        /= link_to new_opportunity_opportunity_music_request_music_submission_path( @opportunity, music_request) do 
-        /  .btn.btn-xs.btn-primary
-        /    i class="fa fa-plus-circle"
-        /    '&nbsp;Submit Recording
-        /'&nbsp;    
-                                                                                              
-        /- requests_from_the_pro_account                                                                                     
-        /= link_to opportunity_opportunity_music_request_music_submission_path( @opportunity, music_request)
-        /  .btn.btn-xs.btn-default
-        /    = music_request.music_submissions.size.to_s
-        /    '&nbsp;Submissions
-        /
+
 
        
   .sexy_line      

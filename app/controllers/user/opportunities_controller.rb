@@ -4,8 +4,12 @@ class User::OpportunitiesController < ApplicationController
 
   
   def index
-    @authorized = true if current_user.id = @user.id
+    @authorized     = true if current_user.id = @user.id
+    @opportunities  = @user.opportunities.order('deadline desc')
   end
 
   
 end
+
+
+#- opportunity_link = @user.account_id == opportunity.account_id ? account_account_opportunity_path(@user.account, opportunity)  : opportunity_opportunity_path(opportunity)
