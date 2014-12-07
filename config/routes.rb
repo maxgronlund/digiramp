@@ -2,7 +2,13 @@
 Digiramp::Application.routes.draw do
 
 
-
+  resources :homes
+  
+  #get "home/index"
+  #root to: "home#index"
+  
+  get 'welcome/index'
+  root to: 'welcome#index'
 
   resources :message_counts
 
@@ -237,10 +243,7 @@ Digiramp::Application.routes.draw do
   get "flush_cache" => "admin#flush_cache", :as => :admin_flush_cache
 
   
-  resources :homes
   
-  get "home/index"
-  root to: "home#index"
   get "sign_up/index"
   get "login/new"
   #get "login/index"

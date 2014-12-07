@@ -544,6 +544,7 @@ class Recording < ActiveRecord::Base
     unless CommonWork.exists?(self.common_work_id)
       CommonWork.attach self, self.account_id, self.user
     end
+    self.common_work
   end
   
 

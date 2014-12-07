@@ -3,63 +3,7 @@ class CommonWorksController < ApplicationController
   #include AccountsHelper
   #before_filter :access_account
   
-  # show list or export as cvs
-  #def index
-  #  @common_works  = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
-  #  respond_to do |format|
-  #    format.html
-  #    #format.csv { render text: @common_works.to_csv }
-  #    format.csv { render text: @common_works.to_csv }
-  #  end
-  #end
-  #
-  #def show
-  #  forbidden unless current_account_user.read_common_work
-  #  @common_work    = CommonWork.cached_find(params[:id])
-  #  
-  #  @common_work.create_activity(  :show, 
-  #                            owner: current_user,
-  #                        recipient: @common_work,
-  #                   recipient_type: @common_work.class.name,
-  #                       account_id: @account.id)
-  #                       
-  #end
-  #
-  #def new
-  #  @common_work    = CommonWork.new
-  #end
-  #
-  #def create
-  #  forbidden unless current_account_user.create_common_work
-  #  artwork_url = TransloaditImageParser.get_image_url params[:transloadit]
-  #
-  #  # extract  parameters
-  #  params[:common_work]            = params["common_work"]
-  #  
-  #  # set the artwork url if any
-  #  params[:common_work][:artwork]  = artwork_url if artwork_url
-  #  
-  #
-  #  if @common_work = CommonWork.create(common_work_params)
-  #    
-  #    @common_work.create_activity(  :created, 
-  #                              owner: current_user,
-  #                          recipient: @common_work,
-  #                     recipient_type: @common_work.class.name,
-  #                         account_id: @account.id)
-  #                         
-  #                  
-  #    @common_work.update_completeness
-  #    render :show
-  #  else
-  #    render :new
-  #  end
-  #end
-  #
-  #def edit
-  #  forbidden unless current_account_user.update_common_work
-  #  @common_work    = CommonWork.find(params[:id])
-  #end
+
   
   def update
 
@@ -87,14 +31,16 @@ class CommonWorksController < ApplicationController
                            account_id: @common_work.account_id)
                            
       @common_work.update_completeness
-      
+      @common_work.attache_ipis_true recording_id
       redirect_to user_recording_path( user_id, recording_id)
-      #redirect_to_return_url account_account_common_work_path(@account, @common_work)
+      
+      
     else
       redirect_to :back
     end
   end
   
+
   
   
 private

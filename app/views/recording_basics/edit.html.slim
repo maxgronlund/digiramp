@@ -68,7 +68,7 @@
           '&nbsp;
           = link_to 'Skip', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
           '&nbsp;
-          = f.button :submit, 'Save', class: 'btn btn-primary please_wait'
+          = f.button :submit, 'Save', class: 'btn btn-primary'
         /== render 'form', f: f
       = transloadit_jquerify :recording_artwork, :wait => true
       

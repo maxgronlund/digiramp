@@ -55,6 +55,9 @@
 //= require jquery.utilcarousel.min
 //= require cocoon
 //= require messages
+//= require master_info
+//= require jquery.fitvids
+//= require fidtvideo
 // require bootstrap-tokenfield
 // require chosen-jquery
 // require jquery.tokeninput
