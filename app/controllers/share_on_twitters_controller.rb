@@ -7,30 +7,27 @@ class ShareOnTwittersController < ApplicationController
   def create
 
     @share_on_twitter = ShareOnTwitter.create(share_on_twitter_params)
-    @user = User.find(params[:share_on_twitter][:user_id])
-    
-
+    @user             = User.find(params[:share_on_twitter][:user_id])
+    @recording_id     = @share_on_twitter.recording.id
 
     if @user.authorization_providers && @share_on_twitter
        
       # get twitter provider
       if provider_twitter = @user.authorization_providers.where(provider: 'twitter').first
 
-          client = Twitter::REST::Client.new do |config|
-            config.consumer_key        = ENV['TWITTER_KEY'] 
-            config.consumer_secret     = ENV['TWITTER_SECRET'] 
-            
-            config.access_token        = provider_twitter[:oauth_token]
-            config.access_token_secret = provider_twitter[:oauth_secret]
-
-          end
-    
-          #client.update(@share_on_twitter.message)
-          open(@share_on_twitter.recording.get_artwork) do |file|
-            client.update_with_media(@share_on_twitter.message, file );
-          end
+        client = Twitter::REST::Client.new do |config|
+          config.consumer_key        = ENV['TWITTER_KEY'] 
+          config.consumer_secret     = ENV['TWITTER_SECRET'] 
           
-          
+          config.access_token        = provider_twitter[:oauth_token]
+          config.access_token_secret = provider_twitter[:oauth_secret]
+        
+        end
+        
+        #client.update(@share_on_twitter.message)
+        open(@share_on_twitter.recording.get_artwork) do |file|
+          client.update_with_media(@share_on_twitter.message, file );
+        end
       end
     end
     
