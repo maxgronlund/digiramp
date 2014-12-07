@@ -16,6 +16,9 @@ class FbRecordingCommentWorker
                                       "description" => "#{recording.comment}",
                                       "picture" => "#{recording.get_artwork}"
                                     })
+      else
+        puts '================================== RELINK USERS ACCOUNT HERE ========================================='
+      
       end
     end
   end
