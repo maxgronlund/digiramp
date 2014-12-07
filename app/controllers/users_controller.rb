@@ -46,6 +46,7 @@ class UsersController < ApplicationController
         current_user.current_account_id  = current_user.account.id
         current_user.save!
       end
+      @playlists = current_user.playlists
       @authorized = false
       if current_user.id == @user.id || current_user.super?
         @authorized = true
