@@ -153,7 +153,7 @@ class User < ActiveRecord::Base
     # always start as a customer
     self.role = 'Customer' if self.role.to_s == ''
     
-    if EmailValidator.validate( self.email )
+    if EmailValidator.saintize( self.email )
       self.user_name = User.create_uniq_user_name_from_email(self.email)    if self.user_name.to_s  == ''
       self.name      = user_name                                            if self.name.to_s       == ''
       self.first_name = user_name.split('@').first                          if self.first_name.to_s == ''

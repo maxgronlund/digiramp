@@ -193,6 +193,8 @@ class AccountUser < ActiveRecord::Base
     self.update_opportunity = true
     self.delete_opportunity = true
     
+    
+
     self.save!
     
     # add to all catalogs

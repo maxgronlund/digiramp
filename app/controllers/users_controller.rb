@@ -29,8 +29,12 @@ class UsersController < ApplicationController
     #@activities = PublicActivity::Activity.where(owner_id: @user.id).order('created_at desc').first(10)
     
     if @user.account_id.nil?
-       @user.account_id = Account.where(user_id: @user.id).first.id
-       @user.save!
+      unless account = Account.where(user_id: @user.id).first
+        account = User.create_a_new_account_for_the @user
+      end
+      @user.account_id = account.id
+      @user.validate_info
+      @user.save!
     end
     session[:account_id] = @user.account_id 
     
