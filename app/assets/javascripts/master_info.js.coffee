@@ -45,7 +45,7 @@ calculate_sum = () ->
 
   $( ".total_share" ).text( total_sum )
   
-  if total_sum > 100
+  if total_sum != 100
     $( ".total_share" ).css( "color", "red" , "border")
     $( ".total_share" ).css('border-color', '#fcc')
   else

@@ -63,6 +63,10 @@
        
       == paginate(@recordings)
       
+      == link_to opportunity_opportunity_music_request_path( @opportunity, @music_request ) do
+        .btn.btn-lg
+          i class="fa fa fa-arrow-left"
+          '&nbsp;Back
           
   == render 'shared/site_footer'  
 == render 'users/shared/mobile_links'

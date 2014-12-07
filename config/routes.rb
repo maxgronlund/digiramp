@@ -4,7 +4,7 @@ Digiramp::Application.routes.draw do
 
   resources :homes
   
-  #get "home/index"
+  get "home/index"
   #root to: "home#index"
   
   get 'welcome/index'

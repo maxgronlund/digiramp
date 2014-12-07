@@ -195,11 +195,14 @@ class AccountUser < ActiveRecord::Base
     self.update_opportunity = true
     self.delete_opportunity = true
 
-    self.save!
-    
-    # add to all catalogs
-    self.account.catalogs.each do |catalog|
-      catalog_user = catalog.add_account_user self
+    begin
+      self.save!
+      
+      # add to all catalogs
+      self.account.catalogs.each do |catalog|
+        catalog_user = catalog.add_account_user self
+      end
+    rescue
     end
 
   end

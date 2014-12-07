@@ -21,8 +21,13 @@
           = f.hidden_field :recording_id, value: @recording.id
           = f.hidden_field :user_id, value: @recording.user_id
           .sexy_line
-          h4 Master infromations
-          'Songwriters and composers
+          .row
+            .col-sm-8
+              h4 Master informations
+              'Songwriters and composers
+            /.col-sm-4 
+            /  .pull-right
+            /    = link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
         
           
           .row
@@ -37,16 +42,12 @@
           .row
             .col-sm-8
             .col-sm-4              
-              b Total share % 
+              b Total shares % 
               .total_share
+              i Must equal 100%
                   
                 
-                
-                /= f.number_field :total_share, :class => 'text_field', :step => 'any'
-                /= f.input :total_share
-                /input class="numeric decimal optional form-control form-control total_share" id="total_share" ipi_share="true" step="any" type="number" value="#{common_work.total_share}"
-                
-                
+      
           .row
             .col-sm-12    
               /.sexy_line
