@@ -2,14 +2,16 @@
 #wrap
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
+  .welcome-header
+    .row
+      .col-sm-12
+        h1 Eco-system for music <funky>Beta</funky>
+        = link_to 'Learn more', '#', class: 'btn btn-primary btn-lg'
   .welcome
     .container
-      .welcome-header
-        .row
-          .col-sm-12
-            h1 Ecosystem for music <funky>Beta</funky>
+      
 
-            = link_to 'Learn more', '#', class: 'btn btn-primary btn-lg'
+            
       .welcome-container
         .row
           .col-sm-4
