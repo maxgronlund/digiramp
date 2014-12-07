@@ -4,4 +4,6 @@ $(".old-confirmation").fadeOut(15000)
 
 $(".rec-comments").prepend('<%=j render("comments/new") %>');
 
+$("#shareRecordingModal_<%= @recording_id%>").modal('hide')
+
 
