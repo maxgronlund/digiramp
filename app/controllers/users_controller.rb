@@ -22,9 +22,12 @@ class UsersController < ApplicationController
     #                                      "image"   => 'success'
     #                                      })
     # count views
+    
+    
+    
     unless current_user && @user == current_user
       @user.views += 1 
-      @user.save
+      #@user.save
     end
     #@activities = PublicActivity::Activity.where(owner_id: @user.id).order('created_at desc').first(10)
     

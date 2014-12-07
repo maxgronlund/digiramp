@@ -178,6 +178,8 @@ class AccountUser < ActiveRecord::Base
   
   # set all permissions to true
   def grand_all_permissions 
+    
+    ap self
     #  copy permissions 
     Permissions::TYPES.each do |permission_type|
       #eval "self.#{permission_type} = true" 
@@ -192,8 +194,6 @@ class AccountUser < ActiveRecord::Base
     self.read_opportunity   = true
     self.update_opportunity = true
     self.delete_opportunity = true
-    
-    
 
     self.save!
     
