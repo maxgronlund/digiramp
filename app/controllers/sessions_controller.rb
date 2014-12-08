@@ -76,7 +76,7 @@ class SessionsController < ApplicationController
 private
   
   def initialize_session_for user
-    ap env['omniauth.auth']
+    #ap env['omniauth.auth']
     #credentials =  env['omniauth.auth']["credentials"]
     #puts 'token'
     #ap credentials['token']
@@ -94,7 +94,7 @@ private
       end
     end
     
-    ap provider
+    #ap provider
     
     session[:user_id]     = user.id
     session[:account_id]  = user.account_id
