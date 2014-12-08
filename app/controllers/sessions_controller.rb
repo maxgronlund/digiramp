@@ -76,7 +76,7 @@ class SessionsController < ApplicationController
 private
   
   def initialize_session_for user
-    #ap env['omniauth.auth']
+    ap env['omniauth.auth']
     #credentials =  env['omniauth.auth']["credentials"]
     #puts 'token'
     #ap credentials['token']
@@ -86,15 +86,15 @@ private
     #ap credentials["expires_at"]
     #ap credentials["expires"]
     
-    #if credentials                =  env['omniauth.auth']["credentials"]
-    #  if provider                 = user.authorization_providers.where(provider: env['omniauth.auth']['provider']).first
-    #    provider.oauth_token      = credentials['toker']
-    #    provider.oauth_expires_at = credentials['expires_at']
-    #    provider.save!
-    #  end
-    #end
-    #
-    #ap provider
+    if credentials                =  env['omniauth.auth']["credentials"]
+      if provider                 = user.authorization_providers.where(provider: env['omniauth.auth']['provider']).first
+        provider.oauth_token      = credentials['token']        if credentials['token']
+        provider.oauth_expires_at = credentials['expires_at']   if credentials['expires_at']
+        provider.save!
+      end
+    end
+    
+    ap provider
     
     session[:user_id]     = user.id
     session[:account_id]  = user.account_id
