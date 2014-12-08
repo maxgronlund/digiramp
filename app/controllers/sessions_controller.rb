@@ -86,13 +86,15 @@ private
     #ap credentials["expires_at"]
     #ap credentials["expires"]
     
-    if credentials                =  env['omniauth.auth']["credentials"]
-      if provider                 = user.authorization_providers.where(provider: env['omniauth.auth']['provider']).first
-        provider.oauth_token      = credentials['toker']
-        provider.oauth_expires_at = credentials['expires_at']
-        provider.save!
-      end
-    end
+    #if credentials                =  env['omniauth.auth']["credentials"]
+    #  if provider                 = user.authorization_providers.where(provider: env['omniauth.auth']['provider']).first
+    #    provider.oauth_token      = credentials['toker']
+    #    provider.oauth_expires_at = credentials['expires_at']
+    #    provider.save!
+    #  end
+    #end
+    #
+    #ap provider
     
     session[:user_id]     = user.id
     session[:account_id]  = user.account_id
