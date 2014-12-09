@@ -1,0 +1,11 @@
+/ connection.user
+/ connection.connected_to_user
+
+
+
+- connected_to_user =  connection.user.id == @user.id ? connection.connected_to_user : connection.user
+  / instantiated by me
+
+
+
+= debug connected_to_user

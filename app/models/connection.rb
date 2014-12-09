@@ -18,5 +18,15 @@ class Connection < ActiveRecord::Base
   def self.connected user_a, user_b
     where("user_id = ? AND connection_id = ? OR user_id = ? AND connection_id = ?" , user_a, user_b, user_b, user_a).first
   end
+  
+  def connected_to_user requester
+    return user.id == requester.id ? connected_to : user
+  end
+  
+  private
+  
+  def connected_to
+    User.find(self.connection_id) if User.exists?(self.connection_id)
+  end
 
 end

@@ -11,7 +11,8 @@
     .container-fluid
       h3 Connection
       .sexy_line
-      = debug @connections
+      - @connections.each do |connection|
+        == render 'connections/connection', connection: connection
       
                 
             
