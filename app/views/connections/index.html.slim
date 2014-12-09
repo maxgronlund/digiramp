@@ -1,0 +1,80 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'connections'
+  
+  #page-content-wrapper
+    .container-fluid
+      h3 Connection
+      .sexy_line
+      = debug @connections
+      
+                
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/h1 Listing connections
+/
+/table
+/  thead
+/    tr
+/      th User
+/      th Connection
+/      th Approved
+/      th Message
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @connections.each do |connection|
+/      tr
+/        td = connection.user
+/        td = connection.connection_id
+/        td = connection.approved
+/        td = connection.message
+/        /td = link_to 'Show', connection
+/        /td = link_to 'Edit', edit_connection_path(connection)
+/        /td = link_to 'Destroy', connection, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+
+/= link_to 'New Connection', new_connection_path

@@ -10,7 +10,7 @@ ready = ->
     
   $( window ).resize ->
     if $(window).width() > 753
-      console.log $('#wrapper').toggleClass("toggled", false)
+      $('#wrapper').toggleClass("toggled", false)
       
       
 

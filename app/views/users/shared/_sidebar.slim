@@ -63,6 +63,12 @@
    
   
   - if @authorized
+    li class="#{'sidebar-selected' if selected == 'connections'}"
+      = link_to user_connections_path(@user ) do
+        i class="fa fa-refresh"
+        '&nbsp;
+        'Connections
+      
     li class="#{'sidebar-selected' if selected == 'opportunities'}"
       = link_to user_user_opportunities_path(@user ) do
         i class="fa fa-book"

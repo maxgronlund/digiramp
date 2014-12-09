@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
 
 
+  
+
   resources :homes
   
   get "home/index"
@@ -280,6 +282,7 @@ Digiramp::Application.routes.draw do
     #member do
     #  get :following, :followers
     #end
+    resources :connections
     resources :messages
     resources :received_messages, only: [:index]
     resources :send_messages, only: [:index]

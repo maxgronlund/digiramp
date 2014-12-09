@@ -1,0 +1,11 @@
+= simple_form_for(@connection) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :user
+    = f.input :connection_id
+    = f.input :approved
+    = f.input :message
+
+  .form-actions
+    = f.button :submit

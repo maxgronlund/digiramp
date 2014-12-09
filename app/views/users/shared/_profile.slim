@@ -32,36 +32,39 @@
     '&nbsp;
     = pluralize(@user.views, 'View')
     br
-    - if current_user && current_user.super?
-      = link_to 'Edit account', edit_admin_account_path(@user.account), class: 'btn btn-default btn-xs'
-      '&nbsp;
-    - if @authorized
-      = link_to edit_user_path(@user) do
-        .btn.btn-default.btn-xs
-          i.fa.fa-pencil
-          '&nbsp;
-          'Edit
-      '&nbsp;
-      = link_to user_user_authorization_providers_path(@user) do
-        .btn.btn-default.btn-xs
-          i.fa.fa-lock
-          '&nbsp;
-          'Authorize
-      '&nbsp;
-    
-    - if current_user  
-      h6
-      /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal" do
-      = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@user.id.to_s}" do
-        .btn.btn-default.btn-xs
-          i.fa.fa-envelope
-          '&nbsp;Send message  
-      == render 'messages/modal', modal_id: "pmModal_#{@user.id.to_s}", recipient: @user, subjebtable: @user
-      '&nbsp;  
     == render 'users/shared/follow' , user: @user
-
-  = simple_format @user.profile
+    
+    
   .clearfix
+  
+    
+  - if current_user
+    .connect-container
+      .connect-buttons
+      == render 'users/connect', user: @user if current_user.id != @user.id
+    
+    
+  /.edit-buttons
+  /  - if @authorized
+  /    = link_to edit_user_path(@user) do
+  /      .btn.btn-default.btn-xs
+  /        i.fa.fa-pencil
+  /        '&nbsp;
+  /        'Edit
+  /    '&nbsp;
+  /    = link_to user_user_authorization_providers_path(@user) do
+  /      .btn.btn-default.btn-xs
+  /        i.fa.fa-lock
+  /        '&nbsp;
+  /        'Authorize
+  /    /'&nbsp;
+  /    /- if current_user && current_user.super?
+  /    /  = link_to 'Edit account', edit_admin_account_path(@user.account), class: 'btn btn-default btn-xs'
+  /    /  '&nbsp;
+  /
+  .user-profile
+    = simple_format @user.profile
+  
   h5  
     - if @user.composer
       span class="label label-default"

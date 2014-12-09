@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205221513) do
+ActiveRecord::Schema.define(version: 20141208191034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -718,6 +718,18 @@ ActiveRecord::Schema.define(version: 20141205221513) do
 
   add_index "common_works_imports", ["account_id"], name: "index_common_works_imports_on_account_id", using: :btree
   add_index "common_works_imports", ["catalog_id"], name: "index_common_works_imports_on_catalog_id", using: :btree
+
+  create_table "connections", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "connection_id"
+    t.boolean  "approved",      default: false
+    t.boolean  "dismissed",     default: false
+    t.text     "message",       default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "connections", ["user_id"], name: "index_connections_on_user_id", using: :btree
 
   create_table "contacts", force: true do |t|
     t.string   "email"

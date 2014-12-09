@@ -122,13 +122,20 @@ class User < ActiveRecord::Base
   # messages
   has_many :received_massages,  class_name: "Message", foreign_key: "recipient_id"
   has_many :send_massages,      class_name: "Message", foreign_key: "sender_id"
-  
+  #------------------------------------------------------------------
+  # connections
+  has_many :connections
+  has_many :connected, :through => :connections
 
   
   has_many :wall_posts, :through => :follower_event_users, :source => :follower_event
   has_many :follower_event_users
   
-  
+  def short_email
+    short_email = self.email.slice(0...24)
+    short_email << '...' if self.email.size > 24
+    short_email
+  end
   
   def sanitize_relations
     # messages
