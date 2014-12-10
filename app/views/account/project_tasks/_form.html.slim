@@ -1,75 +1,34 @@
 = simple_form_for [:account, @account, @project, @project_task]  do |f|
   .row
     .col-sm-6
-      .panel.panel-primary
-        .panel-heading
-          'Task
-        .panel-body
-          = f.input :title
-          = f.hidden_field :project_id, value: @project.id
-          = f.input :user_id , \
-                    :collection => @account.get_account_users , \
-                    label: 'Assigned To', \
-                    include_blank: false,\
-                    hint: "Who's Responsible?"
-          
-          
-          
-          b Description
-          br
-          div id="toolbar" class="wysihtml5-toolbar"
-            a data-wysihtml5-command="bold"
-              .btn.btn-default.btn-sm
-                i class="fa fa-bold"
-            
-            a data-wysihtml5-command="italic" 
-              .btn.btn-default.btn-sm
-                i class="fa fa-italic"
 
-            =f.input :description, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
-          
-          = f.input :category, collection: ProjectTask::CATAGORY
-          = f.input :priority, collection: ProjectTask::PRIORITY, include_blank: false
-          = f.input :status, collection: ProjectTask::STATUS, include_blank: false
-          /= f.date_select :due_date
-    .col-sm-6
-      .panel.panel-primary
-        .panel-heading
-          'Reminder
-        .panel-body
-          div id="datepicker" class="col-md-3 input-group date"
-            = text_field_tag "project_task[notifcation]", (f.object.notifcation.present? ? f.object.notifcation : nil)
-            span class='input-group-addon glyphicon glyphicon-calendar data_button'
-                    
+      = f.input :title
+      = f.hidden_field :project_id, value: @project.id
+      = f.input :user_id , \
+                :collection => @account.get_account_users , \
+                label: 'Assigned To', \
+                include_blank: false,\
+                hint: "Who's Responsible?"
+      
 
-          
-      br
+      =f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
+      
+      = f.input :category, collection: ProjectTask::CATAGORY
+      = f.input :priority, collection: ProjectTask::PRIORITY, include_blank: false
+      = f.input :status, collection: ProjectTask::STATUS, include_blank: false
       .pull-right  
-        = link_to 'Cancel', account_account_project_path(@account, @project), class: 'btn btn-default btn-lg'
+        = link_to 'Cancel', account_account_project_path(@account, @project), class: 'btn btn-default'
         '&nbsp;
-        = f.submit 'Save', class: 'btn btn-primary btn-lg'
-  
-  
-  
-  
-  javascript:
-    $(function () {
-        $('#datepicker').datetimepicker();
-    });
-  /  $(function () {
-  /      $('#project_task_reminder').datetimepicker();
-  /  });
-  /  
-  
+        = f.submit 'Save', class: 'btn btn-primary'
 
-  /.field
-  /  = f.label :priority
-  /  = f.text_field :priority
-  /.field
-  /  = f.label :description
-  /  = f.text_area :description
-  /.actions = f.submit 'Save'
-  /.field
-  /  = f.label :start_date
-  /  = f.date_select :start_date
-  /.field
+/.col-sm-6
+/  div id="datepicker" class="col-md-3 input-group date"
+/    = text_field_tag "project_task[notifcation]", (f.object.notifcation.present? ? f.object.notifcation : nil)
+/    span class='input-group-addon glyphicon glyphicon-calendar data_button'
+/            
+/         /= f.date_select :due_date
+/  
+/  br
+/  
+/
+/

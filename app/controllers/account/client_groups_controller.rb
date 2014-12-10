@@ -9,20 +9,28 @@ class Account::ClientGroupsController < ApplicationController
   # GET /client_groups.json
   def index
     @client_groups = ClientGroup.all
+    @user = @account.user
+    @authorized = true
   end
 
   # GET /client_groups/1
   # GET /client_groups/1.json
   def show
+    @user = @account.user
+    @authorized = true
   end
 
   # GET /client_groups/new
   def new
     @client_group = ClientGroup.new
+    @user = @account.user
+    @authorized = true
   end
 
   # GET /client_groups/1/edit
   def edit
+    @user = @account.user
+    @authorized = true
   end
 
   # POST /client_groups

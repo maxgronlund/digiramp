@@ -7,7 +7,7 @@ class User::OpportunitiesController < ApplicationController
   
   def index
     @authorized     = true if current_user.id = @user.id
-    @opportunities  = @user.opportunities.order('deadline desc')
+    @opportunities  = @user.opportunities.where.not(account_id: @account.id).order('deadline desc')
   end
 
   

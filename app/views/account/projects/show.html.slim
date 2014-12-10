@@ -1,146 +1,100 @@
-
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account),\
-                                                           crm: account_account_crm_index_path(@account),\
-                                                           projects: account_account_projects_path(@account)},\
-                                                            current:  @project.title}
-
-    
-    == render 'shared/page_title_text', locals: {title: @project.title, body: ''}
-    .row
-      .col-sm-6
-        .row
-          .col-sm-12
-            .panel.panel-primary
-              .panel-heading
-                = @project.title
-              .panel-body
-                .gravatar
-                  = gravatar_tag @project.user.email, :size => 80, class: "media-object" rescue []
-                .address
-                  table
-                    tr
-                      th Assigned To: &nbsp;
-                      td 
-                        - if @project.user
-                          = @project.user.name  
-                        -else
-                          'Unassigned
-                    tr
-                      th Category: &nbsp;
-                      td = @project.category
-                      
-                      
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-8
+          h2 = @project.title
+          'Status: &nbsp;
+          = @project.stage
+        .col-sm-4
+          - if current_account_user.update_crm
+            .pull-right
+              = link_to edit_account_account_project_path(@account, @project) do
+                .btn.btn-primary
+                  i class='fa fa-pencil'
+                  '&nbsp;
+                  'Edit
+      .sexy_line
+      .row
+        .col-sm-3
+          - if user = @project.user
+            h3 Project manager:&nbsp;
               
-                br
-                b Stage:
-                br
-                = @project.stage
-                br
-                br
-                b Descriprion:
-                br
-                = simple_format @project.description
-                - if current_account_user.update_crm
-                  .pull-right
-                    = link_to edit_account_account_project_path(@account, @project) do
-                      .btn.btn-primary.btn-lg
-                        i class='fa fa-pencil'
-                        '&nbsp;
-                        'Edit
-          .col-sm-12
-            .panel.panel-primary
-              .panel-heading
-                'Mail Campaigns
-              .panel-body
-                .table-responsive
-                  table class="table table-hover"
-                    thead
-                      tr
-                        th Name
-                        th Status
-                        th
-                    tbody
-                      - @project.mail_campaigns.each do |mail_campaign|
-                        tr
-                          td
-                            = link_to mail_campaign.title, account_account_project_mail_campaign_path(@account, \
-                                                                                                      @project, \
-                                                                                                      mail_campaign), \
-                                                                                                class: 'btn btn-default btn-lg'
-                          td
-                          td
-                        
-                hr
-                .pull-right
-                  = link_to new_account_account_project_mail_campaign_path(@account, @project) do
-                    .btn.btn-success.btn-lg
-                      i class='fa fa-plus-circle'
-                      '&nbsp;Add Mail Campaign
-            
-                 
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            'Tasks
-          .panel-body
-            - @project.project_tasks.each do |project_task|
-              
-              .gravatar
-                = gravatar_tag project_task.user.email, :size => 80, class: "media-object"
-              .address
-                h3 = project_task.title
-                table
+            = link_to user_path user do
+              = image_tag user.image_url(:avatar_145x145)
+              br
+              = user.name
+          - else
+            'Project is unassigned
+          
+          br
+          b Stage:&nbsp;
+          = @project.stage
+          br
+          b Category:&nbsp;
+          = @project.category
+        .col-sm-3
+          h3 Description:
+          = @project.description
+      .row    
+        .col-sm-12
+          h3 Tasks:
+          .table-responsive
+            table class="table table-hover"
+              thead
+                tr
+                  th Task
+                  th Assigned
+                  th Status
+                  th Priority
+
+              tbody
+                - @project.project_tasks.each do |project_task| 
                   tr
-                    th Assigned To: &nbsp;
-                    td = project_task.user.name rescue []
-                  tr
-                    th Category: &nbsp;
-                    td = project_task.category
-                  tr
-                    th Status: &nbsp;
+                      
+                    td 
+                      = link_to account_account_project_project_task_path(@account, @project, project_task), \
+                                                                            data: { confirm: 'Are you sure?' } , \
+                                                                            :method => :delete do
+                        .btn.btn-danger.btn-xs
+                          i class="fa fa-times"
+                      '&nbsp;    
+                      = link_to edit_account_account_project_project_task_path(@account, @project, project_task) do
+                        .btn.btn-default.btn-xs
+                          i class="fa fa-pencil"
+                      '&nbsp;
+                      = link_to account_account_project_project_task_path(@account, @project, project_task) do
+                        .btn.btn-default.btn-xs
+                          = project_task.title
+                    td
+                      - if user = project_task.user
+                        = image_tag user.image_url(:avatar_32x32)
+                        = user.user_name
                     td = project_task.status
-                  tr
-                    th Priority: &nbsp;
                     td = project_task.priority
-                  tr
-                    th Notification: &nbsp;
-                    td = project_task.notifcation
+                    /  td = project_task.notifcation
+
+ 
+                              
+
+          .row
+            .col-sm-12
+              .pull-right
+                = link_to new_account_account_project_project_task_path(@account, @project) do
+                  .btn.btn-primary
+                    i class='fa fa-plus-circle'
+                    '&nbsp;Add Task
+          
+            
            
-              .row
-                .col-sm-12
-                  b Description
-                  = simple_format project_task.description
-                .col-sm-12
-                  .pull-right
-                    = link_to edit_account_account_project_project_task_path(@account, @project, project_task) do
-                      .btn.btn-primary.btn-lg
-                        i class="fa fa-pencil"
-                    '&nbsp;
-                    = link_to account_account_project_project_task_path(@account, @project, project_task), \
-                                                                          data: { confirm: 'Are you sure?' } , \
-                                                                          :method => :delete do
-                      .btn.btn-danger.btn-lg
-                        i class="fa fa-times"
-                          
-              hr
-            .row
-              .col-sm-12
-                .pull-right
-                  = link_to new_account_account_project_project_task_path(@account, @project) do
-                    .btn.btn-success.btn-lg
-                      i class='fa fa-plus-circle'
-                      '&nbsp;Add Task
-                  
-              
-                
-                /= link_to 'Edit', edit_client_path(@client)
-            /'|
-            /= link_to 'Back', clients_path
-        
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+

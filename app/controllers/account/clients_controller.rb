@@ -3,33 +3,31 @@ class Account::ClientsController < ApplicationController
   include AccountsHelper
   before_filter :access_account
 
-  # GET /clients
-  # GET /clients.json
+
   def index
-    @clients  = Client.account_search(@account, params[:query]).order('name asc').page(params[:page]).per(32)
-    #respond_to do |format|
-    #  format.html
-    #  #format.csv { render text: @common_works.to_csv }
-    #  format.csv { render text: @clients.to_csv }
-    #end
+    @clients  = Client.account_search(@account, params[:query]).order('name asc').page(params[:page]).per(64)
+    @user = @account.user
+    @authorized = true
   end
 
-  # GET /clients/1
-  # GET /clients/1.json
+
   def show
   end
 
-  # GET /clients/new
+
   def new
     @client = Client.new
+    @user = @account.user
+    @authorized = true
   end
 
-  # GET /clients/1/edit
+
   def edit
+    @user = @account.user
+    @authorized = true
   end
 
-  # POST /clients
-  # POST /clients.json
+
   def create
     
     if @client = Client.create(client_params)
@@ -38,19 +36,10 @@ class Account::ClientsController < ApplicationController
       redirect_to edit_account_account_client_path( @account, @client)
     end
 
-    #respond_to do |format|
-    #  if @client.save
-    #    format.html { redirect_to @client, notice: 'Client was successfully created.' }
-    #    format.json { render :show, status: :created, location: @client }
-    #  else
-    #    format.html { render :new }
-    #    format.json { render json: @client.errors, status: :unprocessable_entity }
-    #  end
-    #end
+
   end
 
-  # PATCH/PUT /clients/1
-  # PATCH/PUT /clients/1.json
+
   def update
     if @client.update(client_params)
       redirect_to account_account_client_path( @account, @client)
@@ -60,8 +49,7 @@ class Account::ClientsController < ApplicationController
 
   end
 
-  # DELETE /clients/1
-  # DELETE /clients/1.json
+
   def destroy
     @client.destroy
     redirect_to account_account_clients_path( @account)

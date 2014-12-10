@@ -3,5 +3,9 @@ class Account::CrmController < ApplicationController
   before_filter :access_account
   
   def index
+    
+    @user = @account.user
+    @authorized = true
+    
   end
 end

@@ -1,66 +1,144 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account),\
-                                                           crm: account_account_crm_index_path(@account),\
-                                                           'Client Groups'.to_sym => account_account_client_groups_path(@account)},\
-                                                           current:  @client_group.title}
-
-    
-    == render 'shared/page_title_text', locals: {title: @client_group.title, body: ''}
-    .row
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            = @client_group.title
-          .panel-body
-            b Descriprion:
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { crm: account_account_crm_index_path(@account)\
+                                                             },current:  ''}
+      .row
+        .col-sm-8
+          h2 Client group
+          = @client_group.title
+        .col-sm-4
+          .pull-right 
+            = link_to edit_account_account_client_group_path(@account, @client_group) do
+              .btn.btn-primary
+                i class="fa fa-pencil"
+                '&nbsp;
+                'Edit
+      .sexy_line
+      = @client_group.description
+      .row
+        .col-sm-6
+          b Paste in email's. Seperate by ','
+          = form_tag account_account_client_group_import_client_emails_path(@account, @client_group) do 
+            = text_area_tag :emails, nil, style: "width:100%; height:320px;", placeholder: 'i.e. john@doe.com, jane@doe.com'
             br
-            = simple_format @client_group.description
-            br
-            .pull-right 
-              = link_to edit_account_account_client_group_path(@account, @client_group) do
-                .btn.btn-primary.btn-lg
-                  i class="fa fa-pencil"
-        .panel.panel-primary
-          .panel-heading
-            'Members
-          .panel-body
-            .table-responsive
-              table class="table table-hover"
-                thead
+            = submit_tag("Add", class: "btn btn-primary pull-right")
+        .col-sm-6
+          .table-responsive
+            table class="table table-hover"
+              thead
+                tr
+                  th Clients
+                  th
+              tbody
+                - @client_group.clients.each do |client|
                   tr
-                    th Name
-                    th
-                tbody
-                  - @client_group.clients.each do |client|
-                    tr
-                      td
-                        = link_to client.email, account_account_client_path(@account.id, client.id), class: 'btn btn-default btn-lg'
-                      td
-                        .pull-right
-                          - client_group_client = ClientGroupsClients.where(client_group_id: @client_group.id, client_id: client.id).first
-                          = link_to account_account_client_group_remove_member_path(@account.id, @client_group.id, client_group_client.try(:id)), \
-                              data: { confirm: 'Are you sure?' } 'Are you sure?' do 
-                                .btn.btn-danger.btn-lg
-                                  i class="fa fa-times"
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            'Add More By Email
-          .panel-body
-            b Paste in email's. Seperate by ','
-            = form_tag account_account_client_group_import_client_emails_path(@account, @client_group) do 
-              = text_area_tag :emails, nil, style: "width:100%; height:320px;", placeholder: 'i.e. john@doe.com, jane@doe.com'
-              br
-              br
-              = submit_tag("Add", class: "btn btn-primary btn-lg pull-right")
-       
+                    td
+                      = link_to client.email, account_account_client_path(@account.id, client.id), class: 'btn btn-default btn-xs'
+                    td
+                      .pull-right
+                        - client_group_client = ClientGroupsClients.where(client_group_id: @client_group.id, client_id: client.id).first
+                        = link_to account_account_client_group_remove_member_path(@account.id, @client_group.id, client_group_client.try(:id)), \
+                            data: { confirm: 'Are you sure?' } do 
+                              .btn.btn-danger.btn-xs
+                                i class="fa fa-times"
+                          
+        
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .container
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+/                                                           dashboard: account_account_path(@account),\
+/                                                           crm: account_account_crm_index_path(@account),\
+/                                                           'Client Groups'.to_sym => account_account_client_groups_path(@account)},\
+/                                                           current:  @client_group.title}
+/
+/    
+/    == render 'shared/page_title_text', locals: {title: @client_group.title, body: ''}
+/    .row
+/      .col-sm-6
+/        .panel.panel-primary
+/          .panel-heading
+/            = @client_group.title
+/          .panel-body
+/            b Descriprion:
+/            br
+/            = simple_format @client_group.description
+/            br
+/            .pull-right 
+/              = link_to edit_account_account_client_group_path(@account, @client_group) do
+/                .btn.btn-primary.btn-lg
+/                  i class="fa fa-pencil"
+/        .panel.panel-primary
+/          .panel-heading
+/            'Members
+/          .panel-body
+/            .table-responsive
+/              table class="table table-hover"
+/                thead
+/                  tr
+/                    th Name
+/                    th
+/                tbody
+/                  - @client_group.clients.each do |client|
+/                    tr
+/                      td
+/                        = link_to client.email, account_account_client_path(@account.id, client.id), class: 'btn btn-default btn-lg'
+/                      td
+/                        .pull-right
+/                          - client_group_client = ClientGroupsClients.where(client_group_id: @client_group.id, client_id: client.id).first
+/                          = link_to account_account_client_group_remove_member_path(@account.id, @client_group.id, client_group_client.try(:id)), \
+/                              data: { confirm: 'Are you sure?' } do 
+/                                .btn.btn-danger.btn-lg
+/                                  i class="fa fa-times"
+/      .col-sm-6
+/        .panel.panel-primary
+/          .panel-heading
+/            'Add More By Email
+/          .panel-body
+/            b Paste in email's. Seperate by ','
+/            = form_tag account_account_client_group_import_client_emails_path(@account, @client_group) do 
+/              = text_area_tag :emails, nil, style: "width:100%; height:320px;", placeholder: 'i.e. john@doe.com, jane@doe.com'
+/              br
+/              br
+/              = submit_tag("Add", class: "btn btn-primary btn-lg pull-right")
+/       
+/
               
                   
         

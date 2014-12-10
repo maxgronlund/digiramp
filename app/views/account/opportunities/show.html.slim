@@ -6,14 +6,19 @@
 
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'opportunities'
+      == render 'users/shared/sidebar', selected: 'account'
   
   #page-content-wrapper
     .container-fluid
       == render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account) }, current: ''}
-      h3 #{@account.title} <funky>Pro</funky>
-      = @opportunity.title
+      .row
+        .col-sm-8
+          h3 #{@account.title} <funky>Pro</funky>
+          = @opportunity.title
+        .col-sm-4
+          .pull-right
+            = link_to 'Submit recordings', opportunity_opportunity_path(@opportunity), class: 'btn btn-primary'
       .sexy_line  
       .opportunity 
         .row
