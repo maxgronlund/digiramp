@@ -349,7 +349,7 @@ Digiramp::Application.routes.draw do
       end
     end
 
-    
+    resources :opportunities
 
     resources :accounts do
       get 'delete_common_works'
