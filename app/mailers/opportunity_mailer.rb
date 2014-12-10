@@ -23,12 +23,12 @@ class OpportunityMailer < ActionMailer::Base
 
     headers['X-SMTPAPI'] = '{
                               "to": [
-                                "<max@digiramp.com>",
-                                "<test02@pixelsonrails.com>",
-                                "<test03@pixelsonrails.com>",
-                                "<test04@pixelsonrails.com>",
-                                "<test05@pixelsonrails.com>",
-                                "<test06@pixelsonrails.com>"
+                                "max@digiramp.com",
+                                "test02@pixelsonrails.com",
+                                "test03@pixelsonrails.com",
+                                "test04@pixelsonrails.com",
+                                "test05@pixelsonrails.com",
+                                "test06@pixelsonrails.com"
                               ]
                             }'
     
