@@ -32,8 +32,20 @@
                   = link_to 'Show All', account_account_clients_path(@account), class: 'btn btn-default'
 
       .sexy_line
-      .users
-        .table-responsive
+      .row
+        .col-sm-5
+          - if current_account_user.create_client
+            = link_to new_account_account_client_import_path(@account) do
+              .btn.btn-default
+                i class="fa fa-cloud-upload"
+                '&nbsp;Import CSV
+            '&nbsp;
+            = link_to new_account_account_client_path(@account)
+              .btn.btn-default
+                i class='fa fa-plus-circle'
+                '&nbsp;
+                'Add Client
+        .col-sm-7
           .pull-right
             .hidden-xs
               == paginate(@clients)
@@ -43,6 +55,9 @@
                 = link_to_previous_page @clients, '« Prev Page', class: 'btn btn-default mobile_pagination'
                 = link_to_next_page @clients, 'Next Page »', class: 'btn btn-default mobile_pagination'
               br
+      .sexy_line
+      .users
+        .table-responsive
           table class="table table-hover"
             thead
               tr
