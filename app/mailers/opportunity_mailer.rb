@@ -21,22 +21,22 @@ class OpportunityMailer < ActionMailer::Base
     
     
 
-    headers['X-SMTPAPI'] = '{
-                              "to": [
-                                "<max@digiramp.com>",
-                                "<test02@pixelsonrails.com>",
-                                "<test03@pixelsonrails.com>",
-                                "<test04@pixelsonrails.com>",
-                                "<test05@pixelsonrails.com>",
-                                "<test06@pixelsonrails.com>"
-                              ]
-                            }'
-    
-    
-
-    
-    
-    puts '============================== sending =================================================='
+    #headers['X-SMTPAPI'] = '{
+    #                          "to": [
+    #                            "<max@digiramp.com>",
+    #                            "<test02@pixelsonrails.com>",
+    #                            "<test03@pixelsonrails.com>",
+    #                            "<test04@pixelsonrails.com>",
+    #                            "<test05@pixelsonrails.com>",
+    #                            "<test06@pixelsonrails.com>"
+    #                          ]
+    #                        }'
+    #
+    #
+    #
+    #
+    #
+    #puts '============================== sending =================================================='
     mail to: email, subject: @opportunity_invitation.title
 
     
