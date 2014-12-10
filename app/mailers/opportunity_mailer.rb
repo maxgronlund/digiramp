@@ -17,7 +17,29 @@ class OpportunityMailer < ActionMailer::Base
     @opportunity_link        = url_for( controller: 'opportunity/opportunities', action: 'show', id: @opportunity.id, opportunity_invitation: 'true', user_id: user_id)
     @fotter_link             = url_for( controller: 'contacts', action: 'new')
     
+    #mail to: email, subject: @opportunity_invitation.title
+    
+    
+
+    headers['X-SMTPAPI'] = '{
+                              "to": [
+                                "<max@digiramp.com>",
+                                "<test02@pixelsonrails.com>",
+                                "<test03@pixelsonrails.com>",
+                                "<test04@pixelsonrails.com>",
+                                "<test05@pixelsonrails.com>",
+                                "<test06@pixelsonrails.com>"
+                              ]
+                            }'
+    
+    
+
+    
+    
+    puts '============================== sending =================================================='
     mail to: email, subject: @opportunity_invitation.title
+
+    
     
     store_mail 'opportunity invitation'
     #puts '----------------------- SUCCESS 33 -----------------------------'
@@ -62,4 +84,28 @@ class OpportunityMailer < ActionMailer::Base
   
   
 end
-  
+
+
+#mail(:to => 'test01@pixelsonrails.com',
+#     :from => email,
+#     :subject => "Message from the site",
+#     :headers['X-SMTPAPI'] => {
+#                                "to": [   "test01@pixelsonrails.com",
+#                                          "test02@pixelsonrails.com",
+#                                          "test03@pixelsonrails.com",
+#                                          "test04@pixelsonrails.com",
+#                                          "test05@pixelsonrails.com"
+#                                      ]
+#                              }
+#)
+    
+    
+
+    
+
+#X-SMTPAPI": {
+#  "to": [
+#    "ben@example.com",
+#    "Joe Smith <joe@example.com>"
+#  ]
+#}

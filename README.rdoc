@@ -66,6 +66,9 @@ ps -ef
 # Check if sidekiq is running and for how long, It shoule restart after each deploy
 ps aux | grep sidekiq
 
+to kill a process
+$ kill -9 PID
+
 # restart
 $ ssh deploy@78.46.19.136
 $ cd apps/digiramp_production/current
@@ -77,6 +80,10 @@ RAILS_ENV=production bundle exec db:rollback
 ssh deploy@78.46.19.136
       sudo "../../etc/init.d/sidekiq_digiramp_production stop"
       sudo "../../etc/init.d/sidekiq_digiramp_production start"
+      
+      
+      
+      
 
 #############################
 Checking routes
