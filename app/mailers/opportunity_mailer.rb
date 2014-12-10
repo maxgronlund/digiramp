@@ -23,19 +23,19 @@ class OpportunityMailer < ActionMailer::Base
 
     #headers['X-SMTPAPI'] = '{
     #                          "to": [
-    #                            "max@digiramp.com",
-    #                            "test02@pixelsonrails.com",
-    #                            "test03@pixelsonrails.com",
-    #                            "test04@pixelsonrails.com",
-    #                            "test05@pixelsonrails.com",
-    #                            "test06@pixelsonrails.com"
-    #                          ]
+    #                                  "max@digiramp.com",
+    #                                  "maria@pixelsonrails.com",
+    #                                  "test03@pixelsonrails.com",
+    #                                  "test04@pixelsonrails.com",
+    #                                  "test05@pixelsonrails.com",
+    #                                  "test06@pixelsonrails.com"
+    #                                ]
     #                        }'
     #
     #
-    #
-    #
-    #
+    
+    
+    
     
     mail to: email, subject: @opportunity_invitation.title
 
@@ -86,19 +86,7 @@ class OpportunityMailer < ActionMailer::Base
 end
 
 
-#mail(:to => 'test01@pixelsonrails.com',
-#     :from => email,
-#     :subject => "Message from the site",
-#     :headers['X-SMTPAPI'] => {
-#                                "to": [   "test01@pixelsonrails.com",
-#                                          "test02@pixelsonrails.com",
-#                                          "test03@pixelsonrails.com",
-#                                          "test04@pixelsonrails.com",
-#                                          "test05@pixelsonrails.com"
-#                                      ]
-#                              }
-#)
-    
+
     
 
     

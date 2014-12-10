@@ -16,6 +16,7 @@ class ConnectionsController < ApplicationController
 
   def create
     @connection       = Connection.create(connection_params)
+    @user             = User.cached_find(@connection.connection_id)
     send_invitation
   end
   
@@ -26,16 +27,22 @@ class ConnectionsController < ApplicationController
       params[:connection][:approved] = false
     else
       params[:connection][:dismissed] = false
+      
     end
     @connection.update_attributes(connection_params)
     @receiver = User.find(@connection.connection_id) if User.exists?(@connection.connection_id)
+    
+    notify_requester
   end
+  
+  
 
   
 
   # DELETE /connections/1
   # DELETE /connections/1.json
   def destroy
+    @connection_id = @connection.id
     @connection.destroy
   end
 
@@ -51,10 +58,34 @@ class ConnectionsController < ApplicationController
     end
     
     
+    def notify_requester
+      @receiver = User.cached_find(@connection.user_id)
+      sender    = User.cached_find(@connection.connection_id)
+      
+      
+      @message                    = Message.new
+      @message.recipient_id       = @receiver.id
+      @message.sender_id          = sender.id
+      @message.title              = sender.user_name + ' has evaluated your request '
+      @message.body               = sender.user_name + ' has updated the status on your request to ' + @connection.status 
+      @message.subjebtable_id     = @connection.id
+      @message.subjebtable_type   = 'Connection'
+      @message.save
     
+    
+      channel = 'digiramp_radio_' + @receiver.email
+      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
+                                            "message" => "#{sender.user_name} has evaluated your request", 
+                                            "time"    => '2500', 
+                                            "sticky"  => 'false', 
+                                            "image"   => 'notice'
+                                            })
+      
+    
+    end
     
     def send_invitation
-      ap @connection
+
       
       @receiver = User.cached_find(@connection.connection_id)
       sender    = User.cached_find(@connection.user_id)

@@ -6,19 +6,16 @@ class MessagesController < ApplicationController
   end
 
   def index
+    
+    
     @authorized = true 
-    #@messages = Message.order(created_at: :desc).where("recipient_id = ? OR sender_id = ? AND recipient_removed = ?" , @user.id, @user.id, false)
-    
-    
-    #send_message_ids     = Message.last(200).where(sender_id: @user.id, sender_removed: false).pluck(:id)
-    #received_message_ids = Message.last(200).where(sender_id: @user.id, sender_removed: false).pluck(:id)
-    #message_ids = send_message_ids + received_message_ids
-    #@messages = Message.where(id: message_ids)
-    
-    
-    #@messages = Message.order(created_at: :desc).where("recipient_id = ? OR sender_id = ?" , @user.id, @user.id)
-    
-    @messages = Message.order(created_at: :desc).where("recipient_id = ? AND recipient_removed = ? OR sender_id = ? AND sender_removed = ?" , @user.id, false,  @user.id, false)
+
+    if params[:connection_id]
+      connection = Connection.cached_find(params[:connection_id])
+      @messages = connection.messages.order(created_at: :desc)
+    else
+      @messages = Message.user_messages(@user)
+    end
 
   end
   
@@ -32,6 +29,10 @@ class MessagesController < ApplicationController
   def create
 
     @message = Message.create(message_params)
+    
+    
+
+
 
     
     @receiver = User.cached_find(@message.recipient_id)
@@ -58,6 +59,7 @@ class MessagesController < ApplicationController
     if @message.recipient_id == @user.id && @message.sender_id == @user.id
       @message.recipient_removed  = true
       @message.sender_removed     = true
+      
     end
     
     # remove messages user has send
@@ -67,6 +69,7 @@ class MessagesController < ApplicationController
       @message.recipient_removed = true
     end
     @message.save
+    Connection.decrease_messages_count( @message )
 
   end
   

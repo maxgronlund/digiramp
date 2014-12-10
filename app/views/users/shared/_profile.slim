@@ -41,7 +41,7 @@
   - if current_user
     .connect-container
       .connect-buttons
-      == render 'users/connect', user: @user if current_user.id != @user.id
+      == render 'users/connect', user: @user 
     
     
   /.edit-buttons

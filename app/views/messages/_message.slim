@@ -17,22 +17,22 @@ tr id="delete_message_#{message.id.to_s}"
   td.message-avatars
     - if received_message
       - if message.sender
-        = image_tag( message.sender.image_url :avatar_32x32)
+        = link_to image_tag( message.sender.image_url :avatar_32x32), user_path(message.sender)
       '&nbsp;
       i.fa.fa-arrow-left 
       '&nbsp;
       - if message.receiver
-        = image_tag( message.receiver.image_url :avatar_32x32)
+        = link_to image_tag( message.receiver.image_url :avatar_32x32), user_path(message.receiver)
       
     - else
 
       - if message.sender
-        = image_tag( message.sender.image_url :avatar_32x32)
+        = link_to image_tag( message.sender.image_url :avatar_32x32), user_path(message.sender)
       '&nbsp;
       i.fa.fa-arrow-right 
       '&nbsp;
       - if message.receiver
-        = image_tag( message.receiver.image_url :avatar_32x32)
+        = link_to image_tag( message.receiver.image_url :avatar_32x32), user_path(message.receiver)
       '&nbsp;
       '&nbsp;
       = message.created_at.to_formatted_s(:short)

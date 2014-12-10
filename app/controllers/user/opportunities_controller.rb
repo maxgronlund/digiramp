@@ -1,6 +1,8 @@
 class User::OpportunitiesController < ApplicationController
   
   before_filter :access_user, only: [:index]
+  include AccountsHelper
+  before_filter :access_account
 
   
   def index

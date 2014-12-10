@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141208191034) do
+ActiveRecord::Schema.define(version: 20141210104840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -722,11 +722,12 @@ ActiveRecord::Schema.define(version: 20141208191034) do
   create_table "connections", force: true do |t|
     t.integer  "user_id"
     t.integer  "connection_id"
-    t.boolean  "approved",      default: false
-    t.boolean  "dismissed",     default: false
-    t.text     "message",       default: ""
+    t.boolean  "approved",       default: false
+    t.boolean  "dismissed",      default: false
+    t.text     "message",        default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "messages_count", default: 0
   end
 
   add_index "connections", ["user_id"], name: "index_connections_on_user_id", using: :btree
@@ -1308,6 +1309,7 @@ ActiveRecord::Schema.define(version: 20141208191034) do
     t.boolean  "sender_removed",    default: false
     t.boolean  "recipient_removed", default: false
     t.boolean  "read",              default: false
+    t.integer  "connection_id"
   end
 
   add_index "messages", ["recipient_id"], name: "index_messages_on_recipient_id", using: :btree
