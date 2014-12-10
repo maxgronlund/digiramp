@@ -32,9 +32,9 @@
                                             :placeholder => 'Search', \
                                             value: params[:query]
               .input-group-btn
-                = f.submit 'Go', class: "btn btn-primary please_wait"
+                = f.submit 'Go', class: "btn btn-primary"
                 '&nbsp;
-                = link_to 'Clear', user_recordings_path(@user), class: 'btn btn-default please_wait'
+                = link_to 'Clear', user_recordings_path(@user), class: 'btn btn-default'
         
       /.sexy_line
       /.endless-pages
@@ -118,9 +118,9 @@
 /                                              :placeholder => 'Search for recordings', \
 /                                              value: params[:query]
 /                .input-group-btn
-/                  = f.submit 'Go', class: "btn btn-primary please_wait"
+/                  = f.submit 'Go', class: "btn btn-primary"
 /                  '&nbsp;
-/                  = link_to 'Clear', user_recordings_path(@user), class: 'btn btn-default please_wait'
+/                  = link_to 'Clear', user_recordings_path(@user), class: 'btn btn-default'
 /              
 /            
 /                
