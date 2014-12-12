@@ -55,12 +55,12 @@
       
   
   
-  li class="#{'sidebar-selected' if selected == 'widgets'}"
-    = link_to user_widgets_path(@user) do
-      i class="fa fa-list"
-      '&nbsp;
-      = pluralize(@user.widgets.count, 'Widgets')      
-   
+  /li class="#{'sidebar-selected' if selected == 'widgets'}"
+  /  = link_to user_widgets_path(@user) do
+  /    i class="fa fa-list"
+  /    '&nbsp;
+  /    = pluralize(@user.widgets.count, 'Widgets')      
+  / 
   
   - if @authorized
     li class="#{'sidebar-selected' if selected == 'connections'}"

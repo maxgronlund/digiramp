@@ -346,6 +346,8 @@ Digiramp::Application.routes.draw do
         get 'common_works'
         get 'users'
         get 'ipis'
+        get 'accounts'
+        get 'opportunities'
       end
     end
 

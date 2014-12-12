@@ -1,41 +1,131 @@
-
-- session[:return_url] = request.url
-#wrap
-  .admin
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'admin'
-
-               
-  .container
-    /==render 'admin/shared/messages'
-    /-cache (['statistics', Admin.cached_find(1).version]) do      
-    .do
-
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
-
-      
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Statistics'} 
-
-
-      .row
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'RECORDINGS', \
-                                                      link: recordings_admin_statistic_path(0), \
-                                                      css_class: 'btn btn-warning', \
-                                                      icon: 'fa fa fa-headphones' \
-                                                    }
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'COMMON WORKS', \
-                                                      link: common_works_admin_statistic_path(0), \
-                                                      css_class: 'btn btn-primary', \
-                                                      icon: 'fa fa fa-music' \
-                                                    }
-
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
   
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Statitics
+      .sexy_line
+      .admin
+        .admin-badges
+          .admin-badge-container
+            = link_to recordings_admin_statistic_path(0) do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-headphones
+                    '&nbsp;Recording
+                .body
+                  ul
+                    li Uploads
+                    li Playbacks
+                    li Views
+                    li Likes
+          
+          .admin-badge-container
+            = link_to users_admin_statistic_path(0) do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-group
+                    '&nbsp;Users
+                .body
+                  ul
+                    li Signed up
+                    li Views
+                    li Following
+                    li Connections
+          
+          .admin-badge-container
+            = link_to common_works_admin_statistic_path(0) do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-folder-o
+                    '&nbsp;Commen Works
+                .body
+                  ul
+                    li Created
+                    li Views
+          
+          .admin-badge-container
+            = link_to opportunities_admin_statistic_path(0) do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-folder-o
+                    '&nbsp;Opportunities
+                .body
+                  ul
+                    li Created
+                    li Views
+                    li Requests
+                    li Submissions
+                
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/- session[:return_url] = request.url
+/#wrap
+/  .admin
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'admin'
+/
+/               
+/  .container
+/    /==render 'admin/shared/messages'
+/    /-cache (['statistics', Admin.cached_find(1).version]) do      
+/    .do
+/
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
+/
+/      
+/      == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Statistics'} 
+/
+/
+/      .row
+/        .col-sm-6
+/          == render 'shared/badge_button', locals: { \
+/                                                      blog_post: 'RECORDINGS', \
+/                                                      link: recordings_admin_statistic_path(0), \
+/                                                      css_class: 'btn btn-warning', \
+/                                                      icon: 'fa fa fa-headphones' \
+/                                                    }
+/        .col-sm-6
+/          == render 'shared/badge_button', locals: { \
+/                                                      blog_post: 'COMMON WORKS', \
+/                                                      link: common_works_admin_statistic_path(0), \
+/                                                      css_class: 'btn btn-primary', \
+/                                                      icon: 'fa fa fa-music' \
+/                                                    }
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
   
 
 

@@ -10,8 +10,13 @@ class Admin::AccountsController < ApplicationController
   
   def show
      @account    = Account.cached_find(params[:id])
-     @user       = current_user
-     @authorized = true
+     if @account.nil?
+       not_found 
+     else
+      @user       = current_user
+      @authorized = true
+    end
+     
   end
   
   def new
@@ -28,57 +33,61 @@ class Admin::AccountsController < ApplicationController
   end
   
   def edit
-    @account = Account.cached_find(params[:id])
+    @account    = Account.cached_find(params[:id])
     @user       = current_user
     @authorized = true
+    not_found if @account.nil?
   end
   
   def update
     @account = Account.cached_find(params[:id])
     
     # store administrator id
-    old_administrator_id = @account.administrator_id
+    old_administrator_id  = @account.administrator_id
+    # store account type
+    old_account_type      = @account.account_type
+    
     # update
     @account.update_attributes(account_params)
+    
+    # if the account type is updated
+    @account.update_account_type if @account.account_type != old_account_type
+    
+    # if the administrator is updated  
+    @account.reassign_administrator( old_administrator_id ) if old_administrator_id != @account.administrator_id
+    
+
     
     @account.create_activity(  :updated, 
                           owner: current_user,
                       recipient: @account,
                  recipient_type: @account.class.name,
-                 account_id:     @account.id)
+                 account_id:     @account.id
+                 )
     
-    # if the administrator is updated  
-    if old_administrator_id != @account.administrator_id
-      
-     
-      
-      @account.reassign_administrator( old_administrator_id ) 
-
-      flash[:warning] = { title: "NOTICE: ", body: "Rebuilding all permissions, might take a few seconds before completed" }
-    else
-      flash[:success] = { title: "SUCCESS: ", body: "Account updated" }
-    end
     
-    # the account owner can create opertunities
-    if @account.create_opportunities
-      account_user = AccountUser.where(account_id: @account.id, user_id: @account.user_id).first
-      account_user.create_opportunity = true
-      account_user.read_opportunity   = true
-      account_user.save!
-      #@account.account_users.supers.each do |super|
-      #  
-      #  
-      #end
-    else
-      # no account_users can create opportunities
-      @account.account_users.each do |account_user|
-        account_user.create_opportunity   = false
-        account_user.read_opportunity     = false
-        account_user.update_opportunity   = false
-        account_user.delete_opportunity   = false
-        account_user.save!
-      end
-    end
+    
+    
+    
+    #@account.account_users.each do |account_user|
+    #if @account.create_opportunities
+    #  account_user = AccountUser.where(account_id: @account.id, user_id: @account.user_id).first
+    #  account_user.create_opportunity = true
+    #  account_user.read_opportunity   = true
+    #  account_user.save!
+    #
+    #else
+    #
+    #  
+    #    account_user.create_opportunity   = false
+    #    account_user.read_opportunity     = false
+    #    account_user.update_opportunity   = false
+    #    account_user.delete_opportunity   = false
+    #    account_user.save!
+    #  end
+    #end
+    #
+    
     
     
     # go to the account

@@ -19,7 +19,7 @@
                                                               statistics: admin_statistics_path \
                                                              }, current: ''}
       h3 Recordings
-      'Playback, uploads and views for the last four weeks
+      'Playback, uploads likes and views for the last four weeks
       .sexy_line
 
       h4 Created
@@ -30,6 +30,9 @@
 
       h4 Views
       = line_chart @views_chart
+      
+      h4 Likes
+      = line_chart @likes_chart
       
           
   == render 'shared/site_footer'  

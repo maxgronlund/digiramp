@@ -50,13 +50,13 @@
                                                            icon:         'fa fa-users',
                                                            title_color:  'title users-title'}
                                                          
-            -if current_account_user.read_recording
-               == render 'account/shared/badge', locals: {  blog: blog, 
-                                                           post: BlogPost.cached_find( "RECORDINGS" , blog ),
-                                                           link: account_account_recordings_path(@account) ,
-                                                           icon:         'fa fa-headphones',
-                                                           title_color:  'title recordings-title'}
-                                                         
+            /-if current_account_user.read_recording
+            /   == render 'account/shared/badge', locals: {  blog: blog, 
+            /                                               post: BlogPost.cached_find( "RECORDINGS" , blog ),
+            /                                               link: account_account_recordings_path(@account) ,
+            /                                               icon:         'fa fa-headphones',
+            /                                               title_color:  'title recordings-title'}
+            /                                             
             -if current_account_user.read_common_work 
                == render 'account/shared/badge', locals: {  blog: blog, 
                                                            post: BlogPost.cached_find( "COMMON WORKS" , blog ),
@@ -64,14 +64,14 @@
                                                            icon:         'fa fa-music',
                                                            title_color:  'title common-works-title'}
                                                          
-            -if current_account_user.read_playlist  
-               == render 'account/shared/badge', locals: {  blog: blog, 
-                                                           post: BlogPost.cached_find( "PLAY LISTS" , blog ),
-                                                           link: account_account_playlists_path(@account) ,
-                                                           icon:         'fa fa-list-alt',
-                                                           title_color:  'title recordings-title'}
-                                                         
-                                                         
+            /-if current_account_user.read_playlist  
+            /   == render 'account/shared/badge', locals: {  blog: blog, 
+            /                                               post: BlogPost.cached_find( "PLAY LISTS" , blog ),
+            /                                               link: account_account_playlists_path(@account) ,
+            /                                               icon:         'fa fa-list-alt',
+            /                                               title_color:  'title recordings-title'}
+            /                                             
+            /                                             
             -if current_account_user.read_crm    
                == render 'account/shared/badge', locals: {  blog: blog, 
                                                            post: BlogPost.cached_find( "CRM" , blog ),
@@ -93,20 +93,20 @@
                                                            icon:         'fa fa-folder-o',
                                                            title_color:  'title common-works-title'}
                                                          
-            -if true 
-               == render 'account/shared/badge', locals: {  blog: blog, 
-                                                           post: BlogPost.cached_find( "UPLOAD" , blog ),
-                                                           link: account_account_uploads_path(@account),
-                                                           icon:         'fa fa-cloud-upload',
-                                                           title_color:  'title opportunity-title'}
-                                                         
-            -if current_account_user.read_catalog
-               == render 'account/shared/badge', locals: {  blog: blog, 
-                                                           post: BlogPost.cached_find( "CATALOGS" , blog ),
-                                                           link: account_account_catalogs_path(@account),
-                                                           icon:         'fa fa-list-alt',
-                                                           title_color:  'title crm-title'}
-                                                         
+            /-if true 
+            /   == render 'account/shared/badge', locals: {  blog: blog, 
+            /                                               post: BlogPost.cached_find( "UPLOAD" , blog ),
+            /                                               link: account_account_uploads_path(@account),
+            /                                               icon:         'fa fa-cloud-upload',
+            /                                               title_color:  'title opportunity-title'}
+            /                                             
+            /-if current_account_user.read_catalog
+            /   == render 'account/shared/badge', locals: {  blog: blog, 
+            /                                               post: BlogPost.cached_find( "CATALOGS" , blog ),
+            /                                               link: account_account_catalogs_path(@account),
+            /                                               icon:         'fa fa-list-alt',
+            /                                               title_color:  'title crm-title'}
+            /                                             
             /-if current_account_user.read_catalog  
             /   == render 'account/shared/badge', locals: {  blog: blog, 
             /                                               post: BlogPost.cached_find( "WIDGETS" , blog ),

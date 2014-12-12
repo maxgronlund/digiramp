@@ -8,7 +8,7 @@
       .col-sm-3
       .col-sm-6
         - if current_user
-          h3 You are loged in
+          h3 You are loged in as somebody else
           = link_to "Log out", logout_path(params), class: 'btn btn-primary'
         - else  
           ==render 'admin/shared/messages'

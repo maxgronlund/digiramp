@@ -16,27 +16,21 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,\
                                                               statistics: admin_statistics_path \
                                                              }, current: ''}
-      h3 Users
+      h3 Opportunities
       'Created, Views and views for the last four weeks
       .sexy_line
 
       h4 Created
-      = line_chart @users_chart
+      = line_chart @opportunities_chart
       
-      h4 Logged in
-      = line_chart @users_sessions_chart
+      h4 Music requests
+      = line_chart @requests_chart
       
-      h4 Views
-      = line_chart @views_chart
+      h4 Music submissions
+      = line_chart @submissions_chart
       
-      h4 Folloving
-      = line_chart @relationships_chart
       
-      h4 Connections
-      = line_chart @connections_chart
       
-      h4 Messages
-      = line_chart @messages_chart
       
       
       
