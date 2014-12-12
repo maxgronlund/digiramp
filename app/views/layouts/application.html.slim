@@ -50,12 +50,15 @@ html
   body
     -if Rails.env.development?
       == render 'layouts/test_fb' 
+      == render 'layouts/google'
     - else
       == render 'layouts/fb'
-    /unless Rails.env.development?
+    /
     /== render 'layouts/fb_share'
     = yield :charts_js
     = yield
+    
+
     
 
   
