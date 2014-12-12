@@ -33,3 +33,6 @@ private
   def flush_cache
     Rails.cache.delete([self.class.name, id])
   end
+  
+  
+  http://reed.github.io/turbolinks-compatibility/google_analytics.html

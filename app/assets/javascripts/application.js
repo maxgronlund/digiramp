@@ -58,6 +58,7 @@
 //= require master_info
 //= require jquery.fitvids
 //= require fidtvideo
+//= require google
 // require bootstrap-tokenfield
 // require chosen-jquery
 // require jquery.tokeninput

@@ -69,7 +69,7 @@ class Admin::StatisticsController < ApplicationController
     
 
     @connections            = Connection.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
-    @connections_chart      = @relationships.group_by_day(:created_at).count 
+    @connections_chart      = @connections.group_by_day(:created_at).count 
     
     
     @messages               = Message.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
