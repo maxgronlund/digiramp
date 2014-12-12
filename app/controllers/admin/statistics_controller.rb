@@ -58,12 +58,13 @@ class Admin::StatisticsController < ApplicationController
     @users_chart            = @users_created.group_by_day(:created_at).count
     
     
-    
     @users_sessions         = PublicActivity::Activity.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
     @users_sessions_chart   = @users_sessions.where( trackable_type: "User", key: "user.signed_in").group_by_day(:created_at).count 
+    
+    @views                  = PublicActivity::Activity.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @views_chart            = @users_sessions.where( trackable_type: "User", key: "user.show").group_by_day(:created_at).count 
+    
 
-    
-    
     @relationships          = Relationship.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
     @relationships_chart    = @relationships.group_by_day(:created_at).count 
     
@@ -82,11 +83,11 @@ class Admin::StatisticsController < ApplicationController
     @user = current_user
     @authorized = true
     
-    @opportunities_created          = Opportunity.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
-    @opportunities_chart            = @opportunities_created.group_by_day(:created_at).count
+    @opportunities_created        = Opportunity.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @opportunities_chart          = @opportunities_created.group_by_day(:created_at).count
     
-    @requests_created          = MusicRequest.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
-    @requests_chart            = @requests_created.group_by_day(:created_at).count
+    @requests_created             = MusicRequest.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @requests_chart               = @requests_created.group_by_day(:created_at).count
     
     @submissions_created          = MusicSubmission.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
     @submissions_chart            = @submissions_created.group_by_day(:created_at).count
