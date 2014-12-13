@@ -18,7 +18,8 @@
               tr
               
                 td
-                  = image_tag 'digiramp.com/'+ "#{@digiramp_email.image_1_url(:banner_558x90)}"
+                  /= image_tag 'digiramp.com/'+ "#{@digiramp_email.image_1_url(:banner_558x90)}"
+                  = image_tag @image_1
                   - if @digiramp_email.title_1 != ''
                 	  h1 = @digiramp_email.title_1
                   - if @digiramp_email.body_1 != ''

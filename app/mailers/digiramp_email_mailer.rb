@@ -1,3 +1,5 @@
+require 'uri'
+
 class DigirampEmailMailer < ActionMailer::Base
   default from: "info@digiramp.com"
 
@@ -23,20 +25,12 @@ class DigirampEmailMailer < ActionMailer::Base
      
     
     
-    
+    @image_1 = (URI.parse(root_url) + @digiramp_email.image_1_url(:banner_558x90)).to_s
     
     
     headers['X-SMTPAPI'] = '{ "to": '+ receipients.to_s + '}'
-    #headers['X-SMTPAPI'] = '{
-    #                          "to": [
-    #                                  "max@digiramp.com",
-    #                                  "test03@pixelsonrails.com",
-    #                                  "test04@pixelsonrails.com",
-    #                                  "test05@pixelsonrails.com",
-    #                                  "test06@pixelsonrails.com"
-    #                                ]
-    #                        }'
- 
+    
+    
     
     
     mail to: "info@digiramp.com"
