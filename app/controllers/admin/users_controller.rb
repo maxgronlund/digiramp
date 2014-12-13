@@ -7,8 +7,7 @@ class Admin::UsersController < ApplicationController
 
   def index
     @users = User.search(params[:query]).order('lower(email) ASC').page(params[:page]).per(50)
-    @user   = current_user
-    @authorized = true
+    
   end
 
   def show
@@ -16,9 +15,7 @@ class Admin::UsersController < ApplicationController
   end
   
   def edit
-    @user   = current_user
     @edit_user =  User.friendly.find(params[:id])
-    @authorized = true
   end
   
   def update

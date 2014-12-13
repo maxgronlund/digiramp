@@ -1,0 +1,84 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'admin'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                              'email groups'.to_sym => admin_email_groups_path}, current: ''}
+      .row
+        .col-sm-8
+          h2 Email Group
+          b = @email_group.title
+          ':&nbsp;
+          = @email_group.body
+          
+        .col-sm-4
+          .pull-right
+            = link_to 'New email', new_admin_email_group_digiramp_email_path( @email_group), class: 'btn btn-primary'
+      .sexy_line
+
+            
+      .row
+        .col-sm-12
+
+          .users
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Subject
+                    th Email layout
+                    th Status
+                    th Recipients
+                    th Deliver
+                
+                
+                tbody
+                  - @email_group.digiramp_emails.each do |digiramp_email|
+                    tr
+                      td
+                        - if digiramp_email.delivered
+                          .btn.btn-danger.btn-xs disabled="disabled" 
+                            i.fa.fa-times
+                        -else
+                          = link_to admin_email_group_digiramp_email_path(@email_group, digiramp_email), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                            .btn.btn-danger.btn-xs 
+                              i.fa.fa-times
+                        '&nbsp;
+                        - if digiramp_email.delivered
+                          .btn.btn-default.btn-xs disabled="disabled" 
+                            i.fa.fa-pencil
+                        - else
+                          = link_to edit_admin_email_group_digiramp_email_path(@email_group, digiramp_email) do
+                            .btn.btn-default.btn-xs
+                              i.fa.fa-pencil
+                        '&nbsp;
+                        = link_to digiramp_email.subject, admin_email_group_digiramp_email_path(@email_group, digiramp_email), class: 'btn btn-default btn-xs'
+                      td = digiramp_email.layout
+                      td = link_to 'Recipients', edit_admin_email_group_email_recipient_path(@email_group, digiramp_email), class: 'btn btn-default btn-xs'
+                      td 
+                        - if digiramp_email.delivered
+                          'Delivered:&nbsp;
+                          = digiramp_email.updated_at.strftime("%Y-%m-%d")
+                        - else
+                          'Draft
+                      td == render 'admin/digiramp_emails/deliver', digiramp_email: digiramp_email
+                      
+                      
+                      
+          
+          
+          
+          
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+

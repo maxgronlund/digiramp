@@ -1,4 +1,6 @@
 class Admin::ActivityCounterController < ApplicationController
+  
+  
   def show
 
     @recording             = Recording.cached_find(params[:id])

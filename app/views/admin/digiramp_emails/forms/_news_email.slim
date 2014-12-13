@@ -1,0 +1,97 @@
+
+
+== render 'admin/digiramp_emails/layouts/news_style'
+  
+= simple_form_for [:admin, @email_group, @digiramp_email ] do |f|
+  = f.hidden_field :email_group_id, value: @email_group.id
+  .row
+    .col-sm-8
+      = f.input :subject    
+    .col-sm-4 
+      = f.input :layout, collection: DigirampEmail::LAYOUT, :include_blank => false
+  
+  
+
+  .email bgcolor="#f6f6f6"
+  
+  
+  
+    table class="body-wrap"
+      tr
+        td class="container" bgcolor="#FFFFFF"
+          .content
+            table
+              tr
+                
+                td
+                  'Size 558x90
+                  br
+                  .fileinput.fileinput-new data-provides="fileinput"
+                    .fileinput-new.thumbnail style="width: 558px; height: 90px;"
+                      = image_tag @digiramp_email.image_1_url(:banner_558x90), size: '558x90'
+
+                    div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 558px; max-height: 90px;"
+                    div
+                      span.btn.btn-default.btn-file
+                        span class="fileinput-new"
+                          'Select image
+                        '&nbsp;
+                        span class="fileinput-exists"
+                          'Change
+                        = f.file_field :image_1, multiple: false
+
+                      '&nbsp;
+                      a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                        'Remove
+
+                  
+                  h1 
+                    = f.input :title_1, placeholder: 'Title 1'
+                    
+                  div id="toolbar" class="wysihtml5-toolbar"
+                    a data-wysihtml5-command="bold" Bold
+                    '&nbsp; 
+                    a data-wysihtml5-command="italic" Italic
+              
+                  = f.input :body_1, label: false, :input_html => {  style: "height: 120px;", placeholder: "Body 1", id: 'wysihtml5_editor'}
+                  .row
+                  h2  = f.input :title_2, placeholder: 'Title 2'
+                  = f.input :body_2, placeholder: 'Body 2'
+                  table
+                     tr
+                       td class="padding"
+                         a href="#" class="btn-primary"
+                           = f.input :link_1_title, label: false, placeholder: 'Link title'
+                           = f.input :link_1, label: false, placeholder: 'http://SOME_URL'
+                            
+                  
+                  h3 = f.input :title_3, placeholder: "title 3"
+                  = f.input :body_3, label: false, :input_html => {  style: "height: 80px;", placeholder: "Body 3"}
+                  /a href="http://twitter.com/leemunroe"
+                  /  'Follow @leemunroe on Twitter
+                  
+                  
+      
+      
+      
+    table class="footer-wrap"
+      tr
+        td
+        td class="container"
+          .content
+            table
+              tr
+                td align="center"
+                  'Don't like these annoying emails? 
+                  a href="#"
+                    unsubscribe
+                      'Unsubscribe
+                  
+                  
+                  
+          
+  .pull-right
+    = f.submit 'Save', class: 'btn btn-primary'
+  
+  
+  

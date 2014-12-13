@@ -1,102 +1,104 @@
+- blog      = Blog.cached_find('Account')
+
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
   
-  
+
   #sidebar-wrapper
     ul class="sidebar-nav"
       == render 'users/shared/sidebar', selected: 'account'
   
   #page-content-wrapper
     .container-fluid
-      .row
-        .col-sm-4
-          = link_to "PROJECTS", account_account_projects_path(@account)
-        .col-sm-4
-          = link_to "CLIENTS", account_account_clients_path(@account)
-        .col-sm-4
-          = link_to "CLIENT GROUPS", account_account_client_groups_path(@account)
+      h2 #{@account.title} <funky>Pro</funky>
+      'crm
+      .sexy_line
+      .account-account
+        .account-account-badges
+           .account-account-badge-container
+             = link_to account_account_projects_path(@account) do
+               .account-account-badge
+                 .title.crm-title
+                   h4
+                     i.fa.fa-book
+                     '&nbsp;
+                     'Projects
+                 .body
+                   ul
+                     li Email campains
+                     li activities
+                     
+                     
+      .account-account
+        .account-account-badges
+           .account-account-badge-container
+             = link_to account_account_clients_path(@account) do
+               .account-account-badge
+                 .title.crm-title
+                   h4
+                     i.fa.fa-book
+                     '&nbsp;
+                     'Clients
+                 .body
+                   ul
+                     li Emails
+                     li Addresses
+                     li More..
+                     
+                     
+      .account-account
+        .account-account-badges
+           .account-account-badge-container
+             = link_to account_account_client_groups_path(@account) do
+               .account-account-badge
+                 .title.crm-title
+                   h4
+                     i.fa.fa-book
+                     '&nbsp;
+                     'Client groups
+                 .body
+                   'Organized in groups for easy usage
 
-                
-            
-                 
-              
+      
+      
+      .clearfix 
+
+    
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
-//= debug current_account_user
-/- session[:return_url]         = request.url
-/- session[:go_to_after_update] = request.url
-/- blog      = Blog.cached_find('Account')
-/#wrap
-/  div class="#{'profile' if account_owner?}"
-/    .full-width-top
-/      == render 'admin/shared/navbar', page: 'account' 
+
+
+
+/#wrapper
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'home' 
 /  
-/  .container
-/    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-/                                                           dashboard: account_account_path(@account)}, \
-/                                                           current:  'crm'}
-/    /==render 'admin/shared/messages'
+/  
+/  #sidebar-wrapper
+/    ul class="sidebar-nav"
+/      == render 'users/shared/sidebar', selected: 'account'
+/  
+/  #page-content-wrapper
+/    .container-fluid
+/      h2 #{@account.title} <funky>Pro</funky>
+/      'CRM 
+/      .sexy_line
+/      .row
+/        .col-sm-4
+/          = link_to "PROJECTS", account_account_projects_path(@account)
+/        .col-sm-4
+/          = link_to "CLIENTS", account_account_clients_path(@account)
+/        .col-sm-4
+/          = link_to "CLIENT GROUPS", account_account_client_groups_path(@account)
 /
-/    /- insert = 'accounts/shared/leave_account'
-/    
-/    == render 'shared/page_title_text', locals: {title: @account.title, body: ''}
+/                
+/            
+/                 
+/              
+/  == render 'shared/site_footer'    
+/== render 'users/shared/mobile_links'
 /
 /
-/                                          
-/    .row
-/      .col-sm-6
-/        == render 'shared/badge', locals: {  \
-/                                            blog: blog, \
-/                                            post: BlogPost.cached_find( "PROJECTS" , blog ), \
-/                                            link: account_account_projects_path(@account), \
-/                                            css_class: 'btn btn-primary', \
-/                                            icon: 'fa fa-road' \
-/                                          }
-/      .col-sm-6
-/        == render 'shared/badge', locals: {  \
-/                                            blog: blog, \
-/                                            post: BlogPost.cached_find( "CLIENTS" , blog ), \
-/                                            link: account_account_clients_path(@account), \
-/                                            css_class: 'btn btn-default', \
-/                                            icon: 'fa fa-users' \
-/                                          }
-/                      
-/
-/      .col-sm-6
-/        == render 'shared/badge', locals: {  \
-/                                            blog: blog, \
-/                                            post: BlogPost.cached_find( "CLIENT GROUPS" , blog ), \
-/                                            link: account_account_client_groups_path(@account), \
-/                                            css_class: 'btn btn-warning', \
-/                                            icon: 'fa fa-group' \
-/                                          }
-/      
-/      /-if current_account_user.read_opportunity
-/      /  .col-sm-6
-/      /    == render 'shared/badge', locals: {  \
-/      /                                        blog: blog, \
-/      /                                        post: BlogPost.cached_find( "OPPORTUNITIES" , blog ), \
-/      /                                        link: account_account_opportunities_path(@account), \
-/      /                                        css_class: 'btn btn-danger', \
-/      /                                        icon: 'fa fa-plane' \
-/      /                                      }
-/      /              
-/      /
-/      
-/        
-/        
-/          
-/      
-/    
-/   
-/
-/        
-/
-/    == render 'shared/back', locals: {link: account_account_path(@account)}
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
-
-
 
 

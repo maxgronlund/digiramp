@@ -1,0 +1,80 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'admin'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      .row
+        .col-sm-7
+          h2 Email groups
+      
+        .col-sm-5
+          .pull-right
+            = link_to 'New Email group', new_admin_email_group_path, class: 'btn btn-primary'
+                 
+      .sexy_line
+      .users
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Receipients
+                th Emails
+
+            tbody
+              - @email_groups.each do |email_group|
+                tr
+                  td
+                    = link_to  admin_email_group_path(email_group), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+                    '&nbsp;
+                    = link_to edit_admin_email_group_path(email_group) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
+
+                    '&nbsp;
+                    = link_to admin_email_group_path(email_group) do
+                        .btn.btn-default.btn-xs
+                          '&nbsp;
+                          = email_group.title
+                  
+                  td = link_to 'Recipients', edit_admin_email_group_recipient_path(email_group), class: 'btn btn-default btn-xs'
+                  td = email_group.digiramp_emails.count
+
+
+      /.sexy_line
+      /== paginate(@users)        
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+/h1 Listing email_groups
+/
+/table
+/  thead
+/    tr
+/      th Title
+/      th Body
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @email_groups.each do |email_group|
+/      tr
+/        td = email_group.title
+/        td = email_group.body
+/        td = link_to 'Show', email_group
+/        td = link_to 'Edit', edit_email_group_path(email_group)
+/        td = link_to 'Destroy', email_group, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Email group', new_email_group_path
+/

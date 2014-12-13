@@ -1,0 +1,54 @@
+
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'admin'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {'email groups'.to_sym => admin_email_groups_path,\
+                                                              @email_group.title.to_sym => admin_email_group_path(@email_group) }, current: ''}
+      .row
+        .col-sm-8
+          h2 Email
+          = @digiramp_email.subject
+        .col-sm-4
+          .pull-right
+            = link_to 'Recipients', edit_admin_email_group_email_recipient_path(@email_group, @digiramp_email), class: 'btn btn-default'
+            '&nbsp;
+            - if @digiramp_email.delivered
+              b Delivered:
+              =< @digiramp_email.updated_at.strftime("%Y-%m-%d")
+            -else
+              = link_to 'Edit', edit_admin_email_group_digiramp_email_path(@email_group, @digiramp_email), class: 'btn btn-primary'
+      .sexy_line
+      == render 'admin/digiramp_emails/layouts/' + @digiramp_email.layout
+      /p
+      /  strong Email group:
+      /  = @digiramp_email.email_group.title
+      
+            
+      
+          
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+/= link_to 'Edit', edit_digiramp_email_path(@digiramp_email)
+/'|
+/= link_to 'Back', digiramp_emails_path

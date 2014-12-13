@@ -1,6 +1,6 @@
 class Admin::AdministratorsController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_only
+  before_filter :admin_only, except: [:destroy]
   
   def index
     @admins = User.supers

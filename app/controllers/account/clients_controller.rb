@@ -12,6 +12,8 @@ class Account::ClientsController < ApplicationController
 
 
   def show
+    @user = @account.user
+    @authorized = true
   end
 
 

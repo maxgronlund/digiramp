@@ -12,7 +12,7 @@
     .container-fluid
       /==render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) }, current:  ''}
-      h3 #{@account.title} <funky>Pro</funky>
+      h2 #{@account.title} <funky>Pro</funky>
       'Edit&nbsp;
       = @opportunity.title
       .sexy_line  

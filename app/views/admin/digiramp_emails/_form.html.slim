@@ -1,0 +1,36 @@
+= simple_form_for [:admin, @email_group, @digiramp_email ] do |f|
+  = f.hidden_field :email_group_id, value: @email_group.id
+  .row
+    .col-sm-8
+      = f.input :subject    
+    .col-sm-4 
+      = f.input :layout, collection: DigirampEmail::LAYOUT, :include_blank => false 
+  
+  
+  .pull-right
+    = f.submit 'Save', class: 'btn btn-primary'
+  
+  
+  
+  
+  
+  /= f.input :title_1 
+  /= f.input :body_1      
+  /= f.input :title_2 
+  /= f.input :body_2    
+  /= f.input :title_3     
+  /= f.input :body_3 
+  / 
+  /= f.input :image_1     
+  /= f.input :image_2     
+  /= f.input :image_3     
+  /= f.input :snippet_1   
+  /= f.input :snippet_2   
+  /= f.input :snippet_3   
+  /= f.input :recipients  
+  /= f.input :send
+
+  
+
+/= debug @digiramp_email
+/= debug @email_group

@@ -11,7 +11,7 @@
   
   #page-content-wrapper
     .container-fluid
-      h3 #{@account.title} <funky>Pro</funky>
+      h2 #{@account.title} <funky>Pro</funky>
       .sexy_line
       
       .account-account
@@ -119,11 +119,7 @@
                   .pull-right
                     = link_to 'Edit Badges', admin_blog_path(blog), class: 'btn btn-primary'
       .clearfix 
-      
 
-
-
-      
     
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'

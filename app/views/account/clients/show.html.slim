@@ -1,130 +1,279 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account),\
-                                                           crm: account_account_crm_index_path(@account), \
-                                                           clients: account_account_clients_path(@account)},\
-                                                            current:  @client.full_name}
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { crm: account_account_crm_index_path(@account),\
+                                                              clients: account_account_clients_path(@account) \
+                                                             },current:  ''}
 
-    
-    == render 'shared/page_title_text', locals: {title: @client.full_name, body: '', insert: 'edit'}
-    .row
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            'Contact Info
-          .panel-body
-            .gravatar
-              = gravatar_tag @client.email, :size => 120, class: "media-object"
-            .address
-              table
-                tr
-                    
-                - if @client.company.to_s != ''
+      h2 #{@account.title} <funky>Pro</funky> 
+      .sexy_line
+      .row
+        .col-sm-6
+          .panel.panel-default
+            .panel-heading
+              = @client.name + ' ' + @client.last_name
+            .panel-body
+              .gravatar
+                = gravatar_tag @client.email, :size => 120, class: "media-object"
+              .address
+                table
                   tr
-                    th Company: &nbsp;
-                    td = @client.company
-                
-                th Email: &nbsp;
-                td = @client.email
-                   
-                - if @client.assistant.to_s != ''
-                  tr
-                    th Assistant: &nbsp;
-                    td = @client.assistant
-                    
-                - if @client.direct_phone.to_s != ''
-                  tr
-                    th Direct Phone: &nbsp;
-                    td = @client.direct_phone
-                    
-                - if @client.direct_fax.to_s != ''
-                  tr
-                    th Direct Fax: &nbsp;
-                    td = @client.direct_fax
-                    
-                - if @client.capacity.to_s != ''
-                  tr
-                    th Capacity: &nbsp;
-                    td = @client.capacity
-                    
-                - if @client.department.to_s != ''
-                  tr
-                    th Department: &nbsp;
-                    td = @client.department
-                    
-                - if @client.address_work.to_s != ''
-                  tr
-                    th Address: &nbsp;
-                    td = @client.address_work
-                    
-                - if @client.city_work.to_s != ''
-                  tr
-                    th City: &nbsp;
-                    td = @client.city_work
-                    
-                - if @client.state_work.to_s != ''
-                  tr
-                    th State: &nbsp;
-                    td = @client.state_work
-                    
-                - if @client.zip_work.to_s != ''
-                  tr
-                    th Zip Code: &nbsp;
-                    td = @client.zip_work
-                    
-                - if @client.country_work.to_s != ''
-                  tr
-                    th Country: &nbsp;
-                    td = @client.country_work
-                    
-                - if @client.home_page.to_s != ''
-                  tr
-                    th Home Page: &nbsp;
-                    td = link_to @client.home_page, @client.home_page
-                    
-                - if @client.business_phone.to_s != ''
-                  tr
-                    th Business Phone: &nbsp;
-                    td = @client.business_phone
-                    
-                - if @client.business_fax.to_s != ''
-                  tr
-                    th Business Fax: &nbsp;
-                    td = @client.business_fax
-                    
-                - if @client.business_email.to_s != ''
-                  tr
-                    th Business Email: &nbsp;
-                    td = @client.business_email
+                      
+                  - if @client.company.to_s != ''
+                    tr
+                      th Company: &nbsp;
+                      td = @client.company
                   
-              /= @client.title
-              /  
-              /  p
-              /    strong Title:
-              /
-              /  p
-              /    strong Telephone home:
-              /    = @client.telephone_home
-              /  p
-              /    strong Telephone work:
-              /    = @client.telephone_work
-              /  p
-              /    strong Address home:
-              /    = @client.address_home
-              /  p
-              /    strong Address work:
-              /    = @client.address_work
-              /  p
-              /    strong Email:
-              /    = @client.email
+                  th Email: &nbsp;
+                  td = @client.email
+                     
+                  - if @client.assistant.to_s != ''
+                    tr
+                      th Assistant: &nbsp;
+                      td = @client.assistant
+                      
+                  - if @client.direct_phone.to_s != ''
+                    tr
+                      th Direct Phone: &nbsp;
+                      td = @client.direct_phone
+                      
+                  - if @client.direct_fax.to_s != ''
+                    tr
+                      th Direct Fax: &nbsp;
+                      td = @client.direct_fax
+                      
+                  - if @client.capacity.to_s != ''
+                    tr
+                      th Capacity: &nbsp;
+                      td = @client.capacity
+                      
+                  - if @client.department.to_s != ''
+                    tr
+                      th Department: &nbsp;
+                      td = @client.department
+                      
+                  - if @client.address_work.to_s != ''
+                    tr
+                      th Address: &nbsp;
+                      td = @client.address_work
+                      
+                  - if @client.city_work.to_s != ''
+                    tr
+                      th City: &nbsp;
+                      td = @client.city_work
+                      
+                  - if @client.state_work.to_s != ''
+                    tr
+                      th State: &nbsp;
+                      td = @client.state_work
+                      
+                  - if @client.zip_work.to_s != ''
+                    tr
+                      th Zip Code: &nbsp;
+                      td = @client.zip_work
+                      
+                  - if @client.country_work.to_s != ''
+                    tr
+                      th Country: &nbsp;
+                      td = @client.country_work
+                      
+                  - if @client.home_page.to_s != ''
+                    tr
+                      th Home Page: &nbsp;
+                      td = link_to @client.home_page, @client.home_page
+                      
+                  - if @client.business_phone.to_s != ''
+                    tr
+                      th Business Phone: &nbsp;
+                      td = @client.business_phone
+                      
+                  - if @client.business_fax.to_s != ''
+                    tr
+                      th Business Fax: &nbsp;
+                      td = @client.business_fax
+                      
+                  - if @client.business_email.to_s != ''
+                    tr
+                      th Business Email: &nbsp;
+                      td = @client.business_email
+          .pull-right
+            = link_to 'Edit', edit_account_account_client_path(@account, @client), class: 'btn btn-primary'
+                    
+                /= @client.title
+                /  
+                /  p
+                /    strong Title:
+                /
+                /  p
+                /    strong Telephone home:
+                /    = @client.telephone_home
+                /  p
+                /    strong Telephone work:
+                /    = @client.telephone_work
+                /  p
+                /    strong Address home:
+                /    = @client.address_home
+                /  p
+                /    strong Address work:
+                /    = @client.address_work
+                /  p
+                /    strong Email:
+                /    = @client.email
+          
+            
+                 
               
-                
-                /= link_to 'Edit', edit_client_path(@client)
-            /'|
-            /= link_to 'Back', clients_path
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .container
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+/                                                           dashboard: account_account_path(@account),\
+/                                                           crm: account_account_crm_index_path(@account), \
+/                                                           clients: account_account_clients_path(@account)},\
+/                                                            current:  @client.full_name}
+/
+/    
+/    == render 'shared/page_title_text', locals: {title: @client.full_name, body: '', insert: 'edit'}
+/    .row
+/      .col-sm-6
+/        .panel.panel-primary
+/          .panel-heading
+/            'Contact Info
+/          .panel-body
+/            .gravatar
+/              = gravatar_tag @client.email, :size => 120, class: "media-object"
+/            .address
+/              table
+/                tr
+/                    
+/                - if @client.company.to_s != ''
+/                  tr
+/                    th Company: &nbsp;
+/                    td = @client.company
+/                
+/                th Email: &nbsp;
+/                td = @client.email
+/                   
+/                - if @client.assistant.to_s != ''
+/                  tr
+/                    th Assistant: &nbsp;
+/                    td = @client.assistant
+/                    
+/                - if @client.direct_phone.to_s != ''
+/                  tr
+/                    th Direct Phone: &nbsp;
+/                    td = @client.direct_phone
+/                    
+/                - if @client.direct_fax.to_s != ''
+/                  tr
+/                    th Direct Fax: &nbsp;
+/                    td = @client.direct_fax
+/                    
+/                - if @client.capacity.to_s != ''
+/                  tr
+/                    th Capacity: &nbsp;
+/                    td = @client.capacity
+/                    
+/                - if @client.department.to_s != ''
+/                  tr
+/                    th Department: &nbsp;
+/                    td = @client.department
+/                    
+/                - if @client.address_work.to_s != ''
+/                  tr
+/                    th Address: &nbsp;
+/                    td = @client.address_work
+/                    
+/                - if @client.city_work.to_s != ''
+/                  tr
+/                    th City: &nbsp;
+/                    td = @client.city_work
+/                    
+/                - if @client.state_work.to_s != ''
+/                  tr
+/                    th State: &nbsp;
+/                    td = @client.state_work
+/                    
+/                - if @client.zip_work.to_s != ''
+/                  tr
+/                    th Zip Code: &nbsp;
+/                    td = @client.zip_work
+/                    
+/                - if @client.country_work.to_s != ''
+/                  tr
+/                    th Country: &nbsp;
+/                    td = @client.country_work
+/                    
+/                - if @client.home_page.to_s != ''
+/                  tr
+/                    th Home Page: &nbsp;
+/                    td = link_to @client.home_page, @client.home_page
+/                    
+/                - if @client.business_phone.to_s != ''
+/                  tr
+/                    th Business Phone: &nbsp;
+/                    td = @client.business_phone
+/                    
+/                - if @client.business_fax.to_s != ''
+/                  tr
+/                    th Business Fax: &nbsp;
+/                    td = @client.business_fax
+/                    
+/                - if @client.business_email.to_s != ''
+/                  tr
+/                    th Business Email: &nbsp;
+/                    td = @client.business_email
+/                  
+/              /= @client.title
+/              /  
+/              /  p
+/              /    strong Title:
+/              /
+/              /  p
+/              /    strong Telephone home:
+/              /    = @client.telephone_home
+/              /  p
+/              /    strong Telephone work:
+/              /    = @client.telephone_work
+/              /  p
+/              /    strong Address home:
+/              /    = @client.address_home
+/              /  p
+/              /    strong Address work:
+/              /    = @client.address_work
+/              /  p
+/              /    strong Email:
+/              /    = @client.email
+/              
+/                
+/                /= link_to 'Edit', edit_client_path(@client)
+/            /'|
+/            /= link_to 'Back', clients_path
         

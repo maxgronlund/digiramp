@@ -1,0 +1,9 @@
+= simple_form_for [:admin, @email_group] do |f|
+
+  = f.input :title
+  = f.input :body, label: 'Description'
+  
+  
+  .pull-right
+    = f.submit 'Save', class: 'btn btn-primary'
+  

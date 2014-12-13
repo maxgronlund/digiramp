@@ -82,7 +82,7 @@ ssh deploy@78.46.19.136
       sudo "../../etc/init.d/sidekiq_digiramp_production start"
       
       
-      
+bundle exec sidekiqctl quiet SIDEKIQ_PID      
       
 
 #############################
@@ -99,4 +99,3 @@ find dead routes
 $ rake traceroute
 
 
-bundle exec sidekiqctl quiet SIDEKIQ_PID

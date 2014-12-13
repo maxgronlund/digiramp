@@ -13,7 +13,8 @@
                                                              },current:  ''}
       .row
         .col-sm-6
-          h3 Client groups
+          h2 #{@account.title} <funky>Pro</funky>
+          'Client groups
         .col-sm-6
           - if current_account_user.update_crm
             .pull-right
@@ -50,7 +51,7 @@
                 '&nbsp;
                 
                 = link_to client_group.title, account_account_client_group_path(@account, client_group), class: 'btn btn-default'
-              td 12
+              td = client_group.clients.count
               
                 
                   

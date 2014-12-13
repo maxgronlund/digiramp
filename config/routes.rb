@@ -2,7 +2,6 @@
 Digiramp::Application.routes.draw do
 
 
-  
 
   resources :homes
   
@@ -339,6 +338,12 @@ Digiramp::Application.routes.draw do
     resources :activity_counter
     resources :contacts
     resources :default_images
+    
+    resources :email_groups do
+      resources :digiramp_emails
+      resources :email_recipients, only: [:edit, :update]
+    end
+    resources :email_group_recipients, only: [:edit, :update]
     
     resources :statistics do
       member do

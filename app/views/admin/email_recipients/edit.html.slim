@@ -1,0 +1,35 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'admin'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                              'email groups'.to_sym => admin_email_groups_path}, current: ''}
+      .row
+        .col-sm-8
+          h2 Recipients
+          = @digiramp_email.subject
+
+      .sexy_line
+      = simple_form_for [:admin, @email_group, @digiramp_email ] do |f|
+        = f.hidden_field :email_group_id, value: @email_group.id
+        .row
+          .col-sm-6
+            = f.input :recipients, input_html: {style: "height: 640px;"}    
+          
+          .col-sm-6
+            = f.input :freeze_emails
+            .pull-right
+              
+              = f.submit 'Save recipients', class: 'btn btn-primary'
+          
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

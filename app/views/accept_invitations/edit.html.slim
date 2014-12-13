@@ -9,12 +9,12 @@
     
       .col-sm-6
         - if @status    == 'logged in'
-          h3 = @error
+          h2 = @error
           .sexy_line
           .pull-right
             = link_to 'OK', current_user, class: 'btn btn-primary'
         - elsif @status == 'logged in on other account'
-          h3 = @error
+          h2 = @error
           .sexy_line
           .pull-right
             = link_to 'Log out', logout_path(params: params), class: 'btn btn-primary'
@@ -25,7 +25,7 @@
             = link_to 'OK', current_user ? current_user : root_path , class: 'btn btn-primary'
         -else
 
-          h3 Create pasword
+          h2 Create pasword
           .sexy_line
           br
           = simple_form_for(  @user, :url => accept_invitation_path(params[:id]) ) do |f|

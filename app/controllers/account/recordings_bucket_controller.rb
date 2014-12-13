@@ -6,6 +6,8 @@ class Account::RecordingsBucketController < ApplicationController
   def index
     forbidden unless current_account_user.read_recording?
     @recordings     = Recording.bucket.account_bucket_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
+    @user           = current_user
+    @authorized     = true
   end
   
   def edit

@@ -62,14 +62,21 @@ class Account::ClientGroupsController < ApplicationController
   def import_client_emails
     emails = params[:emails].split(',')
     emails.each do |email|
-      client = Client.where(email:email).first_or_create(email:email, name:email, show_alert: true)
-      ClientGroupsClients.where(client_group_id: @client_group.id, client_id: client.id
-                                ).first_or_create(client_group_id: @client_group.id,
-                                client_id: client.id)
+      
+      if EmailValidator.saintize email
+      
+        client = Client.where(email:email).first_or_create(email:email, name:email, show_alert: true)
+        
+        ClientGroupsClients.where(client_group_id: @client_group.id, client_id: client.id
+                                  ).first_or_create(client_group_id: @client_group.id,
+                                  client_id: client.id)
+      end
     end  
     redirect_to account_account_client_group_path(@account.id, @client_group.id)
       
-  end  
+  end
+  
+     
 
   def remove_member
     client_groups_client = ClientGroupsClients.where(id: params[:client_group_client_id].to_i, client_group_id: @client_group.id).first

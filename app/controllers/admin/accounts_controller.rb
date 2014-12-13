@@ -4,8 +4,6 @@ class Admin::AccountsController < ApplicationController
   
   def index
     @accounts   = Account.activated.search(params[:query]).order('lower(title) ASC').page(params[:page]).per(50)
-    @user       = current_user
-    @authorized = true
   end
   
   def show
@@ -13,8 +11,6 @@ class Admin::AccountsController < ApplicationController
      if @account.nil?
        not_found 
      else
-      @user       = current_user
-      @authorized = true
     end
      
   end
@@ -34,8 +30,6 @@ class Admin::AccountsController < ApplicationController
   
   def edit
     @account    = Account.cached_find(params[:id])
-    @user       = current_user
-    @authorized = true
     not_found if @account.nil?
   end
   

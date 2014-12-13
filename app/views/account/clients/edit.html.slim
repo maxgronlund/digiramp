@@ -1,25 +1,23 @@
-
-
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account), \
-                                                           crm: account_account_crm_index_path(@account), \
-                                                           clients: account_account_clients_path(@account), \
-                                                           @client.email.to_sym => account_account_client_path(@account, @client) \
-                                                           }, current:  'Edit'}
-    
-    
-    == render 'shared/title', locals: {title: @client.email, body: ''}
-    == render 'form'
-    
-
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
   
-    == render 'shared/back', locals: {link: account_account_clients_path(@account)}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { clients: account_account_clients_path(@account), \
+                                                             },current:  ''}
+      h2 #{@account.title} <funky>Pro</funky> 
+      'Edit client 
+      .sexy_line
+      == render 'form'
+        
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

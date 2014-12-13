@@ -1,0 +1,8 @@
+- if digiramp_email.delivered
+  'Delivered
+- else
+  = simple_form_for [:admin, @email_group, digiramp_email ] do |f|
+    = f.hidden_field :email_group_id, value: @email_group.id
+    = f.hidden_field :delivered, value: true
+    
+    = f.submit 'Deliver', class: 'btn btn-primary btn-xs'
