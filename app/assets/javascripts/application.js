@@ -54,6 +54,7 @@
 //= require masonry
 //= require jquery.utilcarousel.min
 //= require cocoon
+//= require messages
 // require bootstrap-tokenfield
 // require chosen-jquery
 // require jquery.tokeninput

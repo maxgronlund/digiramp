@@ -26,21 +26,22 @@ class MessagesController < ApplicationController
     @message = Message.cached_find(params[:id])
     @message.read = true
     @message.save
+    @authorized = true
   end
 
   def create
-    ap params
-    message = Message.create(message_params)
-    ap message
+
+    @message = Message.create(message_params)
+
     
-    receiver = User.cached_find(message.recipient_id)
-    sender   = User.cached_find(message.sender_id)
+    @receiver = User.cached_find(@message.recipient_id)
+    sender    = User.cached_find(@message.sender_id)
     
     
-    channel = 'digiramp_radio_' + receiver.email
+    channel = 'digiramp_radio_' + @receiver.email
     Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
                                           "message" => "#{sender.user_name} has send you a message", 
-                                          "time"    => '5000', 
+                                          "time"    => '2000', 
                                           "sticky"  => 'false', 
                                           "image"   => 'notice'
                                           })
