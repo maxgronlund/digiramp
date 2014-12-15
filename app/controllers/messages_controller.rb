@@ -29,13 +29,7 @@ class MessagesController < ApplicationController
   def create
 
     @message = Message.create(message_params)
-<<<<<<< HEAD
-=======
-    
-    
 
-
->>>>>>> 9145ea91ae9a0f013ad1ac432971611593b32bfb
 
     
     @receiver = User.cached_find(@message.recipient_id)

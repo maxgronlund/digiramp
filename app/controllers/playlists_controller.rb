@@ -1,7 +1,7 @@
 class PlaylistsController < ApplicationController
   #include AccountsHelper
   #before_filter :access_account
-  before_filter :get_user, only: [:create, :show, :index, :edit, :update, :new, :destroy]
+  before_filter :get_user
   before_filter :authorized, except: [:show, :index]
   
   def index
@@ -26,6 +26,7 @@ class PlaylistsController < ApplicationController
   def create
     if @playlist = Playlist.create(playlist_params)
       redirect_to user_playlist_path( @user, @playlist)
+      
     else
       render new
     end
@@ -37,13 +38,15 @@ class PlaylistsController < ApplicationController
   end
 
   def update
+    ap params
     @playlist = Playlist.cached_find(params[:id])
     if @playlist.update_attributes(playlist_params)
       #redirect_to user_playlist_path( @user, @playlist )
       @recordings   = @playlist.recordings
-      render :show
+      
+      redirect_to user_playlist_path( @user, @playlist )
     else
-      render :edit
+      redirect_to edit_user_playlist_path( @user, @playlist )
     end
   end
   
