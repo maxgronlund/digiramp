@@ -13,7 +13,7 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity),}, current:'' }
       .row
         .col-sm-8
-          h3 #{@account.title} <funky>Pro</funky>
+          h2 #{@account.title} <funky>Pro</funky>
           'Submissions for&nbsp;
           = @music_request.title  
         .col-sm-4

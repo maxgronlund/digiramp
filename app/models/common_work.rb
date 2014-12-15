@@ -135,6 +135,31 @@ class CommonWork < ActiveRecord::Base
     self.attachments.financial_documents
   end
   
+  def total_share
+    ipi_share = 0
+    self.ipis.each do |ipi|
+      ipi_share += ipi.share
+    end
+    ipi_share
+  end
+  
+  def attache_ipis_true recording_id
+    self.ipis.each do |ipi|
+      unless ipi.email.to_s == ''
+        if user = User.where(email: ipi.email).first
+          recordeing = Recording.find(recording_id)
+          if recordeing.user_id == user.id
+            puts '===================================================='
+            ap 'DO NOTHING'
+          else
+            ap user
+          end
+        end
+      end
+    end
+    
+  end
+  
   #def to_csv
   #  
   #  csv_string = CSV.generate do |csv|

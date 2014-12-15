@@ -1,0 +1,62 @@
+
+
+== render 'admin/digiramp_emails/layouts/news_style' 
+
+.email bgcolor="#f6f6f6"
+  table class="body-wrap"
+    tr
+      td
+      td class="container" bgcolor="#FFFFFF"
+        .content
+          
+          table
+            tr
+              
+              td
+                = image_tag @digiramp_email.image_1_url(:banner_558x90)
+                - if @digiramp_email.title_1 != ''
+              	  h1 = @digiramp_email.title_1
+                - if @digiramp_email.body_1 != ''
+              	  = simple_format  @digiramp_email.body_1
+                - if @digiramp_email.title_2 != ''
+              	  h2 = @digiramp_email.title_2
+                - if @digiramp_email.body_2 != ''
+              	  = simple_format  @digiramp_email.body_2
+                - if @digiramp_email.link_1_title != ''
+              	  table
+                    tr
+                      td class="padding"
+                        p
+                          = link_to @digiramp_email.link_1 do
+                            .btn.btn-primary
+                              = @digiramp_email.link_1_title
+                            
+                  
+                - if @digiramp_email.title_3 != ''
+                  h3 =  @digiramp_email.title_3
+                - if @digiramp_email.body_3 != ''
+                  = simple_format  @digiramp_email.body_3
+                /a href="http://twitter.com/leemunroe"
+                /  'Follow @leemunroe on Twitter
+              
+              
+
+  
+
+    table class="footer-wrap"
+      tr
+        td
+        td class="container"
+          .content
+            table
+              tr
+                td align="center"
+                  'Don't like these annoying emails? 
+                  a href="#"
+                    unsubscribe
+                      'Unsubscribe
+
+
+
+
+

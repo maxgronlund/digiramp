@@ -34,11 +34,11 @@ class LikesController < ApplicationController
     recording.uniq_likes_count = Uniqifyer.uniqify(recording.likes_count)
     recording.save
     
-    @user.create_activity(   :created, 
-                               owner: like, 
-                           recipient: recording,
-                      recipient_type: 'Recording',
-                          account_id: recording.account_id) 
+    #@user.create_activity(   :created, 
+    #                           owner: like, 
+    #                       recipient: recording,
+    #                  recipient_type: 'Recording',
+    #                      account_id: recording.account_id) 
                           
                           
     @unlike = '.unlike_recording_' + params[:recording_id].to_s   

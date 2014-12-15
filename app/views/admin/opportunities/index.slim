@@ -1,0 +1,81 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-5
+
+          h3 Opportunities
+      
+        .col-sm-7
+          .search-recording
+            = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                          :controller => 'opportunities'), \
+                                                          :method => 'get' do |f|
+            
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search for opportunities', \
+                                              value: params[:query]
+                .input-group-btn
+                  = f.submit 'Search', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Clear', admin_opportunities_path, class: 'btn btn-default'        
+            
+      
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Name
+              th Deadline
+              th Requests
+              th Budget
+
+
+          tbody
+            - @opportunities.each do |opportunity|
+              tr
+                td
+                  = link_to edit_account_account_opportunity_path(opportunity.account, opportunity), method: :delete, data: {confirm: 'Are you sure?'} do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
+
+                  '&nbsp;
+                  = link_to edit_account_account_opportunity_path(opportunity.account, opportunity) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                  '&nbsp;
+                  = link_to account_account_opportunity_path(opportunity.account, opportunity) do
+                     .btn.btn-default.btn-xs
+                       i.fa.fa-eye
+                       '&nbsp;
+                       = opportunity.title
+                
+                td 
+                  - if opportunity.deadline && opportunity.deadline < Date.current
+                    .expired
+                      i class="fa fa-exclamation-circle"
+                      '&nbsp;
+                      = opportunity.deadline
+                  - else
+                    = opportunity.deadline
+                td = opportunity.music_requests.count
+                td = opportunity.budget
+                
+
+      .sexy_line
+      == paginate(@opportunities)
+      
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'
+

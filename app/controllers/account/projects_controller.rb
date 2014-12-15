@@ -3,25 +3,29 @@ class Account::ProjectsController < ApplicationController
   before_filter :access_account
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
-  # GET /projects
-  # GET /projects.json
   def index
-    @projects = @account.projects
+    @projects   = @account.projects
+    @user       = @account.user
+    @authorized = true
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
   def show
+    @user       = @account.user
+    @authorized = true
   end
 
   # GET /projects/new
   def new
     @project = Project.new
+    @user       = @account.user
+    @authorized = true
   end
 
   # GET /projects/1/edit
   def edit
     forbidden unless current_account_user.update_crm
+    @user       = @account.user
+    @authorized = true
   end
 
   # POST /projects
@@ -62,3 +66,4 @@ class Account::ProjectsController < ApplicationController
       params.require(:project).permit!
     end
 end
+

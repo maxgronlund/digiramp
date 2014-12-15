@@ -1,0 +1,9 @@
+$("#connect_modal_<%=@connection.connection_id%>").modal('hide')
+
+$(".old-connect-buttons").fadeOut( "slow" );
+
+
+
+$(".connect-buttons" ).append("<%= j render 'users/connect', user: @user %>");
+
+

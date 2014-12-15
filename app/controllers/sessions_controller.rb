@@ -2,8 +2,9 @@ class SessionsController < ApplicationController
 
   
   def create
-    #raise env['omniauth.auth'].to_yaml
+    #ap env['omniauth.auth']
     session[:show_profile_completeness] = true
+    
     if current_user
       # the user is all readdy logged in so attach a provider to an existing account
       unless Omniauth.attach_provider( env, current_user )
@@ -75,11 +76,36 @@ class SessionsController < ApplicationController
 private
   
   def initialize_session_for user
+    #ap env['omniauth.auth']
+    #credentials =  env['omniauth.auth']["credentials"]
+    #puts 'token'
+    #ap credentials['token']
+    #puts 'secret'
+    #ap credentials['secret']
+    #puts 'expires'
+    #ap credentials["expires_at"]
+    #ap credentials["expires"]
+    if env['omniauth.auth']
+      if credentials                =  env['omniauth.auth']["credentials"]
+        if provider                 = user.authorization_providers.where(provider: env['omniauth.auth']['provider']).first
+          provider.oauth_token      = credentials['token']        if credentials['token']
+          provider.oauth_expires_at = credentials['expires_at']   if credentials['expires_at']
+          provider.save!
+        end
+      end
+    end
+    
+    #ap provider
     
     session[:user_id]     = user.id
     session[:account_id]  = user.account_id
     
-    account               = Account.cached_find(user.account_id)
+    
+    ap user 
+    
+    unless account        = Account.where(user_id: user.id).first
+      account             = User.create_a_new_account_for_the user
+    end
     account.visits        += 1
     account.save!
 

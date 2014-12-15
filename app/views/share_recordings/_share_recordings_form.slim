@@ -10,7 +10,6 @@
           'Share 
 
 
-
       
       .share-dialog
         .modal-body
@@ -40,8 +39,7 @@
               h4 Share on Facebook
               
               div id="facebook_confirmation_#{recording.id.to_s}"
-              
-              
+
               = simple_form_for [ShareOnFacebook.new], remote: true do |f|
                 /= f.error_notification
               
@@ -49,8 +47,8 @@
                   - if current_user
                     = f.hidden_field :user_id, value: current_user.id
                   = f.hidden_field :recording_id, value: recording.id
-                  = f.input :message
-                
+                  /= f.input :message, class: "facebook_#{recording.id.to_s}"
+                  = f.input :message, :input_html => {  style: "height: 110px;", class: "init_facebook_#{recording.id.to_s}"}
                 .modal-footer
                   button type="button" class="btn btn-default" data-dismiss="modal"
                     'Close
@@ -68,26 +66,18 @@
                 /                                                     }) \
                 /                                                    }, function(response){});"
                 
-                
-                
-                
-                
-              
-              
+
             .tab-pane.fade id="twitter_#{recording.id.to_s}"
               h4 Twitter
               div id="facebook_confirmation_#{recording.id.to_s}"
               
-              - tweet          = ShareOnTwitter.new
-              - tweet.message = "Checkout ‘#{recording.title}’ by #{recording.artist} on #DigiRamp https://digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}"
-              = simple_form_for [tweet], remote: true do |f|
-                /= f.error_notification
+              = simple_form_for [ ShareOnTwitter.new ], remote: true do |f|
               
                 .form-inputs
                   - if current_user
                     = f.hidden_field :user_id, value: current_user.id
                   = f.hidden_field :recording_id, value: recording.id
-                  = f.input :message
+                  = f.input :message, :input_html => {  style: "height: 110px;", class: "init_twitter_#{recording.id.to_s}"}
               
                 .modal-footer
                   button type="button" class="btn btn-default" data-dismiss="modal"
@@ -103,7 +93,8 @@
             .tab-pane.fade id="embed_#{recording.id.to_s}"
               h4 Embed
               .recording_widget
-                = text_field nil, :code, class: 'recording_snippet', :value => "#{recording.widget_snippet url_for( controller: '/recording_widgets', action: 'show', id: recording.id, :only_path=> false)}", readonly: true
+                = text_field nil, :code, class: 'recording_snippet', \
+                                  :value => "#{recording.widget_snippet url_for( controller: '/recording_widgets', action: 'show', id: recording.id, :only_path=> false)}", readonly: true
               
               .modal-footer
                 button type="button" class="btn btn-default" data-dismiss="modal"
@@ -118,18 +109,22 @@
               - if current_user
                 
                 h4 Email
-                - share_recording_with_email = ShareRecordingWithEmail.new
-                - share_recording_with_email.title    = "#{current_user.user_name} has shared a recording with you on DigiRAMP"
-                - share_recording_with_email.message  = "Hi! You should try to listen to this recording"
-                = simple_form_for [ recording , share_recording_with_email ], remote: true do |f|
+                /- share_recording_with_email = ShareRecordingWithEmail.new
+                /- share_recording_with_email.title    = "#{current_user.user_name} has shared a recording with you on DigiRAMP"
+                /- share_recording_with_email.message  = "Hi! You should try to listen to this recording"
+                = simple_form_for [ recording , ShareRecordingWithEmail.new ], remote: true do |f|
                   = f.error_notification
                 
                   .form-inputs
                     = f.hidden_field :user_id, value: current_user.id 
                     = f.hidden_field :recording_id, value: recording.id
-                    = f.input :recipients, placeholder: 'superman@nasa.gov, batman@gotham.city', hint: 'Use a comma seperated list to sendt to multiply recipients'
-                    = f.input :title
-                    = f.input :message
+                    = f.input :recipients, \
+                              placeholder: 'superman@nasa.gov, batman@gotham.city', \
+                              hint: 'Use a comma seperated list to sendt to multiply recipients', \
+                              :input_html   => { class: "init_email_recipients_#{recording.id.to_s}"}
+                              
+                    = f.input :title, :input_html   => {  class: "init_email_title_#{recording.id.to_s}"}
+                    = f.input :message, :input_html => {  style: "height: 110px;", class: "init_email_message_#{recording.id.to_s}"}
                 
                   .modal-footer
                     button type="button" class="btn btn-default" data-dismiss="modal"
@@ -142,24 +137,25 @@
 
               
       
+
+javascript:
+  $("#shareRecordingModal_#{recording.id.to_s}").on('shown.bs.modal', function (event) {
+    $(".init_facebook_#{recording.id.to_s}").val("I found #{raw recording.title} on DigiRAMP");
+    $(".init_twitter_#{recording.id.to_s}").val("Checkout ‘#{recording.title}’ by #{recording.artist} on #DigiRamp https://digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}");
+    $(".init_email_recipients_#{recording.id.to_s}").val("");
+    $(".init_email_title_#{recording.id.to_s}").val("#{current_user.user_name} has shared a recording with you on DigiRAMP");
+    $(".init_email_message_#{recording.id.to_s}").val("I found #{raw recording.title} on DigiRAMP");
+    //$("#share_recording_with_email_recipients").val("");
+    //$("#share_recording_with_email_title").val("#{current_user.user_name} has shared a recording with you on DigiRAMP");
+    //$("#share_recording_with_email_message").val("I found #{recording.title} on DigiRAMP");
+  })              
       
-        /= link_to new_create_playlist_path( user_id: current_user.id, recording_id: recording.id ), class: 'btn btn-default', remote: true  do
-        /  i.fa.fa-list
-        /  '&nbsp;New
-        /
-        /button type="button" class="btn btn-default" data-dismiss="modal"
-        /  'Close
-        /= f.submit 'Add', class: 'btn btn-primary'
-      / the create new playlist form goes here
-      /div id="create_playlist_form_#{recording.id.to_s}"
-      /
-      // the select playlist form goes here
-      /div id="select_playlist_form_#{recording.id.to_s}" 
-      /  / this will be removed, should also be added dynamicaly
-      /  div id="old_select_playlist_form_#{recording.id.to_s}"  
-      
-      
-/cript:
-/ocument).ready(function() {
-/ $("input:text").focus(function() { $(this).select(); } );
-/
+/javascript:
+/  $("#shareRecordingModal_#{recording.id.to_s}").on('hidden.bs.modal', function (event) {
+/    $("#share_on_facebook_message").val("");
+/    $("#share_on_twitter_message").val("");
+/    $("#share_recording_with_email_recipients").val("");
+/    $("#share_recording_with_email_title").val("");
+/    $("#share_on_facebook_message").val("");
+/  })
+  

@@ -113,6 +113,10 @@ class Account::OpportunityInvitationsController < ApplicationController
     @opportunity_invitation.destroy
      redirect_to account_account_opportunity_path(@account, @opportunity)
   end
+  
+  
+  
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

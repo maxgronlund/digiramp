@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141204215956) do
+ActiveRecord::Schema.define(version: 20141213072021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -719,6 +719,19 @@ ActiveRecord::Schema.define(version: 20141204215956) do
   add_index "common_works_imports", ["account_id"], name: "index_common_works_imports_on_account_id", using: :btree
   add_index "common_works_imports", ["catalog_id"], name: "index_common_works_imports_on_catalog_id", using: :btree
 
+  create_table "connections", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "connection_id"
+    t.boolean  "approved",       default: false
+    t.boolean  "dismissed",      default: false
+    t.text     "message",        default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "messages_count", default: 0
+  end
+
+  add_index "connections", ["user_id"], name: "index_connections_on_user_id", using: :btree
+
   create_table "contacts", force: true do |t|
     t.string   "email"
     t.string   "title"
@@ -755,6 +768,34 @@ ActiveRecord::Schema.define(version: 20141204215956) do
     t.string   "title"
   end
 
+  create_table "digiramp_emails", force: true do |t|
+    t.integer  "email_group_id"
+    t.string   "subject",        default: ""
+    t.string   "layout",         default: ""
+    t.string   "title_1",        default: ""
+    t.string   "title_2",        default: ""
+    t.string   "title_3",        default: ""
+    t.text     "body_1",         default: ""
+    t.text     "body_2",         default: ""
+    t.text     "body_3",         default: ""
+    t.string   "image_1",        default: ""
+    t.string   "image_2",        default: ""
+    t.string   "image_3",        default: ""
+    t.string   "link_1",         default: ""
+    t.string   "link_1_title",   default: ""
+    t.string   "link_2",         default: ""
+    t.string   "link_2_title",   default: ""
+    t.string   "link_3",         default: ""
+    t.string   "link_3_title",   default: ""
+    t.text     "recipients",     default: ""
+    t.boolean  "delivered",      default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "freeze_emails",  default: false
+  end
+
+  add_index "digiramp_emails", ["email_group_id"], name: "index_digiramp_emails_on_email_group_id", using: :btree
+
   create_table "documents", force: true do |t|
     t.string   "title"
     t.string   "document_type"
@@ -772,6 +813,14 @@ ActiveRecord::Schema.define(version: 20141204215956) do
   end
 
   add_index "documents", ["account_id"], name: "index_documents_on_account_id", using: :btree
+
+  create_table "email_groups", force: true do |t|
+    t.string   "title",            default: ""
+    t.text     "body",             default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "email_recipients", default: ""
+  end
 
   create_table "emails", force: true do |t|
     t.string   "email"
@@ -1296,6 +1345,7 @@ ActiveRecord::Schema.define(version: 20141204215956) do
     t.boolean  "sender_removed",    default: false
     t.boolean  "recipient_removed", default: false
     t.boolean  "read",              default: false
+    t.integer  "connection_id"
   end
 
   add_index "messages", ["recipient_id"], name: "index_messages_on_recipient_id", using: :btree
@@ -1672,6 +1722,7 @@ ActiveRecord::Schema.define(version: 20141204215956) do
     t.string   "stage"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "deadline"
   end
 
   add_index "projects", ["account_id"], name: "index_projects_on_account_id", using: :btree

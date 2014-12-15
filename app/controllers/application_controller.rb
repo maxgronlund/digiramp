@@ -66,7 +66,10 @@ class ApplicationController < ActionController::Base
   def admin_only
     unless  user_signed_in?  && current_user.super?
       forbidden
+      
     end
+    @user       = current_user
+    @authorized = true
   end
   
   def zaap_cokkies

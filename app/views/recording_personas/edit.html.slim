@@ -35,11 +35,11 @@
 
     
         .pull-right   
-          = f.button :submit, 'Save & Close', class: 'btn btn-default please_wait', id: 'done'
+          = f.button :submit, 'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
           '&nbsp;
           = link_to 'Skip', edit_user_recording_right_path(@user, @recording), class: 'btn btn-default'
           '&nbsp;
-          = f.submit 'Next', class: 'btn btn-primary please_wait'
+          = f.submit 'Next', class: 'btn btn-primary'
      
         
   == render 'shared/site_footer'  

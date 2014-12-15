@@ -122,13 +122,20 @@ class User < ActiveRecord::Base
   # messages
   has_many :received_massages,  class_name: "Message", foreign_key: "recipient_id"
   has_many :send_massages,      class_name: "Message", foreign_key: "sender_id"
-  
+  #------------------------------------------------------------------
+  # connections
+  has_many :connections
+  has_many :connected, :through => :connections
 
   
   has_many :wall_posts, :through => :follower_event_users, :source => :follower_event
   has_many :follower_event_users
   
-  
+  def short_email
+    short_email = self.email.slice(0...24)
+    short_email << '...' if self.email.size > 24
+    short_email
+  end
   
   def sanitize_relations
     # messages
@@ -153,7 +160,7 @@ class User < ActiveRecord::Base
     # always start as a customer
     self.role = 'Customer' if self.role.to_s == ''
     
-    if EmailValidator.validate( self.email )
+    if EmailValidator.saintize( self.email )
       self.user_name = User.create_uniq_user_name_from_email(self.email)    if self.user_name.to_s  == ''
       self.name      = user_name                                            if self.name.to_s       == ''
       self.first_name = user_name.split('@').first                          if self.first_name.to_s == ''
@@ -574,6 +581,7 @@ class User < ActiveRecord::Base
   
   # find or create a user 
   # and send an email invitation
+  
   def self.invite_to_account_by_email email, title, body, account_id, current_user_id
     
     
@@ -592,10 +600,14 @@ class User < ActiveRecord::Base
       # create user
       #user_name = User.create_uniq_user_name_from_email(email)
       secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-      found_user = User.create( email: sanitized_email, 
-                                invited: true, 
-                                password: secret_temp_password, 
-                                password_confirmation: secret_temp_password
+      found_user = User.create( email:                  sanitized_email, 
+                                name:                   create_uniq_user_name_from_email(sanitized_email),
+                                user_name:              create_uniq_user_name_from_email(sanitized_email),
+                                invited:                true, 
+                                password:               secret_temp_password, 
+                                password_confirmation:  secret_temp_password,
+                                role:                   'Customer'
+                                
                               )
       
       # apply a password reset token
@@ -646,6 +658,11 @@ class User < ActiveRecord::Base
       block_given? ? yield(@facebook) : @facebook
     rescue Koala::Facebook::APIError
       logger.info e.to_s
+      
+      
+       puts '================================== provider.oauth_token =========================================' 
+      
+      
       @facebook =  nil
     end
     @facebook

@@ -5,24 +5,29 @@ class Account::ProjectTasksController < ApplicationController
 
   # GET /project_tasks
   # GET /project_tasks.json
-  def index
-    @project_tasks = ProjectTask.all
-  end
+  #def index
+  #  @project_tasks = ProjectTask.all
+  #end
 
-  # GET /project_tasks/1
-  # GET /project_tasks/1.json
+
   def show
+    @user       = @account.user
+    @authorized = true
   end
 
   # GET /project_tasks/new
   def new
     @project      = Project.cached_find(params[:project_id])
     @project_task = ProjectTask.new
+    @user       = @account.user
+    @authorized = true
   end
 
   # GET /project_tasks/1/edit
   def edit
     @project      = Project.cached_find(params[:project_id])
+    @user       = @account.user
+    @authorized = true
   end
 
   # POST /project_tasks

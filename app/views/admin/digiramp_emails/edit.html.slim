@@ -1,0 +1,27 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'admin'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {'email groups'.to_sym => admin_email_groups_path,\
+                                                              @email_group.title.to_sym => admin_email_group_path(@email_group) }, current: ''}
+      .row
+        .col-sm-8
+          h2 Edit email
+
+      .sexy_line
+      == render 'admin/digiramp_emails/forms/' + @digiramp_email.layout
+      /== render 'form'
+            
+      
+          
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

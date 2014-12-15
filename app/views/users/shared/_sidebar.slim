@@ -55,17 +55,23 @@
       
   
   
-  li class="#{'sidebar-selected' if selected == 'widgets'}"
-    = link_to user_widgets_path(@user) do
-      i class="fa fa-list"
-      '&nbsp;
-      = pluralize(@user.widgets.count, 'Widgets')      
-   
+  /li class="#{'sidebar-selected' if selected == 'widgets'}"
+  /  = link_to user_widgets_path(@user) do
+  /    i class="fa fa-list"
+  /    '&nbsp;
+  /    = pluralize(@user.widgets.count, 'Widgets')      
+  / 
   
   - if @authorized
+    li class="#{'sidebar-selected' if selected == 'connections'}"
+      = link_to user_connections_path(@user ) do
+        i class="fa fa-refresh"
+        '&nbsp;
+        'Connections
+      
     li class="#{'sidebar-selected' if selected == 'opportunities'}"
       = link_to user_user_opportunities_path(@user ) do
-        i class="fa fa-book"
+        i class="fa fa-money"
         '&nbsp;
         'Opportunities
   
@@ -81,7 +87,7 @@
      
       li class="#{'sidebar-selected' if selected == 'collections'}"
         = link_to user_user_collections_path( current_user ) do
-          i class="fa fa-tachometer"
+          i class="fa fa-cog"
           '&nbsp;
           'Accounts
           

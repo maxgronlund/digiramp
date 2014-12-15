@@ -1,22 +1,57 @@
-#wrap  
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account), \
-                                                           crm: account_account_crm_index_path(@account),\
-                                                           projects: account_account_projects_path(@account), \
-                                                           'Client Groups'.to_sym => account_account_client_groups_path(@account)\
-                                                           }, current:  'New Group'}
-    
-    
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Client Groups'), blog_post: 'New Client Group'}
-    == render 'form'
-    
-
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
   
-    == render 'shared/back', locals: {link: account_account_client_groups_path(@account)}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {crm: account_account_crm_index_path(@account),\
+                                                             'Client Groups'.to_sym => account_account_client_groups_path(@account)\
+                                                             }, current:  ''}
+      h2 #{@account.title} <funky>Pro</funky>
+      ' New client group
+      .sexy_line
+      .row
+        .col-sm-4
+          == render 'form'
+                
+                  
+        
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+/#wrap  
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .container
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+/                                                           dashboard: account_account_path(@account), \
+/                                                           crm: account_account_crm_index_path(@account),\
+/                                                           projects: account_account_projects_path(@account), \
+/                                                           'Client Groups'.to_sym => account_account_client_groups_path(@account)\
+/                                                           }, current:  'New Group'}
+/    
+/    
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Client Groups'), blog_post: 'New Client Group'}
+/    == render 'form'
+/    
+/
+/  
+/    == render 'shared/back', locals: {link: account_account_client_groups_path(@account)}
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'

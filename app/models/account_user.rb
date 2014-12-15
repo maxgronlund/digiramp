@@ -145,21 +145,109 @@ class AccountUser < ActiveRecord::Base
   # set basic permissions to true
   def grand_basic_permissions
     remove_permissions
-    self.create_recording     = true
-    self.read_recording       = true
-    self.update_recording     = true
-    self.delete_recording     = true
     
-    self.create_common_work   = true
-      self.read_common_work   = true
-    self.update_common_work   = true
-    self.delete_common_work   = true
+    self.create_recording         = true
+    self.read_recording           = true
+    self.update_recording         = true
+    self.delete_recording         = true
     
-    self.read_catalog         = true
-    self.update_catalog       = true
+    self.create_recording_ipi     = true      
+      self.read_recording_ipi     = true        
+    self.update_recording_ipi     = true      
+    self.delete_recording_ipi     = true 
+    
+    #self.create_common_work       = true
+    #  self.read_common_work       = true
+    #self.update_common_work       = true
+    #self.delete_common_work       = true
+    
+    self.create_common_work_ipi   = true 
+      self.read_common_work_ipi   = true 
+    self.update_common_work_ipi   = true   
+    self.delete_common_work_ipi   = true  
+    
+    self.create_file              = true               
+      self.read_file              = true                 
+    self.update_file              = true               
+    self.delete_file              = true       
+             
+    self.create_playlist          = true 
+      self.read_playlist          = true 
+    self.update_playlist          = true   
+    self.delete_playlist          = true  
+                                
+     self.create_artwork          = true
+       self.read_artwork          = true
+     self.update_artwork          = true  
+     self.delete_artwork          = true       
+     
+     #self.create_opportunity      = true 
+       self.read_opportunity      = true 
+     #self.update_opportunity      = true   
+     #self.delete_opportunity      = true
+    
+    #self.read_catalog             = true
+    #self.update_catalog           = true
     
     self.save!
     
+  end
+  
+  def remove_pro_permissions
+    return if self.role == 'Super User'
+    set_pro_permissions false
+    self.save!
+  end
+  
+  def grand_pro_permissions
+    if self.role == 'Super User'
+      grand_all_permissions
+    else
+      set_pro_permissions true
+    end
+    self.save!
+  end
+  
+  def set_pro_permissions permission
+    
+    self.create_common_work    = permission
+      self.read_common_work    = permission
+    self.update_common_work    = permission
+    self.delete_common_work    = permission
+                                 
+    self.create_opportunity    = permission
+    self.update_opportunity    = permission  
+    self.delete_opportunity    = permission
+                                 
+    self.createx_user          = permission
+      self.read_user           = permission
+    self.update_user           = permission  
+    self.delete_user           = permission
+                                 
+    self.create_crm            = permission
+      self.read_crm            = permission
+    self.update_crm            = permission  
+    self.delete_crm            = permission
+                                 
+    self.create_artwork        = permission
+      self.read_artwork        = permission
+    self.update_artwork        = permission  
+    self.delete_artwork        = permission
+                                 
+    self.create_client         = permission
+      self.read_client         = permission
+    self.update_client         = permission
+    self.delete_client         = permission
+    
+  end
+  
+  def remove_admin_features
+    return if self.role == 'Super User'
+    self.createx_user          = false
+      self.read_user           = false
+    self.update_user           = false  
+    self.delete_user           = false
+    self.save!
   end
   
   # set all permissions to false
@@ -169,10 +257,10 @@ class AccountUser < ActiveRecord::Base
       self[permission_type] = false
     end
     
-    self.create_client = false
-    self.read_client   = false
-    self.update_client = false
-    self.delete_client = false
+    #self.create_client = false
+    #self.read_client   = false
+    #self.update_client = false
+    #self.delete_client = false
 
   end
   
@@ -184,20 +272,24 @@ class AccountUser < ActiveRecord::Base
       self[permission_type] = true
     end
     
-    self.create_client      = true
-    self.read_client        = true
-    self.update_client      = true
-    self.delete_client      = true
-    self.create_opportunity = true
-    self.read_opportunity   = true
-    self.update_opportunity = true
-    self.delete_opportunity = true
+    #self.create_client      = true
+    #self.read_client        = true
+    #self.update_client      = true
+    #self.delete_client      = true
     
-    self.save!
-    
-    # add to all catalogs
-    self.account.catalogs.each do |catalog|
-      catalog_user = catalog.add_account_user self
+    #self.create_opportunity = account.create_opportunities
+    #self.read_opportunity   = account.read_opportunities
+    #self.update_opportunity = account.create_opportunities
+    #self.delete_opportunity = account.create_opportunities
+
+    begin
+      self.save!
+      
+      # add to all catalogs
+      self.account.catalogs.each do |catalog|
+        catalog_user = catalog.add_account_user self
+      end
+    rescue
     end
 
   end

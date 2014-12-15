@@ -185,43 +185,43 @@ class Account < ActiveRecord::Base
   # remove the old administrator and
   # initialize the new administrator
   # update the whitelist
-  def reassign_administrator old_administrator_id
-
-    #puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>remove the old administrators account_user'
-    #begin
-      if old_administrator = AccountUser.where(user_id: old_administrator_id, account_id: self.id).first
-        #old_administrator     = User.cached_find(old_administrator_id)
-        
-        if old_administrator_id == user_id
-          # if the old administrator is the Account Owner
-          # then downgrade premissions to the basic
-          old_administrator.grand_basic_permissions
-          
-        elsif old_administrator.user.super?
-          # if the old administrator is 'Super'
-          # then grand all permissions
-          old_administrator.role = 'Super User'
-          old_administrator.save!
-        else
-          # if none of the above
-          # then destroy the account user
-          old_administrator.destroy! 
-        end
-      end
-    #rescue
-    #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-    #  puts 'ERROR: Unable to find and destroy the old administrator'
-    #  puts 'In Account#reassign_administrator'
-    #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-    #end
-    
-    user = User.cached_find(administrator_id)
-    new_administrator = AccountUser.where(user_id: user.id, account_id: self.id)
-                                    .first_or_create(user_id: user.id, account_id: self.id)
-    
-    new_administrator.grand_all_permissions
-
-  end
+  #def reassign_administrator old_administrator_id
+  #
+  #  #puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>remove the old administrators account_user'
+  #  #begin
+  #    if old_administrator = AccountUser.where(user_id: old_administrator_id, account_id: self.id).first
+  #      #old_administrator     = User.cached_find(old_administrator_id)
+  #      
+  #      if old_administrator_id == user_id
+  #        # if the old administrator is the Account Owner
+  #        # then downgrade premissions to the basic
+  #        old_administrator.grand_basic_permissions
+  #        
+  #      elsif old_administrator.user.super?
+  #        # if the old administrator is 'Super'
+  #        # then grand all permissions
+  #        old_administrator.role = 'Super User'
+  #        old_administrator.save!
+  #      else
+  #        # if none of the above
+  #        # then destroy the account user
+  #        old_administrator.destroy! 
+  #      end
+  #    end
+  #  #rescue
+  #  #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+  #  #  puts 'ERROR: Unable to find and destroy the old administrator'
+  #  #  puts 'In Account#reassign_administrator'
+  #  #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+  #  #end
+  #  
+  #  user = User.cached_find(administrator_id)
+  #  new_administrator = AccountUser.where(user_id: user.id, account_id: self.id)
+  #                                  .first_or_create(user_id: user.id, account_id: self.id)
+  #  
+  #  new_administrator.grand_all_permissions
+  #
+  #end
   
   def atached_ipi_codes
     IpiCode.where(account_id: self.id, ipiable_type: 'Account')
@@ -308,8 +308,10 @@ class Account < ActiveRecord::Base
       #<<<<<<<<<<<<<<<< ADD FLASH EMSSAGE, RESET ADMINISTRATR, POST MESSAGO IN ADMIN SECTION
       #self.administrator_id 
     end
-
-    
+  end
+  
+  def owners_account_user
+    return AccountUser.where(user_id: user_id, account_id: self.id).first
   end
   
   def self.cached_find(id)
@@ -384,78 +386,100 @@ class Account < ActiveRecord::Base
   end
   
   
+  def update_account_type
+    
+    #if self.is_administrated
+    #  
+    #  owners_account_user.grand_basic_permissions
+    #  administrators_account_user.grand_all_permissions
+    #
+    #else
+    #  case self.account_type
+    #  when 'Social'
+    #    owners_account_user.grand_basic_permissions
+    #  when 'Pro', 'Business', 'Enterprise'
+    #    owners_account_user.grand_pro_permissions
+    #  end
+    #  
+    #end
+    update_account_users
+  end
   
-  
-  # !!! might be obsolete
-  def repair_users
+  def update_account_users
 
-    # secure there is a account_user for the account_owner
-    account_owner = AccountUser.where(account_id: self.id, user_id: self.user_id)
-                               .first_or_create(account_id: self.id, user_id: self.user_id, role: 'Account Owner')  
-    
-    # grand all permissions to the account owner
-    account_owner.grand_all_permissions
-    
-    # create an account user for each super user
-    User.supers.each do |super_user|
-      super_man = AccountUser.where(account_id: self.id, user_id: super_user.id)
-                             .first_or_create(account_id: self.id, user_id: super_user.id, role: 'Super')  
-
-    end
-
-    
-    # grand all permissions to administrators
-    self.account_users.administrators.each do |account_user|
-      account_user.grand_all_permissions
-    end
-    
-    # grand all permissions to administrators
-    self.account_users.supers.each do |account_user|
-      account_user.grand_all_permissions
-    end
-    
-
-    # account users with out any permissions should have no access
     self.account_users.each do |account_user|
-      account_user.check_permissions
+      update_permissions_on account_user
     end
     
-    
+    unless self.account_type == 'Social'
+      administrators_account_user.grand_pro_permissions
+    end
+
   end
   
-  
-  
-  # !!! might be obsolete
-  def repair_recordings
-  end
-  
-  # !!! might be obsolete
-  def repair_works
-    self.common_works.each do |work|
-      work.update_completeness
+  def update_permissions_on account_user
+    if self.account_type == 'Social'
+      account_user.remove_pro_permissions unless account_user.user.super?
+
     end
   end
   
-  # !!! might be obsolete
-  def repair_catalogs
+
+  def reassign_administrator old_administrator_id
+
+    if old_administrator = AccountUser.where(user_id: old_administrator_id, account_id: self.id).first
+      #old_administrator     = User.cached_find(old_administrator_id)
+      
+      if old_administrator_id == user_id
+        # if the old administrator is the Account Owner
+        # then downgrade premissions to the basic
+        old_administrator.remove_admin_features
+        
+      elsif old_administrator.user && old_administrator.user.super?
+        # if the old administrator is 'Super'
+        # then grand all permissions
+        old_administrator.role = 'Super User'
+        old_administrator.save!
+      else
+        # if none of the above
+        # then destroy the account user
+        old_administrator.destroy! 
+      end
+    end
+
+
+    administrator     = User.cached_find(administrator_id)
+    new_administrator = AccountUser.where(user_id: administrator.id, account_id: self.id)
+                                    .first_or_create(user_id: administrator.id, account_id: self.id)
+    
+    new_administrator.grand_pro_permissions
+
   end
   
+  
+  def is_administrated
+    self.administrator_id  != self.user_id
+  end
+
+
   def get_account_users
     user_ids = self.account_users.invited.pluck(:user_id)
     user_ids << self.user_id
     User.where(id: user_ids)
+    # why noy
+    # users ?
   end
   
   def get_users_and_supers
     users_and_supers = self.users + User.supers
     users_and_supers.uniq!
     users_and_supers
+    
+    # why noy
+    # users ?
   end
   
-  #def recording_ids
-  #  
-  #end
-  
+
   def update_assets_count
     self.catalogs.each do |catalog|
       catalog.update_assets_count

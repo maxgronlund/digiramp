@@ -3,6 +3,15 @@ Digiramp::Application.routes.draw do
 
 
 
+  resources :homes
+  
+  get "home/index"
+  #root to: "home#index"
+  
+  get 'welcome/index'
+  root to: 'welcome#index'
+
+  resources :message_counts
 
   resources :message_counts
 
@@ -237,10 +246,7 @@ Digiramp::Application.routes.draw do
   get "flush_cache" => "admin#flush_cache", :as => :admin_flush_cache
 
   
-  resources :homes
   
-  get "home/index"
-  root to: "home#index"
   get "sign_up/index"
   get "login/new"
   #get "login/index"
@@ -277,6 +283,7 @@ Digiramp::Application.routes.draw do
     #member do
     #  get :following, :followers
     #end
+    resources :connections
     resources :messages
     resources :received_messages, only: [:index]
     resources :send_messages, only: [:index]
@@ -334,16 +341,24 @@ Digiramp::Application.routes.draw do
     resources :contacts
     resources :default_images
     
+    resources :email_groups do
+      resources :digiramp_emails
+      resources :email_recipients, only: [:edit, :update]
+    end
+    resources :email_group_recipients, only: [:edit, :update]
+    
     resources :statistics do
       member do
         get 'recordings'
         get 'common_works'
         get 'users'
         get 'ipis'
+        get 'accounts'
+        get 'opportunities'
       end
     end
 
-    
+    resources :opportunities
 
     resources :accounts do
       get 'delete_common_works'

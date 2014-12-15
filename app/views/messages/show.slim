@@ -42,13 +42,46 @@
               '&nbsp;
             - when 'Recording'
               '&nbsp;
-            -when 'MusicSubmission'
+            - when 'MusicSubmission'
               - if MusicSubmission.exists?(@message.subjebtable_id)
                 - music_submission =  MusicSubmission.find(@message.subjebtable_id)
                 - recording = music_submission.recording
                 /= debug music_submission.recording
                 #digiWhams  class="/recordings/#{recording.id.to_s}"
                   == render 'recording', recording: recording
+            - when 'Connection'
+              - if connection = Connection.find( @message.subjebtable_id )
+                .connection-invitation
+                == render 'messages/connection_invitation', receiver: @message.receiver, connection: connection
+                  /= simple_form_for [ @message.receiver , connection ], remote: true do |f|
+                  /  = f.hidden_field :approved, value: true
+                  /  = link_to "Dismiss", '#', class: 'btn btn-default'
+                  /  '&nbsp;
+                  /  = f.submit 'Accept invitation', class: 'btn btn-primary'
+                    
+                
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
           .col-sm-3
             
                   
@@ -62,8 +95,8 @@
         .row
           .col-sm-12
             .pull-right
-              -if received_message
-                /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal" do
+              -if received_message  && @message.user_can_reply( @user )
+
                 = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@message.id.to_s}" do
                   .btn.btn-primary
                     i.fa.fa-reply
@@ -73,18 +106,7 @@
 
                 == render 'messages/modal', modal_id: "pmModal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message
           
-        
-        /  - if @message.sender_id == @user.id
-        /    'Send mesage
-        /  - else
-        /    'Received message
-        /br
-        /i Subject
-        /br
-        /= @message.subjebtable_type
-        /br
-        
-        
+
         
         
         

@@ -1,39 +1,119 @@
-      
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'admin'          
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: 'Activities'}
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'ACTIVITIES'} 
-    .row
-      .col-sm-12
-        .panel.panel-primary
-          .panel-heading
-            'Activities
-          .panel-body
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr
-                    th Action
-                    th Object
-                    th Date
-                    th Performed by
-                    th Resource
-                tbody
-                  - @activities.each do |activity|
-                    tr
-                      = render_activity activity
-
-                   
-        
-                      
-          
-    == paginate(@activities)
-
+    == render 'shared/navigationbar', page: 'home' 
   
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'admin'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
+      h2 Activities
+      .sexy_line
+      .users
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Action
+                th Object
+                th Date
+                th Performed by
+                th Resource
+            tbody
+              - @activities.each do |activity|
+                tr
+                  = render_activity activity
+        
+      == paginate(@activities)
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'admin'          
+/  .container
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: 'Activities'}
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'ACTIVITIES'} 
+/    .row
+/      .col-sm-12
+/        .panel.panel-primary
+/          .panel-heading
+/            'Activities
+/          .panel-body
+/            .table-responsive
+/              table class="table table-hover"
+/                thead
+/                  tr
+/                    th Action
+/                    th Object
+/                    th Date
+/                    th Performed by
+/                    th Resource
+/                tbody
+/                  - @activities.each do |activity|
+/                    tr
+/                      = render_activity activity
+/
+/                   
+/        
+/                      
+/          
+/    == paginate(@activities)
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
 
   

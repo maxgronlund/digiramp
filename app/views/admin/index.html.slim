@@ -21,7 +21,7 @@
                     i.fa.fa-list-alt
                     '&nbsp;Accounts
                 .body
-                  'Access and manage all DigiRAMP accounts 
+                  'Access DigiRAMP accounts 
           
           .admin-badge-container
             = link_to admin_users_path do
@@ -31,7 +31,7 @@
                     i.fa.fa-group
                     '&nbsp;Users
                 .body
-                  'Access and manage all DigiRAMP users 
+                  'Access DigiRAMP users 
           
           .admin-badge-container
             = link_to admin_content_index_path do
@@ -41,7 +41,10 @@
                     i.fa.fa-folder-o
                     '&nbsp;Content
                 .body
-                  'Tags. Genre. Blogs and other content for the site 
+                  ul
+                    li Tags
+                    li Genre 
+                    li More...
           
           .admin-badge-container
             = link_to admin_activities_path do
@@ -69,7 +72,7 @@
                 .title
                   h4
                     i.fa.fa-bullhorn
-                    '&nbsp;Development log
+                    '&nbsp;Dev. log
                 .body
                   'Latest news and progress from the development HQ
           
@@ -98,10 +101,33 @@
               .admin-badge
                 .title
                   h4
-                    i.fa.fa-bar-chart-o
+                    i.fa.fa-cogs
                     '&nbsp;System settings
                 .body
                   'Default badges
+          
+          .admin-badge-container
+            = link_to admin_opportunities_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-money
+                    '&nbsp;Opportunities
+                .body
+                  'Opportunities
+          
+          .admin-badge-container
+            = link_to admin_email_groups_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-envelope
+                    '&nbsp;Emails
+                .body
+                  ul
+                    li News mails
+                    li Campaigns
+                  
             
           
 

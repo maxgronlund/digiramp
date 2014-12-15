@@ -20,12 +20,12 @@
         /    == render 'opportunity/shared/opportunity_navigation'
         .col-sm-5
           .pull-right
-            = link_to 'Create opportunity', new_account_account_opportunity_path(@user.account), class: 'btn btn-primary'
+            == render 'opportunity/shared/opportunity_navigation'
       .sexy_line
       .opportunity
         .opportunity-badges
-          - @user.opportunities.order('deadline desc').each do |opportunity|
-            - opportunity_link = @user.account_id == opportunity.account_id ? account_account_opportunity_path(@user.account, opportunity)  : opportunity_opportunity_path(opportunity)
+          - @opportunities.each do |opportunity|
+            - opportunity_link =  opportunity_opportunity_path(opportunity)
             == render 'opportunity/opportunity', opportunity: opportunity, opportunity_link: opportunity_link
                  
               

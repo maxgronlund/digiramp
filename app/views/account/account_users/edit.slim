@@ -13,7 +13,7 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { users: account_account_account_users_path(@account) }, current:  ''}
       .account_users
         == render 'admin/shared/messages'
-        h3 #{@account.title} <funky>Pro</funky>
+        h2 #{@account.title} <funky>Pro</funky>
         'Edit account permissions for&nbsp;
         = @account_user.email
         .sexy_line

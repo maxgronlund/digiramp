@@ -11,7 +11,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) }, current: 'Invite' }
-      h3 #{@account.title} <funky>Pro</funky>
+      h2 #{@account.title} <funky>Pro</funky>
       = @opportunity.title
       .sexy_line  
       .row

@@ -1,0 +1,14 @@
+$('.old-connection-invitation').remove()
+$(".connection-invitation").append("<%= j render 'connections/connection_invitation' , receiver: @receiver, connection: @connection%>");
+
+
+$("#old_connection_<%= @connection.id %>").remove()
+$("#connection_<%= @connection.id %>").append("<%= j render 'connections/accept_dismiss_buttons' , user: @receiver, connection: @connection%>");
+
+
+$("#old_connection_status_<%= @connection.id %>").remove()
+$("#connection_status_<%= @connection.id %>").append("<%= j render 'connections/connection_status' , connection: @connection%>");
+
+
+
+

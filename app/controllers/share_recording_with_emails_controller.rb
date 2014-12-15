@@ -2,7 +2,7 @@ class ShareRecordingWithEmailsController < ApplicationController
   
   def create
     @share_recording_with_email = ShareRecordingWithEmail.create(share_recording_with_email_params)
-    @recording_id = params[:share_recording_with_email][:recording_id]
+    @recording_id               = params[:share_recording_with_email][:recording_id]
   end
 
   private

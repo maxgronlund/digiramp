@@ -5,12 +5,10 @@ class EmailValidator
   end
   
   def self.saintize email
+   
     if email.instance_of? String 
-      if validate email
-        sanitized_email = email.strip.gsub(/\s+/, ' ')
-        puts sanitized_email.downcase.gsub(' ', '')
-        return  sanitized_email.downcase.gsub(' ', '')
-      end
+      email = email.strip.gsub(/\s+/, ' ').downcase.gsub(' ', '')
+      return email if validate email
     end
     false
   end
@@ -18,7 +16,7 @@ class EmailValidator
 end
 
 # usage
-#  EmailValidator.validate email
+#  EmailValidator.validate "olivergale@gmail.com\r\n"
 # EmailValidator.saintize email
 
 # .strip.gsub(/\s+/, ' ')

@@ -1,0 +1,114 @@
+
+#wrap
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  .welcome-header
+    h1 Eco-system for music <funky>Beta</funky>
+    = link_to 'Learn more', home_index_path, class: 'btn btn-primary btn-lg'
+  .welcome
+    .container
+      
+
+            
+      .welcome-container
+        .row
+          .col-sm-4
+            / ---------------------------------------------------
+            / signup
+            .row
+              .col-sm-12
+                h3 Sign up
+                = simple_form_for(User.new)    do |f|
+                  .input-group
+                    span class="input-group-addon" @
+                    = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+                  br
+                  .input-group
+                    span class="input-group-addon" 
+                      i class= 'fa fa-key'
+                    = f.input_field :password, placeholder: 'Password', autocomplete: :off
+                
+                  br
+                  .input-group
+                    span class="input-group-addon" 
+                      i class= 'fa fa-key'
+                    = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+                  .row
+                    .col-sm-12
+                      .pull-right
+                        br
+                        = f.submit 'Sign Up', class: 'btn btn-primary', id: 'sign_up_form_button'
+                  br
+                  .sexy_line
+                  br
+                  
+                  h4 Continue with
+                  .social-icons
+                    .social-icon
+                      = link_to "/auth/twitter" do
+                        .twitter
+                        'Twitter
+                    .social-icon
+                      = link_to  "/auth/facebook" do
+                        .facebook
+                        'Facebook 
+                    .social-icon
+                      = link_to "/auth/linkedin" do
+                        .linkedin
+                        'Linkedin
+                    .social-icon
+                      = link_to  "/auth/gplus" do
+                        .google
+                        'Google+
+                
+            / ---------------------------------------------------
+            / video
+            .row
+              .col-sm-12
+                #welcome-videos
+                  iframe src="http://player.vimeo.com/video/109593195" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+            /.row
+            /  .col-sm-12
+            /    .video-container
+            /      iframe src="http://player.vimeo.com/video/109593195" width="100%" height="auto" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+          .col-sm-8
+            h3 = link_to 'Featured recordings', songs_path
+            == render 'recordings/index', recordings: @recordings
+      
+        .row
+          .col-sm-12
+            h3 = link_to 'Featured Users', users_path
+            .util-carousel.normal-imglist id="users-imglist"
+              - @users.each do |user|
+                .item
+                  = link_to user_path(user) do
+                    .recording
+                      h4 = user.user_name
+                      = image_tag user.image_url(:avatar_92x92, class: "img-lazy")
+                      .pull-right
+                        .small-symbols
+                          i class="fa fa-headphones"
+                          '&nbsp;
+                          = user.recordings.count
+                          '&nbsp;|&nbsp;
+                          i class="fa fa-heart red-heart"
+                          '&nbsp;
+                          = user.likes.count
+                          '&nbsp;|&nbsp;
+                          i class="fa fa-users"
+                          '&nbsp;
+                          = user.followers.count
+
+== render 'shared/site_footer'
+
+javascript:
+
+	$('#users-imglist').utilCarousel({
+		pagination : false,
+		navigationText : ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+		navigation : true,
+		rewind : false,
+		responsiveMode : 'itemWidthRange',
+		itemWidthRange : [140, 200],
+    lazyLoad: true
+	});

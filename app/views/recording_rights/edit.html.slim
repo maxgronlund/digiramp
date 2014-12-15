@@ -14,50 +14,55 @@
   #page-content-wrapper
     .container-fluid 
       == render 'recordings/wizard_step', step: 5
-      - @recording.attach_to_common_work
-      /= debug @recording.common_work
-      /.col-sm-6
-      /  = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_rights'), 
-      /                                           :method => 'put' do |f|
-      /    = f.input :clearance, label: '200% clearance'
-      /    = f.input :copyright,  :input_html => {  placeholder: "i.e. © 2014 Entertainment Company, Inc"}
-      /  .sexy_line
-      /  
-      /
-      /  
-
-      = simple_form_for [ @recording.account, @recording.common_work],  :html => { :id => 'common_work' } do |f|
-        = f.hidden_field :recording_id, value: @recording.id
-        = f.hidden_field :user_id, value: @recording.user_id
-        .sexy_line
-        h4 Master infromations
-        'bla
-        'bla
-        'bla
-        'bla
-        'bla
-        .sexy_line
+      - common_work = @recording.attach_to_common_work
+      = simple_form_for [ @recording.account, common_work],  :html => { :id => 'common_work' } do |f|
+        #common_work_ipis
         
-        .row
-          .col-sm-12
-            h4 Songwriters and composers
-            
-            #ipis
-              = f.simple_fields_for :ipis do |ipi|
-                = render 'recording_rights/ipi_fields', :f => ipi
-              .links
-                = link_to_add_association 'Add Intereted partiy', f, :ipis, class: 'btn btn-primary'
-        .row
-          .col-sm-12    
-            /.sexy_line
-            .pull-right
-              = link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
-              '&nbsp;
-              = f.submit 'Save', class: 'btn btn-primary please_wait'
-              
+          = f.hidden_field :recording_id, value: @recording.id
+          = f.hidden_field :user_id, value: @recording.user_id
+          .sexy_line
+          .row
+            .col-sm-8
+              h4 Master informations
+              'Songwriters and composers
+            /.col-sm-4 
+            /  .pull-right
+            /    = link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
+        
+          
+          .row
+            .col-sm-12
+              #ipis
+                = f.simple_fields_for :ipis do |ipi|
+                  = render 'recording_rights/ipi_fields', :f => ipi
+                .links
+                  = link_to_add_association 'Add Intereted partiy', f, :ipis, class: 'btn btn-primary'
+                  
+                  
+          .row
+            .col-sm-8
+            .col-sm-4              
+              b Total shares % 
+              .total_share
+              i Must equal 100%
+                  
+                
+      
+          .row
+            .col-sm-12    
+              /.sexy_line
+              br
+              .pull-right
+                = link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
+                '&nbsp;
+                = f.submit 'Save', class: 'btn btn-primary'
+                
             
             
           
         
   == render 'shared/site_footer'  
 == render 'users/shared/mobile_links'
+
+javascript:
+  bind_share_fields();

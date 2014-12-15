@@ -12,26 +12,30 @@ class UsersController < ApplicationController
   end
 
   def show
+
     
-    #@user = User.friendly.find(params[:id])
-    #channel = 'digiramp_radio_' + @user.email
-    #Pusher.trigger(channel, 'digiramp_event', {"title" => 'PROFILE UPDATED', 
-    #                                      "message" => "Your profile is #{@user.completeness} pct. complete ", 
-    #                                      "time"    => '5000', 
-    #                                      "sticky"  => 'false', 
-    #                                      "image"   => 'success'
-    #                                      })
-    # count views
-    unless current_user && @user == current_user
+    if current_user && @user != current_user
       @user.views += 1 
       @user.save
     end
-    #@activities = PublicActivity::Activity.where(owner_id: @user.id).order('created_at desc').first(10)
     
+    @user.create_activity(  :show, 
+                              owner: current_user,
+                          recipient: @user,
+                     recipient_type: @user.class.name,
+                         account_id: @user.account_id)
+   
+    ##############################################################
+    # remove asap
     if @user.account_id.nil?
-       @user.account_id = Account.where(user_id: @user.id).first.id
-       @user.save!
+      unless account = Account.where(user_id: @user.id).first
+        account = User.create_a_new_account_for_the @user
+      end
+      @user.account_id = account.id
+      @user.validate_info
+      @user.save!
     end
+    #############################################################
     session[:account_id] = @user.account_id 
     
     if current_user 
@@ -39,6 +43,7 @@ class UsersController < ApplicationController
         current_user.current_account_id  = current_user.account.id
         current_user.save!
       end
+      @playlists  = current_user.playlists
       @authorized = false
       if current_user.id == @user.id || current_user.super?
         @authorized = true

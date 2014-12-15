@@ -12,6 +12,14 @@
     .container-fluid 
       == render 'admin/shared/messages'
       == render 'recordings/wizard_step', step: 1
+      /.row
+      /  .col-sm-12
+      /    .pull-right
+      /      = link_to edit_user_recording_lyric_path(@user, @recording) do
+      /        '&nbsp;Skip
+      /        i.fa.fa-chevron-right
+      /        
+
       = simple_form_for  [@user, @recording ], url: url_for(:action => 'update', :controller => 'recording_basics'), 
                                                html: { :id => 'recording_artwork' }, 
                                                method: 'put' do |f|
@@ -61,14 +69,14 @@
     
 
         .pull-right  
-          /= f.button :submit, 'Cancel', class: 'btn btn-default please_wait', id: 'done'
+          /= f.button :submit, 'Cancel', class: 'btn btn-default', id: 'done'
           /'&nbsp;
 
           = f.button :submit,'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
           '&nbsp;
           = link_to 'Skip', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
           '&nbsp;
-          = f.button :submit, 'Save', class: 'btn btn-primary please_wait'
+          = f.button :submit, 'Save', class: 'btn btn-primary'
         /== render 'form', f: f
       = transloadit_jquerify :recording_artwork, :wait => true
       

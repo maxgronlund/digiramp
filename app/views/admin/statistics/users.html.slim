@@ -1,2 +1,56 @@
-h1 Statistics#users
-p Find me in app/views/statistics/users.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,\
+                                                              statistics: admin_statistics_path \
+                                                             }, current: ''}
+      h3 Users
+      'Created, Views and views for the last four weeks
+      .sexy_line
+
+      h4 Created
+      = line_chart @users_chart
+      
+      h4 Logged in
+      = line_chart @users_sessions_chart
+      
+      h4 Views
+      = line_chart @views_chart
+      
+      h4 Following
+      = line_chart @relationships_chart
+      
+      h4 Connections
+      = line_chart @connections_chart
+      
+      h4 Messages
+      = line_chart @messages_chart
+      
+      
+      
+      
+      
+      /h4 Playbacks
+      /= line_chart @playback_chart
+      /
+      /h4 Views
+      /= line_chart @views_chart
+      /
+      /h4 Likes
+      /= line_chart @likes_chart
+      
+          
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'

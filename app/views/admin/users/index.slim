@@ -13,7 +13,7 @@
       .row
         .col-sm-5
 
-          h3 Users
+          h2 Users
       
         .col-sm-7
           .search-recording
@@ -28,9 +28,9 @@
                                               :placeholder => 'Search for user', \
                                               value: params[:query]
                 .input-group-btn
-                  = f.submit 'Search', class: "btn btn-primary please_wait"
+                  = f.submit 'Search', class: "btn btn-primary"
                   '&nbsp;
-                  = link_to 'Clear', admin_users_path, class: 'btn btn-default please_wait'        
+                  = link_to 'Clear', admin_users_path, class: 'btn btn-default'        
             
                  
       .sexy_line
@@ -39,9 +39,11 @@
           table class="table table-hover"
             thead
               tr
-                th Admin
+                th 
+                th Plan
+                th Joined
                 th Role
-                th Administrator
+                th Admin
                 th Id
             tbody
               - @users.each do |user|
@@ -59,15 +61,29 @@
                     = link_to edit_admin_user_path( user) do 
                       .btn.btn-default.btn-xs
                         i class="fa fa-pencil"
+                    '&nbsp;
+                    -if user.account
+                      = link_to account_account_path( user.account) do 
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-tachometer
+                          '&nbsp;
+                          'Pro
+                    -else
+                      .btn.btn-warning.btn-xs
+                        i.fa.fa-frown-o 
                         '&nbsp;
-                        'Edit
+                        'Err
+                        
                     '&nbsp;
                     = link_to user_path(user) do 
-                      .btn.btn-default.btn-xs
-                        i class="fa fa-tachometer"
+                      .btn.btn-default.btn-xs style="width: 180px; text-align: left;"
+                        i class="fa fa-user" 
                         '&nbsp;
-                        = user.email
-     
+                        = user.short_email
+                  td 
+                    -if user.account
+                      = user.account.account_type
+                  td = user.created_at.strftime("%Y-%m-%d")
                   td = user.role
                   td 
                     - if user.administrator

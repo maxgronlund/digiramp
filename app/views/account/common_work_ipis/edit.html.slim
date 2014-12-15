@@ -11,13 +11,13 @@
       
       
       /==render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              assets: account_assets_path(@account), \
-                                                              'Common Works'.to_sym => account_works_path(@account), \
-                                                              @common_work.title.to_sym => account_work_path(@account, @common_work), \
-                                                              }, current: 'edit ip'}
-                                                              
-      
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+      /                                                        assets: account_assets_path(@account), \
+      /                                                        'Common Works'.to_sym => account_works_path(@account), \
+      /                                                        @common_work.title.to_sym => account_work_path(@account, @common_work), \
+      /                                                        }, current: 'edit ip'}
+      /                                                        
+      /
       
       == render 'shared/page_title', locals: {blog: Blog.cached_find('IP'), blog_post: 'Edit Interested Party'}
       = simple_form_for [@account, @common_work, @common_work_ip], :url => url_for(:action => 'update', :controller => 'common_work_ipis'), :method => 'put' do |f|

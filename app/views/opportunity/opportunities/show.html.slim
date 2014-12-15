@@ -10,21 +10,18 @@
   #page-content-wrapper
     .container-fluid 
       .row
-        .col-sm-7
+        .col-sm-8
           h3 Opportunity
           = @opportunity.title
-        .col-sm-5
-          .title-info
-            'This opportunity is managed by
-            h4 = @opportunity.account.title
-            - account_user = AccountUser.where(user_id: current_user.id, account_id: @opportunity.account_id).first
-            - if account_user && account_user.update_opportunity
-              .pull-right
-                = link_to account_account_opportunity_path(@opportunity.account, @opportunity) do
-                  .btn.btn-primary.btn-xs
-                    i.fa.fa-pencil
-                      '&nbsp;
-                      'Manage
+        .col-sm-4
+          - account_user = AccountUser.where(user_id: current_user.id, account_id: @opportunity.account_id).first
+          - if account_user && account_user.update_opportunity
+            .pull-right
+              = link_to account_account_opportunity_path(@opportunity.account, @opportunity) do
+                .btn.btn-primary
+                  i.fa.fa-pencil
+                    '&nbsp;
+                    'Manage
                 
             
       .sexy_line

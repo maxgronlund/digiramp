@@ -9,20 +9,28 @@ class Account::ClientGroupsController < ApplicationController
   # GET /client_groups.json
   def index
     @client_groups = ClientGroup.all
+    @user = @account.user
+    @authorized = true
   end
 
   # GET /client_groups/1
   # GET /client_groups/1.json
   def show
+    @user = @account.user
+    @authorized = true
   end
 
   # GET /client_groups/new
   def new
     @client_group = ClientGroup.new
+    @user = @account.user
+    @authorized = true
   end
 
   # GET /client_groups/1/edit
   def edit
+    @user = @account.user
+    @authorized = true
   end
 
   # POST /client_groups
@@ -54,14 +62,21 @@ class Account::ClientGroupsController < ApplicationController
   def import_client_emails
     emails = params[:emails].split(',')
     emails.each do |email|
-      client = Client.where(email:email).first_or_create(email:email, name:email, show_alert: true)
-      ClientGroupsClients.where(client_group_id: @client_group.id, client_id: client.id
-                                ).first_or_create(client_group_id: @client_group.id,
-                                client_id: client.id)
+      
+      if EmailValidator.saintize email
+      
+        client = Client.where(email:email).first_or_create(email:email, name:email, show_alert: true)
+        
+        ClientGroupsClients.where(client_group_id: @client_group.id, client_id: client.id
+                                  ).first_or_create(client_group_id: @client_group.id,
+                                  client_id: client.id)
+      end
     end  
     redirect_to account_account_client_group_path(@account.id, @client_group.id)
       
-  end  
+  end
+  
+     
 
   def remove_member
     client_groups_client = ClientGroupsClients.where(id: params[:client_group_client_id].to_i, client_group_id: @client_group.id).first

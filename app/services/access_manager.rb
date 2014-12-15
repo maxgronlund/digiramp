@@ -83,26 +83,26 @@ class AccessManager
                                .first_or_create(account_id: account.id, user_id: account.user.id, role: 'Account Owner')
     # downgrade the owner
     account_owner.grand_basic_permissions
-    make_zebulon_admin account
+    #make_zebulon_admin account
 
   end
   
-  def self.make_zebulon_admin account
-    # this is a temporary thing to make peter administrator for all accounts
-    # notice it's required that zwbulon is super
-    if zebulon                      = User.where(email: 'peter@musicintomedia.com').first
-      if account_administrator      = AccountUser.where(account_id: account.id, user_id: zebulon.id).first 
-        # update the administrator
-        account.administrator_id = zebulon.id
-        account.save!
-        # update the role
-        account_administrator       = AccountUser.where(account_id: account.id, user_id: zebulon.id).first 
-        zebulon.role= 'Administrator'
-        account_administrator.save!
-      end
-    end
-    
-  end
+  #def self.make_zebulon_admin account
+  #  # this is a temporary thing to make peter administrator for all accounts
+  #  # notice it's required that zwbulon is super
+  #  if zebulon                      = User.where(email: 'peter@musicintomedia.com').first
+  #    if account_administrator      = AccountUser.where(account_id: account.id, user_id: zebulon.id).first 
+  #      # update the administrator
+  #      account.administrator_id = zebulon.id
+  #      account.save!
+  #      # update the role
+  #      account_administrator       = AccountUser.where(account_id: account.id, user_id: zebulon.id).first 
+  #      zebulon.role= 'Administrator'
+  #      account_administrator.save!
+  #    end
+  #  end
+  #  
+  #end
 
 
 end
