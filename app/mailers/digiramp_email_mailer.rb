@@ -11,21 +11,29 @@ class DigirampEmailMailer < ActionMailer::Base
   def news_email digiramp_email_id
     
     @digiramp_email = DigirampEmail.find(digiramp_email_id)
+    @email_group    = @digiramp_email.email_group
     
     receipients = []
-    @digiramp_email.recipients.split(',').each_with_index do |receipient, index|
-      receipients[index]  = receipient.gsub(' ', '')
+    index = 0
+    @email_group.users.each do |user|
+      
+      if email = EmailValidator.saintize( user.email )
+        receipients[index] = email
+        index += 1
+      end
+      
     end
-    
-    #headers['X-SMTPAPI'] = '{ "to": ' +  receipients.to_s + '}'
-    ap '{"to": '+ receipients.to_s + '}'
-    
-    ap '{"to": ["max@pixelsonrails.com", "test01@pixelsonrails.com"]}'
+
 
      
     
     
     @image_1 = (URI.parse(root_url) + @digiramp_email.image_1_url(:banner_558x90)).to_s
+    
+    #@unsibscribe_link = url_for unsubscribe_index_path(uuid: @digiramp_email.email_group.uuid)
+    link = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
+    
+    @unsibscribe_link = (URI.parse(root_url) + link).to_s
     
     
     headers['X-SMTPAPI'] = '{ "to": '+ receipients.to_s + '}'

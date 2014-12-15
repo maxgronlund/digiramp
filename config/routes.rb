@@ -3,6 +3,10 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+
+  resources :unsubscribes
+
   resources :homes
   
   get "home/index"
@@ -333,6 +337,9 @@ Digiramp::Application.routes.draw do
 
   # Example resource route within a namespace:
   namespace :admin do
+    
+    
+    
     resources :front_end_contents, only: [:edit, :update]
     resources :widget_themes
     get 'repair_permissions'
@@ -341,9 +348,13 @@ Digiramp::Application.routes.draw do
     resources :contacts
     resources :default_images
     
+
     resources :email_groups do
+      get 'add_all_members'
+      get 'remove_all_subscribers'
       resources :digiramp_emails
-      resources :email_recipients, only: [:edit, :update]
+      resources :email_recipients
+      
     end
     resources :email_group_recipients, only: [:edit, :update]
     

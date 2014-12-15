@@ -1,0 +1,2 @@
+module AddUsersToEmailGroupsHelper
+end

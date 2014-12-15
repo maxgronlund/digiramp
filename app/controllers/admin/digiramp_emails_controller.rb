@@ -1,3 +1,5 @@
+
+
 class Admin::DigirampEmailsController < ApplicationController
   before_action :set_digiramp_email, only: [:show, :edit, :update, :destroy]
   before_filter :admin_only
@@ -7,6 +9,8 @@ class Admin::DigirampEmailsController < ApplicationController
 
   def show
      @email_group    = EmailGroup.find(params[:email_group_id])
+    #@unsibscribe_link = url_for unsubscribe_index_path(uuid: @digiramp_email.email_group.uuid)
+    @unsibscribe_link =    unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
   end
 
   def new

@@ -29,9 +29,9 @@
                   - if @digiramp_email.body_2 != ''
                 	  = simple_format  @digiramp_email.body_2
                   - if @digiramp_email.link_1_title != ''
-                	  table
+                    table
                       tr
-                        td class="padding"
+                        td.padding
                           p
                             = link_to @digiramp_email.link_1 do
                               .btn.btn-primary
@@ -42,8 +42,7 @@
                     h3 =  @digiramp_email.title_3
                   - if @digiramp_email.body_3 != ''
                     = simple_format  @digiramp_email.body_3
-                  /a href="http://twitter.com/leemunroe"
-                  /  'Follow @leemunroe on Twitter
+
               
               
 
@@ -58,7 +57,7 @@
                 tr
                   td align="center"
                     'Don't like these annoying emails? 
-                    a href="#"
+                    a href="#{@unsibscribe_link}"
                       unsubscribe
                         'Unsubscribe
 

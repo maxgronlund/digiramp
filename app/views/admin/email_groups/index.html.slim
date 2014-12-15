@@ -26,6 +26,7 @@
               tr
                 th Title
                 th Receipients
+                th Edit Recipients
                 th Emails
 
             tbody
@@ -46,7 +47,10 @@
                           '&nbsp;
                           = email_group.title
                   
-                  td = link_to 'Recipients', edit_admin_email_group_recipient_path(email_group), class: 'btn btn-default btn-xs'
+                  td = email_group.mail_list_subscribers.count
+                  td 
+                    = link_to 'Recipients', admin_email_group_email_recipients_path(email_group), class: 'btn btn-default btn-xs'
+                    
                   td = email_group.digiramp_emails.count
 
 

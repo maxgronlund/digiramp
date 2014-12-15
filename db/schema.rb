@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141213072021) do
+ActiveRecord::Schema.define(version: 20141215205335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -787,7 +787,6 @@ ActiveRecord::Schema.define(version: 20141213072021) do
     t.string   "link_2_title",   default: ""
     t.string   "link_3",         default: ""
     t.string   "link_3_title",   default: ""
-    t.text     "recipients",     default: ""
     t.boolean  "delivered",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -815,11 +814,11 @@ ActiveRecord::Schema.define(version: 20141213072021) do
   add_index "documents", ["account_id"], name: "index_documents_on_account_id", using: :btree
 
   create_table "email_groups", force: true do |t|
-    t.string   "title",            default: ""
-    t.text     "body",             default: ""
+    t.string   "title",      default: ""
+    t.text     "body",       default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "email_recipients", default: ""
+    t.string   "uuid"
   end
 
   create_table "emails", force: true do |t|
@@ -1324,6 +1323,16 @@ ActiveRecord::Schema.define(version: 20141213072021) do
   add_index "mail_campaigns", ["mail_layout_id"], name: "index_mail_campaigns_on_mail_layout_id", using: :btree
   add_index "mail_campaigns", ["project_id"], name: "index_mail_campaigns_on_project_id", using: :btree
   add_index "mail_campaigns", ["user_id"], name: "index_mail_campaigns_on_user_id", using: :btree
+
+  create_table "mail_list_subscribers", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "email_group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "mail_list_subscribers", ["email_group_id"], name: "index_mail_list_subscribers_on_email_group_id", using: :btree
+  add_index "mail_list_subscribers", ["user_id"], name: "index_mail_list_subscribers_on_user_id", using: :btree
 
   create_table "mail_messages", force: true do |t|
     t.string   "identifier"

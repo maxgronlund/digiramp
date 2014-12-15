@@ -20,7 +20,8 @@
           
         .col-sm-4
           .pull-right
-            = link_to 'New email', new_admin_email_group_digiramp_email_path( @email_group), class: 'btn btn-primary'
+            = link_to @email_group.mail_list_subscribers.count.to_s + ' Recipients', admin_email_group_email_recipients_path(@email_group), class: 'btn btn-default'
+            =< link_to 'New email', new_admin_email_group_digiramp_email_path( @email_group), class: 'btn btn-primary'
       .sexy_line
 
             
@@ -35,7 +36,6 @@
                     th Subject
                     th Email layout
                     th Status
-                    th Recipients
                     th Deliver
                 
                 
@@ -61,7 +61,6 @@
                         '&nbsp;
                         = link_to digiramp_email.subject, admin_email_group_digiramp_email_path(@email_group, digiramp_email), class: 'btn btn-default btn-xs'
                       td = digiramp_email.layout
-                      td = link_to 'Recipients', edit_admin_email_group_email_recipient_path(@email_group, digiramp_email), class: 'btn btn-default btn-xs'
                       td 
                         - if digiramp_email.delivered
                           'Delivered:&nbsp;

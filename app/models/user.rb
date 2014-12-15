@@ -127,9 +127,12 @@ class User < ActiveRecord::Base
   has_many :connections
   has_many :connected, :through => :connections
 
-  
+  # posts on the wall
   has_many :wall_posts, :through => :follower_event_users, :source => :follower_event
   has_many :follower_event_users
+  
+  has_many :mail_list_subscribers, dependent: :destroy
+  has_many :email_groups, through: :mail_list_subscribers
   
   def short_email
     short_email = self.email.slice(0...24)
