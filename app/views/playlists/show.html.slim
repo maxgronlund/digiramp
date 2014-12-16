@@ -19,12 +19,14 @@
                 = image_tag( @playlist.playlist_image_url :image_470x250)
               .playlist-info
                 = @playlist.body
-                br
-                = link_to edit_user_playlist_path(@user, @playlist) do
-                  .btn.btn-default
-                    i.fa.fa-pencil
-                    '&nbsp;Edit
-                br
+                - if current_user
+                  -if current_user.id == @playlist.user_id || can_edit?
+                    br
+                    = link_to edit_user_playlist_path(@user, @playlist) do
+                      .btn.btn-default
+                        i.fa.fa-pencil
+                        '&nbsp;Edit
+                  br
         - if current_user
           -if current_user.id == @playlist.user_id || can_edit?
             .row
