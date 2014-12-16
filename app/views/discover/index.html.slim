@@ -17,19 +17,17 @@
             h4 More Recordings
             = image_tag 'recording-covers.jpg'
       li 
-        .avatars
-          h4 More users
-          = link_to users_path(@user) do
-            -@users.last(36).each do |avatar|
-              .micro-avatar
-                = image_tag avatar.image_url(:avatar_32x32)
-            /i class="fa fa-users"
-          /'&nbsp;
-          /'Users
+        .covers        
+          = link_to songs_path(@user) do
+            h4 More Users
+            = image_tag 'user-badges.jpg'
+        /.avatars
+        /  h4 More users
+        /  = link_to users_path(@user) do
+        /    -@users.last(36).each do |avatar|
+        /      .micro-avatar
+        /        = image_tag avatar.image_url(:avatar_32x32)
 
-      /li Most popular
-      /li Reccomendednted
-      /== render 'users/shared/sidebar', selected: 'playlists'
   
   #page-content-wrapper
     .container-fluid
