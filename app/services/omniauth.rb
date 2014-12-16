@@ -130,8 +130,8 @@ private
                                           )
         # grand some permissions
         account_user.grand_basic_permissions                  
-        user.name       = info["name"] + '_' + ( User.last.id + 1 ).to_s
-        user.user_name  = user.name
+        user.name       = info["name"] + '_' + ( User.last.id + 1 ).to_s if user.name.to_s == ''
+        user.user_name  = user.name if user.user_name.to_s == ''
         user.account_id = account.id
         user.save!
         
