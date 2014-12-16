@@ -6,7 +6,8 @@ class ContactsController < ApplicationController
   end
 
   # GET /contacts/new
-  def new
+  def new 
+    
     @contact = Contact.new
   end
 

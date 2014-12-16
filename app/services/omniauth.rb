@@ -85,19 +85,18 @@ private
       info = env[:info]
       if email = info[:email]
         email_missing = false
-        if User.where(email: email).present?
-          return {user: nil, message: 'Unable to create account, Email already in usage'}
-        end
+        user = User.where(email: email).first
       end
     end
     
-    user = User.create(  name:           env["info"]["nickname"], 
-                         password:       UUIDTools::UUID.timestamp_create().to_s, 
-                         social_avatar:  env[:info][:image],
-                         email:          email,
-                         email_missing:  email_missing,
-                         user_name:      env[:info][:name])
-                              
+    unless user
+      user = User.create(  name:           env["info"]["nickname"], 
+                           password:       UUIDTools::UUID.timestamp_create().to_s, 
+                           social_avatar:  env[:info][:image],
+                           email:          email,
+                           email_missing:  email_missing,
+                           user_name:      env[:info][:name])
+    end                          
     return {user: user, message: "#{env["provider"].upcase} has created a DigiRAMP account for you"}
   end
   
@@ -131,7 +130,8 @@ private
                                           )
         # grand some permissions
         account_user.grand_basic_permissions                  
-        user.name       = info["name"]
+        user.name       = info["name"] + '_' + ( User.last.id + 1 ).to_s
+        user.user_name  = user.name
         user.account_id = account.id
         user.save!
         
