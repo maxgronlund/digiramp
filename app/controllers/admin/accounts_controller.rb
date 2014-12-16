@@ -4,6 +4,7 @@ class Admin::AccountsController < ApplicationController
   
   def index
     @accounts   = Account.activated.search(params[:query]).order('lower(title) ASC').page(params[:page]).per(50)
+    @user = current_user
   end
   
   def show
