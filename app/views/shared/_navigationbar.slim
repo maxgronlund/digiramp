@@ -13,23 +13,22 @@
       = image_tag 'logo3.png', size: "50x50", class: 'small-logo'
         
       
-    .global-player
-      .global-stop-button
-        i.fa.fa-pause
-      .global-play-button
-        i.fa.fa-play
-      .global-spinner
-        i.fa.fa-spinner.fa-spin
+    /.global-player
+    /  .global-stop-button
+    /    i.fa.fa-pause
+    /  .global-play-button
+    /    i.fa.fa-play
+    /  .global-spinner
+    /    i.fa.fa-spinner.fa-spin
 
         
         
-      .title
-        h3 class='global-player-song-title'
-          '&nbsp;
-        h6 class='global-player-song-artist'
-          '&nbsp;
-      /= link_to "#menu-toggle", id: "menu-toggle" do
-      /  i class="fa fa-caret-square-o-left"
+      /.title
+      /  h3 class='global-player-song-title'
+      /    '&nbsp;
+      /  h6 class='global-player-song-artist'
+      /    '&nbsp;
+
 
       
 
@@ -39,9 +38,9 @@
     ul class="nav navbar-nav navbar-right"   
       li.discover-back
         = link_to discover_index_path do
-          i class="fa fa-globe"
+          i class="fa fa-search"
           '&nbsp;
-          'Discover
+          'Search
       - if user_signed_in? && current_account
         li
           

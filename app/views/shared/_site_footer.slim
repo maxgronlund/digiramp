@@ -1,14 +1,27 @@
-
-#site-footer    
-  - blog        = Blog.cached_find('Footer')
-  - blog_post   = BlogPost.cached_find( 'Front End' , blog  )
-  = blog_post.teaser
-  '&nbsp;
-  
-  = link_to 'Terms And Conditions', terms_and_conditions_path
-  -if can_edit?
-    '&nbsp;
-    = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
-       i class="fa fa-pencil"
-  '&nbsp;&nbsp;|&nbsp;&nbsp;
-  = link_to 'Contact Us', new_contact_path
+#bottom-player
+  .global-player
+    .global-stop-button
+      i.fa.fa-pause
+    .global-play-button
+      i.fa.fa-play
+    .global-spinner
+      i.fa.fa-spinner.fa-spin
+      
+    .title
+      h3 class='global-player-song-title'
+        '&nbsp;
+      h6 class='global-player-song-artist'
+        '&nbsp;
+/#site-footer    
+/  - blog        = Blog.cached_find('Footer')
+/  - blog_post   = BlogPost.cached_find( 'Front End' , blog  )
+/  = blog_post.teaser
+/  '&nbsp;
+/  
+/  = link_to 'Terms And Conditions', terms_and_conditions_path
+/  -if can_edit?
+/    '&nbsp;
+/    = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+/       i class="fa fa-pencil"
+/  '&nbsp;&nbsp;|&nbsp;&nbsp;
+/  = link_to 'Contact Us', new_contact_path
