@@ -3,7 +3,8 @@ Digiramp::Application.routes.draw do
 
 
 
-  
+
+  resources :reprocess_recordings, only: [:show]
 
   resources :unsubscribes
 
@@ -47,6 +48,7 @@ Digiramp::Application.routes.draw do
   #scope "api" do
   #  resources :digi_wham_resources
   #end
+  
   resources :embed, only: [:index, :show]
   resources :gitter, only: [:index]
 
@@ -295,6 +297,7 @@ Digiramp::Application.routes.draw do
     resources :recording_personas, only: [:edit, :update]
     resources :recording_tags, only: [:edit, :update]
     resources :recording_rights, only: [:edit, :update]
+    resources :recording_uploads, only: [:edit, :update]
     resources :recording_lyrics, only: [:edit, :update]
     resources :recording_playbacks, only: [:show]
     
