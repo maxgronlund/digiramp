@@ -13,23 +13,69 @@
         .row
           .col-sm-7
             h3 Message center
-            'Received messages
+            'All messages
           .col-sm-5
             .pull-right
               ul.nav.nav-pills
-                li class="active"
-                  = link_to 'Received', "#"
+                li  
+                  = link_to 'Received', user_received_messages_path(@user)
                 li
                   = link_to 'Send', user_send_messages_path(@user)
-                li 
-                  = link_to 'All', user_messages_path(@user)
+                li class="active"
+                  = link_to 'All', "#"
 
         .sexy_line
-        - @user.received_massages.each do |received_message|
-          == render 'messages/message', message: received_message
-            
+        table
+        
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th
+                th 
+                th 
+                th
+                th Subject
 
-
+            tbody
+              - @user.received_massages.each.each do |message|
+                == render 'messages/message', message: message
+      
                 
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
+/#wrapper
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'home' 
+/  
+/  
+/  #sidebar-wrapper
+/    ul class="sidebar-nav"
+/      == render 'users/shared/sidebar', selected: 'user'
+/  
+/  #page-content-wrapper
+/    .container-fluid
+/      .messages
+/        .row
+/          .col-sm-7
+/            h3 Message center
+/            'Received messages
+/          .col-sm-5
+/            .pull-right
+/              ul.nav.nav-pills
+/                li class="active"
+/                  = link_to 'Received', "#"
+/                li
+/                  = link_to 'Send', user_send_messages_path(@user)
+/                li 
+/                  = link_to 'All', user_messages_path(@user)
+/
+/        .sexy_line
+/        - @user.received_massages.each do |received_message|
+/          == render 'messages/message', message: received_message
+/            
+/
+/
+/                
+/  == render 'shared/site_footer'    
+/== render 'users/shared/mobile_links'

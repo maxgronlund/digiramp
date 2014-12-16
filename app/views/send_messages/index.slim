@@ -13,24 +13,70 @@
         .row
           .col-sm-7
             h3 Message center
-            'Send mesages
+            'All messages
           .col-sm-5
             .pull-right
               ul.nav.nav-pills
                 li  
                   = link_to 'Received', user_received_messages_path(@user)
-                li class="active"
-                  = link_to 'Send', "#"
                 li
-                  = link_to 'All', user_messages_path(@user)
+                  = link_to 'Send', user_send_messages_path(@user)
+                li class="active"
+                  = link_to 'All', "#"
 
         .sexy_line
-        - @user.send_massages.each do |send_message|
-           == render 'messages/send_from', received_message: send_message
-              
-                   
+        table
+        
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th
+                th 
+                th 
+                th
+                th Subject
+
+            tbody
+              - @user.send_massages.each.each do |message|
+                == render 'messages/message', message: message
+      
                 
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
+/#wrapper
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'home' 
+/  
+/  
+/  #sidebar-wrapper
+/    ul class="sidebar-nav"
+/      == render 'users/shared/sidebar', selected: 'user'
+/  
+/  #page-content-wrapper
+/    .container-fluid
+/      .messages
+/        .row
+/          .col-sm-7
+/            h3 Message center
+/            'Send mesages
+/          .col-sm-5
+/            .pull-right
+/              ul.nav.nav-pills
+/                li  
+/                  = link_to 'Received', user_received_messages_path(@user)
+/                li class="active"
+/                  = link_to 'Send', "#"
+/                li
+/                  = link_to 'All', user_messages_path(@user)
+/
+/        .sexy_line
+/        /- @user.send_massages.each do |send_message|
+/        /   == render 'messages/send_from', received_message: send_message
+/              
+/                   
+/                
+/  == render 'shared/site_footer'    
+/== render 'users/shared/mobile_links'
 
 /id desc').first(64)

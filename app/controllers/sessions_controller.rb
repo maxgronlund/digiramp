@@ -100,9 +100,7 @@ private
     session[:user_id]     = user.id
     session[:account_id]  = user.account_id
     
-    
-    ap user 
-    
+        
     unless account        = Account.where(user_id: user.id).first
       account             = User.create_a_new_account_for_the user
     end
