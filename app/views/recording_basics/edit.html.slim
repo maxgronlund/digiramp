@@ -33,8 +33,8 @@
             b Original file:
             br
             = @recording.original_file_name
-            /br
-            /= link_to 'Replace', '#', class: 'btn btn-default btn-xs'
+            br
+            = link_to 'Replace', edit_user_recording_upload_path(@user, @recording), class: 'btn btn-default btn-xs'
             .sexy_line
             .fileinput.fileinput-new data-provides="fileinput"
               .fileinput-new.thumbnail style="width: 184px; height: 184px;"

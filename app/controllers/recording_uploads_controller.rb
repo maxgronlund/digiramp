@@ -14,61 +14,44 @@ class RecordingUploadsController < ApplicationController
   end
 
   def update
+    
+    result = TransloaditRecordingsParser.update params[:transloadit], params[:id]
+    #result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account_id, false, @user.id)
 
-    go_to = params[:recording][:next_step]
-    params[:recording].delete :next_step
+    title = params[:recording][:title]
 
-    @recording      = Recording.find(params[:id])
-
-    params[:recording][:uuid] = UUIDTools::UUID.timestamp_create().to_s
-
-    if @genre_category = params[:recording][:genre_category]
-      params[:recording].delete :genre_category
-    end
-
-    if @recording.update_attributes(recording_params)
-         
-      @recording.extract_genres
-      @recording.extract_instruments
-      @recording.extract_moods
-
-      # artwork
-      if params[:transloadit]
-        if artworks = TransloaditImageParser.artwork( params[:transloadit], @user.account_id)
-          # if there is no artwork file
-          if artworks == []
-            # if a drop down item is selected
-            if params[:recording][:image_file_id].to_s != ''   
-              artwork = Artwork.cached_find(params[:recording][:image_file_id])
-              @recording.cover_art  = artwork.thumb
-              @recording.save!
-            end
-          else
-            # add the uploaded artwork
-            # notice there is only one artwork file
-            artworks.each do |artwork|
-                                  
-              RecordingItem.create( recording_id: @recording.id, 
-                                    itemable_type: 'Artwork',
-                                    itemable_id: artwork.id)
-                                  
-              @recording.cover_art      = artwork.thumb
-              @recording.image_file_id  = artwork.id
-              @recording.save!
-            end
-          end 
-        end
-      end
-
-
-      @recording.common_work.update_completeness if @recording.common_work
+    
+    if result[:recordings].size != 0
       
-    end
-    if go_to == 'next_step'
-      redirect_to edit_user_recording_lyric_path( @user, @recording )
+      result[:recordings].each do |recording|
+        
+                  
+        #current_user.create_activity(  :created, 
+        #                           owner: recording,
+        #                       recipient: @user,
+        #                  recipient_type: 'Recording',
+        #                      account_id: current_user.account_id) 
+        #                      
+        #
+        #common_work = CommonWork.create(account_id: recording.account_id, 
+        #                                title: recording.title, 
+        #                                lyrics: recording.lyrics)
+        #
+        #           
+        #recording.common_work_id = common_work.id
+        #recording.title = title unless title == 'no title'
+        #recording.save
+        #recording.common_work.update_completeness
+        @recording = recording
+
+      end
+      redirect_to edit_user_recording_basic_path(@user, @recording)
     else
-      redirect_to user_recording_path( @recording.user, @recording )
+      flash[:danger]      = { title: "Unknown fileformat", body: "Please check it's a real audio file you are uploading" }
+      redirect_to new_user_recording_path(@user)
     end
+    
+    
   end
   
   

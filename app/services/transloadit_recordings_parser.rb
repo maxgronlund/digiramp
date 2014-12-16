@@ -252,4 +252,114 @@ class TransloaditRecordingsParser
   end
   
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  def self.update uploads, recording_id
+
+    transloadets  = extract( uploads )
+    
+
+    recordings  = []
+    errors      = []
+    if transloadets.nil?
+      errors << 'No files uploaded'
+    else
+      
+      transloadets.each do |transloaded|
+        
+        #puts '*********************************************************'
+        #ap transloadets
+        #puts '*********************************************************'
+      
+        #begin
+          recording = Recording.cached_find(recording_id)
+          
+          #recording.title               = extract_title_from( transloaded )
+          #recording.duration            = transloaded[:duration]
+          #recording.artist              = transloaded[:artist]
+          #recording.lyrics              = sanitize_lyrics( transloaded[:lyrics] )
+          #recording.bpm                 = transloaded[:bpm],
+          #recording.comment             = sanitize_comment( transloaded[:comment] )
+          #recording.year                = transloaded[:year]
+          #recording.album_name          = transloaded[:album]
+          #recording.genre               = transloaded[:genre]
+          #recording.performer           = transloaded[:performer]
+          #recording.band                = transloaded[:band]
+          #recording.disc                = transloaded[:disc]
+          #recording.track               = transloaded[:track]
+          recording.mp3                 = transloaded[:mp3]
+          recording.waveform            = transloaded[:waveform]
+          recording.thumbnail           = transloaded[:thumbnail]
+          #recording.#copyright:           transloaded[:copyright],
+          #recording.#composer:            transloaded[:composer],
+          #recording.account_id          = account_id
+          recording.audio_upload        = transloaded
+          recording.original_file       = transloaded[:original_file]
+          #recording.cover_art           = transloaded[:cover_art]
+          recording.artwork             = transloaded[:artwork]
+          recording.ssl_url             = transloaded[:ssl_url]
+          recording.url                 = transloaded[:url]
+          recording.ext                 = transloaded[:ext]
+          recording.original_file_name  = transloaded[:original_file_name]
+          #recording.in_bucket           = in_bucket
+          recording.zipp                = transloaded[:zipp]
+          #recording.user_id             = user_id
+          recording.save!                                 
+          
+          
+          
+          #if account_id
+          #  add_artwork_to recording
+          #  recording.extract_genres                                 
+          #  recording.update_completeness
+          #end
+          recordings << recording
+        #rescue
+        #  errors << "!Unable to import: #{transloaded[:name]}"
+        #end
+      
+      
+      end
+    end
+    { recordings: recordings, errors: errors }
+  end
+
+  def self.add_artwork_to recording
+    
+    
+
+    artwork = Artwork.create!(  title:      recording.title,
+                                body:       recording.comment,
+                                account_id: recording.account_id, 
+                                thumb:      recording.cover_art, 
+                                file:       recording.artwork
+                              )
+    # add artwork to recording
+    RecordingItem.create( itemable_type: 'Artwork', 
+                          itemable_id:   artwork.id, 
+                          recording_id: recording.id
+                          )
+    
+    
+  end
+  
+  
+  
+  
 end

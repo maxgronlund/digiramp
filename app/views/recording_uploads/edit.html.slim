@@ -17,7 +17,9 @@
       == render 'shared/flash_message'
       .sexy_line
       br
-      = simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
+      = simple_form_for [@user, @recording], url: url_for(:action => 'update', :controller => 'recording_uploads'), 
+                                               html: { :id => 'audio_files' }, 
+                                               method: 'put' do |f|
         .row
           .col-sm-8.col-lg-6
             = transloadit :recording_with_thumbs 
