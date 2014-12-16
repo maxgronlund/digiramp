@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141215205335) do
+ActiveRecord::Schema.define(version: 20141216000511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1667,6 +1667,8 @@ ActiveRecord::Schema.define(version: 20141215205335) do
     t.string   "default_widget_key"
     t.integer  "default_widget_id"
     t.string   "playlist_image",     default: ""
+    t.boolean  "downloadable",       default: false
+    t.string   "downloadkey",        default: ""
   end
 
   add_index "playlists", ["account_id"], name: "index_playlists_on_account_id", using: :btree

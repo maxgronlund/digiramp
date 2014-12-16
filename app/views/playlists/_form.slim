@@ -1,50 +1,55 @@
 /.panel
 /  .panel-body
-
 = simple_form_for [@user, @playlist] do |f|
-
-  = f.hidden_field :user_id, value: @user.id
-  /= f.hidden_field :playlist_id, value: @playlist.id
-  = f.input :title
-  
-  
-  
-  .fileinput.fileinput-new data-provides="fileinput"
-    .fileinput-new.thumbnail style="width: 470px; height: 250px;"
-      = image_tag @playlist.playlist_image_url(:image_470x250), size: '470x250'
-
-    div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 470px; max-height: 250px;"
-    div
-      span.btn.btn-default.btn-file
-        span class="fileinput-new"
-          'Select image 470x250
-        '&nbsp;
-        span class="fileinput-exists"
-          'Change 470x250
-        = f.file_field :playlist_image
-
-      '&nbsp;
-      a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-        'Remove
-
-  br
-  br
-  br
-
-  = f.input :body
-  /= f.association :recordings, collection: @recordings
-  = f.association :recordings, collection: @recordings, include_blank: true, label: 'Select from your Recordings', input_html: { class: 'chosen-select' }
-  
-  
-  /= f.association :recordings, collection: @recordings,  include_blank: false, input_html: { class: 'tokenize' }
-  /
-  /= f.association :recordings, collection: @recordings,  include_blank: false, input_html: { class: 'tokenize' }, as: :text
-  /<%= f.label :author_ids, "Authors" %><br />
-  /= f.collection_select :playlist_recording_ids, @recordings, :id, :title, {}, {multiple: true} 
-  - if  @playlist.new_record?
-    = link_to 'Cancel', user_playlists_path(@user), class: 'btn btn-default'
-  -else
-    = link_to 'Cancel', user_playlist_path(@user, @playlist), class: 'btn btn-default'
-  '&nbsp;
-  = f.submit 'Save', class: 'btn btn-primary'
+  .row
+    .col-sm-6
+      = f.hidden_field :user_id, value: @user.id
+      /= f.hidden_field :playlist_id, value: @playlist.id
+      = f.input :title
       
+      
+      
+      .fileinput.fileinput-new data-provides="fileinput"
+        .fileinput-new.thumbnail style="width: 470px; height: 250px;"
+          = image_tag @playlist.playlist_image_url(:image_470x250), size: '470x250'
+      
+        div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 470px; max-height: 250px;"
+        div
+          span.btn.btn-default.btn-file
+            span class="fileinput-new"
+              'Select image 470x250
+            '&nbsp;
+            span class="fileinput-exists"
+              'Change 470x250
+            = f.file_field :playlist_image
+      
+          '&nbsp;
+          a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+            'Remove
+      
+      br
+      br
+      br
+      
+      = f.input :body
+      /= f.association :recordings, collection: @recordings
+      = f.association :recordings, collection: @recordings, include_blank: true, label: 'Select from your Recordings', input_html: { class: 'chosen-select' }
+      
+      
+      /= f.association :recordings, collection: @recordings,  include_blank: false, input_html: { class: 'tokenize' }
+      /
+      /= f.association :recordings, collection: @recordings,  include_blank: false, input_html: { class: 'tokenize' }, as: :text
+      /<%= f.label :author_ids, "Authors" %><br />
+      /= f.collection_select :playlist_recording_ids, @recordings, :id, :title, {}, {multiple: true} 
+      - if  @playlist.new_record?
+        = link_to 'Cancel', user_playlists_path(@user), class: 'btn btn-default'
+      -else
+        = link_to 'Cancel', user_playlist_path(@user, @playlist), class: 'btn btn-default'
+    .col-sm-6
+      = f.input :downloadable
+      = f.input :downloadkey
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'
+        

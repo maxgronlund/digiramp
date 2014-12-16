@@ -20,6 +20,7 @@ class PlaylistsController < ApplicationController
   
   def new
     @playlist = Playlist.new
+    @playlist.downloadkey = UUIDTools::UUID.timestamp_create().to_s
     @recordings   = @user.recordings.not_in_bucket
   end
   
@@ -38,8 +39,10 @@ class PlaylistsController < ApplicationController
   end
 
   def update
-    ap params
+    
     @playlist = Playlist.cached_find(params[:id])
+    
+    
     if @playlist.update_attributes(playlist_params)
       #redirect_to user_playlist_path( @user, @playlist )
       @recordings   = @playlist.recordings
