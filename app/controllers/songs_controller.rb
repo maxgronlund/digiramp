@@ -1,32 +1,36 @@
 class SongsController < ApplicationController
   
   def index
-
-    if params[:commit] == 'Go'
-      @remove_old_recordings = true
-      session[:query] = params[:query]
+    puts '-------------------------------- index ------------------------------------------'
+    
+    begin
+      if params[:commit] == 'Go'
+        @remove_old_recordings = true
+        session[:query] = params[:query]
+      end
+      session[:query] = nil if params[:clear] == 'clear'
+      params[:query]  = session[:query]
+      
+      if params[:recording].nil?
+        params[:recording] = {order: 'uniq_likes_count', direction: 'desc'}
+      end
+      
+      order = params[:recording][:order] + ' ' + params[:recording][:direction]
+      
+      
+      
+      if params[:genre]
+        genre = Genre.where(title: params[:genre]).first
+        recordings = genre.ordered_recordings_with_public_access order
+      else
+        recordings = Recording.public_access.order(order)
+      end
+      
+      @songs      =  Recording.recordings_search(recordings, params[:query]).page(params[:page]).per(4)
+      @playlists  =  current_user.playlists if current_user
+    rescue
+      puts 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
     end
-    session[:query] = nil if params[:clear] == 'clear'
-    params[:query]  = session[:query]
-    
-    if params[:recording].nil?
-      params[:recording] = {order: 'uniq_likes_count', direction: 'desc'}
-    end
-
-    order = params[:recording][:order] + ' ' + params[:recording][:direction]
-    
-
-    
-    if params[:genre]
-      genre = Genre.where(title: params[:genre]).first
-      recordings = genre.ordered_recordings_with_public_access order
-    else
-      recordings = Recording.public_access.order(order)
-    end
-    
-    @songs      =  Recording.recordings_search(recordings, params[:query]).page(params[:page]).per(4)
-    @playlists  =  current_user.playlists if current_user
-    
     
     
   end
