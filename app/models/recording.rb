@@ -727,34 +727,35 @@ class Recording < ActiveRecord::Base
   def zip
     
     
+    begin
     
-    
-    
-    
-    
-   
-    
-    folder = UUIDTools::UUID.timestamp_create().to_s
-    
-    new_dir = Dir.mkdir( Rails.root.join("public", "uploads", "recordings", "zip", folder) )
-
-    temp_file = Tempfile.new("recording-zip-#{UUIDTools::UUID.timestamp_create().to_s}")
-      Zip::OutputStream.open(temp_file.path) do |z|
-        title = self.original_file_name
-        z.put_next_entry("#{self.title}/#{title}")
-        url1_data = open(self.mp3)
-        z.print IO.read(url1_data)
-      end
-
+      folder = UUIDTools::UUID.timestamp_create().to_s
+      new_dir = Dir.mkdir( Rails.root.join("public", "uploads", "recordings", "zip", folder) )
       
-      file = File.open(Rails.root.join("public", "uploads", "recordings", "zip", folder ,"#{self.title}.zip"), "w+b")
-      file.write(temp_file.read)
       
-
-      self.zipp =  "uploads/recordings/zip/" + folder + '/' +  self.title + ".zip"
-      self.save
+      temp_file = Tempfile.new("recording-zip-#{UUIDTools::UUID.timestamp_create().to_s}")
+        Zip::OutputStream.open(temp_file.path) do |z|
+          title = self.original_file_name
+          z.put_next_entry("#{self.title}/#{title}")
+          url1_data = open(self.mp3)
+          z.print IO.read(url1_data)
+        end
       
-    temp_file.close
+        
+        file = File.open(Rails.root.join("public", "uploads", "recordings", "zip", folder ,"#{self.title}.zip"), "w+b")
+        file.write(temp_file.read)
+        
+      
+        self.zipp =  "uploads/recordings/zip/" + folder + '/' +  self.title + ".zip"
+        self.save
+        
+      temp_file.close
+    
+    
+    rescue Exception => e  
+      puts e.backtrace.inspect
+      
+    end
     
     
     
