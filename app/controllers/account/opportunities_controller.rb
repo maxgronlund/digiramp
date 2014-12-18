@@ -2,8 +2,8 @@ class Account::OpportunitiesController < ApplicationController
   before_action :set_opportunity, only: [:show, :edit, :update, :destroy, :music_submissions]
   
   include AccountsHelper
-  before_filter :access_account
-  before_filter :current_user_authorized, only: [:index, :show, :new, :edit]
+  before_filter :get_account_account
+  #before_filter :current_user_authorized, only: [:index, :show, :new, :edit]
   #before_filter :get_account
 
   
@@ -12,6 +12,8 @@ class Account::OpportunitiesController < ApplicationController
     forbidden unless current_account_user && current_account_user.read_opportunity
 
     @opportunities = @account.opportunities
+    @user = current_user
+    #@authorized = true
     
   end
 
@@ -36,7 +38,7 @@ class Account::OpportunitiesController < ApplicationController
 
   # GET /opportunities/1/edit
   def edit
-    forbidden unless current_account_user.update_opportunity
+    #forbidden unless current_account_user.update_opportunity
     @user = current_user
   end
 
@@ -103,8 +105,8 @@ class Account::OpportunitiesController < ApplicationController
       params.require(:opportunity).permit!
     end
     
-    def current_user_authorized
-      @user        = current_user
-      @authorized = true if current_user
-    end
+    #def current_user_authorized
+    #  @user        = current_user
+    #  @authorized = true if current_user
+    #end
 end

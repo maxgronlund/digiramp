@@ -723,6 +723,55 @@ class Recording < ActiveRecord::Base
   def widget_snippet widget_url
     "<iframe width='100%' height='150' src='#{widget_url}' frameborder='0' allowfullscreen></iframe>"
   end
+  
+  def zip
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    folder = UUIDTools::UUID.timestamp_create().to_s
+    
+    new_dir = Dir.mkdir( Rails.root.join("public", "uploads", "recordings", "zip", folder) )
+
+    temp_file = Tempfile.new("recording-zip-#{UUIDTools::UUID.timestamp_create().to_s}")
+      Zip::OutputStream.open(temp_file.path) do |z|
+        title = self.original_file_name
+        z.put_next_entry("#{self.title}/#{title}")
+        url1_data = open(self.mp3)
+        z.print IO.read(url1_data)
+      end
+
+      
+      file = File.open(Rails.root.join("public", "uploads", "recordings", "zip", folder ,"#{self.title}.zip"), "w+b")
+      file.write(temp_file.read)
+      
+
+      self.zipp =  "uploads/recordings/zip/" + folder + '/' +  self.title + ".zip"
+      self.save
+      
+    temp_file.close
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  end
 
 private
   #def update_counter_cache

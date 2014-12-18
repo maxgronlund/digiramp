@@ -1,0 +1,15 @@
+#old_transfer_form
+  h4 Transfer code
+  - if @recording.transferable
+    h2 = @recording.transfer_code
+  - else
+    h2 Click the bottom to get code
+    
+    
+  = simple_form_for [recording.user, recording], :url => url_for(:action => 'update', :controller => 'recording_transfers'), :method => 'put', remote: true do |f|
+    = f.hidden_field :transferable, value: recording.transferable ? false : true
+    
+    - if recording.transferable
+      = f.submit 'Cancel transfer', class: 'btn btn-default'
+    - else
+      = f.submit 'Make transferable', class: 'btn btn-default'

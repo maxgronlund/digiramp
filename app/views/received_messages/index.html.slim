@@ -13,34 +13,24 @@
         .row
           .col-sm-7
             h3 Message center
-            'All messages
+            'Received messages
           .col-sm-5
             .pull-right
               ul.nav.nav-pills
-                li  
-                  = link_to 'Received', user_received_messages_path(@user)
+                li  class="active"
+                  = link_to 'Received', "#"
                 li
                   = link_to 'Send', user_send_messages_path(@user)
-                li class="active"
-                  = link_to 'All', "#"
+                li
+                  = link_to 'All', user_messages_path(@user)
 
-        .sexy_line
         table
-        
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th
-                th 
-                th 
-                th
-                th Subject
-
-            tbody
-              - @user.received_massages.each.each do |message|
-                == render 'messages/message', message: message
-      
+          .table-responsive
+            table class="table table-hover"
+              tbody
+                - @user.received_massages.each.each do |message|
+                  == render 'messages/message', message: message
+          
                 
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'

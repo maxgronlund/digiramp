@@ -61,32 +61,11 @@
                     
                 
               
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
+
               
               
           .col-sm-3
-            
-                  
-            
-            
+
             /= debug @message
         .row
           .col-sm-12
@@ -95,16 +74,17 @@
         .row
           .col-sm-12
             .pull-right
-              -if received_message  && @message.user_can_reply( @user )
-
-                = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@message.id.to_s}" do
-                  .btn.btn-primary
-                    i.fa.fa-reply
-                    '&nbsp;Reply
-
-
-
-                == render 'messages/modal', modal_id: "pmModal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message
+              - unless @message.sender.id == @user.id
+                -if received_message  && @message.user_can_reply( @user )
+                
+                  = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@message.id.to_s}" do
+                    .btn.btn-primary
+                      i.fa.fa-reply
+                      '&nbsp;Reply
+                
+                
+                
+                  == render 'messages/modal', modal_id: "pmModal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message
           
 
         

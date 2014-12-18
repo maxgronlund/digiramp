@@ -1,4 +1,4 @@
-- if recording.user
+
 == render 'audio_player/show', recording: recording , description: description, target: target
 
 
@@ -189,12 +189,18 @@
 
       
       - if delete
-        = link_to user_recording_path(current_user, recording, public: true), \
+        = link_to user_recording_path(recording.user, recording, public: true), \
                   method: :delete, \
                   remote: true, \
                   data: {confirm: "You are about to delete #{recording.title}"}, \
                   class: "btn btn-default"  do
           i class="fa fa-trash"
+          
+
+        = link_to user_recording_transfer_path( recording.user, recording), \
+                  class: "btn btn-default"  do
+          i class="fa fa-rocket"
+      
       
 /-----------------------------------------
 / tool tips        

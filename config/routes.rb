@@ -2,7 +2,7 @@
 Digiramp::Application.routes.draw do
 
 
-
+  resources :recording_zip_exports
 
   resources :reprocess_recordings, only: [:show]
 
@@ -300,6 +300,7 @@ Digiramp::Application.routes.draw do
     resources :recording_uploads, only: [:edit, :update]
     resources :recording_lyrics, only: [:edit, :update]
     resources :recording_playbacks, only: [:show]
+    resources :recording_transfers
     
     resources :playlists
     resources :recordings do
@@ -427,14 +428,17 @@ Digiramp::Application.routes.draw do
     
     
   end
+  #resources :recording_departures
   namespace :account do
+    
     get 'catalog_common_works/index'
     # flat structure in links
     resources :music_requests do
       resources :music_submission_uploads, only: [:new, :create]
     end
+
     resources :accounts do
-      
+      resources :recording_departures
       
       member do
         #get 'find_recording_in_bucket'
@@ -487,6 +491,7 @@ Digiramp::Application.routes.draw do
 
       resources :opportunities do
         resources :opportunity_users, only: [:destroy, :show]
+        resources :opportunity_providers, only: [:index]
         member do
           get 'music_submissions'
         end
@@ -523,6 +528,8 @@ Digiramp::Application.routes.draw do
       get "uploads/audio_files_new"
       get "uploads/audio_files"
       get "uploads/common_works"
+
+      
       resources :recordings_bucket do
         collection do
           post :edit_multiple

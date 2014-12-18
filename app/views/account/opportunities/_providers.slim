@@ -16,14 +16,14 @@
             .pull-left
               - if opportunity_user.user.super?
                 
-                  .btn.btn-default.btn-xs.disabled
+                  .btn.btn-danger.btn-xs.disabled
                     i class="fa fa-times"
               - else
                = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user), \
                                                                              data: { confirm: 'Are you sure?' } ,\
                                                                             :method => :delete, remote: true do
                   .pull-left
-                    .btn.btn-default.btn-xs
+                    .btn.btn-danger.btn-xs
                       i class="fa fa-times"
             '&nbsp;
             = opportunity_user.user.email

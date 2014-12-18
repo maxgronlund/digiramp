@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216202154) do
+ActiveRecord::Schema.define(version: 20141217123652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1850,6 +1850,8 @@ ActiveRecord::Schema.define(version: 20141216202154) do
     t.boolean  "downlodable",          default: false
     t.boolean  "featured",             default: false
     t.boolean  "orphan",               default: false
+    t.string   "transfer_code"
+    t.boolean  "transferable",         default: false
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

@@ -1,0 +1,24 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Receive recordings
+      .sexy_line
+      .row
+        .col-sm-6
+          = simple_form_for [ @account ], :url => url_for(:action => 'create', :controller => 'recording_departures'), :method => 'post' do |f| 
+            = f.input :transfer_codes, as: :text , :input_html => {  style: "height: 244px;"}, placeholder: 'Comma seperated values'
+            .pull-right
+              = f.submit 'Import', class: 'btn btn-primary'
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

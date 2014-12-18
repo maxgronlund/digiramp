@@ -1,46 +1,50 @@
-.oppoptunity-info
-  'From:
-  .pull-right
-    = opportunity.account.title
-  .sexy_line
-  'Kind:
-  .pull-right
-    = opportunity.kind
-  .sexy_line
-  'Budget:
-  .pull-right
-    = opportunity.budget
-  .sexy_line
-  'Deadline:
-  .pull-right
-    - if opportunity.deadline && opportunity.deadline < Date.current
-      .expired
-        i class="fa fa-exclamation-circle"
-        '&nbsp;
-        = opportunity.deadline
-    - else
-      = opportunity.deadline
-  - unless opportunity.territory == ''
-    .sexy_line
-    'Territory:
-    .pull-right
-      = opportunity.territory
 
-  .sexy_line
+.row
+  .col-sm-6
+    - if show_full_description
+      div class="#{show_full_description ? '' : 'oppoptunity-description'}"
+        h4 Description:
+        .oppoptunity-description
+          = opportunity.body
+    
+
+    - else show_full_description
+      div class="#{show_full_description ? '' : 'oppoptunity-description'}"
+        br
+        h4 Description:
+        .oppoptunity-description
+          .ellipsis_text
+            = opportunity.body
+    
+  .col-sm-6
+    .oppoptunity-info
+      'From:
+      .pull-right
+        = opportunity.account.title
+      .sexy_line
+      'Kind:
+      .pull-right
+        = opportunity.kind
+      .sexy_line
+      'Budget:
+      .pull-right
+        = opportunity.budget
+      .sexy_line
+      'Deadline:
+      .pull-right
+        - if opportunity.deadline && opportunity.deadline < Date.current
+          .expired
+            i class="fa fa-exclamation-circle"
+            '&nbsp;
+            = opportunity.deadline
+        - else
+          = opportunity.deadline
+      - unless opportunity.territory == ''
+        .sexy_line
+        'Territory:
+        .pull-right
+          = opportunity.territory
+    
+
   
-- if show_full_description
-  div class="#{show_full_description ? '' : 'oppoptunity-description'}"
-    br
-    h4 Description:
-    .oppoptunity-description
-      = opportunity.body
-    
 
-- else show_full_description
-  div class="#{show_full_description ? '' : 'oppoptunity-description'}"
-    br
-    h4 Description:
-    .oppoptunity-description
-      .ellipsis_text
-        = opportunity.body
-    

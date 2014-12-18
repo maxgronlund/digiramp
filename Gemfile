@@ -122,6 +122,7 @@ gem 'pusher'
 gem "gritter", "1.1.0"
 gem "airbrake"
 gem "cocoon"
+gem 'rubyzip'
 
 # maintaince
 gem 'traceroute'

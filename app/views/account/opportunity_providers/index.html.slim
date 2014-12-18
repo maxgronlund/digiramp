@@ -1,0 +1,69 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+     
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account), \
+                                                                @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) \
+                                                            }, current: ''}
+      .row
+        .col-sm-8
+          h2 #{@account.title} <funky>Pro</funky>
+          = @opportunity.title
+        .col-sm-4
+          .pull-right
+            = link_to 'Submit recordings', opportunity_opportunity_path(@opportunity), class: 'btn btn-primary'
+
+      == render 'account/opportunities/providers'
+      /.opportunity 
+      /  .row
+      /    .col-sm-6
+      /      == render 'account/opportunities/description', opportunity: @opportunity, show_full_description: true
+      /      
+      /      - if current_account_user.update_opportunity
+      /        .row
+      /          .col-sm-12
+      /            .pull-right
+      /              = link_to opportunity_opportunity_opportunity_providers_path(@opportunity) do
+      /                  .btn.btn-default.btn-xs
+      /                    i.fa.fa-users
+      /                      '&nbsp;Providers
+      /                  
+      /              =< link_to edit_account_account_opportunity_path(@account, @opportunity) do
+      /                .btn.btn-xs.btn-default
+      /                  i class="fa fa-pencil"
+      /                  '&nbsp;
+      /                  'Edit
+      /       
+      /      /== render 'account/opportunities/providers'
+      /      
+      /      .sexy_line
+      /    .col-sm-6  
+      /      == render 'account/opportunities/requests'
+      /      -if current_account_user.update_opportunity
+      /      = link_to new_account_account_opportunity_music_request_path(@account, @opportunity) do
+      /        .pull-right
+      /          .btn.btn-default.btn-xs
+      /            i class="fa fa-plus-circle"
+      /            '&nbsp;
+      /            'Add Request
+      /
+      /
+      /      
+      /        
+      /        
+            
+            
+            
+                                            
+      
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'

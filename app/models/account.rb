@@ -116,27 +116,12 @@ class Account < ActiveRecord::Base
   # update the uuid so all cached segments expires
   before_save :set_uuid
   
-  #before_destroy :delete_user
-  #
-  #def delete_user
-  #  begin
-  #    self.user.destroy
-  #  rescue
-  #  end
-  #end
-  #
-
-  # make sure the administrator is the account owner up on creation
-  #def initialize_account
-  #  
-  #  # this is how it should be
-  #  self.administrator_id    = self.user_id
-  #  
-  #  # !!! but for now this is how it is
-  #  if zebulon              = User.where(email: 'peter@musicintomedia.com').first
-  #    self.administrator_id = zebulon.id
-  #  end
-  #end
+  def transfer_codes=(uuids)
+    
+  end
+  
+  def transfer_codes
+  end
   
   def set_uuid
     self.title = self.title.strip
