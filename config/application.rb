@@ -31,7 +31,7 @@ module Digiramp
     }
     config.autoload_paths += %W(#{config.root}/app/workers)
     
-    
+    Koala.config.api_version = 'v2.2'
 
   end
 end

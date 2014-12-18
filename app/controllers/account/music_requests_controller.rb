@@ -104,16 +104,16 @@ class Account::MusicRequestsController < ApplicationController
        params[:music_request][:recording_id] = recording_id
      end
      # error messages
-     unless result[:errors].size == 0
-       errors     = ''
-       nr_errors = 0
-       result[:errors].each do |error|
-         nr_errors += 1
-         errors << error + '<br>'
-       end
-       flash[:danger]    = { title: "Errors", body: errors }
-     end
-    
+     #unless result[:errors].size == 0
+     #  errors     = ''
+     #  nr_errors = 0
+     #  result[:errors].each do |error|
+     #    nr_errors += 1
+     #    errors << error + '<br>'
+     #  end
+     #  flash[:danger]    = { title: "Errors", body: errors }
+     #end
+     #
     
     
      #redirect_to account_account_recordings_bucket_index_path(@account)
@@ -131,18 +131,21 @@ class Account::MusicRequestsController < ApplicationController
     
     
     
+
+
+    @music_request.update(music_request_params)
+    redirect_to account_account_opportunity_path(@account, @opportunity)
     
     
     
     
-    
-    if @music_request.update(music_request_params)
-      flash[:info]      = { title: "Success", body: "Music Request Updated" }
-      redirect_to account_account_opportunity_music_request_path(@account, @opportunity, @music_request)
-    else
-      flash[:danger]      = { title: "Error", body: "Unable to update Music Request" }
-      redirect_to new_account_account_opportunity_path(@account)
-    end
+    #if @music_request.update(music_request_params)
+    #  flash[:info]      = { title: "Success", body: "Music Request Updated" }
+    #  redirect_to account_account_opportunity_music_request_path(@account, @opportunity, @music_request)
+    #else
+    #  flash[:danger]      = { title: "Error", body: "Unable to update Music Request" }
+    #  redirect_to new_account_account_opportunity_path(@account)
+    #end
 
   end
 

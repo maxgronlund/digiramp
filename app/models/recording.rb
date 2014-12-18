@@ -725,8 +725,7 @@ class Recording < ActiveRecord::Base
   end
   
   def zip
-    
-    
+
     begin
     
       folder = UUIDTools::UUID.timestamp_create().to_s
@@ -756,22 +755,7 @@ class Recording < ActiveRecord::Base
       puts e.backtrace.inspect
       
     end
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
   end
 
 private

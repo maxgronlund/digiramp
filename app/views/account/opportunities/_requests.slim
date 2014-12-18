@@ -2,11 +2,7 @@
   
   == render 'account/music_requests/info', music_request: music_request
   
-  
-  
-  
-  /######################################################
-  / Music requests
+
   - music_request.music_submissions.order('selected desc').each do |music_submission|
   
     -recording =  music_submission.recording
@@ -19,13 +15,8 @@
         .col-sm-12
           'Submitted by:&nbsp;
           = music_submission.user.user_name
-
-  
-   
-          
    
           br
-          
 
           div id="music_submission_selected_#{music_submission.id.to_s}"
             == render 'music_submissions/selected', music_submission: music_submission

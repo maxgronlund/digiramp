@@ -12,80 +12,17 @@
     .container-fluid
       == render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account) }, current: ''}
-      .row
-        .col-sm-8
-          h2 #{@account.title} <funky>Pro</funky>
-          
-        .col-sm-4
-          .pull-right
-            = link_to 'Submit recordings', opportunity_opportunity_path(@opportunity), class: 'btn btn-primary'
+       h2 #{@account.title} <funky>Pro</funky>
       .sexy_line  
       h3 = @opportunity.title
       .opportunity 
         == render 'account/opportunities/opportunity'
-        /.row
-        /  .col-sm-6
-        /    = @opportunity.body
-        /
-        /  .col-sm-6
-        /    .oppoptunity-info
-        /      'From:
-        /      .pull-right
-        /        = @opportunity.account.title
-        /      .sexy_line
-        /      'Kind:
-        /      .pull-right
-        /        = @opportunity.kind
-        /      .sexy_line
-        /      'Budget:
-        /      .pull-right
-        /        = @opportunity.budget
-        /      .sexy_line
-        /      'Deadline:
-        /      .pull-right
-        /        - if @opportunity.deadline && @opportunity.deadline < Date.current
-        /          .expired
-        /            i class="fa fa-exclamation-circle"
-        /            '&nbsp;
-        /            = @opportunity.deadline
-        /        - else
-        /          = @opportunity.deadline
-        /      - unless @opportunity.territory == ''
-        /        .sexy_line
-        /        'Territory:
-        /        .pull-right
-        /          = @opportunity.territory
-        /
-        /- if current_account_user.update_opportunity
-        /  br
-        /  .row
-        /    .col-sm-12
-        /      .pull-right
-        /        = link_to account_account_opportunity_opportunity_providers_path(@account, @opportunity) do
-        /            .btn.btn-primary.btn-xs
-        /              i.fa.fa-users
-        /                '&nbsp;Providers
-        /            
-        /        =< link_to edit_account_account_opportunity_path(@account, @opportunity) do
-        /          .btn.btn-xs.btn-default
-        /            i class="fa fa-pencil"
-        /            '&nbsp;
-        /            'Edit
+      
         .sexy_line  
         .row
            .col-sm-12
               == render 'account/opportunities/requests'
-             
 
-            
-            
-
-
-            
-              
-              
-            
-            
             
                                             
       
@@ -93,11 +30,4 @@
 == render 'users/shared/mobile_links'
 
 
-/-if current_account_user.update_opportunity
-/= link_to new_account_account_opportunity_music_request_path(@account, @opportunity) do
-/  .pull-right
-/    .btn.btn-default.btn-xs
-/      i class="fa fa-plus-circle"
-/      '&nbsp;
-/      'Add Request
-/
+

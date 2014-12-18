@@ -1,55 +1,6 @@
 == render 'audio_player/show', recording: recording , description: true, target: ''
 
 
-/.btn-group
-/  / -------------------------------------------------------------------
-/  / small without text on mobile
-/  / -------------------------------------------------------------------
-/  .visible-xs.btn-group-xs
-/
-/    = link_to music_submission_path(music_submission, user_id: current_user.id, opportunity_id: music_request.opportunity_id), \
-/                method: :delete, \
-/                data: {confirm: "Remove #{recording.title} from submission" }, \
-/                remote: true, \
-/                class: "btn btn-danger"  do
-/        i class="fa fa-times"
-/
-/    
-/    div id="music_submission_selected_#{music_submission.id.to_s}"
-/      == render 'music_submissions/selected', music_submission: music_submission
-/          
-/    - if recording.downlodable
-/      = link_to recording.zipp, \
-/                class: "btn btn-default"  do
-/        i class="fa fa-download"
-/    
-/        
-/  .hidden-xs.btn-group-xs
-/    / -------------------------------------------------------------------
-/    / normal size
-/    / -------------------------------------------------------------------
-/    div id="music_submission_selected_#{music_submission.id.to_s}"
-/      == render 'music_submissions/selected', music_submission: music_submission
-/      
-/      
-/    = link_to music_submission_path(music_submission, user_id: current_user.id, opportunity_id: music_request.opportunity_id), \
-/                method: :delete, \
-/                data: {confirm: "Remove #{recording.title} from submission" }, \
-/                remote: true, \
-/                class: "btn btn-danger"  do
-/        i class="fa fa-times"
-/        '&nbsp;
-/        'Remove
-/      
-/    - if recording.downlodable
-/      = link_to recording.zipp, \
-/                class: "btn btn-default"  do
-/        i class="fa fa-download"
-
-
-
-
-
 
 
 

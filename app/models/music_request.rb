@@ -9,6 +9,7 @@ class MusicRequest < ActiveRecord::Base
   #has_many :mood_tags,        as: :mood_tagable
   #has_many :instrument_tags,  as: :instrument_tagable
   #has_many :genre_tags,       as: :genre_tagable
+  has_one :recording
   
   after_commit :flush_cache
   #before_destroy :destroy_music_submissions
@@ -23,6 +24,10 @@ class MusicRequest < ActiveRecord::Base
   
   def recording
     Recording.where(id: self.recording_id).first
+  end
+  
+  def mp3
+    recording.mp3 if recording
   end
   
   
