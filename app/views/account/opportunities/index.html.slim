@@ -16,26 +16,34 @@
           'Opportunities
         .col-sm-5
           .pull-right
-            == render 'opportunity/shared/opportunity_navigation'
+            /== render 'opportunity/shared/opportunity_navigation'
+            = link_to new_account_account_opportunity_path(@user.account) do
+              .btn.btn-primary
+                i.fa.fa-plus-circle
+                '&nbsp;
+                'Create Opportunity
       .sexy_line
       .table-responsive
         table class="table table-hover"
           thead
             tr
-              th Name
+              th 
+              th
               th Deadline
               th Requests
               th Budget
 
 
           tbody
-            - @opportunities.order('deadline desc').each do |opportunity|
-              tr
+            - @opportunities.each do |opportunity|
+              tr id="delete_opportunity_#{opportunity.id.to_s}"
                 td
-                  = link_to edit_account_account_opportunity_path(@account, opportunity), method: :delete, data: {confirm: 'Are you sure?'} do
+                  = link_to account_account_opportunity_path(@account, opportunity), method: :delete, \
+                                                                                      remote: true, \
+                                                                                      data: {confirm: 'Are you sure?'} do
                     .btn.btn-danger.btn-xs
                       i.fa.fa-times
-
+              
                   '&nbsp;
                   = link_to edit_account_account_opportunity_path(@account, opportunity) do
                     .btn.btn-default.btn-xs
@@ -47,6 +55,10 @@
                        '&nbsp;
                        = opportunity.title
                 
+                td
+                  - unless opportunity.public_opportunity
+                    i.fa.fa-envelope
+                    '&nbsp;By invitation
                 td 
                   - if opportunity.deadline && opportunity.deadline < Date.current
                     .expired

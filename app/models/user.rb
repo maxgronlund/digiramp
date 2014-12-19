@@ -663,7 +663,7 @@ class User < ActiveRecord::Base
       logger.info e.to_s
       
       
-       puts '================================== provider.oauth_token =========================================' 
+       #puts '================================== provider.oauth_token =========================================' 
       
       
       @facebook =  nil

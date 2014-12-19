@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218184646) do
+ActiveRecord::Schema.define(version: 20141218235000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1410,14 +1410,12 @@ ActiveRecord::Schema.define(version: 20141218184646) do
     t.integer  "scene_number"
     t.string   "link"
     t.boolean  "up_to_full_use"
-    t.integer  "oppertunity_id"
     t.integer  "opportunity_id"
     t.string   "link_title",     default: "Click Here"
     t.integer  "recording_id"
     t.string   "fee"
   end
 
-  add_index "music_requests", ["oppertunity_id"], name: "index_music_requests_on_oppertunity_id", using: :btree
   add_index "music_requests", ["opportunity_id"], name: "index_music_requests_on_opportunity_id", using: :btree
 
   create_table "music_submissions", force: true do |t|
@@ -1469,12 +1467,14 @@ ActiveRecord::Schema.define(version: 20141218184646) do
     t.string   "title"
     t.text     "body"
     t.string   "kind"
-    t.string   "budget",     default: ""
+    t.string   "budget",             default: ""
     t.date     "deadline"
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "territory",  default: ""
+    t.string   "territory",          default: ""
+    t.boolean  "public_opportunity", default: false
+    t.string   "image"
   end
 
   add_index "opportunities", ["account_id"], name: "index_opportunities_on_account_id", using: :btree

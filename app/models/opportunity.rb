@@ -2,11 +2,20 @@ class Opportunity < ActiveRecord::Base
   include PublicActivity::Common
   has_many        :opportunity_invitations
   has_many        :music_requests, dependent: :destroy
+  
+  accepts_nested_attributes_for :music_requests, :reject_if => :all_blank, :allow_destroy => true
+  
+  
   has_many        :opportunity_users, dependent: :destroy
   belongs_to      :account
   after_commit    :flush_cache
   
   validates_presence_of :title
+  
+  mount_uploader :image, ArtworkUploader
+  
+  scope :public_opportunities,  ->  { where( public_opportunity: true).order('deadline desc')  }
+  
   include PgSearch
   pg_search_scope :search_opportunity, against: [:title, :body, :kind, :territory], :using => [:tsearch]
   

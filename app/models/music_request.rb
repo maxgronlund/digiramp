@@ -1,5 +1,5 @@
 class MusicRequest < ActiveRecord::Base
-  belongs_to :opportunity, touch: true
+  belongs_to :opportunity
   has_many :music_submissions, dependent: :destroy
   validates :title, :presence => true
   #has_many :music_submissions

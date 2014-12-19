@@ -30,12 +30,17 @@ class Account::MusicSubmissionsController < ApplicationController
   
   def submit_recording
     @music_request    = MusicRequest.cached_find(params[:music_request_id])
-    opportunity_user  = OpportunityUser.where( opportunity_id: params[:opportunity_id], 
+    @opportunity      = Opportunity.cached_find(params[:opportunity_id])
+    if opportunity_user  = OpportunityUser.where( opportunity_id: params[:opportunity_id], 
                                                       user_id: current_user.id ).first
+       submitting_user = opportunity_user.user
+    elsif current_user && @opportunity.public_opportunity
+      submitting_user = current_user
+    end
     
-    
-    if opportunity_user
+    if submitting_user
       @recording        = Recording.cached_find(params[:id])
+      
       @music_submission = MusicSubmission.where(  recording_id:         params[:id],
                                                   music_request_id:     params[:music_request_id],
                                                   account_id:          @account.id           
@@ -45,7 +50,7 @@ class Account::MusicSubmissionsController < ApplicationController
                                                             music_request_id:     params[:music_request_id] ,
                                                             user_id:              current_user.id,
                                                             account_id:           @account.id,
-                                                            opportunity_user_id:  opportunity_user.id
+                                                            opportunity_user_id:  submitting_user.id
                                                             
                                                             
                                                           ) 
@@ -67,7 +72,7 @@ class Account::MusicSubmissionsController < ApplicationController
       channel = 'digiramp_radio_' + current_user.email
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SUBMITTED', 
                                             "message" => "#{@recording.title} is submitted to #{@music_submission.music_request.title}", 
-                                            "time"    => '5000', 
+                                            "time"    => '2500', 
                                             "sticky"  => 'false', 
                                             "image"   => 'success'
                                             })
@@ -75,10 +80,10 @@ class Account::MusicSubmissionsController < ApplicationController
       
       
     else
-      channel = 'digiramp_radio_' + opportunity_user.email
+      channel = 'digiramp_radio_' + surrent_user.email
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'YOU ARE NOT A MUSIC PROVIDERS', 
                                             "message" => 'Make sure you are on the list of authorized music providers', 
-                                            "time"    => '500', 
+                                            "time"    => '2500', 
                                             "sticky"  => 'true', 
                                             "image"   => 'error'
                                             })

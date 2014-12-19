@@ -5,7 +5,7 @@
 
   - music_request.music_submissions.order('selected desc').each do |music_submission|
   
-    -recording =  music_submission.recording
+    - recording =  music_submission.recording
     div id="delete_music_submission_#{music_submission.id.to_s}"
       .row
         .col-sm-12
@@ -19,6 +19,7 @@
           br
 
           div id="music_submission_selected_#{music_submission.id.to_s}"
+            / also contain buttons for remove an message
             == render 'music_submissions/selected', music_submission: music_submission
 
 

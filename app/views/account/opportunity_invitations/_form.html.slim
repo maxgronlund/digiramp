@@ -2,19 +2,18 @@
 = simple_form_for [ :account, @account, @opportunity, @opportunity_invitation] do |f|
   /= f.hidden_field :account_id, value: @account.id
   = f.hidden_field :opportunity_id, value: @opportunity.id
-
-  = f.input :invitees, placeholder: 'e.g. john@doe.com, elvis@presley.com', hint: 'Only valid emails will be accepted', :input_html => {  style: "height: 244px;"}
-
-
-  = f.input :title,  input_html:{ value: "You have been invited to the opportunity on DigiRAMP:  #{@opportunity.title}"} 
+  .row
+    .col-sm-6
+      = f.input :invitees, placeholder: 'e.g. john@doe.com, elvis@presley.com', hint: 'Only valid emails will be accepted', :input_html => {  style: "height: 244px;"}
+      
+      
+      
   
-  
-  div id="toolbar" class="wysihtml5-toolbar"
-    a data-wysihtml5-command="bold" Bold
-    '&nbsp; 
-    a data-wysihtml5-command="italic" Italic
-  
-  =f.input :body, label: false, :input_html => {  style: "height: 244px;", id: 'wysihtml5_editor', value: @opportunity.body}
+    .col-sm-6
+      - @opportunity_invitation.title = "You have been invited to an opportunity on DigiRAMP"
+      - @opportunity_invitation.body = @opportunity.body
+      = f.input :title , label: 'Subject'
+      = f.input :body, label: 'Message', :input_html => {  style: "height: 172px;"}
 
 
 

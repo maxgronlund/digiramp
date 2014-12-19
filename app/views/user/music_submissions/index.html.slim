@@ -1,0 +1,32 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+  
+  #page-content-wrapper
+    .container-fluid 
+      h3 Music Request
+      = @music_request.title
+      .sexy_line
+      
+            
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links' 
+
+
+
+
+
+
+
+
+
+
+
+
+/h1 MusicSubmissions#index
+/p Find me in app/views/music_submissions/index.html.slim

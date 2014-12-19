@@ -10,25 +10,108 @@
   
   #page-content-wrapper
     .container-fluid
-      .row
-        .col-sm-7
-          h3 Opportunities for submissions
-          'You are permitted to submit to the following opportunities 
-        /.col-sm-5
-        /  .pull-right
-        /    /== debug current_account_user
-        /    == render 'opportunity/shared/opportunity_navigation'
-        .col-sm-5
-          .pull-right
-            == render 'opportunity/shared/opportunity_navigation'
+      h3 Opportunities for submissions
       .sexy_line
       .opportunity
-        .opportunity-badges
-          - @opportunities.each do |opportunity|
-            - opportunity_link =  opportunity_opportunity_path(opportunity)
-            == render 'opportunity/opportunity', opportunity: opportunity, opportunity_link: opportunity_link
-                 
+        
+        - @opportunities.each do |opportunity|
+          /= debug opportunity
+          .row.opportunity-row
+            .col-sm-2
+              .opportunity-image
+                = image_tag opportunity.image_url(:size_184x184)
+                - if opportunity.public_opportunity 
+                
+                - elsif opportunity.opportunity_users.where(user_id: @user.id).count > 0
+                  br
+                  h1
+                    i.fa.fa-envelope
+                  'By invitation
+            .col-sm-10
+              h4 = opportunity.title
+              = simple_format opportunity.body
               
+              .row
+                .col-sm-6
+                  .oppoptunity-info
+                    'From:
+                    .pull-right
+                      = opportunity.account.title
+                    .sexy_line
+                    'Kind:
+                    .pull-right
+                      = opportunity.kind
+                    .sexy_line
+                    'Budget:
+                    .pull-right
+                      = opportunity.budget
+                    .sexy_line
+                    'Deadline:
+                    .pull-right
+                      - if opportunity.deadline && opportunity.deadline < Date.current
+                        .expired
+                          i class="fa fa-exclamation-circle"
+                          '&nbsp;
+                          = opportunity.deadline
+                      - else
+                        = opportunity.deadline
+                    - unless opportunity.territory == ''
+                      .sexy_line
+                      'Territory:
+                      .pull-right
+                        = opportunity.territory
+                .col-sm-6
+                  .oppoptunity-info
+                    'Requests:
+                    .pull-right
+                      = opportunity.music_requests.count
+                    .sexy_line
+                    'fo:
+                    .pull-right
+                      'bar
+                  br
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to user_user_opportunity_path(@user, opportunity) do
+                      .btn.btn-primary
+                        'Submit recordings
+                  
+                  
+          /= debug opportunity
+          
+          .clearfix
+          .sexy_line
+        
+        
+      
+      
+      
+      
+      
+      /.row
+      /  .col-sm-7
+      /    h3 Opportunities for submissions
+      /    'You are permitted to submit to the following opportunities 
+      /  /.col-sm-5
+      /  /  .pull-right
+      /  /    /== debug current_account_user
+      /  /    == render 'opportunity/shared/opportunity_navigation'
+      /  .col-sm-5
+      /    .pull-right
+      /      /== render 'opportunity/shared/opportunity_navigation'
+      /      /= link_to new_account_account_opportunity_path(@user.account) do
+      /      /  i.fa.fa-plus-circle
+      /      /  '&nbsp;
+      /      /  'Create Opportunity
+      /.sexy_line
+      /.opportunity
+      /  .opportunity-badges
+      /    - @opportunities.each do |opportunity|
+      /      - opportunity_link =  opportunity_opportunity_path(opportunity)
+      /      == render 'opportunity/opportunity', opportunity: opportunity, opportunity_link: opportunity_link
+      /           
+      /        
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
 

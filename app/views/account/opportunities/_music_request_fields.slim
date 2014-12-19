@@ -1,0 +1,48 @@
+.nested-fields
+  .music-request
+  
+    .row
+      .col-sm-6
+        = f.input :title
+        /div id="toolbar" class="wysihtml5-toolbar"
+        /  a data-wysihtml5-command="bold" Bold
+        /  '&nbsp; 
+        /  a data-wysihtml5-command="italic" Italic
+        /
+        /=f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
+        =f.input :body, label: false, :input_html => {  style: "height: 168px;", placeholder: "Description",}
+      .col-sm-6
+        = f.input :fee
+        /br
+        /b Sounds Like
+        /br
+        /.fileinput.fileinput-new.input-group data-provides="fileinput"
+        /  .form-control data-trigger="fileinput"
+        /    i.glyphicon.glyphicon-file.fileinput-exists
+        /    span.fileinput-filename
+        /  span.input-group-addon.btn.btn-default.btn-file
+        /    span.fileinput-new
+        /      'Select file
+        /    span.fileinput-exists
+        /      'Change
+        /    = f.file_field :audio_file, multiple: false, label: 'Select Audio File'
+        /  a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+        /    'Remove
+        /
+        /br
+        
+        /= f.file_field :audio_file, multiple: false
+        /br
+        
+        = f.input :duration_text, label: 'Duration', placeholder: 'HH:MM:SS'
+        = f.input :up_to_full_use
+        /.row
+        /  .col-sm-6
+        /    = f.input :link, placeholder: 'i.e. http://youtube.com/bruno-mars', hint: 'Could sound like', label: 'Example link'
+        /  .col-sm-6
+        /    = f.input :link_title, label: 'Link Name', placeholder: 'Click Here'
+        /= f.input :deadline
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to_remove_association "Remove request", f, class: 'btn btn-danger btn-xs'

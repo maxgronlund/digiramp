@@ -9,22 +9,85 @@
   
   #page-content-wrapper
     .container-fluid 
-      .row
-        .col-sm-8
-          h3 Opportunity
-          = @opportunity.title
-        .col-sm-4
-          - account_user = AccountUser.where(user_id: current_user.id, account_id: @opportunity.account_id).first
-          - if account_user && account_user.update_opportunity
-            .pull-right
-              = link_to account_account_opportunity_path(@opportunity.account, @opportunity) do
-                .btn.btn-primary
-                  i.fa.fa-pencil
-                    '&nbsp;
-                    'Manage
-                
-            
+      h2 Opportunity
       .sexy_line
+      .opportunity
+        .row
+          .col-sm-2
+            .opportunity-image
+              = image_tag @opportunity.image_url(:size_184x184)
+          .col-sm-10
+            h4 = @opportunity.title
+           
+            
+            .row
+              .col-sm-6
+                 = simple_format @opportunity.body
+                
+              .col-sm-6
+                .oppoptunity-info
+                  'From:
+                  .pull-right
+                    = @opportunity.account.title
+                  .sexy_line
+                  'Kind:
+                  .pull-right
+                    = @opportunity.kind
+                  .sexy_line
+                  'Budget:
+                  .pull-right
+                    = @opportunity.budget
+                  .sexy_line
+                  'Deadline:
+                  .pull-right
+                    - if @opportunity.deadline && @opportunity.deadline < Date.current
+                      .expired
+                        i class="fa fa-exclamation-circle"
+                        '&nbsp;
+                        = @opportunity.deadline
+                    - else
+                      = @opportunity.deadline
+                  - unless @opportunity.territory == ''
+                    .sexy_line
+                    'Territory:
+                    .pull-right
+                      = @opportunity.territory
+                
+                
+        /= debug opportunity
+        
+        .clearfix
+        .sexy_line
+      .opportunity
+        - @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
+          .request-info
+            /= debug music_request.mp3
+            /== render 'audio_player/play_botton', recording: music_request.mp3 
+            .row
+              .col-sm-6
+                h4 = music_request.title
+                = simple_format music_request.body
+              .col-sm-6
+        
+                .no-borders.table-responsive
+                  table class="table table-condensed"
+                    tr
+                      th.description Fee:
+                      td = number_to_currency(music_request.fee, locale: :en, precision: 2)
+        
+                    - unless  music_request.link.to_s == ''
+                      tr
+                        th.description Duration:
+                        td = music_request.duration_text
+                    - unless  music_request.link.to_s == ''
+                      tr
+                        th.description Sound like:
+                        td = link_to 'click here', music_request.link
+            .row
+          
+            
+          /= debug music_request
+      /== render 'opportunity/music_requests/requests'
       /.opportunity 
       /  .row
       /    .col-sm-6

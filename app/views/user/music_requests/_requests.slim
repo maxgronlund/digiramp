@@ -1,0 +1,20 @@
+
+
+- @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
+  
+  h4 Request: #{index + 1}
+  == render 'account/music_requests/info', music_request: music_request
+
+  .row
+    .col-sm-12
+  
+      .pull-right
+        = link_to opportunity_opportunity_music_request_path( @opportunity, music_request) do 
+          .btn.btn-primary
+            i.fa.fa-eye
+            '&nbsp;Show request
+        '&nbsp;
+
+
+       
+  .sexy_line      

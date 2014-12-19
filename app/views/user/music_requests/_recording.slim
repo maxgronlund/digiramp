@@ -1,0 +1,14 @@
+== render 'recordings/recording_with_icons', recording: recording, 
+                                             info: true,
+                                             add_to_playlist: true, 
+                                             remove_from_playlist: false, 
+                                             edit: false, 
+                                             delete: false,
+                                             description: true,
+                                             share: false,
+                                             target: "",
+                                             music_request_link: false,
+                                             remove_from_request: MusicSubmission.where(recording_id: recording.id, 
+                                                                                        music_request_id: @music_request.id ).first
+                                             
+                                             

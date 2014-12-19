@@ -10,7 +10,16 @@
   #page-content-wrapper
     .container-fluid 
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) }, current: ''}
-      h3 Invitations send
+      .row
+        .col-sm-6
+          h2 Invitations
+        .col-sm-6
+          .pull-right
+            =< link_to new_account_account_opportunity_opportunity_invitation_path(@account, @opportunity) do          
+              .btn.btn-primary
+                i.fa.fa-envelope
+                '&nbsp;
+                'Invite more
       .sexy_line
       - if @opportunity_invitations
         - @opportunity_invitations.order('created_at desc').each do |opportunity_invitation|

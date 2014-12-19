@@ -134,6 +134,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :get_user
   
+  def get_private_user
+    get_user
+    unless current_user.super?
+      forbidden if current_user.id != @user.id
+    end
+  end
+  helper_method :get_private_user
+  
   # v2 
   # used by the account namespace to find the right account
   # and the accounts user

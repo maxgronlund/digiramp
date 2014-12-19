@@ -6,17 +6,12 @@
 
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'opportunities'
+      == render 'users/shared/sidebar', selected: 'account'
   
   #page-content-wrapper
     .container-fluid
-      .row
-        .col-sm-7
-          h3 Opportunities
-          'Create new opportunity
-        .col-sm-5
-          .pull-right
-            == render 'opportunity/shared/opportunity_navigation'
+      h3 Opportunities
+      'Create new opportunity
       .sexy_line  
       .opportunity 
         == render 'form'

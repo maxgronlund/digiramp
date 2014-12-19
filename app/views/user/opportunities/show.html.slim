@@ -1,0 +1,134 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'opportunities'
+  
+  #page-content-wrapper
+    .container-fluid 
+      h2 = @opportunity.title
+      .sexy_line
+      .opportunity
+        .row
+          .col-sm-2
+            .opportunity-image
+              = image_tag @opportunity.image_url(:size_184x184)
+            br
+            - unless @opportunity.public_opportunity 
+              h1
+                i.fa.fa-envelope
+              'By invitation
+
+          .col-sm-10
+
+            .row
+              .col-sm-6
+                 = simple_format @opportunity.body
+                
+              .col-sm-6
+                .oppoptunity-info
+                  'From:
+                  .pull-right
+                    = @opportunity.account.title
+                  .sexy_line
+                  'Kind:
+                  .pull-right
+                    = @opportunity.kind
+                  .sexy_line
+                  'Budget:
+                  .pull-right
+                    = @opportunity.budget
+                  .sexy_line
+                  'Deadline:
+                  .pull-right
+                    - if @opportunity.deadline && @opportunity.deadline < Date.current
+                      .expired
+                        i class="fa fa-exclamation-circle"
+                        '&nbsp;
+                        = @opportunity.deadline
+                    - else
+                      = @opportunity.deadline
+                  - unless @opportunity.territory == ''
+                    .sexy_line
+                    'Territory:
+                    .pull-right
+                      = @opportunity.territory
+                
+
+        
+        .clearfix
+        .sexy_line
+      .opportunity
+        - @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
+          .request-info
+            /= debug music_request.mp3
+            /== render 'audio_player/play_botton', recording: music_request.mp3 
+            .row
+              .col-sm-6
+                h4 = music_request.title
+                = simple_format music_request.body
+              .col-sm-6
+        
+                .no-borders.table-responsive
+                  table class="table table-condensed"
+                    tr
+                      th.description Fee:
+                      td = number_to_currency(music_request.fee, locale: :en, precision: 2)
+        
+                    - unless  music_request.link.to_s == ''
+                      tr
+                        th.description Duration:
+                        td = music_request.duration_text
+                    - unless  music_request.link.to_s == ''
+                      tr
+                        th.description Sound like:
+                        td = link_to 'click here', music_request.link
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to user_user_opportunity_music_request_request_recordings_path(@user, @opportunity, music_request.id ) do
+                    .btn.btn-primary
+                      i.fa.fa-headphones
+                      '&nbsp;
+                      'Submit recordings
+                    
+        
+          - music_request.music_submissions.where(user_id: @user.id).each do |music_submission|
+  
+            - recording =  music_submission.recording
+            div id="delete_music_submission_#{music_submission.id.to_s}"
+              .row
+                .col-sm-12
+                  #digiWhams  class="/recordings/#{recording.id.to_s}"
+                    == render 'account/music_requests/recording_for_request', recording: recording
+              .row
+                .col-sm-12
+                  - if music_submission.selected
+                    .btn.btn-danger.btn-xs disabled="disabled"
+                      i class="fa fa-times"
+                      '&nbsp;Remove submission
+                    '&nbsp;
+                    'Your submission is selected for review
+                  - else
+                    => link_to music_submission_path(music_submission, user_id: current_user.id, opportunity_id: music_request.opportunity_id), \
+                                method: :delete, \
+                                data: {confirm: "Are you sure" }, \
+                                remote: true, \
+                                class: "btn btn-danger btn-xs"  do
+                        i class="fa fa-times"
+                        '&nbsp;Remove submission
+                    
+
+
+
+                  .sexy_line
+          
+
+            
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'  
+
+

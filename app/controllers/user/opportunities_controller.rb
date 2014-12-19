@@ -1,13 +1,33 @@
 class User::OpportunitiesController < ApplicationController
   
-  before_filter :access_user, only: [:index]
+  before_filter :access_user, only: [:index, :show]
   include AccountsHelper
   before_filter :access_account
 
   
   def index
     @authorized     = true if current_user.id = @user.id
-    @opportunities  = @user.opportunities.where.not(account_id: @account.id).order('deadline desc')
+    #@opportunities  = Opportunity.public_opportunities
+    
+    opportunity_ids  = Opportunity.where(public_opportunity: true).pluck(:id)
+    opportunity_ids  += OpportunityUser.where(user_id: @user.id).pluck(:opportunity_id)
+    opportunity_ids.uniq!
+    
+    @opportunities = Opportunity.order('deadline desc').where(id: opportunity_ids)
+  end
+  
+  
+  def show
+    # public vs private
+    @opportunity = Opportunity.cached_find(params[:id])
+    @opportunity.create_activity(  :show, 
+                              owner: current_user,
+                          recipient: @opportunity,
+                     recipient_type: @opportunity.class.name,
+                         account_id: @opportunity.account_id)
+    
+    @user       = current_user
+    @authorized = true
   end
 
   

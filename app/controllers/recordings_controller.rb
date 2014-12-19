@@ -13,6 +13,7 @@ class RecordingsController < ApplicationController
       @remove_old_recordings = true
       session[:query] = params[:query]
     end
+    
     session[:query] = nil if params[:clear] == 'clear'
     params[:query]  = session[:query]
     
@@ -110,49 +111,7 @@ class RecordingsController < ApplicationController
     
   end
   
-  #def update
-  #  @recording                = Recording.find(params[:id])
-  #  params[:recording][:uuid] = UUIDTools::UUID.timestamp_create().to_s
-  #
-  #  if @recording.update_attributes(recording_params)
-  #     @recording.extract_genres
-  #     @recording.extract_instruments
-  #     @recording.extract_moods
-  #     
-  #     # artwork
-  #     if params[:transloadit]
-  #       if artworks = TransloaditImageParser.artwork( params[:transloadit], @account.id)
-  #         # if there is no artwork file
-  #         if artworks == []
-  #           # if a drop down item is selected
-  #           if params[:recording][:image_file_id].to_s != ''   
-  #             artwork = Artwork.cached_find(params[:recording][:image_file_id])
-  #             @recording.cover_art  = artwork.thumb
-  #             @recording.save!
-  #           end
-  #         else
-  #           # add the uploaded artwork
-  #           # notice there is only one artwork file
-  #           artworks.each do |artwork|
-  #                                
-  #             RecordingItem.create( recording_id: @recording.id, 
-  #                                   itemable_type: 'Artwork',
-  #                                   itemable_id: artwork.id)
-  #                                
-  #             @recording.cover_art      = artwork.thumb
-  #             @recording.image_file_id  = artwork.id
-  #             @recording.save!
-  #           end
-  #         end 
-  #       end
-  #     end
-  #     
-  #     
-  #     
-  #     
-  #  end
-  #  redirect_to user_recording_path( @user, @recording )
-  #end
+
   def update
 
     @recording      = Recording.find(params[:id])
@@ -202,6 +161,20 @@ class RecordingsController < ApplicationController
       
     end
     redirect_to user_recording_path( @user, @recording )
+  end
+  
+  def rezip
+    ap '--------------------------- reziping -----------------------------------'
+    recordings = Recording.where(zipp: nil).first(10)
+    
+    if recordings
+      recordings.each do |recording|
+        recording.zip
+        ap recording.zipp
+      end
+    end
+    
+    render nothing: true
   end
   
    

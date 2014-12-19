@@ -24,56 +24,6 @@
           
             .row
               .col-sm-6
-                = f.input :private_profile, label: 'Hide my profile'
-                - if @user.name == User.create_uniq_user_name_from_email(@user.email)
-                  = f.input :name, hint: 'Change to improve completeness'
-                - else
-                  = f.input :name
-                - if @user.user_name == User.create_uniq_user_name_from_email(@user.email)  
-                  = f.input :user_name, placeholder: 'Used for the url', hint: 'Change to improve completeness'
-                - else
-                  = f.input :user_name, placeholder: 'Used for the url'
-                = f.input :email
-              
-                .row
-                  .col-sm-6
-                    = f.input :profession
-                .row
-                  .col-sm-6
-                    = f.input :country
-                  .col-sm-6
-                    = f.input :city
-                .row
-                  .col-sm-12
-                    a data-toggle="collapse" data-parent="#accordion" href="#change_email"
-                      i.fa.fa-pencil
-                      b &nbsp;Change Password
-                     
-                    br
-                    br
-                    div id="change_email" class="panel-collapse collapse"  
-                      .row
-                        .col-sm-6
-                          = f.input :password, autocomplete: :off, placeholder: '•••••••••••', hint: 'New password'
-                        .col-sm-6
-                          = f.input :password_confirmation, autocomplete: :off, placeholder: '•••••••••••', hint: 'Confirm new password'
-                    
-                    
-              .col-sm-6
-                .row
-                  .col-sm-6
-                    = f.input :artist        
-                    = f.input :author
-                    = f.input :composer
-                    = f.input :writer
-                  .col-sm-6
-                    = f.input :musician
-                    = f.input :producer
-                    = f.input :remixer
-                    = f.input :dj
-                
-                
-                /= f.input :image, hint: 'Dimentions 1:1 '
                 'Ratio 1:1
                 br
                 .fileinput.fileinput-new data-provides="fileinput"
@@ -95,8 +45,59 @@
                       'Remove
 
                 br
-                br
-                br
+
+                = f.input :private_profile, label: 'Hide my profile'
+                - if @user.name == User.create_uniq_user_name_from_email(@user.email)
+                  = f.input :name, hint: 'Change to improve completeness'
+                - else
+                  = f.input :name
+                - if @user.user_name == User.create_uniq_user_name_from_email(@user.email)  
+                  = f.input :user_name, placeholder: 'Used for the url', hint: 'Change to improve completeness'
+                - else
+                  = f.input :user_name, placeholder: 'Used for the url'
+                = f.input :email
+              
+                
+                .row
+                  .col-sm-12
+                    a data-toggle="collapse" data-parent="#accordion" href="#change_email"
+                      i.fa.fa-pencil
+                      b &nbsp;Change Password
+                     
+                    br
+                    br
+                    div id="change_email" class="panel-collapse collapse"  
+                      .row
+                        .col-sm-6
+                          = f.input :password, autocomplete: :off, placeholder: '•••••••••••', hint: 'New password'
+                        .col-sm-6
+                          = f.input :password_confirmation, autocomplete: :off, placeholder: '•••••••••••', hint: 'Confirm new password'
+                    
+                    
+              .col-sm-6
+                .row
+                  .col-sm-6
+                    = f.input :profession
+                .row
+                  .col-sm-6
+                    = f.input :country
+                  .col-sm-6
+                    = f.input :city
+                .row
+                  .col-sm-6
+                    = f.input :artist        
+                    = f.input :author
+                    = f.input :composer
+                    = f.input :writer
+                  .col-sm-6
+                    = f.input :musician
+                    = f.input :producer
+                    = f.input :remixer
+                    = f.input :dj
+                
+                
+                /= f.input :image, hint: 'Dimentions 1:1 '
+                
                 
                 
                 
@@ -119,21 +120,7 @@
               = link_to 'Cancel', user_path(@user), class: 'btn btn-default'
               '&nbsp;
               = f.submit 'Save', class: 'btn btn-primary'
-          
 
-      /.row
-      /  .col-sm-12
-      /    .sexy_line
-      /    - blog      = Blog.cached_find('Authorization')
-      /      
-      /    h3 Authorizations
-      /    
-      /    .social-icons
-      /      == render 'user/authorization_providers/facebook', blog: blog
-      /      == render 'user/authorization_providers/twitter', blog: blog
-      /      == render 'user/authorization_providers/linkedin', blog: blog
-      /      == render 'user/authorization_providers/google', blog: blog
-      /    
   == render 'shared/site_footer'     
   
   

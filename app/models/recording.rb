@@ -752,6 +752,8 @@ class Recording < ActiveRecord::Base
     
     
     rescue Exception => e  
+      puts '========================================= ERROR ZIPPING=================================================='
+      ap self.id
       puts e.backtrace.inspect
       
     end

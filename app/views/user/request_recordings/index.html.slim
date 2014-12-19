@@ -1,0 +1,77 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'opportunities'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'opportunities'.to_sym => user_user_opportunities_path(@user), \
+                                                              @opportunity.title.to_sym => user_user_opportunity_path(@user, @opportunity)}, current: ''}
+      .row
+        .col-sm-5
+
+          h3 Submit Recordings
+          = @music_request.title
+        .col-sm-7
+          .pull-right
+            == link_to user_user_opportunity_path( @user, @opportunity ) do
+              .btn.btn-primary
+                i class="fa fa fa-arrow-left"
+                '&nbsp;Back
+        
+
+      .sexy_line
+      .row
+        .col-sm-5
+        .col-sm-7
+          = simple_form_for  [ :user, @user, @opportunity, @music_request], :url => url_for(:action => 'index', \
+                                                        :controller => 'request_recordings'), \
+                                                        :method => 'get', \
+                                                        remote: true do |f|
+
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-search'
+              = text_field_tag "query", "", :class => 'search-query form-control', \
+                                            :placeholder => 'Search', \
+                                            value: params[:query]
+              .input-group-btn
+                = f.submit 'Go', class: "btn btn-primary"
+                '&nbsp;
+                = link_to 'Clear', user_user_opportunity_music_request_request_recordings_path(@user, @opportunity, @music_request), class: 'btn btn-default'
+      
+      .row
+        br
+        .col-sm-12
+          .pull-right
+          .endless-pages
+          .add_recordings
+            -if current_user && current_user.id == @user.id
+              .new-recording
+                = link_to new_user_recording_path(@user) do
+                  .new-recording-badge
+                    .new-recording-badge-content
+                      i.fa.fa-plus-circle
+
+                  .new-recording-content
+                    .new-recording-text
+                      h3 Click here to upload recording
+                    .new-recording-waveform
+                      = image_tag 'default_waveform.png'
+              /.sexy_line
+            == render 'recordings/index', recordings: @recordings
+           
+          == paginate(@recordings)
+      
+      
+          
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'

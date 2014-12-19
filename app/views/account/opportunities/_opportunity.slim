@@ -1,48 +1,149 @@
-.row
-  .col-sm-6
-    = @opportunity.body
-
-  .col-sm-6
-    .oppoptunity-info
-      'From:
-      .pull-right
-        = @opportunity.account.title
-      .sexy_line
-      'Kind:
-      .pull-right
-        = @opportunity.kind
-      .sexy_line
-      'Budget:
-      .pull-right
-        = @opportunity.budget
-      .sexy_line
-      'Deadline:
-      .pull-right
-        - if @opportunity.deadline && @opportunity.deadline < Date.current
-          .expired
-            i class="fa fa-exclamation-circle"
-            '&nbsp;
-            = @opportunity.deadline
-        - else
-          = @opportunity.deadline
-      - unless @opportunity.territory == ''
-        .sexy_line
-        'Territory:
+.row.opportunity-row
+  .col-sm-2
+    .opportunity-image
+      = image_tag @opportunity.image_url(:size_184x184)
+      - unless opportunity.public_opportunity
+        br
+        h1
+          i.fa.fa-envelope
+        'By invitation
+  .col-sm-10
+    h4 = opportunity.title
+    = simple_format opportunity.body
+    
+    .row
+      .col-sm-6
+        .oppoptunity-info
+          'From:
+          .pull-right
+            = opportunity.account.title
+          .sexy_line
+          'Kind:
+          .pull-right
+            = opportunity.kind
+          .sexy_line
+          'Budget:
+          .pull-right
+            = opportunity.budget
+          .sexy_line
+          'Deadline:
+          .pull-right
+            - if opportunity.deadline && opportunity.deadline < Date.current
+              .expired
+                i class="fa fa-exclamation-circle"
+                '&nbsp;
+                = opportunity.deadline
+            - else
+              = opportunity.deadline
+          - unless opportunity.territory == ''
+            .sexy_line
+            'Territory:
+            .pull-right
+              = opportunity.territory
+      .col-sm-6
+        .oppoptunity-info
+          'Requests:
+          .pull-right
+            = opportunity.music_requests.count
+          .sexy_line
+          'fo:
+          .pull-right
+            'bar
+        br
+    .row
+      .col-sm-12
         .pull-right
-          = @opportunity.territory
+        
 
-- if current_account_user.update_opportunity
-  br
-  .row
-    .col-sm-12
-      .pull-right
-        = link_to account_account_opportunity_opportunity_providers_path(@account, @opportunity) do
+          =< link_to account_account_opportunity_opportunity_providers_path(@account, @opportunity) do          
+            .btn.btn-default.btn-xs
+              i.fa.fa-group
+              '&nbsp;
+              'Providers
+        
+
+          =< link_to account_account_opportunity_opportunity_invitations_path(@account, @opportunity) do          
+            .btn.btn-default.btn-xs
+              i.fa.fa-envelope
+              '&nbsp;
+              'Invitations
+              
+          =< link_to edit_account_account_opportunity_path(@account, @opportunity) do
             .btn.btn-primary.btn-xs
-              i.fa.fa-users
-                '&nbsp;Providers
-            
-        =< link_to edit_account_account_opportunity_path(@account, @opportunity) do
-          .btn.btn-xs.btn-default
-            i class="fa fa-pencil"
-            '&nbsp;
-            'Edit
+              i.fa.fa-pencil
+              '&nbsp;
+              'Edit
+    /      = link_to user_user_opportunity_path(@user, opportunity) do
+    /        .btn.btn-primary
+    /          'Submit recordings
+    /    
+        
+/= debug opportunity
+
+.clearfix
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/.row
+/  .col-sm-6
+/    = @opportunity.body
+/
+/  .col-sm-6
+/    .oppoptunity-info
+/      'From:
+/      .pull-right
+/        = @opportunity.account.title
+/      .sexy_line
+/      'Kind:
+/      .pull-right
+/        = @opportunity.kind
+/      .sexy_line
+/      'Budget:
+/      .pull-right
+/        = @opportunity.budget
+/      .sexy_line
+/      'Deadline:
+/      .pull-right
+/        - if @opportunity.deadline && @opportunity.deadline < Date.current
+/          .expired
+/            i class="fa fa-exclamation-circle"
+/            '&nbsp;
+/            = @opportunity.deadline
+/        - else
+/          = @opportunity.deadline
+/      - unless @opportunity.territory == ''
+/        .sexy_line
+/        'Territory:
+/        .pull-right
+/          = @opportunity.territory
+/
+/- if current_account_user.update_opportunity
+/  br
+/  .row
+/    .col-sm-12
+/      .pull-right
+/        = link_to account_account_opportunity_opportunity_providers_path(@account, @opportunity) do
+/            .btn.btn-primary.btn-xs
+/              i.fa.fa-users
+/                '&nbsp;Providers
+/            
+/        =< link_to edit_account_account_opportunity_path(@account, @opportunity) do
+/          .btn.btn-xs.btn-default
+/            i class="fa fa-pencil"
+/            '&nbsp;
+/            'Edit

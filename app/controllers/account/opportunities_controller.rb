@@ -47,16 +47,18 @@ class Account::OpportunitiesController < ApplicationController
   def create
     
     forbidden unless current_account_user &&  current_account_user.create_opportunity
-    @opportunity = Opportunity.new(opportunity_params)
+    @opportunity = Opportunity.create(opportunity_params)
+    redirect_to account_account_opportunity_path(@account, @opportunity)
     
-    if @opportunity.save
-      flash[:info]      = { title: "Success", body: "Please proceed and make your first request" }
-      redirect_to new_account_account_opportunity_music_request_path(@account, @opportunity)
-       
-    else
-      flash[:danger]      = { title: "Error", body: "Unable to create opportunity" }
-      redirect_to new_account_account_opportunity_path(@account)
-    end
+    
+    #if @opportunity.save
+    #  flash[:info]      = { title: "Success", body: "Please proceed and make your first request" }
+    #  redirect_to new_account_account_opportunity_music_request_path(@account, @opportunity)
+    #   
+    #else
+    #  flash[:danger]      = { title: "Error", body: "Unable to create opportunity" }
+    #  redirect_to new_account_account_opportunity_path(@account)
+    #end
 
   end
 
@@ -67,7 +69,7 @@ class Account::OpportunitiesController < ApplicationController
     # params[:opportunity][:deadline].gsub('/','-')
     forbidden unless current_account_user &&  current_account_user.update_opportunity
     if @opportunity.update(opportunity_params)
-      flash[:info]      = { title: "Success", body: "Opportunity Updated" }
+      #flash[:info]      = { title: "Success", body: "Opportunity Updated" }
       redirect_to account_account_opportunity_path(@account, @opportunity)
     else
       flash[:danger]      = { title: "Error", body: "Unable to update opportunity" }
@@ -90,8 +92,9 @@ class Account::OpportunitiesController < ApplicationController
   # DELETE /opportunities/1.json
   def destroy
     forbidden unless current_account_user.delete_opportunity
+    @opportunity_id = @opportunity.id
     @opportunity.destroy
-    redirect_to account_account_opportunities_path(@account)
+    #redirect_to account_account_opportunities_path(@account)
   end
 
   private
@@ -102,7 +105,29 @@ class Account::OpportunitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def opportunity_params
-      params.require(:opportunity).permit!
+      #params.require(:opportunity).permit!
+      params.require(:opportunity).permit(:title, 
+                                          :body, 
+                                          :kind, 
+                                          :budget,
+                                          :deadline,
+                                          :account_id,
+                                          :territory,
+                                          :public_opportunity,
+                                          :image,
+                                          music_requests_attributes: [:id, 
+                                                                      :title, 
+                                                                      :body,
+                                                                      :duration,
+                                                                      :created_at,
+                                                                      :scene_number,
+                                                                      :link,
+                                                                      :up_to_full_use,
+                                                                      :opportunity_id,
+                                                                      :link_title,
+                                                                      :recording_id,
+                                                                      :fee,
+                                                                      :_destroy])
     end
     
     #def current_user_authorized
