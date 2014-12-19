@@ -40,6 +40,8 @@
         
       .sexy_line
         = link_to 'Rezip 10', recordings_rezip_path, remote: true
+        br
+        = Recording.where(zipp: nil).count
         
                 
             
