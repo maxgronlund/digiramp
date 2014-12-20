@@ -727,8 +727,6 @@ class Recording < ActiveRecord::Base
   end
   
   def zip
-    logger.info '=============================== start to zip ============================================'
-
     begin
     
       folder = UUIDTools::UUID.timestamp_create().to_s
@@ -747,19 +745,17 @@ class Recording < ActiveRecord::Base
         file = File.open(Rails.root.join("public", "uploads", "recordings", "zip", folder ,"#{self.title}.zip"), "w+b")
         file.write(temp_file.read)
         
-      
         self.zipp =  "uploads/recordings/zip/" + folder + '/' +  self.title + ".zip"
         self.save
-        logger.info self.zipp
-        
       temp_file.close
     
     
     rescue Exception => e  
       logger.info '========================================= ERROR ZIPPING=================================================='
       logger.info self.id
+      logger.info self.title
       logger.info e.backtrace.inspect
-      
+      logger.info '...'
     end
 
   end

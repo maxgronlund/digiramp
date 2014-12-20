@@ -165,12 +165,11 @@ class RecordingsController < ApplicationController
   
   def rezip
     ap '--------------------------- reziping -----------------------------------'
-    recordings = Recording.where(zipp: nil).first(10)
+    recordings = Recording.where(zipp: nil).first(100)
     
     if recordings
       recordings.each do |recording|
         recording.zip
-        ap recording.zipp
       end
     end
     
