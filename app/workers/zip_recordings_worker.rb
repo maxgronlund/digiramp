@@ -8,7 +8,7 @@ class ZipRecordingsWorker
     #  
     #end
     count = 0
-    if recordings = Recording.where(zipp: nil).first(20)
+    if recordings = Recording.where(zipp: nil).first(736)
       recordings.each do |recording|
         
         recording.zip
