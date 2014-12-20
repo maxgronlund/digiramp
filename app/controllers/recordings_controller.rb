@@ -165,13 +165,14 @@ class RecordingsController < ApplicationController
   
   def rezip
     logger.info '--------------------------- reziping -----------------------------------'
-    recordings = Recording.where(zipp: nil).first(100)
-    
-    if recordings
-      recordings.each do |recording|
-        recording.zip
-      end
-    end
+    ZipRecordingsWorker.perform_async()
+    #recordings = Recording.where(zipp: nil).first(10)
+    #
+    #if recordings
+    #  recordings.each do |recording|
+    #    recording.zip
+    #  end
+    #end
     
     render nothing: true
   end

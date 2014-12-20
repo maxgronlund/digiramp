@@ -728,7 +728,7 @@ class Recording < ActiveRecord::Base
   
   def zip
     begin
-      logger.info '========================================= ZIPPING =================================================='
+      #logger.info '========================================= ZIPPING =================================================='
       folder = UUIDTools::UUID.timestamp_create().to_s
       new_dir = FileUtils.mkdir_p( Rails.root.join("public", "uploads", "recordings", "zip", folder ).to_s )
       
@@ -765,6 +765,8 @@ class Recording < ActiveRecord::Base
       logger.info '...'
       logger.info '...'
     end
+    #sleep(20)
+    #ZipRecordingsWorker.perform_async()
 
   end
 
