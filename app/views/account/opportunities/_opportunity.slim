@@ -40,15 +40,16 @@
             'Territory:
             .pull-right
               = opportunity.territory
+          .sexy_line
       .col-sm-6
         .oppoptunity-info
           'Requests:
           .pull-right
             = opportunity.music_requests.count
           .sexy_line
-          'fo:
+          'Submissions:
           .pull-right
-            'bar
+            = opportunity.submissions.count
         br
     .row
       .col-sm-12

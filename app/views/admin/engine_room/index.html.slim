@@ -46,8 +46,17 @@
           -recordings.each do |recording|
             
             b = recording.id
-            br = recording.title
+            =< recording.title
+            '&nbsp;.&nbsp;
             = link_to 'show', user_recording_path( recording.user, recording) rescue[]
+            br
+            =< recording.zipp.nil? ? 'zip missing' : 'zip is ok'
+            '&nbsp;.&nbsp;
+            =< recording.mp3.nil? ? 'mp3 missing' : 'mp3 is ok'
+            br
+            =< link_to 'Zip now', recording_zip_export_path(recording), remote: true
+            
+            
             .sexy_line
             
            
