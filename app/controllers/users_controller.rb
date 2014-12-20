@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def show
 
-    puts '############################################## USER SHOW ###############################################'
+    #logger.info '############################################## USER SHOW ###############################################'
     if current_user && @user != current_user
       @user.views += 1 
       @user.save

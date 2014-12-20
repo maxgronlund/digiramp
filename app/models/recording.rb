@@ -725,7 +725,7 @@ class Recording < ActiveRecord::Base
   end
   
   def zip
-    puts '============= start to zip ============================================'
+    logger.info '=============================== start to zip ============================================'
     begin
     
       folder = UUIDTools::UUID.timestamp_create().to_s

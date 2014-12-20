@@ -1,0 +1,133 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'opportunities'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-7
+          h3 Opportunities for submissions
+          'You are permitted to submit to the following opportunities 
+        /.col-sm-5
+        /  .pull-right
+        /    /== debug current_account_user
+        /    == render 'opportunity/shared/opportunity_navigation'
+        .col-sm-5
+          .pull-right
+            /== render 'opportunity/shared/opportunity_navigation'
+            /= link_to new_account_account_opportunity_path(@user.account) do
+            /  i.fa.fa-plus-circle
+            /  '&nbsp;
+            /  'Create Opportunity
+      .sexy_line
+      .opportunity
+        .opportunity-badges
+          - @opportunities.each do |opportunity|
+            - opportunity_link =  opportunity_opportunity_path(opportunity)
+            == render 'opportunity/opportunity', opportunity: opportunity, opportunity_link: opportunity_link
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/- user_account = Account.cached_find(@user.account_id)
+/#wrap
+/  .profile
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'profile'     
+/  .container
+/    /==render 'admin/shared/messages'
+/    /-cache ([ Admin.cached_find(1).version, request.url, @user.uuid ]) do    
+/    .do   
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path( @user )}, current: 'Opportunities'} 
+/      
+/      
+/                                                           
+/      == render 'shared/page_title', locals: {blog: Blog.cached_find('Opportunities'), blog_post: 'Opportunities'}
+/      
+/      .panel.panel-primary
+/        .panel-heading
+/          'Opportunities
+/        .panel-body
+/          .table-responsive
+/            table class="table"
+/              thead
+/                tr
+/                  th Title
+/                  th Kind
+/                  th From
+/                  /th Submissions
+/                  th Deadline
+/                  th
+/              tbody
+/                - @user.opportunities.order('deadline desc').each do |opportunity|
+/                  tr
+/                    td = link_to link_to opportunity.title, opportunity_opportunity_path(opportunity), class: 'btn btn-default btn-lg'
+/                    td = opportunity.kind
+/                    td = opportunity.account.title     
+/                    td 
+/                      - if opportunity.deadline < Date.current
+/                        .expired
+/                          i class="fa fa-exclamation-circle"
+/                          '&nbsp;
+/                          'Expired
+/                      - else
+/                        = opportunity.deadline
+/                        
+/                      /= opportunity.deadline
+/                    th
+/                      .pull-right
+/                        /= link_to edit_account_account_opportunity_path(@account, opportunity) do
+/                        /  .btn.btn-primary.btn-lg
+/                        /    i class="fa fa-pencil"
+/                        /'&nbsp;
+/                        /= link_to account_account_opportunity_path(@account, opportunity), data: { confirm: 'Are you sure?' } , :method => :delete do
+/                        /  .btn.btn-danger.btn-lg
+/                        /    i class="fa fa-times"
+/                        /                                                               insert: 'create_opportunity'}
+/      
+/      
+/      
+/              
+/
+/      
+/    == render 'shared/back', locals: {link: user_path(@user)} 
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'  
