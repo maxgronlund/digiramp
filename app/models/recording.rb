@@ -1,4 +1,6 @@
 # encoding: UTF-8
+require 'fileutils'
+
 class Recording < ActiveRecord::Base
   include PublicActivity::Common
   # virtual parameter for CommonWorksController#new_recording form
@@ -726,10 +728,11 @@ class Recording < ActiveRecord::Base
   
   def zip
     logger.info '=============================== start to zip ============================================'
+
     begin
     
       folder = UUIDTools::UUID.timestamp_create().to_s
-      new_dir = Dir.mkdir( Rails.root.join("public", "uploads", "recordings", "zip", folder) )
+      new_dir = FileUtils.mkdir_p( Rails.root.join("public", "uploads", "recordings", "zip", folder ).to_s )
       
       
       temp_file = Tempfile.new("recording-zip-#{UUIDTools::UUID.timestamp_create().to_s}")
