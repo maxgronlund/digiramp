@@ -8,7 +8,7 @@ class RecordingZipExportsController < ApplicationController
     
     puts '============= RecordingZipExportsController # show ============================================'
     ap params
-    @recording = Recording.cached_find(params[:id])
+    @recording = Recording.find(params[:id])
     ap @recording
     @recording.zip
     
