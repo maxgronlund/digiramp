@@ -39,6 +39,7 @@
               th Name
               th Deadline
               th Requests
+              th Submissions
               th Budget
 
 
@@ -70,6 +71,7 @@
                   - else
                     = opportunity.deadline
                 td = opportunity.music_requests.count
+                td = opportunity.submissions.count
                 td = opportunity.budget
                 
 
