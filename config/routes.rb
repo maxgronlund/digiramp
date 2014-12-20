@@ -1,6 +1,7 @@
 
 Digiramp::Application.routes.draw do
 
+
   get "recordings/rezip"
 
   resources :recording_zip_exports
@@ -651,6 +652,8 @@ Digiramp::Application.routes.draw do
       resources :activities
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
+      resources :archived_opportunities, only: [:index, :show]
+      resources :selected_opportunities, only: [:index, :show]
       resources :opportunities, only: [:index, :show] do
         resources :music_requests do
           resources :request_recordings

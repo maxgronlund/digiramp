@@ -36,28 +36,11 @@
                 '&nbsp;
                 = link_to 'Clear', user_recordings_path(@user), class: 'btn btn-default'
         
-      /.sexy_line
-      /.endless-pages
-      /.add_recordings
-      /  == render 'recordings/index', recordings: @recordings
-      / 
-      /== paginate(@recordings) 
+
       .sexy_line
       .endless-pages
       .add_recordings
-        /-if current_user && current_user.id == @user.id
-        /  .new-recording
-        /    = link_to new_user_recording_path(@user) do
-        /      .new-recording-badge
-        /        .new-recording-badge-content
-        /          i.fa.fa-plus-circle
-        /
-        /      .new-recording-content
-        /        .new-recording-text
-        /          h3 Click here to upload recording
-        /        .new-recording-waveform
-        /          = image_tag 'default_waveform.png'
-        /  /.sexy_line
+
         /  
         == render 'recordings/index', recordings: @recordings
        
@@ -73,9 +56,6 @@
 
 
 
-/- @recordings.each do |recording|
-/  = debug recording.title
-/  
   
   
   
@@ -83,70 +63,3 @@
   
   
   
-  
-  
-/#wrapper
-/  .full-width-top
-/    == render 'shared/navigationbar', page: 'home' 
-/  
-/
-/  #sidebar-wrapper
-/    ul class="sidebar-nav"
-/      == render 'users/shared/sidebar', selected: 'recordings'
-/      
-/                        
-/        
-/      
-/
-/  #page-content-wrapper
-/    .container-fluid 
-/      .row
-/        .col-sm-5
-/
-/          h3 Recordings
-/      
-/        .col-sm-7
-/          .search-recording
-/            = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
-/                                                          :controller => 'recordings'), \
-/                                                          :method => 'get' do |f|
-/            
-/              .input-group
-/                span class="input-group-addon"
-/                  i class= 'fa fa-search'
-/                = text_field_tag "query", "", :class => 'search-query form-control', \
-/                                              :placeholder => 'Search for recordings', \
-/                                              value: params[:query]
-/                .input-group-btn
-/                  = f.submit 'Go', class: "btn btn-primary"
-/                  '&nbsp;
-/                  = link_to 'Clear', user_recordings_path(@user), class: 'btn btn-default'
-/              
-/            
-/                
-/                  
-/        
-/      .sexy_line
-/      .endless-pages
-/      .add_recordings
-/        -if current_user && current_user.id == @user.id
-/          .new-recording
-/            = link_to new_user_recording_path(@user) do
-/              .new-recording-badge
-/                .new-recording-badge-content
-/                  i.fa.fa-plus-circle
-/
-/              .new-recording-content
-/                .new-recording-text
-/                  h3 Click here to upload recording
-/                .new-recording-waveform
-/                  = image_tag 'default_waveform.png'
-/          /.sexy_line
-/          
-/        == render 'recordings/index', recordings: @recordings
-/       
-/      == paginate(@recordings) 
-/      
-/          
-/  == render 'shared/site_footer'  
-/== render 'users/shared/mobile_links'

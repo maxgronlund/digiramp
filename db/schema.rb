@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218235000) do
+ActiveRecord::Schema.define(version: 20141220191217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1479,17 +1479,6 @@ ActiveRecord::Schema.define(version: 20141218235000) do
 
   add_index "opportunities", ["account_id"], name: "index_opportunities_on_account_id", using: :btree
 
-  create_table "opportunities_users", force: true do |t|
-    t.integer  "opportunity_id"
-    t.integer  "user_id"
-    t.boolean  "invited",        default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "opportunities_users", ["opportunity_id"], name: "index_opportunities_users_on_opportunity_id", using: :btree
-  add_index "opportunities_users", ["user_id"], name: "index_opportunities_users_on_user_id", using: :btree
-
   create_table "opportunity_invitations", force: true do |t|
     t.integer  "opportunity_id"
     t.string   "title"
@@ -1921,6 +1910,17 @@ ActiveRecord::Schema.define(version: 20141218235000) do
   end
 
   add_index "search_recordings", ["user_id"], name: "index_search_recordings_on_user_id", using: :btree
+
+  create_table "selected_opportunities", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "opportunity_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "archived"
+  end
+
+  add_index "selected_opportunities", ["opportunity_id"], name: "index_selected_opportunities_on_opportunity_id", using: :btree
+  add_index "selected_opportunities", ["user_id"], name: "index_selected_opportunities_on_user_id", using: :btree
 
   create_table "share_on_facebooks", force: true do |t|
     t.integer  "user_id"

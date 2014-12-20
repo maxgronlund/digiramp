@@ -9,53 +9,25 @@
   
   #page-content-wrapper
     .container-fluid 
-      h2 = @opportunity.title
+      .row
+        .col-sm-7
+          h2 = @opportunity.title
+        .col-sm-5
+          .pull-right
+            ul.nav.nav-pills
+              li  
+                = link_to 'Archived', user_user_archived_opportunities_path(@user)
+              li
+                = link_to 'Selected', user_user_selected_opportunities_path(@user)
+              li
+                = link_to 'New', user_user_opportunities_path(@user)
+                
+                
+      
       .sexy_line
       .opportunity
-        .row
-          .col-sm-2
-            .opportunity-image
-              = image_tag @opportunity.image_url(:size_184x184)
-            br
-            - unless @opportunity.public_opportunity 
-              h1
-                i.fa.fa-envelope
-              'By invitation
+        = render 'user/opportunities/opportunity', opportunity: @opportunity
 
-          .col-sm-10
-
-            .row
-              .col-sm-6
-                 = simple_format @opportunity.body
-                
-              .col-sm-6
-                .oppoptunity-info
-                  'From:
-                  .pull-right
-                    = @opportunity.account.title
-                  .sexy_line
-                  'Kind:
-                  .pull-right
-                    = @opportunity.kind
-                  .sexy_line
-                  'Budget:
-                  .pull-right
-                    = @opportunity.budget
-                  .sexy_line
-                  'Deadline:
-                  .pull-right
-                    - if @opportunity.deadline && @opportunity.deadline < Date.current
-                      .expired
-                        i class="fa fa-exclamation-circle"
-                        '&nbsp;
-                        = @opportunity.deadline
-                    - else
-                      = @opportunity.deadline
-                  - unless @opportunity.territory == ''
-                    .sexy_line
-                    'Territory:
-                    .pull-right
-                      = @opportunity.territory
                 
 
         

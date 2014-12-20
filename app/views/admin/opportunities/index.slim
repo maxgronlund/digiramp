@@ -37,6 +37,7 @@
           thead
             tr
               th Name
+              th
               th Deadline
               th Requests
               th Submissions
@@ -62,6 +63,10 @@
                        '&nbsp;
                        = opportunity.title
                 
+                td
+                  -if opportunity.public_opportunity
+                    i.fa.fa-envelope
+                    '&nbsp;Public
                 td 
                   - if opportunity.deadline && opportunity.deadline < Date.current
                     .expired
