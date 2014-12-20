@@ -747,15 +747,15 @@ class Recording < ActiveRecord::Base
       
         self.zipp =  "uploads/recordings/zip/" + folder + '/' +  self.title + ".zip"
         self.save
-        ap self.zipp
+        logger.info self.zipp
         
       temp_file.close
     
     
     rescue Exception => e  
-      puts '========================================= ERROR ZIPPING=================================================='
-      ap self.id
-      puts e.backtrace.inspect
+      #logger.info '========================================= ERROR ZIPPING=================================================='
+      #logger.info self.id
+      #logger.info e.backtrace.inspect
       
     end
 
