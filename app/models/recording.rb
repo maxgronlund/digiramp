@@ -751,10 +751,18 @@ class Recording < ActiveRecord::Base
     
     
     rescue Exception => e  
+      logger.info '.'
+      logger.info '.'
+      logger.info '.'
       logger.info '========================================= ERROR ZIPPING=================================================='
+      logger.info '========================================================================================================='
       logger.info self.id
       logger.info self.title
-      logger.info e.backtrace.inspect
+      #logger.info e.backtrace.inspect
+      logger.info '...'
+      logger.info '...'
+      logger.info '...'
+      logger.info '...'
       logger.info '...'
     end
 
