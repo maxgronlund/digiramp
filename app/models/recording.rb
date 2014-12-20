@@ -725,7 +725,7 @@ class Recording < ActiveRecord::Base
   end
   
   def zip
-
+    puts '============= start to zip ============================================'
     begin
     
       folder = UUIDTools::UUID.timestamp_create().to_s
@@ -747,6 +747,7 @@ class Recording < ActiveRecord::Base
       
         self.zipp =  "uploads/recordings/zip/" + folder + '/' +  self.title + ".zip"
         self.save
+        ap self.zipp
         
       temp_file.close
     
