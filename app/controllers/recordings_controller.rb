@@ -164,7 +164,7 @@ class RecordingsController < ApplicationController
   end
   
   def rezip
-    ap '--------------------------- reziping -----------------------------------'
+    logger.info '--------------------------- reziping -----------------------------------'
     recordings = Recording.where(zipp: nil).first(100)
     
     if recordings
