@@ -39,10 +39,18 @@
         
         
       .sexy_line
-        = link_to 'Rezip 10', recordings_rezip_path, remote: true
-        br
-        = Recording.where(zipp: nil).count
-        
+        /= link_to 'Rezip 10', recordings_rezip_path, remote: true
+        /br
+        /= Recording.where(zipp: nil).count
+        -if recordings = Recording.where(zipp: nil).first(20)
+          -recordings.each do |recording|
+            
+            b = recording.id
+            br = recording.title
+            = link_to 'show', user_recording_path( recording.user, recording) rescue[]
+            .sexy_line
+            
+           
                 
             
                  
