@@ -11,7 +11,12 @@
     .container-fluid 
       .row
         .col-sm-7
-          h2 = @opportunity.title
+          .help
+            .help-text
+              h2 Opportunity
+            .help-button
+              == render 'admin/helps/help', identifier: 'user opportunity'
+          
         .col-sm-5
           .pull-right
             ul.nav.nav-pills
@@ -23,7 +28,7 @@
                 = link_to 'New', user_user_opportunities_path(@user)
                 
                 
-      
+      = @opportunity.title
       .sexy_line
       .opportunity
         = render 'user/opportunities/opportunity', opportunity: @opportunity

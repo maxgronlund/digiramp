@@ -12,9 +12,22 @@
     .container-fluid
       /==render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) }, current:  ''}
-      h2 #{@account.title} <funky>Pro</funky>
-      'Edit&nbsp;
-      = @opportunity.title
+      .row
+        .col-sm-10
+          .help
+            .help-text
+              h2 #{@account.title} <funky>Pro</funky>
+            .help-button
+              == render 'admin/helps/help', identifier: 'edit account opportunity'
+        .col-sm-2
+          .pull-right
+            .recording-navigation
+
+              = link_to account_account_opportunity_path(@account, @opportunity) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+
       .sexy_line  
       .opportunity 
         == render 'form'

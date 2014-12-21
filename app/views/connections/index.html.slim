@@ -9,7 +9,13 @@
   
   #page-content-wrapper
     .container-fluid
-      h3 Connection
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 Connections
+            .help-button
+              == render 'admin/helps/help', identifier: 'user connections'
       .sexy_line
       .table-responsive
         table class="table table-hover"

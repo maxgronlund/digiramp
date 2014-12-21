@@ -9,6 +9,8 @@
   
   #page-content-wrapper
     .container-fluid
+    
+    
       - received_message = @message.receiver != @user.id
       .messages
         h3 = @message.title

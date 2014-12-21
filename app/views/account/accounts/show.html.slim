@@ -11,7 +11,15 @@
   
   #page-content-wrapper
     .container-fluid
-      h2 #{@account.title} <funky>Pro</funky>
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 #{@account.title} <funky>Pro</funky>
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'pro account'
+      
       .sexy_line
       
       .account-account

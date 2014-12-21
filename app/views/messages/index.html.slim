@@ -12,8 +12,12 @@
       .messages
         .row
           .col-sm-7
-            h3 Message center
-            'All messages
+            .help
+              .help-text
+                h2 Message center
+              .help-button
+                == render 'admin/helps/help', identifier: 'user messages'
+
           .col-sm-5
             .pull-right
               ul.nav.nav-pills
@@ -24,7 +28,8 @@
                 li class="active"
                   = link_to 'All', "#"
 
-
+        .sexy_line
+        h4 All messages
         table
           
           .table-responsive

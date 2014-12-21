@@ -17,17 +17,21 @@
                                                               @opportunity.title.to_sym => user_user_opportunity_path(@user, @opportunity)}, current: ''}
       .row
         .col-sm-5
-
-          h3 Submit Recordings
-          = @music_request.title
+          .help
+            .help-text
+              h2 Submit Recordings
+            .help-button
+              == render 'admin/helps/help', identifier: 'submit recordings'
+          
         .col-sm-7
           .pull-right
-            == link_to user_user_opportunity_path( @user, @opportunity ) do
-              .btn.btn-primary
-                i class="fa fa fa-arrow-left"
-                '&nbsp;Back
+            .recording-navigation
+              == link_to user_user_opportunity_path( @user, @opportunity ) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
         
-
+      = @music_request.title
       .sexy_line
       .row
         .col-sm-5

@@ -11,17 +11,22 @@
     .container-fluid
       .row
         .col-sm-7
-          /==render 'admin/shared/messages'
-          h2 #{@account.title} <funky>Pro</funky>
-          'Opportunities
+          .help
+            .help-text
+              h2 #{@account.title} <funky>Pro</funky>
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'account opportunities'
+
         .col-sm-5
           .pull-right
-            /== render 'opportunity/shared/opportunity_navigation'
-            = link_to new_account_account_opportunity_path(@user.account) do
-              .btn.btn-primary
-                i.fa.fa-plus-circle
-                '&nbsp;
-                'Create Opportunity
+            .recording-navigation
+              = link_to new_account_account_opportunity_path(@user.account) do
+                .btn.btn-primary
+                  i.fa.fa-plus-circle
+                  '&nbsp;
+                  'Create Opportunity
+      'Opportunities
       .sexy_line
       .table-responsive
         table class="table table-hover"

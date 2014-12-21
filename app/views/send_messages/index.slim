@@ -12,8 +12,12 @@
       .messages
         .row
           .col-sm-7
-            h3 Message center
-            'Send messages
+            .help
+              .help-text
+                h2 Message center
+              .help-button
+                == render 'admin/helps/help', identifier: 'user messages'
+            
           .col-sm-5
             .pull-right
               ul.nav.nav-pills
@@ -23,7 +27,8 @@
                   = link_to 'Sent', "#"
                 li
                   = link_to 'All', user_messages_path(@user)
-
+        .sexy_line
+        h4 Send messages
         table
           .table-responsive
             table class="table table-hover"

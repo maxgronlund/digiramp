@@ -12,7 +12,24 @@
     .container-fluid
       == render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account) }, current: ''}
-       h2 #{@account.title} <funky>Pro</funky>
+      .row
+        .col-sm-7
+          .help
+            .help-text
+              h2 #{@account.title} <funky>Pro</funky>
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'account opportunity'
+
+        /.col-sm-5
+        /  .pull-right
+        /    .recording-navigation
+        /      = link_to new_account_account_opportunity_path(@user.account) do
+        /        .btn.btn-primary
+        /          i.fa.fa-plus-circle
+        /          '&nbsp;
+        /          'Create Opportunity
+
       .sexy_line  
       h3 = @opportunity.title
       .opportunity 

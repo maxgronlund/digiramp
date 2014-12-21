@@ -12,7 +12,12 @@
     .container-fluid
       .row
         .col-sm-7
-          h3 Opportunities
+          .help
+            .help-text
+              h2 Opportunities
+            .help-button
+              == render 'admin/helps/help', identifier: 'user opportunities'
+          
         .col-sm-5
           .pull-right
             ul.nav.nav-pills
