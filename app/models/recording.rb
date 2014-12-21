@@ -164,7 +164,7 @@ class Recording < ActiveRecord::Base
   def confirm_ipi recording_ipi
     if user = User.where(email: recording_ipi.email)
       ap '======================= send email to existing  user ============================'
-      IpiMailer.delay.confirm_recording(recording_ipi.id)
+      #IpiMailer.delay.confirm_recording(recording_ipi.id)
     elsif
       ap '========================== create account for new user =========================='
       

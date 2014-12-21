@@ -24,18 +24,19 @@
           
         .col-sm-6
           .pull-right
-            => link_to edit_user_recording_lyric_path(@user, @recording) do
-              .btn.btn-default
-                i.fa.fa-chevron-left
-                '&nbsp;
-                'Back
-                
-            = link_to edit_user_recording_persona_path(@user, @recording) do
-              .btn.btn-default
-                'Skip
-                '&nbsp;
-                i.fa.fa-chevron-right
-
+            .recording-navigation
+              => link_to edit_user_recording_lyric_path(@user, @recording) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Back
+                  
+              = link_to edit_user_recording_persona_path(@user, @recording) do
+                .btn.btn-default
+                  'Skip
+                  '&nbsp;
+                  i.fa.fa-chevron-right
+              
       .sexy_line
       
       = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_tags'), 

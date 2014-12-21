@@ -24,17 +24,18 @@
 
         .col-sm-6
           .pull-right
-            => link_to edit_user_recording_tag_path(@user, @recording) do
-              .btn.btn-default
-                i.fa.fa-chevron-left
-                '&nbsp;
-                'Back
-                
-            = link_to edit_user_recording_right_path(@user, @recording) do
-              .btn.btn-default
-                'Skip
-                '&nbsp;
-                i.fa.fa-chevron-right
+            .recording-navigation
+              => link_to edit_user_recording_tag_path(@user, @recording) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Back
+                  
+              = link_to edit_user_recording_right_path(@user, @recording) do
+                .btn.btn-default
+                  'Skip
+                  '&nbsp;
+                  i.fa.fa-chevron-right
 
       .sexy_line
 
