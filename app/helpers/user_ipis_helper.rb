@@ -1,0 +1,2 @@
+module UserIpisHelper
+end

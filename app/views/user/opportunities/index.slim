@@ -19,7 +19,7 @@
               li  
                 = link_to 'Archived', user_user_archived_opportunities_path(@user)
               li
-                = link_to 'Selected', user_user_selected_opportunities_path(@user)
+                = link_to 'Viewed', user_user_selected_opportunities_path(@user)
               li class="active"
                 = link_to 'New', "#"
         
@@ -34,7 +34,7 @@
                   
                   => link_to user_user_opportunity_path(@user, opportunity) do
                     .btn.btn-primary
-                      'Select
+                      'View
             
                       
                   = link_to user_user_archived_opportunity_path(@user, opportunity), remote: true do

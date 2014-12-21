@@ -1,0 +1,45 @@
+- session[:return_url]         = request.url
+- help = Help.where(identifier: identifier).first_or_create(identifier: identifier)
+
+.modal.fade  id="helpModal_#{help.id.to_s}" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal"
+          span aria-hidden="true"
+            i.fa.fa-times
+
+        h4 class="modal-title" id="helpModalLabel"
+          = help.title 
+
+
+      
+      .share-dialog
+        .modal-body
+          - if help.snippet
+            = raw help.snippet
+            br
+          = simple_format help.body
+          
+              
+        .modal-footer
+
+          - if current_user && current_user.super?
+            => link_to 'Edit',  edit_admin_help_path(help), class: 'btn btn-default'
+            
+          button type="button" class="btn btn-primary" data-dismiss="modal"
+            'Ok
+          
+          
+
+
+button class="btn btn-default" data-toggle="modal" data-target="#helpModal_#{help.id.to_s}"
+  i.fa.fa-question
+  =< help.button
+
+
+                
+
+              
+    
+

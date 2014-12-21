@@ -14,21 +14,35 @@
   #page-content-wrapper
     .container-fluid 
       == render 'recordings/wizard_step', step: 5
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Common work
+            .help-button
+              == render 'admin/helps/help', identifier: 'recording common work'
+        .col-sm-6
+          .pull-right
+            => link_to edit_user_recording_persona_path(@user, @recording) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;
+                'Back
+                
+            /= link_to edit_user_recording_right_path(@user, @recording) do
+            /  .btn.btn-default
+            /    'Skip
+            /    '&nbsp;
+            /    i.fa.fa-chevron-right
+      
+      .sexy_line
       - common_work = @recording.attach_to_common_work
       = simple_form_for [ @recording.account, common_work],  :html => { :id => 'common_work' } do |f|
         #common_work_ipis
         
           = f.hidden_field :recording_id, value: @recording.id
           = f.hidden_field :user_id, value: @recording.user_id
-          .sexy_line
-          .row
-            .col-sm-8
-              h4 Master informations
-              'Songwriters and composers
-            /.col-sm-4 
-            /  .pull-right
-            /    = link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
-        
+          
           
           .row
             .col-sm-12
@@ -36,7 +50,7 @@
                 = f.simple_fields_for :ipis do |ipi|
                   = render 'recording_rights/ipi_fields', :f => ipi
                 .links
-                  = link_to_add_association 'Add Intereted partiy', f, :ipis, class: 'btn btn-primary'
+                  = link_to_add_association 'Add IPI', f, :ipis, class: 'btn btn-primary'
                   
                   
           .row
@@ -53,8 +67,8 @@
               /.sexy_line
               br
               .pull-right
-                = link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
-                '&nbsp;
+                /= link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
+                /'&nbsp;
                 = f.submit 'Save', class: 'btn btn-primary'
                 
             

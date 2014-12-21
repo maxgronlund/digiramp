@@ -1,0 +1,19 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'admin'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, content: admin_content_index_path }, current: ''}
+      h3 New help (temp)
+      .sexy_line
+      == render 'form'
+       
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+

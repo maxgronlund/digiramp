@@ -12,13 +12,28 @@
     .container-fluid 
       == render 'admin/shared/messages'
       == render 'recordings/wizard_step', step: 1
-      /.row
-      /  .col-sm-12
-      /    .pull-right
-      /      = link_to edit_user_recording_lyric_path(@user, @recording) do
-      /        '&nbsp;Skip
-      /        i.fa.fa-chevron-right
-      /        
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Basic informations
+            .help-button
+              == render 'admin/helps/help', identifier: 'recording basic'
+        .col-sm-6
+          .pull-right
+
+            => link_to user_recording_path(@user, @recording) do
+              .btn.btn-default
+                i.fa.fa-times
+                '&nbsp;Cancel
+                
+            = link_to edit_user_recording_lyric_path(@user, @recording) do
+              .btn.btn-default
+                '&nbsp;Skip
+                i.fa.fa-chevron-right
+      .sexy_line
+      
+   
 
       = simple_form_for  [@user, @recording ], url: url_for(:action => 'update', :controller => 'recording_basics'), 
                                                html: { :id => 'recording_artwork' }, 
@@ -31,10 +46,18 @@
             = f.input :featured if current_user.super?
             = f.input :title
             b Original file:
+            =< @recording.original_file_name
             br
-            = @recording.original_file_name
-            br
-            = link_to 'Replace', edit_user_recording_upload_path(@user, @recording), class: 'btn btn-default btn-xs'
+            => link_to @recording.zipp do
+              .btn.btn-default
+                i.fa.fa-cloud-download
+                '&nbsp;Download
+            
+            = link_to edit_user_recording_upload_path(@user, @recording) do
+               .btn.btn-default
+                 i.fa.fa-cloud-upload
+                 '&nbsp;Reaplace
+                 
             .sexy_line
             .fileinput.fileinput-new data-provides="fileinput"
               .fileinput-new.thumbnail style="width: 184px; height: 184px;"
@@ -72,10 +95,10 @@
           /= f.button :submit, 'Cancel', class: 'btn btn-default', id: 'done'
           /'&nbsp;
 
-          = f.button :submit,'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
-          '&nbsp;
-          = link_to 'Skip', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
-          '&nbsp;
+          => f.button :submit,'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
+          /'&nbsp;
+          /= link_to 'Skip', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
+          /'&nbsp;
           = f.button :submit, 'Save', class: 'btn btn-primary'
         /== render 'form', f: f
       = transloadit_jquerify :recording_artwork, :wait => true

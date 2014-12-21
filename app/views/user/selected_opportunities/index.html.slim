@@ -19,7 +19,7 @@
               li  
                 = link_to 'Archived', user_user_archived_opportunities_path(@user)
               li class="active"
-                = link_to 'Selected', '#'
+                = link_to 'Viewed', '#'
               li
                 = link_to 'New', user_user_opportunities_path(@user)
         
@@ -36,7 +36,7 @@
                     .btn.btn-primary
                       i.fa.fa-eye
                       '&nbsp;
-                      'Show
+                      'View
                       
                   = link_to user_user_archived_opportunity_path(@user, opportunity), remote: true do
                     .btn.btn-default

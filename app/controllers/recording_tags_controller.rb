@@ -1,5 +1,7 @@
 class RecordingTagsController < ApplicationController
   
+  before_filter :get_user, only: [:show, :edit, :update]
+  
   def edit
     @recording      = Recording.cached_find(params[:id])
     @user           = User.cached_find(params[:user_id])

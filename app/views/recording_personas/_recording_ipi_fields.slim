@@ -1,0 +1,24 @@
+.nested-fields
+  .row
+    = f.hidden_field :recording_id, value: @recording.id
+    .col-sm-4
+      = f.input :name
+    .col-sm-4
+      = f.input :email
+    .col-sm-2
+      = f.input :role  , collection: RecordingIpi::ROLES, :include_blank => true
+    .col-sm-2
+       = f.input :share, label: 'Share in %'
+  .row
+    .col-sm-12
+      .pull-right
+      = link_to_remove_association "Remove IPI", f  , class: 'btn btn-default btn-xs'
+ 
+  .row
+    .col-sm-12
+      .sexy_line
+      
+
+    
+    
+  

@@ -16,10 +16,10 @@
               = link_to comment.user.user_name, user_path( comment.user)
               '&nbsp;
               = "#{time_ago_in_words(comment.created_at) } ago"
-              .pull-right
-                = link_to  comment_path(comment), data: {:confirm => 'Are you sure?'}, :method => :delete , remote: true do
-                  i class="fa fa-times"
-            /h4  = comment.title
+              /.pull-right
+              /  = link_to  comment_path(comment), data: {:confirm => 'Are you sure?'}, :method => :delete , remote: true do
+              /    i class="fa fa-times"
+
             = simple_format comment.body
             .sexy_line
             

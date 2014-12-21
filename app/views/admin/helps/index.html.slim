@@ -1,0 +1,95 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'admin'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-8
+          h3 Help
+          'Dropdowns with help informations for end users
+        /.col-sm-4
+        /  = link_to 'new', new_admin_help_path
+        /  br 
+        /
+        /
+        /  == render 'admin/helps/help', identifier: 'recording ipis'
+      .sexy_line
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Button
+              th Title
+              th Identifier
+
+          
+          tbody
+            - @helps.each do |help|
+              tr
+                td = help.button
+                td = help.title
+                td = help.identifier
+                td 
+                  .pull-right
+                    /=> link_to 'Show', admin_help_path( help )    , class: 'btn btn-default btn-xs' 
+                    => link_to 'Edit', edit_admin_help_path(help) , class: 'btn btn-default btn-xs'
+                    /= link_to 'Destroy', admin_help_path(help), data: {:confirm => 'Are you sure?'}, :method => :delete,  class: 'btn btn-danger btn-xs'
+              
+          
+
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

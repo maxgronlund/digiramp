@@ -2,6 +2,10 @@
 Digiramp::Application.routes.draw do
 
 
+  
+
+  get 'user_ipis/index'
+
   get "recordings/rezip"
 
   resources :recording_zip_exports
@@ -347,6 +351,7 @@ Digiramp::Application.routes.draw do
     
     
     resources :front_end_contents, only: [:edit, :update]
+    resources :helps
     resources :widget_themes
     get 'repair_permissions'
     resources :activities
@@ -648,6 +653,7 @@ Digiramp::Application.routes.draw do
   namespace :user do
     
     resources :users do
+      resources :user_ipis, only: [:index]
       resources :authorization_providers
       resources :activities
       resources :catalogs, only: [:index]

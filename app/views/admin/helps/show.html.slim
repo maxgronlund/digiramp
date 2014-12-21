@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Identifier:
+  = @help.identifier
+p
+  strong Button:
+  = @help.button
+p
+  strong Title:
+  = @help.title
+p
+  strong Body:
+  = @help.body
+p
+  strong Snippet:
+  = @help.snippet
+
+= link_to 'Edit', edit_help_path(@help)
+'|
+= link_to 'Back', helps_path

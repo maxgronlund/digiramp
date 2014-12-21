@@ -8,8 +8,8 @@ class CommonWorksController < ApplicationController
   def update
     ap params[:common_work].nil? 
     
-    recording_id   = params[:common_work][:recording_id]
-    user_id       = params[:common_work][:user_id]
+    recording_id    = params[:common_work][:recording_id]
+    user_id         = params[:common_work][:user_id]
     params[:common_work].delete :recording_id
     params[:common_work].delete :user_id
     

@@ -1,4 +1,5 @@
 .nested-fields
+  /= debug 
   .row
     .col-sm-8
       .row
@@ -62,11 +63,10 @@
         .col-sm-12
           .pull-right
             
-            = link_to 'Advanced', "##{uuid}", 'data-toggle'.to_sym => 'collapse', 'data-parent'.to_sym => '#accordion', class: 'btn btn-default'
+            => link_to 'Advanced', "##{uuid}", 'data-toggle'.to_sym => 'collapse', 'data-parent'.to_sym => '#accordion', class: 'btn btn-default'
               /a data-toggle="collapse" data-parent="#accordion" href="##{uuid}"
               /  'Advanced
-            '&nbsp;
-            = link_to_remove_association "Remove ipi", f  , class: 'btn btn-default'
+            = link_to_remove_association "Remove IPI", f  , class: 'btn btn-default'
   
        
   

@@ -1,4 +1,5 @@
 class RecordingIpi < ActiveRecord::Base
+  
   belongs_to :user
   belongs_to :recording
   
@@ -25,6 +26,7 @@ class RecordingIpi < ActiveRecord::Base
 
   after_commit :flush_cache
   before_save :attach_user
+  
   
   
   def attach_user

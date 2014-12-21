@@ -19,7 +19,7 @@
               li class="active"
                 = link_to 'Archived', '#'
               li
-                = link_to 'Selected', user_user_selected_opportunities_path(@user)
+                = link_to 'Viewed', user_user_selected_opportunities_path(@user)
               li
                 = link_to 'New', user_user_opportunities_path(@user)
         
@@ -34,7 +34,7 @@
                   
                   => link_to user_user_opportunity_path(@user, opportunity) do
                     .btn.btn-primary
-                      'Select
+                      'Unarchive
             
                       
 

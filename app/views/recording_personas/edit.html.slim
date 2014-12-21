@@ -14,32 +14,65 @@
   #page-content-wrapper
     .container-fluid                                  
       == render 'recordings/wizard_step', step: 4
-      = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_personas'), 
-                                               :method => 'put' do |f|
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Recording IPI's
+            .help-button
+              == render 'admin/helps/help', identifier: 'recording ipis'
 
-        .row
-          .col-sm-6
-            = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
-            = f.input :artist, :input_html => {  style: "height: 80px;", placeholder: "Artist"}
-          .col-sm-6
-            = f.input :performer, :input_html => {  style: "height: 80px;", placeholder: "Performer"}
-        .row
-          .col-sm-6
-            = f.input :composer, :input_html => {  style: "height: 80px;", placeholder: "Composer"}
-          .col-sm-6
-            = f.input :band, :input_html => {  style: "height: 80px;", placeholder: "Band"}
+        .col-sm-6
+          .pull-right
+            => link_to edit_user_recording_tag_path(@user, @recording) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;
+                'Back
+                
+            = link_to edit_user_recording_right_path(@user, @recording) do
+              .btn.btn-default
+                'Skip
+                '&nbsp;
+                i.fa.fa-chevron-right
 
+      .sexy_line
 
+      /= simple_form_for [ @user, @recording],  :html => { :id => 'recording_ipi' } do |f|
+      = simple_form_for  [@user, @recording ], url: url_for(:action => 'update', :controller => 'recording_personas'), 
+                                               html: { :id => 'recording_ipi' }, 
+                                               method: 'put' do |f|
+        #recording_ipis
 
-         
+          .row
+            .col-sm-12
+              #ipis
+                = f.simple_fields_for :recording_ipis do |recording_ipis|
+                  = render 'recording_personas/recording_ipi_fields', :f => recording_ipis
+                .links
+                  = link_to_add_association 'Add IPI', f, :recording_ipis, class: 'btn btn-primary'
+                  
+                  
+          .row
+            .col-sm-8
+            .col-sm-4              
+              b Total shares % 
+              .total_share
+              i Must equal 100%
+      
+      
+      
+      
+      
+      
+      
+      
+          .pull-right   
+            => f.button :submit, 'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
+            '&nbsp;
 
-    
-        .pull-right   
-          = f.button :submit, 'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
-          '&nbsp;
-          = link_to 'Skip', edit_user_recording_right_path(@user, @recording), class: 'btn btn-default'
-          '&nbsp;
-          = f.submit 'Next', class: 'btn btn-primary'
+            = f.submit 'Save', class: 'btn btn-primary'
+
      
         
   == render 'shared/site_footer'  

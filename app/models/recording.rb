@@ -4,6 +4,7 @@ require 'fileutils'
 class Recording < ActiveRecord::Base
   include PublicActivity::Common
   # virtual parameter for CommonWorksController#new_recording form
+  
   attr_accessor :add_to_catalogs
   
   
@@ -95,6 +96,7 @@ class Recording < ActiveRecord::Base
   has_many :image_files,                                dependent: :destroy
   has_many :recording_items,                            dependent: :destroy
   has_many :recording_ipis,                             dependent: :destroy
+  accepts_nested_attributes_for :recording_ipis, :reject_if => :all_blank, :allow_destroy => true
   has_many :playbacks,                                  dependent: :destroy
   has_many :recording_views,                            dependent: :destroy
   has_many :likes,                                      dependent: :destroy
@@ -108,6 +110,7 @@ class Recording < ActiveRecord::Base
   # owners followers gets a new post on their dashboard
   has_many      :follower_events, as: :postable,    dependent: :destroy
   after_create  :send_notifications_on_create
+  #after_create  :update
   
   #mount_uploader :cover_art, ArtworkUploader
   
@@ -131,6 +134,7 @@ class Recording < ActiveRecord::Base
     attach_to_common_work
     #notify_followers 'Has uploaded a recording', self.user_id 
     Activity.notify_followers( 'Recording', self.user_id, 'Recording', self.id )
+    confirm_ipis
   end
 
   #def notify_followers notification, user_id, postable_type, postable_id
@@ -148,7 +152,24 @@ class Recording < ActiveRecord::Base
   #  
   #end
   
-
+  def confirm_ipis
+    ap '======================= confirm_ipis ============================'
+    self.recording_ipis.where(confirmed: false).each do |recording_ipi|
+      unless recording_ipi.email == ''
+        confirm_ipi recording_ipi
+      end
+    end
+  end
+  
+  def confirm_ipi recording_ipi
+    if user = User.where(email: recording_ipi.email)
+      ap '======================= send email to existing  user ============================'
+      IpiMailer.delay.confirm_recording(recording_ipi.id)
+    elsif
+      ap '========================== create account for new user =========================='
+      
+    end
+  end
   
   def playlist
     

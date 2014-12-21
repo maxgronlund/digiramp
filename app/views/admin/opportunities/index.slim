@@ -64,9 +64,9 @@
                        = opportunity.title
                 
                 td
-                  -if opportunity.public_opportunity
+                  -unless opportunity.public_opportunity
                     i.fa.fa-envelope
-                    '&nbsp;Public
+                    '&nbsp;Private
                 td 
                   - if opportunity.deadline && opportunity.deadline < Date.current
                     .expired

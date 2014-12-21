@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141220191217) do
+ActiveRecord::Schema.define(version: 20141221175819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1045,6 +1045,16 @@ ActiveRecord::Schema.define(version: 20141220191217) do
     t.integer  "recordings_count",   default: 0
   end
 
+  create_table "helps", force: true do |t|
+    t.string   "identifier"
+    t.string   "button"
+    t.string   "title"
+    t.text     "body"
+    t.text     "snippet"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "homes", force: true do |t|
     t.text     "big_banner_text"
     t.string   "box_1_title"
@@ -1737,6 +1747,8 @@ ActiveRecord::Schema.define(version: 20141220191217) do
     t.integer  "recording_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email",        default: ""
+    t.boolean  "confirmed",    default: false
   end
 
   add_index "recording_ipis", ["recording_id"], name: "index_recording_ipis_on_recording_id", using: :btree
