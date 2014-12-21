@@ -33,7 +33,7 @@
           .table-responsive
             table class="table table-hover"
               tbody
-                - @user.send_massages.each.each do |message|
+                - @user.send_massages.order(created_at: :desc).each.each do |message|
                   == render 'messages/message', message: message
       
                 
