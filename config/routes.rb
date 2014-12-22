@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  resources :public_opportunities, only: [:index]
+
   get 'search/index'
 
   get 'user_ipis/index'

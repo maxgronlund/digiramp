@@ -1,0 +1,55 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      /== render 'users/shared/sidebar', selected: 'opportunities'
+      h1 fo
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-7
+          .help
+            .help-text
+              h2 Opportunities
+            .help-button
+              == render 'admin/helps/help', identifier: 'user opportunities'
+          
+        .col-sm-5
+          .pull-right
+          /  ul.nav.nav-pills
+          /    li  
+          /      = link_to 'Archived', user_user_archived_opportunities_path(@user)
+          /    li
+          /      = link_to 'Viewed', user_user_selected_opportunities_path(@user)
+          /    li class="active"
+          /      = link_to 'New', "#"
+          /
+      .sexy_line
+      .opportunity
+        - @opportunities.each do |opportunity|
+          = render 'user/opportunities/opportunity', opportunity: opportunity
+          .row
+            .col-sm-12
+              .pull-right
+                
+                /=> link_to user_user_opportunity_path(@user, opportunity) do
+                /  .btn.btn-primary
+                /    'View
+                /
+                /    
+                /= link_to user_user_archived_opportunity_path(@user, opportunity), remote: true do
+                /  .btn.btn-default
+                /    i.fa.fa-times
+                /    '&nbsp;
+                /    'Archive
+                /
+            
+          .clearfix
+          .sexy_line
+
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

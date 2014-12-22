@@ -1,41 +1,83 @@
-#unsubscribe
+#wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
   
-
-  #unsubscribe-wrapper
-    .container
-      h2 Support
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          h2 Support
+        .col-sm-6
+          .pull-right
+            => link_to 'Report an issue', new_user_issue_path(current_user), class: 'btn btn-default'
+            = link_to 'Known issues', user_issues_path(current_user), class: 'btn btn-default'
       .sexy_line
-        .row
-          .col-sm-3
-            - if current_user
-              = link_to 'Report an issue', new_user_issue_path(current_user), class: 'btn btn-default'
-              br
-              = link_to 'Known issues', user_issues_path(current_user), class: 'btn btn-default'
-          .col-sm-3
-            h3 Contact us
-            = simple_form_for Contact.new do |f|
-              
-              = f.input :email, placeholder: 'you@email.com'
-              
-              = f.input :title, placeholder: 'Subject', label: 'Subject'
-              = f.input :body, label: 'Message', :input_html => {  style: "height: 284px;", placeholder: "Write your message here"}
-              br
-              .pull-right
-                = f.submit 'Send to support', class: 'btn btn-primary'
+      .row
+        .col-sm-6
+          = simple_form_for Contact.new do |f|
             
-          .col-sm-3
-          .col-sm-3
+            = f.input :email, placeholder: 'you@email.com'
             
+            = f.input :title, placeholder: 'Subject', label: 'Subject'
+            = f.input :body, label: 'Message', :input_html => {  style: "height: 284px;", placeholder: "Write your message here"}
+            br
+            .pull-right
+              = f.submit 'Send to support', class: 'btn btn-primary'
+          
 
-      
-                  
             
                  
               
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
+
+
+
+
+
+/#unsubscribe
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'home' 
+/  
+/
+/  #unsubscribe-wrapper
+/    .container
+/      h2 Support
+/      .sexy_line
+/        .row
+/          .col-sm-3
+/            - if current_user
+/              = link_to 'Report an issue', new_user_issue_path(current_user), class: 'btn btn-default'
+/              br
+/              = link_to 'Known issues', user_issues_path(current_user), class: 'btn btn-default'
+/          .col-sm-3
+/            h3 Contact us
+/            = simple_form_for Contact.new do |f|
+/              
+/              = f.input :email, placeholder: 'you@email.com'
+/              
+/              = f.input :title, placeholder: 'Subject', label: 'Subject'
+/              = f.input :body, label: 'Message', :input_html => {  style: "height: 284px;", placeholder: "Write your message here"}
+/              br
+/              .pull-right
+/                = f.submit 'Send to support', class: 'btn btn-primary'
+/            
+/          .col-sm-3
+/          .col-sm-3
+/            
+/
+/      
+/                  
+/            
+/                 
+/              
+/  == render 'shared/site_footer'    
+/== render 'users/shared/mobile_links'
 
 
 

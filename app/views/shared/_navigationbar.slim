@@ -54,6 +54,19 @@
           i.fa.fa-users
           '&nbsp;
           'People
+          
+      li class="#{page == 'opportunities' ? 'active' : ''}"
+        - if current_user
+          = link_to user_user_opportunities_path(current_user) do
+            i.fa.fa-money
+            '&nbsp;
+            'Opportunities
+        - else
+          = link_to public_opportunities_path do
+            i.fa.fa-money
+            '&nbsp;
+            'Opportunities
+          
         
         /.search-recording
         /
@@ -91,7 +104,7 @@
           = link_to user_path(current_user) do
             = image_tag current_user.image_url(:avatar_32x32)
             '&nbsp;
-
+        
         
       - if user_signed_in?  
         li class="dropdown"
