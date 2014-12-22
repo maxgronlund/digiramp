@@ -7,66 +7,22 @@
     = link_to 'Learn more', home_index_path, class: 'btn btn-primary btn-lg'
   .welcome
     .container
-      
-
-            
       .welcome-container
         .row
           .col-sm-4
-            / ---------------------------------------------------
-            / signup
-            .row
-              .col-sm-12
-                h3 Sign up
-                = simple_form_for(User.new)    do |f|
-                  .input-group
-                    span class="input-group-addon" @
-                    = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
-                  br
-                  .input-group
-                    span class="input-group-addon" 
-                      i class= 'fa fa-key'
-                    = f.input_field :password, placeholder: 'Password', autocomplete: :off
+            == render 'welcome/login'
                 
-                  br
-                  .input-group
-                    span class="input-group-addon" 
-                      i class= 'fa fa-key'
-                    = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
-                  .row
-                    .col-sm-12
-                      .pull-right
-                        br
-                        = f.submit 'Sign Up', class: 'btn btn-primary', id: 'sign_up_form_button'
-                  br
-                  .sexy_line
-                  br
-                  
-                  h4 Continue with
-                  .social-icons
-                    .social-icon
-                      = link_to "/auth/twitter" do
-                        .twitter
-                        'Twitter
-                    .social-icon
-                      = link_to  "/auth/facebook" do
-                        .facebook
-                        'Facebook 
-                    .social-icon
-                      = link_to "/auth/linkedin" do
-                        .linkedin
-                        'Linkedin
-                    .social-icon
-                      = link_to  "/auth/gplus" do
-                        .google
-                        'Google+
                 
-            / ---------------------------------------------------
-            / video
-            .row
-              .col-sm-12
-                #welcome-videos
-                  iframe src="http://player.vimeo.com/video/109593195" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+                
+                
+                
+                
+                
+                       
+            
+            br
+            #welcome-videos
+              iframe src="http://player.vimeo.com/video/109593195" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
             /.row
             /  .col-sm-12
             /    .video-container

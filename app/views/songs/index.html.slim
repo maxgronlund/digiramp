@@ -1,6 +1,6 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'account' 
+    == render 'shared/navigationbar', page: 'songs' 
   #sidebar-wrapper
     ul class="sidebar-nav"
       .sidebar
@@ -85,18 +85,19 @@
                   = link_to 'Clear', songs_path(clear: 'clear'), class: 'btn btn-default'
             
       .sexy_line
-      .endless-pages
+      
       == render 'songs/index', songs: @songs
       .add_songs
-        
-        
       
-      == paginate(@songs)
-      /javascript:
-      /  initialize_digi_wahms();
-        
+      .endless-pages
+      
+      .paggination-container
+       == render 'pagination', songs: @songs
+          
 
         
 
   == render 'shared/site_footer'   
 == render 'users/shared/mobile_links'
+/javascript:
+/  initialize_digi_wahms();

@@ -26,5 +26,16 @@ module RecordingsHelper
     forbidden unless @recording.delete_recording_ids.include? current_user.id || can_edit?
   end
   
+  def update_user_recording
+    if current_user
+      @recording      = Recording.cached_find(params[:id])
+      return if current_user.super?
+      return if @recording.user_id == current_user.id
+    end
+    forbidden
+  end
+  
+  
+  
   
 end

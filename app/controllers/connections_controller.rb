@@ -45,6 +45,13 @@ class ConnectionsController < ApplicationController
     @connection_id = @connection.id
     @connection.destroy
   end
+  
+  def self.connected user_1, user_2
+    connection = Connection.where(user_id: user_1.id,  connection_id: user_2.id).first 
+    connection = Connection.where(user_id: user_2.id,  connection_id: user_1.id).first unless connection
+    return false if connection.dismissed
+    connection.approved
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

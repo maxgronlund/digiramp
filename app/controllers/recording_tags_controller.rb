@@ -1,17 +1,16 @@
 class RecordingTagsController < ApplicationController
   
-  before_filter :get_user, only: [:show, :edit, :update]
+  before_filter :get_user, only: [ :edit, :update]
+  include RecordingsHelper
+  before_filter :update_user_recording, only: [ :edit, :update]
   
   def edit
-    @recording      = Recording.cached_find(params[:id])
-    @user           = User.cached_find(params[:user_id])
   end
 
   def update
     go_to = params[:recording][:next_step]
     params[:recording].delete :next_step
-    
-    @recording      = Recording.cached_find(params[:id])
+
     @recording.update_attributes(recording_params)
     
     if go_to == 'next_step'

@@ -62,49 +62,56 @@
   /    = pluralize(@user.widgets.count, 'Widgets')      
   / 
   
-  - if @authorized
-    li class="#{'sidebar-selected' if selected == 'connections'}"
-      = link_to user_connections_path(@user ) do
-        i class="fa fa-refresh"
-        '&nbsp;
-        'Connections
-      
-    li class="#{'sidebar-selected' if selected == 'opportunities'}"
-      = link_to user_user_opportunities_path(@user ) do
-        i class="fa fa-money"
-        '&nbsp;
-        'Opportunities
-  
+  /- if @authorized
+  /  li class="#{'sidebar-selected' if selected == 'connections'}"
+  /    = link_to user_connections_path(@user ) do
+  /      i class="fa fa-refresh"
+  /      '&nbsp;
+  /      'Connections
+  /    
+  /  li 
+  /    = link_to user_user_opportunities_path(@user ) do
+  /      i class="fa fa-money"
+  /      '&nbsp;
+  /      'Opportunities
   - if current_user 
-    - unless current_user.account.account_type  == "Social"
-      .sexy_line 
-      li class="#{'sidebar-selected' if selected == 'account'}"
-        = link_to account_account_path( current_user.account ) do
-          i class="fa fa-tachometer"
-          '&nbsp;
-          'Pro Account
-        
-     
-      li class="#{'sidebar-selected' if selected == 'collections'}"
-        = link_to user_user_collections_path( current_user ) do
-          i class="fa fa-cog"
-          '&nbsp;
-          'Accounts
-          
-      li class="#{'sidebar-selected' if selected == 'catalogs'}"
-        = link_to user_user_catalogs_path( current_user ) do
-          i class="fa fa-book"
-          '&nbsp;
-          'Catalogs
-    
-    - if current_user.super? 
-      .sexy_line
-      li class="#{'sidebar-selected' if selected == 'admin'}"
-        = link_to admin_index_path do
-          i class="fa fa-gear"
-          '&nbsp;
-          'Admin
+    .sexy_line
+    li
+      = link_to support_index_path do
+        i class="fa fa-life-ring"
+        '&nbsp;
+        'Support
       
+  /- if current_user 
+  /  - unless current_user.account.account_type  == "Social"
+  /    .sexy_line 
+  /    li class="#{'sidebar-selected' if selected == 'account'}"
+  /      = link_to account_account_path( current_user.account ) do
+  /        i class="fa fa-tachometer"
+  /        '&nbsp;
+  /        'Pro Account
+  /      
+  /   
+  /    li class="#{'sidebar-selected' if selected == 'collections'}"
+  /      = link_to user_user_collections_path( current_user ) do
+  /        i class="fa fa-cog"
+  /        '&nbsp;
+  /        'Accounts
+  /        
+  /    li class="#{'sidebar-selected' if selected == 'catalogs'}"
+  /      = link_to user_user_catalogs_path( current_user ) do
+  /        i class="fa fa-book"
+  /        '&nbsp;
+  /        'Catalogs
+  - if super?
+    
+    
+    li class="#{'sidebar-selected' if selected == 'admin'}"
+      = link_to admin_index_path do
+        i class="fa fa-gear"
+        '&nbsp;
+        'Admin
+    
     / li class="#{'sidebar-selected' if selected == 'activities'}"
     /   = link_to user_user_activities_path( @user ) do
     /     i class="fa fa-tachometer"

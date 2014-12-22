@@ -1,0 +1,113 @@
+#accordion
+  a data-toggle="collapse" data-parent="#accordion" href="#collapse_login"
+    .btn.btn-default.btn-lg
+      i.fa.fa-sign-in
+      '&nbsp;Log in
+  .pull-right
+
+    a data-toggle="collapse" data-parent="#accordion" href="#collapse_signup"
+      .btn.btn-warning.btn-lg
+
+        i.fa.fa-plus
+        '&nbsp;Sign up
+    
+
+  
+  div id="collapse_signup" class="panel-collapse collapse" 
+    .row
+      .col-sm-12
+        h3 Sign up
+        = simple_form_for(User.new)    do |f|
+          .input-group
+            span class="input-group-addon" @
+            = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+          br
+          .input-group
+            span class="input-group-addon" 
+              i class= 'fa fa-key'
+            = f.input_field :password, placeholder: 'Password', autocomplete: :off
+        
+          br
+          .input-group
+            span class="input-group-addon" 
+              i class= 'fa fa-key'
+            = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+          .row
+            .col-sm-12
+              .pull-right
+                br
+                = f.submit 'Sign Up', class: 'btn btn-primary', id: 'sign_up_form_button'
+          br
+          .sexy_line
+          br
+          
+          h4 Signup with
+          .social-icons
+            .social-icon
+              = link_to "/auth/twitter" do
+                .twitter
+                'Twitter
+            .social-icon
+              = link_to  "/auth/facebook" do
+                .facebook
+                'Facebook 
+            .social-icon
+              = link_to "/auth/linkedin" do
+                .linkedin
+                'Linkedin
+            .social-icon
+              = link_to  "/auth/gplus" do
+                .google
+                'Google+
+  
+  
+  
+  
+  
+  
+  div id="collapse_login" class="panel-collapse collapse" 
+    h3 Login
+
+    = simple_form_for(  :sessions, :url => sessions_path ) do |f|
+      .input-group
+        span class="input-group-addon" @
+        = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+      br
+      .input-group
+        span class="input-group-addon" 
+          i class= 'fa fa-key'
+        = f.input_field :password, placeholder: 'Password', autocomplete: :off
+      br
+      = f.input :remember_me, as: :boolean, input_html: { value: '1' }
+      .row
+        .col-sm-12
+          .pull-right
+
+            = link_to "Forgot Password?", new_password_reset_path, class: 'btn btn-default'
+            '&nbsp;
+            = f.submit 'Log in', class: 'btn btn-primary', id: 'log_in_form_button' 
+    
+      br
+      .sexy_line
+      
+      
+      h4 Login with
+      .social-icons
+        .social-icon
+          = link_to "/auth/twitter" do
+            .twitter
+            'Twitter
+        .social-icon
+          = link_to  "/auth/facebook" do
+            .facebook
+            'Facebook 
+        .social-icon
+          = link_to "/auth/linkedin" do
+            .linkedin
+            'Linkedin
+        .social-icon
+          = link_to  "/auth/gplus" do
+            .google
+            'Google+
+    
+                

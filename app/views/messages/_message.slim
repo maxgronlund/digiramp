@@ -1,5 +1,4 @@
-
-- received_message = message.receiver == @user.id
+- received_message = message.receiver.id == @user.id
 
   
 tr id="delete_message_#{message.id.to_s}"
@@ -17,37 +16,72 @@ tr id="delete_message_#{message.id.to_s}"
     - if message.read  == false && message.sender.id != @user.id
       i.fa.fa-exclamation-circle
       '&nbsp;New
+  
+  
+  
+
   td
     .pull-right
-      - if received_message
-        = message.receiver.user_name
-      - else
-        b= message.sender.user_name
-  td.message-avatars
-    - if received_message
-      - if message.sender
-        = link_to image_tag( message.sender.image_url :avatar_32x32), user_path(message.sender)
-      '&nbsp;
-      i.fa.fa-arrow-left 
-      '&nbsp;
-      - if message.receiver
-        = link_to image_tag( message.receiver.image_url :avatar_32x32), user_path(message.receiver)
-      
-    - else
-
-      - if message.sender
-        = link_to image_tag( message.sender.image_url :avatar_32x32), user_path(message.sender)
-      '&nbsp;
-      i.fa.fa-arrow-right 
-      '&nbsp;
-      - if message.receiver
-        = link_to image_tag( message.receiver.image_url :avatar_32x32), user_path(message.receiver)
-  td
-    '&nbsp;
-    - if received_message
       b= message.sender.user_name
-    - else
-      b= message.receiver.user_name
+  td.message-avatars
+    = link_to image_tag( message.sender.image_url :avatar_32x32), user_path(message.sender)
+    '&nbsp;
+    i.fa.fa-arrow-right 
+    '&nbsp;
+    = link_to image_tag( message.receiver.image_url :avatar_32x32), user_path(message.receiver)
+  td
+    b= message.receiver.user_name
+
+  
+  
+  
+  
+  /td
+  /  .pull-right
+  /    - if received_message
+  /      = message.receiver.user_name
+  /    - else
+  /      b= message.sender.user_name
+  /
+  /td.message-avatars
+  /  - if received_message
+  /    - if message.sender
+  /      = link_to image_tag( message.sender.image_url :avatar_32x32), user_path(message.sender)
+  /    '&nbsp;
+  /    i.fa.fa-arrow-right 
+  /    '&nbsp;
+  /    - if message.receiver
+  /      = link_to image_tag( message.receiver.image_url :avatar_32x32), user_path(message.receiver)
+  /    
+  /  - else
+  /
+  /    - if message.sender
+  /      = link_to image_tag( message.sender.image_url :avatar_32x32), user_path(message.sender)
+  /    '&nbsp;
+  /    i.fa.fa-arrow-right 
+  /    '&nbsp;
+  /    - if message.receiver
+  /      = link_to image_tag( message.receiver.image_url :avatar_32x32), user_path(message.receiver)
+  /
+  /
+  /td
+  /  '&nbsp;
+  /  - if received_message
+  /    b= message.sender.user_name
+  /  - else
+  /    b= message.receiver.user_name
+  /
+  /
+  /
+  
+  td
+    - if received_message && Connection.connected(message.receiver, message.sender )
+      / Mail
+      = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{message.sender.id.to_s}" do
+        .btn.btn-default.btn-xs
+          i.fa.fa-envelope
+          '&nbsp;New  
+      == render 'messages/modal', modal_id: "pmModal_#{message.sender.id.to_s}", recipient: message.sender, subjebtable: message.sender
       
 
 

@@ -33,17 +33,56 @@
       
 
   .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
+    
+    /= simple_form_for :search, :url => url_for(:action => 'index', \
+    /                                            :controller => 'songs'), \
+    /                                            :method => 'get' do |f|
+    /
+    /  
+    /  = text_field_tag "query", "", :class => 'search-query form-control navbar-form navbar-left', \
+    /                                :placeholder => 'Search', \
+    /                                :role => "search", \
+    /                                value: params[:query]
     ul class="nav navbar-nav"
+      li class="#{page == 'songs' ? 'active' : ''}"
+        = link_to songs_path do
+          i.fa.fa-headphones
+          '&nbsp;
+          'Music
+      li class="#{page == 'users' ? 'active' : ''}"
+        = link_to users_path do
+          i.fa.fa-users
+          '&nbsp;
+          'People
+        
+        /.search-recording
+        /
+        /  = simple_form_for :recording, :url => url_for(:action => 'index', \
+        /                                              :controller => 'songs'), \
+        /                                              :method => 'get' do |f|
+        /
+        /    .input-group
+        /      span class="input-group-addon"
+        /        i class= 'fa fa-search'
+        /      = text_field_tag "query", "", :class => 'search-query form-control', \
+        /                                    :placeholder => 'Search', \
+        /                                    value: params[:query]
+        /                                  
+        /
+        /      .input-group-btn
+        /        = f.submit 'Go', class: "btn btn-primary"
+        /        '&nbsp;
+        /        = link_to 'Clear', songs_path, class: 'btn btn-default'
+        /
 
     ul class="nav navbar-nav navbar-right"   
-      li.discover-back
-        = link_to discover_index_path do
-          i class="fa fa-search"
-          '&nbsp;
-          'Search
+      /li.discover-back
+      /  = link_to songs_path do
+      /    i class="fa fa-search"
+      /    '&nbsp;
+      /    'Search
       - if user_signed_in? && current_account
         li
-          
           = link_to user_messages_path(current_user, box: 'received') do
             div id="message_count"
             == render 'messages/count'
@@ -60,30 +99,55 @@
           = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
             i.fa.fa-cog
           ul class="dropdown-menu" role="menu"
-            -if can_edit?
-              li  class="#{page == 'admin' ? 'active' : ''}"
-                = link_to admin_index_path do
-                  i class="fa fa-wrench"
-                  '&nbsp;
-                  'Admin
             - if current_user  
-              li  class="#{page == 'admin' ? 'active' : ''}"
+              li  class="#{page == 'edit_profile' ? 'active' : ''}"
                 = link_to edit_user_path(current_user) do
                   i class="fa fa-cog"
                   '&nbsp;
                   'Edit Profile
                   
-              li  class="#{page == 'admin' ? 'active' : ''}"
+              li  class="#{page == 'authorization_providers' ? 'active' : ''}"
                 = link_to user_user_authorization_providers_path(current_user) do
                   i class="fa fa-share-alt"
                   '&nbsp;
                   'Social Accounts
+              
+              li  class="#{page == 'connections' ? 'active' : ''}"
+                = link_to user_connections_path(current_user ) do
+                  i class="fa fa-refresh"
+                  '&nbsp;
+                  'Connections
+      
+              li  class="#{page == 'opportunities' ? 'active' : ''}"
+                = link_to user_user_opportunities_path( current_user ) do
+                  i class="fa fa-money"
+                  '&nbsp;
+                  'Opportunities
+                  
+              - unless current_user.account.account_type  == "Social"    
+                li  class="#{page == 'account' ? 'active' : ''}"
+                  = link_to account_account_path( current_user.account) do
+                    i class="fa fa-cog"
+                    '&nbsp;
+                    'Pro Account
+                    
+                li  class="#{page == 'user_collections' ? 'active' : ''}"
+                  = link_to user_user_collections_path( current_user) do
+                    i class="fa fa-tachometer"
+                    '&nbsp;
+                    'Other Accounts
+                    
+                li  class="#{page == 'admin' ? 'active' : ''}"
+                  = link_to user_user_catalogs_path( current_user) do
+                    i class="fa fa-book"
+                    '&nbsp;
+                    'Catalogs
 
-            li  class="#{page == 'support' ? 'active' : ''}"
-              = link_to support_index_path do
-                i class="fa fa-life-ring"
-                '&nbsp;
-                'Support
+            /li  class="#{page == 'support' ? 'active' : ''}"
+            /  = link_to support_index_path do
+            /    i class="fa fa-life-ring"
+            /    '&nbsp;
+            /    'Support
             li    
               = link_to logout_path do
                 i class="fa fa-unlock"
@@ -102,7 +166,7 @@
         /        'Sign up
         li 
           = link_to login_new_path do
-            i class="fa fa-lock"
+            i class="fa fa-sign-in"
             '&nbsp;
             'Log in
       

@@ -1,12 +1,18 @@
-if("<%= @remove_old_recordings %>"){
+<% if @remove_old_recordings  %>
   $('.old-recordings').empty();
+  $('.pagination').remove();
+  $('.paggination-container').append("<%= j render 'songs/pagination', songs: @songs %>");
+  /*
+  $('.pagination').remove();
+  $('.paggination-container').append("<%= j render 'songs/pagination', songs: @songs %>");
+  */
   endless_pages();
   history.replaceState(null, "", "?query=<%=params[:query]%>")
-}
+<% end %>
 
 $('.add_songs').append("<%= j render 'songs/index', songs: @songs %>");
 
-<% if (@songs.next_page) %>
+<% if  @songs.next_page %>
     $('.pagination').replaceWith('<%= j paginate(@songs) %>');
 <% else %>
     $('.pagination').remove();

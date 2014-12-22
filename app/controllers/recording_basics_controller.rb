@@ -1,10 +1,14 @@
 class RecordingBasicsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
+  
   before_filter :get_user, only: [ :edit, :update]
+  include RecordingsHelper
+  before_filter :update_user_recording, only: [ :edit, :update]
+  
   def edit
     
-    @user           = User.cached_find(params[:user_id])
-    @recording      = Recording.cached_find(params[:id])
+    #@user           = User.cached_find(params[:user_id])
+    #@recording      = Recording.cached_find(params[:id])
     
     forbidden unless current_user
     unless current_user.super?

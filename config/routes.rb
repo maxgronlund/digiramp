@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  get 'search/index'
+
   get 'user_ipis/index'
 
   get "recordings/rezip"

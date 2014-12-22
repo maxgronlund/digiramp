@@ -1,5 +1,7 @@
 class Message < ActiveRecord::Base
   
+  validates_presence_of :title
+  
   after_commit :flush_cache
   belongs_to :connection
   

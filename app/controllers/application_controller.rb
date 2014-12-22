@@ -58,7 +58,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_catalog_user 
   
-  
+  def super?
+    current_user && current_user.super?
+  end
+  helper_method :super?
+   
   def user_signed_in?
     current_user != nil
   end

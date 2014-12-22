@@ -1,11 +1,13 @@
 class SongsController < ApplicationController
   
   def index
-
+    ap params
     if params[:commit] == 'Go'
+      params[:commit] = ''
       @remove_old_recordings = true
       session[:query] = params[:query]
     end
+    
     session[:query] = nil if params[:clear] == 'clear'
     params[:query]  = session[:query]
     

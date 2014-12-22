@@ -17,13 +17,15 @@
           = f.hidden_field :sender_id, value: current_user.id
           = f.hidden_field :subjebtable_id, value: subjebtable.id
           = f.hidden_field :subjebtable_type, value: subjebtable.class.name
-          = f.input :title, label: 'Subject'
+          
+          = f.input :title, label: 'Subject', placeholder: 'Required'
           = f.input :body, :input_html => {  style: "height: 280px;", placeholder: "Message"}
           
         .modal-footer
           = f.submit "Cancel", :type => "reset", class: 'btn btn-default',  "data-dismiss".to_sym => "modal"
           '&nbsp;
-          = f.submit 'Send', class: 'btn btn-primary'
+          = f.submit 'Send', class: 'btn btn-primary btn-send', disabled: "disabled"
+
 
 
 
@@ -32,3 +34,9 @@ javascript:
     $("#message_title").val("");
     $("#message_body").val("");
   })
+  
+  
+  $("##{modal_id}").on('show.bs.modal', function (event) {
+    check_message_title();
+  })
+  

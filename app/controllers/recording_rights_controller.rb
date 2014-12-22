@@ -1,19 +1,14 @@
 class RecordingRightsController < ApplicationController
   
-  before_filter :get_user, only: [:edit, :update]
+  before_filter :get_user, only: [ :edit, :update]
+  include RecordingsHelper
+  before_filter :update_user_recording, only: [ :edit, :update]
   
   def edit
-    forbidden unless @authorized
-    @recording      = Recording.cached_find(params[:id])
-    
-
   end
 
   def update
-    @recording      = Recording.cached_find(params[:id])
     @recording.update_attributes(recording_params)
-    
-    #redirect_to user_recording_path(@recording.user, @recording)
     redirect_to edit_user_recording_right_path(@recording.user, @recording)
   end
   

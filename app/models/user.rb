@@ -384,7 +384,7 @@ class User < ActiveRecord::Base
   def can_edit?
     self.role == 'Super'
   end
-  
+
   # user by?
   def permits? current_user
     # users can access their own profile
