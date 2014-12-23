@@ -8,7 +8,8 @@ class RecordingsController < ApplicationController
 
 
   def index
-    
+    ap '================================================================================================'
+    ap params
     if params[:commit] == 'Go'
       @remove_old_recordings = true
       session[:query] = params[:query]
