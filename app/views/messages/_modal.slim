@@ -19,12 +19,13 @@
           = f.hidden_field :subjebtable_type, value: subjebtable.class.name
           
           = f.input :title, label: 'Subject', placeholder: 'Required'
+          
           = f.input :body, :input_html => {  style: "height: 280px;", placeholder: "Message"}
           
         .modal-footer
           = f.submit "Cancel", :type => "reset", class: 'btn btn-default',  "data-dismiss".to_sym => "modal"
           '&nbsp;
-          = f.submit 'Send', class: 'btn btn-primary btn-send', disabled: "disabled"
+          = f.submit 'Send', class: 'btn btn-primary btn-send'
 
 
 
@@ -36,7 +37,7 @@ javascript:
   })
   
   
-  $("##{modal_id}").on('show.bs.modal', function (event) {
-    check_message_title();
-  })
+/$("##{modal_id}").on('show.bs.modal', function (event) {
+/  check_message_title();
+/})
   

@@ -59,7 +59,7 @@
 //= require jquery.fitvids
 //= require fidtvideo
 //= require google
-// require bootstrapValidator.min
+//= require bootstrapValidator.min
 // require bootstrap-tokenfield
 // require chosen-jquery
 // require jquery.tokeninput

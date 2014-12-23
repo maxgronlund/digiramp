@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  get 'selected_opportunities/show'
+
   resources :public_opportunities, only: [:index]
 
   get 'search/index'
