@@ -54,16 +54,21 @@
                       .btn.btn-danger.btn-xs disabled="disabled"
                         i class="fa fa-times"
                     - else
-                      = link_to admin_user_path( user), data: { confirm: 'Are you sure?. \nAll Recordings. Opportunities. Common Works, Account Users and other Assets wil be deleted ' } , :method => :delete do 
+                      => link_to admin_user_path( user), data: { confirm: 'Are you sure?. \nAll Recordings. Opportunities. Common Works, Account Users and other Assets wil be deleted ' } , :method => :delete do 
                         .btn.btn-danger.btn-xs
                           i class="fa fa-times"
-                    '&nbsp;
-                    = link_to edit_admin_user_path( user) do 
+
+                    => link_to edit_admin_user_path( user) do 
                       .btn.btn-default.btn-xs
                         i class="fa fa-pencil"
-                    '&nbsp;
+                    
+                    - if account = user.account
+                    => link_to edit_admin_account_path( account) do 
+                      .btn.btn-default.btn-xs
+                        i class="fa fa-gear"
+
                     -if user.account
-                      = link_to account_account_path( user.account) do 
+                      => link_to account_account_path( user.account) do 
                         .btn.btn-default.btn-xs
                           i.fa.fa-tachometer
                           '&nbsp;

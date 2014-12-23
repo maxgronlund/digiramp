@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141223092615) do
+ActiveRecord::Schema.define(version: 20141223154917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1494,9 +1494,11 @@ ActiveRecord::Schema.define(version: 20141223092615) do
     t.integer  "opportunity_id"
     t.integer  "user_id"
     t.string   "uuid"
-    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "emails"
+    t.string   "subject"
+    t.text     "body"
   end
 
   add_index "opportunity_evaluations", ["opportunity_id"], name: "index_opportunity_evaluations_on_opportunity_id", using: :btree
