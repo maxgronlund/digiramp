@@ -1,39 +1,17 @@
-.request-info
-  /= debug music_request.mp3
-  /== render 'audio_player/play_botton', recording: music_request.mp3 
-  .row
-    .col-sm-6
-      h4 = music_request.title
-      = simple_format music_request.body
-    .col-sm-6
-      
-      .no-borders.table-responsive
-        table class="table table-condensed"
-          tr
-            th.description Fee:
-            td = number_to_currency(music_request.fee, locale: :en, precision: 2)
-      
-          - unless  music_request.link.to_s == ''
-            tr
-              th.description Duration:
-              td = music_request.duration_text
-          - unless  music_request.link.to_s == ''
-            tr
-              th.description Sound like:
-              td = link_to 'click here', music_request.link
-  .row
-    .col-sm-12
-  
-  
-      .pull-right
-        - if current_account_user.update_opportunity
-          = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), 
-                                                                    data: { confirm: 'Are you sure?' } , 
-                                                                    :method => :delete  do
-            .btn.btn-xs.btn-danger
-              i class="fa fa-times"
-          
-          =< link_to edit_account_account_opportunity_music_request_path(@account, @opportunity, music_request) do
-            .btn.btn-xs.btn-default
-              i class="fa fa-pencil"
-              '&nbsp;Edit
+== render 'music_requests/info', music_request: music_request
+.row
+  .col-sm-12
+
+
+    .pull-right
+      - if current_account_user.update_opportunity
+        = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), 
+                                                                  data: { confirm: 'Are you sure?' } , 
+                                                                  :method => :delete  do
+          .btn.btn-xs.btn-danger
+            i class="fa fa-times"
+        
+        =< link_to edit_account_account_opportunity_music_request_path(@account, @opportunity, music_request) do
+          .btn.btn-xs.btn-default
+            i class="fa fa-pencil"
+            '&nbsp;Edit

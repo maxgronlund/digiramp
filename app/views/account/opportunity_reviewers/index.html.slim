@@ -1,0 +1,52 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', \
+          breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account), \
+                                  @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity)}, current: ''}
+      .row
+        .col-sm-6
+
+          .row
+            .col-sm-12
+              .help
+                .help-text
+                 h2 #{@account.title} <funky>Pro</funky>
+                .help-button
+                  == render 'admin/helps/help', identifier: 'opportunity reviewers'
+                  
+          
+          
+
+        .col-sm-6
+          .pull-right
+            .recording-navigation
+              => link_to account_account_opportunity_path(@account, @opportunity) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
+                    
+              = link_to new_account_account_opportunity_opportunity_reviewer_path(@account, @opportunity) do
+                  .btn.btn-primary
+                    i.fa.fa-user
+                    '&nbsp;Invite reviewer
+              
+                  
+      = @opportunity.title
+      .sexy_line
+      h4 Reviewers
+      == render 'account/opportunities/reviewers'
+      /= debug @opportunity.opportunity_evaluations
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

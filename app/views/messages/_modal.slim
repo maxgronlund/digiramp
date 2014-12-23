@@ -9,24 +9,23 @@
         h4 class="modal-title" id="myModalLabel"
           'New message
         .sexy_line
-
-      = simple_form_for [current_user, Message.new], remote: true do |f|
-        .modal-body
-          /= f.hidden_field :sender_id, value: current_user.id
-          = f.hidden_field :recipient_id, value: recipient.id
-          = f.hidden_field :sender_id, value: current_user.id
-          = f.hidden_field :subjebtable_id, value: subjebtable.id
-          = f.hidden_field :subjebtable_type, value: subjebtable.class.name
-          
-          = f.input :title, label: 'Subject', placeholder: 'Required'
-          
-          = f.input :body, :input_html => {  style: "height: 280px;", placeholder: "Message"}
-          
-        .modal-footer
-          = f.submit "Cancel", :type => "reset", class: 'btn btn-default',  "data-dismiss".to_sym => "modal"
-          '&nbsp;
-          = f.submit 'Send', class: 'btn btn-primary btn-send'
-
+        
+        = simple_form_for [current_user, Message.new], remote: true do |f|
+          .modal-body
+            /= f.hidden_field :sender_id, value: current_user.id
+            = f.hidden_field :recipient_id, value: recipient.id
+            = f.hidden_field :sender_id, value: current_user.id
+            = f.hidden_field :subjebtable_id, value: subjebtable.id
+            = f.hidden_field :subjebtable_type, value: subjebtable.class.name
+            
+            = f.input :title, label: 'Subject', :input_html => {  id: "title_#{modal_id}",  placeholder: 'Required'}
+            = f.input :body, :input_html => {  style: "height: 280px;", placeholder: "Message"}
+            
+          .modal-footer
+            = f.submit "Cancel", :type => "reset", class: 'btn btn-default',  "data-dismiss".to_sym => "modal"
+            '&nbsp;
+            = f.submit 'Send', class: "btn btn-primary btn_#{modal_id}", disabled: "disabled"
+        
 
 
 
@@ -37,7 +36,8 @@ javascript:
   })
   
   
-/$("##{modal_id}").on('show.bs.modal', function (event) {
-/  check_message_title();
-/})
+  $("##{modal_id}").on('show.bs.modal', function (event) {
+    check_message_title("#{modal_id}");
+    
+  })
   

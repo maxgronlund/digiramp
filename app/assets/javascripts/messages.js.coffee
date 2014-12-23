@@ -5,7 +5,8 @@
 #  
 #  
 #
-#  $('#notEmptyForm').bootstrapValidator();
+#  $("#message_title").change ->
+#    enable_send_button()
 #
 #
 #  
@@ -18,3 +19,14 @@
   
   
 
+@enable_send_button =(id) ->
+
+  if $("#title_" + id ).val() != ''
+    $(".btn_" + id ).removeAttr("disabled")
+  else
+    $(".btn_" + id ).attr('disabled', 'disabled');
+
+@check_message_title =(id) ->
+  #alert( ".title_" + id)
+  $("#title_" + id).keyup ->
+    enable_send_button(id)

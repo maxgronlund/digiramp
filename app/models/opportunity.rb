@@ -7,8 +7,8 @@ class Opportunity < ActiveRecord::Base
   
   
   has_many   :opportunity_users, dependent: :destroy
-  
   has_many   :selected_opportunities,   dependent: :destroy
+  has_many   :opportunity_evaluations, dependent: :destroy
 
   
   
@@ -40,8 +40,12 @@ class Opportunity < ActiveRecord::Base
   #
   
   
+  before_create :init_fields
   
   
+  def init_fields
+    self.uuid = UUIDTools::UUID.timestamp_create().to_s
+  end
   
   def submission_count
     return submissions.size if submissions

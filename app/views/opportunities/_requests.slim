@@ -1,0 +1,29 @@
+- opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
+  .request-info
+    == render 'music_requests/info', music_request: music_request
+  
+
+  - music_request.music_submissions.where(selected: true).order('title desc').each do |music_submission|
+    - recording =  music_submission.recording
+    div id="delete_music_submission_#{music_submission.id.to_s}"
+      .row
+        .col-sm-12
+          #digiWhams  class="/recordings/#{recording.id.to_s}"
+            == render 'opportunities/recording_for_request', recording: recording
+      /.row
+      /  .col-sm-12
+      /    'Submitted by:&nbsp;
+      /    = music_submission.user.user_name
+      /
+      /    br
+      /
+      /    div id="music_submission_selected_#{music_submission.id.to_s}"
+      /      / also contain buttons for remove an message
+      /      == render 'music_submissions/selected', music_submission: music_submission
+      /
+      /
+      /    .sexy_line
+      /
+  
+
+   

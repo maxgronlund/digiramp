@@ -4,7 +4,11 @@ Digiramp::Application.routes.draw do
 
   
 
-  get 'selected_opportunities/show'
+  
+
+
+
+  resources :selected_opportunities, only: [:show]
 
   resources :public_opportunities, only: [:index]
 
@@ -465,8 +469,7 @@ Digiramp::Application.routes.draw do
       
       resources :audio_files
       resources :catalogs do
-        #resources :catalog_recordings
-        #resources :catalog_common_works
+
       end
       resources :clients
       resources :client_imports
@@ -503,6 +506,7 @@ Digiramp::Application.routes.draw do
       
 
       resources :opportunities do
+        resources :opportunity_reviewers
         resources :opportunity_users, only: [:destroy, :show]
         resources :opportunity_providers, only: [:index]
         member do

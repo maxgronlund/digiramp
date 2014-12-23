@@ -1,2 +1,37 @@
-h1 SelectedOpportunities#show
-p Find me in app/views/selected_opportunities/show.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+     
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 = @opportunity.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'shared opportunity'
+          
+      - if super?
+        = @opportunity.uuid
+      .sexy_line  
+
+      .opportunity 
+        == render 'opportunities/opportunity', opportunity: @opportunity
+      
+        .sexy_line  
+        .row
+           .col-sm-12
+              == render 'opportunities/requests', opportunity: @opportunity
+/      
+/            
+/                                            
+/      
+/  == render 'shared/site_footer'  
+/== render 'users/shared/mobile_links'

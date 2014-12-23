@@ -123,7 +123,7 @@ gem "gritter", "1.1.0"
 gem "airbrake"
 gem "cocoon"
 gem 'rubyzip'
-gem 'bootstrap-validator-rails', '~> 0.5.3'
+#gem 'bootstrap-validator-rails', '~> 0.5.3'
 
 # maintaince
 gem 'traceroute'

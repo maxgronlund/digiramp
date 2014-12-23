@@ -1,6 +1,7 @@
 - @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
   
-  == render 'account/music_requests/info', music_request: music_request
+  .request-info
+    == render 'account/music_requests/info', music_request: music_request
   
 
   - music_request.music_submissions.order('selected desc').each do |music_submission|
@@ -16,13 +17,31 @@
           'Submitted by:&nbsp;
           = music_submission.user.user_name
    
-          br
-
+      .row
+        .col-sm-6
           div id="music_submission_selected_#{music_submission.id.to_s}"
             / also contain buttons for remove an message
             == render 'music_submissions/selected', music_submission: music_submission
+        .col-sm-6
+          .pull-right
+            - if  music_submission.recording.zipp.to_s == '' 
+              =< link_to 'zip', recording_zip_export_path( music_submission.recording ), class: 'btn btn-default btn-xs', remote: true
+            - else
+              =< link_to root_path +  music_submission.recording.zipp do
+                .btn.btn-default.btn-xs
+                  i class="fa fa-download"
+            
+            
+            '&nbsp;  
+            = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{music_submission.id.to_s}" do
+              .btn.btn-default.btn-xs
+                i.fa.fa-envelope
+                '&nbsp;Send message  
+            
+            == render 'messages/modal', modal_id: "pmModal_#{music_submission.id.to_s}",  recipient: music_submission.user, subjebtable: music_submission
 
-
+      .row
+        .col-sm-12
           .sexy_line
 
   

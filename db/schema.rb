@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141221175819) do
+ActiveRecord::Schema.define(version: 20141223092615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1485,9 +1485,22 @@ ActiveRecord::Schema.define(version: 20141221175819) do
     t.string   "territory",          default: ""
     t.boolean  "public_opportunity", default: false
     t.string   "image"
+    t.string   "uuid"
   end
 
   add_index "opportunities", ["account_id"], name: "index_opportunities_on_account_id", using: :btree
+
+  create_table "opportunity_evaluations", force: true do |t|
+    t.integer  "opportunity_id"
+    t.integer  "user_id"
+    t.string   "uuid"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "opportunity_evaluations", ["opportunity_id"], name: "index_opportunity_evaluations_on_opportunity_id", using: :btree
+  add_index "opportunity_evaluations", ["user_id"], name: "index_opportunity_evaluations_on_user_id", using: :btree
 
   create_table "opportunity_invitations", force: true do |t|
     t.integer  "opportunity_id"

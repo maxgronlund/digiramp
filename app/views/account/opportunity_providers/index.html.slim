@@ -16,17 +16,35 @@
                                                             }, current: ''}
       .row
         .col-sm-6
-          h2 #{@account.title} <funky>Pro</funky>
-          = @opportunity.title
+
+          .row
+            .col-sm-12
+              .help
+                .help-text
+                 h2 #{@account.title} <funky>Pro</funky>
+                .help-button
+                  == render 'admin/helps/help', identifier: 'shared opportunity'
+                  
+          
+          
 
         .col-sm-6
           .pull-right
-            =< link_to new_account_account_opportunity_opportunity_invitation_path(@account, @opportunity) do          
-              .btn.btn-primary
-                i.fa.fa-envelope
-                '&nbsp;
-                'Invite more
-
+            .recording-navigation
+              =< link_to account_account_opportunity_opportunity_invitations_path(@account, @opportunity) do          
+                .btn.btn-default
+                  i.fa.fa-envelope
+                  '&nbsp;
+                  'Invitations
+                  
+              =< link_to new_account_account_opportunity_opportunity_invitation_path(@account, @opportunity) do          
+                .btn.btn-primary
+                  i.fa.fa-envelope
+                  '&nbsp;
+                  'Invite more
+      b Invited providers for:&nbsp;
+      = @opportunity.title
+      
       == render 'account/opportunities/providers'
       /.opportunity 
       /  .row
