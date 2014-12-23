@@ -137,7 +137,7 @@
                   '&nbsp;
                   'Opportunities
                   
-              - unless current_user.account.account_type  != "Social"    
+              - unless current_user.account.account_type  == "Social"    
                 li  class="#{page == 'account' ? 'active' : ''}"
                   = link_to account_account_path( current_user.account) do
                     i class="fa fa-cog"

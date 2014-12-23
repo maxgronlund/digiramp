@@ -56,12 +56,6 @@ class Opportunity < ActiveRecord::Base
     MusicSubmission.where( music_request_id: music_request_ids)
   end
   
-  def self.cached_find(id)
-    Rails.cache.fetch([name, id]) { find(id) }
-  end
-  
-  
-  
   def self.search(  query)
     if query.present?
       return Opportunity.search_opportunity(query)
@@ -70,7 +64,9 @@ class Opportunity < ActiveRecord::Base
     end
   end
   
-  
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
 private
   
   def flush_cache
