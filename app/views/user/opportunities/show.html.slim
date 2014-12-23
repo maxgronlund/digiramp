@@ -14,11 +14,19 @@
           .help
             .help-text
               h2 Opportunity
+              
             .help-button
               == render 'admin/helps/help', identifier: 'user opportunity'
+              
+              - if account = @opportunity.account
+                - if account.user_id == current_user.id || super?
+                  =< link_to account_account_opportunity_path(account, @opportunity)
+                    .btn.btn-default
+                      i.fa.fa-pencil
           
         .col-sm-5
           .pull-right
+            
             ul.nav.nav-pills
               li  
                 = link_to 'Archived', user_user_archived_opportunities_path(@user)
