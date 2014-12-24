@@ -5,7 +5,7 @@ class Account::ClientsController < ApplicationController
 
 
   def index
-    @clients  = Client.account_search(@account, params[:query]).order('name asc').page(params[:page]).per(64)
+    @clients  = Client.account_search(@account, params[:query]).order('name asc').page(params[:page]).per(256)
     @user = @account.user
     @authorized = true
   end

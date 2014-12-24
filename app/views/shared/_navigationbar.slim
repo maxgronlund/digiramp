@@ -131,11 +131,11 @@
                   '&nbsp;
                   'Connections
       
-              li  class="#{page == 'opportunities' ? 'active' : ''}"
-                = link_to user_user_opportunities_path( current_user ) do
-                  i class="fa fa-money"
-                  '&nbsp;
-                  'Opportunities
+              /li  class="#{page == 'opportunities' ? 'active' : ''}"
+              /  = link_to user_user_opportunities_path( current_user ) do
+              /    i class="fa fa-money"
+              /    '&nbsp;
+              /    'Opportunities
                   
               - unless current_user.account.account_type  == "Social"    
                 li  class="#{page == 'account' ? 'active' : ''}"

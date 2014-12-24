@@ -578,7 +578,14 @@ class User < ActiveRecord::Base
   end
   
   def self.create_uniq_user_name_from_email email
-    user_name = email.split('@').first
+    
+    begin
+      user_name = email.split('@').first
+    rescue
+      user_name = no_name
+    end
+    
+    
     if last_user = User.last
       user_name = [ user_name, (last_user.id ).to_s].compact.join('_')
     end

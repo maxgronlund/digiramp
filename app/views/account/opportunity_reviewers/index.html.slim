@@ -21,7 +21,7 @@
                 .help-text
                  h2 #{@account.title} <funky>Pro</funky>
                 .help-button
-                  == render 'admin/helps/help', identifier: 'opportunity reviewers'
+                  == render 'admin/helps/help', identifier: 'opportunity project group'
                   
           
           
@@ -37,12 +37,12 @@
               = link_to new_account_account_opportunity_opportunity_reviewer_path(@account, @opportunity) do
                   .btn.btn-primary
                     i.fa.fa-user
-                    '&nbsp;Invite reviewer
+                    '&nbsp;Invite members
               
                   
       = @opportunity.title
       .sexy_line
-      h4 Reviewers
+      h4 Project group
       == render 'account/opportunities/reviewers'
       /= debug @opportunity.opportunity_evaluations
             
