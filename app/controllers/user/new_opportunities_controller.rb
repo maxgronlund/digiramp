@@ -1,4 +1,4 @@
-class User::OpportunitiesController < ApplicationController
+class User::NewOpportunitiesController < ApplicationController
   
   before_filter :access_user, only: [:index, :show]
   include AccountsHelper
@@ -6,10 +6,15 @@ class User::OpportunitiesController < ApplicationController
 
   
   def index
-    #@authorized     = true if current_user.id == @user.id
-
+    @authorized     = true if current_user.id = @user.id
+    #@opportunities  = Opportunity.public_opportunities
+    
     opportunity_ids  =  Opportunity.where(public_opportunity: true).pluck(:id)
     opportunity_ids  += OpportunityUser.where(user_id: @user.id).pluck(:opportunity_id)
+    # dont show selected opportunities
+    opportunity_ids  -= SelectedOpportunity.where(user_id: @user.id).pluck(:opportunity_id)
+    
+    
     opportunity_ids.uniq!
     
     @opportunities = Opportunity.order('deadline desc').where(id: opportunity_ids)

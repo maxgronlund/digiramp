@@ -9,7 +9,6 @@ Digiramp::Application.routes.draw do
 
 
   resources :selected_opportunities, only: [:show]
-
   resources :public_opportunities, only: [:index]
 
   get 'search/index'
@@ -660,6 +659,12 @@ Digiramp::Application.routes.draw do
     resources :recordings, only: [:index, :show]
   end
   
+  
+  
+  
+  
+  
+  #=================== USER =========================
   namespace :user do
     
     resources :users do
@@ -668,8 +673,9 @@ Digiramp::Application.routes.draw do
       resources :activities
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
-      resources :archived_opportunities, only: [:index, :show]
+      resources :removed_opportunities, only: [:index, :show]
       resources :selected_opportunities, only: [:index, :show]
+      resources :new_opportunities, only: [:index, :show]
       resources :opportunities, only: [:index, :show] do
         resources :music_requests do
           resources :request_recordings
@@ -680,6 +686,7 @@ Digiramp::Application.routes.draw do
     
   end
   
+  #=================== OPPORTUNITY =========================
   namespace :opportunity do
     
     

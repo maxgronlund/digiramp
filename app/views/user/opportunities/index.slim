@@ -19,14 +19,7 @@
               == render 'admin/helps/help', identifier: 'user opportunities'
           
         .col-sm-5
-          .pull-right
-            ul.nav.nav-pills
-              li  
-                = link_to 'Archived', user_user_archived_opportunities_path(@user)
-              li
-                = link_to 'Viewed', user_user_selected_opportunities_path(@user)
-              li class="active"
-                = link_to 'New', "#"
+          == render 'user/opportunities/navigation', active: 'all'
         
       .sexy_line
       .opportunity
@@ -42,11 +35,11 @@
                       'View
             
                       
-                  = link_to user_user_archived_opportunity_path(@user, opportunity), remote: true do
-                    .btn.btn-default
-                      i.fa.fa-times
-                      '&nbsp;
-                      'Archive
+                  /= link_to user_user_removed_opportunity_path(@user, opportunity), remote: true do
+                  /  .btn.btn-default
+                  /    i.fa.fa-times
+                  /    '&nbsp;
+                  /    'Archive
                 
               
             .clearfix

@@ -1,0 +1,14 @@
+.pull-right
+  ul.nav.nav-pills
+  
+    li class="#{ active == 'selected' ? 'active' : '' }"  
+      = link_to 'Selected', user_user_selected_opportunities_path(@user)
+  
+    li class="#{ active == 'removed' ? 'active' : '' }"  
+      = link_to 'Removed', user_user_removed_opportunities_path(@user)
+    
+    li class="#{ active == 'new' ? 'active' : '' }"
+      = link_to 'New', user_user_new_opportunities_path(@user)
+    
+    li class="#{ active == 'all' ? 'active' : '' }"
+      = link_to 'New', user_user_opportunities_path(@user)

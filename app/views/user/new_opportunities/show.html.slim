@@ -25,16 +25,15 @@
                       i.fa.fa-pencil
           
         .col-sm-5
-          == render 'user/opportunities/navigation', active: 'selected'
-          /.pull-right
-          /  
-          /  ul.nav.nav-pills
-          /    li  
-          /      = link_to 'Archived', user_user_archived_opportunities_path(@user)
-          /    li
-          /      = link_to 'Viewed', user_user_selected_opportunities_path(@user)
-          /    li
-          /      = link_to 'New', user_user_opportunities_path(@user)
+          .pull-right
+            
+            ul.nav.nav-pills
+              li  
+                = link_to 'Archived', user_user_archived_opportunities_path(@user)
+              li
+                = link_to 'Viewed', user_user_selected_opportunities_path(@user)
+              li
+                = link_to 'New', user_user_opportunities_path(@user)
                 
                 
       = @opportunity.title
