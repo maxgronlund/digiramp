@@ -18,14 +18,7 @@
             .help-button
               == render 'admin/helps/help', identifier: 'user opportunities'
         .col-sm-5
-          .pull-right
-            ul.nav.nav-pills
-              li class="active"
-                = link_to 'Archived', '#'
-              li
-                = link_to 'Viewed', user_user_selected_opportunities_path(@user)
-              li
-                = link_to 'New', user_user_opportunities_path(@user)
+          == render 'user/opportunities/navigation', active: 'removed'
         
       .sexy_line
       .opportunity
