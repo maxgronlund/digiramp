@@ -1,33 +1,59 @@
-p#notice = notice
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'admin'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, content: admin_content_index_path, 'digiramp ads'.to_sym => admin_digiramp_ads_path }, current: ''}
+      .row
+        .col-sm-8
+          h2 DigiRAMP ad
+        .col-sm-4
 
-p
-  strong Identifyer:
-  = @digiramp_ad.identifyer
-p
-  strong Title:
-  = @digiramp_ad.title
-p
-  strong Body:
-  = @digiramp_ad.body
-p
-  strong Image:
-  = @digiramp_ad.image
-p
-  strong Snippet:
-  = @digiramp_ad.snippet
-p
-  strong Link:
-  = @digiramp_ad.link
-p
-  strong Button link:
-  = @digiramp_ad.button_link
-p
-  strong Button style:
-  = @digiramp_ad.button_style
-p
-  strong Css snipet:
-  = @digiramp_ad.css_snipet
+      .sexy_line
+      
+      == render 'admin/digiramp_ads/show', identifier: @digiramp_ad.identifier
+      
+      
 
-= link_to 'Edit', edit_digiramp_ad_path(@digiramp_ad)
-'|
-= link_to 'Back', digiramp_ads_path
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+/p#notice = notice
+/
+/p
+/  strong Identifyer:
+/  = @digiramp_ad.identifier
+/p
+/  strong Title:
+/  = @digiramp_ad.title
+/p
+/  strong Body:
+/  = @digiramp_ad.body
+/p
+/  strong Image:
+/  = @digiramp_ad.image
+/p
+/  strong Snippet:
+/  = @digiramp_ad.snippet
+/p
+/  strong Link:
+/  = @digiramp_ad.link
+/p
+/  strong Button link:
+/  = @digiramp_ad.button_link
+/p
+/  strong Button style:
+/  = @digiramp_ad.button_style
+/p
+/  strong Css snipet:
+/  = @digiramp_ad.css_snipet
+/
+

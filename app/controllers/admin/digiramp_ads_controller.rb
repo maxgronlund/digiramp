@@ -1,5 +1,8 @@
 class Admin::DigirampAdsController < ApplicationController
   before_action :set_digiramp_ad, only: [:show, :edit, :update, :destroy]
+  
+  include UsersHelper
+  before_filter :admin_only
 
   # GET /digiramp_ads
   # GET /digiramp_ads.json
@@ -24,41 +27,23 @@ class Admin::DigirampAdsController < ApplicationController
   # POST /digiramp_ads
   # POST /digiramp_ads.json
   def create
-    @digiramp_ad = DigirampAd.new(digiramp_ad_params)
+    @digiramp_ad = DigirampAd.create(digiramp_ad_params)
 
-    respond_to do |format|
-      if @digiramp_ad.save
-        format.html { redirect_to @digiramp_ad, notice: 'Digiramp ad was successfully created.' }
-        format.json { render :show, status: :created, location: @digiramp_ad }
-      else
-        format.html { render :new }
-        format.json { render json: @digiramp_ad.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to admin_digiramp_ads_path
   end
 
   # PATCH/PUT /digiramp_ads/1
   # PATCH/PUT /digiramp_ads/1.json
   def update
-    respond_to do |format|
-      if @digiramp_ad.update(digiramp_ad_params)
-        format.html { redirect_to @digiramp_ad, notice: 'Digiramp ad was successfully updated.' }
-        format.json { render :show, status: :ok, location: @digiramp_ad }
-      else
-        format.html { render :edit }
-        format.json { render json: @digiramp_ad.errors, status: :unprocessable_entity }
-      end
-    end
+    @digiramp_ad.update(digiramp_ad_params)
+    redirect_to admin_digiramp_ads_path
   end
 
   # DELETE /digiramp_ads/1
   # DELETE /digiramp_ads/1.json
   def destroy
     @digiramp_ad.destroy
-    respond_to do |format|
-      format.html { redirect_to digiramp_ads_url, notice: 'Digiramp ad was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to admin_digiramp_ads_path
   end
 
   private
@@ -69,6 +54,6 @@ class Admin::DigirampAdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def digiramp_ad_params
-      params.require(:digiramp_ad).permit(:identifyer, :title, :body, :image, :snippet, :link, :button_link, :button_style, :css_snipet)
+      params.require(:digiramp_ad).permit!
     end
 end

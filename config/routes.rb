@@ -8,7 +8,7 @@ Digiramp::Application.routes.draw do
 
 
 
-  resources :digiramp_ads
+  
 
   resources :selected_opportunities, only: [:show]
   resources :public_opportunities, only: [:index, :show]
@@ -359,7 +359,7 @@ Digiramp::Application.routes.draw do
   # Example resource route within a namespace:
   namespace :admin do
     
-    
+    resources :digiramp_ads
     
     resources :front_end_contents, only: [:edit, :update]
     resources :helps

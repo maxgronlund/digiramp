@@ -9,9 +9,10 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, content: admin_content_index_path }, current: ''}
       .row
         .col-sm-8
-          h3 Help
+          h2 Help
           'Dropdowns with help informations for end users
         /.col-sm-4
         /  = link_to 'new', new_admin_help_path
@@ -27,7 +28,7 @@
               th Button
               th Title
               th Identifier
-
+              th
           
           tbody
             - @helps.each do |help|

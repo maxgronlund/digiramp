@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141225122152) do
+ActiveRecord::Schema.define(version: 20141225210057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -769,7 +769,7 @@ ActiveRecord::Schema.define(version: 20141225122152) do
   end
 
   create_table "digiramp_ads", force: true do |t|
-    t.string   "identifyer"
+    t.string   "identifier"
     t.string   "title"
     t.text     "body"
     t.string   "image"
@@ -780,6 +780,9 @@ ActiveRecord::Schema.define(version: 20141225122152) do
     t.text     "css_snipet"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "show_image"
+    t.string   "button_text"
+    t.string   "button_icon"
   end
 
   create_table "digiramp_emails", force: true do |t|

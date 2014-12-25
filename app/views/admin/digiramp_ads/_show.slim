@@ -1,0 +1,27 @@
+- session[:return_url]         = request.url
+- digiramp_ad = DigirampAd.where(identifier: identifier).first_or_create(identifier: identifier)
+
+.digiramp-ad
+  - if digiramp_ad.show_image
+    .digiramp-ad-image
+      = image_tag digiramp_ad.image_url(:sidebar)
+  .digiramp-ad-title
+    = digiramp_ad.title
+    .sexy_line
+  .digiramp-ad-body
+    = simple_format digiramp_ad.body
+  .pull-right
+    .digiramp-ad-button
+      -if digiramp_ad.button_link.to_s != '' 
+        =< link_to digiramp_ad.button_link do 
+           div class="#{digiramp_ad.button_style}"
+             i class="#{digiramp_ad.button_icon}"
+               '&nbsp;
+               = digiramp_ad.button_text
+        
+      
+     
+      -if super?
+        =< link_to edit_admin_digiramp_ad_path(digiramp_ad) do
+          .btn.btn-default
+            i.fa.fa-pencil

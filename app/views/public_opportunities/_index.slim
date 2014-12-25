@@ -1,0 +1,14 @@
+.old_opportunities
+  - @opportunities.each do |opportunity|
+    div id="opportunity_#{opportunity.id}"
+      = render 'public_opportunities/show', opportunity: opportunity
+      .row
+        .col-sm-12
+          .pull-right
+    
+            => link_to public_opportunity_path( opportunity) do
+              .btn.btn-primary
+                'View
+  
+      .clearfix
+      .sexy_line

@@ -4,8 +4,10 @@
   
   
   #sidebar-wrapper
-    ul class="sidebar-nav"
-      /== render 'users/shared/sidebar', selected: 'opportunities'
+    .sidebar-ad.sidebar-top-ad
+      == render 'admin/digiramp_ads/show', identifier: 'signup to submit to opportunity'
+    /ul class="sidebar-nav"
+    /  /== render 'users/shared/sidebar', selected: 'opportunities'
       
   
   #page-content-wrapper
@@ -28,22 +30,31 @@
           /    li class="active"
           /      = link_to 'New', "#"
           /
+      .row
+        .col-sm-5
+        .col-sm-7
+          /= form_tag   :url => url_for(:action => 'index', \
+          /                                              :controller => 'public_opportunities'), \
+          /                                              :method => 'get',\
+          /                                              remote: true do |f|
+          /
+          = form_tag("/public_opportunities", method: "get", remote: true) do |f|
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-search'
+              = text_field_tag "query", "", :class => 'search-query form-control', \
+                                            :placeholder => 'Search for opportunities', \
+                                            value: params[:query]
+              .input-group-btn
+                = submit_tag 'Go', class: "btn btn-primary"
+                /= f.submit 'Go', class: "btn btn-primary"
+                '&nbsp;
+                = link_to 'Clear', public_opportunities_path( clear: 'clear'), class: 'btn btn-default'
+          
       .sexy_line
       .opportunity
-        - @opportunities.each do |opportunity|
-          div id="opportunity_#{opportunity.id}"
-            = render 'public_opportunities/show', opportunity: opportunity
-            .row
-              .col-sm-12
-                .pull-right
-          
-                  => link_to public_opportunity_path( opportunity) do
-                    .btn.btn-primary
-                      'View
-
-            .clearfix
-            .sexy_line
-
+        .new_opportunities 
+          == render 'public_opportunities/index'
 
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'

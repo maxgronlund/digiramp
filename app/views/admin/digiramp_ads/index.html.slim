@@ -1,37 +1,57 @@
-h1 Listing digiramp_ads
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'admin'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, content: admin_content_index_path }, current: ''}
+      .row
+        .col-sm-8
+          h3 Ads
+          'Small ads that can be placed on pages, generated automatic
+        /.col-sm-4
+        /  = link_to 'new', new_admin_help_path
+        /  br 
+        /
+        /
+        /  == render 'admin/helps/help', identifier: 'recording ipis'
+      .sexy_line
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Identifier
+              th Button link
+              th
+          
+          tbody
+            - @digiramp_ads.each do |digiramp_ad|
+              tr
+                td = link_to digiramp_ad.identifier, admin_digiramp_ad_path(digiramp_ad)
+                td = digiramp_ad.button_link
+                td 
+                  .pull-right
+                    => link_to admin_digiramp_ad_path(digiramp_ad) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-eye
+                        '&nbsp;Show
+                        
+                    => link_to edit_admin_digiramp_ad_path(digiramp_ad) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                        '&nbsp;Edit
+                        
+                    = link_to  admin_digiramp_ad_path(digiramp_ad), data: {:confirm => 'Are you sure?'}, :method => :delete
+                      .btn.btn-xs.btn-danger
+                        i.fa.fa-times
+                    
+      .pull-right
+        = link_to 'New DigirRAMP ad', new_admin_digiramp_ad_path, class: 'btn btn-primary'
 
-table
-  thead
-    tr
-      th Identifyer
-      th Title
-      th Body
-      th Image
-      th Snippet
-      th Link
-      th Button link
-      th Button style
-      th Css snipet
-      th
-      th
-      th
-
-  tbody
-    - @digiramp_ads.each do |digiramp_ad|
-      tr
-        td = digiramp_ad.identifyer
-        td = digiramp_ad.title
-        td = digiramp_ad.body
-        td = digiramp_ad.image
-        td = digiramp_ad.snippet
-        td = digiramp_ad.link
-        td = digiramp_ad.button_link
-        td = digiramp_ad.button_style
-        td = digiramp_ad.css_snipet
-        td = link_to 'Show', digiramp_ad
-        td = link_to 'Edit', edit_digiramp_ad_path(digiramp_ad)
-        td = link_to 'Destroy', digiramp_ad, data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
-
-= link_to 'New Digiramp ad', new_digiramp_ad_path
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
