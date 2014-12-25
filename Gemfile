@@ -10,6 +10,7 @@ gem 'pg'
 #gem 'sass-rails', '~> 4.0.3'
 #gem 'bootstrap-sass', '~> 3.3.1'
 gem 'sass-rails', '~> 5.0.0.beta1'
+gem 'font-awesome-sass'
 
 # Use compass for mixin stylesheets
 #gem 'compass-rails'
