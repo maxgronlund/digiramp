@@ -2,8 +2,7 @@
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'opportunities' 
-  
-  
+
   #sidebar-wrapper
     ul class="sidebar-nav"
       == render 'users/shared/sidebar', selected: 'opportunities'
@@ -30,24 +29,42 @@
           /
       .sexy_line
       .opportunity
+        
+        
+        
 
         - @opportunities.each do |opportunity|
           div id="opportunity_#{opportunity.id}"
-            = render 'user/opportunities/opportunity', opportunity: opportunity
+            = render 'user/opportunities/show', opportunity: opportunity
             .row
               .col-sm-12
+                - submissions = opportunity.submissions.where(user_id: @user.id)
+                - submissions_count = submissions.count
+                - if submissions_count > 0  
+                  => link_to user_user_selected_opportunity_path(@user, opportunity) do
+                    .btn.btn-success
+                      i.fa.fa-eye
+                      '&nbsp;
+                      => submissions_count
+                      'Submissions
                 .pull-right
-                  => link_to user_user_opportunity_path(@user, opportunity) do
+                  => link_to user_user_selected_opportunity_path(@user, opportunity) do
                     .btn.btn-primary
                       i.fa.fa-eye
                       '&nbsp;
                       'View
-                      
-                  = link_to user_user_selected_opportunity_path(@user, opportunity), remote: true do
-                    .btn.btn-default
+                  -if submissions_count > 0    
+                    .btn.btn-default disabled='disabled'
                       i.fa.fa-times
                       '&nbsp;
-                      'Archive
+                      'Remove
+                  - else
+                    = link_to user_user_selected_opportunity_path(@user, opportunity), method: :delete, remote: true do
+                      .btn.btn-default
+                        i.fa.fa-times
+                        '&nbsp;
+                        'Remove
+                  
             
             
             

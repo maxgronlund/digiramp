@@ -14,7 +14,7 @@
   #page-content-wrapper
     .container-fluid 
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'opportunities'.to_sym => user_user_opportunities_path(@user), \
-                                                              @opportunity.title.to_sym => user_user_opportunity_path(@user, @opportunity)}, current: ''}
+                                                              @opportunity.title.to_sym => user_user_selected_opportunity_path(@user, @opportunity)}, current: ''}
       .row
         .col-sm-5
           .help
@@ -26,7 +26,7 @@
         .col-sm-7
           .pull-right
             .recording-navigation
-              == link_to user_user_opportunity_path( @user, @opportunity ) do
+              == link_to user_user_selected_opportunity_path( @user, @opportunity ) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back

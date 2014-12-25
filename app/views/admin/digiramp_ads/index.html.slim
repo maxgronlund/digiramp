@@ -1,0 +1,37 @@
+h1 Listing digiramp_ads
+
+table
+  thead
+    tr
+      th Identifyer
+      th Title
+      th Body
+      th Image
+      th Snippet
+      th Link
+      th Button link
+      th Button style
+      th Css snipet
+      th
+      th
+      th
+
+  tbody
+    - @digiramp_ads.each do |digiramp_ad|
+      tr
+        td = digiramp_ad.identifyer
+        td = digiramp_ad.title
+        td = digiramp_ad.body
+        td = digiramp_ad.image
+        td = digiramp_ad.snippet
+        td = digiramp_ad.link
+        td = digiramp_ad.button_link
+        td = digiramp_ad.button_style
+        td = digiramp_ad.css_snipet
+        td = link_to 'Show', digiramp_ad
+        td = link_to 'Edit', edit_digiramp_ad_path(digiramp_ad)
+        td = link_to 'Destroy', digiramp_ad, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Digiramp ad', new_digiramp_ad_path

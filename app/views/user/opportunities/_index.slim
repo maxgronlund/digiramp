@@ -1,0 +1,33 @@
+.old_opportunities
+  - @opportunities.each do |opportunity|
+    div id="opportunity_#{opportunity.id}"
+      = render 'user/opportunities/show', opportunity: opportunity
+      .row
+        .col-sm-12
+          .pull-right 
+            - if selected_opportunity = SelectedOpportunity.where(user_id: @user.id, opportunity_id: opportunity.id).first
+              - if selected_opportunity.archived
+
+                => link_to user_user_opportunity_path(@user, opportunity) do
+                  .btn.btn-default
+                    i.fa.fa-exclamation
+                    '&nbsp;Removed
+              - else
+                => link_to user_user_selected_opportunity_path(@user, opportunity) do
+                  .btn.btn-success
+                    i.fa.fa-check
+                    '&nbsp;Selected
+                
+            - else
+              => link_to user_user_opportunity_path(@user, opportunity, remove: true), method: :delete, remote: true do
+                .btn.btn-default
+                  i.fa.fa-times
+                  '&nbsp;Remove
+                  
+              = link_to user_user_opportunity_path(@user, opportunity) do
+                .btn.btn-primary
+                  i.fa.fa-eye
+                  '&nbsp;View
+
+      .clearfix
+      .sexy_line

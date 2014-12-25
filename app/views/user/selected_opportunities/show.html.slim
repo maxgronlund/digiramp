@@ -1,2 +1,63 @@
-h1 OpportunitiesSelected#show
-p Find me in app/views/opportunities_selected/show.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'opportunities'
+  
+  #page-content-wrapper
+    .container-fluid 
+      .row
+        .col-sm-7
+          .help
+            .help-text
+              h2 Opportunity
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'user opportunity'
+              
+              - if account = @opportunity.account
+                - if account.user_id == current_user.id || super?
+                  =< link_to account_account_opportunity_path(account, @opportunity)
+                    .btn.btn-default
+                      i.fa.fa-pencil
+          
+        .col-sm-5
+          == render 'user/opportunities/navigation', active: ''
+
+                
+                
+      = @opportunity.title
+      .sexy_line
+      .opportunity
+        = render 'user/opportunities/show', opportunity: @opportunity
+      /.pull-right
+      /  = link_to user_user_selected_opportunity_path(@user, @opportunity)  do
+      /    .btn.btn-default
+      /      i.fa.fa-times
+      /      '&nbsp;
+      /      'Remove
+        /= link_to user_user_selected_opportunity_path(@user, @opportunity) do
+        /  .btn.btn-warning
+        /    i.fa.fa-plus
+        /    '&nbsp;Select
+        /        
+
+        
+      .clearfix
+      .sexy_line
+      .opportunity
+        - @opportunity.music_requests.order('created_at asc').each do |music_request|
+          == render 'user/selected_opportunities/music_request', music_request: music_request
+          
+          /- music_request.music_submissions.each do |music_submission|
+          /  == render 'user/request_recordings/show', music_submission: music_submission
+        
+
+            
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'  
+
+

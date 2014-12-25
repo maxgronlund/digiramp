@@ -1,10 +1,8 @@
 class MusicSubmissionsController < ApplicationController
   
   def destroy
-    ap params
     @opportunity      = Opportunity.cached_find(params[:opportunity_id])
     
-
     if @opportunity.public_opportunity || OpportunityUser.where(user_id: params[:user_id], opportunity_id: params[:opportunity_id]).first
       music_submission  = MusicSubmission.cached_find(params[:id])
       @music_submission_id = music_submission.id
@@ -14,7 +12,6 @@ class MusicSubmissionsController < ApplicationController
   end
   
   def update
-    ap params
     @music_submission           =  MusicSubmission.find(params[:id])
     @music_submission.selected  =  params[:music_submission][:selected]
     @music_submission.save!

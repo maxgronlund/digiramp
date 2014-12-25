@@ -6,6 +6,11 @@
   #sidebar-wrapper
     ul class="sidebar-nav"
       /== render 'users/shared/sidebar', selected: 'opportunities'
+      = link_to  signup_index_path do
+        .btn.btn-warning
+          i.fa.fa-plus
+          '&nbsp;
+          'Signup
       
   
   #page-content-wrapper
@@ -29,21 +34,39 @@
           /      = link_to 'New', "#"
           /
       .sexy_line
+      = render 'public_opportunities/show', opportunity: @opportunity
       .opportunity
-        - @opportunities.each do |opportunity|
-          div id="opportunity_#{opportunity.id}"
-            = render 'public_opportunities/show', opportunity: opportunity
-            .row
-              .col-sm-12
-                .pull-right
-          
-                  => link_to public_opportunity_path( opportunity) do
-                    .btn.btn-primary
-                      'View
-
-            .clearfix
-            .sexy_line
+        - @opportunity.music_requests.each do | music_request |
+          == render 'public_opportunities/music_request', music_request: music_request
 
 
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

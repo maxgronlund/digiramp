@@ -1,0 +1,2 @@
+module DigirampAdsHelper
+end

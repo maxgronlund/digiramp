@@ -22,16 +22,10 @@
         
       .sexy_line
       .opportunity
-        - @opportunities.each do |opportunity|
-          div id="opportunity_#{opportunity.id}"
-            = render 'user/opportunities/opportunity', opportunity: opportunity
-            .row
-              .col-sm-12
-                .pull-right
-                  
-                  => link_to user_user_opportunity_path(@user, opportunity) do
-                    .btn.btn-primary
-                      'Unremove
+
+        .new_opportunities 
+        == render 'user/removed_opportunities/index'
+        
             
                       
 

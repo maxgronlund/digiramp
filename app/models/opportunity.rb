@@ -55,7 +55,7 @@ class Opportunity < ActiveRecord::Base
   def submissions
     MusicSubmission.where( music_request_id: music_request_ids)
   end
-  
+
   def self.search(  query)
     if query.present?
       return Opportunity.search_opportunity(query)

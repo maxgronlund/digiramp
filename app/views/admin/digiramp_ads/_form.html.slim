@@ -1,0 +1,16 @@
+= simple_form_for(@digiramp_ad) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :identifyer
+    = f.input :title
+    = f.input :body
+    = f.input :image
+    = f.input :snippet
+    = f.input :link
+    = f.input :button_link
+    = f.input :button_style
+    = f.input :css_snipet
+
+  .form-actions
+    = f.button :submit

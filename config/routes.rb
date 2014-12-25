@@ -8,8 +8,10 @@ Digiramp::Application.routes.draw do
 
 
 
+  resources :digiramp_ads
+
   resources :selected_opportunities, only: [:show]
-  resources :public_opportunities, only: [:index]
+  resources :public_opportunities, only: [:index, :show]
 
   get 'search/index'
 
@@ -673,10 +675,10 @@ Digiramp::Application.routes.draw do
       resources :activities
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
-      resources :removed_opportunities, only: [:index, :show]
-      resources :selected_opportunities, only: [:index, :show]
-      resources :new_opportunities, only: [:index, :show]
-      resources :opportunities, only: [:index, :show] do
+      resources :removed_opportunities, only: [:index, :show, :destroy]
+      resources :selected_opportunities, only: [:index, :show, :destroy]
+      resources :new_opportunities, only: [:index, :show, :destroy]
+      resources :opportunities, only: [:index, :show, :destroy] do
         resources :music_requests do
           resources :request_recordings
         end

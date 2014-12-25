@@ -21,97 +21,32 @@
               - if account = @opportunity.account
                 - if account.user_id == current_user.id || super?
                   =< link_to account_account_opportunity_path(account, @opportunity)
-                    .btn.btn-default
-                      i.fa.fa-pencil
+                    .btn.btn-primary
+                      i.fa.fa-eye
+                      '&nbsp;Manage
           
         .col-sm-5
-          == render 'user/opportunities/navigation', active: 'all'
-          /.pull-right
-          /  
-          /  ul.nav.nav-pills
-          /    li  
-          /      = link_to 'Archived', user_user_archived_opportunities_path(@user)
-          /    li
-          /      = link_to 'Viewed', user_user_selected_opportunities_path(@user)
-          /    li
-          /      = link_to 'New', user_user_opportunities_path(@user)
+          == render 'user/opportunities/navigation', active: ''
+
                 
                 
       = @opportunity.title
       .sexy_line
       .opportunity
-        = render 'user/opportunities/opportunity', opportunity: @opportunity
-
+        = render 'user/opportunities/show', opportunity: @opportunity
+      .pull-right
+        = link_to user_user_selected_opportunity_path(@user, @opportunity) do
+          .btn.btn-warning
+            i.fa.fa-plus
+            '&nbsp;Select
                 
 
         
-        .clearfix
-        .sexy_line
+      .clearfix
+      .sexy_line
       .opportunity
-        - @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
-          .request-info
-            /= debug music_request.mp3
-            /== render 'audio_player/play_botton', recording: music_request.mp3 
-            .row
-              .col-sm-6
-                h4 = music_request.title
-                = simple_format music_request.body
-              .col-sm-6
-        
-                .no-borders.table-responsive
-                  table class="table table-condensed"
-                    tr
-                      th.description Fee:
-                      td = number_to_currency(music_request.fee, locale: :en, precision: 2)
-        
-                    - unless  music_request.link.to_s == ''
-                      tr
-                        th.description Duration:
-                        td = music_request.duration_text
-                    - unless  music_request.link.to_s == ''
-                      tr
-                        th.description Sound like:
-                        td = link_to 'click here', music_request.link
-            .row
-              .col-sm-12
-                .pull-right
-                  = link_to user_user_opportunity_music_request_request_recordings_path(@user, @opportunity, music_request.id ) do
-                    .btn.btn-primary
-                      i.fa.fa-headphones
-                      '&nbsp;
-                      'Submit recordings
-                    
-        
-          - music_request.music_submissions.where(user_id: @user.id).each do |music_submission|
-  
-            - recording =  music_submission.recording
-            div id="delete_music_submission_#{music_submission.id.to_s}"
-              .row
-                .col-sm-12
-                  #digiWhams  class="/recordings/#{recording.id.to_s}"
-                    == render 'account/music_requests/recording_for_request', recording: recording
-              .row
-                .col-sm-12
-                  - if music_submission.selected
-                    .btn.btn-danger.btn-xs disabled="disabled"
-                      i class="fa fa-times"
-                      '&nbsp;Remove submission
-                    '&nbsp;
-                    'Your submission is selected for review
-                  - else
-                    => link_to music_submission_path(music_submission, user_id: current_user.id, opportunity_id: music_request.opportunity_id), \
-                                method: :delete, \
-                                data: {confirm: "Are you sure" }, \
-                                remote: true, \
-                                class: "btn btn-danger btn-xs"  do
-                        i class="fa fa-times"
-                        '&nbsp;Remove submission
-                        
-                    
-
-
-
-                  .sexy_line
+        - @opportunity.music_requests.order('created_at asc').each do |music_request|
+          == render 'user/opportunities/music_request', music_request: music_request
           
 
             

@@ -1,0 +1,33 @@
+p#notice = notice
+
+p
+  strong Identifyer:
+  = @digiramp_ad.identifyer
+p
+  strong Title:
+  = @digiramp_ad.title
+p
+  strong Body:
+  = @digiramp_ad.body
+p
+  strong Image:
+  = @digiramp_ad.image
+p
+  strong Snippet:
+  = @digiramp_ad.snippet
+p
+  strong Link:
+  = @digiramp_ad.link
+p
+  strong Button link:
+  = @digiramp_ad.button_link
+p
+  strong Button style:
+  = @digiramp_ad.button_style
+p
+  strong Css snipet:
+  = @digiramp_ad.css_snipet
+
+= link_to 'Edit', edit_digiramp_ad_path(@digiramp_ad)
+'|
+= link_to 'Back', digiramp_ads_path
