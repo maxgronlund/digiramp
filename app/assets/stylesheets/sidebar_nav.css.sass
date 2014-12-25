@@ -1,5 +1,5 @@
 @import compass/css3
-
+@import "compass/css3/opacity"
 // Toggle Styles  
 
 #wrapper  
@@ -22,6 +22,8 @@
   height: 100% 
   margin-left: -200px 
   overflow-y: auto 
+  padding: 58px 0px 30px 0px
+  
   // background: #000  
   -webkit-transition: all 0.5s ease 
   -moz-transition: all 0.5s ease 
@@ -54,6 +56,8 @@
       background-color: #CDCDCD
   .tag:hover
     background-color: #4F4F57
+    
+  
 
   
   
@@ -79,7 +83,7 @@
   top: 0 
   width: 200px 
   margin: 0 
-  padding-top: 50px 
+  //padding-top: 50px 
   list-style: none 
   
   .sexy_line
@@ -164,3 +168,16 @@
   position: fixed
   top: 50px
   left: 0px
+  
+#terms 
+  bottom: 0px
+  height: 40px
+  position: fixed
+  width: 100%
+  z-index: 1002
+  padding: 8px 8px 8px 16px
+  background-color: #000
+  @include opacity(0.15)
+  a
+    color: #FFF
+  //text-align: center
