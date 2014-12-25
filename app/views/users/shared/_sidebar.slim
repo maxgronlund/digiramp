@@ -43,7 +43,8 @@
       i class="fa fa-users"
       '&nbsp;
       'Following
-      = pluralize(@user.followed_users.count, 'User')   
+      => @user.followed_users.count
+      /= pluralize(@user.followed_users.count, 'User')   
       
   
   

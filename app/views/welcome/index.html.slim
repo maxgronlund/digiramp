@@ -4,7 +4,7 @@
     == render 'shared/navigationbar', page: 'account' 
   .welcome-header
     h1 Eco-system for music <funky>Beta</funky>
-    = link_to 'Learn more', home_index_path, class: 'btn btn-primary btn-lg'
+    /= link_to 'Learn more', home_index_path, class: 'btn btn-primary btn-lg'
   .welcome
     .container
       .welcome-container
@@ -27,6 +27,8 @@
             /  .col-sm-12
             /    .video-container
             /      iframe src="http://player.vimeo.com/video/109593195" width="100%" height="auto" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+            br
+            = link_to 'Learn more', home_index_path, class: 'btn btn-primary btn-lg'
           .col-sm-8
             h3 = link_to 'Featured recordings', songs_path
             == render 'recordings/index', recordings: @recordings
