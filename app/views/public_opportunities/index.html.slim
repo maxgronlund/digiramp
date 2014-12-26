@@ -13,43 +13,27 @@
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-7
+        .col-sm-5
           .help
             .help-text
               h2 Opportunities
             .help-button
               == render 'admin/helps/help', identifier: 'public opportunities'
           
-        .col-sm-5
+        .col-sm-7.pull-down-12
           .pull-right
-          /  ul.nav.nav-pills
-          /    li  
-          /      = link_to 'Archived', user_user_archived_opportunities_path(@user)
-          /    li
-          /      = link_to 'Viewed', user_user_selected_opportunities_path(@user)
-          /    li class="active"
-          /      = link_to 'New', "#"
-          /
-      .row
-        .col-sm-5
-        .col-sm-7
-          /= form_tag   :url => url_for(:action => 'index', \
-          /                                              :controller => 'public_opportunities'), \
-          /                                              :method => 'get',\
-          /                                              remote: true do |f|
-          /
-          = form_tag("/public_opportunities", method: "get", remote: true) do |f|
-            .input-group
-              span class="input-group-addon"
-                i class= 'fa fa-search'
-              = text_field_tag "query", "", :class => 'search-query form-control', \
-                                            :placeholder => 'Search for opportunities', \
-                                            value: params[:query]
-              .input-group-btn
-                = submit_tag 'Go', class: "btn btn-primary"
-                /= f.submit 'Go', class: "btn btn-primary"
-                '&nbsp;
-                = link_to 'Clear', public_opportunities_path( clear: 'clear'), class: 'btn btn-default'
+            = form_tag("/public_opportunities", method: "get", remote: true) do |f|
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search for opportunities', \
+                                              value: params[:query]
+                .input-group-btn
+                  = submit_tag 'Go', class: "btn btn-primary"
+                  /= f.submit 'Go', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Clear', public_opportunities_path( clear: 'clear'), class: 'btn btn-default'
           
       .sexy_line
       .opportunity

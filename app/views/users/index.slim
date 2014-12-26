@@ -1,35 +1,75 @@
-#wrap
+#wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'users' 
-  .container
-    br
-    = form_tag users_path, :method => 'get' do
-      .col-sm-6
-        = text_field_tag "query", "", :class => 'search-query form-control', \
-                                      :placeholder => 'Search string', \
-                                      value: params[:query]
-        br
-      .col-sm-6
-        = submit_tag 'Search', class: 'btn btn-primary'
-        '&nbsp;
-        = link_to 'Show All',users_path, class: 'btn btn-default'
-        br
-
-    .row
-      .col-sm-12
-        .pull-right
-          .hidden-xs
-            == paginate(@users)
-          .visible-xs
-            .btn-group
-              = link_to_previous_page @users, '« Prev', class: 'btn btn-default mobile_pagination'
-              = link_to_next_page @users, 'Next »', class: 'btn btn-default mobile_pagination'
-              
+    == render 'shared/navigationbar', page: 'home' 
   
-  .users-container
-    .container
-      .person-badges
-        - @users.each do |user|
-          == render 'users/person', user: user
-
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Users
+            .help-button
+              == render 'admin/helps/help', identifier: 'public opportunities'
+          
+        .col-sm-7.pull-down-12
+          .pull-right
+            = form_tag("/users", method: "get", remote: true) do |f|
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search for users', \
+                                              value: params[:query]
+                .input-group-btn
+                  = submit_tag 'Go', class: "btn btn-primary"
+                  /= f.submit 'Go', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Clear', users_path( clear: 'clear'), class: 'btn btn-default'
+      .sexy_line  
+      
+      == render 'users/index'    
+                 
+              
   == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+/#wrap
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'users' 
+/  .container
+/    br
+/    = form_tag users_path, :method => 'get' do
+/      .col-sm-6
+/        = text_field_tag "query", "", :class => 'search-query form-control', \
+/                                      :placeholder => 'Search string', \
+/                                      value: params[:query]
+/        br
+/      .col-sm-6
+/        = submit_tag 'Search', class: 'btn btn-primary'
+/        '&nbsp;
+/        = link_to 'Show All',users_path, class: 'btn btn-default'
+/        br
+/
+/    .row
+/      .col-sm-12
+/        .pull-right
+/          .hidden-xs
+/            == paginate(@users)
+/          .visible-xs
+/            .btn-group
+/              = link_to_previous_page @users, '« Prev', class: 'btn btn-default mobile_pagination'
+/              = link_to_next_page @users, 'Next »', class: 'btn btn-default mobile_pagination'
+/              
+/  
+/  .users-container
+/    .container
+/      .person-badges
+/        - @users.each do |user|
+/          == render 'users/person', user: user
+/
+/  == render 'shared/site_footer'    

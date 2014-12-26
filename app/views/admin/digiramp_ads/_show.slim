@@ -10,8 +10,9 @@
     .sexy_line
   .digiramp-ad-body
     = simple_format digiramp_ad.body
-  .pull-right
-    .digiramp-ad-button
+  .digiramp-ad-button
+    .pull-right
+    
       -if digiramp_ad.button_link.to_s != '' 
         =< link_to digiramp_ad.button_link do 
            div class="#{digiramp_ad.button_style}"
@@ -25,3 +26,5 @@
         =< link_to edit_admin_digiramp_ad_path(digiramp_ad) do
           .btn.btn-default
             i.fa.fa-pencil
+        
+    

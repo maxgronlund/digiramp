@@ -10,6 +10,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  resources :disqus
+
   resources :selected_opportunities, only: [:show]
   resources :public_opportunities, only: [:index, :show]
 

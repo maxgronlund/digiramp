@@ -8,53 +8,56 @@
         '&nbsp;
         'Hide
         
-        
-  li class="#{'sidebar-selected' if selected == 'user'}"
-    
-    = link_to user_path(@user) do
-      .user-avatar
-        =  image_tag @user.image_url(:avatar_32x32)
+  - if @user      
+    li class="#{'sidebar-selected' if selected == 'user'}"
+      
+      = link_to user_path(@user) do
+        .user-avatar
+          =  image_tag @user.image_url(:avatar_32x32)
+          '&nbsp;
+        .user-name
+          = @user.user_name   
+    li class="#{'sidebar-selected' if selected == 'recordings'}"
+      = link_to user_recordings_path(@user, clear: 'clear') do
+        i class="fa fa-headphones"
         '&nbsp;
-      .user-name
-        = @user.user_name   
-  li class="#{'sidebar-selected' if selected == 'recordings'}"
-    = link_to user_recordings_path(@user, clear: 'clear') do
-      i class="fa fa-headphones"
-      '&nbsp;
-      = pluralize(@user.recordings.count, 'Recording')  
-  
-      
-  li class="#{'sidebar-selected' if selected == 'likes'}"
-    = link_to user_likes_path(@user) do
-      i class="fa fa-heart"
-      '&nbsp;
-      = @user.likes.count
-      '&nbsp;
-      'Likes  
-      
-  li class="#{'sidebar-selected' if selected == 'followers'}"
-    = link_to user_followers_path(@user) do
-      i class="fa fa-users"
-      '&nbsp;
-      = pluralize(@user.followers.count, 'Follower')  
-      
-  li class="#{'sidebar-selected' if selected == 'following'}"
-    = link_to user_following_index_path(@user) do
-      i class="fa fa-users"
-      '&nbsp;
-      'Following
-      => @user.followed_users.count
-      /= pluralize(@user.followed_users.count, 'User')   
-      
-  
-  
-  li class="#{'sidebar-selected' if selected == 'playlists'}"
-    = link_to user_playlists_path(@user) do
-      i class="fa fa-list"
-      '&nbsp;
-      = pluralize(@user.playlists.count, 'Playlists')   
-      
-
+        = pluralize(@user.recordings.count, 'Recording')  
+    
+        
+    li class="#{'sidebar-selected' if selected == 'likes'}"
+      = link_to user_likes_path(@user) do
+        i class="fa fa-heart"
+        '&nbsp;
+        = @user.likes.count
+        '&nbsp;
+        'Likes  
+        
+    li class="#{'sidebar-selected' if selected == 'followers'}"
+      = link_to user_followers_path(@user) do
+        i class="fa fa-users"
+        '&nbsp;
+        = pluralize(@user.followers.count, 'Follower')  
+        
+    li class="#{'sidebar-selected' if selected == 'following'}"
+      = link_to user_following_index_path(@user) do
+        i class="fa fa-users"
+        '&nbsp;
+        'Following
+        => @user.followed_users.count
+        /= pluralize(@user.followed_users.count, 'User')   
+        
+    
+    
+    li class="#{'sidebar-selected' if selected == 'playlists'}"
+      = link_to user_playlists_path(@user) do
+        i class="fa fa-list"
+        '&nbsp;
+        = pluralize(@user.playlists.count, 'Playlists')   
+        
+  - else
+      .sidebar-ad.sidebar-top-ad
+        == render 'admin/digiramp_ads/show', identifier: 'add on user page'
+        
   - if current_user 
     .sexy_line
     li

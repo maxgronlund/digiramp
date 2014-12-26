@@ -1,0 +1,30 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Users
+            .help-button
+              == render 'admin/helps/help', identifier: 'public opportunities'
+          
+        .col-sm-7.pull-down-12
+          
+      .sexy_line  
+      
+      == render 'disqus/disqus'    
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+    
