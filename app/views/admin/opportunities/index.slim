@@ -46,9 +46,10 @@
 
           tbody
             - @opportunities.each do |opportunity|
-              tr
+              
+              tr id="delete_opportunity_#{opportunity.id}"
                 td
-                  = link_to edit_account_account_opportunity_path(opportunity.account, opportunity), method: :delete, data: {confirm: 'Are you sure?'} do
+                  = link_to admin_opportunity_path( opportunity), method: :delete, data: {confirm: 'Are you sure?'}, remote: true do
                     .btn.btn-danger.btn-xs
                       i.fa.fa-times
 
