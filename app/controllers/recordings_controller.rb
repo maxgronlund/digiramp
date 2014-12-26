@@ -17,11 +17,18 @@ class RecordingsController < ApplicationController
     session[:query] = nil if params[:clear] == 'clear'
     params[:query]  = session[:query]
     
+    #if current_user && current_user.id == @user.id
+    #  @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
+    #else
+    #  @recordings =  Recording.public_access.recordings_search(@user.recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
+    #end
+    
     if current_user && current_user.id == @user.id
-      @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
+      @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('position desc').page(params[:page]).per(4)
     else
-      @recordings =  Recording.public_access.recordings_search(@user.recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
+      @recordings =  Recording.public_access.recordings_search(@user.recordings, params[:query]).order('position desc').page(params[:page]).per(4)
     end
+    
     
     @playlists  = current_user.playlists if current_user
   end

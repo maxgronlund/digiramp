@@ -85,6 +85,7 @@
         
            
           .col-sm-6
+            = f.input :position
             = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
             = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
             = f.input :downlodable, hint: 'Enabling this will allow the file to be downloaded'
