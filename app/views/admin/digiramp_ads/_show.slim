@@ -4,10 +4,13 @@
 .digiramp-ad
   - if digiramp_ad.show_image
     .digiramp-ad-image
-      = image_tag digiramp_ad.image_url(:sidebar)
+      - if digiramp_ad.link.to_s != ''
+        = link_to image_tag( digiramp_ad.image_url(:sidebar)), digiramp_ad.link
+      - else
+        = image_tag digiramp_ad.image_url(:sidebar)
   .digiramp-ad-title
     = digiramp_ad.title
-    .sexy_line
+    
   .digiramp-ad-body
     = simple_format digiramp_ad.body
   .digiramp-ad-button
