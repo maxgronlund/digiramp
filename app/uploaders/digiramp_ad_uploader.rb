@@ -24,6 +24,12 @@ class DigirampAdUploader < CarrierWave::Uploader::Base
     process :convert => 'png'
   end
   
+  version :banner do
+    #process :resize_to_fit => [200, 113]
+    resize_and_pad(180, 50,:transparent,'Center')
+    process :convert => 'png'
+  end
+  
   #version :preview do
   #  process :resize_to_fit => [1012, 632]
   #  #resize_and_pad(1012, 632,:transparent,'Center')

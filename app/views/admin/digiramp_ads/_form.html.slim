@@ -33,6 +33,38 @@
             
             /= f.input :image
             = f.input :show_image
+            
+            
+            
+            
+            .fileinput.fileinput-new data-provides="fileinput"
+              .fileinput-new.thumbnail style="width: 180px; height: 50px;"
+                - if @digiramp_ad.banner
+                  = image_tag @digiramp_ad.banner_url(:banner), size: '180x50'
+                - else
+                  = image_tag 'default-cover.jpg'
+
+              div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 180px; max-height: 50px;"
+              div
+                span.btn.btn-default.btn-file
+                  span class="fileinput-new"
+                    'Select image
+                  '&nbsp;
+                  span class="fileinput-exists"
+                    'Change
+                  = f.file_field :banner
+
+                '&nbsp;
+                a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                  'Remove
+            
+            
+            /= f.input :image
+            = f.input :show_banner
+            
+            
+            
+            
             = f.input :link
             = f.input :button_link, placeholder: "Leave blank for no button"
             

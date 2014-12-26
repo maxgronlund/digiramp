@@ -5,7 +5,12 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+      - if current_user
+        == render 'users/shared/sidebar', selected: 'user'
+      - else
+        .sidebar 
+          .sidebar-ad.sidebar-top-ad
+            == render 'admin/digiramp_ads/show', identifier: 'add on user page'
   
   #page-content-wrapper
     .container-fluid

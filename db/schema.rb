@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141226121654) do
+ActiveRecord::Schema.define(version: 20141226171511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -783,6 +783,8 @@ ActiveRecord::Schema.define(version: 20141226121654) do
     t.boolean  "show_image"
     t.string   "button_text"
     t.string   "button_icon"
+    t.string   "banner"
+    t.boolean  "show_banner",  default: false
   end
 
   create_table "digiramp_emails", force: true do |t|
