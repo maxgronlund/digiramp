@@ -1,8 +1,7 @@
 - session[:return_url]         = request.url
 - digiramp_ad = DigirampAd.where(identifier: identifier).first_or_create(identifier: identifier)
 
-
-<div id="digiramp-ad" data-no-turbolink>
+.digiramp-ad
 
   - if digiramp_ad.show_banner
     .digiramp-ad-banner
@@ -39,4 +38,4 @@
           .btn.btn-default
             i.fa.fa-pencil
         
-</div>    
+    
