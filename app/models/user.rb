@@ -18,7 +18,18 @@ class User < ActiveRecord::Base
   include PublicActivity::Common
   
   include PgSearch
-  pg_search_scope :search_user, against: [:search_field], :using => [:tsearch]
+  #pg_search_scope :search_user, against: [:search_field], :using => [:tsearch]
+  pg_search_scope :search_user,  against: [ :search_field
+                                    ], 
+                                using: {  tsearch: { prefix: true, 
+                                                     any_word: true, 
+                                                     dictionary: "english"
+                                                    },
+                                          dmetaphone: {:any_word => true, :sort_only => true}
+                                        },
+                                ignoring: :accents
+                                    
+                                    
   
   validates_uniqueness_of :email
   validates_presence_of   :email, :on => :update

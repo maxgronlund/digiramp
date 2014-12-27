@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
   
   def index
-    ap params
+
     if params[:commit] == 'Go'
       params[:commit] = ''
       @remove_old_recordings = true

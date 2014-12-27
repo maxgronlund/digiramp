@@ -13,36 +13,7 @@ class Recording < ActiveRecord::Base
   
 
   include PgSearch
-  #pg_search_scope :search, against: [ :title, 
-  #                                    :lyrics, 
-  #                                    :genre, 
-  #                                    :artist, 
-  #                                    :bpm, 
-  #                                    :comment, 
-  #                                    :vocal, 
-  #                                    :isrc_code,
-  #                                    :copyright,
-  #                                    :production_company,
-  #                                    :upc_code,
-  #                                    :year,
-  #                                    :album_name,
-  #                                    :performer,
-  #                                    :band,
-  #                                    :mood,
-  #                                    :instruments,
-  #                                    :tempo 
-  #                                  ], 
-  #                          using: {  tsearch: { prefix: true, 
-  #                                               any_word: true, 
-  #                                               dictionary: "english"
-  #                                              },
-  #                                    dmetaphone: {:any_word => true, :sort_only => true},
-  #                                    trigram:  {:threshold => 0.1 }
-  #                                  },
-  #                          ignoring: :accents
-  #                                  
   pg_search_scope :search, against: [ :title, 
-                                      :composer,
                                       :lyrics, 
                                       :genre, 
                                       :artist, 
@@ -59,11 +30,39 @@ class Recording < ActiveRecord::Base
                                       :band,
                                       :mood,
                                       :instruments,
-                                      :original_file_name,
                                       :tempo 
-                                    ], using:  [:tsearch ]
-  
-  
+                                    ], 
+                            using: {  tsearch: { prefix: true, 
+                                                 any_word: true, 
+                                                 dictionary: "english"
+                                                },
+                                      dmetaphone: {:any_word => true, :sort_only => true}
+                                    },
+                            ignoring: :accents
+                                    
+  #pg_search_scope :search, against: [ :title, 
+  #                                    :composer,
+  #                                    :lyrics, 
+  #                                    :genre, 
+  #                                    :artist, 
+  #                                    :bpm, 
+  #                                    :comment, 
+  #                                    :vocal, 
+  #                                    :isrc_code,
+  #                                    :copyright,
+  #                                    :production_company,
+  #                                    :upc_code,
+  #                                    :year,
+  #                                    :album_name,
+  #                                    :performer,
+  #                                    :band,
+  #                                    :mood,
+  #                                    :instruments,
+  #                                    :original_file_name,
+  #                                    :tempo 
+  #                                  ], using:  [:tsearch ]
+  #
+  #
   
   validates :title, :presence => true
   validates :acceptance_of_terms, acceptance: true
