@@ -1,0 +1,37 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'subscribtions' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Mail subscribtions
+      
+      'Opt in to mails send from DigiRAMP
+      .sexy_line
+      .row
+        .col-sm-6
+          h4 Mails from DigiRAMP you subscribe to
+          br
+          - @mail_subscribtions.each do | mail_subscribtion |
+            = render 'user/mail_subscribtions/mail_subscribtion', mail_subscribtion: mail_subscribtion, user: @user
+          
+          .add_mail_subscribtion        
+                  
+
+        .col-sm-6
+          h4 Mails from DigiRAMP you can subscribe to
+          br
+          - if @email_groups
+            - @email_groups.each do | email_group |
+              == render 'user/mail_subscribtions/email_group', email_group: email_group, user: @user
+          .add_email_groups
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

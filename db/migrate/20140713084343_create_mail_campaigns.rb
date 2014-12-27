@@ -8,7 +8,7 @@ class CreateMailCampaigns < ActiveRecord::Migration
       t.string :from_email
       t.string :from_title
       t.belongs_to :mail_layout, index: true
-      t.text :subscription_message
+      t.text :subscribtion_message
       t.date  :send_date
 
       t.timestamps

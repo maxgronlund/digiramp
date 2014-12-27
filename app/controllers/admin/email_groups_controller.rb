@@ -60,6 +60,6 @@ class Admin::EmailGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def email_group_params
-      params.require(:email_group).permit(:title, :body, :recipients )
+      params.require(:email_group).permit(:title, :body, :recipients, :identifier, :subscripeable )
     end
 end

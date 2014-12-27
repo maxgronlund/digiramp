@@ -1,0 +1,15 @@
+div id="remove_mail_subscribtion_#{mail_subscribtion.id}"
+  .row
+    .col-sm-12
+      = mail_subscribtion.email_group.title
+      .pull-right
+        = link_to user_user_mail_subscribtion_path( user, mail_subscribtion) , \
+                                                    data: { confirm: 'Are you sure?' } , \
+                                                    method: :delete, \
+                                                    remote: true  do
+          .btn.btn-success
+            i.fa.fa-times
+            '&nbsp;Unsubscribe
+  .row
+    .col-sm-12
+      .sexy_line

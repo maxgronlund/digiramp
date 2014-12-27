@@ -18,7 +18,7 @@ class MailCampaignsControllerTest < ActionController::TestCase
 
   test "should create mail_campaign" do
     assert_difference('MailCampaign.count') do
-      post :create, mail_campaign: { account_id: @mail_campaign.account_id, from_email: @mail_campaign.from_email, from_title: @mail_campaign.from_title, mail_layout_id: @mail_campaign.mail_layout_id, subscription_message: @mail_campaign.subscription_message, title: @mail_campaign.title, user_id: @mail_campaign.user_id }
+      post :create, mail_campaign: { account_id: @mail_campaign.account_id, from_email: @mail_campaign.from_email, from_title: @mail_campaign.from_title, mail_layout_id: @mail_campaign.mail_layout_id, subscribtion_message: @mail_campaign.subscribtion_message, title: @mail_campaign.title, user_id: @mail_campaign.user_id }
     end
 
     assert_redirected_to mail_campaign_path(assigns(:mail_campaign))
@@ -35,7 +35,7 @@ class MailCampaignsControllerTest < ActionController::TestCase
   end
 
   test "should update mail_campaign" do
-    patch :update, id: @mail_campaign, mail_campaign: { account_id: @mail_campaign.account_id, from_email: @mail_campaign.from_email, from_title: @mail_campaign.from_title, mail_layout_id: @mail_campaign.mail_layout_id, subscription_message: @mail_campaign.subscription_message, title: @mail_campaign.title, user_id: @mail_campaign.user_id }
+    patch :update, id: @mail_campaign, mail_campaign: { account_id: @mail_campaign.account_id, from_email: @mail_campaign.from_email, from_title: @mail_campaign.from_title, mail_layout_id: @mail_campaign.mail_layout_id, subscribtion_message: @mail_campaign.subscribtion_message, title: @mail_campaign.title, user_id: @mail_campaign.user_id }
     assert_redirected_to mail_campaign_path(assigns(:mail_campaign))
   end
 

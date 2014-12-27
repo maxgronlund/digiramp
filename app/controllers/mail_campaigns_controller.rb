@@ -69,6 +69,6 @@ class MailCampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mail_campaign_params
-      params.require(:mail_campaign).permit(:account_id, :user_id, :title, :from_email, :from_title, :mail_layout_id, :subscription_message)
+      params.require(:mail_campaign).permit(:account_id, :user_id, :title, :from_email, :from_title, :mail_layout_id, :subscribtion_message)
     end
 end

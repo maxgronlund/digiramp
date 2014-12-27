@@ -1,7 +1,9 @@
 = simple_form_for [:admin, @email_group] do |f|
 
   = f.input :title
+  = f.input :identifier
   = f.input :body, label: 'Description'
+  = f.input :subscripeable, label: 'Users can subscripe to this mail'
   
   
   .pull-right

@@ -4,12 +4,6 @@ Digiramp::Application.routes.draw do
 
   
 
-  
-
-
-
-  
-
   resources :disqus
 
   resources :selected_opportunities, only: [:show]
@@ -680,6 +674,7 @@ Digiramp::Application.routes.draw do
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :new_opportunities, only: [:index, :show, :destroy]
+      resources :mail_subscribtions, only: [:index, :show, :destroy, :create]
       resources :opportunities, only: [:index, :show, :destroy] do
         resources :music_requests do
           resources :request_recordings

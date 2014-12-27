@@ -130,6 +130,12 @@
                   i class="fa fa-refresh"
                   '&nbsp;
                   'Connections
+              
+              li  class="#{page == 'subscribtions' ? 'active' : ''}"
+                = link_to user_user_mail_subscribtions_path(current_user ) do
+                  i class="fa fa-envelope"
+                  '&nbsp;
+                  'Subscribtions
       
               /li  class="#{page == 'opportunities' ? 'active' : ''}"
               /  = link_to user_user_opportunities_path( current_user ) do

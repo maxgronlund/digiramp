@@ -1,0 +1,8 @@
+$("#remove_mail_subscribtion_" + "<%= @mail_subscribtion_id.to_s %>").fadeOut( "slow", function() {
+    // Animation complete.
+    $("#remove_mail_subscribtion_" + "<%= @mail_subscribtion_id.to_s %>").remove();
+  });
+
+
+$(".add_email_groups").append("<%= j render 'user/mail_subscribtions/email_group' , email_group: @email_group, user: @user %>");
+
