@@ -1,19 +1,20 @@
 - session[:return_url]         = request.url
 - digiramp_ad = DigirampAd.where(identifier: identifier).first_or_create(identifier: identifier)
 
-.digiramp-ad
+
+<div id="digiramp-ad" data-no-turbolink>
 
   - if digiramp_ad.show_banner
     .digiramp-ad-banner
       - if digiramp_ad.link.to_s != ''
-        = link_to image_tag( digiramp_ad.banner_url(:banner)), digiramp_ad.link,  no_turbo: 'no_turbo'
+        = link_to image_tag( digiramp_ad.banner_url(:banner)), digiramp_ad.link
       - else
         = image_tag digiramp_ad.banner_url(:banner)
         
   - if digiramp_ad.show_image
     .digiramp-ad-image
       - if digiramp_ad.link.to_s != ''
-        = link_to image_tag( digiramp_ad.image_url(:sidebar)), digiramp_ad.link,  no_turbo: 'no_turbo'
+        = link_to image_tag( digiramp_ad.image_url(:sidebar)), digiramp_ad.link
       - else
         = image_tag digiramp_ad.image_url(:sidebar)
   .digiramp-ad-title
@@ -25,7 +26,7 @@
     .pull-right
     
       -if digiramp_ad.button_link.to_s != '' 
-        =< link_to digiramp_ad.button_link,  no_turbo: 'no_turbo' do 
+        =< link_to digiramp_ad.button_link do 
            div class="#{digiramp_ad.button_style}"
              i class="#{digiramp_ad.button_icon}"
                '&nbsp;
@@ -38,4 +39,4 @@
           .btn.btn-default
             i.fa.fa-pencil
         
-    
+</div>    
