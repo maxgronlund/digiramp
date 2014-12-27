@@ -1,4 +1,5 @@
-$(document).on('page:change', function () {
+
+$(document).on('page:change', 'page:load', function () {
   var disqusPublicKey = "G5tosdkcwgXvyM5z7zxhrqK7QCOQwrs94xRpAYx6KUpxBW9YK8La8aGgotP4DtV8"; // Replace with your own public key
   var disqusShortname = "digiramp"; // Replace with your own shortname
 
@@ -31,3 +32,25 @@ $(document).on('page:change', function () {
     }
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

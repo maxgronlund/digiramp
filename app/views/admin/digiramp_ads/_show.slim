@@ -6,14 +6,14 @@
   - if digiramp_ad.show_banner
     .digiramp-ad-banner
       - if digiramp_ad.link.to_s != ''
-        = link_to image_tag( digiramp_ad.banner_url(:banner)), digiramp_ad.link
+        = link_to image_tag( digiramp_ad.banner_url(:banner)), digiramp_ad.link,  no_turbo: 'no_turbo'
       - else
         = image_tag digiramp_ad.banner_url(:banner)
         
   - if digiramp_ad.show_image
     .digiramp-ad-image
       - if digiramp_ad.link.to_s != ''
-        = link_to image_tag( digiramp_ad.image_url(:sidebar)), digiramp_ad.link
+        = link_to image_tag( digiramp_ad.image_url(:sidebar)), digiramp_ad.link,  no_turbo: 'no_turbo'
       - else
         = image_tag digiramp_ad.image_url(:sidebar)
   .digiramp-ad-title
@@ -25,7 +25,7 @@
     .pull-right
     
       -if digiramp_ad.button_link.to_s != '' 
-        =< link_to digiramp_ad.button_link do 
+        =< link_to digiramp_ad.button_link,  no_turbo: 'no_turbo' do 
            div class="#{digiramp_ad.button_style}"
              i class="#{digiramp_ad.button_icon}"
                '&nbsp;
