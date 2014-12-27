@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20141227231314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "unaccent"
 
   create_table "account_catalogs", force: true do |t|
     t.string   "title"

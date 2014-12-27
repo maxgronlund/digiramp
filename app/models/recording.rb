@@ -37,8 +37,9 @@ class Recording < ActiveRecord::Base
                                                  dictionary: "english"
                                                 },
                                       dmetaphone: {:any_word => true, :sort_only => true}
-                                    },
-                            ignoring: :accents
+                                    }
+                                    #,
+                            #ignoring: :accents
                                     
   #pg_search_scope :search, against: [ :title, 
   #                                    :composer,

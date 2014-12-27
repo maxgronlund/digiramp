@@ -26,8 +26,9 @@ class User < ActiveRecord::Base
                                                      dictionary: "english"
                                                     },
                                           dmetaphone: {:any_word => true, :sort_only => true}
-                                        },
-                                ignoring: :accents
+                                        }
+                                        #,
+                                #ignoring: :accents
                                     
                                     
   
