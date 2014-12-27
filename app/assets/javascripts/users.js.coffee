@@ -1,5 +1,6 @@
 ready = ->
 
+  
   endless_users()
   $(window).resize ->
     endless_users()
@@ -18,10 +19,12 @@ $(document).on('page:load', ready)
   
   if $('.endless-users').length
     if $('.pagination').length
-      #console.log 'endless users'
       $(window).scroll ->
         url = $('.pagination .next a').attr('href')
         if url &&  $(window).scrollTop() > $(document).height() - $(window).height() - 400
           $('.pagination').text('...')
           $.getScript(url)
       $(window).scroll()
+
+@paginate_users =() ->
+  $.getScript('/users')

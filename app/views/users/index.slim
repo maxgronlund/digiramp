@@ -48,8 +48,9 @@
       
   
       
-      
-      == paginate(@users)  
+      .add_pagination
+      /== paginate(@users) 
+      == render 'users/paggination', users: @users
       
       
       /.endless-users
