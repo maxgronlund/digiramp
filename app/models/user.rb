@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   include PublicActivity::Common
   
   include PgSearch
-  pg_search_scope :search_user, against: [:name, :email, :profile, :user_name, :search_field], :using => [:tsearch]
+  pg_search_scope :search_user, against: [:search_field], :using => [:tsearch]
   
   validates_uniqueness_of :email
   validates_presence_of   :email, :on => :update
@@ -157,6 +157,17 @@ class User < ActiveRecord::Base
   def update_search_field
     search_field_content = ''
     search_field_content <<   self.profession  if self.profession
+    search_field_content <<  ' '
+    
+    search_field_content <<   self.name        if self.name
+    search_field_content <<  ' '
+    
+    search_field_content <<   self.email       if self.email
+    search_field_content <<  ' '
+    
+    search_field_content <<   self.user_name  if self.user_name
+    search_field_content <<  ' '
+    
     search_field_content <<  'writer '        if self.writer
     search_field_content <<  'author '        if self.author
     search_field_content <<  'producer '      if self.producer
