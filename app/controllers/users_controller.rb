@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_filter :find_user, only: [:show]
   
   def index
-    ap params
+  
     #@users = User.search(params[:query]).order('lower(user_name) ASC').page(params[:page]).per(48)
     
     if params[:commit] == 'Go'

@@ -45,15 +45,15 @@
     /                                value: params[:query]
     ul class="nav navbar-nav"
       li class="#{page == 'songs' ? 'active' : ''}"
-        = link_to songs_path do
+        = link_to songs_path(clear: 'clear') do
           i.fa.fa-headphones
           '&nbsp;
-          'Music
+          'Recordings
       li class="#{page == 'users' ? 'active' : ''}"
-        = link_to users_path do
+        = link_to users_path(clear: 'clear') do
           i.fa.fa-users
           '&nbsp;
-          'People
+          'Users
           
       li class="#{page == 'opportunities' ? 'active' : ''}"
         - if current_user

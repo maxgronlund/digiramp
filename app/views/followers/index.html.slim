@@ -2,24 +2,84 @@
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
   
-
+  
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'followers'
-      
+      - if current_user
+        == render 'users/shared/sidebar', selected: 'user'
+      - else
+        .sidebar 
+          .sidebar-ad.sidebar-top-ad
+            == render 'admin/digiramp_ads/show', identifier: 'users that follows a user'
+  
   #page-content-wrapper
     .container-fluid
-      == render 'users/shared/page_title', title: 'People following me'
       .row
-        .col-sm-12
-          .person-badges
-            - @followers.each do |user|
-              == render 'users/person', user: user
+        .col-sm-5
+          .help
+            .help-text
+              h2 Followers
+            .help-button
+              == render 'admin/helps/help', identifier: 'public opportunities'
+          
+        .col-sm-7.pull-down-12
+          .pull-right
+            = form_tag("/users/#{@user.slug}/followers/", method: "get", remote: true) do |f|
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search for users', \
+                                              value: params[:query]
+                .input-group-btn
+                  => submit_tag 'Go', class: "btn btn-primary"
+                  = link_to 'Clear', users_path( clear: 'clear'), class: 'btn btn-default'
+      .sexy_line
+      .endless-users
+        .person-badges
+          .all-users
+            == render 'users/index', users: @users
+            .add_users
+        
 
-  == render 'shared/site_footer' 
+      .add_pagination
+      == render 'users/paggination', users: @users
+      
+   
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
 
 
 
+
+
+
+
+
+
+
+/#wrapper
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'home' 
+/  
+/
+/  #sidebar-wrapper
+/    ul class="sidebar-nav"
+/      == render 'users/shared/sidebar', selected: 'followers'
+/      
+/  #page-content-wrapper
+/    .container-fluid
+/      == render 'users/shared/page_title', title: 'People following me'
+/      .row
+/        .col-sm-12
+/          .person-badges
+/            - @followers.each do |user|
+/              == render 'users/person', user: user
+/
+/  == render 'shared/site_footer' 
+/
+/
+/
 
 
 
