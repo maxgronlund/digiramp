@@ -6,8 +6,24 @@ class UsersController < ApplicationController
   before_filter :find_user, only: [:show]
   
   def index
+    
     #@users = User.search(params[:query]).order('lower(user_name) ASC').page(params[:page]).per(48)
-    @users = User.public_profiles.search(params[:query]).order('followers_count desc').page(params[:page]).per(48)
+    ap params
+    if params[:commit] == 'Go'
+      @whipe_users = true
+      session[:user_query] = params[:query]
+    end
+    
+    session[:user_query] = nil if params[:clear] == 'clear'
+    params[:query]  = session[:user_query]
+    
+    if params[:page]
+      @users = User.public_profiles.search(params[:query]).page(params[:page]).per(5)
+    else
+      @users = User.public_profiles.search(params[:query]).page(params[:page]).per(32)
+    end
+
+    #@users = User.page(params[:page]).per(4)
     @user  = current_user if current_user
     
   end

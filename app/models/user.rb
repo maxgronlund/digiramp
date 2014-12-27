@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   include PublicActivity::Common
   
   include PgSearch
-  pg_search_scope :search_user, against: [:name, :email, :profile, :user_name], :using => [:tsearch]
+  pg_search_scope :search_user, against: [:name, :email, :profile, :user_name, :search_field], :using => [:tsearch]
   
   validates_uniqueness_of :email
   validates_presence_of   :email, :on => :update
@@ -153,6 +153,23 @@ class User < ActiveRecord::Base
     received_messages.update_all(recipient_id: true)
     
   end
+  
+  def update_search_field
+    search_field_content = ''
+    search_field_content <<   self.profession  if self.profession
+    search_field_content <<  'writer '        if self.writer
+    search_field_content <<  'author '        if self.author
+    search_field_content <<  'producer '      if self.producer
+    search_field_content <<  'composer '      if self.composer
+    search_field_content <<  'remixer '       if self.remixer
+    search_field_content <<  'musician '      if self.musician
+    search_field_content <<  'dj '            if self.dj
+    search_field_content <<  'country '       if self.country
+    search_field_content <<  'city '          if self.city
+    search_field_content <<  'artist '        if self.artist
+    self.search_field = search_field_content
+  end
+  
   def set_token
     generate_token(:auth_token)
   end
@@ -175,6 +192,7 @@ class User < ActiveRecord::Base
       self.uuid      = UUIDTools::UUID.timestamp_create().to_s              if self.uuid.to_s       == ''
     end
     update_completeness
+    update_search_field
   end
   
   def update_completeness

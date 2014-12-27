@@ -1,6 +1,45 @@
 @import "row_machine"
 @import "colors"
 @import "truncate"
+@import "compass/css3/box-shadow"
+
+.all-users 
+  width: 100%
+  .user-badge
+    overflow: hidden
+    width: 170px
+    height: 230px
+    //background-color: #373
+    +box-shadow(#666 1px 1px 5px)
+    margin: 0px 10px 10px 0px
+    display: inline
+    //padding: 6px
+    float: left
+    .avatar
+      position: relative
+      .user-tags
+        position: absolute
+        top: 0px
+        .user-tag
+          //display: inline
+          padding: 0px
+          color: #EEE
+          background: rgb(0, 0, 0)
+          background: rgba(0, 0, 0, 0.5)
+          height: 17px
+          font-size: 12px
+          padding-left: 4px
+          padding-right: 4px
+          margin-bottom: 2px
+    
+    .user-name
+      height: 40px
+      padding: 0px 6px 0px 6px
+    .small-symbols
+      padding: 0px 6px 0px 6px
+      
+      
+      
 .users
   .row
     .col-sm-3
@@ -63,67 +102,67 @@
     img 
       max-width: 100%
 
-.person-badges
-  width: 100%
-  .person 
-    @include rowMachine(7, 2%)
-    padding: 4px
-    float: left
-    text-overflow: ellipsis
-    white-space: nowrap
-    overflow: hidden
-    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3)
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3)
-    .avatar
-      position: relative
-      .user-tags
-        position: absolute
-        top: 0px
-        .user-tag
-          //display: inline
-          padding: 0px
-          color: #EEE
-          background: rgb(0, 0, 0)
-          background: rgba(0, 0, 0, 0.5)
-          height: 17px
-          font-size: 12px
-          padding-left: 4px
-          padding-right: 4px
-          margin-bottom: 2px
-    
-    a
-      color: #555
-    
-    a:hover
-      color: #000
-  
-  
-    @media (min-width: 1800px) 
-      @include rowMachine(8, 2%)
-      
-    @media (max-width: 1800px) 
-      @include rowMachine(6, 2%)
-  
-    @media (max-width: 1440px) 
-      @include rowMachine(5, 2%)
-  
-    @media (max-width: 1216px) 
-      @include rowMachine(4, 2%)
-  
-    @media (max-width: 992px) 
-      @include rowMachine(3, 4%)
-    
-  
-    @media (max-width: 768px) 
-      @include rowMachine(3, 4%)
-    
-  
-    @media (max-width: 544px) 
-      @include rowMachine(2, 4%)
-    
-  
-    img 
-      max-width: 100%
+//.person-badges
+//  width: 100%
+//  .person 
+//    //@include rowMachine(7, 2%)
+//    //padding: 4px
+//    float: left
+//    text-overflow: ellipsis
+//    white-space: nowrap
+//    overflow: hidden
+//    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+//    box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+//    .avatar
+//      position: relative
+//      .user-tags
+//        position: absolute
+//        top: 0px
+//        .user-tag
+//          //display: inline
+//          padding: 0px
+//          color: #EEE
+//          background: rgb(0, 0, 0)
+//          background: rgba(0, 0, 0, 0.5)
+//          height: 17px
+//          font-size: 12px
+//          padding-left: 4px
+//          padding-right: 4px
+//          margin-bottom: 2px
+//    
+//    a
+//      color: #555
+//    
+//    a:hover
+//      color: #000
+//  
+//  
+//    //@media (min-width: 1800px) 
+//    //  @include rowMachine(8, 2%)
+//    //  
+//    //@media (max-width: 1800px) 
+//    //  @include rowMachine(6, 2%)
+//    //
+//    //@media (max-width: 1440px) 
+//    //  @include rowMachine(5, 2%)
+//    //
+//    //@media (max-width: 1216px) 
+//    //  @include rowMachine(4, 2%)
+//    //
+//    //@media (max-width: 992px) 
+//    //  @include rowMachine(3, 4%)
+//    //
+//    //
+//    //@media (max-width: 768px) 
+//    //  @include rowMachine(3, 4%)
+//    //
+//    //
+//    //@media (max-width: 544px) 
+//    //  @include rowMachine(2, 4%)
+//    //
+//  
+//    img 
+//      max-width: 100%
 
 
 .profile
@@ -221,6 +260,87 @@
 .users-container
   .container
     padding: 10px 0px 15px 30px
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
       

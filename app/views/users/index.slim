@@ -36,10 +36,25 @@
                   /= f.submit 'Go', class: "btn btn-primary"
                   '&nbsp;
                   = link_to 'Clear', users_path( clear: 'clear'), class: 'btn btn-default'
-      .sexy_line  
+      .sexy_line
       
-      == render 'users/index'    
-                 
+      
+      .endless-users
+        .person-badges
+          .all-users
+            == render 'users/index', users: @users
+            .add_users
+        
+      
+  
+      
+      
+      == paginate(@users)  
+      
+      
+      /.endless-users
+      /.add_users 
+      /== render 'users/index', users: @users         
               
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'

@@ -79,7 +79,7 @@ gem "omniauth-gplus"
 
 # API's
 # facebook
-gem "koala", "~> 1.10.0rc"
+gem "koala", "~> 1.10.1"
 # twitter
 gem 'twitter'
 

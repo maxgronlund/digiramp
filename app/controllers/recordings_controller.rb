@@ -28,8 +28,6 @@ class RecordingsController < ApplicationController
     else
       @recordings =  Recording.public_access.recordings_search(@user.recordings, params[:query]).order('position desc').page(params[:page]).per(4)
     end
-    
-    
     @playlists  = current_user.playlists if current_user
   end
 
@@ -65,10 +63,6 @@ class RecordingsController < ApplicationController
         recording.title = title unless title == 'no title'
         if last_recording = @user.recordings.order('position asc').last
           recording.position = last_recording.position + 100
-          ap recording
-        else
-          ap '++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-          ap @user.recordings.order('position asc').last
         end
         recording.title = recording.original_file_name if recording.title.to_s == ''
         recording.save

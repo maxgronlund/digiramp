@@ -66,6 +66,6 @@ enable_next_button =() ->
         url = $('.pagination .next a').attr('href')
 
         if url &&  $(window).scrollTop() > $(document).height() - $(window).height() - 200
-          $('.pagination').text('Fetching more songs...')
+          $('.pagination').text('...')
           $.getScript(url)
       $(window).scroll()

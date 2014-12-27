@@ -1,0 +1,24 @@
+if("<%= @whipe_users %>"){
+  $('.old-users').empty();
+  endless_users();
+  history.replaceState(null, "", "?query=<%=params[:query]%>")
+}
+
+$('.add_users').append("<%= j render 'users/index', users: @users %>");
+
+<% if (@users.next_page) %>
+        $('.pagination').replaceWith('<%= j paginate(@users) %>');
+<% else %>
+        $('.pagination').remove();
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
