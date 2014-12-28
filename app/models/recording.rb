@@ -304,7 +304,7 @@ class Recording < ActiveRecord::Base
   
   def self.recordings_search(recordings, query)
     if query.present?
-     recordings = recordings.search(query)
+     return recordings.search(query)
     end
     recordings
   end

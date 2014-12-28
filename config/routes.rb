@@ -2,8 +2,6 @@
 Digiramp::Application.routes.draw do
 
 
-  
-
   resources :disqus
 
   resources :selected_opportunities, only: [:show]
@@ -312,12 +310,15 @@ Digiramp::Application.routes.draw do
     resources :recording_rights, only: [:edit, :update]
     resources :recording_uploads, only: [:edit, :update]
     resources :recording_lyrics, only: [:edit, :update]
-    resources :recording_playbacks, only: [:show]
+    #resources :recording_playbacks, only: [:show]
     resources :recording_transfers
+    
     
     resources :playlists
     resources :recordings do
       resources :likes
+      resources :recording_likes, only: [:index]
+      resources :recording_playbacks, only: [:index]
     end
     resources :likes, only: [:index, :destroy]
     # forms on the recording page

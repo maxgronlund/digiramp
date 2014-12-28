@@ -1,0 +1,2 @@
+module RecordingLikesHelper
+end

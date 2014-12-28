@@ -5,14 +5,24 @@ class LikesController < ApplicationController
    
     #@likes = Like.order('created_at desc').where(user_id: @user.id).page(params[:page]).per(4)
     if params[:recording_id]
-      @recording = Recording.cached_find(params[:recording_id])
-      @show = 'likes for a recording'
-      @playlists = current_user.playlists if current_user
+      @recording    = Recording.cached_find(params[:recording_id])
+      
+      # !!! optimization needed
+      # fetching all likes on each ajax request
+      user_ids      = Like.where(recording_id: @recording.id).pluck(:user_id)
+      @users        = User.where(id: user_ids).page(params[:page]).per(4)
+      
+      @show         = 'likes for a recording'
+      @playlists    = current_user.playlists if current_user
+    
+    
+    
+    
     else
       recording_ids = Like.order('created_at desc').where(user_id: @user.id).pluck(:recording_id)
-      @show       = 'what the user likes'
-      @songs      = Recording.where(id: recording_ids).page(params[:page]).per(4)
-      @playlists  = current_user.playlists if current_user
+      @show         = 'what the user likes'
+      @songs        = Recording.where(id: recording_ids).page(params[:page]).per(4)
+      @playlists    = current_user.playlists if current_user
     end
   end
   
@@ -29,18 +39,15 @@ class LikesController < ApplicationController
                         recording_id: params[:recording_id],
                         account_id: @user.account_id
                         )
-    recording = Recording.cached_find(params[:recording_id])
-    recording.likes_count += 1
-    recording.uniq_likes_count = Uniqifyer.uniqify(recording.likes_count)
-    recording.save
+    recording             = Recording.cached_find(params[:recording_id])
     
-    #@user.create_activity(   :created, 
-    #                           owner: like, 
-    #                       recipient: recording,
-    #                  recipient_type: 'Recording',
-    #                      account_id: recording.account_id) 
-                          
-                          
+    # !!! optimization counter cache ?
+    recording.likes_count += 1
+    #recording.likes_count = recording.likes.count
+
+    recording.uniq_likes_count = Uniqifyer.uniqify(recording.likes_count)
+    recording.save!
+             
     @unlike = '.unlike_recording_' + params[:recording_id].to_s   
     @like   = '.like_recording_'   + params[:recording_id].to_s 
     

@@ -1,19 +1,24 @@
 class RecordingPlaybacksController < ApplicationController
-  def show
+  before_filter :get_user
+  
+  def index
     
     
-    @user           = User.friendly.find(params[:user_id])
-    @recording      = Recording.cached_find(params[:id])
-    @authorized     = false
+   
+    @recording      = Recording.cached_find(params[:recording_id])
+  
     
-    if current_user
-      @authorized = true if current_user.id == @user.id
-      @authorized = true if current_user.super?
-    end
+    #if current_user
+    #  @authorized = true if current_user.id == @user.id
+    #  @authorized = true if current_user.super?
+    #end
     
     if user_ids =  Playback.where(recording_id: @recording.id).pluck(:user_id)
       user_ids.uniq!
-      @users = User.where(id: user_ids)
+      ap '======================================='
+      ap user_ids.count
+      @users = User.where(id: user_ids).page(params[:page]).per(4)
+      
     end
     
   end

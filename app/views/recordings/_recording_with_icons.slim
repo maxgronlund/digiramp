@@ -214,13 +214,13 @@
     
     span id="likes_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Likes"
       '&nbsp;|
-      = link_to user_recording_likes_path(recording.user, recording)
+      = link_to user_recording_recording_likes_path(recording.user, recording)
         i class="fa fa-heart red-heart"
         '&nbsp;
         =recording.likes.count
     span id="playbacks_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Playbacks"
       '&nbsp;|
-      = link_to user_recording_playback_path(recording.user.slug, recording)
+      = link_to user_recording_recording_playbacks_path(recording.user, recording)
         i class="fa fa-headphones" 
         '&nbsp;
         = recording.playbacks_count

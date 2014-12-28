@@ -1,18 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
@@ -24,8 +9,10 @@
   
   #page-content-wrapper
     .container-fluid 
-      #digiWhams  
-        == render 'likes/show', recording: @recording
+      h2 Likes
+      .sexy_line
+      #digiWhams  class="/recordings/#{@recording.id.to_s}"
+        == render 'recordings/show', recording: @recording
 
 
       h4
@@ -44,22 +31,5 @@
       
       
       
-      
-      /.endless-users
-      /  .person-badges
-      /    .all-users
-      /      == render 'users/index', users: @users
-      /      .add_users
-      /  
-      /
-      /.add_pagination
-      /== render 'users/paggination', users: @users
-      
-      /.row
-      /  .col-sm-12
-      /    .person-badges
-      /      - @recording.likes.each do |like|
-      /        - user = like.user
-      /        == render 'users/person', user: user
-
   == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'

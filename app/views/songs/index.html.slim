@@ -5,17 +5,17 @@
     ul class="sidebar-nav"
       .sidebar
         li class="#{'sidebar-selected' if params[:recording][:order] == 'uniq_likes_count'}"
-          = link_to songs_path(recording: {order: 'uniq_likes_count', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
+          = link_to songs_path(recording: {order: 'uniq_likes_count', direction: 'desc', clear: 'clear'}, genre: params[:genre]) do
             i class="fa fa-heart"
             '&nbsp;
             'Most Popular
         li class="#{'sidebar-selected' if params[:recording][:order] ==  'uniq_playbacks_count'}"
-          = link_to songs_path(recording: {order: 'uniq_playbacks_count', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
+          = link_to songs_path(recording: {order: 'uniq_playbacks_count', direction: 'desc', clear: 'clear'}, genre: params[:genre]) do
             i class="fa fa-headphones"
             '&nbsp;
             'Most Played
         li class="#{'sidebar-selected' if params[:recording][:order] ==  'created_at'}"
-          = link_to songs_path(recording: {order: 'created_at', direction: 'desc'}, query: params[:query], genre: params[:genre]) do
+          = link_to songs_path(recording: {order: 'created_at', direction: 'desc', clear: 'clear'}, genre: params[:genre]) do
             i class="fa fa-clock-o"
             '&nbsp;
             'Newest
@@ -38,7 +38,7 @@
 
     .clearfix
     - Genre.where('recordings_count > 0').order('recordings_count desc').first(20).each do |genre|
-      - parameters = { recording: {order: params[:recording][:order], direction: params[:recording][:direction]}, query: params[:query], genre: genre.title }
+      - parameters = { recording: {order: params[:recording][:order], direction: params[:recording][:direction]}, genre: genre.title }
       = link_to songs_path( parameters ) do
         .tag
           div class="#{'tag-selected' if params[:genre] == genre.title}"
@@ -71,7 +71,7 @@
               
               = f.hidden_field :order,      value: params[:recording][:order]
               = f.hidden_field :direction,  value: params[:recording][:direction]
-              = f.hidden_field :genre,  value: params[:genre]
+              = f.hidden_field :genre,      value: params[:genre]
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-search'
