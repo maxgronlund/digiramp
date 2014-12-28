@@ -26,7 +26,7 @@ class SongsController < ApplicationController
       recordings = Recording.public_access.order(order)
     end
     
-    recordings = Recording.public_access
+    
     
     @songs      =  Recording.recordings_search(recordings, params[:query]).page(params[:page]).per(4)
     @playlists  =  current_user.playlists if current_user
