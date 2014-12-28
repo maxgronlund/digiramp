@@ -32,11 +32,12 @@ class Recording < ActiveRecord::Base
                                       :instruments,
                                       :tempo 
                                     ], 
-                            using: {  dmetaphone: {:any_word => true, :sort_only => true},
+                            using: {  
                                       tsearch: { prefix: true, 
                                                  any_word: true, 
                                                  dictionary: "english"
-                                                }
+                                                },
+                                      dmetaphone: {:any_word => true, :sort_only => true}
                                       
                                     }
                                     #,

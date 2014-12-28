@@ -21,7 +21,8 @@ class User < ActiveRecord::Base
   #pg_search_scope :search_user, against: [:search_field], :using => [:tsearch]
   pg_search_scope :search_user,  against: [ :search_field
                                     ], 
-                                using: {  tsearch: { prefix: true, 
+                                using: {  
+                                          tsearch: { prefix: true, 
                                                      any_word: true, 
                                                      dictionary: "english"
                                                     },
