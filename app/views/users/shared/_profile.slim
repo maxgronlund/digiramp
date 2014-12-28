@@ -15,27 +15,24 @@
           .pull-right
             = link_to edit_user_path(@user) do
               .btn.btn-primary.btn-xs
-                'Impove now  
+                'Improve now  
 
             
-  .avatar
-    = image_tag @user.image_url :avatar_145x145
-    
-  .info
-    h4 =@user.user_name
-    - if @user.country.to_s != ''
-      .location
-        - c = Country.find_country_by_alpha2(@user.country)
-        = " #{@user.city}, #{c.name}"
-      br
-    i class="fa fa-eye"
-    '&nbsp;
-    = pluralize(@user.views, 'View')
+ 
+  h4 = @user.user_name
+  - if @user.country.to_s != ''
+    .location
+      - c = Country.find_country_by_alpha2(@user.country)
+      = " #{@user.city}, #{c.name}"
     br
+  i class="fa fa-eye"
+  '&nbsp;
+  = pluralize(@user.views, 'View')
+  br
     == render 'users/shared/follow' , user: @user
     
     
-  .clearfix
+
   
     
   - if current_user

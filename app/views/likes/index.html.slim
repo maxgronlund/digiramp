@@ -1,10 +1,37 @@
-- case @show
+/- case @show
+/
+/- when 'what the user likes'
+/  = render 'what_the_user_likes'
+/- when 'likes for a recording'
+/  = render 'likes_for_a_recording'
 
-- when 'what the user likes'
-  = render 'what_the_user_likes'
-- when 'likes for a recording'
-  = render 'likes_for_a_recording'
 
 
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'likes' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'likes'
+  
+  #page-content-wrapper
+    .container-fluid 
+      h2 Likes
+      .sexy_line 
+      .endless-pages
+      .add_songs
+        == render 'songs/index', songs: @songs
+        
+      
+      
+      
+      
+      == paginate(@songs)
+            
+  == render 'shared/site_footer' 
+== render 'users/shared/mobile_links'
         
             

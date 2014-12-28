@@ -108,6 +108,7 @@ class User < ActiveRecord::Base
   before_create :set_token
   before_create :validate_info
   before_destroy :sanitize_relations
+  after_create :set_default_avatar
   
   has_many :emails, dependent: :destroy
   
@@ -217,7 +218,39 @@ class User < ActiveRecord::Base
     end
     update_completeness
     update_search_field
+    
   end
+  
+  
+  
+  
+  
+  
+  
+  
+  def set_default_avatar
+
+    if self.image_url == "/assets/fallback/default.jpg" || self.image.nil?
+      prng      = Random.new
+      random_id =  prng.rand(12)
+
+      if random_id < 10
+        random_id = '0' + random_id.to_s 
+      end
+      
+      self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-avatars/avatar_#{random_id.to_s}.jpg"))
+      self.image.recreate_versions!
+      self.save!
+    end
+  end
+  
+  
+  
+  
+  
+  
+  
+  
   
   def update_completeness
     
@@ -759,8 +792,6 @@ class User < ActiveRecord::Base
     
 
   end
-  
-
   
     
 
