@@ -302,7 +302,7 @@ Digiramp::Application.routes.draw do
     #member do
     #  get :following, :followers
     #end
-    resources :connections
+    resources :connections, only: [:index, :create, :update, :destroy]
     resources :messages
     resources :received_messages, only: [:index]
     resources :unread_messages, only: [:index]
