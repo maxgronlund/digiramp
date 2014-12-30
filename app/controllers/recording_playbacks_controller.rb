@@ -1,6 +1,8 @@
 class RecordingPlaybacksController < ApplicationController
   before_filter :get_user
   
+  protect_from_forgery except: :index
+  
   def index
     
     
@@ -15,10 +17,7 @@ class RecordingPlaybacksController < ApplicationController
     
     if user_ids =  Playback.where(recording_id: @recording.id).pluck(:user_id)
       user_ids.uniq!
-      ap '======================================='
-      ap user_ids.count
       @users = User.where(id: user_ids).page(params[:page]).per(4)
-      
     end
     
   end
