@@ -17,109 +17,103 @@
         .col-sm-12
           h3 Edit Profile
           .sexy_line
-          = simple_form_for @user do |f|
-            
-            -if @user.errors.any?
-              = render 'shared/errors', errors: @user.errors
-          
-            .row
-              .col-sm-6
-                'Ratio 1:1
-                br
-                .fileinput.fileinput-new data-provides="fileinput"
-                  .fileinput-new.thumbnail style="width: 184px; height: 184px;"
-                    = image_tag @user.image, size: '184x184'
-
-                  div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
-                  div
-                    span.btn.btn-default.btn-file
-                      span class="fileinput-new"
-                        'Select image
-                      '&nbsp;
-                      span class="fileinput-exists"
-                        'Change
-                      = f.file_field :image, multiple: false
-
-                    '&nbsp;
-                    a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-                      'Remove
-
-                br
-
-                = f.input :private_profile, label: 'Hide my profile'
-                - if @user.name == User.create_uniq_user_name_from_email(@user.email)
-                  = f.input :name, hint: 'Change to improve completeness'
-                - else
-                  = f.input :name
-                - if @user.user_name == User.create_uniq_user_name_from_email(@user.email)  
-                  = f.input :user_name, placeholder: 'Used for the url', hint: 'Change to improve completeness'
-                - else
-                  = f.input :user_name, placeholder: 'Used for the url'
-                = f.input :email
+          .digi-box
+            = simple_form_for @user do |f|
               
-                
-                .row
-                  .col-sm-12
-                    a data-toggle="collapse" data-parent="#accordion" href="#change_email"
-                      i.fa.fa-pencil
-                      b &nbsp;Change Password
-                     
-                    br
-                    br
-                    div id="change_email" class="panel-collapse collapse"  
-                      .row
-                        .col-sm-6
-                          = f.input :password, autocomplete: :off, placeholder: '•••••••••••', hint: 'New password'
-                        .col-sm-6
-                          = f.input :password_confirmation, autocomplete: :off, placeholder: '•••••••••••', hint: 'Confirm new password'
-                    
-                    
-              .col-sm-6
-                .row
-                  .col-sm-6
-                    = f.input :profession
-                .row
-                  .col-sm-6
-                    = f.input :country
-                  .col-sm-6
-                    = f.input :city
-                .row
-                  .col-sm-6
-                    = f.input :artist        
-                    = f.input :author
-                    = f.input :composer
-                    = f.input :writer
-                  .col-sm-6
-                    = f.input :musician
-                    = f.input :producer
-                    = f.input :remixer
-                    = f.input :dj
-                
-                
-                /= f.input :image, hint: 'Dimentions 1:1 '
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                div id="toolbar" class="wysihtml5-toolbar"
-                  a data-wysihtml5-command="bold" Bold
-                  '&nbsp; 
-                  a data-wysihtml5-command="italic" Italic
-                
-                =f.input :profile, label: false, :input_html => {  style: "height: 240px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+              -if @user.errors.any?
+                = render 'shared/errors', errors: @user.errors
             
-            .pull-right
-              = link_to 'Cancel', user_path(@user), class: 'btn btn-default'
-              '&nbsp;
-              = f.submit 'Save', class: 'btn btn-primary'
+              .row
+                .col-sm-6
+                  'Ratio 1:1
+                  br
+                  .fileinput.fileinput-new data-provides="fileinput"
+                    .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+                      = image_tag @user.image, size: '184x184'
+            
+                    div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+                    div
+                      span.btn.btn-default.btn-file
+                        span class="fileinput-new"
+                          'Select image
+                        '&nbsp;
+                        span class="fileinput-exists"
+                          'Change
+                        = f.file_field :image, multiple: false
+            
+                      '&nbsp;
+                      a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                        'Remove
+            
+                  br
+            
+                  = f.input :private_profile, label: 'Hide my profile'
+                  - if @user.name == User.create_uniq_user_name_from_email(@user.email)
+                    = f.input :name, hint: 'Change to improve completeness'
+                  - else
+                    = f.input :name
+                  - if @user.user_name == User.create_uniq_user_name_from_email(@user.email)  
+                    = f.input :user_name, placeholder: 'Used for the url', hint: 'Change to improve completeness'
+                  - else
+                    = f.input :user_name, placeholder: 'Used for the url'
+                  = f.input :email
+                
+                  
+                  .row
+                    .col-sm-12
+                      a data-toggle="collapse" data-parent="#accordion" href="#change_email"
+                        i.fa.fa-pencil
+                        b &nbsp;Change Password
+                       
+                      br
+                      br
+                      div id="change_email" class="panel-collapse collapse"  
+                        .row
+                          .col-sm-6
+                            = f.input :password, autocomplete: :off, placeholder: '•••••••••••', hint: 'New password'
+                          .col-sm-6
+                            = f.input :password_confirmation, autocomplete: :off, placeholder: '•••••••••••', hint: 'Confirm new password'
+                      
+                      
+                .col-sm-6
+                  .row
+                    .col-sm-6
+                      = f.input :profession
+                  .row
+                    .col-sm-6
+                      = f.input :country
+                    .col-sm-6
+                      = f.input :city
+                  .row
+                    .col-sm-6
+                      = f.input :artist        
+                      = f.input :author
+                      = f.input :composer
+                      = f.input :writer
+                    .col-sm-6
+                      = f.input :musician
+                      = f.input :producer
+                      = f.input :remixer
+                      = f.input :dj
+                  
+                  
+
+                  
+                  div id="toolbar" class="wysihtml5-toolbar"
+                    a data-wysihtml5-command="bold" Bold
+                    '&nbsp; 
+                    a data-wysihtml5-command="italic" Italic
+                    .pull-right
+                      a data-wysihtml5-action="change_view"  Html 
+                  
+                  =f.input :profile, label: false, :input_html => {  style: "height: 240px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to 'Cancel', user_path(@user), class: 'btn btn-default'
+                    '&nbsp;
+                    = f.submit 'Save', class: 'btn btn-primary'
 
   == render 'shared/site_footer'     
   

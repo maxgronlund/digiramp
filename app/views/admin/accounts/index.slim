@@ -35,7 +35,7 @@
                   = link_to 'Clear', admin_accounts_path, class: 'btn btn-default'
                   
       .sexy_line
-      .users
+      .users.digi-box
         .table-responsive
           table class="table table-hover"
             -@accounts.order('lower(title) ASC').each do |account|

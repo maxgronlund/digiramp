@@ -11,21 +11,25 @@
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-7
+        .col-sm-12
           .help
             .help-text
               h2 Opportunities
             .help-button
               == render 'admin/helps/help', identifier: 'user opportunities'
-        .col-sm-5
-          == render 'user/opportunities/navigation', active: 'removed'
+        
         
       .sexy_line
-      .opportunity
-
-        .new_opportunities 
-        == render 'user/removed_opportunities/index'
-        
+        .row
+          .col-sm-12
+            .pull-right
+              == render 'user/opportunities/navigation', active: 'removed'
+        .row
+          .col-sm-12
+            .opportunity
+              .new_opportunities 
+              == render 'user/removed_opportunities/index'
+              
             
                       
 

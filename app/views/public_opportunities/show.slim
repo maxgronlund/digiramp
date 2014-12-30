@@ -15,28 +15,24 @@
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-7
+        .col-sm-12
           .help
             .help-text
-              h2 Opportunities
+              h2 Opportunity
             .help-button
               == render 'admin/helps/help', identifier: 'public opportunities'
           
-        .col-sm-5
-          .pull-right
-          /  ul.nav.nav-pills
-          /    li  
-          /      = link_to 'Archived', user_user_archived_opportunities_path(@user)
-          /    li
-          /      = link_to 'Viewed', user_user_selected_opportunities_path(@user)
-          /    li class="active"
-          /      = link_to 'New', "#"
-          /
-      .sexy_line
-        .opportunity
+
+      .row
+        .col-sm-12
+          .sexy_line
+      .opportunity
+        .opportunity-box
           = render 'public_opportunities/show', opportunity: @opportunity
-          
-          - @opportunity.music_requests.each do | music_request |
+        
+        h3 requests
+        - @opportunity.music_requests.each do | music_request |
+          .opportunity-box
             == render 'public_opportunities/music_request', music_request: music_request
 
 

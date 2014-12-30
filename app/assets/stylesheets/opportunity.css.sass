@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "row_machine"
 @import "colors"
+@import "compass"
 
 .opportunity-info
   margin-top: 10px
@@ -15,11 +16,18 @@
     width: 24px
     
 .opportunity
+  .opportunity-box
+    background-color: #FFF
+    margin-bottom: 10px
+    padding: 8px
+    +box-shadow(#BBB 1px 1px 1px)
+    border-top: solid 1px #C1C2C3
+    border-left: solid 1px #C1C2C3
   
   .opportunity-row
     margin-bottom: 10px
   .opportunity-image
-    margin-top: 10px
+    //margin-top: 10px
     img
       width: 100%
       height: auto
@@ -199,3 +207,29 @@
   background-color: #DDD
   padding: 10px
   margin-bottom: 10px
+  
+  
+
+.featured-opportunity-box
+  background-color: #FFF
+  margin-bottom: 10px
+  +box-shadow(#BBB 1px 1px 1px)
+  border-top: solid 1px #C1C2C3
+  border-left: solid 1px #C1C2C3
+  a
+    color: #696969
+  
+  .featured-opportunity
+    padding: 8px
+    border-bottom: 1px solid #CCC
+  .featured-opportunity:hover
+    background-color: #B1B1B1
+    @include box-shadow(rgba(#666, 0.2) 0 0 3px 1px inset)
+    color: #FFF
+    
+  
+  
+  
+  
+  
+  

@@ -17,20 +17,21 @@
             .help-button
               == render 'admin/helps/help', identifier: 'user connections'
       .sexy_line
-      .table-responsive
-        table class="table table-hover"
-          thead
-            tr
-              th Name
-              th Status
-              th Date
-              th Messages
-              th Manage
-
-          tbody
-            - @connections.each do |connection|
-              == render 'connections/connection', user: @user, connection: connection
-      
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Name
+                th Status
+                th Date
+                th Messages
+                th Manage
+        
+            tbody
+              - @connections.each do |connection|
+                == render 'connections/connection', user: @user, connection: connection
+        
                 
             
                  

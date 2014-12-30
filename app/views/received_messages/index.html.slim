@@ -28,14 +28,15 @@
                 li
                   = link_to 'All', user_messages_path(@user)
         .sexy_line
-        h4 Received messages
-        table
-          .table-responsive
-            table class="table table-hover"
-              tbody
-                - @user.received_massages.order(created_at: :desc).each.each do |message|
-                  == render 'messages/message', message: message
-          
+        .digi-box
+          h4 Received messages
+          table
+            .table-responsive
+              table class="table table-hover"
+                tbody
+                  - @user.received_massages.order(created_at: :desc).each.each do |message|
+                    == render 'messages/message', message: message
+            
                 
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'

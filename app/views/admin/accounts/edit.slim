@@ -14,96 +14,97 @@
       = @account.title
       .sexy_line
       = simple_form_for [:admin, @account] do |f|
-        .row
-          .col-sm-6
-            =f.input :title
-            div id="toolbar" class="wysihtml5-toolbar"
-              a data-wysihtml5-command="bold" Bold
-              '&nbsp; 
-              a data-wysihtml5-command="italic" Italic
+        
+        .digi-box
+          .row
+            .col-sm-6
+              =f.input :title
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+                
+              =f.input :description, label: false, :input_html => {  style: "height: 360px;", placeholder: "Description", id: 'wysihtml5_editor'}
               
-            =f.input :description, label: false, :input_html => {  style: "height: 360px;", placeholder: "Description", id: 'wysihtml5_editor'}
+              
+              b Account page graphics will be scaled to fitt 640x360 Pixels
+              br
+              .fileinput.fileinput-new data-provides="fileinput"
+                .fileinput-new.thumbnail style="width: 320px; height: 180px;"
+                  = image_tag @account.logo, size: '320x180'
             
+                div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 320px; max-height: 180px;"
+                div
+                  span.btn.btn-default.btn-file
+                    span class="fileinput-new"
+                      'Select image
+                    '&nbsp;
+                    span class="fileinput-exists"
+                      'Change
+                    = f.file_field :logo, multiple: false
             
-            b Account page graphics will be scaled to fitt 640x360 Pixels
-            br
-            .fileinput.fileinput-new data-provides="fileinput"
-              .fileinput-new.thumbnail style="width: 320px; height: 180px;"
-                = image_tag @account.logo, size: '320x180'
-
-              div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 320px; max-height: 180px;"
-              div
-                span.btn.btn-default.btn-file
-                  span class="fileinput-new"
-                    'Select image
                   '&nbsp;
-                  span class="fileinput-exists"
-                    'Change
-                  = f.file_field :logo, multiple: false
-
-                '&nbsp;
-                a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-                  'Remove
-
-            br
+                  a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                    'Remove
             
-            
-        
-            
-        
-            
-          .col-sm-6
-
-            =f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES  
-            
-            -  administrators = User.administrators
-            - if @account.account_owner 
-              -  administrators << @account.account_owner 
-            - else
-              = f.input :user_id, label: '! The account owner is missing, please enter an id'
-            
-            =f.input :administrator_id , \
-                      :include_blank => false, \
-                      :collection => administrators, \
-                      label: 'Administrated by', \
-                      hint: 'Selecting an administrator will downgrade the account ower to account user'
-            /-if current_user.email == 'max@synthmax.dk'
-            /  =f.input :user_id
-            
-            =f.input :contact_first_name
-            
-            =f.input :contact_email
-            .row
-              .col-sm-6
-                = f.input :country
-              .col-sm-6
-                = f.input :city
-            .row
-              .col-sm-6
-                =f.input :state
-              .col-sm-6
-                =f.input :street_address
-            .row
-              .col-sm-6
-                =f.input :fax
-              .col-sm-6
-                =f.input :postal_code
-            .row
-              .col-sm-6
-                / =f.input :expiration_date, label: false
-                b Expiration date ( Not used for Social accounts)
-                = f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
-              .col-sm-6
-                /= f.input :create_opportunities
-                /= f.input :read_opportunities
-          
+              br
               
-        .row
-          .col-sm-12
-            .sexy_line
-            .pull-right
-              = f.submit 'Save', class: 'btn btn-primary'
+              
             
+              
+            
+              
+            .col-sm-6
+            
+              =f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES  
+              
+              -  administrators = User.administrators
+              - if @account.account_owner 
+                -  administrators << @account.account_owner 
+              - else
+                = f.input :user_id, label: '! The account owner is missing, please enter an id'
+              
+              =f.input :administrator_id , \
+                        :include_blank => false, \
+                        :collection => administrators, \
+                        label: 'Administrated by', \
+                        hint: 'Selecting an administrator will downgrade the account ower to account user'
+              /-if current_user.email == 'max@synthmax.dk'
+              /  =f.input :user_id
+              
+              =f.input :contact_first_name
+              
+              =f.input :contact_email
+              .row
+                .col-sm-6
+                  = f.input :country
+                .col-sm-6
+                  = f.input :city
+              .row
+                .col-sm-6
+                  =f.input :state
+                .col-sm-6
+                  =f.input :street_address
+              .row
+                .col-sm-6
+                  =f.input :fax
+                .col-sm-6
+                  =f.input :postal_code
+              .row
+                .col-sm-6
+                  / =f.input :expiration_date, label: false
+                  b Expiration date ( Not used for Social accounts)
+                  = f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+                .col-sm-6
+                  /= f.input :create_opportunities
+                  /= f.input :read_opportunities
+            
+                
+          .row
+            .col-sm-12
+              .pull-right
+                = f.submit 'Save', class: 'btn btn-primary'
+          
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
 

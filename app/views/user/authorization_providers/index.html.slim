@@ -10,8 +10,14 @@
   
   #page-content-wrapper
     .container-fluid
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Authorize social accounts
+            .help-button
+              == render 'admin/helps/help', identifier: 'Authorize social accounts'
   
-      h3 Authorizations
       .sexy_line
       
       
@@ -21,4 +27,4 @@
         == render 'user/authorization_providers/twitter', blog: blog
         == render 'user/authorization_providers/linkedin', blog: blog
         == render 'user/authorization_providers/google', blog: blog
-        
+          

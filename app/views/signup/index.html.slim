@@ -1,21 +1,20 @@
+
 #wrap
   .full-width-top
-    == render 'shared/navigationbar', page: 'account'  
+    == render 'shared/navigationbar', page: 'account' 
+       
+  .container
+    .row
+      .col-sm-3
 
-
-  #page-content-wrapper
-    .container-fluid
-    
-    
-      .row
-        .col-sm-3
-        .col-sm-6
+      .col-sm-6
+        .digi-box
           ==render 'admin/shared/messages'
           h3 Sign up
-      
-      
+          
+          
           = simple_form_for(User.new)    do |f|
-      
+          
             .input-group
               span class="input-group-addon" @
               = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
@@ -24,7 +23,7 @@
               span class="input-group-addon" 
                 i class= 'fa fa-key'
               = f.input_field :password, placeholder: 'Password', autocomplete: :off
-        
+          
             br
             .input-group
               span class="input-group-addon" 
@@ -34,7 +33,7 @@
               .col-sm-12
                 .pull-right
                   br
-                  = f.submit 'Sign Up', class: 'btn btn-primary', id: 'sign_up_form_button'
+                  = f.submit 'Sign Up', class: 'btn btn-warning', id: 'sign_up_form_button'
             br
             .sexy_line
             br
@@ -57,7 +56,7 @@
                 = link_to  "/auth/gplus" do
                   .google
                   'Google+ 
-        .col-sm-3
+
         /.col-sm-6
         /  == render 'shared/sign_up'
       

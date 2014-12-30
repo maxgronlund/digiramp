@@ -26,22 +26,23 @@ ruby:
       = @user.user_name
       '&nbsp;has Access to the following accounts
       .sexy_line
-      .table-responsive
-        table class="table table-hover"
-          thead
-            tr
-              th ACCOUNTS
-          tbody
-            - accounts.each do |account|
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
               tr
-                td 
-                  = link_to account_account_path( account ) do
-                    .btn.btn-default
-                      i class="fa fa-tachometer"
-                      '&nbsp;
-                      = account.title
-              
-      
+                th ACCOUNTS
+            tbody
+              - accounts.each do |account|
+                tr
+                  td 
+                    = link_to account_account_path( account ) do
+                      .btn.btn-default
+                        i class="fa fa-tachometer"
+                        '&nbsp;
+                        = account.title
+                
+        
                  
               
   == render 'shared/site_footer'    

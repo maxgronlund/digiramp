@@ -29,17 +29,23 @@
   '&nbsp;
   = pluralize(@user.views, 'View')
   br
+  
+  .profile-button
     == render 'users/shared/follow' , user: @user
     
-    
 
-  
-    
   - if current_user
-    .connect-container
-      .connect-buttons
-      == render 'users/connect', user: @user 
-    
+    .profile-button
+      .connect-container
+        .connect-buttons
+        == render 'users/connect', user: @user 
+   
+  /- if super?
+  /  .profile-button
+  /    = link_to  edit_admin_account_path(@user.account) do
+  /      .btn.btn-default.btn-xs
+  /        i.fa.fa-pencil
+
     
   /.edit-buttons
   /  - if @authorized
@@ -59,9 +65,11 @@
   /    /  = link_to 'Edit account', edit_admin_account_path(@user.account), class: 'btn btn-default btn-xs'
   /    /  '&nbsp;
   /
-  .user-profile
-    = simple_format @user.profile
-  
+  .row
+    .col-sm-12
+      .user-profile
+        = simple_format @user.profile
+      
   h5  
     - if @user.composer
       span class="label label-default"

@@ -29,11 +29,14 @@ $digiwham-info:                  50px
   //margin:  6px
   //padding: 6px
   //border-radius: 3px
-  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3)
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3)
-  padding: 5px
+  //-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+  //box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+  +box-shadow(#BBB 1px 1px 1px)
+  //padding: 5px
   background-color: #fff
-  margin-bottom: 6px
+  margin-bottom: 10px
+  border-top: solid 1px #C1C2C3
+  border-left: solid 1px #C1C2C3
   
   hr 
     margin-top: 0px
@@ -69,6 +72,7 @@ $digiwham-info:                  50px
       //background-color: #000
       height:             $digiwham-hight-small
       width: 100%
+      padding: 6px
       .cover-art 
         position: relative
         width:              $digiwham-hight-small
@@ -177,8 +181,15 @@ $digiwham-info:                  50px
       .no-artwork
         margin-left:   0px
         //.waveform
-
-
+  .player-bottom
+    background-color: #E6E6E6
+    padding: 4px
+    margin-top: 6px
+    border-top: 1px solid #BBB
+    
+    .fa-star
+      color: #FFAD00
+      font-size: 15px
 
 .simple-show
   //border: 1px solid #cdcdcd
@@ -244,7 +255,7 @@ $digiwham-info:                  50px
 // Small devices (tablets, 768px and up) 
 @media (min-width: 768px)
   #digiWhams .digiwham 
-    height: 104px
+    height: 112px
     .top-pane 
       .cover-art 
         position: relative

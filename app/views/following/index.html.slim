@@ -6,7 +6,7 @@
   #sidebar-wrapper
     ul class="sidebar-nav"
       - if current_user
-        == render 'users/shared/sidebar', selected: 'user'
+        == render 'users/shared/sidebar', selected: 'following'
       - else
         .sidebar 
           .sidebar-ad.sidebar-top-ad
@@ -22,7 +22,7 @@
             .help-button
               == render 'admin/helps/help', identifier: 'users an user is following'
           
-        .col-sm-7.pull-down-12
+        .col-sm-7.pull-down-10
           .pull-right
             = form_tag("/users/#{@user.slug}/following/", method: "get", remote: true) do |f|
               .input-group

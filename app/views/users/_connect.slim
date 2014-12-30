@@ -4,7 +4,7 @@
       - if connection.is_active
         / Mail
         = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{user.id.to_s}" do
-          .btn.btn-default
+          .btn.btn-default.btn-xs
             i.fa.fa-envelope
             '&nbsp;Send message  
         == render 'messages/modal', modal_id: "pmModal_#{user.id.to_s}", recipient: user, subjebtable: user
@@ -19,7 +19,7 @@
     - else
       / connect
       = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#connect_modal_#{user.id.to_s}" do
-        .btn.btn-primary
+        .btn.btn-primary.btn-xs
           i.fa.fa-refresh
           '&nbsp;Connect  
       == render 'connections/modal', modal_id: "connect_modal_#{user.id.to_s}", recipient: user, subjebtable: user

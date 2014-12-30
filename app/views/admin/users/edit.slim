@@ -14,64 +14,65 @@
       .sexy_line
       = simple_form_for [:admin,  @edit_user] do |f|
         = f.error_notification
-        .row
-          .col-sm-6
-            /= debug Account.cached_find(@user.account_id)
-            
-            - if current_user.can_edit?
-              - if Account.exists?(@edit_user.account_id)
-                = f.input :account_id , :include_blank => false, :collection => Account.all , label: 'Account'
-              - else
-                .alert.alert-danger
-                  '! Account missing
-                  .pull-right
-                    = link_to 'Create missing account', new_admin_user_account_path(@edit_user), class: 'btn btn-xs btn-default'
-              -unless (@edit_user.email == 'max@synthmax.dk') || (@edit_user.email == 'peter@digiramp.org')
-                = f.input :role, collection: User::ROLES, :include_blank => false
-            = f.input :administrator, label: 'Administrator', hint: 'User can administrate other accounts'
-            = f.input :has_a_collection, label: 'Has a Collection', hint: 'Disable if the user only needs access to someone elses account '
-            = f.input :name
-            = f.input :email
-            = f.input :password, autocomplete: :off
-            = f.input :password_confirmation, autocomplete: :off
-    
-          .col-sm-6
-            b Avatar
-            br
-            .fileinput.fileinput-new data-provides="fileinput"
-              .fileinput-new.thumbnail style="width: 170px; height: 170px;"
-                = image_tag @edit_user.image_url(:avatar_170x170), size: '170x170'
-
-              div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 170px; max-height: 170px;"
-              div
-                span.btn.btn-default.btn-file
-                  span class="fileinput-new"
-                    'Select image
+        .digi-box
+          .row
+            .col-sm-6
+              /= debug Account.cached_find(@user.account_id)
+              
+              - if current_user.can_edit?
+                - if Account.exists?(@edit_user.account_id)
+                  = f.input :account_id , :include_blank => false, :collection => Account.all , label: 'Account'
+                - else
+                  .alert.alert-danger
+                    '! Account missing
+                    .pull-right
+                      = link_to 'Create missing account', new_admin_user_account_path(@edit_user), class: 'btn btn-xs btn-default'
+                -unless (@edit_user.email == 'max@synthmax.dk') || (@edit_user.email == 'peter@digiramp.org')
+                  = f.input :role, collection: User::ROLES, :include_blank => false
+              = f.input :administrator, label: 'Administrator', hint: 'User can administrate other accounts'
+              = f.input :has_a_collection, label: 'Has a Collection', hint: 'Disable if the user only needs access to someone elses account '
+              = f.input :featured, label: 'Featured', hint: 'Never unfeature a user unless the user was featured by mistake'
+              = f.input :name
+              = f.input :email
+              = f.input :password, autocomplete: :off
+              = f.input :password_confirmation, autocomplete: :off
+          
+            .col-sm-6
+              b Avatar
+              br
+              .fileinput.fileinput-new data-provides="fileinput"
+                .fileinput-new.thumbnail style="width: 170px; height: 170px;"
+                  = image_tag @edit_user.image_url(:avatar_170x170), size: '170x170'
+          
+                div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 170px; max-height: 170px;"
+                div
+                  span.btn.btn-default.btn-file
+                    span class="fileinput-new"
+                      'Select image
+                    '&nbsp;
+                    span class="fileinput-exists"
+                      'Change
+                    = f.file_field :image, multiple: false
+          
                   '&nbsp;
-                  span class="fileinput-exists"
-                    'Change
-                  = f.file_field :image, multiple: false
-
-                '&nbsp;
-                a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-                  'Remove
-
-            br
-            
-            
-            
-            /= f.input :image
-            div id="toolbar" class="wysihtml5-toolbar"
-              a data-wysihtml5-command="bold" Bold
-              '&nbsp; 
-              a data-wysihtml5-command="italic" Italic
-            
-            =f.input :profile, label: false, :input_html => {  style: "height: 250px;", placeholder: "Profile", id: 'wysihtml5_editor'}
-      
-          .col-sm-12
-            .sexy_line
-            .pull-right
-              = f.submit 'Save', class: 'btn btn-primary'
+                  a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                    'Remove
+          
+              br
+              
+              
+              
+              /= f.input :image
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+              
+              =f.input :profile, label: false, :input_html => {  style: "height: 250px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+          
+            .col-sm-12
+              .pull-right
+                = f.submit 'Save', class: 'btn btn-primary'
        
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'

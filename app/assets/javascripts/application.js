@@ -22,6 +22,7 @@
 // require bootstrap-datetimepicker
 // require jquery_nested_form
 //= require simple
+//= require super_simple_wysiwyg
 //= require wysihtml5-0.4.0pre
 // require soundmanager2-nodebug-jsmin
 //= require soundmanager2
@@ -31,7 +32,7 @@
 //= require soundmanager2-setup
 //= require digiramp_player
 //= requiry jquery.transloadit2-v2-latest
-//= require super_simple_wysiwyg
+
 //= require recordings
 //= require jquery.fancybox
 //= require start_fancybox

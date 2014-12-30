@@ -1,6 +1,6 @@
 .old_opportunities
   - @opportunities.each do |opportunity|
-    div id="opportunity_#{opportunity.id}"
+    .opportunity-box  id="opportunity_#{opportunity.id}"
       = render 'user/opportunities/show', opportunity: opportunity
       .row
         .col-sm-12

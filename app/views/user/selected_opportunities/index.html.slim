@@ -10,66 +10,59 @@
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-7
+        .col-sm-12
           .help
             .help-text
               h2 Opportunities
             .help-button
               == render 'admin/helps/help', identifier: 'user opportunities'
-        .col-sm-5
-          == render 'user/opportunities/navigation', active: 'selected'
-          /.pull-right
-          /  ul.nav.nav-pills
-          /    li  
-          /      = link_to 'Archived', user_user_archived_opportunities_path(@user)
-          /    li class="active"
-          /      = link_to 'Viewed', '#'
-          /    li
-          /      = link_to 'New', user_user_opportunities_path(@user)
-          /
-      .sexy_line
-      .opportunity
-        
-        
-        
 
-        - @opportunities.each do |opportunity|
-          div id="opportunity_#{opportunity.id}"
-            = render 'user/opportunities/show', opportunity: opportunity
-            .row
-              .col-sm-12
-                - submissions = opportunity.submissions.where(user_id: @user.id)
-                - submissions_count = submissions.count
-                - if submissions_count > 0  
-                  => link_to user_user_selected_opportunity_path(@user, opportunity) do
-                    .btn.btn-success
-                      i.fa.fa-eye
-                      '&nbsp;
-                      => submissions_count
-                      'Submissions
-                .pull-right
-                  => link_to user_user_selected_opportunity_path(@user, opportunity) do
-                    .btn.btn-primary
-                      i.fa.fa-eye
-                      '&nbsp;
-                      'View
-                  -if submissions_count > 0    
-                    .btn.btn-default disabled='disabled'
-                      i.fa.fa-times
-                      '&nbsp;
-                      'Remove
-                  - else
-                    = link_to user_user_selected_opportunity_path(@user, opportunity), method: :delete, remote: true do
-                      .btn.btn-default
-                        i.fa.fa-times
-                        '&nbsp;
-                        'Remove
+      .sexy_line
+        .row
+          .col-sm-12
+            .pull-right
+              == render 'user/opportunities/navigation', active: 'selected'
+        .row
+          .col-sm-12
+            .opportunity
+
+              - @opportunities.each do |opportunity|
+                .opportunity-box id="opportunity_#{opportunity.id}"
+                  = render 'user/opportunities/show', opportunity: opportunity
+                  .row
+                    .col-sm-12
+                      - submissions = opportunity.submissions.where(user_id: @user.id)
+                      - submissions_count = submissions.count
+                      - if submissions_count > 0  
+                        => link_to user_user_selected_opportunity_path(@user, opportunity) do
+                          .btn.btn-success
+                            i.fa.fa-eye
+                            '&nbsp;
+                            => submissions_count
+                            'Submissions
+                      .pull-right
+                        => link_to user_user_selected_opportunity_path(@user, opportunity) do
+                          .btn.btn-primary
+                            i.fa.fa-eye
+                            '&nbsp;
+                            'View
+                        -if submissions_count > 0    
+                          .btn.btn-default disabled='disabled'
+                            i.fa.fa-times
+                            '&nbsp;
+                            'Remove
+                        - else
+                          = link_to user_user_selected_opportunity_path(@user, opportunity), method: :delete, remote: true do
+                            .btn.btn-default
+                              i.fa.fa-times
+                              '&nbsp;
+                              'Remove
+                        
                   
-            
-            
-            
-            
-            .clearfix
+                  
+                  
+                  
+                  .clearfix
             .sexy_line
                   
 

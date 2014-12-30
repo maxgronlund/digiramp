@@ -12,7 +12,7 @@
     
     
       - received_message = @message.receiver != @user.id
-      .messages
+      .messages.digi-box
         h3 = @message.title
         -if received_message
           'Message received
@@ -68,10 +68,6 @@
               
           .col-sm-3
 
-            /= debug @message
-        .row
-          .col-sm-12
-            .sexy_line
           
         .row
           .col-sm-12

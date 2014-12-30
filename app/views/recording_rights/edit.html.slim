@@ -33,43 +33,44 @@
       
       .sexy_line
       - common_work = @recording.attach_to_common_work
-      = simple_form_for [ @recording.account, common_work],  :html => { :id => 'common_work' } do |f|
-        #common_work_ipis
+      .digi-box
+        = simple_form_for [ @recording.account, common_work],  :html => { :id => 'common_work' } do |f|
+          #common_work_ipis
+          
+            = f.hidden_field :recording_id, value: @recording.id
+            = f.hidden_field :user_id, value: @recording.user_id
+            
+            
+            .row
+              .col-sm-12
+                #ipis
+                  = f.simple_fields_for :ipis do |ipi|
+                    = render 'recording_rights/ipi_fields', :f => ipi
+                  .links
+                    = link_to_add_association 'Add IPI', f, :ipis, class: 'btn btn-primary'
+                    
+                    
+            .row
+              .col-sm-8
+              .col-sm-4              
+                b Total shares % 
+                .total_share
+                i Must equal 100%
+                    
+                  
         
-          = f.hidden_field :recording_id, value: @recording.id
-          = f.hidden_field :user_id, value: @recording.user_id
-          
-          
-          .row
-            .col-sm-12
-              #ipis
-                = f.simple_fields_for :ipis do |ipi|
-                  = render 'recording_rights/ipi_fields', :f => ipi
-                .links
-                  = link_to_add_association 'Add IPI', f, :ipis, class: 'btn btn-primary'
+            .row
+              .col-sm-12    
+                /.sexy_line
+                br
+                .pull-right
+                  /= link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
+                  /'&nbsp;
+                  = f.submit 'Save', class: 'btn btn-primary'
                   
-                  
-          .row
-            .col-sm-8
-            .col-sm-4              
-              b Total shares % 
-              .total_share
-              i Must equal 100%
-                  
-                
-      
-          .row
-            .col-sm-12    
-              /.sexy_line
-              br
-              .pull-right
-                /= link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
-                /'&nbsp;
-                = f.submit 'Save', class: 'btn btn-primary'
-                
+              
+              
             
-            
-          
         
   == render 'shared/site_footer'  
 == render 'users/shared/mobile_links'

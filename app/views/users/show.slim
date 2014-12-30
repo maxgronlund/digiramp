@@ -1,6 +1,6 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
+    == render 'shared/navigationbar', page: 'user' 
   
   
   #sidebar-wrapper
@@ -12,8 +12,8 @@
       .row
         .col-sm-8
           == render 'users/shared/profile'
-          -if current_user && current_user.id == @user.id
-            == render 'users/activities'
+          /-if current_user && current_user.id == @user.id
+          /  == render 'users/activities'
           
           / make endless pages here
           - @user.wall_posts.order('created_at desc').first(20).each do |follower_event|

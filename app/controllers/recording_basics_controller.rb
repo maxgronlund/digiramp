@@ -18,11 +18,21 @@ class RecordingBasicsController < ApplicationController
   end
 
   def update
+    
+    
+    
+    
+    
+    
 
     go_to = params[:recording][:next_step]
     params[:recording].delete :next_step
 
     @recording      = Recording.find(params[:id])
+    
+    if params[:recording][:featured] == '1' && @recording.featured == false
+      params[:recording][:featured_date] = DateTime.now
+    end
 
     params[:recording][:uuid] = UUIDTools::UUID.timestamp_create().to_s
 

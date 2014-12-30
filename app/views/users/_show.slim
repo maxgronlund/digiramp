@@ -1,0 +1,60 @@
+.user-badge
+
+  = link_to user_path( user) do
+    .avatar
+      = image_tag( user.image_url :avatar_170x170) 
+      .user-tags
+        - if user.composer
+          .user-tag
+            'Composer
+  
+        - if user.writer
+          .user-tag
+            'Writer
+
+        - if user.artist
+          .user-tag
+            'Artist
+
+        - if user.author
+          .user-tag
+            'Author
+      
+        - if user.producer
+          .user-tag
+            'Producer
+      
+        - if user.musician
+          .user-tag
+            'Musician
+      
+        - if user.remixer
+          .user-tag
+            'Remixer
+      
+        - if user.dj
+          .user-tag
+            'DJ
+            
+    
+  .user-name
+    = link_to user.user_name, user_path(user)
+  .small-symbols
+    = link_to user_recordings_path(user) do
+      i class="fa fa-headphones"
+      '&nbsp;
+      = user.recordings.count
+    '&nbsp;|&nbsp;
+    = link_to user_likes_path(user) do
+      i class="fa fa-heart red-heart"
+      '&nbsp;
+      = user.likes.count
+    '&nbsp;|&nbsp;
+    = link_to user_followers_path(user) do
+      i class="fa fa-users"
+      '&nbsp;
+      = user.followers.count
+    - if user.featured
+      .pull-right
+        i class="fa fa-star"
+        '&nbsp;

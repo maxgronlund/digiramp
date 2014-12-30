@@ -1,54 +1,241 @@
-.sidebar
-  position: relative
+@import compass/css3
+@import "compass/css3/opacity"
+// Toggle Styles  
 
+#wrapper  
+  padding-left: 0 
+  -webkit-transition: all 0.5s ease 
+  -moz-transition: all 0.5s ease 
+  -o-transition: all 0.5s ease 
+  transition: all 0.5s ease 
+  
+#wrapper.toggled  
+  padding-left: 200px 
+  
+#sidebar-wrapper  
+  h5
+    margin-bottom: 6px
+  z-index: 1000 
+  position: fixed 
+  left: 200px 
+  width: 0 
+  height: 100% 
+  margin-left: -200px 
+  overflow-y: auto 
+  padding: 50px 0px 30px 0px
+  +box-shadow(#BBB 1px 1px 1px)
+  
+  // background: #000  
+  -webkit-transition: all 0.5s ease 
+  -moz-transition: all 0.5s ease 
+  -o-transition: all 0.5s ease 
+  transition: all 0.5s ease 
+  background-color: #FFF
+  color: #666
+  
+  .fa
+    font-size: 18px
+  .tag 
+
+    .tag-title 
+      padding-left: 10px
+      display: inline-table
+      width: 120px
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+    
+    .tag-count 
+      display: inline
+      width: 45px
+      
+    .tag-selected
+      background-color: #B1B1B1
+      color: #FFF
+      @include box-shadow(rgba(#666, 0.2) 0 0 3px 1px inset)
+      
+  .tag:hover 
+    background-color: #E3E3E3  
+    
+
+  .static-content
+    margin-left: 10px
+
+  a
+    color: #666 
+
+  
+  .fa-heart
+    color: #A70009
+
+  .sidebar-nav  
+    //position: absolute 
+    top: 0 
+    width: 200px 
+    margin: 0 
+    //padding-top: 50px 
+    list-style: none 
+  
+    .sexy_line
+      margin: 0px
+
+    .user-avatar
+      margin-left: -2px
+      margin-top: 10px
+      margin-bottom: 8px
+      //display: inline-block
+      //float: left
+    .user-name
+      //display: inline-block
+      //max-width: 150px
+      //margin-left: 50px
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+      //top: 0px
+      //position: relative
+  
+    .sidebar-selected 
+      //background: rgba(200,200,200,0.2) 
+      background-color: #B1B1B1
+      @include box-shadow(rgba(#666, 0.2) 0 0 3px 1px inset)
+      a
+        color: #FFF !important
+        font-weight: 400
+      
+      a:hover  
+        background-color: #B1B1B1
+        @include box-shadow(rgba(#666, 0.2) 0 0 3px 1px inset)
+    
+    li  
+      text-indent: 10px 
+      line-height: 40px 
+  
+      a  
+        display: block 
+        text-decoration: none 
+        color: #5B5A5A
+      
+      a:hover  
+        text-decoration: none 
+        background-color: #E3E3E3
+        
+      a:active, a:focus  
+        text-decoration: none 
+  
+    
+    
+  
+
+  
+  
+#wrapper.toggled #sidebar-wrapper  
+  width: 200px 
+ 
+#page-content-wrapper  
+  width: 100% 
+  //padding: 15px 
+  //padding: 60px 15px
+ 
+#wrapper.toggled #page-content-wrapper  
+  position: absolute 
+  margin-right: -200px 
+ 
+
+
+@media(min-width:768px)  
+  #wrapper  
+    padding-left: 200px 
+     
+  #wrapper.toggled  
+    padding-left: 0 
+   
+  #sidebar-wrapper  
+    width: 200px 
+   
+  #wrapper.toggled #sidebar-wrapper  
+    width: 0 
+    
+  //#page-content-wrapper  
+  //  padding: 60px 0px 
+    
+  #wrapper.toggled #page-content-wrapper  
+    position: relative 
+    margin-right: 0 
+    
+.sidebar-toggle
+  position: fixed
+  top: 50px
+  left: 0px
+  
+#terms 
+  bottom: 0px
+  height: 40px
+  position: fixed
   width: 100%
-  //margin: 0
-  //padding-top: 10px
-  list-style: none
-  margin: 0px
-  margin-right: 10px
-  
-  .sidebar-selected 
-    background: rgba(200, 200, 200, 0.2)
-    
-    font-weight: 500
-    a
-      color: #000
-    a:active, a:focus  
+  z-index: 1002
+  padding: 8px 8px 8px 16px
+  background-color: #000
+  @include opacity(0.5)
+  a
+    color: #FFF
+  //text-align: center
 
 
-    .fa
-      color: #69ACC8
-    
-    .fa-heart
-      color: #A70009
-  
-  
-  li  
-    text-indent: 8px 
-    line-height: 38px 
-  
-    a  
-      display: block 
-      text-decoration: none 
-      color: #999999 
-      p
-        margin-top: -4px
-        display: inline
-      
-      
-    a:hover  
-      text-decoration: none 
-      color: #000 
-      background: rgba(200,200,200,0.2) 
+//.sidebar
+//  position: relative
+//
+//  width: 100%
+//  //margin: 0
+//  //padding-top: 10px
+//  list-style: none
+//  margin: 0px
+//  margin-right: 10px
+//  
+//  .sidebar-selected 
+//    //background: rgba(200, 200, 200, 0.2)
+//    background-color: #6DADC7
+//    font-weight: 500
+//    a
+//      color: #FFF
+//    a:active, a:focus  
+//      color: #FFF
+//
+//    .fa
+//      color: #69ACC8
+//    
+//    .fa-heart
+//      color: #A70009
+//  
+//  
+//  li  
+//    text-indent: 8px 
+//    line-height: 38px 
+//  
+//    a  
+//      display: block 
+//      text-decoration: none 
+//      color: #999999 
+//      p
+//        margin-top: -4px
+//        display: inline
+//      
+//      
+//    a:hover  
+//      text-decoration: none 
+//      color: #000 
+//      background: rgba(200,200,200,0.2) 
+//
+//    a:active, a:focus  
+//      text-decoration: none
+//
+//    
+//    .fa
+//      font-size: 18px
+//      margin-right: 6px
+//      
+//    
+//  
+//
 
-    a:active, a:focus  
-      text-decoration: none
 
-    
-    .fa
-      font-size: 18px
-      margin-right: 6px
-      
-    
-  

@@ -34,12 +34,13 @@
             
                  
       .sexy_line
-      .users
+      .users.digi-box
         .table-responsive
           table class="table table-hover"
             thead
               tr
                 th 
+                th Featured
                 th Plan
                 th Joined
                 th Role
@@ -85,6 +86,9 @@
                         i class="fa fa-user" 
                         '&nbsp;
                         = user.short_email
+                  td
+                    - if user.featured
+                      i.fa.fa-star
                   td 
                     -if user.account
                       = user.account.account_type

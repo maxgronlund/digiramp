@@ -19,6 +19,13 @@ class Admin::UsersController < ApplicationController
   end
   
   def update
+
+    
+    if params[:user][:featured] == '1' && @user.featured == false
+      # only update featured date when featured is turned on
+      params[:user][:featured_date] = DateTime.now
+    end
+    
     old_role  = @user.role
     
     if @user.update(user_params)
@@ -37,7 +44,8 @@ class Admin::UsersController < ApplicationController
     else
       flash[:danger] = { title: "Error", body: "User not updated" }
     end
-      redirect_to admin_users_path
+
+    redirect_to admin_users_path
   end
   
   # this function is expencieve when the user 

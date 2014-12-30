@@ -1,53 +1,54 @@
-.icon
-  .facebook
-.info
-  - if facebook  = @user.authorization_providers.where(provider: 'facebook').first
-    /= debug facebook
-    - facebook_instructions = BlogPost.cached_find('Your Facebook account is linked to your DigiRAMP account', blog)
-    h4 = facebook_instructions.title
-    'Facebook account:
-    '&nbsp;
-    - if facebook.info
-      = link_to facebook.info['urls']['Facebook'] do
-        i.fa.fa-eye
-        '&nbsp;
-        =  facebook.info['email']
-    - else
-      ' Please relink to get more informations
-    br
-    = facebook_instructions.body 
-    
-    
-  
-  - else   
-    - facebook_instructions = BlogPost.cached_find('Link you Facebook account to DigiRAMP', blog)
-    h4 = facebook_instructions.title
-    = simple_format facebook_instructions.body
-
- 
-
-
-      
-
-br
-.clearfix
-- if facebook
-  = link_to user_user_authorization_provider_path(@user, facebook), data: { confirm: 'Are you sure?' } , :method => :delete do 
-          .btn.btn-danger.btn-xs
-            i class="fa fa-lock"
-            '&nbsp;
-            'Unlink
-- else
-  = link_to "/auth/facebook" do
-      .btn.btn-default.brn.btn-xs
-        i class="fa fa-unlock"
-        '&nbsp;
-        'Link
-  
--if can_edit?
-  = link_to edit_admin_blog_blog_post_path(blog, facebook_instructions) do
-    .btn.btn-default.btn-xs
-      i.fa.fa-pencil
+.digi-box
+  .icon
+    .facebook
+  .info
+    - if facebook  = @user.authorization_providers.where(provider: 'facebook').first
+      /= debug facebook
+      - facebook_instructions = BlogPost.cached_find('Your Facebook account is linked to your DigiRAMP account', blog)
+      h4 = facebook_instructions.title
+      'Facebook account:
       '&nbsp;
-      'Edit instruction  
-.sexy_line
+      - if facebook.info
+        = link_to facebook.info['urls']['Facebook'] do
+          i.fa.fa-eye
+          '&nbsp;
+          =  facebook.info['email']
+      - else
+        ' Please relink to get more informations
+      br
+      = facebook_instructions.body 
+      
+      
+    
+    - else   
+      - facebook_instructions = BlogPost.cached_find('Link you Facebook account to DigiRAMP', blog)
+      h4 = facebook_instructions.title
+      = simple_format facebook_instructions.body
+  
+   
+  
+  
+        
+  
+  br
+  .clearfix
+  - if facebook
+    = link_to user_user_authorization_provider_path(@user, facebook), data: { confirm: 'Are you sure?' } , :method => :delete do 
+            .btn.btn-danger.btn-xs
+              i class="fa fa-lock"
+              '&nbsp;
+              'Unlink
+  - else
+    = link_to "/auth/facebook" do
+        .btn.btn-default.brn.btn-xs
+          i class="fa fa-unlock"
+          '&nbsp;
+          'Link
+    
+  -if can_edit?
+    = link_to edit_admin_blog_blog_post_path(blog, facebook_instructions) do
+      .btn.btn-default.btn-xs
+        i.fa.fa-pencil
+        '&nbsp;
+        'Edit instruction  
+

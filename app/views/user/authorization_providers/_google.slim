@@ -1,49 +1,50 @@
-.icon
-  .google
-.info
-  - if gplus  = @user.authorization_providers.where(provider: 'gplus').first
-    - google_instructions = BlogPost.cached_find('Your Google+ account is linked to your DigiRAMP account', blog)
-    h4 = google_instructions.title
-    'Google+ account:
-    '&nbsp;
-    -if gplus.info
-      = link_to gplus.info['urls']['Google+'] do
-        i.fa.fa-eye
-        '&nbsp;
-        =  gplus.info['name']
-    - else
-      ' Please relink to get more informations
-    br
-    = google_instructions.body 
-    
-    
-  
-  - else   
-    - google_instructions = BlogPost.cached_find('Link you Google+ account to DigiRAMP', blog)
-    h4 = google_instructions.title
-    = simple_format google_instructions.body
-
-
-
-br
-.clearfix
-- if gplus
-  = link_to user_user_authorization_provider_path(@user, gplus), data: { confirm: 'Are you sure?' } , :method => :delete do 
-          .btn.btn-danger.btn-xs
-            i class="fa fa-lock"
-            '&nbsp;
-            'Unlink
-- else
-  = link_to "/auth/gplus" do
-      .btn.btn-default.brn.btn-xs
-        i class="fa fa-unlock"
-        '&nbsp;
-        'Link
-  
--if can_edit?
-  = link_to edit_admin_blog_blog_post_path(blog, google_instructions) do
-    .btn.btn-default.btn-xs
-      i.fa.fa-pencil
+.digi-box
+  .icon
+    .google
+  .info
+    - if gplus  = @user.authorization_providers.where(provider: 'gplus').first
+      - google_instructions = BlogPost.cached_find('Your Google+ account is linked to your DigiRAMP account', blog)
+      h4 = google_instructions.title
+      'Google+ account:
       '&nbsp;
-      'Edit instruction  
-.sexy_line
+      -if gplus.info
+        = link_to gplus.info['urls']['Google+'] do
+          i.fa.fa-eye
+          '&nbsp;
+          =  gplus.info['name']
+      - else
+        ' Please relink to get more informations
+      br
+      = google_instructions.body 
+      
+      
+    
+    - else   
+      - google_instructions = BlogPost.cached_find('Link you Google+ account to DigiRAMP', blog)
+      h4 = google_instructions.title
+      = simple_format google_instructions.body
+  
+  
+  
+  br
+  .clearfix
+  - if gplus
+    = link_to user_user_authorization_provider_path(@user, gplus), data: { confirm: 'Are you sure?' } , :method => :delete do 
+            .btn.btn-danger.btn-xs
+              i class="fa fa-lock"
+              '&nbsp;
+              'Unlink
+  - else
+    = link_to "/auth/gplus" do
+        .btn.btn-default.brn.btn-xs
+          i class="fa fa-unlock"
+          '&nbsp;
+          'Link
+    
+  -if can_edit?
+    = link_to edit_admin_blog_blog_post_path(blog, google_instructions) do
+      .btn.btn-default.btn-xs
+        i.fa.fa-pencil
+        '&nbsp;
+        'Edit instruction  
+ 

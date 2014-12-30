@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141228213411) do
+ActiveRecord::Schema.define(version: 20141230004848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -380,6 +380,13 @@ ActiveRecord::Schema.define(version: 20141228213411) do
     t.string   "layout"
     t.string   "identifier", default: ""
     t.integer  "version",    default: 0
+  end
+
+  create_table "bootsy_images", force: true do |t|
+    t.string   "image_file"
+    t.integer  "image_gallery_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "bugs", force: true do |t|
@@ -1890,6 +1897,7 @@ ActiveRecord::Schema.define(version: 20141228213411) do
     t.string   "transfer_code"
     t.boolean  "transferable",         default: false
     t.integer  "position",             default: 0
+    t.datetime "featured_date"
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -2096,6 +2104,8 @@ ActiveRecord::Schema.define(version: 20141228213411) do
     t.integer  "completeness",           default: 0
     t.integer  "unread_messages",        default: 0
     t.text     "search_field",           default: ""
+    t.boolean  "featured",               default: false
+    t.datetime "featured_date"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

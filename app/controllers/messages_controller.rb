@@ -68,6 +68,7 @@ class MessagesController < ApplicationController
     @message.save
     Connection.decrease_messages_count( @message )
 
+
   end
   
 private  

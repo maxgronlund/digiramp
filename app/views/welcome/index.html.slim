@@ -10,53 +10,57 @@
       .welcome-container
         .row
           .col-sm-4
-            == render 'welcome/login'
+            h4 Welcome to DigiRAMP
+            .digi-box
+              == render 'welcome/login'
+              
+              br
+              #welcome-videos
+                iframe src="http://player.vimeo.com/video/109593195" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+              /.row
+              /  .col-sm-12
+              /    .video-container
+              /      iframe src="http://player.vimeo.com/video/109593195" width="100%" height="auto" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+              br
+              = link_to 'Learn more', home_index_path, class: 'btn btn-primary btn-lg'
+          
+          
+
+            h4 Featured opportunities
+            .featured-opportunity-box
+              - @opportunities.each do |opportunity|
+                - if current_user
+                  = link_to user_user_opportunity_path(current_user, opportunity)
+                    .featured-opportunity
+                       = opportunity.title
+                - else
+                  = link_to public_opportunity_path( opportunity )
+                    .featured-opportunity
+                       = opportunity.title
+                  
+                      
                 
                 
-                
-                
-                
-                
-                
-                       
-            
-            br
-            #welcome-videos
-              iframe src="http://player.vimeo.com/video/109593195" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
-            /.row
-            /  .col-sm-12
-            /    .video-container
-            /      iframe src="http://player.vimeo.com/video/109593195" width="100%" height="auto" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
-            br
-            = link_to 'Learn more', home_index_path, class: 'btn btn-primary btn-lg'
+              .featured-opportunity
+                - if current_user
+                  = link_to 'More opportunities', user_user_opportunities_path(current_user)
+                - else
+                  = link_to public_opportunities_path
+                    'More opportunities
           .col-sm-8
-            h3 = link_to 'Featured recordings', songs_path
+            h4 Featured recordings
             == render 'recordings/index', recordings: @recordings
       
         .row
           .col-sm-12
-            h3 = link_to 'Featured Users', users_path
-            .util-carousel.normal-imglist id="users-imglist"
-              - @users.each do |user|
-                .item
-                  = link_to user_path(user) do
-                    .recording
-                      h4 = user.user_name
-                      = image_tag user.image_url(:avatar_92x92, class: "img-lazy")
-                      .pull-right
-                        .small-symbols
-                          i class="fa fa-headphones"
-                          '&nbsp;
-                          = user.recordings.count
-                          '&nbsp;|&nbsp;
-                          i class="fa fa-heart red-heart"
-                          '&nbsp;
-                          = user.likes.count
-                          '&nbsp;|&nbsp;
-                          i class="fa fa-users"
-                          '&nbsp;
-                          = user.followers.count
-
+            h4 Featured Users
+            .person-badges
+              .all-users
+                .util-carousel.normal-imglist id="users-imglist"
+                  - @users.each do |user|
+                    == render 'users/show', user: user
+                
+            /
 == render 'shared/site_footer'
 
 javascript:

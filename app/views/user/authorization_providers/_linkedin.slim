@@ -1,53 +1,55 @@
-.icon
-  .linkedin
-.info
-  - if linkedin  = @user.authorization_providers.where(provider: 'linkedin').first
-    /= debug linkedin
-    - linkedin_instructions = BlogPost.cached_find('Your Linkedin account is linked to your DigiRAMP account', blog)
-    h4 = linkedin_instructions.title
-    'Linkedin account:
-    '&nbsp;
-    - if linkedin.info
-      = link_to linkedin.info['urls']['public_profile'] do
-        i.fa.fa-eye
-        '&nbsp;
-        =  linkedin.info['name']
-    - else
-      ' Please relink to get more informations
-    br
-    = linkedin_instructions.body 
-    
-    
-  
-  - else   
-    - linkedin_instructions = BlogPost.cached_find('Link you Linkedin account to DigiRAMP', blog)
-    h4 = linkedin_instructions.title
-    = simple_format linkedin_instructions.body
-
- 
-
-
-      
-
-br
-.clearfix
-- if linkedin
-  = link_to user_user_authorization_provider_path(@user, linkedin), data: { confirm: 'Are you sure?' } , :method => :delete do 
-          .btn.btn-danger.btn-xs
-            i class="fa fa-lock"
-            '&nbsp;
-            'Unlink
-- else
-  = link_to "/auth/linkedin" do
-      .btn.btn-default.brn.btn-xs
-        i class="fa fa-unlock"
-        '&nbsp;
-        'Link
-  
--if can_edit?
-  = link_to edit_admin_blog_blog_post_path(blog, linkedin_instructions) do
-    .btn.btn-default.btn-xs
-      i.fa.fa-pencil
+.digi-box
+  .icon
+    .linkedin
+  .info
+    - if linkedin  = @user.authorization_providers.where(provider: 'linkedin').first
+      /= debug linkedin
+      - linkedin_instructions = BlogPost.cached_find('Your Linkedin account is linked to your DigiRAMP account', blog)
+      h4 = linkedin_instructions.title
+      'Linkedin account:
       '&nbsp;
-      'Edit instruction  
-.sexy_line
+      - if linkedin.info
+        = link_to linkedin.info['urls']['public_profile'] do
+          i.fa.fa-eye
+          '&nbsp;
+          =  linkedin.info['name']
+      - else
+        ' Please relink to get more informations
+      br
+      = linkedin_instructions.body 
+      
+      
+    
+    - else   
+      - linkedin_instructions = BlogPost.cached_find('Link you Linkedin account to DigiRAMP', blog)
+      h4 = linkedin_instructions.title
+      = simple_format linkedin_instructions.body
+  
+   
+  
+  
+        
+  
+  br
+  .clearfix
+  - if linkedin
+    = link_to user_user_authorization_provider_path(@user, linkedin), data: { confirm: 'Are you sure?' } , :method => :delete do 
+            .btn.btn-danger.btn-xs
+              i class="fa fa-lock"
+              '&nbsp;
+              'Unlink
+  - else
+    = link_to "/auth/linkedin" do
+        .btn.btn-default.brn.btn-xs
+          i class="fa fa-unlock"
+          '&nbsp;
+          'Link
+    
+  -if can_edit?
+    = link_to edit_admin_blog_blog_post_path(blog, linkedin_instructions) do
+      .btn.btn-default.btn-xs
+        i.fa.fa-pencil
+        '&nbsp;
+        'Edit instruction  
+  
+  

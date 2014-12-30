@@ -9,14 +9,12 @@
         'Hide
         
   - if @user      
-    li class="#{'sidebar-selected' if selected == 'user'}"
+    li
       
       = link_to user_path(@user) do
         .user-avatar
           =  image_tag @user.image_url(:avatar_184x184)
-          '&nbsp;
-        /.user-name
-        /  = @user.user_name   
+
     li class="#{'sidebar-selected' if selected == 'recordings'}"
       = link_to user_recordings_path(@user, clear: 'clear') do
         i class="fa fa-headphones"
@@ -60,7 +58,7 @@
         
   - if current_user 
     .sexy_line
-    li
+    li class="#{'sidebar-selected' if selected == 'support'}"
       = link_to support_index_path do
         i class="fa fa-life-ring"
         '&nbsp;

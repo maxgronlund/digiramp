@@ -100,7 +100,7 @@
             div id="message_count"
             == render 'messages/count'
             i.fa.fa-envelope
-        li
+        li class="#{page == 'user' && @user == current_user ? 'active' : ''}"
           = link_to user_path(current_user) do
             = image_tag current_user.image_url(:avatar_32x32)
             '&nbsp;

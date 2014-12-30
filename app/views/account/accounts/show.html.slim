@@ -23,24 +23,24 @@
       .sexy_line
       
       .account-account
-        .account-top
-          .account-logo
-            = image_tag @account.logo_url(:size_270x270)
-            
-          .account-info
-            = simple_format @account.description
-            
-            
-            - if can_edit? || (current_user && current_user.account_id == @account.id)
-              = link_to edit_account_account_path(@account) do
-                .btn.btn-primary
-                  i.fa.fa-pencil
-                  '&nbsp;Edit
-            
-        
-        .clearfix
-        .sexy_line
-        br
+        .digi-box
+          .account-top
+            .account-logo
+              = image_tag @account.logo_url(:size_270x270)
+              
+            .account-info
+              = simple_format @account.description
+              
+              
+              - if can_edit? || (current_user && current_user.account_id == @account.id)
+                = link_to edit_account_account_path(@account) do
+                  .btn.btn-primary
+                    i.fa.fa-pencil
+                    '&nbsp;Edit
+              
+          
+          .clearfix
+
         /.account-badges
 
         .account-account

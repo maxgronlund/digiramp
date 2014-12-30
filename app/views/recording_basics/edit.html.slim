@@ -32,77 +32,78 @@
                   '&nbsp;Skip
                   i.fa.fa-chevron-right
       .sexy_line
-      
+      .digi-box
    
 
-      = simple_form_for  [@user, @recording ], url: url_for(:action => 'update', :controller => 'recording_basics'), 
-                                               html: { :id => 'recording_artwork' }, 
-                                               method: 'put' do |f|
-
-
-        = transloadit :image_files_to_s3 
-        .row
-          .col-sm-6
-            = f.input :featured if current_user.super?
-            = f.input :title
-            b Original file:
-            =< @recording.original_file_name
-            br
-            => link_to @recording.zipp do
-              .btn.btn-default
-                i.fa.fa-cloud-download
-                '&nbsp;Download
-            
-            = link_to edit_user_recording_upload_path(@user, @recording) do
-               .btn.btn-default
-                 i.fa.fa-cloud-upload
-                 '&nbsp;Reaplace
-                 
-            .sexy_line
-            .fileinput.fileinput-new data-provides="fileinput"
-              .fileinput-new.thumbnail style="width: 184px; height: 184px;"
-                - if @recording.cover_art
-                  = image_tag @recording.cover_art, size: '184x184'
-                - else
-                  = image_tag 'default-cover.jpg'
-
-              div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
-              div
-                span.btn.btn-default.btn-file
-                  span class="fileinput-new"
-                    'Select image
-                  '&nbsp;
-                  span class="fileinput-exists"
-                    'Change
-                  = f.file_field :cover_art, multiple: false
-
-                '&nbsp;
-                a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-                  'Remove
-
-            br
-            br
+        = simple_form_for  [@user, @recording ], url: url_for(:action => 'update', :controller => 'recording_basics'), 
+                                                 html: { :id => 'recording_artwork' }, 
+                                                 method: 'put' do |f|
         
-           
-          .col-sm-6
-            = f.input :position
-            = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
-            = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
-            = f.input :downlodable, hint: 'Enabling this will allow the file to be downloaded'
-            = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
-    
-
-        .pull-right  
-          /= f.button :submit, 'Cancel', class: 'btn btn-default', id: 'done'
-          /'&nbsp;
-
-          => f.button :submit,'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
-          /'&nbsp;
-          /= link_to 'Skip', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
-          /'&nbsp;
-          = f.button :submit, 'Save', class: 'btn btn-primary'
-        /== render 'form', f: f
-      = transloadit_jquerify :recording_artwork, :wait => true
+        
+          = transloadit :image_files_to_s3 
+          .row
+            .col-sm-6
+              = f.input :featured if super?
+              = f.input :title
+              b Original file:
+              =< @recording.original_file_name
+              br
+              => link_to @recording.zipp do
+                .btn.btn-default
+                  i.fa.fa-cloud-download
+                  '&nbsp;Download
+              
+              = link_to edit_user_recording_upload_path(@user, @recording) do
+                 .btn.btn-default
+                   i.fa.fa-cloud-upload
+                   '&nbsp;Reaplace
+                   
+              .sexy_line
+              .fileinput.fileinput-new data-provides="fileinput"
+                .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+                  - if @recording.cover_art
+                    = image_tag @recording.cover_art, size: '184x184'
+                  - else
+                    = image_tag 'default-cover.jpg'
+        
+                div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+                div
+                  span.btn.btn-default.btn-file
+                    span class="fileinput-new"
+                      'Select image
+                    '&nbsp;
+                    span class="fileinput-exists"
+                      'Change
+                    = f.file_field :cover_art, multiple: false
+        
+                  '&nbsp;
+                  a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                    'Remove
+        
+              br
+              br
+          
+             
+            .col-sm-6
+              = f.input :position
+              = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
+              = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
+              = f.input :downlodable, hint: 'Enabling this will allow the file to be downloaded'
+              = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
+        
+          .row
+            .col-sm-12
+              .pull-right  
+                /= f.button :submit, 'Cancel', class: 'btn btn-default', id: 'done'
+                /'&nbsp;
+              
+                => f.button :submit,'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
+                /'&nbsp;
+                /= link_to 'Skip', edit_user_recording_lyric_path(@user, @recording), class: 'btn btn-default'
+                /'&nbsp;
+                = f.button :submit, 'Save', class: 'btn btn-primary'
+              /== render 'form', f: f
+        = transloadit_jquerify :recording_artwork, :wait => true
       
         
   == render 'shared/site_footer'  

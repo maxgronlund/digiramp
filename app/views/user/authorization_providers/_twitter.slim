@@ -1,53 +1,55 @@
-.icon
-  .twitter
-.info
-  - if twitter  = @user.authorization_providers.where(provider: 'twitter').first
-    /= debug twitter
-    - twitter_instructions = BlogPost.cached_find('Your Twitter account is linked to your DigiRAMP account', blog)
-    h4 = twitter_instructions.title
-    'Twitter account:
-    '&nbsp;
-    -if twitter.info
-      = link_to twitter.info['urls']['Twitter'] do
-      i.fa.fa-eye
+.digi-box
+  .icon
+    .twitter
+  .info
+    - if twitter  = @user.authorization_providers.where(provider: 'twitter').first
+      /= debug twitter
+      - twitter_instructions = BlogPost.cached_find('Your Twitter account is linked to your DigiRAMP account', blog)
+      h4 = twitter_instructions.title
+      'Twitter account:
       '&nbsp;
-      =  twitter.info['name']
-    - else
-      ' Please relink to get more informations
-    br
-    = twitter_instructions.body 
-    
-    
-  
-  - else   
-    - twitter_instructions = BlogPost.cached_find('Link you Twitter account to DigiRAMP', blog)
-    h4 = twitter_instructions.title
-    = simple_format twitter_instructions.body
-
- 
-
-
-      
-
-br
-.clearfix
-- if twitter
-  = link_to user_user_authorization_provider_path(@user, twitter), data: { confirm: 'Are you sure?' } , :method => :delete do 
-          .btn.btn-danger.btn-xs
-            i class="fa fa-lock"
-            '&nbsp;
-            'Unlink
-- else
-  = link_to "/auth/twitter" do
-      .btn.btn-default.brn.btn-xs
-        i class="fa fa-unlock"
+      -if twitter.info
+        = link_to twitter.info['urls']['Twitter'] do
+        i.fa.fa-eye
         '&nbsp;
-        'Link
+        =  twitter.info['name']
+      - else
+        ' Please relink to get more informations
+      br
+      = twitter_instructions.body 
+      
+      
+    
+    - else   
+      - twitter_instructions = BlogPost.cached_find('Link you Twitter account to DigiRAMP', blog)
+      h4 = twitter_instructions.title
+      = simple_format twitter_instructions.body
   
--if can_edit?
-  = link_to edit_admin_blog_blog_post_path(blog, twitter_instructions) do
-    .btn.btn-default.btn-xs
-      i.fa.fa-pencil
-      '&nbsp;
-      'Edit instruction  
-.sexy_line
+   
+  
+  
+        
+  
+  br
+  .clearfix
+  - if twitter
+    = link_to user_user_authorization_provider_path(@user, twitter), data: { confirm: 'Are you sure?' } , :method => :delete do 
+            .btn.btn-danger.btn-xs
+              i class="fa fa-lock"
+              '&nbsp;
+              'Unlink
+  - else
+    = link_to "/auth/twitter" do
+        .btn.btn-default.brn.btn-xs
+          i class="fa fa-unlock"
+          '&nbsp;
+          'Link
+    
+  -if can_edit?
+    = link_to edit_admin_blog_blog_post_path(blog, twitter_instructions) do
+      .btn.btn-default.btn-xs
+        i.fa.fa-pencil
+        '&nbsp;
+        'Edit instruction  
+  
+  

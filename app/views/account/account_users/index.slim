@@ -14,16 +14,19 @@
       h2 #{@account.title} <funky>Pro</funky>
       'Account Users
       .sexy_line
-      == render 'personas'
-
-      - if current_account_user.createx_user
-        br
-        .pull-right
-          = link_to new_account_account_account_user_path(@account) do
-            .btn.btn-primary
-              i class="fa fa-plus-circle"
-              '&nbsp;Invite User
-                 
+      .digi-box
+        == render 'personas'
+        
+        - if current_account_user.createx_user
+          .row
+            .col-sm-12
+              .sexy_line
+              .pull-right
+                = link_to new_account_account_account_user_path(@account) do
+                  .btn.btn-primary
+                    i class="fa fa-plus-circle"
+                    '&nbsp;Invite User
+                   
               
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'

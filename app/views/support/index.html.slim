@@ -5,7 +5,7 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+      == render 'users/shared/sidebar', selected: 'support'
   
   #page-content-wrapper
     .container-fluid
@@ -13,22 +13,26 @@
         .col-sm-6
           h2 Support
         .col-sm-6
-          .pull-right
-            => link_to 'Report an issue', new_user_issue_path(current_user), class: 'btn btn-default'
-            = link_to 'Known issues', user_issues_path(current_user), class: 'btn btn-default'
+          .pull-down-10
+            .pull-right
+              => link_to 'Report an issue', new_user_issue_path(current_user), class: 'btn btn-default'
+              = link_to 'Known issues', user_issues_path(current_user), class: 'btn btn-default'
       .sexy_line
       .row
+        .col-sm-3
         .col-sm-6
-          = simple_form_for Contact.new do |f|
+          .digi-box
+            = simple_form_for Contact.new do |f|
+              
+              = f.input :email, placeholder: 'you@email.com'
+              
+              = f.input :title, placeholder: 'Subject', label: 'Subject'
+              = f.input :body, label: 'Message', :input_html => {  style: "height: 284px;", placeholder: "Write your message here"}
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Send', class: 'btn btn-primary'
             
-            = f.input :email, placeholder: 'you@email.com'
-            
-            = f.input :title, placeholder: 'Subject', label: 'Subject'
-            = f.input :body, label: 'Message', :input_html => {  style: "height: 284px;", placeholder: "Write your message here"}
-            br
-            .pull-right
-              = f.submit 'Send to support', class: 'btn btn-primary'
-          
 
             
                  

@@ -1,64 +1,66 @@
 = simple_form_for [ :account, @account, @opportunity] do |f|
   = f.hidden_field :account_id, value: @account.id
-  .row
-    .col-sm-6
-      = f.input :title
-      = f.input :public_opportunity
-      .row
-        .col-sm-6
-          = f.input :kind
-        .col-sm-6
-          = f.input :budget
-
-      = f.input :body, label: 'Description', :input_html => {  style: "height: 150px;", placeholder: "Description"}
-    .col-sm-6
-      .fileinput.fileinput-new data-provides="fileinput"
-        .fileinput-new.thumbnail style="width: 184px; height: 184px;"
-          - if @opportunity.image
-            = image_tag @opportunity.image, size: '184x184'
-          - else
-            = image_tag 'default-cover.jpg'
-
-        div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
-        div
-          span.btn.btn-default.btn-file
-            span class="fileinput-new"
-              'Select image
+  .digi-box
+    .row
+      .col-sm-6
+        = f.input :title
+        = f.input :public_opportunity
+        .row
+          .col-sm-6
+            = f.input :kind
+          .col-sm-6
+            = f.input :budget
+    
+        = f.input :body, label: 'Description', :input_html => {  style: "height: 150px;", placeholder: "Description"}
+      .col-sm-6
+        .fileinput.fileinput-new data-provides="fileinput"
+          .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+            - if @opportunity.image
+              = image_tag @opportunity.image, size: '184x184'
+            - else
+              = image_tag 'default-cover.jpg'
+    
+          div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+          div
+            span.btn.btn-default.btn-file
+              span class="fileinput-new"
+                'Select image
+              '&nbsp;
+              span class="fileinput-exists"
+                'Change
+              = f.file_field :image
+    
             '&nbsp;
-            span class="fileinput-exists"
-              'Change
-            = f.file_field :image
-
-          '&nbsp;
-          a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-            'Remove
-            
-            
-            
-            
-      
-      br
-      .row
-        .col-sm-6
-          b Deadline
-          = f.text_field :deadline, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
-        .col-sm-6
-          = f.input :territory
-      
-      
-      
-
-
-      		
-
-
-      
-
+            a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+              'Remove
+              
+              
+              
+              
+        
+        br
+        .row
+          .col-sm-6
+            b Deadline
+            = f.text_field :deadline, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+          .col-sm-6
+            = f.input :territory
+        
+        
+        
+    
+    
+        		
+    
+    
+        
+    
   .row
     .col-sm-12
-      .sexy_line
+      h4 Requests
       = f.simple_fields_for :music_requests do |music_request|
-        = render 'music_request_fields', :f => music_request
+        .digi-box
+          = render 'music_request_fields', :f => music_request
       /.links
       /  = link_to_add_association 'add request', f, :music_requests
 

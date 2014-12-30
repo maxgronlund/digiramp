@@ -38,43 +38,43 @@
                   i.fa.fa-chevron-right
 
       .sexy_line
-
-      /= simple_form_for [ @user, @recording],  :html => { :id => 'recording_ipi' } do |f|
-      = simple_form_for  [@user, @recording ], url: url_for(:action => 'update', :controller => 'recording_personas'), 
-                                               html: { :id => 'recording_ipi' }, 
-                                               method: 'put' do |f|
-        #recording_ipis
-
-          .row
-            .col-sm-12
-              #ipis
-                = f.simple_fields_for :recording_ipis do |recording_ipis|
-                  = render 'recording_personas/recording_ipi_fields', :f => recording_ipis
-                .links
-                  = link_to_add_association 'Add IPI', f, :recording_ipis, class: 'btn btn-primary'
-                  
-                  
-          .row
-            .col-sm-8
-            .col-sm-4              
-              b Total shares % 
-              .total_share
-              i Must equal 100%
-      
-      
-      
-      
-      
-      
-      
-      
-          .pull-right   
-            => f.button :submit, 'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
-            '&nbsp;
-
-            = f.submit 'Save', class: 'btn btn-primary'
-
-     
+      .digi-box
+        = simple_form_for  [@user, @recording ], url: url_for(:action => 'update', :controller => 'recording_personas'), 
+                                                 html: { :id => 'recording_ipi' }, 
+                                                 method: 'put' do |f|
+          #recording_ipis
+        
+            .row
+              .col-sm-12
+                #ipis
+                  = f.simple_fields_for :recording_ipis do |recording_ipis|
+                    = render 'recording_personas/recording_ipi_fields', :f => recording_ipis
+                  .links
+                    = link_to_add_association 'Add IPI', f, :recording_ipis, class: 'btn btn-primary'
+                    
+                    
+            .row
+              .col-sm-8
+              .col-sm-4              
+                b Total shares % 
+                .total_share
+                i Must equal 100%
+        
+        
+        
+        
+        
+        
+        
+            .row
+              .col-sm-12
+                .pull-right   
+                  => f.button :submit, 'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
+                  '&nbsp;
+                
+                  = f.submit 'Save', class: 'btn btn-primary'
+                
+       
         
   == render 'shared/site_footer'  
 == render 'users/shared/mobile_links'
