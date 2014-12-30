@@ -39,38 +39,40 @@
                   
       = @opportunity.title
       .sexy_line
-      h4 New Reviewer
-      = simple_form_for [ :account, @account, @opportunity, @opportunity_evaluation], url: url_for(action: 'create', controller: 'opportunity_reviewers'), method: 'post' do |f|
-        = f.hidden_field :user_id, value: @user.id
-        = f.hidden_field :opportunity_id, value: @opportunity.id
-        .row
-          .col-sm-6
-            = f.input :emails, placeholder: 'e.g. john@doe.com, elvis@presley.com', hint: 'Only valid emails will be accepted', :input_html => {  style: "height: 244px;"}
-      
-      
-      
-  
-          .col-sm-6
-            - @opportunity_evaluation.subject = "You have been invited review an opportunity on DigiRAMP"
-            /- @opportunity_evaluation.body = @opportunity.body
-            = f.input :subject , label: 'Subject'
-            = f.input :body, label: 'Message', :input_html => {  style: "height: 172px;"}
-
-
-
-        .pull-right
-          = link_to 'Cancel', account_account_opportunity_path(@account, @opportunity), class: 'btn btn-default'
-          '&nbsp;
-          = f.submit 'Send', class: 'btn btn-primary'
+      .digi-box
+        h4 New Reviewers
+        = simple_form_for [ :account, @account, @opportunity, @opportunity_evaluation], url: url_for(action: 'create', controller: 'opportunity_reviewers'), method: 'post' do |f|
+          = f.hidden_field :user_id, value: @user.id
+          = f.hidden_field :opportunity_id, value: @opportunity.id
+          .row
+            .col-sm-6
+              = f.input :emails, placeholder: 'e.g. john@doe.com, elvis@presley.com', hint: 'Only valid emails will be accepted', :input_html => {  style: "height: 244px;"}
         
-        /= f.hidden_field :user_id, value: @user.id
-        /= f.hidden_field :account_id, value: @account.id
-        /
-        /= f.input :emails, label: 'Invitees'
-        /= f.input :subject
-        /= f.input :body
-        /= f.submit 'Invite', class: 'btn btn-primary'
-      
+        
+        
+        
+            .col-sm-6
+              - @opportunity_evaluation.subject = "You have been invited review an opportunity on DigiRAMP"
+              /- @opportunity_evaluation.body = @opportunity.body
+              = f.input :subject , label: 'Subject'
+              = f.input :body, label: 'Message', :input_html => {  style: "height: 172px;"}
+        
+        
+          .row
+            .col-sm-12
+              .pull-right
+                = link_to 'Cancel', account_account_opportunity_path(@account, @opportunity), class: 'btn btn-default'
+                '&nbsp;
+                = f.submit 'Send', class: 'btn btn-primary'
+          
+          /= f.hidden_field :user_id, value: @user.id
+          /= f.hidden_field :account_id, value: @account.id
+          /
+          /= f.input :emails, label: 'Invitees'
+          /= f.input :subject
+          /= f.input :body
+          /= f.submit 'Invite', class: 'btn btn-primary'
+        
                  
               
   == render 'shared/site_footer'    

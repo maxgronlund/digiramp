@@ -78,14 +78,15 @@
           .col-sm-12
             
             .pull-right
-              - unless @message.sender.id == @user.id
-                -if received_message  && @message.user_can_reply( @user )
-                
-                  = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@message.id.to_s}" do
-                    .btn.btn-primary
-                      i.fa.fa-reply
-                      '&nbsp;Reply
-                      
+              - if @message.sender
+                - unless  @message.sender.id == @user.id
+                  -if received_message  && @message.user_can_reply( @user )
+                  
+                    = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@message.id.to_s}" do
+                      .btn.btn-primary
+                        i.fa.fa-reply
+                        '&nbsp;Reply
+                        
                   
               
         
@@ -109,6 +110,7 @@
         
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
-== render 'messages/modal', modal_id: "pmModal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message
+- if @message.sender
+  == render 'messages/modal', modal_id: "pmModal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message
 javascript:
   update_count();

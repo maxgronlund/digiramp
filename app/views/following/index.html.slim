@@ -5,12 +5,20 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      - if current_user
-        == render 'users/shared/sidebar', selected: 'following'
-      - else
-        .sidebar 
-          .sidebar-ad.sidebar-top-ad
+      == render 'users/shared/sidebar', selected: 'following'
+      - unless current_user
+        .sidebar
+          .sexy_line
+          .sidebar-ad
             == render 'admin/digiramp_ads/show', identifier: 'add on user page'
+    
+    /ul class="sidebar-nav"
+    /  - if current_user
+    /    == render 'users/shared/sidebar', selected: 'following'
+    /  - else
+    /    .sidebar 
+    /      .sidebar-ad.sidebar-top-ad
+    /        == render 'admin/digiramp_ads/show', identifier: 'add on user page'
   
   #page-content-wrapper
     .container-fluid

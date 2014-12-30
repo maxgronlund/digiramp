@@ -5,12 +5,13 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      - if current_user
-        == render 'users/shared/sidebar', selected: 'followers'
-      - else
-        .sidebar 
-          .sidebar-ad.sidebar-top-ad
-            == render 'admin/digiramp_ads/show', identifier: 'add on user pageuser'
+      == render 'users/shared/sidebar', selected: 'followers'
+      - unless current_user
+        .sidebar
+          .sexy_line
+          .sidebar-ad
+            == render 'admin/digiramp_ads/show', identifier: 'add on user page'
+
   
   #page-content-wrapper
     .container-fluid

@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   def show
 
-    #logger.info '############################################## USER SHOW ###############################################'
+
     if current_user && @user != current_user
       @user.views += 1 
       @user.save
@@ -41,14 +41,14 @@ class UsersController < ApplicationController
    
     ##############################################################
     # remove asap
-    if @user.account_id.nil?
-      unless account = Account.where(user_id: @user.id).first
-        account = User.create_a_new_account_for_the @user
-      end
-      @user.account_id = account.id
-      @user.validate_info
-      @user.save!
-    end
+    #if @user.account_id.nil?
+    #  unless account = Account.where(user_id: @user.id).first
+    #    account = User.create_a_new_account_for_the @user
+    #  end
+    #  @user.account_id = account.id
+    #  @user.validate_info
+    #  @user.save!
+    #end
     #############################################################
     session[:account_id] = @user.account_id 
     
