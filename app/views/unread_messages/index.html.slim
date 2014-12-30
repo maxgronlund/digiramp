@@ -1,0 +1,36 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Message center
+            .help-button
+              == render 'admin/helps/help', identifier: 'user messages'
+          
+        .col-sm-7
+          == render 'messages/navigation', selected: 'new'
+
+      .sexy_line
+      .messages
+        .digi-box
+          h4 New messages
+          table
+            .table-responsive
+              table class="table table-hover"
+                tbody
+                  - @user.received_massages.where(read: false).order(created_at: :desc).each.each do |message|
+                    == render 'messages/message', message: message
+            
+                
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

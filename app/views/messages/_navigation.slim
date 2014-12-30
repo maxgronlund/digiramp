@@ -1,0 +1,11 @@
+.pull-down-10
+  .pull-right
+    ul.nav.nav-pills
+      li  class="#{ selected == 'received' ? 'active' : ''}"
+        = link_to 'Received', user_received_messages_path(@user)
+      li  class="#{ selected == 'send' ? 'active' : ''}"
+        = link_to 'Sent', user_send_messages_path(@user)
+      li  class="#{ selected == 'all' ? 'active' : ''}"
+        = link_to 'All', user_messages_path(@user)
+      li  class="#{ selected == 'new' ? 'active' : ''}"
+        = link_to 'New', user_unread_messages_path(@user)

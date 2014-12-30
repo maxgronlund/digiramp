@@ -1,3 +1,4 @@
+- received_message = @message.receiver != @user.id
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'user' 
@@ -9,35 +10,26 @@
   
   #page-content-wrapper
     .container-fluid
-    
-    
-      - received_message = @message.receiver != @user.id
-      .messages.digi-box
-        h3 = @message.title
-        -if received_message
-          'Message received
-        - else
-          'Send Message
-        '&nbsp;
-        = @message.created_at.to_formatted_s(:short)
-
-        .sexy_line
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Message center
+            .help-button
+              == render 'admin/helps/help', identifier: 'user messages'
+          
+        .col-sm-7
+          == render 'messages/navigation', selected: ''
+            
+      .sexy_line
+      .digi-box 
         .row
-          .col-sm-3
-            .message-person-badge
-              -if received_message
-                - if @message.sender
-                  == render 'users/person', user: @message.sender
-              -else
-                - if @message.receiver
-                  == render 'users/person', user: @message.receiver
-             
+       
           .col-sm-6
+            h4 = @message.title
             = simple_format @message.body
           .col-sm-3
         .row
-          .col-sm-3
-            h4 Regarding
           .col-sm-9
             - case @message.subjebtable_type
             - when 'User'
@@ -45,12 +37,34 @@
             - when 'Recording'
               '&nbsp;
             - when 'MusicSubmission'
-              - if MusicSubmission.exists?(@message.subjebtable_id)
-                - music_submission =  MusicSubmission.find(@message.subjebtable_id)
-                - recording = music_submission.recording
-                /= debug music_submission.recording
+              ruby:
+                begin
+                  if music_submission = MusicSubmission.exists?(@message.subjebtable_id)
+                    if recording = music_submission.recording
+                    
+                    end
+                  end
+                rescue
+                
+                end
+              - if recording
                 #digiWhams  class="/recordings/#{recording.id.to_s}"
                   == render 'recording', recording: recording
+              - else
+                .alert.alert-danger
+                  '!Recording removed
+              /ruby:
+              /  begin
+              /    /- if MusicSubmission.exists?(@message.subjebtable_id)
+              /    /  - music_submission =  MusicSubmission.find(@message.subjebtable_id)
+              /    /  - recording = music_submission.recording
+              /    /  /= debug music_submission.recording
+              /    /  #digiWhams  class="/recordings/#{recording.id.to_s}"
+              /    /    == render 'recording', recording: recording
+              /  rescue
+              /  
+              /  end
+                
             - when 'Connection'
               - if connection = Connection.find( @message.subjebtable_id )
                 .connection-invitation
@@ -60,17 +74,9 @@
                   /  = link_to "Dismiss", '#', class: 'btn btn-default'
                   /  '&nbsp;
                   /  = f.submit 'Accept invitation', class: 'btn btn-primary'
-                    
-                
-              
-
-              
-              
-          .col-sm-3
-
-          
         .row
           .col-sm-12
+            
             .pull-right
               - unless @message.sender.id == @user.id
                 -if received_message  && @message.user_can_reply( @user )
@@ -79,12 +85,21 @@
                     .btn.btn-primary
                       i.fa.fa-reply
                       '&nbsp;Reply
+                      
+                  
+              
+        
+              
                 
-                
-                
-                  == render 'messages/modal', modal_id: "pmModal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message
+            .col-sm-3
           
-
+            
+          
+                  
+                  
+                    
+            
+          
         
         
         
@@ -94,6 +109,6 @@
         
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
-
+== render 'messages/modal', modal_id: "pmModal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message
 javascript:
   update_count();

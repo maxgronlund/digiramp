@@ -22,8 +22,11 @@ class MessagesController < ApplicationController
   def show
     @message = Message.cached_find(params[:id])
     @message.read = true
-    @message.save
-    @authorized = true
+    #@user.messages_not_read = self.received_massages.where(read: false).count
+    #@user.save
+    @message.save validate: false
+    ap @message
+    #@authorized   = true
   end
 
   def create
@@ -56,7 +59,6 @@ class MessagesController < ApplicationController
     if @message.recipient_id == @user.id && @message.sender_id == @user.id
       @message.recipient_removed  = true
       @message.sender_removed     = true
-      
     end
     
     # remove messages user has send
@@ -65,6 +67,7 @@ class MessagesController < ApplicationController
     else
       @message.recipient_removed = true
     end
+    @message.read = true
     @message.save
     Connection.decrease_messages_count( @message )
 

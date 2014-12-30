@@ -11,41 +11,29 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) }, current: '' }
-      .col-sm-6
-        .help
-          .help-text
-            h2 #{@account.title} <funky>Pro</funky>
-          .help-button
-            == render 'admin/helps/help', identifier: 'new account opportunity invitations'
-      .col-sm-6
-        .pull-right
-          .recording-navigation
-
-            = link_to account_account_opportunity_path(@account, @opportunity) do
-              .btn.btn-default
-                i.fa.fa-chevron-left
-                '&nbsp;Back
-                
-            
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      = @opportunity.title
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 #{@account.title} <funky>Pro</funky>
+              = @opportunity.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'new account opportunity invitations'
+        .col-sm-6
+          .pull-right
+            .recording-navigation
+        
+              = link_to account_account_opportunity_path(@account, @opportunity) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+                  
+        
       .sexy_line  
-      == render 'form'
+      .digi-box
+        == render 'form'
             
-      == render 'shared/back', locals: {link: account_account_opportunity_path(@account, @opportunity)}
+      /== render 'shared/back', locals: {link: account_account_opportunity_path(@account, @opportunity)}
               
             
             

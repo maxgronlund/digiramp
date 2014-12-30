@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141230004848) do
+ActiveRecord::Schema.define(version: 20141230123306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -380,13 +380,6 @@ ActiveRecord::Schema.define(version: 20141230004848) do
     t.string   "layout"
     t.string   "identifier", default: ""
     t.integer  "version",    default: 0
-  end
-
-  create_table "bootsy_images", force: true do |t|
-    t.string   "image_file"
-    t.integer  "image_gallery_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "bugs", force: true do |t|
@@ -1522,6 +1515,7 @@ ActiveRecord::Schema.define(version: 20141230004848) do
     t.integer  "opportunity_id"
     t.integer  "user_id"
     t.string   "uuid"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "emails"
@@ -2102,7 +2096,7 @@ ActiveRecord::Schema.define(version: 20141230004848) do
     t.boolean  "private_profile",        default: false
     t.boolean  "artist",                 default: false
     t.integer  "completeness",           default: 0
-    t.integer  "unread_messages",        default: 0
+    t.integer  "messages_not_read",      default: 0
     t.text     "search_field",           default: ""
     t.boolean  "featured",               default: false
     t.datetime "featured_date"

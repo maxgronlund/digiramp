@@ -14,8 +14,10 @@ tr id="delete_message_#{message.id.to_s}"
   td.message-unread
     
     - if message.read  == false && message.sender.id != @user.id
-      i.fa.fa-exclamation-circle
-      '&nbsp;New
+      = link_to user_message_path(@user, message)  do
+        .btn.btn-default.btn-xs
+          i.fa.fa-exclamation-circle
+          '&nbsp;New
   
   
   

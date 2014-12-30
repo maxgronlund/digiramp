@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
   hide_action :current_user
   
   def current_account
+    ap session[:account_id]
     begin
       return  Account.cached_find( session[:account_id]) if session[:account_id]
       session[:account_id] = current_user.account_id
@@ -42,6 +43,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_account
   
   def current_account_user
+    ap current_account
     account_user = AccountUser.cached_where( current_account.id, current_user.id)
     # this is a fix should be fixed by a migration
     return account_user if account_user

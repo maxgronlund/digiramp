@@ -30,21 +30,24 @@
                 
       = @opportunity.title
       .sexy_line
-      .opportunity
-        = render 'user/opportunities/show', opportunity: @opportunity
-      .pull-right
-        = link_to user_user_selected_opportunity_path(@user, @opportunity) do
-          .btn.btn-warning
-            i.fa.fa-plus
-            '&nbsp;Select
-                
-
+      .digi-box
+        .opportunity
+          = render 'user/opportunities/show', opportunity: @opportunity
+          .row
+            .col-sm-12
+              .pull-right
+                = link_to user_user_selected_opportunity_path(@user, @opportunity) do
+                  .btn.btn-warning
+                    i.fa.fa-plus
+                    '&nbsp;Select
+                  
         
-      .clearfix
-      .sexy_line
+        
+
       .opportunity
         - @opportunity.music_requests.order('created_at asc').each do |music_request|
-          == render 'user/opportunities/music_request', music_request: music_request
+          .digi-box
+            == render 'user/opportunities/music_request', music_request: music_request
           
 
             

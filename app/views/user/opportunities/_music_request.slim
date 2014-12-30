@@ -19,14 +19,7 @@
             tr
               th.description Sound like:
               td = link_to 'click here', music_request.link
-  /.row
-  /  .col-sm-12
-  /    .pull-right
-  /      = link_to user_user_opportunity_music_request_request_recordings_path(@user, @opportunity, music_request.id ) do
-  /        .btn.btn-primary
-  /          i.fa.fa-headphones
-  /          '&nbsp;
-  /          'Submit recordings
+
           
 
 - music_request.music_submissions.where(user_id: @user.id).each do |music_submission|

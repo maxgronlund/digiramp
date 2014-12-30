@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
 
 
+
+
   resources :disqus
 
   resources :selected_opportunities, only: [:show]
@@ -303,6 +305,7 @@ Digiramp::Application.routes.draw do
     resources :connections
     resources :messages
     resources :received_messages, only: [:index]
+    resources :unread_messages, only: [:index]
     resources :send_messages, only: [:index]
     resources :recording_basics, only: [:edit, :update]
     resources :recording_personas, only: [:edit, :update]

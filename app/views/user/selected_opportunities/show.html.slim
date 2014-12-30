@@ -32,16 +32,13 @@
       = @opportunity.title
       .sexy_line
       .opportunity
-        .opportunity-box
+        .digi-box
           = render 'user/opportunities/show', opportunity: @opportunity
 
-        
-
-        h3 Requests
+        br
+        h3 Requests        
         - @opportunity.music_requests.order('created_at asc').each do |music_request|
-
-          .opportunity-box
-            == render 'user/selected_opportunities/music_request', music_request: music_request
+          == render 'user/selected_opportunities/music_request', music_request: music_request
           
           /- music_request.music_submissions.each do |music_submission|
           /  == render 'user/request_recordings/show', music_submission: music_submission

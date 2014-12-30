@@ -2,6 +2,6 @@ class ReceivedMessagesController < ApplicationController
   before_filter :access_user, only: [:index]
 
   def index
-    @authorized = true 
+    #@authorized = true 
   end
 end

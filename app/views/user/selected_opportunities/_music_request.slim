@@ -1,16 +1,16 @@
-.request-info
+.digi-box.digi-box-dark
   .row
     .col-sm-6
       h4 = music_request.title
       = simple_format music_request.body
     .col-sm-6
-
+  
       .no-borders.table-responsive
         table class="table table-condensed"
           tr
             th.description Fee:
             td = number_to_currency(music_request.fee, locale: :en, precision: 2)
-
+  
           - unless  music_request.link.to_s == ''
             tr
               th.description Duration:
@@ -28,10 +28,9 @@
             '&nbsp;
             'Submit recordings
           
-
+  
 - music_request.music_submissions.where(user_id: @user.id).each do |music_submission|
-
-  - recording =  music_submission.recording
+  - if recording =  music_submission.recording
   div id="delete_music_submission_#{music_submission.id.to_s}"
     .row
       .col-sm-12
@@ -55,7 +54,7 @@
               '&nbsp;Remove submission
               
           
-
-
-
+    
+    
+    
         .sexy_line

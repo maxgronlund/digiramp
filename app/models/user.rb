@@ -152,6 +152,8 @@ class User < ActiveRecord::Base
   has_many :mail_list_subscribers, dependent: :destroy
   has_many :email_groups, through: :mail_list_subscribers
   
+  has_many :music_submission, dependent: :destroy
+  
   def short_email
     short_email = self.email.slice(0...24)
     short_email << '...' if self.email.size > 24
@@ -166,6 +168,30 @@ class User < ActiveRecord::Base
     received_messages   = Message.where(recipient_id: self.id)
     received_messages.update_all(recipient_id: true)
     
+    self.recordings.each do |recording|
+      recording.user_id = User.system_user.id
+      recording.privacy = 'Only me'
+      recording.update_relations
+    end
+    
+  end
+  
+  def self.system_user
+    
+    if user= User.where(email: 'digiramp_system_default_957@digiramp.com').first
+    
+    else
+      user = User.create( email: 'digiramp_system_default_957@digiramp.com', 
+                           name:  'digiramp_system_default_957', 
+                           #current_account_id: @account.id, 
+                           password: '5GA3Zk1C', 
+                           password_confirmation: '5GA3Zk1C',
+                           activated: true,
+                           private_profile: true)
+                           
+      create_account_for user
+    end
+    user
   end
   
   def update_search_field
@@ -584,7 +610,7 @@ class User < ActiveRecord::Base
                               title: user.email
                             )
                     .first_or_create(  title: user.email, 
-                                       account_type: Account::ACCOUNT_TYPES[:free_account], 
+                                       account_type: 'Social', 
                                        contact_email: user.email, 
                                        user_id: user.id,
                                        expiration_date: Date.current()>>1
