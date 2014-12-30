@@ -1,4 +1,4 @@
--music_request = music_submission.music_request
+- music_request = music_submission.music_request
 
 div id="old_music_submission_selected_#{music_submission.id.to_s}"
   = simple_form_for [music_submission]  , remote: true do |f|
@@ -18,8 +18,6 @@ div id="old_music_submission_selected_#{music_submission.id.to_s}"
     - else
       = f.hidden_field :selected, value: false
       = f.submit 'Selected', class: 'btn btn-success btn-xs'
+      
     
     
-    
-    
-    /music_submission.recording.zipp

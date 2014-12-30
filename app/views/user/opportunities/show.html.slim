@@ -28,7 +28,7 @@
         .col-sm-5
           == render 'user/opportunities/navigation', active: ''
                 
-      = @opportunity.title
+      /= @opportunity.title
       .sexy_line
       .digi-box
         .opportunity
@@ -44,10 +44,11 @@
         
         
 
-      .opportunity
-        - @opportunity.music_requests.order('created_at asc').each do |music_request|
-          .digi-box
-            == render 'user/opportunities/music_request', music_request: music_request
+      br
+      h3 Requests
+      - @opportunity.music_requests.order('created_at asc').each do |music_request|
+        .digi-box.digi-box-dark
+          == render 'user/opportunities/music_request', music_request: music_request
           
 
             

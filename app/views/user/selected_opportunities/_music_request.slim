@@ -36,25 +36,24 @@
       .col-sm-12
         #digiWhams  class="/recordings/#{recording.id.to_s}"
           == render 'audio_player/show', recording: recording , description: true, target: ''
-    .row
-      .col-sm-12
-        - if music_submission.selected
-          .btn.btn-danger.btn-xs disabled="disabled"
-            i class="fa fa-times"
-            '&nbsp;Remove submission
-          '&nbsp;
-          'Your submission is selected for review
-        - else
-          => link_to music_submission_path(music_submission, user_id: current_user.id, opportunity_id: music_request.opportunity_id), \
-                      method: :delete, \
-                      data: {confirm: "Are you sure" }, \
-                      remote: true, \
-                      class: "btn btn-danger btn-xs"  do
-              i class="fa fa-times"
-              '&nbsp;Remove submission
+          .player-bottom
+
+            - if music_submission.selected
+              .btn.btn-danger.btn-xs disabled="disabled"
+                i class="fa fa-times"
+                '&nbsp;Remove submission
+              '&nbsp;
+              'Your submission is selected for review
+            - else
+              => link_to music_submission_path(music_submission, user_id: current_user.id, opportunity_id: music_request.opportunity_id), \
+                          method: :delete, \
+                          data: {confirm: "Are you sure" }, \
+                          remote: true, \
+                          class: "btn btn-danger btn-xs"  do
+                  i class="fa fa-times"
+                  '&nbsp;Remove submission
+                  
               
-          
     
     
     
-        .sexy_line

@@ -1,20 +1,11 @@
-== render 'audio_player/show', recording: recording , description: true, target: ''
-
 - music_request_link = submit_recording_account_account_opportunity_music_request_music_submission_path(@user.account, @opportunity, @music_request, recording.id)
 
-.btn-group
-  .visible-xs.btn-group-xs
-    = link_to music_request_link, \
-              remote: true, \
-              class: "btn btn-primary"  do
-      i class="fa fa-plus-circle"
-     
-  .hidden-xs.btn-group-xs
-
-    = link_to music_request_link, \
-              remote: true, \
-              class: "btn btn-primary"  do
-      i class="fa fa-plus-circle"
-      '&nbsp;Submit recording
+== render 'audio_player/show', recording: recording , description: true, target: ''
+.player-bottom
+  = link_to music_request_link, \
+            remote: true, \
+            class: "btn btn-xs btn-success"  do
+    i class="fa fa-plus-circle"
+    '&nbsp;Submit recording
     
 
