@@ -21,14 +21,12 @@
       - if super?
         = @opportunity.uuid
       .sexy_line  
-
+      
       .opportunity 
         == render 'opportunities/opportunity', opportunity: @opportunity
-      
-        .sexy_line  
-        .row
-           .col-sm-12
-              == render 'opportunities/requests', opportunity: @opportunity
+        br
+        h3 Requests
+        == render 'opportunities/requests', opportunity: @opportunity
 /      
 /            
 /                                            

@@ -55,22 +55,7 @@
           .row
             .col-sm-12
               .sexy_line
-        /.col-sm-4
-        /  .no-borders.table-responsive
-        /    table class="table table-condensed"
-        /      tr
-        /        th.description Fee:
-        /        td = @music_request.fee
-        /
-        /      - unless  @music_request.link.to_s == ''
-        /        tr
-        /          th.description Duration:
-        /          td = @music_request.duration_text
-        /      - unless  @music_request.link.to_s == ''
-        /        tr
-        /          th.description Sound like:
-        /          td = link_to @music_request.link_title, @music_request.link, target: '_blank'
-        /  = simple_format @music_request.body
+       
 
       == render 'shared/back', locals: {link: account_account_opportunity_path(@account, @opportunity)} 
 

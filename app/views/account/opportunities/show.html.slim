@@ -13,17 +13,24 @@
       == render 'admin/shared/messages'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account) }, current: ''}
       .row
-        .col-sm-7
+        .col-sm-6
           .help
             .help-text
               h2 #{@account.title} <funky>Pro</funky>
             .help-button
-              == render 'admin/helps/help', identifier: 'account opportunity'
+              == render 'admin/helps/help', identifier: 'edit opportunity'
 
 
-        .col-sm-5
+        .col-sm-6
           .pull-right
-            .recording-navigation
+            .pull-down-10
+              = link_to account_account_opportunity_opportunity_reviewers_path(@account, @opportunity) do          
+                .btn.btn-warning
+                  i.fa.fa-group
+                  '&nbsp;
+                  'Share selections
+              /== render 'admin/helps/help', identifier: 'share opportunity selections'
+              
               =< link_to account_account_opportunity_opportunity_providers_path(@account, @opportunity) do          
                 .btn.btn-default
                   i.fa.fa-group
@@ -44,17 +51,10 @@
               /    'Create Opportunity
       
       .sexy_line 
-      .digi-box 
-        h3 = @opportunity.title
-        .opportunity 
-          == render 'opportunities/opportunity', opportunity: @opportunity
-              
-          => link_to account_account_opportunity_opportunity_reviewers_path(@account, @opportunity) do          
-            .btn.btn-warning
-              i.fa.fa-group
-              '&nbsp;
-              'Share selections
-          == render 'admin/helps/help', identifier: 'share opportunity selections'
+      .opportunity 
+        == render 'opportunities/opportunity', opportunity: @opportunity
+            
+        
  
       br
       h3 Requests

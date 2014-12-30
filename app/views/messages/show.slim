@@ -24,11 +24,19 @@
       .sexy_line
       .digi-box 
         .row
-       
-          .col-sm-6
+          .col-sm-12
+            .sender-avatar
+              = link_to image_tag( @message.sender.image_url(:avatar_48x48) ), user_path( @message.sender )
+            .sender-info
+              b = @message.sender.user_name
+         
+        .sexy_line   
+        .row
+          .col-sm-12
+            
             h4 = @message.title
             = simple_format @message.body
-          .col-sm-3
+
         .row
           .col-sm-9
             - case @message.subjebtable_type
@@ -39,7 +47,7 @@
             - when 'MusicSubmission'
               ruby:
                 begin
-                  if music_submission = MusicSubmission.exists?(@message.subjebtable_id)
+                  if music_submission = MusicSubmission.cached_find(@message.subjebtable_id)
                     if recording = music_submission.recording
                     
                     end
@@ -86,6 +94,10 @@
                       .btn.btn-primary
                         i.fa.fa-reply
                         '&nbsp;Reply
+                  - else
+                    .alert.alert-info
+                      i.fa.fa-exclamation
+                      '&nbsp;To reply to on this message you have to be connected
                         
                   
               

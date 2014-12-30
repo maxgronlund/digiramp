@@ -1,7 +1,5 @@
 - @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
-  .digi-box.digi-box-dark
-    .request-info
-      == render 'account/music_requests/info', music_request: music_request
+  == render 'account/music_requests/info', music_request: music_request
     
     
   - music_request.music_submissions.order('selected desc').each do |music_submission|
@@ -28,18 +26,22 @@
                 .btn.btn-default.btn-xs
                   i class="fa fa-download"
             
+
+
+          .pull-right
             
-            '&nbsp;  
+            b &nbsp;Submitted by:&nbsp;
+            = music_submission.user.user_name if music_submission.user
+            == render 'messages/modal', modal_id: "pmModal_#{music_submission.id.to_s}",  recipient: music_submission.user, subjebtable: music_submission
+            '&nbsp;
             = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{music_submission.id.to_s}" do
               .btn.btn-default.btn-xs
                 i.fa.fa-envelope
                 '&nbsp;Send message
-            == render 'messages/modal', modal_id: "pmModal_#{music_submission.id.to_s}",  recipient: music_submission.user, subjebtable: music_submission
-            
             /'&nbsp;
             /'Submitted by:&nbsp;
             /= music_submission.user.user_name
-            
+          
           
           
           
