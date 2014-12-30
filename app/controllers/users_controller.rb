@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   #before_filter :find_user, only: [:show, :edit, :update, :destroy]
   before_filter :access_user, only: [:edit, :update, :destroy]
   before_filter :find_user, only: [:show]
+  protect_from_forgery only: :index
   
   def index
   
