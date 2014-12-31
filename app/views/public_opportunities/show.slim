@@ -15,12 +15,18 @@
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-12
+        .col-sm-7
           .help
             .help-text
               h2 Opportunity
             .help-button
               == render 'admin/helps/help', identifier: 'public opportunities'
+        .col-sm-5
+          .pull-right.pull-down-10
+            = link_to public_opportunities_path do
+              .btn.btn-default
+                i.fa.fa-chevron-left &nbsp;Back
+            
           
 
       .row
@@ -34,7 +40,11 @@
         - @opportunity.music_requests.each do | music_request |
           .opportunity-box
             == render 'public_opportunities/music_request', music_request: music_request
-
+      .row
+        .col-sm-12.pull-down-10
+          = link_to public_opportunities_path do
+            .btn.btn-default
+              i.fa.fa-chevron-left &nbsp;Back
 
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'

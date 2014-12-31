@@ -102,8 +102,6 @@
             i.fa.fa-envelope
         li class="#{page == 'activities' && @user == current_user ? 'active' : ''}"
           = link_to user_activities_path(current_user) do
-            div id="message_count"
-            == render 'messages/count'
             i.fa.fa-home
         li class="#{page == 'user' && @user == current_user ? 'active' : ''}"
           = link_to user_path(current_user) do
