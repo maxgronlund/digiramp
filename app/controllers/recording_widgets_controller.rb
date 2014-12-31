@@ -3,7 +3,7 @@ class RecordingWidgetsController < ApplicationController
     
     begin 
       @recording = Recording.cached_find(params[:id])
-      return nil unless @recording.public_access
+      return nil unless @recording.privacy == 'Anyone'
     rescue
       
     end
