@@ -5,6 +5,7 @@ class RecordingWidgetsController < ApplicationController
       @recording = Recording.cached_find(params[:id])
       return nil unless @recording.public_access
     rescue
+      
     end
   end
 end

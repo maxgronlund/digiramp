@@ -772,12 +772,6 @@ class User < ActiveRecord::Base
       @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
       block_given? ? yield(@facebook) : @facebook
     rescue Koala::Facebook::APIError
-      logger.info e.to_s
-      
-      
-       #puts '================================== provider.oauth_token =========================================' 
-      
-      
       @facebook =  nil
     end
     @facebook
