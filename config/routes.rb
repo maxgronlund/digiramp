@@ -334,6 +334,7 @@ Digiramp::Application.routes.draw do
     resources :following, only: [:index]
     
     resources :widgets
+    resources :activities, only: [:index]
     
     # hui v. 1
     resources :user_accounts, only: [:index]

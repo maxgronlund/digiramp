@@ -9,7 +9,8 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { crm: account_account_crm_index_path(@account)\
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), \
+                                                              crm: account_account_crm_index_path(@account)\
                                                              },current:  ''}
       .row
         .col-sm-6
@@ -33,69 +34,70 @@
                   = link_to 'Show All', account_account_clients_path(@account), class: 'btn btn-default'
 
       .sexy_line
-      .row
-        .col-sm-5
-          - if current_account_user.create_client
-            = link_to new_account_account_client_import_path(@account) do
-              .btn.btn-default
-                i class="fa fa-cloud-upload"
-                '&nbsp;Import CSV
-            '&nbsp;
-            = link_to new_account_account_client_path(@account)
-              .btn.btn-default
-                i class='fa fa-plus-circle'
-                '&nbsp;
-                'Add Client
-        .col-sm-7
-          .pull-right
-            .hidden-xs
-              == paginate(@clients)
-            .visible-xs
-              br
-              .btn-group.btn-group-sm
-                = link_to_previous_page @clients, '« Prev Page', class: 'btn btn-default mobile_pagination'
-                = link_to_next_page @clients, 'Next Page »', class: 'btn btn-default mobile_pagination'
-              br
-      .sexy_line
-      .users
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th Name
-                th Company
-                th Capacity
-                th Email
-            tbody
-              /= debug @account.clients.first
-              -@clients.each do |client|
+      .digi-box
+        .row
+          .col-sm-5
+            - if current_account_user.create_client
+              = link_to new_account_account_client_import_path(@account) do
+                .btn.btn-default
+                  i class="fa fa-cloud-upload"
+                  '&nbsp;Import CSV
+              '&nbsp;
+              = link_to new_account_account_client_path(@account)
+                .btn.btn-default
+                  i class='fa fa-plus-circle'
+                  '&nbsp;
+                  'Add Client
+          .col-sm-7
+            .pull-right
+              .hidden-xs
+                == paginate(@clients)
+              .visible-xs
+                br
+                .btn-group.btn-group-sm
+                  = link_to_previous_page @clients, '« Prev Page', class: 'btn btn-default mobile_pagination'
+                  = link_to_next_page @clients, 'Next Page »', class: 'btn btn-default mobile_pagination'
+                br
+        .sexy_line
+        .users
+          .table-responsive
+            table class="table table-hover"
+              thead
                 tr
-                  td
-
-                    = link_to account_account_client_path(@account, client), data: { confirm: 'Are you sure?' } , :method => :delete do
-                      .btn.btn-danger.btn-xs
-                        i class="fa fa-times"
-                    '&nbsp;
-                    
-                    = link_to edit_account_account_client_path(@account, client) do
-                      .btn.btn-default.btn-xs
-                        i class="fa fa-pencil"
-                    '&nbsp;
-                    = link_to client.full_name, account_account_client_path(@account, client), class: 'btn btn-default btn-xs'
-                  td = client.company
-                  td = client.capacity
-                  td = client.email
-
-          .pull-right
-            .hidden-xs
-              == paginate(@clients)
-            .visible-xs
-              br
-              .btn-group.btn-group-sm
-                = link_to_previous_page @clients, '« Prev Page', class: 'btn btn-default mobile_pagination'
-                = link_to_next_page @clients, 'Next Page »', class: 'btn btn-default mobile_pagination'
-              br            
+                  th Name
+                  th Company
+                  th Capacity
+                  th Email
+              tbody
+                /= debug @account.clients.first
+                -@clients.each do |client|
+                  tr
+                    td
         
+                      = link_to account_account_client_path(@account, client), data: { confirm: 'Are you sure?' } , :method => :delete do
+                        .btn.btn-danger.btn-xs
+                          i class="fa fa-times"
+                      '&nbsp;
+                      
+                      = link_to edit_account_account_client_path(@account, client) do
+                        .btn.btn-default.btn-xs
+                          i class="fa fa-pencil"
+                      '&nbsp;
+                      = link_to client.full_name, account_account_client_path(@account, client), class: 'btn btn-default btn-xs'
+                    td = client.company
+                    td = client.capacity
+                    td = client.email
+        
+            .pull-right
+              .hidden-xs
+                == paginate(@clients)
+              .visible-xs
+                br
+                .btn-group.btn-group-sm
+                  = link_to_previous_page @clients, '« Prev Page', class: 'btn btn-default mobile_pagination'
+                  = link_to_next_page @clients, 'Next Page »', class: 'btn btn-default mobile_pagination'
+                br            
+          
             
                  
               

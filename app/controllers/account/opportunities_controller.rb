@@ -31,9 +31,9 @@ class Account::OpportunitiesController < ApplicationController
   # GET /opportunities/new
   def new
     forbidden unless current_account_user && current_account_user.create_opportunity
-    @opportunity = Opportunity.new
+    @opportunity          = Opportunity.new
     @opportunity.deadline = Date.today + 4.weeks
-    @user = current_user
+    @user                 = current_user
   end
 
   # GET /opportunities/1/edit

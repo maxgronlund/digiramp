@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_account
   
   def current_account_user
-    ap current_account
+    
     account_user = AccountUser.cached_where( current_account.id, current_user.id)
     # this is a fix should be fixed by a migration
     return account_user if account_user

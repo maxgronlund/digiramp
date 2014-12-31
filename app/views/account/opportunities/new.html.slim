@@ -9,9 +9,17 @@
       == render 'users/shared/sidebar', selected: 'account'
   
   #page-content-wrapper
-    .container-fluid
-      h3 Opportunities
-      'Create new opportunity
+    .container-fluid      
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), \
+                                                      opportunities: account_account_opportunities_path(@account) }, current:'' }
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 #{@account.title} <funky>Pro</funky>
+            .help-button
+              == render 'admin/helps/help', identifier: 'new account opportunity'
+      'New opportunity
       .sexy_line  
       .opportunity 
         == render 'form'

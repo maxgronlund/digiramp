@@ -10,7 +10,8 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) }, current:  ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), \ 
+                                                              @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) }, current:  ''}
       .row
         .col-sm-10
           .help

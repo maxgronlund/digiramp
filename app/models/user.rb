@@ -754,7 +754,8 @@ class User < ActiveRecord::Base
   
   # not cached anymore
   def self.cached_find(id)
-    logger.info 'OBSOLETE: user / cached_find'
+    
+    logger.debug 'OBSOLETE: user#cached_find'
     begin
       #return Rails.cache.fetch([name, id]) { find(id) }
       return User.friendly.find(id)

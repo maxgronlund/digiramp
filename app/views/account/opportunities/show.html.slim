@@ -11,14 +11,15 @@
   #page-content-wrapper
     .container-fluid
       == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account) }, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), \
+                                                              opportunities: account_account_opportunities_path(@account) }, current: ''}
       .row
         .col-sm-6
           .help
             .help-text
               h2 #{@account.title} <funky>Pro</funky>
             .help-button
-              == render 'admin/helps/help', identifier: 'edit opportunity'
+              == render 'admin/helps/help', identifier: 'show account opportunity'
 
 
         .col-sm-6
