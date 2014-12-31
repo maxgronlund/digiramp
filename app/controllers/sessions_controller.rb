@@ -115,7 +115,7 @@ private
      
     go_to = session[:landing_page] 
     session[:landing_page]    = nil            
-    redirect_to go_to|| user_path(current_user)      
+    redirect_to go_to|| user_activities_path(current_user)      
   end
 
 end

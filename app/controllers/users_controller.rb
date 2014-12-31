@@ -28,7 +28,6 @@ class UsersController < ApplicationController
 
   def show
 
-
     if current_user && @user != current_user
       @user.views += 1 
       @user.save
@@ -39,18 +38,7 @@ class UsersController < ApplicationController
                           recipient: @user,
                      recipient_type: @user.class.name,
                          account_id: @user.account_id)
-   
-    ##############################################################
-    # remove asap
-    #if @user.account_id.nil?
-    #  unless account = Account.where(user_id: @user.id).first
-    #    account = User.create_a_new_account_for_the @user
-    #  end
-    #  @user.account_id = account.id
-    #  @user.validate_info
-    #  @user.save!
-    #end
-    #############################################################
+
     session[:account_id] = @user.account_id 
     
     if current_user 

@@ -16,9 +16,9 @@
           /  == render 'users/activities'
           
           / make endless pages here
-          - @user.wall_posts.order('created_at desc').first(20).each do |follower_event|
-            div id="delete_wall_post_#{follower_event.id.to_s}"
-              == render "wall_posts/" + follower_event.postable_type.downcase , follower_event: follower_event
+          - @user.user_activities.order('created_at desc').first(20).each do |user_activity|
+            div id="delete_wall_post_#{user_activity.id.to_s}"
+              == render "wall_posts/" + user_activity.postable_type.downcase , follower_event: user_activity
         .col-sm-4
           .comments
             == render 'users/guest_book'

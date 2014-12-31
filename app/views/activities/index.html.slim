@@ -1,2 +1,35 @@
-h1 Activities#index
-p Find me in app/views/activities/index.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'activities' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-8
+          == render 'users/shared/profile'
+          /-if current_user && current_user.id == @user.id
+          /  == render 'users/activities'
+          
+          / make endless pages here
+          - @user.wall_posts.order('created_at desc').first(20).each do |follower_event|
+            div id="delete_wall_post_#{follower_event.id.to_s}"
+              == render "wall_posts/" + follower_event.postable_type.downcase , follower_event: follower_event
+        .col-sm-4
+          .comments
+            == render 'users/guest_book'
+                
+            br
+            .rec-comments
+              - @user.comments.order('created_at desc').each do |comment|
+                == render 'comments/show', comment: comment
+                
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

@@ -154,6 +154,10 @@ class User < ActiveRecord::Base
   
   has_many :music_submission, dependent: :destroy
   
+  def user_activities
+    self.wall_posts.where(user_id: self.id)
+  end
+  
   def short_email
     short_email = self.email.slice(0...24)
     short_email << '...' if self.email.size > 24
