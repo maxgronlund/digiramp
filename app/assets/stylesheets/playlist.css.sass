@@ -1,3 +1,5 @@
+@import "truncate"
+@import "compass/css3/box-shadow"
 
 .show-playlist
   width: 100%
@@ -46,15 +48,27 @@
     
 .playlist-badges    
   width: 100%
-  .small-symbols
-    margin-top: 6px
+  
+
+    
   .playlist-badge 
     @include rowMachine(7, 2%)
-    padding: 4px
+    //padding: 4px
     float: left
     text-overflow: ellipsis
-    //white-space: nowrap
     overflow: hidden
+    
+    background-color: #FFF
+    +box-shadow(#CACACA 1px 2px 1px)
+    border-top: solid 1px #C1C2C3
+    border-left: solid 1px #C1C2C3
+    
+    
+    .small-symbols
+      background-color: #E6E6E6
+      padding: 4px
+      //margin-top: 6px
+      border-top: 1px solid #BBB
     .avatar
       position: relative
       .playlist-text

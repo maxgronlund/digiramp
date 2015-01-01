@@ -46,16 +46,13 @@
                           .col-sm-12
                             = root_url + url_for( user_playlist_path(@playlist.user_id, @playlist, downloadkey: @playlist.downloadkey) ).to_s
               
-            /.sexy_line
-            /#digiWhams 
-            /  - @playlist.recordings.each do |recording|
-            /    == render 'recordings/show', recording: recording
+ 
             
             
-            .sexy_line
+            
             .endless-pages
             .add_songs
-              /== render 'playlists/index', recordings: @recordings 
+              
              
               - @recordings.each do |recording|
                 #digiWhams  class="/recordings/#{recording.id.to_s}"
