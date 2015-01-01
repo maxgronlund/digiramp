@@ -18,6 +18,8 @@ Pusher.trigger(channel, 'digiramp_event', {"title" => 'User already a member',
 # usage
 # EmailValidator.validate email
 
+
+
 #-----------------------------------------------
 # model caching
 #-----------------------------------------------
@@ -36,3 +38,7 @@ private
   
   
   http://reed.github.io/turbolinks-compatibility/google_analytics.html
+  
+  
+  
+

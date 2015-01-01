@@ -2,5 +2,7 @@
 = simple_form_for [:admin, @email_group] do |f|
   
   = f.input :recipients
-  .pull-right
-    = f.submit 'Save', class: 'btn btn-primary' 
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary' 

@@ -25,7 +25,7 @@ class MessagesController < ApplicationController
     #@user.messages_not_read = self.received_massages.where(read: false).count
     #@user.save
     @message.save validate: false
-    ap @message
+    #ap @message
     #@authorized   = true
   end
 
@@ -47,7 +47,13 @@ class MessagesController < ApplicationController
                                           "image"   => 'notice'
                                           })
                                           
-                                          
+    
+    #ap @receiver.email
+    #ap '=========================================='
+    #ap @message
+    if EmailValidator.validate( @receiver.email   )            
+      MessageMailer.delay.send_message(@message.id)     
+    end                          
                                           
   end
   

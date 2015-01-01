@@ -12,27 +12,31 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
                                                               'email groups'.to_sym => admin_email_groups_path, \
                                                               @email_group.title.to_sym => admin_email_group_path(@email_group)}, current: ''}
+      
+
       .row
-        .col-sm-4
+        .col-sm-6
           h2 Recipients
           = @email_group.title
-        .col-sm-8
-          .pull-right
+        .col-sm-6
+          .pull-right.pull-down-10
             =< link_to 'Add recipients', new_admin_email_group_email_recipient_path(@email_group), class: 'btn btn-default'
             =< link_to 'Remove all members', admin_email_group_remove_all_subscribers_path(@email_group), data: {confirm: 'Are you sure?'}, class: 'btn btn-default'
             =< link_to 'Add all members', admin_email_group_add_all_members_path(@email_group), class: 'btn btn-primary'
-
+        
+        
       .sexy_line
-      - @mail_list_subscribers.each do |mail_list_subscriber|
-        div id="mail_list_subscriber_#{mail_list_subscriber.id.to_s}"
-          
-          = link_to admin_email_group_email_recipient_path( @email_group, mail_list_subscriber), method: :delete, data: {confirm: 'Are you sure?'}, remote: true  do
-                    .btn.btn-danger.btn-xs
-                      i.fa.fa-times
-          
-          =< link_to mail_list_subscriber.user.email, mail_list_subscriber.user
-          .sexy_line
-       
+      .digi-box
+        - @mail_list_subscribers.each do |mail_list_subscriber|
+          div id="mail_list_subscriber_#{mail_list_subscriber.id.to_s}"
+            
+            = link_to admin_email_group_email_recipient_path( @email_group, mail_list_subscriber), method: :delete, data: {confirm: 'Are you sure?'}, remote: true  do
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+            
+            =< link_to mail_list_subscriber.user.email, mail_list_subscriber.user
+            .sexy_line
+         
       == paginate(@mail_list_subscribers)              
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
