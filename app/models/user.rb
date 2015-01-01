@@ -756,9 +756,8 @@ class User < ActiveRecord::Base
     !CatalogUser.where(catalog_id: account.catalog_ids, user_id: self.id).nil?
   end
   
-  # not cached anymore
+  
   def self.cached_find(id)
-    
     begin
       return Rails.cache.fetch([name, id]) { find(id) }
     rescue
@@ -770,7 +769,6 @@ class User < ActiveRecord::Base
     rescue
       return nil
     end
-    
   end
   
   

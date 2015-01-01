@@ -39,8 +39,24 @@ class Opportunity < ActiveRecord::Base
   #end
   #
   
-  
   before_create :init_fields
+
+
+  
+  def check_default_image
+    if self.image_url == "/assets/fallback/artwork.jpg" || self.image.nil?
+      prng      = Random.new
+      random_id =  prng.rand(10)
+
+      if random_id < 10
+        random_id = '0' + random_id.to_s 
+      end
+      self.image = File.open(Rails.root.join('app', 'assets', 'images', "opportunities/default_#{random_id.to_s}.jpg"))
+      self.image.recreate_versions!
+      self.save!
+    end
+  end
+  
   
   
   def init_fields

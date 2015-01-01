@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
   
   def index
-
+    ap params
     if params[:commit] == 'Go'
       params[:commit] = ''
       @remove_old_recordings = true
@@ -12,7 +12,8 @@ class SongsController < ApplicationController
     params[:query]  = session[:query]
     
     if params[:recording].nil?
-      params[:recording] = {order: 'uniq_likes_count', direction: 'desc'}
+      params[:recording] = {order: 'featured_date', direction: 'desc'}
+      params[:recording][:featured] = true
     end
 
     order = params[:recording][:order] + ' ' + params[:recording][:direction]
@@ -22,6 +23,9 @@ class SongsController < ApplicationController
     if params[:genre]
       genre = Genre.where(title: params[:genre]).first
       recordings = genre.ordered_recordings_with_public_access order
+    elsif params[:recording][:featured]
+      ap '================================ FEATURED =============================='
+      recordings = Recording.public_access.where(featured: true)
     else
       recordings = Recording.public_access.order(order)
     end

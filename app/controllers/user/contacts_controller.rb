@@ -1,9 +1,8 @@
-class ContactsController < ApplicationController
+class User::ContactsController < ApplicationController
   #before_action :set_contact, only: [:create]
-  before_filter :access_user
+
   def index
-    account = @user.account
-    @contacts = account.clients
+    
   end
   
   def show

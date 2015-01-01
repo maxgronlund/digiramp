@@ -49,17 +49,8 @@ class Account::OpportunitiesController < ApplicationController
     forbidden unless current_account_user &&  current_account_user.create_opportunity
     @opportunity = Opportunity.create(opportunity_params)
     redirect_to account_account_opportunity_path(@account, @opportunity)
+    @opportunity.check_default_image
     
-    
-    #if @opportunity.save
-    #  flash[:info]      = { title: "Success", body: "Please proceed and make your first request" }
-    #  redirect_to new_account_account_opportunity_music_request_path(@account, @opportunity)
-    #   
-    #else
-    #  flash[:danger]      = { title: "Error", body: "Unable to create opportunity" }
-    #  redirect_to new_account_account_opportunity_path(@account)
-    #end
-
   end
 
   # PATCH/PUT /opportunities/1
@@ -69,6 +60,7 @@ class Account::OpportunitiesController < ApplicationController
     # params[:opportunity][:deadline].gsub('/','-')
     forbidden unless current_account_user &&  current_account_user.update_opportunity
     if @opportunity.update(opportunity_params)
+      @opportunity.check_default_image
       #flash[:info]      = { title: "Success", body: "Opportunity Updated" }
       redirect_to account_account_opportunity_path(@account, @opportunity)
     else

@@ -1,7 +1,7 @@
 
 #wrap
   .full-width-top
-    == render 'admin/shared/navbar', page: 'account' 
+       == render 'shared/navigationbar', page: 'user' 
 
   .container
     /==render 'admin/shared/messages'
@@ -10,39 +10,44 @@
       .col-sm-6
         
         - if @error
-          h3 = @error
-          .sexy_line
-          .pull-right
-            - if @status == 'logged in'
-              = link_to 'OK', opportunity_opportunity_path(@opportunity), class: 'btn btn-primary'
-            - elsif @status == 'logged in on another account'
-              = link_to 'Log out', logout_path(params: params), class: 'btn btn-primary'
-            - elsif @status == 'opportunity not valid'
-              = link_to 'OK', current_user ? current_user : root_path , class: 'btn btn-primary'
-
-              
-        - else
-          h3 Welcome to DigiRAMP
-          'You now have your own account. Please a password to continue 
-          .sexy_line
-
-          = simple_form_for(  @user, :url => activate_account_path(params[:id]) ) do |f|
-            = f.hidden_field :opportunity_id, value: @opportunity.id
-            .input-group
-              span class="input-group-addon"
-                i class= 'fa fa-key'
-              = f.input_field :password, placeholder: 'Password', autocomplete: :off
-            br
+          .digi-box
+            h4 = @error
+            .sexy_line
+            .row
+              .col-sm-12
+                .pull-right
+                  - if @status == 'logged in'
+                    = link_to 'OK', opportunity_opportunity_path(@opportunity), class: 'btn btn-primary'
+                  - elsif @status == 'logged in on another account'
+                    = link_to 'Log out', logout_path(params: params), class: 'btn btn-primary'
+                  - elsif @status == 'opportunity not valid'
+                    = link_to 'OK', current_user ? current_user : root_path , class: 'btn btn-primary'
             
-            .input-group
-              span class="input-group-addon"
-                i class= 'fa fa-key'
-              = f.input_field :password , placeholder: 'Password Confirmation', autocomplete: :off
-          
-            .pull-right
+                
+        - else
+          .digi-box
+            h3 Welcome to DigiRAMP
+            'You now have your own account. Please a password to continue 
+            .sexy_line
+            
+            = simple_form_for(  @user, :url => activate_account_path(params[:id]) ) do |f|
+              = f.hidden_field :opportunity_id, value: @opportunity.id
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-key'
+                = f.input_field :password, placeholder: 'Password', autocomplete: :off
               br
-              = f.submit 'Create', class: 'btn btn-default'
-          
-        
-
+              
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-key'
+                = f.input_field :password , placeholder: 'Password Confirmation', autocomplete: :off
+              .row
+                .col-sm-12
+                  .pull-right
+                    br
+                    = f.submit 'Create', class: 'btn btn-default'
+            
+            
+            
   

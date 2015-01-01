@@ -1,25 +1,26 @@
 h1 Listing contacts
-
-table
-  thead
-    tr
-      th Email
-      th Title
-      th Body
-      th
-      th
-      th
-
-  tbody
-    - @contacts.each do |contact|
-      tr
-        td = contact.email
-        td = contact.title
-        td = contact.body
-        td = link_to 'Show', contact
-        td = link_to 'Edit', edit_contact_path(contact)
-        td = link_to 'Destroy', contact, data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
-
-= link_to 'New Contact', new_contact_path
+= debug @contacts.first
+= debug @user.uuid
+/table
+/  thead
+/    tr
+/      th Email
+/      th Title
+/      th Body
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @contacts.each do |contact|
+/      tr
+/        td = contact.email
+/        td = contact.title
+/        td = contact.body
+/        td = link_to 'Show', contact
+/        td = link_to 'Edit', edit_contact_path(contact)
+/        td = link_to 'Destroy', contact, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Contact', new_contact_path

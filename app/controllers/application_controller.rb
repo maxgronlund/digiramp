@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   hide_action :current_user
   
   def current_account
-    ap session[:account_id]
+    #ap session[:account_id]
     begin
       return  Account.cached_find( session[:account_id]) if session[:account_id]
       session[:account_id] = current_user.account_id
@@ -199,7 +199,7 @@ class ApplicationController < ActionController::Base
     if options[:forbidden]
       case options[:forbidden]
       when 'login'
-        ap options
+        #ap options
       end
       
     end
