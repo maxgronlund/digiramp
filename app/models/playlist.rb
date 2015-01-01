@@ -19,6 +19,19 @@ class Playlist < ActiveRecord::Base
   #mount_uploader :image, PlaylistUploader
   mount_uploader :playlist_image, PlaylistUploader
 
+  def check_default_image
+    if self.playlist_image == "/assets/fallback/playlist.jpg" || self.playlist_image.nil?
+      prng      = Random.new
+      random_id =  prng.rand(14)
+
+      if random_id < 10
+        random_id = '0' + random_id.to_s 
+      end
+      self.playlist_image = File.open(Rails.root.join('app', 'assets', 'images', "playlists/default_#{random_id.to_s}.jpg"))
+      self.playlist_image.recreate_versions!
+      self.save!
+    end
+  end
   
   def create_default_objects
     create_default_widget

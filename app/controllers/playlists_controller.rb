@@ -26,6 +26,7 @@ class PlaylistsController < ApplicationController
   
   def create
     if @playlist = Playlist.create(playlist_params)
+      @playlist.check_default_image
       redirect_to user_playlist_path( @user, @playlist)
       
     else
@@ -44,6 +45,7 @@ class PlaylistsController < ApplicationController
     
     
     if @playlist.update_attributes(playlist_params)
+      @playlist.check_default_image
       #redirect_to user_playlist_path( @user, @playlist )
       @recordings   = @playlist.recordings
       

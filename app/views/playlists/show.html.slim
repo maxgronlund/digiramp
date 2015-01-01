@@ -1,6 +1,7 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
+    == render 'shared/navigationbar', page: 'user' 
+     
   
 
   #sidebar-wrapper
@@ -9,62 +10,64 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'users/shared/page_title', title: ''
-      .col-lg-8
+      h2 = @playlist.title
+      .sexy_line
+      .digi-box
         .row
-          .col-sm-12
-            .show-playlist
-              h3 = @playlist.title
-              .playlist-image
-                = image_tag( @playlist.playlist_image_url :image_470x250)
-              .playlist-info
-                = @playlist.body
-                - if current_user
-                  -if current_user.id == @playlist.user_id || can_edit?
-                    br
-                    = link_to edit_user_playlist_path(@user, @playlist) do
-                      .btn.btn-default
+          .col-sm-8
+            .row
+              .col-sm-12
+                .show-playlist
+                  .playlist-image
+                    = image_tag( @playlist.playlist_image_url :image_270x270)
+                  .playlist-info
+                    = @playlist.body
+                    - if current_user
+                      -if current_user.id == @playlist.user_id || can_edit?
+                        br
+                        = link_to edit_user_playlist_path(@user, @playlist) do
+                          .btn.btn-default
+                            i.fa.fa-pencil
+                            '&nbsp;Edit
+                      br
+            -if @playlist.downloadable
+              - if current_user
+                -if current_user.id == @playlist.user_id || can_edit?
+                  .row
+                    .col-sm-12
+                      a data-toggle="collapse" data-parent="#accordion" href="#secure_download"
                         i.fa.fa-pencil
-                        '&nbsp;Edit
-                  br
-        -if @playlist.downloadable
-          - if current_user
-            -if current_user.id == @playlist.user_id || can_edit?
-              .row
-                .col-sm-12
-                  a data-toggle="collapse" data-parent="#accordion" href="#secure_download"
-                    i.fa.fa-pencil
-                    b &nbsp;Secure downloadble link
-                 
-                  br
-                  br
-                  div id="secure_download" class="panel-collapse collapse"  
-                    .row
-                      .col-sm-12
-                        = root_url + url_for( user_playlist_path(@playlist.user_id, @playlist, downloadkey: @playlist.downloadkey) ).to_s
+                        b &nbsp;Secure downloadble link
+                     
+                      br
+                      br
+                      div id="secure_download" class="panel-collapse collapse"  
+                        .row
+                          .col-sm-12
+                            = root_url + url_for( user_playlist_path(@playlist.user_id, @playlist, downloadkey: @playlist.downloadkey) ).to_s
+              
+            /.sexy_line
+            /#digiWhams 
+            /  - @playlist.recordings.each do |recording|
+            /    == render 'recordings/show', recording: recording
+            
+            
+            .sexy_line
+            .endless-pages
+            .add_songs
+              /== render 'playlists/index', recordings: @recordings 
+             
+              - @recordings.each do |recording|
+                #digiWhams  class="/recordings/#{recording.id.to_s}"
+                  /#digiWhams class="/users/#{@user.slug}/playlists/#{@playlist.id.to_s}"
+                  div id="remove_recording_#{recording.id.to_s}"
+                    == render 'show', recording: recording  
+                    
+            /== paginate(@recordings)
+            
+          .col-lg-4
+            == render 'shared/comments', commentable: @playlist
           
-        /.sexy_line
-        /#digiWhams 
-        /  - @playlist.recordings.each do |recording|
-        /    == render 'recordings/show', recording: recording
-        
-        
-        .sexy_line
-        .endless-pages
-        .add_songs
-          /== render 'playlists/index', recordings: @recordings 
-         
-          - @recordings.each do |recording|
-            #digiWhams  class="/recordings/#{recording.id.to_s}"
-              /#digiWhams class="/users/#{@user.slug}/playlists/#{@playlist.id.to_s}"
-              div id="remove_recording_#{recording.id.to_s}"
-                == render 'show', recording: recording  
-                
-        /== paginate(@recordings)
-        
-      .col-lg-4
-        == render 'shared/comments', commentable: @playlist
-      
     
   == render 'shared/site_footer'   
 == render 'users/shared/mobile_links'  

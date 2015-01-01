@@ -1,16 +1,27 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
+    == render 'shared/navigationbar', page: 'user' 
+     
   
-  
+
   #sidebar-wrapper
     ul class="sidebar-nav"
       == render 'users/shared/sidebar', selected: 'playlists'
   
   #page-content-wrapper
     .container-fluid
-      == render 'users/shared/page_title', title: 'Edit playlist'
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 Edit playlist
+            .help-button
+              == render 'admin/helps/help', identifier: 'edit playlist'
+
+
+      .sexy_line
       == render 'form'
   
   
   == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'
