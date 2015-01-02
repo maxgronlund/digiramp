@@ -37,7 +37,7 @@ private
   end
   
   
-  http://reed.github.io/turbolinks-compatibility/google_analytics.html
+
   
   
   

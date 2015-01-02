@@ -1,94 +1,94 @@
-= simple_form_for [:admin, @digiramp_ad] do |f|
-  /= f.error_notification
-  .form-inputs
-    .row
-      .col-sm-6
-        h4 
-          'Identifier:&nbsp;
-          = @digiramp_ad.identifier
-        .row
-          .col-sm-6
-            = f.input :title
-            .fileinput.fileinput-new data-provides="fileinput"
-              .fileinput-new.thumbnail style="width: 180px; height: 180px;"
-                - if @digiramp_ad.image
-                  = image_tag @digiramp_ad.image_url(:sidebar), size: '180x180'
-                - else
-                  = image_tag 'default-cover.jpg'
-
-              div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 180px; max-height: 180px;"
-              div
-                span.btn.btn-default.btn-file
-                  span class="fileinput-new"
-                    'Select image 180x180
-                  '&nbsp;
-                  span class="fileinput-exists"
-                    'Change
-                  = f.file_field :image
-
+.digi-box
+  = simple_form_for [:admin, @digiramp_ad] do |f|
+    /= f.error_notification
+    .form-inputs
+      h4 
+        'Identifier:&nbsp;
+        = @digiramp_ad.identifier
+      .row
+        .col-sm-4
+          = f.input :title
+          .fileinput.fileinput-new data-provides="fileinput"
+            .fileinput-new.thumbnail style="width: 180px; height: 180px;"
+              - if @digiramp_ad.image
+                = image_tag @digiramp_ad.image_url(:sidebar), size: '180x180'
+              - else
+                = image_tag 'default-cover.jpg'
+  
+            div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 180px; max-height: 180px;"
+            div
+              span.btn.btn-default.btn-file
+                span class="fileinput-new"
+                  'Select image 180x180
                 '&nbsp;
-                a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-                  'Remove
-            
-            
-            /= f.input :image
-            = f.input :show_image
-            
-            
-            
-            
-            .fileinput.fileinput-new data-provides="fileinput"
-              .fileinput-new.thumbnail style="width: 180px; height: 50px;"
-                - if @digiramp_ad.banner
-                  = image_tag @digiramp_ad.banner_url(:banner), size: '180x50'
-                - else
-                  = image_tag 'default-cover.jpg'
-
-              div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 180px; max-height: 50px;"
-              div
-                span.btn.btn-default.btn-file
-                  span class="fileinput-new"
-                    'Select image 180x50
-                  '&nbsp;
-                  span class="fileinput-exists"
-                    'Change
-                  = f.file_field :banner
-
+                span class="fileinput-exists"
+                  'Change
+                = f.file_field :image
+  
+              '&nbsp;
+              a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                'Remove
+          
+          
+          /= f.input :image
+          = f.input :show_image
+          
+          
+          
+          
+          .fileinput.fileinput-new data-provides="fileinput"
+            .fileinput-new.thumbnail style="width: 180px; height: 50px;"
+              - if @digiramp_ad.banner
+                = image_tag @digiramp_ad.banner_url(:banner), size: '180x50'
+              - else
+                = image_tag 'default-cover.jpg'
+  
+            div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 180px; max-height: 50px;"
+            div
+              span.btn.btn-default.btn-file
+                span class="fileinput-new"
+                  'Select image 180x50
                 '&nbsp;
-                a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-                  'Remove
-            
-            
-            /= f.input :image
-            = f.input :show_banner
-            
-            
-            
-            
-            = f.input :link
-            = f.input :button_link, placeholder: "Leave blank for no button"
-            
-            = f.input :button_style, collection: DigirampAd::BUTTON_STYLES, :include_blank => false
-            = f.input :button_icon, collection: DigirampAd::BUTTON_ICONS, :include_blank => false
-            = f.input :button_text
-            = f.input :css_snipet
-          .col-sm-6
-
-            div id="toolbar" class="wysihtml5-toolbar"
-              a data-wysihtml5-command="bold" Bold
-              '&nbsp; 
-              a data-wysihtml5-command="italic" Italic
-            
-            =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Help text", id: 'wysihtml5_editor'}
-            
-            = f.input :snippet, placeholder: 'youtube, vimeo'
-
-  .form-actions
-    .row
-      .col-sm-12
-        .pull-right
-          = f.submit 'Save', class: 'btn btn-primary'
-
+                span class="fileinput-exists"
+                  'Change
+                = f.file_field :banner
+  
+              '&nbsp;
+              a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                'Remove
+          
+          
+          /= f.input :image
+          = f.input :show_banner
+          
+          
+          
+          
+          = f.input :link
+        .col-sm-4
+          = f.input :button_link, placeholder: "Leave blank for no button"
+          
+          = f.input :button_style, collection: DigirampAd::BUTTON_STYLES, :include_blank => false
+          = f.input :button_icon, collection: DigirampAd::BUTTON_ICONS, :include_blank => false
+          = f.input :button_text
+          = f.input :css_snipet
+        .col-sm-4
+  
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
+          
+          =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Help text", id: 'wysihtml5_editor'}
+          
+          = f.input :snippet, placeholder: 'youtube, vimeo'
+  
+    .form-actions
+      .row
+        .col-sm-12
+          .pull-right
+            = f.submit 'Save', class: 'btn btn-primary'
+  
 
 /= simple_form_for [:admin, @digiramp_ad] do |f|
 /  = f.error_notification

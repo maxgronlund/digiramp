@@ -51,9 +51,10 @@ class MessagesController < ApplicationController
     #ap @receiver.email
     #ap '=========================================='
     #ap @message
-    if EmailValidator.validate( @receiver.email   )            
-      MessageMailer.delay.send_message(@message.id)     
-    end                          
+    #if EmailValidator.validate( @receiver.email   )            
+    #  MessageMailer.delay.send_message(@message.id)     
+    #end  
+    @message.send_as_email                        
                                           
   end
   

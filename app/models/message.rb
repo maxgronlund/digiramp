@@ -50,6 +50,14 @@ class Message < ActiveRecord::Base
     false
   end
   
+  def send_as_email
+    if self.receiver
+      if EmailValidator.validate( self.receiver.email   )            
+        MessageMailer.delay.send_message(self.id) 
+      end 
+    end
+  end
+  
 
   
   def self.cached_find(id)

@@ -1,3 +1,5 @@
+#require 'uri'
+
 class ConnectionsController < ApplicationController
   before_action :set_connection, only: [:edit, :update, :destroy]
 
@@ -18,7 +20,50 @@ class ConnectionsController < ApplicationController
     @connection       = Connection.create(connection_params)
     @user             = User.cached_find(@connection.connection_id)
     send_invitation
+    
   end
+  
+  def send_invitation
+   
+    receiver  = User.cached_find(@connection.connection_id)
+    sender    = User.cached_find(@connection.user_id)
+    
+    
+    @message                    = Message.new
+    @message.recipient_id       = receiver.id
+    @message.sender_id          = sender.id
+    @message.title              = sender.user_name + ' wants to connect with you'
+    @message.body               = @connection.message
+    @message.subjebtable_id     = @connection.id
+    @message.subjebtable_type   = 'Connection'
+    @message.save!
+    @message.send_as_email
+  
+    
+    channel = 'digiramp_radio_' + receiver.email
+    Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
+                                          "message" => "#{sender.user_name} has send you a message", 
+                                          "time"    => '2000', 
+                                          "sticky"  => 'false', 
+                                          "image"   => 'notice'
+                                          })
+                                          
+    #channel = 'digiramp_radio_' + receiver.email
+    #Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
+    #                                      "message" => "#{sender.user_name} has send you an invitation", 
+    #                                      "time"    => '2000', 
+    #                                      "sticky"  => 'false', 
+    #                                      "image"   => 'notice'
+    #                                      })
+    #
+    #
+    #
+    
+                                          
+  end
+  
+
+
   
   def update
     ap params
@@ -27,7 +72,6 @@ class ConnectionsController < ApplicationController
       params[:connection][:approved] = false
     else
       params[:connection][:dismissed] = false
-      
     end
     @connection.update_attributes(connection_params)
     @receiver = User.find(@connection.connection_id) if User.exists?(@connection.connection_id)
@@ -35,7 +79,52 @@ class ConnectionsController < ApplicationController
     notify_requester
   end
   
+  def notify_requester
+    requester = @connection.user
+    #sender    = User.cached_find(@connection.connection_id)
+    
+    
+    @message                    = Message.new
+    
+    @message.recipient_id       = @connection.user_id
+    @message.sender_id          = @connection.connection_id
+    
+    # connected_user    = ( URI.parse(root_url) + 'users/ ' + @message.sender_id
+    
+    if @connection.approved
+      
+      @message.title              = 'You are connected with ' << @connection.connection.user_name
+      @message.body               = @connection.connection.user_name  + ' has accepted you request. 
+                                                                          You are now able to communicate directly with ' + @connection.connection.user_name 
+      channel = 'digiramp_radio_' + @connection.user.email
+      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
+                                            "message" => "You are added to #{@connection.connection.user_name}'s connections", 
+                                            "time"    => '2500', 
+                                            "sticky"  => 'false', 
+                                            "image"   => 'notice'
+                                            })
+    else
+      @message.title              = @connection.connection.user_name  + ' has rejected you request'
+      @message.body               = ' Sorry. Your request for a connection with ' + @connection.connection.user_name + ' has been rejected' 
+      channel = 'digiramp_radio_' + @connection.user.email
+      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
+                                            "message" => "#{@connection.connection.user_name} has rejected your request", 
+                                            "time"    => '2500', 
+                                            "sticky"  => 'false', 
+                                            "image"   => 'notice'
+                                            })
+    end
+    @message.subjebtable_id     =  @connection.id
+    @message.subjebtable_type   = 'Connection'
+    @message.save!
+    
+    @message.send_as_email
   
+    
+    
+    
+  
+  end
 
   
 
@@ -65,62 +154,9 @@ class ConnectionsController < ApplicationController
     end
     
     
-    def notify_requester
-      @receiver = User.cached_find(@connection.user_id)
-      sender    = User.cached_find(@connection.connection_id)
-      
-      
-      @message                    = Message.new
-      @message.recipient_id       = @receiver.id
-      @message.sender_id          = sender.id
-      @message.title              = sender.user_name + ' has evaluated your request '
-      @message.body               = sender.user_name + ' has updated the status on your request to ' + @connection.status 
-      @message.subjebtable_id     = @connection.id
-      @message.subjebtable_type   = 'Connection'
-      @message.save
+   
     
-    
-      channel = 'digiramp_radio_' + @receiver.email
-      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
-                                            "message" => "#{sender.user_name} has evaluated your request", 
-                                            "time"    => '2500', 
-                                            "sticky"  => 'false', 
-                                            "image"   => 'notice'
-                                            })
-      
-    
-    end
-    
-    def send_invitation
-
-      
-      @receiver = User.cached_find(@connection.connection_id)
-      sender    = User.cached_find(@connection.user_id)
-      
-      
-      @message                    = Message.new
-      @message.recipient_id       = @receiver.id
-      @message.sender_id          = sender.id
-      @message.title              = sender.user_name + ' wants to connect with you'
-      @message.body               = @connection.message
-      @message.subjebtable_id     = @connection.id
-      @message.subjebtable_type   = 'Connection'
-      @message.save
-    
-    
-      channel = 'digiramp_radio_' + @receiver.email
-      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
-                                            "message" => "#{sender.user_name} has send you an invitation", 
-                                            "time"    => '3000', 
-                                            "sticky"  => 'false', 
-                                            "image"   => 'notice'
-                                            })
-      
-      
-      
-      
-      
-    end
+   
 end
 
 

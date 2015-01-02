@@ -12,8 +12,8 @@ class SongsController < ApplicationController
     params[:query]  = session[:query]
     
     if params[:recording].nil?
-      params[:recording] = {order: 'featured_date', direction: 'desc'}
-      params[:recording][:featured] = true
+      params[:recording] = {order: 'created_at', direction: 'desc'}
+      #params[:recording][:featured] = true
     end
 
     order = params[:recording][:order] + ' ' + params[:recording][:direction]

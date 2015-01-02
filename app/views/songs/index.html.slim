@@ -4,16 +4,16 @@
   #sidebar-wrapper
     ul class="sidebar-nav"
       .sidebar
-        li class="#{'sidebar-selected' if params[:recording][:order] ==  'featured_date'}"
-          = link_to songs_path(recording: {order: 'featured_date', direction: 'desc', clear: 'clear', featured: 'true'}, genre: params[:genre]) do
-            i class="fa fa-star"
-            '&nbsp;
-            'Featured
         li class="#{'sidebar-selected' if params[:recording][:order] ==  'created_at'}"
           = link_to songs_path(recording: {order: 'created_at', direction: 'desc', clear: 'clear'}, genre: params[:genre]) do
             i class="fa fa-clock-o"
             '&nbsp;
             'Latest
+        li class="#{'sidebar-selected' if params[:recording][:order] ==  'featured_date'}"
+          = link_to songs_path(recording: {order: 'featured_date', direction: 'desc', clear: 'clear', featured: 'true'}, genre: params[:genre]) do
+            i class="fa fa-star"
+            '&nbsp;
+            'Featured
         li class="#{'sidebar-selected' if params[:recording][:order] == 'uniq_likes_count'}"
           = link_to songs_path(recording: {order: 'uniq_likes_count', direction: 'desc', clear: 'clear'}, genre: params[:genre]) do
             i class="fa fa-heart"
