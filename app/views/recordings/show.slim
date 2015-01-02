@@ -8,8 +8,8 @@
   <meta property="og:url"                content="#{request.url}" /> 
   <meta property="og:title"              content="#{@recording.title}" /> 
   <meta property="og:image"              content="#{@recording.get_artwork}" /> 
-  <meta property="music:album:url"       content="#{request.url}" /> 
-  <meta property="music:preview_url:url" content="#{@recording.mp3}" />
+  <meta property="music:album:url"       content="#{@recording.user.user_name} URL: https://digiramp.com/users/#{@user.slug}" /> 
+  <meta property="music:preview_url:url" content="#{@recording.title} URL: #{@recording.mp3}" />
   <meta property="og:description"        content="#{@recording.comment}" /> 
 /<meta property="fb:app_id"             content="728817730525571" /> 
 /<meta property="og:type"               content="music.song" /> 
@@ -19,6 +19,7 @@
 /<meta property="og:image"              content="#{@recording.get_artwork}" /> 
 /<meta property="og:image:url"          content="#{@recording.get_artwork}" />
 /<meta property="og:audio"              content="#{@recording.mp3}" />
+
 
 
 #wrapper
@@ -32,6 +33,7 @@
       
   #page-content-wrapper
     .container-fluid
+      
       #digiWhams  class="/recordings/#{@recording.id.to_s}"
         == render 'recordings/recording_with_icons', recording: @recording, 
                                                      info: false,
