@@ -8,7 +8,7 @@
   <meta property="og:url"                content="#{request.url}" /> 
   <meta property="og:title"              content="#{@recording.title}" /> 
   <meta property="og:image"              content="#{@recording.get_artwork}" /> 
-  <meta property="music:album:url"       content="#{@recording.user.user_name} URL: #{url_for user_user_path( @user )}" /> 
+  <meta property="music:album:url"       content="#{@recording.user.user_name} URL: digiramp.com" /> 
   <meta property="music:preview_url:url" content="#{@recording.title} URL: #{@recording.mp3}" />
   <meta property="og:description"        content="#{@recording.comment}" /> 
 /<meta property="fb:app_id"             content="728817730525571" /> 
@@ -33,7 +33,7 @@
       
   #page-content-wrapper
     .container-fluid
-      = debug url_for( user_user_path( user: @user) )
+      /= debug url_for( user_user_path( user: @user) )
       #digiWhams  class="/recordings/#{@recording.id.to_s}"
         == render 'recordings/recording_with_icons', recording: @recording, 
                                                      info: false,
