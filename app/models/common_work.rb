@@ -725,8 +725,10 @@ class CommonWork < ActiveRecord::Base
   end
   
   def copy_ipis_from common_work
+    ap '=================================================================================='
     common_work.ipis.each do |ipi|
-      
+      ap ipi
+      ap '============================================ ++ ================================='
       
       self.ipis.where(uuid: ipi.uuid)
                .first_or_create(
@@ -736,9 +738,7 @@ class CommonWork < ActiveRecord::Base
                       phone_number:             ipi.phone_number,
                       role:                     ipi.role,
                       common_work_id:           self.id,
-                      import_ipi_id:            ipi.import_ipi_id,
-                      created_at:               ipi.created_at,           
-                      updated_at:               ipi.updated_at,           
+                      import_ipi_id:            nil,          
                       user_id:                  ipi.user_id,
                       ipi_code:                 ipi.ipi_code,
                       cae_code:                 ipi.cae_code,
@@ -766,7 +766,7 @@ class CommonWork < ActiveRecord::Base
                       remixer:                  ipi.remixer,              
                       other:                    ipi.other,                
                       publisher:                ipi.publisher,            
-                      uuid:                     ipi.uuid
+                      uuid:                     UUIDTools::UUID.timestamp_create().to_s
                     )
       
     end
