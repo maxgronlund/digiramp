@@ -26,6 +26,7 @@ class CommonWork < ActiveRecord::Base
   belongs_to :account
   #belongs_to :ascap_import
   belongs_to :common_works_import
+
   
   has_many :recordings, dependent: :destroy
   #accepts_nested_attributes_for  :recordings, allow_destroy: true
@@ -52,7 +53,7 @@ class CommonWork < ActiveRecord::Base
   
   #mount_uploader :audio_file, AudioFileUploader
   before_save :update_uuids
-  before_destroy :update_uuids
+  
   after_commit :flush_cache
   after_create :count_statistics_up
   
@@ -722,6 +723,55 @@ class CommonWork < ActiveRecord::Base
     end
       
   end
+  
+  def copy_ipis_from common_work
+    common_work.ipis.each do |ipi|
+      
+      
+      self.ipis.where(uuid: ipi.uuid)
+               .first_or_create(
+                      full_name:                ipi.full_name,                  
+                      address:                  ipi.address,
+                      email:                    ipi.email,
+                      phone_number:             ipi.phone_number,
+                      role:                     ipi.role,
+                      common_work_id:           self.id,
+                      import_ipi_id:            ipi.import_ipi_id,
+                      created_at:               ipi.created_at,           
+                      updated_at:               ipi.updated_at,           
+                      user_id:                  ipi.user_id,
+                      ipi_code:                 ipi.ipi_code,
+                      cae_code:                 ipi.cae_code,
+                      controlled:               ipi.controlled,
+                      territory:                ipi.territory,
+                      share:                    ipi.share,                
+                      mech_owned:               ipi.mech_owned,           
+                      mech_collected:           ipi.mech_collected,       
+                      perf_owned:               ipi.perf_owned,           
+                      perf_collected:           ipi.perf_collected,       
+                      notes:                    ipi.notes,
+                      pro:                      ipi.pro,
+                      has_agreement:            ipi.has_agreement,
+                      linked_to_ascap_member:   ipi.linked_to_ascap_member,
+                      controlled_by_submitter:  ipi.controlled_by_submitter,
+                      ascap_work_id:            ipi.ascap_work_id,
+                      bmi_work_id:              ipi.bmi_work_id,          
+                      writer:                   ipi.writer,               
+                      composer:                 ipi.composer,             
+                      administrator:            ipi.administrator,        
+                      producer:                 ipi.producer,             
+                      original_publisher:       ipi.original_publisher,   
+                      artist:                   ipi.artist,               
+                      distributor:              ipi.distributor,          
+                      remixer:                  ipi.remixer,              
+                      other:                    ipi.other,                
+                      publisher:                ipi.publisher,            
+                      uuid:                     ipi.uuid
+                    )
+      
+    end
+    
+  end
 
 
 private
@@ -737,7 +787,9 @@ private
     #AccountCache.update_works_uuid self.account
     #Statistics.first.common_works -= 1
     #Statistics.first.save!
-    self.uuid = UUIDTools::UUID.timestamp_create().to_s
+    if self.uuid.to_s == ''
+      self.uuid = UUIDTools::UUID.timestamp_create().to_s
+    end
   end
   
   def count_statistics_up

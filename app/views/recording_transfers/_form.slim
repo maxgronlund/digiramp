@@ -1,9 +1,9 @@
 #old_transfer_form
   h4 Transfer code
   - if @recording.transferable
-    h2 = @recording.transfer_code
+    h4 = @recording.transfer_code
   - else
-    h2 Click the bottom to get code
+    h4 Click the bottom to get code
     
     
   = simple_form_for [recording.user, recording], :url => url_for(:action => 'update', :controller => 'recording_transfers'), :method => 'put', remote: true do |f|

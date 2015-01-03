@@ -6,12 +6,18 @@ class Ipi < ActiveRecord::Base
   
   belongs_to :import_ipi
   belongs_to :user
+  after_create :add_uuid
   
   after_commit :flush_cache
   
 
 
   ROLES = [ "Writer", "Composer", "Administrator", "Producer", "Original Publisher",  "Artist", "Distributor", "Remixer", "Other", "Publisher"]
+  def add_uuid
+    if self.uuid.to_s == ''
+      self.uuid = UUIDTools::UUID.timestamp_create().to_s
+    end
+  end
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }

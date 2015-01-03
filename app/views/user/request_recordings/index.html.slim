@@ -55,21 +55,34 @@
       .row
         br
         .col-sm-12
-          .pull-right
+          .row
+            .col-sm-8
+              h4 
+                ' Please select a recording from your account 
+            .col-sm-4
+              .pull-right
+                = link_to new_user_recording_path(@user) do
+                  .btn.btn-default 
+                    
+                    i.fa.fa-cloud-upload &nbsp;
+                    'Upload new recording
+                
           .endless-pages
           .add_recordings
-            -if current_user && current_user.id == @user.id
-              .new-recording
-                = link_to new_user_recording_path(@user) do
-                  .new-recording-badge
-                    .new-recording-badge-content
-                      i.fa.fa-plus-circle
-
-                  .new-recording-content
-                    .new-recording-text
-                      h3 Click here to upload recording
-                    .new-recording-waveform
-                      = image_tag 'default_waveform.png'
+            
+              
+            /-if current_user && current_user.id == @user.id
+            /  .new-recording
+            /    /= link_to new_user_recording_path(@user) do
+            /      .new-recording-badge
+            /        .new-recording-badge-content
+            /          i.fa.fa-plus-circle
+            /
+            /      .new-recording-content
+            /        .new-recording-text
+            /          h3 Click here to upload recording
+            /        .new-recording-waveform
+            /          = image_tag 'default_waveform.png'
 
             == render 'recordings/index', recordings: @recordings
            

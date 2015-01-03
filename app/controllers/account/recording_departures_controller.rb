@@ -11,18 +11,22 @@ class Account::RecordingDeparturesController < ApplicationController
   def create
     #ap 
     if params[:account][:transfer_codes]
+      count = 0
       params[:account][:transfer_codes].split(',').each do |transfer_code|
         transfer_code = transfer_code.strip.gsub(/\s+/, ' ')
         if recording = Recording.where(transfer_code: transfer_code).first
           if recording.transferable
+            count += 1
             recording.account_id    = @account.id
             recording.user_id       = @account.user_id
             recording.transferable  = false
             recording.transfer_code = UUIDTools::UUID.timestamp_create().to_s
-            recording.save
+            recording.save!
+            recording.transfer_commonwork
           end
         end
       end
+      flash[:success] = { title: "SUCCESS: ", body: "#{count} recordings was received" }
     end
     redirect_to :back
   end

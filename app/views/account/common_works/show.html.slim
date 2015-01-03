@@ -14,7 +14,7 @@
                                          
     
     == render 'shared/page_title_text', locals: {title: @common_work.title, body: '', insert: 'edit'}
-
+    = @common_work.uuid
     .row
       .col-sm-6.pull-down
         .panel.panel-primary
