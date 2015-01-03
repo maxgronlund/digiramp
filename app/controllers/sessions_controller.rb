@@ -113,9 +113,9 @@ private
               recipient_type: current_user.class.name,
                   account_id: user.account_id)
      
-    go_to = session[:landing_page] 
-    session[:landing_page]    = nil            
-    redirect_to go_to|| user_activities_path(current_user)      
+    #go_to = session[:landing_page] 
+    #session[:landing_page]    = nil            
+    redirect_to session[:current_page]
   end
 
 end

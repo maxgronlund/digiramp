@@ -33,7 +33,7 @@ class Digiwham::RecordingsController < ApplicationController
       
       if current_user                
         current_user.create_activity(  :created, 
-                                   owner: playback, # the recording has many comments
+                                   owner: playback, # the recording has many playbacks
                                recipient: @recording,
                           recipient_type: 'Recording',
                               account_id: @recording.user.account_id) 

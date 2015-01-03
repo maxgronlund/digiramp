@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-
+    ap comment_params
     if @comment = Comment.create!(comment_params)
       
       #@comment.user.create_activity(  :created, 
@@ -58,12 +58,27 @@ class CommentsController < ApplicationController
           puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
         end
         redirect_to user_issue_path(@comment.user, @comment.commentable_id)
-      when 'Recording', 'User'
-        @comment.user.create_activity(  :created, 
-                           owner: @comment,
-                       recipient: @comment.commentable,
-                  recipient_type: @comment.commentable.class.name,
-                      account_id: @comment.user.account_id) 
+      when 'Recording'
+        @recording = Recording.cached_find(@comment.commentable_id)
+            
+        current_user.create_activity(  :created, 
+                                   owner: @comment, # the recording has many comments
+                               recipient: @recording,
+                          recipient_type: 'Recording',
+                              account_id: @recording.user.account_id) 
+        
+        Activity.notify_followers(  'Posted a comment on', current_user.id, 'Recording', @recording.id )
+      
+      when 'User'
+        @user = User.cached_find(@comment.commentable_id)
+            
+        current_user.create_activity(  :created, 
+                                   owner: @comment, # the recording has many comments
+                               recipient: @user,
+                          recipient_type: 'User',
+                              account_id: @user.account_id) 
+        
+        Activity.notify_followers(  'Posted a comment on', current_user.id, 'User', @user.id )
 
       else
         

@@ -181,11 +181,11 @@
     
     - unless current_user
       ul class="nav navbar-nav navbar-right"
-        /li 
-        /  = link_to signup_index_path do
-        /    .signup
-        /      .btn.btn-warning
-        /        'Sign up
+        /= link_to '#', 'type.to_sym'.to_sym => "button", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#loginModal" do
+        /  i class="fa fa-sign-in"
+        /  '&nbsp;
+        /  'Log in
+
         li 
           = link_to login_new_path do
             i class="fa fa-sign-in"

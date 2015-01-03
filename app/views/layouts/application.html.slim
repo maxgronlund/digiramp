@@ -22,7 +22,7 @@ html
    = javascript_include_tag "//www.google.com/jsapi", "chartkick"
    = javascript_include_tag "application", "data-turbolinks-track" => true
    = javascript_include_tag "assets.transloadit.com/js/jquery.transloadit2-v2-latest.js" => true
-   = javascript_include_tag "//cdn.sublimevideo.net/js/w21x4dlf.js"
+   /= javascript_include_tag "//cdn.sublimevideo.net/js/w21x4dlf.js"
    
    
    
@@ -48,17 +48,22 @@ html
   
   
   body
-    /- session[:current_page]    = request.url
-    
-    -if Rails.env.development?
+    - unless request.url.include?('/login/new') || request.url.include?('/signup/index') || request.url.include?('/admin/')
+      = session[:current_page]    = request.url
+
+
+    - if Rails.env.development?
       == render 'layouts/test_fb' 
     - else
       == render 'layouts/fb'
-
-    /
-    /== render 'layouts/fb_share'
+    
+    
+    == render 'layouts/fb_share'
     = yield :charts_js
     = yield
+
+    
+    /  == render '/layouts/login'
     
     
 

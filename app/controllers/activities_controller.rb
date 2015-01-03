@@ -6,17 +6,17 @@ class ActivitiesController < ApplicationController
     
     if @user = User.friendly.find(params[:user_id])
       
-      if current_user && @user != current_user
-        @user.views += 1 
-        @user.save
-      end
-    
-      @user.create_activity(  :show, 
-                                owner: current_user,
-                            recipient: @user,
-                       recipient_type: @user.class.name,
-                           account_id: @user.account_id)
-    
+      #if current_user && @user != current_user
+      #  @user.views += 1 
+      #  @user.save
+      #end
+      #
+      #@user.create_activity(  :show, 
+      #                          owner: current_user,
+      #                      recipient: @user,
+      #                 recipient_type: @user.class.name,
+      #                     account_id: @user.account_id)
+      #
       session[:account_id] = @user.account_id 
     
       if current_user 
@@ -26,11 +26,11 @@ class ActivitiesController < ApplicationController
         end
         @playlists  = current_user.playlists
         
-        if current_user.id == @user.id || current_user.super?
-          @authorized = true
-        else
-          @authorized = false
-        end
+        #if current_user.id == @user.id || current_user.super?
+        #  @authorized = true
+        #else
+        #  @authorized = false
+        #end
       end
       
       
