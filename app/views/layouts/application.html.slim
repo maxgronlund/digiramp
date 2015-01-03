@@ -49,7 +49,7 @@ html
   
   body
     - unless request.url.include?('/login/new') || request.url.include?('/signup/index') || request.url.include?('/admin/')
-      = session[:current_page]    = request.url
+      - session[:current_page]    = request.url
 
 
     - if Rails.env.development?
