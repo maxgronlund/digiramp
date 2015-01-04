@@ -91,6 +91,11 @@ class Admin::StatisticsController < ApplicationController
     
     @submissions_created          = MusicSubmission.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
     @submissions_chart            = @submissions_created.group_by_day(:created_at).count
+    
+
+    
+    @opportunity_views          = OpportunityView.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @opportunity_views_chart    = @opportunity_views.group_by_day(:created_at).count
   end
 
   def ipis

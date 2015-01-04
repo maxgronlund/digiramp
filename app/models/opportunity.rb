@@ -6,9 +6,10 @@ class Opportunity < ActiveRecord::Base
   accepts_nested_attributes_for :music_requests, :reject_if => :all_blank, :allow_destroy => true
   
   
-  has_many   :opportunity_users, dependent: :destroy
-  has_many   :selected_opportunities,   dependent: :destroy
-  has_many   :opportunity_evaluations, dependent: :destroy
+  has_many :opportunity_users, dependent: :destroy
+  has_many :selected_opportunities,   dependent: :destroy
+  has_many :opportunity_evaluations, dependent: :destroy
+  has_many :opportunitiy_views, dependent: :destroy
 
   
   

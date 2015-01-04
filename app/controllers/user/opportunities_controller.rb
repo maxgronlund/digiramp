@@ -38,8 +38,12 @@ class User::OpportunitiesController < ApplicationController
                          account_id: @opportunity.account_id)
 
     
-    @user       = current_user
-    @authorized = true
+    #@user       = current_user
+    #@authorized = true
+    unless OpportunityView.where(user_id: current_user.id, opportunity_id: @opportunity.id, created_at: (Time.now - 300)..Time.now).count > 0
+       OpportunityView.create(user_id: current_user.id, opportunity_id: @opportunity.id)
+    end
+    
   end
   
   def destroy

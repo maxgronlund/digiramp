@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150103223328) do
+ActiveRecord::Schema.define(version: 20150104085726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1547,6 +1547,16 @@ ActiveRecord::Schema.define(version: 20150103223328) do
 
   add_index "opportunity_users", ["opportunity_id"], name: "index_opportunity_users_on_opportunity_id", using: :btree
   add_index "opportunity_users", ["user_id"], name: "index_opportunity_users_on_user_id", using: :btree
+
+  create_table "opportunity_views", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "opportunity_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "opportunity_views", ["opportunity_id"], name: "index_opportunity_views_on_opportunity_id", using: :btree
+  add_index "opportunity_views", ["user_id"], name: "index_opportunity_views_on_user_id", using: :btree
 
   create_table "permissions", force: true do |t|
     t.integer  "user_id"
