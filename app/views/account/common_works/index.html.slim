@@ -1,67 +1,140 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account)}, current:  'common works'}
-    
-    
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'Manage Works', insert: 'new'}
-    /-cache([ Admin.cached_find(1).version, request.url, @account.works_uuid, current_user.uuid ]) do 
-    .do
-      .row
-          = form_tag account_account_common_works_path(@account), :method => 'get' do
-            .col-sm-6
-              br
-              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
-            .col-sm-6
-              br
-              = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-              '&nbsp;
-              = link_to 'Show All',account_account_common_works_path(@account), class: 'btn btn-default btn-lg'
-              
-              
-          
-              
-      br
-      br
-      .row
-        .col-sm-12
-          .hidden-xs
-            == paginate(@common_works)
-          .visible-xs
-            br
-            .btn-group.btn-group-sm
-              = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination'
-              = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
-            br
-            br
-          .panel.panel-primary
-            .panel-heading
-              'Common Works
-            .panel-body
-            
-              
-              == render 'account/common_works/common_works'
-           
-              .hidden-xs
-                == paginate(@common_works)
-              .visible-xs
-                .btn-group
-                  = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination '
-                  = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
-              
-              /-if current_user.can_administrate @account
-              /  hr
-              /  .row
-              /    .col-sm-12
-              /      .pull-right
-              /        = link_to 'Export All to CSV', account_export_works_path(@account, format: "csv"), class: 'btn btn-primary btn-lg'
-              /          
+/- blog      = Blog.cached_find('Account')
 
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
   
-    == render 'shared/back', locals: {link: account_account_path(@account)}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ) }, current:'' }
+      .row
+        .col-sm-7
+          .help
+            .help-text
+              h2 #{@account.title} <funky>Pro</funky>
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'account common_works'
+      
+        .col-sm-5
+          .pull-right
+            .pull_down_10
+              - if current_account_user.create_common_work
+                = link_to new_account_account_common_work_path(@account) do
+                  .btn.btn-primary
+                    i.fa.fa-plus-circle
+                    '&nbsp;
+                    'New Common work
+                    
+                      
+              /= link_to new_account_account_opportunity_path(@user.account) do
+              /  .btn.btn-primary
+              /    i.fa.fa-plus-circle
+              /    '&nbsp;
+              /    'Create common work
+      'Common works
+      .sexy_line
+      .digi-box
+        == render 'account/common_works/common_works'
+
+    
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .container
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+/                                                           dashboard: account_account_path(@account)}, current:  'common works'}
+/    
+/    
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'Manage Works', insert: 'new'}
+/    /-cache([ Admin.cached_find(1).version, request.url, @account.works_uuid, current_user.uuid ]) do 
+/    .do
+/      .row
+/          = form_tag account_account_common_works_path(@account), :method => 'get' do
+/            .col-sm-6
+/              br
+/              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
+/            .col-sm-6
+/              br
+/              = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+/              '&nbsp;
+/              = link_to 'Show All',account_account_common_works_path(@account), class: 'btn btn-default btn-lg'
+/              
+/              
+/          
+/              
+/      br
+/      br
+/      .row
+/        .col-sm-12
+/          .hidden-xs
+/            == paginate(@common_works)
+/          .visible-xs
+/            br
+/            .btn-group.btn-group-sm
+/              = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination'
+/              = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
+/            br
+/            br
+/          .panel.panel-primary
+/            .panel-heading
+/              'Common Works
+/            .panel-body
+/            
+/              
+/              == render 'account/common_works/common_works'
+/           
+/              .hidden-xs
+/                == paginate(@common_works)
+/              .visible-xs
+/                .btn-group
+/                  = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination '
+/                  = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
+/              
+/              /-if current_user.can_administrate @account
+/              /  hr
+/              /  .row
+/              /    .col-sm-12
+/              /      .pull-right
+/              /        = link_to 'Export All to CSV', account_export_works_path(@account, format: "csv"), class: 'btn btn-primary btn-lg'
+/              /          
+/
+/  
+/    == render 'shared/back', locals: {link: account_account_path(@account)}
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'

@@ -1,14 +1,17 @@
 class Account::CommonWorksController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
-  before_filter :access_account
-  
+  #before_filter :access_account
+  before_filter :get_account_account
   # show list or export as cvs
+  
   def index
+    
+    forbidden unless current_account_user 
+    @user = current_user
     @common_works  = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
     respond_to do |format|
       format.html
-      #format.csv { render text: @common_works.to_csv }
       format.csv { render text: @common_works.to_csv }
     end
   end

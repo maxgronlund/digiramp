@@ -8,10 +8,7 @@ class Account::AccountsController < ApplicationController
   def show
     session[:account_id] = params[:id]
     @user = current_user
-    ap current_account_user
-    
-    forbidden unless current_account_user
-       
+    forbidden unless current_account_user 
   end
   
   def edit
