@@ -534,22 +534,17 @@ class Recording < ActiveRecord::Base
   end
   
   def get_artwork
+    return self.cover_art unless self.cover_art == ''
     begin
       art = Artwork.cached_find(self.image_file_id)
-      ap art.file
-      return art.file unless art.file.to_s == ''
+      return art.file
     rescue
-    end
-    
-    begin
-      return self.cover_art     unless self.cover_art.to_s == ''
-      return self.artwork       unless self.artwork.to_s ==''
+      return self.cover_art unless self.cover_art == ''
+      return self.artwork unless self.artwork.to_s ==''
       return self.get_cover_art unless self.get_cover_art == ''
-    rescue
-      return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
     end
     
-    
+    'http://digiramp.com/assets/digiramp-logo2-b204530a32a3b4098e35bbc3f7c57b62.png'
   end
   
   def get_cover_art
