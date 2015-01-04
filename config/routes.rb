@@ -47,7 +47,7 @@ Digiramp::Application.routes.draw do
   resources :remove_from_playlists, only: [:destroy]
 
   resources :comments
-  #resources :contacts, only: [:new, :create, :show ]
+  resources :contacts, only: [:new, :create, :show ]
   resources :create_playlists, only: [:new, :create]
   resources :digi_whams
   resources :discover, only: [:index]
