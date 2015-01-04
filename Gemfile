@@ -108,7 +108,7 @@ gem 'public_activity'
 #gem "taglib-ruby"
 #gem 'id3_tags'
 #gem 'jquery-fileupload-rails'
-#gem 'icheck-rails'
+gem 'icheck-rails'
 
 
 #=====================================

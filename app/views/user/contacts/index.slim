@@ -1,1 +1,52 @@
-h3 contacts
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          h2 Contacts
+        .col-sm-6
+          .pull-down-10
+            = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                          :controller => '/user/contacts'), \
+                                                          :method => 'get' do |f|
+          
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search for contacts', \
+                                              value: params[:query]
+                .input-group-btn
+                  = f.submit 'Go', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Show All', user_user_contacts_path( @user ), class: 'btn btn-default'
+        
+        
+        
+        
+        
+      .sexy_line
+      .digi-box
+        .endless-contacts
+        .all_contacts
+          == render 'user/contacts/index'
+          .addcontacts
+      
+        .add_pagination
+        == paginate(@contacts)
+          /== render 'users/paggination', users: @users
+        
+          /= debug @contacts.first
+        
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

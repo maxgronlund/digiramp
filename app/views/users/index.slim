@@ -36,11 +36,11 @@
                   = link_to 'Clear', users_path( clear: 'clear'), class: 'btn btn-default'
       .sexy_line
       .endless-users
-        .person-badges
-          .all-users
-            == render 'users/index', users: @users
-            .add_users
-        
+      .person-badges
+        .all-users
+          == render 'users/index', users: @users
+          .add_users
+      
 
       .add_pagination
       == render 'users/paggination', users: @users

@@ -47,8 +47,7 @@ Digiramp::Application.routes.draw do
   resources :remove_from_playlists, only: [:destroy]
 
   resources :comments
-  resources :contacts
-  resources :contacts, only: [:new, :create, :show ]
+  #resources :contacts, only: [:new, :create, :show ]
   resources :create_playlists, only: [:new, :create]
   resources :digi_whams
   resources :discover, only: [:index]
@@ -303,7 +302,7 @@ Digiramp::Application.routes.draw do
     #  get :following, :followers
     #end
     resources :connections, only: [:index, :create, :update, :destroy]
-    resources :contacts
+    #resources :contacts
     resources :messages
     resources :received_messages, only: [:index]
     resources :unread_messages, only: [:index]
@@ -677,6 +676,7 @@ Digiramp::Application.routes.draw do
       resources :activities
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
+      resources :contacts
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :new_opportunities, only: [:index, :show, :destroy]

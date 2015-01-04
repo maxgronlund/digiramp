@@ -3,7 +3,7 @@ class Client < ActiveRecord::Base
   has_and_belongs_to_many :client_groups
   has_many :playlist_key_users
   before_create :set_user_uuid
-  
+  after_commit :flush_cache
   
   include PgSearch
   pg_search_scope :search, against: [ :name,         
@@ -59,6 +59,8 @@ class Client < ActiveRecord::Base
 
   end
   
+  
+  
   # called from a worker
   def self.import_clients_from client_import_id
     
@@ -102,6 +104,19 @@ class Client < ActiveRecord::Base
     end
 
   end
+  
+  
+
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
+  end
+
+private 
+
+  def flush_cache
+    Rails.cache.delete([self.class.name, id])
+  end
+  
   
   
 end

@@ -32,7 +32,6 @@
 //= require soundmanager2-setup
 //= require digiramp_player
 //= requiry jquery.transloadit2-v2-latest
-
 //= require recordings
 //= require jquery.fancybox
 //= require start_fancybox
@@ -61,6 +60,8 @@
 //= require fidtvideo
 //= require google
 //= require users
+//= require icheck
+//= require init-icheck
 // require disqus
 // require bootstrapValidator.min
 // require bootstrap-tokenfield

@@ -1,32 +1,31 @@
-/= debug @recording_ids
-
-- blog      = Blog.cached_find('Recording Bucket')
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
   
-  .container
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                            dashboard: account_account_path(@account), \
-                                                            documents: account_account_documents_path(@account), \
-                                                            'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account) \
-                                                           }, \
-                                                    current:  'edit individual'}
-    
-    == render 'shared/page_title', locals: {blog: blog, blog_post: 'EDIT INDIVIDUAL'}
-    == render 'admin/shared/messages'
-   
-        
-    = form_tag update_multiple_account_account_recordings_bucket_index_path [ @account] do
-
-      -@recordings.each do |recording| 
-        
-        = fields_for "recordings[]", recording do |f| 
-          .panel.panel-primary
-            .panel-heading
-              = recording.title
-            .panel-body
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'admin/shared/messages'
+      .row
+        .col-sm-8
+          h2 Edit recordings
+        .col-sm-4
+          .pull-right.pull-down-10
+            = link_to account_account_recordings_bucket_index_path(@account) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+      .sexy_line
+      = form_tag update_multiple_account_account_recordings_bucket_index_path [ @account] do
+      
+        -@recordings.each do |recording| 
+          
+          = fields_for "recordings[]", recording do |f| 
+            .digi-box
               .row
                 .col-sm-4
                   = label_tag 'Title'
@@ -42,20 +41,85 @@
                   br
                   = f.select :vocal, Recording::VOCAL_HASH
                   
-          
-      .pull-right
-        = link_to 'Cancel', account_account_recordings_bucket_index_path(@account), class: 'btn btn-default btn-lg'
-        '&nbsp;
-        = submit_tag "Next", class: 'btn btn-primary btn-lg'
-    
-    
-    
-   
+            
+        .pull-right
+          = submit_tag "Next", class: 'btn btn-primary'
+      
+                                            
+                           
+            
+            
 
- 
-    == render 'shared/back', locals: {link: account_account_recordings_bucket_index_path(@account)}    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+/= debug @recording_ids
+
+/- blog      = Blog.cached_find('Recording Bucket')
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  
+/  .container
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                            dashboard: account_account_path(@account), \
+/                                                            documents: account_account_documents_path(@account), \
+/                                                            'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account) \
+/                                                           }, \
+/                                                    current:  'edit individual'}
+/    
+/    == render 'shared/page_title', locals: {blog: blog, blog_post: 'EDIT INDIVIDUAL'}
+/    == render 'admin/shared/messages'
+/   
+/        
+/    = form_tag update_multiple_account_account_recordings_bucket_index_path [ @account] do
+/
+/      -@recordings.each do |recording| 
+/        
+/        = fields_for "recordings[]", recording do |f| 
+/          .panel.panel-primary
+/            .panel-heading
+/              = recording.title
+/            .panel-body
+/              .row
+/                .col-sm-4
+/                  = label_tag 'Title'
+/                  = f.text_field :title, class: 'form-control'
+/                .col-sm-3
+/                  = label_tag 'ISRC CODE'
+/                  = f.text_field :isrc_code, class: 'form-control',placeholder: "CC-XXX-YY-NNNNN"
+/                .col-sm-2
+/                  = label_tag 'bpm'
+/                  = f.text_field :bpm, class: 'form-control'
+/                .col-sm-3
+/                  = label_tag 'vocal'
+/                  br
+/                  = f.select :vocal, Recording::VOCAL_HASH
+/                  
+/          
+/      .pull-right
+/        = link_to 'Cancel', account_account_recordings_bucket_index_path(@account), class: 'btn btn-default btn-lg'
+/        '&nbsp;
+/        = submit_tag "Next", class: 'btn btn-primary btn-lg'
+/    
+/    
+/    
+/   
+/
+/ 
+/    == render 'shared/back', locals: {link: account_account_recordings_bucket_index_path(@account)}    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
 
 
 

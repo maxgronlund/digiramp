@@ -1,44 +1,50 @@
- 
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
   
   
-/= debug current_account_user
-- session[:return_url]         = request.url
-- session[:go_to_after_update] = request.url
-- blog      = Blog.cached_find('Account Documents')
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
   
-  .container
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                            dashboard: account_account_path(@account), \
-                                                            documents: account_account_documents_path(@account), \
-                                                            'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account) \
-                                                           }, \
-                                                    current:  'edit shared'}
-    
-    == render 'shared/page_title', locals: {blog: blog, blog_post: 'EDIT SHARED'}
-    == render 'admin/shared/messages'
-   
+  #page-content-wrapper
+    .container-fluid
+      == render 'admin/shared/messages'
+      .row
+        .col-sm-7
+          .help
+            .help-text
+              h2 #{@account.title} <funky>Pro</funky>
+              'Edit shared
+            .help-button
+              == render 'admin/helps/help', identifier: 'recording bucket edit shared'
 
-  
-        
-  
-    = form_tag update_shared_account_account_recordings_bucket_index_path [ @account] do
-      b Recordings:
-      '&nbsp;&nbsp;
-      -@recordings.each do |recording| 
-        b = recording.title 
-        = hidden_field_tag "recording_ids[]", recording.id
-        '&nbsp;&nbsp;/&nbsp;&nbsp;
-      br
-      br
-      .panel.panel-primary
-        .panel-heading
-          'Shared fields
-        .panel-body
-          = simple_fields_for :recording do |f|
+        .col-sm-5
+          .pull-right.pull-down-10
+            = link_to account_account_recordings_bucket_index_path(@account) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+          /.pull-right
+          /  .recording-navigation
+          /    = link_to new_account_account_opportunity_path(@user.account) do
+          /      .btn.btn-primary
+          /        i.fa.fa-plus-circle
+          /        '&nbsp;
+          /        'Create Opportunity
+      .sexy_line
+      
+      = form_tag update_shared_account_account_recordings_bucket_index_path [ @account] do
+        b Recordings:
+        '&nbsp;&nbsp;
+        -@recordings.each do |recording| 
+          b = recording.title 
+          = hidden_field_tag "recording_ids[]", recording.id
+          '&nbsp;&nbsp;/&nbsp;&nbsp;
+        br
+        br
+        = simple_fields_for :recording do |f|
+          .digi-box
             .row
               .col-sm-3
                 = f.input :artist, required: false, :input_html => {  style: "height: 80px;", placeholder: "Artist"}, as: 'text'
@@ -57,20 +63,96 @@
                 = f.input :instruments, required: false, :input_html => {  style: "height: 80px;", placeholder: "i.e. Drums, Banjo, Choir, Electric Guitar"}, as: 'text'
               .col-sm-3
                 = f.input :copyright, required: false, :input_html => {  style: "height: 80px;", placeholder: "i.e. © 2014 Entertainment Company, Inc"}, as: 'text'
-           
-      .pull-right
-        = link_to 'Cancel', account_account_recordings_bucket_index_path(@account), class: 'btn btn-default btn-lg'
-        '&nbsp;
-        = submit_tag "Next", class: 'btn btn-primary btn-lg'
-    
-    
-   
+         
+        .pull-right
+          /= link_to 'Cancel', account_account_recordings_bucket_index_path(@account), class: 'btn btn-default'
+          /'&nbsp;
+          = submit_tag "Next", class: 'btn btn-primary'
+      
+      
+                                            
+                           
+            
+            
 
- 
-    == render 'shared/back', locals: {link: account_account_recordings_bucket_index_path(@account)}
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+/- session[:return_url]         = request.url
+/- session[:go_to_after_update] = request.url
+/- blog      = Blog.cached_find('Account Documents')
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  
+/  .container
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                            dashboard: account_account_path(@account), \
+/                                                            documents: account_account_documents_path(@account), \
+/                                                            'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account) \
+/                                                           }, \
+/                                                    current:  'edit shared'}
+/    
+/    == render 'shared/page_title', locals: {blog: blog, blog_post: 'EDIT SHARED'}
+/    == render 'admin/shared/messages'
+/   
+/
+/  
+/        
+/  
+/    = form_tag update_shared_account_account_recordings_bucket_index_path [ @account] do
+/      b Recordings:
+/      '&nbsp;&nbsp;
+/      -@recordings.each do |recording| 
+/        b = recording.title 
+/        = hidden_field_tag "recording_ids[]", recording.id
+/        '&nbsp;&nbsp;/&nbsp;&nbsp;
+/      br
+/      br
+/      .panel.panel-primary
+/        .panel-heading
+/          'Shared fields
+/        .panel-body
+/          = simple_fields_for :recording do |f|
+/            .row
+/              .col-sm-3
+/                = f.input :artist, required: false, :input_html => {  style: "height: 80px;", placeholder: "Artist"}, as: 'text'
+/              .col-sm-3
+/                = f.input :composer, required: false, :input_html => {  style: "height: 80px;", placeholder: "Composer"}, as: 'text'
+/              .col-sm-3
+/                = f.input :performer, required: false, :input_html => {  style: "height: 80px;", placeholder: "Performer"}, as: 'text'
+/              .col-sm-3
+/                = f.input :band, required: false, :input_html => {  style: "height: 80px;", placeholder: "Band"}, as: 'text'
+/            .row
+/              .col-sm-3
+/                = f.input :genre, required: false, :input_html => {  style: "height: 80px;", placeholder: "i.e. Pop, Cinimatic, Hip-Hop, Christmas"}, as: 'text'
+/              .col-sm-3
+/                = f.input :mood, required: false, :input_html => {  style: "height: 80px;", placeholder: "i.e. Happy, Uplifting, Scary, Action"}, as: 'text'
+/              .col-sm-3
+/                = f.input :instruments, required: false, :input_html => {  style: "height: 80px;", placeholder: "i.e. Drums, Banjo, Choir, Electric Guitar"}, as: 'text'
+/              .col-sm-3
+/                = f.input :copyright, required: false, :input_html => {  style: "height: 80px;", placeholder: "i.e. © 2014 Entertainment Company, Inc"}, as: 'text'
+/           
+/      .pull-right
+/        = link_to 'Cancel', account_account_recordings_bucket_index_path(@account), class: 'btn btn-default btn-lg'
+/        '&nbsp;
+/        = submit_tag "Next", class: 'btn btn-primary btn-lg'
+/    
+/    
+/   
+/
+/ 
+/    == render 'shared/back', locals: {link: account_account_recordings_bucket_index_path(@account)}
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
 
 
 

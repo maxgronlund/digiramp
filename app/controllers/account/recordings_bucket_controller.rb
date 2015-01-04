@@ -15,10 +15,17 @@ class Account::RecordingsBucketController < ApplicationController
   end
   
   def show
+    forbidden unless current_account_user.read_recording?
+    @user           = current_user
+    @authorized     = true
     @recording = Recording.cached_find(params[:id])
   end
   
   def edit_multiple
+    forbidden unless current_account_user.update_recording?
+    @user           = current_user
+    @authorized     = true
+    
     if params[:recording_ids].nil?
       flash[:danger] = { title: "Error", body: "You have to check at least one recording to edit" }
       redirect_to account_account_recordings_bucket_index_path(@account)
@@ -35,6 +42,10 @@ class Account::RecordingsBucketController < ApplicationController
   end
   
   def edit_shared
+
+    forbidden unless current_account_user.update_recording?
+    @user           = current_user
+    @authorized     = true
     @recordings = Recording.find(params[:ids] )
   end
   
@@ -57,6 +68,10 @@ class Account::RecordingsBucketController < ApplicationController
   end
   
   def add_to_common_work
+
+    forbidden unless current_account_user.update_recording?
+    @user           = current_user
+    @authorized     = true
     @recording_ids = params[:ids].each { |x| x.to_s} #Recording.where(id: params[:recording_ids]).pluck(:id)
   end
   

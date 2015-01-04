@@ -1,0 +1,32 @@
+.old_contacts
+  -@contacts.each do |contact|
+    div id="delete_contact_#{contact.id.to_s}"
+      == render 'user/contacts/show', contact: contact
+  /.users
+  /  .table-responsive
+  /    table class="table table-hover"
+  /      thead
+  /        tr
+  /          th Name
+  /          th Company
+  /          th Capacity
+  /          th Email
+  /      tbody
+  /        
+  /        -@contacts.each do |contact|
+  /          tr id="delete_contact_#{contact.id.to_s}"
+  /            td
+  /          
+  /              = link_to user_user_contact_path(@user, contact), data: { confirm: 'Are you sure?' }, remote: true , :method => :delete do
+  /                .btn.btn-danger.btn-xs
+  /                  i class="fa fa-times"
+  /              '&nbsp;
+  /              
+  /              = link_to edit_user_user_contact_path(@user, contact) do
+  /                .btn.btn-default.btn-xs
+  /                  i class="fa fa-pencil"
+  /              '&nbsp;
+  /              = link_to contact.full_name, user_user_contact_path(@user, contact), class: 'btn btn-default btn-xs'
+  /            td = contact.company
+  /            td = contact.capacity
+  /            td = contact.email

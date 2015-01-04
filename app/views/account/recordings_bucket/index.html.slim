@@ -9,34 +9,95 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'admin/shared/messages'
       .row
         .col-sm-6
           h2 Recordings bucket
         .col-sm-6
           - if current_account_user.create_recording
-            .pull-right
+            .pull-right.pull-down-10
               = link_to new_account_account_audio_file_path(@account) do
-                .btn.btn-default
+                .btn.btn-primary
                   i class="fa fa-plus-circle"
                   '&nbsp;
                   'Add more
       .sexy_line
+      .row
+        .col-sm-4
+        .col-sm-8
+          .pull-right
 
-        .search-recording
-          = simple_form_for  [ @account ], :url => url_for(:action => 'index', \
-                                                        :controller => 'users'), \
-                                                        :method => 'get' do |f|
-          
-            .input-group
-              span class="input-group-addon"
-                i class= 'fa fa-search'
-              = text_field_tag "query", "", :class => 'search-query form-control', \
-                                            :placeholder => 'Search for user', \
-                                            value: params[:query]
-              .input-group-btn
-                = f.submit 'Search', class: "btn btn-primary"
-                '&nbsp;
-                = link_to 'Show all', account_account_recordings_bucket_index_path(@account, class: 'btn btn-default')
+            = simple_form_for  [ @account ], :url => url_for(:action => 'index', \
+                                                          :controller => '/account/recordings_bucket'), \
+                                                          :method => 'get' do |f|
+            
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search', \
+                                              value: params[:query]
+                .input-group-btn
+                  = f.submit 'Search', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Show All',account_account_recordings_bucket_index_path(@account), class: 'btn btn-default'
+      
+      
+      .row.pull-down-10
+        .col-sm-12
+          .digi-box
+            .table-responsive
+               = form_tag edit_multiple_account_account_recordings_bucket_index_path [ @account] do
+                table class="table table-hover"
+                  thead
+                    tr
+                      /th User
+                      th Select
+                      th Title
+                      th Original File
+                      th
+                      
+                
+                  tbody
+                   
+                    -@recordings.each do |recording|
+                      tr.icheck-row 
+                        td
+                          label class="recording-select"  class='icheck-me' data-skin="square" data-color="blue"
+                            => check_box_tag "recording_ids[]", recording.id
+                            .title
+                              = recording.title
+                        
+                        td
+
+                          -if current_account_user.read_recording?
+                            = link_to account_account_recordings_bucket_path(@account , recording) do
+                              .btn.btn-default.btn-xs
+                                i class="fa fa-eye"
+                                '&nbsp;
+                                = recording.title
+                            
+                        
+                          
+                        td = recording.original_file_name
+                        td
+                          .pull-right
+                            -if current_account_user.update_recording?
+                              = link_to edit_account_account_recording_path(@account , recording) do
+                                .btn.btn-default.btn-xs
+                                  i class="fa fa-pencil"
+                                  '&nbsp;Edit
+                            -if current_account_user.update_recording?
+                              =< link_to account_account_recordings_bucket_path(@account , recording), data: { confirm: 'Are you sure?'} , :method => :delete do
+                                .btn.btn-danger.btn-xs
+                                  i class="fa fa-times"
+                .pull-right
+                  = submit_tag "Edit Checked", class: 'btn btn-primary'
+                                            
+                           
+            
+            
+
             
                  
               
@@ -80,9 +141,9 @@
 /                                                :placeholder => 'Search string', \
 /                                                value: params[:query]
 /                .col-sm-6
-/                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+/                  = submit_tag 'Search', class: 'btn btn-primary btn-xs'
 /                  '&nbsp;
-/                  = link_to 'Show All',account_account_recordings_bucket_index_path(@account), class: 'btn btn-default btn-lg'
+/                  = link_to 'Show All',account_account_recordings_bucket_index_path(@account), class: 'btn btn-default btn-xs'
 /    .row
 /      .col-sm-12
 /        .panel.panel-primary
@@ -118,20 +179,20 @@
 /                          .pull-right
 /                            -if current_account_user.update_recording?
 /                              = link_to edit_account_account_recording_path(@account , recording) do
-/                                .btn.btn-primary.btn-lg
+/                                .btn.btn-primary.btn-xs
 /                                  i class="fa fa-pencil"
 /                            -if current_account_user.read_recording?
 /                              '&nbsp;
 /                              = link_to account_account_recordings_bucket_path(@account , recording) do
-/                                .btn.btn-default.btn-lg
+/                                .btn.btn-default.btn-xs
 /                                  i class="fa fa-eye"
 /                            -if current_account_user.update_recording?
 /                              '&nbsp;
 /                              = link_to account_account_recordings_bucket_path(@account , recording), data: { confirm: 'Are you sure?'} , :method => :delete do
-/                                .btn.btn-danger.btn-lg
+/                                .btn.btn-danger.btn-xs
 /                                  i class="fa fa-times"
 /                .pull-right
-/                  = submit_tag "Edit Checked", class: 'btn btn-primary btn-lg'
+/                  = submit_tag "Edit Checked", class: 'btn btn-primary btn-xs'
 /                                            
 /                           
 /        

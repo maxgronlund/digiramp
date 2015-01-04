@@ -139,6 +139,12 @@
                   i class="fa fa-envelope"
                   '&nbsp;
                   'Subscribtions
+              
+              li  class="#{page == 'contacts' ? 'active' : ''}"
+                = link_to user_user_contacts_path(current_user ) do
+                  i class="fa fa-list-ul"
+                  '&nbsp;
+                  'Contacts
       
               /li  class="#{page == 'opportunities' ? 'active' : ''}"
               /  = link_to user_user_opportunities_path( current_user ) do

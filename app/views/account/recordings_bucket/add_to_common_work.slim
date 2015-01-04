@@ -1,70 +1,201 @@
-- blog      = Blog.cached_find('Recording Bucket')
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
   
-  .container
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                            dashboard: account_account_path(@account), \
-                                                            documents: account_account_documents_path(@account), \
-                                                            'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account) \
-                                                           }, \
-                                                    current:  'add to common work'}
-    /==render 'admin/shared/messages'
-
-    /- insert = 'accounts/shared/leave_account'
-    
-    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Add to Common Work'}
-    
-
-                                          
-    .row
-      .col-sm-6
-        -if current_account_user.create_common_work?
-          == render 'shared/badge', locals: {  \
-                                              blog: blog, \
-                                              post: BlogPost.cached_find( "CREATE COMMON WORK" , blog ), \
-                                              link: new_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
-                                              css_class: 'btn btn-success', \
-                                              icon: 'fa fa-plus-circle', \
-                                              id: 'recordings' \
-                                            }
-        
-        -if current_account_user.update_common_work?
-          == render 'shared/badge', locals: {  \
-                                              blog: blog, \
-                                              post: BlogPost.cached_find( "ADD TO EXISTING COMMON WORK" , blog ), \
-                                              link: select_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
-                                              css_class: 'btn btn-primary', \
-                                              icon: 'fa fa-music', \
-                                              id: 'documents' \
-                                            }
-
-      .col-sm-6
-        -if current_account_user.create_common_work?
-          == render 'shared/badge', locals: {  \
-                                              blog: blog, \
-                                              post: BlogPost.cached_find( "CREATE COMMON WORKS" , blog ), \
-                                              link: create_common_works_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
-                                              css_class: 'btn btn-warning', \
-                                              icon: 'fa fa-plus-circle', \
-                                              id: 'recordings', \
-                                              no_turbo: true \
-                                            }
-                                            
-        -if current_account_user.create_common_work?
-          == render 'shared/badge', locals: {  \
-                                              blog: blog, \
-                                              post: BlogPost.cached_find( "CREATE CATALOG WITH COMMON WORKS" , blog ), \
-                                              link: new_catalog_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
-                                              css_class: 'btn btn-danger', \
-                                              icon: 'fa fa-book', \
-                                              id: 'recordings'\
-                                            }
-      
-      
   
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'admin/shared/messages'
+      .row
+        .col-sm-7
+          .help
+            .help-text
+              h2 #{@account.title} <funky>Pro</funky>
+              'Select option
+            .help-button
+              == render 'admin/helps/help', identifier: 'recording bucket Select option'
+
+        .col-sm-5
+          /.pull-right.pull-down-10
+          /  = link_to account_account_recordings_bucket_index_path(@account) do
+          /    .btn.btn-default
+          /      i.fa.fa-chevron-left
+          /      '&nbsp;Back
+          /.pull-right
+          /  .recording-navigation
+          /    = link_to new_account_account_opportunity_path(@user.account) do
+          /      .btn.btn-primary
+          /        i.fa.fa-plus-circle
+          /        '&nbsp;
+          /        'Create Opportunity
+      .sexy_line
+      - blog      = Blog.cached_find('Recording Bucket')
+      .row
+        .col-sm-6
+          -if current_account_user.create_common_work?
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "CREATE COMMON WORK" , blog ), \
+                                                link: new_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
+                                                css_class: 'btn btn-success', \
+                                                icon: 'fa fa-plus-circle', \
+                                                id: 'recordings' \
+                                              }
+          
+          -if current_account_user.update_common_work?
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "ADD TO EXISTING COMMON WORK" , blog ), \
+                                                link: select_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
+                                                css_class: 'btn btn-primary', \
+                                                icon: 'fa fa-music', \
+                                                id: 'documents' \
+                                              }
+      
+        .col-sm-6
+          -if current_account_user.create_common_work?
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "CREATE COMMON WORKS" , blog ), \
+                                                link: create_common_works_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
+                                                css_class: 'btn btn-warning', \
+                                                icon: 'fa fa-plus-circle', \
+                                                id: 'recordings', \
+                                                no_turbo: true \
+                                              }
+                                              
+          -if current_account_user.create_common_work?
+            == render 'shared/badge', locals: {  \
+                                                blog: blog, \
+                                                post: BlogPost.cached_find( "CREATE CATALOG WITH COMMON WORKS" , blog ), \
+                                                link: new_catalog_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
+                                                css_class: 'btn btn-danger', \
+                                                icon: 'fa fa-book', \
+                                                id: 'recordings'\
+                                              }
+      
+
+            
+            
+
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/- blog      = Blog.cached_find('Recording Bucket')
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  
+/  .container
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                            dashboard: account_account_path(@account), \
+/                                                            documents: account_account_documents_path(@account), \
+/                                                            'recordings bucket'.to_sym => account_account_recordings_bucket_index_path(@account) \
+/                                                           }, \
+/                                                    current:  'add to common work'}
+/    /==render 'admin/shared/messages'
+/
+/    /- insert = 'accounts/shared/leave_account'
+/    
+/    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Add to Common Work'}
+/    
+/
+/                                          
+/    .row
+/      .col-sm-6
+/        -if current_account_user.create_common_work?
+/          == render 'shared/badge', locals: {  \
+/                                              blog: blog, \
+/                                              post: BlogPost.cached_find( "CREATE COMMON WORK" , blog ), \
+/                                              link: new_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
+/                                              css_class: 'btn btn-success', \
+/                                              icon: 'fa fa-plus-circle', \
+/                                              id: 'recordings' \
+/                                            }
+/        
+/        -if current_account_user.update_common_work?
+/          == render 'shared/badge', locals: {  \
+/                                              blog: blog, \
+/                                              post: BlogPost.cached_find( "ADD TO EXISTING COMMON WORK" , blog ), \
+/                                              link: select_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
+/                                              css_class: 'btn btn-primary', \
+/                                              icon: 'fa fa-music', \
+/                                              id: 'documents' \
+/                                            }
+/
+/      .col-sm-6
+/        -if current_account_user.create_common_work?
+/          == render 'shared/badge', locals: {  \
+/                                              blog: blog, \
+/                                              post: BlogPost.cached_find( "CREATE COMMON WORKS" , blog ), \
+/                                              link: create_common_works_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
+/                                              css_class: 'btn btn-warning', \
+/                                              icon: 'fa fa-plus-circle', \
+/                                              id: 'recordings', \
+/                                              no_turbo: true \
+/                                            }
+/                                            
+/        -if current_account_user.create_common_work?
+/          == render 'shared/badge', locals: {  \
+/                                              blog: blog, \
+/                                              post: BlogPost.cached_find( "CREATE CATALOG WITH COMMON WORKS" , blog ), \
+/                                              link: new_catalog_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
+/                                              css_class: 'btn btn-danger', \
+/                                              icon: 'fa fa-book', \
+/                                              id: 'recordings'\
+/                                            }
+/      
+/      
+/  
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/
