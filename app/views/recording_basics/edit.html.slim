@@ -43,7 +43,8 @@
           = transloadit :image_files_to_s3 
           .row
             .col-sm-6
-              = f.input :featured if super?
+              - if super?
+                = f.input :featured,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
               = f.input :title
               b Original file:
               =< @recording.original_file_name
@@ -88,7 +89,7 @@
               = f.input :position
               = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
               = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
-              = f.input :downlodable, hint: 'Enabling this will allow the file to be downloaded'
+              = f.input :downlodable, hint: 'Enabling this will allow the file to be downloaded',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
               = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
         
           .row
