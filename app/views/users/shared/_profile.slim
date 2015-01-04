@@ -29,6 +29,10 @@
   '&nbsp;
   = pluralize(@user.views, 'View')
   br
+  i class="fa fa-users"
+  '&nbsp;
+  = pluralize(@user.connections.count, 'Connections')
+  br
   
   .profile-button
     == render 'users/shared/follow' , user: @user
