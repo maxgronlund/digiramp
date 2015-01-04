@@ -34,13 +34,14 @@
 
     .static-content
       h4 Genre
-
-    .tag
-      div class="#{'tag-selected' unless params[:genre]}"
-        .tag-title
-           = link_to 'All', songs_path(recording: {order: params[:recording][:order], direction: params[:recording][:direction]}) 
-        .tag-count
-
+    
+    = link_to  songs_path(recording: {order: params[:recording][:order], direction: params[:recording][:direction]})  do 
+      .tag
+        div class="#{'tag-selected' unless params[:genre]}"
+          .tag-title
+             'All
+          .tag-count
+      
     .clearfix
     - Genre.where('recordings_count > 0').order('recordings_count desc').first(20).each do |genre|
       - parameters = { recording: {order: params[:recording][:order], direction: params[:recording][:direction]}, genre: genre.title }
