@@ -19,12 +19,12 @@
 
             
  
-  h4 = @user.user_name
+  
   - if @user.country.to_s != ''
     .location
       - c = Country.find_country_by_alpha2(@user.country)
       = " #{@user.city}, #{c.name}"
-    br
+    
   i class="fa fa-eye"
   '&nbsp;
   = pluralize(@user.views, 'View')
@@ -34,16 +34,17 @@
   = pluralize(@user.connections.count, 'Connections')
   br
   
-  .profile-button
-    == render 'users/shared/follow' , user: @user
-    
-
-  - if current_user
+  .pull-down-10
     .profile-button
-      .connect-container
-        .connect-buttons
-        == render 'users/connect', user: @user 
-   
+      == render 'users/shared/follow' , user: @user
+      
+    
+    - if current_user
+      .profile-button
+        .connect-container
+          .connect-buttons
+          == render 'users/connect', user: @user 
+     
   /- if super?
   /  .profile-button
   /    = link_to  edit_admin_account_path(@user.account) do

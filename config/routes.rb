@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+
   resources :disqus
 
   resources :selected_opportunities, only: [:show]
@@ -29,7 +31,7 @@ Digiramp::Application.routes.draw do
   get 'welcome/index'
   root to: 'welcome#index'
 
-  resources :message_counts
+  #resources :message_counts
 
   resources :message_counts
 
@@ -676,7 +678,10 @@ Digiramp::Application.routes.draw do
       resources :activities
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
-      resources :contacts
+      resources :contacts do
+        get 'toggle_selection'
+      end
+      resources :contacts_centers, only: [:index]
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :new_opportunities, only: [:index, :show, :destroy]

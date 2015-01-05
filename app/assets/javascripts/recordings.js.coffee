@@ -23,11 +23,7 @@ ready = ->
     enable_next_button()
     
   
-  
-  
-  
-  
-      
+
   $('#done').click ->
     $('#next_step').val('done');
     #alert 'fo'

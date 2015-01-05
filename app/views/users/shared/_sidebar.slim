@@ -12,7 +12,11 @@
     li
       
       = link_to user_path(@user) do
+        .user_name
+          h4 = @user.user_name
+          
         .user-avatar
+          
           =  image_tag @user.image_url(:avatar_184x184)
 
     li class="#{'sidebar-selected' if selected == 'recordings'}"

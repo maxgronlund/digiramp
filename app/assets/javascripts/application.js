@@ -62,6 +62,7 @@
 //= require users
 //= require icheck
 //= require init-icheck
+//= require contacts
 // require disqus
 // require bootstrapValidator.min
 // require bootstrap-tokenfield

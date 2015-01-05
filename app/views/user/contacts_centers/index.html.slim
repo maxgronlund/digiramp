@@ -1,0 +1,60 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Contact center
+      .sexy_line
+      .contact-center.pull-down-10
+        = link_to user_user_contacts_path(@user) do
+          .contact-center-badge
+            .icon-box
+              .icon.icon-green
+                i.fa.fa-list-ul
+              
+            .title.title-green
+              h4 
+                'Contacts
+                br
+                .pull-right
+                  span class="label label-default"
+                    .i.fa.fa-users &nbsp;
+                    = @user.clients.count
+             
+        = link_to user_user_contacts_path(@user) do 
+          .contact-center-badge
+            .icon.icon-blue
+              i.fa.fa-cloud-upload
+              
+            .title
+              h4 Import contacts
+        
+       
+        = link_to user_user_contacts_path(@user) do
+          .contact-center-badge
+            .icon.icon-red
+              i.fa.fa-users
+              
+            .title
+              h4 Message groups
+        
+        
+        = link_to user_user_contacts_path(@user) do
+          .contact-center-badge
+            .icon.icon-yellow
+              i.fa.fa-envelope
+              
+            .title
+              h4 Campaigns
+          
+
+          
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

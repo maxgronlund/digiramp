@@ -155,7 +155,8 @@ class User < ActiveRecord::Base
   has_many :music_submission, dependent: :destroy
   
   has_many :opportunitiy_views
-           
+  
+  has_many :clients
   
   def user_activities
     self.wall_posts.where(user_id: self.id)

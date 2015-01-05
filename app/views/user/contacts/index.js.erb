@@ -1,0 +1,15 @@
+if("<%= @remove_old_contacts %>"){
+  $('.old-contacts').empty();
+  endless_contacts();
+  history.replaceState(null, "", "?query=<%=params[:query]%>")
+}
+
+$('.add_contacts').append("<%= j render 'user/contacts/index' %>");
+
+<% if (@contacts.next_page) %>
+        $('.pagination').replaceWith('<%= j paginate(@contacts) %>');
+<% else %>
+        $('.pagination').remove();
+<% end %>
+
+/*init_icheck()*/

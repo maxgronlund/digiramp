@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150104085726) do
+ActiveRecord::Schema.define(version: 20150105134706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -625,9 +625,11 @@ ActiveRecord::Schema.define(version: 20150104085726) do
     t.string   "direct_fax",     default: ""
     t.string   "business_email", default: ""
     t.boolean  "show_alert",     default: false
+    t.integer  "user_id"
   end
 
   add_index "clients", ["account_id"], name: "index_clients_on_account_id", using: :btree
+  add_index "clients", ["user_id"], name: "index_clients_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.string   "title"

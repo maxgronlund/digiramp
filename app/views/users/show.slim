@@ -14,7 +14,7 @@
           == render 'users/shared/profile'
           /-if current_user && current_user.id == @user.id
           /  == render 'users/activities'
-          
+          h3 Recent activities
           / make endless pages here
           - @user.user_activities.order('created_at desc').first(20).each do |user_activity|
             div id="delete_wall_post_#{user_activity.id.to_s}"

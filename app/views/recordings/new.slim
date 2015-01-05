@@ -49,7 +49,8 @@
               = f.input :acceptance_of_terms, 
                         id: 'acceptance_of_terms',
                         label: false, 
-                        inline_label:  raw( "*I Have <a href=#{terms_and_conditions_path}>Read and Agree</a>  to The Terms and Conditions")
+                        inline_label:  raw( "*I Have <a href=#{terms_and_conditions_path}>Read and Agree</a>  to The Terms and Conditions"),
+                        :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
               .pull-right
                 
                 = link_to 'Cancel', user_recordings_path(@user), class: 'btn btn-default'

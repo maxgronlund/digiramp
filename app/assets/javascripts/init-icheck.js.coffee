@@ -1,4 +1,13 @@
 ready = ->
+  init_icheck()
+
+
+  
+$(document).ready(ready)
+$(document).on('page:load', ready)
+
+
+@init_icheck =() ->
   icheck = ->
     if $(".icheck-me").length > 0
       $(".icheck-me").each ->
@@ -16,8 +25,3 @@ ready = ->
   $ ->
     icheck()
     return
-  
-
-  
-$(document).ready(ready)
-$(document).on('page:load', ready)
