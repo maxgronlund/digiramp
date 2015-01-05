@@ -31,15 +31,21 @@ class Digiwham::RecordingsController < ApplicationController
                       )
       
       
-      if current_user                
+      if current_user  
+        
+                      
         current_user.create_activity(  :created, 
                                    owner: playback, # the recording has many playbacks
                                recipient: @recording,
                           recipient_type: 'Recording',
                               account_id: @recording.user.account_id) 
+      
+      
+      
+        Activity.notify_followers(  'Listen to this recording', user_id, 'Recording', @recording.id )
       end
     
-      Activity.notify_followers(  'Listen to this recording', user_id, 'Recording', @recording.id )
+      
       #@recording.notify_followers 'Listen to this recording', current_user.id
       
     rescue
