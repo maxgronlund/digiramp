@@ -48,7 +48,7 @@
     = link_to user_likes_path(user) do
       i class="fa fa-heart"
       '&nbsp;
-      = user.views
+      = user.likes.count
     '&nbsp;|&nbsp;
     
     /= link_to user_likes_path(user) do
