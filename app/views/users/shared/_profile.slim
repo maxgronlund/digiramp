@@ -35,11 +35,9 @@
   br
   
   .pull-down-10
-    .profile-button
-      == render 'users/shared/follow' , user: @user
-      
-    
-    - if current_user
+    - if current_user && current_user.id != @user.id
+      .profile-button
+        == render 'users/shared/follow' , user: @user
       .profile-button
         .connect-container
           .connect-buttons

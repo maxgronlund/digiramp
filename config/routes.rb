@@ -316,7 +316,7 @@ Digiramp::Application.routes.draw do
     resources :recording_uploads, only: [:edit, :update]
     resources :recording_lyrics, only: [:edit, :update]
     #resources :recording_playbacks, only: [:show]
-    resources :recording_transfers
+    
     
     
     resources :playlists
@@ -681,7 +681,7 @@ Digiramp::Application.routes.draw do
       resources :contacts do
         get 'toggle_selection'
       end
-      resources :contacts_centers, only: [:index]
+      resources :control_panel, only: [:index]
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :new_opportunities, only: [:index, :show, :destroy]
@@ -692,6 +692,7 @@ Digiramp::Application.routes.draw do
         end
         
       end
+      resources :recording_transfers
     end
     
   end

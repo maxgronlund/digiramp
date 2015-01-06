@@ -1,8 +1,8 @@
-$("#remove_email_group_" + "<%= @email_group_id.to_s %>").fadeOut( "slow", function() {
-    // Animation complete.
-    $("#remove_email_group_" + "<%= @email_group_id.to_s %>").remove();
-  });
-
+//$("#remove_email_group_" + "<%= @email_group_id.to_s %>").fadeOut( "slow", function() {
+//    // Animation complete.
+//    $("#remove_email_group_" + "<%= @email_group_id.to_s %>").remove();
+//  });
+$("#remove_email_group_" + "<%= @email_group_id.to_s %>").remove();
 
 
 $(".add_mail_subscribtion").append("<%= j render 'user/mail_subscribtions/mail_subscribtion' , mail_subscribtion: @mail_subscribtion, user: @user %>");

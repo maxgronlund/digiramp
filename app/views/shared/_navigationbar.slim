@@ -118,33 +118,33 @@
             - if current_user  
               li  class="#{page == 'edit_profile' ? 'active' : ''}"
                 = link_to edit_user_path(current_user) do
-                  i class="fa fa-cog"
+                  i class="fa fa-pencil"
                   '&nbsp;
                   'Edit Profile
                   
-              li  class="#{page == 'authorization_providers' ? 'active' : ''}"
-                = link_to user_user_authorization_providers_path(current_user) do
-                  i class="fa fa-share-alt"
-                  '&nbsp;
-                  'Social Accounts
-              
-              li  class="#{page == 'connections' ? 'active' : ''}"
-                = link_to user_connections_path(current_user ) do
-                  i class="fa fa-refresh"
-                  '&nbsp;
-                  'Connections
-              
-              li  class="#{page == 'subscribtions' ? 'active' : ''}"
-                = link_to user_user_mail_subscribtions_path(current_user ) do
-                  i class="fa fa-envelope"
-                  '&nbsp;
-                  'Subscribtions
+              /li  class="#{page == 'authorization_providers' ? 'active' : ''}"
+              /  = link_to user_user_authorization_providers_path(current_user) do
+              /    i class="fa fa-share-alt"
+              /    '&nbsp;
+              /    'Social Accounts
+              /
+              /li  class="#{page == 'connections' ? 'active' : ''}"
+              /  = link_to user_connections_path(current_user ) do
+              /    i class="fa fa-refresh"
+              /    '&nbsp;
+              /    'Connections
+              /
+              /li  class="#{page == 'subscribtions' ? 'active' : ''}"
+              /  = link_to user_user_mail_subscribtions_path(current_user ) do
+              /    i class="fa fa-envelope"
+              /    '&nbsp;
+              /    'Subscribtions
               
               li  class="#{page == 'contacts' ? 'active' : ''}"
-                = link_to user_user_contacts_path(current_user ) do
-                  i class="fa fa-list-ul"
+                = link_to user_user_control_panel_index_path(current_user ) do
+                  i class="fa fa-tachometer"
                   '&nbsp;
-                  'Contacts
+                  'Control panel
       
               /li  class="#{page == 'opportunities' ? 'active' : ''}"
               /  = link_to user_user_opportunities_path( current_user ) do
@@ -153,9 +153,10 @@
               /    'Opportunities
                   
               - unless current_user.account.account_type  == "Social"    
+                li class="divider"
                 li  class="#{page == 'account' ? 'active' : ''}"
                   = link_to account_account_path( current_user.account) do
-                    i class="fa fa-cog"
+                    i class="fa fa-tachometer"
                     '&nbsp;
                     'Pro Account
                     
@@ -165,17 +166,27 @@
                     '&nbsp;
                     'Other Accounts
                     
-                li  class="#{page == 'admin' ? 'active' : ''}"
+                li  class="#{page == 'catalogs' ? 'active' : ''}"
                   = link_to user_user_catalogs_path( current_user) do
                     i class="fa fa-book"
                     '&nbsp;
                     'Catalogs
+                    
+                - if super?
+    
+    
+                  li  class="#{page == 'admin' ? 'active' : ''}"
+                    = link_to admin_index_path do
+                      i class="fa fa-gear"
+                      '&nbsp;
+                      'Admin
 
             /li  class="#{page == 'support' ? 'active' : ''}"
             /  = link_to support_index_path do
             /    i class="fa fa-life-ring"
             /    '&nbsp;
             /    'Support
+            li class="divider"
             li    
               = link_to logout_path do
                 i class="fa fa-unlock"

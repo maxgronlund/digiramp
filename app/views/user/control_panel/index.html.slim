@@ -1,0 +1,111 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Control panel
+      .sexy_line
+      .row
+        .col-sm-12
+          .contact-center.pull-down-10
+              /= link_to user_user_contacts_path(@user) do
+              .contact-center-badge
+                = link_to user_user_contacts_path(@user) do
+                  .content
+                    .icon-box
+                      .icon.icon-green
+                        i.fa.fa-list-ul
+                      
+                    .title.title-green
+                      h4 
+                        'Contacts
+                        br
+                        .pull-right
+                          span class="label label-default"
+                            .i.fa.fa-users &nbsp;
+                            = @user.clients.count
+                     
+                
+              .contact-center-badge
+                = link_to user_user_contacts_path(@user) do 
+                  .content
+                    .icon.icon-blue
+                      i.fa.fa-cloud-upload
+                      
+                    .title
+                      h4 Import contacts
+                    
+                  
+              .contact-center-badge
+                = link_to user_user_contacts_path(@user) do
+                  .content
+                    .icon.icon-red
+                      i.fa.fa-users
+                      
+                    .title
+                      h4 Message groups
+                    
+            
+              
+              .contact-center-badge
+                = link_to user_user_contacts_path(@user) do
+                  .content
+                    .icon.icon-yellow
+                      i.fa.fa-envelope
+                      
+                    .title
+                      h4 Campaigns
+                      
+      .pull-down-10
+     
+      .row
+        .col-sm-6
+         
+          .digi-box.pull-down-12
+            h4 Emails
+            - if @email_groups
+              - @email_groups.each do |email_group|
+                = email_group.title
+                .pull-right
+                  - if MailListSubscriber.where(user_id: @user.id, email_group_id: email_group.id ).first
+                     .toggle.toggle-light id="#{email_group.id}" data-toggle-on="true"
+                  - else
+                    .toggle.toggle-light id="#{email_group.id}" 
+                 
+                
+                  
+                .sexy_line
+
+        .col-sm-6
+          .digi-box.pull-down-12
+            h4 Profile page
+            'Show recordings as default
+            .pull-right
+              div class="toggle toggle-light"
+            .sexy_line
+            'Make my profile private
+            .pull-right
+              div class="toggle toggle-light"
+            .sexy_line
+            'Disable contact requests
+            .pull-right
+              div class="toggle toggle-light"
+            .sexy_line
+                
+            
+          
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+

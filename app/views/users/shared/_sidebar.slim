@@ -68,14 +68,7 @@
         '&nbsp;
         'Support
 
-  - if super?
-    
-    
-    li class="#{'sidebar-selected' if selected == 'admin'}"
-      = link_to admin_index_path do
-        i class="fa fa-gear"
-        '&nbsp;
-        'Admin
+  
 /.sidebar-ad
 /  <div id="digiramp-ad" data-no-turbolink>
 /    = render 'admin/digiramp_ads/show', identifier: 'disqus added to site'

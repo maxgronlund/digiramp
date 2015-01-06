@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+// require jquery.ui.all
 //= require jquery_ujs
 // require jquery.ui.datepicker
 //= require turbolinks
@@ -63,6 +64,8 @@
 //= require icheck
 //= require init-icheck
 //= require contacts
+//= require toggles
+//= require control_panel
 // require disqus
 // require bootstrapValidator.min
 // require bootstrap-tokenfield
