@@ -303,7 +303,7 @@ Digiramp::Application.routes.draw do
     #member do
     #  get :following, :followers
     #end
-    resources :connections, only: [:index, :create, :update, :destroy]
+    #resources :connections, only: [:index, :create, :update, :destroy]
     #resources :contacts
     resources :messages
     resources :received_messages, only: [:index]
@@ -678,6 +678,7 @@ Digiramp::Application.routes.draw do
       resources :activities
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
+      resources :connections, only: [:index, :create, :update, :destroy]
       resources :contacts do
         get 'toggle_selection'
       end

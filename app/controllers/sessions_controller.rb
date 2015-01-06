@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       else
         flash[:info] = { title: "SUCCESS: ", body: "#{env['omniauth.auth'][:provider].upcase} is linked to your account" }
       end
-      redirect_to user_user_authorization_providers_path(current_user)
+      redirect_to user_user_control_panel_index_path(current_user)
     elsif env['omniauth.auth']
       user = Omniauth.authorize_with_omniauth( env['omniauth.auth'] )
       if user[:user]

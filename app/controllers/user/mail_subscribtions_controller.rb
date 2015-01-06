@@ -14,6 +14,20 @@ class User::MailSubscribtionsController < ApplicationController
     
   end
   
+  def show
+    ap params
+    if params[:submit] == '1'
+      ap '=================== subscribe ================='
+      MailListSubscriber.where(user_id: params[:user_id], email_group_id: params[:id] )
+                        .first_or_create(user_id: params[:user_id], email_group_id: params[:id] )
+    else
+      if mail_list_subscriber = MailListSubscriber.where(user_id: params[:user_id], email_group_id: params[:id] ).first
+        mail_list_subscriber.destroy
+      end
+    end
+    render nothing: true
+  end
+  
   def create
     @mail_subscribtion = MailListSubscriber.create(mail_subscriber_params)
     @email_group_id    = @mail_subscribtion.email_group_id

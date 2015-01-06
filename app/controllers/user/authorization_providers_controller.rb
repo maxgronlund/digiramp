@@ -6,6 +6,19 @@ class User::AuthorizationProvidersController < ApplicationController
     #  @authorized = true
     #end
   end
+  
+  def show
+    ap params
+    if params[:submit] == '0'
+      authorization_provider = AuthorizationProvider.find(params[:id])
+      authorization_provider.destroy
+      render nothing: true
+    else
+      ap '====================== add ==============='
+      redirect_to root_url format: "html"
+    end
+    
+  end
 
 
 

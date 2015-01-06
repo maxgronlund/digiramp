@@ -1,0 +1,9 @@
+div id="old_connection_#{connection.id}"
+  = simple_form_for [ :user, connection.user , connection ], remote: true do |f|
+    = f.hidden_field :approved, value: connection.approved ? false : true
+  
+    - unless connection.approved
+      - unless connection.dismissed
+        = f.submit "Dismiss", class: 'btn btn-default btn-xs'
+        '&nbsp;
+    = f.submit connection.approved ? 'Dismiss' : 'Accept', class: 'btn btn-primary btn-xs'

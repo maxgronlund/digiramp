@@ -1,0 +1,18 @@
+.old-connection-invitation
+  - if connection.dismissed
+    h3 Invitation rejected
+    'Click Accept invitation to activate connection
+  - if connection.approved
+    h3 Invitation accepted
+    'Click disconnect to drop connection
+  br
+  br
+  /= debug connection
+  = simple_form_for [ :user, receiver , connection ], remote: true do |f|
+    = f.hidden_field :approved, value: connection.approved ? false : true
+    
+    - unless connection.approved
+      - unless connection.dismissed
+        = f.submit "Dismiss", class: 'btn btn-default'
+        '&nbsp;
+    = f.submit connection.approved ? 'Disconnect' : 'Accept invitation', class: 'btn btn-primary'

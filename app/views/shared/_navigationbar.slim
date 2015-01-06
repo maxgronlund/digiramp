@@ -122,17 +122,17 @@
                   '&nbsp;
                   'Edit Profile
                   
-              /li  class="#{page == 'authorization_providers' ? 'active' : ''}"
-              /  = link_to user_user_authorization_providers_path(current_user) do
-              /    i class="fa fa-share-alt"
-              /    '&nbsp;
-              /    'Social Accounts
-              /
-              /li  class="#{page == 'connections' ? 'active' : ''}"
-              /  = link_to user_connections_path(current_user ) do
-              /    i class="fa fa-refresh"
-              /    '&nbsp;
-              /    'Connections
+              li  class="#{page == 'authorization_providers' ? 'active' : ''}"
+                = link_to user_user_authorization_providers_path(current_user) do
+                  i class="fa fa-share-alt"
+                  '&nbsp;
+                  'Social Accounts
+              
+              li  class="#{page == 'connections' ? 'active' : ''}"
+                = link_to user_user_connections_path(current_user ) do
+                  i class="fa fa-refresh"
+                  '&nbsp;
+                  'Connections
               /
               /li  class="#{page == 'subscribtions' ? 'active' : ''}"
               /  = link_to user_user_mail_subscribtions_path(current_user ) do

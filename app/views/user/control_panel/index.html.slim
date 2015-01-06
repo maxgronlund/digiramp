@@ -13,9 +13,9 @@
       .sexy_line
       .row
         .col-sm-12
-          .contact-center.pull-down-10
+          .control-panel.pull-down-10
               /= link_to user_user_contacts_path(@user) do
-              .contact-center-badge
+              .control-panel-badge
                 = link_to user_user_contacts_path(@user) do
                   .content
                     .icon-box
@@ -32,7 +32,7 @@
                             = @user.clients.count
                      
                 
-              .contact-center-badge
+              .control-panel-badge
                 = link_to user_user_contacts_path(@user) do 
                   .content
                     .icon.icon-blue
@@ -42,7 +42,7 @@
                       h4 Import contacts
                     
                   
-              .contact-center-badge
+              .control-panel-badge
                 = link_to user_user_contacts_path(@user) do
                   .content
                     .icon.icon-red
@@ -53,7 +53,7 @@
                     
             
               
-              .contact-center-badge
+              .control-panel-badge
                 = link_to user_user_contacts_path(@user) do
                   .content
                     .icon.icon-yellow
@@ -61,45 +61,115 @@
                       
                     .title
                       h4 Campaigns
+                    
+            
+              
+              /.control-panel-badge
+              /  = link_to user_user_authorization_providers_path(current_user) do
+              /    .content
+              /      .icon.icon-purpel
+              /        i.fa.fa-share-alt
+              /        
+              /      .title
+              /        h4 Authorization
+              /        
+                      
+                      
                       
       .pull-down-10
-     
+       
       .row
         .col-sm-6
-         
-          .digi-box.pull-down-12
+          
+          .digi-box
             h4 Emails
+            'Emails you will receive from DigiRAMP
+            .sexy_line
             - if @email_groups
               - @email_groups.each do |email_group|
                 = email_group.title
                 .pull-right
                   - if MailListSubscriber.where(user_id: @user.id, email_group_id: email_group.id ).first
-                     .toggle.toggle-light id="#{email_group.id}" data-toggle-on="true"
+                     .mail_subscribtion.toggle-light id="#{email_group.id}" data-toggle-on="true" user_id="#{@user.id}"
                   - else
-                    .toggle.toggle-light id="#{email_group.id}" 
-                 
-                
+                    .mail_subscribtion.toggle-light id="#{email_group.id}"  user_id="#{@user.id}"
+                    
                   
                 .sexy_line
 
-        .col-sm-6
+            /- @mail_subscribtions.each do | mail_subscribtion |
+            /  = render 'user/mail_subscribtions/mail_subscribtion', mail_subscribtion: mail_subscribtion, user: @user
+            /
+            /.add_mail_subscribtion        
+            /
+            /- if @email_groups
+            /  - @email_groups.each do | email_group |
+            /    == render 'user/mail_subscribtions/email_group', email_group: email_group, user: @user
+            /.add_email_groups
+        
+        
           .digi-box.pull-down-12
-            h4 Profile page
-            'Show recordings as default
-            .pull-right
-              div class="toggle toggle-light"
+            h4 Settings
             .sexy_line
-            'Make my profile private
+            b Show recordings as default
+            br
+            'When people click on you user badge on the user page they are taken to your recordings
+            br
             .pull-right
-              div class="toggle toggle-light"
+              .show-recordings.toggle-light
+            br
             .sexy_line
-            'Disable contact requests
-            .pull-right
-              div class="toggle toggle-light"
-            .sexy_line
-                
-            
+        
+        
+        .col-sm-6
           
+          .digi-box
+            h4 Authorization
+            'Linking your Digiramp account with your favorite social accounts let's you login and post directly from DigiRAMP
+            
+            
+            / facebook -------------------
+            .sexy_line
+            i.fa.fa-facebook-square 
+            '&nbsp;Facebook
+            .pull-right
+              - if authorization_provider = @user.authorization_providers.where(provider: 'facebook').first
+                .facebook.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
+              - else 
+                .facebook.toggle-light  user_id="#{@user.id}"
+            .sexy_line
+            
+            / twitter -------------------
+            i.fa.fa-twitter
+            '&nbsp;Twitter
+            .pull-right
+              - if authorization_provider = @user.authorization_providers.where(provider: 'twitter').first
+                .twitter.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
+              - else 
+                .twitter.toggle-light  user_id="#{@user.id}"
+            .sexy_line
+            
+            / linkedin -------------------
+            i.fa.fa-linkedin
+            '&nbsp;Linkedin
+            .pull-right
+              - if authorization_provider = @user.authorization_providers.where(provider: 'linkedin').first
+                .linkedin.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
+              - else 
+                .linkedin.toggle-light  user_id="#{@user.id}"
+            .sexy_line
+            
+            / google+  -------------------
+            i.fa.fa-google-plus-square
+            '&nbsp;Google+
+            .pull-right
+              - if authorization_provider = @user.authorization_providers.where(provider: 'gplus').first
+                .google-plus.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
+              - else 
+                .google-plus.toggle-light  user_id="#{@user.id}"
+            .sexy_line
+      
+      
                   
 
          

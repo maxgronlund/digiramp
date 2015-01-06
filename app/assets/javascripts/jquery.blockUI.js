@@ -165,9 +165,9 @@
 				cursor:		'default',
 				color:		'#fff',
 				backgroundColor: '#000',
-				'-webkit-border-radius':'10px',
-				'-moz-border-radius':	'10px',
-				'border-radius':		'10px'
+				'-webkit-border-radius':'0px',
+				'-moz-border-radius':	'0px',
+				'border-radius':		'0px'
 			},
 
 			// IE issues: 'about:blank' fails on HTTPS and javascript:false is s-l-o-w

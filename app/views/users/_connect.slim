@@ -22,6 +22,6 @@
         .btn.btn-primary.btn-xs
           i.fa.fa-refresh
           '&nbsp;Connect  
-      == render 'connections/modal', modal_id: "connect_modal_#{user.id.to_s}", recipient: user, subjebtable: user
+      == render 'user/connections/modal', modal_id: "connect_modal_#{user.id.to_s}", recipient: user, subjebtable: user
     '&nbsp;
     
