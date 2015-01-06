@@ -47,7 +47,7 @@ class Omniauth
 private
 
   def self.create_from_omniauth(env)
-    ap env
+    #ap env
     #raise env.to_yaml
     # create a user
     user = create_user( env )
@@ -55,14 +55,14 @@ private
     if user[:user]                
       if create_account_for( user[:user], env ) 
         update_user( user[:user], env)
-        credentials =  env["credentials"]
-        ap credentials
+        credentials     =  env["credentials"]
+        
         AuthorizationProvider.create! do |provider|
                provider.provider            = env["provider"]
                provider.uid                 = env["uid"]
-               provider.oauth_token        = credentials['token']
-               provider.oauth_expires_at   = credentials["expires_at"]
-               provider.oauth_expires      = credentials["expires"]
+               provider.oauth_token         = credentials['token']
+               provider.oauth_expires_at    = credentials["expires_at"]
+               provider.oauth_expires       = credentials["expires"]
                provider.user_id             = user[:user].id
       
         end
