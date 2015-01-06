@@ -22,34 +22,41 @@
                     = image_tag( @playlist.playlist_image_url :image_270x270)
                   .playlist-info
                     = @playlist.body
-                    - if current_user
-                      -if current_user.id == @playlist.user_id || can_edit?
-                        br
-                        = link_to edit_user_playlist_path(@user, @playlist) do
-                          .btn.btn-default
-                            i.fa.fa-pencil
-                            '&nbsp;Edit
-                      br
-            -if @playlist.downloadable
-              - if current_user
-                -if current_user.id == @playlist.user_id || can_edit?
-                  .row
-                    .col-sm-12
-                      a data-toggle="collapse" data-parent="#accordion" href="#secure_download"
-                        i.fa.fa-pencil
-                        b &nbsp;Secure downloadble link
-                     
-                      br
-                      br
-                      div id="secure_download" class="panel-collapse collapse"  
-                        .row
-                          .col-sm-12
-                            = root_url + url_for( user_playlist_path(@playlist.user_id, @playlist, downloadkey: @playlist.downloadkey) ).to_s
-              
+                    - if current_user && current_user == @user.id || super?
+                      .row
+                        .col-sm-12
+                          .pull-right
+                            = link_to edit_user_playlist_path(@user, @playlist) do
+                              .btn.btn-primary
+                                i.fa.fa-pencil
+                                '&nbsp;Edit
+                      /-if current_user.id == @playlist.user_id || can_edit?
+                      /  br
+                      /  = link_to edit_user_playlist_path(@user, @playlist) do
+                      /    .btn.btn-default
+                      /      i.fa.fa-pencil
+                      /      '&nbsp;Edit
+                      
+            /-if @playlist.downloadable
+            /  - if current_user
+            /    -if current_user.id == @playlist.user_id || can_edit?
+            /      .row
+            /        .col-sm-12
+            /          a data-toggle="collapse" data-parent="#accordion" href="#secure_download"
+            /            i.fa.fa-pencil
+            /            b &nbsp;Secure downloadble link
+            /         
+            /          br
+            /          br
+            /          div id="secure_download" class="panel-collapse collapse"  
+            /            .row
+            /              .col-sm-12
+            /                = root_url + url_for( user_playlist_path(@playlist.user_id, @playlist, downloadkey: @playlist.downloadkey) ).to_s
+            /  
  
             
             
-            
+            .pull-down-10
             .endless-pages
             .add_songs
               
