@@ -26,8 +26,8 @@ class Authorization
   def get_provider options={}
     
     
-    user_uuid:  options.user_uuid, 
-    provider:   options.provider
+    #user_uuid:  options.user_uuid, 
+    #provider:   options.provider
     
     # get cookie here
     
