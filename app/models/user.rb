@@ -255,16 +255,11 @@ class User < ActiveRecord::Base
     
   end
   
-  
-  
-  
-  
-  
-  
+
   
   def set_default_avatar
 
-    if self.image_url == "/assets/fallback/default.jpg" || self.image.nil?
+    if self.image_url == "/assets/fallback/default.jpg" 
       prng      = Random.new
       random_id =  prng.rand(12)
 
@@ -278,13 +273,7 @@ class User < ActiveRecord::Base
     end
   end
   
-  
-  
-  
-  
-  
-  
-  
+
   
   def update_completeness
     

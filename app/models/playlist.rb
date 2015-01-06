@@ -20,7 +20,8 @@ class Playlist < ActiveRecord::Base
   mount_uploader :playlist_image, PlaylistUploader
 
   def check_default_image
-    if self.playlist_image == "/assets/fallback/playlist.jpg" || self.playlist_image.nil?
+
+    if  self.playlist_image_url == "/assets/fallback/playlist.jpg"
       prng      = Random.new
       random_id =  prng.rand(14)
 
