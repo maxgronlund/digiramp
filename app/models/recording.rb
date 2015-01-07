@@ -137,7 +137,7 @@ class Recording < ActiveRecord::Base
   def send_notifications_on_create
     attach_to_common_work
     #notify_followers 'Has uploaded a recording', self.user_id 
-    Activity.notify_followers( 'Recording', self.user_id, 'Recording', self.id )
+    Activity.notify_followers( 'Uploaded this recording', self.user_id, 'Recording', self.id )
     confirm_ipis
   end
 
