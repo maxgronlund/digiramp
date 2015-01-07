@@ -1,6 +1,6 @@
 .old-connection-invitation
   /= debug connection
-  = simple_form_for [ receiver , connection ], remote: true do |f|
+  = simple_form_for [ :user, receiver , connection ], remote: true do |f|
     = f.hidden_field :approved, value: connection.approved ? false : true
     - if connection.user == @user
     
