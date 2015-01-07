@@ -128,11 +128,11 @@
               /    '&nbsp;
               /    'Social Accounts
               /
-              /li  class="#{page == 'connections' ? 'active' : ''}"
-              /  = link_to user_user_connections_path(current_user ) do
-              /    i class="fa fa-refresh"
-              /    '&nbsp;
-              /    'Connections
+              li  class="#{page == 'connections' ? 'active' : ''}"
+                = link_to user_user_connections_path(current_user ) do
+                  i class="fa fa-refresh"
+                  '&nbsp;
+                  'Connections
               /
               /li  class="#{page == 'subscribtions' ? 'active' : ''}"
               /  = link_to user_user_mail_subscribtions_path(current_user ) do
