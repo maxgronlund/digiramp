@@ -8,8 +8,8 @@
       .no-borders.table-responsive
         table class="table table-condensed"
           tr
-            th.description Fee:
-            td = number_to_currency(music_request.fee, locale: :en, precision: 2)
+            th.description Value:
+            td = music_request.fee
   
           - unless  music_request.link.to_s == ''
             tr
