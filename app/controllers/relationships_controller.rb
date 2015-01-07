@@ -5,7 +5,7 @@ class RelationshipsController < ApplicationController
     @user = User.find(params[:relationship][:followed_id])
     relationship = current_user.follow!(@user)
     
-    @user.followers_count      = user.followers.count
+    @user.followers_count      = @user.followers.count
     @user.uniq_followers_count = Uniqifyer.uniqify(@user.followers_count)
     @user.save!
     
