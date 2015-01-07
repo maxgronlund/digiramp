@@ -31,7 +31,7 @@ Digiramp::Application.configure do
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
   
   
-  OmniAuth.config.logger = Rails.logger
+  #OmniAuth.config.logger = Rails.logger
   
 end
 

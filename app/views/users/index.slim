@@ -36,15 +36,8 @@
                   = link_to 'Clear', users_path( clear: 'clear'), class: 'btn btn-default'
       .sexy_line
       .users
-        ul.nav.nav-pills
-          li  class="#{ params[:clear] == 'clear' ? 'active' : ''}"
-            = link_to 'All', users_path(clear: 'clear'), remote: true
-          li  class="#{ params[:latest] == 'true' ? 'active' : ''}"
-            = link_to 'Latest', users_path(latest: true), remote: true
-          li  class="#{ params[:followers] == 'true' ? 'active' : ''}"
-            = link_to 'Most followed', users_path(followers: true), remote: true
-          li  class="#{ params[:featured] == 'true' ? 'active' : ''}"
-            = link_to 'Featured', users_path(featured: true), remote: true
+        = render 'users/navigation'
+        
       
       .pull-down-10
       .endless-users

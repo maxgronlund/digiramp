@@ -16,12 +16,12 @@ ready = ->
     
     
   #==========================
-  $(".facebook").toggles(
+  $(".facebook-toggle").toggles(
     text:
       on: "On" 
       off: "Off") 
       
-  $(".facebook").on "toggle", (e, active) ->
+  $(".facebook-toggle").on "toggle", (e, active) ->
     user_id                   = $(this).attr 'user_id'
     if active
        #$.getScript("/user/users/" + user_id + "/authorization_providers/facebook/?submit=1")
@@ -33,12 +33,12 @@ ready = ->
 
 
   #==========================
-  $(".twitter").toggles(
+  $(".twitter-toggle").toggles(
     text:
       on: "On" 
       off: "Off")
   
-  $(".twitter").on "toggle", (e, active) ->
+  $(".twitter-toggle").on "toggle", (e, active) ->
     user_id                   = $(this).attr 'user_id'
     if active
        #$.getScript("/user/users/" + user_id + "/authorization_providers/facebook/?submit=1")
@@ -50,12 +50,12 @@ ready = ->
      
 
   #==========================
-  $(".linkedin").toggles(
+  $(".linkedin-toggle").toggles(
     text:
       on: "On" 
       off: "Off")
   
-  $(".linkedin").on "toggle", (e, active) ->
+  $(".linkedin-toggle").on "toggle", (e, active) ->
     user_id                   = $(this).attr 'user_id'
     if active
        #$.getScript("/user/users/" + user_id + "/authorization_providers/facebook/?submit=1")
@@ -66,12 +66,12 @@ ready = ->
       $.getScript("/user/users/" + user_id + "/authorization_providers/"  + authorization_provider_id + '/?submit=0')
   
   #==========================
-  $(".google-plus").toggles(
+  $(".google-plus-toggle").toggles(
     text:
       on: "On" 
       off: "Off")
   
-  $(".google-plus").on "toggle", (e, active) ->
+  $(".google-plus-toggle").on "toggle", (e, active) ->
     user_id                   = $(this).attr 'user_id'
     if active
        #$.getScript("/user/users/" + user_id + "/authorization_providers/facebook/?submit=1")

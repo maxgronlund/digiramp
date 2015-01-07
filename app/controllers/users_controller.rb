@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   
   def index
   
-    #@users = User.search(params[:query]).order('lower(user_name) ASC').page(params[:page]).per(48)
+    
     
     if params[:commit] == 'Go'
       @whipe_users = true
@@ -19,9 +19,22 @@ class UsersController < ApplicationController
     session[:user_query] = nil if params[:clear] == 'clear'
     params[:query]  = session[:user_query]
     
-    @users = User.public_profiles.search(params[:query]).page(params[:page]).per(8)
+    
+    
+    if params[:latest]
+      @users = User.public_profiles.order('created_at desc').page(params[:page]).per(8)
+    
+    elsif params[:featured]
+      @users = User.public_profiles.where(featured: true).order('featured_date desc').page(params[:page]).per(8)
+    
+    elsif params[:followers]
+      @users = User.public_profiles.order('uniq_followers_count desc').page(params[:page]).per(8)
+    
+    else
+       @users = User.public_profiles.search(params[:query]).page(params[:page]).per(8)
+    end
 
-    #@users = User.page(params[:page]).per(4)
+
     @user  = current_user if current_user
     
   end

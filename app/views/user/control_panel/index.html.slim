@@ -134,9 +134,9 @@
             '&nbsp;Facebook
             .pull-right
               - if authorization_provider = @user.authorization_providers.where(provider: 'facebook').first
-                .facebook.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
+                .facebook-toggle.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
               - else 
-                .facebook.toggle-light  user_id="#{@user.id}"
+                .facebook-toggle.toggle-light  user_id="#{@user.id}"
             .sexy_line
             
             / twitter -------------------
@@ -144,9 +144,9 @@
             '&nbsp;Twitter
             .pull-right
               - if authorization_provider = @user.authorization_providers.where(provider: 'twitter').first
-                .twitter.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
+                .twitter-toggle.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
               - else 
-                .twitter.toggle-light  user_id="#{@user.id}"
+                .twitter-toggle.toggle-light  user_id="#{@user.id}"
             .sexy_line
             
             / linkedin -------------------
@@ -154,9 +154,9 @@
             '&nbsp;Linkedin
             .pull-right
               - if authorization_provider = @user.authorization_providers.where(provider: 'linkedin').first
-                .linkedin.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
+                .linkedin-toggle.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
               - else 
-                .linkedin.toggle-light  user_id="#{@user.id}"
+                .linkedin-toggle.toggle-light  user_id="#{@user.id}"
             .sexy_line
             
             / google+  -------------------
@@ -164,9 +164,9 @@
             '&nbsp;Google+
             .pull-right
               - if authorization_provider = @user.authorization_providers.where(provider: 'gplus').first
-                .google-plus.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
+                .google-plus-toggle.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
               - else 
-                .google-plus.toggle-light  user_id="#{@user.id}"
+                .google-plus-toggle.toggle-light  user_id="#{@user.id}"
             .sexy_line
       
       

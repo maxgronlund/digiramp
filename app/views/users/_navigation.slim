@@ -1,0 +1,9 @@
+ul.nav.nav-pills
+  li  class="#{ params[:clear] == 'clear' ? 'active' : ''}"
+    = link_to 'All', users_path(clear: 'clear')
+  li  class="#{ params[:latest] == 'true' ? 'active' : ''}"
+    = link_to 'Latest', users_path(latest: true)
+  li  class="#{ params[:followers] == 'true' ? 'active' : ''}"
+    = link_to 'Most followed', users_path(followers: true)
+  li  class="#{ params[:featured] == 'true' ? 'active' : ''}"
+    = link_to 'Featured', users_path(featured: true)

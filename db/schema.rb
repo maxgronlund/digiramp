@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150105134706) do
+ActiveRecord::Schema.define(version: 20150107002534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2113,6 +2113,7 @@ ActiveRecord::Schema.define(version: 20150105134706) do
     t.text     "search_field",           default: ""
     t.boolean  "featured",               default: false
     t.datetime "featured_date"
+    t.string   "uniq_followers_count"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
