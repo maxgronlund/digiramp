@@ -69,7 +69,7 @@ class RecordingsController < ApplicationController
           end
         end
         
-        recording.title = recording.original_file_name if recording.title.to_s == ''
+        recording.title = recording.original_file_name.gsub('.mp3', '').gsub('.MP3', '') if recording.title.to_s == ''
         recording.save
         recording.common_work.update_completeness
         @recording = recording

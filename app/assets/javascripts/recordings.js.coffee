@@ -14,9 +14,12 @@ ready = ->
 
 
       
-  $("input[type='checkbox']").click ->
-    enable_next_button()
-    
+  #$("input[type='checkbox']").click ->
+  #  enable_next_button()
+  $("input").on "ifToggled", (event) ->
+    if $(".recording_acceptance_of_terms").length > 0
+      enable_next_button()
+    return
 
 
   $("#recording_file").change ->

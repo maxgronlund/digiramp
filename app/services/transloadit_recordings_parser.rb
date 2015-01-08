@@ -209,7 +209,7 @@ class TransloaditRecordingsParser
   end
   
   def self.sanitize_title title
-    title.gsub(/(^\d{2}\s)/, '')
+    title.gsub(/(^\d{2}\s)/, '').gsub( '.mp3', '').gsub( '.MP3', '')
   end
   
   def self.sanitize_comment comment
