@@ -42,6 +42,8 @@ cap production "logs:tail[unicorn]"  <<< IMPORTANT if there is problems
 cap production "logs:tail[sidekiq]"
 
 * ...
+cd apps/digiramp_production/current
+bundle exec rails c -e production
 
 
 Please feel free to use a different markup language if you do not plan to run

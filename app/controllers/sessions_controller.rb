@@ -103,6 +103,7 @@ private
         
     unless account        = Account.where(user_id: user.id).first
       account             = User.create_a_new_account_for_the user
+      ap user
     end
     account.visits        += 1
     account.save!

@@ -261,7 +261,7 @@ class User < ActiveRecord::Base
   
   def set_default_avatar
 
-    if self.image_url == "/assets/fallback/default.jpg" 
+    if self.image_url.include?("/assets/fallback/default" )
       prng      = Random.new
       random_id =  prng.rand(12)
 
