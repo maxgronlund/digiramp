@@ -158,6 +158,8 @@ class User < ActiveRecord::Base
   
   has_many :clients
   
+  has_many :forums, dependent: :destroy
+  
   def user_activities
     self.wall_posts.where(user_id: self.id)
   end
@@ -788,6 +790,8 @@ class User < ActiveRecord::Base
       publish_actions_permission          = permissions.find { |permission| permission["permission"] == "publish_actions" }
       publish_actions_permission_granted  = publish_actions_permission && publish_actions_permission["status"] == "granted"
       return publish_actions_permission_granted
+    else
+      # do something
     end
     false
   end

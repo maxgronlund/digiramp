@@ -1,0 +1,102 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities' 
+  
+  - if current_user
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'users/shared/sidebar', selected: 'recordings'
+
+  - else
+    #sidebar-wrapper
+      .sidebar-ad.sidebar-top-ad
+        == render 'admin/digiramp_ads/show', identifier: 'signup to submit to opportunity'
+
+      #terms
+        /= link_to 'Terms And Conditions', terms_and_conditions_path
+        == render 'admin/digiramp_ads/show', identifier: 'signup to participate on forum'
+    
+
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path  
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Forum
+            .help-button
+              == render 'admin/helps/help', identifier: 'public forum'
+          
+        .col-sm-6.pull-down-10
+          .pull-right
+            - if current_user
+              = link_to 'New Forum', new_user_forum_path( current_user ), class: 'btn btn-primary'
+      .sexy_line
+      .forums
+        - @forums.each do |forum|
+          = debug forum
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/h1 Listing forums
+/
+/table
+/  thead
+/    tr
+/      th Title
+/      th Body
+/      th Image
+/      th User
+/      th Public forum
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @forums.each do |forum|
+/      tr
+/        td = forum.title
+/        td = forum.body
+/        td = forum.image
+/        td = forum.user
+/        td = forum.public_forum
+/        td = link_to 'Show', forum
+/        td = link_to 'Edit', edit_forum_path(forum)
+/        td = link_to 'Destroy', forum, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Forum', new_forum_path
+/

@@ -1,0 +1,55 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities' 
+  
+  - if current_user
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'users/shared/sidebar', selected: 'recordings'
+
+  - else
+    #sidebar-wrapper
+      .sidebar-ad.sidebar-top-ad
+        == render 'admin/digiramp_ads/show', identifier: 'signup to submit to opportunity'
+
+      #terms
+        /= link_to 'Terms And Conditions', terms_and_conditions_path
+        == render 'admin/digiramp_ads/show', identifier: 'signup to participate on forum'
+    
+
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path  
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Forum
+            .help-button
+              == render 'admin/helps/help', identifier: 'public forum'
+          
+        .col-sm-6.pull-down-10
+          .pull-right
+            - if current_user
+              = link_to 'New Forum', new_user_forum_path( current_user ), class: 'btn btn-primary'
+      .sexy_line
+      
+        .forums
+          == render 'forums/form'
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

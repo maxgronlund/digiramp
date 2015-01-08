@@ -1,0 +1,67 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities' 
+  
+  - if current_user
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'users/shared/sidebar', selected: 'recordings'
+
+  - else
+    #sidebar-wrapper
+      .sidebar-ad.sidebar-top-ad
+        == render 'admin/digiramp_ads/show', identifier: 'signup to participate on forum'
+
+
+        
+    
+
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path  
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 = @forum.title
+      .sexy_line
+      .digi-box
+        .row
+          .col-sm-6
+            = @forum.body
+            p
+              strong Image:
+              = @forum.image
+            p
+              strong User:
+              = @forum.user
+            p
+              strong Public forum:
+              = @forum.public_forum
+        
+            = link_to 'Edit', edit_user_forum_path(@forum.user, @forum)
+            '|
+            = link_to 'Back', forums_path
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+

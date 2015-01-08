@@ -2,7 +2,7 @@ class FbRecordingCommentWorker
   include Sidekiq::Worker
   
   def perform comment_id
-    if share_on_facebook = ShareOnFacebook.cached_find(comment_id)
+    if share_on_facebook = ShareOnFacebook.find(comment_id)
       
       user      = share_on_facebook.user
       recording = share_on_facebook.recording

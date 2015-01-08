@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150108100029) do
+ActiveRecord::Schema.define(version: 20150108115333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -919,6 +919,56 @@ ActiveRecord::Schema.define(version: 20150108100029) do
 
   add_index "footages", ["account_id"], name: "index_footages_on_account_id", using: :btree
   add_index "footages", ["footageable_id", "footageable_type"], name: "index_footages_on_footageable_id_and_footageable_type", using: :btree
+
+  create_table "forum_likes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "forum_post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "forum_likes", ["forum_post_id"], name: "index_forum_likes_on_forum_post_id", using: :btree
+  add_index "forum_likes", ["user_id"], name: "index_forum_likes_on_user_id", using: :btree
+
+  create_table "forum_posts", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "image"
+    t.integer  "user_id"
+    t.integer  "forum_id"
+    t.string   "uniq_likes"
+    t.boolean  "published"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "forum_posts", ["forum_id"], name: "index_forum_posts_on_forum_id", using: :btree
+  add_index "forum_posts", ["user_id"], name: "index_forum_posts_on_user_id", using: :btree
+
+  create_table "forum_replies", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "replyable_id"
+    t.string   "replyable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "forum_replies", ["replyable_id", "replyable_type"], name: "index_forum_replies_on_replyable_id_and_replyable_type", using: :btree
+  add_index "forum_replies", ["user_id"], name: "index_forum_replies_on_user_id", using: :btree
+
+  create_table "forums", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "image"
+    t.integer  "user_id"
+    t.boolean  "public_forum"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "forums", ["user_id"], name: "index_forums_on_user_id", using: :btree
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false

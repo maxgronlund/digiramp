@@ -1,0 +1,27 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @forum_post.title
+p
+  strong Body:
+  = @forum_post.body
+p
+  strong Image:
+  = @forum_post.image
+p
+  strong User:
+  = @forum_post.user
+p
+  strong Forum:
+  = @forum_post.forum
+p
+  strong Uniq likes:
+  = @forum_post.uniq_likes
+p
+  strong Published:
+  = @forum_post.published
+
+= link_to 'Edit', edit_forum_post_path(@forum_post)
+'|
+= link_to 'Back', forum_posts_path

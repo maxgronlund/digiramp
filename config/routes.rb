@@ -6,6 +6,9 @@ Digiramp::Application.routes.draw do
 
   
 
+  resources :forum_posts
+  resources :forums, only: [:index, :show]
+
   resources :disqus
 
   resources :selected_opportunities, only: [:show]
@@ -305,6 +308,7 @@ Digiramp::Application.routes.draw do
     #end
     #resources :connections, only: [:index, :create, :update, :destroy]
     #resources :contacts
+    resources :forums
     resources :messages
     resources :received_messages, only: [:index]
     resources :unread_messages, only: [:index]

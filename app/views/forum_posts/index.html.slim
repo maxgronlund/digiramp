@@ -1,0 +1,33 @@
+h1 Listing forum_posts
+
+table
+  thead
+    tr
+      th Title
+      th Body
+      th Image
+      th User
+      th Forum
+      th Uniq likes
+      th Published
+      th
+      th
+      th
+
+  tbody
+    - @forum_posts.each do |forum_post|
+      tr
+        td = forum_post.title
+        td = forum_post.body
+        td = forum_post.image
+        td = forum_post.user
+        td = forum_post.forum
+        td = forum_post.uniq_likes
+        td = forum_post.published
+        td = link_to 'Show', forum_post
+        td = link_to 'Edit', edit_forum_post_path(forum_post)
+        td = link_to 'Destroy', forum_post, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Forum post', new_forum_post_path
