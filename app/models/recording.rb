@@ -129,9 +129,10 @@ class Recording < ActiveRecord::Base
     VOCAL_HASH << [k,k]
   end
   
-  def update_relations
-    self.save!
-  end
+  #def update_relations
+  #  self.save!
+  #end
+  
   
   
   def send_notifications_on_create

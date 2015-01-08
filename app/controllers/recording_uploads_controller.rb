@@ -42,6 +42,7 @@ class RecordingUploadsController < ApplicationController
         #recording.title = title unless title == 'no title'
         #recording.save
         #recording.common_work.update_completeness
+        #recording.title = File.basename(recording.original_file_name, ".*") 
         @recording = recording
 
       end

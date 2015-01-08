@@ -179,7 +179,7 @@ class User < ActiveRecord::Base
     self.recordings.each do |recording|
       recording.user_id = User.system_user.id
       recording.privacy = 'Only me'
-      recording.update_relations
+      recording.save!
     end
     
   end
