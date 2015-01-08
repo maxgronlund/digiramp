@@ -16,8 +16,11 @@
     .container-fluid 
       .row
         .col-sm-5
-
-          h2 Recordings
+          .help
+            .help-text
+              h2 Recordings
+            .help-button
+              == render 'admin/helps/help', identifier: 'user recordings'
       
         .col-sm-7
           .search-recording

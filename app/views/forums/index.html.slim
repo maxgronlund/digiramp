@@ -37,7 +37,8 @@
       .sexy_line
       .forums
         - @forums.each do |forum|
-          = debug forum
+          == render 'forums/show', forum: forum
+          /= debug forum
       
       
       

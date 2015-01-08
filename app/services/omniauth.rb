@@ -109,13 +109,12 @@ private
       info = auth[:info]
     when 'facebook', 'twitter'
       info = get_info_from_extra auth
-
     else
       return false
     end
     
     if info
-      ap info
+      
       if info[:name]
         # create the account
         account = Account.create( title: info[:name], 

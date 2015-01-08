@@ -64,9 +64,15 @@
   
   #page-content-wrapper
     .container-fluid
+
       .row
         .col-sm-5
-          h2 Recordings
+          .help
+            .help-text
+              h2 Recordings
+            .help-button
+              == render 'admin/helps/help', identifier: 'all recordings'
+
         .col-sm-7
           .search-recording
             = simple_form_for :recording, :url => url_for(:action => 'index', \
