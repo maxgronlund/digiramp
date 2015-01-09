@@ -1,11 +1,11 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'opportunities' 
+    == render 'shared/navigationbar', page: 'forums' 
   
   - if current_user
     #sidebar-wrapper
       ul class="sidebar-nav"
-        == render 'users/shared/sidebar', selected: 'recordings'
+        == render 'users/shared/sidebar', selected: 'forums'
 
   - else
     #sidebar-wrapper
@@ -21,6 +21,40 @@
   
   #page-content-wrapper
     .container-fluid
+      h2 Edit reply
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [ @reply ] do |f|
+              /.row
+              /  .col-sm-6
+              /    = f.input :title
+              /  .col-sm-6
+              /    = f.input :image
+              .row
+                .col-sm-12
+                  div id="toolbar" class="wysihtml5-toolbar"
+                    a data-wysihtml5-command="bold" Bold
+                    '&nbsp; 
+                    a data-wysihtml5-command="italic" Italic
+                    .pull-right
+                      a data-wysihtml5-action="change_view"  Html 
+                  
+                  =f.input :body, label: false, :input_html => {  style: "height: 240px;", placeholder: "Description", id: 'wysihtml5_editor'}
+                  /= f.input :image
+                  /= f.hidden_field :user_id, value: current_user.id
+                  /= f.hidden_field :replyable_id, value: forum_post.id
+                  /= f.hidden_field :replyable_type, value: forum_post.class.name
+                  /= f.input :uniq_likes
+                  /= f.input :published
+                  
+                  
+              .row  
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-primary'
+            
       /== render 'shared/breadcrumbs', breadcrumbs: { links: { forums: forums_path, \
       /                                                        @forum_post.forum.title.to_sym => forum_path( @forum_post.forum) }, \
       /                                                        current: ''}

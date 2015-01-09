@@ -1,5 +1,5 @@
 class RepliesController < ApplicationController
-  before_action :set_reply, only: [:update, :destroy]
+  before_action :set_reply, only: [:update, :destroy, :edit]
   
   def create
     @reply = Reply.create(reply_params)
@@ -8,6 +8,10 @@ class RepliesController < ApplicationController
   end
 
   def update
+    @reply.update(reply_params)
+    @forum_post = ForumPost.find(@reply.replyable_id)
+    redirect_to forum_post_path(@forum_post)
+    
   end
 
   def destroy
@@ -16,7 +20,7 @@ class RepliesController < ApplicationController
   end
   
   def edit
-    
+    @user = current_user
   end
   
   private
