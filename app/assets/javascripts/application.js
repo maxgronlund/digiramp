@@ -24,7 +24,7 @@
 // require jquery_nested_form
 //= require simple
 //= require super_simple_wysiwyg
-//= require wysihtml
+//= require wysihtml5-0.4.0pre
 // require soundmanager2-nodebug-jsmin
 //= require soundmanager2
 // require soundmanager2-jsmin
