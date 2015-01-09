@@ -21,7 +21,7 @@
                   .playlist-image
                     = image_tag( @playlist.playlist_image_url :image_270x270)
                   .playlist-info
-                    = @playlist.body
+                    = simple_format @playlist.body
                     - if current_user && current_user == @user.id || super?
                       .row
                         .col-sm-12
