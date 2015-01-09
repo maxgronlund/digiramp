@@ -24,7 +24,7 @@
 // require jquery_nested_form
 //= require simple
 //= require super_simple_wysiwyg
-//= require wysihtml5-0.4.0pre
+//= require wysihtml
 // require soundmanager2-nodebug-jsmin
 //= require soundmanager2
 // require soundmanager2-jsmin
@@ -66,6 +66,7 @@
 //= require contacts
 //= require toggles
 //= require control_panel
+//= require replies
 // require disqus
 // require bootstrapValidator.min
 // require bootstrap-tokenfield

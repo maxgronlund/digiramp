@@ -1,11 +1,11 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'opportunities' 
+    == render 'shared/navigationbar', page: 'forums' 
   
   - if current_user
     #sidebar-wrapper
       ul class="sidebar-nav"
-        == render 'users/shared/sidebar', selected: 'recordings'
+        == render 'users/shared/sidebar', selected: 'forums'
 
   - else
     #sidebar-wrapper
@@ -26,18 +26,21 @@
         .col-sm-6
           .help
             .help-text
-              h2 Forum
+              h2 Create a new forum
             .help-button
               == render 'admin/helps/help', identifier: 'public forum'
           
         .col-sm-6.pull-down-10
           .pull-right
-            - if current_user
-              = link_to 'New Forum', new_user_forum_path( current_user ), class: 'btn btn-primary'
+            = link_to forums_path do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;
+                'Back
       .sexy_line
-      
-        .forums
-          == render 'forums/form'
+      .pull-down-12
+      .forums
+        == render 'forums/form'
       
       
       

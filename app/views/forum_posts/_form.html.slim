@@ -1,14 +1,28 @@
-= simple_form_for(@forum_post) do |f|
-  = f.error_notification
-
-  .form-inputs
-    = f.input :title
-    = f.input :body
-    = f.input :image
-    = f.association :user
-    = f.association :forum
-    = f.input :uniq_likes
-    = f.input :published
-
-  .form-actions
-    = f.button :submit
+.row
+  .col-sm-6
+    .digi-box
+      = simple_form_for [ @forum_post.user, @forum_post ] do |f|
+        = f.error_notification
+      
+        .form-inputs
+          = f.input :title
+          
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
+            .pull-right
+              a data-wysihtml5-action="change_view"  Html 
+          
+          =f.input :body, label: false, :input_html => {  style: "height: 240px;", placeholder: "Description", id: 'wysihtml5_editor'}
+          /= f.input :image
+          = f.hidden_field :user_id, value: @forum_post.user_id
+          = f.hidden_field :forum_id, value: @forum_post.forum_id
+          /= f.input :uniq_likes
+          = f.input :published,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
+        .row
+          .col-sm-12
+            .pull-right
+              .form-actions
+                .pull-right
+                  = f.submit 'Save', class: 'btn btn-primary'

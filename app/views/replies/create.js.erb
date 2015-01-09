@@ -1,0 +1,5 @@
+$(".new-replies").append('<%=j render("forum_posts/reply", reply: @reply) %>');
+
+
+$('.forum_post_reply_form').empty()
+$(".forum_post_reply_form").append('<%=j render("forum_posts/reply_form", forum_post: @forum_post) %>');

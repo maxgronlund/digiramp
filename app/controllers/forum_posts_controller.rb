@@ -10,15 +10,18 @@ class ForumPostsController < ApplicationController
   # GET /forum_posts/1
   # GET /forum_posts/1.json
   def show
+    @user = current_user
   end
 
   # GET /forum_posts/new
   def new
     @forum_post = ForumPost.new
+    @user = current_user
   end
 
   # GET /forum_posts/1/edit
   def edit
+    @user = current_user
   end
 
   # POST /forum_posts
@@ -54,11 +57,10 @@ class ForumPostsController < ApplicationController
   # DELETE /forum_posts/1
   # DELETE /forum_posts/1.json
   def destroy
+    
+    @forum = @forum_post.forum
     @forum_post.destroy
-    respond_to do |format|
-      format.html { redirect_to forum_posts_url, notice: 'Forum post was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    
   end
 
   private

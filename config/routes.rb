@@ -3,12 +3,19 @@ Digiramp::Application.routes.draw do
 
 
 
-
   
 
-  resources :forum_posts
-  resources :forums, only: [:index, :show]
+  get 'replies/create'
 
+  get 'replies/update'
+
+  get 'replies/destroy'
+
+  resources :forum_posts
+  resources :forums, only: [:index, :show, :destroy]
+  resources :replies, only: [ :create, :update, :destroy, :edit]
+  
+  
   resources :disqus
 
   resources :selected_opportunities, only: [:show]
@@ -309,8 +316,10 @@ Digiramp::Application.routes.draw do
     #resources :connections, only: [:index, :create, :update, :destroy]
     #resources :contacts
     resources :forums
+    resources :forum_posts, only: [:edit, :update]
     resources :messages
     resources :received_messages, only: [:index]
+    resources :replies
     resources :unread_messages, only: [:index]
     resources :send_messages, only: [:index]
     resources :recording_basics, only: [:edit, :update]

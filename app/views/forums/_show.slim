@@ -1,0 +1,49 @@
+div id="delete_forum_#{forum.id.to_s}"
+
+  .digi-box
+    .forum
+      - if show_heading
+        .forum-head
+          .title
+            = link_to forum_path( forum)
+              h3 = forum.title
+          .posts-count  
+            = pluralize(forum.forum_posts.count, 'Tread')  
+        .sexy_line
+      .forum-body
+        .user
+          .user-avatar
+            = link_to  user_path(forum.user) do
+              = image_tag( forum.user.image_url(:avatar_48x48))
+          .user-name
+            b = forum.user.user_name
+            br
+            i = forum.created_at.strftime("%d %b %Y")
+        .content
+          = simple_format forum.body
+    .row
+      .col-sm-12
+        .pull-right
+          - if read_more
+            = link_to 'Read more', forum_path( forum), class: 'btn btn-default btn-xs'
+          - if super?
+            /=< link_to edit_user_forum_path(forum.user, forum) do
+            /  .btn.btn-default.btn-xs
+            /    i.fa.fa-pencil
+            - if delete_forum
+              =< link_to user_forum_path(forum.user, forum), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
+                .btn.btn-danger.btn-xs
+                  i class="fa fa-times"
+  
+  
+/.row
+/  .col-sm-12
+/    .pull-right
+/      = link_to 'Read more', user_forum_path(forum.user, forum), class: 'btn btn-default'
+/      - if super?
+/        =< link_to user_forum_path(forum.user, forum), data: { confirm: 'Are you sure?' } , :method => :delete do
+/          .btn.btn-danger
+/            i class="fa fa-times"
+/      
+/
+

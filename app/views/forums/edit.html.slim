@@ -1,8 +1,121 @@
-h1 Editing forum
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities' 
+  
+  - if current_user
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'users/shared/sidebar', selected: 'recordings'
 
-== render 'form'
+  - else
+    #sidebar-wrapper
+      .sidebar-ad.sidebar-top-ad
+        == render 'admin/digiramp_ads/show', identifier: 'signup to submit to opportunity'
 
-= link_to 'Show', @forum
-'|
-= link_to 'Back', forums_path
+      #terms
+        /= link_to 'Terms And Conditions', terms_and_conditions_path
+        == render 'admin/digiramp_ads/show', identifier: 'signup to participate on forum'
+    
 
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path  
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Edit forum
+            .help-button
+              == render 'admin/helps/help', identifier: 'edit forum'
+          
+        .col-sm-6.pull-down-10
+          .pull-right
+            = link_to forum_path(@forum) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;
+                'Back
+      .sexy_line
+      .pull-down-12
+      = simple_form_for [current_user, @forum] do |f|
+        .digi-box
+          .forum
+            .forum-head
+              .title
+                = f.input :title
+              .posts-count  
+                /= pluralize(@forum_post.count, 'Tread')  
+            .sexy_line
+            .forum-body
+              .user
+                .user-avatar
+                  = image_tag( @forum.user.image_url(:avatar_48x48))
+                .user-name
+                  b = @forum.user.user_name
+                  br
+                  i = @forum.created_at.strftime("%d %b %Y")
+                
+                
+              .content
+                = f.input :public_forum,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
+                div id="toolbar" class="wysihtml5-toolbar"
+                  a data-wysihtml5-command="bold" Bold
+                  '&nbsp; 
+                  a data-wysihtml5-command="italic" Italic
+                  .pull-right
+                    a data-wysihtml5-action="change_view"  Html
+                =f.input :body, label: false, :input_html => {  style: "height: 240px;", placeholder: "Description", id: 'wysihtml5_editor'}
+                .row
+                  .col-sm-12
+                    .pull-right
+                      .form-actions
+                        = f.submit 'Save', class: 'btn btn-primary'
+      /= simple_form_for [current_user, @forum] do |f|
+      /  = f.error_notification
+      /  .row
+      /    .col-sm-7.col-xs-12.col-lg-5
+      /      .digi-box
+      /        .form-inputs
+      /          = f.input :title
+      /          div id="toolbar" class="wysihtml5-toolbar"
+      /            a data-wysihtml5-command="bold" Bold
+      /            '&nbsp; 
+      /            a data-wysihtml5-command="italic" Italic
+      /            .pull-right
+      /              a data-wysihtml5-action="change_view"  Html 
+      /    
+      /          =f.input :body, label: false, :input_html => {  style: "height: 240px;", placeholder: "Description", id: 'wysihtml5_editor'}
+      /    
+      /    
+      /          = f.input :image
+      /          = f.hidden_field :user_id, value: current_user.id
+      /          = f.input :public_forum,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+      /
+      /      .row
+      /        .col-sm-12
+      /          .pull-right
+      /            .form-actions
+      /              = f.submit 'Save', class: 'btn btn-primary'
+      /
+      
+      
+      
+      /.forums
+      /  == render 'forums/form'
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

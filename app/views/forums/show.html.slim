@@ -21,31 +21,116 @@
   
   #page-content-wrapper
     .container-fluid
-      h2 = @forum.title
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { forums: forums_path }, current: ''}
+      .row
+        .col-sm-8
+          h2 = @forum.title
+        .col-sm-4.pull-down-12
+          .pull-right
+            => link_to forums_path do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;
+                'Back
+            = link_to edit_user_forum_path(@forum.user, @forum) do
+              .btn.btn-primary
+                i.fa.fa-pencil
+                '&nbsp;Edit
       .sexy_line
-      .digi-box
-        .row
-          .col-sm-6
-            = @forum.body
-            p
-              strong Image:
-              = @forum.image
-            p
-              strong User:
-              = @forum.user
-            p
-              strong Public forum:
-              = @forum.public_forum
+      .pull-down-10
+      == render 'forums/show', forum: @forum, read_more: false, delete_forum: false, show_heading: false
+      .row
+        .col-sm-12
+          .pul-down-10
+            h4 Treads
+            - @forum.forum_posts.each do |forum_post|
+              == render 'forum_posts/show', forum_post: forum_post, read_more: true, delete_forum_post: true, show_heading: true
+            .add_forum_post
+      
+      - if current_user  
+        .digi-box
+          .forum
+            
+            
+            = link_to '#newTread', 'data-toggle'.to_sym => "collapse", 'aria-expanded'.to_sym => "false", 'aria-controls'.to_sym => "collapseExample" do
+              .forum-head
+                .title
+                  h3 Create new tread
+                .posts-count 
+                  .btn.btn-default
+                    'Open form
+              
+            div class="collapse" id="newTread"
+              .sexy_line.pull-down-10
+              .forum-body
+                .user
+                  .user-avatar
+                    = link_to  user_path(current_user) do
+                      = image_tag( current_user.image_url(:avatar_48x48))
+                    
+                  .user-name
+                    b = current_user.user_name
+                .content
+                  = simple_form_for [ ForumPost.new ] do |f|
+                    = f.input :title
+                    
+                    div id="toolbar" class="wysihtml5-toolbar"
+                      a data-wysihtml5-command="bold" Bold
+                      '&nbsp; 
+                      a data-wysihtml5-command="italic" Italic
+                      .pull-right
+                        a data-wysihtml5-action="change_view"  Html 
+                    
+                    =f.input :body, label: false, :input_html => {  style: "height: 240px;", placeholder: "Description", id: 'wysihtml5_editor'}
+                    /= f.input :image
+                    = f.hidden_field :user_id, value: current_user.id
+                    = f.hidden_field :forum_id, value: @forum.id
+                    /= f.input :uniq_likes
+                    /= f.input :published
+                    
+                    
+                    .row  
+                      .col-sm-12
+                        .pull-right
+                          = f.submit 'Create', class: 'btn btn-primary'
+              
+
         
-            = link_to 'Edit', edit_user_forum_path(@forum.user, @forum)
-            '|
-            = link_to 'Back', forums_path
-      
-      
-      
-      
-      
-      
+        /.row
+        /  .col-sm-6
+        /    .digi-box
+        /      h4 
+        /        'Create new tread on:
+        /        =< @forum.title
+        /      .sexy_line
+        /      .row  
+        /        .col-sm-12
+        /
+        /          = simple_form_for [ ForumPost.new ] do |f|
+        /            = f.input :title
+        /
+        /            div id="toolbar" class="wysihtml5-toolbar"
+        /              a data-wysihtml5-command="bold" Bold
+        /              '&nbsp; 
+        /              a data-wysihtml5-command="italic" Italic
+        /              .pull-right
+        /                a data-wysihtml5-action="change_view"  Html 
+        /            
+        /            =f.input :body, label: false, :input_html => {  style: "height: 240px;", placeholder: "Description", id: 'wysihtml5_editor'}
+        /            /= f.input :image
+        /            = f.hidden_field :user_id, value: current_user.id
+        /            = f.hidden_field :forum_id, value: @forum.id
+        /            /= f.input :uniq_likes
+        /            /= f.input :published
+        /            
+        /            
+        /            .row  
+        /              .col-sm-12
+        /                .pull-right
+        /                  = f.submit 'Create', class: 'btn btn-primary'
+        /    
+          
+              
       
       
       

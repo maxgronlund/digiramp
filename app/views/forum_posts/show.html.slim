@@ -1,27 +1,133 @@
-p#notice = notice
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'forums' 
+  
+  - if current_user
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'users/shared/sidebar', selected: 'forums'
 
-p
-  strong Title:
-  = @forum_post.title
-p
-  strong Body:
-  = @forum_post.body
-p
-  strong Image:
-  = @forum_post.image
-p
-  strong User:
-  = @forum_post.user
-p
-  strong Forum:
-  = @forum_post.forum
-p
-  strong Uniq likes:
-  = @forum_post.uniq_likes
-p
-  strong Published:
-  = @forum_post.published
+  - else
+    #sidebar-wrapper
+      .sidebar-ad.sidebar-top-ad
+        == render 'admin/digiramp_ads/show', identifier: 'signup to participate on forum'
 
-= link_to 'Edit', edit_forum_post_path(@forum_post)
-'|
-= link_to 'Back', forum_posts_path
+
+        
+    
+
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path  
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { forums: forums_path, \
+                                                              @forum_post.forum.title.to_sym => forum_path( @forum_post.forum) }, \
+                                                              current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+             h2 = @forum_post.title
+
+          
+        .col-sm-6.pull-down-10
+          .pull-right
+            - if current_user
+              => link_to forum_path( @forum_post.forum ) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Back
+            
+              - if @forum_post.user_id == current_user.id || super?
+                = link_to 'Edit', edit_user_forum_post_path(@forum_post.user, @forum_post), class: 'btn btn-primary'
+                    
+
+      .sexy_line
+      == render 'forum_posts/show', forum_post: @forum_post, read_more: false, delete_forum_post: false , show_heading: false
+
+      
+      .row
+        .col-sm-12
+          .pul-down-10
+            h4 Posts
+            - if replies = Reply.where(replyable_type: 'ForumPost', replyable_id: @forum_post.id)
+              - replies.order('created_at asc').each do |reply|
+                == render 'forum_posts/reply', reply: reply
+            .new-replies
+          
+          
+          - if current_user
+            .forum_post_reply_form
+              == render 'forum_posts/reply_form', forum_post: @forum_post
+              
+      
+      
+      
+      
+      
+      
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/p#notice = notice
+/
+/p
+/  strong Title:
+/  = @forum_post_post.title
+/p
+/  strong Body:
+/  = @forum_post_post.body
+/p
+/  strong Image:
+/  = @forum_post_post.image
+/p
+/  strong User:
+/  = @forum_post_post.user
+/p
+/  strong Forum:
+/  = @forum_post_post.forum
+/p
+/  strong Uniq likes:
+/  = @forum_post_post.uniq_likes
+/p
+/  strong Published:
+/  = @forum_post_post.published
+/
+/= link_to 'Edit', edit_forum_post_path(@forum_post_post)
+/'|
+/= link_to 'Back', forum_posts_path

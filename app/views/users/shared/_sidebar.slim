@@ -67,6 +67,12 @@
         i class="fa fa-life-ring"
         '&nbsp;
         'Support
+        
+  li class="#{'sidebar-selected' if selected == 'forums'}"
+    = link_to forums_path do
+      i.fa.fa-comments-o
+      '&nbsp;
+      'Forums
 
   
 /.sidebar-ad

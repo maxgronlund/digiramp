@@ -1,0 +1,64 @@
+div id="remove_forum_post_#{forum_post.id}"
+  .digi-box
+    .forum
+      - if show_heading
+        .forum-head
+          .title
+            = link_to forum_post_path( forum_post)
+              h3 = forum_post.title
+          .posts-count
+            span.label.label-success
+              = pluralize(forum_post.replies.count, 'Post')  
+        .sexy_line
+      .forum-body
+        .user
+          .user-avatar
+            = link_to  user_path(forum_post.user) do
+              = image_tag( forum_post.user.image_url(:avatar_48x48))
+          .user-name
+            b = forum_post.user.user_name
+            br
+            i = "#{time_ago_in_words(forum_post.created_at) } ago"
+            
+        .content
+          = simple_format forum_post.body
+    .row
+      .col-sm-12
+        .pull-right
+          - if read_more
+            = link_to 'Read more', forum_post_path(forum_post), class: 'btn btn-default btn-xs'
+          - if current_user
+            -if current_user.id && forum_post.user_id || super?
+              /=< link_to edit_user_forum_post_path(forum_post.user, forum_post) do
+              /  .btn.btn-default.btn-xs
+              /    i.fa.fa-pencil
+              - if delete_forum_post
+                =< link_to forum_post_path( forum_post ), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
+                  .btn.btn-danger.btn-xs
+                    i class="fa fa-times"
+                  
+                 
+/.digi-box
+/  .row
+/    .col-sm-6
+/      = link_to user_path(forum_post.user)
+/        .avatar
+/          =image_tag( forum_post.user.image_url(:avatar_64x64))
+/        .user
+/          = forum_post.user.user_name
+/          br
+/          i = forum_post.created_at.strftime("%d %b %Y")
+/      
+/  
+/    .col-sm-6
+/      = simple_format forum_post.body
+/    .col-sm-6
+/  .row.pull-down-10
+/    .col-sm-12
+/      .pull-right
+/        - if current_user 
+/          - if current_user = forum_post.user || super?
+/            => link_to 'Edit', edit_forum_post_path( forum_post), class: 'btn btn-primary'
+/        == link_to 'Participate', forum_post_path, class: 'btn btn-default'
+/  
+/

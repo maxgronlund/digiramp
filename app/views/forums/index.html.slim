@@ -1,11 +1,11 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'opportunities' 
+    == render 'shared/navigationbar', page: 'forums' 
   
   - if current_user
     #sidebar-wrapper
       ul class="sidebar-nav"
-        == render 'users/shared/sidebar', selected: 'recordings'
+        == render 'users/shared/sidebar', selected: 'forums'
 
   - else
     #sidebar-wrapper
@@ -32,24 +32,13 @@
           
         .col-sm-6.pull-down-10
           .pull-right
-            - if current_user
+            - if super?
               = link_to 'New Forum', new_user_forum_path( current_user ), class: 'btn btn-primary'
       .sexy_line
-      .forums
-        - @forums.each do |forum|
-          == render 'forums/show', forum: forum
-          /= debug forum
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      - @forums.each do |forum|
+        == render 'forums/show', forum: forum, read_more: true, delete_forum: true, show_heading: true
+        
+
       
       
   == render 'shared/site_footer'    

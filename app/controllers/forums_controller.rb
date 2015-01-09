@@ -11,12 +11,12 @@ class ForumsController < ApplicationController
   # GET /forums/1
   # GET /forums/1.json
   def show
-    #@user   = current_user
+    @user   = current_user
   end
 
   # GET /forums/new
   def new
-    @forum = Forum.new
+    @forum = Forum.new(user_id: current_user.id, created_at: Time.now)
     @user   = current_user
   end
 
@@ -28,17 +28,18 @@ class ForumsController < ApplicationController
   # POST /forums
   # POST /forums.json
   def create
-    @forum = Forum.new(forum_params)
+    @forum = Forum.create(forum_params)
+    redirect_to @forum
 
-    respond_to do |format|
-      if @forum.save
-        format.html { redirect_to @forum}
-        format.json { render :show, status: :created, location: @forum }
-      else
-        format.html { render :new }
-        format.json { render json: @forum.errors, status: :unprocessable_entity }
-      end
-    end
+    #respond_to do |format|
+    #  if @forum.save
+    #    format.html { redirect_to @forum}
+    #    format.json { render :show, status: :created, location: @forum }
+    #  else
+    #    format.html { render :new }
+    #    format.json { render json: @forum.errors, status: :unprocessable_entity }
+    #  end
+    #end
   end
 
   # PATCH/PUT /forums/1
@@ -58,11 +59,12 @@ class ForumsController < ApplicationController
   # DELETE /forums/1
   # DELETE /forums/1.json
   def destroy
+    @forum_id = @forum.id
     @forum.destroy
-    respond_to do |format|
-      format.html { redirect_to forums_url, notice: 'Forum was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    #respond_to do |format|
+    #  format.html { redirect_to forums_url }
+    #  format.json { head :no_content }
+    #end
   end
 
   private
@@ -73,6 +75,6 @@ class ForumsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def forum_params
-      params.require(:forum).permit(:title, :body, :image, :user_id, :public_forum)
+      params.require(:forum).permit!
     end
 end

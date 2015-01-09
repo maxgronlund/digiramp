@@ -1,0 +1,34 @@
+
+.digi-box
+  h4 Write a new post
+  .sexy_line
+  .row  
+    .col-sm-12
+      = simple_form_for [ Reply.new ], remote: true do |f|
+        /.row
+        /  .col-sm-6
+        /    = f.input :title
+        /  .col-sm-6
+        /    = f.input :image
+        .row
+          .col-sm-12
+            div id="toolbar" class="wysihtml5-toolbar"
+              a data-wysihtml5-command="bold" Bold
+              '&nbsp; 
+              a data-wysihtml5-command="italic" Italic
+              .pull-right
+                a data-wysihtml5-action="change_view"  Html 
+            
+            =f.input :body, label: false, :input_html => {  style: "height: 240px;", placeholder: "Description", id: 'wysihtml5_editor'}
+            /= f.input :image
+            = f.hidden_field :user_id, value: current_user.id
+            = f.hidden_field :replyable_id, value: forum_post.id
+            = f.hidden_field :replyable_type, value: forum_post.class.name
+            /= f.input :uniq_likes
+            /= f.input :published
+            
+            
+        .row  
+          .col-sm-12
+            .pull-right
+              = f.submit 'Save', class: 'btn btn-default'
