@@ -41,35 +41,18 @@ class ShareOnFacebooksController < ApplicationController
         # bounce back and share after creating fb provider
         session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
         @redirect = true
-        # recreate provider
-        #session[:current_page] = session[:share_from_page]
-        #redirect_to "/auth/facebook", format: "html"
-        
-        
+
         
       else
         # the user is not linked with facebook
         #ap '>>>>>>>>>>>>>>>>> link user with facebook: to do bounce back <<<<<<<<<<<<<<<<<<<<<<<<<'
         session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
         @redirect = true
-        #redirect_to "/auth/facebook", format: "html"
       end
-      #ap '======= user signed in ========='
-      #
-      #if current_user.facebook
-      #  ap 'user is linked with facebook'
-      #  ap current_user.facebook
-      #else
-      #  ap 'link user with facebook: to do bounce back'
-      #  session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
-      #  redirect_to "/auth/facebook"
-      #end
     else
       #ap ' ========== user not signed in: sign in with facebook ========='
-      #ap ' if signin with facebook fails handle that gracefully ========='
       session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
       @redirect = true
-      #redirect_to "/auth/facebook", format: "html"
     end
 
   end

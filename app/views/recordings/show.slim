@@ -6,10 +6,10 @@
   <meta property="fb:app_id"             content="493734500765975" /> 
   <meta property="og:type"               content="music.song" /> 
   <meta property="og:url"                content="#{request.url}" /> 
-  <meta property="og:title"              content="#{@recording.title}" /> 
+  <meta property="og:title"              content="#{simple_format @recording.title}" /> 
   <meta property="og:image"              content="#{@recording.get_artwork}" /> 
-  <meta property="music:preview_url:url" content="#{@recording.title} URL: #{@recording.mp3.gsub('http', 'https') if @recording.mp3}" />
-  <meta property="og:description"        content="#{@recording.comment}" /> 
+  <meta property="music:preview_url:url" content="#{simple_format @recording.title} URL: #{@recording.mp3.gsub('http', 'https') if @recording.mp3}" />
+  <meta property="og:description"        content="#{simple_format @recording.comment}" /> 
   <meta property="og:audio"              content="#{@recording.mp3.gsub('http', 'https') if @recording.mp3 }" /> 
 /<meta property="og:audio:secure_url"   content="#{@recording.mp3.gsub('http', 'https')}" /> 
 /<meta property="og:audio:type"         content="audio/mpeg">
