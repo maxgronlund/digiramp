@@ -770,12 +770,12 @@ class User < ActiveRecord::Base
   
   
   def facebook
-    ap '------ User # facebook --------'
+    #ap '------ User # facebook --------'
     if provider = authorization_providers.where(provider: 'facebook').first
       @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
       block_given? ? yield(@facebook) : @facebook
     else #Koala::Facebook::APIError
-      ap '******************** User # facebook no aurhorization found  ********************'
+      #ap '******************** User # facebook no aurhorization found  ********************'
       return nil
     end
     @facebook
@@ -786,17 +786,17 @@ class User < ActiveRecord::Base
   end
   
   def facebook_publish_actions
-    ap '---------- User # facebook_publish_actions ----------'
+    #ap '---------- User # facebook_publish_actions ----------'
     if facebook
       begin
-        permissions                         = facebook.get_connection("me", "permissions") #<<<<<<<<<<<<<<<<<<<<<<<<<<
+        permissions                         = facebook.get_connection("me", "permissions")
         #ap '-- permissions --'
         #ap permissions
         publish_actions_permission          = permissions.find { |permission| permission["permission"] == "publish_actions" }
         publish_actions_permission_granted  = publish_actions_permission && publish_actions_permission["status"] == "granted"
         return publish_actions_permission_granted
       rescue
-        ap '****************** User # facebook_publish_actions there was an error ***********************'
+        #ap '****************** User # facebook_publish_actions there was an error ***********************'
         return false
       end
       

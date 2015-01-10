@@ -2,8 +2,6 @@ class SessionsController < ApplicationController
 
   
   def create
-    ap 'sessions controller # create'
-    
     
     session[:show_profile_completeness] = true
     
@@ -15,7 +13,7 @@ class SessionsController < ApplicationController
         flash[:info] = { title: "SUCCESS: ", body: "#{env['omniauth.auth'][:provider].upcase} is linked to your account" }
       end
       
-      ap '========================= redirect back to the previous page ============================'
+      #ap '========================= redirect back to the previous page ============================'
       
       
       redirect_to session[:current_page]

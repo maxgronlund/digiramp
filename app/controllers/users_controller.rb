@@ -165,8 +165,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    @account = @user.account
-    @user.slug = nil
+    @account    = @user.account
+
+    @user.slug  = nil
     params[:user][:email_missing] = false
     if @user.update(user_params)
       # show completeness if needed
@@ -181,7 +182,10 @@ class UsersController < ApplicationController
                     
                     
                     
-      
+      if @account.account_type == 'Social'
+        @account.title = @user.user_name
+        @account.save!
+      end
                                             
       redirect_to user_path(@user)
     else

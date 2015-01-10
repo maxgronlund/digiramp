@@ -41,13 +41,12 @@
               
               div id="facebook_confirmation_#{recording.id.to_s}"
               
-              / is it possible to deside about remote / not remote 
               = simple_form_for [ShareOnFacebook.new], remote: true do |f|
                 /= simple_form_for [ShareOnFacebook.new] do |f|
                 /= f.error_notification
               
                 .form-inputs
-                  = f.hidden_field :user_id, value: current_user.id
+                  = f.hidden_field :user_id,      value: current_user.id
                   = f.hidden_field :recording_id, value: recording.id
                   /= f.input :message, class: "facebook_#{recording.id.to_s}"
                   = f.input :message, :input_html => {  style: "height: 110px;", class: "init_facebook_#{recording.id.to_s}"}
@@ -57,16 +56,7 @@
                   '&nbsp;
                   = f.submit 'Share', class: 'btn btn-primary'
                   
-                  
-                
-                /-if can_edit?
                 br
-                /input type="button" value="Share" class='btn btn-primary' onclick="FB.ui({ method: 'share_open_graph', \
-                /                                                     action_type: 'og.likes', \
-                /                                                     action_properties: JSON.stringify({ \
-                /                                                      object:'https://digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}', \
-                /                                                     }) \
-                /                                                    }, function(response){});"
                 
 
             .tab-pane.fade id="twitter_#{recording.id.to_s}"

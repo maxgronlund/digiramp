@@ -2,8 +2,8 @@ class ShareOnFacebooksController < ApplicationController
 
   
   def create
-    ap '-------------- ShareOnFacebooksController -----------'
-    ap params
+    #ap '-------------- ShareOnFacebooksController -----------'
+    #ap params
     #ap 'check if there is a current user'
     if current_user
       if current_user.facebook_publish_actions
@@ -49,7 +49,7 @@ class ShareOnFacebooksController < ApplicationController
         
       else
         # the user is not linked with facebook
-        ap '>>>>>>>>>>>>>>>>> link user with facebook: to do bounce back <<<<<<<<<<<<<<<<<<<<<<<<<'
+        #ap '>>>>>>>>>>>>>>>>> link user with facebook: to do bounce back <<<<<<<<<<<<<<<<<<<<<<<<<'
         session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
         @redirect = true
         #redirect_to "/auth/facebook", format: "html"
@@ -65,8 +65,8 @@ class ShareOnFacebooksController < ApplicationController
       #  redirect_to "/auth/facebook"
       #end
     else
-      ap ' ========== user not signed in: sign in with facebook ========='
-      ap ' if signin with facebook fails handle that gracefully ========='
+      #ap ' ========== user not signed in: sign in with facebook ========='
+      #ap ' if signin with facebook fails handle that gracefully ========='
       session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
       @redirect = true
       #redirect_to "/auth/facebook", format: "html"
