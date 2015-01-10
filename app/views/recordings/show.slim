@@ -6,7 +6,7 @@
   <meta property="fb:app_id"             content="493734500765975" /> 
   <meta property="og:type"               content="music.song" /> 
   <meta property="og:url"                content="#{request.url}" /> 
-  <meta property="og:title"              content="#{@recording.title}" /> 
+  <meta property="og:title"              content="#{@recording.title.force_encoding('UTF-8')}" /> 
   <meta property="og:image"              content="#{@recording.get_artwork}" /> 
   <meta property="music:preview_url:url" content="#{@recording.title} URL: #{@recording.mp3.gsub('http', 'https') if @recording.mp3}" />
   <meta property="og:description"        content="#{@recording.comment}" /> 
