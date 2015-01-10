@@ -148,6 +148,7 @@ private
   end
   
   def self.get_info_from_extra auth
+    ap auth
     extra = auth[:extra]
     if extra
       raw_info                 = extra[:raw_info]

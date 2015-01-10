@@ -1,9 +1,25 @@
-$(".old-confirmation").remove()
-$("#facebook_confirmation_" + "<%= @recording.id.to_s%>").append("<%= j render 'share_on_facebooks/confirmation' %>");
-$(".old-confirmation").fadeOut(15000)
+<% if (@redirect) %>
+    window.location.replace("/auth/facebook");
+<% else %>
+  $(".old-confirmation").remove()
+  $("#facebook_confirmation_" + "<%= @recording.id.to_s%>").append("<%= j render 'share_on_facebooks/confirmation' %>");
+  $(".old-confirmation").fadeOut(15000)
+  
+  $(".rec-comments").prepend('<%=j render("comments/new") %>');
+  
+  $("#shareRecordingModal_<%= @recording_id%>").modal('hide')
+<% end %>
 
-$(".rec-comments").prepend('<%=j render("comments/new") %>');
 
-$("#shareRecordingModal_<%= @recording_id%>").modal('hide')
+  
+
+
+
+
+
+
+
+
+
 
 

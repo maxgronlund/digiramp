@@ -2,7 +2,9 @@ class SessionsController < ApplicationController
 
   
   def create
-    #ap env['omniauth.auth']
+    ap 'sessions controller # create'
+    
+    
     session[:show_profile_completeness] = true
     
     if current_user
@@ -12,7 +14,12 @@ class SessionsController < ApplicationController
       else
         flash[:info] = { title: "SUCCESS: ", body: "#{env['omniauth.auth'][:provider].upcase} is linked to your account" }
       end
-      redirect_to user_user_control_panel_index_path(current_user)
+      
+      ap '========================= redirect back to the previous page ============================'
+      
+      
+      redirect_to session[:current_page]
+      #redirect_to user_user_control_panel_index_path(current_user)
     elsif env['omniauth.auth']
       user = Omniauth.authorize_with_omniauth( env['omniauth.auth'] )
       if user[:user]

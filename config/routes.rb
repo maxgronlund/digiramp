@@ -5,6 +5,8 @@ Digiramp::Application.routes.draw do
 
   
 
+
+
   get 'replies/create'
 
   get 'replies/update'
@@ -85,7 +87,7 @@ Digiramp::Application.routes.draw do
   end
   resources :recording_widgets, only: [:show]
   resources :remove_from_playlists, only: [:destroy]
-  resources :share_on_facebooks, only: [:create]
+  resources :share_on_facebooks, only: [:create, :show]
   resources :share_recordings, only: [:new, :edit, :create, :destroy]
   resources :songs, only: [:index, :show]
 
@@ -442,6 +444,7 @@ Digiramp::Application.routes.draw do
     resources :moods
     resources :moods_imports
     resources :pro_affiliations
+    resources :set_default_avatars, only: [:index]
     resources :tags, only: [:index]
     get "emails/index"
     resources :system_emails

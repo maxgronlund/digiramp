@@ -38,6 +38,15 @@
                                                     }
         
         
+        .col-sm-6
+          == render 'shared/badge_button', locals: { \
+                                                      blog_post: 'UPDATE USER BADGES', \
+                                                      link: admin_set_default_avatars_path, \
+                                                      css_class: 'btn btn-success', \
+                                                      icon: 'fa fa-file-image-o' \
+                                                    }
+        
+        
       .sexy_line
         /= link_to 'Rezip 10', recordings_rezip_path, remote: true
         /br

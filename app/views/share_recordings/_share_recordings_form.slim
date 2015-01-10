@@ -1,3 +1,4 @@
+- session[:share_from_page] = request.url
 .modal.fade  id="shareRecordingModal_#{recording.id.to_s}" tabindex="-1" role="dialog" aria-labelledby="shareRecordingModalLabel" aria-hidden="true"
   .modal-dialog
     .modal-content
@@ -39,8 +40,10 @@
               h4 Share on Facebook
               
               div id="facebook_confirmation_#{recording.id.to_s}"
-
+              
+              / is it possible to deside about remote / not remote 
               = simple_form_for [ShareOnFacebook.new], remote: true do |f|
+                /= simple_form_for [ShareOnFacebook.new] do |f|
                 /= f.error_notification
               
                 .form-inputs

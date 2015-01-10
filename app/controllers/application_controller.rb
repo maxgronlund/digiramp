@@ -19,7 +19,11 @@ class ApplicationController < ActionController::Base
   #end
   
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    begin
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    rescue
+      session[:user_id] = nil
+    end
     unless @current_user
       @current_user ||= User.cached_find_by_auth_token( cookies[:auth_token] ) if cookies[:auth_token]
     end

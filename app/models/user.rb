@@ -770,12 +770,13 @@ class User < ActiveRecord::Base
   
   
   def facebook
-    begin
-      provider = authorization_providers.where(provider: 'facebook').first
+    ap '------ User # facebook --------'
+    if provider = authorization_providers.where(provider: 'facebook').first
       @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
       block_given? ? yield(@facebook) : @facebook
-    rescue Koala::Facebook::APIError
-      @facebook =  nil
+    else #Koala::Facebook::APIError
+      ap '******************** User # facebook no aurhorization found  ********************'
+      return nil
     end
     @facebook
   end
@@ -785,15 +786,39 @@ class User < ActiveRecord::Base
   end
   
   def facebook_publish_actions
-    if self.facebook
-      permissions                         = self.facebook.get_connection("me", "permissions") 
-      publish_actions_permission          = permissions.find { |permission| permission["permission"] == "publish_actions" }
-      publish_actions_permission_granted  = publish_actions_permission && publish_actions_permission["status"] == "granted"
-      return publish_actions_permission_granted
+    ap '---------- User # facebook_publish_actions ----------'
+    if facebook
+      begin
+        permissions                         = facebook.get_connection("me", "permissions") #<<<<<<<<<<<<<<<<<<<<<<<<<<
+        #ap '-- permissions --'
+        #ap permissions
+        publish_actions_permission          = permissions.find { |permission| permission["permission"] == "publish_actions" }
+        publish_actions_permission_granted  = publish_actions_permission && publish_actions_permission["status"] == "granted"
+        return publish_actions_permission_granted
+      rescue
+        ap '****************** User # facebook_publish_actions there was an error ***********************'
+        return false
+      end
+      
+      #rescue_from Koala::Facebook::APIError do |exception|
+      #  ap '======================= oehy ======================'
+      #    if exception.fb_error_type == 190
+      #      ap 'password reset - redirect to auth dialog'
+      #      ap exception
+      #    else
+      #      ap "Facebook Error: #{exception.fb_error_type}"
+      #    end
+      #  end
+      #end
+    
     else
+      #ap '--------------------------'
+      #ap 'link facebook account here'
+      
+      return false
       # do something
     end
-    false
+    
   end
 
 
