@@ -7,11 +7,11 @@ Digiramp::Application.routes.draw do
 
 
 
-  get 'replies/create'
+  resources :twitter_cards
 
-  get 'replies/update'
-
-  get 'replies/destroy'
+  #get 'replies/create'
+  #get 'replies/update'
+  #get 'replies/destroy'
 
   resources :forum_posts
   resources :forums, only: [:index, :show, :destroy]
