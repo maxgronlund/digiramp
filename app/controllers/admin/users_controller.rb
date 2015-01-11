@@ -4,6 +4,13 @@ class Admin::UsersController < ApplicationController
   before_filter :admin_only
   
   before_action :set_user, only: [:show, :update, :destroy]
+  
+  def omniauth_failure
+    redirect_to init_sign_in_users_path
+    #redirect wherever you want.
+  end
+    
+    
 
   def index
     @users = User.search(params[:query]).order('lower(email) ASC').page(params[:page]).per(50)

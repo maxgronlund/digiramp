@@ -1,0 +1,145 @@
+- session[:share_from_page] = request.url
+.modal.fade  id="shareRecordingModal_#{recording.id.to_s}" tabindex="-1" role="dialog" aria-labelledby="shareRecordingModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal"
+          span aria-hidden="true"
+            i.fa.fa-times
+
+        h4 class="modal-title" id="shareRecordingModalLabel"
+          'Share 
+
+
+      
+      .share-dialog
+        .modal-body
+          ul.nav.nav-tabs role="tablist"
+            li class="active" 
+              a href="#facebook_#{recording.id.to_s}" role="tab" data-toggle="tab" class="share_on_facebook" value="https://digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}"
+                h3.fa.fa-facebook-square
+            li
+              a href="#twitter_#{recording.id.to_s}" role="tab" data-toggle="tab"
+                h3.fa.fa-twitter-square
+            li
+              a href="#gplus_#{recording.id.to_s}" role="tab" data-toggle="tab"
+                h3.fa.fa-google-plus-square
+            li
+              a href="#linkedin_#{recording.id.to_s}" role="tab" data-toggle="tab"
+                h3.fa.fa-linkedin-square
+            li
+              a href="#embed_#{recording.id.to_s}" role="tab" data-toggle="tab"
+                h3.fa.fa-code
+            li
+              a href="#email_#{recording.id.to_s}" role="tab" data-toggle="tab"
+                h3.fa.fa-envelope
+          
+          .sexy_line
+          .tab-content
+            .tab-pane.fade.in.active id="facebook_#{recording.id.to_s}"
+              h4 Share on Facebook
+              
+              div id="facebook_confirmation_#{recording.id.to_s}"
+              
+              = simple_form_for [ShareOnFacebook.new], remote: true do |f|
+                /= simple_form_for [ShareOnFacebook.new] do |f|
+                /= f.error_notification
+              
+                .form-inputs
+                  /= f.hidden_field :user_id,      value: current_user.id
+                  = f.hidden_field :recording_id, value: recording.id
+                  /= f.input :message, class: "facebook_#{recording.id.to_s}"
+                  = f.input :message, :input_html => {  style: "height: 110px;", class: "init_facebook_#{recording.id.to_s}"}
+                .modal-footer
+                  button type="button" class="btn btn-default" data-dismiss="modal"
+                    'Close
+                  '&nbsp;
+                  = f.submit 'Share', class: 'btn btn-primary'
+                  
+                br
+                
+
+            .tab-pane.fade id="twitter_#{recording.id.to_s}"
+              h4 Twitter
+              div id="facebook_confirmation_#{recording.id.to_s}"
+              
+              /= simple_form_for [ ShareOnTwitter.new ], remote: true do |f|
+              /
+              /  .form-inputs
+              /    = f.hidden_field :user_id, value: current_user.id
+              /    = f.hidden_field :recording_id, value: recording.id
+              /    = f.input :message, :input_html => {  style: "height: 110px;", class: "init_twitter_#{recording.id.to_s}"}
+              /
+              /  .modal-footer
+              /    button type="button" class="btn btn-default" data-dismiss="modal"
+              /      'Close
+              /    '&nbsp;
+              /    = f.submit 'Share', class: 'btn btn-primary'
+              
+              
+            .tab-pane.fade id="gplus_#{recording.id.to_s}"
+              h4 + Google
+            .tab-pane.fade id="linkedin_#{recording.id.to_s}"
+              h4 Linkedin
+            .tab-pane.fade id="embed_#{recording.id.to_s}"
+              h4 Embed
+              .recording_widget
+                = text_field nil, :code, class: 'recording_snippet', \
+                                  :value => "#{recording.widget_snippet url_for( controller: '/recording_widgets', action: 'show', id: recording.id, :only_path=> false)}", readonly: true
+              
+              .modal-footer
+                button type="button" class="btn btn-default" data-dismiss="modal"
+                  'Close
+              
+
+   
+            .tab-pane.fade id="email_#{recording.id.to_s}"
+              /-----------------------------------------------------------
+              / Email
+              /-----------------------------------------------------------
+
+                
+              h4 Email
+              /- share_recording_with_email = ShareRecordingWithEmail.new
+              /- share_recording_with_email.title    = "#{current_user.user_name} has shared a recording with you on DigiRAMP"
+              /- share_recording_with_email.message  = "Hi! You should try to listen to this recording"
+              /= simple_form_for [ recording , ShareRecordingWithEmail.new ], remote: true do |f|
+              /  = f.error_notification
+              /
+              /  .form-inputs
+              /    = f.hidden_field :user_id, value: current_user.id 
+              /    = f.hidden_field :recording_id, value: recording.id
+              /    = f.input :recipients, \
+              /              placeholder: 'superman@nasa.gov, batman@gotham.city', \
+              /              hint: 'Use a comma seperated list to sendt to multiply recipients', \
+              /              :input_html   => { class: "init_email_recipients_#{recording.id.to_s}"}
+              /              
+              /    = f.input :title, :input_html   => {  class: "init_email_title_#{recording.id.to_s}"}
+              /    = f.input :message, :input_html => {  style: "height: 110px;", class: "init_email_message_#{recording.id.to_s}"}
+              /
+              /  .modal-footer
+              /    button type="button" class="btn btn-default" data-dismiss="modal"
+              /      'Close
+              /    '&nbsp;
+              /    = f.submit 'Send', class: 'btn btn-primary'
+
+                
+
+              
+    
+
+/javascript:
+/  //console.log("#{recording.id.to_s}");
+/  //console.log("#{recording.title.to_s}");
+/  $("#shareRecordingModal_#{recording.id.to_s}").on('shown.bs.modal', function (event) {
+/    
+/    $(".init_facebook_#{recording.id.to_s}").val("I found #{raw recording.title.to_s} on DigiRAMP");
+/    $(".init_twitter_#{recording.id.to_s}").val("Checkout #{raw recording.title.to_s} on #DigiRamp. https://digiramp.com/users/#{recording.user.slug.to_s}/recordings/#{recording.id}");
+/    $(".init_email_recipients_#{recording.id.to_s}").val("");
+/    $(".init_email_title_#{recording.id.to_s}").val("#{current_user.user_name.to_s} has shared a recording with you on DigiRAMP");
+/    $(".init_email_message_#{recording.id.to_s}").val("I found #{ raw recording.title.to_s} on DigiRAMP");
+/    
+/  });              
+/      
+
+  

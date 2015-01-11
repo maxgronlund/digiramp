@@ -1,69 +1,114 @@
 class ShareOnFacebooksController < ApplicationController
 
-  
+  # the user is sharing from the dialog
   def create
-    #ap '-------------- ShareOnFacebooksController -----------'
-    #ap params
-    #ap 'check if there is a current user'
+    ap '-------------- ShareOnFacebooksController#create -----------'
+    ap params
+    
+    
     if current_user
-      if current_user.facebook_publish_actions
-        
-        ap 'ohay everything is cool '
-        @recording  = Recording.cached_find(params[:share_on_facebook][:recording_id])
-        @user       = User.cached_find(params[:share_on_facebook][:user_id])
-        @recording_id = @recording.id
-        @share_on_facebook = ShareOnFacebook.new(share_on_facebook_params)
-        if @share_on_facebook.save
-          FbRecordingCommentWorker.perform_async(@share_on_facebook.id)
+      share_when_logged_in params
       
-          # add a comment
-          if @comment = Comment.create!(commentable_id: @recording.id, commentable_type: "Recording", user_id: @user.id, body: "I just shared #{@recording.title} on Facebook" )
-      
-           @comment.user.create_activity(  :created, 
-                              owner: @comment,
-                          recipient: @comment.commentable,
-                     recipient_type: @comment.commentable.class.name,
-                         account_id: @comment.user.account_id)
-            
-            Activity.notify_followers(  'Posted a comment on', @user.id, 'Recording', @recording.id )
-          end 
-          
-          #go_to = session[:share_from_page]
-          #session[:share_from_page] = nil
-          #redirect_to go_to
-        end
-      elsif current_user.facebook
-        # 'publish actions is not granded'
-        # 'remove bad provider'
-        provider = current_user.authorization_providers.where(provider: 'facebook').first
-        provider.destroy
-        
-        # bounce back and share after creating fb provider
-        session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
-        @redirect = true
-
-        
-      else
-        # the user is not linked with facebook
-        #ap '>>>>>>>>>>>>>>>>> link user with facebook: to do bounce back <<<<<<<<<<<<<<<<<<<<<<<<<'
-        session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
-        @redirect = true
-      end
     else
-      #ap ' ========== user not signed in: sign in with facebook ========='
-      session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
-      @redirect = true
+      # there is a user but the user is not / linked with facebook 
+      if params[:id]
+        # go to ShareOnFacebooksController # show after authorizing
+        session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
+        @authorize_facebook = true
+      
+      
+      else
+        ap 'no user, no user_id we are not logged in/ signed up'
+        session[:share_recording_id] = params[:share_on_facebook][:recording_id]
+        session[:message]            = params[:share_on_facebook][:message]
+        @authorize_facebook = true
+      end
     end
 
   end
   
-  def show
+  
+  # the user is logged in
+  def share_when_logged_in params
+    ap '-------------- ShareOnFacebooksController#create_on_logged_in -----------'
+    # if the publish action works
+    if current_user.facebook_publish_actions
+      share_with_authorized_user params
     
+    # the user is linked with facebook but the authorization is broken  
+    elsif current_user.facebook
+      get_new_authorization params
+   
+    # the user is not linked with facebook
+    else
+      session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
+      @authorize_facebook = true
+    end
+  end
+  
+  
+  
+  
+  def share_with_authorized_user params
+    ap '-------------- ShareOnFacebooksController#share_with_authorized_user -----------'
+    # ohay everything is cool we are calle with ajax
+    @recording  = Recording.cached_find(params[:share_on_facebook][:recording_id])
+    @user       = User.cached_find(params[:share_on_facebook][:user_id])
+    @recording_id = @recording.id
+    @share_on_facebook = ShareOnFacebook.new(share_on_facebook_params)
+    if @share_on_facebook.save
+      FbRecordingCommentWorker.perform_async(@share_on_facebook.id)
+  
+      # add a comment
+      if @comment = Comment.create!(commentable_id: @recording.id, commentable_type: "Recording", user_id: @user.id, body: "I just shared #{@recording.title} on Facebook" )
+  
+       @comment.user.create_activity(  :created, 
+                          owner: @comment,
+                      recipient: @comment.commentable,
+                 recipient_type: @comment.commentable.class.name,
+                     account_id: @comment.user.account_id)
+        
+        Activity.notify_followers(  'Posted a comment on', @user.id, 'Recording', @recording.id )
+      end 
+    end
+  end
+  
+  
+  
+
+  # getting a new authorization from facebook
+  def get_new_authorization params
+    ap '-------------- ShareOnFacebooksController#get_new_authorization -----------'
+    provider = current_user.authorization_providers.where(provider: 'facebook').first
+    provider.destroy
+    
+    # go to show action after getting the new authorization
+    session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
+    @authorize_facebook = true
+    
+  end
+  
+  
+  
+  # used when there is a full page reload after signing in / up with facebook
+  def show
+    ap '-------------- ShareOnFacebooksController#show called after authorizing facebook -----------'
     ap params
     
+    
     recording  = Recording.cached_find(params[:recording_id])
-    user       = User.cached_find(params[:user_id])
-    share_on_facebook = ShareOnFacebook.new(user_id: user.id, recording_id: recording.id, message: params[:message])
+    user       = User.cached_find(params[:user_id] ? params[:user_id] : params[:id])
+    
+    
+    message    = 'I found this on DigiRAMP'
+    if session[:message]  
+      message = session[:message]  
+      session[:message]  = nil
+    elsif params[:message] 
+      message = params[:message] 
+    end
+    
+    share_on_facebook = ShareOnFacebook.new(user_id: user.id, recording_id: recording.id, message: message)
     if share_on_facebook.save
       FbRecordingCommentWorker.perform_async(share_on_facebook.id)
       
@@ -75,11 +120,14 @@ class ShareOnFacebooksController < ApplicationController
                       recipient: @comment.commentable,
                  recipient_type: @comment.commentable.class.name,
                      account_id: @comment.user.account_id)
+        Activity.notify_followers(  'Posted a comment on', user.id, 'Recording', recording.id )
       end 
       
       
     end
-    
+    # a little clumpcy, might be better to bounch to the recording page
+    # best would be to recunstruct scroll state but I'm not sure it's possible
+    # at least search and filter state should be reconstructed on the recordings page
     go_to = session[:share_from_page]
     session[:share_from_page] = nil
     redirect_to go_to

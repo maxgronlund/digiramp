@@ -33,6 +33,10 @@ class ShareOnTwittersController < ApplicationController
     
     
   end
+  
+  def show
+    
+  end
 
 
   private

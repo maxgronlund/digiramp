@@ -1,4 +1,4 @@
-<% if (@redirect) %>
+<% if (@authorize_facebook) %>
     window.location.replace("/auth/facebook");
 <% else %>
   $(".old-confirmation").remove()

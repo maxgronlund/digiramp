@@ -33,9 +33,20 @@ class Omniauth
   
   # authorize or create an new account
   def self.authorize_with_omniauth env
+    
+    #ap  env
+    
+    
     #authorization_provider = AuthorizationProvider.where( env.slice("provider", "uid")).first
     authorization_provider = AuthorizationProvider.where(provider: env.provider, uid: env.uid).first
     if authorization_provider
+      credentials     =  env["credentials"]
+      authorization_provider.oauth_token         = credentials['token']
+      authorization_provider.oauth_expires_at    = credentials["expires_at"]
+      authorization_provider.oauth_expires       = credentials["expires"] 
+      #authorization_provider.info                = env['omniauth.auth']["info"]
+      authorization_provider.save! 
+      #ap authorization_provider
       return {user: authorization_provider.user}
     else
       user = create_from_omniauth(env)
@@ -64,8 +75,23 @@ private
                provider.oauth_expires_at    = credentials["expires_at"]
                provider.oauth_expires       = credentials["expires"]
                provider.user_id             = user[:user].id
+               provider.info                = env["info"]
       
         end
+        
+        # do something with the provider here. eg post reccomendation
+        #ap '======================================================================='
+        #ap user[:user].authorization_providers.where(provider: 'facebook').first
+        #ap '======================================================================='
+        #if facebook = new_user.facebook
+        #  #ap authorization_provider
+        #  ap '======================================================================='
+        #  #ap facebook.get_connection("me", "permissions")
+        #  ap facebook. get_object("me")
+        #  ap '======================================================================='
+        #end
+       
+        
         return {user: user[:user], message: user[:message]}
       else
         user[:user].destroy!   
@@ -83,13 +109,16 @@ private
     case env[:provider]
     when 'linkedin', 'gplus', 'facebook'
       info = env[:info]
-      if email = info[:email]
+      if email        = info[:email]
         email_missing = false
         user = User.where(email: email).first
       end
     end
     
     unless user
+      #ap '------------ info --------------'
+      #ap env["info"]
+      #ap '---------- update provider --------'
       user = User.create(  name:           env["info"]["nickname"], 
                            password:       UUIDTools::UUID.timestamp_create().to_s, 
                            social_avatar:  env[:info][:image],
@@ -122,7 +151,6 @@ private
                                   contact_email: info[:email], 
                                   user_id: user.id)
         # create the account user
-        ap account
         account_user = AccountUser.create(   account_id: account.id, 
                                              user_id: user.id, 
                                              role: AccountUser::ROLES[0]
@@ -148,7 +176,7 @@ private
   end
   
   def self.get_info_from_extra auth
-    ap auth
+    
     extra = auth[:extra]
     if extra
       raw_info                 = extra[:raw_info]

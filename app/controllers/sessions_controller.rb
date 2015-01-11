@@ -2,52 +2,88 @@ class SessionsController < ApplicationController
 
   
   def create
+    ap '-------------- SessionsController#create -----------'
     
     session[:show_profile_completeness] = true
     
-    if current_user
-      # the user is all readdy logged in so attach a provider to an existing account
-      unless Omniauth.attach_provider( env, current_user )
-        flash[:info] = { title: "Notice: ", body: "Provider already attached to account" }
-      else
-        flash[:info] = { title: "SUCCESS: ", body: "#{env['omniauth.auth'][:provider].upcase} is linked to your account" }
-      end
-
-      redirect_to session[:current_page]
-      #redirect_to user_user_control_panel_index_path(current_user)
+    if user = current_user
+      attach_authorization_provider_to_existing_user( env, user )
+    
     elsif env['omniauth.auth']
-      user = Omniauth.authorize_with_omniauth( env['omniauth.auth'] )
-      if user[:user]
-        #flash[:info] = { title: "SUCCESS: ", body: user[:message] }
-        initialize_session_for user[:user]
-        # redirect to a welcome / take the tour screen
-      else
-        flash[:danger] = { title: "Sorry", body: user[:message]}
-        redirect_to login_new_path
-      end
-      
+      log_in_up_or_sign_up_with_omniauth env
+
     else
-      params[:sessions][:email]  = params[:sessions][:email].downcase
-      user = User.where(email: params[:sessions][:email]).first
-      
-      if user && user.authenticate(params[:sessions][:password])
-      
-        if params[:remember_me]
-          cookies.permanent[:auth_token] = user.auth_token
-        else
-          cookies[:auth_token]          = user.auth_token  
-        end
-        initialize_session_for user
-      else
-        # Please trye againg
-        flash[:danger] = { title: "Sorry", body: "No user we can't authorize found.
-                                                  If you have signed up directly on DigiRAMP we can resend you password.
-                                                  Otherwize make sure you are signed in with you authorization provider" }
-        redirect_to login_new_path
-      end
+      log_in_with_email params
     end
   end
   
+  
+  
+  
+  
+  # the user is all readdy logged in 
+  # so we are attaching a provider to an existing account
+  def attach_authorization_provider_to_existing_user env, user
+    ap '-------------- SessionsController#attach_authorization_provider_to_existing_user -----------'
+    
+    unless Omniauth.attach_provider( env, user )
+      flash[:info] = { title: "Notice: ", body: "Provider already attached to account" }
+    else
+      flash[:info] = { title: "SUCCESS: ", body: "#{env['omniauth.auth'][:provider].upcase} is linked to your account" }
+    end
+
+    redirect_to session[:current_page]
+  end
+  
+  
+  
+  
+  
+  # log in / signing up with omniauthor
+  def log_in_up_or_sign_up_with_omniauth env
+    ap '-------------- SessionsController#log_in_up_or_sign_up_with_omniauth -----------'
+    
+    user = Omniauth.authorize_with_omniauth( env['omniauth.auth'] )
+    if user[:user]
+      #flash[:info] = { title: "SUCCESS: ", body: user[:message] }
+      initialize_session_for user[:user]
+      
+    else
+      flash[:danger] = { title: "Sorry", body: user[:message]}
+      redirect_to login_new_path
+    end
+  end
+  
+  
+  
+  
+  
+  def log_in_with_email params
+    ap '-------------- SessionsController#log_in_with_email -----------'
+     
+    params[:sessions][:email]  = params[:sessions][:email].downcase
+    user = User.where(email: params[:sessions][:email]).first
+    
+    if user && user.authenticate(params[:sessions][:password])
+    
+      if params[:remember_me]
+        # is this enough?
+        cookies.permanent[:auth_token] = user.auth_token
+      else
+        cookies[:auth_token]           = user.auth_token  
+      end
+      initialize_session_for user
+    else
+      # Please trye againg
+      flash[:danger] = { title: "Sorry", body: "No user we can't authorize found.
+                                                If you have signed up directly on DigiRAMP we can resend you password.
+                                                Otherwize make sure you are signed in with you authorization provider" }
+      redirect_to login_new_path
+    end
+    
+  end
+  
+
 
   def destroy
     session[:show_profile_completeness] = nil
@@ -75,18 +111,16 @@ class SessionsController < ApplicationController
     end
   end
   
+  def share_recording user
+    
+  end
+  
 private
   
   def initialize_session_for user
-    #ap env['omniauth.auth']
-    #credentials =  env['omniauth.auth']["credentials"]
-    #puts 'token'
-    #ap credentials['token']
-    #puts 'secret'
-    #ap credentials['secret']
-    #puts 'expires'
-    #ap credentials["expires_at"]
-    #ap credentials["expires"]
+    ap '-------------- SessionsController#initialize_session_for -----------'
+    
+    provider = nil
     if env['omniauth.auth']
       if credentials                =  env['omniauth.auth']["credentials"]
         if provider                 = user.authorization_providers.where(provider: env['omniauth.auth']['provider']).first
@@ -105,7 +139,6 @@ private
         
     unless account        = Account.where(user_id: user.id).first
       account             = User.create_a_new_account_for_the user
-      ap user
     end
     account.visits        += 1
     account.save!
@@ -117,8 +150,21 @@ private
                   account_id: user.account_id)
      
     #go_to = session[:landing_page] 
-    #session[:landing_page]    = nil            
-    redirect_to session[:current_page]
+    #session[:landing_page]    = nil
+    if recording_id = session[:share_recording_id]   
+      session[:share_recording_id]   = nil
+      # switch provider
+      case provider.provider
+      when 'facebook'
+        redirect_to share_on_facebook_path(user.id, recording_id: recording_id  )
+      when 'twitter'
+        redirect_to share_on_twitter_path(user.id, recording_id: recording_id  )
+      else
+        redirect_to session[:current_page]
+      end
+    else          
+      redirect_to session[:current_page]
+    end
   end
 
 end

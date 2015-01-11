@@ -1,4 +1,4 @@
-
+- session[:share_from_page] = request.url
 == render 'audio_player/show', recording: recording , description: description, target: target
 
 .player-bottom
@@ -48,7 +48,7 @@
   
           
       -else
-        = link_to login_new_path, 
+        = link_to login_new_path(recording_id: recording.id), 
                   target: target,
                   class: "btn btn-default"  do
           i class="fa fa-heart"
@@ -146,14 +146,14 @@
   
         
       -else
-        = link_to login_new_path,  
+        = link_to login_new_path(recording_id: recording.id),  
                   target: target,
                   class: "btn btn-default"  do
           i class="fa fa-heart"
           '&nbsp;
           'Likes
         - if add_to_playlist
-          = link_to login_new_path, 
+          = link_to login_new_path(recording_id: recording.id), 
                     target: target,
                     class: "btn btn-default"  do
             i.fa.fa-list
@@ -161,12 +161,18 @@
             'Playlists
           
         - if share
-          = link_to login_new_path,  
-                    target: target,
-                    class: "btn btn-default"  do
-            i class="fa fa-share-alt"
+
+          button class="btn btn-default" data-toggle="modal" data-target="#shareRecordingModal_#{recording.id.to_s}"
+            i.fa.fa-share-alt
             '&nbsp;
             'Share
+            
+          /= link_to login_new_path(recording_id: recording.id),  
+          /          target: target,
+          /          class: "btn btn-default"  do
+          /  i class="fa fa-share-alt"
+          /  '&nbsp;
+          /  'Share
   
       - if recording.downlodable
         = link_to recording.zipp, \
@@ -238,6 +244,8 @@ javascript:
   
 //.sexy_line 
 /
--if current_user
+- if current_user
   == render 'playlists/select_playlist_form', recording: recording
   == render 'share_recordings/share_recordings_form', recording: recording if share
+- else
+  == render 'share_and_login/dialog', recording: recording

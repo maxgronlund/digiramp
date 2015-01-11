@@ -7,6 +7,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  resources :share_and_login, only: [:show]
+
   resources :twitter_cards
 
   #get 'replies/create'
