@@ -735,7 +735,13 @@ Digiramp::Application.routes.draw do
     end
   end
    
-
+  match '/404', via: :all, to: 'errors#not_found'
+  match '/422', via: :all, to: 'errors#unprocessable_entity'
+  match '/500', via: :all, to: 'errors#server_error'
+  
+  resources :errors do
+    get 'not_found'
+  end
   
   #admin_constraint = lambda do |request|
   #  request.session[:init] = true # Starts up the session so we can access values from it later.
@@ -745,10 +751,10 @@ Digiramp::Application.routes.draw do
   #mount Sidekiq::Web => '/sidekiq', :constraints => AdminConstraint.new
   
   mount Sidekiq::Web, at: "/sidekiq", constraints: lambda { |request| 
-                                                             false unless request.session[:user_id]
+                                                             false unless request.cookies.permanent[:user_id]
                                                              #return false unless User.exists?(request.session[:user_id])
                                                              begin
-                                                               user = User.cached_find( request.session[:user_id])
+                                                               user = User.cached_find( request.cookies.permanent[:user_id])
                                                                user && user.super?
                                                              rescue
                                                                false

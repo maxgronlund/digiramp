@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   
   def create
     ap '-------------- SessionsController#create -----------'
-    
+    ap params
     session[:show_profile_completeness] = true
     
     if user = current_user
@@ -68,7 +68,8 @@ class SessionsController < ApplicationController
     
       if params[:remember_me]
         # is this enough?
-        cookies.permanent[:auth_token] = user.auth_token
+        cookies.permanent[:user_id]      = user.id
+        cookies.permanent[:auth_token]   = user.auth_token
       else
         cookies[:auth_token]           = user.auth_token  
       end
@@ -99,7 +100,8 @@ class SessionsController < ApplicationController
     rescue
     end
     cookies.delete(:auth_token)
-    reset_session
+    cookies.delete(:user_id)
+    #reset_session
     
     if params[:opportunity_id]
       redirect_to :back
@@ -133,8 +135,9 @@ private
     
     #ap provider
     
-    session[:user_id]     = user.id
-    session[:account_id]  = user.account_id
+    #session[:user_id]     = user.id
+    cookies.permanent[:user_id] = user.id
+    session[:account_id]        = user.account_id
     
         
     unless account        = Account.where(user_id: user.id).first

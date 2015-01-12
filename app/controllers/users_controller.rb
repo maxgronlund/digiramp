@@ -6,6 +6,15 @@ class UsersController < ApplicationController
   before_filter :find_user, only: [:show]
   protect_from_forgery only: :index
   
+  def omniauth_failure 
+    ap '======================== yahoo ==========================='
+    
+    
+    
+    #redirect wherever you want.
+    redirect_to root_path
+  end
+  
   def index
   
     

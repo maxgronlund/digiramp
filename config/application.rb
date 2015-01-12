@@ -26,6 +26,10 @@ module Digiramp
     #      g.test_framework  :rspec
     #      g.integration_tool :rspec
     #end
+    
+    config.exceptions_app = self.routes
+    
+    
     config.action_dispatch.default_headers = {
         'X-Frame-Options' => 'ALLOWALL'
     }

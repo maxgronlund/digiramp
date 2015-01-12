@@ -20,9 +20,9 @@ class ApplicationController < ActionController::Base
   
   def current_user
     begin
-      @current_user ||= User.find(session[:user_id]) if session[:user_id]
+      @current_user ||= User.find(cookies.permanent[:user_id]) if cookies.permanent[:user_id]
     rescue
-      session[:user_id] = nil
+      cookies.permanent[:user_id] = nil
     end
     unless @current_user
       @current_user ||= User.cached_find_by_auth_token( cookies[:auth_token] ) if cookies[:auth_token]
@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
   
   def zaap_cokkies
     cookies[:auth_token] = nil
-    session[:user_id]    = nil
+    cookies.permanent[:user_id]    = nil
   end
   
   def redirect_to_return_url default_url
@@ -115,7 +115,7 @@ class ApplicationController < ActionController::Base
   # depricated ?
   def access_user
     unless current_user
-      forbidden 
+      forbidden params
     else
       if params[:user_id]
         @user = User.cached_find(params[:user_id])
@@ -197,20 +197,44 @@ class ApplicationController < ActionController::Base
   def user_is_an_account_user
     AccountUser.cached_where(@account.id, current_user.id )
   end
-
-  def forbidden options = {}
+  
+  
+  def forbidden params = {}
+    ap '================ application/forbidden ====================='
+    ap params
     
-    if options[:forbidden]
-      case options[:forbidden]
-      when 'login'
-        #ap options
-      end
-      
+    if params[:controller] && params[:controller] == 'messages'
+      redirect_to error_not_found_path( error_id: params[:id], 
+                                        user_id: params[:user_id], 
+                                        error_type: 'log-in-to-read-message',
+                                        landing_page: request.url)
+    else
+      #if options[:forbidden]
+      #  case options[:forbidden]
+      #  when 'login'
+      #    #ap options
+      #  end
+      #end
+      session[:landing_page] = request.url
+      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+      # redirect_to error_not_found_path 0
     end
-    session[:landing_page] = request.url
-    render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
   end
   helper_method :forbidden
+
+  #def forbidden options = {}
+  #  
+  #  if options[:forbidden]
+  #    case options[:forbidden]
+  #    when 'login'
+  #      #ap options
+  #    end
+  #    
+  #  end
+  #  session[:landing_page] = request.url
+  #  render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+  #end
+  #helper_method :forbidden
   
   def not_found
     render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false

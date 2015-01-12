@@ -774,7 +774,7 @@ class User < ActiveRecord::Base
     begin provider = authorization_providers.where(provider: 'facebook').first
       @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
       block_given? ? yield(@facebook) : @facebook
-    rescue #Koala::Facebook::APIError
+    rescue Koala::Facebook::APIError => e #Koala::Facebook::APIError
       ap '******************** User # facebook no aurhorization found  ********************'
       return nil
     end
