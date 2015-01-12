@@ -1,0 +1,34 @@
+
+
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Log in as another user to read this message
+      .sexy_line
+      .row
+        .col-xs-12.col-sm-6.col-lg-4
+          
+          .digi-box    
+            => link_to logout_path(redirect_to_message: @redirect_to_message) do
+              .btn.btn-warning
+                i class="fa fa-unlock"
+                '&nbsp;
+                'Yes lets go
+            = link_to user_path(current_user)
+              .btn.btn-default
+                'No thanks
+                    
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

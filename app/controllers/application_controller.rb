@@ -112,7 +112,7 @@ class ApplicationController < ActionController::Base
   helper_method :admins_only
   
   
-  # depricated ?
+
   def access_user
     unless current_user
       forbidden params
@@ -123,7 +123,7 @@ class ApplicationController < ActionController::Base
         @user = User.cached_find(params[:id])
       end
       begin
-        forbidden unless @user.permits? current_user
+        forbidden( params ) unless @user.permits? current_user
       rescue
         not_found
       end
@@ -199,15 +199,29 @@ class ApplicationController < ActionController::Base
   end
   
   
-  def forbidden params = {}
+  def forbidden options = {}
     ap '================ application/forbidden ====================='
-    ap params
+    ap options
     
-    if params[:controller] && params[:controller] == 'messages'
-      redirect_to error_not_found_path( error_id: params[:id], 
-                                        user_id: params[:user_id], 
-                                        error_type: 'log-in-to-read-message',
-                                        landing_page: request.url)
+    if params[:controller] && options[:controller] == 'messages'
+       
+       
+      if current_user
+        session[:redirect_to_message]  =  request.url
+        redirect_to error_not_found_path( error_id: options[:id], 
+                                          user_id: options[:user_id], 
+                                          error_type: 'log_in_as_new_user_to_read_message',
+                                          redirect_to_message:  request.url)
+       
+      else
+        session[:go_to_message]          =  request.url
+        ap ' =================== request.url ==========================='
+        ap session[:current_page]
+        redirect_to error_not_found_path( error_id: 0, 
+                                          user_id: options[:user_id], 
+                                          error_type: 'log_in_to_read_message')
+        
+      end
     else
       #if options[:forbidden]
       #  case options[:forbidden]

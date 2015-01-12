@@ -45,7 +45,7 @@ class SessionsController < ApplicationController
     
     user = Omniauth.authorize_with_omniauth( env['omniauth.auth'] )
     if user[:user]
-      #flash[:info] = { title: "SUCCESS: ", body: user[:message] }
+      
       initialize_session_for user[:user]
       
     else
@@ -78,7 +78,7 @@ class SessionsController < ApplicationController
       # Please trye againg
       flash[:danger] = { title: "Sorry", body: "No user we can't authorize found.
                                                 If you have signed up directly on DigiRAMP we can resend you password.
-                                                Otherwize make sure you are signed in with you authorization provider" }
+                                                Otherwise make sure you are signed in with you authorization provider" }
       redirect_to login_new_path
     end
     
@@ -87,6 +87,16 @@ class SessionsController < ApplicationController
 
 
   def destroy
+    
+    #ap params
+    
+    
+    #if params[:redirect_to]
+    #  session[:current_page] = params[:redirect_to]
+    #  session[:redirect_to_message]   = nil
+    #end
+    
+    #redirect_to :back
     session[:show_profile_completeness] = nil
     begin 
       user = User.cached_find_by_auth_token( cookies[:auth_token] )
@@ -106,8 +116,11 @@ class SessionsController < ApplicationController
     if params[:opportunity_id]
       redirect_to :back
     elsif params[:opportunity_invitation]
-      redirect_to login_new_path(params)
       flash[:info] = { title: "Ok", body: "Please login as the user invited to the opportunity" }
+      redirect_to login_new_path(params) 
+    elsif params[:redirect_to_message]
+      session[:current_page] = params[:redirect_to_message]
+      redirect_to login_new_path
     else
       redirect_to root_url, notice: "Logged out!"
     end
@@ -121,7 +134,9 @@ private
   
   def initialize_session_for user
     ap '-------------- SessionsController#initialize_session_for -----------'
-    
+    ap params
+    ap session[:current_page]
+
     provider = nil
     if env['omniauth.auth']
       if credentials                =  env['omniauth.auth']["credentials"]
@@ -139,10 +154,13 @@ private
     cookies.permanent[:user_id] = user.id
     session[:account_id]        = user.account_id
     
-        
+     
+    # hmm.. some error handling should not be needed   
     unless account        = Account.where(user_id: user.id).first
       account             = User.create_a_new_account_for_the user
     end
+    
+    
     account.visits        += 1
     account.save!
 
@@ -162,12 +180,25 @@ private
         redirect_to share_on_facebook_path(user.id, recording_id: recording_id  )
       when 'twitter'
         redirect_to share_on_twitter_path(user.id, recording_id: recording_id  )
-      else
-        redirect_to session[:current_page]
+      #else
+      #  goto = session[:current_page]
+      #  session[:current_page] = nil
+      #  redirect_to goto
       end
-    else          
+      #elsif session[:redirect_to_message]
+      #  goto = session[:redirect_to_message]
+      #  session[:redirect_to_message] = nil
+      #  redirect_to goto
+    elsif session[:go_to_message]
+      go_to = session[:go_to_message]
+      session[:go_to_message] = nil
+      redirect_to go_to
+    else  
       redirect_to session[:current_page]
+    
+      
     end
+      
   end
 
 end
