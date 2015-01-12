@@ -27,8 +27,11 @@ class SongsController < ApplicationController
     
     
     if params[:genre]
-      genre = Genre.where(title: params[:genre]).first
-      recordings = genre.ordered_recordings_with_public_access order
+      if genre = Genre.where(title: params[:genre]).first
+        recordings = genre.ordered_recordings_with_public_access order
+      else
+        recordings = Recording.public_access.order(order)
+      end
     elsif params[:recording][:featured]
       ap '================================ FEATURED =============================='
       recordings = Recording.public_access.where(featured: true)
