@@ -4,7 +4,7 @@ class FbRecordingCommentWorker
   def perform comment_id
     if share_on_facebook = ShareOnFacebook.find(comment_id)
       
-      if user  = share_on_facebook.user
+      if user     = share_on_facebook.user
         recording = share_on_facebook.recording
         
         
