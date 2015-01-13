@@ -1,2 +1,44 @@
-h1 ContactGroups#index
-p Find me in app/views/contact_groups/index.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'connections' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'connections'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Contact groups
+            .help-button
+              == render 'admin/helps/help', identifier: 'contact groups'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to 'New group', new_user_user_contact_group_path(@user), class: 'btn btn-primary'
+      .sexy_line
+      .digi-box
+        /.table-responsive
+        /  table class="table table-hover"
+        /    thead
+        /      tr
+        /        th Name
+        /        th Status
+        /        th Date
+        /        th Messages
+        /        th Manage
+        /
+        /    tbody
+        /      - @connections.each do |connection|
+        /        == render 'user/connections/connection', user: @user, connection: connection
+        /
+                
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+

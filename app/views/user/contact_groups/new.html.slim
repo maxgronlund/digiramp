@@ -1,2 +1,58 @@
-h1 ContactGroups#new
-p Find me in app/views/contact_groups/new.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'connections' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'connections'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 New contact group
+            .help-button
+              == render 'admin/helps/help', identifier: 'contact groups'
+        .col-sm-6
+          .pull-right.pull-down-10
+            /= link_to 'New group', new_user_user_contact_group_path(@user), class: 'btn btn-primary'
+      .sexy_line      
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [:user, @user, ClientGroup.new], :url => url_for(:action => 'create', :controller => 'contact_groups'), :method => 'post' do |f|
+            
+              
+              = f.hidden_field :account_id, value: @user.account_id
+              = f.hidden_field :user_uuid, value: @user.uuid
+              = f.input :title
+              =f.input :description, :input_html => {  style: "height: 120px;"}
+              .row
+                .col-sm-12
+                  .pull-right  
+                    = f.submit 'Save', class: 'btn btn-primary'
+            
+            
+        /.table-responsive
+        /  table class="table table-hover"
+        /    thead
+        /      tr
+        /        th Name
+        /        th Status
+        /        th Date
+        /        th Messages
+        /        th Manage
+        /
+        /    tbody
+        /      - @connections.each do |connection|
+        /        == render 'user/connections/connection', user: @user, connection: connection
+        /
+                
+            
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

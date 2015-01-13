@@ -58,4 +58,12 @@ class SupportMailer < ActionMailer::Base
 
     mail to: @user.email,  subject: title
   end
+  
+  def contact contact_id
+    
+    @contact = Contact.cached_find(contact_id)
+    mail to: 'support@digiramp.com', subject: "Support ticket ##{@contact.id}"
+  end
 end
+
+#SupportMailer.contact

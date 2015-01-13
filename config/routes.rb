@@ -271,10 +271,11 @@ Digiramp::Application.routes.draw do
   resources :single_work_steps
 
 
-  get "admin"         => "admin#index",       :as => :admin_index
-  get "support" => "support#index",       :as => :support_index
+  get "admin"         => "admin#index",     :as => :admin_index
+  get "support" => "supports#index",        :as => :support_index
   get "flush_cache" => "admin#flush_cache", :as => :admin_flush_cache
-
+  
+  resources :supports, only: [:create]
   
   
   get "sign_up/index"

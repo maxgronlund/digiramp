@@ -1,0 +1,25 @@
+- blog        = Blog.cached_find('Support')
+- blog_post   = BlogPost.cached_find( 'CONTACT REPLY' , blog )
+
+#wrap
+  .full-width-top
+    == render 'admin/shared/navbar', page: 'account' 
+       
+  .container
+    /==render 'admin/shared/messages'
+    .row
+      .col-sm-3
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            i class= 'fa fa-envelope'
+            '&nbsp;
+            = blog_post.title
+            
+          .panel-body
+            = simple_format blog_post.body
+
+
+
+-cache (['footer', Admin.cached_find(1).version]) do      
+  =render 'shared/footer'
