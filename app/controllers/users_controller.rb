@@ -7,9 +7,7 @@ class UsersController < ApplicationController
   protect_from_forgery only: :index
   
   def omniauth_failure 
-    ap '======================== yahoo ==========================='
-    
-    
+    #!!! make a custom screen
     
     #redirect wherever you want.
     redirect_to root_path
