@@ -283,36 +283,35 @@ class User < ActiveRecord::Base
   
   def update_completeness
     
-    nr_required_params   = 0.0
-    completeness         = 0.0
-    default_name        = User.create_uniq_user_name_from_email(self.email)
+    nr_required_params      = 0.0
+    completeness            = 0.0
+    default_name            = User.create_uniq_user_name_from_email(self.email)
     
     # user name is still default name
-    completeness        += 1 unless self.name               == default_name
-    nr_required_params  += 1                                                                    
-                                                            
-    # user user_name is still default name                                                                                            
-    completeness        += 1 unless self.user_name          == default_name
-    nr_required_params  += 1    
-    
-    completeness        += 1 unless self.profile.to_s       == ''
-    nr_required_params  += 1 
-    
-    completeness        += 1 unless self.profession.to_s    == ''
-    nr_required_params  += 1  
-    
-    completeness        += 1 unless self.country.to_s       == ''
-    nr_required_params  += 1   
-    
-    completeness        += 1 unless self.city.to_s          == ''
-    nr_required_params  += 1    
-    
-    completeness        += 1 unless self.image.to_s    == ''
-    nr_required_params  += 1    
+    completeness            += 1 unless self.name               == default_name
+    nr_required_params      += 1                                                                    
+                                                                
+    # user user_name is     still default name                                                                                            
+    completeness            += 1 unless self.user_name          == default_name
+    nr_required_params      += 1    
+                            
+    completeness            += 1 unless self.profile.to_s       == ''
+    nr_required_params      += 1 
+                            
+    completeness            += 1 unless self.profession.to_s    == ''
+    nr_required_params      += 1  
+                            
+    completeness            += 1 unless self.country.to_s       == ''
+    nr_required_params      += 1   
+                            
+    completeness            += 1 unless self.city.to_s          == ''
+    nr_required_params      += 1    
+                            
+    completeness            += 1 unless self.image.to_s    == ''
+    nr_required_params      += 1    
       
-    self.completeness     = (completeness / nr_required_params * 100).to_i
-    
-    self.uniq_completeness = Uniqifyer.uniqify(self.completeness)
+    self.completeness       = (completeness / nr_required_params * 100).to_i
+    self.uniq_completeness  = Uniqifyer.uniqify(self.completeness)
 
     #artist        
     #author
