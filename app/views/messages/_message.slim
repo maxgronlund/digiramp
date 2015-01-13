@@ -50,55 +50,14 @@
         td
         td
         td
-- else
-  tr
-    td
-      = message.id
+/- else
+/  tr
+/    td
+/      = message.id
+/
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-/  .message
-/    .sender
-/      - if user = message.sender
-/        .message-headder
-/          .message-avatar
-/            = link_to image_tag( user.image_url :avatar_48x48),  user_path( user)
-/          .message-sender
-/            b = user.user_name
-/            
-/          .message-info
-/            
-/            .remove-button
-/              = link_to user_message_path(@user, message) do
-/                .btn.btn-default.btn-xs
-/                  i.fa.fa-eye
-/                  '&nbsp;
-/                  'Read
-/              = link_to user_message_path(@user, message), data:  { confirm: 'Are you sure?' }, method: :delete, remote: true  do
-/                .btn.btn-danger.btn-xs
-/                  i.fa.fa-times
-/      - else
-/       '! Unable to contact sender
-/       = link_to user_message_path(@user, message), data:  { confirm: 'Are you sure?' }, method: :delete, remote: true  do
-/         .btn.btn-danger.btn-xs
-/           i.fa.fa-times
-/      .message-title
-/        = message.created_at.to_formatted_s(:short)
-/        h4 = message.title
-/      .message-body
-/        = message.body
-/        /= debug message
-/      
-/  .sexy_line
-  

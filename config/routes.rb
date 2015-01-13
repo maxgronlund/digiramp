@@ -751,14 +751,14 @@ Digiramp::Application.routes.draw do
   #mount Sidekiq::Web => '/sidekiq', :constraints => AdminConstraint.new
   
   mount Sidekiq::Web, at: "/sidekiq", constraints: lambda { |request| 
-                                                             false unless request.cookies.permanent[:user_id]
-                                                             #return false unless User.exists?(request.session[:user_id])
-                                                             begin
-                                                               user = User.cached_find( request.cookies.permanent[:user_id])
-                                                               user && user.super?
-                                                             rescue
-                                                               false
-                                                             end
-                                                          }
+                                                               false unless request.session[:user_id]
+                                                               #return false unless User.exists?(request.session[:user_id])
+                                                               begin
+                                                                 user = User.cached_find( request.session[:user_id])
+                                                                 user && user.super?
+                                                               rescue
+                                                                 false
+                                                               end
+                                                            }
   
 end

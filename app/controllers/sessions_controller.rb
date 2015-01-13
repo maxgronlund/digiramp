@@ -150,7 +150,7 @@ private
     
     #ap provider
     
-    #session[:user_id]     = user.id
+    session[:user_id]           = user.id
     cookies.permanent[:user_id] = user.id
     session[:account_id]        = user.account_id
     
