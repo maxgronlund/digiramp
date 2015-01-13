@@ -9,6 +9,7 @@
   
   #page-content-wrapper
     .container-fluid
+      ==render 'admin/shared/messages'
       .row
         .col-sm-6
           h2 Support
@@ -21,12 +22,13 @@
       .row
         .col-sm-8.col-xs-12.col-lg-6
           .digi-box
-            = simple_form_for [ Contact.new ], :url => url_for(:action => 'create', :controller => 'supports'), :method => 'post' do |f|
+            = simple_form_for [ @contact ], :url => url_for(:action => 'create', :controller => 'supports'), :method => 'post' do |f|
               
               = f.input :email, placeholder: 'you@email.com'
               
               = f.input :title, placeholder: 'Subject', label: 'Subject'
               = f.input :body, label: 'Message', :input_html => {  style: "height: 284px;", placeholder: "Write your message here"}
+              = f.hidden_field :contact_subject, value: 'support ticket'
               .row
                 .col-sm-12
                   .pull-right

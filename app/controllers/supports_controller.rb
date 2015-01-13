@@ -1,17 +1,30 @@
 class SupportsController < ApplicationController
   def index
+    ap params
     forbidden unless current_user
     @user = current_user
+    if params[:error_in_form]
+      @contact = Contact.new(title: params[:title], body: params[:body], email: params[:email] )
+    else
+      @contact = Contact.new
+    end
   end
   
   def create
     ap params
-    flash[:info] = { title: "Message send: ", body: "We will come back to you asap." }
-    @contact = Contact.create(contact_params)
     
-    SupportMailer.delay.contact(@contact.id)     
+    if EmailValidator.validate( params[:contact][:email])
+      flash[:info] = { title: "Message send: ", body: "We will come back to you asap." }
+      @contact = Contact.create(contact_params)
+      SupportMailer.delay.contact(@contact.id)   
+      redirect_to support_index_path
+    else
+      flash[:danger] = { title: "Sorry: ", body: "Please check the email." }
+      redirect_to support_index_path(error_in_form: true, title: params[:contact][:title], body: params[:contact][:body], email: params[:contact][:email])
+    end
+    
 
-    redirect_to :back
+    
   end
   
 private
