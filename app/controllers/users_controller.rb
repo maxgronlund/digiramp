@@ -40,7 +40,7 @@ class UsersController < ApplicationController
       @users = User.public_profiles.order('uniq_followers_count desc').page(params[:page]).per(8)
     
     else
-       @users = User.public_profiles.search(params[:query]).page(params[:page]).per(8)
+       @users = User.public_profiles.order('uniq_completeness desc').search(params[:query]).page(params[:page]).per(8)
     end
 
 

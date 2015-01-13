@@ -252,15 +252,19 @@ class User < ActiveRecord::Base
       self.last_name = user_name.split('@').last.gsup('_', '')              if self.first_name.to_s == ''
       self.uuid      = UUIDTools::UUID.timestamp_create().to_s              if self.uuid.to_s       == ''
     end
+    
+    #self.uniq_completeness    = Uniqifyer.uniqify(self.completeness)
     update_completeness
     update_search_field
+    
+    self.uniq_followers_count = Uniqifyer.uniqify(self.followers_count)
     
   end
   
 
   
   def set_default_avatar
-
+    
     if self.image_url.include?("/assets/fallback/default" )
       prng      = Random.new
       random_id =  prng.rand(12)
@@ -306,7 +310,9 @@ class User < ActiveRecord::Base
     completeness        += 1 unless self.image.to_s    == ''
     nr_required_params  += 1    
       
-    self.completeness = (completeness / nr_required_params * 100).to_i
+    self.completeness     = (completeness / nr_required_params * 100).to_i
+    
+    self.uniq_completeness = Uniqifyer.uniqify(self.completeness)
 
     #artist        
     #author
@@ -346,14 +352,9 @@ class User < ActiveRecord::Base
     AccessManager.update_access self
   end
   
-  # obsolere, move flus_cache to public
-  # cached_find is not in use anymore
+
   def set_propperties
-    #SuperUser.update_role self
     flush_cache
-    #update_role_on_catalogs
-    #update_role_on_accounts
-    
   end
   
   # create module for this
