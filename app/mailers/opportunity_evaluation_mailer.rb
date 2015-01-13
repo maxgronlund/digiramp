@@ -15,9 +15,15 @@ class OpportunityEvaluationMailer < ActionMailer::Base
     mail to: @user.email, subject: @opportunity_evaluation.subject
   end
   
-  def invite_to_account
+  def invite_to_account user_id, opportunity_evaluation_id
+    @user                     = User.cached_find(user_id)
+    @opportunity_evaluation   =        OpportunityEvaluation.cached_find(opportunity_evaluation_id)
+    
+    @opportunity_evaluation_link    = url_for( controller: 'opportunity/opportunities', action: 'show', id: @opportunity_evaluation.opportunity_id, opportunity_invitation: 'true', user_id: @user.id)
+    @fotter_link                    = url_for( controller: 'contacts', action: 'new')
+    
     
 
-    mail to: "to@example.org"
+    mail to: @user.email,  subject: @opportunity_evaluation.subject
   end
 end

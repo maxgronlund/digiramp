@@ -48,14 +48,14 @@
                 th Id
             tbody
               - @users.each do |user|
-                tr
+                tr id="delete_user_#{user.id.to_s}"
                   /td = debug user
                   td 
                     - if user.role == 'Super'
                       .btn.btn-danger.btn-xs disabled="disabled"
                         i class="fa fa-times"
                     - else
-                      => link_to admin_user_path( user), data: { confirm: 'Are you sure?. \nAll Recordings. Opportunities. Common Works, Account Users and other Assets wil be deleted ' } , :method => :delete do 
+                      => link_to admin_user_path( user), data: { confirm: 'Are you sure?. \nAll Recordings. Opportunities. Common Works, Account Users and other Assets wil be deleted ' } , :method => :delete, remote: true do 
                         .btn.btn-danger.btn-xs
                           i class="fa fa-times"
 

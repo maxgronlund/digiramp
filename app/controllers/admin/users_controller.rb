@@ -82,6 +82,7 @@ class Admin::UsersController < ApplicationController
                 recipient_type: @user.class.name,
                     account_id: @user.account_id)
       
+      @user_id = @user.id
       @user.destroy!
       
 
@@ -98,7 +99,7 @@ class Admin::UsersController < ApplicationController
       flash[:danger] = { title: "ERROR: ", body: "Something went wrong" }
       puts '===============================   ERROR ==================================='
     end
-    redirect_to admin_users_path
+    #redirect_to admin_users_path
   end
 
 
