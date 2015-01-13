@@ -8,7 +8,11 @@ class Account::PlaylistsController < ApplicationController
 
   def show
     forbidden unless current_account_user.read_playlist?
-    @playlist     = Playlist.cached_find(params[:id])
+    begin
+      @playlist     = Playlist.cached_find(params[:id])
+    rescue
+      not_found params
+    end
     #@recordings   = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
   end
   

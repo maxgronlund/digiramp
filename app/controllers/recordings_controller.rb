@@ -85,24 +85,29 @@ class RecordingsController < ApplicationController
   end
   
   def show
-    
-    
-    @recording  = Recording.find(params[:id])
-    @playlists  = current_user.playlists if current_user
-    
-    
-    unless request.xhr?
-      user_id = current_user ? current_user.id : nil
-    
-      RecordingView.create( recording_id: @recording.id, 
-                             user_id: user_id, 
-                             account_id: @recording.account_id 
-                           )
-    end
-    respond_to do |format|
-      format.html
-      format.js
-      format.json { render :json => @this.to_json }
+    ap params
+    if @recording = Recording.cached_find(params[:id]) 
+      ap '========================== found ? ======================'
+      ap @recording
+      @playlists  = current_user.playlists if current_user
+      
+      
+      unless request.xhr?
+        user_id = current_user ? current_user.id : nil
+      
+        RecordingView.create( recording_id: @recording.id, 
+                               user_id: user_id, 
+                               account_id: @recording.account_id 
+                             )
+      end
+      respond_to do |format|
+        format.html
+        format.js
+        format.json { render :json => @this.to_json }
+      end
+    else
+      
+      not_found params
     end
       
   end

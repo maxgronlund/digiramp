@@ -259,8 +259,26 @@ class ApplicationController < ActionController::Base
   #end
   #helper_method :forbidden
   
-  def not_found
-    render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+  def not_found options = {}
+    #ap options
+    ap '========================== app not found ======================'
+    if params[:controller]
+      if current_user
+        redirect_to error_not_found_path( error_id: options[:id], 
+                                          user_id: options[:user_id], 
+                                          error_type: params[:controller],
+                                          redirect_to_message:  request.url, 
+                                          action: params[:action])
+      else
+        ap params
+        redirect_to error_not_found_path( error_id: options[:id] || params[:id],
+                                          error_type: params[:controller],
+                                          redirect_to_message:  request.url, 
+                                          action: params[:action])
+      end
+    else
+      render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+    end
   end
   helper_method :forbidden
   

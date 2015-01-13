@@ -14,8 +14,12 @@ class PlaylistsController < ApplicationController
   end
 
   def show
-    @playlist     = Playlist.cached_find(params[:id])
-    @recordings   = @playlist.recordings
+    begin
+      @playlist     = Playlist.cached_find(params[:id])
+      @recordings   = @playlist.recordings
+    rescue
+      not_found params
+    end
   end
   
   def new

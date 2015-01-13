@@ -20,6 +20,7 @@ class Account::OpportunitiesController < ApplicationController
 
   def show
     forbidden unless current_account_user && current_account_user.read_opportunity
+    
     @opportunity.create_activity(  :show, 
                               owner: current_user,
                           recipient: @opportunity,

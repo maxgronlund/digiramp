@@ -3,10 +3,6 @@ Digiramp::Application.routes.draw do
 
 
 
-  
-
-
-
   resources :share_and_login, only: [:show]
 
   resources :twitter_cards
@@ -700,6 +696,7 @@ Digiramp::Application.routes.draw do
       resources :contacts do
         get 'toggle_selection'
       end
+      resources :contact_groups
       resources :control_panel, only: [:index]
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]

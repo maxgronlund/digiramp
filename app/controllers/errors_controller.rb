@@ -7,7 +7,7 @@ class ErrorsController < ApplicationController
     ap params
     if params[:error_type]
       
-      @error_type           = params[:error_type] 
+      @error_type           = params[:error_type].gsub('user/', '') 
       @user                 = current_user
       @redirect_to_message  = params[:redirect_to_message] if params[:redirect_to_message]
 

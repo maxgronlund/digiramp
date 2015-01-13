@@ -135,7 +135,11 @@ class Playlist < ActiveRecord::Base
   end
   
   def self.cached_find(id)
-    Rails.cache.fetch([name, id]) { find(id) }
+    begin
+      Rails.cache.fetch([name, id]) { find(id) }
+    rescue
+      nil
+    end
   end 
   
 private     

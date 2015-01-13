@@ -51,7 +51,7 @@ class SongsController < ApplicationController
   def show
     #puts '-------------------------------- alert ------------------------------------------'
     # this shoule never been calle dbut it is
-    render nothing: true
+    not_found params
   end
   
   
