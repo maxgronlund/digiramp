@@ -312,7 +312,7 @@ class User < ActiveRecord::Base
       
     self.completeness     = (completeness / nr_required_params * 100).to_i
     
-    #self.uniq_completeness = Uniqifyer.uniqify(self.completeness)
+    self.uniq_completeness = Uniqifyer.uniqify(self.completeness)
 
     #artist        
     #author
