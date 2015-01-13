@@ -264,7 +264,7 @@ class ApplicationController < ActionController::Base
     ap '========================== app not found ======================'
     if params[:controller]
       if current_user
-        redirect_to error_not_found_path( error_id: options[:id], 
+        redirect_to error_not_found_path( error_id: options[:id] || params[:id], 
                                           user_id: options[:user_id], 
                                           error_type: params[:controller],
                                           redirect_to_message:  request.url, 
