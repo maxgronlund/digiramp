@@ -12,6 +12,7 @@ class User::ContactsController < ApplicationController
   end
   
   def show
+    @contact = Client.cached_find(params[:id])
   end
 
   # GET /contacts/new

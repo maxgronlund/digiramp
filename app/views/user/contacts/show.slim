@@ -1,1 +1,119 @@
-'comming soon
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path( @user), \
+                                                              contacts: user_user_contacts_path( @user )}, current: ''}
+      .row
+        .col-sm-8
+          h2 = @contact.name + ' ' + @contact.last_name
+        .col-sm-4
+          .pull-right.pull-down-10
+
+            => link_to user_user_contacts_path( @user ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+            
+            = link_to 'Edit', user_user_contact_path(@user, @contact), class: 'btn btn-primary'
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            .gravatar
+              = gravatar_tag @contact.email, :size => 120, class: "media-object"
+            .address
+              table
+                tr
+                    
+                - if @contact.company.to_s != ''
+                  tr
+                    th Company: &nbsp;
+                    td = @contact.company
+                
+                th Email: &nbsp;
+                td = @contact.email
+                   
+                - if @contact.assistant.to_s != ''
+                  tr
+                    th Assistant: &nbsp;
+                    td = @contact.assistant
+                    
+                - if @contact.direct_phone.to_s != ''
+                  tr
+                    th Direct Phone: &nbsp;
+                    td = @contact.direct_phone
+                    
+                - if @contact.direct_fax.to_s != ''
+                  tr
+                    th Direct Fax: &nbsp;
+                    td = @contact.direct_fax
+                    
+                - if @contact.capacity.to_s != ''
+                  tr
+                    th Capacity: &nbsp;
+                    td = @contact.capacity
+                    
+                - if @contact.department.to_s != ''
+                  tr
+                    th Department: &nbsp;
+                    td = @contact.department
+                    
+                - if @contact.address_work.to_s != ''
+                  tr
+                    th Address: &nbsp;
+                    td = @contact.address_work
+                    
+                - if @contact.city_work.to_s != ''
+                  tr
+                    th City: &nbsp;
+                    td = @contact.city_work
+                    
+                - if @contact.state_work.to_s != ''
+                  tr
+                    th State: &nbsp;
+                    td = @contact.state_work
+                    
+                - if @contact.zip_work.to_s != ''
+                  tr
+                    th Zip Code: &nbsp;
+                    td = @contact.zip_work
+                    
+                - if @contact.country_work.to_s != ''
+                  tr
+                    th Country: &nbsp;
+                    td = @contact.country_work
+                    
+                - if @contact.home_page.to_s != ''
+                  tr
+                    th Home Page: &nbsp;
+                    td = link_to @contact.home_page, LinkValidator.validate(@contact.home_page)
+                    
+                - if @contact.business_phone.to_s != ''
+                  tr
+                    th Business Phone: &nbsp;
+                    td = @contact.business_phone
+                    
+                - if @contact.business_fax.to_s != ''
+                  tr
+                    th Business Fax: &nbsp;
+                    td = @contact.business_fax
+                    
+                - if @contact.business_email.to_s != ''
+                  tr
+                    th Business Email: &nbsp;
+                    td = @contact.business_email
+          
+      
+        
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

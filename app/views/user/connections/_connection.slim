@@ -31,7 +31,7 @@
         == render 'user/connections/accept_dismiss_buttons', connection: connection
         
 - else
-  = debug connection
+  /= debug connection
   - connection.destroy!
 /tr id="connection_#{connection.id}"
 / id="old_connection_#{connection.id}"
