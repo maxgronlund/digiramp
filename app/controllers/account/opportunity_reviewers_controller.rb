@@ -41,9 +41,6 @@ class Account::OpportunityReviewersController < ApplicationController
 
   def destroy
     if current_account_user.update_opportunity
-      ap params
-      #@opportunity_evaluation = OpportunityEvaluation.create(opportunity_evaluation_params)
-      #@opportunity            = Opportunity.cached_find(params[:opportunity_id])
       redirect_to account_account_opportunity_opportunity_reviewers_path( @account, @opportunity)
     else
       forbidden

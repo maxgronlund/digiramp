@@ -2,9 +2,7 @@ class ShareOnFacebooksController < ApplicationController
 
   # the user is sharing from the dialog
   def create
-    ap '-------------- ShareOnFacebooksController#create -----------'
-    ap params
-    
+    # '-------------- ShareOnFacebooksController#create -----------'
     
     if current_user
       share_when_logged_in params
@@ -30,7 +28,7 @@ class ShareOnFacebooksController < ApplicationController
   
   # the user is logged in
   def share_when_logged_in params
-    ap '-------------- ShareOnFacebooksController#create_on_logged_in -----------'
+    # '-------------- ShareOnFacebooksController#create_on_logged_in -----------'
     # if the publish action works
     if current_user.facebook_publish_actions
       share_with_authorized_user params
@@ -50,7 +48,7 @@ class ShareOnFacebooksController < ApplicationController
   
   
   def share_with_authorized_user params
-    ap '-------------- ShareOnFacebooksController#share_with_authorized_user -----------'
+    # '-------------- ShareOnFacebooksController#share_with_authorized_user -----------'
     # ohay everything is cool we are calle with ajax
     @recording  = Recording.cached_find(params[:share_on_facebook][:recording_id])
     @user       = User.cached_find(params[:share_on_facebook][:user_id])
@@ -78,7 +76,7 @@ class ShareOnFacebooksController < ApplicationController
 
   # getting a new authorization from facebook
   def get_new_authorization params
-    ap '-------------- ShareOnFacebooksController#get_new_authorization -----------'
+    # '-------------- ShareOnFacebooksController#get_new_authorization -----------'
     provider = current_user.authorization_providers.where(provider: 'facebook').first
     provider.destroy
     
@@ -92,8 +90,8 @@ class ShareOnFacebooksController < ApplicationController
   
   # used when there is a full page reload after signing in / up with facebook
   def show
-    ap '-------------- ShareOnFacebooksController#show called after authorizing facebook -----------'
-    ap params
+    # '-------------- ShareOnFacebooksController#show called after authorizing facebook -----------'
+
     
     
     recording  = Recording.cached_find(params[:recording_id])

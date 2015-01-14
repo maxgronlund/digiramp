@@ -29,7 +29,7 @@ class Opportunity::MusicSubmissionsController < ApplicationController
     #else
     account_users =  AccountUser.where(user_id: current_user.id)
     
-    #ap account_users.first
+    
     opportunity   =  @music_request.opportunity
     account_id    =  opportunity.account_id
     

@@ -40,8 +40,7 @@ class User::ContactsController < ApplicationController
   def toggle_selection
 
     session[:select_all_recordings] = session[:select_all_recordings] ? false : true
-    ap '=================================='
-    ap session[:select_all_recordings]
+    
     render nothing: true
   end
 

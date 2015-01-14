@@ -9,6 +9,7 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { control_panel: user_user_control_panel_index_path(@user) }, current: ''}
       .row
         .col-sm-6
           h2 Contacts
@@ -32,15 +33,26 @@
         
         
         
-      .row.pull-down-10
-        .col-sm-12
-          .btn.btn-default.select-all id="#{@user.id}"
-            'Toggle all
+      /.row.pull-down-10
+      /  .col-sm-12
+      /    .btn.btn-default.select-all id="#{@user.id}"
+      /      'Toggle all
       .sexy_line
       
       
       
       .digi-box
+        .row
+          .col-sm-3
+            .ellipsis
+              b Name / Company
+          .col-sm-4
+            b Email
+          .col-sm-3
+            b Capacity
+          .col-sm-2
+
+        .sexy_line
         .endless-contacts
         .add_contacts
           == render 'user/contacts/index'

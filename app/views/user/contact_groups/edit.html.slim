@@ -1,2 +1,22 @@
-h1 ContactGroups#edit
-p Find me in app/views/contact_groups/edit.html.slim
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user), \ 
+                                                              'contact groups'.to_sym => user_user_contact_groups_path(@user)}, current: ''}
+      h2 = @contact_group.title
+      .sexy_line
+      = debug @contact_group
+        
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

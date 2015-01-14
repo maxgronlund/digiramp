@@ -22,11 +22,8 @@ class MessagesController < ApplicationController
   def show
     @message = Message.cached_find(params[:id])
     @message.read = true
-    #@user.messages_not_read = self.received_massages.where(read: false).count
-    #@user.save
     @message.save validate: false
-    #ap @message
-    #@authorized   = true
+
   end
 
   def create
@@ -48,12 +45,7 @@ class MessagesController < ApplicationController
                                           })
                                           
     
-    #ap @receiver.email
-    #ap '=========================================='
-    #ap @message
-    #if EmailValidator.validate( @receiver.email   )            
-    #  MessageMailer.delay.send_message(@message.id)     
-    #end  
+ 
     @message.send_as_email                        
                                           
   end

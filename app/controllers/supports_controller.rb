@@ -1,6 +1,6 @@
 class SupportsController < ApplicationController
   def index
-    ap params
+    
     forbidden unless current_user
     @user = current_user
     if params[:error_in_form]
@@ -11,7 +11,6 @@ class SupportsController < ApplicationController
   end
   
   def create
-    ap params
     
     if EmailValidator.validate( params[:contact][:email])
       flash[:info] = { title: "Message send: ", body: "We will come back to you asap." }

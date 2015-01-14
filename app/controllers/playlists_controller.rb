@@ -29,7 +29,7 @@ class PlaylistsController < ApplicationController
   end
   
   def create
-    ap '======================== create =========================='
+    
     if @playlist = Playlist.create(playlist_params)
       @playlist.check_default_image
       redirect_to user_playlist_path( @user, @playlist)

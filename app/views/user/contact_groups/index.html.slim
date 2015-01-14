@@ -9,6 +9,7 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
       .row
         .col-sm-6
           .help
@@ -21,6 +22,19 @@
             = link_to 'New group', new_user_user_contact_group_path(@user), class: 'btn btn-primary'
       .sexy_line
       .digi-box
+        - @contact_groups.each do |contact_group|
+          .row
+            .col-sm-3
+              = link_to user_user_contact_group_path(@user, contact_group) do
+                 .btn.btn-default.btn-xs
+                   = contact_group.title
+            .col-sm-6
+              = contact_group.description
+            .col-sm-3
+              .pull-right
+                
+          .sexy_line
+
         /.table-responsive
         /  table class="table table-hover"
         /    thead

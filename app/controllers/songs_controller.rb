@@ -33,7 +33,7 @@ class SongsController < ApplicationController
         recordings = Recording.public_access.order(order)
       end
     elsif params[:recording][:featured]
-      ap '================================ FEATURED =============================='
+      # '================================ FEATURED =============================='
       recordings = Recording.public_access.where(featured: true)
     else
       recordings = Recording.public_access.order(order)

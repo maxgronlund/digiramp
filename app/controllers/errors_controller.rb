@@ -3,8 +3,7 @@ class ErrorsController < ApplicationController
  
   # 404
   def not_found
-    ap '================= errors/not_found ========================'
-    ap params
+    
     if params[:error_type]
       
       @error_type           = params[:error_type].gsub('user/', '') 

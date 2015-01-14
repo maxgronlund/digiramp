@@ -43,7 +43,6 @@ class ApplicationController < ActionController::Base
   end
   
   def current_account
-    #ap session[:account_id]
     begin
       return  Account.cached_find( session[:account_id]) if session[:account_id]
       session[:account_id] = current_user.account_id
@@ -209,8 +208,6 @@ class ApplicationController < ActionController::Base
   
   
   def forbidden options = {}
-    ap '================ application/forbidden ====================='
-    ap options
     
     if params[:controller] && options[:controller] == 'messages'
        
@@ -224,20 +221,14 @@ class ApplicationController < ActionController::Base
        
       else
         session[:go_to_message]          =  request.url
-        ap ' =================== request.url ==========================='
-        ap session[:current_page]
+        
         redirect_to error_not_found_path( error_id: 0, 
                                           user_id: options[:user_id], 
                                           error_type: 'log_in_to_read_message')
         
       end
     else
-      #if options[:forbidden]
-      #  case options[:forbidden]
-      #  when 'login'
-      #    #ap options
-      #  end
-      #end
+
       session[:landing_page] = request.url
       render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
       # redirect_to error_not_found_path 0
@@ -245,23 +236,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :forbidden
 
-  #def forbidden options = {}
-  #  
-  #  if options[:forbidden]
-  #    case options[:forbidden]
-  #    when 'login'
-  #      #ap options
-  #    end
-  #    
-  #  end
-  #  session[:landing_page] = request.url
-  #  render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
-  #end
-  #helper_method :forbidden
+
   
   def not_found options = {}
-    #ap options
-    ap '========================== app not found ======================'
+    
     if params[:controller]
       if current_user
         redirect_to error_not_found_path( error_id: options[:id] || params[:id], 
@@ -270,7 +248,7 @@ class ApplicationController < ActionController::Base
                                           redirect_to_message:  request.url, 
                                           action: params[:action])
       else
-        ap params
+        
         redirect_to error_not_found_path( error_id: options[:id] || params[:id],
                                           error_type: params[:controller],
                                           redirect_to_message:  request.url, 

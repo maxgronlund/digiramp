@@ -9,7 +9,7 @@ class Account::RecordingDeparturesController < ApplicationController
   end
 
   def create
-    #ap 
+    
     if params[:account][:transfer_codes]
       count = 0
       params[:account][:transfer_codes].split(',').each do |transfer_code|

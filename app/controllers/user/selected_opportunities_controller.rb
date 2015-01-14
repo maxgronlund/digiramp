@@ -24,7 +24,7 @@ class User::SelectedOpportunitiesController < ApplicationController
                                                 .first_or_create(user_id: @user.id, opportunity_id: @opportunity.id)
       
       
-                                                ap @opportunity
+      
       selected_opportunity.archived = false
       selected_opportunity.save!
       

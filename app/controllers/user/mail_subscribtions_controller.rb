@@ -15,9 +15,9 @@ class User::MailSubscribtionsController < ApplicationController
   end
   
   def show
-    ap params
+    #params
     if params[:submit] == '1'
-      ap '=================== subscribe ================='
+      
       MailListSubscriber.where(user_id: params[:user_id], email_group_id: params[:id] )
                         .first_or_create(user_id: params[:user_id], email_group_id: params[:id] )
     else

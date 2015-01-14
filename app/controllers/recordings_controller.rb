@@ -85,10 +85,7 @@ class RecordingsController < ApplicationController
   end
   
   def show
-    ap params
     if @recording = Recording.cached_find(params[:id]) 
-      ap '========================== found ? ======================'
-      ap @recording
       @playlists  = current_user.playlists if current_user
       
       

@@ -2,8 +2,6 @@ class SessionsController < ApplicationController
 
   
   def create
-    ap '-------------- SessionsController#create -----------'
-    ap params
     session[:show_profile_completeness] = true
     
     if user = current_user
@@ -24,7 +22,7 @@ class SessionsController < ApplicationController
   # the user is all readdy logged in 
   # so we are attaching a provider to an existing account
   def attach_authorization_provider_to_existing_user env, user
-    ap '-------------- SessionsController#attach_authorization_provider_to_existing_user -----------'
+    # '-------------- SessionsController#attach_authorization_provider_to_existing_user -----------'
     
     unless Omniauth.attach_provider( env, user )
       flash[:info] = { title: "Notice: ", body: "Provider already attached to account" }
@@ -41,7 +39,7 @@ class SessionsController < ApplicationController
   
   # log in / signing up with omniauthor
   def log_in_up_or_sign_up_with_omniauth env
-    ap '-------------- SessionsController#log_in_up_or_sign_up_with_omniauth -----------'
+    # '-------------- SessionsController#log_in_up_or_sign_up_with_omniauth -----------'
     
     user = Omniauth.authorize_with_omniauth( env['omniauth.auth'] )
     if user[:user]
@@ -59,7 +57,7 @@ class SessionsController < ApplicationController
   
   
   def log_in_with_email params
-    ap '-------------- SessionsController#log_in_with_email -----------'
+    # '-------------- SessionsController#log_in_with_email -----------'
      
     params[:sessions][:email]  = params[:sessions][:email].downcase
     user = User.where(email: params[:sessions][:email]).first
@@ -75,7 +73,7 @@ class SessionsController < ApplicationController
       end
       initialize_session_for user
     else
-      # Please trye againg
+
       flash[:danger] = { title: "Sorry", body: "No user we can't authorize found.
                                                 If you have signed up directly on DigiRAMP we can resend you password.
                                                 Otherwise make sure you are signed in with you authorization provider" }
@@ -87,16 +85,7 @@ class SessionsController < ApplicationController
 
 
   def destroy
-    
-    #ap params
-    
-    
-    #if params[:redirect_to]
-    #  session[:current_page] = params[:redirect_to]
-    #  session[:redirect_to_message]   = nil
-    #end
-    
-    #redirect_to :back
+
     session[:show_profile_completeness] = nil
     begin 
       user = User.cached_find_by_auth_token( cookies[:auth_token] )
@@ -133,9 +122,9 @@ class SessionsController < ApplicationController
 private
   
   def initialize_session_for user
-    ap '-------------- SessionsController#initialize_session_for -----------'
-    ap params
-    ap session[:current_page]
+    # '-------------- SessionsController#initialize_session_for -----------'
+    # params
+    # session[:current_page]
 
     provider = nil
     if env['omniauth.auth']
@@ -148,7 +137,6 @@ private
       end
     end
     
-    #ap provider
     
     session[:user_id]           = user.id
     cookies.permanent[:user_id] = user.id

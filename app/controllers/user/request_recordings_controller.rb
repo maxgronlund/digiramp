@@ -2,7 +2,6 @@ class User::RequestRecordingsController < ApplicationController
   
   
   def index
-    ap params
     get_private_user
     @recordings = []
     begin

@@ -8,7 +8,7 @@ class Catalog::RecordingsController < ApplicationController
   #before_filter :read_recording, only:[:show]
   
   def index
-    ap params
+    
     if @catalog_user = CatalogUser.where(catalog_id: @catalog.id, user_id: current_user.id).first
       @recordings   = Recording.not_in_bucket.catalogs_search( @catalog.recordings , params[:query]).order('title asc').page(params[:page]).per(24)
       @widget       = @catalog.default_widget  

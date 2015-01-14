@@ -6,24 +6,14 @@ class CommonWorksController < ApplicationController
 
   
   def update
-    ap params[:common_work].nil? 
     
     recording_id    = params[:common_work][:recording_id]
     user_id         = params[:common_work][:user_id]
     params[:common_work].delete :recording_id
     params[:common_work].delete :user_id
     
-    
-    #forbidden unless current_account_user.update_common_work
-    #artwork_url = TransloaditImageParser.get_image_url params[:transloadit]
-
-    # extract  parameters
     params[:common_work] = params["common_work"] 
-    
-    # set the artwork url if any
-    #params[:common_work][:artwork]  = artwork_url if artwork_url
 
-    
     @common_work    = CommonWork.cached_find(params[:id])
     
     if  params[:common_work][:ipis_attributes]

@@ -43,9 +43,8 @@ class Connection < ActiveRecord::Base
   end
   
   def self.decrease_messages_count message
-    ap message
+
     if connection = message_connection( message )
-      ap connection
       connection.messages_count -= 1 
       connection.save!                  
     end
