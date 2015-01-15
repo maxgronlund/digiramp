@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
   #  puts '-----------------------------------------------'
   #end
   
+  #def facebook_cookies
+  #    @facebook_cookies ||= Koala::Facebook::OAuth.new(FACEBOOK_CONFIG['app_id'], FACEBOOK_CONFIG['secret_key']).get_user_info_from_cookie(cookies)
+  #end
+  
   def current_user
     begin
       @current_user ||= User.find(cookies.permanent[:user_id]) if cookies.permanent[:user_id]

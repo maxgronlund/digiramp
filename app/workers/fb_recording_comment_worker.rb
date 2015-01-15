@@ -12,7 +12,7 @@ class FbRecordingCommentWorker
                                      {
                                      "name" => "#{recording.title}",
                                      "link" => "http://www.digiramp.com/users/#{recording.user.slug}/recordings/#{recording.id}",
-                                     "caption" => "#{user.name} reccomended a recording",
+                                     "caption" => "#{user.name} recommended a recording",
                                      "description" => "#{recording.comment}",
                                      "picture" => "#{recording.get_artwork}"
                                    })

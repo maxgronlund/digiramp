@@ -35,6 +35,7 @@ set :tests, []
 set(:config_files, %w(
   nginx.conf
   application.yml
+  facebook.yml
   log_rotation
   monit
   unicorn.rb

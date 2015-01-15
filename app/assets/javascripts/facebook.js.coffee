@@ -1,23 +1,42 @@
 #https://developers.facebook.com/docs/javascript/howto/jquery
 
-jQuery ->
+ready = ->
+  
   $('body').prepend('<div id="fb-root"></div>')
 
-  $.ajax
-    url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
-    dataType: 'script'
-    cache: true
-
-
-window.fbAsyncInit = ->
-  FB.init(appId: '<%= ENV["FACEBOOK_KEY"] %>', cookie: true)
-
-  $('#sign_in').click (e) ->
-    e.preventDefault()
-    FB.login (response) ->
-      window.location = '/auth/facebook/callback' if response.authResponse
-
-  $('#sign_out').click (e) ->
+  $("#login_with_facebook").click ->
     FB.getLoginStatus (response) ->
-      FB.logout() if response.authResponse
-    true
+      if response.status is "connected"
+        console.log "Logged in."
+        console.log(response.authResponse.accessToken)
+        
+      else
+        FB.login (response) ->
+          window.location = '/auth/facebook/callback' if response.authResponse
+          scope: "publish_actions"
+      return
+    
+    
+    
+   
+   
+   
+   
+   
+   #FB.login (->
+   #  FB.api "/me/feed", "post",
+   #    message: "Hello, world!"
+   #  return
+   #),
+   #  scope: "publish_actions"
+
+  #$.ajax
+  #  url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
+  #  dataType: 'script'
+  #  cache: true
+
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
+
+

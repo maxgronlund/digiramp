@@ -67,6 +67,7 @@
 //= require toggles
 //= require control_panel
 //= require replies
+// require facebook
 // require disqus
 // require bootstrapValidator.min
 // require bootstrap-tokenfield

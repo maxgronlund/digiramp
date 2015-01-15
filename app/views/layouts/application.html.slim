@@ -48,6 +48,7 @@ html
   
   
   body
+    /== render 'layouts/facebook'
     - unless request.url.include?('/login/new') || request.url.include?('/signup/index') || request.url.include?('/admin/')
       - session[:current_page]    = request.url
 
@@ -57,10 +58,13 @@ html
     - else
       == render 'layouts/fb'
     
+    /== render 'layouts/fb_share'
     
-    == render 'layouts/fb_share'
+    
     = yield :charts_js
     = yield
+    
+
 
     
     /  == render '/layouts/login'
