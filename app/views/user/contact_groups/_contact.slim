@@ -1,0 +1,22 @@
+.row
+   
+  .col-sm-3
+    => link_to user_user_contact_group_add_contact_path(@user,  @contact_group, contact), data: { confirm: 'Are you sure?' }, remote: true , :method => :delete do
+      .btn.btn-danger.btn-xs
+        i.fa.fa-times
+        '&nbsp;
+        'Remove from group
+  .col-sm-3
+    .ellipsis
+      = contact.full_name
+      br
+      = contact.company
+    
+  .col-sm-3
+    .ellipsis
+      = link_to contact.email, user_user_contact_path(@user, contact), class: 'btn btn-default btn-xs'
+    
+  .col-sm-3
+    .ellipsis
+      = contact.capacity
+.sexy_line

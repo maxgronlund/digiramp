@@ -5,6 +5,7 @@ class Client < ActiveRecord::Base
   has_many :playlist_key_users
   before_create :set_user_uuid
   after_commit :flush_cache
+  before_save :set_full_name
   
   include PgSearch
   pg_search_scope :search, against: [ :name,         
@@ -34,6 +35,18 @@ class Client < ActiveRecord::Base
   
   def set_user_uuid
     self.user_uuid = UUIDTools::UUID.timestamp_create().to_s
+  end
+  
+  def set_full_name
+    self.full_name = self.name + ' ' + self.last_name
+  end
+  
+  def self.group_search( clients,  query)
+    
+    if query.present?
+     clients = clients.search(query)
+    end
+    clients
   end
   
   def self.account_search(account, query)

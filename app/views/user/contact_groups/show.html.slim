@@ -31,11 +31,14 @@
       /  .col-sm-6
       /    h2 = @contact_group.title
       .sexy_line
+      h4 Contacts
       .digi-box
+        
         b = @contact_group.description
         br
-        - @contact_group.clients.each do |client|
-          = debug client
+        - @contacts.each do |contact|
+          div id="delete_contact_#{contact.id.to_s}"
+            == render 'user/contact_groups/contact', contact: contact
         
                  
               

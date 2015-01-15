@@ -1,21 +1,43 @@
-
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'contacts' 
+    == render 'shared/navigationbar', page: 'connections' 
   
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+      == render 'users/shared/sidebar', selected: 'connections'
   
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user), \ 
                                                               'contact groups'.to_sym => user_user_contact_groups_path(@user)}, current: ''}
-      h2 = @contact_group.title
-      .sexy_line
-      = debug @contact_group
-        
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Edit contact group
+            .help-button
+              == render 'admin/helps/help', identifier: 'contact groups'
+        .col-sm-6
+          .pull-right.pull-down-10
+            /= link_to 'New group', new_user_user_contact_group_path(@user), class: 'btn btn-primary'
+      .sexy_line      
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [:user, @user, @contact_group], :url => url_for(:action => 'update', :controller => 'contact_groups'), :method => 'put' do |f|
+            
+              
+              = f.hidden_field :account_id, value: @user.account_id
+              = f.hidden_field :user_uuid, value: @user.uuid
+              = f.input :title
+              =f.input :description, :input_html => {  style: "height: 120px;"}
+              .row
+                .col-sm-12
+                  .pull-right  
+                    = f.submit 'Save', class: 'btn btn-primary'
+
+            
                  
               
   == render 'shared/site_footer'    

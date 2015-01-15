@@ -9,14 +9,16 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),\
+                                                               'contact groups'.to_sym => user_user_contact_groups_path(@user), \
+                                                               @contact_group.title.to_sym => user_user_contact_group_path(@user, @contact_group)}, current: ''}
       .row
         .col-sm-6
           h2 Add contacts
         .col-sm-6
           .pull-down-10
             = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
-                                                          :controller => '/user/contacts'), \
+                                                          :controller => '/user/add_contacts'), \
                                                           :method => 'get' do |f|
           
               .input-group
@@ -33,10 +35,21 @@
         
         
         
-      /.row.pull-down-10
-      /  .col-sm-12
-      /    .btn.btn-default.select-all id="#{@user.id}"
-      /      'Toggle all
+      .row.pull-down-10
+        .col-sm-12
+          .btn.btn-default.select-all
+            'Select all
+          '&nbsp;
+
+          /=> link_to user_user_contact_group_add_selected_path( @user, @contact_group), remote: true do
+          .btn.btn-default.add-selected id="#{@user.id}" contact_group_id="#{@contact_group.id}"
+            'Add selected
+          '&nbsp;
+           
+          => link_to user_user_contact_group_add_all_path( @user, @contact_group),  remote: true do
+            .btn.btn-default.add-all id="#{@user.id}"
+              'Add all
+            
       .sexy_line
       
       
@@ -44,18 +57,18 @@
       .digi-box
         .row
           .col-sm-3
+          .col-sm-3
             .ellipsis
               b Name / Company
-          .col-sm-4
-            b Email
           .col-sm-3
             b Capacity
-          .col-sm-2
+          .col-sm-3
+            b Email
 
         .sexy_line
         .endless-contacts
         .add_contacts
-          == render 'user/contacts/index'
+          == render 'user/add_contacts/index'
 
       
         .add_pagination

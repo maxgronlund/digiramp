@@ -17,22 +17,7 @@
       
   .col-sm-2
     .pull-right
-      /label class="contact-select"
-      /  => check_box_tag "contact_ids[]", contact.id, session[:select_all_recordings] 
-        
-        
-        
-        /check_box_tag 'receive_email', 'yes', true
-        /# => <input checked="checked" id="receive_email" name="receive_email" type="checkbox" value="yes" />
-        
-        
-        
-        
-      /label class="contact-select"  class='icheck-me' data-skin="square" data-color="blue"
-      /  => check_box_tag "contact_ids[]", contact.id
-      
-      
-      
+
       
       => link_to edit_user_user_contact_path(@user, contact) do
         .btn.btn-default.btn-xs

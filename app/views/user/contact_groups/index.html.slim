@@ -22,19 +22,35 @@
             = link_to 'New group', new_user_user_contact_group_path(@user), class: 'btn btn-primary'
       .sexy_line
       .digi-box
+        .row
+          .col-sm-3
+            b Title
+          .col-sm-5
+            b Description
+          .col-sm-2
+            b Contacts
+          .col-sm-2
+            
+        .sexy_line
         - @contact_groups.each do |contact_group|
-          .row
-            .col-sm-3
-              = link_to user_user_contact_group_path(@user, contact_group) do
-                 .btn.btn-default.btn-xs
-                   = contact_group.title
-            .col-sm-6
-              = contact_group.description
-            .col-sm-3
-              .pull-right
-                
-          .sexy_line
-
+          div id="destroy_contact_group_#{contact_group.id}"
+            .row
+              .col-sm-3
+                = link_to user_user_contact_group_path(@user, contact_group) do
+                   .btn.btn-default.btn-xs
+                     = contact_group.title
+              .col-sm-5
+                = contact_group.description
+              .col-sm-2
+                = contact_group.clients.count
+              .col-sm-2
+                .pull-right
+                  = link_to user_user_contact_group_path(@user, contact_group), data: { confirm: 'Are you sure?' }, remote: true , :method => :delete do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
+                  
+            .sexy_line
+            
         /.table-responsive
         /  table class="table table-hover"
         /    thead

@@ -678,10 +678,7 @@ Digiramp::Application.routes.draw do
     resources :recordings, only: [:index, :show]
   end
   
-  
-  
-  
-  
+
   
   #=================== USER =========================
   namespace :user do
@@ -693,11 +690,13 @@ Digiramp::Application.routes.draw do
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
       resources :connections, only: [:index, :create, :update, :destroy]
-      resources :contacts do
-        get 'toggle_selection'
-      end
+      resources :contacts 
       resources :contact_groups do
-        resources :add_contacts
+        get 'toggle_selection'
+        get 'add_all'
+        get 'add_selected'
+        resources :add_contacts 
+          
       end
       resources :control_panel, only: [:index]
       resources :removed_opportunities, only: [:index, :show, :destroy]

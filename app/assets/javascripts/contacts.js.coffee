@@ -8,19 +8,27 @@ ready = ->
     
   endless_contacts()
   
-  $(".select-all").click ->
+
+  $(".add-selected").click ->
+    #console.log $( "input:checkbox:checked" ).val()
     user_id = $(this).attr 'id'
-    #alert user_id
-    #/user/users/:user_id/contacts/:contact_id/toggle_selection
-    $.getScript("/user/users/#{user_id}/contacts/0/toggle_selection"    )
-    #$.getScript(url)
+    contact_group_id  = $(this).attr 'contact_group_id'
+    console.log contact_group_id
+    $(":checkbox:checked").each ->
+      contact_id = $(this).val()
+
+      $.getScript("add_contacts/new?contact_id=" + contact_id)
+
+  
+  $(".select-all").click ->
+    $.getScript("toggle_selection")
+    
     $(":checkbox").each ->
       @checked = not @checked
-      
-      
-      
-      return
   
+      return
+      
+   
 
 
   

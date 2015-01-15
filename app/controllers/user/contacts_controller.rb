@@ -3,7 +3,7 @@ class User::ContactsController < ApplicationController
   before_filter :access_user
   def index
 
-    session[:select_all_recordings] = false if request.xml_http_request?().nil?
+    #session[:select_all_recordings] = false if params[:page].nil?
       
       
     
@@ -34,18 +34,10 @@ class User::ContactsController < ApplicationController
   
   def destroy
     client = Client.cached_find(params[:id])
-    client.destroy
+    client.destroy!
     @contact_id = params[:id]
   end
   
-  def toggle_selection
-
-    session[:select_all_recordings] = session[:select_all_recordings] ? false : true
-    
-    render nothing: true
-  end
-
-
 
   private
 
