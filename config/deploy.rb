@@ -20,7 +20,7 @@ set :keep_releases, 5
 
 # files we want symlinking to specific entries in shared
 #set :linked_files, %w{config/database.yml config/application.yml config/sidekiq.yml}
-set :linked_files, %w{config/database.yml config/application.yml }
+set :linked_files, %w{config/database.yml config/application.yml config/facebook.yml }
 
 # dirs we want symlinking to shared
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
@@ -34,8 +34,6 @@ set :tests, []
 # for details of operations
 set(:config_files, %w(
   nginx.conf
-  application.yml
-  facebook.yml
   log_rotation
   monit
   unicorn.rb
