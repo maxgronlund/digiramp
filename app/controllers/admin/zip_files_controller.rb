@@ -26,7 +26,8 @@ class Admin::ZipFilesController < ApplicationController
   # POST /zip_files.json
   def create
     @zip_file = ZipFile.new(zip_file_params)
-
+    @zip_file.save!
+    redirect_to admin_zip_files_path
     #respond_to do |format|
     #  if @zip_file.save
     #    format.html { redirect_to @zip_file, notice: 'Zip file was successfully created.' }
