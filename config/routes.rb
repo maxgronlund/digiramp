@@ -317,6 +317,18 @@ Digiramp::Application.routes.draw do
     #end
     #resources :connections, only: [:index, :create, :update, :destroy]
     #resources :contacts
+    
+    
+    resources :recording_basics, only: [:edit, :update]
+    resources :recording_personas, only: [:edit, :update]
+    resources :recording_tags, only: [:edit, :update]
+    resources :recording_rights, only: [:edit, :update]
+    resources :recording_uploads, only: [:edit, :update]
+    resources :recording_lyrics, only: [:edit, :update]
+    resources :recording_common_work, only: [:edit, :update]
+    resources :recording_meta_data, only: [:edit, :update]
+    
+    
     resources :forums
     resources :forum_posts, only: [:edit, :update]
     resources :messages
@@ -324,15 +336,14 @@ Digiramp::Application.routes.draw do
     resources :replies
     resources :unread_messages, only: [:index]
     resources :send_messages, only: [:index]
-    resources :recording_basics, only: [:edit, :update]
-    resources :recording_personas, only: [:edit, :update]
-    resources :recording_tags, only: [:edit, :update]
-    resources :recording_rights, only: [:edit, :update]
-    resources :recording_uploads, only: [:edit, :update]
-    resources :recording_lyrics, only: [:edit, :update]
-    
-    resources :recording_common_work, only: [:edit, :update]
-    resources :recording_meta_data, only: [:edit, :update]
+    #resources :recording_basics, only: [:edit, :update]
+    #resources :recording_personas, only: [:edit, :update]
+    #resources :recording_tags, only: [:edit, :update]
+    #resources :recording_rights, only: [:edit, :update]
+    #resources :recording_uploads, only: [:edit, :update]
+    #resources :recording_lyrics, only: [:edit, :update]
+    #resources :recording_common_work, only: [:edit, :update]
+    #resources :recording_meta_data, only: [:edit, :update]
     #resources :recording_lyrics, only: [:edit, :update]
     #resources :recording_playbacks, only: [:show]
     
@@ -716,6 +727,15 @@ Digiramp::Application.routes.draw do
         
       end
       resources :recording_transfers
+      
+      resources :recording_basics, only: [:edit, :update]
+      resources :recording_personas, only: [:edit, :update]
+      resources :recording_tags, only: [:edit, :update]
+      resources :recording_rights, only: [:edit, :update]
+      resources :recording_uploads, only: [:edit, :update]
+      resources :recording_lyrics, only: [:edit, :update]
+      resources :recording_common_work, only: [:edit, :update]
+      resources :recording_meta_data, only: [:edit, :update]
     end
     
   end

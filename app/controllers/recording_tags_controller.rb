@@ -6,7 +6,7 @@ class RecordingTagsController < ApplicationController
   
   def edit
     
-    not_found params
+    not_found( params ) unless @recording
   end
 
   def update
