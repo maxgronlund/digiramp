@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @zip_file.title
+p
+  strong Body:
+  = @zip_file.body
+p
+  strong Zip file:
+  = @zip_file.zip_file
+
+= link_to 'Edit', edit_zip_file_path(@zip_file)
+'|
+= link_to 'Back', zip_files_path

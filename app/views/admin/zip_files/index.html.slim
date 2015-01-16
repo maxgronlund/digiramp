@@ -1,0 +1,86 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, 'content'.to_sym => admin_content_index_path }, current: ''}
+      == render 'admin/shared/messages'
+      .row
+        .col-sm-8
+          h2 Zip files
+          'Templates used for download by users
+        .col-sm-4
+          .pull-right.pull_down_10
+            = link_to 'New Zip file', new_admin_zip_file_path, class: 'btn btn-primary'
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Body
+                th Download
+                th
+  
+
+            tbody
+              - @zip_files.each do |zip_file|
+                tr
+                  td = zip_file.title
+                  td = zip_file.body
+                  td = link_to 'Download', zip_file.zip_file_url
+                  td
+                    .pull-right
+                      => link_to 'Edit', edit_admin_zip_file_path(zip_file), class: 'btn btn-default btn-xs'
+                      = link_to  admin_zip_file_path( zip_file ), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+
+
+        
+        
+          
+          
+          
+          
+            
+          
+
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

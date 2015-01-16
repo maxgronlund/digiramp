@@ -1,0 +1,28 @@
+= simple_form_for [:admin, @zip_file] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :body
+    .fileinput.fileinput-new.input-group data-provides="fileinput"
+      .form-control data-trigger="fileinput"
+        i.glyphicon.glyphicon-file.fileinput-exists
+        span.fileinput-filename
+
+      span.input-group-addon.btn.btn-default.btn-file
+        span.fileinput-new
+          'Select file
+        span.fileinput-exists
+          'Change
+
+      
+        = f.file_field :zip_file, multiple: false, label: 'Select CSV file'
+      a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+        'Remove
+    
+
+
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'

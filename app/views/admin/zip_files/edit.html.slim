@@ -1,0 +1,47 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, 'content'.to_sym => admin_content_index_path }, current: ''}
+      == render 'admin/shared/messages'
+      .row
+        .col-sm-8
+          h2 Edit zip file
+        .col-sm-4
+          .pull-right.pull_down_10
+            = link_to admin_content_index_path( @user ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            == render 'form'
+      .row
+        .col-sm-12
+          = link_to admin_content_index_path( @user ) do
+            .btn.btn-default
+              i.fa.fa-chevron-left
+              '&nbsp;Back
+          
+          
+          
+          
+          
+          
+            
+          
+
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+

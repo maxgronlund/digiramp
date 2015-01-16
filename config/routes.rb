@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+
   resources :share_and_login, only: [:show]
 
   resources :twitter_cards
@@ -479,7 +481,7 @@ Digiramp::Application.routes.draw do
     resources :blogs do
       resources :blog_posts
     end
-    
+    resources :zip_files
     
   end
   #resources :recording_departures
