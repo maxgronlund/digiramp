@@ -5,6 +5,7 @@ class RecordingPersonasController < ApplicationController
   before_filter :update_user_recording, only: [ :edit, :update]
 
   def edit
+    not_found( params ) unless @recording
   end
   
   def update
