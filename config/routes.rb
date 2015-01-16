@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
 
 
+
+
   resources :share_and_login, only: [:show]
 
   resources :twitter_cards
@@ -716,6 +718,9 @@ Digiramp::Application.routes.draw do
           
       end
       resources :control_panel, only: [:index]
+      resources :from_linkedin
+      resources :from_csv
+      resources :import_contacts, only: [:index]
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :new_opportunities, only: [:index, :show, :destroy]

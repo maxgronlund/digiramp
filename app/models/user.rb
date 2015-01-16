@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
   has_one :account_users
   has_many :account_users
   has_many :recordings
+  has_many :client_imports
   
   # used to display the users recordings
   has_many :widgets, dependent: :destroy

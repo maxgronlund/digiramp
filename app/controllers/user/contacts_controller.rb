@@ -23,6 +23,7 @@ class User::ContactsController < ApplicationController
 
 
   def edit
+    @contact   = Client.cached_find(params[:id])
   end
 
 

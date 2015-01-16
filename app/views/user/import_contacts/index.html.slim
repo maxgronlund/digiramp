@@ -1,0 +1,138 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user)}, current: ''}
+      h2 Import contacts
+      .sexy_line
+      .row
+        .col-sm-12
+          .control-panel.pull-down-10
+           
+            .control-panel-badge
+              = link_to new_user_user_from_linkedin_path(@user) do
+                .content
+                  .icon-box
+                    .icon.linkedin-color.social-icon
+                      i.fa.fa-linkedin
+                    
+                  .title.title-linkedin
+                    h4 Linkedin
+                  .body
+                    'Import your contacts from Linkedin
+                     
+                   
+              
+            .control-panel-badge
+              = link_to new_user_user_from_csv_path(@user) do 
+                .content
+                  .icon.icon-blue.social-icon
+                    i.fa.fa-file-text-o 
+                    
+                  .title
+                    h4 CSV file
+                  
+                
+            /.control-panel-badge
+            /  = link_to user_user_contact_groups_path(@user) do
+            /    .content
+            /      .icon.icon-red
+            /        i.fa.fa-users
+            /        
+            /      .title
+            /        h4 Contact groups
+            /      
+            /
+            /
+            /.control-panel-badge
+            /  = link_to user_user_contacts_path(@user) do
+            /    .content
+            /      .icon.icon-yellow
+            /        i.fa.fa-envelope
+            /        
+            /      .title
+            /        h4 Campaigns
+                  
+      
+      /.control-panel-badge
+      /  = link_to new_user_user_from_linkedin_path(@user) do
+      /    .content
+      /      .icon-box
+      /        .icon.icon-green
+      /          i.fa.fa-linkedin
+      /        
+      /      .title.title-green
+      /        h4 
+      /          'Import from Linkedin
+      /          br
+      /          .pull-right
+      /            span class="label label-default"
+      /              .i.fa.fa-users &nbsp;
+      /              = @user.clients.count
+      /       
+      /  
+      /.control-panel-badge
+      /  = link_to new_user_user_from_csv_path(@user) do 
+      /    .content
+      /      .icon.icon-blue
+      /        i.fa.fa-cloud-upload
+      /        
+      /      .title
+      /        h4 Import CSV file
+      /      
+          
+      /.control-panel-badge
+      /  = link_to user_user_contact_groups_path(@user) do
+      /    .content
+      /      .icon.icon-red
+      /        i.fa.fa-users
+      /        
+      /      .title
+      /        h4 Contact groups
+      /      
+      /
+      /
+      /.control-panel-badge
+      /  = link_to user_user_contacts_path(@user) do
+      /    .content
+      /      .icon.icon-yellow
+      /        i.fa.fa-envelope
+      /        
+      /      .title
+      /        h4 Campaigns
+      /
+      
+      
+      
+      
+      /.row
+      /  .col-sm-4
+      /    = link_to 'Import from linkedin', new_user_user_from_linkedin_path(@user)
+      /    br
+      /    = link_to 'Import csv', new_user_user_from_csv_path(@user)
+      /    /= simple_form_for [ :account,  @user.account, ClientImport.new] do |f| 
+      /    /  = f.hidden_field :account_id, value: @user.account.id
+      /    /
+      /    /  = f.file_field :file
+      /    /  hr
+      /    /  .pull-right
+      /    /    /= link_to 'Cancel', account_account_clients_path(@account), 'data-no-turbolink'=>'true', class: 'btn btn-default btn-lg'
+      /    /    /'&nbsp;
+      /    /    = f.submit 'Done', class: 'btn btn-primary btn-lg'
+      /    /
+
+         
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+

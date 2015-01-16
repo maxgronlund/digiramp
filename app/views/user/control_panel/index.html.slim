@@ -14,54 +14,54 @@
       .row
         .col-sm-12
           .control-panel.pull-down-10
-              /= link_to user_user_contacts_path(@user) do
-              .control-panel-badge
-                = link_to user_user_contacts_path(@user) do
-                  .content
-                    .icon-box
-                      .icon.icon-green
-                        i.fa.fa-list-ul
-                      
-                    .title.title-green
-                      h4 
-                        'Contacts
-                        br
-                        .pull-right
-                          span class="label label-default"
-                            .i.fa.fa-users &nbsp;
-                            = @user.clients.count
-                     
-                
-              .control-panel-badge
-                = link_to user_user_contacts_path(@user) do 
-                  .content
-                    .icon.icon-blue
-                      i.fa.fa-cloud-upload
-                      
-                    .title
-                      h4 Import contacts
+           
+            .control-panel-badge
+              = link_to user_user_contacts_path(@user) do
+                .content
+                  .icon-box
+                    .icon.icon-green
+                      i.fa.fa-list-ul
                     
-                  
-              .control-panel-badge
-                = link_to user_user_contact_groups_path(@user) do
-                  .content
-                    .icon.icon-red
-                      i.fa.fa-users
-                      
-                    .title
-                      h4 Contact groups
-                    
-            
+                  .title.title-green
+                    h4 
+                      'Contacts
+                      br
+                      .pull-right
+                        span class="label label-default"
+                          .i.fa.fa-users &nbsp;
+                          = @user.clients.count
+                   
               
-              .control-panel-badge
-                = link_to user_user_contacts_path(@user) do
-                  .content
-                    .icon.icon-yellow
-                      i.fa.fa-envelope
-                      
-                    .title
-                      h4 Campaigns
+            .control-panel-badge
+              = link_to user_user_import_contacts_path(@user) do 
+                .content
+                  .icon.icon-blue
+                    i.fa.fa-cloud-upload
                     
+                  .title
+                    h4 Import contacts
+                  
+                
+            .control-panel-badge
+              = link_to user_user_contact_groups_path(@user) do
+                .content
+                  .icon.icon-red
+                    i.fa.fa-users
+                    
+                  .title
+                    h4 Contact groups
+                  
+            
+            
+            .control-panel-badge
+              = link_to user_user_contacts_path(@user) do
+                .content
+                  .icon.icon-yellow
+                    i.fa.fa-envelope
+                    
+                  .title
+                    h4 Campaigns
+                  
             
               
               /.control-panel-badge

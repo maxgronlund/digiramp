@@ -1,0 +1,74 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user), \ 
+                                                              'Import contacts'.to_sym => user_user_import_contacts_path(@user)}, current: ''}
+      .row
+        .col-sm-8
+          .linked_in
+            .icon
+            .title
+              h2 Import contacts csv file
+        .col-sm-4.pull-down-10
+          .pull-right
+            = link_to user_user_import_contacts_path( @user ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+          
+      .sexy_line
+      .digi-box
+        
+        .row
+          .col-sm-12
+            h4 Instructions
+            'You can use this file as a template (coming soon)
+
+          .col-sm-12
+            h4 Attach file
+
+            
+            = simple_form_for [ @user, @client_import], :url => url_for(:action => 'create', :controller => 'from_csv'), :method => 'post' do |f|
+              = f.hidden_field :account_id, value: @user.account.id
+              = f.hidden_field :user_id, value: @user.id
+            
+              .fileinput.fileinput-new.input-group data-provides="fileinput"
+                .form-control data-trigger="fileinput"
+                  i.glyphicon.glyphicon-file.fileinput-exists
+                  span.fileinput-filename
+
+                span.input-group-addon.btn.btn-default.btn-file
+                  span.fileinput-new
+                    'Select file
+                  span.fileinput-exists
+                    'Change
+
+                
+                  = f.file_field :file, multiple: false, label: 'Select CSV file'
+                a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+                  'Remove
+            
+              .row
+                .col-sm-12
+                  .pull-right
+                    /= link_to 'Cancel', account_account_clients_path(@account), 'data-no-turbolink'=>'true', class: 'btn btn-default btn-lg'
+                    /'&nbsp;
+                    = f.submit 'Upload', class: 'btn btn-primary'
+
+      = link_to user_user_import_contacts_path( @user ) do
+        .btn.btn-default
+          i.fa.fa-chevron-left
+          '&nbsp;Back      
+
+         
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

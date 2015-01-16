@@ -1,0 +1,2 @@
+module FromLinkedinHelper
+end

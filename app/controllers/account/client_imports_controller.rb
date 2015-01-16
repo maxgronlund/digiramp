@@ -36,6 +36,6 @@ class Account::ClientImportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_import_params
-      params.require(:client_import).permit(:account_id, :user_uuid, :file)
+      params.require(:client_import).permit!
     end
 end
