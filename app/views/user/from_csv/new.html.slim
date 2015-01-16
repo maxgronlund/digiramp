@@ -13,10 +13,7 @@
                                                               'Import contacts'.to_sym => user_user_import_contacts_path(@user)}, current: ''}
       .row
         .col-sm-8
-          .linked_in
-            .icon
-            .title
-              h2 Import contacts csv file
+          h2 Import contacts csv file
         .col-sm-4.pull-down-10
           .pull-right
             = link_to user_user_import_contacts_path( @user ) do
@@ -32,7 +29,7 @@
             h4 Instructions
             'Download this template: 
             = link_to @zip_file.title, @zip_file.zip_file_url
-            '&nbsp;and fill it in with your own contacts and upload it here
+            br Fill it in with your own contacts and upload it here
 
           .col-sm-12
             h4 Attach file
