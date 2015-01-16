@@ -181,9 +181,9 @@ Digiramp::Application.routes.draw do
     #resources :playlist_wizards
     resources :leave_accounts
     
-    resources :recording_common_work, only: [:edit, :update]
-    resources :recording_meta_data, only: [:edit, :update]
-    resources :recording_lyrics, only: [:edit, :update]
+    #resources :recording_common_work, only: [:edit, :update]
+    #resources :recording_meta_data, only: [:edit, :update]
+    #resources :recording_lyrics, only: [:edit, :update]
     # CLEAN UP END
     ##############################################
     
@@ -330,6 +330,10 @@ Digiramp::Application.routes.draw do
     resources :recording_rights, only: [:edit, :update]
     resources :recording_uploads, only: [:edit, :update]
     resources :recording_lyrics, only: [:edit, :update]
+    
+    resources :recording_common_work, only: [:edit, :update]
+    resources :recording_meta_data, only: [:edit, :update]
+    #resources :recording_lyrics, only: [:edit, :update]
     #resources :recording_playbacks, only: [:show]
     
     

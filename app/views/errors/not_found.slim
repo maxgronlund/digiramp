@@ -2,4 +2,29 @@
 - if @error_type
   == render @error_type 
 - else
-  'not found 404
+  #wrapper
+    .full-width-top
+      == render 'shared/navigationbar', page: 'user' 
+  
+  
+    #sidebar-wrapper
+      /ul class="sidebar-nav"
+      /  == render 'users/shared/sidebar', selected: 'user'
+  
+    #page-content-wrapper
+      .container-fluid
+        h2 422 Not found
+        .sexy_line
+        .alert.alert-danger
+          'The playlist you are looking for do not exists
+        .row
+          .col-sm-12  
+            .not_found_2
+        .row
+          .col-sm-12
+            .pull-right
+              = link_to 'Image by Frank Vassen', 'https://www.flickr.com/photos/42244964@N03/'
+
+              
+    == render 'shared/site_footer'    
+  == render 'users/shared/mobile_links'

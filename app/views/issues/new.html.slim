@@ -1,19 +1,42 @@
-#wrap
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'support'
+/
+/  .container
+/    .row
+/      .col-sm-12
+/        == render 'admin/shared/messages'
+/        == render 'shared/breadcrumbs', breadcrumbs: { links: { 'support'.to_sym => support_index_path,\
+/                                                                'issues'.to_sym => user_issues_path(current_user)\
+/                                                              }, current: 'new issue'}
+/        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'New Issue'}
+/        
+/    == render 'form'
+/
+/
+/
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'support'
-
-  .container
-    .row
-      .col-sm-12
-        == render 'admin/shared/messages'
-        == render 'shared/breadcrumbs', breadcrumbs: { links: { 'support'.to_sym => support_index_path,\
-                                                                'issues'.to_sym => user_issues_path(current_user)\
-                                                              }, current: 'new issue'}
-        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'New Issue'}
-        
-    == render 'form'
-
-
-
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-8
+          h2 Report an issue
+        .col-sm-4
+          
+      .sexy_line
+      .digi-box
+        == render 'form'         
+            
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

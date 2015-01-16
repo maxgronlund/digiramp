@@ -9,18 +9,22 @@
   
   #page-content-wrapper
     .container-fluid
-      h2 422 Not found
+      .row
+        .col-sm-8
+          h2 422 Not found
+        .col-sm-4
+          .pull-right.pull-down-10
+            = link_to 'Report an issue', new_user_issue_path(current_user), class: 'btn btn-warning' if current_user
       .sexy_line
       .alert.alert-danger
-        'The playlist you are looking for do not exists
-      .row
-        .col-sm-12  
-          .not_found_2
+        'What you are looking for is not found
+      .not_found_1
+         
       .row
         .col-sm-12
           .pull-right
-            = link_to 'Image by Frank Vassen', 'https://www.flickr.com/photos/42244964@N03/'
-
+            = link_to 'Image by Ava Verino', 'https://www.flickr.com/photos/avaverino/4734314432/'
+  
               
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'

@@ -27,12 +27,15 @@ module RecordingsHelper
   end
   
   def update_user_recording
-    if current_user
-      @recording      = Recording.cached_find(params[:id])
-      return if current_user.super?
-      return if @recording.user_id == current_user.id
+    if @recording      = Recording.cached_find(params[:id])
+      if current_user
+        return if current_user.super?
+        return if @recording.user_id == current_user.id 
+      end
+      forbidden
+    else
+      not_found params
     end
-    forbidden
   end
   
   
