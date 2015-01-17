@@ -1,17 +1,26 @@
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'support'
-
-  .container
-    .row
-      .col-sm-12
-        == render 'admin/shared/messages'
-        /== render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: 'accounts'}
-        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'Edit Issue'}
-        
-    == render 'form'
-
-
-
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'issues'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { support: support_index_path, \
+                                                              issues: user_issues_path(@issue.user),\
+                                                              @issue.title.to_sym => user_issues_path(@issue.user, @issue)}, current:  ''}
+      .row
+        .col-sm-8
+          h2 Eddit issue
+        .col-sm-4
+          
+      .sexy_line
+      .digi-box
+        == render 'form'         
+            
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

@@ -1,85 +1,152 @@
-
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'support'
+    == render 'shared/navigationbar', page: 'home' 
+  
 
-  .container
-    .row
-      .col-sm-12
-        == render 'admin/shared/messages'
-        == render 'shared/breadcrumbs', breadcrumbs: { links: { 'support'.to_sym => support_index_path,\
-                                                              }, current: 'issues'}
-        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'Issues', insert: 'new'}
-   
-    .row
-      .col-sm-12
-        .panel.panel-primary
-          .panel-heading
-            'Known Issues
-          .panel-body
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr 
-                    th Issue
-                    th Status
-                    th Raporter
-                    th Created
-                    th
-                tbody
-                  - @issues.order('created_at desc').each do |issue|
-                    - issue_email = issue.user.email
-                    tr
-                     td 
-                       .truncate.width_350
-                         = issue.title
-                     td
-                       -case issue.status
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'issues'
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path 
                         
-                       -when 'New'
-                         .label.label-danger
-                           'New
-                        
-                       -when 'Confirmed'
-                         .label.label-success
-                           'Confirmed
-                        
-                       -when 'In Progress'
-                         .label.label-info
-                           'In Progress
-                        
-                       -when 'Resolved'
-                         .label.label-success
-                           'Resolved
-                        
-                       -when 'Closed'
-                         .label.label-default
-                           'Closed
+        
+      
 
-                     td = issue_email
-                     td = time_ago_in_words(issue.created_at).titleize 
-                     td 
-                       .pull-right
-                         -if can_edit? || current_user.email == issue_email
-                           '&nbsp;
-                           = link_to 'Edit' , edit_user_issue_path(issue.user, issue), class: 'btn btn-default btn-lg'
-                         '&nbsp;   
-                         = link_to 'Show', user_issue_path(issue.user, issue), class: 'btn btn-primary btn-lg', 'data-no-turbolink'=>true
-                         -if can_edit?
-                           '&nbsp;
-                           = link_to user_issue_path(issue.user, issue), data: { confirm: 'Are you sure?' } , :method => :delete do
-                             .btn.btn-danger.btn-lg'
-                               i class=" fa fa-times"
-                               
-    .row
-      .col-sm-12
-        .pull-right
-          .hidden-xs
-            == paginate(@issues)
-          .visible-xs
-            .btn-group
-              = link_to_previous_page @issues, '« Prev Page', class: 'btn btn-default mobile_pagination'
-              = link_to_next_page @issues, 'Next Page »', class: 'btn btn-default mobile_pagination'                       
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {'suport'.to_sym => support_index_path}, current:  ''}
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Known issues
+            .help-button
+              == render 'admin/helps/help', identifier: 'Issues'
+        .col-sm-7.pull-down-10
+          .pull-right
+
+            = simple_form_for  [ @user ], :url => url_for(action: 'index', \
+                                                          controller: 'issues'), \
+                                                          method: 'get', \
+                                                          remote: true do |f|
+            
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => "Search", \
+                                              value: params[:query]
+                .input-group-btn
+                  = f.submit 'Go', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Clear', admin_issues_path, class: 'btn btn-default'
+                  
+      .sexy_line
+      .row
+        .col-sm-12
+          .pull-right
+            = link_to 'Report an issue', new_user_issue_path(current_user), class: 'btn btn-primary'
+      .digi-box.pull-down-8
+        .new-issues
+        == render 'index', issues: @issues
+                          
+                  
+        
+        
+        
+          
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'
 
 
+
+
+
+
+
+
+
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'support'
+/
+/  .container
+/    .row
+/      .col-sm-12
+/        == render 'admin/shared/messages'
+/        == render 'shared/breadcrumbs', breadcrumbs: { links: { 'support'.to_sym => support_index_path,\
+/                                                              }, current: 'issues'}
+/        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'Issues', insert: 'new'}
+/   
+/    .row
+/      .col-sm-12
+/        .panel.panel-primary
+/          .panel-heading
+/            'Known Issues
+/          .panel-body
+/            .table-responsive
+/              table class="table table-hover"
+/                thead
+/                  tr 
+/                    th Issue
+/                    th Status
+/                    th Raporter
+/                    th Created
+/                    th
+/                tbody
+/                  - @issues.order('created_at desc').each do |issue|
+/                    - issue_email = issue.user.email
+/                    tr
+/                     td 
+/                       .truncate.width_350
+/                         = issue.title
+/                     td
+/                       -case issue.status
+/                        
+/                       -when 'New'
+/                         .label.label-danger
+/                           'New
+/                        
+/                       -when 'Confirmed'
+/                         .label.label-success
+/                           'Confirmed
+/                        
+/                       -when 'In Progress'
+/                         .label.label-info
+/                           'In Progress
+/                        
+/                       -when 'Resolved'
+/                         .label.label-success
+/                           'Resolved
+/                        
+/                       -when 'Closed'
+/                         .label.label-default
+/                           'Closed
+/
+/                     td = issue_email
+/                     td = time_ago_in_words(issue.created_at).titleize 
+/                     td 
+/                       .pull-right
+/                         -if can_edit? || current_user.email == issue_email
+/                           '&nbsp;
+/                           = link_to 'Edit' , edit_user_issue_path(issue.user, issue), class: 'btn btn-default btn-lg'
+/                         '&nbsp;   
+/                         = link_to 'Show', user_issue_path(issue.user, issue), class: 'btn btn-primary btn-lg', 'data-no-turbolink'=>true
+/                         -if can_edit?
+/                           '&nbsp;
+/                           = link_to user_issue_path(issue.user, issue), data: { confirm: 'Are you sure?' } , :method => :delete do
+/                             .btn.btn-danger.btn-lg'
+/                               i class=" fa fa-times"
+/                               
+/    .row
+/      .col-sm-12
+/        .pull-right
+/          .hidden-xs
+/            == paginate(@issues)
+/          .visible-xs
+/            .btn-group
+/              = link_to_previous_page @issues, '« Prev Page', class: 'btn btn-default mobile_pagination'
+/              = link_to_next_page @issues, 'Next Page »', class: 'btn btn-default mobile_pagination'                       
+/
+/
 

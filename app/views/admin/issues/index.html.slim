@@ -1,109 +1,160 @@
-
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'support'
+    == render 'shared/navigationbar', page: 'home' 
+  
 
-  .container
-    .row
-      .col-sm-12
-        == render 'admin/shared/messages'
-        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
-                                                                }, current: 'issues'}
-                                                                
-        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'Issues'}
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path 
+                        
         
-    .row
-      .col-sm-12
-        .panel
-          .panel-body
-            .row
-              = form_tag admin_issues_path, :method => 'get' do
-                .col-sm-6
-                  = text_field_tag "query", "", :class => 'search-query form-control', \
-                                                :placeholder => 'Search string', \
-                                                value: params[:query]
-                .col-sm-6
-                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-                  '&nbsp;
-                  = link_to 'Show All',admin_issues_path, class: 'btn btn-default btn-lg'
-    
-    .row
-      .col-sm-12
-        .panel.panel-primary
-          .panel-heading
-            'Known Issues
-          .panel-body
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr 
-                    th Status
-                    th Priority
-                    th Issue
-                    /th Raporter
-                    th Created
-                    th
-                tbody
-                  - @issues.order('created_at desc').each do |issue|
-                    - issue_email = issue.user.email
-                    tr
-                      td
-                        -case issue.status
-  
-                        -when 'New'
-                          .label.label-danger
-                            'New
-  
-                        -when 'Confirmed'
-                          .label.label-success
-                            'Confirmed
-  
-                        -when 'In Progress'
-                          .label.label-info
-                            'In Progress
-  
-                        -when 'Resolved'
-                          .label.label-success
-                            'Resolved
-  
-                        -when 'Closed'
-                          .label.label-default
-                            'Closed
-                            
-                      td
-                         - case issue.priority
-                         -when 'High'
-                          .label.label-danger
-                            'High
-                         -when 'Medium'
-                          .label.label-warning
-                            'Medium
-                         -when 'High'
-                          .label.label-default
-                            'Low
-                      td 
-                        .truncate.width_350
-                          = issue.title
-                      
-                      /td = issue_email
-                      td = time_ago_in_words(issue.created_at).titleize 
-                      td 
-                        .pull-right
-                          = link_to admin_issue_path( issue ), 'data-no-turbolink'=>true do
-                            .btn.btn-default.btn-lg
-                              i class="fa fa-eye"
-                          '&nbsp;   
-                          = link_to edit_admin_issue_path( issue ) do
-                            .btn.btn-primary.btn-lg
-                              i class="fa fa-pencil"
-                          /-if can_edit?
-                          /  '&nbsp;
-                          /  = link_to user_issue_path(issue.user, issue), data: { confirm: 'Are you sure?' } , :method => :delete do
-                          /    .btn.btn-danger.btn-lg'
-                          /      i class=" fa fa-times"
-                          /
-                      
-                      
-    == render 'shared/back', locals: {link: admin_index_path} 
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Known issues
+            .help-button
+              == render 'admin/helps/help', identifier: 'Issues'
+        .col-sm-7.pull-down-10
+          = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                        :controller => 'admin/issues'), \
+                                                        :method => 'get',
+                                                        remote: true do |f|
+          
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-search'
+              = text_field_tag "query", "", :class => 'search-query form-control', \
+                                            :placeholder => "Search", \
+                                            value: params[:query]
+              .input-group-btn
+                = f.submit 'Go', class: "btn btn-primary"
+                '&nbsp;
+                = link_to 'Clear', admin_issues_path, class: 'btn btn-default'
+
+      
+      .sexy_line
+      .digi-box
+        .new-issues
+        == render 'admin/issues/index', issues: @issues
+      
+      
+          
+  == render 'shared/site_footer'  
+== render 'users/shared/mobile_links'
+
+
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'support'
+/
+/  .container
+/    .row
+/      .col-sm-12
+/        == render 'admin/shared/messages'
+/        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+/                                                                }, current: 'issues'}
+/                                                                
+/        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'Issues'}
+/        
+/    .row
+/      .col-sm-12
+/        .panel
+/          .panel-body
+/            .row
+/              = form_tag admin_issues_path, :method => 'get' do
+/                .col-sm-6
+/                  = text_field_tag "query", "", :class => 'search-query form-control', \
+/                                                :placeholder => 'Search string', \
+/                                                value: params[:query]
+/                .col-sm-6
+/                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+/                  '&nbsp;
+/                  = link_to 'Show All',admin_issues_path, class: 'btn btn-default btn-lg'
+/    
+/    .row
+/      .col-sm-12
+/        .panel.panel-primary
+/          .panel-heading
+/            'Known Issues
+/          .panel-body
+/            .table-responsive
+/              table class="table table-hover"
+/                thead
+/                  tr 
+/                    th Status
+/                    th Priority
+/                    th Issue
+/                    /th Raporter
+/                    th Created
+/                    th
+/                tbody
+/                  - @issues.order('created_at desc').each do |issue|
+/                    - issue_email = issue.user.email
+/                    tr
+/                      td
+/                        -case issue.status
+/  
+/                        -when 'New'
+/                          .label.label-danger
+/                            'New
+/  
+/                        -when 'Confirmed'
+/                          .label.label-success
+/                            'Confirmed
+/  
+/                        -when 'In Progress'
+/                          .label.label-info
+/                            'In Progress
+/  
+/                        -when 'Resolved'
+/                          .label.label-success
+/                            'Resolved
+/  
+/                        -when 'Closed'
+/                          .label.label-default
+/                            'Closed
+/                            
+/                      td
+/                         - case issue.priority
+/                         -when 'High'
+/                          .label.label-danger
+/                            'High
+/                         -when 'Medium'
+/                          .label.label-warning
+/                            'Medium
+/                         -when 'High'
+/                          .label.label-default
+/                            'Low
+/                      td 
+/                        .truncate.width_350
+/                          = issue.title
+/                      
+/                      /td = issue_email
+/                      td = time_ago_in_words(issue.created_at).titleize 
+/                      td 
+/                        .pull-right
+/                          = link_to admin_issue_path( issue ), 'data-no-turbolink'=>true do
+/                            .btn.btn-default.btn-lg
+/                              i class="fa fa-eye"
+/                          '&nbsp;   
+/                          = link_to edit_admin_issue_path( issue ) do
+/                            .btn.btn-primary.btn-lg
+/                              i class="fa fa-pencil"
+/                          /-if can_edit?
+/                          /  '&nbsp;
+/                          /  = link_to user_issue_path(issue.user, issue), data: { confirm: 'Are you sure?' } , :method => :delete do
+/                          /    .btn.btn-danger.btn-lg'
+/                          /      i class=" fa fa-times"
+/                          /
+/                      
+/                      
+/    == render 'shared/back', locals: {link: admin_index_path} 
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'

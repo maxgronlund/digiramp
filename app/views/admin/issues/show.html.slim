@@ -1,132 +1,256 @@
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'support'
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'issues'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'admin'.to_sym => admin_index_path,\
+                                                              'issues'.to_sym => admin_issues_path()\
+                                                            }, current: @issue.title}
+      .row
+        .col-sm-8
+          h2 = @issue.title
+        .col-sm-4.pull-down-10
 
-  .container
-    .row
-      .col-sm-12
-        == render 'admin/shared/messages'
-        == render 'shared/breadcrumbs', breadcrumbs: { links: { 'admin'.to_sym => admin_index_path,\
-                                                                'issues'.to_sym => admin_issues_path()\
-                                                              }, current: @issue.title}
-        
-        == render 'shared/title', locals: {title: @issue.title, body: "Reported by: #{@issue.user.email}", insert: 'status'}
-    .row
-      .col-sm-6 
-        .panel.panel-primary
-          .panel-heading
-            'Description
-          .panel-body
-            b Reported by
-            br
-            =@issue.user.email
-            hr
-            b Symtom
-            br
-            = @issue.symtom
-            hr
-            b Description
-            br
-            = simple_format @issue.body
-
-            
-          
-      
-
-            'Priority:
-            '&nbsp;
-            - case @issue.priority
-            -when 'High'
-              .label.label-danger
-                'High
-            -when 'Medium'
-              .label.label-warning
-                'Medium
-            -when 'Low'
-              .label.label-info
-                'Low
-            
-            hr
-            
-            b Operating Systems
-            br
-            = @issue.os
-            hr
-            b Browser
-            br
-            = @issue.browser
-            br
-            hr
-            -if @issue.link_to_page.to_s != ''
-              b Link to page
-              br
-              = link_to @issue.link_to_page, @issue.link_to_page
-              br
-              
-            hr
+          -if can_edit? || current_user.id == @user.id
             .pull-right
-              = link_to 'Edit', edit_admin_issue_path( @issue), class: 'btn btn-primary btn-lg'
-            /= link_to image_tag( @issue.image_url(:small)), user_issue_image_path(@user, @issue)
-            /.pull-right
-            /  = link_to 'Show', user_issue_image_path(@user, @issue), class: 'btn btn-primary btn-lg'
-
-        .panel.panel-primary
-          .panel-heading
-            'Write Comment
-          .panel-body   
-             == simple_form_for [ :admin, @issue, Comment.new] do |f|
-               = f.hidden_field :commentable_id, value: @issue.id
-               = f.hidden_field :commentable_type, value: @issue.class.name
-               = f.hidden_field :user_id, value: current_user.id
-               = f.input :title
-               = f.input :body
-               = f.input :image
-               hr
-                 .pull-right
-                   = f.submit 'Post', class: 'btn btn-primary btn-lg'
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            'Comments
-          .panel-body
-            -comments = Comment.where(commentable_id: @issue.id, commentable_type: @issue.class.name).order('created_at desc')
+              = link_to 'Edit', edit_admin_issue_path( @issue), class: 'btn btn-primary'
+      .sexy_line
+      .digi-box
+        .row
+          .col-sm-6
+            h4 Symtom
+            = @issue.symtom
+            .sexy_line
+            h4 Description
+            = simple_format @issue.body
+          .col-sm-6
+            h4 Operating Systems
+            = @issue.os
+            .sexy_line
+            h4 Browser
+            = @issue.browser
+            
+            -if @issue.link_to_page.to_s != ''
+              h4 Link to page
+              = link_to @issue.link_to_page, @issue.link_to_page
+            
+            - if @issue.image_url != "/assets/fallback/default.jpg"
+              .sexy_line
+              h4 Image
+              = render 'shared/lightbox', locals: {image_url: @issue.image_url(), thumb_url: @issue.image_url(:small), id: @issue.id, caption: @issue.title}
+              br
+              i Click to enlarge
+              /h4 Image
+              /= link_to image_tag( @issue.image_url(:small)), user_issue_image_path(@user, @issue)
+              /.row
+              /  .col-sm-12
+              /    .pull-right
+              /      = link_to 'Show', user_issue_image_path(@user, @issue), class: 'btn btn-default'
+      .digi-box
+        .row 
+          .col-sm-6
+            h4 Write Comment
+            == simple_form_for [ current_user, @issue, Comment.new] do |f|
+              = f.hidden_field :commentable_id, value: @issue.id
+              = f.hidden_field :commentable_type, value: @issue.class.name
+              = f.hidden_field :user_id, value: current_user.id
+              = f.input :title
+              = f.input :body
+              = f.input :image
+              .row
+               .col-sm-12
+                .pull-right
+                  = f.submit 'Post', class: 'btn btn-primary'
+          .col-sm-6
+            h4 Comments
+            -comments = Comment.where(commentable_id: @issue.id, commentable_type: @issue.class.name)
             -comments.each do |comment|
-              .well
-                b = comment.title
-                hr
-                .row
-                  .col-sm-6
-                    'Posted&nbsp;
-                    = time_ago_in_words(comment.created_at).titleize 
-                    '&nbsp; ago
-                  /.col-sm-6
-                  /  .pull-right
-                  /    i = comment.user.name
-                br/
-                br
-                = simple_format comment.body
-                hr
-                .row
-                  .col-sm-6
-                    = render 'shared/lightbox', locals: {image_url: comment.image_url(), thumb_url: comment.image_url(:small), id: comment.id, caption: comment.title}
-
-                  .col-sm-6
-                    .pull-right
-                      - if @issue.user_id == current_user.id || can_edit?
-                        = link_to admin_issue_comment_path( @issue, comment ), data: {:confirm => 'Are you sure?'}, :method => :delete
-                          .btn.btn-danger.btn-lg
-                            i class="fa fa-times"
-                        '&nbsp;   
-                        = link_to edit_admin_issue_comment_path(  @issue, comment  )
-                          .btn.btn-primary.btn-lg
-                            i class="fa fa-pencil"
+              b comment.title
+              .row
+                .col-sm-6
+                  'Posted&nbsp;
+                  = time_ago_in_words(comment.created_at).titleize 
+                  '&nbsp; ago
+                .col-sm-6
+                  .pull-right
+                    i = comment.user.name
+              br
+              = simple_format comment.body
+              .row
+                .col-sm-6
+              
+                  = render 'shared/lightbox', locals: {image_url: comment.image_url(), thumb_url: comment.image_url(:small), id: comment.id, caption: comment.title}
+                  -if comment.image.to_s != ''
+                    br
+                    i Click to enlarge
+                .col-sm-6
+                  .pull-right
+                    - if @issue.user_id == current_user.id || can_edit?
+                      => link_to edit_admin_issue_comment_path(  @issue, comment )
+                        .btn.btn-default.btn-xs
+                          i class="fa fa-pencil"
+                      = link_to admin_issue_comment_path( @issue, comment ), data: {:confirm => 'Are you sure?'}, :method => :delete
+                        .btn.btn-danger.btn-xs
+                          i class="fa fa-times"
+              
                 
-      
-      
+              
+
             
-    
-            
-    == render 'shared/back', locals: {link: admin_issues_path} 
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+javascript:
+  $('.fancybox').fancybox()
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'support'
+/
+/  .container
+/    .row
+/      .col-sm-12
+/        == render 'admin/shared/messages'
+/        == render 'shared/breadcrumbs', breadcrumbs: { links: { 'admin'.to_sym => admin_index_path,\
+/                                                                'issues'.to_sym => admin_issues_path()\
+/                                                              }, current: @issue.title}
+/        
+/        == render 'shared/title', locals: {title: @issue.title, body: "Reported by: #{@issue.user.email}", insert: 'status'}
+/    .row
+/      .col-sm-6 
+/        .panel.panel-primary
+/          .panel-heading
+/            'Description
+/          .panel-body
+/            b Reported by
+/            br
+/            =@issue.user.email
+/            hr
+/            b Symtom
+/            br
+/            = @issue.symtom
+/            hr
+/            b Description
+/            br
+/            = simple_format @issue.body
+/
+/            
+/          
+/      
+/
+/            'Priority:
+/            '&nbsp;
+/            - case @issue.priority
+/            -when 'High'
+/              .label.label-danger
+/                'High
+/            -when 'Medium'
+/              .label.label-warning
+/                'Medium
+/            -when 'Low'
+/              .label.label-info
+/                'Low
+/            
+/            hr
+/            
+/            b Operating Systems
+/            br
+/            = @issue.os
+/            hr
+/            b Browser
+/            br
+/            = @issue.browser
+/            br
+/            hr
+/            -if @issue.link_to_page.to_s != ''
+/              b Link to page
+/              br
+/              = link_to @issue.link_to_page, @issue.link_to_page
+/              br
+/              
+/            hr
+/            .pull-right
+/              = link_to 'Edit', edit_admin_issue_path( @issue), class: 'btn btn-primary btn-lg'
+/            /= link_to image_tag( @issue.image_url(:small)), user_issue_image_path(@user, @issue)
+/            /.pull-right
+/            /  = link_to 'Show', user_issue_image_path(@user, @issue), class: 'btn btn-primary btn-lg'
+/
+/        .panel.panel-primary
+/          .panel-heading
+/            'Write Comment
+/          .panel-body   
+/             == simple_form_for [ :admin, @issue, Comment.new] do |f|
+/               = f.hidden_field :commentable_id, value: @issue.id
+/               = f.hidden_field :commentable_type, value: @issue.class.name
+/               = f.hidden_field :user_id, value: current_user.id
+/               = f.input :title
+/               = f.input :body
+/               = f.input :image
+/               hr
+/                 .pull-right
+/                   = f.submit 'Post', class: 'btn btn-primary btn-lg'
+/      .col-sm-6
+/        .panel.panel-primary
+/          .panel-heading
+/            'Comments
+/          .panel-body
+/            -comments = Comment.where(commentable_id: @issue.id, commentable_type: @issue.class.name).order('created_at desc')
+/            -comments.each do |comment|
+/              .well
+/                b = comment.title
+/                hr
+/                .row
+/                  .col-sm-6
+/                    'Posted&nbsp;
+/                    = time_ago_in_words(comment.created_at).titleize 
+/                    '&nbsp; ago
+/                  /.col-sm-6
+/                  /  .pull-right
+/                  /    i = comment.user.name
+/                br/
+/                br
+/                = simple_format comment.body
+/                hr
+/                .row
+/                  .col-sm-6
+/                    = render 'shared/lightbox', locals: {image_url: comment.image_url(), thumb_url: comment.image_url(:small), id: comment.id, caption: comment.title}
+/
+/                  .col-sm-6
+/                    .pull-right
+/                      - if @issue.user_id == current_user.id || can_edit?
+/                        = link_to admin_issue_comment_path( @issue, comment ), data: {:confirm => 'Are you sure?'}, :method => :delete
+/                          .btn.btn-danger.btn-lg
+/                            i class="fa fa-times"
+/                        '&nbsp;   
+/                        = link_to edit_admin_issue_comment_path(  @issue, comment  )
+/                          .btn.btn-primary.btn-lg
+/                            i class="fa fa-pencil"
+/                
+/      
+/      
+/            
+/    
+/            
+/    == render 'shared/back', locals: {link: admin_issues_path} 
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
 

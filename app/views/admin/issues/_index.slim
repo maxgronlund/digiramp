@@ -1,0 +1,63 @@
+.old-issues
+  .table-responsive
+    table class="table table-hover"
+      thead
+        tr 
+          th Issue
+          th Status
+          - if super?
+            th Created by
+          th  
+          th
+      tbody
+        - issues.order('created_at desc').each do |issue|
+          tr id="delete_issue_#{issue.id.to_s}"
+            td 
+              .truncate.width_350
+                = link_to issue.title, user_issue_path(issue.user, issue)
+            td
+              -case issue.status
+             
+              -when 'New'
+                .label.label-danger
+                  'New
+             
+              -when 'Confirmed'
+                .label.label-success
+                  'Confirmed
+             
+              -when 'In Progress'
+                .label.label-info
+                  'In Progress
+             
+              -when 'Resolved'
+                .label.label-success
+                  'Resolved
+             
+              -when 'Closed'
+                .label.label-default
+                  'Closed
+             
+            td = link_to issue.user.user_name, issue.user
+            td = time_ago_in_words(issue.created_at).titleize 
+            td
+              .pull-right
+                => link_to edit_admin_issue_path( issue ) do
+                  .btn.btn-default.btn-xs
+                    i class="fa fa-pencil"
+                  
+                = link_to admin_issue_path(issue), data: { confirm: 'Are you sure?' }, remote: true , :method => :delete do
+                  .btn.btn-danger.btn-xs'
+                    i class=" fa fa-times"
+
+              
+  .row
+    .col-sm-12
+      .pull-right
+        .hidden-xs
+          == paginate(issues)
+        .visible-xs
+          .btn-group
+            = link_to_previous_page issues, '« Prev Page', class: 'btn btn-default mobile_pagination'
+            = link_to_next_page issues, 'Next Page »', class: 'btn btn-default mobile_pagination'                       
+  

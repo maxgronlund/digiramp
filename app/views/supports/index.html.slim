@@ -10,14 +10,8 @@
   #page-content-wrapper
     .container-fluid
       ==render 'admin/shared/messages'
-      .row
-        .col-sm-6
-          h2 Support
-        .col-sm-6
-          .pull-down-10
-            .pull-right
-              => link_to 'Report an issue', new_user_issue_path(current_user), class: 'btn btn-default'
-              = link_to 'Known issues', user_issues_path(current_user), class: 'btn btn-default'
+      h2 Support
+
       .sexy_line
       .row
         .col-sm-8.col-xs-12.col-lg-6

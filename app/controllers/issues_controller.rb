@@ -6,7 +6,8 @@ class IssuesController < ApplicationController
   # GET /issues.json
   def index
     forbidden({forbidden: 'login', title: 'fobar'}) unless current_user
-    @issues = Issue.page(params[:page]).per(10).order('created_at desc')
+    @issues = Issue.search( params[:query]).order('created_at desc').page(params[:page]).per(64)
+    @user = current_user if current_user
   end
 
   # GET /issues/1
@@ -55,9 +56,10 @@ class IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
+    @issue_id = @issue.id
     @issue.destroy
-    redirect_to user_issues_path(current_user)
   end
+
 
 private
   # Use callbacks to share common setup or constraints between actions.

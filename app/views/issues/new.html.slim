@@ -1,22 +1,3 @@
-/#wrap
-/  .full-width-top
-/    == render 'admin/shared/navbar', page: 'support'
-/
-/  .container
-/    .row
-/      .col-sm-12
-/        == render 'admin/shared/messages'
-/        == render 'shared/breadcrumbs', breadcrumbs: { links: { 'support'.to_sym => support_index_path,\
-/                                                                'issues'.to_sym => user_issues_path(current_user)\
-/                                                              }, current: 'new issue'}
-/        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'New Issue'}
-/        
-/    == render 'form'
-/
-/
-/
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'user' 
@@ -24,10 +5,11 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+      == render 'users/shared/sidebar', selected: 'issues'
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {'suport'.to_sym => support_index_path}, current:  ''}
       .row
         .col-sm-8
           h2 Report an issue

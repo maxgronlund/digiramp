@@ -5,7 +5,7 @@ class Admin::IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
-    @issues = Issue.search( params[:query]).order('created_at desc').page(params[:page]).per(32)
+    @issues = Issue.search( params[:query]).order('created_at desc').page(params[:page]).per(64)
   end
 
   # GET /issues/1
@@ -53,8 +53,8 @@ class Admin::IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
+    @issue_id = @issue.id
     @issue.destroy
-    redirect_to admin_issues_path
   end
 
   private
