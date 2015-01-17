@@ -35,21 +35,21 @@
       td
         b= message.receiver.user_name
   
-      td
-        - if received_message && Connection.connected(message.receiver, message.sender )
-          / Mail
-          = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{message.sender.id.to_s}" do
-            .btn.btn-default.btn-xs
-              i.fa.fa-envelope
-              '&nbsp;New  
-          == render 'messages/modal', modal_id: "pmModal_#{message.sender.id.to_s}", recipient: message.sender, subjebtable: message.sender
+      /td
+      /  - if received_message && Connection.connected(message.receiver, message.sender )
+      /    / Mail
+      /    = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{message.sender.id.to_s}" do
+      /      .btn.btn-default.btn-xs
+      /        i.fa.fa-envelope
+      /        '&nbsp;New  
+      /    == render 'messages/modal', modal_id: "pmModal_#{message.sender.id.to_s}", recipient: message.sender, subjebtable: message.sender
     - else
         td
           i.fa.fa-exclamation
           'User removed
         td
         td
-        td
+        /td
 /- else
 /  tr
 /    td

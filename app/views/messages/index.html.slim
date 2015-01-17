@@ -22,14 +22,31 @@
 
       .sexy_line
         .digi-box
-          h4 All messages
-          table
-            
-            .table-responsive
-              table class="table table-hover"
-                tbody
-                  - @messages.each do |message|
-                    == render 'messages/message', message: message
+          - if params[:connection_id]
+            - connection = Connection.find(params[:connection_id])
+            - user = connection.connected_to_user @user 
+            .row
+              .col-sm-8
+                h4 All messages between you and #{user.user_name}
+              .col-sm-4
+                .pull-right.pull-down-10
+                  = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{user.id.to_s}" do
+                    .btn.btn-primary
+                      i.fa.fa-envelope
+                      '&nbsp;New  
+                  == render 'messages/modal', modal_id: "pmModal_#{user.id.to_s}", recipient: user, subjebtable: user
+                  
+                  
+                  
+                  
+          -else
+            h4 All messages
+          .pull-down-10
+          .table-responsive
+            table class="table table-hover" id="messages"
+              tbody
+                - @messages.each do |message|
+                  == render 'messages/message', message: message
           
                 
   == render 'shared/site_footer'    

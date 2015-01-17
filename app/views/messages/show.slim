@@ -123,7 +123,7 @@
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
 - if @message.sender
-  == render 'messages/modal', modal_id: "pmModal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message
+  == render 'messages/modal', modal_id: "pmModal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message, title: "Reply to '#{@message.title}'"
   
 javascript:
   update_count();

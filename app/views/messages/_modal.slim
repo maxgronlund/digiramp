@@ -9,8 +9,9 @@
         h4 class="modal-title" id="myModalLabel"
           'New message
         .sexy_line
-        
-        = simple_form_for [current_user, Message.new], remote: true do |f|
+        - message = Message.new
+        - message.title = title rescue ''
+        = simple_form_for [current_user, message], remote: true do |f|
           .modal-body
             /= f.hidden_field :sender_id, value: current_user.id
             = f.hidden_field :recipient_id, value: recipient.id
