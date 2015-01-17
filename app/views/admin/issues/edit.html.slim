@@ -1,20 +1,81 @@
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'support'
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'issues'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'support'.to_sym => support_index_path,\
+                                                              'issues'.to_sym => user_issues_path(@issue.user)\
+                                                            }, current: ''}
+      .row
+        .col-sm-8
+          h2 = @issue.title
+        .col-sm-4.pull-down-10
 
-  .container
-    .row
-      .col-sm-12
-        == render 'admin/shared/messages'
-        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
-                                                                issues: admin_issues_path, \
-                                                                @issue.title.to_sym => admin_issue_path( @issue ), \
-                                                                }, current: 'edit'}
-        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'Edit Issue'}
-        
-    == render 'form'
+          -if can_edit? || current_user.id == @user.id
+            .pull-right
+              = link_to 'Edit', edit_user_issue_path(@user, @issue), class: 'btn btn-primary'
+              - if super?
+                =< link_to 'Admin', edit_admin_issue_path(@issue), class: 'btn btn-default'
+      .sexy_line
+      .digi-box
+        = simple_form_for [:admin,  @issue] do |f|
+          .row
+            .col-sm-6
+
+              = f.input :title
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+              
+              = f.input :body, label: 'Description', :input_html => {  style: "height: 284px;", placeholder: "Write here", id: 'wysihtml5_editor'}
+            .col-sm-6
+
+              = f.input :image
+              = f.input :os, label: 'Operating Systems', :collection => Issue::OSS 
+              = f.input :link_to_page
+              = f.input :status , :collection => Issue::STATUS , include_blank: false
+              = f.input :priority , :collection => Issue::PRIORITY  , include_blank: false
+              = f.input :browser , :collection => Issue::BROWSERS  , include_blank: false
+              = f.input :symtom , :collection => Issue::SYMPTOMS  , include_blank: false
+          .row
+            .col-sm-12
+              hr
+              .pull-right
+                = f.submit 'Save', class: 'btn btn-primary'
+            
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
 
 
-    == render 'shared/back', locals: {link: admin_issue_path( @issue )} 
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+
+
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'support'
+/
+/  .container
+/    .row
+/      .col-sm-12
+/        == render 'admin/shared/messages'
+/        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+/                                                                issues: admin_issues_path, \
+/                                                                @issue.title.to_sym => admin_issue_path( @issue ), \
+/                                                                }, current: 'edit'}
+/        == render 'shared/page_title', locals: {blog: Blog.cached_find('Issue Rapports'), blog_post: 'Edit Issue'}
+/        
+/    == render 'form'
+/
+/
+/    == render 'shared/back', locals: {link: admin_issue_path( @issue )} 
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/

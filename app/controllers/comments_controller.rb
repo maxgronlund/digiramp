@@ -111,17 +111,18 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    
+    @hide_comment = "#comment_#{@comment.id}"
     case @comment.commentable_type
     when 'Issue'
       @comment.destroy
       redirect_to  = user_issue_path(@comment.user, @comment.commentable_id)
+
     else
       @comment.destroy
-      @hide_comment = "#comment_#{@comment.id}"
+      
       #@comment.destroy
     end
-
+    
     
   end
 

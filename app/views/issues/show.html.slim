@@ -67,37 +67,38 @@
             h4 Comments
             -comments = Comment.where(commentable_id: @issue.id, commentable_type: @issue.class.name)
             -comments.each do |comment|
-              b comment.title
-              .row
-                .col-sm-6
-                  'Posted&nbsp;
-                  = time_ago_in_words(comment.created_at).titleize 
-                  '&nbsp; ago
-                .col-sm-6
-                  .pull-right
-                    i = comment.user.name
-              br
-              = simple_format comment.body
-              .row
-                .col-sm-6
-              
-                  = render 'shared/lightbox', locals: {image_url: comment.image_url(), \
-                                              thumb_url: comment.image_url(:small), \
-                                              id: comment.id, caption: comment.title}
-                  -if comment.image.to_s != ''
-                    br
-                    i Click to enlarge
-                .col-sm-6
-                  .pull-right
-                    - if @issue.user_id == current_user.id || can_edit?
-                      => link_to edit_user_issue_comment_path( @issue.user, @issue, comment )
-                        .btn.btn-default.btn-xs
-                          i class="fa fa-pencil"
-                      = link_to user_issue_comment_path( @issue.user, @issue, comment ), data: {:confirm => 'Are you sure?'}, :method => :delete
-                        .btn.btn-danger.btn-xs
-                          i class="fa fa-times"
-              
+              div id="comment_#{comment.id.to_s}"
+                b = comment.title
+                .row
+                  .col-sm-6
+                    'Posted&nbsp;
+                    = time_ago_in_words(comment.created_at).titleize 
+                    '&nbsp; ago
+                  .col-sm-6
+                    .pull-right
+                      i = comment.user.name
+                br
+                = simple_format comment.body
+                .row
+                  .col-sm-6
+                   
+                    -if comment.image.to_s != "/assets/fallback/default.jpg"
+                      = render 'shared/lightbox', locals: {image_url: comment.image_url(), \
+                                                  thumb_url: comment.image_url(:small), \
+                                                  id: comment.id, caption: comment.title}
+                      br
+                      i Click to enlarge
+                  .col-sm-6
+                    .pull-right
+                      - if @issue.user_id == current_user.id || can_edit?
+                        => link_to edit_user_issue_comment_path( @issue.user, @issue, comment )
+                          .btn.btn-default.btn-xs
+                            i class="fa fa-pencil"
+                        = link_to user_issue_comment_path( @issue.user, @issue, comment ), data: {:confirm => 'Are you sure?'}, :method => :delete, remote: true
+                          .btn.btn-danger.btn-xs
+                            i class="fa fa-times"
                 
+                .sexy_line  
               
 
             
