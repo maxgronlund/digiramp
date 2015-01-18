@@ -16,7 +16,7 @@ class TransloaditImageParser
           meta = accepted_image["meta"]
           
           extracted[ accepted_image[:original_id] ] =  { 
-                                                          file:                    accepted_image[:url], 
+                                                          file:                    accepted_image[:ssl_url], 
                                                           title:                   accepted_image[:name],
                                                           basename:                accepted_image[:basename ],
                                                           ext:                     accepted_image[:ext],
@@ -69,7 +69,7 @@ class TransloaditImageParser
         
         # thumbnail
         uploads[:results][:image_thumb].each do |image_thumb|
-          extracted[ image_thumb[:original_id]][:thumb]  = image_thumb[:url]
+          extracted[ image_thumb[:original_id]][:thumb]  = image_thumb[:ssl_url]
         end
         
         

@@ -20,11 +20,11 @@ class TransloaditRecordingsParser
     transloadets  = []
     extracted     = {}
 
-    
+    ap uploads
 
     # original file
     uploads[:results][':original'].each do |original|
-      extracted[ original[:original_id] ] =  {  original_file:        original[:url],
+      extracted[ original[:original_id] ] =  {  original_file:        original[:ssl_url],
                                                 name:                 original[:name], 
                                                 original_md5hash:     original[:original_md5hash],  
                                                 original_file_name:   original[:original_file_name], 
@@ -39,14 +39,14 @@ class TransloaditRecordingsParser
     if uploads[:results][:thumbnail]
       # thumbnail
       uploads[:results][:thumbnail].each do |thumbnail|
-        extracted[ thumbnail[:original_id] ][:thumbnail]     = thumbnail[:url]
+        extracted[ thumbnail[:original_id] ][:thumbnail]     = thumbnail[:ssl_url]
       end
     end
     
     if uploads[:results][:waveform]
       # waveform
       uploads[:results][:waveform].each do |waveform|
-        extracted[ waveform[:original_id] ][:waveform]       = waveform[:url]
+        extracted[ waveform[:original_id] ][:waveform]       = waveform[:ssl_url]
       end
     end
     
@@ -54,7 +54,7 @@ class TransloaditRecordingsParser
     if uploads[:results][:mp3]
       # mp3 file
       uploads[:results][:mp3].each do |mp3|
-        extracted[ mp3[:original_id] ][:mp3]                 = mp3[:url]
+        extracted[ mp3[:original_id] ][:mp3]                 = mp3[:ssl_url]
         extracted[ mp3[:original_id] ][:original_file_name]  = mp3[:name]
         extracted[ mp3[:original_id] ][:original_name]       = mp3[:original_basename]
       end
@@ -63,7 +63,7 @@ class TransloaditRecordingsParser
     if uploads[:results][:zipp]
       # zipp file
       uploads[:results][:zipp].each do |zipp|
-        extracted[ zipp[:original_id] ][:zipp]               = zipp[:url]
+        extracted[ zipp[:original_id] ][:zipp]               = zipp[:ssl_url]
       end
     end
 
@@ -72,7 +72,7 @@ class TransloaditRecordingsParser
       # artwork_thumb
       unless uploads[:results][:artwork_thumb].nil?
         uploads[:results][:artwork_thumb].each do |artwork_thumb|
-          extracted[ artwork_thumb[:original_id] ][:cover_art]       = artwork_thumb[:url]
+          extracted[ artwork_thumb[:original_id] ][:cover_art]       = artwork_thumb[:ssl_url]
         end
       end
     end
@@ -81,7 +81,7 @@ class TransloaditRecordingsParser
       # artwork 
       unless uploads[:results][:artwork].nil?
         uploads[:results][:artwork].each do |artwork|
-          extracted[ artwork[:original_id] ][:artwork]       = artwork[:url]
+          extracted[ artwork[:original_id] ][:artwork]       = artwork[:ssl_url]
         end
       end
     end
@@ -115,7 +115,7 @@ class TransloaditRecordingsParser
   end
   
   def self.parse uploads, account_id, in_bucket, user_id
-
+    ap uploads
     transloadets  = extract( uploads )
     
 

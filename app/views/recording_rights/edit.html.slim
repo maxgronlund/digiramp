@@ -33,6 +33,7 @@
       
       .sexy_line
       - common_work = @recording.attach_to_common_work
+      h4 = @recording.title
       .digi-box
         = simple_form_for [ @recording.account, common_work],  :html => { :id => 'common_work' } do |f|
           #common_work_ipis

@@ -139,6 +139,8 @@ class RecordingsController < ApplicationController
     if @genre_category = params[:recording][:genre_category]
       params[:recording].delete :genre_category
     end
+    
+
 
     if @recording.update_attributes(recording_params)
          
