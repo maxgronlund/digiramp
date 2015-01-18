@@ -27,6 +27,10 @@
     $(".btn_" + id ).attr('disabled', 'disabled');
 
 @check_message_title =(id) ->
-  #alert( ".title_" + id)
+
   $("#title_" + id).keyup ->
+    enable_send_button(id)
+  
+
+  $("#body_" + id).keyup ->
     enable_send_button(id)
