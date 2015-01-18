@@ -1,0 +1,67 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
+      .row
+        .col-sm-6
+          h2 Campaigns
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to 'New Campaign', new_user_user_campaign_path(@user), class: 'btn btn-primary'
+        
+      
+      .sexy_line
+      .users.digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Status
+
+
+            tbody
+              - @campaigns.each do |campaign|
+                tr id="delete_campaign_#{campaign.id}"
+                  td 
+                    => link_to  user_user_campaign_path(@user, campaign), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+                        
+                    => link_to edit_user_user_campaign_path( @user, campaign) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                        '&nbsp;Edit
+                    = link_to campaign.title, user_user_campaign_path(@user, campaign), class: 'btn btn-default btn-xs'
+                  td = campaign.status
+
+            
+
+        
+        
+                 
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+

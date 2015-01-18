@@ -1,0 +1,39 @@
+= simple_form_for [ :user, @user, @campaign] do |f|
+
+  = f.hidden_field :user_id, value:  @user.id
+  = f.hidden_field :account_id, value: @user.account_id
+
+
+  = f.input :title
+  = f.input :status, collection: Campaign::STATUS, include_blank: false
+  
+  b Notes
+  div id="toolbar" class="wysihtml5-toolbar"
+    a data-wysihtml5-command="bold" Bold
+    '&nbsp; 
+    a data-wysihtml5-command="italic" Italic
+  
+  = f.input :body, label: false, :input_html => {  style: "height: 120px;", placeholder: "Content", id: 'wysihtml5_editor'}
+  
+  .sexy_line
+  h4 Mail groups
+  
+  = hidden_field_tag "campaign[client_group_ids][]", nil 
+  -@user.client_groups.each do |client_group| 
+    .row
+      .col-sm-6
+        = check_box_tag "campaign[client_group_ids][]", client_group.id, @campaign.client_group_ids.include?(client_group.id), id: dom_id(client_group), class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"
+        = label_tag dom_id(client_group), client_group.title 
+      .col-sm-6
+        .pull-right
+          i.fa.fa-group
+          =< pluralize(client_group.clients.count, 'Contact')
+          
+    .sexy_line
+  
+
+
+  .row
+    .col-sm-12
+      .pull-right.pull-down-12
+        = f.submit 'Save', class: 'btn btn-primary'

@@ -6,6 +6,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  
+
   resources :share_and_login, only: [:show]
 
   resources :twitter_cards
@@ -708,6 +710,7 @@ Digiramp::Application.routes.draw do
       resources :user_ipis, only: [:index]
       resources :authorization_providers
       resources :activities
+      resources :campaigns
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
       resources :connections, only: [:index, :create, :update, :destroy]

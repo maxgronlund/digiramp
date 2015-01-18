@@ -1,0 +1,105 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),\
+                                                               campaigns: user_user_campaigns_path(@user)}, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @campaign.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'show campaign'
+          
+          
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to  user_user_campaigns_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            = link_to 'Edit', edit_user_user_campaign_path(@user, @campaign), class: 'btn btn-primary'
+        
+      
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            i = @campaign.created_at.to_formatted_s(:short)
+            br
+            = @campaign.body
+            .sexy_line
+            h4 Contact groups
+            - @campaign.client_groups.each do |client_group|
+              .sexy_line
+              .row
+                .col-sm-6
+                  = link_to client_group.title, user_user_contact_group_path(@user, client_group.id), class: 'btn btn-default btn-xs'
+                .col-sm-6
+                  .pull-right
+                    i.fa.fa-group
+                    =< pluralize(client_group.clients.count, 'Contact')
+            .sexy_line
+            'Dublet contacts will be removed
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/p#notice = notice
+/
+/p
+/  strong Title:
+/  = @campaign.title
+/p
+/  strong Body:
+/  = @campaign.body
+/p
+/  strong User:
+/  = @campaign.user
+/p
+/  strong Account:
+/  = @campaign.account
+/p
+/  strong Status:
+/  = @campaign.status
+/p
+/  strong Emails:
+/  = @campaign.emails
+/
+/= debug @campaign.client_groups
+/
+/= link_to 'Edit', edit_user_user_campaign_path(@user, @campaign)
+/

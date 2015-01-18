@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150116222145) do
+ActiveRecord::Schema.define(version: 20150118085632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -399,6 +399,30 @@ ActiveRecord::Schema.define(version: 20150116222145) do
 
   add_index "bugs", ["user_id"], name: "index_bugs_on_user_id", using: :btree
 
+  create_table "campaigns", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.string   "status"
+    t.text     "emails"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "campaigns", ["account_id"], name: "index_campaigns_on_account_id", using: :btree
+  add_index "campaigns", ["user_id"], name: "index_campaigns_on_user_id", using: :btree
+
+  create_table "campaigns_client_groups", force: true do |t|
+    t.integer  "campaign_id"
+    t.integer  "client_group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "campaigns_client_groups", ["campaign_id"], name: "index_campaigns_client_groups_on_campaign_id", using: :btree
+  add_index "campaigns_client_groups", ["client_group_id"], name: "index_campaigns_client_groups_on_client_group_id", using: :btree
+
   create_table "catalog_items", force: true do |t|
     t.integer  "catalog_id"
     t.string   "catalog_itemable_type"
@@ -559,9 +583,11 @@ ActiveRecord::Schema.define(version: 20150116222145) do
     t.datetime "updated_at"
     t.text     "description"
     t.string   "user_uuid"
+    t.integer  "user_id"
   end
 
   add_index "client_groups", ["account_id"], name: "index_client_groups_on_account_id", using: :btree
+  add_index "client_groups", ["user_id"], name: "index_client_groups_on_user_id", using: :btree
 
   create_table "client_groups_clients", force: true do |t|
     t.integer  "client_group_id"

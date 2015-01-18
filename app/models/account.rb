@@ -72,6 +72,8 @@ class Account < ActiveRecord::Base
   
   # statistick on likes
   has_many :likes
+  
+  has_many :campaigns, dependent: :destroy
                 
 
   # account types
