@@ -58,6 +58,14 @@
                     = f.input :user_name, placeholder: 'Used for the url'
                   = f.input :email
                 
+                  div id="toolbar" class="wysihtml5-toolbar"
+                    a data-wysihtml5-command="bold" Bold
+                    '&nbsp; 
+                    a data-wysihtml5-command="italic" Italic
+                    .pull-right
+                      a data-wysihtml5-action="change_view"  Html 
+                  
+                  =f.input :profile, label: false, :input_html => {  style: "height: 240px;", placeholder: "Profile", id: 'wysihtml5_editor'}
                   
                   .row
                     .col-sm-12
@@ -74,6 +82,7 @@
                           .col-sm-6
                             = f.input :password_confirmation, autocomplete: :off, placeholder: '•••••••••••', hint: 'Confirm new password'
                       
+                
                       
                 .col-sm-6
                   .row
@@ -95,18 +104,19 @@
                       = f.input :producer,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
                       = f.input :remixer,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
                       = f.input :dj,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                  .row
+                    .col-sm-12
+                      .sexy_line
+                      h4 Links to social accounts
+                      = f.input :link_to_facebook, placeholder: 'e.g. https://www.facebook.com/janis-joplin-psy',           label: 'Facebook'
+                      = f.input :link_to_twitter, placeholder: 'e.g. https://www.twitter/janis-joplin-psy',                 label: 'Twitter'
+                      = f.input :link_to_linkedin, placeholder: 'e.g. https://www.linkedin.com/in/janis-joplin-psy',        label: 'Linkedin'
+                      = f.input :link_to_google_plus, placeholder: 'e.g. https://plus.google.com/u/0/888888888888888/posts',label: 'Google+'
                   
                   
 
                   
-                  div id="toolbar" class="wysihtml5-toolbar"
-                    a data-wysihtml5-command="bold" Bold
-                    '&nbsp; 
-                    a data-wysihtml5-command="italic" Italic
-                    .pull-right
-                      a data-wysihtml5-action="change_view"  Html 
                   
-                  =f.input :profile, label: false, :input_html => {  style: "height: 240px;", placeholder: "Profile", id: 'wysihtml5_editor'}
 
               .row
                 .col-sm-12

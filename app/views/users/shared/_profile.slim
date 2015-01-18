@@ -76,7 +76,23 @@
     .col-sm-12
       .user-profile
         = simple_format @user.profile
-      
+   
+  - if @user.link_to_facebook +  @user.link_to_twitter +  @user.link_to_linkedin +  @user.link_to_google_plus != ''
+    i Find me on
+    .row.pull-down-8
+      .col-sm-12
+        .social-links
+          - if @user.link_to_facebook != ''
+            => link_to LinkValidator.validate( @user.link_to_facebook ) do
+              .fa.fa-facebook
+              '&nbsp;Facebook
+              
+          - if @user.link_to_twitter != ''
+            
+            => link_to LinkValidator.validate( @user.link_to_twitter ) do
+              .fa.fa-twitter
+              '&nbsp;Twitter
+  
   h5  
     - if @user.composer
       span class="label label-default"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150118085632) do
+ActiveRecord::Schema.define(version: 20150118155622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2198,6 +2198,10 @@ ActiveRecord::Schema.define(version: 20150118085632) do
     t.string   "uniq_followers_count",   default: ""
     t.string   "gender",                 default: ""
     t.string   "uniq_completeness",      default: ""
+    t.string   "link_to_facebook",       default: ""
+    t.string   "link_to_twitter",        default: ""
+    t.string   "link_to_linkedin",       default: ""
+    t.string   "link_to_google_plus",    default: ""
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
