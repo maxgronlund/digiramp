@@ -92,6 +92,18 @@
             => link_to LinkValidator.validate( @user.link_to_twitter ) do
               .fa.fa-twitter
               '&nbsp;Twitter
+              
+          - if @user.link_to_linkedin != ''
+            
+            => link_to LinkValidator.validate( @user.link_to_linkedin ) do
+              .fa.fa-linkedin
+              '&nbsp;Linkedin
+              
+          - if @user.link_to_google_plus != ''
+            
+            => link_to LinkValidator.validate( @user.link_to_google_plus ) do
+              .fa.fa-google-plus
+              '&nbsp;Google+
   
   h5  
     - if @user.composer
