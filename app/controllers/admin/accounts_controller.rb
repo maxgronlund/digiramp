@@ -99,7 +99,7 @@ class Admin::AccountsController < ApplicationController
                         recipient: @account,
                    recipient_type: @account.class.name)
                 
-      flash[:info] = { title: "SUCCESS: ", body: "Account #{@account.title} deleted" }
+      
       
       if @account.user
         user = @account.user
