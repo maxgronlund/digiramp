@@ -14,8 +14,20 @@
       h2 New Email group
       .sexy_line
       .row
-        .col-sm-4
-          == render 'form'
+        .col-sm-6
+          .digi-box
+            = simple_form_for [:admin, @email_group] do |f|
+
+              = f.input :title
+              = f.input :identifier
+              = f.input :body, label: 'Description'
+              = f.input :subscripeable, label: 'Users can subscripe to this mail',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+              = f.input :subscription_by_default, label: 'New users will subscribe to this email by default',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+  
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-primary'
                  
               
   == render 'shared/site_footer'    

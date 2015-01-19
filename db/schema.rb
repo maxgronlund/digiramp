@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119064254) do
+ActiveRecord::Schema.define(version: 20150119081322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -865,13 +865,14 @@ ActiveRecord::Schema.define(version: 20150119064254) do
   add_index "documents", ["account_id"], name: "index_documents_on_account_id", using: :btree
 
   create_table "email_groups", force: true do |t|
-    t.string   "title",         default: ""
-    t.text     "body",          default: ""
+    t.string   "title",                   default: ""
+    t.text     "body",                    default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uuid"
     t.string   "identifier"
-    t.boolean  "subscripeable", default: false
+    t.boolean  "subscripeable",           default: false
+    t.boolean  "subscription_by_default", default: false
   end
 
   create_table "emails", force: true do |t|

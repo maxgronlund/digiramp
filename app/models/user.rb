@@ -274,6 +274,7 @@ class User < ActiveRecord::Base
   
   def set_relations
     EmailGroup.find_each do |email_group|
+      
       MailListSubscriber.create( user_id: self.id,
                                  email_group_id: email_group.id )
       

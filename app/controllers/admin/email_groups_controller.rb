@@ -9,7 +9,8 @@ class Admin::EmailGroupsController < ApplicationController
                                 identifier: 'opportunities',
                                 uuid: UUIDTools::UUID.timestamp_create().to_s,
                                 subscripeable: true,
-                                body: 'Get notified when new opportunities are posted on DigiRAMP')
+                                body: 'Get notified when new opportunities are posted on DigiRAMP',
+                                subscripeable: true)
     
 
     
@@ -70,6 +71,6 @@ class Admin::EmailGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def email_group_params
-      params.require(:email_group).permit(:title, :body, :recipients, :identifier, :subscripeable )
+      params.require(:email_group).permit!
     end
 end

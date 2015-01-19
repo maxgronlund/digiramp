@@ -32,7 +32,8 @@
 
             tbody
               - @email_groups.each do |email_group|
-                - unless email_group.identifier == 'opportunities'
+                /- unless email_group.identifier == 'opportunities'
+                - if true
                   tr
                     td
                       = link_to  admin_email_group_path(email_group), data: {:confirm => 'Are you sure?'}, :method => :delete do
