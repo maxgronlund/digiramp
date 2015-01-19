@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
   before_create :set_token
   before_create :validate_info
   before_destroy :sanitize_relations
-  after_create :set_default_avatar
+  after_create :set_relations
   
   has_many :emails, dependent: :destroy
   
@@ -246,6 +246,8 @@ class User < ActiveRecord::Base
   
   def validate_info
     
+    
+    
     # always start as a customer
     self.role = 'Customer' if self.role.to_s == ''
     
@@ -265,7 +267,20 @@ class User < ActiveRecord::Base
     
   end
   
+  
+  
+  
 
+  
+  def set_relations
+    EmailGroup.find_each do |email_group|
+      MailListSubscriber.create( user_id: self.id,
+                                 email_group_id: email_group.id )
+      
+    end
+    
+    set_default_avatar
+  end
   
   def set_default_avatar
     
