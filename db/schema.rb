@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150118221302) do
+ActiveRecord::Schema.define(version: 20150119064254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2146,8 +2146,8 @@ ActiveRecord::Schema.define(version: 20150118221302) do
     t.string   "password_digest"
     t.boolean  "admin"
     t.string   "role"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "image"
     t.text     "crop_params"
     t.text     "profile"
@@ -2159,49 +2159,50 @@ ActiveRecord::Schema.define(version: 20150118221302) do
     t.string   "last_name"
     t.string   "avatar_url"
     t.integer  "account_id"
-    t.boolean  "show_welcome_message",   default: true
-    t.boolean  "activated",              default: true
-    t.string   "uuid",                   default: ""
+    t.boolean  "show_welcome_message",       default: true
+    t.boolean  "activated",                  default: true
+    t.string   "uuid",                       default: ""
     t.integer  "curent_catalog_id"
-    t.boolean  "invited",                default: false
-    t.boolean  "administrator",          default: false
-    t.boolean  "has_a_collection",       default: true
-    t.string   "old_role",               default: ""
-    t.boolean  "account_activated",      default: true
-    t.string   "provider",               default: "DigiRAMP"
-    t.string   "uid",                    default: ""
-    t.boolean  "email_missing",          default: false
-    t.string   "social_avatar",          default: ""
+    t.boolean  "invited",                    default: false
+    t.boolean  "administrator",              default: false
+    t.boolean  "has_a_collection",           default: true
+    t.string   "old_role",                   default: ""
+    t.boolean  "account_activated",          default: true
+    t.string   "provider",                   default: "DigiRAMP"
+    t.string   "uid",                        default: ""
+    t.boolean  "email_missing",              default: false
+    t.string   "social_avatar",              default: ""
     t.string   "slug"
     t.string   "default_widget_key"
     t.integer  "default_playlist_id"
-    t.boolean  "writer",                 default: false
-    t.boolean  "author",                 default: false
-    t.boolean  "producer",               default: false
-    t.boolean  "composer",               default: false
-    t.boolean  "remixer",                default: false
-    t.boolean  "musician",               default: false
-    t.boolean  "dj",                     default: false
-    t.string   "user_name",              default: ""
-    t.integer  "views",                  default: 0
+    t.boolean  "writer",                     default: false
+    t.boolean  "author",                     default: false
+    t.boolean  "producer",                   default: false
+    t.boolean  "composer",                   default: false
+    t.boolean  "remixer",                    default: false
+    t.boolean  "musician",                   default: false
+    t.boolean  "dj",                         default: false
+    t.string   "user_name",                  default: ""
+    t.integer  "views",                      default: 0
     t.string   "profession"
     t.string   "country"
     t.string   "city"
-    t.integer  "followers_count",        default: 0
-    t.boolean  "private_profile",        default: false
-    t.boolean  "artist",                 default: false
-    t.integer  "completeness",           default: 0
-    t.integer  "messages_not_read",      default: 0
-    t.text     "search_field",           default: ""
-    t.boolean  "featured",               default: false
+    t.integer  "followers_count",            default: 0
+    t.boolean  "private_profile",            default: false
+    t.boolean  "artist",                     default: false
+    t.integer  "completeness",               default: 0
+    t.integer  "messages_not_read",          default: 0
+    t.text     "search_field",               default: ""
+    t.boolean  "featured",                   default: false
     t.datetime "featured_date"
-    t.string   "uniq_followers_count",   default: ""
-    t.string   "gender",                 default: ""
-    t.string   "uniq_completeness",      default: ""
-    t.string   "link_to_facebook",       default: ""
-    t.string   "link_to_twitter",        default: ""
-    t.string   "link_to_linkedin",       default: ""
-    t.string   "link_to_google_plus",    default: ""
+    t.string   "uniq_followers_count",       default: ""
+    t.string   "gender",                     default: ""
+    t.string   "uniq_completeness",          default: ""
+    t.string   "link_to_facebook",           default: ""
+    t.string   "link_to_twitter",            default: ""
+    t.string   "link_to_linkedin",           default: ""
+    t.string   "link_to_google_plus",        default: ""
+    t.boolean  "subscribe_to_opportunities"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

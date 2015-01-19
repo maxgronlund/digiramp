@@ -87,14 +87,17 @@
             .sexy_line
             - if @email_groups
               - @email_groups.each do |email_group|
-                = email_group.title
+                b = email_group.title
+                
                 .pull-right
                   - if MailListSubscriber.where(user_id: @user.id, email_group_id: email_group.id ).first
                      .mail_subscribtion.toggle-light id="#{email_group.id}" data-toggle-on="true" user_id="#{@user.id}"
                   - else
                     .mail_subscribtion.toggle-light id="#{email_group.id}"  user_id="#{@user.id}"
                     
-                  
+                .row
+                   .col-sm-12.pull-down-8
+                     = email_group.body
                 .sexy_line
 
             /- @mail_subscribtions.each do | mail_subscribtion |
@@ -112,12 +115,11 @@
             h4 Account settings
             .sexy_line
             b Show recordings as default
-            br
-            'When others click on your Profile, display your catalog recordings:
-            br
             .pull-right
               .show-recordings.toggle-light
-            br
+            .row
+              .col-sm-12.pull-down-8
+                'When others click on your Profile, display your catalog recordings:
             .sexy_line
         
         

@@ -3,6 +3,16 @@ class Admin::EmailGroupsController < ApplicationController
   before_filter :admin_only
   def index
     @email_groups = EmailGroup.all
+    EmailGroup.where(  title: 'Opportunities', 
+                       identifier: 'opportunities')
+              .first_or_create(  title: 'Opportunities', 
+                                identifier: 'opportunities',
+                                uuid: UUIDTools::UUID.timestamp_create().to_s,
+                                subscripeable: true,
+                                body: 'Get notified when new opportunities are posted on DigiRAMP')
+    
+
+    
   end
 
   def show
