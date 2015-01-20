@@ -32,32 +32,35 @@
 
             tbody
               - @email_groups.each do |email_group|
-                /- unless email_group.identifier == 'opportunities'
-                - if true
-                  tr
-                    td
-                      = link_to  admin_email_group_path(email_group), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                tr
+                  td
+                    - if email_group.identifier == 'opportunities'
+                      .btn.btn-danger.btn-xs disabled='disabled'
+                        i.fa.fa-times
+                      =>
+                    -else
+                      => link_to  admin_email_group_path(email_group), data: {:confirm => 'Are you sure?'}, :method => :delete do
                           .btn.btn-danger.btn-xs
                             i.fa.fa-times
-                      '&nbsp;
-                      = link_to edit_admin_email_group_path(email_group) do
-                          .btn.btn-default.btn-xs
-                            i.fa.fa-pencil
-                  
-                      '&nbsp;
-                      = link_to admin_email_group_path(email_group) do
-                          .btn.btn-default.btn-xs
-                            '&nbsp;
-                            = email_group.title
+                     
+                    => link_to edit_admin_email_group_path(email_group) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
+                
                     
-                    td 
-                      - if email_group.subscripeable
-                        i.fa.fa-check
-                    td = email_group.mail_list_subscribers.count
-                    td 
-                      = link_to 'Recipients', admin_email_group_email_recipients_path(email_group), class: 'btn btn-default btn-xs'
-                      
-                    td = email_group.digiramp_emails.count
+                    = link_to admin_email_group_path(email_group) do
+                        .btn.btn-default.btn-xs
+                          '&nbsp;
+                          = email_group.title
+                  
+                  td 
+                    - if email_group.subscripeable
+                      i.fa.fa-check
+                  td = email_group.mail_list_subscribers.count
+                  td 
+                    = link_to 'Recipients', admin_email_group_email_recipients_path(email_group), class: 'btn btn-default btn-xs'
+                    
+                  td = email_group.digiramp_emails.count
                   
 
       /.sexy_line

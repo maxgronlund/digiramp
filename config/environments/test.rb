@@ -46,9 +46,6 @@ ENV["AWS_S3_BUCKET"]    = 'digiramp-widget'
 ENV['TWITTER_KEY']      = 'sxnwvjajuSgGiWWVlWMRXj6Qq'
 ENV['TWITTER_SECRET']   = 'HVZQ8tlkDGTeOvaZnFjK4vAwmHPyfHtzDg6tbu98gslj6moCh9'
 
-ENV['FACEBOOK_KEY']      = '728817730525571'
-ENV['FACEBOOK_SECRET']   = 'ea195389a4534ee17a2b62b123e42bc4'
-
 ENV['LINKEDIN_KEY']      = '77geot159kgi5l'
 ENV['LINKEDIN_SECRET']   = 'VztOr48kHMunUq1L'
 

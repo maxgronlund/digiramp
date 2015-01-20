@@ -2,17 +2,25 @@ FACEBOOK_CONFIG = YAML.load_file("#{::Rails.root}/config/facebook.yml")[::Rails.
 FACEBOOL_APP_ID = FACEBOOK_CONFIG['app_id']
 FACEBOOL_SECRET = FACEBOOK_CONFIG['secret_key']
 
+TWITTER_CONFIG  = YAML.load_file("#{::Rails.root}/config/twitter.yml")[::Rails.env]
+TWITTER_KEY     = TWITTER_CONFIG['app_id']
+TWITTER_SECRET  = TWITTER_CONFIG['secret_key']
+
+LINKEDIN_CONFIG = YAML.load_file("#{::Rails.root}/config/linkedin.yml")[::Rails.env]
+LINKEDIN_KEY    = LINKEDIN_CONFIG['app_id']
+LINKEDIN_SECRET = LINKEDIN_CONFIG['secret_key']
 
 
-
+GPLUS_CONFIG    = YAML.load_file("#{::Rails.root}/config/gplus.yml")[::Rails.env]
+GPLUS_KEY       = GPLUS_CONFIG['app_id']
+GPLUS_SECRET    = GPLUS_CONFIG['secret_key']
 
 
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :developer unless Rails.env.production?
-  provider :twitter,  ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
-  #provider :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'], scope: "email, publish_actions, user_actions.music"
+  provider :twitter,  TWITTER_KEY, TWITTER_SECRET
   provider :facebook, FACEBOOL_APP_ID, FACEBOOL_SECRET, scope: "email, publish_actions, user_actions.music"
-  provider :linkedin, ENV['LINKEDIN_KEY'], ENV['LINKEDIN_SECRET']
-  provider :gplus,    ENV['GPLUS_KEY'], ENV['GPLUS_SECRET'], scope: 'userinfo.email, userinfo.profile'
+  provider :linkedin, LINKEDIN_KEY, LINKEDIN_SECRET
+  provider :gplus,    GPLUS_KEY, GPLUS_SECRET, scope: 'userinfo.email, userinfo.profile'
 end

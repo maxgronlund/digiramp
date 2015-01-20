@@ -9,7 +9,8 @@ class Opportunity < ActiveRecord::Base
   has_many :opportunity_users, dependent: :destroy
   has_many :selected_opportunities,   dependent: :destroy
   has_many :opportunity_evaluations, dependent: :destroy
-  has_many :opportunitiy_views, dependent: :destroy
+  has_many :opportunity_views, dependent: :destroy
+  has_many :digiramp_emails
 
   
   
@@ -83,6 +84,43 @@ class Opportunity < ActiveRecord::Base
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
+  end
+  
+  def notify_oppurtunity_mail_subscribers
+    
+    #return unless self.public_opportunity
+    
+    if email_group = EmailGroup.where( identifier: 'opportunities').first
+                                    
+      digiramp_email = email_group.digiramp_emails.create( opportunity_id: self.id,
+                                                           subject:        'A new opportunity has been posted on DigiRAMP',
+                                                           layout:         'opportunity_email',
+                                                           title_1:        self.title,
+                                                           title_2:        '',
+                                                           title_3:        '',
+                                                           body_1:         self.body,
+                                                           body_2:         '',
+                                                           body_3:         '',
+                                                           image_1:        self.image,          
+                                                           link_1:         '',  
+                                                           link_1_title:   '',  
+                                                           delivered:      true,     
+                                                           freeze_emails:  true ,
+                                                           kind:           self.kind,
+                                                           budget:         self.budget,
+                                                           territory:      self.territory,    
+                                                           uuid:           UUIDTools::UUID.timestamp_create().to_s,
+                                                           deadline:       self.deadline        
+                                                         )
+
+      DigirampEmailMailer.delay.opportunity_created( digiramp_email.id )
+      
+      self.opportunity_email_send = true
+      self.save!
+        
+    end        
+    
+
   end
 private
   

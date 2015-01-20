@@ -52,6 +52,7 @@ class Account::OpportunitiesController < ApplicationController
     redirect_to account_account_opportunity_path(@account, @opportunity)
     @opportunity.check_default_image
     
+    
   end
 
   # PATCH/PUT /opportunities/1
@@ -81,8 +82,7 @@ class Account::OpportunitiesController < ApplicationController
 
   end
 
-  # DELETE /opportunities/1
-  # DELETE /opportunities/1.json
+
   def destroy
     forbidden unless current_account_user.delete_opportunity
     @opportunity_id = @opportunity.id

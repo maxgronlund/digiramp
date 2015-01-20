@@ -3,11 +3,6 @@ Digiramp::Application.routes.draw do
 
 
 
-
-  
-
-  
-
   resources :share_and_login, only: [:show]
 
   resources :twitter_cards
@@ -547,6 +542,7 @@ Digiramp::Application.routes.draw do
       
 
       resources :opportunities do
+        
         resources :opportunity_reviewers
         resources :opportunity_users, only: [:destroy, :show]
         resources :opportunity_providers, only: [:index]
@@ -570,6 +566,7 @@ Digiramp::Application.routes.draw do
           end
         end
       end
+      resources :send_opportunity_emails, only: [:show]
       resources :playlists do
         resources :playlist_keys do
           resources :playlist_key_users #, only: [:index, :create]

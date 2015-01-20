@@ -835,14 +835,18 @@ class User < ActiveRecord::Base
       if provider_twitter = self.authorization_providers.where(provider: 'twitter').first
 
           client = Twitter::REST::Client.new do |config|
-            config.consumer_key        = ENV['TWITTER_KEY'] 
-            config.consumer_secret     = ENV['TWITTER_SECRET'] 
+            config.consumer_key        = TWITTER_KEY
+            config.consumer_secret     = TWITTER_SECRET
             config.access_token        = provider_twitter[:oauth_token]
             config.access_token_secret = provider_twitter[:oauth_secret]
           end
     
           client.update(message)
+      else
+        ap '================================== no provider for twitter =================='
       end
+    else
+      ap '================= no providers at all ============================='
     end
     
 

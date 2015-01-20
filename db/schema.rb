@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119081322) do
+ActiveRecord::Schema.define(version: 20150119155357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -842,9 +842,16 @@ ActiveRecord::Schema.define(version: 20150119081322) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "freeze_emails",  default: false
+    t.string   "kind",           default: ""
+    t.string   "budget",         default: ""
+    t.string   "territory",      default: ""
+    t.string   "uuid",           default: ""
+    t.integer  "opportunity_id"
+    t.date     "deadline"
   end
 
   add_index "digiramp_emails", ["email_group_id"], name: "index_digiramp_emails_on_email_group_id", using: :btree
+  add_index "digiramp_emails", ["opportunity_id"], name: "index_digiramp_emails_on_opportunity_id", using: :btree
 
   create_table "documents", force: true do |t|
     t.string   "title"
@@ -1569,15 +1576,16 @@ ActiveRecord::Schema.define(version: 20150119081322) do
     t.string   "title"
     t.text     "body"
     t.string   "kind"
-    t.string   "budget",             default: ""
+    t.string   "budget",                 default: ""
     t.date     "deadline"
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "territory",          default: ""
-    t.boolean  "public_opportunity", default: false
+    t.string   "territory",              default: ""
+    t.boolean  "public_opportunity",     default: false
     t.string   "image"
     t.string   "uuid"
+    t.boolean  "opportunity_email_send", default: false
   end
 
   add_index "opportunities", ["account_id"], name: "index_opportunities_on_account_id", using: :btree

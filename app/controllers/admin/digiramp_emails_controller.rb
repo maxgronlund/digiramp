@@ -37,19 +37,12 @@ class Admin::DigirampEmailsController < ApplicationController
   # PATCH/PUT /digiramp_emails/1.json
   def update
     @email_group    = EmailGroup.find(params[:email_group_id])
-    
-    
-    
-    
-    #unless @digiramp_email.delivered
+
       @digiramp_email.update(digiramp_email_params)
       
       if params[:commit] == "Deliver"
         DigirampEmailMailer.delay.news_email( @digiramp_email.id )
       end
-      
-      
-      #end
 
     redirect_to admin_email_group_digiramp_email_path( @email_group, @digiramp_email)
   end
