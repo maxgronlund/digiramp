@@ -1,0 +1,27 @@
+p#notice = notice
+
+p
+  strong Campaign:
+  = @campaign_event.campaign
+p
+  strong User:
+  = @campaign_event.user
+p
+  strong Account:
+  = @campaign_event.account
+p
+  strong Title:
+  = @campaign_event.title
+p
+  strong Body:
+  = @campaign_event.body
+p
+  strong Campaign type:
+  = @campaign_event.campaign_type
+p
+  strong Status:
+  = @campaign_event.status
+
+= link_to 'Edit', edit_campaign_event_path(@campaign_event)
+'|
+= link_to 'Back', campaign_events_path

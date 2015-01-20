@@ -1,0 +1,2 @@
+module CampaignEventsHelper
+end

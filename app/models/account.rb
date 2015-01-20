@@ -74,6 +74,7 @@ class Account < ActiveRecord::Base
   has_many :likes
   
   has_many :campaigns, dependent: :destroy
+  has_many :campaign_events
                 
 
   # account types

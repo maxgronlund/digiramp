@@ -1,0 +1,16 @@
+= simple_form_for [:user, @user, @campaign, @campaign_event] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.hidden_field :campaign, value: @campaign.id
+    = f.hidden_field :user, value: @user.id
+    = f.hidden_field :account, value: @user.account_id
+    = f.input :title
+    = f.input :body, label: 'Notes'
+    = f.input :campaign_event_type, collection: CampaignEvent::EVENT_TYPE, include_blank: false
+    = f.input :status, collection: CampaignEvent::STATUS, include_blank: false
+
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'

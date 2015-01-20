@@ -1,0 +1,33 @@
+h1 Listing campaign_events
+
+table
+  thead
+    tr
+      th Campaign
+      th User
+      th Account
+      th Title
+      th Body
+      th Campaign type
+      th Status
+      th
+      th
+      th
+
+  tbody
+    - @campaign_events.each do |campaign_event|
+      tr
+        td = campaign_event.campaign
+        td = campaign_event.user
+        td = campaign_event.account
+        td = campaign_event.title
+        td = campaign_event.body
+        td = campaign_event.campaign_type
+        td = campaign_event.status
+        td = link_to 'Show', campaign_event
+        td = link_to 'Edit', edit_campaign_event_path(campaign_event)
+        td = link_to 'Destroy', campaign_event, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Campaign event', new_campaign_event_path

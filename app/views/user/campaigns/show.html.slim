@@ -22,24 +22,28 @@
           
         .col-sm-6
           .pull-right.pull-down-10
+
             => link_to  user_user_campaigns_path(@user) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back
+            => link_to 'New event', new_user_user_campaign_campaign_event_path(@user, @campaign), class: 'btn btn-default' 
             = link_to 'Edit', edit_user_user_campaign_path(@user, @campaign), class: 'btn btn-primary'
         
       
       .sexy_line
       .row
         .col-sm-6
+          h4 Notes
           .digi-box
             i = @campaign.created_at.to_formatted_s(:short)
             br
-            = @campaign.body
-            .sexy_line
-            h4 Contact groups
+            = simple_format @campaign.body
+        .col-sm-6
+          h4 Contact groups
+          .digi-box
             - @campaign.client_groups.each do |client_group|
-              .sexy_line
+              
               .row
                 .col-sm-6
                   = link_to client_group.title, user_user_contact_group_path(@user, client_group.id), class: 'btn btn-default btn-xs'
@@ -47,9 +51,40 @@
                   .pull-right
                     i.fa.fa-group
                     =< pluralize(client_group.clients.count, 'Contact')
-            .sexy_line
-            'Dublet contacts will be removed
-              
+              .sexy_line
+            .alert.alert-info
+              'Notice! Dublet contacts will be removed
+      .row  
+        .col-sm-12
+          h4 Events
+          .digi-box
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Event
+                    th Title
+                    th Notes
+                    th Status
+                    th
+                    
+                tbody
+                  - @campaign.campaign_events.each do |campaign_event|
+                    tr
+                      td = campaign_event.campaign_event_type
+                      td = campaign_event.title
+                      td = campaign_event.body
+                      td = campaign_event.status
+                      td
+
+            
+      .row
+        .col-sm-12
+          = link_to  user_user_campaigns_path(@user) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+            
   == render 'shared/site_footer'    
 == render 'users/shared/mobile_links'
 
