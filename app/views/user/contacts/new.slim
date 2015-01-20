@@ -14,7 +14,7 @@
                                                contacts: user_user_contacts_path( @user )}, current: ''}
       .row
         .col-sm-6
-          h2 Edit contacts
+          h2 New contacts
         
         
         
@@ -24,7 +24,7 @@
       
       
       .digi-box
-        = simple_form_for [ @user, @contact], :url => url_for(:action => 'update', :controller => 'contacts'), :method => 'put' do |f|
+        = simple_form_for [ @user, @contact], :url => url_for(:action => 'create', :controller => 'contacts'), :method => 'post' do |f|
           .row
             .col-sm-4
               = f.hidden_field :user_uuid, value: @user.id

@@ -17,20 +17,26 @@ class User::ContactsController < ApplicationController
 
   # GET /contacts/new
   def new 
-    
-    @contact = Contact.new
+    @contact = Client.new
   end
 
 
   def edit
     @contact   = Client.cached_find(params[:id])
   end
+  
+  def update
+    @contact   = Client.cached_find(params[:id])
+    @contact.update(client_params)
+    redirect_to user_user_contact_path( @user, @contact )
+
+  end
 
 
   def create
-    @contact = Contact.create(contact_params)
-
-    redirect_to :back
+    @contact = Client.create(client_params)
+    redirect_to user_user_contact_path( @user, @contact )
+    
   end
   
   def destroy
@@ -43,7 +49,7 @@ class User::ContactsController < ApplicationController
   private
 
 
-    def contact_params
-      params.require(:contact).permit(:email, :title, :body)
+    def client_params
+      params.require(:client).permit!
     end
 end
