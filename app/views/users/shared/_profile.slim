@@ -53,7 +53,7 @@
         .user-profile
           = simple_format @user.profile
      
-  - if @user.link_to_facebook +  @user.link_to_twitter +  @user.link_to_linkedin +  @user.link_to_google_plus != '' + @user.link_to_homepage
+  - if @user.link_to_facebook.to_s +  @user.link_to_twitter.to_s +  @user.link_to_linkedin.to_s +  @user.link_to_google_plus.to_s != '' + @user.link_to_homepage.to_s
     
     .row.pull-down-8
       .col-sm-12
