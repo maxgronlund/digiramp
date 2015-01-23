@@ -1,10 +1,14 @@
 class LinkValidator
   
   def self.validate link
-    link = link.gsub('www.', '')
-    link = link.gsub('http://', '')
-    link = link.gsub('https://', '')
-    return 'http://' + link
+    if link.to_s != ''
+      link = link.gsub('www.', '')
+      link = link.gsub('http://', '')
+      link = link.gsub('https://', '')
+      return 'http://' + link
+    else
+      return ''
+    end
   end
   
   

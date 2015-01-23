@@ -4,6 +4,6 @@ class ClientCsvImportWorker
   def perform( client_import_id, email )
 
     Client.import_clients_from client_import_id
-    Client.post_info(  email )
+    Client.post_info(email )
   end
 end

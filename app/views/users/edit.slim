@@ -53,13 +53,15 @@
                   /- else
                   /  = f.input :name
                   - if @user.user_name == User.create_uniq_user_name_from_email(@user.email)  
-                    = f.input :user_name, placeholder: 'As it appear on your profile', hint: 'Change to improve completeness'
+                    = f.input :user_name, label: 'Name', placeholder: 'This name will be displayed on your profile.', hint: 'Change to improve completeness'
                   - else
-                    = f.input :user_name, placeholder: 'As it appear on your profile'
+                    = f.input :user_name, label: 'Name',  placeholder: 'This name will be displayed on your profile.'
                   = f.input :email
                   
-                  = f.input :teaser, :input_html => {  style: "height: 80px;", placeholder: "Short intro, max 128 chars"}
+                  = f.input :teaser, label: 'Short description', :input_html => {  style: "height: 80px;", placeholder: "Short description, max 100 chars"}
                 
+                  b Bio
+                  br
                   div id="toolbar" class="wysihtml5-toolbar"
                     a data-wysihtml5-command="bold" Bold
                     '&nbsp; 

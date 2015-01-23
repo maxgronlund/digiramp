@@ -19,7 +19,7 @@
               == render "wall_posts/" + user_activity.postable_type.downcase , follower_event: user_activity
           - if current_user && !@user.initialized && current_user.id == @user.id
             .digi-box
-              b To help others to find you and your content please fill in some basic informations
+              b Add your basic info to help others find you:
               .sexy_line
               = simple_form_for @user do |f|
             
