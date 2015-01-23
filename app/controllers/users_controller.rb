@@ -225,9 +225,9 @@ class UsersController < ApplicationController
     flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} is deleted" } 
     @user.destroy
     #go_to = session[:go_to_after_edit] || account_users_path(@account)
-    session[:go_to_after_edit]  = nil
-    cookies.delete(:auth_token)
+    session[:go_to_after_edit]          = nil
     cookies.delete(:user_id)
+    self.flush_auth_token_cache(cookies[:auth_token])
     session[:show_profile_completeness] = nil
     redirect_to :back
   end
