@@ -1,0 +1,18 @@
+.row
+  .col-sm-6
+    .digi-box
+      = simple_form_for [:admin, @raw_image] do |f|
+        = f.error_notification
+      
+        .form-inputs
+          = f.input :identifier
+          = f.input :title
+          
+          
+          = f.input :image
+      
+        .form-actions
+          .row
+            .col-sm-12
+              .pull-right.pull-down-12
+                = f.submit 'Save', class: 'btn btn-primary'

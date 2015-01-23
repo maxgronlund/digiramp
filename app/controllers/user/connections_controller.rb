@@ -9,7 +9,7 @@ class User::ConnectionsController < ApplicationController
   def index
     #@connections = @user.connections
     
-    @connections = Connection.where("user_id = ?  OR  connection_id = ?" , @user.id, @user.id)
+    @connections = Connection.where("user_id = ?  OR  connection_id = ?" , @user.id, @user.id).order('created_at desc')
     @authorized  = @user.id == current_user.id
   end
 

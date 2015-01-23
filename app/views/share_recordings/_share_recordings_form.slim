@@ -37,8 +37,8 @@
           .sexy_line
           .tab-content
             .tab-pane.fade.in.active id="facebook_#{recording.id.to_s}"
-              h4 Recommend on Facebook
-              
+              h4 Recommend a Song	
+
               div id="facebook_confirmation_#{recording.id.to_s}"
               
               = simple_form_for [ShareOnFacebook.new], remote: true do |f|

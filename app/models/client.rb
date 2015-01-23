@@ -6,6 +6,7 @@ class Client < ActiveRecord::Base
   has_and_belongs_to_many :client_groups
   has_many :playlist_key_users
   before_create :set_user_uuid
+  after_create :conect_to_user
   after_commit :flush_cache
   before_save :set_full_name
   
@@ -37,10 +38,36 @@ class Client < ActiveRecord::Base
   
   def set_user_uuid
     self.user_uuid = UUIDTools::UUID.timestamp_create().to_s
+    
+    
   end
+  
+  def member
+    # optimization: avoid db lookup
+    if self.member_id
+      begin
+        return User.cached_find(self.member_id)
+      rescue
+        return nil
+      end
+    end
+    nil
+  end
+  
+  
   
   def set_full_name
     self.full_name = self.name + ' ' + self.last_name
+  end
+  
+  def conect_to_user
+    if user = User.where(email: self.email).first
+      self.member_id = user.id
+      self.save!
+      true
+    else
+      false
+    end
   end
   
   def self.group_search( clients,  query)

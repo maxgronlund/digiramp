@@ -1,8 +1,56 @@
-h1 Editing campaign_event
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),\
+                                                               campaigns: user_user_campaigns_path(@user)}, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Edit event
+            .help-button
+              == render 'admin/helps/help', identifier: 'new campaign event'
+          
+          
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to  user_user_campaign_path(@user, @campaign) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+        
+      
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [:user, @user, @campaign, @campaign_event] do |f|
+              = f.hidden_field :campaign_id, value: @campaign.id
+              = f.hidden_field :user_id, value: @user.id
+              = f.hidden_field :account_id, value: @user.account_id
+              = f.input :title
+              b Event type
+              br
+              = f.input :campaign_event_type, collection: CampaignEvent::EVENT_TYPE, include_blank: false, label: false
+              = f.input :body, label: 'Notes'
+            
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-primary'
 
-== render 'form'
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
 
-= link_to 'Show', @campaign_event
-'|
-= link_to 'Back', campaign_events_path
+
+
 

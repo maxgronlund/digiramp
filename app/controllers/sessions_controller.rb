@@ -1,10 +1,7 @@
 class SessionsController < ApplicationController
 
   
-  def create
-    ap '==========================================================='
-    ap params
-    
+  def create    
     
     session[:show_profile_completeness] = true
     
@@ -78,7 +75,7 @@ class SessionsController < ApplicationController
         cookies.permanent[:user_id]      = user.id
         cookies.permanent[:auth_token]   = user.auth_token
       else
-        cookies[:auth_token]           = user.auth_token  
+        cookies[:auth_token]             = user.auth_token  
       end
       initialize_session_for user
     else
@@ -108,6 +105,7 @@ class SessionsController < ApplicationController
     rescue
     end
     cookies.delete(:auth_token)
+    cookies.permanent[:auth_token]
     cookies.delete(:user_id)
     #reset_session
     
@@ -119,6 +117,8 @@ class SessionsController < ApplicationController
     elsif params[:redirect_to_message]
       session[:current_page] = params[:redirect_to_message]
       redirect_to login_new_path
+    elsif params[:redirect_to_accept_invitation]
+      redirect_to params[:redirect_to_accept_invitation]
     else
       redirect_to root_url, notice: "Logged out!"
     end

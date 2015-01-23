@@ -176,6 +176,7 @@ class UsersController < ApplicationController
 
     @user.slug  = nil
     params[:user][:email_missing] = false
+    params[:user][:initialized]   = true
     if @user.update(user_params)
       # show completeness if needed
       session[:show_profile_completeness] = true

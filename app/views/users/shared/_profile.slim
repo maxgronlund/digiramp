@@ -35,7 +35,7 @@
   br
   i class="fa fa-users"
   '&nbsp;
-  = pluralize(@user.connections.count, 'Connections')
+  = pluralize(@user.connections_count, 'Connection')
   br
   
   .pull-down-10
@@ -46,41 +46,19 @@
         .connect-container
           .connect-buttons
           == render 'users/connect', user: @user 
-     
-  /- if super?
-  /  .profile-button
-  /    = link_to  edit_admin_account_path(@user.account) do
-  /      .btn.btn-default.btn-xs
-  /        i.fa.fa-pencil
 
+  - if @user.profile.to_s != ''
+    .row
+      .col-sm-12
+        .user-profile
+          = simple_format @user.profile
+     
+  - if @user.link_to_facebook +  @user.link_to_twitter +  @user.link_to_linkedin +  @user.link_to_google_plus != '' + @user.link_to_homepage
     
-  /.edit-buttons
-  /  - if @authorized
-  /    = link_to edit_user_path(@user) do
-  /      .btn.btn-default.btn-xs
-  /        i.fa.fa-pencil
-  /        '&nbsp;
-  /        'Edit
-  /    '&nbsp;
-  /    = link_to user_user_authorization_providers_path(@user) do
-  /      .btn.btn-default.btn-xs
-  /        i.fa.fa-lock
-  /        '&nbsp;
-  /        'Authorize
-  /    /'&nbsp;
-  /    /- if current_user && current_user.super?
-  /    /  = link_to 'Edit account', edit_admin_account_path(@user.account), class: 'btn btn-default btn-xs'
-  /    /  '&nbsp;
-  /
-  .row
-    .col-sm-12
-      .user-profile
-        = simple_format @user.profile
-   
-  - if @user.link_to_facebook +  @user.link_to_twitter +  @user.link_to_linkedin +  @user.link_to_google_plus != ''
-    i Find me on
     .row.pull-down-8
       .col-sm-12
+        
+        i Find me on the net
         .social-links
           - if @user.link_to_facebook != ''
             => link_to LinkValidator.validate( @user.link_to_facebook ) do
@@ -104,47 +82,56 @@
             => link_to LinkValidator.validate( @user.link_to_google_plus ) do
               .fa.fa-google-plus
               '&nbsp;Google+
+              
+          - if @user.link_to_homepage != 'http://'
+            => link_to LinkValidator.validate( @user.link_to_homepage ) do
+              .fa.fa-home
+              '&nbsp;www
   
-  h5  
-    - if @user.composer
-      span class="label label-default"
-        'Composer  
-      '&nbsp;
-      
-    - if @user.writer
-      span class="label label-default"
-        'Writer
-      '&nbsp;
-      
-    - if @user.artist
-      span class="label label-default"
-        'Artist
-      '&nbsp;
-      
-    - if @user.author
-      span class="label label-default"
-        'Author
-      '&nbsp;
-      
-    - if @user.producer
-      span class="label label-default"
-        'Producer
-      '&nbsp;
-      
-    - if @user.musician
-      span class="label label-default"
-        'Musician
-      '&nbsp;
-      
-    - if @user.remixer
-      span class="label label-default"
-        'Remixer
-      '&nbsp;
-      
-    - if @user.dj
-      span class="label label-default"
-        'DJ
-      '&nbsp;
+  
+
+  .row
+    .col-sm-12
+      h5  
+        - if @user.composer
+          span class="label label-default"
+            'Composer  
+          '&nbsp;
+          
+        - if @user.writer
+          span class="label label-default"
+            'Writer
+          '&nbsp;
+          
+        - if @user.artist
+          span class="label label-default"
+            'Artist
+          '&nbsp;
+          
+        - if @user.author
+          span class="label label-default"
+            'Author
+          '&nbsp;
+          
+        - if @user.producer
+          span class="label label-default"
+            'Producer
+          '&nbsp;
+          
+        - if @user.musician
+          span class="label label-default"
+            'Musician
+          '&nbsp;
+          
+        - if @user.remixer
+          span class="label label-default"
+            'Remixer
+          '&nbsp;
+          
+        - if @user.dj
+          span class="label label-default"
+            'DJ
+          '&nbsp;
     
 
 

@@ -1,0 +1,30 @@
+
+.full-width-top
+  .navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
+    .navbar-header
+      = image_tag 'logo2.png', size: "128x50"
+
+.container
+  .row
+    .col-sm-6
+      .digi-box
+        - if current_user
+          .alert.alert-info
+            b Hi #{current_user.user_name}
+            br = @message.sub('Invitation is used: ', '')
+        
+          .row
+            .col-sm-12
+              .pull-right.pull-down-12
+                'Take me to my account
+                =< link_to 'Ok', current_user, class: 'btn btn-primary'
+        - else
+        
+          .alert.alert-info
+            b = @message.sub('Invitation is used: ', '')
+          .pull-right.pull-down-12
+            = link_to login_new_path do
+              .btn.btn-default
+                i class="fa fa-sign-in"
+                '&nbsp;
+                'Log in

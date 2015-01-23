@@ -1,0 +1,54 @@
+/p#notice = notice
+/
+/p
+/  strong Identifier:
+/  = @raw_image.identifier
+/p
+/  strong Title:
+/  = @raw_image.title
+/p
+/  strong Image:
+/  = @raw_image.image
+/
+/= link_to 'Edit', edit_raw_image_path(@raw_image)
+/'|
+/= link_to 'Back', raw_images_path
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, content: admin_content_index_path}, current: ''}
+      .row
+        .col-sm-6
+          h2 = @raw_image.title
+        .col-sm-6
+          .pull-right.pull-down-10
+            /= link_to 'New image', new_admin_raw_image_path, class: 'btn btn-primary'
+          
+
+      .sexy_line
+      .digi-box
+        b Identifier: 
+        br =@raw_image.identifier
+        sexy_line
+        = image_tag @raw_image.image_url
+        br
+        b url:
+        br =  URI.parse(root_url) + @raw_image.image_url
+
+
+          
+          
+            
+          
+
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'

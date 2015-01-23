@@ -46,7 +46,7 @@
                     = link_to user_path user do
                       = image_tag user.image_url(:avatar_32x32)
                       '&nbsp;
-                      = user.name 
+                      = user.user_name 
                 td = project.project_tasks.count
                 td
                   .pull-right

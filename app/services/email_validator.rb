@@ -16,7 +16,7 @@ class EmailValidator
 end
 
 # usage
-#  EmailValidator.validate "olivergale@gmail.com\r\n"
+#  EmailValidator.validate "olivergale@gmail.com"
 # EmailValidator.saintize email
 
 # .strip.gsub(/\s+/, ' ')

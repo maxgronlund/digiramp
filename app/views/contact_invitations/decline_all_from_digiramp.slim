@@ -1,0 +1,27 @@
+.container
+
+
+  .digi-box
+    .row
+      .col-sm-3
+      .col-sm-9
+        h4 
+          'Unsubscribe #{@client.email} from DigiRAMP invitation emails?
+          'You received this email because a DigiRAMP member invited you to join. 
+          'By unsubscribing below, you'll stop receiving DigiRAMP invitations and your email will stop being processed by DigiRAMP. (That means no DigiRAMP members can connect with you unless you sign up for a DigiRAMP account).
+      
+        .sexy_line
+        .row
+          .col-sm-8
+            = simple_form_for [ @client ], :url => url_for(:action => 'unsubscribe', \
+                                                          :controller => 'contact_invitations'), \
+                                                          :method => 'post',\
+                                                          remote: true do |f|
+            
+              
+
+              .row
+                .col-sm-12.pull-down-12
+                  .pull-right
+                    
+                    = f.submit "Unsubscribe", class: 'btn btn-primary'

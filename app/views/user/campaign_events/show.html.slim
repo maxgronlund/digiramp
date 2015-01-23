@@ -1,27 +1,78 @@
-p#notice = notice
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),\
+                                                               campaigns: user_user_campaigns_path(@user)}, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @campaign_event.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'show campaign event'
+          
+          
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to 'Edit', edit_user_user_campaign_campaign_event_path(@user, @campaign, @campaign_event), class: 'btn btn-primary'
+            /= link_to  user_user_campaign_path(@user, @campaign) do
+            /    .btn.btn-default
+            /      i.fa.fa-chevron-left
+            /      '&nbsp;Back
+            /
+      
+      .sexy_line
+      /= debug @campaign_event
+      == render @campaign_event.campaign_event_type
+        
+              
+  == render 'shared/site_footer'    
+== render 'users/shared/mobile_links'
 
-p
-  strong Campaign:
-  = @campaign_event.campaign
-p
-  strong User:
-  = @campaign_event.user
-p
-  strong Account:
-  = @campaign_event.account
-p
-  strong Title:
-  = @campaign_event.title
-p
-  strong Body:
-  = @campaign_event.body
-p
-  strong Campaign type:
-  = @campaign_event.campaign_type
-p
-  strong Status:
-  = @campaign_event.status
 
-= link_to 'Edit', edit_campaign_event_path(@campaign_event)
-'|
-= link_to 'Back', campaign_events_path
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/p
+/  strong Campaign:
+/  = @campaign_event.campaign
+/p
+/  strong User:
+/  = @campaign_event.user
+/p
+/  strong Account:
+/  = @campaign_event.account
+/p
+/  strong Title:
+/  = @campaign_event.title
+/p
+/  strong Body:
+/  = @campaign_event.body
+/p
+/  strong Campaign type:
+/  = @campaign_event.campaign_type
+/p
+/  strong Status:
+/  = @campaign_event.status
+
+

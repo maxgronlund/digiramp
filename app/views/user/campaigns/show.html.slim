@@ -53,7 +53,7 @@
                     =< pluralize(client_group.clients.count, 'Contact')
               .sexy_line
             .alert.alert-info
-              'Notice! Dublet contacts will be removed
+              'Notice! Duplicate contacts will be removed
       .row  
         .col-sm-12
           h4 Events
@@ -62,20 +62,32 @@
               table class="table table-hover"
                 thead
                   tr
-                    th Event
+                    th Type
                     th Title
                     th Notes
                     th Status
                     th
                     
+                    
                 tbody
                   - @campaign.campaign_events.each do |campaign_event|
                     tr
-                      td = campaign_event.campaign_event_type
-                      td = campaign_event.title
+                      td = campaign_event.campaign_event_type.gsub('_', ' ').capitalize
+                      td 
+                        = link_to campaign_event.title, user_user_campaign_campaign_event_path(@user, @campaign, campaign_event), class: 'btn btn-default btn-xs'
                       td = campaign_event.body
                       td = campaign_event.status
-                      td
+                    
+                      td 
+                        .pull-right
+                          => link_to user_user_campaign_campaign_event_path(@user, @campaign, campaign_event), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                            .btn.btn-danger.btn-xs
+                              i.fa.fa-times
+                          
+                          = link_to edit_user_user_campaign_campaign_event_path(@user, @campaign, campaign_event) do
+                            .btn.btn-default.btn-xs
+                              i.fa.fa-pencil
+                      
 
             
       .row

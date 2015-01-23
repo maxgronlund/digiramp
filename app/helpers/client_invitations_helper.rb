@@ -1,0 +1,2 @@
+module ClientInvitationsHelper
+end

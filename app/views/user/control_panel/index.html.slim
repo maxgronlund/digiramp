@@ -30,7 +30,8 @@
                         span class="label label-default"
                           .i.fa.fa-users &nbsp;
                           = @user.clients.count
-                   
+                  .body
+                    'Email, address, phone..
               
             .control-panel-badge
               = link_to user_user_import_contacts_path(@user) do 

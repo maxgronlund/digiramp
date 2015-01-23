@@ -1,0 +1,51 @@
+  
+.left-side
+  .avatar
+    =  image_tag @inviter.image_url(:avatar_64x64)
+  .title
+    b = @inviter.user_name 
+    br Wants to connect with you
+  .clearfix
+  h5  
+    - if @inviter.composer
+      span class="label label-default"
+        'Composer  
+      '&nbsp;
+    
+    - if @inviter.writer
+      span class="label label-default"
+        'Writer
+      '&nbsp;
+    
+    - if @inviter.artist
+      span class="label label-default"
+        'Artist
+      '&nbsp;
+    
+    - if @inviter.author
+      span class="label label-default"
+        'Author
+      '&nbsp;
+    
+    - if @inviter.producer
+      span class="label label-default"
+        'Producer
+      '&nbsp;
+    
+    - if @inviter.musician
+      span class="label label-default"
+        'Musician
+      '&nbsp;
+    
+    - if @inviter.remixer
+      span class="label label-default"
+        'Remixer
+      '&nbsp;
+    
+    - if @inviter.dj
+      span class="label label-default"
+        'DJ
+      '&nbsp;
+  
+
+.clearfix

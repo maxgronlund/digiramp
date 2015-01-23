@@ -1,0 +1,21 @@
+  
+.digi-box
+  .alert.alert-info
+    b = @message.sub('Logged in as other: ', '')
+  .sexy_line
+  == render 'profile'
+  .sexy_line
+  .row
+    .col-sm-6
+      - if Connection.connected(@inviter.id, current_user.id)
+        'OK
+      - else
+        'Click 'Accept' to connect with #{@inviter.user_name}
+        .pull-right.pull-down-12
+          
+          br
+          => link_to 'Accept', contact_invitation_accept_connection_path(params[:contact_invitation_id]), class: 'btn btn-primary'
+          => link_to 'Decline', contact_invitation_decline_connection_path(params[:contact_invitation_id]), class: 'btn btn-default'
+        
+
+  

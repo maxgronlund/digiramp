@@ -36,17 +36,18 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_presence_of   :email, :on => :update
   
-  validates_uniqueness_of :user_name
+  #validates_uniqueness_of :user_name
   validates_presence_of   :user_name, :on => :update
   
   validates_presence_of :password, :on => :create
-  validates_presence_of :name, :on => :update
+  #validates_presence_of :name, :on => :update
   #before_create :set_uuid
   
   has_many :comments,        as: :commentable,          dependent: :destroy
   
 
   has_many :selected_opportunities
+  has_many :client_invitation
   
 
   
@@ -182,11 +183,26 @@ class User < ActiveRecord::Base
     received_messages   = Message.where(recipient_id: self.id)
     received_messages.update_all(recipient_id: true)
     
+    client_ids          = Client.where(member_id: self.id).pluck(:id)
+
+    if client_invitations = client_invitations  = ClientInvitation.where(client_id: client_ids)
+      client_invitations.destroy_all
+    end
+    
+    clients             = Client.where(member_id: self.id)    
+    clients.update_all(member_id: nil)
+    
+
+    
     self.recordings.each do |recording|
       recording.user_id = User.system_user.id
       recording.privacy = 'Only me'
       recording.save!
     end
+
+    cookies.delete(:auth_token)
+    cookies.delete(:user_id)
+    session[:show_profile_completeness] = nil
     
   end
   
@@ -212,7 +228,8 @@ class User < ActiveRecord::Base
     search_field_content = ''
     search_field_content <<   self.profession  if self.profession
     search_field_content <<  ' '
-    
+    search_field_content <<   self.profile     if self.profile
+    search_field_content <<  ' '
     search_field_content <<   self.name        if self.name
     search_field_content <<  ' '
     
@@ -246,17 +263,18 @@ class User < ActiveRecord::Base
   
   def validate_info
     
-    
+    ap 'validate info'
+    ap self
     
     # always start as a customer
     self.role = 'Customer' if self.role.to_s == ''
     
     if EmailValidator.saintize( self.email )
-      self.user_name = User.create_uniq_user_name_from_email(self.email)    if self.user_name.to_s  == ''
-      self.name      = user_name                                            if self.name.to_s       == ''
-      self.first_name = user_name.split('@').first                          if self.first_name.to_s == ''
-      self.last_name = user_name.split('@').last.gsup('_', '')              if self.first_name.to_s == ''
-      self.uuid      = UUIDTools::UUID.timestamp_create().to_s              if self.uuid.to_s       == ''
+      self.user_name  = User.create_uniq_user_name_from_email(self.email)    if self.user_name.to_s  == ''
+      #self.name      = user_name                                            if self.name.to_s       == ''
+      self.first_name = user_name.split('@').first                            if self.first_name.to_s == ''
+      self.last_name = user_name.split('@').last.gsup('_', '')                if self.first_name.to_s == ''
+      self.uuid      = UUIDTools::UUID.timestamp_create().to_s                if self.uuid.to_s       == ''
     end
     
     #self.uniq_completeness    = Uniqifyer.uniqify(self.completeness)
@@ -283,7 +301,7 @@ class User < ActiveRecord::Base
       end
         
     end
-    
+    Client.where(email: self.email).update_all(member_id: self.id)
     set_default_avatar
   end
   
@@ -297,7 +315,7 @@ class User < ActiveRecord::Base
         random_id = '0' + random_id.to_s 
       end
       
-      self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-avatars/avatar_#{random_id.to_s}.jpg"))
+      self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-avatars/5GA3Zk1C_avatar_#{random_id.to_s}.jpg"))
       self.image.recreate_versions!
       self.save!
     end
@@ -312,26 +330,29 @@ class User < ActiveRecord::Base
     default_name            = User.create_uniq_user_name_from_email(self.email)
     
     # user name is still default name
-    completeness            += 1 unless self.name               == default_name
-    nr_required_params      += 1                                                                    
+    #completeness            += 1 unless self.name               == default_name
+    #nr_required_params      += 1                                                                    
                                                                 
     # user user_name is     still default name                                                                                            
-    completeness            += 1 unless self.user_name          == default_name
-    nr_required_params      += 1    
-                            
-    completeness            += 1 unless self.profile.to_s       == ''
+    completeness            += 1 unless self.user_name                  == default_name
+    nr_required_params      += 1                                        
+                                                                        
+    completeness            += 1 unless self.profile.to_s               == ''
     nr_required_params      += 1 
-                            
-    completeness            += 1 unless self.profession.to_s    == ''
-    nr_required_params      += 1  
-                            
-    completeness            += 1 unless self.country.to_s       == ''
-    nr_required_params      += 1   
-                            
-    completeness            += 1 unless self.city.to_s          == ''
+                                                                                            
+    completeness            += 1 unless self.profession.to_s            == ''
+    nr_required_params      += 1                                        
+                                                                        
+    completeness            += 1 unless self.profession.to_s            == ''
+    nr_required_params      += 1                                        
+                                                                        
+    completeness            += 1 unless self.country.to_s               == ''
+    nr_required_params      += 1                                      
+                                                                        
+    completeness            += 1 unless self.city.to_s                  == ''
     nr_required_params      += 1    
                             
-    completeness            += 1 unless self.image.to_s    == ''
+    completeness            += 1 unless self.image_url.include?('5GA3Zk1C_avatar_')
     nr_required_params      += 1    
       
     self.completeness       = (completeness / nr_required_params * 100).to_i
@@ -706,7 +727,7 @@ class User < ActiveRecord::Base
     begin
       user_name = email.split('@').first
     rescue
-      user_name = no_name
+      user_name = 'no_name'
     end
     
     
@@ -714,6 +735,10 @@ class User < ActiveRecord::Base
       user_name = [ user_name, (last_user.id ).to_s].compact.join('_')
     end
     user_name
+  end
+  
+  def connections_count
+    Connection.where("user_id = ?  OR connection_id = ?" , self.id, self.id).count
   end
   
   

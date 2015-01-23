@@ -36,8 +36,8 @@ class Issue < ActiveRecord::Base
   SYMPTOMS = ['Error 422', 'Error 500', 'Missing Buttons', 'Styling', 'Other']
   BROWSERS = ['Safari', 'Chrome', 'Firefox', 'IE', 'Opera', 'Other']
   
-  STATUS    = ['New', 'Confirmed', 'In Progress', 'Resolved', 'Closed']
-  PRIORITY  = ['High', 'Medium', 'Low']
+  STATUS    = ['New', 'Confirmed', 'Rejected', 'In Progress', 'Resolved', 'Closed']
+  PRIORITY  = ['None', 'High', 'Medium', 'Low']
   
   scope :open,        ->    { where.not( status: ['Closed', 'Resolved'] ).order("created_at desc")  }
 

@@ -13,6 +13,7 @@ class User::CampaignEventsController < ApplicationController
   # GET /campaign_events/1
   # GET /campaign_events/1.json
   def show
+    @campaign = Campaign.cached_find(params[:campaign_id])
   end
 
   # GET /campaign_events/new
@@ -23,6 +24,7 @@ class User::CampaignEventsController < ApplicationController
 
   # GET /campaign_events/1/edit
   def edit
+    @campaign = Campaign.cached_find(params[:campaign_id])
   end
 
   # POST /campaign_events
@@ -36,15 +38,8 @@ class User::CampaignEventsController < ApplicationController
   # PATCH/PUT /campaign_events/1
   # PATCH/PUT /campaign_events/1.json
   def update
-    respond_to do |format|
-      if @campaign_event.update(campaign_event_params)
-        format.html { redirect_to @campaign_event, notice: 'Campaign event was successfully updated.' }
-        format.json { render :show, status: :ok, location: @campaign_event }
-      else
-        format.html { render :edit }
-        format.json { render json: @campaign_event.errors, status: :unprocessable_entity }
-      end
-    end
+    @campaign_event.update(campaign_event_params)
+    redirect_to user_user_campaign_path(@user, @campaign_event.campaign)
   end
 
   # DELETE /campaign_events/1

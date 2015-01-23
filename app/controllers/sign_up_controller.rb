@@ -13,11 +13,7 @@ class SignUpController < ApplicationController
       go_to = login_index_path
       
     else
-      # set uniq user_name
-      #user_params[:user_name] = User.create_uniq_user_name_from_email(email)
-      
-      
-      
+
       @user   = User.create(user_params)
       
       role = params['/sign_up']['role']

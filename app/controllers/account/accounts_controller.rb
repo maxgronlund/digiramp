@@ -49,6 +49,34 @@ class Account::AccountsController < ApplicationController
   def files
     @files = @account.documents.files
   end
+  
+  def destroy
+    
+    @account = Account.cached_find(params[:id])
+    @account.create_activity(  :destroyed, 
+                          owner: current_user,
+                      recipient: @account,
+                 recipient_type: @account.class.name)
+              
+    
+    
+    if @account.user
+      user = @account.user
+      user.create_activity(  :destroyed, 
+                            owner: current_user,
+                        recipient: user,
+                   recipient_type: user.class.name,
+                       account_id: @account.id)
+                   
+      user.destroy! 
+    end 
+    @account.destroy!   
+    
+    flash[:danger] = { title: "ERROR: ", body: "Unable to delete #{@account.title}" }
+    redirect_to root_path   
+    
+    
+  end
 
 
 #private

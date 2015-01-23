@@ -7,7 +7,7 @@
     
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             customers: account_customers_path(@account), \
-                                                            }, current: "new playlist for #{@playlist_key.user.name}"}
+                                                            }, current: "new playlist for #{@playlist_key.user.user_name}"}
                                                             
 
     

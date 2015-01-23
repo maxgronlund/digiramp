@@ -17,8 +17,9 @@
       
   .col-sm-2
     .pull-right
-
-      
+      .new-member id="new_member_#{contact.id.to_s}"
+      == render 'member', contact: contact
+        
       => link_to edit_user_user_contact_path(@user, contact) do
         .btn.btn-default.btn-xs
           i class="fa fa-pencil"

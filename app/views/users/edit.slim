@@ -48,14 +48,14 @@
                   br
             
                   = f.input :private_profile, label: 'Hide my profile',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                  - if @user.name == User.create_uniq_user_name_from_email(@user.email)
-                    = f.input :name, hint: 'Change to improve completeness'
-                  - else
-                    = f.input :name
+                  /- if @user.name == User.create_uniq_user_name_from_email(@user.email)
+                  /  = f.input :name, hint: 'Change to improve completeness'
+                  /- else
+                  /  = f.input :name
                   - if @user.user_name == User.create_uniq_user_name_from_email(@user.email)  
-                    = f.input :user_name, placeholder: 'Used for the url', hint: 'Change to improve completeness'
+                    = f.input :user_name, placeholder: 'As it appear on your profile', hint: 'Change to improve completeness'
                   - else
-                    = f.input :user_name, placeholder: 'Used for the url'
+                    = f.input :user_name, placeholder: 'As it appear on your profile'
                   = f.input :email
                 
                   div id="toolbar" class="wysihtml5-toolbar"
@@ -87,12 +87,12 @@
                 .col-sm-6
                   .row
                     .col-sm-6
-                      = f.input :profession
-                  .row
-                    .col-sm-6
                       = f.input :country
                     .col-sm-6
                       = f.input :city
+                  .row
+                    .col-sm-6
+                      = f.input :profession
                   .row
                     .col-sm-6
                       = f.input :artist,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
@@ -112,7 +112,7 @@
                       = f.input :link_to_twitter, placeholder: 'e.g. https://www.twitter/janis-joplin-psy',                 label: 'Twitter'
                       = f.input :link_to_linkedin, placeholder: 'e.g. https://www.linkedin.com/in/janis-joplin-psy',        label: 'Linkedin'
                       = f.input :link_to_google_plus, placeholder: 'e.g. https://plus.google.com/u/0/888888888888888/posts',label: 'Google+'
-                  
+                      = f.input :link_to_homepage, placeholder: 'e.g. http://my-rocket-factory.com',                        label: 'Home page'
                   
 
                   
@@ -120,9 +120,10 @@
 
               .row
                 .col-sm-12
+                  = link_to 'Delete account', account_account_path(@user.account), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-default'
                   .pull-right
-                    = link_to 'Cancel', user_path(@user), class: 'btn btn-default'
-                    '&nbsp;
+                    
+                    => link_to 'Cancel', user_path(@user), class: 'btn btn-default'
                     = f.submit 'Save', class: 'btn btn-primary'
 
   == render 'shared/site_footer'     

@@ -18,4 +18,5 @@ class Uniqifyer
 end
 
 # Uniqifyer.uniqify_string not_uniq_string
+# Uniqifyer.uniqify not_uniq_number
 

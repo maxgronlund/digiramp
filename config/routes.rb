@@ -3,8 +3,6 @@ Digiramp::Application.routes.draw do
 
 
 
-  
-
   resources :share_and_login, only: [:show]
 
   resources :twitter_cards
@@ -308,6 +306,18 @@ Digiramp::Application.routes.draw do
   resources :sign_up
   resources :relationships, only: [:create, :destroy]
   
+  resources :contact_invitations do
+    get 'accept_invitation'
+    get 'accept_connection'
+    get 'decline_connection'
+    get 'decline_invitation'
+    get 'decline_all_from_digiramp'
+    get 'invitation_info'
+    post 'signup'
+    post 'unsubscribe'
+    
+  end
+  
   #####################################################################################
   # hui v. 2
   #####################################################################################
@@ -405,7 +415,7 @@ Digiramp::Application.routes.draw do
     resources :activity_counter
     resources :contacts
     resources :default_images
-    
+    resources :raw_images
 
     resources :email_groups do
       get 'add_all_members'
@@ -717,6 +727,7 @@ Digiramp::Application.routes.draw do
       resources :collections, only: [:index]
       resources :connections, only: [:index, :create, :update, :destroy]
       resources :contacts 
+      resources :contact_invitations, only: [:show]
       resources :contact_groups do
         get 'toggle_selection'
         get 'add_all'

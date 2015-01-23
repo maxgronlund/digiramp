@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120075231) do
+ActiveRecord::Schema.define(version: 20150123124336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -409,10 +409,24 @@ ActiveRecord::Schema.define(version: 20150120075231) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "layout"
+    t.string   "subject"
+    t.string   "teaser"
+    t.string   "image"
+    t.string   "image_link"
+    t.string   "heading_1"
+    t.string   "sub_heading_1"
+    t.text     "body_1"
+    t.string   "heading_2"
+    t.string   "sub_heading_2"
+    t.text     "body_2"
+    t.integer  "playable_id"
+    t.string   "playable_type"
   end
 
   add_index "campaign_events", ["account_id"], name: "index_campaign_events_on_account_id", using: :btree
   add_index "campaign_events", ["campaign_id"], name: "index_campaign_events_on_campaign_id", using: :btree
+  add_index "campaign_events", ["playable_id", "playable_type"], name: "index_campaign_events_on_playable_id_and_playable_type", using: :btree
   add_index "campaign_events", ["user_id"], name: "index_campaign_events_on_user_id", using: :btree
 
   create_table "campaigns", force: true do |t|
@@ -638,6 +652,20 @@ ActiveRecord::Schema.define(version: 20150120075231) do
   add_index "client_imports", ["account_id"], name: "index_client_imports_on_account_id", using: :btree
   add_index "client_imports", ["user_id"], name: "index_client_imports_on_user_id", using: :btree
 
+  create_table "client_invitations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.integer  "client_id"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "uuid"
+  end
+
+  add_index "client_invitations", ["account_id"], name: "index_client_invitations_on_account_id", using: :btree
+  add_index "client_invitations", ["client_id"], name: "index_client_invitations_on_client_id", using: :btree
+  add_index "client_invitations", ["user_id"], name: "index_client_invitations_on_user_id", using: :btree
+
   create_table "clients", force: true do |t|
     t.integer  "account_id"
     t.string   "user_uuid",      default: ""
@@ -671,9 +699,11 @@ ActiveRecord::Schema.define(version: 20150120075231) do
     t.boolean  "show_alert",     default: false
     t.integer  "user_id"
     t.string   "full_name",      default: ""
+    t.integer  "member_id"
   end
 
   add_index "clients", ["account_id"], name: "index_clients_on_account_id", using: :btree
+  add_index "clients", ["member_id"], name: "index_clients_on_member_id", using: :btree
   add_index "clients", ["user_id"], name: "index_clients_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
@@ -1880,6 +1910,14 @@ ActiveRecord::Schema.define(version: 20150120075231) do
   add_index "projects", ["account_id"], name: "index_projects_on_account_id", using: :btree
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
+  create_table "raw_images", force: true do |t|
+    t.string   "identifier"
+    t.string   "title"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "recording_ipis", force: true do |t|
     t.string   "role"
     t.string   "name"
@@ -2228,6 +2266,8 @@ ActiveRecord::Schema.define(version: 20150120075231) do
     t.string   "link_to_linkedin",           default: ""
     t.string   "link_to_google_plus",        default: ""
     t.boolean  "subscribe_to_opportunities"
+    t.string   "link_to_homepage"
+    t.boolean  "initialized",                default: false
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

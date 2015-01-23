@@ -1,0 +1,32 @@
+
+.full-width-top
+  .navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
+    .navbar-header
+      = image_tag 'logo2.png', size: "128x50"
+      
+.container
+  .contact-invitations
+    .digi-box
+      .alert.alert-info
+        h4 =  @message
+
+        
+      .sexy_line
+      == render 'profile'
+      .row
+        .col-sm-6
+          .pull-right.pull-down-12
+            = link_to current_user do
+              .btn.btn-primary
+                i.fa.fa-check
+                '&nbsp;Ok
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    

@@ -8,7 +8,7 @@
           .thumbnail
             = image_tag @user.image_url(:avatar_170x170) 
       .col-sm-6
-        b = @user.name
+        b = @user.user_name
         = simple_format @user.profile
         .pull-right
           = link_to  edit_user_path( @user ), class: 'btn btn-primary btn-lg', id: 'edit_user_profile' do

@@ -1,0 +1,37 @@
+.full-width-top
+  .navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
+    .navbar-header
+      = link_to image_tag('logo2.png', size: "128x50"), root_path
+
+.container
+  .contact-invitations
+
+    - if @message.include?('Signed up with email: ')
+      == render 'signed_up_with_email'
+    
+    
+    - elsif @message.include?('Logged in as other: ')
+      == render 'logged_in_as_other'
+    
+    
+    - elsif @message.include?('Invitation is used: ')
+      == render 'invitation_is_used'
+    
+    
+    - elsif @message.include?('Error: ')
+      == render 'error'
+            
+    
+    - else
+      == render 'create_account'
+    
+
+
+
+
+
+
+
+
+
+
