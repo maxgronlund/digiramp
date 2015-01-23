@@ -200,9 +200,7 @@ class User < ActiveRecord::Base
       recording.save!
     end
 
-    cookies.delete(:auth_token)
-    cookies.delete(:user_id)
-    session[:show_profile_completeness] = nil
+    
     
   end
   

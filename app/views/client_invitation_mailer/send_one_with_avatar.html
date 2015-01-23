@@ -210,6 +210,40 @@
 				/*@editable*/ vertical-align:middle;
 			}
 
+			.avatar{
+				width: 120px;
+        display: inline;
+        float: left;
+			}
+      
+      .teaser{
+        display: inline;
+        float: left;
+      }
+      
+      .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        color: #ffffff;
+        font-size: 12px;
+        padding: 10px 20px 10px 20px;
+        text-decoration: none;
+      }
+
+      .btn:hover {
+        background: #3cb0fd;
+        background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+        background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+        background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+        background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+        background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+        text-decoration: none;
+      }
+      
 			/**
 			* @tab Header
 			* @section header link
@@ -446,11 +480,11 @@
                                     <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader">
                                         <tr>
                                             <td valign="top" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
-                                                You received an invitation to connect with Max grønlund on DigiRAMP.
+                                                You received an invitation to connect with <%= @inviter.user_name %> on DigiRAMP.
                                             </td>
                                             <!-- *|IFNOT:ARCHIVE_PAGE|* -->
                                             <td valign="top" width="180" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:0;" mc:edit="preheader_content01">
-                                                Email not displaying correctly?<br /><a href="*|ARCHIVE|*" target="_blank">View it in your browser</a>.
+                                                Email not displaying correctly?<br /><a href="<%= @url_for_view_on_digiramp %>" target="_blank">View it in your browser</a>.
                                             </td>
                                             <!-- *|END:IF|* -->
                                         </tr>
@@ -464,7 +498,7 @@
                                     <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader">
                                         <tr>
                                             <td valign="top" class="headerContent">
-                                            	<img src="http://localhost:3000/uploads/raw_image/image/1/mail-headder.jpg" mc:allowdesigner mc:allowtext />
+                                            	<img src="https://digiramp.com/uploads/raw_image/image/1/mail-headder.jpg" mc:allowdesigner mc:allowtext />
                                             </td>
                                         </tr>
                                     </table>
@@ -477,22 +511,34 @@
                                     <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
                                         <tr>
                                             <td valign="top" class="bodyContent" mc:edit="body_content">
-                                                <h1>Designing Your Template</h1>
-                                                <h3>Creating a good-looking email is simple</h3>
-                                                Customize your template by clicking on the style editor tabs above. Set your fonts, colors, and styles. After setting your styling is all done you can click here in this area, delete the text, and start adding your own awesome content.
-                                                <br />
-                                                <br />
-                                                <h2>Styling Your Content</h2>
-                                                <h4>Make your email easy to read</h4>
-                                                After you enter your content, highlight the text you want to style and select the options you set in the style editor in the "<em>styles</em>" drop down box. Want to <a href="http://www.mailchimp.com/kb/article/im-using-the-style-designer-and-i-cant-get-my-formatting-to-change" target="_blank">get rid of styling on a bit of text</a>, but having trouble doing it? Just use the "<em>remove formatting</em>" button to strip the text of any formatting and reset your style. 
+                                                <p>I'd like to add you to my connections on DigiRAMP</p>
+                                                <div class="profile">
+                                                  <div class="avatar">
+                                                    <img src="https://digiramp.com/uploads/user/image/1/avatar_92x92_Max-Avarar4.jpg" />
+                                                  </div>
+                                                  <div class="teaser">
+                                                    <h3><%= @inviter.user_name%></h3>
+                                                    <p><%= @inviter.teaser%></p>
+                                                  </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td valign="top" class="bodyContent" mc:edit="body_content">
+                                                <a href="#" class="btn">
+                                                  Ok I know <%= @inviter.useer_name %>
+                                                </a>
                                             </td>
                                         </tr>
                                     </table>
                                     <!-- // END BODY -->
-                                </td>
+                                    
+                               </td>
                             </tr>
                         	<tr>
                             	<td align="center" valign="top">
+                                  
                                 	<!-- BEGIN FOOTER // -->
                                     <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
                                         <tr>

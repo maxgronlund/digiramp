@@ -57,6 +57,8 @@
                   - else
                     = f.input :user_name, placeholder: 'As it appear on your profile'
                   = f.input :email
+                  
+                  = f.input :teaser, :input_html => {  style: "height: 80px;", placeholder: "Short intro, max 128 chars"}
                 
                   div id="toolbar" class="wysihtml5-toolbar"
                     a data-wysihtml5-command="bold" Bold
@@ -64,6 +66,8 @@
                     a data-wysihtml5-command="italic" Italic
                     .pull-right
                       a data-wysihtml5-action="change_view"  Html 
+                  
+                  
                   
                   =f.input :profile, label: false, :input_html => {  style: "height: 240px;", placeholder: "Profile", id: 'wysihtml5_editor'}
                   

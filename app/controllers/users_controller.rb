@@ -226,6 +226,9 @@ class UsersController < ApplicationController
     @user.destroy
     #go_to = session[:go_to_after_edit] || account_users_path(@account)
     session[:go_to_after_edit]  = nil
+    cookies.delete(:auth_token)
+    cookies.delete(:user_id)
+    session[:show_profile_completeness] = nil
     redirect_to :back
   end
   
