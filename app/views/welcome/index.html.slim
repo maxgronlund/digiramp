@@ -3,7 +3,7 @@
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
   .welcome-header
-    h1 Eco-system for music <funky>Beta</funky>
+    h1 A network music professioals <funky>Beta</funky>
     /= link_to 'Learn more', home_index_path, class: 'btn btn-primary btn-lg'
   .welcome
     .container
@@ -61,7 +61,7 @@
                   - @users.each do |user|
                     == render 'users/show', user: user
                 
-            /
+          
 == render 'shared/site_footer'
 
 javascript:

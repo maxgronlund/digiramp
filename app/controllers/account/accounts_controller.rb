@@ -72,7 +72,7 @@ class Account::AccountsController < ApplicationController
     end 
     @account.destroy!   
     
-    flash[:danger] = { title: "ERROR: ", body: "Unable to delete #{@account.title}" }
+    
     redirect_to root_path   
     
     

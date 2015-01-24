@@ -3,8 +3,6 @@ class ContactInvitationsController < ApplicationController
   
   # linked to from email
   def accept_invitation 
-    ap '==================================== FOBAR ========================'
-    
     if @client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
       @message = validate_invitation( @client_invitation ) 
     else
@@ -14,8 +12,11 @@ class ContactInvitationsController < ApplicationController
   
    # linked to from email
   def decline_invitation
-    if client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
-      ap client_invitation
+
+    if @client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
+      @message = validate_invitation( @client_invitation ) 
+    else
+      @message = 'Error: Invitation do not exists?'
     end
   end
   

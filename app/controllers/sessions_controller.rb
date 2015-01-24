@@ -104,7 +104,7 @@ class SessionsController < ApplicationController
                     account_id: user.account_id)       
     rescue
     end
-    #cookies.delete(:auth_token)
+    cookies.delete(:auth_token)
     #cookies.permanent[:auth_token]
     cookies.delete(:user_id)
     #reset_session

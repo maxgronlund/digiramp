@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123144711) do
+ActiveRecord::Schema.define(version: 20150124105001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2268,7 +2268,7 @@ ActiveRecord::Schema.define(version: 20150123144711) do
     t.boolean  "subscribe_to_opportunities"
     t.string   "link_to_homepage"
     t.boolean  "initialized",                default: false
-    t.text     "teaser"
+    t.text     "short_description"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

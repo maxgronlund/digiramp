@@ -15,7 +15,7 @@
     .container-fluid  
     
       == render 'shared/flash_message'
-      h3 Upload Recording
+      h3 Upload recording
       .sexy_line
       .digi-box
         = simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
@@ -50,9 +50,9 @@
               = f.input :acceptance_of_terms, 
                         id: 'acceptance_of_terms',
                         label: false, 
-                        inline_label:  raw( "*I Have <a href=#{terms_and_conditions_path}>Read and Agree</a>  to The Terms and Conditions"),
+                        inline_label:  raw( "*I Have <a href=#{terms_and_conditions_path}>read and agree</a>  to the terms and conditions and have permission to upload this recording"),
                         :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-              .pull-right
+              .pull-right.pull-down-10
                 
                 = link_to 'Cancel', user_recordings_path(@user), class: 'btn btn-default'
                 '&nbsp;

@@ -6,12 +6,19 @@ class ClientInvitationMailer < ActionMailer::Base
   #
   #   en.client_invitation_mailer.send_with_avatar.subject
   #
-  def send_one_with_avatar client_id
-    @client_invitation    = ClientInvitation.cached_find(client_id)
+  def send_one_with_avatar client_invitation_id
+    @client_invitation    = ClientInvitation.cached_find(client_invitation_id)
+    
     @client               = @client_invitation.client
-    @sender               = @client_invitation.user
+    @inviter              = @client_invitation.user
     @accept_url           = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id: @client_invitation.uuid )
     @decline_url          = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: @client_invitation.uuid )
+    
+    
+    
+    
+    
+    
     #@decline_all_url      = url_for( controller: '/contact_invitations', action: 'decline_all_from_digiramp', contact_invitation_id: @client_invitation.uuid )
     #@info_url             = url_for( controller: '/contact_invitations', action: 'info', contact_invitation_id: @client_invitation.uuid )
     
@@ -33,7 +40,7 @@ class ClientInvitationMailer < ActionMailer::Base
     
     
     
-    mail to: 'max@pixelsonrails.com', subject: "#{@sender.user_name} has send you a message on DigiRAMP"
+    mail to: 'max@pixelsonrails.com', subject: "I'd like to add you to my network of music professionals"
     
     
 
