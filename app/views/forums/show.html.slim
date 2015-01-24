@@ -32,10 +32,11 @@
                 i.fa.fa-chevron-left
                 '&nbsp;
                 'Back
-            = link_to edit_user_forum_path(@forum.user, @forum) do
-              .btn.btn-primary
-                i.fa.fa-pencil
-                '&nbsp;Edit
+            - if super?
+              = link_to edit_user_forum_path(@forum.user, @forum) do
+                .btn.btn-primary
+                  i.fa.fa-pencil
+                  '&nbsp;Edit
       .sexy_line
       .pull-down-10
       == render 'forums/show', forum: @forum, read_more: false, delete_forum: false, show_heading: false
@@ -95,44 +96,7 @@
                           = f.submit 'Create', class: 'btn btn-primary'
               
 
-        
-        /.row
-        /  .col-sm-6
-        /    .digi-box
-        /      h4 
-        /        'Create new tread on:
-        /        =< @forum.title
-        /      .sexy_line
-        /      .row  
-        /        .col-sm-12
-        /
-        /          = simple_form_for [ ForumPost.new ] do |f|
-        /            = f.input :title
-        /
-        /            div id="toolbar" class="wysihtml5-toolbar"
-        /              a data-wysihtml5-command="bold" Bold
-        /              '&nbsp; 
-        /              a data-wysihtml5-command="italic" Italic
-        /              .pull-right
-        /                a data-wysihtml5-action="change_view"  Html 
-        /            
-        /            =f.input :body, label: false, :input_html => {  style: "height: 240px;", placeholder: "Description", id: 'wysihtml5_editor'}
-        /            /= f.input :image
-        /            = f.hidden_field :user_id, value: current_user.id
-        /            = f.hidden_field :forum_id, value: @forum.id
-        /            /= f.input :uniq_likes
-        /            /= f.input :published
-        /            
-        /            
-        /            .row  
-        /              .col-sm-12
-        /                .pull-right
-        /                  = f.submit 'Create', class: 'btn btn-primary'
-        /    
-          
-              
-      
-      
+
       
       
       
