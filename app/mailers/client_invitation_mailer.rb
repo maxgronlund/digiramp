@@ -44,14 +44,16 @@ class ClientInvitationMailer < ActionMailer::Base
     
     # prepare custom fields
     emails        = []
-    uuids         = []
+    accept_urls   = []
+    decline_urls  = []
     user_names    = []
     index         = 0
     
     invitations.each do |invitation|
       if email = EmailValidator.saintize( invitation.client.email )
         emails[index]         = email
-        uuids[index]          = invitation.uuid
+        accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id: invitation.uuid )
+        decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
         user_names[index]     = user_name    
         index += 1
       else
@@ -71,8 +73,8 @@ class ClientInvitationMailer < ActionMailer::Base
                            }, 
                    sub: {  
                            "<%user_name%>".to_sym =>    user_names,
-                           "--accept_url--".to_sym =>   uuids,
-                           "--decline_url--".to_sym =>  uuids
+                           "--accept_url--".to_sym =>   accept_urls,
+                           "--decline_url--".to_sym =>  decline_urls
                         } 
     
                 }
