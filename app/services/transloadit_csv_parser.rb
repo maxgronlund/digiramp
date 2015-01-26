@@ -24,7 +24,7 @@ class TransloaditCSVParser
                                                 title:          original[:name], 
                                                 file_type:      original[:type],
                                                 mime:           original[:mime],
-                                                file:           original[:url],
+                                                file:           original[:url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp'),
                                                 file_size:      original[:size]
                                               }
     end

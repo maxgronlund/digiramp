@@ -23,18 +23,18 @@ class TransloaditParser
     
     # original file
     uploads[:results][':original'].each do |original|
-      extracted[ original[:original_id] ] =  { original_file: original[:url], meta: original[:meta]}
+      extracted[ original[:original_id] ] =  { original_file: original[:url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp'), meta: original[:meta]}
     end
     
 
     # thumbnail
     uploads[:results][:thumbnail].each do |thumbnail|
-      extracted[ thumbnail[:original_id] ][:original_file] = thumbnail[:url]
+      extracted[ thumbnail[:original_id] ][:original_file] = thumbnail[:url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
     end
     
     # waveform
     uploads[:results][:waveform].each do |waveform|
-      extracted[ waveform[:original_id] ][:waveform]       = waveform[:url]
+      extracted[ waveform[:original_id] ][:waveform]       = waveform[:url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
     end
     
     # metadata
@@ -45,7 +45,7 @@ class TransloaditParser
     #end
     
     uploads[:results][:mp3].each do |mp3|
-      extracted[ mp3[:original_id] ][:mp3]                 = mp3[:url]
+      extracted[ mp3[:original_id] ][:mp3]                 = mp3[:url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
       extracted[ mp3[:original_id] ][:original_file_name]  = mp3[:name]
       extracted[ mp3[:original_id] ][:original_name]       = mp3[:original_basename]
     end
@@ -58,7 +58,7 @@ class TransloaditParser
     # artwork_thumb
     unless uploads[:results][:artwork_thumb].nil?
       uploads[:results][:artwork_thumb].each do |artwork_thumb|
-        extracted[ artwork_thumb[:original_id] ][:cover_art]       = artwork_thumb[:url]
+        extracted[ artwork_thumb[:original_id] ][:cover_art]       = artwork_thumb[:url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
       end
     end
     
@@ -67,7 +67,7 @@ class TransloaditParser
     # artwork 
     unless uploads[:results][:artwork].nil?
       uploads[:results][:artwork].each do |artwork|
-        extracted[ artwork[:original_id] ][:artwork]       = artwork[:url]
+        extracted[ artwork[:original_id] ][:artwork]       = artwork[:url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
       end
     end
     

@@ -24,7 +24,7 @@ class TransloaditDocumentsParser
                                                 title:          original[:name], 
                                                 file_type:      original[:type],
                                                 mime:           original[:mime],
-                                                file:           original[:url],
+                                                file:           original[:url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp'),
                                                 file_size:      original[:size]
                                               }
     end
@@ -33,7 +33,7 @@ class TransloaditDocumentsParser
     begin
       # thumbnail
       uploads[:results][:image_thumb].each do |image_thumb|
-        extracted[ image_thumb[:original_id] ][:image_thumb] = image_thumb[:url]
+        extracted[ image_thumb[:original_id] ][:image_thumb] = image_thumb[:url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
       end
     rescue
     end
