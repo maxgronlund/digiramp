@@ -30,6 +30,7 @@
               
               = f.hidden_field :account_id, value: @user.account_id
               = f.hidden_field :user_uuid, value: @user.uuid
+              = f.hidden_field :user_id, value: @user.id
               = f.input :title
               =f.input :description, :input_html => {  style: "height: 120px;"}
               .row
