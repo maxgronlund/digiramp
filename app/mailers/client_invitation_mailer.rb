@@ -74,7 +74,8 @@ class ClientInvitationMailer < ActionMailer::Base
                    sub: {  
                            "<%user_name%>".to_sym =>    user_names,
                            "--accept_url--".to_sym =>   accept_urls,
-                           "--decline_url--".to_sym =>  decline_urls
+                           "--decline_url--".to_sym =>  decline_urls,
+                           "--avatar_url--".to_sym =>   decline_urls
                         } 
     
                 }
