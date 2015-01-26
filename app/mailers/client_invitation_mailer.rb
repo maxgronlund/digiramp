@@ -1,5 +1,5 @@
 require 'json'
-
+require 'uri'
 
 class ClientInvitationMailer < ActionMailer::Base
   default from: "noreply@digiramp.com"
@@ -30,6 +30,7 @@ class ClientInvitationMailer < ActionMailer::Base
     ap client_group
     @inviter     = client_group.user
     user_name    = @inviter.user_name
+    @avatar_url           = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
     
     # create array of invitations
     invitations = []
@@ -108,8 +109,7 @@ class ClientInvitationMailer < ActionMailer::Base
     @inviter              = @client_invitation.user
     @accept_url           = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id: @client_invitation.uuid )
     @decline_url          = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: @client_invitation.uuid )
-    
-    
+    @avatar_url           = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
     
                 
     x_smtpapi = { 
