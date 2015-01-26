@@ -28,7 +28,8 @@ class ClientInvitationMailer < ActionMailer::Base
     
     client_group = ClientGroup.find(client_group_id)
     ap client_group
-    user_name    = client_group.user.user_name
+    @inviter     = client_group.user
+    user_name    = @inviter.user_name
     
     # create array of invitations
     invitations = []
