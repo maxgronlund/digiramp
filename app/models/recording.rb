@@ -755,7 +755,11 @@ class Recording < ActiveRecord::Base
       AWS.config(access_key_id: ENV["S3_KEY_ID"],  secret_access_key: ENV["S3_ACCESS_KEY"] ) 
       s3 = AWS::S3.new
       bucket = s3.buckets['digiramp'] # makes no request
-      bucket.objects[self.mp3.gsub('https://digiramp.s3.amazonaws.com/', '')].url_for(:read, :secure => true, :expires => expires_in)
+      if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
+        bucket.objects[self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')].url_for(:read, :secure => true, :expires => expires_in)
+      else
+        bucket.objects[self.mp3.gsub('https://digiramp.s3.amazonaws.com/', '')].url_for(:read, :secure => true, :expires => expires_in)
+      end
     rescue
     end
   end
