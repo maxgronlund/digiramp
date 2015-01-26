@@ -1,3 +1,6 @@
+require 'json'
+
+
 class ClientInvitationMailer < ActionMailer::Base
   default from: "noreply@digiramp.com"
 
@@ -6,6 +9,94 @@ class ClientInvitationMailer < ActionMailer::Base
   #
   #   en.client_invitation_mailer.send_with_avatar.subject
   #
+  
+  
+  def import_form_linkedin client_import_id
+    ap '========================== import_form_linkedin  =============================='
+    client_import = ClientImport.cached_find(client_import_id)
+    
+    clients = []
+    
+    client_import.clients.each do |client|
+      ap client
+    end
+
+  end
+  
+  # notice max 1000 at a time
+  def invite_all_from_group client_group_id
+    
+    client_group = ClientGroup.find(client_group_id)
+    ap client_group
+    user_name    = client_group.user.user_name
+    
+    # create array of invitations
+    invitations = []
+    index = 0
+    client_group.clients.each do |client|
+      if client.member_id.nil?
+        invitations[index] = create_invitation( client )
+        index += 1
+      end
+    end
+    
+    
+    # prepare custom fields
+    emails        = []
+    uuids         = []
+    user_names    = []
+    index         = 0
+    
+    invitations.each do |invitation|
+      if email = EmailValidator.saintize( invitation.client.email )
+        emails[index]         = email
+        uuids[index]          = invitation.uuid
+        user_names[index]     = user_name    
+        index += 1
+      else
+        invitation.destroy!
+      end
+    end
+    
+    # prepre JSON
+    x_smtpapi = { 
+                  to: emails,
+                  filters: { templates: {
+                                       settings: {
+                                                     enabled: 1,
+                                                     template_id: "9117870a-825a-4c81-8c04-8ff68d422ff7"
+                                                   }
+                                      }
+                           }, 
+                   sub: {  
+                           "<%user_name%>".to_sym =>    user_names,
+                           "--accept_url--".to_sym =>   uuids,
+                           "--decline_url--".to_sym =>  uuids
+                        } 
+    
+                }
+    
+
+    
+    headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
+    
+    mail to: "info@digiramp.com", subject: "I'd like to ad you to my network of music professionals"
+    
+    
+  end
+  
+  def create_invitation client
+    
+    ClientInvitation.create( account_id: client.account_id, 
+                             client_id:  client.id,
+                             user_id:    client.user_id,
+                             status:     'Invited',
+                             uuid:       UUIDTools::UUID.timestamp_create().to_s )
+    
+  end
+  
+
+  
   def send_one_with_avatar client_invitation_id
     @client_invitation    = ClientInvitation.cached_find(client_invitation_id)
     
@@ -16,31 +107,46 @@ class ClientInvitationMailer < ActionMailer::Base
     
     
     
+                
+    x_smtpapi = { 
+                  to: ["max@haxecasts.com"],
+                  filters: { templates: {
+                                       settings: {
+                                                     enabled: 1,
+                                                     template_id: "9117870a-825a-4c81-8c04-8ff68d422ff7"
+                                                   }
+                                      }
+                           }, 
+                   sub: {  
+                           "<%user_name%>".to_sym =>    [ @inviter.user_name.to_s ],
+                           "--accept_url--".to_sym =>   [ @accept_url],
+                           "--decline_url--".to_sym =>  [ @decline_url]
+                        } 
     
+                }
     
+
     
-    #@decline_all_url      = url_for( controller: '/contact_invitations', action: 'decline_all_from_digiramp', contact_invitation_id: @client_invitation.uuid )
-    #@info_url             = url_for( controller: '/contact_invitations', action: 'info', contact_invitation_id: @client_invitation.uuid )
+    headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
     
+    #headers['X-SMTPAPI'] = '{ "to": ["max@haxecasts.com"], 
+    #                          "filters": {"templates": {"settings": {"enabled": 1,"template_id": "9117870a-825a-4c81-8c04-8ff68d422ff7"}}}, 
+    #                          "sub": {  "<%user_name%>":  ["' + @inviter.user_name.to_s + '"],
+    #                                    "--accept_url--": ["' + @accept_url + '"],
+    #                                    "--decline_url--": ["' + @decline_url + '"]
+    #                                  } 
+    #                        }'
+    #
+    #
+    #                        
+    #
+    #                  }'
+
+    mail to: "info@digiramp.com", subject: "I'd like to ad you to my network of music professionals"
     
-    
-    
-    
-    
-    
-    
-    #@message      = Message.cached_find(message_id)
-    #@receiver     = @message.receiver
-    #@sender       = @message.sender
-    #@message_url  = url_for( controller: 'messages', action: 'show', user_id: @receiver.id, id: message_id)
-    #@unsubscribe_url = '#'
-    #@avatar_url   = ( URI.parse(root_url) + @sender.image_url(:avatar_92x92) ).to_s
-    
-    
-    
-    
-    
-    mail to: 'max@pixelsonrails.com', subject: "I'd like to add you to my network of music professionals"
+    #headers['X-SMTPAPI'] = '{ "to": ["max@digiramp.com", "max@pixelsonrails.com"]}'
+    #
+    #mail to: 'max@digiramp.com'
     
     
 

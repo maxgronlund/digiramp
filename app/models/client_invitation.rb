@@ -4,7 +4,7 @@ class ClientInvitation < ActiveRecord::Base
   belongs_to :client
   
   
-  after_create :send_one_with_avatar
+  #after_create :send_one_with_avatar
   
   #STATUS = {'invited', 'declined', 'accepted'}
   

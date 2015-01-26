@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150124105001) do
+ActiveRecord::Schema.define(version: 20150126143804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -614,6 +614,7 @@ ActiveRecord::Schema.define(version: 20150124105001) do
     t.text     "description"
     t.string   "user_uuid"
     t.integer  "user_id"
+    t.boolean  "invited",     default: false
   end
 
   add_index "client_groups", ["account_id"], name: "index_client_groups_on_account_id", using: :btree
@@ -647,6 +648,7 @@ ActiveRecord::Schema.define(version: 20150124105001) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "source",     default: ""
   end
 
   add_index "client_imports", ["account_id"], name: "index_client_imports_on_account_id", using: :btree
@@ -668,41 +670,43 @@ ActiveRecord::Schema.define(version: 20150124105001) do
 
   create_table "clients", force: true do |t|
     t.integer  "account_id"
-    t.string   "user_uuid",      default: ""
-    t.string   "name",           default: ""
-    t.string   "last_name",      default: ""
-    t.string   "title",          default: ""
-    t.string   "photo",          default: ""
-    t.string   "telephone_home", default: ""
-    t.string   "business_phone", default: ""
-    t.string   "business_fax",   default: ""
-    t.string   "fax_home",       default: ""
-    t.string   "cell_phone",     default: ""
-    t.string   "company",        default: ""
-    t.string   "capacity",       default: ""
-    t.text     "address_home",   default: ""
-    t.text     "address_work",   default: ""
-    t.string   "city_work",      default: ""
-    t.string   "state_work",     default: ""
-    t.string   "zip_work",       default: ""
-    t.string   "country_work",   default: ""
-    t.string   "email",          default: ""
-    t.string   "home_page",      default: ""
-    t.string   "department",     default: ""
-    t.string   "revision",       default: ""
+    t.string   "user_uuid",        default: ""
+    t.string   "name",             default: ""
+    t.string   "last_name",        default: ""
+    t.string   "title",            default: ""
+    t.string   "photo",            default: ""
+    t.string   "telephone_home",   default: ""
+    t.string   "business_phone",   default: ""
+    t.string   "business_fax",     default: ""
+    t.string   "fax_home",         default: ""
+    t.string   "cell_phone",       default: ""
+    t.string   "company",          default: ""
+    t.string   "capacity",         default: ""
+    t.text     "address_home",     default: ""
+    t.text     "address_work",     default: ""
+    t.string   "city_work",        default: ""
+    t.string   "state_work",       default: ""
+    t.string   "zip_work",         default: ""
+    t.string   "country_work",     default: ""
+    t.string   "email",            default: ""
+    t.string   "home_page",        default: ""
+    t.string   "department",       default: ""
+    t.string   "revision",         default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "assistant",      default: ""
-    t.string   "direct_phone",   default: ""
-    t.string   "direct_fax",     default: ""
-    t.string   "business_email", default: ""
-    t.boolean  "show_alert",     default: false
+    t.string   "assistant",        default: ""
+    t.string   "direct_phone",     default: ""
+    t.string   "direct_fax",       default: ""
+    t.string   "business_email",   default: ""
+    t.boolean  "show_alert",       default: false
     t.integer  "user_id"
-    t.string   "full_name",      default: ""
+    t.string   "full_name",        default: ""
     t.integer  "member_id"
+    t.integer  "client_import_id"
   end
 
   add_index "clients", ["account_id"], name: "index_clients_on_account_id", using: :btree
+  add_index "clients", ["client_import_id"], name: "index_clients_on_client_import_id", using: :btree
   add_index "clients", ["member_id"], name: "index_clients_on_member_id", using: :btree
   add_index "clients", ["user_id"], name: "index_clients_on_user_id", using: :btree
 

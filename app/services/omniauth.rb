@@ -13,7 +13,7 @@ class Omniauth
 
       
       
-
+      ap env['omniauth.auth']
 
       return AuthorizationProvider.create! do |provider|
                         provider.provider           = env['omniauth.auth']["provider"]

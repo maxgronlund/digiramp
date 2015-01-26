@@ -21,6 +21,7 @@ class DigirampEmailMailer < ActionMailer::Base
         index += 1
       end
     end
+    
     @image_1 = (URI.parse(root_url) + @digiramp_email.image_1_url(:banner_558x90)).to_s
     
     link = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)

@@ -18,6 +18,7 @@
           .help
             .help-text
               h2 = @contact_group.title
+              = @contact_group.description
             .help-button
               == render 'admin/helps/help', identifier: 'user contact group'
         .col-sm-6
@@ -31,10 +32,23 @@
       /  .col-sm-6
       /    h2 = @contact_group.title
       .sexy_line
-      h4 Contacts
+      .row
+        .col-sm-6
+          h4 Contacts
+        .col-sm-6
+          - if  @contact_group.invited
+            == render 'invited'
+          .group_invited 
+          .pull-right
+            - unless  @contact_group.invited
+              .invite_group
+                = simple_form_for [:user, @user, @contact_group] , :url => url_for(:action => 'update', :controller => 'invite_client_groups'), remote: true, :method => 'put' do |f|
+                  = f.submit 'Invite', class: 'btn btn-default'
+                
+      
       .digi-box
         
-        b = @contact_group.description
+
         br
         - @contacts.each do |contact|
           div id="delete_contact_#{contact.id.to_s}"

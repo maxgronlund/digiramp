@@ -4,8 +4,14 @@
     => link_to user_user_contact_group_add_contact_path(@user,  @contact_group, contact), data: { confirm: 'Are you sure?' }, remote: true , :method => :delete do
       .btn.btn-danger.btn-xs
         i.fa.fa-times
-        '&nbsp;
-        'Remove from group
+    - if contact.member_id
+      i.fa.fa-check
+      '&nbsp; Member
+    - elsif client_invitation = ClientInvitation.where(client_id: contact.id, user_id: contact.user_id).first
+      .btn.btn-default.btn-xs disabled="disabled"
+        i.fa.fa-ticket
+        '&nbsp;#{client_invitation.status}
+      '&nbsp;
   .col-sm-3
     .ellipsis
       = contact.full_name

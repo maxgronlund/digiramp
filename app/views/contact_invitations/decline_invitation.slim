@@ -5,34 +5,65 @@
 
 .container
   .contact-invitations
-    .digi-box
-      - if params[:error_message]
-        .alert.alert-danger
-          = params[:error_message]
-      h4 I'd like to add you to my network of music professionals
-      .sexy_line
-      == render 'profile'
-      .sexy_line
+    - if @client_invitation
+      - unless @client_invitation.status == 'Declined'
+        .declined-confirmed  style="visibility: hidden"
+            .alert.alert-info
+              h4 Your invitation has been declined
+      - else
+        .declined-confirmed
+            .alert.alert-info
+              h4 Your invitation has been declined
+            
       .row
-        .col-sm-6
-          = simple_form_for [ @client ], :url => url_for(:action => 'signup', \
-                                                        :controller => 'contact_invitations'), \
-                                                        :method => 'post' do |f|
+        .col-sm-12
+          .digi-box
+            - if params[:error_message]
+              .alert.alert-danger
+                = params[:error_message]
+            h4 I don't know #{@inviter.user_name} 
+            .sexy_line
+            == render 'profile'
+            .sexy_line
+            .row
+              .col-sm-6.pull-down-12
+                - unless @client_invitation.status == 'Declined'
+                  .declined-confirmed-form  style="visibility: visible"
       
-
-        
-            'Please don't sent me more invitations 
-            .row
-              .col-sm-12.pull-down-12
-                .pull-right
-              
-                  = f.submit "Connect with #{@inviter.user_name}", class: 'btn btn-primary'
-            .row
-              .col-sm-12.pull-down-12
-    
-        .col-sm-6.pull-down-12
-          h4 About DigiRAMP
-          'Pork belly readymade occupy selvage art party, mixtape Blue Bottle vinyl beard fixie Godard. You probably haven't heard of them Intelligentsia hoodie master cleanse kogi. Tilde lo-fi cray slow-carb, irony forage shabby chic cronut synth farm-to-table street art kale chips biodiesel raw denim ethical.
-
-    = debug @message
-    = debug @client_invitation
+                    h4 Decline request
+                    'By pressing 'No thanks' #{@inviter.user_name} will not be able to contact you again.
+                    = simple_form_for [ @client ], :url => url_for(:action => 'confirm_decline_of_invitation', \
+                                                                  :controller => 'contact_invitations'), \
+                                                                  :method => 'post', \
+                                                                  remote: true do |f|
+                    
+                    
+                    
+                      
+                      .row
+                        .col-sm-12.pull-down-12
+                          .pull-right
+                        
+                            = f.submit "No thanks", class: 'btn btn-primary'
+                      .row
+                        .col-sm-12.pull-down-12
+                    
+              .col-sm-6.pull-down-12
+                h4 DigiRAMP
+                'Is an online network for music profecionals and music lovers.
+                '  DigiRAMP offers all people equal opportunity to share and distribute 
+                'music for profecional usage with all rights respected. Music lovers
+                'benifits from direct access to the original material
+      
+    - else
+      .alert.alert-info
+        h4 Info;
+        'No invitation found
+        /.row
+        /  .col-sm-12
+        /    .center
+        /      .smal-gray-text
+        /        
+        /        = link_to 'unsubscribe', '#'
+        /= debug @message
+        /= debug @client_invitatio

@@ -3,6 +3,7 @@
 class Client < ActiveRecord::Base
   belongs_to :account
   belongs_to :user
+  belongs_to :client_import
   has_and_belongs_to_many :client_groups
   has_many :playlist_key_users
   before_create :set_user_uuid
@@ -91,7 +92,8 @@ class Client < ActiveRecord::Base
   end
   
   def self.post_info user_email
-
+    ap '============  post_info  ============='
+    ap user_email
     channel = 'digiramp_radio_' + user_email
     Pusher.trigger(channel, 'digiramp_event', {"title" => 'CSV file imported', 
                                           "message" => "Please reload the client page", 
@@ -101,6 +103,8 @@ class Client < ActiveRecord::Base
                                           })
 
   end
+  
+
   
   
   def self.import_clients_from_linkedin client_import_id
@@ -116,7 +120,7 @@ class Client < ActiveRecord::Base
           client  = Client.where(email: client_info["E-mail Address"], account_id:  client_import.account_id ).first_or_create(email: client_info["E-mail Address"])
           
           
-        
+          client.client_import_id    = client_import_id
           client.name                = client_info["First Name"]            if client_info["First Name"].to_s                            != ""            
           client.last_name           = client_info["Last Name"]             if client_info["Last Name"].to_s                             != ""   
           client.company             = client_info["Company"]               if client_info["Company"].to_s                               != ""   

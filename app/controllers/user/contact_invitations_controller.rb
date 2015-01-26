@@ -6,8 +6,9 @@ class User::ContactInvitationsController < ApplicationController
                                          .first_or_create( account_id: @user.account_id, 
                                                            client_id:  params[:id],
                                                            user_id:    @user.id,
-                                                           status:     'invited',
+                                                           status:     'Invited',
                                                            uuid:       UUIDTools::UUID.timestamp_create().to_s )
+    @client_invitation.send_one_with_avatar
 
   end
   

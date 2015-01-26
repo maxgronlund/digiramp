@@ -3,6 +3,8 @@ Digiramp::Application.routes.draw do
 
 
 
+ 
+
   resources :share_and_login, only: [:show]
 
   resources :twitter_cards
@@ -311,6 +313,7 @@ Digiramp::Application.routes.draw do
     get 'accept_connection'
     get 'decline_connection'
     get 'decline_invitation'
+    post 'confirm_decline_of_invitation'
     get 'decline_all_from_digiramp'
     get 'invitation_info'
     post 'signup'
@@ -728,6 +731,7 @@ Digiramp::Application.routes.draw do
       resources :connections, only: [:index, :create, :update, :destroy]
       resources :contacts 
       resources :contact_invitations, only: [:show]
+      resources :invite_client_groups, only: [:update]
       resources :contact_groups do
         get 'toggle_selection'
         get 'add_all'

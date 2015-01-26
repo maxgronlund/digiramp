@@ -12,12 +12,23 @@ class ContactInvitationsController < ApplicationController
   
    # linked to from email
   def decline_invitation
-
+    ap params
     if @client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
+      ap @client_invitation
       @message = validate_invitation( @client_invitation ) 
     else
       @message = 'Error: Invitation do not exists?'
     end
+  end
+  
+  # when the user confirm not knowing inviter
+  def confirm_decline_of_invitation
+    ap params
+    
+    @client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
+    @client_invitation.status = 'Declined'
+    @client_invitation.save
+    
   end
   
    # linked to from email

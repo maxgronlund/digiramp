@@ -22,5 +22,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :twitter,  TWITTER_KEY, TWITTER_SECRET
   provider :facebook, FACEBOOL_APP_ID, FACEBOOL_SECRET, scope: "email, publish_actions, user_actions.music"
   provider :linkedin, LINKEDIN_KEY, LINKEDIN_SECRET
+  #provider :linkedin, LINKEDIN_KEY, LINKEDIN_SECRET, :scope => 'r_fullprofile r_emailaddress r_network', :fields => ["id", "email-address", "first-name", "last-name", "headline", "industry", "picture-url", "public-profile-url", "location", "connections"]
   provider :gplus,    GPLUS_KEY, GPLUS_SECRET, scope: 'userinfo.email, userinfo.profile'
 end
