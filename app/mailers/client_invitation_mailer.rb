@@ -112,7 +112,7 @@ class ClientInvitationMailer < ActionMailer::Base
     
                 
     x_smtpapi = { 
-                  to: ["max@haxecasts.com"],
+                  to: [@client.email],
                   filters: { templates: {
                                        settings: {
                                                      enabled: 1,
