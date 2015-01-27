@@ -25,4 +25,9 @@ class ErrorsController < ApplicationController
   def server_error
     render status: :server_error
   end
+  
+  def index
+    
+  end
+  
 end

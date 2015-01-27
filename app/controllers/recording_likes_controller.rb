@@ -13,7 +13,7 @@ class RecordingLikesController < ApplicationController
       @show         = 'likes for a recording'
       @playlists    = current_user.playlists if current_user
     rescue
-      not_found
+      not_found params
     end
 
   end
