@@ -245,8 +245,7 @@ class ApplicationController < ActionController::Base
 
   
   def not_found options = {}
-    ap params
-    ap options
+
     if params[:controller]
       if current_user
         redirect_to error_not_found_path( error_id: options[:id] || params[:id] || 0 , 
@@ -256,7 +255,7 @@ class ApplicationController < ActionController::Base
                                           action: params[:action])
       else
         
-        redirect_to error_not_found_path( error_id: options[:id] || params[:id],
+        redirect_to error_not_found_path( error_id: options[:id] || params[:id] || 0,
                                           error_type: params[:controller],
                                           redirect_to_message:  request.url, 
                                           action: params[:action])
