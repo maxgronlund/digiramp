@@ -15,6 +15,5 @@ class RecordingLikesController < ApplicationController
     rescue
       not_found params
     end
-
-  end
+    
 end
