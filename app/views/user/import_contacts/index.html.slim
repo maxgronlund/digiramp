@@ -27,7 +27,8 @@
                     h4 Linkedin
                   .body
                     'Import your contacts from Linkedin
-                    = link_to 'show imported', user_user_from_linkedin_index_path(@user)
+                    - if super?
+                      = link_to 'Imported (super only)', user_user_from_linkedin_index_path(@user)
                      
                    
               
