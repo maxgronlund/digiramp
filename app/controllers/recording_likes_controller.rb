@@ -2,6 +2,7 @@ class RecordingLikesController < ApplicationController
   before_filter :get_user
   
   def index
+
     begin
       @recording    = Recording.cached_find(params[:recording_id])
       
@@ -13,7 +14,8 @@ class RecordingLikesController < ApplicationController
       @show         = 'likes for a recording'
       @playlists    = current_user.playlists if current_user
     rescue
-      not_found params
+      not_found params: params, id: 'not_found'
     end
+  end
     
 end

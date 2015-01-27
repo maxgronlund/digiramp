@@ -248,14 +248,15 @@ class ApplicationController < ActionController::Base
 
     if params[:controller]
       if current_user
-        redirect_to error_not_found_path( error_id: options[:id] || params[:id] || 0 , 
+        
+        redirect_to error_not_found_path( error_id: options[:id] || params[:id], 
                                           user_id: options[:user_id], 
                                           error_type: params[:controller],
                                           redirect_to_message:  request.url, 
                                           action: params[:action])
       else
         
-        redirect_to error_not_found_path( error_id: options[:id] || params[:id] || 0,
+        redirect_to error_not_found_path( error_id: options[:id] || params[:id],
                                           error_type: params[:controller],
                                           redirect_to_message:  request.url, 
                                           action: params[:action])
