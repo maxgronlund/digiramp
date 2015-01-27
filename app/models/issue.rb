@@ -21,6 +21,8 @@ class Issue < ActiveRecord::Base
   OSS = ["Windows 7",
         "Windows XP",
         "Windows 8",
+        "Windows 9",
+        "Windows 10",
         "OS X 10.0 Cheetah",
         "OS X 10.1 Puma",
         "OS X 10.2 Jaguar",
@@ -31,6 +33,8 @@ class Issue < ActiveRecord::Base
         "OS X 10.7 Lion",
         "OS X 10.8 Mountain Lion",
         "OS X 10.9 Mavericks",
+        "OS X 10.10 YOSEMITE",
+        "OS X 10.11 YOSEMITE",
         "iOS",
         "Android"]
   SYMPTOMS = ['Error 422', 'Error 500', 'Missing Buttons', 'Styling', 'Other']
