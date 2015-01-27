@@ -14,6 +14,14 @@ class User::FromLinkedinController < ApplicationController
     redirect_to user_user_control_panel_index_path(@user)
   end
   
+  def index
+    if super?
+      @client_imports = @user.client_imports
+    else
+      forbidden
+    end
+  end
+  
   
   
   private
