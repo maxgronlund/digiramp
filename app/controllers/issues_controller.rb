@@ -34,7 +34,7 @@ class IssuesController < ApplicationController
     @issue = Issue.new(issue_params)
     @issue.status = 'new'
     if @issue.save
-      redirect_to user_issue_path(@user, @issue)
+      redirect_to user_issues_path(@user)
     else
       redirect_to new_user_issue_path(@user)
     end
@@ -46,7 +46,7 @@ class IssuesController < ApplicationController
   def update
      
     if @issue.update(issue_params)
-      redirect_to user_issue_path(@user, @issue)
+      redirect_to user_issues_path(@user)
       #UserMailer.delay.invite_new_user_to_account(self.id, account_id, invitation_message)
     else
       redirect_to edit_user_issue_path(@user, @issue)
