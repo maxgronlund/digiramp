@@ -32,7 +32,6 @@ class IssuesController < ApplicationController
   def create
     forbidden unless current_user
     @issue = Issue.new(issue_params)
-    @issue.status = 'new'
     if @issue.save
       redirect_to user_issues_path(@user)
     else

@@ -18,11 +18,11 @@
               -case issue.status
              
               -when 'New'
-                .label.label-danger
+                .label.label-default
                   'New
              
               -when 'Confirmed'
-                .label.label-success
+                .label.label-info
                   'Confirmed
              
               -when 'In Progress'
@@ -38,7 +38,7 @@
                   'Closed
              
               -when 'Rejected'
-                .label.label-default
+                .label.label-warning
                   'Rejected
              
             td = link_to issue.user.user_name, issue.user

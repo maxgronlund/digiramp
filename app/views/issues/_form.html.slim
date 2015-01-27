@@ -5,8 +5,8 @@
 = simple_form_for [@user , @issue] do |f|
   .row
     = f.hidden_field :user_id, value: @user.id
-    = f.hidden_field :priority, valus: 'Medium'
-    = f.hidden_field :status, valus: 'New'
+    = f.hidden_field :priority, value: 'Medium'
+    = f.hidden_field :status, value: 'New'
     
     /- if @issue.errors.any?
     /  #error_explanation
