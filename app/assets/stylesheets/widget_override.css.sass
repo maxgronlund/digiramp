@@ -5,29 +5,12 @@ body
   
 #digiWhams 
   margin-bottom: 0px
-  border: solid 1px #FFF
-  +box-shadow(#FFF 0px 0px 0px)
+  border: solid 1px #C1C2C3
+  +box-shadow(#CACACA 0px 0px 0px)
 // default values  
 #digiWhams .digiwham 
   height: 60px
-  .top-pane 
-    .cover-art 
-      position: relative
-      width:  48px
-      height: 48px
-    .top-right
-      margin-left: 52px
-      height: 50px
-      .playhead 
-        height: 0px
-      .playhead-time
-        display: none
-      .track-duration
-        display: none
-      .waveform 
-        display: none
-    //.top-right
-    //  margin-left: 52px
+
 
 //--------------------------------------------------
 // responsive
@@ -35,42 +18,4 @@ body
 @media (min-width: 768px)
   #digiWhams .digiwham 
     height: 112px
-    .top-pane 
-      .cover-art 
-        position: relative
-        width:  100px
-        height: 100px
-      .top-right
-        margin-left: 104px
-        height: 100px
-        .playhead 
-          height: 35px
-        .info
 
-          .title
-            width: 40%
-          .description
-            width: 60%
-            display: block
-        .playhead-time
-          display: block
-        .track-duration
-          display: block
-        .waveform 
-          display: block
-        .loadbar  
-          display:            block
-
-  
-// Medium devices (desktops, 992px and up) 
-@media (min-width: 992px)
-  #digiWhams .digiwham 
-    .top-pane 
-      .top-right
-        .info
-          .title
-            width: 30%
-          .description
-            width: 70%
-            max-width: 510px
-  
