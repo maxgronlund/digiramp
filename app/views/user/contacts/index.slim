@@ -15,6 +15,10 @@
           h2 Contacts
         .col-sm-6
           .pull-right.pull-down-10
+            => link_to user_user_contact_groups_path(@user) do
+              .btn.btn-default
+                i.fa.fa-users
+                '&nbsp;Groups
             = link_to 'Add contacts', new_user_user_contact_path( @user), class: 'btn btn-primary'
             
         
