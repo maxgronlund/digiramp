@@ -12,7 +12,7 @@ class ClientInvitationMailer < ActionMailer::Base
   
   
   def import_form_linkedin client_import_id
-    ap '========================== import_form_linkedin  =============================='
+    
     client_import = ClientImport.cached_find(client_import_id)
     
     clients = []

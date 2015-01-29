@@ -5,6 +5,10 @@ Digiramp::Application.routes.draw do
 
  
 
+
+
+
+
   resources :share_and_login, only: [:show]
 
   resources :twitter_cards
@@ -725,6 +729,35 @@ Digiramp::Application.routes.draw do
       resources :campaigns do
         resources :campaign_events
       end
+      
+      resources :contact_wizard do
+        get 'fill_form'
+        post 'submit_form'
+        get  'upload_file'
+        get  'upload_custom_csv'
+        post 'submit_custom_csv'
+        get  'upload_linkedin_csv'
+        post 'submit_linkedin_csv'
+        get  'add_contacts_by_emails'
+      end
+      
+      resources :add_contacts_by_emails, only: [:create]
+      
+      #get 'contact_wizard/fill_form'
+      #
+      #get 'contact_wizard/submit_form'
+      #
+      #get 'contact_wizard/upload_file'
+      #
+      #get 'contact_wizard/upload_custom_csv'
+      #
+      #get 'contact_wizard/submit_custom_csv'
+      #
+      #get 'contact_wizard/upload_linkedin_csv'
+      #
+      #get 'contact_wizard/submit_linkedin_csv'
+      #
+      
       
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]

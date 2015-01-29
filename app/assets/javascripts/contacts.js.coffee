@@ -28,6 +28,14 @@ ready = ->
   
       return
       
+  $("#client_import_file").change ->
+    #alert 'fo'
+    if $("#client_import_file").val() == ''
+      $(".btn-save").attr('disabled', 'disabled');
+    else
+      $(".btn-save").removeAttr("disabled")
+      
+      
    
 
 

@@ -10,6 +10,7 @@ class Client < ActiveRecord::Base
   after_create :conect_to_user
   after_commit :flush_cache
   before_save :set_full_name
+  validates_presence_of :email
   
   include PgSearch
   pg_search_scope :search, against: [ :name,         
@@ -92,8 +93,7 @@ class Client < ActiveRecord::Base
   end
   
   def self.post_info user_email
-    ap '============  post_info  ============='
-    ap user_email
+
     channel = 'digiramp_radio_' + user_email
     Pusher.trigger(channel, 'digiramp_event', {"title" => 'CSV file imported', 
                                           "message" => "Please reload the client page", 

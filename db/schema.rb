@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150126173832) do
+ActiveRecord::Schema.define(version: 20150128233923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2269,7 +2269,7 @@ ActiveRecord::Schema.define(version: 20150126173832) do
     t.string   "link_to_twitter",            default: ""
     t.string   "link_to_linkedin",           default: ""
     t.string   "link_to_google_plus",        default: ""
-    t.boolean  "subscribe_to_opportunities"
+    t.boolean  "subscribe_to_opportunities", default: true
     t.string   "link_to_homepage"
     t.boolean  "initialized",                default: false
     t.text     "short_description"

@@ -10,13 +10,13 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user), \ 
-                                                              'Import contacts'.to_sym => user_user_import_contacts_path(@user)}, current: ''}
+                                                              'New contacts'.to_sym => new_user_user_contact_path( @user)}, current: ''}
       .row
         .col-sm-8
-          h2 Import contacts csv file
+          h2 Upload custom csv file
         .col-sm-4.pull-down-10
           .pull-right
-            = link_to user_user_import_contacts_path( @user ) do
+            = link_to new_user_user_contact_path( @user ) do
               .btn.btn-default
                 i.fa.fa-chevron-left
                 '&nbsp;Back
@@ -27,12 +27,24 @@
         .row
           .col-sm-12
             h4 Instructions
-            'Download this template: 
-            = link_to @zip_file.title, @zip_file.zip_file_url
-            br Fill it in with your own contacts and upload it here
-
-          .col-sm-12
-            h4 Attach file
+            ol
+              li Download the template
+              li Fill it in with your contacts. email is required
+              li Don't change the column names, they are required
+              li Save the file as cvs
+              li Upload the file
+        .sexy_line    
+        .row
+          .col-sm-6
+            h4 1: Download template
+            .pull-down-12
+            = link_to @zip_file.zip_file_url do
+              .btn.btn-default
+                i.fa.fa-cloud-download
+                '&nbsp;Download
+            
+          .col-sm-6
+            h4 2: Upload csv file
 
             
             = simple_form_for [ @user, @client_import], :url => url_for(:action => 'create', :controller => 'from_csv'), :method => 'post' do |f|
@@ -54,15 +66,15 @@
                   = f.file_field :file, multiple: false, label: 'Select CSV file'
                 a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
                   'Remove
-            
+              
               .row
                 .col-sm-12
                   .pull-right
-                    /= link_to 'Cancel', account_account_clients_path(@account), 'data-no-turbolink'=>'true', class: 'btn btn-default btn-lg'
-                    /'&nbsp;
+                    = link_to 'Cancel', new_user_user_contact_path( @user), class: 'btn btn-default'
+                    '&nbsp;
                     = f.submit 'Upload', class: 'btn btn-primary'
 
-      = link_to user_user_import_contacts_path( @user ) do
+      = link_to new_user_user_contact_path( @user ) do
         .btn.btn-default
           i.fa.fa-chevron-left
           '&nbsp;Back      

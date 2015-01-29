@@ -8,7 +8,7 @@ class MusicSubmission < ActiveRecord::Base
   has_many            :comments, as: :commentable
   after_commit        :flush_cache
   
-  validates :recording_id, :music_request_id, :user_id, :account_id, :opportunity_user_id, presence: true
+  validates :recording_id, :music_request_id, :user_id, :account_id, presence: true
 
   
   

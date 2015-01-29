@@ -34,8 +34,21 @@ class User::ContactsController < ApplicationController
 
 
   def create
-    @contact = Client.create(client_params)
-    redirect_to user_user_contact_path( @user, @contact )
+    @message = 'Contact created'
+    if email = EmailValidator.saintize( params[:client][:email] )
+      params[:client][:email] = email
+      unless @user.clients.where(email: email ).present?
+        Client.create(client_params)
+      else
+        @message = "A contact with the email: #{email} already exists"
+        ap @message
+      end
+    else
+      @message = 'Invalid email'
+      
+    end
+    @contact = Client.new
+    #redirect_to user_user_contact_path( @user, @contact )
     
   end
   

@@ -46,7 +46,7 @@ enable_next_button =() ->
   
   allowedExtension = ["mp3", "wave", "gif", "png"]
  
-  enable_next=  $("input[type='checkbox']").prop( "checked" )
+  enable_next =  $("input[type='checkbox']").prop( "checked" )
   if $("#recording_file").val() == ''
     enable_next = false
 

@@ -24,7 +24,8 @@
                     .btn.btn-danger.btn-xs
                       i class="fa fa-times"
             '&nbsp;
-            = opportunity_user.user.email
+            => link_to image_tag(opportunity_user.user.image_url(:avatar_32x32)), user_path(opportunity_user.user)
+            = opportunity_user.user.user_name
             
             .pull-right
               = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user) do

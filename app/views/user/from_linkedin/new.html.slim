@@ -10,7 +10,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user), \ 
-                                                              'Import contacts'.to_sym => user_user_import_contacts_path(@user)}, current: ''}
+                                                              'New contacts'.to_sym => new_user_user_contact_path( @user)}, current: ''}
       .row
         .col-sm-8
           .linked_in
@@ -19,7 +19,7 @@
               h2 Import contacts from Linkedin
         .col-sm-4.pull-down-10
           .pull-right
-            = link_to user_user_import_contacts_path( @user ) do
+            = link_to new_user_user_contact_path( @user ) do
               .btn.btn-default
                 i.fa.fa-chevron-left
                 '&nbsp;Back
@@ -30,12 +30,31 @@
         .row
           .col-sm-6
             h4 Instructions
-            'Please go to #{ link_to 'Exporting Your LinkedIn Connections', 'https://help.linkedin.com/app/answers/detail/a_id/3/~/exporting-your-linkedin-connections', target: "_blank"}
-            '&nbsp and follow the instructions. 
-            br From the last page select 'Microsoft Outlook (.CSV file)
+            ol
+              li Go to #{ link_to 'Exporting Your LinkedIn Connections', 'https://help.linkedin.com/app/answers/detail/a_id/3/~/exporting-your-linkedin-connections', target: "_blank"}
+              li Follow the instructions. 
+              li From the last page select 'Microsoft Outlook (.CSV file)
+              li Upload the csv file
+            br 
+          .col-sm-6.pull-down-12
+            b Troubleshooting
+            ol
+              li Open the csv file in a editor
+              li Check the document for special charachters like ∞  and remove them
+              li Try to reupload
+              li 
+                'If that's not working download 
+                => link_to 'this template', '#'
+              li Make sure headers are the same as in the template
+              li Try to reupload
+
+            
+        .sexy_line    
         .row
-          .col-sm-12
-            h4 Attach file
+          .col-sm-6
+
+          .col-sm-6
+            h4 Upload csv file
             = simple_form_for [ @user, @client_import], :url => url_for(:action => 'create', :controller => 'from_linkedin'), :method => 'post' do |f|
               = f.hidden_field :account_id, value: @user.account.id
               = f.hidden_field :user_id, value: @user.id
@@ -58,12 +77,14 @@
             
               .row
                 .col-sm-12
-                  .pull-right
-                    /= link_to 'Cancel', account_account_clients_path(@account), 'data-no-turbolink'=>'true', class: 'btn btn-default btn-lg'
-                    /'&nbsp;
-                    = f.submit 'Upload', class: 'btn btn-primary please_wait'
+                  .pull-right.pull-down-10
+                    => link_to 'Cancel', new_user_user_contact_path(@user), class: 'btn btn-default'
 
-      = link_to user_user_import_contacts_path( @user ) do
+                    = f.submit 'Save', class: 'btn btn-primary btn-save', disabled: "disabled"
+                    
+                    /= f.submit 'Upload', class: 'btn btn-primary please_wait'
+
+      = link_to new_user_user_contact_path( @user ) do
         .btn.btn-default
           i.fa.fa-chevron-left
           '&nbsp;Back      

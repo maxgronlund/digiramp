@@ -1,7 +1,7 @@
 class Opportunity < ActiveRecord::Base
   include PublicActivity::Common
-  has_many        :opportunity_invitations
-  has_many        :music_requests, dependent: :destroy
+  has_many  :opportunity_invitations
+  has_many  :music_requests, dependent: :destroy
   
   accepts_nested_attributes_for :music_requests, :reject_if => :all_blank, :allow_destroy => true
   
