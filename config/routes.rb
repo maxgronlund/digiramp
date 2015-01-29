@@ -739,6 +739,7 @@ Digiramp::Application.routes.draw do
         get  'upload_linkedin_csv'
         post 'submit_linkedin_csv'
         get  'add_contacts_by_emails'
+        post 'submit_contacts_by_emails'
       end
       
       resources :add_contacts_by_emails, only: [:create]

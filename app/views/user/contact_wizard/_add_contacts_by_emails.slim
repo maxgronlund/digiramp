@@ -1,0 +1,17 @@
+.old-contacts-content
+  h4 Write emails
+  .digi-box
+    .row
+      .col-sm-12
+        .list_of_emails
+          = simple_form_for [:user, @user], :url => url_for(:action => 'submit_contacts_by_emails', :controller => 'contact_wizard'), remote: true, :method => 'post' do |f|
+            
+            /= text_area_tag 'post'
+          
+            = text_area_tag 'emails', nil, placeholder: "Emails seperated by commas i.e. \njohn@doe.com, jane@doe.com" 
+            
+          
+            .row.pull-down-12
+              .col-sm-12
+                .pull-right
+                  = f.submit 'Save', class: 'btn btn-primary'

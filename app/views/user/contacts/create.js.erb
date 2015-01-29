@@ -1,5 +1,5 @@
 $('.old-contacts-content').remove()
-$(".add-contacts-content").prepend('<%=j render("user/contacts/add_contact", user: @user, contact: @contact ) %>');
+$(".add-contacts-content").prepend('<%=j render("user/contact_wizard/add_contact", user: @user, contact: @contact ) %>');
 
 $(".old-notification").remove()
-$(".notification").prepend('<%=j render("user/contacts/contact_added", message: @message) %>');
+$(".notification").prepend('<%=j render("user/contact_wizard/contact_added", message: @message) %>');

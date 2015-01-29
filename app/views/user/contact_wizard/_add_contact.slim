@@ -1,0 +1,54 @@
+.old-contacts-content
+  .digi-box
+    
+    = simple_form_for [ user, contact], :url => url_for(:action => 'create', :controller => 'contacts'), :method => 'post', remote: true do |f|
+      .row
+        .col-sm-4
+          = f.hidden_field :user_uuid, value: user.id
+          = f.hidden_field :user_id, value: user.id
+          = f.hidden_field :account_id, value: user.account.id
+          /= f.input :title
+
+          = f.input :email
+          = f.input :name, label: 'First Name'
+          = f.input :last_name
+          = f.input :company
+          = f.input :department
+          = f.input :capacity
+          = f.input :business_email
+        .col-sm-4
+          = f.input :telephone_home
+          = f.input :business_phone
+          = f.input :direct_phone
+          = f.input :fax_home
+          = f.input :business_fax
+          = f.input :direct_fax
+          = f.input :cell_phone
+    
+    
+        .col-sm-4
+          /= f.input :photo
+    
+          = f.input :address_work, :input_html => {  style: "height: 120px;"}, label: 'Address'
+          = f.input :city_work,     label: 'City'
+          .row
+            .col-sm-6
+              = f.input :state_work,    label: 'State'
+            .col-sm-6
+              = f.input :zip_work,      label: 'Zip Code'
+          br
+          b Country
+          br
+          = f.input :country_work   , label: false
+          = f.input :home_page      , label: 'Home Page', placeholder: 'i.e. http://xxx.com'
+    
+      .row
+        .col-sm-12
+          = link_to user_user_contacts_path( @user ) do
+            .btn.btn-default
+              i.fa.fa-chevron-left
+              '&nbsp;Back
+          .pull-right
+            => link_to 'Cancel', user_user_contacts_path( @user ), class: 'btn btn-default'
+              
+            = f.submit 'Save', class: 'btn btn-primary'
