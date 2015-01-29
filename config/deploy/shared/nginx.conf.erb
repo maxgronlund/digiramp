@@ -5,6 +5,8 @@ upstream unicorn {
 server {
   server_name <%= fetch(:server_name) %>;
   listen 80;
+  
+  
   root <%= fetch(:deploy_to) %>/current/public;
 
   location ^~ /assets/ {

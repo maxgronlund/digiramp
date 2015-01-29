@@ -5,6 +5,7 @@ set :branch, "master"
 # the app should appear on. If you don't yet have DNS setup, you'll
 # need to create entries in your local Hosts file for testing.
 set :server_name, "www.digiramp.com digiramp.com"
+#set :server_name, "www.digiramp.com digiramp.com .digiramp.org .digiramp.net .assets-manager.com"
 
 # used in case we're deploying multiple versions of the same
 # app side by side. Also provides quick sanity checks when looking

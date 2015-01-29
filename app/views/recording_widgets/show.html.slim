@@ -1,13 +1,14 @@
 - if @recording
   #digiWhams  class="/recordings/#{@recording.id.to_s}"
-    == render 'recordings/recording_with_icons', recording: @recording, 
-                                                 info: true,
-                                                 add_to_playlist: false, 
-                                                 remove_from_playlist: false, 
-                                                 edit: false, 
-                                                 delete: false,
-                                                 description: true,
-                                                 share: false,
-                                                 target: "_parent",
-                                                 music_request_link: false,
-                                                 remove_from_request: false
+    == render 'audio_player/show', recording: @recording , description: false, target: "_parent"
+    /== render 'recordings/recording_with_icons', recording: @recording, 
+    /                                             info: true,
+    /                                             add_to_playlist: false, 
+    /                                             remove_from_playlist: false, 
+    /                                             edit: false, 
+    /                                             delete: false,
+    /                                             description: true,
+    /                                             share: false,
+    /                                             target: "_parent",
+    /                                             music_request_link: false,
+    /                                             remove_from_request: false
