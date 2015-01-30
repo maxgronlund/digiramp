@@ -77,7 +77,7 @@
               =f.input :contact_email
               .row
                 .col-sm-6
-                  = f.input :country
+                  = f.input :country, as: :country, priority: ['US'] 
                 .col-sm-6
                   = f.input :city
               .row

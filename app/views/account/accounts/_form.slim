@@ -48,7 +48,7 @@
           =f.input :contact_last_name
       =f.input :contact_email
       =f.input :fax
-      =f.input :country, as: :string
+      =f.input :country, as: :country, priority: ['US'] 
       =f.input :street_address
       =f.input :city
       =f.input :state
