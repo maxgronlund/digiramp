@@ -48,12 +48,15 @@ class ShareOnFacebooksController < ApplicationController
   
   
   def share_with_authorized_user params
+    ap params
     # '-------------- ShareOnFacebooksController#share_with_authorized_user -----------'
     # ohay everything is cool we are calle with ajax
     @recording  = Recording.cached_find(params[:share_on_facebook][:recording_id])
     @user = current_user
     @recording_id = @recording.id
+    # error here user_id not saved
     @share_on_facebook = ShareOnFacebook.new(share_on_facebook_params)
+    
     if @share_on_facebook.save
       FbRecordingCommentWorker.perform_async(@share_on_facebook.id)
   
@@ -90,13 +93,14 @@ class ShareOnFacebooksController < ApplicationController
   
   # used when there is a full page reload after signing in / up with facebook
   def show
+    #ap params
     # '-------------- ShareOnFacebooksController#show called after authorizing facebook -----------'
 
     
     
     recording  = Recording.cached_find(params[:recording_id])
     user = current_user
-    
+    ap user
     
     message    = ''
     if session[:message]  
@@ -136,6 +140,12 @@ class ShareOnFacebooksController < ApplicationController
 
 private
   def share_on_facebook_params
-    params.require(:share_on_facebook).permit(:recording_id, :message)
+    # FOUND ERROR HERE
+    # user_id was not saved: called from line 57
+    # look inside FbRecordingCommentWorker line 12
+    params.require(:share_on_facebook).permit!
+    
+    # bommer here 
+    #params.require(:share_on_facebook).permit(:recording_id, :message)
   end
 end
