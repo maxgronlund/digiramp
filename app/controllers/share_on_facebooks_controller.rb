@@ -6,7 +6,6 @@ class ShareOnFacebooksController < ApplicationController
     
     if current_user
       share_when_logged_in params
-      
     else
       # there is a user but the user is not / linked with facebook 
       if params[:id]
@@ -48,7 +47,7 @@ class ShareOnFacebooksController < ApplicationController
   
   
   def share_with_authorized_user params
-    ap params
+  
     # '-------------- ShareOnFacebooksController#share_with_authorized_user -----------'
     # ohay everything is cool we are calle with ajax
     @recording  = Recording.cached_find(params[:share_on_facebook][:recording_id])
@@ -145,7 +144,7 @@ private
     # look inside FbRecordingCommentWorker line 12
     params.require(:share_on_facebook).permit!
     
-    # bommer here 
+    # bommer here : not permiting user_id
     #params.require(:share_on_facebook).permit(:recording_id, :message)
   end
 end

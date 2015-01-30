@@ -6,9 +6,10 @@ class ShareOnTwittersController < ApplicationController
  
   def create
     ap '============ BANG ==============='
+    ap params
     @share_on_twitter = ShareOnTwitter.create(share_on_twitter_params)
     #@user             = User.find(params[:share_on_twitter][:user_id])
-    #@recording_id     = @share_on_twitter.recording.id
+    @recording_id     = params[:share_on_twitter][:recording_id]
     
     TwitterRecordingTweetWorker.perform_async( @share_on_twitter.id)
 
