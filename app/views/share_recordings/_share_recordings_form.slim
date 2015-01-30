@@ -46,6 +46,7 @@
                 /= f.error_notification
               
                 .form-inputs
+                  = f.hidden_field :user_id,      value: current_user.id
                   = f.hidden_field :recording_id, value: recording.id
                   /= f.input :message, class: "facebook_#{recording.id.to_s}"
                   = f.input :message, :input_html => {  style: "height: 110px;", class: "init_facebook_#{recording.id.to_s}"}
@@ -74,11 +75,6 @@
                     'Close
                   '&nbsp;
                   = f.submit 'Share', class: 'btn btn-primary'
-              
-              
-              
-              
-              
               
               
             .tab-pane.fade id="gplus_#{recording.id.to_s}"
@@ -143,10 +139,7 @@ javascript:
     $(".init_email_title_#{recording.id.to_s}").val("#{current_user.user_name.to_s} has shared a recording with you on DigiRAMP");
     $(".init_email_message_#{recording.id.to_s}").val("I found #{ raw recording.title.to_s} on DigiRAMP");
     
-  }); 
-  
-  
-               
+  });              
       
 
   
