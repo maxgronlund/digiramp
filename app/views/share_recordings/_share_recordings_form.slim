@@ -46,7 +46,6 @@
                 /= f.error_notification
               
                 .form-inputs
-                  = f.hidden_field :user_id,      value: current_user.id
                   = f.hidden_field :recording_id, value: recording.id
                   /= f.input :message, class: "facebook_#{recording.id.to_s}"
                   = f.input :message, :input_html => {  style: "height: 110px;", class: "init_facebook_#{recording.id.to_s}"}

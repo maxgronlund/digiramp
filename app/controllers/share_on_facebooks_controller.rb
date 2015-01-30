@@ -51,7 +51,7 @@ class ShareOnFacebooksController < ApplicationController
     # '-------------- ShareOnFacebooksController#share_with_authorized_user -----------'
     # ohay everything is cool we are calle with ajax
     @recording  = Recording.cached_find(params[:share_on_facebook][:recording_id])
-    @user       = User.cached_find(params[:share_on_facebook][:user_id])
+    @user = current_user
     @recording_id = @recording.id
     @share_on_facebook = ShareOnFacebook.new(share_on_facebook_params)
     if @share_on_facebook.save
@@ -95,10 +95,10 @@ class ShareOnFacebooksController < ApplicationController
     
     
     recording  = Recording.cached_find(params[:recording_id])
-    user       = User.cached_find(params[:user_id] ? params[:user_id] : params[:id])
+    user = current_user
     
     
-    message    = 'I found this on DigiRAMP'
+    message    = ''
     if session[:message]  
       message = session[:message]  
       session[:message]  = nil
@@ -136,6 +136,6 @@ class ShareOnFacebooksController < ApplicationController
 
 private
   def share_on_facebook_params
-    params.require(:share_on_facebook).permit(:user_id, :recording_id, :message)
+    params.require(:share_on_facebook).permit(:recording_id, :message)
   end
 end
