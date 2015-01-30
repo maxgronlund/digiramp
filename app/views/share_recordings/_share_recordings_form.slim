@@ -133,7 +133,7 @@ javascript:
   //console.log("#{recording.title.to_s}");
   $("#shareRecordingModal_#{recording.id.to_s}").on('shown.bs.modal', function (event) {
     
-    $(".init_facebook_#{recording.id.to_s}").val("I found #{raw recording.title.to_s} on DigiRAMP");
+    //$(".init_facebook_#{recording.id.to_s}").val("I found #{raw recording.title.to_s} on DigiRAMP");
     $(".init_twitter_#{recording.id.to_s}").val("Checkout #{raw recording.title.to_s} on #DigiRamp. https://digiramp.com/users/#{recording.user.slug.to_s}/recordings/#{recording.id}");
     $(".init_email_recipients_#{recording.id.to_s}").val("");
     $(".init_email_title_#{recording.id.to_s}").val("#{current_user.user_name.to_s} has shared a recording with you on DigiRAMP");

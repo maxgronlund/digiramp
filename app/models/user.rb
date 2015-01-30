@@ -851,6 +851,7 @@ class User < ActiveRecord::Base
 
 
   def tweet message
+     ap '================================== tweet message =================='
 
     if self.authorization_providers
        
@@ -858,6 +859,11 @@ class User < ActiveRecord::Base
       if provider_twitter = self.authorization_providers.where(provider: 'twitter').first
 
           client = Twitter::REST::Client.new do |config|
+            ap TWITTER_KEY
+            ap TWITTER_SECRET
+            ap provider_twitter[:oauth_token]
+            ap provider_twitter[:oauth_secret]
+            
             config.consumer_key        = TWITTER_KEY
             config.consumer_secret     = TWITTER_SECRET
             config.access_token        = provider_twitter[:oauth_token]
