@@ -850,35 +850,47 @@ class User < ActiveRecord::Base
   end
 
 
-  def tweet message
-     ap '================================== tweet message =================='
-
-    if self.authorization_providers
-       
-      # get twitter provider
-      if provider_twitter = self.authorization_providers.where(provider: 'twitter').first
-
+  def tweet share_on_twitter_id
+    
+    
+    if share_on_twitter = ShareOnTwitter.cached_find(share_on_twitter_id)
+    
+    
+    
+      if self.authorization_providers
+         
+        # get twitter provider
+        if provider_twitter = self.authorization_providers.where(provider: 'twitter').first
+      
           client = Twitter::REST::Client.new do |config|
-            ap TWITTER_KEY
-            ap TWITTER_SECRET
-            ap provider_twitter[:oauth_token]
-            ap provider_twitter[:oauth_secret]
-            
             config.consumer_key        = TWITTER_KEY
             config.consumer_secret     = TWITTER_SECRET
+            
             config.access_token        = provider_twitter[:oauth_token]
             config.access_token_secret = provider_twitter[:oauth_secret]
+          
           end
-    
-          client.update(message)
+          
+
+          open( share_on_twitter.recording.get_artwork) do |file|
+            client.update_with_media( share_on_twitter.message, file );
+          end
+        else
+          ap '----------- twitter provider not found. Link account now ----------------------'
+        end
       else
-        ap '================================== no provider for twitter =================='
+        ap '----------- authorization provider not found. Link account to twitter now ----------------------'
       end
     else
-      ap '================= no providers at all ============================='
+      ap '----------- share_on_twitter model not found ----------------------'
     end
     
-
+    
+    
+    
+    ap '================== fire a notification =========================='
+    
+    
   end
   
     

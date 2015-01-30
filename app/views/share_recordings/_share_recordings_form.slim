@@ -77,6 +77,11 @@
                   = f.submit 'Share', class: 'btn btn-primary'
               
               
+              
+              
+              
+              
+              
             .tab-pane.fade id="gplus_#{recording.id.to_s}"
               h4 + Google
             .tab-pane.fade id="linkedin_#{recording.id.to_s}"
@@ -139,7 +144,10 @@ javascript:
     $(".init_email_title_#{recording.id.to_s}").val("#{current_user.user_name.to_s} has shared a recording with you on DigiRAMP");
     $(".init_email_message_#{recording.id.to_s}").val("I found #{ raw recording.title.to_s} on DigiRAMP");
     
-  });              
+  }); 
+  
+  
+               
       
 
   
