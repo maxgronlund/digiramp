@@ -10,17 +10,17 @@
   transition: all 0.5s ease 
   
 #wrapper.toggled  
-  padding-left: 200px 
+  padding-left: 180px 
   
 #sidebar-wrapper  
   h5
     margin-bottom: 6px
   z-index: 1000 
   position: fixed 
-  left: 200px 
+  left: 180px 
   width: 0 
   height: 100% 
-  margin-left: -200px 
+  margin-left: -180px 
   overflow-y: auto 
   padding: 50px 0px 30px 0px
   +box-shadow(#BBB 1px 1px 1px)
@@ -35,6 +35,7 @@
   
   .fa
     font-size: 18px
+    margin-left: -8px
   .tag 
 
     .tag-title 
@@ -71,7 +72,7 @@
   .sidebar-nav  
     //position: absolute 
     top: 0 
-    width: 200px 
+    width: 180px 
     margin: 0 
     //padding-top: 50px 
     list-style: none 
@@ -85,6 +86,9 @@
       margin-left: -2px
       margin-top: 10px
       margin-bottom: 8px
+      img 
+        width: 164px
+        height: auto
       //display: inline-block
       //float: left
     .user-name
@@ -132,7 +136,7 @@
   
   
 #wrapper.toggled #sidebar-wrapper  
-  width: 200px 
+  width: 180px 
  
 #page-content-wrapper  
   width: 100% 
@@ -141,19 +145,19 @@
  
 #wrapper.toggled #page-content-wrapper  
   position: absolute 
-  margin-right: -200px 
+  margin-right: -180px 
  
 
 
 @media(min-width:768px)  
   #wrapper  
-    padding-left: 200px 
+    padding-left: 180px 
      
   #wrapper.toggled  
     padding-left: 0 
    
   #sidebar-wrapper  
-    width: 200px 
+    width: 180px 
    
   #wrapper.toggled #sidebar-wrapper  
     width: 0 
@@ -171,6 +175,7 @@
   left: 0px
   
 #terms 
+
   bottom: 0px
   height: 40px
   position: fixed
@@ -181,63 +186,7 @@
   @include opacity(0.5)
   a
     color: #FFF
+    font-size: 12px
   //text-align: center
-
-
-//.sidebar
-//  position: relative
-//
-//  width: 100%
-//  //margin: 0
-//  //padding-top: 10px
-//  list-style: none
-//  margin: 0px
-//  margin-right: 10px
-//  
-//  .sidebar-selected 
-//    //background: rgba(200, 200, 200, 0.2)
-//    background-color: #6DADC7
-//    font-weight: 500
-//    a
-//      color: #FFF
-//    a:active, a:focus  
-//      color: #FFF
-//
-//    .fa
-//      color: #69ACC8
-//    
-//    .fa-heart
-//      color: #A70009
-//  
-//  
-//  li  
-//    text-indent: 8px 
-//    line-height: 38px 
-//  
-//    a  
-//      display: block 
-//      text-decoration: none 
-//      color: #999999 
-//      p
-//        margin-top: -4px
-//        display: inline
-//      
-//      
-//    a:hover  
-//      text-decoration: none 
-//      color: #000 
-//      background: rgba(200,200,200,0.2) 
-//
-//    a:active, a:focus  
-//      text-decoration: none
-//
-//    
-//    .fa
-//      font-size: 18px
-//      margin-right: 6px
-//      
-//    
-//  
-//
 
 
