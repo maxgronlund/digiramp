@@ -76,6 +76,8 @@ class Account < ActiveRecord::Base
   has_many :campaigns, dependent: :destroy
   has_many :campaign_events
   has_many :client_invitation, dependent: :destroy
+  
+  has_many :comments,        as: :commentable,          dependent: :destroy
                 
 
   # account types

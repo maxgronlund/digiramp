@@ -147,6 +147,7 @@ class Account::AccountUsersController < ApplicationController
   end
   
   def update
+    ap params
     forbidden unless current_account_user.update_user
     
     @account_user = AccountUser.cached_find(params[:id])

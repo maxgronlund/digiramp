@@ -12,24 +12,24 @@
     .container-fluid
   
       == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ) }, current:'' }
-      /.row
-      /  .col-sm-7
-      /    .help
-      /      .help-text
-      /        h2 #{@account.title} <funky>Pro</funky>
-      /  
-      /      .help-button
-      /        == render 'admin/helps/help', identifier: 'account opportunities'
-      /
-      /  .col-sm-5
-      /    .pull-right
-      /      .recording-navigation
-      /        = link_to new_account_account_opportunity_path(@user.account) do
-      /          .btn.btn-primary
-      /            i.fa.fa-plus-circle
-      /            '&nbsp;
-      /            'Create Recording
-      h2 Recordings
+      .row
+        .col-sm-7
+          .help
+            .help-text
+              h2 Recordings
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'account recordings'
+
+        .col-sm-5
+          .pull-right
+            .recording-navigation
+              = link_to account_account_recording_departures_path(@account) do
+                .btn.btn-default
+                  i.fa.fa-suitcase
+                  '&nbsp;
+                  'Receive recordings
+
       .sexy_line
       - @recordings.each do |recording|
         div id="delete_recording_#{recording.id.to_s}"

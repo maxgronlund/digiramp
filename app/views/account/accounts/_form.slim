@@ -57,6 +57,5 @@
   .row
     .col-sm-12
       .pull-right
-        = link_to 'Cancel', user_path(@account.user), class: 'btn btn-default btn-lg'
-        '&nbsp;
-        = f.submit 'Save', class: 'btn btn-primary btn-lg'
+        => link_to 'Cancel', account_account_path(@account), class: 'btn btn-default'
+        = f.submit 'Save', class: 'btn btn-primary'
