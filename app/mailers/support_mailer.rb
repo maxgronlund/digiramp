@@ -6,12 +6,13 @@ class SupportMailer < ActionMailer::Base
   #
   #   en.support_mailer.ticket_created.subject
   #
-  def ticket_received user_id,  issue_id, blog_post_id
+  def ticket_received user_id,  issue_id
     @user      = User.cached_find user_id
     @issue     = Issue.cached_find issue_id
-    @blog_post = BlogPost.find( blog_post_id )
-    @body      = @blog_post.body.gsub( '--user--', @user.name)
-    mail to: @user.email,  subject: @blog_post.title
+    #@blog_post = BlogPost.find( blog_post_id )
+    #@body      = @blog_post.body.gsub( '--user--', @user.name)
+
+    mail to: @user.email,  subject: @issue.title
   end
   
   def ticket_created
