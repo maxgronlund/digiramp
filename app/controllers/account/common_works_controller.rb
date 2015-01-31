@@ -104,19 +104,39 @@ class Account::CommonWorksController < ApplicationController
   end
   
   def recordings_create
+    ap params
     forbidden unless current_account_user.update_common_work
     forbidden unless current_account_user.create_recording?
     
     @common_work           = CommonWork.cached_find(params[:id])
     
-    begin
-      TransloaditParser.add_to_common_work params[:transloadit], @common_work.id, @account.id
-      flash[:info]      = { title: "Success", body: "Recording added to Common Work" }
-      redirect_to recordings_account_account_common_work_path(@account, @common_work )
-    rescue
-      flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
-      redirect_to new_recordings_account_account_common_work_path(@account, @common_work )
-    end
+    #begin
+      #TransloaditParser.add_to_common_work params[:transloadit], @common_work.id, @account.id
+      if result = TransloaditRecordingsParser.parse( params[:transloadit],  @account.id, false, @account.user_id)
+        if result[:recordings].size != 0
+      
+          result[:recordings].each do |recording|
+            recording.common_work_id = @common_work.id
+            recording.save!
+                  
+            #current_user.create_activity(  :created, 
+            #                           owner: recording,
+            #                       recipient: current_account_user.user,
+            #                  recipient_type: 'Recording',
+            #                      account_id: current_user.account_id) 
+            #                  
+            #
+            
+          end
+        end
+        
+      end
+      #flash[:info]      = { title: "Success", body: "Recording added to Common Work" }
+      redirect_to account_account_common_work_path(@account, @common_work )
+      #rescue
+      #flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
+      #redirect_to new_recordings_account_account_common_work_path(@account, @common_work )
+      #end
 
   end
   

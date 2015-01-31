@@ -10,27 +10,23 @@
     tbody
       -@common_works.each do |common_work|
         tr
-          td = link_to common_work.title, account_account_common_work_path(@account, common_work), class: 'btn btn-default'
+          td = link_to common_work.title, account_account_common_work_path(@account, common_work), class: 'btn btn-default btn-xs'
           
           td
-            = link_to recordings_account_account_common_work_path(@account, common_work) do
-              .btn.btn-default
-                i class="fa fa-headphones"
-                '&nbsp;
-                = pluralize(common_work.recordings.count, 'Recording')  
+            = pluralize(common_work.recordings.count, 'Recording')  
 
                 
                 
             - if current_account_user.create_recording
               '&nbsp;
               = link_to recordings_new_account_account_common_work_path(@account, common_work)
-                .btn.btn-default
+                .btn.btn-default.btn-xs
                   i class="fa fa-plus-circle"
 
           
           td 
             = link_to account_account_common_work_common_work_ipis_path( @account, common_work) do
-              .btn.btn-default
+              .btn.btn-default.btn-xs
                 i class="fa fa-users"
                 '&nbsp;
                 = pluralize(common_work.ipis.count, 'Ipi')  
@@ -43,15 +39,15 @@
           td
             .pull-right
               = link_to account_account_common_work_path(@account, common_work) do
-                .btn.btn-default
+                .btn.btn-default.btn-xs
                   i class="fa fa-gears"
               '&nbsp;
               = link_to edit_account_account_common_work_path(@account, common_work)
-                .btn.btn-default
+                .btn.btn-default.btn-xs
                   i class="fa fa-pencil"
               '&nbsp;
               = link_to account_account_common_work_path(@account, common_work), data: { confirm: 'Are you sure?' } , :method => :delete do
-                .btn.btn-default
+                .btn.btn-danger.btn-xs
                   i class="fa fa-times"
       
 

@@ -11,10 +11,10 @@ class TransloaditRecordingsParser
   def self.extract uploads
     
     if uploads.nil? || uploads[:results].nil? ||  uploads[:results][':original'].nil?
-      #puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-      #puts 'ERROR: Unable to extract recordings: uploads nil'
-      #puts 'In TransloaditRecordingsParser#extract'
-      #puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+      ap '+++++++++++++++++++++++++++++++++++++++++++++++++'
+      ap 'ERROR: Unable to extract recordings: uploads nil'
+      ap 'In TransloaditRecordingsParser#extract'
+      ap '+++++++++++++++++++++++++++++++++++++++++++++++++'
       return nil 
     end
     transloadets  = []

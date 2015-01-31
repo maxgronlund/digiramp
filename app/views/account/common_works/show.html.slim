@@ -4,13 +4,12 @@
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
   
-
-  #sidebar-wrapper
-    .pro-account
-      #sidebar-wrapper
-        ul class="sidebar-nav"
-          == render 'account/shared/sidebar', selected: 'common_work'
-  
+  .pro-account
+    #sidebar-wrapper
+    
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'common_work'
+        
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ),\
@@ -27,12 +26,23 @@
         .col-sm-5
           .pull-right
             .pull_down_10
-              = link_to 'Edit', edit_account_account_common_work_path(@account, @common_work), class: 'btn btn-primary'
+              -if current_account_user.create_recording? && current_account_user.update_common_work?
+                = link_to recordings_new_account_account_common_work_path(@account, @common_work), 'data-no-turbolink'=>true do 
+                  .btn.btn-default
+                    i class="fa fa-plus-circle"
+                    '&nbsp;
+                    'Add Recordings
+                    
+              - if current_account_user.read_common_work_ipi
+                = link_to "Work IPI's", account_account_common_work_common_work_ipis_path(@account, @common_work), class: 'btn btn-default'
+              - if current_account_user.update_common_work        
+                =< link_to 'Edit', edit_account_account_common_work_path(@account, @common_work), class: 'btn btn-primary'
 
       .sexy_line
       .row
         .col-sm-12
           h4 Recordings
+          /= link_to 'fo', recordings_account_account_common_work_path(@account, @common_work)
           - @common_work.recordings.each do |recording|
             #digiWhams  class="/recordings/#{recording.id.to_s}"
               == render 'account/recordings/account_recording', recording: recording,
@@ -55,21 +65,61 @@
                 'Please add a description
             - else
               = simple_format @common_work.description
-          h4 IPI's
-          .digi-box
-            - @common_work.ipis.each do |ipi|
-              = ipi.full_name
-              .sexy_line
+          - if current_account_user.read_common_work_ipi
+            h4 Work IPI's
+            .digi-box
+              - @common_work.ipis.each do |ipi|
+                = ipi.full_name
+                .sexy_line
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to 'More', account_account_common_work_common_work_ipis_path(@account, @common_work), class: 'btn btn-default'
           - if @common_work.lyrics.to_s != ''
             h4 Lyrics
             .digi-box
               = simple_format @common_work.lyrics
         .col-sm-6
+          -if  @common_work.artwork.to_s != ''
+            h4 Artwork
+            .thumbnail
+              = image_tag @common_work.artwork
           
-          = debug @common_work
-          table class="table"
-            - if @common_work.surveyed_work
-              == render 'shared/meta_line' , locals: {title: 'Surveyed work', data: @common_work.surveyed_work}
+          h4 Info
+          .digi-box
+            table class="table"
+              - if @common_work.surveyed_work.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'Surveyed work', data: @common_work.surveyed_work}
+              - if @common_work.last_distribution.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'Last distribution', data: @common_work.last_distribution}
+              - if @common_work.work_status.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'Work status', data: @common_work.work_status}
+              - if @common_work.ascap_award_winner.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'ASCAP Award winner', data: @common_work.ascap_award_winner}
+              - if @common_work.work_type.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'Work type', data: @common_work.work_type}
+              - if @common_work.composite_type.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'Composite type', data: @common_work.composite_type}
+              - if @common_work.arrangement_of_public_domain_work.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'Arrangement of public domain_work', data: @common_work.arrangement_of_public_domain_work}
+              - if @common_work.genre.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'Genre', data: @common_work.genre}
+              - if @common_work.submitter_work_id.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'Submitter work id', data: @common_work.submitter_work_id}
+              - if @common_work.registration_date.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'Registration date', data: @common_work.registration_date}
+              - if @common_work.bmi_work_id.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'BMI Work ID', data: @common_work.bmi_work_id}
+              - if @common_work.bmi_catalog.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'BMI Work catalog', data: @common_work.bmi_catalog}
+              - if @common_work.registration_origin.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'Registration origin', data: @common_work.registration_origin}
+              - if @common_work.pro_work_id.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'PRO work ID', data: @common_work.pro_work_id}
+              - if @common_work.pro_catalog.to_s != ''
+                == render 'shared/meta_line' , locals: {title: 'PRO catalog', data: @common_work.pro_catalog}
+            
+          /= debug @common_work
     
             
       

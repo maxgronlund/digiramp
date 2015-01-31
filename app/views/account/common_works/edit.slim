@@ -24,8 +24,30 @@
           .col-sm-6
             .digi-box
                 
-              = f.label      :artwork, 'Thumbnail will be scaled to 184x184 pixels' 
-              = f.file_field :artwork, multiple: false
+              /= f.label      :artwork, 'Thumbnail will be scaled to 184x184 pixels' 
+              /= f.file_field :artwork, multiple: false
+              .fileinput.fileinput-new data-provides="fileinput"
+                .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+                  - if @common_work.artwork
+                    = image_tag @common_work.artwork, size: '184x184'
+                  - else
+                    = image_tag 'default-cover.jpg'
+        
+                div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+                div
+                  span.btn.btn-default.btn-file
+                    span class="fileinput-new"
+                      'Select image
+                    '&nbsp;
+                    span class="fileinput-exists"
+                      'Change
+                    = f.file_field :artwork, multiple: false
+        
+                  '&nbsp;
+                  a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                    'Remove
+                    
+                    
               sexy_line
               /= f.input :artwork
               = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
