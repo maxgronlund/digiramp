@@ -68,7 +68,17 @@ class Account::AccountsController < ApplicationController
                    recipient_type: user.class.name,
                        account_id: @account.id)
                    
+      
+      
+      user.flush_auth_token_cache(cookies[:auth_token])
+      cookies.delete(:auth_token)
+      cookies.delete(:user_id)
+      
+      
       user.destroy! 
+      
+      
+      
     end 
     @account.destroy!   
     
