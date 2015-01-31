@@ -1,56 +1,70 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
 
-            
-  .container
-    /==render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account), \
-                                                           common_works: account_account_common_works_path(@account), \
-                                                           @common_work.title.to_sym => account_account_common_work_path(@account, @common_work) \ 
-                                                           }, current: 'edit' }
-                                                            
-    == render 'shared/title', locals: {title: @common_work.title, body: 'Update'}
-    
-
-    = simple_form_for [:account, @account, @common_work],  :html => { :id => 'common_work' } do |f|
-      = transloadit :image_files_to_s3 
-      .row
-        .col-sm-6
-          .panel.panel-primary
-            .panel-heading
-              'Info
-            .panel-body
-              
+  #sidebar-wrapper
+    .pro-account
+      #sidebar-wrapper
+        ul class="sidebar-nav"
+          == render 'account/shared/sidebar', selected: 'common_work'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {common_works: account_account_common_works_path(@account), \
+                                                             @common_work.title.to_sym => account_account_common_work_path(@account, @common_work) \ 
+                                                             }, current: '' }
+                                                              
+      h2 = @common_work.title
+      .sexy_line
+      
+      = simple_form_for [:account, @account, @common_work],  :html => { :id => 'common_work' } do |f|
+        = transloadit :image_files_to_s3 
+        .row
+          .col-sm-6
+            .digi-box
+                
               = f.label      :artwork, 'Thumbnail will be scaled to 184x184 pixels' 
               = f.file_field :artwork, multiple: false
-              hr
+              sexy_line
               /= f.input :artwork
               = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
               = f.input :alternative_titles, :input_html => {  style: "height: 120px;", placeholder: "Alternative Titles"}
-              = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "ISWC Code"}
               = f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
-      
-        .col-sm-6
-          .panel.panel-primary
-            .panel-heading
-              'Lyrics
-            .panel-body
+              = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "ISWC Code"}
+              = f.input :surveyed_work
+              = f.input :last_distribution
+              = f.input :work_status
+              = f.input :ascap_award_winner
+              = f.input :work_type
+              = f.input :bmi_work_id
+              = f.input :bmi_catalog
+              
+              
+          .col-sm-6
+            .digi-box
+              h4 Lysics
               div id="toolbar" class="wysihtml5-toolbar"
                 a data-wysihtml5-command="bold" Bold
                 '&nbsp; 
                 a data-wysihtml5-command="italic" Italic
               
               =f.input :lyrics, label: false, :input_html => {  style: "height: 549px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
-        
-      .pull-right
-        = link_to 'Cancel', account_account_common_work_path( @account, @common_work), class: 'btn btn-default btn-lg'
-        '&nbsp;
-        = f.submit 'Save', class: 'btn btn-primary btn-lg'
-    
-    = transloadit_jquerify :common_work, :wait => true
+              = f.input :composite_type
+              = f.input :arrangement_of_public_domain_work
+              = f.input :genre
+              = f.input :submitter_work_id
+              = f.input :registration_date
+              = f.input :registration_origin
+              = f.input :pro_work_id
+              = f.input :pro_catalog
+          
+        .pull-right
+          = link_to 'Cancel', account_account_common_work_path( @account, @common_work), class: 'btn btn-default'
+          '&nbsp;
+          = f.submit 'Save', class: 'btn btn-primary'
+      
+      = transloadit_jquerify :common_work, :wait => true
 
   
 -cache (['footer', Admin.cached_find(1).version]) do      

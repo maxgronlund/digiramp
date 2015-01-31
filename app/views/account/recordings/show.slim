@@ -35,6 +35,7 @@
           h2 = @recording.title
         .col-sm-4
           .pull-right.pull-down-10
+            => link_to 'Common work', account_account_common_work_path(@account, @recording.common_work), class: 'btn btn-default'
             = link_to 'Edit', edit_account_account_common_work_recording_path(@account, @recording.common_work, @recording), class: 'btn btn-primary'
           
       .sexy_line

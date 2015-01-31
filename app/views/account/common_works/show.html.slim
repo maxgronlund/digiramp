@@ -6,8 +6,10 @@
   
 
   #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'account'
+    .pro-account
+      #sidebar-wrapper
+        ul class="sidebar-nav"
+          == render 'account/shared/sidebar', selected: 'common_work'
   
   #page-content-wrapper
     .container-fluid
@@ -17,38 +19,60 @@
         .col-sm-7
           .help
             .help-text
-              h2 #{@account.title} <funky>Pro</funky>
+              h2 = @common_work.title
         
             .help-button
-              == render 'admin/helps/help', identifier: 'account common_works'
+              == render 'admin/helps/help', identifier: 'account common_work'
       
         .col-sm-5
           .pull-right
             .pull_down_10
+              = link_to 'Edit', edit_account_account_common_work_path(@account, @common_work), class: 'btn btn-primary'
 
       .sexy_line
-        .row
-          .col-sm-12
-            h4 = @common_work.title
-        .row
-          .col-sm-12
-            - @common_work.recordings.each do |recording|
-              div id="delete_recording_#{recording.id.to_s}"
-                #digiWhams  class="/recordings/#{recording.id.to_s}"
-                  == render 'recordings/recording_with_icons', recording: recording,
-                                                               info: true,
-                                                               add_to_playlist: true, 
-                                                               remove_from_playlist: false, 
-                                                               edit: true, 
-                                                               delete: true,
-                                                               description: true,
-                                                               share: true,
-                                                               target: "",
-                                                               music_request_link: false,
-                                                               remove_from_request: false
-              
-        
-        
+      .row
+        .col-sm-12
+          h4 Recordings
+          - @common_work.recordings.each do |recording|
+            #digiWhams  class="/recordings/#{recording.id.to_s}"
+              == render 'account/recordings/account_recording', recording: recording,
+                                                           info: true,
+                                                           add_to_playlist: true, 
+                                                           remove_from_playlist: false, 
+                                                           edit: true, 
+                                                           delete: true,
+                                                           description: true,
+                                                           share: true,
+                                                           target: "",
+                                                           music_request_link: false,
+                                                           remove_from_request: false
+      .row
+        .col-sm-6
+          h4 Description
+          .digi-box
+            - if @common_work.description.to_s == ''
+              .alert.alert-info
+                'Please add a description
+            - else
+              = simple_format @common_work.description
+          h4 IPI's
+          .digi-box
+            - @common_work.ipis.each do |ipi|
+              = ipi.full_name
+              .sexy_line
+          - if @common_work.lyrics.to_s != ''
+            h4 Lyrics
+            .digi-box
+              = simple_format @common_work.lyrics
+        .col-sm-6
+          
+          = debug @common_work
+          table class="table"
+            - if @common_work.surveyed_work
+              == render 'shared/meta_line' , locals: {title: 'Surveyed work', data: @common_work.surveyed_work}
+    
+            
+      
 
     
   == render 'shared/site_footer'   
