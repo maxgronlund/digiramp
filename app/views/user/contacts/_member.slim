@@ -1,18 +1,18 @@
-- if can_edit?
-  .old-member id="old_member_#{contact.id.to_s}"
-    - if contact.member_id
-        => link_to user_path( contact.member ) do
-            .btn.btn-default.btn-xs
-              i.fa.fa-check.green-text
-              '&nbsp;Member
-    - else
-      -if client_invitation = ClientInvitation.where(client_id: contact.id, user_id: contact.user_id).first
-        .btn.btn-default.btn-xs disabled="disabled"
-          i.fa.fa-ticket
-          '&nbsp;#{client_invitation.status}
-        '&nbsp;
-      -else
-        => link_to user_user_contact_invitation_path( contact.user_id, contact.id ), remote: true do
-            .btn.btn-default.btn-xs
-              i.fa.fa-envelope
-              '&nbsp;Invite
+
+.old-member id="old_member_#{contact.id.to_s}"
+  - if contact.member_id
+      => link_to user_path( contact.member ) do
+          .btn.btn-default.btn-xs
+            i.fa.fa-check.green-text
+            '&nbsp;Member
+  - else
+    -if client_invitation = ClientInvitation.where(client_id: contact.id, user_id: contact.user_id).first
+      .btn.btn-default.btn-xs disabled="disabled"
+        i.fa.fa-ticket
+        '&nbsp;#{client_invitation.status}
+      '&nbsp;
+    -else
+      => link_to user_user_contact_invitation_path( contact.user_id, contact.id ), remote: true do
+          .btn.btn-default.btn-xs
+            i.fa.fa-envelope
+            '&nbsp;Invite

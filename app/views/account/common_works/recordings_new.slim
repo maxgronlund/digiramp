@@ -1,45 +1,94 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-        
-  .container
-    
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account), \
-                                                           common_works: account_account_common_works_path(@account), \
-                                                           @common_work.title.to_sym => account_account_common_work_path(@account, @common_work) \ 
-                                                           }, current: 'upload recording' }
-                                                            
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
 
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Add Recording to Common Work'}
-    .row
-      .col-sm-3
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'recording'
+  
+  #page-content-wrapper
+    .container-fluid
+  
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { common_works: account_account_common_works_path(@account) }, current:'' }
       
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            'SELECT FILE
-          .panel-body
-            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
-            = simple_form_for [ @account, @common_work ], :url => url_for(:action => 'recordings_create', :controller => 'account/common_works'), :method => 'post',  :html => { :id => 'recording' } do |f| 
-              = transloadit :recording_with_thumbs 
-              /= form.label      :file, 'File to upload' 
-              = f.hidden_field :common_work_id, value: @common_work_id
-              = f.file_field :file, multiple: true
-              hr
-              .pull-right
-                = f.submit 'Done', class: 'btn btn-primary btn-lg'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Add recording
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'add recording to common work'
+      
+        .col-sm-6
+          .pull-right.pull-down-10
+      
+      
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [ @account, @common_work ], :url => url_for(:action => 'recordings_create', \
+                                                          :controller => 'account/common_works'), \
+                                                          :method => 'post', :html => { :id => 'recording' } do |f| 
+                          = transloadit :recording_with_thumbs 
+                          
+                          = f.hidden_field :common_work_id, value: @common_work_id
+                          = f.file_field :file, multiple: true
+                          .row
+                            .col-sm-12
+                              .pull-right
+                                = f.submit 'Save', class: 'btn btn-primary'
+                        
+                        
+                          = transloadit_jquerify :recording, :wait => true
             
-            
-            = transloadit_jquerify :recording, :wait => true
-            
-      .col-sm-3
-    == render 'shared/back', locals: {link: account_account_common_work_path(@account, @common_work)}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-    
+          
+  == render 'shared/site_footer'  
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/        
+/  .container
+/    
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+/                                                           dashboard: account_account_path(@account), \
+/                                                           common_works: account_account_common_works_path(@account), \
+/                                                           @common_work.title.to_sym => account_account_common_work_path(@account, @common_work) \ 
+/                                                           }, current: 'upload recording' }
+/                                                            
+/
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Add Recording to Common Work'}
+/    .row
+/      .col-sm-3
+/      
+/      .col-sm-6
+/        .panel.panel-primary
+/          .panel-heading
+/            'SELECT FILE
+/          .panel-body
+/            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+/            = simple_form_for [ @account, @common_work ], :url => url_for(:action => 'recordings_create', :controller => 'account/common_works'), :method => 'post',  :html => { :id => 'recording' } do |f| 
+/              = transloadit :recording_with_thumbs 
+/              /= form.label      :file, 'File to upload' 
+/              = f.hidden_field :common_work_id, value: @common_work_id
+/              = f.file_field :file, multiple: true
+/              hr
+/              .pull-right
+/                = f.submit 'Done', class: 'btn btn-primary btn-lg'
+/            
+/            
+/            = transloadit_jquerify :recording, :wait => true
+/            
+/      .col-sm-3
+/    == render 'shared/back', locals: {link: account_account_common_work_path(@account, @common_work)}
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/    
 
 
 
