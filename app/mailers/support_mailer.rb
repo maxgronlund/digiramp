@@ -36,13 +36,13 @@ class SupportMailer < ActionMailer::Base
   #
   #   en.support_mailer.issue_closed.subject
   #
-  def issue_resolved user_id,  issue_id, blog_post_id
+  def issue_resolved user_id,  issue_id
 
     @user       = User.cached_find user_id
     @issue      = Issue.cached_find issue_id
-    @blog_post  = BlogPost.find( blog_post_id )
-    @body       = @blog_post.body.gsub( '--user--', @user.name)
-    @body       = @body.gsub('--issue--', @issue.title)
+    #@blog_post  = BlogPost.find( blog_post_id )
+    #@body       = @blog_post.body.gsub( '--user--', @user.name)
+    #@body       = @body.gsub('--issue--', @issue.title)
     
   
     mail to: @user.email,  subject: @blog_post.title

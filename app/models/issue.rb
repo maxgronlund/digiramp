@@ -62,18 +62,18 @@ class Issue < ActiveRecord::Base
   end
   
   def resolved
-    blog      = Blog.cached_find('Support')
-    blog_post = BlogPost.cached_find('ISSUE RESOLVED' , blog)
-    SupportMailer.delay.issue_resolved( self.user_id, self.id, blog_post.id )
+    #blog      = Blog.cached_find('Support')
+    #blog_post = BlogPost.cached_find('ISSUE RESOLVED' , blog)
+    SupportMailer.delay.issue_resolved( self.user_id, self.id)
     
   end
   
 private
 
   def send_emails
-    blog      = Blog.cached_find('Support')
-    blog_post = BlogPost.cached_find('TICKET RECEIVED' , blog)
-    SupportMailer.delay.ticket_received( self.user_id, self.id, blog_post.id )
+    #blog      = Blog.cached_find('Support')
+    #blog_post = BlogPost.cached_find('TICKET RECEIVED' , blog)
+    SupportMailer.delay.ticket_received( self.user_id, self.id)
     
     #blog_post = BlogPost.cached_find('TICKET RECEIVED' , blog)
     #SupportMailer.delay.ticket_received( self.user_id, self.id, blog_post.id )
