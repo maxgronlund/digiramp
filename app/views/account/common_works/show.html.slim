@@ -1,100 +1,170 @@
--session[:return_url] = request.url
+/- blog      = Blog.cached_find('Account')
 
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'     
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account), \
-                                                           common_works: account_account_common_works_path(@account)\
-                                                           }, current: @common_work.title }
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ),\
+                                                              'common works'.to_sym => account_account_common_works_path(@account) }, current:'' }
+      .row
+        .col-sm-7
+          .help
+            .help-text
+              h2 #{@account.title} <funky>Pro</funky>
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'account common_works'
+      
+        .col-sm-5
+          .pull-right
+            .pull_down_10
+
+      .sexy_line
+        .row
+          .col-sm-12
+            h4 = @common_work.title
+        .row
+          .col-sm-12
+            - @common_work.recordings.each do |recording|
+              div id="delete_recording_#{recording.id.to_s}"
+                #digiWhams  class="/recordings/#{recording.id.to_s}"
+                  == render 'recordings/recording_with_icons', recording: recording,
+                                                               info: true,
+                                                               add_to_playlist: true, 
+                                                               remove_from_playlist: false, 
+                                                               edit: true, 
+                                                               delete: true,
+                                                               description: true,
+                                                               share: true,
+                                                               target: "",
+                                                               music_request_link: false,
+                                                               remove_from_request: false
+              
+        
+        
+
     
-                                         
-    
-    == render 'shared/page_title_text', locals: {title: @common_work.title, body: '', insert: 'edit'}
-    = @common_work.uuid
-    .row
-      .col-sm-6.pull-down
-        .panel.panel-primary
-          .panel-heading
-            = @common_work.title
-          .panel-body
-            .row
-              .col-sm-12
-                -art = @common_work.artwork || 'default-cover.jpg'
-                = image_tag art, width: "184", height: "184", style: "float:left", alt: "#{@common_work.title}", class: "cover_thumb"
-                
-                'Alternative Titles: 
-                br
-                b = @common_work.alternative_titles
-                hr
-                = simple_format @common_work.description
-            .row
-              .col-sm-12
-                - if @common_work.iswc_code.to_s != ''
-                  br
-                  B ISWC: #{@common_work.iswc_code}
-            
+  == render 'shared/site_footer'   
 
-        - if @common_work.lyrics.to_s != ''
-        
-          .panel.panel-primary
-            .panel-heading
-              'Lyrics
-            .panel-body
-              .text-center
-                = simple_format @common_work.lyrics
-        
 
-      .col-sm-6
-        /-if current_account_user.update_common_work
-        /    == render 'shared/badge_button', locals: { \
-        /                                               blog_post: 'EDIT', \
-        /                                               link: edit_account_work_path(@account, @common_work), \
-        /                                               css_class: 'btn btn-primary', \
-        /                                               icon: 'fa fa-pencil' \
-        /                                             }
-        /                                             
-        - if current_account_user.read_recording?
-            == render 'shared/badge_button', locals: { \
-                                                        blog_post: 'RECORDINGS', \
-                                                        link: recordings_account_account_common_work_path(@account, @common_work), \
-                                                        css_class: 'btn btn-warning', \
-                                                        icon: 'fa fa-headphones'\
-                                                      }
-          
-        /- if current_account_user.createx_user? || current_account_user.update_account_user? || current_account_user.delete_account_user?
-        /    == render 'shared/badge_button', locals: { \
-        /                                               blog_post: 'USERS', \
-        /                                               link: account_work_work_users_path(@account, @common_work), \
-        /                                               css_class: 'btn btn-default', \
-        /                                               icon: 'fa fa-group' \
-        /                                             }
-        /  
-        -if current_account_user.read_file
-            == render 'shared/badge_button', locals: { \ 
-                                                      blog_post: 'FILES', \
-                                                      link: account_account_common_work_common_work_files_path(@account, @common_work), \
-                                                      css_class: 'btn btn-success', \
-                                                      icon: 'fa fa-folder' \
-                                                     }
-          
-        -if current_account_user.read_common_work_ipi
-            == render 'shared/badge_button', locals: { \ 
-                                                      blog_post: 'IPIS', \
-                                                      link: account_account_common_work_common_work_ipis_path(@account, @common_work), \
-                                                      css_class: 'btn btn-info', \
-                                                      icon: 'fa fa-exclamation-circle' \
-                                                     }
-        
-         
-       
-     
-     
-     
 
-    == render 'shared/back', locals: {link: account_account_common_works_path(@account)}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+
+
+
+
+
+
+
+
+
+
+
+
+/-session[:return_url] = request.url
+/
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account'     
+/  .container
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+/                                                           dashboard: account_account_path(@account), \
+/                                                           common_works: account_account_common_works_path(@account)\
+/                                                           }, current: @common_work.title }
+/    
+/                                         
+/    
+/    == render 'shared/page_title_text', locals: {title: @common_work.title, body: '', insert: 'edit'}
+/    = @common_work.uuid
+/    .row
+/      .col-sm-6.pull-down
+/        .panel.panel-primary
+/          .panel-heading
+/            = @common_work.title
+/          .panel-body
+/            .row
+/              .col-sm-12
+/                -art = @common_work.artwork || 'default-cover.jpg'
+/                = image_tag art, width: "184", height: "184", style: "float:left", alt: "#{@common_work.title}", class: "cover_thumb"
+/                
+/                'Alternative Titles: 
+/                br
+/                b = @common_work.alternative_titles
+/                hr
+/                = simple_format @common_work.description
+/            .row
+/              .col-sm-12
+/                - if @common_work.iswc_code.to_s != ''
+/                  br
+/                  B ISWC: #{@common_work.iswc_code}
+/            
+/
+/        - if @common_work.lyrics.to_s != ''
+/        
+/          .panel.panel-primary
+/            .panel-heading
+/              'Lyrics
+/            .panel-body
+/              .text-center
+/                = simple_format @common_work.lyrics
+/        
+/
+/      .col-sm-6
+/        /-if current_account_user.update_common_work
+/        /    == render 'shared/badge_button', locals: { \
+/        /                                               blog_post: 'EDIT', \
+/        /                                               link: edit_account_work_path(@account, @common_work), \
+/        /                                               css_class: 'btn btn-primary', \
+/        /                                               icon: 'fa fa-pencil' \
+/        /                                             }
+/        /                                             
+/        - if current_account_user.read_recording?
+/            == render 'shared/badge_button', locals: { \
+/                                                        blog_post: 'RECORDINGS', \
+/                                                        link: recordings_account_account_common_work_path(@account, @common_work), \
+/                                                        css_class: 'btn btn-warning', \
+/                                                        icon: 'fa fa-headphones'\
+/                                                      }
+/          
+/        /- if current_account_user.createx_user? || current_account_user.update_account_user? || current_account_user.delete_account_user?
+/        /    == render 'shared/badge_button', locals: { \
+/        /                                               blog_post: 'USERS', \
+/        /                                               link: account_work_work_users_path(@account, @common_work), \
+/        /                                               css_class: 'btn btn-default', \
+/        /                                               icon: 'fa fa-group' \
+/        /                                             }
+/        /  
+/        -if current_account_user.read_file
+/            == render 'shared/badge_button', locals: { \ 
+/                                                      blog_post: 'FILES', \
+/                                                      link: account_account_common_work_common_work_files_path(@account, @common_work), \
+/                                                      css_class: 'btn btn-success', \
+/                                                      icon: 'fa fa-folder' \
+/                                                     }
+/          
+/        -if current_account_user.read_common_work_ipi
+/            == render 'shared/badge_button', locals: { \ 
+/                                                      blog_post: 'IPIS', \
+/                                                      link: account_account_common_work_common_work_ipis_path(@account, @common_work), \
+/                                                      css_class: 'btn btn-info', \
+/                                                      icon: 'fa fa-exclamation-circle' \
+/                                                     }
+/        
+/         
+/       
+/     
+/     
+/     
+/
+/    == render 'shared/back', locals: {link: account_account_common_works_path(@account)}
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'

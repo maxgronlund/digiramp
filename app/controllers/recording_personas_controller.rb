@@ -9,8 +9,10 @@ class RecordingPersonasController < ApplicationController
   end
   
   def update
-    @recording.update_attributes(recording_params) 
-    @recording.confirm_ipis
+    if params[:recording]
+      @recording.update_attributes(recording_params) 
+      @recording.confirm_ipis
+    end
     
     if params[:commit] == 'Save'
       redirect_to edit_user_recording_right_path(@recording.user, @recording)

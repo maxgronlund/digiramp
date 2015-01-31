@@ -1,49 +1,126 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
 
-- session[:return_url]  = request.url
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .do           
-    .container
-      == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                             dashboard: account_account_path(@account), \
-                                                             recordings: account_account_recordings_path(@account)\
-                                                             }, current: @recording.title }
-
-      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'show_common_work'} 
-      /== render 'shared/title', locals: {title: @recording.title, body: body, insert: insert} 
-      -index = @recording.id
-      div class="player" id="#{index}"
-      .just-load
-      .panel.panel-primary
-        .panel-heading
-          = @recording.title
-        .panel-body
-          .digiramp_player
-            div class="permissions" value="account_recordings" id="#{current_user.id}"
-            == render 'players/digramp_player', locals: {index: index , recording: @recording}
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'recording'
+  
+  #page-content-wrapper
+    .container-fluid
+  
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ),\
+                                                              recordings: account_account_recordings_path(@account) }, current:'' }
+      /.row
+      /  .col-sm-7
+      /    .help
+      /      .help-text
+      /        h2 #{@account.title} <funky>Pro</funky>
+      /  
+      /      .help-button
+      /        == render 'admin/helps/help', identifier: 'account opportunities'
+      /
+      /  .col-sm-5
+      /    .pull-right
+      /      .recording-navigation
+      /        = link_to new_account_account_opportunity_path(@user.account) do
+      /          .btn.btn-primary
+      /            i.fa.fa-plus-circle
+      /            '&nbsp;
+      /            'Create Recording
       .row
-        .col-sm-6
-          /= link_to "#", class: 'update-url'
-          /  'Download
+        .col-sm-8
+          h2 = @recording.title
+        .col-sm-4
+          .pull-right.pull-down-10
+            = link_to 'Edit', edit_account_account_common_work_recording_path(@account, @recording.common_work, @recording), class: 'btn btn-primary'
           
-          = link_to download_account_account_common_work_recording_path( @account, @recording.common_work, @recording, format: :mp3 ), 'data-no-turbolink'=>'true' do
-            .btn.btn-info.btn-lg
-              i class="fa fa-cloud-download"
-              '&nbsp;Download mp3
-          '&nbsp;
+      .sexy_line
+      .row
+        .col-sm-12
+          #digiWhams  class="/recordings/#{@recording.id.to_s}"
           
-          == render 'recordings/shared/metadata'
+            == render 'account/recordings/account_recording', recording: @recording,
+                                                         info: true,
+                                                         add_to_playlist: true, 
+                                                         remove_from_playlist: false, 
+                                                         edit: true, 
+                                                         delete: true,
+                                                         description: false,
+                                                         share: true,
+                                                         target: "",
+                                                         music_request_link: false,
+                                                         remove_from_request: false
+                
+            
+            
+
+      .row
         .col-sm-6 
-          == render 'recordings/shared/description'   if @recording.comment.to_s != ''
-          == render 'recordings/shared/lyrics'        if @recording.lyrics.to_s != ''
-                                                                                      
-     
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+          - if @recording.comment.to_s != ''
+            h4 Describtion
+            .digi-box
+              = @recording.comment   
+          - if @recording.lyrics.to_s != ''
+            h4 Lyrics
+            .digi-box
+              = simple_format @recording.lyrics
+          
+        .col-sm-6
+          h4 Info
+          .digi-box
+            == render 'recordings/shared/metadata'
+          - if current_account_user.read_recording_ipi
+            == render 'ipis'
+      
+  == render 'shared/site_footer'  
+/- session[:return_url]  = request.url
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .do           
+/    .container
+/      == render 'admin/shared/messages'
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+/                                                             dashboard: account_account_path(@account), \
+/                                                             recordings: account_account_recordings_path(@account)\
+/                                                             }, current: @recording.title }
+/
+/      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'show_common_work'} 
+/      /== render 'shared/title', locals: {title: @recording.title, body: body, insert: insert} 
+/      -index = @recording.id
+/      div class="player" id="#{index}"
+/      .just-load
+/      .panel.panel-primary
+/        .panel-heading
+/          = @recording.title
+/        .panel-body
+/          .digiramp_player
+/            div class="permissions" value="account_recordings" id="#{current_user.id}"
+/            == render 'players/digramp_player', locals: {index: index , recording: @recording}
+/      .row
+/        .col-sm-6
+/          /= link_to "#", class: 'update-url'
+/          /  'Download
+/          
+/          = link_to download_account_account_common_work_recording_path( @account, @recording.common_work, @recording, format: :mp3 ), 'data-no-turbolink'=>'true' do
+/            .btn.btn-info.btn-lg
+/              i class="fa fa-cloud-download"
+/              '&nbsp;Download mp3
+/          '&nbsp;
+/          
+/          == render 'recordings/shared/metadata'
+/        .col-sm-6 
+/          == render 'recordings/shared/description'   if @recording.comment.to_s != ''
+/          == render 'recordings/shared/lyrics'        if @recording.lyrics.to_s != ''
+/                                                                                      
+/     
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
               
 
             

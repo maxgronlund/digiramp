@@ -1,31 +1,60 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-
-            
-  .container
-    /==render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account), \
-                                                           dashboard: account_account_path(@account),\
-                                                           @recording.title.to_sym => account_account_recording_path(@account, @recording)}, \
-                                                           current:  'edit'}
-
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Edit Recording'), blog_post: 'Edit Recording'} 
-    
-
-    
-    = simple_form_for [:account, @account, @recording],  :html => { :id => 'recording_artwork' } do |f|
-      = transloadit :image_files_to_s3 
-      = f.hidden_field :account_id, value: @account.id
-      /= f.hidden_field :common_work_id, value: @recording.common_work_id
-      == render 'form', f: f
-    = transloadit_jquerify :recording_artwork, :wait => true
-    
-
-
-
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
   
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-              
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'recording'
+  
+  #page-content-wrapper
+    .container-fluid
+  
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { recordings: account_account_recordings_path(@account),\
+                                                              @recording.title.to_sym => account_account_recording_path(@account, @recording) }, current:'' }
+      h2 Edit #{@recording.title}
+      .sexy_line
+      .row
+        .col-sm-12
+          = simple_form_for [:account, @account, @recording],  :html => { :id => 'recording_artwork' } do |f|
+            = transloadit :image_files_to_s3 
+            = f.hidden_field :account_id, value: @account.id
+            /= f.hidden_field :common_work_id, value: @recording.common_work_id
+            == render 'form', f: f
+          = transloadit_jquerify :recording_artwork, :wait => true
+
+
+      
+  == render 'shared/site_footer'  
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/
+/            
+/  .container
+/    /==render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account), \
+/                                                           dashboard: account_account_path(@account),\
+/                                                           @recording.title.to_sym => account_account_recording_path(@account, @recording)}, \
+/                                                           current:  'edit'}
+/
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Edit Recording'), blog_post: 'Edit Recording'} 
+/    
+/
+/    
+/    = simple_form_for [:account, @account, @recording],  :html => { :id => 'recording_artwork' } do |f|
+/      = transloadit :image_files_to_s3 
+/      = f.hidden_field :account_id, value: @account.id
+/      /= f.hidden_field :common_work_id, value: @recording.common_work_id
+/      == render 'form', f: f
+/    = transloadit_jquerify :recording_artwork, :wait => true
+/    
+/
+/
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/              

@@ -1,0 +1,186 @@
+- session[:share_from_page] = request.url
+== render 'audio_player/show', recording: recording , description: description, target: target
+
+.player-bottom
+  .btn-group
+    / -------------------------------------------------------------------
+    / small without text on mobile
+    / -------------------------------------------------------------------
+    .visible-xs.btn-group-xs
+      - if remove_from_request
+        = link_to music_submission_path(remove_from_request, user_id: current_user.id, opportunity_id: @opportunity.id), \
+                    method: :delete, \
+                    data: {confirm: "Remove #{recording.title} from submission" }, \
+                    remote: true, \
+                    class: "btn btn-danger"  do
+            i class="fa fa-times"
+  
+      - if info
+        = link_to user_recording_path(recording.user, recording),
+                  target: "_parent",
+                  class: "btn btn-default" do
+          .blue-info
+            i.fa.fa-info-circle
+          
+      
+      -if current_user
+        - like = Like.where(recording_id: recording.id, user_id: current_user.id).any?
+        /- if Like.where(recording_id: recording.id, user_id: current_user.id).any?
+        = link_to user_like_path( current_user, recording), method: :delete, remote: true, \
+                  class: "btn btn-default red-icon #{'unlike_recording_'+recording.id.to_s}", \
+                  style: "#{'display: none;' unless like}"  do
+          i class="fa fa-heart "
+  
+        = link_to new_user_recording_like_path(current_user, recording), remote: true, \
+                  class: "btn btn-default #{'like_recording_'+recording.id.to_s}", \
+                  style: "#{'display: none;' if like}"  do
+          i class="fa fa-heart"
+        
+        - if add_to_playlist
+          button class="btn btn-default" data-toggle="modal" data-target="#playlistModal_#{recording.id.to_s}"
+            i.fa.fa-list
+  
+        
+        - if share
+          /share
+          button class="btn btn-default" data-toggle="modal" data-target="#shareRecordingModal_#{recording.id.to_s}"
+            i.fa.fa-share
+  
+          
+      -else
+        = link_to login_new_path(recording_id: recording.id), 
+                  target: target,
+                  class: "btn btn-default"  do
+          i class="fa fa-heart"
+        
+      - if @authorized 
+        - if edit
+          = link_to edit_user_recording_basic_path(recording.user, recording), \
+                    class: "btn btn-default"  do
+            i class="fa fa-pencil"
+  
+          
+        - if remove_from_playlist
+          = link_to remove_from_playlist_path( @playlist, recording: recording), method: :delete, remote: true, \
+                    class: "btn btn-default"  do
+            i class="fa fa-times"
+  
+          
+        - if delete
+          = link_to user_recording_path(current_user, recording, public: true), \
+                    method: :delete, \
+                    remote: true, \
+                    data: {confirm: "You are about to delete #{recording.title}"}, \
+                    class: "btn btn-default"  do
+            i class="fa fa-trash"
+        
+        - if music_request_link
+          = link_to music_request_link, \
+                    remote: true, \
+                    class: "btn btn-primary"  do
+            i class="fa fa-plus-circle"
+  
+  
+          
+    .hidden-xs.btn-group-xs
+      / -------------------------------------------------------------------
+      / normal size
+      / -------------------------------------------------------------------
+
+      = link_to account_account_recording_path(@account, recording), class: "btn btn-default"  do
+          .blue-info
+            i.fa.fa-info-circle
+            '&nbsp;
+            'Info
+        
+      
+  
+      = link_to account_account_recording_recording_ipis_path(@account, recording), class: "btn btn-default"  do
+              i class="fa fa-users"
+              '&nbsp;
+              'IPI's
+        
+      
+  
+      = link_to files_account_account_recording_path(@account, recording), class: "btn btn-default"  do
+              i class="fa fa-folder"
+              '&nbsp;
+              'Files
+              
+              
+      /
+      /
+      
+      /-if current_account_user.update_playlist
+      /  button class="btn btn-default" data-toggle="modal" data-target="#playlistModal_#{recording.id.to_s}"
+      /    i.fa.fa-list
+      /    '&nbsp;
+      /    'Playlists
+      /
+      /
+      /button class="btn btn-default" data-toggle="modal" data-target="#shareRecordingModal_#{recording.id.to_s}"
+      /  i.fa.fa-share-alt
+      /  '&nbsp;
+      /  'Share
+
+      
+      = link_to recording.zipp, class: "btn btn-default"  do
+        i class="fa fa-download"
+
+
+      -if current_account_user.update_recording
+        = link_to edit_account_account_common_work_recording_path(@account, recording.common_work, recording), \
+                  class: "btn btn-default"  do
+          i class="fa fa-pencil"
+        
+          
+      -if current_account_user.delete_recording
+        = link_to user_recording_path(recording.user, recording, public: true), \
+                  method: :delete, \
+                  remote: true, \
+                  data: {confirm: "You are about to delete #{recording.title}"}, \
+                  class: "btn btn-default"  do
+          i class="fa fa-trash"
+          
+  
+        = link_to user_user_recording_transfer_path( recording.user, recording), \
+                  class: "btn btn-default"  do
+          i class="fa fa-rocket"
+        
+        
+  /-----------------------------------------
+  / tool tips        
+  /.pull-right
+  /  .small-symbols 
+  /    - if recording.featured
+  /      span id="comments_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Featured"
+  /        = link_to user_recording_path(recording.user, recording)
+  /          i class="fa fa-star"
+  /          '&nbsp;&nbsp;|
+  /        
+  /    span id="comments_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Comments"
+  /      = link_to user_recording_path(recording.user, recording)
+  /        i class="fa fa-comments"
+  /        '&nbsp;
+  /        = recording.comments.count
+  /    
+  /    span id="likes_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Likes"
+  /      '&nbsp;|
+  /      = link_to user_recording_recording_likes_path(recording.user, recording)
+  /        i class="fa fa-heart red-heart"
+  /        '&nbsp;
+  /        =recording.likes.count
+  /    span id="playbacks_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Playbacks"
+  /      '&nbsp;|
+  /      /= link_to user_recording_recording_playbacks_path(recording.user, recording)
+  /      i class="fa fa-headphones" 
+  /      '&nbsp;
+  /      = recording.playbacks_count
+
+
+  
+//.sexy_line 
+/
+- if current_user
+  == render 'playlists/select_playlist_form', recording: recording
+

@@ -50,8 +50,10 @@ class Account::RecordingIpisController < ApplicationController
   # PATCH/PUT /recording_ipis/1
   # PATCH/PUT /recording_ipis/1.json
   def update
+    ap params
     @recording      = Recording.cached_find(params[:recording_id])
     @recording_ipi.update(recording_ipi_params)
+    ap @recording_ipi
     redirect_to account_account_recording_recording_ipis_path( @account, @recording)
 
   end

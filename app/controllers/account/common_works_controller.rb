@@ -18,6 +18,7 @@ class Account::CommonWorksController < ApplicationController
 
   def show
     forbidden unless current_account_user.read_common_work
+    @user = current_user
     @common_work    = CommonWork.cached_find(params[:id])
     
     @common_work.create_activity(  :show, 

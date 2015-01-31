@@ -1,9 +1,7 @@
-.row
-  .col-sm-6
-    .panel.panel-primary
-      .panel-heading
-        'Info
-      .panel-body
+.digi-box 
+  .row
+    .col-sm-6
+    
         = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
         /= f.input :cover_art, label: 'Cover Art. Ratio 1:1'
         /= f.input :image_file_id
@@ -40,44 +38,40 @@
           .col-sm-6
             =f.input :track
 
-  .col-sm-6
-    .panel.panel-primary
-      .panel-heading
-        'Info
-      .panel-body 
-        //= f.input :lyrics, :input_html => {  style: "height: 120px;", placeholder: "Lyrics"}
-        .row
-          .col-sm-6
-            = f.input :clearance, label: '200% clearance'
-          .col-sm-6
-            = f.input :explicit
-        = f.input :copyright
-        
-        
-        b Description
-        br
-        div id="toolbar" class="wysihtml5-toolbar"
-          a data-wysihtml5-command="bold"
-            .btn.btn-default.btn-sm
-              'Bold
-          a data-wysihtml5-command="italic" 
-            .btn.btn-default.btn-sm
-              'Italic
-        
-          =f.input :comment, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
-        /=f.input :genre
-        .row
-          .col-sm-6
-            = f.input :bpm
-            
-            = f.input :duration
-            = f.input :mood
-          .col-sm-6
-            = f.input :tempo,   collection: Recording::TEMPO
-            = f.input :genre
-            = f.input :instruments
-        
-        
+    .col-sm-6
+      //= f.input :lyrics, :input_html => {  style: "height: 120px;", placeholder: "Lyrics"}
+      .row
+        .col-sm-6
+          = f.input :clearance, label: '200% clearance'
+        .col-sm-6
+          = f.input :explicit
+      = f.input :copyright
+      
+      
+      b Description
+      br
+      div id="toolbar" class="wysihtml5-toolbar"
+        a data-wysihtml5-command="bold"
+          .btn.btn-default.btn-sm
+            'Bold
+        a data-wysihtml5-command="italic" 
+          .btn.btn-default.btn-sm
+            'Italic
+      
+        =f.input :comment, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+      /=f.input :genre
+      .row
+        .col-sm-6
+          = f.input :bpm
+          
+          = f.input :duration
+          = f.input :mood
+        .col-sm-6
+          = f.input :tempo,   collection: Recording::TEMPO
+          = f.input :genre
+          = f.input :instruments
+      
+      
 .pull-right  
   = f.submit 'Save', class: 'btn btn-primary btn-lg'
   

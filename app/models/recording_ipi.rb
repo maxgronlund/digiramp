@@ -30,11 +30,12 @@ class RecordingIpi < ActiveRecord::Base
   
   
   def attach_user
-    if user = User.where(uuid: self.user_uuid).first
+    if user = User.where(uuid: self.email).first
       self.user_id = user.id
-      self.name   = user.name
+      self.name   = user.user_name
     end
   end
+  
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
