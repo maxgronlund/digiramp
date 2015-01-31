@@ -46,7 +46,7 @@ class SupportMailer < ActionMailer::Base
     #@body       = @body.gsub('--issue--', @issue.title)
     
   
-    mail to: @user.email,  subject: @blog_post.title
+    mail to: @user.email,  subject: @issue.title
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
