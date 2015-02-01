@@ -1,0 +1,24 @@
+Review
+
+belongs_to reviable
+belongs_to user
+
+has_many review_subjects
+
+aproved:boolean
+public:boolean
+has_many comments
+
+helpfull Y/N report a consern
+
+
+-------------------
+ReviewSubject
+
+belongs_to review
+RECORDING_SUBJECTS = ['lyrics', 'melody', 'intencity', 'nerve', 'production', 'grove', 'mood', 'genre', 'performance']
+
+
+subject
+rating
+comment
