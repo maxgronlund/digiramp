@@ -185,6 +185,7 @@ private
           redirect_to goto
         end
       else
+        session[:share_recording_id]  = nil
         redirect_to session[:current_page]
       end
       #elsif session[:redirect_to_message]
