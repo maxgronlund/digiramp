@@ -179,17 +179,19 @@ private
           redirect_to share_on_facebook_path(user.id, recording_id: recording_id  )
         when 'twitter'
           redirect_to share_on_twitter_path(user.id, recording_id: recording_id  )
-        #else
-        #  goto = session[:current_page]
-        #  session[:current_page] = nil
-        #  redirect_to goto
+        else
+          goto = session[:current_page]
+          session[:current_page] = nil
+          redirect_to goto
         end
+      else
+        redirect_to session[:current_page]
       end
       #elsif session[:redirect_to_message]
       #  goto = session[:redirect_to_message]
       #  session[:redirect_to_message] = nil
       #  redirect_to goto
-      edirect_to session[:current_page]
+      
     elsif session[:go_to_message]
       go_to = session[:go_to_message]
       session[:go_to_message] = nil
