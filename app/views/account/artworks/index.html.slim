@@ -1,89 +1,192 @@
-- blog = Blog.cached_find('Account Artwork')
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'         
-  .container
-    /==render 'admin/shared/messages'
-    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
-    .do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              dashboard: account_account_path(@account), \
-                                                              documents: account_account_documents_path(@account) \
-                                                             }, \
-                                                      current:  'artwork'}
-      
-      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Artwork', insert: 'upload_artwork'}
-      /.panel.panel-primary
-      /  .panel-heading
-      /    'Artwork
-      /  .panel-body
+- blog      = Blog.cached_find('Account Documents')
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'file'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account) \
+                                                             },current:  ''}
       .row
-        
-        - @artworks.order('title asc').each do |artwork|
+        .col-sm-6
+          h2 Artwork
+        .col-sm-6
+          /.pull-right.pull-down-10
+          /  = link_to new_account_account_account_ipi_path( @account ) do
+          /    .btn.btn-primary
+          /      i class="fa fa-plus-circle"
+          /      '&nbsp;
+          /      'Add IPI Code
+          /
+      .sexy_line
 
-          .visible-xs.visible-sm
-            .col-sm-6
-              .panel.panel-primary
-                .panel-heading
-                  .truncate 
-                    = artwork.title
-                .panel-body
-                  
-                  .logo
-                    .thumbnail
-                      = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
-                      .pull-right
-                        br
-                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
-                        /  .btn.btn-info.btn-lg
-                        /    i class="fa fa-info-circle"
-                        /'&nbsp;
-                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
-                        /  .btn.btn-danger.btn-lg
-                        /    i class="fa fa-times"
-          .visible-md
-            .col-sm-4
-              .panel.panel-primary
-                .panel-heading
-                  .truncate 
-                    = artwork.title
-                .panel-body
-                  
-                  .logo
-                    .thumbnail
-                      = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
-                      .pull-right
-                        br
-                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
-                        /  .btn.btn-info.btn-lg
-                        /    i class="fa fa-info-circle"
-                        /'&nbsp;
-                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
-                        /  .btn.btn-danger.btn-lg
-                        /    i class="fa fa-times"
-          .visible-lg
-            .col-sm-3
-              .panel.panel-primary
-                .panel-heading
-                  .truncate 
-                    = artwork.title
-                .panel-body
-                  
-                  .logo
-                    .thumbnail
-                      = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
-                      .pull-right
-                        br
-                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
-                        /  .btn.btn-info.btn-lg
-                        /    i class="fa fa-info-circle"
-                        /'&nbsp;
-                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
-                        /  .btn.btn-danger.btn-lg
-                        /    i class="fa fa-times"
-
-    == render 'shared/back', locals: {link: account_account_documents_path(@account)}      
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+      .digi-box 
+        .row
+          - @artworks.order('title asc').each do |artwork|
+            .visible-xs.visible-sm
+              .col-sm-6
+                .panel.panel-primary
+                  .panel-heading
+                    .truncate 
+                      = artwork.title
+                  .panel-body
+                    
+                    .logo
+                      .thumbnail
+                        = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
+                        .pull-right
+                          br
+                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
+                          /  .btn.btn-info.btn-lg
+                          /    i class="fa fa-info-circle"
+                          /'&nbsp;
+                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          /  .btn.btn-danger.btn-lg
+                          /    i class="fa fa-times"
+            .visible-md
+              .col-sm-4
+                .panel.panel-primary
+                  .panel-heading
+                    .truncate 
+                      = artwork.title
+                  .panel-body
+                    
+                    .logo
+                      .thumbnail
+                        = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
+                        .pull-right
+                          br
+                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
+                          /  .btn.btn-info.btn-lg
+                          /    i class="fa fa-info-circle"
+                          /'&nbsp;
+                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          /  .btn.btn-danger.btn-lg
+                          /    i class="fa fa-times"
+            .visible-lg
+              .col-sm-3
+                .panel.panel-primary
+                  .panel-heading
+                    .truncate 
+                      = artwork.title
+                  .panel-body
+                    
+                    .logo
+                      .thumbnail
+                        = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
+                        .pull-right
+                          br
+                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
+                          /  .btn.btn-info.btn-lg
+                          /    i class="fa fa-info-circle"
+                          /'&nbsp;
+                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
+                          /  .btn.btn-danger.btn-lg
+                          /    i class="fa fa-times"
+            
+            
+                      
               
+  == render 'shared/site_footer'  
+
+
+
+
+
+
+/- blog = Blog.cached_find('Account Artwork')
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account'         
+/  .container
+/    /==render 'admin/shared/messages'
+/    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
+/    .do
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              dashboard: account_account_path(@account), \
+/                                                              documents: account_account_documents_path(@account) \
+/                                                             }, \
+/                                                      current:  'artwork'}
+/      
+/      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Artwork', insert: 'upload_artwork'}
+/      /.panel.panel-primary
+/      /  .panel-heading
+/      /    'Artwork
+/      /  .panel-body
+/      .row
+/        
+/        - @artworks.order('title asc').each do |artwork|
+/
+/          .visible-xs.visible-sm
+/            .col-sm-6
+/              .panel.panel-primary
+/                .panel-heading
+/                  .truncate 
+/                    = artwork.title
+/                .panel-body
+/                  
+/                  .logo
+/                    .thumbnail
+/                      = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
+/                      .pull-right
+/                        br
+/                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
+/                        /  .btn.btn-info.btn-lg
+/                        /    i class="fa fa-info-circle"
+/                        /'&nbsp;
+/                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
+/                        /  .btn.btn-danger.btn-lg
+/                        /    i class="fa fa-times"
+/          .visible-md
+/            .col-sm-4
+/              .panel.panel-primary
+/                .panel-heading
+/                  .truncate 
+/                    = artwork.title
+/                .panel-body
+/                  
+/                  .logo
+/                    .thumbnail
+/                      = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
+/                      .pull-right
+/                        br
+/                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
+/                        /  .btn.btn-info.btn-lg
+/                        /    i class="fa fa-info-circle"
+/                        /'&nbsp;
+/                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
+/                        /  .btn.btn-danger.btn-lg
+/                        /    i class="fa fa-times"
+/          .visible-lg
+/            .col-sm-3
+/              .panel.panel-primary
+/                .panel-heading
+/                  .truncate 
+/                    = artwork.title
+/                .panel-body
+/                  
+/                  .logo
+/                    .thumbnail
+/                      = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
+/                      .pull-right
+/                        br
+/                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
+/                        /  .btn.btn-info.btn-lg
+/                        /    i class="fa fa-info-circle"
+/                        /'&nbsp;
+/                        /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
+/                        /  .btn.btn-danger.btn-lg
+/                        /    i class="fa fa-times"
+/
+/    == render 'shared/back', locals: {link: account_account_documents_path(@account)}      
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/              
+/

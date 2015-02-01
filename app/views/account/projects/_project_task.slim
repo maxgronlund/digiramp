@@ -1,0 +1,39 @@
+.row
+  .col-sm-12
+    h3 = project_task.title
+.row
+  .col-sm-4
+    
+    - if user = project_task.user
+      h4 Assigned to:
+      = link_to user_path user do
+        = image_tag user.image_url(:avatar_64x64)
+        br
+        = user.user_name
+    - else
+      'Task is unassigned
+  .col-sm-4
+    h4 Description:
+    = simple_format project_task.description
+  .col-sm-4
+    h4 Info:
+    == render 'shared/meta_line' , locals: {title: 'Priority', data: project_task.priority}
+    == render 'shared/meta_line' , locals: {title: 'Category', data: project_task.category}
+    == render 'shared/meta_line' , locals: {title: 'Status', data: project_task.status}
+    == render 'shared/meta_line' , locals: {title: 'Start date', data: project_task.start_date}
+    == render 'shared/meta_line' , locals: {title: 'Due date', data: project_task.due_date}
+    /== render 'shared/meta_line' , locals: {title: 'Notifcation', data: project_task.notifcation}
+  
+.row  
+  .col-sm-12.pull-down-12
+    .pull-right
+      => link_to edit_account_account_project_project_task_path(@account, @project, project_task) do
+        .btn.btn-default
+          i.fa.fa-pencil
+          '&nbsp;Edit
+      = link_to account_account_project_project_task_path(@account, @project, project_task), \
+                                                            data: { confirm: 'Are you sure?' } , \
+                                                            :method => :delete do
+        .btn.btn-danger
+          i.fa.fa-times
+/= debug project_task

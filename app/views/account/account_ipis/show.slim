@@ -1,31 +1,35 @@
-/= debug current_account_user
-- session[:return_url]         = request.url
-- session[:go_to_after_update] = request.url
-- blog      = Blog.cached_find('Account')
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
   
-  .container
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account), \
-                                                           'ipi codes'.to_sym => account_account_account_ipis_path(@account)}, \
-                                                           current:  @ipi_code.ipi_code }
-    /==render 'admin/shared/messages'
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'ipi'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), \
+                                                              'ipi codes'.to_sym => account_account_account_ipis_path(@account)\
+                                                             },current:  ''}
+      .row
+        .col-sm-6
+          h2 = @ipi_code.title
+        .col-sm-6
+          /.pull-right.pull-down-10
+          /  = link_to new_account_account_account_ipi_path( @account ) do
+          /    .btn.btn-primary
+          /      i class="fa fa-plus-circle"
+          /      '&nbsp;
+          /      'Add IPI Code
+          /
+      .sexy_line
 
-    /- insert = 'accounts/shared/leave_account'
-    
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('IPI Codes'), blog_post: "show ipi", insert: 'add_ipi_code'}
-    
-    .row
-      .col-sm-12
-        .panel.panel-primary
-          .panel-heading
-            = @ipi_code.title
-            .pull-right
-              = @ipi_code.ipi_code
-          .panel-body
+      .digi-box 
+        h4 = @ipi_code.title
+        .row
+          .col-sm-12
             .table-responsive
               table class="table table-hover"
                 thead
@@ -40,11 +44,7 @@
                       td = ipi.common_work.title
                       td = ipi.role
                       td = ipi.pro
-                    
-          
-          
-          
-
-    == render 'shared/back', locals: {link: account_account_account_ipis_path(@account)}       
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+                        
+              
+  == render 'shared/site_footer'    
+ 

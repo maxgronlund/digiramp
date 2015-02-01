@@ -16,8 +16,8 @@
         .col-sm-7
           .help
             .help-text
-              h2 #{@account.title} <funky>Pro</funky>
-        
+              /h2 #{@account.title} <funky>Pro</funky>
+              h2 Common works
             .help-button
               == render 'admin/helps/help', identifier: 'account common_works'
       
@@ -26,7 +26,7 @@
             .pull_down_10
               - if current_account_user.create_common_work
                 = link_to new_account_account_common_work_path(@account) do
-                  .btn.btn-primary
+                  .btn.btn-default
                     i.fa.fa-plus-circle
                     '&nbsp;
                     'New Common work

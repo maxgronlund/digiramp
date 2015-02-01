@@ -1,43 +1,140 @@
-- blog = Blog.cached_find('Account Clients')
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .do           
-    .container
-      == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              dashboard: account_account_path(@account), \
-                                                              clients: account_account_clients_path(@account) \
-                                                             }, \
-                                                      current:  'upload'}
-
-      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Client CSV File'}
-      
-      
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'crm'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { crm: account_account_crm_index_path(@account),\
+                                                              clients: account_account_clients_path(@account)\
+                                                             },current:  ''}
       .row
-        .col-sm-3
         .col-sm-6
-          .panel.panel-primary
-            .panel-heading
-              'Select CSV File
-            .panel-body
-
-              = simple_form_for [ :account,  @account, @client_import] do |f| 
-                = f.hidden_field :account_id, value: @account.id
-
-                = f.file_field :file
-                hr
-                .pull-right
-                  = link_to 'Cancel', account_account_clients_path(@account), 'data-no-turbolink'=>'true', class: 'btn btn-default btn-lg'
-                  '&nbsp;
-                  = f.submit 'Done', class: 'btn btn-primary btn-lg'
-
-        .col-sm-3
+          h2 Import clients CSV
+        .col-sm-6
           
-    == render 'shared/back', locals: {link: account_account_clients_path(@account), no_turbo: 'no_turbo'}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+      .sexy_line
+
+      .digi-box        
+        .row
+          .col-sm-12
+            h4 Instructions
+            ol
+              li Download the template
+              li Fill it in with your contacts. email is required
+              li Don't change the column names, they are required
+              li Save the file as CSV
+              li Upload the file
+        .sexy_line    
+        .row
+          .col-sm-6
+            h4 1: Download template
+            .pull-down-12
+            = link_to @zip_file.zip_file_url do
+              .btn.btn-default
+                i.fa.fa-cloud-download
+                '&nbsp;Download
+            
+          .col-sm-6
+            h4 2: Upload CSV File
+        
+            
+            = simple_form_for [ :account,  @account, @client_import] do |f|
+              = f.hidden_field :account_id, value: @account.id
+              = f.hidden_field :user_id, value: @account.user_id
+            
+              .fileinput.fileinput-new.input-group data-provides="fileinput"
+                .form-control data-trigger="fileinput"
+                  i.glyphicon.glyphicon-file.fileinput-exists
+                  span.fileinput-filename
+        
+                span.input-group-addon.btn.btn-default.btn-file
+                  span.fileinput-new
+                    'Select file
+                  span.fileinput-exists
+                    'Change
+        
+                
+                  = f.file_field :file, multiple: false, label: 'Select CSV file'
+                a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+                  'Remove
+              
+              .row
+                .col-sm-12
+                  .pull-right
+                    => link_to 'Cancel', account_account_clients_path(@account), class: 'btn btn-default'
+                    = f.submit 'Upload', class: 'btn btn-primary'
+        
+      = link_to account_account_clients_path(@account ) do
+        .btn.btn-default
+          i.fa.fa-chevron-left
+          '&nbsp;Back      
+                 
+              
+  == render 'shared/site_footer'    
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/- blog = Blog.cached_find('Account Clients')
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .do           
+/    .container
+/      == render 'admin/shared/messages'
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              dashboard: account_account_path(@account), \
+/                                                              clients: account_account_clients_path(@account) \
+/                                                             }, \
+/                                                      current:  'upload'}
+/
+/      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Client CSV File'}
+/      
+/      
+/      .row
+/        .col-sm-3
+/        .col-sm-6
+/          .panel.panel-primary
+/            .panel-heading
+/              'Select CSV File
+/            .panel-body
+/
+/              = simple_form_for [ :account,  @account, @client_import] do |f| 
+/                = f.hidden_field :account_id, value: @account.id
+/
+/                = f.file_field :file
+/                hr
+/                .pull-right
+/                  = link_to 'Cancel', account_account_clients_path(@account), 'data-no-turbolink'=>'true', class: 'btn btn-default btn-lg'
+/                  '&nbsp;
+/                  = f.submit 'Done', class: 'btn btn-primary btn-lg'
+/
+/        .col-sm-3
+/          
+/    == render 'shared/back', locals: {link: account_account_clients_path(@account), no_turbo: 'no_turbo'}
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
               
 
 

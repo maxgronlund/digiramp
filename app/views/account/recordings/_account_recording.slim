@@ -147,40 +147,7 @@
                   class: "btn btn-default"  do
           i class="fa fa-rocket"
         
-        
-  /-----------------------------------------
-  / tool tips        
-  /.pull-right
-  /  .small-symbols 
-  /    - if recording.featured
-  /      span id="comments_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Featured"
-  /        = link_to user_recording_path(recording.user, recording)
-  /          i class="fa fa-star"
-  /          '&nbsp;&nbsp;|
-  /        
-  /    span id="comments_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Comments"
-  /      = link_to user_recording_path(recording.user, recording)
-  /        i class="fa fa-comments"
-  /        '&nbsp;
-  /        = recording.comments.count
-  /    
-  /    span id="likes_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Likes"
-  /      '&nbsp;|
-  /      = link_to user_recording_recording_likes_path(recording.user, recording)
-  /        i class="fa fa-heart red-heart"
-  /        '&nbsp;
-  /        =recording.likes.count
-  /    span id="playbacks_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Playbacks"
-  /      '&nbsp;|
-  /      /= link_to user_recording_recording_playbacks_path(recording.user, recording)
-  /      i class="fa fa-headphones" 
-  /      '&nbsp;
-  /      = recording.playbacks_count
 
-
-  
-//.sexy_line 
-/
 - if current_user
   == render 'playlists/select_playlist_form', recording: recording
 

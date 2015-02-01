@@ -34,26 +34,3 @@
 
 
 
-
-
-
-/#wrap
-/  .full-width-top
-/    == render 'admin/shared/navbar', page: 'profile'     
-/  
-/  .container
-/    == render 'admin/shared/messages'
-/    == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_path(@account.user), \
-/                                                            }, current:  'edit'}
-/
-/    /== render 'shared/page_title', locals: {blog: blog, blog_post: 'Create Content'}
-/    == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Edit Account'}
-/        
-/    == render 'form'
-/
-/  
-/    
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
-/        
-       

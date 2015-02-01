@@ -62,7 +62,7 @@
               br
               b Country
               br
-              = f.input :country_work   , label: false
+              = f.input :country_work   , label: false, as: :country, priority: ['US'] 
               = f.input :home_page      , label: 'Home Page', placeholder: 'i.e. http://xxx.com'
         
           .row

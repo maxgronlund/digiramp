@@ -1,18 +1,19 @@
-- blog      = Blog.cached_find('Account')
+/- blog      = Blog.cached_find('Account')
 
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
   
-
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'account'
+  .pro-account
+    #sidebar-wrapper
+    
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'crm'
   
   #page-content-wrapper
     .container-fluid
-      h2 #{@account.title} <funky>Pro</funky>
-      'crm
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ) }, current:'' }
+      h2 Customer Relation Management
       .sexy_line
       .account-account
         .account-account-badges

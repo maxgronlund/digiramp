@@ -2,12 +2,12 @@ class Account::ClientGroupsController < ApplicationController
   
   include AccountsHelper
   before_filter :access_account
-  before_action :set_client_group, only: [:show, :edit, :update, :destroy, 
-    :import_client_emails, :remove_member]
+  before_action :set_client_group, only: [:show, :edit, :update, :destroy, :import_client_emails, :remove_member]
   
   # GET /client_groups
   # GET /client_groups.json
   def index
+    ap params
     @client_groups = ClientGroup.all
     @user = @account.user
     @authorized = true
@@ -16,12 +16,14 @@ class Account::ClientGroupsController < ApplicationController
   # GET /client_groups/1
   # GET /client_groups/1.json
   def show
+    ap params
     @user = @account.user
     @authorized = true
   end
 
   # GET /client_groups/new
   def new
+    ap params
     @client_group = ClientGroup.new
     @user = @account.user
     @authorized = true
@@ -29,6 +31,7 @@ class Account::ClientGroupsController < ApplicationController
 
   # GET /client_groups/1/edit
   def edit
+    ap params
     @user = @account.user
     @authorized = true
   end
@@ -36,6 +39,7 @@ class Account::ClientGroupsController < ApplicationController
   # POST /client_groups
   # POST /client_groups.json
   def create
+    ap params
     @client_group = ClientGroup.create(client_group_params)
     redirect_to account_account_client_groups_path(@account)
     
@@ -44,6 +48,7 @@ class Account::ClientGroupsController < ApplicationController
   # PATCH/PUT /client_groups/1
   # PATCH/PUT /client_groups/1.json
   def update
+    ap params
     if @client_group.update(client_group_params)
       redirect_to account_account_client_group_path(@account, @client_group)
     else
@@ -89,14 +94,11 @@ class Account::ClientGroupsController < ApplicationController
   end
 
   private
+    
     # Use callbacks to share common setup or constraints between actions.
     def set_client_group
-      params[:id] ||= params[:client_group_id]
-      @client_group = @account.client_groups.where(id: params[:id]).first
-      if @client_group.blank?
-        flash[:error] = "Requested URL does not exists."
-        redirect_to account_account_path(@account.id) 
-      end
+      id = params[:id] ||= params[:client_group_id]
+      @client_group = ClientGroup.cached_find(id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

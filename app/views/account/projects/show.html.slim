@@ -2,97 +2,69 @@
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
   
-  
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'account'
+  .pro-account
+    #sidebar-wrapper
+    
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'crm'
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), \
+                                                              crm: account_account_crm_index_path(@account),\
+                                                              projects: account_account_projects_path(@account)\
+                                                             },current:  ''}
       .row
-        .col-sm-8
+        .col-sm-6
           h2 = @project.title
-          'Status: &nbsp;
-          = @project.stage
-        .col-sm-4
+        .col-sm-6
           - if current_account_user.update_crm
             .pull-right
+                  
+              => link_to new_account_account_project_project_task_path(@account, @project) do
+                .btn.btn-default
+                  i class='fa fa-plus-circle'
+                  '&nbsp;Add Task
+              
               = link_to edit_account_account_project_path(@account, @project) do
                 .btn.btn-primary
                   i class='fa fa-pencil'
                   '&nbsp;
                   'Edit
+          
       .sexy_line
-      .row
-        .col-sm-3
-          - if user = @project.user
-            h3 Project manager:&nbsp;
-              
-            = link_to user_path user do
-              = image_tag user.image_url(:avatar_145x145)
-              br
-              = user.user_name
-          - else
-            'Project is unassigned
+      .digi-box
+      
+        .row
+          .col-sm-4
+            - if user = @project.user
+              h4 Project manager:&nbsp;
+                
+              = link_to user_path user do
+                = image_tag user.image_url(:avatar_145x145)
+                br
+                = user.user_name
+            - else
+              'Project is unassigned
+          .col-sm-4
+            h4 Description:
+            = simple_format @project.description
+            
           
-          br
-          b Stage:&nbsp;
-          = @project.stage
-          br
-          b Category:&nbsp;
-          = @project.category
-        .col-sm-3
-          h3 Description:
-          = @project.description
-      .row    
-        .col-sm-12
-          h3 Tasks:
-          .table-responsive
-            table class="table table-hover"
-              thead
-                tr
-                  th Task
-                  th Assigned
-                  th Status
-                  th Priority
+          .col-sm-4
+            h4 Info:
+            == render 'shared/meta_line' , locals: {title: 'Deadline', data: @project.deadline}
+            == render 'shared/meta_line' , locals: {title: 'Stage', data: @project.stage}
+            == render 'shared/meta_line' , locals: {title: 'Category', data: @project.category}
 
-              tbody
-                - @project.project_tasks.each do |project_task| 
-                  tr
-                      
-                    td 
-                      = link_to account_account_project_project_task_path(@account, @project, project_task), \
-                                                                            data: { confirm: 'Are you sure?' } , \
-                                                                            :method => :delete do
-                        .btn.btn-danger.btn-xs
-                          i class="fa fa-times"
-                      '&nbsp;    
-                      = link_to edit_account_account_project_project_task_path(@account, @project, project_task) do
-                        .btn.btn-default.btn-xs
-                          i class="fa fa-pencil"
-                      '&nbsp;
-                      = link_to account_account_project_project_task_path(@account, @project, project_task) do
-                        .btn.btn-default.btn-xs
-                          = project_task.title
-                    td
-                      - if user = project_task.user
-                        = image_tag user.image_url(:avatar_32x32)
-                        = user.user_name
-                    td = project_task.status
-                    td = project_task.priority
-                    /  td = project_task.notifcation
+      h4 Tasks
+      - @project.project_tasks.each do |project_task| 
+        .digi-box
+          = render 'project_task', project_task: project_task
+             
 
- 
-                              
 
-          .row
-            .col-sm-12
-              .pull-right
-                = link_to new_account_account_project_project_task_path(@account, @project) do
-                  .btn.btn-primary
-                    i class='fa fa-plus-circle'
-                    '&nbsp;Add Task
-          
+            
             
            
   == render 'shared/site_footer'    

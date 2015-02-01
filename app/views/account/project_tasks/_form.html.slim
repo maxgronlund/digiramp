@@ -1,34 +1,52 @@
+/= simple_form_for [:account, @account, @project, @project_task]  do |f|
+/  .row
+/    .col-sm-6
+/
+/      = f.input :title
+/      = f.hidden_field :project_id, value: @project.id
+/      = f.input :user_id , \
+/                :collection => @account.get_account_users , \
+/                label: 'Assigned To', \
+/                include_blank: false,\
+/                hint: "Who's Responsible?"
+/      
+/
+/      =f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
+/      
+/      = f.input :category, collection: ProjectTask::CATAGORY
+/      = f.input :priority, collection: ProjectTask::PRIORITY, include_blank: false
+/      = f.input :status, collection: ProjectTask::STATUS, include_blank: false
+/      .pull-right  
+/        = link_to 'Cancel', account_account_project_path(@account, @project), class: 'btn btn-default'
+/        '&nbsp;
+/        = f.submit 'Save', class: 'btn btn-primary'
+/
 = simple_form_for [:account, @account, @project, @project_task]  do |f|
   .row
     .col-sm-6
+      = f.hidden_field :project_id, value: @project.id
 
       = f.input :title
-      = f.hidden_field :project_id, value: @project.id
+
+      /b Deadline
+      /= f.text_field :deadline, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+      br
       = f.input :user_id , \
                 :collection => @account.get_account_users , \
                 label: 'Assigned To', \
-                include_blank: false,\
                 hint: "Who's Responsible?"
-      
-
-      =f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
-      
-      = f.input :category, collection: ProjectTask::CATAGORY
       = f.input :priority, collection: ProjectTask::PRIORITY, include_blank: false
       = f.input :status, collection: ProjectTask::STATUS, include_blank: false
-      .pull-right  
-        = link_to 'Cancel', account_account_project_path(@account, @project), class: 'btn btn-default'
-        '&nbsp;
-        = f.submit 'Save', class: 'btn btn-primary'
+      = f.input :category, collection: ProjectTask::CATAGORY, include_blank: true
+      b Start date
+      = f.text_field :start_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+      br
+      b Due date
+      = f.text_field :due_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker52'
+      br
+    .col-sm-6
+      
+      = f.input :description, :input_html => {  style: "height: 360px;", placeholder: "Description"}
 
-/.col-sm-6
-/  div id="datepicker" class="col-md-3 input-group date"
-/    = text_field_tag "project_task[notifcation]", (f.object.notifcation.present? ? f.object.notifcation : nil)
-/    span class='input-group-addon glyphicon glyphicon-calendar data_button'
-/            
-/         /= f.date_select :due_date
-/  
-/  br
-/  
-/
-/
+      .pull-right  
+        = f.submit 'Save', class: 'btn btn-primary'

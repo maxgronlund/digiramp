@@ -31,7 +31,7 @@
               li Download the template
               li Fill it in with your contacts. email is required
               li Don't change the column names, they are required
-              li Save the file as cvs
+              li Save the file as CSV
               li Upload the file
         .sexy_line    
         .row
@@ -44,7 +44,7 @@
                 '&nbsp;Download
             
           .col-sm-6
-            h4 2: Upload csv file
+            h4 2: Upload CSV File
 
             
             = simple_form_for [ @user, @client_import], :url => url_for(:action => 'create', :controller => 'from_csv'), :method => 'post' do |f|

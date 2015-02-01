@@ -9,6 +9,7 @@ class Account::ClientImportsController < ApplicationController
   # GET /client_imports/new
   def new
     @client_import = ClientImport.new
+    @zip_file      = ZipFile.where(identifier: 'contact-file-template.csv').first_or_create(identifier: 'contact-file-template.csv', title: 'contact-file-template.csv')
   end
 
 

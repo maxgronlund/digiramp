@@ -2,18 +2,32 @@
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
   
-  
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'account'
+  .pro-account
+    #sidebar-wrapper
+    
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'crm'
   
   #page-content-wrapper
     .container-fluid
-      h3 Edit project
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { projects: account_account_projects_path(@account),\
+                                                              @project.title.to_sym => account_account_project_path(@account, @project)\
+                                                             },current:  ''}
+      .row
+        .col-sm-6
+          h2 Edit project
+        .col-sm-6          
+          .pull-right.pull-down-10
+            = link_to  account_account_project_path(@account, @project) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+
+          
       .sexy_line
-      == render 'form'  
-              
-  == render 'shared/site_footer'    
+      .digi-box
+        == render 'form'
+  == render 'shared/site_footer'  
  
 
 

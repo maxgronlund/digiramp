@@ -454,9 +454,11 @@ class Account < ActiveRecord::Base
 
 
   def get_account_users
-    user_ids = self.account_users.invited.pluck(:user_id)
-    user_ids << self.user_id
-    User.where(id: user_ids)
+    
+    #- @account.account_users.non_catalog_users.each do |account_user|
+    valid_user_ids = self.account_users.where.not(role:  'Super User' ).pluck(:user_id)
+    #user_ids << self.user_id
+    User.where(id: valid_user_ids).pluck(:user_name, :id)
     # why noy
     # users ?
   end

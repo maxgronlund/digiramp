@@ -91,8 +91,7 @@ class SessionsController < ApplicationController
 
 
   def destroy
-
-    session[:show_profile_completeness] = nil
+    
     begin 
       user = User.cached_find_by_auth_token( cookies[:auth_token] )
       user.flush_auth_token_cache(cookies[:auth_token])
@@ -105,8 +104,10 @@ class SessionsController < ApplicationController
     rescue
     end
     cookies.delete(:auth_token)
-    #cookies.permanent[:auth_token]
     cookies.delete(:user_id)
+    
+    session[:share_recording_id]        = nil
+    session[:show_profile_completeness] = nil
     #reset_session
     
     if params[:opportunity_id]
@@ -172,20 +173,23 @@ private
     if recording_id = session[:share_recording_id]   
       session[:share_recording_id]   = nil
       # switch provider
-      case provider.provider
-      when 'facebook'
-        redirect_to share_on_facebook_path(user.id, recording_id: recording_id  )
-      when 'twitter'
-        redirect_to share_on_twitter_path(user.id, recording_id: recording_id  )
-      #else
-      #  goto = session[:current_page]
-      #  session[:current_page] = nil
-      #  redirect_to goto
+      if provider
+        case provider.provider
+        when 'facebook'
+          redirect_to share_on_facebook_path(user.id, recording_id: recording_id  )
+        when 'twitter'
+          redirect_to share_on_twitter_path(user.id, recording_id: recording_id  )
+        #else
+        #  goto = session[:current_page]
+        #  session[:current_page] = nil
+        #  redirect_to goto
+        end
       end
       #elsif session[:redirect_to_message]
       #  goto = session[:redirect_to_message]
       #  session[:redirect_to_message] = nil
       #  redirect_to goto
+      edirect_to session[:current_page]
     elsif session[:go_to_message]
       go_to = session[:go_to_message]
       session[:go_to_message] = nil

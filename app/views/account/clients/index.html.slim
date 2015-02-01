@@ -3,9 +3,10 @@
     == render 'shared/navigationbar', page: 'account' 
   
   
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'account'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'crm'
   
   #page-content-wrapper
     .container-fluid
@@ -14,8 +15,7 @@
                                                              },current:  ''}
       .row
         .col-sm-6
-          h2 #{@account.title} <funky>Pro</funky> 
-          'Clients
+          h2 Clients
         .col-sm-6
           .search-recording
             = simple_form_for  [ @account ], :url => url_for(:action => 'index', \

@@ -1,21 +1,48 @@
-#wrap  
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account), \
-                                                           crm: account_account_crm_index_path(@account),\
-                                                           projects: account_account_projects_path(@account), \
-                                                           }, current:  'New Project'}
-    
-    
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Projects'), blog_post: 'New Project'}
-    == render 'form'
-    
-
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
   
-    == render 'shared/back', locals: {link: account_account_projects_path(@account)}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  .pro-account
+    #sidebar-wrapper
+    
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'crm'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), \
+                                                              crm: account_account_crm_index_path(@account),\
+                                                              projects: account_account_projects_path(@account)\
+                                                             },current:  ''}
+      .row
+        .col-sm-6
+          h2 New projects
+        .col-sm-6
+          .pull-right
+
+          
+      .sexy_line
+      .digi-box
+        == render 'form'
+  == render 'shared/site_footer'
+/#wrap  
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .container
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+/                                                           dashboard: account_account_path(@account), \
+/                                                           crm: account_account_crm_index_path(@account),\
+/                                                           projects: account_account_projects_path(@account), \
+/                                                           }, current:  'New Project'}
+/    
+/    
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Projects'), blog_post: 'New Project'}
+/    == render 'form'
+/    
+/
+/  
+/    == render 'shared/back', locals: {link: account_account_projects_path(@account)}
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'

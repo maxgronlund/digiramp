@@ -2,10 +2,12 @@
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
   
-  
+
   #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+    .pro-account
+      #sidebar-wrapper
+        ul class="sidebar-nav"
+          == render 'account/shared/sidebar', selected: 'recording'
   
   #page-content-wrapper
     .container-fluid

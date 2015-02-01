@@ -4,10 +4,12 @@
   = f.hidden_field :ipiable_id,   value: @account.id
   = f.input :title
   = f.input :ipi_code, label: 'IPI Code'
+  /= f.input :role, label: 'Capacity'
   = f.input :pro, collection: CommonWorksImport::PROS, include_blank: false, label: 'Performance Rights Organization'
   /= f.input :role, label: 'Capacity'
  
-  
-  .pull-right
-    
-    = f.submit 'Save', class: 'btn btn-primary btn-lg'
+  .row
+    .col-sm-12
+      .pull-right
+        
+        = f.submit 'Save', class: 'btn btn-primary'

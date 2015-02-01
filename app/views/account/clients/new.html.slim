@@ -3,16 +3,19 @@
     == render 'shared/navigationbar', page: 'account' 
   
   
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'account'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'crm'
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { clients: account_account_clients_path(@account), \
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { crm: account_account_crm_index_path(@account),\
+                                                              clients: account_account_clients_path(@account)\
                                                              },current:  ''}
-      h2 #{@account.title} <funky>Pro</funky> 
-      'New client 
+  
+
+      h2 New client 
       .sexy_line
       .digi-box
         == render 'form'

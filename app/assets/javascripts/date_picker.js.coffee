@@ -2,6 +2,9 @@ ready = ->
 
   $('#datetimepicker5').datetimepicker 
   		pickTime: false
+
+  $('#datetimepicker52').datetimepicker 
+  		pickTime: false
     
 	
 

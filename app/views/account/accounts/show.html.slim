@@ -1,5 +1,3 @@
-/- blog      = Blog.cached_find('Account')
-
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
@@ -12,6 +10,7 @@
     
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   }, current:'account' }
       .row
         .col-sm-8
           .help
