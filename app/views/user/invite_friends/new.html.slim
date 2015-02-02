@@ -1,0 +1,40 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'invite_friends'
+
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Invite friends
+            .help-button
+              == render 'admin/helps/help', identifier: 'user invite friends'
+          
+        .col-sm-7
+          .pull-down-10
+            
+            
+      .sexy_line
+      .confirmation
+      .row
+        .col-sm-6
+          
+          .digi-box
+            .list_of_emails
+              .add-contacts-content
+              == render 'form', user: @user
+        .col-sm-6
+          .summary
+            
+
+  == render 'shared/site_footer'    
+ 
+

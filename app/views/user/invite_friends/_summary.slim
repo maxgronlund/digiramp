@@ -1,0 +1,15 @@
+.old-summary
+  .digi-box
+    -if invitations_send_to.count > 0
+      h4 Invitations send to
+      - invitations_send_to.each do |email|
+        = email
+        br
+    
+    -if already_invited.count > 0
+      h4 The following is already invited
+      - already_invited.each do |email|
+        = email
+        br
+
+    

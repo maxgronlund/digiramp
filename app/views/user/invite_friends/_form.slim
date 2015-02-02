@@ -1,0 +1,13 @@
+
+.old-contacts-content
+  = simple_form_for [:user, user ], :url => url_for(:action => 'create', :controller => '/user/invite_friends'), remote: true, :method => 'post' do |f|
+    
+    /= text_area_tag 'post'
+  
+    = text_area_tag 'emails', nil, placeholder: "Emails seperated by commas i.e. \njohn@doe.com, jane@doe.com" 
+    
+  
+    .row.pull-down-12
+      .col-sm-12
+        .pull-right
+          = f.submit 'Invite', class: 'btn btn-primary'

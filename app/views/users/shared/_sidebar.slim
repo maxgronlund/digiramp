@@ -56,6 +56,11 @@
         
   - if current_user 
     .sexy_line
+    li class="invite-friends #{'sidebar-selected' if selected == 'invite_friends'}"
+      = link_to new_user_user_invite_friend_path(@user) do
+        i class="fa fa-user-plus"
+        '&nbsp;
+        'Invite friends
     li class="#{'sidebar-selected' if selected == 'support'}"
       = link_to support_index_path do
         i class="fa fa-life-ring"

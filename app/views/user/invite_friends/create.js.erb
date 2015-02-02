@@ -1,0 +1,11 @@
+$('.old-contacts-content').remove()
+$(".add-contacts-content").prepend('<%=j render("user/invite_friends/form", user: @user ) %>');
+
+$('.old-confirmation').remove()
+$(".confirmation").prepend('<%=j render("user/invite_friends/confirmation", invitations_send: @invitations_send ) %>');
+
+$('.old-summary').remove()
+$(".summary").prepend('<%=j render("user/invite_friends/summary", invitations_send_to: @invitations_send_to, already_invited: @already_invited ) %>');
+
+
+

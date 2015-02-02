@@ -3,12 +3,6 @@ Digiramp::Application.routes.draw do
 
 
 
- 
-
-
-
-
-
   resources :share_and_login, only: [:show]
 
   resources :twitter_cards
@@ -743,6 +737,7 @@ Digiramp::Application.routes.draw do
       end
       
       resources :add_contacts_by_emails, only: [:create]
+      resources :invite_friends, only: [:new, :create]
       
       #get 'contact_wizard/fill_form'
       #
