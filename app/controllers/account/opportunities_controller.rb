@@ -11,7 +11,7 @@ class Account::OpportunitiesController < ApplicationController
 
     forbidden unless current_account_user && current_account_user.read_opportunity
 
-    @opportunities = @account.opportunities.order('deadline desc')
+    @opportunities = @account.opportunities.order('created_at desc')
     @user = current_user
     #@authorized = true
     
