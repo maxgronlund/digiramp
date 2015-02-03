@@ -12,7 +12,7 @@ class ContactInvitationsController < ApplicationController
   
    # linked to from email
   def decline_invitation
-    ap params
+
     if @client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
       ap @client_invitation
       @message = validate_invitation( @client_invitation ) 
@@ -48,7 +48,7 @@ class ContactInvitationsController < ApplicationController
       client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
       @inviter          = User.cached_find(client_invitation.user_id)
       
-      #xxxxxxxxxxxxxxxx not right xxxxxxxxxxxxxxxxxxxxxxx
+
       connect_with_user( current_user, @inviter )
     rescue
       @message = 'Unable to create connection'
@@ -101,14 +101,14 @@ private
       
       if user_is_signed_up( client_invitation )
         ap '========================= USER IS SIGNED UP ========================='
-        @invited        = @client.user
-        @inviter        = client_invitation.user
+        ap client_invitation
+        @inviter = client_invitation.user
+        connect_with_user(  @client.user, current_user  )
         
-        connect_with_user( @invited, @inviter )
-        return "You are connected with #{client_invitation.user.user_name}"
+        return "You are now connected with #{client_invitation.user.user_name}"
       
       else
-        if @inviter = @client.user
+        if @inviter = client_invitation.user
           return user_is_logged_in( @client )
         else
           return 'Error: Inviter is deleted'
@@ -261,7 +261,7 @@ private
       #sender    = User.cached_find(@user.id)
     
       
-      @message = Message.create(recipient_id: user_a.id, sender_id: user_b.id, title: 'Invitation accepted', body: "Your invitation send to #{@user.email} has been accepted")
+      @message = Message.create(recipient_id: user_a.id, sender_id: user_b.id, title: 'Invitation accepted', body: "Your invitation send to #{user_b.email} has been accepted")
       
 
     

@@ -17,7 +17,7 @@
           =  image_tag @inviter.image_url(:avatar_64x64)
         .title
           b = @inviter.user_name 
-          br Is connect with you
+          br = @message
         .clearfix
         h5  
           - if @inviter.composer
