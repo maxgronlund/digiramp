@@ -108,7 +108,7 @@ private
         @inviter        = client_invitation.user
         
         connect_with_user( @invited, @inviter )
-        return "You are now connected with #{client_invitation.user.user_name}"
+        return "You are connected with #{client_invitation.user.user_name}"
       
       else
         if @inviter = @client.user
