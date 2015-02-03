@@ -88,8 +88,7 @@ class ContactInvitationsController < ApplicationController
         redirect_to contact_invitation_accept_invitation_path(contact_invitation_id: params[:contact_invitation_id], message: message)
       end
     else
-      ap '=================== bad password ============================'
-
+      
       redirect_to contact_invitation_accept_invitation_path(contact_invitation_id: params[:contact_invitation_id], error_message: 'Password error. Please retype')
     end
   end
@@ -105,9 +104,10 @@ private
       
       if user_is_signed_up( client_invitation )
         
-        @inviter        = @client.user
+        @invited        = @client.user
+        @inviter        = client_invitation.user
         
-        connect_with_user( @inviter, current_user )
+        connect_with_user( @invited, @inviter )
         return "You are now connected with #{client_invitation.user.user_name}"
       
       else
