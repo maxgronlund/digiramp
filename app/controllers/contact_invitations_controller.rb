@@ -185,12 +185,19 @@ private
   end
   
   def sign_up_with_new_user params, client_invitation, email, client
+    #logger.info '======================================================================================='
+    #logger.info '======================================================================================='
+    #logger.info '======================================================================================='
+    #logger.info client
+    
+    full_name = client.full_name
+    full_name = User.create_uniq_user_name_from_email( email )  if full_name == ' '
+
     # create user
     @user = User.new(   user_name:              client.full_name,
                         old_role:               'Customer',
                         provider:               'DigiRAMP',
                         private_profile:        false,
-                        user_name:              client.full_name,
                         first_name:             client.name,
                         last_name:              client.last_name,
                         profession:             client.capacity,

@@ -76,6 +76,10 @@ class Admin::StatisticsController < ApplicationController
     @messages               = Message.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
     @messages_chart         = @messages.group_by_day(:created_at).count 
     
+    @invitations            = ClientInvitation.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @invitations_chart      = @invitations.group_by_day(:created_at).count 
+    
+    
   end
   
   def opportunities

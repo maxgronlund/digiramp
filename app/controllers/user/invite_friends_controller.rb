@@ -5,7 +5,7 @@ class User::InviteFriendsController < ApplicationController
   end
 
   def create
-    ap params
+    #ap params
     
     invitations_send_to_index = 0
     invitations_send_to       = []
@@ -17,8 +17,11 @@ class User::InviteFriendsController < ApplicationController
       raw_email.split(' ').each do |email|
         if email = EmailValidator.saintize( email )
           client = Client.where(email: email, user_id: @user.id).first_or_create(email: email, user_id: @user.id, account_id: @user.account_id)
-
           
+          if client.full_name == ' '
+            client.name =  User.create_uniq_user_name_from_email( email )  
+            client.save!
+          end
           
           unless @client_invitation = ClientInvitation.where( account_id: @user.account_id, client_id: client.id).first
                  client_invitation = ClientInvitation.create( account_id: @user.account_id, 
