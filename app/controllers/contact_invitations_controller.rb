@@ -23,9 +23,9 @@ class ContactInvitationsController < ApplicationController
   
   # when the user confirm not knowing inviter
   def confirm_decline_of_invitation
-    ap params
+
     
-    @client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
+    @client_invitation        = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
     @client_invitation.status = 'Declined'
     @client_invitation.save
     

@@ -185,7 +185,7 @@ class User < ActiveRecord::Base
     
     client_ids          = Client.where(member_id: self.id).pluck(:id)
 
-    if client_invitations = client_invitations  = ClientInvitation.where(client_id: client_ids)
+    if client_invitations  = ClientInvitation.where(client_id: client_ids)
       client_invitations.destroy_all
     end
     
