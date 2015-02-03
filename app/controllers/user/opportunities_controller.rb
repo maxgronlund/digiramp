@@ -16,7 +16,7 @@ class User::OpportunitiesController < ApplicationController
     
     opportunity_ids.uniq!
     
-    @opportunities = Opportunity.order('creation_at desc').where(id: opportunity_ids).search(params[:query])
+    @opportunities = Opportunity.order('created_at desc').where(id: opportunity_ids).search(params[:query])
   end
   
   
