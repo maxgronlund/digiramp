@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203203939) do
+ActiveRecord::Schema.define(version: 20150203212958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1337,6 +1337,8 @@ ActiveRecord::Schema.define(version: 20150203203939) do
     t.boolean  "pro_account", default: false
     t.boolean  "super",       default: false
     t.text     "thumbnail",   default: ""
+    t.string   "identifier"
+    t.string   "duration"
   end
 
   create_table "instrument_tags", force: true do |t|

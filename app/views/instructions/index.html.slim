@@ -33,16 +33,23 @@
        
       .sexy_line
       .digi-box
+        - Instruction.introduction
         - @instructions.each do |instruction|
           = link_to instruction do
             .row
               .col-sm-4
                 h4 = instruction.title
               .col-sm-4
+                
               .col-sm-4
                 .pull-right
                   .btn.btn-default
                     'Show
+                  - if super?
+                    =< link_to 'Edit', edit_instruction_path(instruction), class: 'btn btn-default'
+                    =< link_to  instruction, data: {:confirm => 'Are you sure?'}, :method => :delete do
+                       .btn.btn-danger
+                         i.fa.fa-times
           .sexy_line
       /table
       /  thead
@@ -74,7 +81,7 @@
       /
       /br
       
-      = link_to 'New Instruction', new_instruction_path
+
                           
                   
         
