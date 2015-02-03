@@ -3,6 +3,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  resources :instructions
+
   resources :share_and_login, only: [:show]
 
   resources :twitter_cards

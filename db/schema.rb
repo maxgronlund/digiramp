@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150131140952) do
+ActiveRecord::Schema.define(version: 20150203200948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1322,6 +1322,18 @@ ActiveRecord::Schema.define(version: 20150131140952) do
   end
 
   add_index "import_ipis", ["account_id"], name: "index_import_ipis_on_account_id", using: :btree
+
+  create_table "instructions", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "video"
+    t.integer  "views"
+    t.string   "tag"
+    t.integer  "position"
+    t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "instrument_tags", force: true do |t|
     t.integer  "recording_id"

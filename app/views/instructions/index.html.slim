@@ -1,0 +1,33 @@
+h1 Listing instructions
+
+table
+  thead
+    tr
+      th Title
+      th Body
+      th Video
+      th Views
+      th Tag
+      th Position
+      th Link
+      th
+      th
+      th
+
+  tbody
+    - @instructions.each do |instruction|
+      tr
+        td = instruction.title
+        td = instruction.body
+        td = instruction.video
+        td = instruction.views
+        td = instruction.tag
+        td = instruction.position
+        td = instruction.link
+        td = link_to 'Show', instruction
+        td = link_to 'Edit', edit_instruction_path(instruction)
+        td = link_to 'Destroy', instruction, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Instruction', new_instruction_path

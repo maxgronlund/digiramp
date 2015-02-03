@@ -74,14 +74,17 @@
               /  end
                 
             - when 'Connection'
-              - if connection = Connection.find( @message.subjebtable_id )
+              - if connection = Connection.where( id: @message.subjebtable_id ).first
                 .connection-invitation
                 == render 'messages/connection_invitation', receiver: @message.receiver, connection: connection
                   /= simple_form_for [ @message.receiver , connection ], remote: true do |f|
                   /  = f.hidden_field :approved, value: true
                   /  = link_to "Dismiss", '#', class: 'btn btn-default'
                   /  '&nbsp;
-                  /  = f.submit 'Accept invitation', class: 'btn btn-primary'
+                    /  = f.submit 'Accept invitation', class: 'btn btn-primary'
+              - else
+                
+                '! Connection deleted
         .row
           .col-sm-12
             

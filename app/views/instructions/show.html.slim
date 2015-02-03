@@ -1,0 +1,27 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @instruction.title
+p
+  strong Body:
+  = @instruction.body
+p
+  strong Video:
+  = @instruction.video
+p
+  strong Views:
+  = @instruction.views
+p
+  strong Tag:
+  = @instruction.tag
+p
+  strong Position:
+  = @instruction.position
+p
+  strong Link:
+  = @instruction.link
+
+= link_to 'Edit', edit_instruction_path(@instruction)
+'|
+= link_to 'Back', instructions_path
