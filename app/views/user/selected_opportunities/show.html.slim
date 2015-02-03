@@ -22,8 +22,8 @@
                 - if account.user_id == current_user.id || super?
                   =< link_to account_account_opportunity_path(account, @opportunity)
                     .btn.btn-default
-                      i.fa.fa-pencil
-          
+                      i.fa.fa-eye
+                      '&nbsp;Manage
         .col-sm-5
           == render 'user/opportunities/navigation', active: ''
 

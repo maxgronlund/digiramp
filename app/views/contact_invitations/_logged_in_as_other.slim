@@ -8,7 +8,7 @@
   .row
     .col-sm-6
       - if Connection.connected(@inviter.id, current_user.id)
-        'OK
+        
       - else
         'Click 'Accept' to connect with #{@inviter.user_name}
         .pull-right.pull-down-12
@@ -16,6 +16,10 @@
           br
           => link_to 'Accept', contact_invitation_accept_connection_path(params[:contact_invitation_id]), class: 'btn btn-primary'
           => link_to 'Decline', contact_invitation_decline_connection_path(params[:contact_invitation_id]), class: 'btn btn-default'
+  .row
+    .col-sm-12
+      .pull-right
+        = link_to 'Log out and retry', logout_path(params: params, redirect_to_accept_invitation: request.url ), class: 'btn btn-primary'
         
 
   

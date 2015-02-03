@@ -99,11 +99,8 @@ private
     
     if @client = client_invitation.client
       
-      #login_status = user_is_logged_in ( @client )
-      #return login_status unless login_status == 'Not logged in'
-      
       if user_is_signed_up( client_invitation )
-        
+        ap '========================= USER IS SIGNED UP ========================='
         @invited        = @client.user
         @inviter        = client_invitation.user
         
@@ -124,11 +121,7 @@ private
   end
   
   def user_is_signed_up( client_invitation )
-    begin
-     return true if User.where(email: client_invitation.client.email).first 
-   rescue
-   end
-   false
+    User.where(email: client_invitation.client.email).first 
   end
 
   #def process_client client
@@ -146,7 +139,7 @@ private
       if current_user.email == client.email
         return 'Signed up with email: You are already signed up and signed in'
       else
-        return "Logged in as other: Hi #{current_user.user_name} It seems like you already have an account" 
+        return "Logged in as other: Hi #{current_user.user_name} It seems like you are logged in with another email than this invitation was send to" 
       end
     end
     'Not logged in'
@@ -261,6 +254,30 @@ private
                                       approved: true,
                                       dismissed: false,
                                       message: "" )
+                                      
+                                      
+                                    
+      
+      #sender    = User.cached_find(@user.id)
+    
+      
+      @message = Message.create(recipient_id: user_a.id, sender_id: user_b.id, title: 'Invitation accepted', body: "Your invitation send to #{@user.email} has been accepted")
+      
+
+    
+      inviter   = User.cached_find(user_a.id)
+      invited   = User.cached_find(user_b.id)
+      channel = 'digiramp_radio_' + inviter.email
+      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Invitation accepted', 
+                                            "message" => "#{invited.user_name} has accepted your invitation", 
+                                            "time"    => '2000', 
+                                            "sticky"  => 'false', 
+                                            "image"   => 'notice'
+                                            })
+          
+    
+ 
+      @message.send_as_email 
 
     end
     connection

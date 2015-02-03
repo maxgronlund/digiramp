@@ -728,9 +728,12 @@ class User < ActiveRecord::Base
       user_name = 'no_name'
     end
     
+    user_name.capitalize!
     
-    if last_user = User.last
-      user_name = [ user_name, (last_user.id ).to_s].compact.join('_')
+    if User.where(user_name: user_name).first
+      if last_user = User.last
+        user_name = [ user_name, (last_user.id ).to_s].compact.join('_')
+      end
     end
     user_name
   end
