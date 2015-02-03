@@ -5,11 +5,13 @@ class InstructionsController < ApplicationController
   # GET /instructions.json
   def index
     @instructions = Instruction.all
+    @user = current_user if current_user
   end
 
   # GET /instructions/1
   # GET /instructions/1.json
   def show
+     @user = current_user if current_user
   end
 
   # GET /instructions/new

@@ -61,6 +61,13 @@
         i class="fa fa-user-plus"
         '&nbsp;
         'Invite friends
+        
+    li class="#{'sidebar-selected' if selected == 'instructions'}"
+      = link_to instructions_path do
+        i class="fa fa-video-camera"
+        '&nbsp;
+        'Instruction
+        
     li class="#{'sidebar-selected' if selected == 'support'}"
       = link_to support_index_path do
         i class="fa fa-life-ring"

@@ -1,33 +1,139 @@
-h1 Listing instructions
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
 
-table
-  thead
-    tr
-      th Title
-      th Body
-      th Video
-      th Views
-      th Tag
-      th Position
-      th Link
-      th
-      th
-      th
+  #sidebar-wrapper
+    
+    ul class="sidebar-nav"
+      - if @user
+        == render 'users/shared/sidebar', selected: 'instructions'
+      - else
+        'fo
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path 
+                        
+        
+      
 
-  tbody
-    - @instructions.each do |instruction|
-      tr
-        td = instruction.title
-        td = instruction.body
-        td = instruction.video
-        td = instruction.views
-        td = instruction.tag
-        td = instruction.position
-        td = instruction.link
-        td = link_to 'Show', instruction
-        td = link_to 'Edit', edit_instruction_path(instruction)
-        td = link_to 'Destroy', instruction, data: {:confirm => 'Are you sure?'}, :method => :delete
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {'suport'.to_sym => support_index_path}, current:  ''}
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Instructions
+            .help-button
+              == render 'admin/helps/help', identifier: 'instructions'
+        .col-sm-7.pull-down-10
+       
+      .sexy_line
+      .digi-box
+        - @instructions.each do |instruction|
+          = link_to instruction do
+            .row
+              .col-sm-4
+                h4 = instruction.title
+              .col-sm-4
+              .col-sm-4
+                .pull-right
+                  .btn.btn-default
+                    'Show
+          .sexy_line
+      /table
+      /  thead
+      /    tr
+      /      th Title
+      /      th Body
+      /      th Video
+      /      th Views
+      /      th Tag
+      /      th Position
+      /      th Link
+      /      th
+      /      th
+      /      th
+      /
+      /  tbody
+      /    - @instructions.each do |instruction|
+      /      tr
+      /        td = instruction.title
+      /        td = instruction.body
+      /        td = instruction.video
+      /        td = instruction.views
+      /        td = instruction.tag
+      /        td = instruction.position
+      /        td = instruction.link
+      /        td = link_to 'Show', instruction
+      /        td = link_to 'Edit', edit_instruction_path(instruction)
+      /        td = link_to 'Destroy', instruction, data: {:confirm => 'Are you sure?'}, :method => :delete
+      /
+      /br
+      
+      = link_to 'New Instruction', new_instruction_path
+                          
+                  
+        
+        
+        
+          
+  == render 'shared/site_footer'  
+ 
 
-br
 
-= link_to 'New Instruction', new_instruction_path
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/h1 Listing instructions
+/
+/table
+/  thead
+/    tr
+/      th Title
+/      th Body
+/      th Video
+/      th Views
+/      th Tag
+/      th Position
+/      th Link
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @instructions.each do |instruction|
+/      tr
+/        td = instruction.title
+/        td = instruction.body
+/        td = instruction.video
+/        td = instruction.views
+/        td = instruction.tag
+/        td = instruction.position
+/        td = instruction.link
+/        td = link_to 'Show', instruction
+/        td = link_to 'Edit', edit_instruction_path(instruction)
+/        td = link_to 'Destroy', instruction, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Instruction', new_instruction_path
