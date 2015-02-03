@@ -105,8 +105,10 @@ private
       
       if user_is_signed_up( client_invitation )
         
-        @inviter = @client.user
-        return 'Invitation is used: It seems like this invitaion has already been used'
+        @inviter        = @client.user
+        
+        connect_with_user( @inviter, current_user )
+        return "You are now connected with #{client_invitation.user.user_name}"
       
       else
         if @inviter = @client.user
