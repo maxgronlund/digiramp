@@ -16,16 +16,19 @@ class InstructionsController < ApplicationController
 
   # GET /instructions/new
   def new
+    forbidden unless super?
     @instruction = Instruction.new
   end
 
   # GET /instructions/1/edit
   def edit
+    forbidden unless super?
   end
 
   # POST /instructions
   # POST /instructions.json
   def create
+    forbidden unless super?
     @instruction = Instruction.new(instruction_params)
 
     respond_to do |format|
@@ -42,6 +45,7 @@ class InstructionsController < ApplicationController
   # PATCH/PUT /instructions/1
   # PATCH/PUT /instructions/1.json
   def update
+    forbidden unless super?
     respond_to do |format|
       if @instruction.update(instruction_params)
         format.html { redirect_to @instruction, notice: 'Instruction was successfully updated.' }

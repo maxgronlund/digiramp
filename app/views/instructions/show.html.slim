@@ -20,13 +20,13 @@
     .container-fluid 
       == render 'shared/breadcrumbs', breadcrumbs: { links: {'suport'.to_sym => support_index_path, instructions: instructions_path}, current:  ''}
       .row
-        .col-sm-5
+        .col-sm-8
           .help
             .help-text
               h2  = @instruction.title
             .help-button
               == render 'admin/helps/help', identifier: 'instructions'
-        .col-sm-7.pull-down-10
+        .col-sm-4.pull-down-10
           .pull-right
             = link_to instructions_path do
                 .btn.btn-default
