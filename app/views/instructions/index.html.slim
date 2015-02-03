@@ -28,7 +28,8 @@
               == render 'admin/helps/help', identifier: 'instructions'
         .col-sm-7.pull-down-10
           - if super?
-            = link_to 'New Instruction', new_instruction_path, class: 'btn btn-primary'
+            .pull-right
+              = link_to 'New screen cast', new_instruction_path, class: 'btn btn-primary'
        
       .sexy_line
       .digi-box
