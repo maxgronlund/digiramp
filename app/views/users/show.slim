@@ -17,66 +17,90 @@
           - @user.user_activities.order('created_at desc').first(20).each do |user_activity|
             div id="delete_wall_post_#{user_activity.id.to_s}"
               == render "wall_posts/" + user_activity.postable_type.downcase , follower_event: user_activity
-          - if current_user && !@user.initialized && current_user.id == @user.id
-            .digi-box
-              b Add your basic info to help others find you:
-              .sexy_line
-              = simple_form_for @user do |f|
-            
-                .row
-                  .col-sm-5.col-lg-4
-                    b Ratio 1:1
-                    br
-                    .fileinput.fileinput-new data-provides="fileinput"
-                      .fileinput-new.thumbnail style="width: 120px; height: 120px;"
-                        = image_tag @user.image, size: '184x184'
-            
-                      div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
-                      div
-                        span.btn.btn-default.btn-file
-                          span class="fileinput-new"
-                            'Change image
-                          '&nbsp;
-                          span class="fileinput-exists"
-                            'Change
-                          = f.file_field :image, multiple: false
-            
-                        '&nbsp;
-                        a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-                          'Remove
-            
-                    br
-
-
-                      
-                  .col-sm-7
-                    = f.input :user_name, placeholder: 'As it appear on your profile'
-
-                    = f.input :profession
-                    = f.input :private_profile, label: 'Hide my profile',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-
-                
-                .row
-                  .col-sm-5
-                    = f.input :artist,    :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                    = f.input :author,    :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                    = f.input :composer,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                    = f.input :writer,    :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                  .col-sm-7
-                    = f.input :musician,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                    = f.input :producer,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                    = f.input :remixer,   :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                    = f.input :dj,        :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                
-                  
-
-                  
-                  
-
+          
+          
+          - if current_user && current_user.id == @user.id && @user.show_introduction
+            .instructions
+              - introduction = Instruction.introduction
+              h4 = introduction.title
+              .digi-box
+                #welcome-videos
+                  = raw introduction.video
+                = introduction.body
                 .row
                   .col-sm-12
-                    .pull-right
-                      = f.submit 'Save', class: 'btn btn-primary'
+                    'Thank you, dont show this again
+                    = link_to user_dont_show_instructions_path( @user ), remote: true, method: :post
+                      .pull-right.pull-down-10
+                        .btn.btn-primary
+                          'Don't show again
+              
+          
+          
+          
+          
+          
+          - if current_user && !@user.initialized && current_user.id == @user.id
+            .initialize
+              .digi-box
+                b Add your basic info to help others find you:
+                .sexy_line
+                = simple_form_for [ @user ],remote: true do |f|
+              
+                  .row
+                    .col-sm-5.col-lg-4
+                      b Ratio 1:1
+                      br
+                      .fileinput.fileinput-new data-provides="fileinput"
+                        .fileinput-new.thumbnail style="width: 120px; height: 120px;"
+                          = image_tag @user.image, size: '184x184'
+              
+                        div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+                        div
+                          span.btn.btn-default.btn-file
+                            span class="fileinput-new"
+                              'Change image
+                            '&nbsp;
+                            span class="fileinput-exists"
+                              'Change
+                            = f.file_field :image, multiple: false
+              
+                          '&nbsp;
+                          a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                            'Remove
+              
+                      br
+              
+              
+                        
+                    .col-sm-7
+                      = f.input :user_name, placeholder: 'As it appear on your profile'
+              
+                      = f.input :profession
+                      = f.input :private_profile, label: 'Hide my profile',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+              
+                  
+                  .row
+                    .col-sm-5
+                      = f.input :artist,    :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                      = f.input :author,    :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                      = f.input :composer,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                      = f.input :writer,    :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                    .col-sm-7
+                      = f.input :musician,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                      = f.input :producer,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                      = f.input :remixer,   :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                      = f.input :dj,        :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                  
+                    
+              
+                    
+                    
+              
+                  .row
+                    .col-sm-12
+                      .pull-right
+                        = f.submit 'Close', class: 'btn btn-primary'
         .col-sm-4
           .comments
             == render 'users/guest_book'
@@ -85,6 +109,8 @@
             .rec-comments
               - @user.comments.order('created_at desc').each do |comment|
                 == render 'comments/show', comment: comment
+          
+          
                 
             
                  

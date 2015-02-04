@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
   #end
   
   def current_user
+    #User.where(email: 'test06@digiramp.com').first
     begin
       @current_user ||= User.find(cookies.permanent[:user_id]) if cookies.permanent[:user_id]
     rescue

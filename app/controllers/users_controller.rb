@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   #respond_to :html, :xml, :json, :js
  
   #before_filter :find_user, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user, only: [:edit, :update, :destroy]
+  before_filter :access_user, only: [:edit, :update, :destroy, :dont_show_instructions]
   before_filter :find_user, only: [:show]
   protect_from_forgery only: :index
   
@@ -108,7 +108,8 @@ class UsersController < ApplicationController
 
   def create
     session[:show_profile_completeness] = true
-    params[:user][:role]      = 'Customer'
+    params[:user][:role]                = 'Customer'
+    params[:user][:show_introduction]   = true
     params[:user][:email].downcase! if params[:user][:email]
     user_name                 = User.create_uniq_user_name_from_email (params[:user][:email])
     params[:user][:user_name] = user_name
@@ -230,6 +231,13 @@ class UsersController < ApplicationController
     self.flush_auth_token_cache(cookies[:auth_token])
     session[:show_profile_completeness] = nil
     redirect_to :back
+  end
+  
+  def dont_show_instructions
+    
+    @user.show_introduction = false
+    @user.save!
+    
   end
   
   

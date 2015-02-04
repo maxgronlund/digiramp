@@ -1,0 +1,78 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    
+    ul class="sidebar-nav"
+      - if @user
+        == render 'users/shared/sidebar', selected: 'tutorial'
+      - else
+        'fo
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path 
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {'suport'.to_sym => support_index_path, tutorials: tutorials_path}, current:  ''}
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2  = @tutorial.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'tutorials'
+        .col-sm-4.pull-down-10
+          .pull-right
+            = link_to tutorials_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+                
+            - if super?
+              =< link_to 'Edit', edit_tutorial_path(@tutorial), class: 'btn btn-primary'
+      .sexy_line
+      .digi-box
+        #welcome-videos
+          = raw @tutorial.video
+      .row
+        .col-sm-6
+          .digi-box
+            h4 = @tutorial.title
+            = simple_format @tutorial.body
+        .col-sm-6
+          .digi-box
+            h4 Other tutorials you might like
+      /p
+      /  strong Views:
+      /  = @tutorial.views
+      /p
+      /  strong Tag:
+      /  = @tutorial.tag
+      /p
+      /  strong Position:
+      /  = @tutorial.position
+      /p
+      /  strong Link:
+      /  = @tutorial.link
+      /
+
+      
+        
+        
+        
+          
+  == render 'shared/site_footer'  
+ 
+
+
+
+
+
+
+
+

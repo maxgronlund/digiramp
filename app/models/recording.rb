@@ -172,7 +172,7 @@ class Recording < ActiveRecord::Base
   def confirm_ipis
     #ap '======================= confirm_ipis ============================'
     self.recording_ipis.where(confirmed: false).each do |recording_ipi|
-      unless recording_ipi.email == ''
+      unless recording_ipi.email  == ''
         confirm_ipi recording_ipi
       end
     end

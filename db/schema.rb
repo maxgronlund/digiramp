@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203212958) do
+ActiveRecord::Schema.define(version: 20150204212427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1323,24 +1323,6 @@ ActiveRecord::Schema.define(version: 20150203212958) do
 
   add_index "import_ipis", ["account_id"], name: "index_import_ipis_on_account_id", using: :btree
 
-  create_table "instructions", force: true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.text     "video"
-    t.integer  "views"
-    t.string   "tag"
-    t.integer  "position"
-    t.string   "link"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "published",   default: false
-    t.boolean  "pro_account", default: false
-    t.boolean  "super",       default: false
-    t.text     "thumbnail",   default: ""
-    t.string   "identifier"
-    t.string   "duration"
-  end
-
   create_table "instrument_tags", force: true do |t|
     t.integer  "recording_id"
     t.integer  "instrument_id"
@@ -2208,6 +2190,24 @@ ActiveRecord::Schema.define(version: 20150203212958) do
     t.datetime "updated_at"
   end
 
+  create_table "tutorials", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.text     "video"
+    t.integer  "views"
+    t.string   "tag"
+    t.integer  "position"
+    t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "published",   default: false
+    t.boolean  "pro_account", default: false
+    t.boolean  "super",       default: false
+    t.text     "thumbnail",   default: ""
+    t.string   "identifier"
+    t.string   "duration"
+  end
+
   create_table "upload_csvs", force: true do |t|
     t.string   "file"
     t.string   "title"
@@ -2295,6 +2295,7 @@ ActiveRecord::Schema.define(version: 20150203212958) do
     t.string   "link_to_homepage"
     t.boolean  "initialized",                default: false
     t.text     "short_description"
+    t.boolean  "show_introduction",          default: false
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

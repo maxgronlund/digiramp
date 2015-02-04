@@ -3,7 +3,7 @@ Digiramp::Application.routes.draw do
 
 
 
-  resources :instructions
+  resources :tutorials
 
   resources :share_and_login, only: [:show]
 
@@ -334,7 +334,7 @@ Digiramp::Application.routes.draw do
     #resources :connections, only: [:index, :create, :update, :destroy]
     #resources :contacts
     
-    
+    post 'dont_show_instructions'
     resources :recording_basics, only: [:edit, :update]
     resources :recording_personas, only: [:edit, :update]
     resources :recording_tags, only: [:edit, :update]
@@ -719,6 +719,7 @@ Digiramp::Application.routes.draw do
   namespace :user do
     
     resources :users do
+      
       resources :user_ipis, only: [:index]
       resources :authorization_providers
       resources :activities
