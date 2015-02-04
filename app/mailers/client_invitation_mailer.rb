@@ -85,7 +85,7 @@ class ClientInvitationMailer < ActionMailer::Base
     
     headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
     
-    mail to: "info@digiramp.com", subject: "I'd like to ad you to my network of music professionals"
+    mail to: "info@digiramp.com", subject: "I'd like to add you to my network of music professionals"
     
     
   end
@@ -146,7 +146,7 @@ class ClientInvitationMailer < ActionMailer::Base
     #
     #                  }'
 
-    mail to: "info@digiramp.com", subject: "I'd like to ad you to my network of music professionals"
+    mail to: "info@digiramp.com", subject: "I'd like to add you to my network of music professionals"
     
     #headers['X-SMTPAPI'] = '{ "to": ["max@digiramp.com", "max@pixelsonrails.com"]}'
     #

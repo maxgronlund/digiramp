@@ -2,7 +2,7 @@ class ShareOnFacebooksController < ApplicationController
 
   # the user is sharing from the dialog
   def create
-    # '-------------- ShareOnFacebooksController#create -----------'
+    ap '-------------- ShareOnFacebooksController#create -----------'
     
     if current_user
       share_when_logged_in params
@@ -27,7 +27,8 @@ class ShareOnFacebooksController < ApplicationController
   
   # the user is logged in
   def share_when_logged_in params
-    # '-------------- ShareOnFacebooksController#create_on_logged_in -----------'
+    ap '-------------- ShareOnFacebooksController#create_on_logged_in -----------'
+    ap params
     # if the publish action works
     if current_user.facebook_publish_actions
       share_with_authorized_user params
@@ -38,8 +39,8 @@ class ShareOnFacebooksController < ApplicationController
    
     # the user is not linked with facebook
     else
-      session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
-      @authorize_facebook = true
+      session[:current_page]      = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
+      @authorize_facebook         = true
     end
   end
   
@@ -79,12 +80,14 @@ class ShareOnFacebooksController < ApplicationController
   # getting a new authorization from facebook
   def get_new_authorization params
     # '-------------- ShareOnFacebooksController#get_new_authorization -----------'
-    provider = current_user.authorization_providers.where(provider: 'facebook').first
+    provider            = current_user.authorization_providers.where(provider: 'facebook').first
     provider.destroy
     
     # go to show action after getting the new authorization
-    session[:current_page] = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
-    @authorize_facebook = true
+    session[:current_page]  = share_on_facebook_path(params[:share_on_facebook][:user_id], params[:share_on_facebook])
+    @authorize_facebook     = true
+    
+    
     
   end
   
