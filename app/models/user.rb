@@ -180,8 +180,10 @@ class User < ActiveRecord::Base
     send_messages       = Message.where(sender_id: self.id)
     send_messages.update_all(sender_removed: true)
     
+    
+    
     received_messages   = Message.where(recipient_id: self.id)
-    received_messages.update_all(recipient_id: true)
+    received_messages.update_all(recipient_removed: true)
     
     client_ids          = Client.where(member_id: self.id).pluck(:id)
 
@@ -260,9 +262,7 @@ class User < ActiveRecord::Base
   
   
   def validate_info
-    
-    ap 'validate info'
-    ap self
+
     
     # always start as a customer
     self.role = 'Customer' if self.role.to_s == ''

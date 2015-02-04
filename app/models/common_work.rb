@@ -150,10 +150,10 @@ class CommonWork < ActiveRecord::Base
         if user = User.where(email: ipi.email).first
           recordeing = Recording.find(recording_id)
           if recordeing.user_id == user.id
-            puts '===================================================='
-            ap 'DO NOTHING'
+            #puts '===================================================='
+            #ap 'DO NOTHING'
           else
-            ap user
+            #ap user
           end
         end
       end
@@ -725,10 +725,9 @@ class CommonWork < ActiveRecord::Base
   end
   
   def copy_ipis_from common_work
-    ap '=================================================================================='
+   
     common_work.ipis.each do |ipi|
-      ap ipi
-      ap '============================================ ++ ================================='
+      
       
       self.ipis.where(uuid: ipi.uuid)
                .first_or_create(

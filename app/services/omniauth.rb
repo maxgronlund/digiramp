@@ -11,9 +11,6 @@ class Omniauth
 
       credentials =  env['omniauth.auth']["credentials"]
 
-      
-      
-      ap env['omniauth.auth']
 
       return AuthorizationProvider.create! do |provider|
                         provider.provider           = env['omniauth.auth']["provider"]
@@ -78,18 +75,7 @@ private
                provider.info                = env["info"]
       
         end
-        
-        # do something with the provider here. eg post reccomendation
-        #ap '======================================================================='
-        #ap user[:user].authorization_providers.where(provider: 'facebook').first
-        #ap '======================================================================='
-        #if facebook = new_user.facebook
-        #  #ap authorization_provider
-        #  ap '======================================================================='
-        #  #ap facebook.get_connection("me", "permissions")
-        #  ap facebook. get_object("me")
-        #  ap '======================================================================='
-        #end
+
        
         
         return {user: user[:user], message: user[:message]}

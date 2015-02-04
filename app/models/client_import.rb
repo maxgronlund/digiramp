@@ -11,7 +11,7 @@ class ClientImport < ActiveRecord::Base
   end
   
   def invite_clients
-    ap self
+
     case self.source
       
     when 'linkedin'

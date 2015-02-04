@@ -104,7 +104,7 @@ class Account::CommonWorksController < ApplicationController
   end
   
   def recordings_create
-    ap params
+
     forbidden unless current_account_user.update_common_work
     forbidden unless current_account_user.create_recording?
     

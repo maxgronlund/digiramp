@@ -27,7 +27,7 @@ class BuildCatalogUsers < ActiveRecord::Migration
         
         account_user = AccountUser.create(account_id: account.id, user_id: user.id, role: 'Account Owner')
         account_user.grand_all_permissions
-        ap account_user
+        
       end
     end
     

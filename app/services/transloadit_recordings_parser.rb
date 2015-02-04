@@ -20,7 +20,7 @@ class TransloaditRecordingsParser
     transloadets  = []
     extracted     = {}
 
-    ap uploads
+
 
     # original file
     uploads[:results][':original'].each do |original|
@@ -115,7 +115,7 @@ class TransloaditRecordingsParser
   end
   
   def self.parse uploads, account_id, in_bucket, user_id
-    ap uploads
+
     transloadets  = extract( uploads )
     
 
@@ -127,9 +127,6 @@ class TransloaditRecordingsParser
       
       transloadets.each do |transloaded|
         
-        #puts '*********************************************************'
-        #ap transloadets
-        #puts '*********************************************************'
       
         begin
           recording =   Recording.create!(  title:               extract_title_from( transloaded ), 

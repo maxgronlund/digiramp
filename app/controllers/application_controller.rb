@@ -143,7 +143,7 @@ class ApplicationController < ActionController::Base
       begin
         forbidden( params ) unless @user.permits? current_user
       rescue
-        ap '======================= not found ================='
+        #ap '======================= not found ================='
         params[:id] = 0
         not_found params
       end

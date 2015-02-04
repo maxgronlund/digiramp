@@ -50,11 +50,17 @@
         td
         td
         /td
-/- else
-/  tr
-/    td
-/      = message.id
-/
+- else
+  tr
+    td Sender removed
+    td 
+      - message.destroy
+    td
+    td
+    td
+    td
+    td
+
 
 
 

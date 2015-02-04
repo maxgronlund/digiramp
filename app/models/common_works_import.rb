@@ -77,7 +77,6 @@ class CommonWorksImport < ActiveRecord::Base
         puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
         puts 'ERROR: Unable to parse ascap common work:' 
         puts 'In CommonWorksImport#parse_common_works'
-        ap params
         puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       end
     end
@@ -265,7 +264,7 @@ class CommonWorksImport < ActiveRecord::Base
                                             "image"   => 'notice'
                                             })
     elsif info[:start] == :bmi_import
-      ap info
+
       channel = 'digiramp_radio_' + user_email
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
                                             "message" => 'BMI Import Started', 

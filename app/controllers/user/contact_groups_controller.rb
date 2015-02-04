@@ -56,12 +56,12 @@ class User::ContactGroupsController < ApplicationController
   def add_selected
     contact_group      = ClientGroup.cached_find(params[:contact_group_id])
     
-    ap '======================= add selected =============================='
+   
     render nothing: true
   end
   
   def add_all
-    ap '======================= add all =============================='
+   
     
     @user.clients.each do |client|
       ClientGroupsClients.where(client_id: client.id, client_group_id: params[:contact_group_id])

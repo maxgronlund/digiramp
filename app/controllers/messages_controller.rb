@@ -9,6 +9,8 @@ class MessagesController < ApplicationController
     
     
     @authorized = true 
+    
+
 
     if params[:connection_id]
       connection = Connection.cached_find(params[:connection_id])

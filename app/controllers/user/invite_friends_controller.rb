@@ -5,7 +5,6 @@ class User::InviteFriendsController < ApplicationController
   end
 
   def create
-    #ap params
     
     invitations_send_to_index = 0
     invitations_send_to       = []

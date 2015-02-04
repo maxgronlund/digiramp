@@ -7,7 +7,7 @@ class Account::ClientGroupsController < ApplicationController
   # GET /client_groups
   # GET /client_groups.json
   def index
-    ap params
+    
     @client_groups = ClientGroup.all
     @user = @account.user
     @authorized = true
@@ -16,14 +16,14 @@ class Account::ClientGroupsController < ApplicationController
   # GET /client_groups/1
   # GET /client_groups/1.json
   def show
-    ap params
+    
     @user = @account.user
     @authorized = true
   end
 
   # GET /client_groups/new
   def new
-    ap params
+    
     @client_group = ClientGroup.new
     @user = @account.user
     @authorized = true
@@ -31,7 +31,7 @@ class Account::ClientGroupsController < ApplicationController
 
   # GET /client_groups/1/edit
   def edit
-    ap params
+    
     @user = @account.user
     @authorized = true
   end
@@ -39,7 +39,7 @@ class Account::ClientGroupsController < ApplicationController
   # POST /client_groups
   # POST /client_groups.json
   def create
-    ap params
+    
     @client_group = ClientGroup.create(client_group_params)
     redirect_to account_account_client_groups_path(@account)
     
@@ -48,7 +48,7 @@ class Account::ClientGroupsController < ApplicationController
   # PATCH/PUT /client_groups/1
   # PATCH/PUT /client_groups/1.json
   def update
-    ap params
+    
     if @client_group.update(client_group_params)
       redirect_to account_account_client_group_path(@account, @client_group)
     else

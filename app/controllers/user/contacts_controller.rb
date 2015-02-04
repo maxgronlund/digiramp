@@ -41,7 +41,7 @@ class User::ContactsController < ApplicationController
         Client.create(client_params)
       else
         @message = "A contact with the email: #{email} already exists"
-        ap @message
+        
       end
     else
       @message = 'Invalid email'

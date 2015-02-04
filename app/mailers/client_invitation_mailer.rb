@@ -13,13 +13,13 @@ class ClientInvitationMailer < ActionMailer::Base
   
   def import_form_linkedin client_import_id
     
-    client_import = ClientImport.cached_find(client_import_id)
+    #client_import = ClientImport.cached_find(client_import_id)
     
-    clients = []
+    #clients = []
     
-    client_import.clients.each do |client|
-      ap client
-    end
+    #client_import.clients.each do |client|
+    #  #ap client
+    #end
 
   end
   
@@ -27,7 +27,6 @@ class ClientInvitationMailer < ActionMailer::Base
   def invite_all_from_group client_group_id
     
     client_group = ClientGroup.find(client_group_id)
-    ap client_group
     @inviter     = client_group.user
     user_name    = @inviter.user_name
     @avatar_url           = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s

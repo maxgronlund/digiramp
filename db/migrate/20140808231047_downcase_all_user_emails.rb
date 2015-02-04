@@ -8,7 +8,7 @@ class DowncaseAllUserEmails < ActiveRecord::Migration
       rescue
         puts '------------ ERROR --------------'
         User.where(email: user.email).each do |u|
-          ap u
+          #ap u
         end
       end
     end

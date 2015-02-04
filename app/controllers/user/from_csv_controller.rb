@@ -9,7 +9,7 @@ class User::FromCsvController < ApplicationController
 
   def create
     @client_import = ClientImport.create(client_import_params)
-    ap @client_import
+
     ClientCsvImportWorker.perform_async( @client_import.id, current_user.email )
     redirect_to user_user_control_panel_index_path(@user)
   end

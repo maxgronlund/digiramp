@@ -21,8 +21,7 @@ class User::AddContactsController < ApplicationController
   end
   
   def new
-    ap '================================================='
-    ap params
+
     ClientGroupsClients.where(client_id: params[:contact_id], client_group_id: params[:contact_group_id])
                       .first_or_create(client_id: params[:contact_id], client_group_id: params[:contact_group_id])
     @contact_id = params[:contact_id]
@@ -30,7 +29,7 @@ class User::AddContactsController < ApplicationController
   end
   
   def destroy
-    ap params
+
     if contact_group_contact = ClientGroupsClients.where(client_id: params[:id], client_group_id: params[:contact_group_id]).first
       contact_group_contact.destroy
       @contact_id = params[:id]

@@ -20,10 +20,10 @@ class FbRecordingCommentWorker
                                        "picture" => "#{recording.get_artwork}"
                                      })
         else
-          ap 'no facebook'
+          #ap 'no facebook'
         end
       else
-        ap 'no user'
+        #ap 'no user'
       end  
     end
   end
