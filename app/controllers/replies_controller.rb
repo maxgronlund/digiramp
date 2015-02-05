@@ -5,6 +5,7 @@ class RepliesController < ApplicationController
     @reply = Reply.create(reply_params)
     @forum_post = ForumPost.find(@reply.replyable_id)
     
+    redirect_to forum_post_path(@forum_post)
   end
 
   def update

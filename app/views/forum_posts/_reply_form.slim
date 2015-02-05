@@ -4,7 +4,7 @@
   .sexy_line
   .row  
     .col-sm-12
-      = simple_form_for [ Reply.new ], remote: true do |f|
+      = simple_form_for [ Reply.new ] do |f|
         /.row
         /  .col-sm-6
         /    = f.input :title
@@ -24,6 +24,7 @@
             = f.hidden_field :user_id, value: current_user.id
             = f.hidden_field :replyable_id, value: forum_post.id
             = f.hidden_field :replyable_type, value: forum_post.class.name
+            = f.input :image
             /= f.input :uniq_likes
             /= f.input :published
             

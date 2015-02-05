@@ -820,25 +820,13 @@ class User < ActiveRecord::Base
   
   
   def facebook
-    #ap '------ User # facebook --------'
-    
     if provider = authorization_providers.where(provider: 'facebook').first
       @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
       block_given? ? yield(@facebook) : @facebook
     else #Koala::Facebook::APIError
-      ap '******************** User # facebook no aurhorization found  ********************'
       return nil
     end
     @facebook
-    
-    #begin provider = authorization_providers.where(provider: 'facebook').first
-    #  @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
-    #  block_given? ? yield(@facebook) : @facebook
-    #rescue Koala::Facebook::APIError => e #Koala::Facebook::APIError
-    #  ap '******************** User # facebook no aurhorization found  ********************'
-    #  return nil
-    #end
-    #@facebook
   end
   
   def friends_count
@@ -861,39 +849,31 @@ class User < ActiveRecord::Base
     end
     
   end
+  
 
 
   def tweet share_on_twitter_id
     
-    
     if share_on_twitter = ShareOnTwitter.cached_find(share_on_twitter_id)
-    
-    
-    
-      if self.authorization_providers
-         
-        # get twitter provider
-        if provider_twitter = self.authorization_providers.where(provider: 'twitter').first
+      # get twitter provider
+      if provider_twitter = self.authorization_providers.where(provider: 'twitter').first
       
-          client = Twitter::REST::Client.new do |config|
-            config.consumer_key        = TWITTER_KEY
-            config.consumer_secret     = TWITTER_SECRET
-            
-            config.access_token        = provider_twitter[:oauth_token]
-            config.access_token_secret = provider_twitter[:oauth_secret]
-          
-          end
-          
+        client = Twitter::REST::Client.new do |config|
+          config.consumer_key        = TWITTER_KEY
+          config.consumer_secret     = TWITTER_SECRET
+          config.access_token        = provider_twitter[:oauth_token]
+          config.access_token_secret = provider_twitter[:oauth_secret]
+        
+        end
+        
 
-          open( share_on_twitter.recording.get_artwork) do |file|
-            client.update_with_media( share_on_twitter.message, file );
-          end
-        else
-          ap '----------- twitter provider not found. Link account now ----------------------'
+        open( share_on_twitter.recording.get_artwork) do |file|
+          client.update_with_media( share_on_twitter.message, file );
         end
       else
-        ap '----------- authorization provider not found. Link account to twitter now ----------------------'
+        ap '----------- twitter provider not found. Link account now ----------------------'
       end
+
     else
       ap '----------- share_on_twitter model not found ----------------------'
     end

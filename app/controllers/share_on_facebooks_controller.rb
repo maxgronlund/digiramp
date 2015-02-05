@@ -27,8 +27,7 @@ class ShareOnFacebooksController < ApplicationController
   
   # the user is logged in
   def share_when_logged_in params
-    #ap '-------------- ShareOnFacebooksController#create_on_logged_in -----------'
-    ap params
+
     # if the publish action works
     if current_user.facebook_publish_actions
       share_with_authorized_user params
