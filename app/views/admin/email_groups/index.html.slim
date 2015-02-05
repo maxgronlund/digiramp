@@ -3,9 +3,10 @@
     == render 'shared/navigationbar', page: 'home' 
   
   
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'admin'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'email'
   
   #page-content-wrapper
     .container-fluid

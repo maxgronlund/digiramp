@@ -1,53 +1,57 @@
-
-
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'users'
-   
-  .container
-    .row
-      .col-sm-12
-        /==render 'admin/shared/messages'
-        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: 'administrators'}
-        == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'DigiRAMP Administrators'}
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'engine'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, 'engine room'.to_sym => admin_engine_room_index_path }, current: ''}
 
-           
-            
-        .panel
-          .panel-body
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr
-                    /th User
-                    th Name
-                    th Role
-                    th Email
-                    th 
-                tbody
-                  -@admins.each do |user|
-                    -cache (user) do
-                      tr
-                        /td = debug user
-                        td = user.user_name
-                        td = user.role
-                        td = user.email
-                        td
-                          .pull-right
-                            = link_to 'Show', admin_user_path( user ), class: 'btn btn-default'
-                            '&nbsp;
-                            = link_to 'Edit', edit_admin_administrator_path( user), class: 'btn btn-primary'
-                            '&nbsp;
-                            -unless (user.email == 'max@synthmax.dk') || (user.email == 'peter@digiramp.org')
-                              = link_to 'Delete', admin_user_path( user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
-                            -else
-                              = link_to 'Delete', admin_user_path( user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning disabled'
-                        /td
-                        /  .pull-right
-                        /    = link_to 'Edit', admin_account_path( account), class: 'btn btn-primary'
-                  
+      .row
+        .col-sm-12
+          h2 DigiRAMP Administrators
+      
+
           
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                /th User
+                th Name
+                th Role
+                th Email
+                th 
+            tbody
+              -@admins.each do |user|
+                -cache (user) do
+                  tr
+                    /td = debug user
+                    td = user.user_name
+                    td = user.role
+                    td = user.email
+                    td
+                      .pull-right
+                        - unless (user.email == 'max@digiramp.com') || (user.email == 'peter@digiramp.com')
+                          => link_to 'Edit', edit_admin_administrator_path( user), class: 'btn btn-default'
+                          /=> link_to 'Delete', admin_user_path( user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-warning'
+                        -else
+                          .btn.btn-default.disabled
+                            'Edit
+                          /'&nbsp;
+                          /.btn.btn-warning.disabled
+                          /  'Delete
+
+        
+          
+
+  
+  == render 'shared/site_footer'  
 

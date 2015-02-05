@@ -1,22 +1,52 @@
-#wrap
-  .admin
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'admin'
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { blogs: admin_blogs_path, \
+                                                              @blog.title.to_sym => admin_blog_path(@blog), \
+                                                              }, current: @blog_post.title}
 
-            
-  .container
-    .row
-      .col-sm-12
-        /==render 'admin/shared/messages'
-        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
-                                                                content: admin_content_index_path, \
-                                                                blogs: admin_blogs_path, \
-                                                                @blog.title.to_sym => admin_blog_path(@blog), \
-                                                                }, current: @blog_post.title}
-    h1 = @blog_post.title
-    == render 'shared/line'
-    
+      .row
+        .col-sm-12
 
-    == render 'form'
+          h2 Edit post
+      
+          
+      .sexy_line
+      .digi-box
+        == render 'form'
+        
+        
+  
+  == render 'shared/site_footer' 
 
+/#wrap
+/  .admin
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'admin'
+/
+/            
+/  .container
+/    .row
+/      .col-sm-12
+/        /==render 'admin/shared/messages'
+/        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+/                                                                content: admin_content_index_path, \
+/                                                                blogs: admin_blogs_path, \
+/                                                                @blog.title.to_sym => admin_blog_path(@blog), \
+/                                                                }, current: @blog_post.title}
+/    h1 = @blog_post.title
+/    == render 'shared/line'
+/    
+/
+/    == render 'form'
+/
         

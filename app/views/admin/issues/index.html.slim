@@ -3,9 +3,11 @@
     == render 'shared/navigationbar', page: 'home' 
   
 
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'recordings'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'issue'
+        
     #terms
       = link_to 'Terms And Conditions', terms_and_conditions_path 
                         

@@ -1,40 +1,80 @@
-#wrap
-  .admin
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'admin'
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'engine'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,\
+                                                     administrators: admin_administrators_path}, current: ''}
 
-            
-  .container
-    /==render 'admin/shared/messages'
-    .row
-      .col-sm-12
-        h1 Edit User Profile
-        hr
-    
-    = simple_form_for [:admin,  @user], :url => url_for(:action => 'update', :controller => 'administrators'), :method => 'put',  :html => { :id => 'administrator' } do |f|
-      = f.error_notification
+      .row
+        .col-sm-12
+          h2 Edit Administrator 
+      
+
+          
+      .sexy_line
       .row
         .col-sm-6
-          - if current_user.can_edit?
-            = f.input :account_id , :include_blank => true, :collection => Account.all , label: 'Account'
-            -unless (@user.email == 'max@synthmax.dk') || (@user.email == 'peter@digiramp.org')
-              = f.input :role, collection: User::ROLES
-          = f.input :name
-          = f.input :email
-          = f.input :password, autocomplete: :off
-          = f.input :password_btn btn-defaultation, autocomplete: :off
-        .col-sm-6
-          = f.input :image
-          div id="toolbar" class="wysihtml5-toolbar"
-            a data-wysihtml5-command="bold" Bold
-            '&nbsp; 
-            a data-wysihtml5-command="italic" Italic
-      
-          =f.input :profile, label: false, :input_html => {  style: "height: 360px;", placeholder: "Profile", id: 'wysihtml5_editor'}
-        .col-sm-12
-          .pull-right
-            = f.submit 'Save', class: 'btn btn-primary btn-lg'
-
-      
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'  
+          h3 = @user.user_name
+          .digi-box
+          
+            = simple_form_for [:admin,  @user], :url => url_for(:action => 'update', :controller => 'administrators'), :method => 'put',  :html => { :id => 'administrator' } do |f|
+              /= f.input :account_id , :include_blank => true, :collection => Account.all , label: 'Account'
+              -unless (@user.email == 'max@digiramp.com') || (@user.email == 'peter@digiramp.org')
+                = f.input :role, collection: User::ROLES
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-primary'
+            
+          
+  
+  == render 'shared/site_footer'
+/#wrap
+/  .admin
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'admin'
+/
+/            
+/  .container
+/    /==render 'admin/shared/messages'
+/    .row
+/      .col-sm-12
+/        h1 Edit User Profile
+/        hr
+/    
+/    = simple_form_for [:admin,  @user], :url => url_for(:action => 'update', :controller => 'administrators'), :method => 'put',  :html => { :id => 'administrator' } do |f|
+/      = f.error_notification
+/      .row
+/        .col-sm-6
+/          - if current_user.can_edit?
+/            = f.input :account_id , :include_blank => true, :collection => Account.all , label: 'Account'
+/            -unless (@user.email == 'max@synthmax.dk') || (@user.email == 'peter@digiramp.org')
+/              = f.input :role, collection: User::ROLES
+/          = f.input :name
+/          = f.input :email
+/          = f.input :password, autocomplete: :off
+/          = f.input :password_confirmation, autocomplete: :off
+/        .col-sm-6
+/          = f.input :image
+/          div id="toolbar" class="wysihtml5-toolbar"
+/            a data-wysihtml5-command="bold" Bold
+/            '&nbsp; 
+/            a data-wysihtml5-command="italic" Italic
+/      
+/          =f.input :profile, label: false, :input_html => {  style: "height: 360px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+/        .col-sm-12
+/          .pull-right
+/            = f.submit 'Save', class: 'btn btn-primary btn-lg'
+/
+/      
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'  
+/

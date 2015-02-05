@@ -156,13 +156,15 @@ class Account < ActiveRecord::Base
   
   def administrator
     begin
-      return User.cached_find(administrator_id)
+      return User.cached_find(self.administrator_id)
     rescue
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       puts 'ERROR: Unable to find account administrator'
       puts 'In Account#administrator'
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-      self.user
+      if self.user
+        return self.user
+      end
     end
   end
   
@@ -319,43 +321,6 @@ class Account < ActiveRecord::Base
     end
   end
   
-  
-  
-  # make sure there is a account_user for the account_owner
-  # and the account owners account_user has all permissions
-  #def initialize_account_owner
-  #  # secure there is a account_user for the account_owner
-  #  account_user = get_account_user( self.user_id, "Account Owner" )
-  #  
-  #  if self.user_id == self.administrator_id                           
-  #    account_user.grand_all_permissions
-  #  else
-  #    #!!! grand basic permissions
-  #    account_user.grand_basic_permissions
-  #  end
-  #end
-  #
-  #
-  #
-  ## make sure there is a account_user for the administrator
-  ## and the accounts administrator account_user has all permissions
-  #def initialize_administrator
-  #  # secure there is a account_user for the account_owner
-  #  account_user = get_account_user( self.administrator_id, "Administrator" )                     
-  #  account_user.grand_all_permissions
-  #end
-  #
-  #
-  ## after an account is created
-  ## make sure there is a account_user for super users
-  ## and the super users account_user has all permissions
-  #def initialize_super_users
-  #  User.supers.each do |super_user|
-  #    super_account_user = get_account_user( super_user.id, "Super")
-  #    super_account_user.grand_all_permissions
-  #  end
-  #end
-
 
 
   # get a account user
@@ -378,21 +343,6 @@ class Account < ActiveRecord::Base
   
   
   def update_account_type
-    
-    #if self.is_administrated
-    #  
-    #  owners_account_user.grand_basic_permissions
-    #  administrators_account_user.grand_all_permissions
-    #
-    #else
-    #  case self.account_type
-    #  when 'Social'
-    #    owners_account_user.grand_basic_permissions
-    #  when 'Pro', 'Business', 'Enterprise'
-    #    owners_account_user.grand_pro_permissions
-    #  end
-    #  
-    #end
     update_account_users
   end
   

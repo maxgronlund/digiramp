@@ -1,79 +1,154 @@
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'blog'
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
+                                                              content: admin_content_index_path, \
+                                                              }, current: 'blogs'}
 
-            
-  .container
-    .row
-      .col-sm-12
-        /==render 'admin/shared/messages'    
-        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
-                                                                content: admin_content_index_path, \
-                                                                }, current: 'blogs'} 
-                    
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Admin Blogs', insert: 'new_blog'}
-    .row
-      .col-sm-12
-        .panel
-          .panel-body
+      .row
+        .col-sm-5
+
+          h2 Blogs
+      
+        .col-sm-7
+          .pull-down-10
             = form_tag admin_blogs_path, :method => 'get' do
-              .col-sm-6
+            
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search', \
+                                              value: params[:query]
+                .input-group-btn
+                  = submit_tag 'Search', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Clear', admin_blogs_path, class: 'btn btn-default'           
+      .sexy_line
+      .digi-box
+        - @blogs.order(:title).each do |blog|
+          .row
+            .col-sm-6
+              =link_to blog.title, admin_blog_path(blog), class: "btn btn-default btn-xs"
 
-                = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string', value: params[:query]
-              .col-sm-6
+            .col-sm-2
+               = blog.blog_posts.count
+            .col-sm-4
+              .pull-right
+                => link_to admin_blog_path(blog) do
+                  .btn.btn-default.btn-xs
+                    i class='fa fa-eye'
 
-                = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-                '&nbsp;
-                = link_to 'Show All',admin_blogs_path, class: 'btn btn-default btn-lg'
+                => link_to edit_admin_blog_path(blog) do
+                  .btn.btn-default.btn-xs
+                    i class='fa fa-pencil'
+
+                = link_to  admin_blog_path(blog, page: params[:page]), data: { confirm: 'Are you sure?' } , :method => :delete do
+                  .btn.btn-danger.btn-xs
+                    i class="fa fa-times"
+          .sexy_line
+               
+        .row            
+          .col-sm-12
+            .hidden-xs
+              == paginate(@blogs)
+            .visible-xs
               br
-              
-    .row
-      .col-sm-12
-        .panel
-          .panel-body
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr
-                    th Title
-                    th Posts
-                    th
-                tbody
-                  
-                  -@blogs.order(:title).each do |blog|
-                    -cache([Admin.cached_find(1).version, blog.id, blog.version]) do
-                     tr
-                       td 
-                         =link_to blog.title, admin_blog_path(blog), class: "btn btn-default btn-lg"
-                       td 
-                         h4 =blog.blog_posts.size
-                       td 
-                         .pull-right
-                           = link_to admin_blog_path(blog) do
-                             .btn.btn-default.btn-lg
-                               i class='fa fa-eye'
-                           '&nbsp;
-                           = link_to edit_admin_blog_path(blog) do
-                             .btn.btn-primary.btn-lg
-                               i class='fa fa-pencil'
-                           '&nbsp;
-                           = link_to  admin_blog_path(blog, page: params[:page]), data: { confirm: 'Are you sure?' } , :method => :delete do
-                             .btn.btn-danger.btn-lg
-                               i class="fa fa-times"
-                   
-    .row            
-      /br
-      .col-sm-12
-        .hidden-xs
-          == paginate(@blogs)
-        .visible-xs
-          br
-          .btn-group.btn-group-sm
-            = link_to_previous_page @blogs, '« Prev Page', class: 'btn btn-default mobile_pagination'
-            = link_to_next_page @blogs, 'Next Page »', class: 'btn btn-default mobile_pagination'
-          
+              .btn-group.btn-group-sm
+                = link_to_previous_page @blogs, '« Prev Page', class: 'btn btn-default mobile_pagination'
+                = link_to_next_page @blogs, 'Next Page »', class: 'btn btn-default mobile_pagination'
+        
+  
+  == render 'shared/site_footer'    
 
-    == render 'shared/back', locals: {link: admin_content_index_path}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/
+/
+/    .row
+/      .col-sm-12
+/        .panel
+/          .panel-body
+/            = form_tag admin_blogs_path, :method => 'get' do
+/              .col-sm-6
+/
+/                = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string', value: params[:query]
+/              .col-sm-6
+/
+/                = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+/                '&nbsp;
+/                = link_to 'Show All',admin_blogs_path, class: 'btn btn-default btn-lg'
+/              br
+/              
+/    .row
+/      .col-sm-12
+/        .panel
+/          .panel-body
+/            .table-responsive
+/              table class="table table-hover"
+/                thead
+/                  tr
+/                    th Title
+/                    th Posts
+/                    th
+/                tbody
+/                  
+/                  - @blogs.order(:title).each do |blog|
+/                    -cache([Admin.cached_find(1).version, blog.id, blog.version]) do
+/                     tr
+/                       td 
+/                         =link_to blog.title, admin_blog_path(blog), class: "btn btn-default btn-lg"
+/                       td 
+/                         h4 =blog.blog_posts.size
+/                       td 
+/                         .pull-right
+/                           = link_to admin_blog_path(blog) do
+/                             .btn.btn-default.btn-lg
+/                               i class='fa fa-eye'
+/                           '&nbsp;
+/                           = link_to edit_admin_blog_path(blog) do
+/                             .btn.btn-primary.btn-lg
+/                               i class='fa fa-pencil'
+/                           '&nbsp;
+/                           = link_to  admin_blog_path(blog, page: params[:page]), data: { confirm: 'Are you sure?' } , :method => :delete do
+/                             .btn.btn-danger.btn-lg
+/                               i class="fa fa-times"
+/                   
+/    .row            
+/      /br
+/      .col-sm-12
+/        .hidden-xs
+/          == paginate(@blogs)
+/        .visible-xs
+/          br
+/          .btn-group.btn-group-sm
+/            = link_to_previous_page @blogs, '« Prev Page', class: 'btn btn-default mobile_pagination'
+/            = link_to_next_page @blogs, 'Next Page »', class: 'btn btn-default mobile_pagination'
+/          
+/
+/    == render 'shared/back', locals: {link: admin_content_index_path}
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
             

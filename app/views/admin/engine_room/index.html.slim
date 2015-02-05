@@ -3,78 +3,80 @@
     == render 'shared/navigationbar', page: 'home' 
   
   
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'admin'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'engine'
   
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
-      h2 Engine room
-      .sexy_line
+
       .row
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'SIDEKIQ', \
-                                                      link: sidekiq_web_path, \
-                                                      css_class: 'btn btn-warning', \
-                                                      icon: 'fa fa-clock-o' \
-                                                    }
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'FLUSH CACHE', \
-                                                      link: admin_flush_cache_path, \
-                                                      css_class: 'btn btn-danger', \
-                                                      icon: 'fa fa-bolt' \
-                                                    }
-        
-        
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'ADMINISTRATORS', \
-                                                      link: admin_administrators_path, \
-                                                      css_class: 'btn btn-primary', \
-                                                      icon: 'fa fa-group' \
-                                                    }
-        
-        
-        .col-sm-6
-          == render 'shared/badge_button', locals: { \
-                                                      blog_post: 'UPDATE USER BADGES', \
-                                                      link: admin_set_default_avatars_path, \
-                                                      css_class: 'btn btn-success', \
-                                                      icon: 'fa fa-file-image-o' \
-                                                    }
-        
-        
+        .col-sm-12
+          h2 Engine room
+      
+
+          
       .sexy_line
-        /= link_to 'Rezip 10', recordings_rezip_path, remote: true
-        /br
-        /= Recording.where(zipp: nil).count
-        -if recordings = Recording.where(zipp: nil).first(20)
-          -recordings.each do |recording|
-            
-            b = recording.id
-            =< recording.title
-            '&nbsp;.&nbsp;
-            = link_to 'show', user_recording_path( recording.user, recording) rescue[]
-            br
-            =< recording.zipp.nil? ? 'zip missing' : 'zip is ok'
-            '&nbsp;.&nbsp;
-            =< recording.mp3.nil? ? 'mp3 missing' : 'mp3 is ok'
-            br
-            =< link_to 'Zip now', recording_zip_export_path(recording), remote: true
-            
-            
-            .sexy_line
-            
-           
-                
-            
-                 
-              
-  == render 'shared/site_footer'    
- 
+      .digi-box
+        .row
+          .col-sm-6
+            == render 'shared/badge_button', locals: { \
+                                                        blog_post: 'SIDEKIQ', \
+                                                        link: sidekiq_web_path, \
+                                                        css_class: 'btn btn-warning', \
+                                                        icon: 'fa fa-clock-o' \
+                                                      }
+          .col-sm-6
+            == render 'shared/badge_button', locals: { \
+                                                        blog_post: 'FLUSH CACHE', \
+                                                        link: admin_flush_cache_path, \
+                                                        css_class: 'btn btn-danger', \
+                                                        icon: 'fa fa-bolt' \
+                                                      }
+          
+          
+          .col-sm-6
+            == render 'shared/badge_button', locals: { \
+                                                        blog_post: 'ADMINISTRATORS', \
+                                                        link: admin_administrators_path, \
+                                                        css_class: 'btn btn-primary', \
+                                                        icon: 'fa fa-group' \
+                                                      }
+          
+          
+          .col-sm-6
+            == render 'shared/badge_button', locals: { \
+                                                        blog_post: 'UPDATE USER BADGES', \
+                                                        link: admin_set_default_avatars_path, \
+                                                        css_class: 'btn btn-success', \
+                                                        icon: 'fa fa-file-image-o' \
+                                                      }
+        
+          
+
+  
+  == render 'shared/site_footer'   
+  
+
+/        /= Recording.where(zipp: nil).count
+/        -if recordings = Recording.where(zipp: nil).first(20)
+/          -recordings.each do |recording|
+/            
+/            b = recording.id
+/            =< recording.title
+/            '&nbsp;.&nbsp;
+/            = link_to 'show', user_recording_path( recording.user, recording) rescue[]
+/            br
+/            =< recording.zipp.nil? ? 'zip missing' : 'zip is ok'
+/            '&nbsp;.&nbsp;
+/            =< recording.mp3.nil? ? 'mp3 missing' : 'mp3 is ok'
+/            br
+/            =< link_to 'Zip now', recording_zip_export_path(recording), remote: true
+/            
+/            
+/            .sexy_line
 
 
 
@@ -87,86 +89,3 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/#wrap
-/  .full-width-top
-/    == render 'admin/shared/navbar', page: 'admin'
-/
-/               
-/  .container
-/    /==render 'admin/shared/messages'
-/    -cache ([request.url, Admin.cached_find(1).version  ]) do
-/      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: 'Engine Room'}
-/
-/      
-/      == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Engine Room'} 
-/      .row
-/        .col-sm-6
-/          == render 'shared/badge_button', locals: { \
-/                                                      blog_post: 'SIDEKIQ', \
-/                                                      link: sidekiq_web_path, \
-/                                                      css_class: 'btn btn-warning', \
-/                                                      icon: 'fa fa-clock-o' \
-/                                                    }
-/        .col-sm-6
-/          == render 'shared/badge_button', locals: { \
-/                                                      blog_post: 'FLUSH CACHE', \
-/                                                      link: admin_flush_cache_path, \
-/                                                      css_class: 'btn btn-danger', \
-/                                                      icon: 'fa fa-bolt' \
-/                                                    }
-/        
-/        .col-sm-6
-/          == render 'shared/badge_button', locals: { \
-/                                                      blog_post: 'EDIT HOME', \
-/                                                      link: edit_admin_home_path(1), \
-/                                                      css_class: 'btn btn-success', \
-/                                                      icon: 'fa fa-pencil' \
-/                                                    }
-/        
-/        .col-sm-6
-/          == render 'shared/badge_button', locals: { \
-/                                                      blog_post: 'ADMINISTRATORS', \
-/                                                      link: admin_administrators_path, \
-/                                                      css_class: 'btn btn-primary', \
-/                                                      icon: 'fa fa-group' \
-/                                                    }
-/        
-/        .col-sm-6
-/          == render 'shared/badge_button', locals: { \
-/                                                      blog_post: 'PRO AFFILIATIONS', \
-/                                                      link: admin_pro_affiliations_path, \
-/                                                      css_class: 'btn btn-default', \
-/                                                      icon: 'fa fa-globe' \
-/                                                    }
-/        /.col-sm-6
-/        /  == render 'shared/badge_button', locals: { \
-/        /                                              blog_post: 'Repair Permissions', \
-/        /                                              link: admin_repair_permissions_path, \
-/        /                                              css_class: 'btn btn-warning', \
-/        /                                              icon: 'fa fa-lock' \
-/        /                                            }
-/        
-/        
-/        
-/        
-/        
-/  
-/
-/
-/  
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
-/  

@@ -135,7 +135,8 @@ private
         account = Account.create( title: info[:name], 
                                   account_type: Account::ACCOUNT_TYPES[0], 
                                   contact_email: info[:email], 
-                                  user_id: user.id)
+                                  user_id: user.id,
+                                  expiration_date: Date.current + 6.months)
         # create the account user
         account_user = AccountUser.create(   account_id: account.id, 
                                              user_id: user.id, 

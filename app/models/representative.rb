@@ -16,7 +16,8 @@ class Representative < ActiveRecord::Base
       account = Account.create( title: User.create_uniq_user_name_from_email(self.email), 
                                 account_type: 'representative', 
                                 contact_email: self.email,
-                                user_id: self.user_id)
+                                user_id: self.user_id,
+                                expiration_date: Date.current + 6.months)
       
       created_user = account.users.create( email: self.email, 
                                            password: password, 

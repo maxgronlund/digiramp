@@ -3,9 +3,10 @@
     == render 'shared/navigationbar', page: 'home' 
   
   
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
   
   #page-content-wrapper
     .container-fluid
@@ -46,16 +47,16 @@
                 .body
                   'Genre, Instruments and Moods in iTunes and INgrooves format 
                   
-          .admin-badge-container
-            = link_to admin_system_emails_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-envelope
-                    '&nbsp;Emails
-                .body
-                  'Emails automaticaly send by the system 
-                  
+          /.admin-badge-container
+          /  = link_to admin_system_emails_path do
+          /    .admin-badge
+          /      .title
+          /        h4
+          /          i.fa.fa-envelope
+          /          '&nbsp;Emails
+          /      .body
+          /        'Emails automaticaly send by the system 
+          /        
           .admin-badge-container
             = link_to admin_pro_affiliations_path do
               .admin-badge
@@ -76,16 +77,16 @@
                 .body
                   'Terms and condtions and othere legal stuff
                   
-          .admin-badge-container
-            = link_to admin_video_blogs_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-film
-                    '&nbsp;Video blogs
-                .body
-                  'Terms and condtions and othere legal stuff
-                  
+          /.admin-badge-container
+          /  = link_to admin_video_blogs_path do
+          /    .admin-badge
+          /      .title
+          /        h4
+          /          i.fa.fa-film
+          /          '&nbsp;Video blogs
+          /      .body
+          /        'Terms and condtions and othere legal stuff
+          /        
           .admin-badge-container
             = link_to edit_admin_front_end_content_path(1) do
               .admin-badge

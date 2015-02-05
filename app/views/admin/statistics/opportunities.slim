@@ -3,9 +3,10 @@
     == render 'shared/navigationbar', page: 'home' 
   
 
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'recordings'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'statistic'
       
                         
         
@@ -31,27 +32,7 @@
       
       h4 Music submissions
       = line_chart @submissions_chart
-      
 
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      /h4 Playbacks
-      /= line_chart @playback_chart
-      /
-      /h4 Views
-      /= line_chart @views_chart
-      /
-      /h4 Likes
-      /= line_chart @likes_chart
-      
           
   == render 'shared/site_footer'  
  

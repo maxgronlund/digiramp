@@ -1,0 +1,81 @@
+
+.sidebar 
+
+        
+  
+  li
+    
+    = link_to admin_index_path do
+      .avatar_name
+        h4 Admin
+        
+      .user-avatar
+        =  image_tag 'https://digiramp.com/uploads/raw_image/image/3/admin_logo.png'
+  
+  li class="#{'sidebar-selected' if selected == 'account'}"
+    = link_to admin_accounts_path do
+      i class="fa fa-cubes"
+      '&nbsp;
+      = pluralize(Account.count, 'Account')  
+  
+      
+  li class="#{'sidebar-selected' if selected == 'user'}"
+    = link_to admin_users_path do
+      i class="fa fa-users"
+      '&nbsp;
+      = pluralize(User.count, 'User')
+  
+      
+  li class="#{'sidebar-selected' if selected == 'content'}"
+    = link_to admin_content_index_path do
+      i class="fa fa-archive"
+      '&nbsp;Content
+      
+      
+  li class="#{'sidebar-selected' if selected == 'engine'}"
+    = link_to admin_engine_room_index_path do
+      i class="fa fa-cogs"
+      '&nbsp;Engine room
+  
+  
+  li class="#{'sidebar-selected' if selected == 'statistic'}"
+    = link_to admin_statistics_path do
+      i.fa.fa-bar-chart-o
+      '&nbsp;Statistics 
+  
+  
+  li class="#{'sidebar-selected' if selected == 'opportunity'}"
+    = link_to admin_opportunities_path do
+      i.fa.fa-money
+      '&nbsp;Opportunities 
+  
+  
+  li class="#{'sidebar-selected' if selected == 'email'}"
+    = link_to admin_email_groups_path do
+      i.fa.fa-envelope
+      '&nbsp;Emails   
+  
+  
+  li class="#{'sidebar-selected' if selected == 'issue'}"
+    = link_to admin_issues_path do
+      i.fa.fa-bug
+      '&nbsp;Issues 
+      
+  
+  
+  
+    
+    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+  

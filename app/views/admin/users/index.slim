@@ -3,9 +3,10 @@
     == render 'shared/navigationbar', page: 'home' 
   
   
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'user'
   
   #page-content-wrapper
     .container-fluid
@@ -16,7 +17,7 @@
           h2 Users
       
         .col-sm-7
-          .search-recording
+          .pull-down-10
             = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
                                                           :controller => 'users'), \
                                                           :method => 'get' do |f|

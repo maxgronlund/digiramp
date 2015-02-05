@@ -17,7 +17,11 @@ class SignUpController < ApplicationController
       @user   = User.create(user_params)
       
       role = params['/sign_up']['role']
-      account = Account.create( title: user_params[:user_name], account_type: role, contact_email: email, user_id: @user.id)
+      account = Account.create( title: user_params[:user_name], 
+                                account_type: role, 
+                                contact_email: email, 
+                                user_id: @user.id,
+                                expiration_date: Date.current + 6.months)
       
       AccountUser.where( account_id: account.id, user_id: @user.id).first_or_create(  account_id: account.id, 
                                                                                       user_id: @user.id, 

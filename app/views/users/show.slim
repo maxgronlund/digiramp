@@ -21,7 +21,7 @@
           
           - if current_user && current_user.id == @user.id && @user.show_introduction
             .instructions
-              - introduction = Instruction.introduction
+              - introduction = Tutorial.introduction
               h4 = introduction.title
               .digi-box
                 #welcome-videos
