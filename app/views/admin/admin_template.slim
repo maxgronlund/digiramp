@@ -1,0 +1,21 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      .row-sm-12
+        h2 Admin
+      .sexy_line
+      .digi-box
+
+            
+          
+
+  == render 'shared/site_footer'    

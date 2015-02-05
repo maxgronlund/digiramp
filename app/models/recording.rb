@@ -133,6 +133,8 @@ class Recording < ActiveRecord::Base
   #  self.save!
   #end
   
+
+  
   def check_default_image
     #if self.image_url == "/assets/fallback/artwork.jpg" || self.image.nil?
     #  prng      = Random.new

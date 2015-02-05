@@ -81,7 +81,7 @@ class TransloaditRecordingsParser
       # artwork 
       unless uploads[:results][:artwork].nil?
         uploads[:results][:artwork].each do |artwork|
-          extracted[ artwork[:original_id] ][:artwork]       = artwork[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
+          extracted[ artwork[:original_id] ][:artwork]              = artwork[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
         end
       end
     end
