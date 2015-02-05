@@ -10,7 +10,13 @@ td
      '! Deleted
 td 
   'Profile:&nbsp;
-  - if user = User.cached_find(activity.recipient.id)
+  ruby: 
+    user = nil
+    begin
+      user = User.cached_find(activity.recipient.id)
+    rescue
+    end
+  - if user
     = link_to user.user_name, user_path(user)
   - else
     .deleted

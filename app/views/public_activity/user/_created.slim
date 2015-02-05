@@ -6,6 +6,5 @@ td
   - if user = User.cached_find(activity.owner_id) 
     = link_to user.email, user_path(user)
   - else
-    .deleted
-     '! Error, probably a like
+     '! Not found
 td 
