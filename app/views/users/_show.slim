@@ -56,7 +56,7 @@
     /  '&nbsp;
     /  = user.likes.count
     /'&nbsp;|&nbsp;
-    = link_to user_followers_path(user) do
+    = link_to user_followers_path(user, clear: 'clear') do
       i class="fa fa-users"
       '&nbsp;
       = user.followers.count
