@@ -59,7 +59,13 @@ class Opportunity < ActiveRecord::Base
     end
   end
   
-  
+  def user
+    if self.account && self.account.user
+      return self.account.user
+    end
+    nil
+      
+  end
   
   def init_fields
     self.uuid = UUIDTools::UUID.timestamp_create().to_s

@@ -85,39 +85,35 @@
               - else
                 
                 '! Connection deleted
-        .row
-          .col-sm-12
-            
-            .pull-right
-              - if @message.sender
-                - unless  @message.sender.id == @user.id
-                  -if received_message  && @message.user_can_reply( @user )
-                  
-                    = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@message.id.to_s}" do
-                      .btn.btn-primary
-                        i.fa.fa-reply
-                        '&nbsp;Reply
-                  /- else
-                  /  .alert.alert-info
-                  /    i.fa.fa-exclamation
-                  /    '&nbsp;To reply to on this message you have to be connected
-                        
-        /          
-        /      
-        /
-        /      
-        /        
-        /    .col-sm-3
-          
-            
-          
-                  
+        - if @message.sender
+          - unless  @message.sender.id == @user.id
+            .row
+              .col-sm-12.pull-down-10
+                .sexy_line
                   
                     
-            
-          
-        
-        
+                  -if received_message  && @message.user_can_reply( @user )
+                    .pull-right
+                      = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@message.id.to_s}" do
+                        .btn.btn-primary
+                          i.fa.fa-reply
+                          '&nbsp;Reply
+                  - else
+                    .row
+                      .col-sm-6
+                        
+                      .col-sm-6
+                        
+                        .pull-right.pull-down-12
+                          h4 You are not connected
+                          'But you can reply to this message
+                          br
+                          .pull-down-12
+                          = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@message.id.to_s}" do
+                            .btn.btn-default
+                              i.fa.fa-reply
+                              '&nbsp;Reply
+
         
         
         

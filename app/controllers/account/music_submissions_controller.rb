@@ -34,12 +34,7 @@ class Account::MusicSubmissionsController < ApplicationController
     @opportunity_user    = OpportunityUser.where( opportunity_id: params[:opportunity_id], user_id: current_user.id ).first
     opportunity_user_id  = @opportunity_user ? @opportunity_user.id : nil
     
-    # if this is a private opportunity
-    #if opportunity_user  = OpportunityUser.where( opportunity_id: params[:opportunity_id], user_id: current_user.id ).first
-    #   submitting_user   = opportunity_user.user
-    #elsif current_user && @opportunity.public_opportunity
-    #  submitting_user    = current_user
-    #end
+
     
     if current_user && (@opportunity.public_opportunity || @opportunity_user)
       @recording        = Recording.cached_find(params[:id])
@@ -68,11 +63,26 @@ class Account::MusicSubmissionsController < ApplicationController
       channel = 'digiramp_radio_' + current_user.email
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SUBMITTED', 
                                             "message" => "#{@recording.title} is submitted to #{@music_submission.music_request.title}", 
-                                            "time"    => '2500', 
+                                            "time"    => '4500', 
                                             "sticky"  => 'false', 
                                             "image"   => 'success'
                                             })
                                             
+                                            
+                                            
+                                            
+      if user = @opportunity.user
+        message                    = Message.new
+        message.recipient_id       = user.id
+        message.sender_id          = current_user.id
+        message.title              = 'I have submitted a recording'
+        message.body               = "Thank's for the opportunity. I have submitted " + @opportunity.title + '. Please listen to it and se if you like it'
+        message.subjebtable_id     = @music_submission.id
+        message.subjebtable_type   = 'MusicSubmission'
+        message.save!
+        message.send_as_email
+      end
+        
       
       
     else
