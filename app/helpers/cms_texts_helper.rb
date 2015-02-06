@@ -1,0 +1,2 @@
+module CmsTextsHelper
+end

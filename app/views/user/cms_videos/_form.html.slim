@@ -1,0 +1,12 @@
+
+
+= simple_form_for [:user, @user, @cms_video] do |f|
+
+  .form-inputs
+    = f.input :position, as: :integer 
+    = f.input :snippet
+
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'

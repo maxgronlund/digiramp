@@ -1,0 +1,24 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 New page
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            == render 'form'
+                  
+            
+            
+            
+                 
+              
+  == render 'shared/site_footer'  

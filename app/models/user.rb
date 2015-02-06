@@ -165,6 +165,10 @@ class User < ActiveRecord::Base
   
   has_many :campaigns
   
+  has_many :cms_pages
+  
+  has_one :default_cms_page
+  
   def user_activities
     self.wall_posts.where(user_id: self.id)
   end

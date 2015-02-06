@@ -1,0 +1,33 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Edit banner
+      .sexy_line
+      .digi-box
+        .cms_banner
+          .banner
+            = image_tag @cms_banner.image_url(:banner1024x256)
+        h4 Size 1024 x 256
+        .row
+          .col-sm-6
+            == render 'form'
+                    
+              
+            
+            
+                 
+              
+  == render 'shared/site_footer'  
+
+
+
+
+

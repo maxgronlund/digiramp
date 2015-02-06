@@ -1,0 +1,9 @@
+= simple_form_for [:user, @user, @cms_horizontal_link] do |f|
+
+  .form-inputs
+    = f.input :position, as: :integer 
+
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'

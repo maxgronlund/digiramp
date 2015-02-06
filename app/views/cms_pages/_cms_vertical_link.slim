@@ -1,0 +1,9 @@
+- if @user.cms_pages.count > 1
+  h5 Pages
+  ul class="cms-page-nav"
+    - @user.cms_pages.each do |cms_page|
+     
+     li class="#{'selected' if cms_page.id.to_s == params[:id].to_s }"
+       = link_to user_cms_page_path(@user, cms_page) do
+        .cms-nav-link 
+          = cms_page.title

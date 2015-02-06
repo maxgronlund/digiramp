@@ -1,0 +1,7 @@
+.video-container
+  .vendor
+    = raw section.snippet
+    
+javascript:
+  $(".video-container").fitVids();
+  $(".video-container").fitVids({ customSelector: "iframe[src^='http://socialcam.com']"});

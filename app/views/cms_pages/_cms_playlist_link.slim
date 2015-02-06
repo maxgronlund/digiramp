@@ -1,0 +1,9 @@
+- if playlist = section.playlist
+  h4 = playlist.title
+  .playlist-link
+    = link_to image_tag(playlist.playlist_image_url(:image_270x270)), user_playlist_path(@user, playlist)
+  .pull-down-10
+  = simple_format playlist.body
+  .row
+    .col-sm-12
+      .sexy_line

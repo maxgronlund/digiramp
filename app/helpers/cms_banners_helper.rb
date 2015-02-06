@@ -1,0 +1,2 @@
+module CmsBannersHelper
+end

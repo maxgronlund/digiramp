@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205172730) do
+ActiveRecord::Schema.define(version: 20150206175606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -713,6 +713,78 @@ ActiveRecord::Schema.define(version: 20150205172730) do
   add_index "clients", ["client_import_id"], name: "index_clients_on_client_import_id", using: :btree
   add_index "clients", ["member_id"], name: "index_clients_on_member_id", using: :btree
   add_index "clients", ["user_id"], name: "index_clients_on_user_id", using: :btree
+
+  create_table "cms_banners", force: true do |t|
+    t.string   "image"
+    t.string   "size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cms_horizontal_links", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cms_pages", force: true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cms_pages", ["user_id"], name: "index_cms_pages_on_user_id", using: :btree
+
+  create_table "cms_playlist_links", force: true do |t|
+    t.integer  "position"
+    t.integer  "playlist_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cms_playlist_links", ["playlist_id"], name: "index_cms_playlist_links_on_playlist_id", using: :btree
+
+  create_table "cms_recordings", force: true do |t|
+    t.integer  "recording_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cms_recordings", ["recording_id"], name: "index_cms_recordings_on_recording_id", using: :btree
+
+  create_table "cms_sections", force: true do |t|
+    t.integer  "cms_page_id"
+    t.integer  "position"
+    t.integer  "column_nr"
+    t.string   "cms_type"
+    t.integer  "cms_module_id"
+    t.string   "cms_module_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cms_sections", ["cms_module_id", "cms_module_type"], name: "index_cms_sections_on_cms_module_id_and_cms_module_type", using: :btree
+  add_index "cms_sections", ["cms_page_id"], name: "index_cms_sections_on_cms_page_id", using: :btree
+
+  create_table "cms_texts", force: true do |t|
+    t.integer  "position"
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cms_vertical_links", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cms_videos", force: true do |t|
+    t.integer  "position"
+    t.text     "snippet"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", force: true do |t|
     t.string   "title"
@@ -2297,9 +2369,11 @@ ActiveRecord::Schema.define(version: 20150205172730) do
     t.boolean  "initialized",                default: false
     t.text     "short_description"
     t.boolean  "show_introduction",          default: false
+    t.integer  "default_cms_page_id"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
+  add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
   add_index "users", ["default_playlist_id"], name: "index_users_on_default_playlist_id", using: :btree
   add_index "users", ["default_widget_key"], name: "index_users_on_default_widget_key", using: :btree
 

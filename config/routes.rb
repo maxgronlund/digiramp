@@ -334,6 +334,9 @@ Digiramp::Application.routes.draw do
     #resources :connections, only: [:index, :create, :update, :destroy]
     #resources :contacts
     
+    resources :cms_pages, only: [:show]
+
+    
     post 'dont_show_instructions'
     resources :recording_basics, only: [:edit, :update]
     resources :recording_personas, only: [:edit, :update]
@@ -719,6 +722,17 @@ Digiramp::Application.routes.draw do
   namespace :user do
     
     resources :users do
+      resources :cms_sections, only: [:destroy]
+      resources :cms_banners
+      resources :cms_recordings
+      resources :cms_vertical_links
+      resources :cms_horizontal_links
+      resources :cms_playlist_links
+      resources :cms_videos
+      resources :cms_texts
+      resources :cms_pages do
+        resources :cms_sections 
+      end
       
       resources :user_ipis, only: [:index]
       resources :authorization_providers

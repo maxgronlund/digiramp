@@ -1,0 +1,18 @@
+rails g scaffold cms_page user:belongs_to title 
+
+
+
+rails g scaffold cms_section page:belongs_to position:integer cms_type cms_module:references{polymorphic}:index
+
+rails g scaffold cms_banner image
+
+rails g scaffold cms_recording recording:belongs_to
+rails g scaffold cms_horizontal_links
+rails g scaffold cms_vertical_links
+
+
+rails g scaffold cms_playlist_link position:integer
+rails g scaffold cms_video position:integer snippet:text 
+
+rails g scaffold cms_text position:integer title body:text 
+

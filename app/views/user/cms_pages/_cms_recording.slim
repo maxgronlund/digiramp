@@ -1,0 +1,17 @@
+div id="cms_section_#{section.cms_section.id.to_s}"
+  == render 'cms_pages/cms_recording', section: section
+  .row
+    .col-sm-12.pull-down-8
+      b Position:&nbsp;#{section.cms_section.position}
+      .pull-right
+        => link_to 'Edit',   edit_user_user_cms_recording_path(section.cms_section.cms_page.user, 
+                                                      section.cms_section),  
+                                                      class: 'btn btn-default btn-xs'
+                                                        
+        = link_to  'Remove', user_user_cms_section_path(section.cms_section.cms_page.user, 
+                                                      section.cms_section),  
+                                                      data: { confirm: 'Are you sure?' } , 
+                                                      method: :delete,
+                                                      remote: true,
+                                                      class: 'btn btn-danger btn-xs'
+  .sexy_line

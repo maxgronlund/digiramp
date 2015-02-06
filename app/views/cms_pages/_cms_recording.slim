@@ -1,0 +1,14 @@
+- if recording = section.recording
+  .pull-down-10
+    #digiWhams  class="/recordings/#{recording.id.to_s}"
+      == render 'recordings/recording_with_icons', recording: recording, 
+                                                   info: false,
+                                                   add_to_playlist: true, 
+                                                   remove_from_playlist: false, 
+                                                   edit: true, 
+                                                   delete: false,
+                                                   description: false,
+                                                   share: true,
+                                                   target: "",
+                                                   music_request_link: false,
+                                                   remove_from_request: false

@@ -1,0 +1,11 @@
+= simple_form_for [:user, @user, @cms_page] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.hidden_field :user_id, value: @user.id
+    = f.input :title
+
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'

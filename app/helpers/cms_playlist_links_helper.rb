@@ -1,0 +1,2 @@
+module CmsPlaylistLinksHelper
+end

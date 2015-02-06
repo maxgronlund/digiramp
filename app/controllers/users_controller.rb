@@ -72,6 +72,10 @@ class UsersController < ApplicationController
         @authorized = true
       end
     end
+    
+    if cms_page = CmsPage.where(id: @user.default_cms_page_id).first
+      redirect_to user_cms_page_path(@user, cms_page)
+    end
 
   end
   
