@@ -47,7 +47,7 @@
       .sexy_line
 
       .digi-box
-        - @cms_pages.each do |cms_page|
+        - @user.cms_pages.each do |cms_page|
           .row
             .col-sm-8
               = link_to cms_page.title, user_cms_page_path(@user, cms_page), class: 'btn btn-default'
