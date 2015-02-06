@@ -73,10 +73,6 @@ class UsersController < ApplicationController
       end
     end
     
-    if cms_page = CmsPage.where(id: @user.default_cms_page_id).first
-      redirect_to user_cms_page_path(@user, cms_page)
-    end
-
   end
   
   def find_user

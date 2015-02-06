@@ -5,13 +5,20 @@
   - if @user      
     li
       
-      = link_to user_path(@user) do
+      = link_to profile_path_for( @user) do
         .avatar_name
           h4 = @user.user_name
           
         .user-avatar
           
           =  image_tag @user.image_url(:avatar_184x184)
+    
+        
+    li class="#{'sidebar-selected' if selected == 'profile'}"
+      = link_to user_path(@user) do
+        i class="fa fa-user"
+        '&nbsp;
+        'Profile  
 
     li class="#{'sidebar-selected' if selected == 'recordings'}"
       = link_to user_recordings_path(@user, clear: 'clear') do
