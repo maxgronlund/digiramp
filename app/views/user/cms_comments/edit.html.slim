@@ -1,8 +1,25 @@
-h1 Editing cms_comment
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Edit comment
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            == render 'form'
 
-== render 'form'
+                 
+              
+  == render 'shared/site_footer'  
 
-= link_to 'Show', @cms_comment
-'|
-= link_to 'Back', cms_comments_path
+
+
 
