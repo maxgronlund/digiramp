@@ -1,0 +1,9 @@
+= simple_form_for [:user, @user, @cms_comment] do |f|
+
+  .form-inputs
+    = f.input :position
+
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'

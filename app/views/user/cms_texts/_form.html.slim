@@ -1,15 +1,3 @@
-/= simple_form_for(@cms_text) do |f|
-/  = f.error_notification
-/
-/  .form-inputs
-/    = f.input :position
-/    = f.input :title
-/    = f.input :body
-/
-/  .form-actions
-/    = f.button :submit
-/
-
 = simple_form_for [:user, @user, @cms_text] do |f|
 
   .form-inputs
@@ -20,7 +8,7 @@
       '&nbsp; 
       a data-wysihtml5-command="italic" Italic
     
-    =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Put yur text here", id: 'wysihtml5_editor'}
+    =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Put your text here", id: 'wysihtml5_editor'}
 
 
 

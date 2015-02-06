@@ -1,25 +1,4 @@
-/h1 Listing cms_pages
-/
-/table
-/  thead
-/    tr
-/      th Title
-/      th
-/      th
-/      th
-/
-/  tbody
-/    - @cms_pages.each do |cms_page|
-/      tr
-/
-/        td = cms_page.title
-/        td = link_to 'Show', user_cms_page_path( @user, cms_page )
-/        td = link_to 'Edit', edit_user_user_cms_page_path(@user, cms_page)
-/        td = link_to 'Destroy', user_user_cms_page_path( @user, cms_page ), data: {:confirm => 'Are you sure?'}, :method => :delete
-/
-/br
-/
-/= link_to 'New Cms page', new_user_user_cms_page_path(@user)
+
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'user' 

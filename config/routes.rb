@@ -2,7 +2,6 @@
 Digiramp::Application.routes.draw do
 
 
-
   resources :tutorials
 
   resources :share_and_login, only: [:show]
@@ -730,6 +729,8 @@ Digiramp::Application.routes.draw do
       resources :cms_playlist_links
       resources :cms_videos
       resources :cms_texts
+      resources :cms_playlists
+      resources :cms_comments
       resources :cms_pages do
         resources :cms_sections 
       end

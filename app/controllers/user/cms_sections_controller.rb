@@ -77,6 +77,20 @@ class User::CmsSectionsController < ApplicationController
       @cms_section.cms_module_type  = @cms_text.class.name
       @cms_section.save!
       redirect_to edit_user_user_cms_text_path(@user, @cms_text)
+      
+    when 'Comment'
+      @cms_comment = CmsComment.create
+      @cms_section.cms_module_id    = @cms_comment.id
+      @cms_section.cms_module_type  = @cms_comment.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_comment_path(@user, @cms_comment)
+      
+    when 'Playlist'
+      @cms_playlist = CmsPlaylist.create
+      @cms_section.cms_module_id    = @cms_playlist.id
+      @cms_section.cms_module_type  = @cms_playlist.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_playlist_path(@user, @cms_playlist)
     end
   end
 

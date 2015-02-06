@@ -1,0 +1,23 @@
+/= simple_form_for(@cms_playlist) do |f|
+/  = f.error_notification
+/
+/  .form-inputs
+/    = f.input :position
+/    = f.association :playlist
+/
+/  .form-actions
+/    = f.button :submit
+/
+
+= simple_form_for [:user, @user, @cms_playlist] do |f|
+
+  .form-inputs
+    = f.input :position, as: :integer 
+    /= f.association :recording
+    /= f.recording_id,  collection: @user.recordings
+    = f.association :playlist, collection: @user.playlists, value_method: :id, include_blank: false
+    /= f.input :category, :collection => Project::CATEGORIES, include_blank: false
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'

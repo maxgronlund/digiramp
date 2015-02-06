@@ -15,4 +15,7 @@ rails g scaffold cms_playlist_link position:integer
 rails g scaffold cms_video position:integer snippet:text 
 
 rails g scaffold cms_text position:integer title body:text 
+rails g scaffold cms_comment position:integer
+
+rails g scaffold cms_playlist position:integer playlist:belongs_to
 
