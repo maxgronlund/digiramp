@@ -1,7 +1,6 @@
 = simple_form_for [:user, @user, @cms_horizontal_link] do |f|
 
-  .form-inputs
-    = f.input :position, as: :integer 
+  = f.input :position, as: :integer ,  input_html: { value: @cms_horizontal_link.cms_section.position }
 
   .row
     .col-sm-12

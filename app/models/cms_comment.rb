@@ -1,11 +1,16 @@
 class CmsComment < ActiveRecord::Base
   
+  
   def view_name
     'cms_comment'
   end
   
   def position
     cms_section.position
+  end
+  
+  def position=(pos)
+    cms_section.position = pos
   end
   
   def cms_section
