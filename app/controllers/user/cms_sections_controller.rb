@@ -130,9 +130,23 @@ class User::CmsSectionsController < ApplicationController
     def get_next_possition
       cms_page = CmsPage.cached_find(params[:cms_section][:cms_page_id])
       if last_cms_sections = cms_page.cms_sections.order(:position).where(column_nr: params[:cms_section][:column_nr]).last
-        return last_cms_sections.position + 1
+        if last_cms_sections.position.nil?
+          return fix_positions_for( cms_page )
+        else
+          return last_cms_sections.position + 1
+        end
       end
       0
+    end
+    
+    def fix_positions_for cms_page
+      position = 0
+      cms_page.cms_sections.order(:position).each_with_index do |cms_section, index|
+        cms_section.position = index
+        cms_section.save!
+        position = index
+      end
+      position + 1
     end
     
     # Use callbacks to share common setup or constraints between actions.

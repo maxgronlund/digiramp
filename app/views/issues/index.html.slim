@@ -45,7 +45,7 @@
       .row
         .col-sm-12
           .pull-right
-            = link_to 'Report an issue', new_user_issue_path(current_user), class: 'btn btn-primary'
+            = link_to 'Report an Issue', new_user_issue_path(current_user), class: 'btn btn-primary'
       .digi-box.pull-down-8
         .new-issues
         == render 'index', issues: @issues

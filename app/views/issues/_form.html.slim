@@ -24,8 +24,27 @@
       
       = f.input :body, label: 'Description', :input_html => {  style: "height: 284px;", placeholder: "Write here", id: 'wysihtml5_editor'}
     .col-sm-6
+      b Screenshot
+      br
+      .fileinput.fileinput-new.input-group data-provides="fileinput"
+        .form-control data-trigger="fileinput"
+          i.glyphicon.glyphicon-file.fileinput-exists
+          span.fileinput-filename
 
-      = f.input :image
+        span.input-group-addon.btn.btn-default.btn-file
+          span.fileinput-new
+            'Select file
+          span.fileinput-exists
+            'Change
+
+        
+          = f.file_field :image, multiple: false
+        a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+          'Remove
+      
+      
+      
+      
       = f.input :os, label: 'Operating Systems', :collection => Issue::OSS 
       = f.input :link_to_page
       = f.input :browser , :collection => Issue::BROWSERS 
