@@ -29,7 +29,7 @@
         - @user.cms_pages.each do |cms_page|
           .row
             .col-sm-8
-              = link_to cms_page.title, user_cms_page_path(@user, cms_page), class: 'btn btn-default'
+              = link_to cms_page.title, edit_user_user_cms_page_path(@user, cms_page), class: 'btn btn-default'
             .col-sm-4
               .pull-right
                 => link_to 'Edit', edit_user_user_cms_page_path(@user, cms_page), class: 'btn btn-default'

@@ -1,9 +1,6 @@
 
 Digiramp::Application.routes.draw do
 
-
-  get 'cms_module/new'
-
   resources :tutorials
 
   resources :share_and_login, only: [:show]
@@ -734,6 +731,7 @@ Digiramp::Application.routes.draw do
       resources :cms_texts
       resources :cms_playlists
       resources :cms_comments
+      get 'cms_module_moves/update'
       resources :cms_pages do
         resources :cms_sections 
       end

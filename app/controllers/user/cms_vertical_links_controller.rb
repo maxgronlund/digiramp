@@ -12,7 +12,7 @@ class User::CmsVerticalLinksController < ApplicationController
     params[:cms_vertical_link].delete :position
     @cms_vertical_link.update(cms_vertical_link_params) unless params[:cms_vertical_link] == {}
 
-    redirect_to user_user_cms_page_path(@user, @cms_vertical_link.cms_section.cms_page)
+    redirect_to edit_user_user_cms_page_path(@user, @cms_vertical_link.cms_section.cms_page)
   end
 
   private

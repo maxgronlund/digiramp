@@ -15,7 +15,7 @@ class User::CmsBannersController < ApplicationController
 
     @cms_banner.update(cms_banner_params) unless params[:cms_banner] == {}
 
-    redirect_to user_user_cms_page_path(@user, @cms_banner.cms_section.cms_page)
+    redirect_to edit_user_user_cms_page_path(@user, @cms_banner.cms_section.cms_page)
 
   end
 

@@ -13,7 +13,7 @@ class User::CmsCommentsController < ApplicationController
     params[:cms_comment].delete :position
     @cms_comment.update(cms_comment_params) unless params[:cms_comment] == {}
 
-    redirect_to user_user_cms_page_path(@user, @cms_comment.cms_section.cms_page)
+    redirect_to edit_user_user_cms_page_path(@user, @cms_comment.cms_section.cms_page)
   end
 
   private

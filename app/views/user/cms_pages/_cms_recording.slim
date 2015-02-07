@@ -2,7 +2,12 @@ div id="cms_section_#{section.cms_section.id.to_s}"
   == render 'cms_pages/cms_recording', section: section
   .row
     .col-sm-12.pull-down-8
-      b Position:&nbsp;#{section.cms_section.position}
+      => link_to user_user_cms_module_moves_update_path(@user, 
+                                                        cms_page_id: section.cms_section.cms_page.id ,
+                                                        cms_section_id: section.cms_section.id), remote: true do
+        .btn.btn-default.btn-xs
+          i.fa.fa-arrow-up
+          '&nbsp;Move up
       .pull-right
         => link_to 'Edit',   edit_user_user_cms_recording_path(section.cms_section.cms_page.user, 
                                                       section),  

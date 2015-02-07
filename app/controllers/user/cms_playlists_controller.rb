@@ -13,7 +13,7 @@ class User::CmsPlaylistsController < ApplicationController
     params[:cms_playlist].delete :position
     @cms_playlist.update(cms_playlist_params) unless params[:cms_playlist] == {}
 
-    redirect_to user_user_cms_page_path(@user, @cms_playlist.cms_section.cms_page)
+    redirect_to edit_user_user_cms_page_path(@user, @cms_playlist.cms_section.cms_page)
   end
   private
     # Use callbacks to share common setup or constraints between actions.

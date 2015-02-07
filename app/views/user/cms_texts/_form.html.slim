@@ -1,7 +1,7 @@
 = simple_form_for [:user, @user, @cms_text] do |f|
 
   .form-inputs
-    = f.input :position,  input_html: { value: @cms_text.cms_section.position }
+    = f.hidden_field :position,  input_html: { value: @cms_text.cms_section.position }
     = f.input :title
     div id="toolbar" class="wysihtml5-toolbar"
       a data-wysihtml5-command="bold" Bold

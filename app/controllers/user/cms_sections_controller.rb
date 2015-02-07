@@ -23,7 +23,14 @@ class User::CmsSectionsController < ApplicationController
 
   # POST /cms_sections
   # POST /cms_sections.json
+  
+  
+  
   def create
+    
+    
+    params[:cms_section][:position] = get_next_possition
+    
     @cms_section = CmsSection.new(cms_section_params)
 
     case @cms_section.cms_type
@@ -117,6 +124,15 @@ class User::CmsSectionsController < ApplicationController
   end
 
   private
+    # always add new sections at the bottom 
+    def get_next_possition
+      cms_page = CmsPage.cached_find(params[:cms_section][:cms_page_id])
+      if last_cms_sections = cms_page.cms_sections.order(:position).where(column_nr: params[:cms_section][:column_nr]).last
+        return last_cms_sections.position + 1
+      end
+      0
+    end
+    
     # Use callbacks to share common setup or constraints between actions.
     def set_cms_section
       @cms_section = CmsSection.find(params[:id])

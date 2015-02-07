@@ -13,7 +13,7 @@ class User::CmsTextsController < ApplicationController
     params[:cms_text].delete :position
     @cms_text.update(cms_text_params) unless params[:cms_text] == {}
 
-    redirect_to user_user_cms_page_path(@user, @cms_text.cms_section.cms_page)
+    redirect_to edit_user_user_cms_page_path(@user, @cms_text.cms_section.cms_page)
   end
 
   private
