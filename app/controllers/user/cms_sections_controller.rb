@@ -55,14 +55,16 @@ class User::CmsSectionsController < ApplicationController
       @cms_section.cms_module_id    = @cms_horizontal_link.id
       @cms_section.cms_module_type  = @cms_horizontal_link.class.name
       @cms_section.save!
-      redirect_to edit_user_user_cms_horizontal_link_path(@user, @cms_horizontal_link)
+      redirect_to edit_user_user_cms_page_path(@user, @cms_horizontal_link.cms_section.cms_page)
+      #redirect_to edit_user_user_cms_horizontal_link_path(@user, @cms_horizontal_link)
       
     when 'Vertical links'
       @cms_vertical_link = CmsVerticalLink.create
       @cms_section.cms_module_id    = @cms_vertical_link.id
       @cms_section.cms_module_type  = @cms_vertical_link.class.name
       @cms_section.save!
-      redirect_to edit_user_user_cms_vertical_link_path(@user, @cms_vertical_link)
+      redirect_to edit_user_user_cms_page_path(@user, @cms_vertical_link.cms_section.cms_page)
+      #redirect_to edit_user_user_cms_vertical_link_path(@user, @cms_vertical_link)
       
     when 'Playlist link'
       @cms_playlist_link = CmsPlaylistLink.create
