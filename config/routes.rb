@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
 
 
+  get 'cms_module/new'
+
   resources :tutorials
 
   resources :share_and_login, only: [:show]
@@ -721,6 +723,7 @@ Digiramp::Application.routes.draw do
   namespace :user do
     
     resources :users do
+      resources :cms_module, only: [:new]
       resources :cms_sections, only: [:destroy]
       resources :cms_banners
       resources :cms_recordings

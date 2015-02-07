@@ -33,7 +33,7 @@
             .col-sm-4
               .pull-right
                 => link_to 'Edit', edit_user_user_cms_page_path(@user, cms_page), class: 'btn btn-default'
-                => link_to 'Config', user_user_cms_page_path(@user, cms_page), class: 'btn btn-default'
+                /=> link_to 'Config', user_user_cms_page_path(@user, cms_page), class: 'btn btn-default'
                 = link_to user_user_cms_page_path( @user, cms_page ), data: {:confirm => 'Are you sure?'}, :method => :delete do
                   .btn.btn-danger
                     i.fa.fa-times

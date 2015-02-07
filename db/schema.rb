@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206225704) do
+ActiveRecord::Schema.define(version: 20150207145739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -737,6 +737,8 @@ ActiveRecord::Schema.define(version: 20150206225704) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "background_color", default: "#FFF"
+    t.string   "text_color",       default: "#555"
   end
 
   add_index "cms_pages", ["user_id"], name: "index_cms_pages_on_user_id", using: :btree

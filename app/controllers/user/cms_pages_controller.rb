@@ -26,7 +26,7 @@ class User::CmsPagesController < ApplicationController
 
   def update
     @cms_page.update(cms_page_params)
-    redirect_to user_user_cms_pages_path(@user)
+    redirect_to edit_user_user_cms_page_path(@user, @cms_page)
 
   end
 

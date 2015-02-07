@@ -9,14 +9,91 @@
   
   #page-content-wrapper
     .container-fluid
-      h2 Edit page
-      .sexy_line
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),
+                                                               pages: user_user_cms_pages_path(@user)}, current: ''}
       .row
-        .col-sm-6
-          .digi-box
-            == render 'form'
-                  
+        .col-sm-8
+          .help
+            .help-text
+              h2 = @cms_page.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'edit user page'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+            => link_to user_user_cms_pages_path(@user) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
             
+            = link_to 'Preview', user_cms_page_path(@user, @cms_page), class: 'btn btn-default'
+            
+      .sexy_line
+      .digi-box
+        = simple_form_for [:user, @user, @cms_page] do |f|
+          = f.hidden_field :user_id, value: @user.id
+          .row
+            .col-sm-6
+              = f.input :title
+            .col-sm-6
+              .row
+                .col-sm-6
+                  = f.input :background_color
+                .col-sm-6
+                  = f.input :text_color
+        
+          .row
+            .col-sm-12
+              .pull-right
+                = f.submit 'Update', class: 'btn btn-primary'
+      .sexy_line
+      h4 Edit modules
+      .digi-box style="background-color:#{@cms_page.background_color};"
+        b Top frame
+        .row
+          .col-sm-12
+            .cms-box
+              - @cms_page.cms_sections.order(:position).where(column_nr: 0).each do |section|
+                == render section.view.view_name, section: section.view
+            .pull-down-6
+              .pull-right
+                = link_to new_user_user_cms_module_path(@user, cms_page_id: @cms_page, column_nr: 0) do
+                   .btn.btn-success.btn-xs 
+                     i.fa.fa-plus-circle
+                     'Add module
+                    
+                  
+              
+        .sexy_line
+        .row
+          .col-sm-8
+            b Center frame
+            .cms-box
+              - @cms_page.cms_sections.order(:position).where(column_nr: 1).each do |section|
+                == render section.view.view_name, section: section.view
+            .pull-down-6
+              .pull-right
+                = link_to new_user_user_cms_module_path(@user, cms_page_id: @cms_page, column_nr: 1) do
+                   .btn.btn-success.btn-xs 
+                     i.fa.fa-plus-circle
+                     'Add module
+              
+          .col-sm-4
+            b Right frame
+            .cms-box
+              - @cms_page.cms_sections.order(:position).where(column_nr: 2).each do |section|
+                == render section.view.view_name, section: section.view
+            .pull-down-6
+              .pull-right
+                = link_to new_user_user_cms_module_path(@user, cms_page_id: @cms_page, column_nr: 2) do
+                   .btn.btn-success.btn-xs 
+                     i.fa.fa-plus-circle
+                     'Add module
+            
+
+  
+                    
+              
             
             
                  

@@ -1,0 +1,52 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Select module
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [:user, @user, @cms_page, @cms_section] do |f|
+                = f.hidden_field :cms_page_id, value: @cms_page.id
+                = f.hidden_field :position, value: @position
+                = f.hidden_field :column_nr, value: @column_nr
+                = f.input :cms_type, collection: CmsSection::MODULE_TYPES, :include_blank => false, label: 'Select Module'
+                
+                
+                .row
+                  .col-sm-12
+                    .pull-right
+                      = f.submit 'Add', class: 'btn btn-default'
+                
+            
+                  
+  == render 'shared/site_footer'  
+
+
+
+
+
+
+
+
+              /= simple_form_for [:user, @user, @cms_page, CmsSection.new(position: 0)] do |f|
+              /    = f.hidden_field :cms_page_id, value: @cms_page.id
+              /    = f.hidden_field :column_nr, value: 1
+              /    = f.input :cms_type, collection: CmsSection::MODULE_TYPES, :include_blank => false, label: 'Add Module'
+              /    = f.input :position
+              /  
+              /  
+              /    .row
+              /      .col-sm-12
+              /        .pull-right
+              /          = f.submit 'Add', class: 'btn btn-default'
+              /    
+              /
