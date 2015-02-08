@@ -18,7 +18,8 @@
         .col-sm-6
           .help
             .help-text
-              h2 Recording IPI's
+              h2 Stakeholders in a recording (IPI's)
+              
             .help-button
               == render 'admin/helps/help', identifier: 'recording ipis'
 
@@ -51,7 +52,7 @@
                   = f.simple_fields_for :recording_ipis do |recording_ipis|
                     = render 'recording_personas/recording_ipi_fields', :f => recording_ipis
                   .links
-                    = link_to_add_association 'Add IPI', f, :recording_ipis, class: 'btn btn-primary'
+                    = link_to_add_association 'Add IPI', f, :recording_ipis, class: 'btn btn-success btn-xs'
                     
                     
             .row

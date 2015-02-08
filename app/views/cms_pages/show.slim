@@ -10,14 +10,6 @@
   
   #page-content-wrapper
     .container-fluid
-      .row
-        .col-sm-8
-         h2 = @cms_page.title
-        -if (current_user && current_user.id == @user.id) || super?
-          .col-sm-4.pull-down-10
-            .pull-right
-              = link_to 'Edit', edit_user_user_cms_page_path(@user, @cms_page), class: 'btn btn-primary'
-      .sexy_line
       .digi-box style="background-color:#{@cms_page.background_color};color:#{@cms_page.text_color}"
 
         - @cms_page.cms_sections.order(:position).where(column_nr: 0).each do |section|
@@ -30,10 +22,14 @@
             /= render 'cms_pages/page_selector', user: @user
             - @cms_page.cms_sections.order(:position).where(column_nr: 2).each do |section|
               == render section.view.view_name, section: section.view
-          
-          
-                
-            
+      
+      -if (current_user && current_user.id == @user.id) || super? 
+        .row
+          .col-sm-12.pull-down-10
+            .pull-right
+              = link_to 'Edit', edit_user_user_cms_page_path(@user, @cms_page), class: 'btn btn-primary'
+               
+              
                  
               
   == render 'shared/site_footer'    

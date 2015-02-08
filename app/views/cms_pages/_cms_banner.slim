@@ -2,3 +2,12 @@
 .cms_banner
   .banner
     = image_tag banner.image_url(:banner1024x256)
+    
+    .banner-content
+      -if banner.title.to_s != ''
+        .title
+          = banner.title
+
+      -if banner.body.to_s != ''
+        .body
+          = simple_format banner.body

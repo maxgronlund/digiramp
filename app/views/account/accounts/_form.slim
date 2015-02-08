@@ -8,6 +8,8 @@
         a data-wysihtml5-command="bold" Bold
         '&nbsp; 
         a data-wysihtml5-command="italic" Italic
+        .pull-right
+          a data-wysihtml5-action="change_view"  Html 
       
       =f.input :description, label: false, :input_html => {  style: "height: 182px;", placeholder: "Description", id: 'wysihtml5_editor'}
       /=f.input :description, :input_html => {  style: "height: 360px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}

@@ -1,24 +1,36 @@
 = simple_form_for [:user, @user, @cms_banner] do |f|
 
-  .form-inputs
-    = f.hidden_field :position, as: :integer ,  input_html: { value: @cms_banner.cms_section.position }
-    /= f.input :image
-    .fileinput.fileinput-new.input-group data-provides="fileinput"
-      .form-control data-trigger="fileinput"
-        i.glyphicon.glyphicon-file.fileinput-exists
-        span.fileinput-filename
-
-      span.input-group-addon.btn.btn-default.btn-file
-        span.fileinput-new
-          'Select file
-        span.fileinput-exists
-          'Change
-
-        
-        = f.file_field :image, multiple: false
-      a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
-        'Remove
-
+  .row
+    .col-sm-6
+      = f.hidden_field :position, as: :integer ,  input_html: { value: @cms_banner.cms_section.position }
+      
+      .fileinput.fileinput-new.input-group data-provides="fileinput"
+        .form-control data-trigger="fileinput"
+          i.glyphicon.glyphicon-file.fileinput-exists
+          span.fileinput-filename
+      
+        span.input-group-addon.btn.btn-default.btn-file
+          span.fileinput-new
+            'Select file
+          span.fileinput-exists
+            'Change
+      
+          
+          = f.file_field :image, multiple: false
+        a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+          'Remove
+      
+      = f.input :title
+    .col-sm-6
+      b Text
+      br
+      .toolbar class="wysihtml5-toolbar"
+        a data-wysihtml5-command="bold" Bold
+        '&nbsp; 
+        a data-wysihtml5-command="italic" Italic
+        .pull-right
+          a data-wysihtml5-action="change_view"  Html 
+        =f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Text", id: 'wysihtml5_editor'}
   .row
     .col-sm-12
       .pull-right
