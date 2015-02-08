@@ -1,7 +1,7 @@
 
 Digiramp::Application.routes.draw do
 
-  resources :tutorials
+  
 
   resources :share_and_login, only: [:show]
 
@@ -95,7 +95,7 @@ Digiramp::Application.routes.draw do
   #resources :footages
   #resources :pro_affiliations
   
-  
+  resources :tutorials
   resources :widgets
 
 
@@ -484,6 +484,9 @@ Digiramp::Application.routes.draw do
     resources :users do
       resources :accounts, only: [:new]
     end
+    
+    resources :tutorials
+    
     resources :user_genres, only: [:index]
     resources :user_instruments, only: [:index]
     resources :user_moods, only: [:index]

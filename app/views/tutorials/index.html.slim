@@ -34,22 +34,28 @@
       .sexy_line
       .digi-box
         
-        - @tutorials.each do |tutorial|
-          = link_to tutorial do
-            .row
-              .col-sm-4
-                h4 = tutorial.title
-              .col-sm-4
-                
-              .col-sm-4
-                .pull-right
+        - @tutorials.order(:position).each do |tutorial|
+          .row
+            .col-sm-12
+              h4 = tutorial.title
+          .row.pull-down-10
+            .col-sm-4
+              = link_to image_tag(tutorial.thumbnail_url(:tutorial_256x144)), tutorial
+              
+            .col-sm-4
+              = simple_format tutorial.body
+              
+          .row
+            .col-sm-12
+              .pull-right
+                = link_to tutorial do
                   .btn.btn-default
-                    'Show
-                  - if super?
-                    =< link_to 'Edit', edit_tutorial_path(tutorial), class: 'btn btn-default'
-                    =< link_to  tutorial, data: {:confirm => 'Are you sure?'}, :method => :delete do
-                       .btn.btn-danger
-                         i.fa.fa-times
+                    'Watch now
+                - if super?
+                  =< link_to 'Edit', edit_admin_tutorial_path(tutorial), class: 'btn btn-default'
+                  =< link_to  tutorial, data: {:confirm => 'Are you sure?'}, :method => :delete do
+                     .btn.btn-danger
+                       i.fa.fa-times
           .sexy_line
       /table
       /  thead

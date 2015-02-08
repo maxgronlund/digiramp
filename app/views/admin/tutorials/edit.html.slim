@@ -1,0 +1,53 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Edit tutorial
+      .sexy_line
+      .digi-box
+        == render 'form'
+          
+          
+                
+            
+                 
+              
+  == render 'shared/site_footer'    
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/h1 Editing tutorial
+/
+/== render 'form'
+/
+/= link_to 'Show', @tutorial
+/'|
+/= link_to 'Back', tutorials_path
+/
+/

@@ -23,6 +23,7 @@ class TutorialsController < ApplicationController
   # GET /tutorials/1/edit
   def edit
     forbidden unless super?
+     @user = current_user if current_user
   end
 
   # POST /tutorials

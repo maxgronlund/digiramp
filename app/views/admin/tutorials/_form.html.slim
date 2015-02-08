@@ -1,0 +1,67 @@
+= simple_form_for(@tutorial) do |f|
+  .row
+    .col-sm-6
+      = f.input :title
+      = f.input :position
+      b Text
+      br
+      .toolbar class="wysihtml5-toolbar"
+        a data-wysihtml5-command="bold" Bold
+        '&nbsp; 
+        a data-wysihtml5-command="italic" Italic
+        .pull-right
+          a data-wysihtml5-action="change_view"  Html 
+        =f.input :body, label: false, :input_html => {  style: "height: 100px;", placeholder: "Text", id: 'wysihtml5_editor'}
+    .col-sm-6
+      = f.input :video, label: 'Embed code', :input_html => {  style: "height: 100px;"}
+      
+      /.fileinput.fileinput-new.input-group data-provides="fileinput"
+      /  .form-control data-trigger="fileinput"
+      /    i.glyphicon.glyphicon-file.fileinput-exists
+      /    span.fileinput-filename
+      /
+      /  span.input-group-addon.btn.btn-default.btn-file
+      /    span.fileinput-new
+      /      'Select file
+      /    span.fileinput-exists
+      /      'Change
+      /
+      /    
+      /    = f.file_field :thumbnail, multiple: false
+      /  a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+      /    'Remove
+      /    
+      'Ratio 256 x 144
+      br
+      .fileinput.fileinput-new data-provides="fileinput"
+        .fileinput-new.thumbnail style="width: 256px; height: 144px;"
+          = image_tag @tutorial.thumbnail_url(:tutorial_256x144), size: '256x144'
+
+        div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 256px; max-height: 144px;"
+        div
+          span.btn.btn-default.btn-file
+            span class="fileinput-new"
+              'Change image
+            '&nbsp;
+            span class="fileinput-exists"
+              'Change
+            = f.file_field :thumbnail, multiple: false
+
+          '&nbsp;
+          a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+            'Remove
+
+      br
+      /= f.input :thumbnail
+      //= f.input :views
+      //= f.input :tag
+      //= f.input :position
+      //= f.input :link
+
+  .row
+    .col-sm-12
+      .pull-right.pull-down-12
+        = f.submit 'Save', class: 'btn btn-primary'
+
+
+/256, 144

@@ -1,0 +1,149 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    
+    ul class="sidebar-nav"
+      - if @user
+        == render 'users/shared/sidebar', selected: 'tutorials'
+      - else
+        'fo
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path 
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {'suport'.to_sym => support_index_path}, current:  ''}
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Instructions
+            .help-button
+              == render 'admin/helps/help', identifier: 'tutorials'
+        .col-sm-7.pull-down-10
+          - if super?
+            .pull-right
+              = link_to 'New screen cast', new_tutorial_path, class: 'btn btn-primary'
+       
+      .sexy_line
+      .digi-box
+        
+        - @tutorials.each do |tutorial|
+          = link_to tutorial do
+            .row
+              .col-sm-4
+                h4 = tutorial.title
+              .col-sm-4
+                
+              .col-sm-4
+                .pull-right
+                  .btn.btn-default
+                    'Show
+                  - if super?
+                    =< link_to 'Edit', edit_admin_tutorial_path(tutorial), class: 'btn btn-default'
+                    =< link_to  tutorial, data: {:confirm => 'Are you sure?'}, :method => :delete do
+                       .btn.btn-danger
+                         i.fa.fa-times
+          .sexy_line
+      /table
+      /  thead
+      /    tr
+      /      th Title
+      /      th Body
+      /      th Video
+      /      th Views
+      /      th Tag
+      /      th Position
+      /      th Link
+      /      th
+      /      th
+      /      th
+      /
+      /  tbody
+      /    - @tutorials.each do |tutorial|
+      /      tr
+      /        td = tutorial.title
+      /        td = tutorial.body
+      /        td = tutorial.video
+      /        td = tutorial.views
+      /        td = tutorial.tag
+      /        td = tutorial.position
+      /        td = tutorial.link
+      /        td = link_to 'Show', tutorial
+      /        td = link_to 'Edit', edit_tutorial_path(tutorial)
+      /        td = link_to 'Destroy', tutorial, data: {:confirm => 'Are you sure?'}, :method => :delete
+      /
+      /br
+      
+
+                          
+                  
+        
+        
+        
+          
+  == render 'shared/site_footer'  
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/h1 Listing tutorials
+/
+/table
+/  thead
+/    tr
+/      th Title
+/      th Body
+/      th Video
+/      th Views
+/      th Tag
+/      th Position
+/      th Link
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @tutorials.each do |tutorial|
+/      tr
+/        td = tutorial.title
+/        td = tutorial.body
+/        td = tutorial.video
+/        td = tutorial.views
+/        td = tutorial.tag
+/        td = tutorial.position
+/        td = tutorial.link
+/        td = link_to 'Show', tutorial
+/        td = link_to 'Edit', edit_tutorial_path(tutorial)
+/        td = link_to 'Destroy', tutorial, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Instruction', new_tutorial_path
