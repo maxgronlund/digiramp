@@ -60,7 +60,8 @@
           .col-sm-12
             
             h4 = @message.title
-            = simple_format @message.body
+            .linkify
+              = simple_format @message.body
 
         .row
           .col-sm-9

@@ -59,6 +59,8 @@
 //= require toggles
 //= require control_panel
 //= require replies
+//= require jquery.linkify.min
+//= require linkify
 // require facebook
 // require disqus
 // require bootstrapValidator.min
