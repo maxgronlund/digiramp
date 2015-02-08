@@ -27,7 +27,7 @@ class TutorialUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
-
+  process :convert => 'jpg'
   # Create different versions of your uploaded files:
   version :tutorial_256x144  do process :resize_to_fill => [256, 144, 'Center']      end
   # version :thumb do

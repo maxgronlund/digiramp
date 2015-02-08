@@ -60,6 +60,6 @@ class Admin::TutorialsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tutorial_params
-      params.require(:tutorial).permit(:title, :body, :video, :views, :tag, :position, :link)
+      params.require(:tutorial).permit!
     end
 end
