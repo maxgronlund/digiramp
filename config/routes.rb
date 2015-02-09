@@ -10,6 +10,8 @@ Digiramp::Application.routes.draw do
   #get 'replies/create'
   #get 'replies/update'
   #get 'replies/destroy'
+  
+  resources :cms_modules, only: [:show,:index]
 
   resources :forum_posts
   resources :forums, only: [:index, :show, :destroy]

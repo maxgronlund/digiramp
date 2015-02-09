@@ -60,7 +60,7 @@
 //= require control_panel
 //= require replies
 //= require jquery.linkify.min
-//= require linkify
+//= require cms_module
 // require facebook
 // require disqus
 // require bootstrapValidator.min
