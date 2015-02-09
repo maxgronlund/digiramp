@@ -10,12 +10,14 @@
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-12
+        .col-sm-5
           .help
             .help-text
               h2 Connections
             .help-button
               == render 'admin/helps/help', identifier: 'user connections'
+        .col-sm-7
+          == render 'messages/navigation', selected: 'connections'
       .sexy_line
       .digi-box
         .table-responsive

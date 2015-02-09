@@ -24,9 +24,11 @@
                 .row
                   .col-sm-12
                     .pull-right
-                      = f.submit 'Add', class: 'btn btn-default'
+                      => link_to 'Cancel', edit_user_user_cms_page_path(@user, @cms_page),  class: 'btn btn-default'
+                      = f.submit 'Next',  class: 'btn btn-default'
                 
-      .cms_section_preview      
+      .cms_section_preview   
+      == render '/cms_modules/banner'   
                   
   == render 'shared/site_footer'  
 

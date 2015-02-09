@@ -120,6 +120,14 @@
             i.fa.fa-cog
           ul class="dropdown-menu" role="menu"
             - if current_user  
+
+              
+              li    
+                = link_to logout_path do
+                  i class="fa fa-unlock"
+                  '&nbsp;
+                  'Log Out
+              li class="divider"    
               li  class="#{page == 'edit_profile' ? 'active' : ''}"
                 = link_to edit_user_path(current_user) do
                   i class="fa fa-pencil"
@@ -132,11 +140,11 @@
               /    '&nbsp;
               /    'Social Accounts
               /
-              li  class="#{page == 'connections' ? 'active' : ''}"
-                = link_to user_user_connections_path(current_user ) do
-                  i class="fa fa-refresh"
-                  '&nbsp;
-                  'Connections
+              /li  class="#{page == 'connections' ? 'active' : ''}"
+              /  = link_to user_user_connections_path(current_user ) do
+              /    i class="fa fa-refresh"
+              /    '&nbsp;
+              /    'Connections
               /
               /li  class="#{page == 'subscribtions' ? 'active' : ''}"
               /  = link_to user_user_mail_subscribtions_path(current_user ) do
@@ -190,12 +198,7 @@
             /    i class="fa fa-life-ring"
             /    '&nbsp;
             /    'Support
-            li class="divider"
-            li    
-              = link_to logout_path do
-                i class="fa fa-unlock"
-                '&nbsp;
-                'Log Out
+
         
         
               
