@@ -1,6 +1,6 @@
 ready = ->
 
-  $('.linkify').linkify()
+  $('p').linkify()
   
 
 
