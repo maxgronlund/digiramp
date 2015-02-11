@@ -48,7 +48,7 @@
                           = link_to catalog.title, catalog_account_catalog_path(@account, catalog), class: 'btn btn-default btn-xs'
                         td 
                           - if current_account_user.read_common_work?
-                            = link_to account_catalog_catalog_works_path(@account, catalog) do
+                            = link_to catalog_account_catalog_common_works_path(@account, catalog) do
                               .btn.btn-default.btn-xs
                                 i.fa.fa-music
                                 =< pluralize( catalog.catalog_items.count, 'Works')
