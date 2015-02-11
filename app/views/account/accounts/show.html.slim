@@ -42,7 +42,19 @@
                 => link_to image_tag( user.image_url(:avatar_32x32)), user_path( user )
                 = user.user_name
                 .sexy_line
+                
+          h4 Catalogs
+          .digi-box
+            - @account.catalogs.each do |catalog|
+              = link_to catalog_account_catalog_path(@account, catalog) do
+                = image_tag catalog.image_url(:image_32x32)
+                '&nbsp;
+                = catalog.title
+              .sexy_line
 
+
+
+        
         .col-sm-4
           .comments
             = simple_form_for [ Comment.new ], remote: true do |f|

@@ -1,7 +1,7 @@
 #wrap
   div class="#{'profile' if account_owner?}"
     .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
+      == render 'admin/shared/navbar', page: 'recording' 
   /-cache([ @account.id, @account.works_uuid, params]) do  
   .do   
     .container

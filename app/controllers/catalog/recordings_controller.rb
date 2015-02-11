@@ -146,7 +146,7 @@ class Catalog::RecordingsController < ApplicationController
 
   
   def destroy
-    
+    ap params
     forbidden unless current_catalog_user.delete_recording
     @recording  = Recording.find(params[:id])
     

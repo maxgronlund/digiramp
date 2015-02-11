@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150208114936) do
+ActiveRecord::Schema.define(version: 20150211104826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -581,6 +581,7 @@ ActiveRecord::Schema.define(version: 20150208114936) do
     t.string   "default_widget_key"
     t.integer  "user_id"
     t.integer  "default_playlist_id"
+    t.string   "image",               default: ""
   end
 
   add_index "catalogs", ["account_id"], name: "index_catalogs_on_account_id", using: :btree
@@ -1501,7 +1502,6 @@ ActiveRecord::Schema.define(version: 20150208114936) do
     t.decimal  "perf_owned",              default: 0.0,   null: false
     t.decimal  "perf_collected",          default: 0.0,   null: false
     t.text     "notes"
-    t.string   "pro"
     t.boolean  "has_agreement"
     t.boolean  "linked_to_ascap_member"
     t.boolean  "controlled_by_submitter"
@@ -1518,10 +1518,12 @@ ActiveRecord::Schema.define(version: 20150208114936) do
     t.boolean  "other",                   default: false
     t.boolean  "publisher",               default: false
     t.string   "uuid"
+    t.integer  "pro_affiliation_id"
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
   add_index "ipis", ["import_ipi_id"], name: "index_ipis_on_import_ipi_id", using: :btree
+  add_index "ipis", ["pro_affiliation_id"], name: "index_ipis_on_pro_affiliation_id", using: :btree
   add_index "ipis", ["user_id"], name: "index_ipis_on_user_id", using: :btree
 
   create_table "issues", force: true do |t|

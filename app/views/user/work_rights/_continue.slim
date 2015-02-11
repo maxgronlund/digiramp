@@ -1,0 +1,28 @@
+.old-wizard
+  h2 = common_work.title
+  .sexy_line
+  .digi-box
+    h4 Composers
+    .table-responsive
+      table class="table table-hover"
+        thead
+          tr
+            th Full name
+            th Email
+            th PRO
+
+        tbody
+          - common_work.ipis.each do |ipi|
+            tr
+              td = ipi.full_name
+              td = ipi.email
+              td 
+                - if pro = ipi.pro_affiliation
+                  =  pro.title
+                
+              td = debug ipi
+                    
+                    
+                    
+    
+          

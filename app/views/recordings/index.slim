@@ -45,21 +45,22 @@
                   
         
       .sexy_line
+      -if current_user && current_user.id == @user.id
+        .new-recording
+          = link_to new_user_recording_path(@user) do
+            .new-recording-badge
+              .new-recording-badge-content
+                i.fa.fa-plus-circle
+
+            .new-recording-content
+              .new-recording-text
+                h3 Click here to upload recording
+              .new-recording-waveform
+                = image_tag 'default_waveform.png'
+        /.sexy_line
       .endless-pages
       .add_recordings
-        -if current_user && current_user.id == @user.id
-          .new-recording
-            = link_to new_user_recording_path(@user) do
-              .new-recording-badge
-                .new-recording-badge-content
-                  i.fa.fa-plus-circle
-
-              .new-recording-content
-                .new-recording-text
-                  h3 Click here to upload recording
-                .new-recording-waveform
-                  = image_tag 'default_waveform.png'
-          /.sexy_line
+        
         
         .found-recordings
         == render 'recordings/index', recordings: @recordings

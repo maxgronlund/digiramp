@@ -1,0 +1,20 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+  
+  #page-content-wrapper
+    .container-fluid
+      .wizard
+        == render @go_to, common_work: @common_work, user: @user, recording: @recording
+      
+                        
+            
+                 
+              
+  == render 'shared/site_footer'    
+

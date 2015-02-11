@@ -4,15 +4,43 @@
 /    i class="fa fa-info-circle"
 /    '&nbsp;
 /    'Info
+
+li
+  = link_to catalog_account_catalog_path(@account, @catalog) do
+    .avatar_name
+      h4 = @catalog.title
+      
+    .user-avatar
+      = image_tag @catalog.image_url(:image_184x184)
 - if current_catalog_user.read_recording 
-  li class="#{'sidebar-selected' if selected == 'recordings'}"
-    = link_to catalog_account_catalog_recordings_path(@account, @catalog) do
-      i class="fa fa-headphones"
-      '&nbsp;
-      'Recordings
+  .link-to-recordings
+    == render 'catalog/catalogs/link_to_recordings', account: @account, catalog: @catalog, selected: selected
+  /li class="#{'sidebar-selected' if selected == 'recording'}"
+  /  = link_to catalog_account_catalog_recordings_path(@account, @catalog) do
+  /    i class="fa fa-headphones"
+  /    '&nbsp;
+  /    = pluralize(@catalog.recordings.count, 'Recording')
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /li class="#{'sidebar-selected' if selected == 'recordings'}"
+  /  = link_to catalog_account_catalog_recordings_path(@account, @catalog) do
+  /    i class="fa fa-headphones"
+  /    '&nbsp;
+  /    'Recordings
+  /
 - if current_catalog_user.read_common_work
-  li class="#{'sidebar-selected' if selected == 'common-works'}"
+  li class="#{'sidebar-selected' if selected == 'common_work'}"
     = link_to catalog_account_catalog_common_works_path(@account, @catalog) do
       i class="fa fa-music"
       '&nbsp;

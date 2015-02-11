@@ -1,0 +1,10 @@
+.old-recordings-index
+  - recordings.each do |recording|
+    div id="remove_recording_#{recording.id.to_s}"
+      .row
+        .col-sm-12
+          #digiWhams  class="/recordings/#{recording.id.to_s}"
+          
+            == render 'recording', recording: recording,
+                                   description: false,
+                                   target: ""

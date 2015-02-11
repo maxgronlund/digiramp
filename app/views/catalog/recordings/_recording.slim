@@ -1,88 +1,169 @@
--cache([ Admin.cached_find(1).version, recording.uuid ]) do
-  -index = recording.id
-  div class="player" id="#{index}"
-  div class="panel panel-default"
-    .panel-player
-      .row
-        .col-sm-12
-          .panel-title
-            a data-toggle="collapse" data-parent="#accordion" href="#recording_#{index.to_s}" class="#{index}"
-              .row
-                .col-sm-12
-                  .bg-recording-title
-                    .pull-left
-                      h4
-                        div id="expand_colapse_#{index.to_s}"
-                          i class="fa fa-angle-double-down "
-                        
-                    h4
-                      '&nbsp;
-                      =recording.title
-                    /i Artist: 
-                    /= recording.artist
-              .row
-                .col-sm-4     
-                  /- art = recording.cover_art
-                  - art = recording.cover_art || 'default-cover.jpg'
-                  = image_tag art, width: "184", height: "184", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
-                  
-                  -if recording.explicit
-                    .pull-left
-                      .label.label-danger
-                        'explicit
-                      '&nbsp;
-                      br
-                  -if recording.clearance
-                    .pull-left
-                      .label.label-success
-                        '200% Clearance
-                      '&nbsp;
-                      br
-                  -unless  recording.vocal.empty?
-                    .pull-left
-                      .label.label-info
-                        = recording.vocal  
-                      '&nbsp;
-                      br 
+
+== render 'audio_player/show', recording: recording , description: description, target: target
+
+.player-bottom
+  .btn-group
+    .btn-group-xs
+      /catalog/accounts/:account_id/catalogs/:catalog_id/find_in_collections/:id(.:format
+      => link_to catalog_account_catalog_find_in_collection_path(@account, @catalog, recording),\
+                                                                data: { confirm: 'Are you sure?' } , :method => :delete,\
+                                                                remote: true do
+        .btn.btn-danger.btn-xs
+          i.fa.fa-times
+          '&nbsp;Remove
+      - if info
+        = link_to user_recording_path(recording.user, recording), 
+                  target: target,
+                  class: "btn btn-default" do
+          .blue-info
+            i.fa.fa-info-circle
+            '&nbsp;
+            'Info
+      
+      
+      - if recording.downlodable
+        = link_to recording.zipp, \
+                  class: "btn btn-default"  do
+          i class="fa fa-download"
+          /'&nbsp;Download
+      
+      - if true 
+        - if edit
+          = link_to edit_user_recording_basic_path(recording.user, recording), \
+                    class: "btn btn-default"  do
+            i class="fa fa-pencil"
+      
+        
+      
+        
+        
+  /-  ----------------------------------------
+  / tool tips        
+  .pull-right
+    .small-symbols 
+      - if recording.featured
+        span id="comments_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Featured"
+          = link_to user_recording_path(recording.user, recording)
+            i class="fa fa-star"
+            '&nbsp;&nbsp;|
+          
+      span id="comments_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Comments"
+        = link_to user_recording_path(recording.user, recording)
+          i class="fa fa-comments"
+          '&nbsp;
+          = recording.comments.count
+      
+      span id="likes_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Likes"
+        '&nbsp;|
+        = link_to user_recording_recording_likes_path(recording.user, recording)
+          i class="fa fa-heart red-heart"
+          '&nbsp;
+          =recording.likes.count
+      span id="playbacks_count_#{recording.id.to_s}" data-toggle="tooltip" data-placement="left" title="Playbacks"
+        '&nbsp;|
+        = link_to user_recording_recording_playbacks_path(recording.user, recording)
+          i class="fa fa-headphones" 
+          '&nbsp;
+          = recording.playbacks_count
+
+javascript:
+  $('#comments_count_#{recording.id.to_s}').tooltip('hide')
+  $('#likes_count_#{recording.id.to_s}').tooltip('hide')
+  $('#playbacks_count_#{recording.id.to_s}').tooltip('hide')
   
-                .col-sm-8
-                  .comment
-                    i = simple_format recording.comment
-                  .table-responsive
-                    table class="table"
-                      thead
-                        tr
-                          /th
-                          
-                          th Genre
-                          th Instruments
-                          th Mood
-                          th Tempo
-                      tbody
-                        tr 
-                          
-                          td
-                            -recording.genre_tags.first(4).each do |genre_tag|
-                              = genre_tag.genre.title
-                              br
-                          td 
-                            -recording.instrument_tags.first(4).each do |instrument_tag|
-                              = instrument_tag.instrument.title
-                              br
-                          td 
-                            -recording.mood_tags.first(4).each do |mood_tag|
-                              = mood_tag.mood.title
-                              br
-                          td 
-                            -unless recording.bpm == 0 || recording.bpm.nil?
-                              i BPM:&nbsp;
-                              =recording.bpm 
-                              br
-                            -unless recording.tempo.empty?
-                              i Tempo:&nbsp;
-                              =recording.tempo
-  
-  
-    div id="load-player"
-    div id="recording_#{index.to_s}" class="multi_player panel-collapse collapse" index="#{index}"
-      == render 'players/digramp_player', locals: {index: index, recording: recording}
+
+
+
+
+
+
+
+
+/-cache([ Admin.cached_find(1).version, recording.uuid ]) do
+/  -index = recording.id
+/  div class="player" id="#{index}"
+/  div class="panel panel-default"
+/    .panel-player
+/      .row
+/        .col-sm-12
+/          .panel-title
+/            a data-toggle="collapse" data-parent="#accordion" href="#recording_#{index.to_s}" class="#{index}"
+/              .row
+/                .col-sm-12
+/                  .bg-recording-title
+/                    .pull-left
+/                      h4
+/                        div id="expand_colapse_#{index.to_s}"
+/                          i class="fa fa-angle-double-down "
+/                        
+/                    h4
+/                      '&nbsp;
+/                      =recording.title
+/                    /i Artist: 
+/                    /= recording.artist
+/              .row
+/                .col-sm-4     
+/                  /- art = recording.cover_art
+/                  - art = recording.cover_art || 'default-cover.jpg'
+/                  = image_tag art, width: "184", height: "184", style: "float:left", alt: "#{recording.title}", class: "cover_thumb"
+/                  
+/                  -if recording.explicit
+/                    .pull-left
+/                      .label.label-danger
+/                        'explicit
+/                      '&nbsp;
+/                      br
+/                  -if recording.clearance
+/                    .pull-left
+/                      .label.label-success
+/                        '200% Clearance
+/                      '&nbsp;
+/                      br
+/                  -unless  recording.vocal.empty?
+/                    .pull-left
+/                      .label.label-info
+/                        = recording.vocal  
+/                      '&nbsp;
+/                      br 
+/  
+/                .col-sm-8
+/                  .comment
+/                    i = simple_format recording.comment
+/                  .table-responsive
+/                    table class="table"
+/                      thead
+/                        tr
+/                          /th
+/                          
+/                          th Genre
+/                          th Instruments
+/                          th Mood
+/                          th Tempo
+/                      tbody
+/                        tr 
+/                          
+/                          td
+/                            -recording.genre_tags.first(4).each do |genre_tag|
+/                              = genre_tag.genre.title
+/                              br
+/                          td 
+/                            -recording.instrument_tags.first(4).each do |instrument_tag|
+/                              = instrument_tag.instrument.title
+/                              br
+/                          td 
+/                            -recording.mood_tags.first(4).each do |mood_tag|
+/                              = mood_tag.mood.title
+/                              br
+/                          td 
+/                            -unless recording.bpm == 0 || recording.bpm.nil?
+/                              i BPM:&nbsp;
+/                              =recording.bpm 
+/                              br
+/                            -unless recording.tempo.empty?
+/                              i Tempo:&nbsp;
+/                              =recording.tempo
+/  
+/  
+/    div id="load-player"
+/    div id="recording_#{index.to_s}" class="multi_player panel-collapse collapse" index="#{index}"
+/      == render 'players/digramp_player', locals: {index: index, recording: recording}

@@ -1,0 +1,22 @@
+/- session[:share_from_page] = request.url
+== render 'audio_player/show', recording: recording , description: description, target: target
+
+.player-bottom
+  .btn-group
+    = simple_form_for [:catalog, @catalog, recording], remote: true, :url => url_for(:action => 'create', 
+                                                                       :controller => 'find_in_collections'), 
+                                                                       :method => 'post' do |f|
+      = f.hidden_field :recording_id, value: recording.id
+      = f.hidden_field :catalog_id, value: @catalog.id
+      = f.submit 'Add to catalog' , class: 'btn btn-success btn-xs'
+    /= link_to new_catalog_account_catalog_find_in_collection_path(@account, recording), class: "btn btn-success btn-xs"  do
+    /      i.fa.fa-plus-circle
+    /      '&nbsp;
+    /      'Add to catalog
+      
+    
+
+      
+
+
+

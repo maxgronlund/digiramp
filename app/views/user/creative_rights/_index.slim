@@ -1,0 +1,44 @@
+.old-recordings
+
+  .row
+    .col-sm-12
+      .pull-right
+        == paginate(@recordings)
+  .digi-box
+    .row
+      .col-sm-12
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th 
+                  i.fa.fa-users
+                  '&nbsp;Work rights
+                th 
+                  i.fa.fa-users
+                  '&nbsp;Recording rights & credits
+        
+            tbody
+              - recordings.each do |recording|
+                tr
+                  td = recording.title
+                  td
+                    = link_to user_user_recording_work_rights_path(@user, recording) do
+                      .btn.btn-default.btn-xs
+                        - count = recording.common_work.ipis.count
+                        - if count == 0
+                           i.fa.fa-exclamation
+                           '&nbsp;Missing
+                        - else
+                          i.fa.fa-users
+                          =< count
+                  td 
+                    .btn.btn-default.btn-xs
+                      - count = recording.recording_ipis.count
+                      - if count == 0
+                        i.fa.fa-exclamation
+                        '&nbsp;Missing
+                      - else
+                        i.fa.fa-users
+                        =< count

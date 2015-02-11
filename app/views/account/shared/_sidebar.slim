@@ -37,6 +37,13 @@
         '&nbsp;
         = pluralize(@account.common_works.count, 'Work')
     
+  - if current_account_user.read_catalog
+    li class="#{'sidebar-selected' if selected == 'catalog'}"
+      = link_to account_account_catalogs_path(@account) do
+        i class="fa fa-book"
+        '&nbsp;
+        = pluralize(@account.catalogs.count, 'Catalog')
+    
   - if current_account_user.read_crm
     li class="#{'sidebar-selected' if selected == 'crm'}"
       = link_to account_account_crm_index_path(@account) do
@@ -57,10 +64,7 @@
         i class="fa fa-folder"
         '&nbsp;
         'Files
-    
-        
-  
-        
+
   - if current_user 
     .sexy_line
     li class="#{'sidebar-selected' if selected == 'support'}"

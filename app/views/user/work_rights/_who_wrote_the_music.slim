@@ -1,0 +1,51 @@
+.old-wizard
+  .row
+    .col-sm-12
+      .help
+        .help-text
+          h2 = common_work.title
+        .help-button
+          == render 'admin/helps/help', identifier: 'user work rights'
+  
+      
+  .sexy_line
+  
+  .row
+    .col-sm-12
+      h4 Composers, Writers and who represent their rights
+   
+  .row
+    .col-sm-6
+      .digi-box
+        
+        h4 Option 1:
+        'If the work is registered at a ASCAP or BMI we can help you get that informations now 
+        .sexy_line
+        .row
+          .col-sm-6.pull-down-8
+            b Get info from:
+            br
+            = link_to user_user_recording_work_rights_path( user, recording, go_to: 'get_from_ascap'), remote: true do
+              .btn.btn-default
+                'ASCAP
+        
+          .col-sm-6.pull-down-8
+            b Get info from:
+            br
+            = link_to user_user_recording_work_rights_path( user, recording, go_to: 'get_from_bmi'), remote: true do
+              .btn.btn-default
+                'BMI
+    .col-sm-6
+      .digi-box
+        h4 Option 2:
+        'If the work is NOT registered at a ASCAP or BMI or you want to fill in that information by your self continue here
+        .sexy_line   
+        .row
+          .col-sm-12.pull-down-8
+            b Start here:
+            br
+            = link_to user_user_recording_work_rights_path( user, recording, go_to: 'continue'), remote: true do
+              .btn.btn-default
+                'Continue
+  
+        

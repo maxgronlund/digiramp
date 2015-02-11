@@ -10,6 +10,8 @@ class Catalog< ActiveRecord::Base
   has_many :common_works_imports, dependent: :destroy
   has_many :widgets, dependent: :destroy
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
+  
+  mount_uploader :image, CatalogUploader
 
   #belongs_to :catalog_itemable, polymorphic: true
   #attr_accessible :catalog_itemable_type, :catalog_itemable_id, :account_catalog_id
@@ -25,7 +27,25 @@ class Catalog< ActiveRecord::Base
     self.uuid     = UUIDTools::UUID.timestamp_create().to_s
     self.save
     default_playlist
+    check_default_image
   end
+  
+  
+  def check_default_image
+    if self.image_url == "/assets/fallback/catalog.jpg" || self.image.to_s == ''
+      prng      = Random.new
+      random_id =  prng.rand(12)
+
+      if random_id < 10
+        random_id = '0' + random_id.to_s 
+      end
+      self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-accounts/default_#{random_id.to_s}.jpg"))
+      self.image.recreate_versions!
+      self.save!
+    end
+  end
+  
+  
   
   def default_playlist
     Playlist.where( uuid: self.uuid)

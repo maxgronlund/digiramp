@@ -1,91 +1,14 @@
-/#wrap
-/  div class="#{'profile' if account_owner?}"
-/    .full-width-top
-/      == render 'admin/shared/navbar', page: 'account' 
-/  .container
-/    == render 'admin/shared/messages'
-/    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-/                                                            catalogs: catalog_account_catalogs_path(@account), \
-/                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-/                                                            }, current: 'common works'}
-/    
-/    
-/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Works'), blog_post: 'Manage Works', insert: 'add_common_work'}
-/    /-cache([ Admin.cached_find(1).version, request.url, @account.works_uuid, current_user.uuid ]) do 
-/    .do
-/      .row
-/          = form_tag catalog_account_catalog_common_works_path(@account, @catalog), :method => 'get' do
-/            .col-sm-6
-/              br
-/              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
-/            .col-sm-6
-/              br
-/              = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-/              '&nbsp;
-/              = link_to 'Show All', catalog_account_catalog_common_works_path(@account, @catalog), class: 'btn btn-default btn-lg'
-/              -if current_catalog_user.update_common_work
-/                '&nbsp;
-/                = link_to catalog_account_catalog_common_works_export_common_works_path(@account, @catalog, params: params, format: "csv"), 'data-no-turbolink'=> true do
-/                  .btn.btn-info.btn-lg
-/                    i class="fa fa-cloud-download"
-/                    '&nbsp;
-/                    'Download CSV
-/                '&nbsp;
-/                = link_to catalog_account_catalog_common_works_export_to_counterpoint_path(@account, @catalog, params: params, format: "csv") do
-/                  .btn.btn-info.btn-lg
-/                    i class="fa fa-cloud-download"
-/                    '&nbsp;
-/                    'Export to CP
-/              
-/              
-/          
-/              
-/      br
-/      br
-/      .row
-/        .col-sm-12
-/          .hidden-xs
-/            == paginate(@common_works)
-/          .visible-xs
-/            br
-/            .btn-group.btn-group-sm
-/              = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination'
-/              = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
-/            br
-/            br
-/          .panel.panel-primary
-/            .panel-heading
-/              'Common Works
-/            .panel-body
-/              
-/              == render 'catalog/common_works/index'
-/           
-/              .hidden-xs
-/                == paginate(@common_works)
-/              .visible-xs
-/                .btn-group
-/                  = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination '
-/                  = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
-/              
-/              /-if current_user.can_administrate @account
-/              /  hr
-/              /  .row
-/              /    .col-sm-12
-/              /      .pull-right
-/              /        = link_to 'Export All to CSV', account_export_works_path(@account, format: "csv"), class: 'btn btn-primary btn-lg'
-/              /          
-/
-/  
-/  
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
+
+       
+  
 #wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'account'         
-
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'catalog/catalogs/sidebar', selected: 'common-works'
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'common_work'
       
       br
       -if current_catalog_user.create_common_work
@@ -99,10 +22,8 @@
 
   #page-content-wrapper
     .container-fluid
-
-      = link_to "#menu-toggle", id: "menu-toggle" do
-        i class="fa fa-caret-square-o-left"
-      == render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
+      h2 Common works
+      .sexy_line
       .row
         = form_tag catalog_account_catalog_common_works_path(@account, @catalog), :method => 'get' do
           .col-sm-8
@@ -142,6 +63,6 @@
             
             
             
-            
+  == render 'shared/site_footer'         
             
             

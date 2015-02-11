@@ -1,123 +1,140 @@
-- blog = Blog.cached_find('Add Catalog Recordings')
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'account'         
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'recording'
 
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'catalogs'
 
   #page-content-wrapper
     .container-fluid
-      == render 'catalog/shared/catalog_title'
+      .row
+        .col-sm-8
+          .help
+            .help-text
+               h2 Add recordings
+            .help-button
+              == render 'admin/helps/help', identifier: 'add recordings to catalog'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+            
+            
+     
+      .sexy_line
+      .row
+        .col-sm-4
+          .digi-box
+            h4 Option 1:
+            'Find a recordings from the account
+            .sexy_line
+            .row
+              .col-sm-12.pull-down-6
+                .pull-right
+                  = link_to catalog_account_catalog_find_in_collections_path(@account, @catalog) do
+                    .btn.btn-default
+                      i.fa.fa-search
+                      '&nbsp;
+                      'Find
+        
+        .col-sm-4
+          .digi-box
+            h4 Option 2:
+            'Add a recording to a common work
+            .sexy_line
+            .row
+              .col-sm-12.pull-down-6
+                .pull-right
+                  = link_to catalog_account_catalog_common_works_path(@account, @catalog) do
+                    .btn.btn-default
+                      i.fa.fa-plus-circle
+                      '&nbsp;
+                      'Add
+        
+        .col-sm-4
+          .digi-box
+            h4 Option 3:
+            'Upload a recording directly to this catalog
+            .sexy_line
+            .row
+              .col-sm-12.pull-down-6
+                .pull-right
+                  = link_to catalog_account_catalog_upload_recordings_path(@account, @catalog) do
+                    .btn.btn-default
+                      i.fa.fa-cloud-upload
+                      '&nbsp;
+                      'Upload
       
-          
-
-      .sexy_line
-      h4 Add Recordings
-      .row
-        .col-sm-6
-          - post = BlogPost.cached_find( "FIND IN COLLECTION" , blog )
-          h4 = post.title
-          = post.body
-          .pull-right
-            = link_to catalog_account_catalog_find_in_collections_path(@account, @catalog) do
-              .btn.btn-primary
-                i.fa.fa-search
-                '&nbsp;
-                'Find
-      .sexy_line
-      .row
-        .col-sm-6
-          - post = BlogPost.cached_find( "ADD TO COMMON WORK" , blog )
-          h4 = post.title
-          = post.body
-          .pull-right
-            = link_to catalog_account_catalog_common_works_path(@account, @catalog) do
-              .btn.btn-primary
-                i.fa.fa-plus-circle
-                '&nbsp;
-                'Add
-      .sexy_line
-      .row
-        .col-sm-6
-          - post = BlogPost.cached_find( "UPLOAD RECORDINGS" , blog )
-          h4 = post.title
-          = post.body
-          .pull-right
-            = link_to catalog_account_catalog_upload_recordings_path(@account, @catalog) do
-              .btn.btn-primary
-                i.fa.fa-cloud-upload
-                '&nbsp;
-                'Upload
-      - if can_edit?
-        .sexy_line
-        .row
-          .col-sm-6
-            .pull-right
-              = link_to 'Edit Text', admin_blog_path(blog), class: 'btn btn-primary'
-          
-
+      
+      
       
         
-        
-  == render 'shared/site_footer'          
-       
-
-/#wrap
-/  div class="#{'profile' if account_owner?}"
-/    .full-width-top
-/      == render 'admin/shared/navbar', page: 'account'         
-/  .container
-/    /==render 'admin/shared/messages'
-/    /-cache ([Admin.cached_find(1).version, request.url, current_user.uuid  ]) do
-/    .do
-/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-/                                                              catalogs: catalog_account_catalogs_path(@account), \
-/                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-/                                                              }, current: 'add recordings'}
-/      
-/      - blog = Blog.cached_find('Add Catalog Recordings')
-/      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Add Assets'}
+  == render 'shared/site_footer'     
+/- blog = Blog.cached_find('Add Catalog Recordings')
+/#wrapper
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'account'         
 /
+/  #sidebar-wrapper
+/    ul class="sidebar-nav"
+/      == render 'users/shared/sidebar', selected: 'catalogs'
+/
+/  #page-content-wrapper
+/    .container-fluid
+/      == render 'catalog/shared/catalog_title'
+/      
+/          
+/
+/      .sexy_line
+/      h4 Add Recordings
 /      .row
-/        /-if current_user.can_manage 'access recordings', @account
-/        - if current_catalog_user.create_recording
-/          - if current_account_user.create_recording
-/            .col-sm-6
-/              == render 'shared/badge', locals: {  \
-/                                                  blog: blog, \
-/                                                  post: BlogPost.cached_find( "FIND IN COLLECTION" , blog ), \
-/                                                  link: catalog_account_catalog_find_in_collections_path(@account, @catalog), \
-/                                                  css_class: 'btn btn-warning', \
-/                                                  icon: 'fa fa-archive', \
-/                                                  id: 'add-find-recordings' \
-/                                                }
-/          - if current_catalog_user.update_common_work
-/            .col-sm-6
-/              == render 'shared/badge', locals: {  \
-/                                                  blog: blog, \
-/                                                  post: BlogPost.cached_find( "ADD TO COMMON WORK" , blog ), \
-/                                                  link: catalog_account_catalog_common_works_path(@account, @catalog), \
-/                                                  css_class: 'btn btn-primary', \
-/                                                  icon: 'fa fa-music', \
-/                                                  id: 'add-common-work' \
-/                                                }
-/                                                
+/        .col-sm-6
+/          - post = BlogPost.cached_find( "FIND IN COLLECTION" , blog )
+/          h4 = post.title
+/          = post.body
+/          .pull-right
+/            = link_to catalog_account_catalog_find_in_collections_path(@account, @catalog) do
+/              .btn.btn-primary
+/                i.fa.fa-search
+/                '&nbsp;
+/                'Find
+/      .sexy_line
+/      .row
+/        .col-sm-6
+/          - post = BlogPost.cached_find( "ADD TO COMMON WORK" , blog )
+/          h4 = post.title
+/          = post.body
+/          .pull-right
+/            = link_to catalog_account_catalog_common_works_path(@account, @catalog) do
+/              .btn.btn-primary
+/                i.fa.fa-plus-circle
+/                '&nbsp;
+/                'Add
+/      .sexy_line
+/      .row
+/        .col-sm-6
+/          - post = BlogPost.cached_find( "UPLOAD RECORDINGS" , blog )
+/          h4 = post.title
+/          = post.body
+/          .pull-right
+/            = link_to catalog_account_catalog_upload_recordings_path(@account, @catalog) do
+/              .btn.btn-primary
+/                i.fa.fa-cloud-upload
+/                '&nbsp;
+/                'Upload
+/      - if can_edit?
+/        .sexy_line
+/        .row
 /          .col-sm-6
-/            == render 'shared/badge', locals: {  \
-/                                                blog: blog, \
-/                                                post: BlogPost.cached_find( "UPLOAD RECORDINGS" , blog ), \
-/                                                link: catalog_account_catalog_upload_recordings_path(@account, @catalog), \
-/                                                css_class: 'btn btn-info', \
-/                                                icon: 'fa fa-cloud-upload', \
-/                                                id: 'add-documents', \
-/                                                no_turbo: true \
-/                                              }
-/                                              
-/ 
-/            
-/            
-/    
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
+/            .pull-right
+/              = link_to 'Edit Text', admin_blog_path(blog), class: 'btn btn-primary'
+/          
+/
+/      
+/        
+/        
+/  == render 'shared/site_footer'          
+/       
+

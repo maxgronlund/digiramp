@@ -1,18 +1,31 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'account'         
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'recording'
 
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'catalogs'
 
   #page-content-wrapper
     .container-fluid
-      == render 'catalog/shared/catalog_title'
-          
-
+      .row
+        .col-sm-8
+          .help
+            .help-text
+               h2 = @catalog.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'catalog'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+            
+            
+     
       .sexy_line
-      .endless-pages
+      
+      
       
       -if current_catalog_user.create_recording
         .add_recordings
@@ -27,19 +40,21 @@
                   h3 Click here to add recordings
                 .new-recording-waveform
                   = image_tag 'default_waveform.png'
-
+      .endless-pages
       - @recordings.each do |recording|
-        #digiWhams  class="/recordings/#{recording.id.to_s}"
-          == render 'show', recording: recording
-     
-           
-        .hidden-xs
-          == paginate(@recordings)
-        .visible-xs
-          .btn-group
-            = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
-            = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
-        
+
+        div id="remove_recording_#{recording.id.to_s}"
+          #digiWhams  class="/recordings/#{recording.id.to_s}"
+            == render 'show', recording: recording
+         
+             
+      .hidden-xs
+        == paginate(@recordings)
+      .visible-xs
+        .btn-group
+          = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
+          = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+      
         
   == render 'shared/site_footer'          
         

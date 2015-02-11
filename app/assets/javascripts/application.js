@@ -74,6 +74,13 @@
 
 Turbolinks.enableTransitionCache();
 
+$(function () {
+  // Other functions omitted.
+  $(window).bind("popstate", function () {
+    $.getScript(location.href);
+  });
+})
+
 
 
 

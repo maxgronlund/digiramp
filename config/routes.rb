@@ -1,7 +1,7 @@
 
 Digiramp::Application.routes.draw do
 
-  
+
 
   resources :share_and_login, only: [:show]
 
@@ -120,9 +120,6 @@ Digiramp::Application.routes.draw do
   require 'sidekiq/web'
   
   
-  
-
-  
   get 'account/embed/:id', to: 'embed#show'
   
 
@@ -148,8 +145,7 @@ Digiramp::Application.routes.draw do
     # SHOULD NOT BE USED
     resources :catalogs do
 
-      get "add_recordings/add_all"
-      get "add_recordings/add_all_from_account"
+      #get "add_recordings/add_all"
       resources :add_recordings, only: [:index]
       resources :catalog_footages
       resources :catalog_recordings
@@ -525,9 +521,7 @@ Digiramp::Application.routes.draw do
       resources :artworks 
       
       resources :audio_files
-      resources :catalogs do
-
-      end
+      resources :catalogs 
       resources :clients
       resources :client_imports
       resources :common_works do
@@ -645,7 +639,8 @@ Digiramp::Application.routes.draw do
     
     resources :accounts do
       resources :catalogs do
-        
+        get "add_recordings/add_all"
+        get "add_recordings/add_found"
         get "move"
         get "get_code"
         get "get_catalog"
@@ -661,7 +656,9 @@ Digiramp::Application.routes.draw do
         
         
         resources :add_common_works, only: [:index]
-        resources :add_recordings, only: [:index]
+        resources :add_recordings , only: [:index]
+        #   get "add_all"
+        #end
         resources :artworks 
         resources :assets
         resources :attachments
@@ -693,14 +690,15 @@ Digiramp::Application.routes.draw do
         resources :find_in_collections
         resources :financial_documents
         resources :legal_documents
-        resources :recordings do
-          get "new_from_catalog_artworks"
-          post "create_from_catalog_artworks"
-          post "use_artwork"
-          resources :recording_artworks, only: [:index]
-          resources :image_files
-          get "info"
-        end
+        resources :recordings
+        #resources :recordings do
+        #  get "new_from_catalog_artworks"
+        #  post "create_from_catalog_artworks"
+        #  post "use_artwork"
+        #  resources :recording_artworks, only: [:index]
+        #  resources :image_files
+        #  get "info"
+        #end
         resources :recording_artworks, only: [:destroy]
         resources :select_artwork_from
         resources :upload_csvs
@@ -725,6 +723,7 @@ Digiramp::Application.routes.draw do
   namespace :user do
     
     resources :users do
+      resources :creative_rights
       resources :cms_module, only: [:new]
       resources :cms_sections, only: [:destroy]
       resources :cms_banners
@@ -762,22 +761,7 @@ Digiramp::Application.routes.draw do
       
       resources :add_contacts_by_emails, only: [:create]
       resources :invite_friends, only: [:new, :create]
-      
-      #get 'contact_wizard/fill_form'
-      #
-      #get 'contact_wizard/submit_form'
-      #
-      #get 'contact_wizard/upload_file'
-      #
-      #get 'contact_wizard/upload_custom_csv'
-      #
-      #get 'contact_wizard/submit_custom_csv'
-      #
-      #get 'contact_wizard/upload_linkedin_csv'
-      #
-      #get 'contact_wizard/submit_linkedin_csv'
-      #
-      
+
       
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
@@ -806,6 +790,7 @@ Digiramp::Application.routes.draw do
         end
         
       end
+      
       resources :recording_transfers
       
       resources :recording_basics, only: [:edit, :update]
@@ -816,6 +801,9 @@ Digiramp::Application.routes.draw do
       resources :recording_lyrics, only: [:edit, :update]
       resources :recording_common_work, only: [:edit, :update]
       resources :recording_meta_data, only: [:edit, :update]
+      resources :recordings do
+        resources :work_rights
+      end
     end
     
   end
