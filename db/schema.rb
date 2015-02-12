@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211104826) do
+ActiveRecord::Schema.define(version: 20150212120132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -837,8 +837,8 @@ ActiveRecord::Schema.define(version: 20150211104826) do
   create_table "common_works", force: true do |t|
     t.string   "title"
     t.string   "iswc_code"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.integer  "ascap_work_id"
     t.integer  "account_id"
     t.integer  "common_works_import_id"
@@ -847,7 +847,7 @@ ActiveRecord::Schema.define(version: 20150211104826) do
     t.text     "description"
     t.text     "alternative_titles"
     t.integer  "recording_preview_id"
-    t.string   "step",                              default: "created"
+    t.string   "step",                   default: "created"
     t.text     "lyrics"
     t.integer  "catalog_id"
     t.string   "uuid"
@@ -860,15 +860,15 @@ ActiveRecord::Schema.define(version: 20150211104826) do
     t.string   "ascap_award_winner"
     t.string   "work_type"
     t.string   "composite_type"
-    t.string   "arrangement_of_public_domain_work"
     t.string   "genre"
     t.string   "submitter_work_id"
-    t.string   "registration_date",                 default: ""
-    t.string   "bmi_work_id",                       default: ""
-    t.string   "bmi_catalog",                       default: "Main catalog"
-    t.string   "registration_origin",               default: ""
-    t.string   "pro_work_id",                       default: ""
-    t.string   "pro_catalog",                       default: ""
+    t.string   "registration_date",      default: ""
+    t.string   "bmi_work_id",            default: ""
+    t.string   "bmi_catalog",            default: "Main catalog"
+    t.string   "registration_origin",    default: ""
+    t.string   "pro_work_id",            default: ""
+    t.string   "pro_catalog",            default: ""
+    t.boolean  "arrangement",            default: false
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree

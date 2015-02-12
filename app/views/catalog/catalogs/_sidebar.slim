@@ -60,9 +60,22 @@ li
       '&nbsp;
       'Users
 
--if can_edit? || current_user.id == @account.administrator.id 
+-if super? || current_user.id == @account.administrator.id 
   li class="#{'sidebar-selected' if selected == 'move'}"
     = link_to catalog_account_catalog_move_path(@account, @catalog) do
       i class="fa fa-truck"
       '&nbsp;
       'Move
+  .sexy_line
+  li class="#{'sidebar-selected' if selected == 'assets'}"
+    = link_to account_account_path( @account ) do
+      i.fa.fa-tachometer
+      '&nbsp;
+      'Pro account
+    
+    
+    
+
+      
+      
+

@@ -5,8 +5,9 @@ class User::CreativeRightsController < ApplicationController
   
   
   def index
+
     #@recordings = @user.recordings.order(:title)
-    if params[:commit] == 'Go'
+    if params[:commit] == 'Go' || params[:commit].nil?
       @remove_old_recordings = true
       session[:query] = params[:query]
     end

@@ -724,6 +724,11 @@ Digiramp::Application.routes.draw do
     
     resources :users do
       resources :creative_rights
+      resources :common_works
+      resources :recordings do
+        resources :work_rights
+      end
+      #resources :work_rights, only: [:update]
       resources :cms_module, only: [:new]
       resources :cms_sections, only: [:destroy]
       resources :cms_banners
@@ -801,9 +806,8 @@ Digiramp::Application.routes.draw do
       resources :recording_lyrics, only: [:edit, :update]
       resources :recording_common_work, only: [:edit, :update]
       resources :recording_meta_data, only: [:edit, :update]
-      resources :recordings do
-        resources :work_rights
-      end
+      
+      #resources :work_rights
     end
     
   end

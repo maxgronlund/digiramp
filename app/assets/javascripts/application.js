@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require turboboost
 //= require jquery.blockUI
 //= require bootstrap/bootstrap
 //= require jquery.ThreeDots

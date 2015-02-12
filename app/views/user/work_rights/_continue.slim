@@ -1,28 +1,34 @@
 .old-wizard
   h2 = common_work.title
   .sexy_line
-  .digi-box
-    h4 Composers
-    .table-responsive
-      table class="table table-hover"
-        thead
-          tr
-            th Full name
-            th Email
-            th PRO
 
-        tbody
-          - common_work.ipis.each do |ipi|
-            tr
-              td = ipi.full_name
-              td = ipi.email
-              td 
-                - if pro = ipi.pro_affiliation
-                  =  pro.title
-                
-              td = debug ipi
+  
                     
                     
-                    
-    
+  h4 Add composer                  
+  .digi-box
+    = simple_form_for [:user, common_work, Ipi.new] , :url => url_for(:action => 'create', :controller => 'work_rights'), :method => 'post' do |f|
+      = f.input :full_name
+  
+  /h4 Stakeholders
+  /.digi-box
+  /  
+  /  .table-responsive
+  /    table class="table table-hover"
+  /      thead
+  /        tr
+  /          th Full name
+  /          th Email
+  /          th PRO
+  /
+  /      tbody
+  /        - common_work.ipis.each do |ipi|
+  /          tr
+  /            td = ipi.full_name
+  /            td = ipi.email
+  /            td 
+  /              - if pro = ipi.pro_affiliation
+  /                =  pro.title
+  /              
+  /            td = debug ipi  
           
