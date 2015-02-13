@@ -11,12 +11,12 @@ class User::RecordingCreditsController < ApplicationController
   end
   
   def update
-    if params[:recording]
-      @recording = Recording.cached_find(params[:recording_id])
-      
-      @recording.update_attributes(recording_params) 
-      @recording.confirm_ipis
-    end
+
+    @recording = Recording.cached_find(params[:id])
+    
+    @recording.update_attributes(recording_params) 
+    #@recording.confirm_ipis
+
     redirect_to :back
     #
     #if params[:commit] == 'Save'
