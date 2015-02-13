@@ -65,10 +65,9 @@ class CommonWork < ActiveRecord::Base
 
   #before_save :check_title
   
-  def next_step 
+  def recording_id 
   end
-  def prev_step
-  end
+  
   
   def audio_recordings 
     recordings.where(media_type: 'recording') 

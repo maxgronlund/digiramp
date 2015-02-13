@@ -3,6 +3,12 @@ Digiramp::Application.routes.draw do
 
 
 
+  get 'recording_credits/show'
+
+  get 'recording_credits/edit'
+
+  get 'recording_credits/update'
+
   resources :share_and_login, only: [:show]
 
   resources :twitter_cards
@@ -721,12 +727,16 @@ Digiramp::Application.routes.draw do
   
   #=================== USER =========================
   namespace :user do
-    
+    #resources :common_work_lyrics
     resources :users do
       resources :creative_rights
       resources :common_works
+      resources :recording_credits
       resources :recordings do
         resources :work_rights
+        resources :common_works, only: [:edit, :update, :show]
+        resources :common_work_lyrics, only: [:edit, :update]
+        resources :common_work_credits, only: [:edit, :update]
       end
       #resources :work_rights, only: [:update]
       resources :cms_module, only: [:new]

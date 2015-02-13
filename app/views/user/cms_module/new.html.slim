@@ -14,7 +14,7 @@
       .row
         .col-sm-6
           .digi-box
-            = simple_form_for [:user, @user, @cms_page, @cms_section] do |f|
+            = simple_form_for [:user, @user, @cms_page, @cms_section], turboboost: true do |f|
                 = f.hidden_field :cms_page_id, value: @cms_page.id
                 = f.hidden_field :position, value: @position
                 = f.hidden_field :column_nr, value: @column_nr

@@ -22,7 +22,7 @@
             = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
                                                           :controller => 'user/creative_rights'), \
                                                           :method => 'get',\
-                                                          remote: true do |f|
+                                                          turboboost: true do |f|
         
               .input-group
                 span class="input-group-addon"
@@ -36,9 +36,9 @@
                   = link_to 'Clear', user_user_creative_rights_path(@user, clear: 'clear'), class: 'btn btn-default'
 
       .sexy_line
-      
-      .add_recordings
-        == render 'index', recordings: @recordings
+      == render 'index', recordings: @recordings
+      /.add_recordings
+      /  == render 'index', recordings: @recordings
             
                         
             

@@ -1,4 +1,4 @@
-= simple_form_for [:user, @user, @cms_playlist_link] do |f|
+= simple_form_for [:user, @user, @cms_playlist_link], turboboost: true do |f|
 
   .form-inputs
     = f.hidden_field :position, as: :integer ,  input_html: { value: @cms_playlist_link.cms_section.position }

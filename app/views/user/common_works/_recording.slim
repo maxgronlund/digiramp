@@ -1,0 +1,32 @@
+== render 'audio_player/show', recording: recording , description: true, target: ""
+
+.recording-credits
+  b Credits 
+  .sexy_line
+  .table-responsive
+    table class="table table-hover"
+      thead
+        tr
+          th Capacity
+          th Name
+          th Email
+          th Show on recording
+          th Share
+          th Confirmation
+      tbody
+        - recording.recording_ipis.each do |recording_ipi|
+          tr
+            td
+              b = recording_ipi.role
+            td =  recording_ipi.name
+            td =  recording_ipi.email
+            td
+              - if recording_ipi.show_credit_on_recording
+                i.fa.fa-check
+            td = recording_ipi.share
+            td = recording_ipi.confirmation
+    .sexy_line
+    .pull-right
+      => link_to 'Edit', edit_user_recording_path(recording.user, recording), class: 'btn btn-default btn-xs'
+      = link_to 'Update credits', edit_user_user_recording_credit_path(@user, recording), class: 'btn btn-primary btn-xs'
+              

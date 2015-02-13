@@ -30,7 +30,7 @@
             
       .sexy_line
       .digi-box
-        = simple_form_for [:user, @user, @cms_page] do |f|
+        = simple_form_for [:user, @user, @cms_page], turboboost: true do |f|
           = f.hidden_field :user_id, value: @user.id
           .row
             .col-sm-6

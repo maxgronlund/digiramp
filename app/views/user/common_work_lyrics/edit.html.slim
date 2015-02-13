@@ -1,0 +1,69 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'creative rights'.to_sym => user_user_creative_rights_path(@user)}, current: ''}
+      
+      
+      
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @common_work.title
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'common work lyrics'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to edit_user_user_recording_common_work_path( @user, @recording, @common_work ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+                  
+            = link_to edit_user_user_recording_common_work_credit_path(@user, @recording, @common_work) do
+              .btn.btn-default
+                'Skip
+                '&nbsp;
+                i.fa.fa-chevron-right
+      
+      
+      .sexy_line
+      == render 'user/common_works/wizard_step', step: 2
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [ @common_work.account.user, @recording, @common_work], 
+                                turboboost: true,
+                                url:  url_for( controller: 'common_work_lyrics', action: 'update'), method: 'put' do |f| 
+
+              h4 Lyrics
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+                .pull-right
+                  a data-wysihtml5-action="change_view"  Html 
+              
+              =f.input :lyrics, label: false, :input_html => {  style: "height: 549px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
+                  
+              .row
+                .col-sm-12
+                  .pull-right
+                    => link_to 'Cancel', user_user_creative_rights_path( @user), class: 'btn btn-default'
+
+                    = f.submit 'Save', class: 'btn btn-primary'
+      
+
+                 
+              
+  == render 'shared/site_footer'    
+

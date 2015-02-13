@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212120132) do
+ActiveRecord::Schema.define(version: 20150213141203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2028,8 +2028,11 @@ ActiveRecord::Schema.define(version: 20150212120132) do
     t.integer  "recording_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",        default: ""
-    t.boolean  "confirmed",    default: false
+    t.string   "email",                    default: ""
+    t.boolean  "confirmed",                default: false
+    t.string   "confirmation",             default: "Missing"
+    t.boolean  "show_credit_on_recording", default: false
+    t.text     "notes",                    default: ""
   end
 
   add_index "recording_ipis", ["recording_id"], name: "index_recording_ipis_on_recording_id", using: :btree
