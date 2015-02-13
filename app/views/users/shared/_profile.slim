@@ -83,7 +83,7 @@
               .fa.fa-google-plus
               '&nbsp;Google+
               
-          - if @user.link_to_homepage != 'http://'
+          - if @user.link_to_homepage != ''
             => link_to LinkValidator.validate( @user.link_to_homepage ) do
               .fa.fa-home
               '&nbsp;www
