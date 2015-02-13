@@ -729,10 +729,11 @@ Digiramp::Application.routes.draw do
   namespace :user do
     #resources :common_work_lyrics
     resources :users do
-      resources :creative_rights
+      resources :creative_rights, only: [:index]
       resources :common_works
       resources :recording_credits
       resources :recordings do
+        resources :creative_rights, only: [:show]
         resources :work_rights
         resources :common_works, only: [:edit, :update, :show]
         resources :common_work_lyrics, only: [:edit, :update]

@@ -26,6 +26,8 @@ class User::CreativeRightsController < ApplicationController
   end
 
   def show
+    @recording   = Recording.cached_find(params[:recording_id])
+    @common_work = @recording.common_work
   end
 
   def edit

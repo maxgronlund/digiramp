@@ -9,6 +9,14 @@
   .welcome
     .container
       .welcome-container
+      
+        .row
+          .col-sm-12
+            .person-badges
+              .all-users
+                .util-carousel.normal-imglist id="users-imglist"
+                  - @users.each do |user|
+                    == render 'users/show', user: user
         .row
           .col-sm-4
             h4 Welcome to DigiRAMP
@@ -52,15 +60,6 @@
           .col-sm-8
             h4 Featured recordings
             == render 'recordings/index', recordings: @recordings
-      
-        .row
-          .col-sm-12
-            h4 Featured Users
-            .person-badges
-              .all-users
-                .util-carousel.normal-imglist id="users-imglist"
-                  - @users.each do |user|
-                    == render 'users/show', user: user
                 
           
 == render 'shared/site_footer'

@@ -49,19 +49,23 @@
           .row
             .col-sm-12
               #ipis
-                
+                /= fields_for :recording_ipis, @recording.recording_ipis do |recording_ipis|
                 = f.simple_fields_for :recording_ipis do |recording_ipis|
+                
                   = render 'user/recording_credits/recording_ipi_fields', :f => recording_ipis
-                /.links
-                /  = link_to_add_association 'Add Credit', f, :recording_ipis, class: 'btn btn-success btn-xs'
+                .links
+                  .row
+                    .col-sm-12
+                      .pull-right.pull-down-10
+                        = link_to_add_association 'Add Credit', f, :recording_ipis, class: 'btn btn-default'
+                 
                   
-                  
-          /.row
-          /  .col-sm-8
-          /  .col-sm-4              
-          /    b Total shares % 
-          /    .total_share
-          /    i Must equal 100%
+          .row
+            .col-sm-8
+            .col-sm-4              
+              b Total shares % 
+              .total_share
+              i Must equal 100%
       
       
       
@@ -73,8 +77,8 @@
           .digi-box
             .row
               .col-sm-12
-                .pull-right   
-                  => link_to_add_association 'Add Credit', f, :recording_ipis, class: 'btn btn-default'
+                .pull-right.pull-down-12   
+                 
                 
                   = f.submit 'Save', class: 'btn btn-primary'
             
