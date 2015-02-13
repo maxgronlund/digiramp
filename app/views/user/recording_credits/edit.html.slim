@@ -15,7 +15,7 @@
       
       
       .row
-        .col-sm-6
+        .col-sm-8
           .help
             .help-text
               
@@ -24,7 +24,7 @@
             .help-button
               == render 'admin/helps/help', identifier: 'edit recording credits'
 
-        .col-sm-6
+        .col-sm-4
           .pull-right
             .recording-navigation
               => link_to user_user_creative_rights_path( @user ) do
@@ -57,7 +57,7 @@
                   .row
                     .col-sm-12
                       .pull-right.pull-down-10
-                        = link_to_add_association 'Add Credit', f, :recording_ipis, class: 'btn btn-default'
+                        = link_to_add_association 'Add Right & Credit', f, :recording_ipis, class: 'btn btn-default'
                  
                   
           .row
