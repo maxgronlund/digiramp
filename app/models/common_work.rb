@@ -43,7 +43,7 @@ class CommonWork < ActiveRecord::Base
   
   #has_many :activity_events, as: :activity_eventable
   #has_many :documents,       as: :documentable, dependent: :destroy
-  has_many :work_users, dependent: :destroy
+  #has_many :work_users, dependent: :destroy
   
   #has_many :catalog_items, dependent: :destroy
   
@@ -56,6 +56,8 @@ class CommonWork < ActiveRecord::Base
   
   after_commit :flush_cache
   after_create :count_statistics_up
+  
+  #has_and_belongs_to_many :catalogs
   
   
   
@@ -258,6 +260,8 @@ class CommonWork < ActiveRecord::Base
   end
   
   def update_completeness
+    
+    
     value = 0
     value += 5 unless self.recordings.size.to_i      == 0
     value += 5 unless self.title.to_s                == ''

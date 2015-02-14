@@ -17,7 +17,7 @@
     .row
       .col-sm-12
         h3 Sign up
-        = simple_form_for(User.new)    do |f|
+        = simple_form_for(User.new, turboboost: true)    do |f|
           .input-group
             span class="input-group-addon" @
             = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
@@ -68,7 +68,7 @@
   div id="collapse_login" class="panel-collapse collapse" 
     h3 Login
 
-    = simple_form_for(  :sessions, :url => sessions_path ) do |f|
+    = simple_form_for(  :sessions, :url => sessions_path, turboboost: true ) do |f|
       .input-group
         span class="input-group-addon" @
         = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off

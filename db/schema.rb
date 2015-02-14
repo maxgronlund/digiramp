@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150213211952) do
+ActiveRecord::Schema.define(version: 20150214194707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -588,6 +588,16 @@ ActiveRecord::Schema.define(version: 20150213211952) do
   add_index "catalogs", ["default_playlist_id"], name: "index_catalogs_on_default_playlist_id", using: :btree
   add_index "catalogs", ["default_widget_key"], name: "index_catalogs_on_default_widget_key", using: :btree
   add_index "catalogs", ["user_id"], name: "index_catalogs_on_user_id", using: :btree
+
+  create_table "catalogs_common_works", force: true do |t|
+    t.integer  "catalog_id"
+    t.integer  "common_work_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "catalogs_common_works", ["catalog_id"], name: "index_catalogs_common_works_on_catalog_id", using: :btree
+  add_index "catalogs_common_works", ["common_work_id"], name: "index_catalogs_common_works_on_common_work_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "title"

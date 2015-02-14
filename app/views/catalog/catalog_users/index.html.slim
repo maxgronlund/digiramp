@@ -1,28 +1,35 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
-
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'catalog/catalogs/sidebar', selected: 'members'
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'users'
+      
 
           
 
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog) }, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Users
+            .help-button
+              == render 'admin/helps/help', identifier: 'catalog user'
 
-      = link_to "#menu-toggle", id: "menu-toggle" do
-        i class="fa fa-caret-square-o-left"
-      /== render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
-      h3 = @catalog.title
-      'Users with accedd to this catalog
+        .col-sm-6.pull-down-10
+          .pull-right
+            == link_to 'Invite users', new_catalog_account_catalog_catalog_user_path(@account, @catalog), class: 'btn btn-default'
+
       .sexy_line
-      == render 'personas'
-      br
+      .digi-box
+        == render 'personas'
+
       
-      .pull-right
-        == link_to 'Invite Users', new_catalog_account_catalog_catalog_user_path(@account, @catalog), class: 'btn btn-primary'
-      
-      
+  == render 'shared/site_footer'      
       
             

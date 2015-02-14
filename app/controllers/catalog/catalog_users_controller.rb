@@ -34,8 +34,8 @@ class Catalog::CatalogUsersController < ApplicationController
     
     
     
-    @catalog_user   = CatalogUser.new( title: "You have been invited the #{@catalog.title.upcase!} Catalog by #{current_user.name}", 
-                                       body: "You can access the #{@catalog.title.upcase!} Catalog from #{@catalog.account.title} on your HOME screen",
+    @catalog_user   = CatalogUser.new( title: "You have been invited the #{@catalog.title.upcase!} catalog by #{current_user.name}", 
+                                       body: "You can access the #{@catalog.title.upcase!} catalog from #{@catalog.account.title} on your controll panel",
                                        account_id: @catalog.account_id,
                                        uuid: UUIDTools::UUID.timestamp_create().to_s)
   end
@@ -110,18 +110,16 @@ class Catalog::CatalogUsersController < ApplicationController
   end
   
   def update
-    #puts '++++++++++++++++++++++++++++  UPDATE +++++++++++++++++++++++++++++++++++++++'
-    #puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-    #puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
     forbidden unless current_catalog_user.update_user
     @catalog        = Catalog.cached_find(params[:catalog_id])
-    
     @catalog_user   = CatalogUser.cached_find(params[:id])
+    
     @catalog_user.update_attributes(catalog_user_params)
 
 
     redirect_to catalog_account_catalog_catalog_users_path(@account, @catalog)
   end
+  
   
   def destroy
     forbiden unless current_account_user.delete_user
@@ -129,25 +127,23 @@ class Catalog::CatalogUsersController < ApplicationController
     @catalog        = Catalog.cached_find(params[:catalog_id])
     @catalog_user   = CatalogUser.cached_find(params[:id])
     
-    # store account and user
     account       = @catalog_user.account
     user          = @catalog_user.user
-    account_user = AccountUser.where(account_id: @catalog_user.account_id, user_id: @catalog_user.user_id).first
+    account_user  = AccountUser.where(account_id: @catalog_user.account_id, user_id: @catalog_user.user_id).first
     
-    begin
-      @catalog_user.destroy!
-    rescue
-    end
-    # if the account user was created when the user was invited to a scatlog
+
+
+    # if the account user was created when the user was invited to a catalog
     if account_user && account_user.role == 'Catalog User'
       # and there is no more catalog users for the account user
       if CatalogUser.where(user_id: user.id, account_id: account.id, catalog_id: @catalog.id).first.nil?
-        
         # It's safe do destroy the account user, unless the account user is the accoun owner ;-)
         account_user.destroy! unless account.user_id == account_user.user_id
       end
     end
     
+    # delete the catalog user
+    @catalog_user.destroy!
     redirect_to catalog_account_catalog_catalog_users_path(@account, @catalog)
     
   end

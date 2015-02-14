@@ -7,8 +7,12 @@ class Catalog< ActiveRecord::Base
   belongs_to :account
   has_many :catalog_items, dependent: :destroy
   has_many :catalog_users, dependent: :destroy
+  
   has_many :common_works_imports, dependent: :destroy
   has_many :widgets, dependent: :destroy
+  
+  #has_and_belongs_to_many :common_works
+  
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
   
   mount_uploader :image, CatalogUploader
@@ -85,7 +89,7 @@ class Catalog< ActiveRecord::Base
   
   # counter cache
   def count_recordings
-    self.nr_recordings  = self.catalog_items.where(catalog_itemable_type: 'Recording').size
+    self.nr_recordings  = self.catalog_items.where(catalog_itemable_type: 'Recording').count
   end
   
   # counter cache
@@ -97,12 +101,12 @@ class Catalog< ActiveRecord::Base
   # counter cache
   def count_assets
     #puts '-----------------------count_assets ---------------------------------'
-    self.nr_assets = self.catalog_items.where(catalog_itemable_type: ['Document', 'Artwork']).size
+    self.nr_assets = self.catalog_items.where(catalog_itemable_type: ['Document', 'Artwork']).count
   end
   
   # counter cache
   def count_users
-    self.nr_users = self.catalog_users.where(role: 'Catalog User').size
+    self.nr_users = self.catalog_users.where(role: 'Catalog User').count
   end
   
   def recordings

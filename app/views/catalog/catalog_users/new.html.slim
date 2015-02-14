@@ -1,40 +1,56 @@
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'users'
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'users'
+      
 
-            
-  .container
-    /==render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                            catalogs: catalog_account_catalogs_path(@account), \
-                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                            users: catalog_account_catalog_catalog_users_path(@account, @catalog), \
-                                                            }, current: 'invite user to catalog'}
-    
-    -blog = Blog.cached_find('Catalog Users')
-    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Invite To Catalog'}
-    =simple_form_for [:catalog, @account, @catalog, @catalog_user] do |f| 
-      .panel.panel-primary
-        .panel-heading
-          'Invite To Catalog
-        .panel-body
-          = f.hidden_field :account_id, value: @account.id
-          = f.hidden_field :catalog_id, value: @catalog.id
-          = f.hidden_field :role, value: 'Catalog User'
-          = f.input :email
-          = f.input :title
-          b Message
-          br
-          div id="toolbar" class="wysihtml5-toolbar"
-            a data-wysihtml5-command="bold" Bold
-            '&nbsp; 
-            a data-wysihtml5-command="italic" Italic
-          =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Description", id: 'wysihtml5_editor'}
-      == render 'form', f: f
-      .pull-right
-        =f.submit 'Create', class: 'btn btn-primary btn-lg'
+          
 
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-12
+          .container-fluid
+            .help
+              .help-text
+                h2 Invite to catalog
+              .help-button
+                == render 'admin/helps/help', identifier: 'new catalog user'
+      .sexy_line
+        .digi-box
+          = simple_form_for [:catalog, @account, @catalog, @catalog_user], turboboost: true do |f| 
+            = f.hidden_field :account_id, value: @account.id
+            = f.hidden_field :catalog_id, value: @catalog.id
+            = f.hidden_field :role, value: 'Catalog User'
+            = f.input :email
+            = f.input :title
+            b Message
+            br
+            div id="toolbar" class="wysihtml5-toolbar"
+              a data-wysihtml5-command="bold" Bold
+              '&nbsp; 
+              a data-wysihtml5-command="italic" Italic
+            = f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Description", id: 'wysihtml5_editor'}
+            == render 'form', f: f
+            .row
+              .col-sm-12.pull-down-12
+                .pull-right
+                  =f.submit 'Save', class: 'btn btn-primary'
+          
     
     
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/  
+/  
+/  
+/  == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                          catalogs: catalog_account_catalogs_path(@account), \
+                                                          @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                          users: catalog_account_catalog_catalog_users_path(@account, @catalog), \
+                                                          }, current: 'invite user to catalog'}
+  

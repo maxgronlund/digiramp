@@ -16,7 +16,7 @@
             
             h3 Log in
           
-            = simple_form_for(  :sessions, :url => sessions_path) do |f|
+            = simple_form_for(  :sessions, :url => sessions_path, turboboost: true) do |f|
               .input-group
                 span class="input-group-addon" @
                 = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off

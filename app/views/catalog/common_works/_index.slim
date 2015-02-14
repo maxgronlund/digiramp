@@ -9,62 +9,60 @@
         th
     tbody
       -@common_works.each do |common_work|
-        /-cache ([common_work, Admin.cached_find(1).version]) do
-        .do
-          tr id="remove_from_catalog_#{common_work.id.to_s}"
-            td = link_to common_work.title, catalog_account_catalog_common_work_path( @account, @catalog, common_work), class: 'btn btn-default btn-lg'
-            td
-              = link_to catalog_account_catalog_common_work_recordings_path( @account, @catalog, common_work) do
-                .btn.btn-warning.btn-lg
-                  i class="fa fa-headphones"
-                  '&nbsp;
-                  = common_work.recordings.size
-              
-              
-              - if current_catalog_user.create_recording
+        tr id="remove_from_catalog_#{common_work.id.to_s}"
+          td = link_to common_work.title, catalog_account_catalog_common_work_path( @account, @catalog, common_work), class: 'btn btn-default btn-lg'
+          td
+            = link_to catalog_account_catalog_common_work_recordings_path( @account, @catalog, common_work) do
+              .btn.btn-warning.btn-lg
+                i class="fa fa-headphones"
                 '&nbsp;
-                = link_to catalog_account_catalog_common_work_new_recordings_path(@account, @catalog, common_work), 'data-no-turbolink'=>true do 
+                = common_work.recordings.count
+            
+            
+            - if current_catalog_user.create_recording
+              '&nbsp;
+              = link_to catalog_account_catalog_common_work_new_recordings_path(@account, @catalog, common_work), 'data-no-turbolink'=>true do 
+                .btn.btn-success.btn-lg
+                  i class="fa fa-plus-circle"
+            
+            
+            
+          td 
+            = link_to catalog_account_catalog_common_work_common_work_ipis_path( @account, @catalog, common_work) do
+              .btn.btn-info.btn-lg
+                i class="fa fa-users"
+                '&nbsp;
+                = common_work.ipis.count
+          td == render 'works/shared/health', health: common_work.health rescue []
+          /td 
+          /  = time_ago_in_words(common_work.created_at).titleize 
+          /  '&nbsp; ago
+          td
+            .pull-right
+              -if current_account_user.read_common_work
+                = link_to catalog_account_catalog_common_work_path( @account, @catalog, common_work) do
                   .btn.btn-success.btn-lg
-                    i class="fa fa-plus-circle"
-              
-              
-              
-            td 
-              = link_to catalog_account_catalog_common_work_common_work_ipis_path( @account, @catalog, common_work) do
-                .btn.btn-info.btn-lg
-                  i class="fa fa-users"
-                  '&nbsp;
-                  = common_work.ipis.size
-            td == render 'works/shared/health', health: common_work.health rescue []
-            /td 
-            /  = time_ago_in_words(common_work.created_at).titleize 
-            /  '&nbsp; ago
-            td
-              .pull-right
-                -if current_account_user.read_common_work
-                  = link_to catalog_account_catalog_common_work_path( @account, @catalog, common_work) do
-                    .btn.btn-success.btn-lg
-                      i class="fa fa-gears"
-                  '&nbsp;
-                -if current_account_user.update_common_work
-                  = link_to edit_catalog_account_catalog_common_work_path(@account, @catalog, common_work) do
-                    .btn.btn-primary.btn-lg
-                      i class="fa fa-pencil"
-                  '&nbsp;
-                -if current_account_user.delete_common_work
-                  = link_to catalog_account_catalog_common_work_remove_common_work_from_catalog_path( @account, \
-                                                                                                      @catalog, \
-                                                                                                      common_work), \
-                                                                                                      method: :get, \
-                                                                                                      remote: true do
-                    .btn.btn-warning.btn-lg
-                      i class="fa fa-minus-circle"
-                      '&nbsp;Remove
+                    i class="fa fa-gears"
+                '&nbsp;
+              -if current_account_user.update_common_work
+                = link_to edit_catalog_account_catalog_common_work_path(@account, @catalog, common_work) do
+                  .btn.btn-primary.btn-lg
+                    i class="fa fa-pencil"
+                '&nbsp;
+              -if current_account_user.delete_common_work
+                = link_to catalog_account_catalog_common_work_remove_common_work_from_catalog_path( @account, \
+                                                                                                    @catalog, \
+                                                                                                    common_work), \
+                                                                                                    method: :get, \
+                                                                                                    remote: true do
+                  .btn.btn-warning.btn-lg
+                    i class="fa fa-minus-circle"
+                    '&nbsp;Remove
 
-                /  '&nbsp;
-                /-if current_account_user.delete_common_work
-                /  = link_to catalog_account_catalog_common_work_path( @account, @catalog, common_work), data: { confirm: 'Are you sure?' } , :method => :delete do
-                /    .btn.btn-danger.btn-lg
-                /      i class="fa fa-times"
-                
+              /  '&nbsp;
+              /-if current_account_user.delete_common_work
+              /  = link_to catalog_account_catalog_common_work_path( @account, @catalog, common_work), data: { confirm: 'Are you sure?' } , :method => :delete do
+              /    .btn.btn-danger.btn-lg
+              /      i class="fa fa-times"
+              
 

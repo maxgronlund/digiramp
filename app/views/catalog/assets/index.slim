@@ -56,11 +56,12 @@
 
 #wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'account'         
-
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'catalog/catalogs/sidebar', selected: 'assets'
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'assets'
       
 
           
@@ -68,8 +69,7 @@
   #page-content-wrapper
     .container-fluid
 
-      = link_to "#menu-toggle", id: "menu-toggle" do
-        i class="fa fa-caret-square-o-left"
+
       == render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
       - blog = Blog.cached_find('Catalog Assets')
       
