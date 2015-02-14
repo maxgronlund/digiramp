@@ -97,15 +97,11 @@ class CommonWorksImport < ActiveRecord::Base
   def add_to_catalog common_work, catalog_id
 
     if catalog_id 
-      catalog_item = CatalogItem.where(catalog_itemable_type: 'CommonWork', 
-                        catalog_itemable_id: common_work.id, 
-                        catalog_id: catalog_id)
-                  .first_or_create(
-                        catalog_itemable_type: 'CommonWork', 
-                        catalog_itemable_id: common_work.id, 
-                        catalog_id: catalog_id
-                        )
-      #ap catalog_item
+
+      CatalogsCommonWorks.where(catalog_id: catalog_id, common_work_id: common_work.id)
+                         .first_or_create(catalog_id: catalog_id, common_work_id: common_work.id)
+                         
+
     else
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       puts 'ERROR: Unable to add common work to catalog:' 

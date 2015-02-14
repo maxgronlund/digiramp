@@ -169,10 +169,10 @@ class TransloaditParser
     
     # add artwork to catalogs                      
     recording.catalogs.each do |catalog|
-      catalog_item = CatalogItem.create( catalog_id:            catalog.id,
-                                         catalog_itemable_type: 'Artwork',
-                                         catalog_itemable_id:     artwork.id
-                                        )
+      
+      ArtworksCatalogs.where(artwork_id: artwork.id, catalog_id: catalog.id)
+                      .first_or_create(artwork_id: artwork.id, catalog_id: catalog.id)
+      
       
     end
     

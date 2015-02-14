@@ -232,13 +232,9 @@ class CommonWork < ActiveRecord::Base
   # find a common work in a collection
   # filter out those alreaddy in the catalog
   def self.find_from_collection(account, catalog, query)
-    
-    common_work_ids = CatalogItem.where(catalog_id: catalog.id, 
-                                        catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
-                                        
-    common_work_ids = account.common_work_ids - common_work_ids
-    common_works = CommonWork.where(id: common_work_ids)
-    
+
+    common_works    = CommonWork.where(id: account.common_work_ids - catalog.common_work_ids)
+
     if query.present?
      common_works = common_works.search(query)
     end
@@ -714,14 +710,9 @@ class CommonWork < ActiveRecord::Base
   def add_to_catalog catalog_id
 
     if catalog_id
-      CatalogItem.where(catalog_itemable_type: 'CommonWork', 
-                        catalog_itemable_id: self.id, 
-                        catalog_id: catalog_id)
-                  .first_or_create(
-                        catalog_itemable_type: 'CommonWork', 
-                        catalog_itemable_id: self.id, 
-                        catalog_id: catalog_id
-                        )
+      CatalogsCommonWorks.where(catalog_id: catalog_id, common_work_id: self.id)
+                         .first_or_create(catalog_id: catalog_id, common_work_id: self.id)
+
     else
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       puts 'ERROR: Unable to add common work to catalog:' 

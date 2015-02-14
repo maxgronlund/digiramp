@@ -195,33 +195,7 @@ class Recording < ActiveRecord::Base
     
   end
   
-  def catalogs
-    catalog_ids = CatalogItem.where(catalog_itemable_type: "Recording", catalog_itemable_id: self.id).pluck(:catalog_id)
-    cats = Catalog.find(catalog_ids)
-    cats
-  end
 
-  
-  def catalog_ids=(ids) 
-    
-    ids.each do |catalog_id|
-      index = catalog_id.to_i
-      if index != 0
-        catalog = AccountCatalog.find(index)
-        #logger.debug catalog.title
-        CatalogItem.create( catalog_itemable_id: id, account_catalog_id: catalog.id, catalog_itemable_type: 'Recording' )
-      end
-    end
-
-  end
-  
-  #def duration_text
-  #  duration.try(:strftime, "%H:%M:%S")
-  #end
-  #
-  #def duration_text=(duration)
-  #  self.duration = Time.zone.parse(duration) if duration.present?
-  #end
   
   def docs
     Document.where(documentable_id: self.id, documentable_type: 'Recording')
@@ -844,7 +818,7 @@ class Recording < ActiveRecord::Base
                                       ascap_award_winner:                  self.common_work.ascap_award_winner,
                                       work_type:                           self.common_work.work_type,
                                       composite_type:                      self.common_work.composite_type,
-                                      arrangement_of_public_domain_work:   self.common_work.arrangement_of_public_domain_work,
+                                      arrangement:                         self.common_work.arrangement,
                                       genre:                               self.common_work.genre,
                                       submitter_work_id:                   self.common_work.submitter_work_id,
                                       registration_date:                   self.common_work.registration_date,                

@@ -20,7 +20,8 @@
           .pull-down-10
             = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
                                                           :controller => 'users'), \
-                                                          :method => 'get' do |f|
+                                                          :method => 'get',
+                                                          turboboost: true do |f|
             
               .input-group
                 span class="input-group-addon"
