@@ -20,17 +20,21 @@ class Catalog::FindInCollectionsController < ApplicationController
   def create
     ap params[:recording][:recording_id]
     ap params[:recording][:catalog_id]
+    
     forbidden unless current_catalog_user.create_recording?
     if @recording = Recording.cached_find(params[:recording][:recording_id])
       if @catalog   = Catalog.cached_find(params[:recording][:catalog_id])
-      
-        CatalogItem.where(  catalog_id: @catalog.id, 
-                            catalog_itemable_id: @recording.id, 
-                            catalog_itemable_type: @recording.class.name)
-                   .first_or_create(catalog_id: @catalog.id, 
-                                    catalog_itemable_id: @recording.id, 
-                                    catalog_itemable_type: @recording.class.name)
         
+        CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: @reording.id)
+                          .first_or_create(catalog_id: @catalog.id, recording_id: @reording.id)
+        
+        #CatalogItem.where(  catalog_id: @catalog.id, 
+        #                    catalog_itemable_id: @recording.id, 
+        #                    catalog_itemable_type: @recording.class.name)
+        #           .first_or_create(catalog_id: @catalog.id, 
+        #                            catalog_itemable_id: @recording.id, 
+        #                            catalog_itemable_type: @recording.class.name)
+        #
       end
     end
   end
