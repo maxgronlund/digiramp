@@ -1,47 +1,53 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
 
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { content: admin_content_index_path, \
+                                                              tags: admin_tags_path, \
+                                                              }, current:  ''}
+      .row
+        .col-sm-5
+
+          h2 Genre
+      
+        .col-sm-7
+          .pull-down-10
+            = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                          :controller => 'moods'), \
+                                                          turboboost: true,\
+                                                          :method => 'get' do |f|
             
-  .container
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
-                                                            content: admin_content_index_path, \
-                                                            tags: admin_tags_path, \
-                                                            }, current:  'moods'}
-     
-    == render 'admin/shared/messages'
-    
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'Moods'}
-    
-    .row
-      .col-sm-12
-        .panel
-          .panel-body
-            = form_tag admin_moods_path, :method => 'get' do
-              .row
-                .col-sm-6
-                  br
-                  = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search', value: params[:query]
-                .col-sm-6
-                  br
-                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search for moods', \
+                                              value: params[:query]
+                .input-group-btn
+                  = f.submit 'Search', class: "btn btn-primary"
                   '&nbsp;
-                  = link_to 'Show All', admin_moods_path, class: 'btn btn-default btn-lg'
-              hr
-            .hidden-xs
-              == paginate(@moods)
-            .visible-xs
-              br
-              .btn-group.btn-group-sm
-                = link_to_previous_page @moods, '« Prev Page', class: 'btn btn-default mobile_pagination'
-                = link_to_next_page @moods, 'Next Page »', class: 'btn btn-default mobile_pagination'
-              br
-              
-    .row 
-      .col-sm-12
-        .panel
-          .panel-body
+                  = link_to 'Clear', admin_genres_path, class: 'btn btn-default'        
+      
+      .sexy_line
+      .row
+        .col-sm-12
+          == paginate(@moods)
+          .pull-right
+            =< link_to 'Export CSV', admin_export_moods_path( format: "csv"), class: 'btn btn-default'
+            =< link_to 'Import CSV', new_admin_moods_import_path, class: 'btn btn-default'
+            =< link_to 'User Moods', admin_user_moods_path, class: 'btn btn-default'
+            =< link_to 'New', new_admin_mood_path, class: 'btn btn-primary'
+      .row
+        .col-sm-12
+          .digi-box
             table class="table table-striped"
               thead
                 tr
@@ -60,25 +66,14 @@
                     td 
                       .pull-right
                         = link_to edit_admin_mood_path(mood) do
-                          .btn.btn-primary.btn-lg
+                          .btn.btn-default.btn-xs
                             i class="fa fa-pencil"
+                            '&nbsp;Edit
                         '&nbsp;
                         = link_to admin_mood_path(mood)  , data: { confirm: 'Are you sure?' } , method: :delete do
-                          .btn.btn-danger.btn-lg
-                            i class="fa fa-trash-o"
+                          .btn.btn-danger.btn-xs
+                            i class="fa fa-times"
             
-            
-    .row    
-       .col-sm-12
-         .pull-right
-           = link_to 'New', new_admin_mood_path, class: 'btn btn-primary btn-lg'
-           '&nbsp;
-           = link_to 'Export CSV', admin_export_moods_path( format: "csv"), class: 'btn btn-default btn-lg'
-           '&nbsp;
-           = link_to 'Import CSV', new_admin_moods_import_path, class: 'btn btn-default btn-lg'
-           '&nbsp;
-           = link_to 'User Moods', admin_user_moods_path, class: 'btn btn-default btn-lg'
-     
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+              
 
+  == render 'shared/site_footer'  

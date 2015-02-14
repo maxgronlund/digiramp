@@ -21,6 +21,7 @@
       .row
         = simple_form_for  [ @user ], :url => url_for(:action => 'new', \
                                                       :controller => 'account/music_submissions'), \
+                                                      turboboost: true, \
                                                       :method => 'get' do |f|
           
           

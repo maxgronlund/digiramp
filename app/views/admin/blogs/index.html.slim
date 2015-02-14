@@ -21,8 +21,8 @@
       
         .col-sm-7
           .pull-down-10
-            = form_tag admin_blogs_path, :method => 'get' do
-            
+            /= form_tag admin_blogs_path, turbo_boost: true,  :method => 'get' do
+            = simple_form_for [current_user], :url => url_for(:action => 'index', :controller => 'blogs'),turboboost: true, :method => 'get' do |f|
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-search'

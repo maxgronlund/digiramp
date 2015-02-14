@@ -20,7 +20,8 @@
           .search-recording
             = simple_form_for  [ @account ], :url => url_for(:action => 'index', \
                                                           :controller => 'clients'), \
-                                                          :method => 'get' do |f|
+                                                          :method => 'get',\
+                                                          turboboost: true do |f|
           
               .input-group
                 span class="input-group-addon"

@@ -1,50 +1,64 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
+    == render 'shared/navigationbar', page: 'admin' 
   
-  
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'admin'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, content: admin_content_index_path }, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
       .row
-        .col-sm-8
+        .col-sm-12
           h2 Help
-          'Dropdowns with help informations for end users
-        /.col-sm-4
-        /  = link_to 'new', new_admin_help_path
-        /  br 
-        /
-        /
-        /  == render 'admin/helps/help', identifier: 'recording ipis'
       .sexy_line
-      .table-responsive
-        table class="table table-hover"
-          thead
-            tr
-              th Button
-              th Title
-              th Identifier
-              th
-          
-          tbody
-            - @helps.each do |help|
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
               tr
-                td = help.button
-                td = help.title
-                td = help.identifier
-                td 
-                  .pull-right
-                    /=> link_to 'Show', admin_help_path( help )    , class: 'btn btn-default btn-xs' 
-                    => link_to 'Edit', edit_admin_help_path(help) , class: 'btn btn-default btn-xs'
-                    /= link_to 'Destroy', admin_help_path(help), data: {:confirm => 'Are you sure?'}, :method => :delete,  class: 'btn btn-danger btn-xs'
-              
+                th Button
+                th Title
+                th Identifier
+                th
+          
+            tbody
+              - @helps.each do |help|
+                tr
+                  td = help.button
+                  td = help.title
+                  td = help.identifier
+                  td 
+                    .pull-right
+                      /=> link_to 'Show', admin_help_path( help )    , class: 'btn btn-default btn-xs' 
+                      => link_to 'Edit', edit_admin_help_path(help) , class: 'btn btn-default btn-xs'
+                      /= link_to 'Destroy', admin_help_path(help), data: {:confirm => 'Are you sure?'}, :method => :delete,  class: 'btn btn-danger btn-xs'
+
+            
           
 
-  == render 'shared/site_footer'    
+  == render 'shared/site_footer' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
 
 

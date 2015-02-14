@@ -32,6 +32,7 @@
         .col-sm-6
           = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
                                                         :controller => '/user/contacts'), \
+                                                        turboboost: true, \
                                                         :method => 'get' do |f|
         
             .input-group

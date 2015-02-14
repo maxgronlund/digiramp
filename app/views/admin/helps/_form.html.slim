@@ -1,5 +1,5 @@
 .digi-box
-  = simple_form_for [:admin, @help ] do |f|
+  = simple_form_for [:admin, @help ], turboboost: true do |f|
     /= f.error_notification
     .form-inputs
       .row

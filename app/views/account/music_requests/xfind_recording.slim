@@ -25,7 +25,7 @@
           .panel
             .panel-body
               .row
-                = form_tag find_recording_account_account_opportunity_music_request_path(@account, @opportunity, @music_request), :method => 'get' do
+                = form_tag find_recording_account_account_opportunity_music_request_path(@account, @opportunity, @music_request), turboboost: true, :method => 'get' do
                   .col-sm-6
                     = text_field_tag "query", "", :class => 'search-query form-control', \
                                                   :placeholder => 'Search string', \

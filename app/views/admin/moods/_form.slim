@@ -1,18 +1,9 @@
-.row
-  = simple_form_for [:admin, @mood] do |f|
-    .col-sm-4
-      
-    .col-sm-4
-      .panel
-        .panel-body
-          b DigiRAMP
-          hr
-          = f.input :title, label: 'Mood'
-          = f.input :category,  collection: Mood::MOOD_CLASSIFICATION,  as: :radio_buttons, label: false
-          = f.input :user_tag
-    .col-sm-4
+= simple_form_for [:admin, @mood], turboboost: true do |f|
 
+  = f.input :title, label: 'Mood'
+  = f.input :category,  collection: Mood::MOOD_CLASSIFICATION,  as: :radio_buttons, label: false
+  = f.input :user_tag,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+  .row
     .col-sm-12   
-      hr
       .pull-right
-        = f.submit 'Save', class: 'btn btn-primary btn-lg'
+        = f.submit 'Save', class: 'btn btn-primary'

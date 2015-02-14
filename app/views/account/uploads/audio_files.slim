@@ -21,7 +21,7 @@
         .panel
           .panel-body
             .row
-              = form_tag account_account_recordings_path(@account), :method => 'get' do
+              = form_tag account_account_recordings_path(@account), turboboost: true, :method => 'get' do
                 .col-sm-6
                   = text_field_tag "query", "", :class => 'search-query form-control', \
                                                 :placeholder => 'Search string', \

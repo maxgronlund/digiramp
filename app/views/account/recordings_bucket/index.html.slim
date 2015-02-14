@@ -29,6 +29,7 @@
 
             = simple_form_for  [ @account ], :url => url_for(:action => 'index', \
                                                           :controller => '/account/recordings_bucket'), \
+                                                          turboboost: true, \
                                                           :method => 'get' do |f|
             
               .input-group
