@@ -146,12 +146,19 @@ class Catalog< ActiveRecord::Base
   
   # add a common work to a catalog
   def add_common_work common_work
-    CatalogsCommonWorkd.where(catalog_id: self.id, recording_id: recording.id)
-                      .first_or_create(catalog_id: self.id, recording_id: recording.id)
+    CatalogsCommonWorks.where(catalog_id: self.id, common_work_id: common_work.id)
+                      .first_or_create(catalog_id: self.id, common_work_id: common_work.id)
+                      
+    common_work.recordings.each do |recording|
+      self.add_recording recording
+    end
   end
   
 
-  
+  def documents
+    document_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'Document').pluck(:catalog_itemable_id)
+    @documents = Document.order('title asc').where(id: document_ids)
+  end
   
   # fetch all artwork in the catalog
   #def artworks

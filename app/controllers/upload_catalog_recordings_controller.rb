@@ -34,11 +34,11 @@ class UploadCatalogRecordingsController < ApplicationController
     
     
     import_batch.recordings.each do |recording|
-      CatalogItem.create(
-                          catalog_id: catalog_id, 
-                          catalog_itemable_id: recording.id, 
-                          catalog_itemable_type: recording.class.name
-                        )
+      
+      CatalogsRecordings.where(catalog_id: catalog_id, recording_id: recording.id)
+                        .first_or_create(catalog_id: catalog_id, recording_id: recording.id)
+                        
+
     end
   end
   

@@ -5,10 +5,10 @@ class UserRecordingsController < ApplicationController
     catalog_ids       =  CatalogUser.where(user_id: @user.id).pluck(:catalog_id)
     
     # all recordings from catalogs shared with the user
-    recording_ids     =  CatalogItem.where(catalog_id: catalog_ids, catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
+    recording_ids     =  CatalogsRecordings.where(catalog_id: catalog_ids).pluck(:recording_id)
     
     # all recordings from the users account
-    recording_ids     += @user.account.recordings
+    recording_ids     += @user.account.recording_ids
     
     # pull rcordings
     @recordings       =  Recording.where(id: recording_ids)

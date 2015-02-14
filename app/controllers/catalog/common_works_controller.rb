@@ -200,41 +200,23 @@ class Catalog::CommonWorksController < ApplicationController
     @common_work = CommonWork.cached_find(params[:common_work_id])
     @remove_tag  = "#remove_from_catalog_"       + @common_work.id.to_s
     
-    catalog_item = CatalogItem.where(
-                      catalog_id: @catalog.id, 
-                      catalog_itemable_id: @common_work.id, 
-                      catalog_itemable_type: @common_work.class.name 
-                    ).first
+    if catalog_common_work = CatalogsCommonWorks.where(catalog_id: @catalog.id, common_work_id: @common_work.id).first
+      catalog_common_work.destroy!
+    end
     
-    remove_recordings catalog_item.catalog_itemable         
-    
-    catalog_item.destroy!
   end
 
   def remove_recordings common_work
-    
-    #if common_work.recordings
-    #common_work.recordings.each do |recording|
-    #  catalog_item = CatalogItem.where(
-    #                    catalog_id: @catalog.id, 
-    #                    catalog_itemable_id: recording.id, 
-    #                    catalog_itemable_type: recording.class.name 
-    #                  ).first
-    #  catalog_item.destroy! if catalog_item
-    #end
-    #end
-    
     
     
   end
   
   def remove
-    catalog_items   = CatalogItem.where(
-                      catalog_id: @catalog.id, 
-                      catalog_itemable_type: 'CommonWork'
-                    )
-                    
-    catalog_items.destroy_all if catalog_items   
+    
+    if catalog_common_works = CatalogsCommonWorks.where(catalog_id: @catalog.id, common_work_id: @common_work.id)
+      catalog_common_works.destroy_all
+    end
+      
         
     redirect_to catalog_account_catalog_common_works_path( @account, @catalog)
   end
@@ -243,45 +225,13 @@ class Catalog::CommonWorksController < ApplicationController
 
     @common_work = CommonWork.cached_find(params[:common_work_id])
     
-    catalog_item = CatalogItem.where(
-                                     catalog_id: @catalog.id, 
-                                     catalog_itemable_id: @common_work.id, 
-                                     catalog_itemable_type: 'CommonWork' 
-                                   )
-                              .first_or_create(
-                                                  catalog_id: @catalog.id, 
-                                                  catalog_itemable_id: @common_work.id, 
-                                                  catalog_itemable_type: 'CommonWork' 
-                                               )
-                              
-
+    @catalog.add_common_work @common_work
     @remove_tag  = "#add_to_catalog_#{@common_work.id.to_s}" 
     
-    add_recordings( @catalog, catalog_item.catalog_itemable  )
+
     
   end
   
-  # add recordings from common work to catalog
-  def add_recordings catalog, common_work
-    common_work.recordings.each do |recording|
-      add_recording  catalog, recording
-    end
-    
-  end
-  
-  # add one single recording
-  def add_recording catalog, recording
-    catalog_item = CatalogItem.where(
-                                     catalog_id: catalog.id, 
-                                     catalog_itemable_id: recording.id, 
-                                     catalog_itemable_type: recording.class.name 
-                                   )
-                              .first_or_create(
-                                                 catalog_id: catalog.id, 
-                                                 catalog_itemable_id: recording.id, 
-                                                 catalog_itemable_type: recording.class.name 
-                                               )
-  end
   
   #def export_common_works
   #  puts '>>>>>>>>>>>>>>>>>>>>>>>>> DOWNLOAD <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'

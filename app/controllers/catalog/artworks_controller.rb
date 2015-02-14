@@ -12,8 +12,6 @@ class Catalog::ArtworksController < ApplicationController
   # GET /artworks
   # GET /artworks.json
   def index
-    artwork_ids = CatalogItem.where(catalog_id: @catalog.id, catalog_itemable_type: 'Artwork').pluck(:catalog_itemable_id)
-    @artworks = Artwork.where(id: artwork_ids)
     @artworks = @catalog.artworks
   end
 
@@ -42,9 +40,10 @@ class Catalog::ArtworksController < ApplicationController
     artworks = TransloaditImageParser.artwork( params[:transloadit], @account.id)
     
     artworks.each do |artwork|
-      CatalogItem.create( catalog_id: @catalog.id, 
-                          catalog_itemable_type: 'Artwork',
-                          catalog_itemable_id: artwork.id)
+      
+      ArtworksCatalogs.where(catalog_id: @catalog.id, artwork_id: artwork.id)
+                      .first_or_create(catalog_id: @catalog.id, artwork_id: artwork.id)
+      
       
     end
 

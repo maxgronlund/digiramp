@@ -17,24 +17,14 @@ class Catalog::AddRecordingsController < ApplicationController
   
   
   def add_found
-    #ap '============================== ADD FOUND =================================='
-    #ap params
-    #ap session[:query] 
-    
-    
+
     @recordings     = Recording.not_in_bucket.find_in_collection(@catalog, @account, session[:query] )
     
     session[:query] = nil
     
     if @recordings
       @recordings.each do |recording|
-    
-        CatalogItem.where(catalog_id:                         @catalog.id, 
-                          catalog_itemable_id:                recording.id, 
-                          catalog_itemable_type:              recording.class.name)
-                    .first_or_create( catalog_id:             @catalog.id, 
-                                      catalog_itemable_id:    recording.id, 
-                                      catalog_itemable_type:  recording.class.name)
+        @catalog.add_recording recording
       end
     end
     
@@ -42,31 +32,13 @@ class Catalog::AddRecordingsController < ApplicationController
   end
   
   def add_all
-    #ap '============================ ADD ALL ===================================='
-    #ap params
+
     if @recordings = @account.recordings.not_in_bucket
       @recordings.each do |recording|
-      
-        CatalogItem.where(catalog_id:                         @catalog.id, 
-                          catalog_itemable_id:                recording.id, 
-                          catalog_itemable_type:              recording.class.name)
-                    .first_or_create( catalog_id:             @catalog.id, 
-                                      catalog_itemable_id:    recording.id, 
-                                      catalog_itemable_type:  recording.class.name)
+         @catalog.add_recording recording
       end
     end
-    
   end
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   
 end
