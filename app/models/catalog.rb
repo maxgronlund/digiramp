@@ -13,6 +13,7 @@ class Catalog< ActiveRecord::Base
   
   has_and_belongs_to_many :common_works
   has_and_belongs_to_many :recordings
+  has_and_belongs_to_many :artworks
   
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
   
@@ -153,10 +154,10 @@ class Catalog< ActiveRecord::Base
   
   
   # fetch all artwork in the catalog
-  def artworks
-    artwork_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'Artwork').pluck(:catalog_itemable_id)
-    @artworks = Artwork.order('title asc').where(id: artwork_ids)
-  end
+  #def artworks
+  #  artwork_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'Artwork').pluck(:catalog_itemable_id)
+  #  @artworks = Artwork.order('title asc').where(id: artwork_ids)
+  #end
   
   # when a new catalog is created add account users
   # when a new account user is created add the user

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214200228) do
+ActiveRecord::Schema.define(version: 20150214202021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -287,6 +287,16 @@ ActiveRecord::Schema.define(version: 20150214200228) do
   end
 
   add_index "artworks", ["account_id"], name: "index_artworks_on_account_id", using: :btree
+
+  create_table "artworks_catalogs", force: true do |t|
+    t.integer  "artwork_id"
+    t.integer  "catalog_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "artworks_catalogs", ["artwork_id"], name: "index_artworks_catalogs_on_artwork_id", using: :btree
+  add_index "artworks_catalogs", ["catalog_id"], name: "index_artworks_catalogs_on_catalog_id", using: :btree
 
   create_table "ascap_imports", force: true do |t|
     t.boolean  "in_progress"

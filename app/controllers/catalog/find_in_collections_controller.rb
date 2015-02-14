@@ -102,13 +102,14 @@ class Catalog::FindInCollectionsController < ApplicationController
     # add recordings not in the catalog
     if @recordings  = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
       @recordings.each do |recording|
-
-        CatalogItem.where(catalog_id:                         @catalog.id, 
-                          catalog_itemable_id:                recording.id, 
-                          catalog_itemable_type:              recording.class.name)
-                    .first_or_create( catalog_id:             @catalog.id, 
-                                      catalog_itemable_id:    recording.id, 
-                                      catalog_itemable_type:  recording.class.name)
+        CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: recording.id)
+                          .first_or_create(catalog_id: @catalog.id, recording_id: recording.id)
+        #CatalogItem.where(catalog_id:                         @catalog.id, 
+        #                  catalog_itemable_id:                recording.id, 
+        #                  catalog_itemable_type:              recording.class.name)
+        #            .first_or_create( catalog_id:             @catalog.id, 
+        #                              catalog_itemable_id:    recording.id, 
+        #                              catalog_itemable_type:  recording.class.name)
       end
     end
     
@@ -121,13 +122,15 @@ class Catalog::FindInCollectionsController < ApplicationController
     # add recordings not in the catalog
     if @recordings  = @account.recordings
       @recordings.each do |recording|
-
-        CatalogItem.where(catalog_id:                         @catalog.id, 
-                          catalog_itemable_id:                recording.id, 
-                          catalog_itemable_type:              recording.class.name)
-                    .first_or_create( catalog_id:             @catalog.id, 
-                                      catalog_itemable_id:    recording.id, 
-                                      catalog_itemable_type:  recording.class.name)
+        CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: recording.id)
+                          .first_or_create(catalog_id: @catalog.id, recording_id: recording.id)
+                          
+        #CatalogItem.where(catalog_id:                         @catalog.id, 
+        #                  catalog_itemable_id:                recording.id, 
+        #                  catalog_itemable_type:              recording.class.name)
+        #            .first_or_create( catalog_id:             @catalog.id, 
+        #                              catalog_itemable_id:    recording.id, 
+        #                              catalog_itemable_type:  recording.class.name)
       end
     end
     
@@ -139,13 +142,15 @@ class Catalog::FindInCollectionsController < ApplicationController
     @catalog   = Catalog.cached_find(params[:catalog_id])
     @recording = Recording.cached_find(params[:id])
     
-    
-    if catalog_item = CatalogItem.where( catalog_id: @catalog.id, 
-                                      catalog_itemable_id: @recording.id, 
-                                      catalog_itemable_type: @recording.class.name).first
-                                      
-      catalog_item.destroy!
+    if catalog_recording = CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: @recording.id).first
+      catalog_recording.destroy!
     end
+    #if catalog_item = CatalogItem.where( catalog_id: @catalog.id, 
+    #                                  catalog_itemable_id: @recording.id, 
+    #                                  catalog_itemable_type: @recording.class.name).first
+    #                                  
+    #  catalog_item.destroy!
+    #end
     
     
   end
