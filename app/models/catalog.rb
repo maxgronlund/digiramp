@@ -11,7 +11,7 @@ class Catalog< ActiveRecord::Base
   has_many :common_works_imports, dependent: :destroy
   has_many :widgets, dependent: :destroy
   
-  #has_and_belongs_to_many :common_works
+  has_and_belongs_to_many :common_works
   
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
   
@@ -94,7 +94,7 @@ class Catalog< ActiveRecord::Base
   
   # counter cache
   def count_common_works
-    self.nr_common_works = common_works.size
+    self.nr_common_works = self.common_works.count
 
   end
   
@@ -118,13 +118,13 @@ class Catalog< ActiveRecord::Base
   end
 
   
-  def common_works
-    common_work_ids = CatalogItem.where(catalog_id: self.id, 
-                                        catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
-                                        
-    CommonWork.where(id: common_work_ids)
-
-  end
+  #def common_works
+  #  common_work_ids = CatalogItem.where(catalog_id: self.id, 
+  #                                      catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
+  #                                      
+  #  CommonWork.where(id: common_work_ids)
+  #
+  #end
   
   def add_recording new_recordings
     new_recordings.each do |recording|

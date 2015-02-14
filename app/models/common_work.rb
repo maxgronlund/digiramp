@@ -57,7 +57,7 @@ class CommonWork < ActiveRecord::Base
   after_commit :flush_cache
   after_create :count_statistics_up
   
-  #has_and_belongs_to_many :catalogs
+  has_and_belongs_to_many :catalogs
   
   
   
