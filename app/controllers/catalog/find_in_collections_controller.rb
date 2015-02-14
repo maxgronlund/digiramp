@@ -25,16 +25,9 @@ class Catalog::FindInCollectionsController < ApplicationController
     if @recording = Recording.cached_find(params[:recording][:recording_id])
       if @catalog   = Catalog.cached_find(params[:recording][:catalog_id])
         
-        CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: @reording.id)
-                          .first_or_create(catalog_id: @catalog.id, recording_id: @reording.id)
-        
-        #CatalogItem.where(  catalog_id: @catalog.id, 
-        #                    catalog_itemable_id: @recording.id, 
-        #                    catalog_itemable_type: @recording.class.name)
-        #           .first_or_create(catalog_id: @catalog.id, 
-        #                            catalog_itemable_id: @recording.id, 
-        #                            catalog_itemable_type: @recording.class.name)
-        #
+        CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: @recording.id)
+                          .first_or_create(catalog_id: @catalog.id, recording_id: @recording.id)
+
       end
     end
   end

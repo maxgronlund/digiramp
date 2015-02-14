@@ -12,6 +12,7 @@ class Catalog< ActiveRecord::Base
   has_many :widgets, dependent: :destroy
   
   has_and_belongs_to_many :common_works
+  has_and_belongs_to_many :recordings
   
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
   
@@ -109,13 +110,13 @@ class Catalog< ActiveRecord::Base
     self.nr_users = self.catalog_users.where(role: 'Catalog User').count
   end
   
-  def recordings
-    Recording.where(id: recording_ids)
-  end
+  #def recordings
+  #  Recording.where(id: recording_ids)
+  #end
   
-  def recording_ids
-    recording_ids = self.catalog_items.where(catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
-  end
+  #def recording_ids
+  #  recording_ids = self.catalog_items.where(catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
+  #end
 
   
   #def common_works
@@ -136,32 +137,16 @@ class Catalog< ActiveRecord::Base
   # add a recording to the catalog
   # after added also create a catalog item for the common work
   def add_recording recording
-    # find or create a new catalog item for the recording
-    catalog_item = CatalogItem.where( catalog_itemable_id: recording.id,
-                                      catalog_itemable_type: 'Recording',
-                                      catalog_id: self.id
-                                     )
-                              .first_or_create( catalog_itemable_id: recording.id,
-                                                catalog_itemable_type: 'Recording',
-                                                catalog_id: self.id
-                                               )
-                                
-    add_common_work recording.common_work 
-    default_playlist.add_item recording
+    CatalogsRecordings.where(catalog_id: self.id, recording_id: recording.id)
+                      .first_or_create(catalog_id: self.id, recording_id: recording.id)
   end
   
   
   
   # add a common work to a catalog
-  def add_common_work common_work,
-    catalog_item = CatalogItem.where( catalog_itemable_id:    common_work.id,
-                                      catalog_itemable_type:  'CommonWork',
-                                      catalog_id:              self.id
-                                     )
-                              .first_or_create( catalog_itemable_id:    common_work.id,
-                                                catalog_itemable_type: 'CommonWork',
-                                                catalog_id:             self.id
-                                               )
+  def add_common_work common_work
+    CatalogsCommonWorkd.where(catalog_id: self.id, recording_id: recording.id)
+                      .first_or_create(catalog_id: self.id, recording_id: recording.id)
   end
   
 
