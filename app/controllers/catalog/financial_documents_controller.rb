@@ -10,15 +10,8 @@ class Catalog::FinancialDocumentsController < ApplicationController
   
   
   def index
-    # ids of Financial Documents from the catalog
-    document_ids = CatalogItem.where(  category: 'Financial Document',
-                                       catalog_itemable_type: 'Document',
-                                       catalog_id:             @catalog.id,
-                                      ).pluck(:catalog_itemable_id)
-    # find Documents
-    documents         = Document.where(id: document_ids)                                
-    # filete by search query                                  
-    @financial_documents = Document.catalogs_search( documents , params[:query]).order('title asc').page(params[:page]).per(24) 
+                                
+    @financial_documents = Document.catalogs_search( @catalog.documents.where(document_type: 'Financial Document'), params[:query]).order('title asc').page(params[:page]).per(24) 
     
   end
 
@@ -40,11 +33,11 @@ class Catalog::FinancialDocumentsController < ApplicationController
     documents = TransloaditDocumentsParser.parse params[:transloadit], @account.id
     if documents
       documents.each do |document|
-        CatalogItem.create( catalog_id:             @catalog.id,
-                            catalog_itemable_type: 'Document',
-                            catalog_itemable_id:    document.id,
-                            category:             'Financial Document'
-                          )
+        document.document_type = 'Financial Document'
+        document.save!
+        CatalogsDocuments.where(catalog_id: @catalog.id, document_id: document.id)
+                         .first_or_create(catalog_id: @catalog.id, document_id: document.id)
+        
         DocumentExtractTextWorker.perform_async( document.id )
       end
     end

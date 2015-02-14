@@ -14,6 +14,7 @@ class Catalog< ActiveRecord::Base
   has_and_belongs_to_many :common_works
   has_and_belongs_to_many :recordings
   has_and_belongs_to_many :artworks
+  has_and_belongs_to_many :documents
   
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
   
@@ -111,24 +112,14 @@ class Catalog< ActiveRecord::Base
     self.nr_users = self.catalog_users.where(role: 'Catalog User').count
   end
   
-  #def recordings
-  #  Recording.where(id: recording_ids)
-  #end
-  
-  #def recording_ids
-  #  recording_ids = self.catalog_items.where(catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
-  #end
 
   
-  #def common_works
-  #  common_work_ids = CatalogItem.where(catalog_id: self.id, 
-  #                                      catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
-  #                                      
-  #  CommonWork.where(id: common_work_ids)
-  #
-  #end
+  def add_artwork artwork
+    ArtworksCatalogs.where(artwork_id: artwork.id, catalog_id: self.id)
+                      .first_or_create(artwork_id: artwork.id, catalog_id: self.id)
+  end
   
-  def add_recording new_recordings
+  def add_recordings new_recordings
     new_recordings.each do |recording|
       add_recording recording
     end
@@ -153,19 +144,7 @@ class Catalog< ActiveRecord::Base
       self.add_recording recording
     end
   end
-  
 
-  def documents
-    document_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'Document').pluck(:catalog_itemable_id)
-    @documents = Document.order('title asc').where(id: document_ids)
-  end
-  
-  # fetch all artwork in the catalog
-  #def artworks
-  #  artwork_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'Artwork').pluck(:catalog_itemable_id)
-  #  @artworks = Artwork.order('title asc').where(id: artwork_ids)
-  #end
-  
   # when a new catalog is created add account users
   # when a new account user is created add the user
   # when a user is updated to super add the user

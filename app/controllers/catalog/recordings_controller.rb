@@ -116,10 +116,10 @@ class Catalog::RecordingsController < ApplicationController
             # add the uploaded artwork
             # notice there is only one artwork file
             artworks.each do |artwork|
-              CatalogItem.create( catalog_id: @catalog.id, 
-                                  catalog_itemable_type: 'Artwork',
-                                  catalog_itemable_id: artwork.id)
-                                  
+              
+              ArtworksCatalogs.where(artwork_id: artwork.id, catalog_id: @catalog.id)
+                              .first_or_create(artwork_id: artwork.id, catalog_id: @catalog.id)
+              
                                   
                                   
               RecordingItem.create( recording_id: @recording.id, 

@@ -32,26 +32,7 @@ class Catalog::FindInCollectionsController < ApplicationController
     end
   end
 
-  #def new
-  #  ap params
-  #  #@catalog   = Catalog.cached_find(params[:catalog_id])
-  #  #@recording = Recording.cached_find(params[:recording])
-  #  #
-  #  #CatalogItem.where(catalog_id: @catalog.id, 
-  #  #                    catalog_itemable_id: @recording.id, 
-  #  #                    catalog_itemable_type: @recording.class.name)
-  #  #           .first_or_create(catalog_id: @catalog.id, 
-  #  #                            catalog_itemable_id: @recording.id, 
-  #  #                            catalog_itemable_type: @recording.class.name)
-  #  #             
-  #  #
-  #  ## ajax here
-  #  ##@prepend_tag = "#remove_recording_" + @recording.id.to_s  + "_from_catalog"
-  #  ##@remove_tag  = "#add_recording_"    + @recording.id.to_s  + "_to_catalog"
-  #  #
-  #  #@prepend_tag = "#remove_from_catalog_"  + @recording.id.to_s
-  #  #@remove_tag  = "#add_to_catalog_"       + @recording.id.to_s
-  #end
+ 
   
   
   
@@ -104,12 +85,7 @@ class Catalog::FindInCollectionsController < ApplicationController
       @recordings.each do |recording|
         CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: recording.id)
                           .first_or_create(catalog_id: @catalog.id, recording_id: recording.id)
-        #CatalogItem.where(catalog_id:                         @catalog.id, 
-        #                  catalog_itemable_id:                recording.id, 
-        #                  catalog_itemable_type:              recording.class.name)
-        #            .first_or_create( catalog_id:             @catalog.id, 
-        #                              catalog_itemable_id:    recording.id, 
-        #                              catalog_itemable_type:  recording.class.name)
+       
       end
     end
     
@@ -125,12 +101,7 @@ class Catalog::FindInCollectionsController < ApplicationController
         CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: recording.id)
                           .first_or_create(catalog_id: @catalog.id, recording_id: recording.id)
                           
-        #CatalogItem.where(catalog_id:                         @catalog.id, 
-        #                  catalog_itemable_id:                recording.id, 
-        #                  catalog_itemable_type:              recording.class.name)
-        #            .first_or_create( catalog_id:             @catalog.id, 
-        #                              catalog_itemable_id:    recording.id, 
-        #                              catalog_itemable_type:  recording.class.name)
+       
       end
     end
     
@@ -145,14 +116,7 @@ class Catalog::FindInCollectionsController < ApplicationController
     if catalog_recording = CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: @recording.id).first
       catalog_recording.destroy!
     end
-    #if catalog_item = CatalogItem.where( catalog_id: @catalog.id, 
-    #                                  catalog_itemable_id: @recording.id, 
-    #                                  catalog_itemable_type: @recording.class.name).first
-    #                                  
-    #  catalog_item.destroy!
-    #end
-    
-    
+   
   end
   
 private

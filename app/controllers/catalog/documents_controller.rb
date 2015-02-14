@@ -10,18 +10,8 @@ class Catalog::DocumentsController < ApplicationController
 
   # GET /documents
   # GET /documents.json
-  def index
-
-    # ids of Legal Documents from the catalog
-    document_ids = CatalogItem.where(  category: 'File',
-                                       catalog_itemable_type: 'Document',
-                                       catalog_id:             @catalog.id,
-                                      ).pluck(:catalog_itemable_id)
-    # find Documents
-    documents         = Document.where(id: document_ids)                                
-    # filete by search query                                  
-    @documents = Document.catalogs_search( documents , params[:query]).order('title asc').page(params[:page]).per(24) 
-
+  def index                         
+    @documents = Document.catalogs_search( @catalog.documents , params[:query]).order('title asc').page(params[:page]).per(24) 
   end
 
   # GET /documents/1
@@ -47,11 +37,10 @@ class Catalog::DocumentsController < ApplicationController
     documents = TransloaditDocumentsParser.parse params[:transloadit], @account.id
     if documents
       documents.each do |document|
-        CatalogItem.create( catalog_id:             @catalog.id,
-                            catalog_itemable_type: 'Document',
-                            catalog_itemable_id:    document.id,
-                            category:             'File'
-                          )
+        
+        CatalogsDocuments.where(catalog_id: @catalog.id, document_id: document.id)
+                         .first_or_create(catalog_id: @catalog.id, document_id: document.id)
+        
         DocumentExtractTextWorker.perform_async( document.id )
       end
     end

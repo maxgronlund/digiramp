@@ -10,16 +10,7 @@ class Catalog::LegalDocumentsController < ApplicationController
   
   
   def index
-    # ids of Legal Documents from the catalog
-    document_ids = CatalogItem.where(  category: 'Legal Document',
-                                       catalog_itemable_type: 'Document',
-                                       catalog_id:             @catalog.id,
-                                      ).pluck(:catalog_itemable_id)
-    # find Documents
-    documents         = Document.where(id: document_ids)                                
-    # filete by search query                                  
-    @legal_documents = Document.catalogs_search( documents , params[:query]).order('title asc').page(params[:page]).per(24) 
-    
+    @legal_documents = Document.catalogs_search( @catalog.documents.where(document_type: 'Legal Document'), params[:query]).order('title asc').page(params[:page]).per(24) 
   end
 
   def show
@@ -40,11 +31,11 @@ class Catalog::LegalDocumentsController < ApplicationController
     documents = TransloaditDocumentsParser.parse params[:transloadit], @account.id
     if documents
       documents.each do |document|
-        CatalogItem.create( catalog_id:             @catalog.id,
-                            catalog_itemable_type: 'Document',
-                            catalog_itemable_id:    document.id,
-                            category:             'Legal Document'
-                          )
+        document.document_type = 'Legal Document'
+        document.save!
+        CatalogsDocuments.where(catalog_id: @catalog.id, document_id: document.id)
+                         .first_or_create(catalog_id: @catalog.id, document_id: document.id)
+                         
         DocumentExtractTextWorker.perform_async( document.id )
       end
     end
