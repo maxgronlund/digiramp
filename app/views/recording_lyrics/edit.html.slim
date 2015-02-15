@@ -45,10 +45,17 @@
           .row
         
             .col-sm-6
-              = f.input :lyrics, :input_html => {  style: "height: 480px;", placeholder: "Lyrics"}
+              .toolbar class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+                .pull-right
+                  a data-wysihtml5-action="change_view"  Html 
+                =f.input :lyrics, label: false, :input_html => {  style: "height: 480px;", placeholder: "Text", id: 'wysihtml5_editor'}
+              /= f.input :lyrics, :input_html => {  style: "height: 480px;", placeholder: "Lyrics"}
             .col-sm-6
               = f.input :vocal,   collection: Recording::VOCAL,     as: :radio_buttons
-              = f.input :explicit
+              = f.input :explicit,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
               = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
         
         

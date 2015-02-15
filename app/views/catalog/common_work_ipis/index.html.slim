@@ -1,146 +1,323 @@
-- session[:return_url]  = request.url
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .do           
-    .container
-      == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              'common works'.to_sym => catalog_account_catalog_common_works_path(@account, @catalog), \
-                                                              @common_work.title.to_sym => catalog_account_catalog_common_work_path(@account, @catalog, @common_work), \
-                                                              }, current: 'ipi\'s'}
-    
-                                         
-    
-      
-
-      == render 'shared/page_title_text', locals: {title: @common_work.title, body: '', insert: 'new' }
-      - @common_work.ipis.each do |ipi|
-        
-        .panel.panel-primary
-          .panel-heading
-            = ipi.full_name.upcase
-          .panel-body
-            .row
-              .col-sm-4
-                .table-responsive
-                  table class="table table-hover"
-                    tbody
-                      tr
-                        td 
-                          b Role:
-                        td 
-                          b = ipi.role
-                      
-                      tr
-                        td PRO:
-                        td  = ipi.pro_affiliation
-                      
-                      - unless ipi.address.to_s == ''
-                        tr
-                          td Address:
-                          td  = ipi.address
-                      - unless ipi.email.to_s == ''
-                        tr
-                          td Email:
-                          td  = ipi.email
-                      
-                      - unless ipi.phone_number.to_s == ''
-                        tr
-                          td Phone Number
-                          td = ipi.phone_number
-                      tr
-                        td IPI Code:
-                        td  = ipi.ipi_code
-                        
-                      - unless ipi.bmi_work_id.to_s == ''
-                        tr
-                          td BMI Work Id:
-                          td  = ipi.bmi_work_id
-                      
-                      - unless ipi.cae_code.to_s == ''
-                        tr
-                          td CAE Code:
-                          td  = ipi.cae_code 
-              .col-sm-4
-                .table-responsive
-                  table class="table table-hover"
-                    tbody
-                      - unless ipi.controlled.to_s == ''
-                        tr
-                          td  Controlled:
-                          td  = ipi.controlled
-                      - unless ipi.territory.to_s == ''
-                        tr
-                          td Territory:
-                          td  = ipi.territory
-
-                      tr
-                        td Mechanical Owned
-                        td = number_to_percentage(ipi.mech_owned, precision: 0) 
-                      
-                      tr
-                        td Mechanical Collected:
-                        td = number_to_percentage(ipi.mech_collected, precision: 0) 
-                      
-                      tr
-                        td Performance Owned:
-                        td = number_to_percentage(ipi.perf_owned, precision: 0) 
-                      
-                      tr
-                        td Performance Collected:
-                        td = number_to_percentage(ipi.perf_collected, precision: 0) 
-                        
-              .col-sm-4
-                .table-responsive
-                  table class="table table-hover"
-                    tbody
-                      - unless ipi.notes.to_s == ''
-                        tr
-                          td  Notes:
-                          td  = ipi.notes
-                          
-                      - unless ipi.has_agreement.to_s == ''
-                        tr
-                          td Has Agreement:
-                          td  = ipi.has_agreement ? '√' : ''
-                        /tr
-                        /  td Share:
-                        /  td  = ipi.share
-                      - unless ipi.linked_to_ascap_member.to_s == ''
-                        tr
-                          td Linked to ASCAP Member
-                          td = ipi.linked_to_ascap_member
-                      - if ipi.controlled_by_submitter
-                        tr
-                          td Controlled By Submitter:
-                          td Yes
-                      
-                .pull-right
-                  - if current_catalog_user.update_common_work_ipi
-                    = link_to edit_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, ipi) do
-                      .btn.btn-primary.btn-lg
-                        i class="fa fa-pencil"
-                      
-                  - if current_catalog_user.delete_common_work_ipi
-                    '&nbsp;
-                    = link_to catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, ipi), \
-                                data: { confirm: 'Are you sure?' } , \
-                                :method => :delete do
-                                  
-                      .btn.btn-danger.btn-lg
-                        i class="fa fa-times"
-                  
-              
-      
-
-        
-
-     
-     
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
   
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'common_work'
+
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'common works'.to_sym => catalog_account_catalog_common_works_path(@account, @catalog), \
+                                                              @common_work.title.to_sym => catalog_account_catalog_common_work_path(@account, @catalog, @common_work), \
+                                                               }, current: ''}
+      .row
+        .col-sm-8
+          .help
+            .help-text
+               h2 Creative rights
+            .help-button
+              == render 'admin/helps/help', identifier: 'catalog artwork'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+            - if current_catalog_user.create_common_work_ipi
+  
+              = link_to new_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work) do
+                .btn.btn-success.btn-lg
+                  i class="fa fa-plus-circle"
+                  '&nbsp;New IP
+          
+            - if current_catalog_user.update_common_work_ipi
+              '&nbsp;
+              = link_to catalog_account_catalog_common_work_edit_common_work_ipi_spread_sheet_path(@account, @catalog, @common_work) do
+                .btn.btn-primary.btn-lg
+                  i class="fa fa-pencil"
+                  '&nbsp;Edit IPI's
+            
+            
+     
+      .sexy_line
+      
+      
+      .pull-down-6
+        - @common_work.ipis.each do |ipi|
+        
+          .panel.panel-default
+            .panel-heading
+              = ipi.full_name.upcase
+            .panel-body
+              .row
+                .col-sm-4
+                  .table-responsive
+                    table class="table table-hover"
+                      tbody
+                        tr
+                          td 
+                            b Role:
+                          td 
+                            b = ipi.role
+                      
+                        tr
+                          td PRO:
+                          td  = ipi.pro_affiliation
+                      
+                        - unless ipi.address.to_s == ''
+                          tr
+                            td Address:
+                            td  = ipi.address
+                        - unless ipi.email.to_s == ''
+                          tr
+                            td Email:
+                            td  = ipi.email
+                      
+                        - unless ipi.phone_number.to_s == ''
+                          tr
+                            td Phone Number
+                            td = ipi.phone_number
+                        tr
+                          td IPI Code:
+                          td  = ipi.ipi_code
+                        
+                        - unless ipi.bmi_work_id.to_s == ''
+                          tr
+                            td BMI Work Id:
+                            td  = ipi.bmi_work_id
+                      
+                        - unless ipi.cae_code.to_s == ''
+                          tr
+                            td CAE Code:
+                            td  = ipi.cae_code 
+                .col-sm-4
+                  .table-responsive
+                    table class="table table-hover"
+                      tbody
+                        - unless ipi.controlled.to_s == ''
+                          tr
+                            td  Controlled:
+                            td  = ipi.controlled
+                        - unless ipi.territory.to_s == ''
+                          tr
+                            td Territory:
+                            td  = ipi.territory
+
+                        tr
+                          td Mechanical Owned
+                          td = number_to_percentage(ipi.mech_owned, precision: 0) 
+                      
+                        tr
+                          td Mechanical Collected:
+                          td = number_to_percentage(ipi.mech_collected, precision: 0) 
+                      
+                        tr
+                          td Performance Owned:
+                          td = number_to_percentage(ipi.perf_owned, precision: 0) 
+                      
+                        tr
+                          td Performance Collected:
+                          td = number_to_percentage(ipi.perf_collected, precision: 0) 
+                        
+                .col-sm-4
+                  .table-responsive
+                    table class="table table-hover"
+                      tbody
+                        - unless ipi.notes.to_s == ''
+                          tr
+                            td  Notes:
+                            td  = ipi.notes
+                          
+                        - unless ipi.has_agreement.to_s == ''
+                          tr
+                            td Has Agreement:
+                            td  = ipi.has_agreement ? '√' : ''
+                          /tr
+                          /  td Share:
+                          /  td  = ipi.share
+                        - unless ipi.linked_to_ascap_member.to_s == ''
+                          tr
+                            td Linked to ASCAP Member
+                            td = ipi.linked_to_ascap_member
+                        - if ipi.controlled_by_submitter
+                          tr
+                            td Controlled By Submitter:
+                            td Yes
+                      
+                  .pull-right
+                    - if current_catalog_user.update_common_work_ipi
+                      = link_to edit_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, ipi) do
+                        .btn.btn-primary.btn-lg
+                          i class="fa fa-pencil"
+                      
+                    - if current_catalog_user.delete_common_work_ipi
+                      '&nbsp;
+                      = link_to catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, ipi), \
+                                  data: { confirm: 'Are you sure?' } , \
+                                  :method => :delete do
+                                  
+                        .btn.btn-danger.btn-lg
+                          i class="fa fa-times"
+                  
+        
+        
+      
+        
+  == render 'shared/site_footer'   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+/- session[:return_url]  = request.url
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .do           
+/    .container
+/      == render 'admin/shared/messages'
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              catalogs: catalog_account_catalogs_path(@account), \
+/                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                                              'common works'.to_sym => catalog_account_catalog_common_works_path(@account, @catalog), \
+/                                                              @common_work.title.to_sym => catalog_account_catalog_common_work_path(@account, @catalog, @common_work), \
+/                                                              }, current: 'ipi\'s'}
+/    
+/                                         
+/    
+/      
+/
+/      == render 'shared/page_title_text', locals: {title: @common_work.title, body: '', insert: 'new' }
+/      - @common_work.ipis.each do |ipi|
+/        
+/        .panel.panel-primary
+/          .panel-heading
+/            = ipi.full_name.upcase
+/          .panel-body
+/            .row
+/              .col-sm-4
+/                .table-responsive
+/                  table class="table table-hover"
+/                    tbody
+/                      tr
+/                        td 
+/                          b Role:
+/                        td 
+/                          b = ipi.role
+/                      
+/                      tr
+/                        td PRO:
+/                        td  = ipi.pro_affiliation
+/                      
+/                      - unless ipi.address.to_s == ''
+/                        tr
+/                          td Address:
+/                          td  = ipi.address
+/                      - unless ipi.email.to_s == ''
+/                        tr
+/                          td Email:
+/                          td  = ipi.email
+/                      
+/                      - unless ipi.phone_number.to_s == ''
+/                        tr
+/                          td Phone Number
+/                          td = ipi.phone_number
+/                      tr
+/                        td IPI Code:
+/                        td  = ipi.ipi_code
+/                        
+/                      - unless ipi.bmi_work_id.to_s == ''
+/                        tr
+/                          td BMI Work Id:
+/                          td  = ipi.bmi_work_id
+/                      
+/                      - unless ipi.cae_code.to_s == ''
+/                        tr
+/                          td CAE Code:
+/                          td  = ipi.cae_code 
+/              .col-sm-4
+/                .table-responsive
+/                  table class="table table-hover"
+/                    tbody
+/                      - unless ipi.controlled.to_s == ''
+/                        tr
+/                          td  Controlled:
+/                          td  = ipi.controlled
+/                      - unless ipi.territory.to_s == ''
+/                        tr
+/                          td Territory:
+/                          td  = ipi.territory
+/
+/                      tr
+/                        td Mechanical Owned
+/                        td = number_to_percentage(ipi.mech_owned, precision: 0) 
+/                      
+/                      tr
+/                        td Mechanical Collected:
+/                        td = number_to_percentage(ipi.mech_collected, precision: 0) 
+/                      
+/                      tr
+/                        td Performance Owned:
+/                        td = number_to_percentage(ipi.perf_owned, precision: 0) 
+/                      
+/                      tr
+/                        td Performance Collected:
+/                        td = number_to_percentage(ipi.perf_collected, precision: 0) 
+/                        
+/              .col-sm-4
+/                .table-responsive
+/                  table class="table table-hover"
+/                    tbody
+/                      - unless ipi.notes.to_s == ''
+/                        tr
+/                          td  Notes:
+/                          td  = ipi.notes
+/                          
+/                      - unless ipi.has_agreement.to_s == ''
+/                        tr
+/                          td Has Agreement:
+/                          td  = ipi.has_agreement ? '√' : ''
+/                        /tr
+/                        /  td Share:
+/                        /  td  = ipi.share
+/                      - unless ipi.linked_to_ascap_member.to_s == ''
+/                        tr
+/                          td Linked to ASCAP Member
+/                          td = ipi.linked_to_ascap_member
+/                      - if ipi.controlled_by_submitter
+/                        tr
+/                          td Controlled By Submitter:
+/                          td Yes
+/                      
+/                .pull-right
+/                  - if current_catalog_user.update_common_work_ipi
+/                    = link_to edit_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, ipi) do
+/                      .btn.btn-primary.btn-lg
+/                        i class="fa fa-pencil"
+/                      
+/                  - if current_catalog_user.delete_common_work_ipi
+/                    '&nbsp;
+/                    = link_to catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, ipi), \
+/                                data: { confirm: 'Are you sure?' } , \
+/                                :method => :delete do
+/                                  
+/                      .btn.btn-danger.btn-lg
+/                        i class="fa fa-times"
+/                  
+/              
+/      
+/
+/        
+/
+/     
+/     
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/

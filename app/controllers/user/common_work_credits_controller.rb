@@ -25,12 +25,14 @@ class User::CommonWorkCreditsController < ApplicationController
   end
 
   def update
-    ap params
+
     @recording    = Recording.cached_find(params[:recording_id])
     params.delete :recording_id
     
     @common_work  = CommonWork.cached_find(params[:id])
-    @common_work.update(common_work_params)
+    unless params[:common_work].nil?
+      @common_work.update(common_work_params)
+    end
     
     redirect_to user_user_recording_common_work_path(@user, @recording, @common_work)
     

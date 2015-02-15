@@ -43,16 +43,18 @@
           == render 'info'
               
         .col-sm-6
-          h4 Description
-          .digi-box
-            = @common_work.description
-          h4 Lyrics
-          .digi-box
-            = simple_format @common_work.lyrics
+          - if @common_work.description.to_s != ''
+            h4 Description
+            .digi-box
+              = @common_work.description
+          - if @common_work.lyrics.to_s != ''
+            h4 Lyrics
+            .digi-box
+              = simple_format @common_work.lyrics
 
               
       
-      h4 Credits
+      h4 Creative credits
       .digi-box
         .row
           .col-sm-12
@@ -60,16 +62,17 @@
               table class="table table-hover"
                 thead
                   tr
+                    th Capacity
                     th Name
                     th Email
-                    th Capacity
+                    th Show credits
                     th Share
                     th Confirmation
                 tbody
                   - @common_work.ipis.each do |ipi|
                     tr
-                      td = ipi.full_name
-                      td = ipi.email
+                      
+                      
                       td
                         - if ipi.composer
                           'Composer
@@ -86,9 +89,28 @@
                         - if ipi.original_publisher
                           'Original publisher
                           br
+                      td = ipi.full_name
+                      td = ipi.email
+                      td 
+                        - if ipi.show_credit_on_recordings
+                          i.fa.fa-check
                       td = ipi.share
-              
-      h4 Recordings
+                      td 
+                        .pull-right
+                          - if ipi.confirmation == 'Missing'
+                            = link_to '#' do
+                              .btn.btn-default.btn-xs
+                                i.fa.fa-envelope
+                                '&nbsp;Request confirmation
+                                  
+                                
+        .sexy_line                        
+        .row
+          .col-sm-12
+            .pull-right
+              - if @common_work.recordings
+                = link_to 'Update credits', edit_user_user_recording_common_work_credit_path(@user, @common_work.recordings.first, @common_work), class: 'btn btn-primary btn-xs'
+      h4 Recordings credits
       - @common_work.recordings.each do |recording|
         #digiWhams  class="/recordings/#{recording.id.to_s}"
             == render 'recording', recording: recording

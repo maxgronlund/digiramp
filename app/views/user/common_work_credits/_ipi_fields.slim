@@ -1,6 +1,9 @@
 .nested-fields
   .digi-box
     .row
+      .col-sm-12
+        = f.input :show_credit_on_recordings,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+    .row
       .col-sm-8
         .row
           .col-sm-6
