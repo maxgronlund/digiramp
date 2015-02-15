@@ -68,45 +68,47 @@
 
   #page-content-wrapper
     .container-fluid
-
-
-      == render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
-      - blog = Blog.cached_find('Catalog Assets')
+      h2 Assets
+      
+      /== render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
       
       
-      .row
-        - if current_catalog_user.read_artwork
-          .col-sm-6
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'ARTWORK', \
-                                                 link: catalog_account_catalog_artworks_path(@account, @catalog), \
-                                                 css_class: 'btn btn-default', \
-                                                 icon: 'fa fa-picture-o', \
-                                                 no_turbo: true \
-                                               }
-        - if current_catalog_user.read_legal_document 
-          .col-sm-6
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'LEGAL DOCUMENTS', \
-                                                 link: catalog_account_catalog_legal_documents_path(@account, @catalog), \
-                                                 css_class: 'btn btn-danger', \
-                                                 icon: 'fa fa-gavel'\
-                                               }
-        - if current_catalog_user.read_financial_document 
-          .col-sm-6
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'FINANCIAL DOCUMENTS', \
-                                                 link: catalog_account_catalog_financial_documents_path(@account, @catalog), \
-                                                 css_class: 'btn btn-primary', \
-                                                 icon: 'fa fa-money'\
-                                               }
-        - if current_catalog_user.access_assets? 
-          .col-sm-6
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'DOCUMENTS', \
-                                                 link: catalog_account_catalog_documents_path(@account, @catalog), \
-                                                 css_class: 'btn btn-warning', \
-                                                 icon: 'fa fa-archive'\
+      .sexy_line
+      .digi-box
+        .row
+          - blog = Blog.cached_find('Catalog Assets')
+          - if current_catalog_user.read_artwork
+            .col-sm-6
+              == render 'badge_button', locals: { \
+                                                   blog_post: 'ARTWORK', \
+                                                   link: catalog_account_catalog_artworks_path(@account, @catalog), \
+                                                   css_class: 'btn btn-default', \
+                                                   icon: 'fa fa-picture-o', \
+                                                   no_turbo: true \
+                                                 }
+          - if current_catalog_user.read_legal_document 
+            .col-sm-6
+              == render 'badge_button', locals: { \
+                                                   blog_post: 'LEGAL DOCUMENTS', \
+                                                   link: catalog_account_catalog_legal_documents_path(@account, @catalog), \
+                                                   css_class: 'btn btn-danger', \
+                                                   icon: 'fa fa-gavel'\
+                                                 }
+          - if current_catalog_user.read_financial_document 
+            .col-sm-6
+              == render 'badge_button', locals: { \
+                                                   blog_post: 'FINANCIAL DOCUMENTS', \
+                                                   link: catalog_account_catalog_financial_documents_path(@account, @catalog), \
+                                                   css_class: 'btn btn-primary', \
+                                                   icon: 'fa fa-money'\
+                                                 }
+          - if current_catalog_user.access_assets? 
+            .col-sm-6
+              == render 'badge_button', locals: { \
+                                                   blog_post: 'DOCUMENTS', \
+                                                   link: catalog_account_catalog_documents_path(@account, @catalog), \
+                                                   css_class: 'btn btn-warning', \
+                                                   icon: 'fa fa-archive'\
                                                }
           
-            
+              
