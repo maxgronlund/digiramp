@@ -1,6 +1,6 @@
 class Catalog::DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
-  #include Transloadit::Rails::ParamsDecoder
+  include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
   include CatalogsHelper
 
@@ -11,7 +11,7 @@ class Catalog::DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index                         
-    #@documents = Document.catalogs_search( @catalog.documents , params[:query]).order('title asc').page(params[:page]).per(24) 
+    @documents = Document.catalogs_search( @catalog.documents , params[:query]).order('title asc').page(params[:page]).per(24) 
   end
 
   # GET /documents/1
@@ -33,7 +33,6 @@ class Catalog::DocumentsController < ApplicationController
   # POST /documents.json
   def create
     forbidden unless current_account_user.create_legal_document
-    
     documents = TransloaditDocumentsParser.parse params[:transloadit], @account.id
     if documents
       documents.each do |document|

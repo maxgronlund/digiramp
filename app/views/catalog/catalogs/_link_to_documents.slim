@@ -1,5 +1,5 @@
 li class="old-link-to-common-works #{'sidebar-selected' if selected == 'assets'}"
-  = link_to catalog_account_catalog_assets_path(account, catalog) do
+  = link_to catalog_account_catalog_documents_path(account, catalog) do
     i class="fa fa-folder"
     '&nbsp;
     = pluralize(catalog.documents.count, 'Document')
