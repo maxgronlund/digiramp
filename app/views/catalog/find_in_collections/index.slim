@@ -10,6 +10,9 @@
 
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog),
+                                                                recordings: catalog_account_catalog_recordings_path(@account, @catalog),
+                                                                'add recordings'.to_sym => catalog_account_catalog_add_recordings_path(@account, @catalog)}, current: ''}
       .row
         .col-sm-6
           .help

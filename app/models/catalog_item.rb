@@ -1,7 +1,7 @@
 class CatalogItem < ActiveRecord::Base
   include PublicActivity::Common
-  belongs_to :catalog
-  belongs_to :catalog_itemable, polymorphic: true
+  #belongs_to :catalog
+  #belongs_to :catalog_itemable, polymorphic: true
   
 
   

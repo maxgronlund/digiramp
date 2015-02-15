@@ -1,10 +1,4 @@
 
-/li class="#{'sidebar-selected' if selected == 'info'}"
-/  = link_to catalog_account_catalog_path( @account, @catalog) do
-/    i class="fa fa-info-circle"
-/    '&nbsp;
-/    'Info
-
 li
   = link_to catalog_account_catalog_path(@account, @catalog) do
     .avatar_name
@@ -17,25 +11,16 @@ li
     == render 'catalog/catalogs/link_to_recordings', account: @account, catalog: @catalog, selected: selected
 
 - if current_catalog_user.read_common_work
-  li class="#{'sidebar-selected' if selected == 'common_work'}"
-    = link_to catalog_account_catalog_common_works_path(@account, @catalog) do
-      i class="fa fa-music"
-      '&nbsp;
-      'Common Works
+  .link-to-common-work
+    == render 'catalog/catalogs/link_to_common_works', account: @account, catalog: @catalog, selected: selected
+
 
 -if current_catalog_user.access_assets?  
-  li class="#{'sidebar-selected' if selected == 'assets'}"
-    = link_to catalog_account_catalog_assets_path(@account, @catalog) do
-      i class="fa fa-folder"
-      '&nbsp;
-      'Assets
+  == render 'catalog/catalogs/link_to_documents', account: @account, catalog: @catalog, selected: selected
+
 
 -if current_catalog_user.read_user?
-  li class="#{'sidebar-selected' if selected == 'users'}"
-    = link_to catalog_account_catalog_catalog_users_path(@account, @catalog) do
-      i class="fa fa-group"
-      '&nbsp;
-      'Users
+  == render 'catalog/catalogs/link_to_users', account: @account, catalog: @catalog, selected: selected
 
 -if super? || current_user.id == @account.administrator.id 
   li class="#{'sidebar-selected' if selected == 'move'}"
@@ -43,6 +28,7 @@ li
       i class="fa fa-truck"
       '&nbsp;
       'Move
+  
   .sexy_line
   li class="#{'sidebar-selected' if selected == 'na'}"
     = link_to account_account_path( @account ) do

@@ -19,6 +19,7 @@
 
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog) }, current: ''}
       .row
         .col-sm-6
           h2 Common works
@@ -56,16 +57,7 @@
                 '&nbsp;
                 = link_to 'Clear', catalog_account_catalog_common_works_path(@account, @catalog), class: 'btn btn-default'
                 
-        /= form_tag catalog_account_catalog_common_works_path(@account, @catalog), :method => 'get' do
-        /  .col-sm-8
-        /    br
-        /    = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
-        /  .col-sm-4
-        /    br
-        /    = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-        /    '&nbsp;
-        /    = link_to 'Show All', catalog_account_catalog_common_works_path(@account, @catalog), class: 'btn btn-default btn-lg'
-        /
+
       
       .row.pull-down-8
         .col-sm-12

@@ -53,14 +53,14 @@
                                 div class="btn btn-warning btn-lg #{'disabled' unless catalog_user.read_recording}"
                                    i class='fa fa-headphones'
                                    '&nbsp;
-                                   =catalog.nr_recordings
+                                   =catalog.recordings.count
                           
                         
                           td = link_to catalog_account_catalog_common_works_path(@account, catalog) do 
                                 div class="btn btn-primary btn-lg #{'disabled' unless catalog_user.read_common_work}"
                                    i class='fa fa-music'
                                    '&nbsp;
-                                   =catalog.nr_common_works
+                                   = catalog.common_works.count
                           
                         
                           td = link_to catalog_account_catalog_assets_path(@account, catalog) do 

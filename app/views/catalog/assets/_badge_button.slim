@@ -1,37 +1,23 @@
--blog       = Blog.cached_find('Assets')
--post       = BlogPost.cached_find(locals[:blog_post], blog)
--title      = post.title
--body       = post.body
--link       = locals[:link]
--css_class  = locals[:css_class]
--icon       = locals[:icon]
-
 .row
   .visible-xs
     .col-sm-6
       
-      h3 
+      h4 
         = link_to title,  link
-        -if can_edit?
-          '&nbsp;
-          = link_to edit_admin_blog_blog_post_path(blog, post) do
-             i class="fa fa-pencil"
+
     .col-sm-6
-      .icon-badge
-        = link_to link, class: css_class do
+      .navigation-badge
+        = link_to link, class: 'btn btn-default' do
           div class=icon
       = simple_format body
-      hr
+      sexy_line
   .hidden-xs
-    .col-sm-6
-      .icon-badge
-        = link_to link, 'data-no-turbolink'=>locals[:no_turbo], class: css_class do
+    .col-sm-4
+      .navigation-badge 
+        = link_to link, class: 'btn btn-default' do
           div class=icon
-    .col-sm-6
-      h3 
-        = link_to title, link, 'data-no-turbolink'=>locals[:no_turbo]
-        -if can_edit?
-          '&nbsp;
-          = link_to edit_admin_blog_blog_post_path(blog, post) do
-             i class="fa fa-pencil"
+    .col-sm-8
+      h4 
+        = link_to title, link
+
       = simple_format body

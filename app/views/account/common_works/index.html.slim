@@ -39,6 +39,11 @@
               /    'Create common work
       'Common works
       .sexy_line
+      .row
+        .col-sm-12
+          .pull-right
+            = paginate(@common_works)
+      
       .digi-box
         == render 'account/common_works/common_works'
 

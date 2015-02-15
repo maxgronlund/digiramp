@@ -106,6 +106,7 @@
 
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {}, current: 'Catalog'}
       .row
         .col-sm-8
           .help
