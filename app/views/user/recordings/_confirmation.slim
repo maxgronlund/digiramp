@@ -1,14 +1,15 @@
-- if recording_ipi.confirmation == 'Missing'
-  = simple_form_for [:user, @user, recording_ipi.recording], :url => url_for( :action => 'update', 
-                                                                              :controller => 'user/recording_confirmations'), 
-                                                             :method => 'put',
-                                                             remote: true do |f|
-    
-    .row
-      .col-sm-12
-        .pull-right
-          = f.submit 'Request confirmation', class: 'btn btn-primary btn-xs'
-  /= link_to '#' do
-  /  .btn.btn-default.btn-xs
-  /    i.fa.fa-envelope
-  /    '&nbsp;Request confirmation
+/- if recording_ipi.confirmation == 'Missing'
+/  = simple_form_for [:user, @user, recording_ipi.recording], :url => url_for( :action => 'update', 
+/                                                                              :controller => 'user/recording_confirmations'), 
+/                                                             :method => 'put',
+/                                                             remote: true do |f|
+/    = f.hidden_field :recording_ipi_id, value: recording_ipi.id
+/    .row
+/      .col-sm-12
+/        .pull-right
+/          = f.submit 'Request confirmation', class: 'btn btn-primary btn-xs'
+/  /= link_to '#' do
+/  /  .btn.btn-default.btn-xs
+/  /    i.fa.fa-envelope
+/  /    '&nbsp;Request confirmation
+'obsolete

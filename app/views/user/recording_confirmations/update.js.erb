@@ -1,1 +1,7 @@
-alert('udated')
+$("#old_confirmation_status_<%= @recording_ipi.id.to_s %>").remove()
+$("#confirmation_status_<%= @recording_ipi.id.to_s %>").append("<%= j render @render, recording_ipi: @recording_ipi %>")
+
+
+
+//.append("<%= j render 'add_to_playlists/confirmation' %>");
+//"user/recording_confirmations/#{recording_ipi.confirmation}", recording_ipi: recording_ipi

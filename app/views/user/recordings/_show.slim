@@ -25,7 +25,8 @@
             td = recording_ipi.share
             td
               .pull-right
-                == render 'user/recordings/confirmation', recording_ipi: recording_ipi
+                div id="confirmation_status_#{recording_ipi.id.to_s}"
+                == render "user/recording_confirmations/#{recording_ipi.confirmation}", recording_ipi: recording_ipi
     .sexy_line
     .pull-right
       => link_to 'Edit', edit_user_recording_basic_path(recording.user, recording), class: 'btn btn-default btn-xs'
