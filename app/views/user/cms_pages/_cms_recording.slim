@@ -9,8 +9,8 @@ div id="cms_section_#{section.cms_section.id.to_s}"
           i.fa.fa-arrow-up
           '&nbsp;Move up
       .pull-right
-        => link_to 'Edit',   edit_user_user_cms_recording_path(section.cms_section.cms_page.user, 
-                                                      section),  
+        = debug section.cms_section.cms_page.user.user_name
+        => link_to 'Edit',   edit_user_user_cms_recording_path(@user,section),  
                                                       class: 'btn btn-default btn-xs'
                                                         
         = link_to  'Remove', user_user_cms_section_path(section.cms_section.cms_page.user, 

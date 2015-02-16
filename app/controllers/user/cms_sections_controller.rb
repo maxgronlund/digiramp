@@ -67,14 +67,14 @@ class User::CmsSectionsController < ApplicationController
       #redirect_to edit_user_user_cms_vertical_link_path(@user, @cms_vertical_link)
       
     when 'Playlist link'
-      @cms_playlist_link = CmsPlaylistLink.create
+      @cms_playlist_link            = CmsPlaylistLink.create
       @cms_section.cms_module_id    = @cms_playlist_link.id
       @cms_section.cms_module_type  = @cms_playlist_link.class.name
       @cms_section.save!
       redirect_to edit_user_user_cms_page_path(@user, @cms_playlist_link)
       
     when 'Video snippet'
-      @cms_video = CmsVideo.create
+      @cms_video                    = CmsVideo.create
       @cms_section.cms_module_id    = @cms_video.id
       @cms_section.cms_module_type  = @cms_video.class.name
       @cms_section.save!
@@ -95,11 +95,11 @@ class User::CmsSectionsController < ApplicationController
       redirect_to edit_user_user_cms_page_path(@user, @cms_comment)
       
     when 'Playlist'
-      @cms_playlist = CmsPlaylist.create
+      @cms_playlist                 = CmsPlaylist.create
       @cms_section.cms_module_id    = @cms_playlist.id
       @cms_section.cms_module_type  = @cms_playlist.class.name
       @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_playlist)
+      redirect_to edit_user_user_cms_playlist_path(@user, @cms_playlist)
     end
   end
 

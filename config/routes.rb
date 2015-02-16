@@ -3,11 +3,13 @@ Digiramp::Application.routes.draw do
 
 
 
-  get 'recording_credits/show'
 
-  get 'recording_credits/edit'
 
-  get 'recording_credits/update'
+  #get 'recording_credits/show'
+  #
+  #get 'recording_credits/edit'
+  #
+  #get 'recording_credits/update'
 
   resources :share_and_login, only: [:show]
 
@@ -738,6 +740,7 @@ Digiramp::Application.routes.draw do
         resources :common_works, only: [:edit, :update, :show]
         resources :common_work_lyrics, only: [:edit, :update]
         resources :common_work_credits, only: [:edit, :update]
+        resources :recording_confirmations, only: [:update]
       end
       #resources :work_rights, only: [:update]
       resources :cms_module, only: [:new]

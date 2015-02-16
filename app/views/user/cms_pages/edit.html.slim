@@ -29,6 +29,7 @@
             = link_to 'Preview', user_cms_page_path(@user, @cms_page), class: 'btn btn-default'
             
       .sexy_line
+      = debug @cms_page.user.user_name
       .digi-box
         = simple_form_for [:user, @user, @cms_page], turboboost: true do |f|
           = f.hidden_field :user_id, value: @user.id

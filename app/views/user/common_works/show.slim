@@ -97,11 +97,8 @@
                       td = ipi.share
                       td 
                         .pull-right
-                          - if ipi.confirmation == 'Missing'
-                            = link_to '#' do
-                              .btn.btn-default.btn-xs
-                                i.fa.fa-envelope
-                                '&nbsp;Request confirmation
+                          == render 'user/common_works/confirmation', ipi: ipi
+                          
                                   
                                 
         .sexy_line                        
@@ -113,7 +110,7 @@
       h4 Recordings credits
       - @common_work.recordings.each do |recording|
         #digiWhams  class="/recordings/#{recording.id.to_s}"
-            == render 'recording', recording: recording
+            == render 'user/recordings/show', recording: recording
               
       /= debug @common_work
         
