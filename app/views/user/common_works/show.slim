@@ -110,7 +110,7 @@
       h4 Recordings credits
       - @common_work.recordings.each do |recording|
         #digiWhams  class="/recordings/#{recording.id.to_s}"
-            == render 'user/recordings/show', recording: recording
+          == render 'user/recordings/show', recording: recording
               
       /= debug @common_work
         

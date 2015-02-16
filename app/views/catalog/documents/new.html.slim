@@ -30,8 +30,8 @@
       == render 'catalog/documents/navigation'
       
       .row
-        .col-sm-4
-          .digi-box.pull-down-6
+        .col-sm-12
+          .digi-box.pull-down-12
             = simple_form_for [ :catalog, @account, @catalog, Document.new ], \
                                 :url => url_for(:action => 'create', :controller => 'catalog/documents'), \
                                 :method => 'post',  \
@@ -62,7 +62,7 @@
                     = f.submit 'Save', class: 'btn btn-primary'
                 
               
-              
+            = transloadit_jquerify :documents, :wait => true  
               
               
               

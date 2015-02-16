@@ -4,8 +4,5 @@ div id="old_confirmation_status_#{recording_ipi.id.to_s}"
                                                              :method => 'put',
                                                              remote: true do |f|
     = f.hidden_field :recording_ipi_id, value: recording_ipi.id
-    .row
-      .col-sm-12
-        .pull-right
-          = f.submit 'Request confirmation', class: 'btn btn-primary btn-xs'
+    = f.submit 'Request confirmation', class: 'btn btn-primary btn-xs'
   

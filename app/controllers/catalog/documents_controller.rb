@@ -32,15 +32,18 @@ class Catalog::DocumentsController < ApplicationController
   # POST /documents
   # POST /documents.json
   def create
+    
     forbidden unless current_account_user.create_legal_document
-    documents = TransloaditDocumentsParser.parse params[:transloadit], @account.id
-    if documents
-      documents.each do |document|
-        
-        CatalogsDocuments.where(catalog_id: @catalog.id, document_id: document.id)
-                         .first_or_create(catalog_id: @catalog.id, document_id: document.id)
-        
-        DocumentExtractTextWorker.perform_async( document.id )
+    if params[:transloadit]
+      documents = TransloaditDocumentsParser.parse params[:transloadit], @account.id
+      if documents
+        documents.each do |document|
+          
+          CatalogsDocuments.where(catalog_id: @catalog.id, document_id: document.id)
+                           .first_or_create(catalog_id: @catalog.id, document_id: document.id)
+          
+          DocumentExtractTextWorker.perform_async( document.id )
+        end
       end
     end
     redirect_to catalog_account_catalog_documents_path(@account, @catalog)

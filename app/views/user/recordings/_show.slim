@@ -17,8 +17,8 @@
         - recording.recording_ipis.order(:id).each do |recording_ipi|
           tr
             td = recording_ipi.credit_for
-            td =  recording_ipi.name
-            td =  recording_ipi.email
+            td = recording_ipi.name
+            td = recording_ipi.email
             td
               - if recording_ipi.show_credit_on_recording
                 i.fa.fa-check
