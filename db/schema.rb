@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216184838) do
+ActiveRecord::Schema.define(version: 20150216232015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -825,6 +825,15 @@ ActiveRecord::Schema.define(version: 20150216184838) do
 
   add_index "cms_sections", ["cms_module_id", "cms_module_type"], name: "index_cms_sections_on_cms_module_id_and_cms_module_type", using: :btree
   add_index "cms_sections", ["cms_page_id"], name: "index_cms_sections_on_cms_page_id", using: :btree
+
+  create_table "cms_social_links", force: true do |t|
+    t.integer  "position"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cms_social_links", ["user_id"], name: "index_cms_social_links_on_user_id", using: :btree
 
   create_table "cms_texts", force: true do |t|
     t.integer  "position"

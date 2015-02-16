@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
 
 
+  resources :cms_social_links
+
   #get 'recording_credits/show'
   #
   #get 'recording_credits/edit'

@@ -24,20 +24,21 @@
         .digi-box
           - if params[:connection_id]
             - connection = Connection.find(params[:connection_id])
-            - if  user = connection.connected_to_user( @user )
-              .row
-                .col-sm-8
-                  h4 All messages between you and #{user.user_name}
-                .col-sm-4
-                  .pull-right.pull-down-10
-                    = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{user.id.to_s}" do
-                      .btn.btn-primary
-                        i.fa.fa-envelope
-                        '&nbsp;New  
-                    == render 'messages/modal', modal_id: "pmModal_#{user.id.to_s}", recipient: user, subjebtable: user
-                    
-                    
-          
+            - if connection.is_active || super?
+              - if  user = connection.connected_to_user( @user )
+                .row
+                  .col-sm-8
+                    h4 All messages between you and #{user.user_name}
+                  .col-sm-4
+                    .pull-right.pull-down-10
+                      = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{user.id.to_s}" do
+                        .btn.btn-primary
+                          i.fa.fa-envelope
+                          '&nbsp;New message 
+                      == render 'messages/modal', modal_id: "pmModal_#{user.id.to_s}", recipient: user, subjebtable: user
+                      
+                      
+              
                       
                     
           -else
