@@ -2,9 +2,6 @@
 Digiramp::Application.routes.draw do
 
 
-
-
-
   #get 'recording_credits/show'
   #
   #get 'recording_credits/edit'
@@ -90,7 +87,7 @@ Digiramp::Application.routes.draw do
 
 
   resources :music_submissions_ratings, only: [:update]
-  resources :playlists 
+  resources :playlists, only: [:index, :show] 
   resources :playlist_recordings, only: [:destroy]
   resources :recordings, only: [:index, :show] do
     resources :share_recording_with_emails
@@ -733,6 +730,7 @@ Digiramp::Application.routes.draw do
     resources :users do
       resources :creative_rights, only: [:index]
       resources :common_works
+      resources :playlists, only: [:edit, :update]
       resources :recording_credits
       resources :recordings do
         resources :creative_rights, only: [:show]
@@ -755,6 +753,7 @@ Digiramp::Application.routes.draw do
       resources :cms_playlists
       resources :cms_comments
       get 'cms_module_moves/update'
+      get 'playlist_recording_moves/update'
       resources :cms_pages do
         resources :cms_sections 
       end

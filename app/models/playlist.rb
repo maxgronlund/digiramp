@@ -7,7 +7,12 @@ class Playlist < ActiveRecord::Base
   #has_many :playlist_items, dependent: :destroy
   has_many :playlist_keys,  dependent: :destroy
   has_many :widgets
-  has_and_belongs_to_many :recordings, dependent: :destroy
+  
+  has_many :playlists_recordings, dependent: :destroy
+  has_many :recordings, :through => :playlists_recordings
+  
+  has_and_belongs_to_many    :recordings
+  
   has_many :comments,        as: :commentable,          dependent: :destroy
 
   

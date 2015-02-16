@@ -112,7 +112,10 @@ class Recording < ActiveRecord::Base
   # owners followers gets a new post on their dashboard
   has_many      :follower_events, as: :postable,    dependent: :destroy
   after_create  :send_notifications_on_create
-  has_and_belongs_to_many :catalogs
+  #has_and_belongs_to_many :catalogs
+  has_many :playlists_recordings, dependent: :destroy
+  has_many :catalogs, :through => :playlists_recordings
+  
   #after_create  :update
   
   #mount_uploader :cover_art, ArtworkUploader

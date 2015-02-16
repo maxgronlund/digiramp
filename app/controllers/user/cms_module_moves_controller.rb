@@ -15,7 +15,7 @@ class User::CmsModuleMovesController < ApplicationController
     @cms_page.cms_sections.order(:position).where(column_nr: cms_section.column_nr).each do |section|
       
       if section.position == cms_section.position - 1
-        section.position += 1
+        section.position      += 1
         section.save!
         cms_section.position -= 1
         cms_section.save!

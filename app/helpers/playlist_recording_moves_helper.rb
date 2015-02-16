@@ -1,0 +1,2 @@
+module PlaylistRecordingMovesHelper
+end
