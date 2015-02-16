@@ -6,6 +6,7 @@ class User::OpportunitiesController < ApplicationController
 
   
   def index
+    PageView.create(url: '/user/opportunities' )
     #@authorized     = true if current_user.id == @user.id
 
     opportunity_ids  =  Opportunity.where(public_opportunity: true).pluck(:id)

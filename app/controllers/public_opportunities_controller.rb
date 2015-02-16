@@ -1,5 +1,6 @@
 class PublicOpportunitiesController < ApplicationController
   def index
+    PageView.create(url: '/public_opportunities' )
     #@opportunities = Opportunity.order(created_at: :desc).where(public_opportunity: true).last(20)
     @opportunities = Opportunity.order('created_at desc').where(public_opportunity: true).search(params[:query])
   end

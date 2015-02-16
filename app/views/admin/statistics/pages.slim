@@ -1,0 +1,68 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'statistic'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,\
+                                                              statistics: admin_statistics_path \
+                                                             }, current: ''}
+      h2 Page views
+      'Selected index pages that is not related to a specific record
+      .sexy_line
+      .digi-box
+        .row
+          .col-sm-6
+            h4 All times: #{ PageView.count}
+          .col-sm-6
+            h4 Last 4 weeks: #{@total_views}
+        .row
+          .col-sm-12
+            .sexy_line
+            h4 Landing page
+            = line_chart @landing_page_chart
+        .row
+          .col-sm-12
+            .sexy_line
+            h4 People page
+            'Total: #{@people_page_views.count} view
+            = line_chart @people_page_chart
+        .row
+          .col-sm-12
+            .sexy_line
+            h4 Recordings page
+            'Total: #{@recordings_page_views.count} view
+            = line_chart @recordings_page_chart
+        .row
+          .col-sm-12
+            .sexy_line
+            h4 Public opportunities
+            'Viewed by guests
+            'Total: #{@public_opportunities_views.count} view
+            = line_chart @public_opportunities_chart
+        .row
+          .col-sm-12
+            .sexy_line
+            h4 Opportunities
+            'Viewed by users logged in
+            'Total: #{@user_opportunities_views.count} view
+            = line_chart @user_opportunities_chart
+        /.row
+        /  .col-sm-12
+        /    .sexy_line
+        /    h4 Views
+        /    = line_chart @views_chart
+        
+
+          
+  == render 'shared/site_footer'  

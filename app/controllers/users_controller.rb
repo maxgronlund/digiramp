@@ -14,9 +14,9 @@ class UsersController < ApplicationController
   end
   
   def index
-  
-    
-    
+    # exclude ajax calls from statistic
+    PageView.create(url: '/users' ) if request.format.to_s == 'text/html'
+
     if params[:commit] == 'Go'
       @whipe_users = true
       params.delete :commit

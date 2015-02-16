@@ -441,6 +441,7 @@ Digiramp::Application.routes.draw do
         get 'ipis'
         get 'accounts'
         get 'opportunities'
+        get 'pages'
       end
     end
 

@@ -861,31 +861,11 @@ private
   end
   
   def count_stats_up
-    #Statistics.first.recordings += 1
-    #Statistics.first.save!
-    
-    ## optimization
-    #catalogs.each do |catalog|
-    #  catalog.nr_recordings += 1
-    #  catalog.save!
-    #end
+
   end
   
   def count_stats_down
-    #puts '---------------------------------------------------------------'
-    #puts 'count_stats_down'
-    #puts catalogs.size
-    #puts '---------------------------------------------------------------'
-    #Statistics.first.recordings -= 1
-    #Statistics.first.save!
-    
 
-    # optimization
-    #catalogs.each do |catalog|
-    #  catalog.nr_recordings -= 1
-    #  catalog.save!
-    #  ap catalog
-    #*end*
   end
   
   

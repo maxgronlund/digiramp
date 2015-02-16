@@ -69,6 +69,20 @@
                     li Views
                     li Requests
                     li Submissions
+          
+          .admin-badge-container
+            = link_to pages_admin_statistic_path(0) do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-folder-o
+                    '&nbsp;Pages
+                .body
+                  ul
+                    li Landing page
+                    li People
+                    li Recordings
+                    li And other..
 
   
   == render 'shared/site_footer'  

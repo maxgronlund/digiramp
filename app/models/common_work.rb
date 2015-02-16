@@ -782,30 +782,16 @@ private
   end
   
   def update_uuids
-    #AccountCache.update_works_uuid self.account
-    #Statistics.first.common_works -= 1
-    #Statistics.first.save!
+
     if self.uuid.to_s == ''
       self.uuid = UUIDTools::UUID.timestamp_create().to_s
     end
   end
   
   def count_statistics_up
-    #Statistics.first.common_works += 1
-    #Statistics.first.save!
+
   end
 
-  #def update_audio_file_attributes
-  #  
-  #  
-  #  if audio_file.present? && audio_file_changed?
-  #    
-  #    #self.content_type = audio_file.file.content_type
-  #    #self.file_size    = audio_file.size
-  #    #fo
-  #    
-  #  end
-  #end
   
 
   
