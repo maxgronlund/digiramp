@@ -111,7 +111,7 @@ class RecordingsController < ApplicationController
   
   def destroy
     @recording_id = params[:id]
-    @recording = Recording.find(@recording_id)
+    @recording    = Recording.find(@recording_id)
 
     common_work = @recording.common_work
     @recording.destroy

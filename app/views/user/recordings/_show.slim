@@ -14,7 +14,7 @@
           th Share
           th Confirmation
       tbody
-        - recording.recording_ipis.each do |recording_ipi|
+        - recording.recording_ipis.order(:id).each do |recording_ipi|
           tr
             td = recording_ipi.credit_for
             td =  recording_ipi.name
@@ -29,6 +29,6 @@
                 == render "user/recording_confirmations/#{recording_ipi.confirmation}", recording_ipi: recording_ipi
     .sexy_line
     .pull-right
-      => link_to 'Edit', edit_user_recording_basic_path(recording.user, recording), class: 'btn btn-default btn-xs'
-      = link_to 'Update credits', edit_user_user_recording_credit_path(@user, recording), class: 'btn btn-primary btn-xs'
+      => link_to 'Edit', edit_user_recording_basic_path(recording.user, recording), class: 'btn btn-default'
+      = link_to 'Edit credits', edit_user_user_recording_credit_path(@user, recording), class: 'btn btn-default'
               

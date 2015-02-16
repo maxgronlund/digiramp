@@ -19,7 +19,7 @@ class User::RecordingConfirmationsController < ApplicationController
       ap 'bar'
     end
     
-    #@recording_ipi.save!
+    @recording_ipi.save!
 
   end
 end

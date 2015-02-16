@@ -106,7 +106,7 @@
           .col-sm-12
             .pull-right
               - if @common_work.recordings
-                = link_to 'Update credits', edit_user_user_recording_common_work_credit_path(@user, @common_work.recordings.first, @common_work), class: 'btn btn-primary btn-xs'
+                = link_to 'Edit credits', edit_user_user_recording_common_work_credit_path(@user, @common_work.recordings.first, @common_work), class: 'btn btn-default'
       h4 Recordings credits
       - @common_work.recordings.each do |recording|
         #digiWhams  class="/recordings/#{recording.id.to_s}"
