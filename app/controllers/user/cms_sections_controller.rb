@@ -71,7 +71,7 @@ class User::CmsSectionsController < ApplicationController
       @cms_section.cms_module_id    = @cms_playlist_link.id
       @cms_section.cms_module_type  = @cms_playlist_link.class.name
       @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_playlist_link)
+      redirect_to edit_user_user_cms_playlist_link_path(@user, @cms_playlist_link)
       
     when 'Video snippet'
       @cms_video                    = CmsVideo.create
@@ -87,12 +87,20 @@ class User::CmsSectionsController < ApplicationController
       @cms_section.save!
       redirect_to edit_user_user_cms_text_path(@user, @cms_text)
       
+    when 'Social links'
+      @cms_social_link = CmsSocialLink.create()
+      @cms_section.cms_module_id    = @cms_social_link.id
+      @cms_section.cms_module_type  = @cms_social_link.class.name
+      
+      @cms_section.save!
+      redirect_to edit_user_user_cms_page_path(@user, @cms_social_link.cms_section.cms_page)
+      
     when 'Comment'
       @cms_comment = CmsComment.create
       @cms_section.cms_module_id    = @cms_comment.id
       @cms_section.cms_module_type  = @cms_comment.class.name
       @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_comment)
+      redirect_to edit_user_user_cms_page_path(@user, @cms_comment.cms_section.cms_page)
       
     when 'Playlist'
       @cms_playlist                 = CmsPlaylist.create

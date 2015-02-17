@@ -827,13 +827,9 @@ ActiveRecord::Schema.define(version: 20150216232015) do
   add_index "cms_sections", ["cms_page_id"], name: "index_cms_sections_on_cms_page_id", using: :btree
 
   create_table "cms_social_links", force: true do |t|
-    t.integer  "position"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "cms_social_links", ["user_id"], name: "index_cms_social_links_on_user_id", using: :btree
 
   create_table "cms_texts", force: true do |t|
     t.integer  "position"
