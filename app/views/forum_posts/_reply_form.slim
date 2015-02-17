@@ -4,7 +4,7 @@
   .sexy_line
   .row  
     .col-sm-12
-      = simple_form_for [ Reply.new ] do |f|
+      = simple_form_for [ Reply.new ], turboboost: true do |f|
         /.row
         /  .col-sm-6
         /    = f.input :title

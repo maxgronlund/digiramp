@@ -1,51 +1,29 @@
-
-div id="cms_section_#{section.cms_section.id.to_s}"
-  .col-sm-12
+.social-links
+  - if @user.link_to_facebook != ''
+    => link_to LinkValidator.validate( @user.link_to_facebook ) do
+      .fa.fa-facebook
+      '&nbsp;Facebook
+      
+  - if @user.link_to_twitter != ''
     
-    i Find me on the net
-    .social-links
-      - if @user.link_to_facebook != ''
-        => link_to LinkValidator.validate( @user.link_to_facebook ) do
-          .fa.fa-facebook
-          '&nbsp;Facebook
-          
-      - if @user.link_to_twitter != ''
-        
-        => link_to LinkValidator.validate( @user.link_to_twitter ) do
-          .fa.fa-twitter
-          '&nbsp;Twitter
-          
-      - if @user.link_to_linkedin != ''
-        
-        => link_to LinkValidator.validate( @user.link_to_linkedin ) do
-          .fa.fa-linkedin
-          '&nbsp;Linkedin
-          
-      - if @user.link_to_google_plus != ''
-        
-        => link_to LinkValidator.validate( @user.link_to_google_plus ) do
-          .fa.fa-google-plus
-          '&nbsp;Google+
-          
-      - if @user.link_to_homepage != ''
-        => link_to LinkValidator.validate( @user.link_to_homepage ) do
-          .fa.fa-home
-          '&nbsp;www
-  .row
-    .col-sm-12.pull-down-8
-      => link_to user_user_cms_module_moves_update_path(@user, 
-                                                        cms_page_id: section.cms_section.cms_page.id ,
-                                                        cms_section_id: section.cms_section.id), remote: true do
-        .btn.btn-default.btn-xs
-          i.fa.fa-arrow-up
-          '&nbsp;Move up
-      .pull-right
-       
-                                                        
-        = link_to  'Remove', user_user_cms_section_path(section.cms_section.cms_page.user, 
-                                                      section.cms_section),  
-                                                      data: { confirm: 'Are you sure?' } , 
-                                                      method: :delete,
-                                                      remote: true,
-                                                      class: 'btn btn-danger btn-xs'
-  .sexy_line
+    => link_to LinkValidator.validate( @user.link_to_twitter ) do
+      .fa.fa-twitter
+      '&nbsp;Twitter
+      
+  - if @user.link_to_linkedin != ''
+    
+    => link_to LinkValidator.validate( @user.link_to_linkedin ) do
+      .fa.fa-linkedin
+      '&nbsp;Linkedin
+      
+  - if @user.link_to_google_plus != ''
+    
+    => link_to LinkValidator.validate( @user.link_to_google_plus ) do
+      .fa.fa-google-plus
+      '&nbsp;Google+
+      
+  - if @user.link_to_homepage != ''
+    => link_to LinkValidator.validate( @user.link_to_homepage ) do
+      .fa.fa-home
+      '&nbsp;www
+
