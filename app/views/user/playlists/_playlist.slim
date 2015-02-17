@@ -4,12 +4,15 @@
       #digiWhams  class="/recordings/#{recording.id.to_s}"
         div id="remove_recording_#{recording.id.to_s}"
           == render 'user/playlists/recording', recording: recording, playlist: playlist, playlists_recording: playlists_recording
-      .row
-        .col-sm-12
-          = link_to user_user_playlist_recording_moves_update_path(@user, playlist_id: playlist.id, 
-                                                                          playlists_recording_id: playlists_recording.id), remote: true do
-                    .btn.btn-default.btn-xs
-                      i.fa.fa-arrow-up
-                      '&nbsp;Move up
-      .sexy_line
+        .row
+          .col-sm-12
+            .player-bottom
+              => link_to user_user_playlist_recording_moves_update_path(@user, playlist_id: playlist.id, 
+                                                                              playlists_recording_id: playlists_recording.id), remote: true do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-arrow-up
+                          '&nbsp;Move up
+              
+              
+      
       

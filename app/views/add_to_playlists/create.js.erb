@@ -1,3 +1,6 @@
-$(".old-confirmation").remove()
-$("#playlist_confirmation_" + "<%= @recording.id.to_s %>" ).append("<%= j render 'add_to_playlists/confirmation' %>");
-$(".old-confirmation").fadeOut(5000)
+//$(".old-confirmation").remove()
+//$("#playlist_confirmation_" + "<%= @recording.id.to_s %>" ).append("<%= j render 'add_to_playlists/confirmation' %>");
+//$(".old-confirmation").fadeOut(5000)
+
+$("#playlistModal_<%= @recording.id.to_s %>").modal('hide')
+

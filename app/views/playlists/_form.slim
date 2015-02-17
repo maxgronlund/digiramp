@@ -3,7 +3,7 @@
 .digi-box
   = simple_form_for [@user, @playlist] do |f|
     .row
-      .col-sm-6
+      .col-sm-4
         = f.hidden_field :user_id, value: @user.id
         /= f.hidden_field :playlist_id, value: @playlist.id
         = f.input :title
@@ -28,9 +28,9 @@
             a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
               'Remove
         
-        br
-        br
-        br
+        
+
+      .col-sm-4
         b Description
         br
         div id="toolbar" class="wysihtml5-toolbar"
@@ -51,15 +51,14 @@
         /= f.association :recordings, collection: @recordings,  include_blank: false, input_html: { class: 'tokenize' }, as: :text
         /<%= f.label :author_ids, "Authors" %><br />
         /= f.collection_select :playlist_recording_ids, @recordings, :id, :title, {}, {multiple: true} 
-        - if  @playlist.new_record?
-          = link_to 'Cancel', user_playlists_path(@user), class: 'btn btn-default'
-        -else
-          = link_to 'Cancel', user_playlist_path(@user, @playlist), class: 'btn btn-default'
-      .col-sm-6
-        /= f.input :downloadable
-        /= f.input :downloadkey
-    .row
-      .col-sm-12
-        .pull-right
-          = f.submit 'Save', class: 'btn btn-primary'
+        
+     
+      .row
+        .col-sm-12
+          .pull-right
+            /- if  @playlist.new_record?
+            /  = link_to 'Cancel', user_playlists_path(@user), class: 'btn btn-default'
+            /-else
+            /  = link_to 'Cancel', user_playlist_path(@user, @playlist), class: 'btn btn-default'
+            =< f.submit 'Save', class: 'btn btn-primary'
         

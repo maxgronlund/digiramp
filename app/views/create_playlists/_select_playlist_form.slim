@@ -9,11 +9,11 @@ div id="old_select_playlist_form_#{@recording.id.to_s}"
     .modal-footer
       = link_to new_create_playlist_path( user_id: current_user.id, recording_id: @recording.id ), class: 'btn btn-default', remote: true  do
         i.fa.fa-list
-        '&nbsp;New
+        '&nbsp;New playlist
       
       button type="button" class="btn btn-default" data-dismiss="modal"
-        'Close
-      = f.submit 'Save', class: 'btn btn-primary'
+        'Cancel
+      = f.submit 'Add to playlist', class: 'btn btn-primary'
 
           
 

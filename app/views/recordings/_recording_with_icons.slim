@@ -250,6 +250,7 @@ javascript:
 //.sexy_line 
 /
 - if current_user
+  .playlist_form
   == render 'playlists/select_playlist_form', recording: recording
   == render 'share_recordings/share_recordings_form', recording: recording if share
 - else
