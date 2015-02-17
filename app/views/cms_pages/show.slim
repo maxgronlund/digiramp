@@ -10,19 +10,7 @@
   
   #page-content-wrapper
     .container-fluid
-      .digi-box style="background-color:#{@cms_page.background_color};color:#{@cms_page.text_color}"
-
-        - @cms_page.cms_sections.order(:position).where(column_nr: 0).each do |section|
-          == render section.view.view_name, section: section.view
-        .row
-          .col-sm-8
-            - @cms_page.cms_sections.order(:position).where(column_nr: 1).each do |section|
-              == render section.view.view_name, section: section.view
-          .col-sm-4
-            /= render 'cms_pages/page_selector', user: @user
-            - @cms_page.cms_sections.order(:position).where(column_nr: 2).each do |section|
-              == render section.view.view_name, section: section.view
-      
+      == render "cms_pages/layouts/#{@cms_page.layout.downcase}"
       -if (current_user && current_user.id == @user.id) || super? 
         .row
           .col-sm-12.pull-down-10

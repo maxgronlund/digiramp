@@ -1,0 +1,66 @@
+.digi-box style="background-color:#{@cms_page.background_color};"
+  - @cms_page.cms_sections.order(:position).where(column_nr: 0).each do |section|
+    == render section.view.view_name, section: section.view
+  .row
+    .col-sm-4
+      - @cms_page.cms_sections.order(:position).where(column_nr: 1).each do |section|
+        == render section.view.view_name, section: section.view
+    .col-sm-4
+      /= render 'cms_pages/page_selector', user: @user
+      - @cms_page.cms_sections.order(:position).where(column_nr: 2).each do |section|
+        == render section.view.view_name, section: section.view
+    .col-sm-4
+      /= render 'cms_pages/page_selector', user: @user
+      - @cms_page.cms_sections.order(:position).where(column_nr: 3).each do |section|
+        == render section.view.view_name, section: section.view
+  .row  
+    .col-sm-12
+      /= render 'cms_pages/page_selector', user: @user
+      - @cms_page.cms_sections.order(:position).where(column_nr: 100).each do |section|
+        == render section.view.view_name, section: section.view
+  
+  
+  /b Top frame
+  /.row
+  /  .col-sm-12
+  /    .cms-box.cms-box-120
+  /      div id="cms_sections_0"
+  /        == render 'cms_sections', cms_page: @cms_page, column_nr: 0
+  /    
+  /          
+  /      
+  /.sexy_line
+  /.row
+  /  .col-sm-4
+  /    b Left frame
+  /    .cms-box
+  /      div id="cms_sections_1"
+  /        == render 'cms_sections', cms_page: @cms_page, column_nr: 1
+  /    
+  /      
+  /  .col-sm-4
+  /    b Center frame
+  /    .cms-box
+  /      div id="cms_sections_2"
+  /        == render 'cms_sections', cms_page: @cms_page, column_nr: 2
+  /    
+  /      
+  /  .col-sm-4
+  /    b Right frame
+  /    .cms-box
+  /      div id="cms_sections_3"
+  /        == render 'cms_sections', cms_page: @cms_page, column_nr: 3
+  /    
+  /    
+  /
+  /
+  /            
+  /b Footer
+  /.row
+  /  .col-sm-12
+  /    .cms-box.cms-box-120
+  /      div id="cms_sections_100"
+  /        == render 'cms_sections', cms_page: @cms_page, column_nr: 100
+  /   
+  /
+  

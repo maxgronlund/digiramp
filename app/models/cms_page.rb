@@ -3,6 +3,12 @@ class CmsPage < ActiveRecord::Base
   has_many :cms_sections
   has_many :comments,        as: :commentable,          dependent: :destroy
   
+  # more states inside the doc folder
+  LAYOUTS = [ 'Alabama',
+              'Alaska',
+              'Arizona',
+              'Arkansas']
+  
   after_commit :flush_cache
 
   def self.cached_find(id)

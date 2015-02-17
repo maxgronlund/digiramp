@@ -2,7 +2,7 @@ class CmsSection < ActiveRecord::Base
   belongs_to :cms_page
   belongs_to :cms_module, polymorphic: true
   
-  MODULE_TYPES = ['Banner', 'Recording', 'Horizontal links', 'Vertical links', 'Playlist link', 'Video snippet', 'Text', 'Playlist', 'Comment', 'Comment', 'Social links']
+  MODULE_TYPES = ['Banner', 'Recording', 'Horizontal links', 'Vertical links', 'Playlist link', 'Video snippet', 'Text', 'Playlist', 'Comment', 'Social links']
   
   before_destroy :remove_module
   after_commit :flush_cache
