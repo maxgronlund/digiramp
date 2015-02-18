@@ -41,6 +41,13 @@ class User::CmsSectionsController < ApplicationController
       @cms_section.cms_module_type  = @cms_banner.class.name
       @cms_section.save!
       redirect_to edit_user_user_cms_banner_path(@user, @cms_banner)
+      
+    when 'Image'
+      @cms_image = CmsImage.create
+      @cms_section.cms_module_id    = @cms_image.id
+      @cms_section.cms_module_type  = @cms_image.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_image_path(@user, @cms_image)
     
     
     when 'Recording'

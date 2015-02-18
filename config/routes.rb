@@ -6,6 +6,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  
+
   #get 'recording_credits/show'
   #
   #get 'recording_credits/edit'
@@ -748,16 +750,17 @@ Digiramp::Application.routes.draw do
       #resources :work_rights, only: [:update]
       resources :cms_module, only: [:new]
       resources :cms_sections, only: [:destroy]
-      resources :cms_banners
-      resources :cms_recordings
-      resources :cms_vertical_links
-      resources :cms_horizontal_links
-      resources :cms_playlist_links
-      resources :cms_videos
-      resources :cms_texts
-      resources :cms_playlists
-      resources :cms_comments
-      resources :cms_page_layouts, only: [:edit, :updage]
+      resources :cms_banners, only: [:edit, :update]
+      resources :cms_images, only: [:edit, :update]
+      resources :cms_recordings, only: [:edit, :update]
+      resources :cms_vertical_links, only: [:edit, :update]
+      resources :cms_horizontal_links, only: [:edit, :update]
+      resources :cms_playlist_links, only: [:edit, :update]
+      resources :cms_videos, only: [:edit, :update]
+      resources :cms_texts, only: [:edit, :update]
+      resources :cms_playlists, only: [:edit, :update]
+      resources :cms_comments, only: [:edit, :update]
+      resources :cms_page_layouts, only: [:edit, :update]
       get 'cms_module_moves/update'
       get 'playlist_recording_moves/update'
       resources :cms_pages do

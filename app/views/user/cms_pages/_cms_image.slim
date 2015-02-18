@@ -1,0 +1,25 @@
+div id="cms_section_#{section.cms_section.id.to_s}"
+  == render 'cms_pages/cms_image', section: section
+  .row
+    .col-sm-12.pull-down-8
+      => link_to user_user_cms_module_moves_update_path(@user, 
+                                                        cms_page_id: section.cms_section.cms_page.id ,
+                                                        cms_section_id: section.cms_section.id), remote: true do
+        .btn.btn-default.btn-xs
+          i.fa.fa-arrow-up
+          '&nbsp;Move up
+
+
+      
+      .pull-right
+        => link_to 'Edit',   edit_user_user_cms_image_path(section.cms_section.cms_page.user, 
+                                                      section),  
+                                                      class: 'btn btn-default btn-xs'
+                                                        
+        = link_to  'Remove', user_user_cms_section_path(section.cms_section.cms_page.user, 
+                                                      section.cms_section),  
+                                                      data: { confirm: 'Are you sure?' } , 
+                                                      method: :delete,
+                                                      remote: true,
+                                                      class: 'btn btn-danger btn-xs'
+  .sexy_line

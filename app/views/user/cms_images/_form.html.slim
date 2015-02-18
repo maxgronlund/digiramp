@@ -1,0 +1,26 @@
+= simple_form_for [:user, @user, @cms_image] do |f|
+
+  = f.hidden_field :position, as: :integer ,  input_html: { value: @cms_image.cms_section.position }
+  
+  .fileinput.fileinput-new.input-group data-provides="fileinput"
+    .form-control data-trigger="fileinput"
+      i.glyphicon.glyphicon-file.fileinput-exists
+      span.fileinput-filename
+  
+    span.input-group-addon.btn.btn-default.btn-file
+      span.fileinput-new
+        'Select file
+      span.fileinput-exists
+        'Change
+  
+      
+      = f.file_field :image, multiple: false
+    a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+      'Remove
+  
+
+  = f.input :caption, placeholder: 'Name for the image', hint: 'Will be shown when someone click on the image'
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary please_wait'
