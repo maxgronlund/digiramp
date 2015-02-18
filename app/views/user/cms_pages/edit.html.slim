@@ -1,16 +1,12 @@
-#wrapper
-  .full-width-top
-    == render 'shared/navigationbar', page: 'user' 
-  
-  
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
-  
-  #page-content-wrapper
-    .container-fluid
+- if @cms_page.hide_sidebar
+  #wrap
+    .full-width-top
+      == render 'shared/navigationbar', page: 'user' 
+    
+    .container-fluid.pull-down-48
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),
                                                                pages: user_user_cms_pages_path(@user)}, current: ''}
+                                                               
       .row
         .col-sm-6
           .help
@@ -18,43 +14,69 @@
               h2 = @cms_page.title
             .help-button
               == render 'admin/helps/help', identifier: 'edit user page'
-              
         .col-sm-6
-          .pull-right.pull-down-10
-            
-            => link_to user_user_cms_pages_path(@user) do
-              .btn.btn-default
-                i.fa.fa-chevron-left
-                '&nbsp;Back
-            
-            => link_to 'Preview', user_cms_page_path(@user, @cms_page), class: 'btn btn-default'
-            
-            = link_to 'Edit layout', edit_user_user_cms_page_layout_path(@user, @cms_page), class: 'btn btn-primary'
-            
-      /.sexy_line
-      /.digi-box
-      /  = simple_form_for [:user, @user, @cms_page], turboboost: true do |f|
-      /    = f.hidden_field :user_id, value: @user.id
-      /    .row
-      /      .col-sm-6
-      /        = f.input :title
-      /        = f.input :layout, collection: CmsPage::LAYOUTS
-      /      .col-sm-6
-      /        .row
-      /          .col-sm-6
-      /            = f.input :background_color
-      /          .col-sm-6
-      /            = f.input :text_color
-      /  
-      /    .row
-      /      .col-sm-12
-      /        .pull-right
-      /          = f.submit 'Update', class: 'btn btn-primary'
-      .sexy_line
-      
-      h4 Edit modules
-      == render "user/cms_pages/layouts/#{@cms_page.layout.downcase}"
-         
-                 
+            .pull-right.pull-down-10
               
+              => link_to user_user_cms_pages_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+              
+              => link_to 'Preview', user_cms_page_path(@user, @cms_page), class: 'btn btn-default'
+              
+              = link_to 'Edit layout', edit_user_user_cms_page_layout_path(@user, @cms_page), class: 'btn btn-primary'
+              
+  
+        .sexy_line
+        
+        h4 Edit modules
+        == render "user/cms_pages/themes/#{@cms_page.theme.downcase}"
+        == render "user/cms_pages/layouts/#{@cms_page.layout.downcase}"
+              
+                                                                       
+
+-else
+
+  #wrapper
+    .full-width-top
+      == render 'shared/navigationbar', page: 'user' 
+    
+    
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'users/shared/sidebar', selected: 'user'
+    
+    #page-content-wrapper
+      .container-fluid
+        == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),
+                                                                 pages: user_user_cms_pages_path(@user)}, current: ''}
+        .row
+          .col-sm-6
+            .help
+              .help-text
+                h2 = @cms_page.title
+              .help-button
+                == render 'admin/helps/help', identifier: 'edit user page'
+                
+          .col-sm-6
+            .pull-right.pull-down-10
+              
+              => link_to user_user_cms_pages_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+              
+              => link_to 'Preview', user_cms_page_path(@user, @cms_page), class: 'btn btn-default'
+              
+              = link_to 'Edit layout', edit_user_user_cms_page_layout_path(@user, @cms_page), class: 'btn btn-primary'
+              
+  
+        .sexy_line
+        
+        h4 Edit modules
+        == render "user/cms_pages/themes/#{@cms_page.theme.downcase}"
+        == render "user/cms_pages/layouts/#{@cms_page.layout.downcase}"
+           
+                   
+                
   == render 'shared/site_footer'  

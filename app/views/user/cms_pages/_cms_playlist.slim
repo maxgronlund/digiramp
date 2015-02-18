@@ -1,5 +1,7 @@
+
 div id="cms_section_#{section.cms_section.id.to_s}"
-  == render 'cms_pages/cms_playlist', section: section
+  .pull-down-10
+    == render 'cms_pages/cms_playlist', section: section
   .row
     .col-sm-12.pull-down-8
       => link_to user_user_cms_module_moves_update_path(@user, 
