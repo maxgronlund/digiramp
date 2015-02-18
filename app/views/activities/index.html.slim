@@ -12,13 +12,17 @@
       .row
         .col-sm-8
           == render 'users/shared/profile'
-          /-if current_user && current_user.id == @user.id
-          /  == render 'users/activities'
+
           h3 Followed Users' Activities
-          / make endless pages here
-          - @user.wall_posts.where.not(user_id: @user.id).order('created_at desc').first(20).each do |follower_event|
-            div id="delete_wall_post_#{follower_event.id.to_s}"
-              == render "wall_posts/" + follower_event.postable_type.downcase , follower_event: follower_event
+          
+
+
+          .endless_activities
+          == render 'activities/index'
+          
+          == paginate(@wall_posts) 
+          
+         
         .col-sm-4
           .comments
             == render 'users/guest_book'

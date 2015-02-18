@@ -1,8 +1,9 @@
 .navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
   .navbar-header
-    .btn.btn-sidemenu id='menu-toggle'
-      i.fa.fa-angle-double-right
-      i.fa.fa-angle-double-left style="display: none;"
+    - if @hide_sidebar_toggle.nil?
+      .btn.btn-sidemenu id='menu-toggle'
+        i.fa.fa-angle-double-right
+        i.fa.fa-angle-double-left style="display: none;"
       
     button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
       span class="sr-only"
@@ -209,7 +210,11 @@
         /  i class="fa fa-sign-in"
         /  '&nbsp;
         /  'Log in
-
+        li
+          .pull-down-8
+            = link_to signup_index_path do
+              .btn.btn-warning
+                'Sign up
         li 
           = link_to login_new_path do
             i class="fa fa-sign-in"

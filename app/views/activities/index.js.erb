@@ -1,0 +1,8 @@
+$('.endless_activities').append("<%= j render 'activities/index' %>");
+
+<% if (@wall_posts.next_page) %>
+        $('.pagination').replaceWith('<%= j paginate(@wall_posts) %>');
+<% else %>
+        $('.pagination').remove();
+<% end %>
+
