@@ -17,14 +17,25 @@
             == render 'instructions'
 
           
-          .endless_activities
+          .row.visible-xs-block
+            h3 Comments
+            .col-sm-12
+              .comments
+                == render 'users/guest_book'
+                  
+                br
+                .rec-comments
+                  - @user.comments.order('created_at desc').each do |comment|
+                    == render 'comments/show', comment: comment
+          
+          /- if current_user && current_user.id == @user.id
+          h3 Activities
           == render 'user_activities'
-          /- @user_activities.each do |user_activitiy|
-          /  div id="delete_wall_post_#{user_activitiy.id.to_s}"
-          /    == render "wall_posts/" + user_activitiy.postable_type.downcase , follower_event: user_activitiy
+          .endless_activities
           
           == paginate(@user_activities)
-        .col-sm-4
+          
+        .col-sm-4.hidden-xs
           .comments
             == render 'users/guest_book'
                 

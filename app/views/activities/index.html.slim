@@ -13,17 +13,29 @@
         .col-sm-8
           == render 'users/shared/profile'
 
-          h3 Followed Users' Activities
+          
           
 
 
-          .endless_activities
+          .row.visible-xs-block
+            .col-sm-12
+              h3 Comments
+              .comments
+                == render 'users/guest_book'
+                
+                br
+                .rec-comments
+                  - @user.comments.order('created_at desc').each do |comment|
+                    == render 'comments/show', comment: comment
+          
+          h3 Followed Users' Activities         
           == render 'activities/index'
+          .endless_activities
           
           == paginate(@wall_posts) 
           
          
-        .col-sm-4
+        .col-sm-4.hidden-xs
           .comments
             == render 'users/guest_book'
                 

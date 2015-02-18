@@ -47,7 +47,8 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    ap params
+    
     if current_user && @user != current_user
       @user.views += 1 
       @user.save
@@ -72,7 +73,7 @@ class UsersController < ApplicationController
         @authorized = true
       end
     end
-    @user_activities = @user.user_activities.order('created_at desc').page(params[:page]).per(4)
+    @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
   end
   
   def find_user
