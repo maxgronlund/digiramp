@@ -1,8 +1,6 @@
 
 div id="cms_section_#{section.cms_section.id.to_s}"
-  .col-sm-12
-    
-    i Find me on the net
+  .col-sm-12.pull-down-4
     .social-links
       - if @user.link_to_facebook != ''
         => link_to LinkValidator.validate( @user.link_to_facebook ) do
