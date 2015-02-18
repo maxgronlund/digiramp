@@ -47,19 +47,21 @@ class UsersController < ApplicationController
   end
 
   def show
-    ap params
     
-    if current_user && @user != current_user
-      @user.views += 1 
-      @user.save
-    end
-    
-    @user.create_activity(  :show, 
-                              owner: current_user,
-                          recipient: @user,
-                     recipient_type: @user.class.name,
-                         account_id: @user.account_id)
-
+    if request.format.to_s == 'text/html'
+      unless current_user && @user != current_user
+       
+        @user.views += 1 
+        @user.save
+        
+        @user.create_activity(  :show, 
+                                  owner: current_user,
+                              recipient: @user,
+                         recipient_type: @user.class.name,
+                             account_id: @user.account_id)
+                             
+      end
+    end 
     session[:account_id] = @user.account_id 
     
     if current_user 
@@ -68,10 +70,10 @@ class UsersController < ApplicationController
         current_user.save!
       end
       @playlists  = current_user.playlists
-      @authorized = false
-      if current_user.id == @user.id || current_user.super?
-        @authorized = true
-      end
+      #@authorized = false
+      #if current_user.id == @user.id || current_user.super?
+      #  @authorized = true
+      #end
     end
     @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
   end

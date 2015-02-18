@@ -3,6 +3,7 @@ class SongsController < ApplicationController
   def index
     
     PageView.create(url: '/recordings' ) if request.format.to_s == 'text/html'
+    
     if params[:commit] == 'Go'
       params[:commit] = ''
       @remove_old_recordings = true

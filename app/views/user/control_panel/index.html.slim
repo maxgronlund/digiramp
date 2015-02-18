@@ -66,7 +66,7 @@
             
               
             .control-panel-badge
-              = link_to  user_user_cms_pages_path(current_user) do
+              = link_to  user_user_cms_pages_path(@user) do
                 .content
                   .icon.icon-purpel
                     i.fa.fa-share-alt
@@ -79,7 +79,7 @@
             
               
             .control-panel-badge
-              = link_to  user_user_creative_rights_path(current_user) do
+              = link_to  user_user_creative_rights_path(@user) do
                 .content
                   .icon.icon-red
                     i.fa.fa-gavel
