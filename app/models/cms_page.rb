@@ -7,7 +7,8 @@ class CmsPage < ActiveRecord::Base
   LAYOUTS = [ 'Alabama',
               'Alaska',
               'Arizona',
-              'Arkansas']
+              'Arkansas',
+              'California']
               
   THEMES = [ 'Default',
              'Black']
