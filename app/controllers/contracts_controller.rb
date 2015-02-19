@@ -16,6 +16,7 @@ class ContractsController < ApplicationController
         render :pdf => "file_name"
       end
     end
+    #touched
   end
 
   # GET /contracts/new
