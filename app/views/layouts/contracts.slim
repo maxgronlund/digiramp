@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+
+   /= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css", media: "all"
+   /= stylesheet_link_tag "embed", media: "all"
+   /= javascript_include_tag "embed"
+   = csrf_meta_tags
+
+  body 
+    /sass:
+    /  body
+    /    background-color: #f7f7f7
+    /== render 'widgets/widget_theme'
+    /style type="text/css"
+    /  'body{ background-color: #{@widget.widget_theme.background_color}; padding: 4px; } 
+      
+      
+
+    
+
+    = yield
+
+    
+
+  
+  
+  
+

@@ -130,6 +130,10 @@ gem "cocoon"
 gem 'rubyzip'
 #gem 'bootstrap-validator-rails', '~> 0.5.3'
 
+# pdf generator
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 # maintaince
 gem 'traceroute'
 

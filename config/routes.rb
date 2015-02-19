@@ -8,6 +8,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  resources :contracts
+
   #get 'recording_credits/show'
   #
   #get 'recording_credits/edit'
