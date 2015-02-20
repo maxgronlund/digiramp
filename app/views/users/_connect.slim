@@ -16,11 +16,11 @@
       .alert.alert-warning
         'Connection dismissed
   - else
-    / connect
+    
     = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#connect_modal_#{user.id.to_s}" do
       .btn.btn-primary.btn-xs
         i.fa.fa-refresh
         '&nbsp;Connect  
-    /
+    
 
     

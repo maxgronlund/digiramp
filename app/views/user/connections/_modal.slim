@@ -1,34 +1,35 @@
-.modal.fade id="#{modal_id}" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true" 
-  .modal-dialog
-    .modal-content
-      .modal-header
-        button type="button" class="close" data-dismiss="modal"
-          span aria-hidden="true" &times;
-          span class="sr-only" Close
-
-        h4 class="modal-title" id="myModalLabel"
-          'New message
-        .sexy_line
-
-      == simple_form_for [:user, current_user , Connection.new(message: "Hi #{@user.user_name } \r\nI'd like to add you to my connections \r\n\n --#{current_user.user_name}")], remote: true do |f|
-        .modal-body
-          = f.hidden_field :connection_id, value: @user.id
-          = f.hidden_field :user_id, value: current_user.id
-          = f.input :message, :input_html => {  style: "height: 280px;", placeholder: "Message"}
-      
-        .modal-footer
-          = f.submit "Cancel", :type => "reset", class: 'btn btn-default',  "data-dismiss".to_sym => "modal"
-          '&nbsp;
-          = f.submit 'Send request', class: 'btn btn-primary'
-      
-      
-
-
-javascript:
-  $("##{modal_id}").on('hidden.bs.modal', function (event) {
-    $("#connection_message").val("Hi #{@user.user_name } \r\nI'd like to add you to my connections \r\n\n --#{current_user.user_name}");
-  })
-
+- if current_user
+  .modal.fade id="#{modal_id}" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true" 
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button type="button" class="close" data-dismiss="modal"
+            span aria-hidden="true" &times;
+            span class="sr-only" Close
+  
+          h4 class="modal-title" id="myModalLabel"
+            'New message
+          .sexy_line
+  
+        == simple_form_for [:user, current_user , Connection.new(message: "Hi #{@user.user_name } \r\nI'd like to add you to my connections \r\n\n --#{current_user.user_name}")], remote: true do |f|
+          .modal-body
+            = f.hidden_field :connection_id, value: @user.id
+            = f.hidden_field :user_id, value: current_user.id
+            = f.input :message, :input_html => {  style: "height: 280px;", placeholder: "Message"}
+        
+          .modal-footer
+            = f.submit "Cancel", :type => "reset", class: 'btn btn-default',  "data-dismiss".to_sym => "modal"
+            '&nbsp;
+            = f.submit 'Send request', class: 'btn btn-primary'
+        
+        
+  
+  
+  javascript:
+    $("##{modal_id}").on('hidden.bs.modal', function (event) {
+      $("#connection_message").val("Hi #{@user.user_name } \r\nI'd like to add you to my connections \r\n\n --#{current_user.user_name}");
+    })
+  
   
 
   
