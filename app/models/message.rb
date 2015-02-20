@@ -58,6 +58,15 @@ class Message < ActiveRecord::Base
     end
   end
   
+  def received_message user_checking_the_message
+     return true if receiver && receiver.id == user_checking_the_message.id
+     return false
+  end
+  
+  def is_valid
+    receiver && sender
+  end
+  
 
   
   def self.cached_find(id)

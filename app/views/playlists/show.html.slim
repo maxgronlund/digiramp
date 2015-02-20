@@ -15,26 +15,23 @@
       
       .row
         .col-sm-8
-          
-          .row
-            .col-sm-12
-              .digi-box
-                .show-playlist
-                  .playlist-image
-                    = image_tag( @playlist.playlist_image_url :image_270x270)
-                  .playlist-info
-                    = simple_format @playlist.body
-                    - if current_user && current_user == @user.id || super?
-                      .row
-                        .col-sm-12
-                          .pull-right
-                            = link_to edit_user_user_playlist_path(@user, @playlist) do
-                              .btn.btn-primary
-                                i.fa.fa-pencil
-                                '&nbsp;Edit
+          .digi-box
+            .show-playlist
+              .playlist-image
+                = image_tag( @playlist.playlist_image_url :image_270x270)
+              .playlist-info
+                = simple_format @playlist.body
+                - if current_user && current_user == @user.id || super?
+                  .row
+                    .col-sm-12
+                      .pull-right
+                        = link_to edit_user_user_playlist_path(@user, @playlist) do
+                          .btn.btn-primary
+                            i.fa.fa-pencil
+                            '&nbsp;Edit
 
-            
-            
+          
+          
           .row
             .col-sm-12
               .pull-down-10
@@ -57,4 +54,4 @@
             
     
   == render 'shared/site_footer'   
-   
+== render 'user/connections/modal', modal_id: "connect_modal_#{@user.id.to_s}", recipient: @user, subjebtable: @user     

@@ -2,7 +2,7 @@
 class RelationshipsController < ApplicationController
   # convert to Ajax
   def create
-    ap params
+    
     @user = User.find(params[:user][:followed_id])
     relationship              = current_user.follow!(@user)
     

@@ -1,4 +1,4 @@
-.modal.fade id="#{modal_id}" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true"
+.modal.fade id="#{modal_id}" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true" 
   .modal-dialog
     .modal-content
       .modal-header
@@ -26,8 +26,10 @@
 
 javascript:
   $("##{modal_id}").on('hidden.bs.modal', function (event) {
-
     $("#connection_message").val("Hi #{@user.user_name } \r\nI'd like to add you to my connections \r\n\n --#{current_user.user_name}");
   })
+
+  
+
   
   
