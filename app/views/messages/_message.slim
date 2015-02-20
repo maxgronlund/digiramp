@@ -1,55 +1,65 @@
--if  sender          = message.sender
-  - received_message = message.receiver.id == @user.id
-  
+-if  sender  = message.sender
+  -if receiver = message.receiver
+    - received_message = message.receiver.id == @user.id
     
-  tr id="delete_message_#{message.id.to_s}"
-    td
-      => link_to user_message_path(@user, message), data:  { confirm: 'Are you sure?' }, method: :delete, remote: true  do
-        .btn.btn-danger.btn-xs
-          i.fa.fa-times
-    td  
-      b = link_to message.title, user_message_path(@user, message)
-      br
-      = message.created_at.to_formatted_s(:short)
-    
-    td.message-unread
       
-      - if message.read  == false && sender.id != @user.id
-        = link_to user_message_path(@user, message)  do
-          .btn.btn-default.btn-xs
-            i.fa.fa-exclamation-circle
-            '&nbsp;New
-    
-    
-    
-    - if sender
+    tr id="delete_message_#{message.id.to_s}"
       td
-        .pull-right
-          b = message.sender.user_name
-      td.message-avatars
-        = link_to image_tag( message.sender.image_url :avatar_32x32), user_path(message.sender)
-        '&nbsp;
-        i.fa.fa-arrow-right 
-        '&nbsp;
-        = link_to image_tag( message.receiver.image_url :avatar_32x32), user_path(message.receiver)
-      td
-        b= message.receiver.user_name
-  
-      /td
-      /  - if received_message && Connection.connected(message.receiver, message.sender )
-      /    / Mail
-      /    = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{message.sender.id.to_s}" do
-      /      .btn.btn-default.btn-xs
-      /        i.fa.fa-envelope
-      /        '&nbsp;New  
-      /    == render 'messages/modal', modal_id: "pmModal_#{message.sender.id.to_s}", recipient: message.sender, subjebtable: message.sender
-    - else
+        => link_to user_message_path(@user, message), data:  { confirm: 'Are you sure?' }, method: :delete, remote: true  do
+          .btn.btn-danger.btn-xs
+            i.fa.fa-times
+      td  
+        b = link_to message.title, user_message_path(@user, message)
+        br
+        = message.created_at.to_formatted_s(:short)
+      
+      td.message-unread
+        
+        - if message.read  == false && sender.id != @user.id
+          = link_to user_message_path(@user, message)  do
+            .btn.btn-default.btn-xs
+              i.fa.fa-exclamation-circle
+              '&nbsp;New
+      
+      
+      
+      - if sender
         td
-          i.fa.fa-exclamation
-          'User removed
+          .pull-right
+            b = message.sender.user_name
+        td.message-avatars
+          = link_to image_tag( message.sender.image_url :avatar_32x32), user_path(message.sender)
+          '&nbsp;
+          i.fa.fa-arrow-right 
+          '&nbsp;
+          = link_to image_tag( message.receiver.image_url :avatar_32x32), user_path(message.receiver)
         td
-        td
+          b= message.receiver.user_name
+    
         /td
+        /  - if received_message && Connection.connected(message.receiver, message.sender )
+        /    / Mail
+        /    = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{message.sender.id.to_s}" do
+        /      .btn.btn-default.btn-xs
+        /        i.fa.fa-envelope
+        /        '&nbsp;New  
+        /    == render 'messages/modal', modal_id: "pmModal_#{message.sender.id.to_s}", recipient: message.sender, subjebtable: message.sender
+      - else
+          td
+            i.fa.fa-exclamation
+            'User removed
+          td
+          td
+  - else
+    tr
+      td receiver removed
+      td 
+        - message.destroy
+      td
+      td
+      td
+      td
+      td
 - else
   tr
     td Sender removed
