@@ -33,10 +33,13 @@
                 == render 'users/connect', user: @user
               
           - else
-            = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "become-member" do
-              .btn.btn-primary.btn-xs
-                i.fa.fa-refresh
-                '&nbsp;Connect
+            button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".become-member"
+              i.fa.fa-refresh
+              '&nbsp;Connect
+            /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "become-member" do
+            /  .btn.btn-primary.btn-xs
+            /    i.fa.fa-refresh
+            /    '&nbsp;Connectx
       .sexy_line 
     li class="#{'sidebar-selected' if selected == 'profile'}"
       = link_to user_path(@user) do

@@ -130,9 +130,9 @@ class UsersController < ApplicationController
     
     elsif @user.save
       @account          = User.create_a_new_account_for_the @user
-      blog              = Blog.cached_find('Sign Up')
-      blog_post         = BlogPost.cached_find('Sucess', blog)
-      flash[:success]   = { title: blog_post.title, body: blog_post.body }
+      #blog              = Blog.cached_find('Sign Up')
+      #blog_post         = BlogPost.cached_find('Sucess', blog)
+      #flash[:success]   = { title: blog_post.title, body: blog_post.body }
       
       # signout if you was signed in as another user
       cookies.delete(:auth_token)

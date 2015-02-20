@@ -1,13 +1,9 @@
+<script type="text/javascript">
+
+  var pusher = new Pusher('d70ad0d20fdef342dd05');
+  var channel = pusher.subscribe('<%= current_user ? 'digiramp_radio_'+current_user.email : 'null' %>');
+  channel.bind('digiramp_event', sayHello);
+
+</script>
 
 
-
-<% if current_user%>
-  <script type="text/javascript">
-
-    var pusher = new Pusher('d70ad0d20fdef342dd05');
-    var channel = pusher.subscribe('<%= current_user ? 'digiramp_radio_'+current_user.email : 'null' %>');
-    channel.bind('digiramp_event', sayHello);
-
-  </script>
-
-<% end %>

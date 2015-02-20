@@ -31,6 +31,43 @@
     })
   
   
-
+- else
+  .modal.fade.become-member tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button type="button" class="close" data-dismiss="modal"
+            span aria-hidden="true" &times;
+            span class="sr-only" Close
   
+          h4 class="modal-title" id="myModalLabel"
+            'Sign up
+          .sexy_line
+          .modal-body
+            'After signing up you can connect to users on DigiRAMP 
+          .modal-footer
+            .pull-right
+              = link_to signup_index_path do
+                .btn.btn-warning
+                  'Sign up
+
+ 
+  /.modal.fade id="become-member" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true" 
+  /  .modal-dialog
+  /    .modal-content
+  /      .modal-header
+  /        button type="button" class="close" data-dismiss="modal"
+  /          span aria-hidden="true" &times;
+  /          span class="sr-only" Close
+  /
+  /        h4 class="modal-title" id="myModalLabel"
+  /          'This function requires you are a member
+  /        .sexy_line
+  /
+  /
+  /      .modal-body
+  /        'take me there
+  /    
+  /      .modal-footer
+  /
   
