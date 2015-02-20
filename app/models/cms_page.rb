@@ -11,7 +11,8 @@ class CmsPage < ActiveRecord::Base
               'California']
               
   THEMES = [ 'Default',
-             'Black']
+             'Black',
+             'Gray']
   
   after_commit :flush_cache
 
