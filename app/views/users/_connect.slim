@@ -6,7 +6,7 @@
         .btn.btn-default.btn-xs
           i.fa.fa-envelope
           '&nbsp;Send message  
-      == render 'messages/modal', modal_id: "pmModal_#{user.id.to_s}", recipient: user, subjebtable: user
+      /== render 'messages/modal', modal_id: "pmModal_#{user.id.to_s}", recipient: user, subjebtable: user
   
     - elsif connection.is_pending
       .alert.alert-info
