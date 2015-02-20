@@ -1,0 +1,14 @@
+div id="old_follow_user_#{user.id.to_s}"
+  - if relationship = current_user.relationships.find_by(followed_id: user.id)
+    = link_to  relationship, remote: true,  method: :delete do
+      .btn.btn-default.btn-xs
+        i.fa.fa-times
+        '&nbsp;
+        'Following
+  /= form_for current_user.relationships.find_by(followed_id: user.id), remote: true, html: { method: :delete }
+  /  
+  /
+  /  = button_tag(type: 'submit', class: "btn btn-default btn-xs red-icon") do 
+  /    i.fa.fa-times
+  /    '&nbsp;
+  /    'Following

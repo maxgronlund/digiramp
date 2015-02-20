@@ -40,13 +40,13 @@
   
   .pull-down-10
     - if current_user && current_user.id != @user.id
-      .profile-button
-        == render 'users/shared/follow' , user: @user
-      .profile-button
-        .connect-container
-          .connect-buttons
-          == render 'users/connect', user: @user 
-
+      /.profile-button
+      /  == render 'users/shared/follow' , user: @user
+      /.profile-button
+      /  .connect-container
+      /    .connect-buttons
+      /    == render 'users/connect', user: @user 
+      /
   - if @user.profile.to_s != ''
     .row
       .col-sm-12
@@ -58,7 +58,7 @@
     .row.pull-down-8
       .col-sm-12
         
-        i Find me on the net
+
         .social-links
           - if @user.link_to_facebook != ''
             => link_to LinkValidator.validate( @user.link_to_facebook ) do

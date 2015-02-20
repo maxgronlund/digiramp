@@ -60,9 +60,9 @@ class Connection < ActiveRecord::Base
   end
   
   def status
-    return 'Accepted'   if self.is_active
+    return 'Connected'   if self.is_active
     return 'Pending'    if self.is_pending
-    return 'Dismissed'  if self.is_dismissed
+    return 'Declined'  if self.is_dismissed
     ''
   end
   

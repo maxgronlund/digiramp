@@ -4,16 +4,37 @@
         
   - if @user      
     li
-      
-      = link_to profile_path_for( @user) do
-        .avatar_name
-          h4 = @user.user_name
+      .sidebar-user-profile
+        = link_to profile_path_for( @user) do
+          .user-name
+            h4 = @user.user_name
+            
+          .user-avatar
+            =  image_tag @user.image_url(:avatar_184x184) 
           
-        .user-avatar
-          
-          =  image_tag @user.image_url(:avatar_184x184)
-    
-        
+        .user-buttons 
+          - if current_user 
+            - if current_user.id == @user.id
+               = link_to edit_user_path(current_user) do
+                 .btn.btn-default.btn-xs
+                   i class="fa fa-pencil"
+                   '&nbsp;
+                   'Edit profile
+            -else
+              div id="follow_user_#{@user.id.to_s}"
+              
+              -if current_user.following?(@user)
+                == render 'users/unfollow', user: @user
+              - else 
+                == render 'users/follow', user: @user
+
+              .connect-container
+                .connect-buttons
+                == render 'users/connect', user: @user
+              
+          - else
+            'some signup here
+      .sexy_line 
     li class="#{'sidebar-selected' if selected == 'profile'}"
       = link_to user_path(@user) do
         i class="fa fa-user"

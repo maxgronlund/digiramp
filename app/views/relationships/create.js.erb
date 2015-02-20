@@ -1,3 +1,11 @@
-$( "div" ).remove( "<%= @remove_button %>" );
+$( "#old_follow_user_<%= @user.id.to_s %>" ).remove()
+$( "#follow_user_<%= @user.id.to_s %>" ).prepend('<%=j render("users/unfollow", user: @user) %>');
 
-$("<%= @add_button %>").prepend('<%=j render("relationships/unfollow_button") %>');
+
+
+
+
+
+//$( "div" ).remove( "<%= @remove_button %>" );
+//
+//$("<%= @add_button %>").prepend('<%=j render("relationships/unfollow_button") %>');
