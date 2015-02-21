@@ -1,0 +1,73 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path ,
+                                                              content: admin_content_index_path }, current: ''}
+      .row
+        .col-sm-5
+          h2 Contract templates
+      
+        .col-sm-7
+          .pull-right.pull-down-10
+            = link_to 'New template', new_admin_contract_path, class: 'btn btn-primary'
+            /= simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+            /                                              :controller => 'users'), \
+            /                                              :method => 'get',
+            /                                              turboboost: true do |f|
+            /
+            /  .input-group
+            /    span class="input-group-addon"
+            /      i class= 'fa fa-search'
+            /    = text_field_tag "query", "", :class => 'search-query form-control', \
+            /                                  :placeholder => 'Search for user', \
+            /                                  value: params[:query]
+            /    .input-group-btn
+            /      = f.submit 'Search', class: "btn btn-primary"
+            /      '&nbsp;
+            /      = link_to 'Clear', admin_users_path, class: 'btn btn-default'        
+            
+                 
+      .sexy_line
+      .digi-box
+        - @contracts.each do |contract|
+          div id="contract_to_destroy_#{contract.id.to_s}"
+            .row
+              .col-sm-8
+                = link_to contract.title, admin_contract_path(contract, :format => 'pdf'), class: 'btn btn-default'
+              .col-sm-4
+                .row
+                  .col-sm-12
+                    .pull-right
+                      =< link_to edit_admin_contract_path(contract) do
+                        .btn.btn-default
+                          i.fa.fa-pencil
+                          '&nbsp;Edit
+                      =< link_to admin_contract_path(contract), data: { confirm: 'Are you sure?' } ,remote: true , :method => :delete do
+                        .btn.btn-default
+                          i.fa.fa-times
+            .sexy_line
+        /- @contracts.each do |contract|
+        /.row
+        /  .col-sm-6
+        /    = link_to contract.title, admin_contract_path( contract ), class: 'btn btn-default'
+        /  .col-sm-6
+        /    .pull-right
+        /      = link_to edit_admin_contract_path( contract ) do
+        /        .btn.btn-default
+        /          i.fa.fa-pencil
+        /          '&nbsp;Edit
+        /      
+
+      /.sexy_line
+      /== paginate(@users)        
+  == render 'shared/site_footer'    
+ 

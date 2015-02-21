@@ -18,19 +18,17 @@ class User::CommonWorkLyricsController < ApplicationController
   #end
 
   def edit
-    ap params
     @recording    = Recording.cached_find(params[:recording_id])
     @common_work  = CommonWork.cached_find(params[:id])
     
   end
 
   def update
-    @recording    = Recording.cached_find(params[:recording_id])
-    params.delete :recording_id
+    
     @common_work  = CommonWork.cached_find(params[:id])
     @common_work.update(common_work_params)
 
-    redirect_to edit_user_user_recording_common_work_credit_path(@user, @recording, @common_work)
+    redirect_to edit_user_user_common_work_credit_path(@user, @common_work)
     
   end
 

@@ -33,7 +33,7 @@
                   '&nbsp;
                   'Back
                   
-              = link_to edit_user_user_recording_common_work_lyric_path(@user, @recording, @common_work) do
+              = link_to edit_user_user_common_work_lyric_path(@user, @common_work) do
                 .btn.btn-default
                   'Skip
                   '&nbsp;
@@ -50,7 +50,7 @@
               .row
                 .col-sm-6
                   
-                  = f.hidden_field :recording_id, value: @recording.id
+                  /= f.hidden_field :recording_id, value: @recording.id
                   
                   = f.input :arrangement, label: 'Arrangement of public domain work',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
 

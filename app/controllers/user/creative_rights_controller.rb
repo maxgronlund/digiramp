@@ -6,15 +6,17 @@ class User::CreativeRightsController < ApplicationController
   
   def index
 
-    #@recordings = @user.recordings.order(:title)
-    if params[:commit] == 'Go' || params[:commit].nil?
-      @remove_old_recordings = true
-      session[:query] = params[:query]
-    end
     
-    session[:query] = nil if params[:clear] == 'clear'
-    params[:query]  = session[:query]
-    @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('position desc').page(params[:page]).per(48)
+    #if params[:commit] == 'Go' || params[:commit].nil?
+    #  @remove_old_recordings = true
+    #  session[:query] = params[:query]
+    #end
+    #
+    #session[:query] = nil if params[:clear] == 'clear'
+    #params[:query]  = session[:query]
+    
+    @common_works = CommonWork.account_search(@user.account, params[:query] ).order('title desc').page(params[:page]).per(48)
+    #@recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('position desc').page(params[:page]).per(48)
     #
     #
     #

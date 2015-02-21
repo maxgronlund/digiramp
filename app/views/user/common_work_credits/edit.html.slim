@@ -24,7 +24,7 @@
               == render 'admin/helps/help', identifier: 'common work credits'
         .col-sm-6
           .pull-right.pull-down-10
-            => link_to user_user_recording_common_work_path( @user, @recording, @common_work ) do
+            => link_to user_user_common_work_path( @user, @common_work ) do
               .btn.btn-default
                 i.fa.fa-chevron-left
                 '&nbsp;Back
@@ -39,7 +39,7 @@
       .sexy_line
       /== render 'user/common_works/wizard_step', step: 3
 
-      = simple_form_for [ @common_work.account.user, @recording, @common_work], 
+      = simple_form_for [ @common_work.account.user, @common_work], 
                           turboboost: true,
                           url:  url_for( controller: 'common_work_credits', action: 'update'), method: 'put' do |f| 
       

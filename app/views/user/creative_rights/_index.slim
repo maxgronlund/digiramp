@@ -1,8 +1,7 @@
-/.old-recordings
 .row
   .col-sm-12
     .pull-right
-      == paginate(@recordings)
+      == paginate(@common_works)
 .digi-box
   .row
     .col-sm-12
@@ -20,33 +19,32 @@
               th Clerance
       
           tbody
-            - recordings.each do |recording|
+            
+            - @common_works.each do |common_work|
               tr
                 td 
-                  => link_to user_user_recording_creative_right_path(@user, recording, recording.common_work) do
-                            .btn.btn-default.btn-xs
-                              i.fa.fa-copyright
-                  = link_to  user_user_recording_common_work_path(@user, recording, recording.common_work) do
+                  = link_to  user_user_common_work_path(@user, common_work) do
                                         .btn.btn-default.btn-xs
-                                          = recording.common_work.title
+                                          = common_work.title
                 td
-                  = link_to edit_user_user_recording_common_work_path(@user, recording, recording.common_work) do
+                  = link_to edit_user_user_common_work_path(@user, common_work) do
                     .btn.btn-default.btn-xs
-                      - count = recording.common_work.ipis.count
+                      - count = common_work.ipis.count
                       - if count == 0
                          i.fa.fa-exclamation
-                         '&nbsp;Missing
-                      - else
-                        i.fa.fa-magic
-                        =< count
-                td 
-                  = link_to edit_user_user_recording_credit_path(@user, recording)
-                    .btn.btn-default.btn-xs
-                      - count = recording.recording_ipis.count
-                      - if count == 0
-                        i.fa.fa-exclamation
-                        '&nbsp;Missing
+                         '&nbsp;No registered
                       - else
                         i.fa.fa-users
                         =< count
-                td 200%
+                td 
+                  - common_work.recordings.each do |recording|
+                    = link_to edit_user_user_recording_credit_path(@user, recording)
+                      .btn.btn-default.btn-xs
+                        - count = recording.recording_ipis.count
+                        - if count == 0
+                          i.fa.fa-exclamation
+                          '&nbsp;Missing
+                        - else
+                          i.fa.fa-users
+                          =< count
+                

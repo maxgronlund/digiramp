@@ -34,7 +34,7 @@ class User::CommonWorkCreditsController < ApplicationController
       @common_work.update(common_work_params)
     end
     
-    redirect_to user_user_recording_common_work_path(@user, @recording, @common_work)
+    redirect_to user_user_common_work_path(@user, @common_work)
     
   end
 

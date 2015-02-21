@@ -1,0 +1,2 @@
+module CommonWorkContractsHelper
+end

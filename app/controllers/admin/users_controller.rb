@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   
-  include UsersHelper
+  #include UsersHelper
   before_filter :admin_only
   
   before_action :set_user, only: [:show, :update, :destroy]

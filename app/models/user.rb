@@ -162,10 +162,9 @@ class User < ActiveRecord::Base
   has_many :client_groups
   
   has_many :forums, dependent: :destroy
-  
   has_many :campaigns
-  
   has_many :cms_pages
+  has_many :contracts
   
   #has_one :default_cms_page
   

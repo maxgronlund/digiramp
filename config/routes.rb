@@ -4,12 +4,6 @@ Digiramp::Application.routes.draw do
 
 
 
-  
-
-  
-
-  resources :contracts
-
   #get 'recording_credits/show'
   #
   #get 'recording_credits/edit'
@@ -419,7 +413,7 @@ Digiramp::Application.routes.draw do
 
   # Example resource route within a namespace:
   namespace :admin do
-    
+    resources :contracts
     resources :digiramp_ads
     
     resources :front_end_contents, only: [:edit, :update]
@@ -738,15 +732,19 @@ Digiramp::Application.routes.draw do
     #resources :common_work_lyrics
     resources :users do
       resources :creative_rights, only: [:index]
-      resources :common_works
+      resources :common_works do
+        resources :common_work_contracts
+      end
+      resources :common_works do
+        resources :creative_rights
+      end
+      resources :common_work_lyrics, only: [:edit, :update]
+      resources :common_work_credits, only: [:edit, :update]
+      resources :contracts
       resources :playlists, only: [:edit, :update]
       resources :recording_credits
       resources :recordings do
-        resources :creative_rights, only: [:show]
         resources :work_rights
-        resources :common_works, only: [:edit, :update, :show]
-        resources :common_work_lyrics, only: [:edit, :update]
-        resources :common_work_credits, only: [:edit, :update]
         resources :recording_confirmations, only: [:update]
       end
       #resources :work_rights, only: [:update]

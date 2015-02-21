@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219085014) do
+ActiveRecord::Schema.define(version: 20150221141812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -979,7 +979,18 @@ ActiveRecord::Schema.define(version: 20150219085014) do
     t.text     "subject"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "contract_type"
+    t.text     "body"
+    t.integer  "contractable_id"
+    t.string   "contractable_type"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.boolean  "template",          default: false
   end
+
+  add_index "contracts", ["account_id"], name: "index_contracts_on_account_id", using: :btree
+  add_index "contracts", ["contractable_id", "contractable_type"], name: "index_contracts_on_contractable_id_and_contractable_type", using: :btree
+  add_index "contracts", ["user_id"], name: "index_contracts_on_user_id", using: :btree
 
   create_table "customer_events", force: true do |t|
     t.string   "event_type"

@@ -24,7 +24,7 @@
               == render 'admin/helps/help', identifier: 'common work credits'
         .col-sm-6
           .pull-right.pull-down-10
-            => link_to edit_user_user_recording_common_work_path( @user, @recording, @common_work ) do
+            => link_to edit_user_user_common_work_path( @user, @common_work ) do
               .btn.btn-primary
                 i.fa.fa-pencil
                 '&nbsp;Edit
@@ -54,7 +54,7 @@
 
               
       
-      h4 Creative credits
+      h4 Creative credits & rights
       .digi-box
         .row
           .col-sm-12
@@ -99,15 +99,26 @@
                         .pull-right
                           == render 'user/common_works/confirmation', ipi: ipi
                           
-                                  
+                  tr
+                    td
+                    td
+                    td
+                    td
+                    td = @common_work.total_share
+                    td
                                 
         .sexy_line                        
         .row
           .col-sm-12
             .pull-right
+              = link_to 'Contracts', user_user_common_work_common_work_contracts_path(@user, @common_work), class: 'btn btn-default'
               - if @common_work.recordings
-                = link_to 'Edit credits', edit_user_user_recording_common_work_credit_path(@user, @common_work.recordings.first, @common_work), class: 'btn btn-default'
-      h4 Recordings credits
+                =< link_to 'Edit credits', edit_user_user_common_work_credit_path(@user, @common_work), class: 'btn btn-default'
+      
+      
+      
+      
+      h4 Recordings credits & rights
       - @common_work.recordings.each do |recording|
         #digiWhams  class="/recordings/#{recording.id.to_s}"
           == render 'user/recordings/show', recording: recording
