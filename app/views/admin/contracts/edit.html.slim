@@ -1,2 +1,46 @@
-h1 Admin::Contracts#edit
-p Find me in app/views/admin/contracts/edit.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      h2 Edit contract templates
+
+      .sexy_line
+      .digi-box
+        = simple_form_for [:admin, @contract ], :url => url_for(:action => 'update', 
+                                                                                  :controller => '/admin/contracts'), 
+                                                                                  turboboost: true, :method => 'put' do |f|
+
+          = f.hidden_field :template,         value: true
+          = f.input :contract_type, collection: Contract::TYPES, include_blank: false
+          = f.input :title, placeholder: 'Template name'
+  
+  
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
+            .pull-right
+              a data-wysihtml5-action="change_view"  Html 
+  
+          =f.input :body, label: false, :input_html => {  style: "height: 480px;", placeholder: "", id: 'wysihtml5_editor'}
+          .row
+            .col-sm-12
+              .pull-right
+                = f.submit 'Save', class: 'btn btn-primary'
+        
+        
+
+
+      /.sexy_line
+      /== paginate(@users)        
+  == render 'shared/site_footer'    
+ 
