@@ -1,0 +1,21 @@
+h1 Listing user_cms_contacts
+
+table
+  thead
+    tr
+      th Message
+      th
+      th
+      th
+
+  tbody
+    - @user_cms_contacts.each do |user_cms_contact|
+      tr
+        td = user_cms_contact.message
+        td = link_to 'Show', user_cms_contact
+        td = link_to 'Edit', edit_user_cms_contact_path(user_cms_contact)
+        td = link_to 'Destroy', user_cms_contact, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Cms contact', new_user_cms_contact_path

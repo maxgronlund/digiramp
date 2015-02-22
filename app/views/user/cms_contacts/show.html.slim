@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Message:
+  = @user_cms_contact.message
+
+= link_to 'Edit', edit_user_cms_contact_path(@user_cms_contact)
+'|
+= link_to 'Back', user_cms_contacts_path

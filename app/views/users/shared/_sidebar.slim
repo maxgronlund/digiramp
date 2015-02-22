@@ -23,11 +23,11 @@
             -else
               div id="follow_user_#{@user.id.to_s}"
               
-              -if current_user.following?(@user)
-                == render 'users/unfollow', user: @user
-              - else 
-                == render 'users/follow', user: @user
-
+                -if current_user.following?(@user)
+                  == render 'users/unfollow', user: @user
+                - else 
+                  == render 'users/follow', user: @user
+                
               .connect-container
                 .connect-buttons
                 == render 'users/connect', user: @user

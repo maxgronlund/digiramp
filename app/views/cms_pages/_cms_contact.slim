@@ -1,0 +1,37 @@
+- if current_user
+  
+  - unless current_user.id == @user.id
+
+
+    .connect-container.pull-down-10
+      .connect-buttons
+      == render 'users/connect', user: @user
+  - else
+    .pull-down-10
+      .btn.btn-primary.btn-xs
+        i.fa.fa-refresh
+        '&nbsp;Connect  
+- else
+  .pull-down-10
+    button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".become-member"
+      i.fa.fa-refresh
+      '&nbsp;Connect
+
+
+
+
+
+
+- if @cms_page.hide_sidebar
+  == render 'user/connections/modal', modal_id: "connect_modal_#{@user.id.to_s}", recipient: @user, subjebtable: @user 
+
+
+
+
+
+
+
+/- if current_user 
+/
+/- else
+     
