@@ -10,6 +10,7 @@ class Admin::UsersController < ApplicationController
     
 
   def index
+    ap params
     @users = User.search(params[:query]).order('lower(email) ASC').page(params[:page]).per(50)
     
   end

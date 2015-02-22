@@ -1,8 +1,7 @@
-= simple_form_for [@cms_contact] do |f|
-  = f.error_notification
+= simple_form_for [:user, @user, @cms_contact] do |f|
+  = f.input :message
 
-  .form-inputs
-    = f.input :message
-
-  .form-actions
-    = f.button :submit
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'

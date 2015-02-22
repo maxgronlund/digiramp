@@ -8,9 +8,9 @@ class User::CmsContactsController < ApplicationController
   
   def update
     cms_section           = @cms_contact.cms_section
-    cms_section.position = params[:cms_contact][:position]
+    #cms_section.position = params[:cms_contact][:position]
     cms_section.save!
-    params[:cms_text].delete :position
+    #params[:cms_text].delete :position
     @cms_contact.update(cms_contact_params) unless params[:cms_contact] == {}
 
     redirect_to edit_user_user_cms_page_path(@user, @cms_contact.cms_section.cms_page)

@@ -11,8 +11,11 @@
           .col-sm-12.pull-down-10
             .pull-right
               = link_to 'Edit', edit_user_user_cms_page_path(@user, @cms_page), class: 'btn btn-primary'
+        .row
+          .col-sm-12.pull-down-48
     
-  
+    == render 'shared/site_footer'   
+
 -else  
   #wrapper
     .full-width-top

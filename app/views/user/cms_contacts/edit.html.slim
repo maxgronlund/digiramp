@@ -1,8 +1,22 @@
-h1 Editing user_cms_contact
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Edit contact
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            == render 'form'
+                  
+  == render 'shared/site_footer'  
 
-== render 'form'
 
-= link_to 'Show', @user_cms_contact
-'|
-= link_to 'Back', user_cms_contacts_path
 
