@@ -107,7 +107,7 @@ class User::CmsSectionsController < ApplicationController
       @cms_section.cms_module_id    = @cms_contact.id
       @cms_section.cms_module_type  = @cms_contact.class.name
       @cms_section.save!
-      redirect_to edit_user_user_cms_contact_path(@user, @cms_contact)
+      redirect_to edit_user_user_cms_page_path(@user, @cms_contact.cms_section.cms_page)
       
     when 'Comment'
       @cms_comment = CmsComment.create
