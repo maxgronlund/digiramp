@@ -64,10 +64,18 @@ html
     = yield :charts_js
     = yield
     
+    - if current_user && @user
+      - if current_user.following?(@user)
+        == render 'modals/message', modal_id: "pmModal_#{@user.id.to_s}", recipient: @user, subjebtable: @user
+      - else
+        == render 'modals/connect', modal_id: "pmModal_#{@user.id.to_s}", recipient: @user, subjebtable: @user
+    - elsif @user
+      == render 'modals/become_member'
+      
     .fb-root
 
     
-    /  == render '/layouts/login'
+   
     
     
 
