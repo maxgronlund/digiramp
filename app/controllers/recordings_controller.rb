@@ -67,6 +67,7 @@ class RecordingsController < ApplicationController
           recording.title = File.basename(recording.original_file_name, ".*") 
         end
         recording.save
+        recording.check_default_image
         recording.common_work.update_completeness
         @recording = recording
 
@@ -137,7 +138,7 @@ class RecordingsController < ApplicationController
 
 
     if @recording.update_attributes(recording_params)
-         
+      
       @recording.extract_genres
       @recording.extract_instruments
       @recording.extract_moods
@@ -169,7 +170,7 @@ class RecordingsController < ApplicationController
           end 
         end
       end
-
+      @recording.check_default_image
 
       @recording.common_work.update_completeness if @recording.common_work
       

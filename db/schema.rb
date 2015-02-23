@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150221193628) do
+ActiveRecord::Schema.define(version: 20150223151643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2228,6 +2228,7 @@ ActiveRecord::Schema.define(version: 20150221193628) do
     t.boolean  "transferable",         default: false
     t.integer  "position",             default: 0
     t.datetime "featured_date"
+    t.string   "default_cover_art",    default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree

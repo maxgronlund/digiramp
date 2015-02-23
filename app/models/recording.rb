@@ -107,6 +107,8 @@ class Recording < ActiveRecord::Base
   #before_save :update_uuids
   after_commit :flush_cache
   before_destroy :remove_from_collections
+  #before_create :check_default_image
+  #before_save :check_default_image
   #after_create :count_stats_up
   
   # owners followers gets a new post on their dashboard
@@ -118,7 +120,7 @@ class Recording < ActiveRecord::Base
   
   #after_create  :update
   
-  #mount_uploader :cover_art, ArtworkUploader
+  mount_uploader :default_cover_art, ArtworkUploader
   
 
   
@@ -140,18 +142,47 @@ class Recording < ActiveRecord::Base
 
   
   def check_default_image
-    #if self.image_url == "/assets/fallback/artwork.jpg" || self.image.nil?
-    #  prng      = Random.new
-    #  random_id =  prng.rand(10)
+    if(self.cover_art.to_s == "")
+      prng      = Random.new
+      random_id =  prng.rand(12)
+    
+      if random_id < 10
+        random_id = '0' + random_id.to_s 
+      end
+      self.default_cover_art = File.open(Rails.root.join('app', 'assets', 'images', "recording-fallbacks/recording_#{random_id.to_s}.jpg"))
+      self.default_cover_art.recreate_versions!
+      self.save!
+    end
+  end
+  
+  def get_artwork
+    self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art
+    #begin
+    #  art = Artwork.cached_find(self.image_file_id)
+    #  return art.file
+    #rescue
+    #  return self.cover_art     unless self.cover_art == ''
+    #  return self.artwork       unless self.artwork.to_s ==''
+    #  return self.get_cover_art unless self.get_cover_art == ''
+    #end
     #
-    #  if random_id < 10
-    #    random_id = '0' + random_id.to_s 
-    #  end
-    #  self.image = File.open(Rails.root.join('app', 'assets', 'images', "opportunities/default_#{random_id.to_s}.jpg"))
-    #  self.image.recreate_versions!
-    #  self.save!
+    #return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
+  end
+  
+  def get_cover_art
+    
+    self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art 
+    #begin
+    #  system_settings = SystemSetting.first_or_create
+    #  system_settings.recording_artwork_id
+    #  default_image   = DefaultImage.find(system_settings.recording_artwork_id)
+    #  return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
+    #  #https://digiramp.com/uploads/default_image/recording_artwork/3/size_184x184_logo-03.jpg'
+    #rescue
+    #  return ''
     #end
   end
+  
   
   def send_notifications_on_create
     attach_to_common_work
@@ -526,31 +557,7 @@ class Recording < ActiveRecord::Base
     
   end
   
-  def get_artwork
-    
-    begin
-      art = Artwork.cached_find(self.image_file_id)
-      return art.file
-    rescue
-      return self.cover_art     unless self.cover_art == ''
-      return self.artwork       unless self.artwork.to_s ==''
-      return self.get_cover_art unless self.get_cover_art == ''
-    end
-    
-    return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
-  end
   
-  def get_cover_art
-    begin
-      system_settings = SystemSetting.first_or_create
-      system_settings.recording_artwork_id
-      default_image   = DefaultImage.find(system_settings.recording_artwork_id)
-      return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
-      #https://digiramp.com/uploads/default_image/recording_artwork/3/size_184x184_logo-03.jpg'
-    rescue
-      return ''
-    end
-  end
   
   def get_comment
     return self.comment unless self.comment.to_s == ''
