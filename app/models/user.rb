@@ -311,7 +311,7 @@ class User < ActiveRecord::Base
     
     if self.image_url.include?("/assets/fallback/default" )
       prng      = Random.new
-      random_id =  prng.rand(15)
+      random_id =  prng.rand(35)
 
       if random_id < 10
         random_id = '0' + random_id.to_s 
