@@ -134,4 +134,14 @@ class Admin::StatisticsController < ApplicationController
     @user_opportunities_views   = PageView.where(url: '/user/opportunities').where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
     @user_opportunities_chart   = @user_opportunities_views.group_by_day(:created_at).count
   end
+  
+  def tutorials
+    
+    @tutorials_index            = PageView.where(url: '/tutorials').where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @tutorials_index_chart      = @tutorials_index.group_by_day(:created_at).count
+    
+    @tutorial_views             = TutorialView.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @tutorial_views_chart       = @tutorial_views.group_by_day(:created_at).count
+    
+  end
 end

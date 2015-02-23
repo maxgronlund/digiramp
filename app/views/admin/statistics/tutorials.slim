@@ -1,0 +1,43 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'statistic'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,\
+                                                              statistics: admin_statistics_path \
+                                                             }, current: ''}
+      h2 Tutorials
+
+      .sexy_line
+      .digi-box
+        .row
+          .col-sm-6
+            h4 All times: #{ TutorialView.count}
+          .col-sm-6
+
+        .row
+          .col-sm-12
+            .sexy_line
+            h4 Tutorials index page
+            'Total: #{@tutorials_index.count} views
+            = line_chart @tutorials_index_chart
+        .row
+          .col-sm-12
+            .sexy_line
+            h4 Individual tutorials
+            'Total: #{@tutorial_views.count} views
+            = line_chart @tutorial_views_chart
+        
+          
+  == render 'shared/site_footer'  

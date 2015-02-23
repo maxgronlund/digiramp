@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223151643) do
+ActiveRecord::Schema.define(version: 20150223224659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2376,6 +2376,16 @@ ActiveRecord::Schema.define(version: 20150223151643) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tutorial_views", force: true do |t|
+    t.integer  "tutorial_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tutorial_views", ["tutorial_id"], name: "index_tutorial_views_on_tutorial_id", using: :btree
+  add_index "tutorial_views", ["user_id"], name: "index_tutorial_views_on_user_id", using: :btree
 
   create_table "tutorials", force: true do |t|
     t.string   "title"

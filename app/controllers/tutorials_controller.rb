@@ -4,7 +4,7 @@ class TutorialsController < ApplicationController
   # GET /tutorials
   # GET /tutorials.json
   def index
-    PageView.create(url: request.url.gsub(request.protocol + request.host_with_port, '') )
+    PageView.create(url: '/tutorials' )
     @tutorials = Tutorial.all
     @user = current_user if current_user
   end
@@ -12,7 +12,10 @@ class TutorialsController < ApplicationController
   # GET /tutorials/1
   # GET /tutorials/1.json
   def show
+    
     @user = current_user if current_user
+    TutorialView.create(tutorial_id: @tutorial.id, user_id: @user)
+    
   end
 
   # GET /tutorials/new

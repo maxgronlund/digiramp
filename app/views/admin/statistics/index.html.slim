@@ -83,6 +83,18 @@
                     li People
                     li Recordings
                     li And other..
+          
+          .admin-badge-container
+            = link_to tutorials_admin_statistic_path(0) do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-folder-o
+                    '&nbsp;Turotials
+                .body
+                  ul
+                    li Landing page
+                    li Tutorials
 
   
   == render 'shared/site_footer'  
