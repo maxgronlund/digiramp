@@ -13,6 +13,6 @@
     
     - unless connection.approved
       - unless connection.dismissed
-        = f.submit "Decline", class: 'btn btn-default'
+        = f.submit "Dismiss", class: 'btn btn-default'
         '&nbsp;
     = f.submit connection.approved ? 'Disconnect' : 'Accept invitation', class: 'btn btn-primary'

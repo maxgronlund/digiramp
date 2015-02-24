@@ -39,15 +39,15 @@
                 == render 'music_submissions/selected', music_submission: music_submission
               
               br
-              - if current_user  
-                h6
-                = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{music_submission.id.to_s}" do
-                  .btn.btn-default.btn-xs
-                    i.fa.fa-envelope
-                    '&nbsp;Send message  
-      
-                == render 'messages/modal', modal_id: "pmModal_#{music_submission.id.to_s}",  recipient: music_submission.user, subjebtable: music_submission
-                '&nbsp; 
+              /- if current_user  
+              /  h6
+              /  = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{music_submission.id.to_s}" do
+              /    .btn.btn-default.btn-xs
+              /      i.fa.fa-envelope
+              /      '&nbsp;Send message  
+              /
+              /  == render 'messages/modal', modal_id: "pmModal_#{music_submission.id.to_s}",  recipient: music_submission.user, subjebtable: music_submission
+              /  '&nbsp; 
                     
             .col-sm-8
               #digiWhams  class="/recordings/#{recording.id.to_s}"

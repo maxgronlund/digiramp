@@ -27,23 +27,43 @@
           - unless  @message.sender.id == @user.id
             .row
               .col-sm-12
-                -if received_message  && @message.user_can_reply( @user )
-                  = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@message.id.to_s}" do
-                    .btn.btn-default
-                      i.fa.fa-reply
-                      '&nbsp;Reply
-                - else
-                  .row
-                    .col-sm-12.pull-down-12
-                      h4 You are not connected
-                      'But you can reply to this message
-                      br
-                      .pull-down-12
-                      = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{@message.id.to_s}" do
+                -if received_message  &&  @message.user_can_reply( @user )
+
+                  / Send message
+                  = link_to new_message_digalog_path( sender: current_user, 
+                                                      receiver: @message.sender,
+                                                      title: "re: #{@message.title}",
+                                                      subjebtable_id: @message.id,
+                                                      subjebtable_type: 'Message'), remote: true do
                         .btn.btn-default
                           i.fa.fa-reply
-                          '&nbsp;Reply
+                            '&nbsp;Reply
+                
+                
+                  /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#message_modal_#{@message.id.to_s}" do
+                  /  .btn.btn-default
+                  /    i.fa.fa-reply
+                  /    '&nbsp;Reply
+                - elsif @message.subjebtable_type == 'Connection'
+                  .row
+                    .col-sm-12.pull-down-12
+                      = link_to new_message_digalog_path(sender: current_user, 
+                                                        receiver: @message.sender, 
+                                                        title: "re: #{@message.title}",
+                                                        subjebtable_id: @message.id,
+                                                        subjebtable_type: 'Message'), remote: true do
+                            .btn.btn-default
+                              i.fa.fa-reply
+                                '&nbsp;Reply
+                      .alert.alert-info
+                        b You can reply to this invitation without accepting connecting to the inviter
+                        ul
+                           li The inviter can only contact you again if you accept this invitaion
+                           li If you accept this invitation you can dismiss it at any time, and the inviter will be unable to contact you again
+                        
+          
           .pull-down-12
+          .sexy_line
         .row
           .col-sm-12
             .sender-avatar
@@ -119,7 +139,7 @@
   == render 'shared/site_footer'    
  
 - if @message.sender
-  == render 'messages/modal', modal_id: "pmModal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message, title: "re: #{@message.title}"
+  == render 'messages/modal', modal_id: "message_modal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message, title: "re: #{@message.title}"
   
 javascript:
   update_count();

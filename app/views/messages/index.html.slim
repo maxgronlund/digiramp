@@ -31,11 +31,11 @@
                     h4 All messages between you and #{user.user_name}
                   .col-sm-4
                     .pull-right.pull-down-10
-                      = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{user.id.to_s}" do
+                      = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#message_modal_#{user.id.to_s}" do
                         .btn.btn-primary
                           i.fa.fa-envelope
                           '&nbsp;New message 
-                      == render 'messages/modal', modal_id: "pmModal_#{user.id.to_s}", recipient: user, subjebtable: user
+                      == render 'messages/modal', modal_id: "message_modal_#{user.id.to_s}", recipient: user, subjebtable: user
                       
                       
               

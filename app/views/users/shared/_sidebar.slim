@@ -14,32 +14,28 @@
           
         .user-buttons 
           - if current_user 
+            
             - if current_user.id == @user.id
-               = link_to edit_user_path(current_user) do
-                 .btn.btn-default.btn-xs
-                   i class="fa fa-pencil"
-                   '&nbsp;
-                   'Edit profile
-            -else
+              / Edit profile
+              = link_to edit_user_path(current_user) do
+                .btn.btn-default.btn-xs
+                  i class="fa fa-pencil"
+                  '&nbsp;
+                  'Edit profile
+            - else
+              / Follow / unfollow
               div id="follow_user_#{@user.id.to_s}"
-              
                 -if current_user.following?(@user)
                   == render 'users/unfollow', user: @user
                 - else 
                   == render 'users/follow', user: @user
-                
+     
               .connect-container
                 .connect-buttons
                 == render 'users/connect', user: @user
+
+          
               
-          - else
-            button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".become-member"
-              i.fa.fa-refresh
-              '&nbsp;Connect
-            /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "become-member" do
-            /  .btn.btn-primary.btn-xs
-            /    i.fa.fa-refresh
-            /    '&nbsp;Connectx
       .sexy_line 
     li class="#{'sidebar-selected' if selected == 'profile'}"
       = link_to user_path(@user) do

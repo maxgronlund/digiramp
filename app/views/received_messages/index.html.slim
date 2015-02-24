@@ -34,6 +34,14 @@
           table
             .table-responsive
               table class="table table-hover"
+                thead
+                  tr
+                    th
+                    th Subject
+                    th Unread
+                    th
+                    th
+                      
                 tbody
                   - @user.received_massages.order(created_at: :desc).each.each do |message|
                     == render 'messages/message', message: message

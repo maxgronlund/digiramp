@@ -2,93 +2,48 @@
 Digiramp::Application.routes.draw do
 
 
-
-
-
-
-  #get 'recording_credits/show'
-  #
-  #get 'recording_credits/edit'
-  #
-  #get 'recording_credits/update'
-
-  resources :share_and_login, only: [:show]
-
-  resources :twitter_cards
-
-  #get 'replies/create'
-  #get 'replies/update'
-  #get 'replies/destroy'
-  
-  resources :cms_modules, only: [:show,:index]
-
-  resources :forum_posts
-  resources :forums, only: [:index, :show, :destroy]
-  resources :replies, only: [ :create, :update, :destroy, :edit]
-  
-  
-  resources :disqus
-
-  resources :selected_opportunities, only: [:show]
-  resources :public_opportunities, only: [:index, :show]
-
-  get 'search/index'
-
-  get 'user_ipis/index'
-
-  get "recordings/rezip"
-
-  resources :recording_zip_exports
-
-  resources :reprocess_recordings, only: [:show]
-
-  resources :unsubscribes
-
-  resources :homes
-  
-  get "home/index"
-  #root to: "home#index"
-  
-  get 'welcome/index'
-  root to: 'welcome#index'
-
-  #resources :message_counts
-
-  resources :message_counts
-
-  resources :follower_events, only: [:destroy]
-  resources :enterprise_account_info, only: [:index]
-  resources :business_account_info, only: [:index]
-  resources :pro_account_info, only: [:index]
-  resources :social_account_info, only: [:index]
-
-  resources :share_on_twitters
-
   resources :add_to_playlists, only: [:create]
-  
-  
-  resources :remove_from_playlists, only: [:destroy]
-
+  resources :business_account_info, only: [:index]
   resources :comments
   resources :contacts, only: [:new, :create, :show ]
   resources :create_playlists, only: [:new, :create]
   resources :digi_whams
   resources :discover, only: [:index]
-  #resources :fobars
+  resources :connection_digalogs, only: [:new]
+  resources :cms_modules, only: [:show,:index]
+  resources :embed, only: [:index, :show]
+  resources :enterprise_account_info, only: [:index]
+  resources :forum_posts
+  resources :forums, only: [:index, :show, :destroy]
+  resources :follower_events, only: [:destroy]
+  resources :gitter, only: [:index]
+  resources :homes
+  get "home/index"
+  resources :message_counts
+  resources :message_digalogs, only: [:new]
+  resources :pro_account_info, only: [:index]
+  resources :public_opportunities, only: [:index, :show]
+  resources :recording_zip_exports
+  resources :remove_from_playlists, only: [:destroy]
+  resources :reprocess_recordings, only: [:show]
+  resources :replies, only: [ :create, :update, :destroy, :edit]
+  resources :share_and_login, only: [:show]
+  resources :selected_opportunities, only: [:show]
+  resources :share_on_twitters
+  resources :social_account_info, only: [:index]
+  resources :twitter_cards
+  resources :unsubscribes
+  
+  get 'search/index'
+  get 'user_ipis/index'
+  get "recordings/rezip"
 
+  #root to: "home#index"
+  
+  get 'welcome/index'
+  root to: 'welcome#index'
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   
-  #match 'auth/failure', to: redirect('/')
-    
-  
-
-  #scope "api" do
-  #  resources :digi_wham_resources
-  #end
-  
-  resources :embed, only: [:index, :show]
-  resources :gitter, only: [:index]
-
 
   resources :music_submissions_ratings, only: [:update]
   resources :playlists, only: [:index, :show] 
