@@ -40,10 +40,7 @@
                             '&nbsp;Reply
                 
                 
-                  /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#message_modal_#{@message.id.to_s}" do
-                  /  .btn.btn-default
-                  /    i.fa.fa-reply
-                  /    '&nbsp;Reply
+
                 - elsif @message.subjebtable_type == 'Connection'
                   .row
                     .col-sm-12.pull-down-12
@@ -72,9 +69,7 @@
               b = @message.sender.user_name
          
 
-        
-        
-        
+
           
         .row
           .col-sm-12
