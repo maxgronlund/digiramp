@@ -1,5 +1,5 @@
 - modal_id = "message_modal_#{@user.id.to_s}"
-.modal.fade id="#{modal_id}" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true"
+.modal.fade id= modal_id tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true"
   .modal-dialog
     .modal-content
       .modal-header
@@ -20,8 +20,8 @@
             = f.hidden_field :subjebtable_id, value: @user.id
             = f.hidden_field :subjebtable_type, value: @user.class.name
             
-            = f.input :title, label: 'Subject', :input_html => {  id: "title_#{modal_id}",  placeholder: 'Required'}
-            = f.input :body, :input_html => {  style: "height: 280px;", placeholder: "Message", id: "body_#{modal_id}" }
+            = f.input :title, label: 'Subject', :input_html => {  id: "message_title",  placeholder: 'Required'}
+            = f.input :body, :input_html => {  style: "height: 280px;", placeholder: "Message", id: "message_body" }
             
           .modal-footer
             = f.submit "Cancel", :type => "reset", class: 'btn btn-default',  "data-dismiss".to_sym => "modal"
