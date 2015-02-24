@@ -3,6 +3,7 @@ Digiramp::Application.routes.draw do
 
 
   resources :add_to_playlists, only: [:create]
+  resources :become_members, only: [:new]
   resources :business_account_info, only: [:index]
   resources :comments
   resources :contacts, only: [:new, :create, :show ]
@@ -21,80 +22,52 @@ Digiramp::Application.routes.draw do
   get "home/index"
   resources :message_counts
   resources :message_digalogs, only: [:new]
+  resources :music_submissions_ratings, only: [:update]
   resources :pro_account_info, only: [:index]
   resources :public_opportunities, only: [:index, :show]
-  resources :recording_zip_exports
-  resources :remove_from_playlists, only: [:destroy]
-  resources :reprocess_recordings, only: [:show]
-  resources :replies, only: [ :create, :update, :destroy, :edit]
-  resources :share_and_login, only: [:show]
-  resources :selected_opportunities, only: [:show]
-  resources :share_on_twitters
-  resources :social_account_info, only: [:index]
-  resources :twitter_cards
-  resources :unsubscribes
-  
-  get 'search/index'
-  get 'user_ipis/index'
-  get "recordings/rezip"
-
-  #root to: "home#index"
-  
-  get 'welcome/index'
-  root to: 'welcome#index'
-  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
-  
-
-  resources :music_submissions_ratings, only: [:update]
   resources :playlists, only: [:index, :show] 
   resources :playlist_recordings, only: [:destroy]
   resources :recordings, only: [:index, :show] do
     resources :share_recording_with_emails
   end
+  resources :recording_zip_exports
+  resources :remove_from_playlists, only: [:destroy]
+  resources :reprocess_recordings, only: [:show]
+  resources :replies, only: [ :create, :update, :destroy, :edit]
   resources :recording_widgets, only: [:show]
   resources :remove_from_playlists, only: [:destroy]
   resources :share_on_facebooks, only: [:create, :show]
   resources :share_recordings, only: [:new, :edit, :create, :destroy]
   resources :songs, only: [:index, :show]
-
-  
-  #resources :footages
-  #resources :pro_affiliations
-  
+  resources :share_and_login, only: [:show]
+  resources :selected_opportunities, only: [:show]
+  resources :share_on_twitters
+  resources :social_account_info, only: [:index]
+  resources :terms_and_conditions, only: [:index]
   resources :tutorials
+  resources :twitter_cards
+  resources :uploads
+  resources :unsubscribes
+  resources :video_posts
   resources :widgets
-
-
+  get 'search/index'
+  get 'user_ipis/index'
+  get "recordings/rezip"
+  get 'welcome/index'
+  root to: 'welcome#index'
+  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   get "albums/index"
   get "albums/show"
   get "albums/new"
   get "albums/edit"
-  
-
-  
-  #get "export_works_csv/index"
-  #get "export_works/index"
-  resources :video_posts
-
   get "signup/index"
   get "tags/index"
-  #get "user_genre_tags/index"
   get "permissions/index"
-  resources :uploads
   require 'sidekiq/web'
   
   
   get 'account/embed/:id', to: 'embed#show'
   
-
-
-  #get "selling_points/selling_point_1"
-  #get "selling_points/selling_point_2"
-  #get "selling_points/selling_point_3"
-  
-  resources :terms_and_conditions, only: [:index]
-  
-  #resources :collections, controller: 'accounts', only: [:show, :edit, :update] do
   resources :accounts, only: [:show, :edit, :update] do
     
     #resources :add_catalog_assets, only: [:show]

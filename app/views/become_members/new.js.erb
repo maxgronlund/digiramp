@@ -1,0 +1,12 @@
+$(".open-dialog").append("<%= j render 'become_members/dialog', connect_to_user: @connect_to_user %>");
+
+$('#digirampDialog').modal('show')
+
+
+
+javascript:
+
+  $("#digirampDialog").on('hidden.bs.modal', function (event) {
+    $(".old-dialog").remove()
+  });
+  

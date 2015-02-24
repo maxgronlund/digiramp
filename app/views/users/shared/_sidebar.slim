@@ -34,7 +34,11 @@
                 .connect-buttons
                 == render 'users/connect', user: @user
 
-          
+          - else
+            = link_to new_become_member_path(user: @user), remote: true do
+                  .btn.btn-primary.btn-xs
+                    i.fa.fa-refresh
+                    '&nbsp;Connect
               
       .sexy_line 
     li class="#{'sidebar-selected' if selected == 'profile'}"
