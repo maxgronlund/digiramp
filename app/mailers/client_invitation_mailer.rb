@@ -40,9 +40,12 @@ class ClientInvitationMailer < ActionMailer::Base
       index        = 0
       
       clients.each do |client|
-        if client.member_id.nil?
-          invitations[index] = create_invitation( client )
-          index += 1
+        begin
+          if client.member_id.nil?
+            invitations[index] = create_invitation( client )
+            index += 1
+          end
+        rescue
         end
       end
       

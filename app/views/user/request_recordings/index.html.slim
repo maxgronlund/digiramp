@@ -34,6 +34,20 @@
       = @music_request.title
       .sexy_line
       .row
+        .col-sm-12
+          .new-recording
+            = link_to new_user_recording_path(@user, request_from: request.url) do
+              .new-recording-badge
+                .new-recording-badge-content
+                  i.fa.fa-plus-circle
+
+              .new-recording-content
+                .new-recording-text
+                  h3 Click here to upload recording
+                .new-recording-waveform
+                  = image_tag 'default_waveform.png'
+                  
+      .row
         .col-sm-5
         .col-sm-7
           = simple_form_for  [ :user, @user, @opportunity, @music_request], :url => url_for(:action => 'index', \
@@ -52,21 +66,14 @@
                 '&nbsp;
                 = link_to 'Clear', user_user_opportunity_music_request_request_recordings_path(@user, @opportunity, @music_request), class: 'btn btn-default'
       
+      
+                  
+
+      
       .row
-        br
         .col-sm-12
-          .row
-            .col-sm-8
-              h4 
-                ' Please select a recording from your account 
-            .col-sm-4
-              .pull-right
-                = link_to new_user_recording_path(@user) do
-                  .btn.btn-default 
-                    
-                    i.fa.fa-cloud-upload &nbsp;
-                    'Upload new recording
-                
+          h4 Please select a recording uploaded to your account 
+            
           .endless-pages
           .add_recordings
             
