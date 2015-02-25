@@ -8,24 +8,50 @@
             '&nbsp;
         .connection-link
           = link_to @user.user_name, user_path( @user)
-          - if current_user
+          
+          
+          - if current_user 
             
-            - unless current_user.id == @user.id
-          
-          
-              .connect-container.pull-down-6
+            - if current_user.id == @user.id
+              / Dummy button
+              .btn.btn-primary.btn-xs
+                i.fa.fa-refresh
+                '&nbsp;Connect
+            - else
+              .connect-container
                 .connect-buttons
                 == render 'users/connect', user: @user
-            - else
-              .pull-down-6
-                .btn.btn-primary.btn-xs
-                  i.fa.fa-refresh
-                  '&nbsp;Connect  
+
           - else
-            button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".become-member"
-              i.fa.fa-refresh
-              '&nbsp;Connect
+            / connect when not logged in
+            = link_to new_become_member_path(user: @user), remote: true do
+                  .btn.btn-primary.btn-xs
+                    i.fa.fa-refresh
+                    '&nbsp;Connect
           
+          
+          
+          
+          
+          
+          /- if current_user
+          /  
+          /  - unless current_user.id == @user.id
+          /
+          /
+          /    .connect-container.pull-down-6
+          /      .connect-buttons
+          /      == render 'users/connect', user: @user
+          /  - else
+          /    .pull-down-6
+          /      .btn.btn-primary.btn-xs
+          /        i.fa.fa-refresh
+          /        '&nbsp;Connect  
+          /- else
+          /  button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".become-member"
+          /    i.fa.fa-refresh
+          /    '&nbsp;Connect
+          /
         
         
         
