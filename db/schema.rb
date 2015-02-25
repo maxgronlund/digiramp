@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223224659) do
+ActiveRecord::Schema.define(version: 20150225212709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -830,7 +830,7 @@ ActiveRecord::Schema.define(version: 20150223224659) do
 
   create_table "cms_sections", force: true do |t|
     t.integer  "cms_page_id"
-    t.integer  "position"
+    t.integer  "position",        default: 0
     t.integer  "column_nr"
     t.string   "cms_type"
     t.integer  "cms_module_id"

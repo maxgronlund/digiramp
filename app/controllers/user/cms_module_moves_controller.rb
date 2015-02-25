@@ -17,7 +17,7 @@ class User::CmsModuleMovesController < ApplicationController
       if section.position == cms_section.position - 1
         section.position      += 1
         section.save!
-        cms_section.position -= 1
+        cms_section.position  -= 1
         cms_section.save!
       end
     end
