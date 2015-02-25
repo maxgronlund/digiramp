@@ -62,11 +62,13 @@ class ContactInvitationsController < ApplicationController
   def decline_connection
     begin
       client_invitation     = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
-      @inviter              = User.cached_find(client_invitation.user_id)
-      #xxxxxxxxxxxxxxxx not right xxxxxxxxxxxxxxxxxxxxxxx
-      connection            = connect_with_user( current_user, @inviter )
-      connection.dismissed  = true
-      connection.save!
+      if @inviter              = User.cached_find(client_invitation.user_id)
+        connection            = connect_with_user( current_user, @inviter )
+        connection.dismissed  = true
+        connection.save!
+      else
+         @error = 'Error'
+      end
     rescue
       @error = 'Error'
     end

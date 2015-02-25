@@ -2,7 +2,7 @@ class User::RequestRecordingsController < ApplicationController
   
   
   def index
-    ap params
+
     get_private_user
     @recordings = []
     begin
@@ -12,7 +12,7 @@ class User::RequestRecordingsController < ApplicationController
       music_submission_ids  = MusicSubmission.where(id: @music_request.music_submission_ids).pluck(:recording_id)
       recording_ids         = user_recording_ids - music_submission_ids
       if params[:query]
-        @remove_old_recordings = true
+        #@remove_old_recordings = true
         recordings            = Recording.where(id: recording_ids)
         @recordings           = Recording.recordings_search(recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
       else
@@ -21,7 +21,7 @@ class User::RequestRecordingsController < ApplicationController
     rescue
       
     end
-    #.page(params[:page]).per(4)
+
   end
   
   def update

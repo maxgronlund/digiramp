@@ -1,0 +1,93 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'opportunities'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'opportunities'.to_sym => user_user_opportunities_path(@user), \
+      /                                                        @opportunity.title.to_sym => user_user_selected_opportunity_path(@user, @opportunity)}, current: ''}
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Submit Recordings
+            .help-button
+              == render 'admin/helps/help', identifier: 'submit recordings'
+          
+        .col-sm-7
+          .pull-right
+            .recording-navigation
+              == link_to opportunity_opportunity_path( @opportunity ) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+        
+      = @music_request.title
+      .sexy_line
+      h4 Upload recording
+      'Only do this if the recording isn't uploaded already 
+      .row.pull-down-12
+        .col-sm-12
+          .new-recording
+            = link_to new_user_recording_path(@user, request_from: request.url) do
+              .new-recording-badge
+                .new-recording-badge-content
+                  i.fa.fa-plus-circle
+
+              .new-recording-content
+                .new-recording-text
+                  h3 Click here to upload recording
+                .new-recording-waveform
+                  = image_tag 'default_waveform.png'
+                  
+     
+
+      .sexy_line
+          .row
+            .col-sm-6
+          
+              h4 Select recording
+              'Recordings already submitted is not shown
+            .col-sm-6.pull-down-12
+              = simple_form_for  [ :user, @user, @opportunity, @music_request], :url => url_for(:action => 'index', \
+                                                            :controller => 'request_recordings'), \
+                                                            :method => 'get', \
+                                                            turboboost: true do |f|
+
+                .input-group
+                  span class="input-group-addon"
+                    i class= 'fa fa-search'
+                  = text_field_tag "query", "", :class => 'search-query form-control', \
+                                                :placeholder => 'Search', \
+                                                value: params[:query]
+                  .input-group-btn
+                    = f.submit 'Go', class: "btn btn-primary"
+                    '&nbsp;
+                    = link_to 'Clear', user_user_opportunity_music_request_request_recordings_path(@user, @opportunity, @music_request), class: 'btn btn-default'
+          .row.pull-down-12
+            .col-sm-12
+              .endless-pages
+              .add_recordings
+            
+              
+
+
+              == render 'recordings/index', recordings: @recordings
+           
+              == paginate(@recordings)
+      
+      
+          
+      == render 'shared/site_footer'  
+      
+

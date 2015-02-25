@@ -769,11 +769,10 @@ Digiramp::Application.routes.draw do
   
   #=================== OPPORTUNITY =========================
   namespace :opportunity do
-    
-    
     resources :opportunities, only: [:index, :show] do
       resources :recordings
       resources :music_requests do
+        resources :request_recordings, only: [:index]
         resources :submit_from, only: [:index]  # <<<<<<<<<<<<< kil this
         resources :common_works do
           resources :recordings

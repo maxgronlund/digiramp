@@ -33,7 +33,9 @@
         
       = @music_request.title
       .sexy_line
-      .row
+      h4 Upload recording
+      'Only do this if the recording isn't uploaded already 
+      .row.pull-down-12
         .col-sm-12
           .new-recording
             = link_to new_user_recording_path(@user, request_from: request.url) do
@@ -47,13 +49,19 @@
                 .new-recording-waveform
                   = image_tag 'default_waveform.png'
                   
+     
+
+      .sexy_line
       .row
-        .col-sm-5
-        .col-sm-7
+        .col-sm-6
+          
+          h4 Select recording
+          'Recordings already submitted is not shown
+        .col-sm-6.pull-down-12
           = simple_form_for  [ :user, @user, @opportunity, @music_request], :url => url_for(:action => 'index', \
                                                         :controller => 'request_recordings'), \
                                                         :method => 'get', \
-                                                        remote: true do |f|
+                                                        turboboost: true do |f|
 
             .input-group
               span class="input-group-addon"
@@ -65,16 +73,8 @@
                 = f.submit 'Go', class: "btn btn-primary"
                 '&nbsp;
                 = link_to 'Clear', user_user_opportunity_music_request_request_recordings_path(@user, @opportunity, @music_request), class: 'btn btn-default'
-      
-      
-                  
-
-      
-      .row
+      .row.pull-down-12
         .col-sm-12
-          h4 Recording uploaded to your account 
-          'Recordings already submitted is not shown
-            
           .endless-pages
           .add_recordings
             
