@@ -309,8 +309,8 @@ class User < ActiveRecord::Base
   
   def set_default_avatar
     
-    unless File.exist?(Rails.root.join('public' +  self.image_url.to_s))
-      
+    #unless File.exist?(Rails.root.join('public' +  self.image_url.to_s))
+    if self.image_url.include?("/assets/fallback/default" )  
       prng       = Random.new
       random_id =  prng.rand(85)
 
