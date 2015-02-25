@@ -1,34 +1,34 @@
-- if @cms_page.hide_sidebar
-  .pull-down-10
-    .row
-      .col-sm-12
-        .connection-avatar
-          = link_to user_path( @user) do
-            = image_tag @user.image_url(:avatar_48x48)
-            '&nbsp;
-        .connection-link
-          = link_to @user.user_name, user_path( @user)
-          
-          
-          - if current_user 
-            
-            - if current_user.id == @user.id
-              / Dummy button
-              .btn.btn-primary.btn-xs
-                i.fa.fa-refresh
-                '&nbsp;Connect
-            - else
-              .connect-container
-                .connect-buttons
-                == render 'users/connect', user: @user
-
-          - else
-            / connect when not logged in
-            = link_to new_become_member_path(user: @user), remote: true do
-                  .btn.btn-primary.btn-xs
-                    i.fa.fa-refresh
-                    '&nbsp;Connect
-          
+/- if @cms_page.hide_sidebar
+/  .pull-down-10
+/    .row
+/      .col-sm-12
+/        .connection-avatar
+/          = link_to user_path( @user) do
+/            = image_tag @user.image_url(:avatar_48x48)
+/            '&nbsp;
+/        .connection-link
+/          = link_to @user.user_name, user_path( @user)
+/          
+/          
+/          - if current_user 
+/            
+/            - if current_user.id == @user.id
+/              / Dummy button
+/              .btn.btn-primary.btn-xs
+/                i.fa.fa-refresh
+/                '&nbsp;Connect
+/            - else
+/              .connect-container
+/                .connect-buttons
+/                == render 'users/connect', user: @user
+/
+/          - else
+/            / connect when not logged in
+/            = link_to new_become_member_path(user: @user), remote: true do
+/                  .btn.btn-primary.btn-xs
+/                    i.fa.fa-refresh
+/                    '&nbsp;Connect
+/          
           
           
           
