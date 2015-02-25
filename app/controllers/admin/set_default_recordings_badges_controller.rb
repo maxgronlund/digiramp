@@ -1,8 +1,9 @@
-class Admin::SetDefaultAvatarsController < ApplicationController
+class Admin::SetDefaultRecordingsBadgesController < ApplicationController
   before_filter :admin_only
   def index
-    User.find_each do |user|
-      user.set_default_avatar
+    #count = 0
+    Recording.find_each do |recording|
+      recording.check_default_image
     end
     redirect_to admin_engine_room_index_path
   end

@@ -35,7 +35,7 @@
         .digi-box
           = render 'user/opportunities/show', opportunity: @opportunity
 
-        br
+        
         h3 Requests        
         - @opportunity.music_requests.order('created_at asc').each do |music_request|
           == render 'user/selected_opportunities/music_request', music_request: music_request

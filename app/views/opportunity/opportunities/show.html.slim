@@ -9,189 +9,253 @@
   
   #page-content-wrapper
     .container-fluid 
-      h2 Opportunity
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 = @opportunity.title
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'show account opportunity'
       .sexy_line
-      .opportunity
-        .row
-          .col-sm-2
-            .opportunity-image
-              = image_tag @opportunity.image_url(:size_184x184)
-          .col-sm-10
-            h4 = @opportunity.title
-           
-            
-            .row
-              .col-sm-6
-                 = simple_format @opportunity.body
-                
-              .col-sm-6
-                .oppoptunity-info
-                  /'From:
-                  /.pull-right
-                  /  = @opportunity.account.title
-                  /.sexy_line
-                  'Kind:
-                  .pull-right
-                    = @opportunity.kind
-                  .sexy_line
-                  'Budget:
-                  .pull-right
-                    = @opportunity.budget
-                  .sexy_line
-                  'Deadline:
-                  .pull-right
-                    - if @opportunity.deadline && @opportunity.deadline < Date.current
-                      .expired
-                        i class="fa fa-exclamation-circle"
-                        '&nbsp;
-                        = @opportunity.deadline
-                    - else
-                      = @opportunity.deadline
-                  - unless @opportunity.territory == ''
-                    .sexy_line
-                    'Territory:
-                    .pull-right
-                      = @opportunity.territory
-                
-                
-        /= debug opportunity
+      .opportunity.pull-down-4
+        == render 'opportunities/opportunity', opportunity: @opportunity
         
-        .clearfix
-        .sexy_line
-      .opportunity
-        - @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
-          .request-info
-            /= debug music_request.mp3
-            /== render 'audio_player/play_botton', recording: music_request.mp3 
-            .row
-              .col-sm-6
-                h4 = music_request.title
-                = simple_format music_request.body
-              .col-sm-6
-        
-                .no-borders.table-responsive
-                  table class="table table-condensed"
-                    tr
-                      th.description Value:
-                      td = music_request.fee
-        
-                    - unless  music_request.link.to_s == ''
-                      tr
-                        th.description Duration:
-                        td = music_request.duration_text
-                    - unless  music_request.link.to_s == ''
-                      tr
-                        th.description Sound like:
-                        td = link_to 'click here', music_request.link
-            .row
-          
-            
-          /= debug music_request
-      /== render 'opportunity/music_requests/requests'
-      /.opportunity 
-      /  .row
-      /    .col-sm-6
-      /      == render 'account/opportunities/description', opportunity: @opportunity, show_full_description: true
-      /      
-      /      /- if current_account_user.update_opportunity
-      /      /  .pull-right
-      /      /    = link_to edit_opportunity_opportunity_path( @opportunity) do
-      /      /      .btn.btn-xs.btn-default
-      /      /        i class="fa fa-pencil"
-      /      /        '&nbsp;
-      /      /        'Edit
-      /    .col-sm-6  
-      /      == render 'opportunity/music_requests/requests'
-            
+      h3 Requests
+      /== render 'opportunity/music_requests/index'
+      - @opportunity.music_requests.order('created_at asc').each do |music_request|
+        == render 'opportunity/music_requests/music_request', music_request: music_request
+      
+      
+      
   == render 'shared/site_footer'  
-   
 
 
-/#wrap
-/  div class="#{'profile' if account_owner?}"
-/    .full-width-top
-/      == render 'admin/shared/navbar', page: 'account'     
-/  .container
-/    == render 'admin/shared/messages' 
-/    == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path( @account.user), \
-/                                                            opportunities: user_user_opportunities_path(@account.user)  \
-/                                                          }, current: @opportunity.title} 
-/    
-/    == render 'shared/page_title_text', locals: {title: @opportunity.title, body: ''}
-/
-/    .row
-/      .col-sm-6
-/        .panel.panel-primary
-/          .panel-heading
-/            = @opportunity.title
-/          .panel-body
-/            = simple_format @opportunity.body
-/            /.table-responsive
-/            table class="table"
-/              tr
-/                td Kind:
-/                td = @opportunity.kind
-/              tr
-/                td Budget:
-/                td = number_to_currency(@opportunity.budget, locale: :en, precision: 2)
-/              tr
-/                td Deadline:
-/                td = @opportunity.deadline
-/            
-/                  
-/      .col-sm-6  
-/          
-/          
-/      .col-sm-6
-/        - if @opportunity.deadline < Date.current
-/          div class="alert alert-danger"
-/            button type="button" class="close" data-dismiss="alert" ×
-/            h4 Expired!
-/            'This opportunity is no longer open for submissions.
-/        - @opportunity.music_requests.order('created_at asc').each do |music_request|
-/          .panel.panel-primary
-/            .panel-heading
-/              = music_request.title
-/              '&nbsp;
-/            .panel-body
-/              /.table-responsive
-/              table class="table"
-/                tr
-/                  th Fee:
-/                  td = number_to_currency(music_request.fee, locale: :en, precision: 2)
-/                - unless  music_request.link.to_s == ''
-/                  tr
-/                    th Duration:
-/                    td = music_request.duration_text
-/                - unless  music_request.link.to_s == ''
-/                  tr
-/                    th Sound like:
-/                    td = link_to 'click here', music_request.link
-/                    
-/
-/              b Description:
-/              br
-/              = simple_format music_request.body
-/              br
-/              
-/              .pull-right
-/                - unless @opportunity.opportunity_users.empty?
-/                  - unless @opportunity.opportunity_users.where(user_id: current_user.id).first.nil?
-/                    = link_to opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
-/                                                                                             music_request) do 
-/                      .btn.btn-success.btn-lg
-/                        i class="fa fa-plus-circle"
-/                        '&nbsp;Add Submission
-/                '&nbsp;
-/                = link_to opportunity_opportunity_music_request_path( @opportunity, music_request) do
-/                  .btn.btn-default.btn-lg
-/                    i class="fa fa-eye"
-/
-/              
-/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/      /.opportunity
+/      /  .row
+/      /    .col-sm-2
+/      /      .opportunity-image
+/      /        = image_tag @opportunity.image_url(:size_184x184)
+/      /    .col-sm-10
+/      /      h4 = @opportunity.title
+/      /     
+/      /      
+/      /      .row
+/      /        .col-sm-6
+/      /           = simple_format @opportunity.body
+/      /          
+/      /        .col-sm-6
+/      /          .oppoptunity-info
+/      /            /'From:
+/      /            /.pull-right
+/      /            /  = @opportunity.account.title
+/      /            /.sexy_line
+/      /            'Kind:
+/      /            .pull-right
+/      /              = @opportunity.kind
+/      /            .sexy_line
+/      /            'Budget:
+/      /            .pull-right
+/      /              = @opportunity.budget
+/      /            .sexy_line
+/      /            'Deadline:
+/      /            .pull-right
+/      /              - if @opportunity.deadline && @opportunity.deadline < Date.current
+/      /                .expired
+/      /                  i class="fa fa-exclamation-circle"
+/      /                  '&nbsp;
+/      /                  = @opportunity.deadline
+/      /              - else
+/      /                = @opportunity.deadline
+/      /            - unless @opportunity.territory == ''
+/      /              .sexy_line
+/      /              'Territory:
+/      /              .pull-right
+/      /                = @opportunity.territory
+/      /          
+/      /          
+/      /  /= debug opportunity
 /        
-/         
-/    == render 'shared/back', locals: {link: user_user_opportunities_path(@account.user)} 
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
+/      /  .clearfix
+/      /  .sexy_line
+/      /.opportunity
+/      /  - @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
+/      /    .request-info
+/      /      /= debug music_request.mp3
+/      /      /== render 'audio_player/play_botton', recording: music_request.mp3 
+/      /      .row
+/      /        .col-sm-6
+/      /          h4 = music_request.title
+/      /          = simple_format music_request.body
+/      /        .col-sm-6
+/      /  
+/      /          .no-borders.table-responsive
+/      /            table class="table table-condensed"
+/      /              tr
+/      /                th.description Value:
+/      /                td = music_request.fee
+/      /  
+/      /              - unless  music_request.link.to_s == ''
+/      /                tr
+/      /                  th.description Duration:
+/      /                  td = music_request.duration_text
+/      /              - unless  music_request.link.to_s == ''
+/      /                tr
+/      /                  th.description Sound like:
+/      /                  td = link_to 'click here', music_request.link
+/      /      .row
+/      /    
+/      /      
+/          /= debug music_request
+/      /== render 'opportunity/music_requests/requests'
+/      /.opportunity 
+/      /  .row
+/      /    .col-sm-6
+/      /      == render 'account/opportunities/description', opportunity: @opportunity, show_full_description: true
+/      /      
+/      /      /- if current_account_user.update_opportunity
+/      /      /  .pull-right
+/      /      /    = link_to edit_opportunity_opportunity_path( @opportunity) do
+/      /      /      .btn.btn-xs.btn-default
+/      /      /        i class="fa fa-pencil"
+/      /      /        '&nbsp;
+/      /      /        'Edit
+/      /    .col-sm-6  
+/      /      == render 'opportunity/music_requests/requests'
+/            
 /
+/   
+/
+/
+//#wrap
+//  div class="#{'profile' if account_owner?}"
+//    .full-width-top
+//      == render 'admin/shared/navbar', page: 'account'     
+//  .container
+//    == render 'admin/shared/messages' 
+//    == render 'shared/breadcrumbs', breadcrumbs: { links: { home: user_path( @account.user), \
+//                                                            opportunities: user_user_opportunities_path(@account.user)  \
+//                                                          }, current: @opportunity.title} 
+//    
+//    == render 'shared/page_title_text', locals: {title: @opportunity.title, body: ''}
+//
+//    .row
+//      .col-sm-6
+//        .panel.panel-primary
+//          .panel-heading
+//            = @opportunity.title
+//          .panel-body
+//            = simple_format @opportunity.body
+//            /.table-responsive
+//            table class="table"
+//              tr
+//                td Kind:
+//                td = @opportunity.kind
+//              tr
+//                td Budget:
+//                td = number_to_currency(@opportunity.budget, locale: :en, precision: 2)
+//              tr
+//                td Deadline:
+//                td = @opportunity.deadline
+//            
+//                  
+//      .col-sm-6  
+//          
+//          
+//      .col-sm-6
+//        - if @opportunity.deadline < Date.current
+//          div class="alert alert-danger"
+//            button type="button" class="close" data-dismiss="alert" ×
+//            h4 Expired!
+//            'This opportunity is no longer open for submissions.
+//        - @opportunity.music_requests.order('created_at asc').each do |music_request|
+//          .panel.panel-primary
+//            .panel-heading
+//              = music_request.title
+//              '&nbsp;
+//            .panel-body
+//              /.table-responsive
+//              table class="table"
+//                tr
+//                  th Fee:
+//                  td = number_to_currency(music_request.fee, locale: :en, precision: 2)
+//                - unless  music_request.link.to_s == ''
+//                  tr
+//                    th Duration:
+//                    td = music_request.duration_text
+//                - unless  music_request.link.to_s == ''
+//                  tr
+//                    th Sound like:
+//                    td = link_to 'click here', music_request.link
+//                    
+//
+//              b Description:
+//              br
+//              = simple_format music_request.body
+//              br
+//              
+//              .pull-right
+//                - unless @opportunity.opportunity_users.empty?
+//                  - unless @opportunity.opportunity_users.where(user_id: current_user.id).first.nil?
+//                    = link_to opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
+//                                                                                             music_request) do 
+//                      .btn.btn-success.btn-lg
+//                        i class="fa fa-plus-circle"
+//                        '&nbsp;Add Submission
+//                '&nbsp;
+//                = link_to opportunity_opportunity_music_request_path( @opportunity, music_request) do
+//                  .btn.btn-default.btn-lg
+//                    i class="fa fa-eye"
+//
+//              
+//
+//        
+//         
+//    == render 'shared/back', locals: {link: user_user_opportunities_path(@account.user)} 
+//-cache (['footer', Admin.cached_find(1).version]) do      
+//  =render 'shared/footer'
+//

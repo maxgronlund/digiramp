@@ -309,8 +309,9 @@ class User < ActiveRecord::Base
   
   def set_default_avatar
     
-    if self.image_url.include?("/assets/fallback/default" )
-      prng      = Random.new
+    unless File.exist?(Rails.root.join('public' +  self.image_url.to_s))
+      
+      prng       = Random.new
       random_id =  prng.rand(35)
 
       if random_id < 10
@@ -320,6 +321,7 @@ class User < ActiveRecord::Base
       self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-avatars/5GA3Zk1C_avatar_#{random_id.to_s}.jpg"))
       self.image.recreate_versions!
       self.save!
+
     end
   end
   

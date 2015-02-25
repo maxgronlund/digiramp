@@ -25,14 +25,14 @@ class AcceptInvitaionToCatalogController < ApplicationController
     
     
     if @user.password_reset_sent_at < 2.weeks.ago
-      flash[:info] = { title: "Sorry: ", body: "Invitation has expired" }
+      #flash[:info] = { title: "Sorry: ", body: "Invitation has expired" }
       redirect_to :back
     else
       @user.password  = password
       @user.invited   = true
       @user.save
       
-      flash[:info] = { title: "Welcome: ", body: "Your account has been activated" }
+      
       cookies.permanent[:auth_token]  = nil
       cookies[:auth_token]            = @user.auth_token  
       

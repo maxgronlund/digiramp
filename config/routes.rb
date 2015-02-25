@@ -414,6 +414,7 @@ Digiramp::Application.routes.draw do
     resources :moods_imports
     resources :pro_affiliations
     resources :set_default_avatars, only: [:index]
+    resources :set_default_recordings_badges, only: [:index]
     resources :tags, only: [:index]
     get "emails/index"
     resources :system_emails

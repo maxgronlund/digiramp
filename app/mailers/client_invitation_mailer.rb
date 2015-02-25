@@ -29,62 +29,68 @@ class ClientInvitationMailer < ActionMailer::Base
     client_group = ClientGroup.find(client_group_id)
     @inviter     = client_group.user
     user_name    = @inviter.user_name
-    @avatar_url           = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
+    @avatar_url  = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
     
-    # create array of invitations
-    invitations = []
-    index = 0
-    client_group.clients.each do |client|
-      if client.member_id.nil?
-        invitations[index] = create_invitation( client )
-        index += 1
+    
+    
+    client_group.clients.in_groups_of(100) do |clients| # in chuncks
+      # create array of invitations
+      sleep 5
+      invitations = []
+      index        = 0
+      
+      clients.each do |client|
+        if client.member_id.nil?
+          invitations[index] = create_invitation( client )
+          index += 1
+        end
       end
-    end
-    
-    
-    # prepare custom fields
-    emails        = []
-    accept_urls   = []
-    decline_urls  = []
-    user_names    = []
-    index         = 0
-    
-    invitations.each do |invitation|
-      if email = EmailValidator.saintize( invitation.client.email )
-        emails[index]         = email
-        accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id: invitation.uuid )
-        decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
-        user_names[index]     = user_name    
-        index += 1
-      else
-        invitation.destroy!
+      
+      
+      # prepare custom fields
+      emails        = []
+      accept_urls   = []
+      decline_urls  = []
+      user_names    = []
+      index         = 0
+      
+      invitations.each do |invitation|
+        if email = EmailValidator.saintize( invitation.client.email )
+          emails[index]         = email
+          accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id: invitation.uuid )
+          decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
+          user_names[index]     = user_name    
+          index += 1
+        else
+          invitation.destroy!
+        end
       end
+      
+      # prepre JSON
+      x_smtpapi = { 
+                    to: emails,
+                    filters: { templates: {
+                                         settings: {
+                                                       enabled: 1,
+                                                       template_id: "9117870a-825a-4c81-8c04-8ff68d422ff7"
+                                                     }
+                                        }
+                             }, 
+                     sub: {  
+                             "<%user_name%>".to_sym =>    user_names,
+                             "--accept_url--".to_sym =>   accept_urls,
+                             "--decline_url--".to_sym =>  decline_urls,
+                             "--avatar_url--".to_sym =>   decline_urls
+                          } 
+      
+                  }
+      
+      
+      
+      headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
+      
+      mail to: "info@digiramp.com", subject: "I'd like to add you to my network of music professionals"
     end
-    
-    # prepre JSON
-    x_smtpapi = { 
-                  to: emails,
-                  filters: { templates: {
-                                       settings: {
-                                                     enabled: 1,
-                                                     template_id: "9117870a-825a-4c81-8c04-8ff68d422ff7"
-                                                   }
-                                      }
-                           }, 
-                   sub: {  
-                           "<%user_name%>".to_sym =>    user_names,
-                           "--accept_url--".to_sym =>   accept_urls,
-                           "--decline_url--".to_sym =>  decline_urls,
-                           "--avatar_url--".to_sym =>   decline_urls
-                        } 
-    
-                }
-    
-
-    
-    headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
-    
-    mail to: "info@digiramp.com", subject: "I'd like to add you to my network of music professionals"
     
     
   end
