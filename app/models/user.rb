@@ -312,7 +312,7 @@ class User < ActiveRecord::Base
     unless File.exist?(Rails.root.join('public' +  self.image_url.to_s))
       
       prng       = Random.new
-      random_id =  prng.rand(86)
+      random_id =  prng.rand(85)
 
       if random_id < 10
         random_id = '0' + random_id.to_s 
