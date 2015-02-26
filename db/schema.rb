@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225212709) do
+ActiveRecord::Schema.define(version: 20150226232233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2494,6 +2494,7 @@ ActiveRecord::Schema.define(version: 20150225212709) do
     t.text     "short_description"
     t.boolean  "show_introduction",          default: false
     t.integer  "default_cms_page_id"
+    t.integer  "news_count",                 default: 0
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

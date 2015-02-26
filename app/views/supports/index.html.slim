@@ -5,7 +5,7 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'support'
+      == render 'users/shared/sidebar', selected: 'contact'
   
   #page-content-wrapper
     .container-fluid
@@ -14,20 +14,20 @@
 
       .sexy_line
       .row
-        - if current_user
-          .col-sm-6
-            h4 Found an issue?
-            
-            .digi-box
-              'DigiRAMP is not doing as you expect? Please click on the button below and see if the issue is found before
-              .row
-                .col-sm-12
-                  .pull-right.pull-down-12
-                    = link_to user_issues_path(current_user) do
-                      .btn.btn-default
-                        i class="fa fa-bug"
-                        '&nbsp;
-                        'Go to issues
+        /- if current_user
+        /  .col-sm-6
+        /    h4 Found an issue?
+        /    
+        /    .digi-box
+        /      'DigiRAMP is not doing as you expect? Please click on the button below and see if the issue is found before
+        /      .row
+        /        .col-sm-12
+        /          .pull-right.pull-down-12
+        /            = link_to user_issues_path(current_user) do
+        /              .btn.btn-default
+        /                i class="fa fa-bug"
+        /                '&nbsp;
+        /                'Go to issues
         .col-sm-6
           h4 Contact us
           .digi-box

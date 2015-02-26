@@ -6,7 +6,8 @@ class IssuesController < ApplicationController
   # GET /issues.json
   def index
     forbidden({forbidden: 'login', title: 'fobar'}) unless current_user
-    @issues = Issue.search( params[:query]).order('created_at desc').page(params[:page]).per(64)
+    
+    @issues = Issue.where.not(status: ['Closed', 'Resolved', 'Rejected']).search( params[:query]).order('created_at desc').page(params[:page]).per(64)
     @user = current_user if current_user
   end
 

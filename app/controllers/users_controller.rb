@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   #before_filter :find_user, only: [:show, :edit, :update, :destroy]
   before_filter :access_user, only: [:edit, :update, :destroy, :dont_show_instructions]
   before_filter :find_user, only: [:show]
-  protect_from_forgery only: :index
+  protect_from_forgery only: [:edit, :create, :sign_in]
   
   def omniauth_failure 
     #!!! make a custom screen

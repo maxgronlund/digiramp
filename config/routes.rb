@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
 
 
+ 
+
   resources :add_to_playlists, only: [:create]
   resources :become_members, only: [:new]
   resources :business_account_info, only: [:index]
@@ -284,6 +286,7 @@ Digiramp::Application.routes.draw do
     resources :forums
     resources :forum_posts, only: [:edit, :update]
     resources :messages
+    get 'news/index'
     resources :received_messages, only: [:index]
     resources :replies
     resources :unread_messages, only: [:index]
@@ -438,6 +441,12 @@ Digiramp::Application.routes.draw do
     resources :zip_files
     
   end
+  # end of admin namespase
+  
+  
+  
+  
+  
   #resources :recording_departures
   namespace :account do
     

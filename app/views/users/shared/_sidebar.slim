@@ -103,17 +103,35 @@
         '&nbsp;
         'Tutorials
         
-    li class="#{'sidebar-selected' if selected == 'support'}"
+    li class="#{'sidebar-selected' if selected == 'issues'}"
       = link_to user_issues_path(current_user) do
         i class="fa fa-life-ring"
         '&nbsp;
         'Suport
+        
+  li class="#{'sidebar-selected' if selected == 'news'}"
+    = link_to user_news_index_path(current_user) do
+      - user_news_count       = current_user.news_count
+      - news_blog_news_count  = Blog.news_count
+      - if user_news_count < news_blog_news_count
+        .news
+          - news  =  news_blog_news_count - user_news_count
+          i class="fa fa-lightbulb-o "
+          '&nbsp;
+          'News
+          '&nbsp; 
+          .label.label-danger
+            = news
+      - else
+        i class="fa fa-lightbulb-o "
+        '&nbsp;
+        'News
 
-    /li class="#{'sidebar-selected' if selected == 'issues'}"
-    /  = link_to user_issues_path(current_user) do
-    /    i class="fa fa-bug"
-    /    '&nbsp;
-    /    'Issues
+  li class="#{'sidebar-selected' if selected == 'contact'}"
+    = link_to support_index_path do
+      i class="fa fa-envelope"
+      '&nbsp;
+      'Contact
         
   li class="#{'sidebar-selected' if selected == 'forums'}"
     = link_to forums_path do

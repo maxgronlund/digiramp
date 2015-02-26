@@ -1,0 +1,65 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'news'
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      .row
+        .col-sm-6
+          h2 News
+        - if super?
+        .col-sm-6.pull-down-10
+          .pull-right
+            = link_to 'Edit blog', admin_blog_path( @news_blog), class: 'btn btn-primary'
+            
+
+            
+                  
+      .sexy_line
+      - @news_blog.blog_posts.order('created_at desc').last(10).each do |blog_post|
+      
+        .digi-box
+          .row
+            .col-sm-6
+              h4 = blog_post.title
+              b = blog_post.teaser
+              .sexy_line
+              i = blog_post.created_at.to_formatted_s(:short)
+              .pull-down-12
+                = simple_format blog_post.body
+            .col-sm-6
+              - unless blog_post.image_url == '/assets/fallback/artwork.jpg'
+                .blog-post-image
+                  = image_tag blog_post.image_url
+              
+              i = blog_post.image_title
+              br
+              
+          -if super?
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to 'Edit', edit_admin_blog_blog_post_path(@news_blog, blog_post), class: 'btn btn-primary btn'
+                      
+               
+
+        
+        
+          
+  == render 'shared/site_footer'  
+ 
+
+
+
+
+
+
+
