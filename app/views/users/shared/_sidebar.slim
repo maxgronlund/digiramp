@@ -104,7 +104,7 @@
         'Tutorials
         
     li class="#{'sidebar-selected' if selected == 'support'}"
-      = link_to support_index_path do
+      = link_to user_issues_path(current_user) do
         i class="fa fa-life-ring"
         '&nbsp;
         'Suport

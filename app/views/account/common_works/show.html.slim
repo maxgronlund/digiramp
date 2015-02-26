@@ -99,8 +99,8 @@
               == render 'shared/meta_line' , locals: {title: 'Work type', data: @common_work.work_type}
             - if @common_work.composite_type.to_s != ''
               == render 'shared/meta_line' , locals: {title: 'Composite type', data: @common_work.composite_type}
-            - if @common_work.arrangement_of_public_domain_work.to_s != ''
-              == render 'shared/meta_line' , locals: {title: 'Arrangement of public domain work', data: @common_work.arrangement_of_public_domain_work}
+            - if @common_work.arrangement.to_s != ''
+              == render 'shared/meta_line' , locals: {title: 'Arrangement of public domain work', data: @common_work.arrangement}
             - if @common_work.genre.to_s != ''
               == render 'shared/meta_line' , locals: {title: 'Genre', data: @common_work.genre}
             - if @common_work.submitter_work_id.to_s != ''
