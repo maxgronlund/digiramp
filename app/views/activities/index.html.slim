@@ -28,13 +28,25 @@
                   - @user.comments.order('created_at desc').each do |comment|
                     == render 'comments/show', comment: comment
           
+          
+          
+          
+          
+          
+          
+          
+          
           h3 Followed Users' Activities         
           == render 'activities/index'
           .endless_activities
-          
-          == paginate(@wall_posts) 
+          == paginate( @wall_posts ) 
           
          
+        
+        
+        
+        
+        
         .col-sm-4.hidden-xs
           .comments
             == render 'users/guest_book'

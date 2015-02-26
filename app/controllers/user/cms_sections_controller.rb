@@ -143,7 +143,19 @@ class User::CmsSectionsController < ApplicationController
   # DELETE /cms_sections/1.json
   def destroy
     @section_id = @cms_section.id
+    
+    
+    
+    cms_page  = @cms_section.cms_page
+    column_nr = @cms_section.column_nr
     @cms_section.destroy
+    
+    # cleanup
+    cms_page.cms_sections.order(:position).where(column_nr: column_nr).each_with_index do |section, index|
+      section.position = index
+      section.save!
+    end
+
     
   end
 
