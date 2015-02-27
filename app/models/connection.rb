@@ -19,6 +19,8 @@ class Connection < ActiveRecord::Base
   
   
   def self.connected user_a, user_b
+    return nil if user_a.nil?
+    return nil if user_b.nil?
     where("user_id = ? AND connection_id = ? OR user_id = ? AND connection_id = ?" , user_a, user_b, user_b, user_a).first
   end
   
