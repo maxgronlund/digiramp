@@ -1,15 +1,15 @@
 .digi-box
-  h3 = @creatives.title
+  h3 = @brands.title
   .sexy_line
   .row
     .col-sm-6
-      = simple_format @creatives.teaser
+      = simple_format @brands.teaser
     .col-sm-6
-      = simple_format @creatives.body
+      = simple_format @brands.body
   .row
     .col-sm-12
       .pull-right.pull-down-10
-        = link_to 'Edit', edit_admin_blog_blog_post_path(@features_and_values_blog, @creatives), class: 'btn btn-primary btn'
+        = link_to 'Edit', edit_admin_blog_blog_post_path(@features_and_values_blog, @brands), class: 'btn btn-primary btn'
       
   .row
     .sexy_line

@@ -5,6 +5,8 @@ class Admin::FeaturesAndValuesController < ApplicationController
     @intro          = BlogPost.cached_find( 'intro', @features_and_values_blog)
     @social         = BlogPost.cached_find( 'social', @features_and_values_blog)
     @creatives      = BlogPost.cached_find( 'creatives', @features_and_values_blog)
+    @pros           = BlogPost.cached_find( 'pros', @features_and_values_blog)
+    @brands         = BlogPost.cached_find( 'brands', @features_and_values_blog)
     
   end
 end
