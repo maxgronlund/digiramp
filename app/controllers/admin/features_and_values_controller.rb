@@ -7,6 +7,7 @@ class Admin::FeaturesAndValuesController < ApplicationController
     @creatives      = BlogPost.cached_find( 'creatives', @features_and_values_blog)
     @pros           = BlogPost.cached_find( 'pros', @features_and_values_blog)
     @brands         = BlogPost.cached_find( 'brands', @features_and_values_blog)
+    @digiramp       = BlogPost.cached_find( 'digiramp', @features_and_values_blog)
     
   end
 end
