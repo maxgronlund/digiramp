@@ -1,0 +1,31 @@
+- session[:return_url] = request.url
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          h2 = @intro.title
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to 'Edit', edit_admin_blog_blog_post_path(@features_and_values_blog, @intro), class: 'btn btn-primary btn'
+      = @intro.teaser  
+      .sexy_line
+      == render 'social_users'
+      == render 'creatives'
+                    
+                  
+            
+          
+
+  == render 'shared/site_footer'    
+ 
+

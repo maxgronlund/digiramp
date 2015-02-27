@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
  
 
+  
+
   resources :add_to_playlists, only: [:create]
   resources :become_members, only: [:new]
   resources :business_account_info, only: [:index]
@@ -348,7 +350,7 @@ Digiramp::Application.routes.draw do
   namespace :admin do
     resources :contracts
     resources :digiramp_ads
-    
+    get 'features_and_values/index'
     resources :front_end_contents, only: [:edit, :update]
     resources :helps
     resources :widget_themes
