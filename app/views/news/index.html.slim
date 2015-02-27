@@ -25,7 +25,6 @@
                   
       .sexy_line
       - @news_blog.blog_posts.order('created_at desc').last(10).each do |blog_post|
-      
         .digi-box
           .row
             .col-sm-6
@@ -38,7 +37,7 @@
             .col-sm-6
               - unless blog_post.image_url == '/assets/fallback/artwork.jpg'
                 .blog-post-image
-                  = image_tag blog_post.image_url
+                  = link_to image_tag( blog_post.image_url), blog_post.link
               
               i = blog_post.image_title
               br
