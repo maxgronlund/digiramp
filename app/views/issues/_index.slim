@@ -3,10 +3,10 @@
     table class="table table-hover"
       thead
         tr 
-          th Issue
-          th Status
-          th Created by
-          th  
+          th = sortable "title",      "Issue"
+          th = sortable "status",     "Status" 
+          th = sortable "created_by", "Created by" 
+          th = sortable "created_at", "Date" 
           th
       tbody
         - issues.order('created_at desc').each do |issue|

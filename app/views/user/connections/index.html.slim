@@ -35,7 +35,10 @@
                 == render 'user/connections/connection', user: @user, connection: connection
         
                 
-            
+        .row
+          .col-sm-12
+            .pull-right
+              == paginate(@connections)
                  
               
   == render 'shared/site_footer'    

@@ -9,5 +9,5 @@
         = link_to 'Sent', user_send_messages_path(@user)
       li  class="#{ selected == 'all' ? 'active' : ''}"
         = link_to 'All', user_messages_path(@user)
-      li  class="#{ selected == 'new' ? 'active' : ''}"
-        = link_to 'New', user_unread_messages_path(@user)
+      /li  class="#{ selected == 'new' ? 'active' : ''}"
+      /  = link_to 'New', user_unread_messages_path(@user)

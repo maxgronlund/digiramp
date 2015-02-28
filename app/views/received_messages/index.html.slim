@@ -43,10 +43,14 @@
                     th
                       
                 tbody
-                  - @user.received_massages.order(created_at: :desc).each.each do |message|
+                  - @received_massages.each do |message|
                     == render 'messages/message', message: message
             
-                
+          .row
+            .col-sm-12
+              .pull-right
+                == paginate(@received_massages)  
+                    
   == render 'shared/site_footer'    
  
 /#wrapper

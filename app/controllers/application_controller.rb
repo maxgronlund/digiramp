@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   force_ssl if: :ssl_configured?
-
+  helper_method :sort_column, :sort_direction
     
   
   
@@ -301,5 +301,7 @@ private
     end
     set_authorized
   end
+  
+  
   
 end
