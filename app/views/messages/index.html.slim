@@ -59,10 +59,10 @@
               - @messages.each do |message|
                 == render 'messages/message', message: message
               
-        .row
-          .col-sm-12
-            .pull-right
-              == paginate(@messages)      
+      .row
+        .col-sm-12
+          .pull-right
+            == paginate(@messages)      
   == render 'shared/site_footer'    
  
 

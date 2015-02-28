@@ -112,7 +112,7 @@
       /    'Search
       - if user_signed_in? && current_account
         li class="#{page == 'messages' ? 'active' : ''}"
-          = link_to user_messages_path(current_user) do
+          = link_to user_unread_messages_path(current_user) do
             div id="message_count"
             == render 'messages/count'
             i.fa.fa-envelope
