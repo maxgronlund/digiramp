@@ -42,66 +42,6 @@ class User::CmsSectionsController < ApplicationController
       @cms_section.save!
       redirect_to edit_user_user_cms_banner_path(@user, @cms_banner)
       
-    when 'Image'
-      @cms_image = CmsImage.create
-      @cms_section.cms_module_id    = @cms_image.id
-      @cms_section.cms_module_type  = @cms_image.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_image_path(@user, @cms_image)
-    
-    
-    when 'Recording'
-      @cms_recording = CmsRecording.create
-      @cms_section.cms_module_id    = @cms_recording.id
-      @cms_section.cms_module_type  = @cms_recording.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_recording_path(@user, @cms_recording)
-      
-    when 'Horizontal links'
-      @cms_horizontal_link = CmsHorizontalLink.create
-      @cms_section.cms_module_id    = @cms_horizontal_link.id
-      @cms_section.cms_module_type  = @cms_horizontal_link.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_horizontal_link.cms_section.cms_page)
-      #redirect_to edit_user_user_cms_horizontal_link_path(@user, @cms_horizontal_link)
-      
-    when 'Vertical links'
-      @cms_vertical_link = CmsVerticalLink.create
-      @cms_section.cms_module_id    = @cms_vertical_link.id
-      @cms_section.cms_module_type  = @cms_vertical_link.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_vertical_link.cms_section.cms_page)
-      #redirect_to edit_user_user_cms_vertical_link_path(@user, @cms_vertical_link)
-      
-    when 'Playlist link'
-      @cms_playlist_link            = CmsPlaylistLink.create
-      @cms_section.cms_module_id    = @cms_playlist_link.id
-      @cms_section.cms_module_type  = @cms_playlist_link.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_playlist_link_path(@user, @cms_playlist_link)
-      
-    when 'Video snippet'
-      @cms_video                    = CmsVideo.create
-      @cms_section.cms_module_id    = @cms_video.id
-      @cms_section.cms_module_type  = @cms_video.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_video_path(@user, @cms_video)
-      
-    when 'Text'
-      @cms_text = CmsText.create
-      @cms_section.cms_module_id    = @cms_text.id
-      @cms_section.cms_module_type  = @cms_text.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_text_path(@user, @cms_text)
-      
-    when 'Social links'
-      @cms_social_link = CmsSocialLink.create()
-      @cms_section.cms_module_id    = @cms_social_link.id
-      @cms_section.cms_module_type  = @cms_social_link.class.name
-      
-      @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_social_link.cms_section.cms_page)
-      
     when 'Contact'
       @cms_contact = CmsContact.create
       @cms_section.cms_module_id    = @cms_contact.id
@@ -116,12 +56,92 @@ class User::CmsSectionsController < ApplicationController
       @cms_section.save!
       redirect_to edit_user_user_cms_page_path(@user, @cms_comment.cms_section.cms_page)
       
+    when 'Horizontal links'
+      @cms_horizontal_link = CmsHorizontalLink.create
+      @cms_section.cms_module_id    = @cms_horizontal_link.id
+      @cms_section.cms_module_type  = @cms_horizontal_link.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_page_path(@user, @cms_horizontal_link.cms_section.cms_page)
+
+      
+    when 'Image'
+      @cms_image = CmsImage.create
+      @cms_section.cms_module_id    = @cms_image.id
+      @cms_section.cms_module_type  = @cms_image.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_image_path(@user, @cms_image)
+      
+    when 'Menu bar'
+      @cms_navigation_bar            = CmsNavigationBar.create
+      @cms_section.cms_module_id    = @cms_navigation_bar.id
+      @cms_section.cms_module_type  = @cms_navigation_bar.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_navigation_bar_path(@user, @cms_navigation_bar)
+      
+    when 'Video snippet'
+      @cms_video                    = CmsVideo.create
+      @cms_section.cms_module_id    = @cms_video.id
+      @cms_section.cms_module_type  = @cms_video.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_video_path(@user, @cms_video)
+    
+    
+    when 'Recording'
+      @cms_recording = CmsRecording.create
+      @cms_section.cms_module_id    = @cms_recording.id
+      @cms_section.cms_module_type  = @cms_recording.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_recording_path(@user, @cms_recording)
+      
+    when 'Playlist link'
+      @cms_playlist_link            = CmsPlaylistLink.create
+      @cms_section.cms_module_id    = @cms_playlist_link.id
+      @cms_section.cms_module_type  = @cms_playlist_link.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_playlist_link_path(@user, @cms_playlist_link)
+      
     when 'Playlist'
       @cms_playlist                 = CmsPlaylist.create
       @cms_section.cms_module_id    = @cms_playlist.id
       @cms_section.cms_module_type  = @cms_playlist.class.name
       @cms_section.save!
       redirect_to edit_user_user_cms_playlist_path(@user, @cms_playlist)
+      
+    when 'Profile'
+      @cms_profile                  = CmsProfile.create
+      @cms_section.cms_module_id    = @cms_profile.id
+      @cms_section.cms_module_type  = @cms_profile.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_profile_path(@user, @cms_profile)
+      
+    when 'Social links'
+      @cms_social_link = CmsSocialLink.create()
+      @cms_section.cms_module_id    = @cms_social_link.id
+      @cms_section.cms_module_type  = @cms_social_link.class.name
+      
+      @cms_section.save!
+      redirect_to edit_user_user_cms_page_path(@user, @cms_social_link.cms_section.cms_page)
+      
+    when 'Text'
+      @cms_text = CmsText.create
+      @cms_section.cms_module_id    = @cms_text.id
+      @cms_section.cms_module_type  = @cms_text.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_text_path(@user, @cms_text)
+
+    when 'Vertical links'
+      @cms_vertical_link = CmsVerticalLink.create
+      @cms_section.cms_module_id    = @cms_vertical_link.id
+      @cms_section.cms_module_type  = @cms_vertical_link.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_page_path(@user, @cms_vertical_link.cms_section.cms_page)
+      
+    when 'Video snippet'
+      @cms_video                    = CmsVideo.create
+      @cms_section.cms_module_id    = @cms_video.id
+      @cms_section.cms_module_type  = @cms_video.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_video_path(@user, @cms_video)
     end
   end
 

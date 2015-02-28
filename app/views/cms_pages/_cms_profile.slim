@@ -1,0 +1,156 @@
+.pull-down-48
+  .digi-box
+    .row
+      .col-sm-12
+        h2 = @user.user_name
+
+
+        
+        /= link_to user_followers_path(@user, clear: 'clear') do
+        /  i class="fa fa-users"
+        /  '&nbsp;
+        /  = pluralize(@user.followers.count, 'Follower')
+    .row
+      .col-sm-4
+        .user-avatar
+          =  image_tag @user.image_url(:avatar_184x184) 
+        
+        /.user-buttons 
+        /  - if current_user 
+        /    
+        /    - if current_user.id == @user.id
+        /      / Edit profile
+        /      = link_to edit_user_path(current_user) do
+        /        .btn.btn-default.btn-xs
+        /          i class="fa fa-pencil"
+        /          '&nbsp;
+        /          'Edit profile
+        /    - else
+        /      / Follow / unfollow
+        /      div id="follow_user_#{@user.id.to_s}"
+        /        -if current_user.following?(@user)
+        /          == render 'users/unfollow', user: @user
+        /        - else 
+        /          == render 'users/follow', user: @user
+        /
+        /      .connect-container
+        /        .connect-buttons
+        /        == render 'users/connect', user: @user
+        /
+        /
+      .col-sm-8
+        .row
+          .col-sm-12
+            h5  
+              - if @user.composer
+                span class="label label-default"
+                  'Composer  
+                '&nbsp;
+            
+              - if @user.writer
+                span class="label label-default"
+                  'Writer
+                '&nbsp;
+            
+              - if @user.artist
+                span class="label label-default"
+                  'Artist
+                '&nbsp;
+            
+              - if @user.author
+                span class="label label-default"
+                  'Author
+                '&nbsp;
+            
+              - if @user.producer
+                span class="label label-default"
+                  'Producer
+                '&nbsp;
+            
+              - if @user.musician
+                span class="label label-default"
+                  'Musician
+                '&nbsp;
+            
+              - if @user.remixer
+                span class="label label-default"
+                  'Remixer
+                '&nbsp;
+            
+              - if @user.dj
+                span class="label label-default"
+                  'DJ
+                '&nbsp;
+        
+        - if @user.country.to_s != ''
+          .location
+            - c = Country.find_country_by_alpha2(@user.country)
+            = " #{@user.city}, #{c.name}"
+        
+        i
+          'Member since:
+          = @user.created_at.strftime("%Y-%m-%d")
+        br
+        .sexy_line
+        tabel
+          = link_to user_followers_path(@user, clear: 'clear') do
+            .row
+              .col-xs-8
+                h5 
+                  i.fa.fa-user
+                  '&nbsp;
+                  i.fa.fa-arrow-left
+                  '&nbsp;Followers
+                
+              .col-xs-4
+                h4 = @user.followers.count
+                
+                
+                  
+          = link_to user_following_index_path(@user, clear: 'clear') do
+            .row
+              .col-xs-8
+                h5 
+                  i.fa.fa-user
+                  '&nbsp;
+                  i.fa.fa-arrow-right
+                  '&nbsp;Following
+                
+              .col-xs-4
+                h4 = @user.followed_users.count
+
+          .row
+            .col-xs-8
+              h5 
+                i.fa.fa-eye
+                '&nbsp;Views
+              
+            .col-xs-4
+              h4 = @user.views
+                
+                    
+          
+               
+        
+    .row
+      .col-sm-12.pull-down-8
+        .btn.btn-primary
+          i.fa.fa-envelope
+          '&nbsp;
+          'Message
+        '&nbsp;
+        
+        .btn.btn-default
+          i.fa.fa-eye
+          '&nbsp;
+          'Follow
+    .row
+      .col-sm-12.pull-down-8
+        .sexy_line
+        = simple_format @user.profile
+    
+        
+        
+        
+
+     

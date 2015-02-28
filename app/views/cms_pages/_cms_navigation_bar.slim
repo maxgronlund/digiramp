@@ -1,0 +1,62 @@
+nav.navbar.navbar-default
+  .container-fluid
+    /! Brand and toggle get grouped for better mobile display
+    .navbar-header
+      button.navbar-toggle.collapsed data-target="#cms_navigation_bar_#{section.id.to_s}" data-toggle="collapse" type="button" 
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      
+      - if user_signed_in? && current_account
+        /.navigation-avatar
+        = link_to profile_path_for( current_user), class: 'navbar-brand' do
+          = image_tag current_user.image_url(:avatar_32x32)
+          '&nbsp;
+      /a.navbar-brand href="#"  Brand
+    /! Collect the nav links, forms, and other content for toggling
+    .collapse.navbar-collapse id="cms_navigation_bar_#{section.id.to_s}" 
+      ul.nav.navbar-nav
+        li.active
+          a href="#" 
+            | Link
+            span.sr-only (current)
+        li
+          a href="#"  Link
+        li.dropdown
+          a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
+            | Dropdown
+            span.caret
+          ul.dropdown-menu role="menu" 
+            li
+              a href="#"  Action
+            li
+              a href="#"  Another action
+            li
+              a href="#"  Something else here
+            li.divider
+            li
+              a href="#"  Separated link
+            li.divider
+            li
+              a href="#"  One more separated link
+      
+      ul.nav.navbar-nav.navbar-right
+        li
+          a href="#"  Link
+        li.dropdown
+          a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
+            | Dropdown
+            span.caret
+          ul.dropdown-menu role="menu" 
+            li
+              a href="#"  Action
+            li
+              a href="#"  Another action
+            li
+              a href="#"  Something else here
+            li.divider
+            li
+              a href="#"  Separated link
+    /! /.navbar-collapse
+  /! /.container-fluid

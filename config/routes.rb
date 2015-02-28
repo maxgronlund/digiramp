@@ -6,6 +6,10 @@ Digiramp::Application.routes.draw do
 
   
 
+  
+
+ 
+
   resources :add_to_playlists, only: [:create]
   resources :become_members, only: [:new]
   resources :business_account_info, only: [:index]
@@ -699,9 +703,11 @@ Digiramp::Application.routes.draw do
       resources :cms_vertical_links, only: [:edit, :update]
       resources :cms_horizontal_links, only: [:edit, :update]
       resources :cms_playlist_links, only: [:edit, :update]
+      resources :cms_navigation_bars, only: [:edit, :update]
       resources :cms_videos, only: [:edit, :update]
       resources :cms_texts, only: [:edit, :update]
       resources :cms_playlists, only: [:edit, :update]
+       resources :cms_profiles, only: [:edit, :update]
       resources :cms_comments, only: [:edit, :update]
       resources :cms_page_layouts, only: [:edit, :update]
       resources :cms_contacts, only: [:edit, :update]

@@ -1,0 +1,2 @@
+module CmsProfilesHelper
+end

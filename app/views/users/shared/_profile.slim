@@ -24,10 +24,10 @@
     .location
       - c = Country.find_country_by_alpha2(@user.country)
       = " #{@user.city}, #{c.name}"
-      br
-      i
-        'Member since:
-        = @user.created_at.strftime("%Y-%m-%d")
+  br
+  i
+    'Member since:
+    = @user.created_at.strftime("%Y-%m-%d")
   .pull-down-4
   i class="fa fa-eye"
   '&nbsp;

@@ -7,7 +7,7 @@ class User::CmsRecordingsController < ApplicationController
   
   def update
     cms_section           = @cms_recording.cms_section
-    cms_section.position = params[:cms_recording][:position]
+    cms_section.position  = params[:cms_recording][:position]
     cms_section.save!
     params[:cms_recording].delete :position
     @cms_recording.update(cms_recording_params) unless params[:cms_recording] == {}

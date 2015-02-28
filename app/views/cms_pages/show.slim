@@ -1,20 +1,27 @@
+
+          
 - if @cms_page.hide_sidebar
-  #wrap
-    .full-width-top
-      == render 'shared/navigationbar', page: 'user' 
-    
-    .container-fluid.pull-down-48
-      == render "user/cms_pages/themes/#{@cms_page.theme.downcase}"
-      == render "cms_pages/layouts/#{@cms_page.layout.downcase}"
-      -if (current_user && current_user.id == @user.id) || super?
-        .row
-          .col-sm-12.pull-down-10
-            .pull-right
-              = link_to 'Edit', edit_user_user_cms_page_path(@user, @cms_page), class: 'btn btn-primary'
-        .row
-          .col-sm-12.pull-down-48
-    
-    == render 'shared/site_footer'   
+  .default-style
+    #wrap
+      .full-width-top
+        == render 'shared/navigationbar', page: 'user' 
+
+      .container-fluid.pull-down-48
+        .backdrop
+          = image_tag "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
+        /== render "user/cms_pages/themes/#{@cms_page.theme.downcase}"
+        
+        == render "cms_pages/layouts/#{@cms_page.layout.downcase}"
+        
+        -if (current_user && current_user.id == @user.id) || super?
+          .row
+            .col-sm-12.pull-down-10
+              .pull-right
+                = link_to 'Edit', edit_user_user_cms_page_path(@user, @cms_page), class: 'btn btn-primary'
+          .row
+            .col-sm-12.pull-down-48
+      
+      == render 'shared/site_footer'   
 
 -else  
   #wrapper
@@ -34,7 +41,7 @@
           .row
             .col-sm-12.pull-down-10
               .pull-right
-                = link_to 'Edit', edit_user_user_cms_page_path(@user, @cms_page), class: 'btn btn-primary'
+                = link_to 'Edit page', edit_user_user_cms_page_path(@user, @cms_page), class: 'btn btn-primary'
                  
                 
                    

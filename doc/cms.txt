@@ -23,3 +23,17 @@ rails g scaffold cms_social_links position:integer  user:belongs_to
 
 rails g scaffold cms_contacts message
 
+
+rails g scaffold cms_navigation_bar 
+
+
+
+rails g scaffold cms_navigation_bar_link cms_navigation_bar:belongs_to title link cms_page_link link_type position:integer
+
+rails g cms_drop_down cms_navigation_bar_item:belongs_to title  position:integer
+rails g cms_drop_down_link cms_drop_down:belongs_to title link cms_page_link link_type position:integer
+
+rails g scaffold cms_profile user:belongs_to
+
+
+

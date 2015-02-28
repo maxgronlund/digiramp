@@ -1,22 +1,23 @@
-
-- if current_user
-  = simple_form_for [ Comment.new ], remote: true do |f|
-    .row
-      .col-sm-12
-        = f.hidden_field  :commentable_id,    value: @cms_page.id
-        = f.hidden_field  :commentable_type,  value: @cms_page.class.name
-        = f.hidden_field  :user_id,  value: current_user.id
-        h4 Comments
-        /= f.input :title, placeholder: 'Title', label: false
-        = f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Write Comment"}
-    .row
-      .col-sm-12
-        .pull-right
-          = f.submit 'Post', class: 'btn btn-primary'
-br
-.rec-comments
-  - @cms_page.comments.order('created_at desc').each do |comment|
-    == render 'comments/show', comment: comment
-
+.pull-down-48
+.digi-box
+  - if current_user
+    = simple_form_for [ Comment.new ], remote: true do |f|
+      .row
+        .col-sm-12
+          = f.hidden_field  :commentable_id,    value: @cms_page.id
+          = f.hidden_field  :commentable_type,  value: @cms_page.class.name
+          = f.hidden_field  :user_id,  value: current_user.id
+          h4 Comments
+          /= f.input :title, placeholder: 'Title', label: false
+          = f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Write Comment"}
+      .row
+        .col-sm-12
+          .pull-right
+            = f.submit 'Post', class: 'btn btn-primary'
+  br
+  .rec-comments
+    - @cms_page.comments.order('created_at desc').each do |comment|
+      == render 'comments/show', comment: comment
+  
     
 

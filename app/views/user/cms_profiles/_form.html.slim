@@ -1,0 +1,22 @@
+/= simple_form_for(@cms_profile) do |f|
+/  = f.error_notification
+/
+/  .form-inputs
+/    = f.association :user
+/
+/  .form-actions
+/    = f.button :submit
+
+
+= simple_form_for [:user, @user, @cms_profile], turboboost: true do |f|
+
+  .form-inputs
+    = f.hidden_field :position, as: :integer ,  input_html: { value: @cms_profile.cms_section.position }
+    /= f.association :recording
+    /= f.recording_id,  collection: @user.recordings
+    /= f.association :playlist, collection: @user.playlists, value_method: :id, include_blank: false
+    /= f.input :category, :collection => Project::CATEGORIES, include_blank: false
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'
