@@ -10,7 +10,7 @@
   #page-content-wrapper
     .container-fluid 
       .row
-        .col-sm-7
+        .col-sm-12
           .help
             .help-text
               h2 Opportunity
@@ -24,16 +24,20 @@
                     .btn.btn-default
                       i.fa.fa-eye
                       '&nbsp;Manage
-        .col-sm-5
-          == render 'user/opportunities/navigation', active: ''
+
+         
 
                 
                 
       /= @opportunity.title
       .sexy_line
+      .row
+        .col-sm-12
+           == render 'user/opportunities/navigation', active: ''
       .opportunity
         .digi-box
-          = render 'user/opportunities/show', opportunity: @opportunity
+          - viewed = SelectedOpportunity.where(user_id: @user.id, opportunity_id: @opportunity.id).first ? true : false
+          = render 'user/opportunities/show', opportunity: @opportunity, viewed: viewed
 
         
         h3 Requests        

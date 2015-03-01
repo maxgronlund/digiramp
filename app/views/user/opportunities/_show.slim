@@ -8,7 +8,8 @@
         .opportunity-info
           i.fa.fa-envelope
           '&nbsp;By invitation
-      - unless SelectedOpportunity.where(opportunity_id: opportunity.id, user_id: @user.id).first
+      
+      - unless viewed
         .opportunity-info
           i.fa.fa-exclamation-circle
           '&nbsp;New

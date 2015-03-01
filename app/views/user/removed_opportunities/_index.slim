@@ -1,17 +1,21 @@
 .old_opportunities
   - @opportunities.each do |opportunity|
+  
+    - viewed = SelectedOpportunity.where(user_id: @user.id, opportunity_id: opportunity.id).first ? true : false
+
     .opportunity-box  id="opportunity_#{opportunity.id}"
-      = render 'user/opportunities/show', opportunity: opportunity
+      = render 'user/opportunities/show', opportunity: opportunity, viewed: viewed
       .row
         .col-sm-12
           .pull-right
   
             
-            => link_to user_user_opportunity_path(@user, opportunity) do
-              .btn.btn-primary
-                'Show
+            /=> link_to user_user_opportunity_path(@user, opportunity) do
+            /  .btn.btn-default
+            /    i.fa.fa-eye
+            /    '&nbsp;Show
             
             => link_to user_user_selected_opportunity_path(@user, opportunity)  do
-              .btn.btn-warning
-                i.fa.fa-plus
-                '&nbsp;Select
+              .btn.btn-default
+                i.fa.fa-eye
+                '&nbsp;Show

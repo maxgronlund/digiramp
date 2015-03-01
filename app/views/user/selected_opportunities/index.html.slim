@@ -18,52 +18,46 @@
               == render 'admin/helps/help', identifier: 'user opportunities'
 
       .sexy_line
-        .row
-          .col-sm-12
-            .pull-right
-              == render 'user/opportunities/navigation', active: 'selected'
-        .row
-          .col-sm-12
-            .opportunity
+      .row
+        .col-sm-12
+          .pull-right
+            == render 'user/opportunities/navigation', active: 'selected'
+      .row
+        .col-sm-12
+          .opportunity
 
-              - @opportunities.each do |opportunity|
-                .opportunity-box id="opportunity_#{opportunity.id}"
-                  = render 'user/opportunities/show', opportunity: opportunity
-                  .row
-                    .col-sm-12
-                      - submissions = opportunity.submissions.where(user_id: @user.id)
-                      - submissions_count = submissions.count
-                      - if submissions_count > 0  
-                        => link_to user_user_selected_opportunity_path(@user, opportunity) do
-                          .btn.btn-success
-                            i.fa.fa-eye
-                            '&nbsp;
-                            => submissions_count
-                            'Submissions
-                      .pull-right
-                        => link_to user_user_selected_opportunity_path(@user, opportunity) do
-                          .btn.btn-primary
-                            i.fa.fa-eye
-                            '&nbsp;
-                            'View
-                        -if submissions_count > 0    
-                          .btn.btn-default disabled='disabled'
+            - @opportunities.each do |opportunity|
+              - viewed = SelectedOpportunity.where(user_id: @user.id, opportunity_id: opportunity.id).first ? true : false
+              .opportunity-box id="opportunity_#{opportunity.id}"
+                = render 'user/opportunities/show', opportunity: opportunity, viewed: viewed
+                .row
+                  .col-sm-12
+                    - submissions = opportunity.submissions.where(user_id: @user.id)
+                    - submissions_count = submissions.count
+                    - if submissions_count > 0  
+                      => link_to user_user_selected_opportunity_path(@user, opportunity) do
+                        .btn.btn-success
+                          = pluralize(submissions_count, 'Submission')  
+
+                    .pull-right
+                      => link_to user_user_selected_opportunity_path(@user, opportunity) do
+                        .btn.btn-default
+                          i.fa.fa-eye
+                          '&nbsp;
+                          'View
+                      -if submissions_count > 0    
+                        .btn.btn-danger disabled='disabled'
+                          i.fa.fa-times
+
+                      - else
+                        =< link_to user_user_selected_opportunity_path(@user, opportunity), method: :delete, remote: true do
+                          .btn.btn-danger
                             i.fa.fa-times
-                            '&nbsp;
-                            'Remove
-                        - else
-                          = link_to user_user_selected_opportunity_path(@user, opportunity), method: :delete, remote: true do
-                            .btn.btn-default
-                              i.fa.fa-times
-                              '&nbsp;
-                              'Remove
-                        
-                  
-                  
-                  
-                  
-                  .clearfix
-            .sexy_line
+                      
+                
+                
+                
+
                   
 
 
