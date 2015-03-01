@@ -10,26 +10,39 @@ class DigirampEmailMailer < ActionMailer::Base
   #
   def news_email digiramp_email_id
     
+
+    ap '========================================================================'
+    ap '========================================================================'
+    ap '========================================================================'
+    ap '========================================================================'
+    ap 'sending emails'
+    
+    
     @digiramp_email = DigirampEmail.find(digiramp_email_id)
     @email_group    = @digiramp_email.email_group
     
     receipients = []
     index = 0
     @email_group.users.each do |user|
+      ap user.email
       if email = EmailValidator.saintize( user.email )
         receipients[index] = email
         index += 1
       end
     end
     
-    @image_1 = (URI.parse(root_url) + @digiramp_email.image_1_url(:banner_558x90)).to_s
-    
-    link = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
+    @image_1          = (URI.parse(root_url) + @digiramp_email.image_1_url(:banner_558x90)).to_s
+    link              = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
     @unsibscribe_link = (URI.parse(root_url) + link).to_s
+    
+    
     
     headers['X-SMTPAPI'] = '{ "to": '+ receipients.to_s + '}'
 
-    mail to: "info@digiramp.com"
+    ap receipients
+    
+    
+    mail to: "max@digiramp.com"
   end
   
   def opportunity_created digiramp_email_id

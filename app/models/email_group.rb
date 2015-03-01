@@ -7,7 +7,7 @@ class EmailGroup < ActiveRecord::Base
   before_create :set_uuid
   
   def recipients=(recipients)
-    
+
 
     recipients.split(',').each do |recipient|
       
