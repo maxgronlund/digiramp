@@ -10,28 +10,53 @@
       = render 'user/opportunities/show', opportunity: opportunity, viewed: viewed
       .row
         .col-sm-12
-          .pull-right 
-          
-          
-          
-          
-            - if viewed 
-              /- else
-              => link_to user_user_selected_opportunity_path(@user, opportunity) do
-                .btn.btn-default
-                  i.fa.fa-eye
-                  '&nbsp;View
-              
-            - else
-                  
-              = link_to user_user_opportunity_path(@user, opportunity) do
-                .btn.btn-default
-                  i.fa.fa-eye
-                  '&nbsp;View
+          - submissions = opportunity.submissions.where(user_id: @user.id)
+          - submissions_count = submissions.count
+          - if submissions_count > 0  
+            => link_to user_user_selected_opportunity_path(@user, opportunity) do
+              .btn.btn-success
+                = pluralize(submissions_count, 'Submission')  
 
-            =< link_to user_user_opportunity_path(@user, opportunity, remove: true), method: :delete, remote: true do
-              .btn.btn-danger
+          .pull-right
+            => link_to user_user_selected_opportunity_path(@user, opportunity) do
+              .btn.btn-default
+                i.fa.fa-eye
+                '&nbsp;
+                'View
+            -if submissions_count > 0    
+              .btn.btn-danger disabled='disabled'
                 i.fa.fa-times
+
+            - else
+              =< link_to user_user_opportunity_path(@user, opportunity, remove: true), method: :delete, remote: true do
+                .btn.btn-danger
+                  i.fa.fa-times
+      
+      
+      /.row
+      /  .col-sm-12
+      /    .pull-right 
+      /    
+      /    
+      /    
+      /    
+      /      - if viewed 
+      /        /- else
+      /        => link_to user_user_selected_opportunity_path(@user, opportunity) do
+      /          .btn.btn-default
+      /            i.fa.fa-eye
+      /            '&nbsp;View
+      /        
+      /      - else
+      /            
+      /        = link_to user_user_opportunity_path(@user, opportunity) do
+      /          .btn.btn-default
+      /            i.fa.fa-eye
+      /            '&nbsp;View
+      /
+      /      =< link_to user_user_opportunity_path(@user, opportunity, remove: true), method: :delete, remote: true do
+      /        .btn.btn-danger
+      /          i.fa.fa-times
 
       .clearfix
      
