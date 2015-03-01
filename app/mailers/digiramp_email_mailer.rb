@@ -1,7 +1,7 @@
 require 'uri'
 
 class DigirampEmailMailer < ActionMailer::Base
-  default from: "info@digiramp.com"
+  default from: "noreply@digiramp.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -11,38 +11,40 @@ class DigirampEmailMailer < ActionMailer::Base
   def news_email digiramp_email_id
     
 
-    ap '========================================================================'
-    ap '========================================================================'
-    ap '========================================================================'
-    ap '========================================================================'
-    ap 'sending emails'
+
     
     
     @digiramp_email = DigirampEmail.find(digiramp_email_id)
     @email_group    = @digiramp_email.email_group
     
-    receipients = []
-    index = 0
-    @email_group.users.each do |user|
-      ap user.email
-      if email = EmailValidator.saintize( user.email )
-        receipients[index] = email
-        index += 1
-      end
-    end
-    
-    @image_1          = (URI.parse(root_url) + @digiramp_email.image_1_url(:banner_558x90)).to_s
-    link              = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
-    @unsibscribe_link = (URI.parse(root_url) + link).to_s
     
     
     
-    headers['X-SMTPAPI'] = '{ "to": '+ receipients.to_s + '}'
+    
+    @email_group.users.in_groups_of(100) do |users| # in chuncks
+      receipients = []
+      sleep 5
 
-    ap receipients
-    
-    
-    mail to: "max@digiramp.com"
+      index = 0
+      users.each do |user|
+        ap '.'
+        if user && email = EmailValidator.saintize( user.email )
+          ap email
+          receipients[index] = email
+          index += 1
+        end
+      end
+      unless receipients.empty?
+       
+        @image_1            = (URI.parse(root_url) + @digiramp_email.image_1_url(:banner_558x90)).to_s
+        link                = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
+        @unsibscribe_link   = (URI.parse(root_url) + link).to_s
+        headers['X-SMTPAPI'] = '{ "to": '+ receipients.to_s + '}'
+        mail to: "info@digiramp.com"
+      end
+      
+      
+    end
   end
   
   def opportunity_created digiramp_email_id

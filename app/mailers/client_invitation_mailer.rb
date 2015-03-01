@@ -33,19 +33,18 @@ class ClientInvitationMailer < ActionMailer::Base
     
     
     
-    client_group.clients.in_groups_of(100) do |clients| # in chuncks
+    client_group.clients.in_groups_of(50) do |clients| # in chuncks
       # create array of invitations
       sleep 5
       invitations = []
       index        = 0
       
       clients.each do |client|
-        begin
+        if client
           if client.member_id.nil?
             invitations[index] = create_invitation( client )
             index += 1
           end
-        rescue
         end
       end
       
@@ -88,11 +87,10 @@ class ClientInvitationMailer < ActionMailer::Base
       
                   }
       
-      
-      
-      headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
-      
-      mail to: "info@digiramp.com", subject: "I'd like to add you to my network of music professionals"
+      unless emails.empty?
+        headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
+        mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
+      end
     end
     
     
