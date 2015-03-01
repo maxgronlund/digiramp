@@ -19,6 +19,16 @@
           tr
             th.description Sound like:
             td = link_to 'click here', music_request.link
+.row
+  .col-sm-12
+    .pull-right
+     = link_to log_in_or_signup_new_path(bounce_back: request.url, message: 'Please login or signup before you submit to this opportunity'), remote: true do
+           .btn.btn-success
+             i.fa.fa-plus
+             '&nbsp;
+             'Submit recordings
+              
+  
 
         
 

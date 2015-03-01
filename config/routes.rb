@@ -6,6 +6,8 @@ Digiramp::Application.routes.draw do
 
   
 
+  get 'log_in_or_signup/new'
+
   resources :add_to_playlists, only: [:create]
   resources :become_members, only: [:new]
   resources :business_account_info, only: [:index]

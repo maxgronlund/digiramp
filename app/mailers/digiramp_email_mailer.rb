@@ -10,26 +10,15 @@ class DigirampEmailMailer < ActionMailer::Base
   #
   def news_email digiramp_email_id
     
-
-
-    
-    
     @digiramp_email = DigirampEmail.find(digiramp_email_id)
     @email_group    = @digiramp_email.email_group
-    
-    
-    
-    
-    
-    @email_group.users.in_groups_of(100) do |users| # in chuncks
+
+    @email_group.users.in_groups_of(50) do |users| # in chuncks
       receipients = []
       sleep 5
-
       index = 0
       users.each do |user|
-        ap '.'
         if user && email = EmailValidator.saintize( user.email )
-          ap email
           receipients[index] = email
           index += 1
         end
@@ -40,7 +29,7 @@ class DigirampEmailMailer < ActionMailer::Base
         link                = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
         @unsibscribe_link   = (URI.parse(root_url) + link).to_s
         headers['X-SMTPAPI'] = '{ "to": '+ receipients.to_s + '}'
-        mail to: "info@digiramp.com"
+        mail to: "max@digiramp.com"
       end
       
       
@@ -49,23 +38,30 @@ class DigirampEmailMailer < ActionMailer::Base
   
   def opportunity_created digiramp_email_id
     
-    @digiramp_email = DigirampEmail.cached_find(digiramp_email_id)
+    @digiramp_email   = DigirampEmail.cached_find(digiramp_email_id)
     @opportunity_url  = url_for( controller: '/public_opportunities', action: 'show', id: @digiramp_email.opportunity_id)
 
-    receipients = []
+    
 
-    @digiramp_email.email_group.users.each_with_index do |user, index|
-      if email = EmailValidator.saintize( user.email )
-        receipients[index] = email
+    
+    @digiramp_email.email_group.users.in_groups_of(50) do |users|
+      receipients = []
+      sleep 5
+      index = 0
+    
+      users.each_with_index do |user|
+        if user && email = EmailValidator.saintize( user.email )
+          receipients[index] = email
+          index += 1
+        end
+      end
+      unless receipients.empty?
+        link = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
+        @unsibscribe_link = (URI.parse(root_url) + link).to_s
+        headers['X-SMTPAPI'] = '{ "to": '+ receipients.to_s + '}'
+        mail to: "info@digiramp.com"
       end
     end
-
-    link = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
-    @unsibscribe_link = (URI.parse(root_url) + link).to_s
-    
-    headers['X-SMTPAPI'] = '{ "to": '+ receipients.to_s + '}'
-    
-    mail to: "info@digiramp.com"
     
     
   end

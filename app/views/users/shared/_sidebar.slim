@@ -36,7 +36,7 @@
 
           - else
             / connect when not logged in
-            = link_to new_become_member_path(user: @user), remote: true do
+            = link_to new_become_member_path(user: @user, bounce_back: request.url), remote: true do
                   .btn.btn-primary.btn-xs
                     i.fa.fa-refresh
                     '&nbsp;Connect
