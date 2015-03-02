@@ -2,10 +2,6 @@
 Digiramp::Application.routes.draw do
 
 
- 
-
-  
-
   get 'log_in_or_signup/new'
 
   resources :add_to_playlists, only: [:create]
@@ -355,6 +351,7 @@ Digiramp::Application.routes.draw do
     get 'features_and_values/index'
     resources :front_end_contents, only: [:edit, :update]
     resources :helps
+    resources :issue_events, only: [:index, :show, :destroy]
     resources :widget_themes
     get 'repair_permissions'
     resources :activities

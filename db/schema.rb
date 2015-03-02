@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227234908) do
+ActiveRecord::Schema.define(version: 20150302204310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -788,6 +788,11 @@ ActiveRecord::Schema.define(version: 20150227234908) do
     t.datetime "updated_at"
   end
 
+  create_table "cms_navigation_bars", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "cms_pages", force: true do |t|
     t.integer  "user_id"
     t.string   "title"
@@ -819,6 +824,14 @@ ActiveRecord::Schema.define(version: 20150227234908) do
   end
 
   add_index "cms_playlists", ["playlist_id"], name: "index_cms_playlists_on_playlist_id", using: :btree
+
+  create_table "cms_profiles", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cms_profiles", ["user_id"], name: "index_cms_profiles_on_user_id", using: :btree
 
   create_table "cms_recordings", force: true do |t|
     t.integer  "recording_id"
@@ -1606,6 +1619,17 @@ ActiveRecord::Schema.define(version: 20150227234908) do
   add_index "ipis", ["import_ipi_id"], name: "index_ipis_on_import_ipi_id", using: :btree
   add_index "ipis", ["pro_affiliation_id"], name: "index_ipis_on_pro_affiliation_id", using: :btree
   add_index "ipis", ["user_id"], name: "index_ipis_on_user_id", using: :btree
+
+  create_table "issue_events", force: true do |t|
+    t.string   "title"
+    t.text     "data"
+    t.integer  "subject_id"
+    t.string   "subject_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "issue_events", ["subject_id", "subject_type"], name: "index_issue_events_on_subject_id_and_subject_type", using: :btree
 
   create_table "issues", force: true do |t|
     t.string   "title"

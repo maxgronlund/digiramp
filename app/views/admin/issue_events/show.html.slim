@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @issue_event.title
+p
+  strong Data:
+  = @issue_event.data
+p
+  strong Subject:
+  = @issue_event.subject
+
+= link_to 'Edit', edit_issue_event_path(@issue_event)
+'|
+= link_to 'Back', issue_events_path

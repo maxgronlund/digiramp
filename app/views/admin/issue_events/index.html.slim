@@ -1,0 +1,45 @@
+
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Event tracking
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Date
+                th Subject
+                th
+
+            tbody
+              - @issue_events.each do |issue_event|
+                tr
+                  td 
+                    = link_to issue_event.title, admin_issue_event_path(issue_event)
+                  td = issue_event.created_at.to_formatted_s(:short)
+                  td = issue_event.subject_type
+                  td 
+                    = link_to issue_event, data: {:confirm => 'Are you sure?'}, turboboost: true, :method => :delete
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+                    
+            
+          
+
+  == render 'shared/site_footer'    
+ 
+
+
