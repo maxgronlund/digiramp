@@ -3,7 +3,7 @@ class Admin::IssueEventsController < ApplicationController
   before_filter :admins_only
 
   def index
-    @issue_events = IssueEvent.all
+    @issue_events = IssueEvent.order(:created_at).page(params[:page]).per(50)
   end
 
   def show

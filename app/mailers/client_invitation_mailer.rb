@@ -25,23 +25,22 @@ class ClientInvitationMailer < ActionMailer::Base
   
   # notice max 1000 at a time
   def invite_all_from_group client_group_id
-    
-    client_group = ClientGroup.find(client_group_id)
-    @inviter     = client_group.user
-    user_name    = @inviter.user_name
-    @avatar_url  = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
-    
-    
+    ap 'invite_all_from_group'
+    client_group    = ClientGroup.find(client_group_id)
+    @inviter        = client_group.user
+    user_name       = @inviter.user_name
+    @avatar_url     = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
     
     client_group.clients.in_groups_of(50) do |clients| # in chuncks
       # create array of invitations
       sleep 5
-      invitations = []
-      index        = 0
+      invitations   = []
+      index         = 0
       
       clients.each do |client|
+       
         if client
-          if client.member_id.nil?
+          unless client.member_id.nil?
             invitations[index] = create_invitation( client )
             index += 1
           end
@@ -88,7 +87,12 @@ class ClientInvitationMailer < ActionMailer::Base
                   }
       
       unless emails.empty?
-        headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
+        #headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
+        
+        headder = JSON.generate(x_smtpapi)
+        IssueEvent.create(title: 'ClientInvitationMailer#invite_all_from_group', data: headder, subject_type: 'ClientGroup', subject_id: client_group_id)
+        headers['X-SMTPAPI'] = headder
+        
         mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
       end
     end

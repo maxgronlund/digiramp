@@ -47,103 +47,11 @@
                     'Show
                   - if super?
                     =< link_to 'Edit', edit_admin_tutorial_path(tutorial), class: 'btn btn-default'
-                    =< link_to  tutorial, data: {:confirm => 'Are you sure?'}, :method => :delete do
+                    =< link_to  tutorial, data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete do
                        .btn.btn-danger
                          i.fa.fa-times
           .sexy_line
-      /table
-      /  thead
-      /    tr
-      /      th Title
-      /      th Body
-      /      th Video
-      /      th Views
-      /      th Tag
-      /      th Position
-      /      th Link
-      /      th
-      /      th
-      /      th
-      /
-      /  tbody
-      /    - @tutorials.each do |tutorial|
-      /      tr
-      /        td = tutorial.title
-      /        td = tutorial.body
-      /        td = tutorial.video
-      /        td = tutorial.views
-      /        td = tutorial.tag
-      /        td = tutorial.position
-      /        td = tutorial.link
-      /        td = link_to 'Show', tutorial
-      /        td = link_to 'Edit', edit_tutorial_path(tutorial)
-      /        td = link_to 'Destroy', tutorial, data: {:confirm => 'Are you sure?'}, :method => :delete
-      /
-      /br
       
-
-                          
-                  
-        
-        
         
           
-  == render 'shared/site_footer'  
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/h1 Listing tutorials
-/
-/table
-/  thead
-/    tr
-/      th Title
-/      th Body
-/      th Video
-/      th Views
-/      th Tag
-/      th Position
-/      th Link
-/      th
-/      th
-/      th
-/
-/  tbody
-/    - @tutorials.each do |tutorial|
-/      tr
-/        td = tutorial.title
-/        td = tutorial.body
-/        td = tutorial.video
-/        td = tutorial.views
-/        td = tutorial.tag
-/        td = tutorial.position
-/        td = tutorial.link
-/        td = link_to 'Show', tutorial
-/        td = link_to 'Edit', edit_tutorial_path(tutorial)
-/        td = link_to 'Destroy', tutorial, data: {:confirm => 'Are you sure?'}, :method => :delete
-/
-/br
-/
-/= link_to 'New Instruction', new_tutorial_path
+  == render 'shared/site_footer' 

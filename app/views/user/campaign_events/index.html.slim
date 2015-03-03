@@ -26,7 +26,7 @@ table
         td = campaign_event.status
         td = link_to 'Show', campaign_event
         td = link_to 'Edit', edit_campaign_event_path(campaign_event)
-        td = link_to 'Destroy', campaign_event, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Destroy', campaign_event, data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete
 
 br
 

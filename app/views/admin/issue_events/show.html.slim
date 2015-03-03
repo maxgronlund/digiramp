@@ -1,15 +1,33 @@
-p#notice = notice
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
 
-p
-  strong Title:
-  = @issue_event.title
-p
-  strong Data:
-  = @issue_event.data
-p
-  strong Subject:
-  = @issue_event.subject
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,
+                                                             'event logging'.to_sym => admin_issue_events_path}, current: ''}
+      h2 Event logging
+      'Stuff of interest for the development
+      .sexy_line
+      .digi-box
+        h3 = @issue_event.title
+        .sexy_line
+        strong Data:
+        = @issue_event.data
+        .sexy_line
+        strong Subject:
+        = @issue_event.subject
+            
+          
 
-= link_to 'Edit', edit_issue_event_path(@issue_event)
-'|
-= link_to 'Back', issue_events_path
+  == render 'shared/site_footer'    
+
+
+
+

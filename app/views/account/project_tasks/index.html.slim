@@ -34,7 +34,7 @@ table
         td = project_task.description
         td = link_to 'Show', project_task
         td = link_to 'Edit', edit_project_task_path(project_task)
-        td = link_to 'Destroy', project_task, data: {:btn btn-default => 'Are you sure?'}, :method => :delete
+        td = link_to 'Destroy', project_task, data: {:btn btn-default => 'Are you sure?'},turboboost: true, :method => :delete
 
 br
 

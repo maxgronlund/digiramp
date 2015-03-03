@@ -132,7 +132,7 @@
                     
                     
                     = link_to  catalog_account_catalog_catalog_user_path(@account, @catalog, catalog_user),\
-                              data: { confirm: 'Are you sure?' } , :method => :delete do
+                              data: { confirm: 'Are you sure?' } ,turboboost: true, :method => :delete do
                       - if current_catalog_user.can_delete_catalog_user( catalog_user ) && catalog_user.role != 'Account User'
                         .btn.btn-danger.btn-xs
                           i class="fa fa-times"

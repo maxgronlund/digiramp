@@ -53,7 +53,7 @@
                     'Watch now
                 - if super?
                   =< link_to 'Edit', edit_admin_tutorial_path(tutorial), class: 'btn btn-default'
-                  =< link_to  tutorial, data: {:confirm => 'Are you sure?'}, :method => :delete do
+                  =< link_to  tutorial, data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete do
                      .btn.btn-danger
                        i.fa.fa-times
           .sexy_line

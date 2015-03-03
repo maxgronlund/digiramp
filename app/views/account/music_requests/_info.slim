@@ -5,7 +5,8 @@
       .pull-right
         - if current_account_user.update_opportunity
           = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), 
-                                                                    data: { confirm: 'Are you sure?' } , 
+                                                                    data: { confirm: 'Are you sure?' },
+                                                                    turboboost: true , 
                                                                     :method => :delete  do
             .btn.btn-xs.btn-danger
               i class="fa fa-times"

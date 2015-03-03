@@ -44,13 +44,7 @@
                         = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
                         .pull-right
                           br
-                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
-                          /  .btn.btn-info.btn-lg
-                          /    i class="fa fa-info-circle"
-                          /'&nbsp;
-                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
-                          /  .btn.btn-danger.btn-lg
-                          /    i class="fa fa-times"
+
             .visible-md
               .col-sm-4
                 .panel.panel-primary
@@ -63,14 +57,7 @@
                       .thumbnail
                         = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
                         .pull-right
-                          br
-                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
-                          /  .btn.btn-info.btn-lg
-                          /    i class="fa fa-info-circle"
-                          /'&nbsp;
-                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
-                          /  .btn.btn-danger.btn-lg
-                          /    i class="fa fa-times"
+
             .visible-lg
               .col-sm-3
                 .panel.panel-primary
@@ -83,14 +70,7 @@
                       .thumbnail
                         = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
                         .pull-right
-                          br
-                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
-                          /  .btn.btn-info.btn-lg
-                          /    i class="fa fa-info-circle"
-                          /'&nbsp;
-                          /= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
-                          /  .btn.btn-danger.btn-lg
-                          /    i class="fa fa-times"
+
             
             
                       

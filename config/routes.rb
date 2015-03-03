@@ -347,6 +347,7 @@ Digiramp::Application.routes.draw do
   # Example resource route within a namespace:
   namespace :admin do
     resources :contracts
+    resources :client_groups, only: [:index, :show, :update]
     resources :digiramp_ads
     get 'features_and_values/index'
     resources :front_end_contents, only: [:edit, :update]

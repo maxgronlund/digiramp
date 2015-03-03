@@ -52,7 +52,7 @@
                   .btn.btn-default.btn-xs
                     i class='fa fa-pencil'
 
-                = link_to  admin_blog_path(blog, page: params[:page]), data: { confirm: 'Are you sure?' } , :method => :delete do
+                = link_to  admin_blog_path(blog, page: params[:page]), data: { confirm: 'Are you sure?' },turboboost: true , :method => :delete do
                   .btn.btn-danger.btn-xs
                     i class="fa fa-times"
           .sexy_line

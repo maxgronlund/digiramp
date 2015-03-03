@@ -33,7 +33,7 @@
   br
   .clearfix
   - if facebook
-    = link_to user_user_authorization_provider_path(@user, facebook), data: { confirm: 'Are you sure?' } , :method => :delete do 
+    = link_to user_user_authorization_provider_path(@user, facebook), data: { confirm: 'Are you sure?' },turboboost: true , :method => :delete do 
             .btn.btn-danger.btn-xs
               i class="fa fa-lock"
               '&nbsp;

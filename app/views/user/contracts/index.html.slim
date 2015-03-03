@@ -16,7 +16,7 @@ table
         td = contract.subject
         td = link_to 'Show', contract
         td = link_to 'Edit', edit_contract_path(contract)
-        td = link_to 'Destroy', contract, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Destroy', contract, data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete
 
 br
 

@@ -19,12 +19,7 @@ h4 IPI's
         .pull-right
           - total_share += recording_ipi.share
           = number_to_percentage(recording_ipi.share, precision: 0)
-          /-if current_account_user.delete_recording_ipi
-          / = link_to account_account_recording_recording_ipi_path(@account, @recording, recording_ipi), \
-          /                                         data: { confirm: 'Are you sure?' } , \
-          /                                         :method => :delete do
-          /   .btn.btn-danger.btn-xs
-          /     i class='fa fa-times'
+
     .sexy_line
     .row
       .col-sm-4
@@ -49,51 +44,4 @@ h4 IPI's
         = link_to 'More info', account_account_recording_recording_ipis_path(@account, @recording), class: 'btn btn-default'
         
     
-  /.table-responsive
-  /  table class="table table-hover"
-  /    thead
-  /      tr
-  /        /th User
-  /        th Role
-  /        th Email
-  /        th Share
-  /        /th
-  /  
-  /  
-  /    tbody
-  /      -total_share = 0
-  /      - @recording.recording_ipis.each do |recording_ipi|
-  /      
-  /        tr
-  /          /td = recording_ipi.name
-  /          td = recording_ipi.role
-  /          td = recording_ipi.email
-  /          td
-  /            - total_share += recording_ipi.share
-  /            = number_to_percentage(recording_ipi.share, precision: 0)   
-  /          
-  /          /td
-  /          /  .pull-rightx
-  /          /    /-if current_account_user.update_recording_ipi
-  /          /    /  = link_to edit_account_account_recording_recording_ipi_path(@account, @recording, recording_ipi) do
-  /          /    /    .btn.btn-default
-  /          /    /      i.fa.fa-pencil
-  /          /    /-if current_account_user.delete_recording_ipi
-  /          /    /  '&nbsp;
-  /          /    /  = link_to account_account_recording_recording_ipi_path(@account, @recording, recording_ipi), \
-  /          /    /                                          data: { confirm: 'Are you sure?' } , \
-  /          /    /                                          :method => :delete do
-  /          /    /    .btn.btn-danger.btn-xs
-  /          /    /      i class='fa fa-times'
-  /          /
-  /      .sexy_line
-  /        th Total 
-  /        td
-  /        td 
-  /          -if total_share > 100
-  /            .expired
-  /              = number_to_percentage(total_share, precision: 0)  
-  /          -else
-  /            = number_to_percentage(total_share, precision: 0)  
-  /        td 
-  /        td
+ 

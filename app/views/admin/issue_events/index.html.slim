@@ -1,5 +1,3 @@
-
-
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'admin' 
@@ -12,6 +10,7 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
       h2 Event tracking
       .sexy_line
       .digi-box
@@ -22,6 +21,7 @@
                 th Title
                 th Date
                 th Subject
+                th Subject id
                 th
 
             tbody
@@ -31,8 +31,11 @@
                     = link_to issue_event.title, admin_issue_event_path(issue_event)
                   td = issue_event.created_at.to_formatted_s(:short)
                   td = issue_event.subject_type
+                  td = issue_event.subject_id
                   td 
-                    = link_to issue_event, data: {:confirm => 'Are you sure?'}, turboboost: true, :method => :delete
+                    = link_to admin_issue_event_path(issue_event), data: {:confirm => 'Are you sure?'}, 
+                                                                  turboboost: true, 
+                                                                  method: :delete
                       .btn.btn-danger.btn-xs
                         i.fa.fa-times
                     

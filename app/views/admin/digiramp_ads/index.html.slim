@@ -1,11 +1,11 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
+    == render 'shared/navigationbar', page: 'admin' 
   
-  
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'admin'
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
   
   #page-content-wrapper
     .container-fluid
@@ -21,37 +21,40 @@
         /
         /  == render 'admin/helps/help', identifier: 'recording ipis'
       .sexy_line
-      .table-responsive
-        table class="table table-hover"
-          thead
-            tr
-              th Identifier
-              th Button link
-              th
-          
-          tbody
-            - @digiramp_ads.each do |digiramp_ad|
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
               tr
-                td = link_to digiramp_ad.identifier, admin_digiramp_ad_path(digiramp_ad)
-                td = digiramp_ad.button_link
-                td 
-                  .pull-right
-                    => link_to admin_digiramp_ad_path(digiramp_ad) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-eye
-                        '&nbsp;Show
-                        
-                    => link_to edit_admin_digiramp_ad_path(digiramp_ad) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-pencil
-                        '&nbsp;Edit
-                        
-                    = link_to  admin_digiramp_ad_path(digiramp_ad), data: {:confirm => 'Are you sure?'}, :method => :delete
-                      .btn.btn-xs.btn-danger
-                        i.fa.fa-times
-                    
-      .pull-right
-        = link_to 'New DigirRAMP ad', new_admin_digiramp_ad_path, class: 'btn btn-primary'
+                th Identifier
+                th Button link
+                th
+            
+            tbody
+              - @digiramp_ads.each do |digiramp_ad|
+                tr
+                  td = link_to digiramp_ad.identifier, admin_digiramp_ad_path(digiramp_ad)
+                  td = digiramp_ad.button_link
+                  td 
+                    .pull-right
+                      => link_to admin_digiramp_ad_path(digiramp_ad) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-eye
+                          '&nbsp;Show
+                          
+                      => link_to edit_admin_digiramp_ad_path(digiramp_ad) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
+                          '&nbsp;Edit
+                          
+                      = link_to  admin_digiramp_ad_path(digiramp_ad), data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete
+                        .btn.btn-xs.btn-danger
+                          i.fa.fa-times
+                      
+        .row
+          .col-sm-12
+            .pull-right
+              = link_to 'New DigirRAMP ad', new_admin_digiramp_ad_path, class: 'btn btn-primary'
 
   == render 'shared/site_footer'    
  

@@ -42,7 +42,7 @@
                   .pull-right
                     => link_to 'Show', admin_raw_image_path(raw_image), class: 'btn btn-default btn-xs'
                     => link_to 'Edit', edit_admin_raw_image_path(raw_image), class: 'btn btn-default btn-xs'
-                    = link_to 'Delete', admin_raw_image_path(raw_image), data: {:confirm => 'This might breake stuff! Are you sure?'}, :method => :delete, class: 'btn btn-danger btn-xs'
+                    = link_to 'Delete', admin_raw_image_path(raw_image), data: {:confirm => 'This might breake stuff! Are you sure?'}, turboboost: true, :method => :delete, class: 'btn btn-danger btn-xs'
         
         
             
@@ -52,36 +52,3 @@
 
   == render 'shared/site_footer'    
  
-
-
-
-
-
-
-
-
-/h1 Listing raw_images
-/
-/table
-/  thead
-/    tr
-/      th Identifier
-/      th Title
-/      th Image
-/      th
-/      th
-/      th
-/
-/  tbody
-/    - @raw_images.each do |raw_image|
-/      tr
-/        td = raw_image.identifier
-/        td = raw_image.title
-/        td = raw_image.image
-/        td = link_to 'Show', raw_image
-/        td = link_to 'Edit', edit_raw_image_path(raw_image)
-/        td = link_to 'Destroy', raw_image, data: {:confirm => 'Are you sure?'}, :method => :delete
-/
-/br
-/
-/= link_to 'New Raw image', new_raw_image_path

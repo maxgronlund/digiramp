@@ -13,7 +13,7 @@ class DigirampEmailMailer < ActionMailer::Base
     @digiramp_email = DigirampEmail.find(digiramp_email_id)
     @email_group    = @digiramp_email.email_group
 
-    @email_group.users.in_groups_of(50) do |users| # in chuncks
+    @email_group.users.in_groups_of(100) do |users| # in chuncks
       receipients = []
       sleep 5
       index = 0
@@ -28,8 +28,13 @@ class DigirampEmailMailer < ActionMailer::Base
         @image_1            = (URI.parse(root_url) + @digiramp_email.image_1_url(:banner_558x90)).to_s
         link                = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
         @unsibscribe_link   = (URI.parse(root_url) + link).to_s
-        headers['X-SMTPAPI'] = '{ "to": '+ receipients.to_s + '}'
-        mail to: "max@digiramp.com"
+        
+        
+        
+        headder = '{ "to": '+ receipients.to_s + '}'
+        IssueEvent.create(title: 'DigirampEmailMailer#news_email', data: headder, subject_type: 'DigirampEmail', subject_id: digiramp_email_id)
+        headers['X-SMTPAPI'] = headder
+        mail to: "info@digiramp.com"
       end
       
       
@@ -58,7 +63,11 @@ class DigirampEmailMailer < ActionMailer::Base
       unless receipients.empty?
         link = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
         @unsibscribe_link = (URI.parse(root_url) + link).to_s
-        headers['X-SMTPAPI'] = '{ "to": '+ receipients.to_s + '}'
+        
+        headder = '{ "to": '+ receipients.to_s + '}'
+        IssueEvent.create(title: 'DigirampEmailMailer#opportunity_created', data: headder, subject_type: 'DigirampEmail', subject_id: digiramp_email_id)
+        headers['X-SMTPAPI'] = headder
+        
         mail to: "info@digiramp.com"
       end
     end
