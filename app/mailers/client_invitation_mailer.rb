@@ -35,67 +35,70 @@ class ClientInvitationMailer < ActionMailer::Base
     
     client_group.clients.in_groups_of(50) do |clients| # in chuncks
       # create array of invitations
-      sleep 5
-      invitations   = []
-      index         = 0
-      
-      clients.each do |client|
-       
-        if client
-          #unless client.member_id.nil?
-          invitations[index] = create_invitation( client )
-          index += 1
-            #end
-        end
-      end
-      
-      
-      # prepare custom fields
-      emails        = []
-      accept_urls   = []
-      decline_urls  = []
-      user_names    = []
-      index         = 0
-      
-      invitations.each do |invitation|
-        if email = EmailValidator.saintize( invitation.client.email )
-          emails[index]         = email
-          accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id: invitation.uuid )
-          decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
-          user_names[index]     = user_name    
-          index += 1
-        else
-          invitation.destroy!
-        end
-      end
-      
-      # prepre JSON
-      x_smtpapi = { 
-                    to: emails,
-                    filters: { templates: {
-                                         settings: {
-                                                       enabled: 1,
-                                                       template_id: "9117870a-825a-4c81-8c04-8ff68d422ff7"
-                                                     }
-                                        }
-                             }, 
-                     sub: {  
-                             "<%user_name%>".to_sym =>    user_names,
-                             "--accept_url--".to_sym =>   accept_urls,
-                             "--decline_url--".to_sym =>  decline_urls,
-                             "--avatar_url--".to_sym =>   decline_urls
-                          } 
-      
-                  }
-      
-      unless emails.empty?
-        #headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
+      if first_batch
+        first_batch = false
+        sleep 5
+        invitations   = []
+        index         = 0
         
-        headder = JSON.generate(x_smtpapi)
-        IssueEvent.create(title: 'ClientInvitationMailer#invite_all_from_group', data: headder, subject_type: 'ClientGroup', subject_id: client_group_id)
-        headers['X-SMTPAPI'] = headder
+        clients.each do |client|
+         
+          if client
+            #unless client.member_id.nil?
+            invitations[index] = create_invitation( client )
+            index += 1
+              #end
+          end
+        end
         
-        mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
+        
+        # prepare custom fields
+        emails        = []
+        accept_urls   = []
+        decline_urls  = []
+        user_names    = []
+        index         = 0
+        
+        invitations.each do |invitation|
+          if email = EmailValidator.saintize( invitation.client.email )
+            emails[index]         = email
+            accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id: invitation.uuid )
+            decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
+            user_names[index]     = user_name    
+            index += 1
+          else
+            invitation.destroy!
+          end
+        end
+        
+        # prepre JSON
+        x_smtpapi = { 
+                      to: emails,
+                      filters: { templates: {
+                                           settings: {
+                                                         enabled: 1,
+                                                         template_id: "9117870a-825a-4c81-8c04-8ff68d422ff7"
+                                                       }
+                                          }
+                               }, 
+                       sub: {  
+                               "<%user_name%>".to_sym =>    user_names,
+                               "--accept_url--".to_sym =>   accept_urls,
+                               "--decline_url--".to_sym =>  decline_urls,
+                               "--avatar_url--".to_sym =>   decline_urls
+                            } 
+        
+                    }
+        
+        unless emails.empty?
+          #headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
+          
+          headder = JSON.generate(x_smtpapi)
+          IssueEvent.create(title: 'ClientInvitationMailer#invite_all_from_group', data: headder, subject_type: 'ClientGroup', subject_id: client_group_id)
+          headers['X-SMTPAPI'] = headder
+          
+          mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
+        end
       end
     end
     
