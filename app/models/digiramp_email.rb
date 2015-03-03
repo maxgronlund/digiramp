@@ -10,6 +10,17 @@ class DigirampEmail < ActiveRecord::Base
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
+  
+  
+  
+  
+  
+  def send_news_emails
+    self.email_group.users.in_groups_of(50) do |users|
+      DigirampEmailMailer.delay.news_email( users, self.id )
+    end
+  end
+  
 
 private 
 

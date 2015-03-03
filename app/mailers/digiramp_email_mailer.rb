@@ -8,37 +8,31 @@ class DigirampEmailMailer < ActionMailer::Base
   #
   #   en.digiramp_email.news_email.subject
   #
-  def news_email digiramp_email_id
+  def news_email users, digiramp_email_id
     
-    @digiramp_email = DigirampEmail.find(digiramp_email_id)
-    @email_group    = @digiramp_email.email_group
-
-    @email_group.users.in_groups_of(100) do |users| # in chuncks
-      receipients = []
-      sleep 5
-      index = 0
-      users.each do |user|
-        if user && email = EmailValidator.saintize( user.email )
-          receipients[index] = email
-          index += 1
-        end
+    @digiramp_email   = DigirampEmail.find(digiramp_email_id)
+    receipients = []
+    index       = 0
+    users.each do |user|
+      if user && email = EmailValidator.saintize( user.email )
+        receipients[index] = email
+        index += 1
       end
-      unless receipients.empty?
-       
-        @image_1            = (URI.parse(root_url) + @digiramp_email.image_1_url(:banner_558x90)).to_s
-        link                = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
-        @unsibscribe_link   = (URI.parse(root_url) + link).to_s
-        
-        
-        
-        headder = '{ "to": '+ receipients.to_s + '}'
-        IssueEvent.create(title: 'DigirampEmailMailer#news_email', data: headder, subject_type: 'DigirampEmail', subject_id: digiramp_email_id)
-        headers['X-SMTPAPI'] = headder
-        mail to: "info@digiramp.com"
-      end
-      
-      
     end
+    unless receipients.empty?
+     
+      @image_1            = (URI.parse(root_url) + @digiramp_email.image_1_url(:banner_558x90)).to_s
+      link                = url_for unsubscribes_path(uuid: @digiramp_email.email_group.uuid)
+      @unsibscribe_link   = (URI.parse(root_url) + link).to_s
+      
+      
+      
+      headder = '{ "to": '+ receipients.to_s + '}'
+      IssueEvent.create(title: 'DigirampEmailMailer#news_email', data: headder, subject_type: 'DigirampEmail', subject_id: digiramp_email_id)
+      headers['X-SMTPAPI'] = headder
+      mail to: "info@digiramp.com"
+    end
+
   end
   
   def opportunity_created digiramp_email_id

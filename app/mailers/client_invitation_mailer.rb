@@ -45,13 +45,20 @@ class ClientInvitationMailer < ActionMailer::Base
       #sleep 5
     client_batch.each do |client|
       if client && email = EmailValidator.saintize( client.email )
-        # store invited clients
-        invitation = create_invitation( client )
-        emails[index]         = email
-        accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
-        decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
-        user_names[index]     = user_name    
-        index += 1
+        
+        # Don't invite clients two times
+        unless ClientInvitation.where(  account_id:  client.account_id, 
+                                        client_id:   client.id,
+                                        user_id:     client.user_id,
+                                        status:     'Invited').first
+          # store invited clients
+          invitation            = create_invitation( client )
+          emails[index]         = email
+          accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
+          decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
+          user_names[index]     = user_name    
+          index += 1
+        end
       end
     end
     
@@ -89,15 +96,11 @@ class ClientInvitationMailer < ActionMailer::Base
   
   def create_invitation client
     
-    ClientInvitation.where( account_id:  client.account_id, 
+    ClientInvitation.create( account_id: client.account_id, 
                              client_id:  client.id,
                              user_id:    client.user_id,
-                             status:     'Invited')
-                     .first_or_create( account_id: client.account_id, 
-                                       client_id:  client.id,
-                                       user_id:    client.user_id,
-                                       status:     'Invited',
-                                       uuid:       UUIDTools::UUID.timestamp_create().to_s )
+                             status:     'Invited',
+                             uuid:       UUIDTools::UUID.timestamp_create().to_s )
     
   end
   

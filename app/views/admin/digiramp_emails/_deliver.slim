@@ -1,7 +1,7 @@
 - if digiramp_email.delivered
   'Delivered
 - else
-  = simple_form_for [:admin, @email_group, digiramp_email ] do |f|
+  = simple_form_for [:admin, @email_group, digiramp_email ], turboboost: true do |f|
     = f.hidden_field :email_group_id, value: @email_group.id
     = f.hidden_field :delivered, value: true
     
