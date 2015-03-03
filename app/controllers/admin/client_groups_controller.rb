@@ -17,8 +17,9 @@ class Admin::ClientGroupsController < ApplicationController
 
     @clint_group = ClientGroup.cached_find(params[:id])
     @clint_group.invitation_count += 1
-    @clint_group.invited = true
+    @clint_group.invited          = true
     @clint_group.save!
+    @clint_group.invite_clients
     #ClientInvitationMailer.delay.invite_all_from_group( params[:id])
     #@clint_group.update(client_group_params)
     redirect_to admin_client_groups_path

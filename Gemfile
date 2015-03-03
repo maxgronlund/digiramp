@@ -153,6 +153,8 @@ gem "awesome_print"
 
 #gem 'jquery_file_download-rails'
 
+gem "sendgrid-ruby"
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

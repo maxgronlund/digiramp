@@ -46,8 +46,8 @@ ActionMailer::Base.smtp_settings = {
 }
 
 
-ENV["MAIL_USERNAME"]    = 'info@digiramp.org'
-ENV["MAIL_PASSWORD"]    = 'IS5pleyu'
+#ENV["MAIL_USERNAME"]    = 'info@digiramp.org'
+#ENV["MAIL_PASSWORD"]    = 'IS5pleyu'
 
 
 
