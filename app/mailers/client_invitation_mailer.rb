@@ -35,8 +35,8 @@ class ClientInvitationMailer < ActionMailer::Base
     
     client_group.clients.in_groups_of(50) do |clients| # in chuncks
       # create array of invitations
-      if first_batch
-        first_batch = false
+      unless first_batch
+        
         sleep 5
         invitations   = []
         index         = 0
@@ -100,6 +100,7 @@ class ClientInvitationMailer < ActionMailer::Base
           mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
         end
       end
+      first_batch = false
     end
     
     
