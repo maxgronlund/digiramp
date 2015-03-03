@@ -31,8 +31,9 @@ class ClientInvitationMailer < ActionMailer::Base
     user_name       = @inviter.user_name
     @avatar_url     = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
     
-    #client_group.clients.in_groups_of(50) do |clients| # in chuncks
-    client_group.clients.first(10).each do |clients| # in chuncks  
+    first_batch = true
+    
+    client_group.clients.in_groups_of(50) do |clients| # in chuncks
       # create array of invitations
       sleep 5
       invitations   = []
