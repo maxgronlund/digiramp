@@ -13,6 +13,8 @@ class Admin::IssueEventsController < ApplicationController
     @issue_event.destroy
     redirect_to admin_issue_events_path
   end
+  
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

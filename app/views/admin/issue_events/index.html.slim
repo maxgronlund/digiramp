@@ -11,7 +11,15 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
-      h2 Event tracking
+      .row
+        .col-sm-8
+          h2 Event tracking
+        .col-sm-4
+          .pull-right.pull-down-10
+            = link_to admin_issue_wipers_path(), data: {:confirm => 'Are you sure?'} do
+                    .btn.btn-danger
+                      i.fa.fa-times
+                      '&nbsp;Delete all
       .sexy_line
       .digi-box
         .table-responsive

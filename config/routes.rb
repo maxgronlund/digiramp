@@ -353,6 +353,7 @@ Digiramp::Application.routes.draw do
     resources :front_end_contents, only: [:edit, :update]
     resources :helps
     resources :issue_events, only: [:index, :show, :destroy]
+    resources :issue_wipers, only: [ :index]
     resources :widget_themes
     get 'repair_permissions'
     resources :activities
