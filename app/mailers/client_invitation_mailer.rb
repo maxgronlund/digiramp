@@ -25,7 +25,7 @@ class ClientInvitationMailer < ActionMailer::Base
   
   # notice max 1000 at a time
   def invite_all_from_group client_group_id
-    ap 'invite_all_from_group'
+   
     client_group    = ClientGroup.find(client_group_id)
     @inviter        = client_group.user
     user_name       = @inviter.user_name
@@ -40,10 +40,10 @@ class ClientInvitationMailer < ActionMailer::Base
       clients.each do |client|
        
         if client
-          unless client.member_id.nil?
-            invitations[index] = create_invitation( client )
-            index += 1
-          end
+          #unless client.member_id.nil?
+          invitations[index] = create_invitation( client )
+          index += 1
+            #end
         end
       end
       
