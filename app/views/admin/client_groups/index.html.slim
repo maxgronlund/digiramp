@@ -31,7 +31,7 @@
                 tr
                   td = client_group.title
                   td = client_group.account.title
-                  td = client_group.updated_at.to_formatted_s(:short)
+                  td = client_group.created_at.to_formatted_s(:short)
                   td 
                     = client_group.invited
                     ':
