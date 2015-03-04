@@ -12,11 +12,12 @@
               th Title
               th 
                 i.fa.fa-music
-                '&nbsp;Work rights & credits
+                '&nbsp;Work
               th 
                 i.fa.fa-headphones
-                '&nbsp;Recording rights & credits
+                '&nbsp;Master
               th Clerance
+              th
       
           tbody
             
@@ -47,4 +48,10 @@
                         - else
                           i.fa.fa-users
                           =< count
-                
+                td
+                  .pull-right
+                    = link_to user_user_creative_right_path(@user, common_work), data: { confirm: 'Are you sure?' } , 
+                                                                                          turboboost: true, 
+                                                                                          :method => :delete do
+                          .btn.btn-danger.btn-xs
+                            i class="fa fa-times"

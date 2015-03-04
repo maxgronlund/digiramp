@@ -6,25 +6,8 @@ class User::CreativeRightsController < ApplicationController
   
   def index
 
-    
-    #if params[:commit] == 'Go' || params[:commit].nil?
-    #  @remove_old_recordings = true
-    #  session[:query] = params[:query]
-    #end
-    #
-    #session[:query] = nil if params[:clear] == 'clear'
-    #params[:query]  = session[:query]
-    
     @common_works = CommonWork.account_search(@user.account, params[:query] ).order('title desc').page(params[:page]).per(48)
-    #@recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('position desc').page(params[:page]).per(48)
-    #
-    #
-    #
-    #if current_user && current_user.id == @user.id
-    #  @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('position desc').page(params[:page]).per(4)
-    #else
-    #  @recordings =  Recording.public_access.recordings_search(@user.recordings, params[:query]).order('position desc').page(params[:page]).per(4)
-    #end
+
   end
 
   def show
@@ -36,5 +19,12 @@ class User::CreativeRightsController < ApplicationController
   end
 
   def update
+  end
+  
+  def destroy
+    common_work = CommonWork.cached_find(params[:id])
+    common_work.destroy!
+    redirect_to user_user_creative_rights_path(@user)
+   
   end
 end

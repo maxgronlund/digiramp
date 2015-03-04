@@ -40,9 +40,7 @@ class ClientInvitationMailer < ActionMailer::Base
     index         = 0
     index         = 0
     
-    #client_group.clients.in_groups_of(1) do |clients| # in chuncks
-      # create array of invitations
-      #sleep 5
+
     client_batch.each do |client|
       if client && email = EmailValidator.saintize( client.email )
         
@@ -83,10 +81,10 @@ class ClientInvitationMailer < ActionMailer::Base
     
     # only send if there is someone to send to
     unless emails.empty?
-      #headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
+     
       
       headder = JSON.generate(x_smtpapi)
-      IssueEvent.create(title: 'ClientInvitationMailer#invite_all_from_group', data: headder, subject_type: 'ClientGroup', subject_id: client_group_id)
+      #IssueEvent.create(title: 'ClientInvitationMailer#invite_all_from_group', data: headder, subject_type: 'ClientGroup', subject_id: client_group_id)
       headers['X-SMTPAPI'] = headder
       
       mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
