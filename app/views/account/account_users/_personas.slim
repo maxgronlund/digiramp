@@ -3,7 +3,7 @@
     .col-sm-12
       #accordion
         - @account.account_users.non_catalog_users.each do |account_user|
-          - if account_user.role == "Account User" || current_user.super?
+          - if (account_user.role == "Account User") || (account_user.role == "Account Owner") #current_user.super?
             .panel.panel-default
               a data-toggle="collapse" data-parent="#accordion" href="#collapse_#{account_user.id.to_s}"
                 .panel-heading

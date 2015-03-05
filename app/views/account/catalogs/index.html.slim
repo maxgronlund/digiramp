@@ -84,7 +84,7 @@
                                   i class="fa fa-pencil"
                             
                             - if current_account_user.delete_catalog?
-                              =< link_to account_account_catalog_path( @account, catalog), remote: true , data: { confirm: 'Are you sure?' } , method: :delete do
+                              =< link_to account_account_catalog_path( @account, catalog), turboboost: true , data: { confirm: 'Are you sure?' } , method: :delete do
                                 .btn.btn-danger.btn-xs
                                   i.fa.fa-times
                               

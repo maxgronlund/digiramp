@@ -5,6 +5,10 @@ class Admin::AdministratorsController < ApplicationController
   def index
     @admins = User.supers
   end
+  
+  def edit
+     @user = User.cached_find(params[:id])
+  end
 
   def update
     if @user.update(administrators_params)

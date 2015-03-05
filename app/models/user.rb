@@ -616,6 +616,7 @@ class User < ActiveRecord::Base
     # save the account without validation                        
     @account.save(validate: false)    
     
+    
     AccessManager.add_users_to_new_account @account
     
     # set the account owned by the user

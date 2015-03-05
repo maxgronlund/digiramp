@@ -120,7 +120,7 @@ class Account::AccountUsersController < ApplicationController
     # notice!
     # Permissions for the account user are copied to the catalog users
     # from the after_commit on the AccountUser#after_create => update_catalog_users
-    
+    @account.count_users
     redirect_to account_account_account_users_path @account
   end
   
@@ -213,6 +213,7 @@ class Account::AccountUsersController < ApplicationController
                          
                          
     account_user.destroy!
+    @account.count_users
     redirect_to account_account_account_users_path(@account)
 
   end
