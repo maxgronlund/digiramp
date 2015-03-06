@@ -39,7 +39,7 @@ class Catalog< ActiveRecord::Base
   
   
   def check_default_image
-    if self.image_url == "/assets/fallback/catalog.jpg" || self.image.to_s == ''
+    if self.image_url == "/assets/fallback/catalog.jpg" || self.image.to_s == '' || self.image.nil?
       prng      = Random.new
       random_id =  prng.rand(12)
 
@@ -47,11 +47,14 @@ class Catalog< ActiveRecord::Base
         random_id = '0' + random_id.to_s 
       end
       self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-accounts/default_#{random_id.to_s}.jpg"))
-      
+      self.image.recreate_versions!
+      self.save!
+    else
+      self.image.recreate_versions!
+      self.save!
     end
     
-    self.image.recreate_versions!
-    self.save!
+    
     
   end
   
