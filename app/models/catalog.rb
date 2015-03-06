@@ -47,9 +47,12 @@ class Catalog< ActiveRecord::Base
         random_id = '0' + random_id.to_s 
       end
       self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-accounts/default_#{random_id.to_s}.jpg"))
-      self.image.recreate_versions!
-      self.save!
+      
     end
+    
+    self.image.recreate_versions!
+    self.save!
+    
   end
   
   
