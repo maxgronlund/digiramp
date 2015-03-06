@@ -22,13 +22,19 @@
               == render 'admin/helps/help', identifier: 'account recordings'
 
         .col-sm-5
-          .pull-right
-            .recording-navigation
-              = link_to account_account_recording_departures_path(@account) do
-                .btn.btn-default
-                  i.fa.fa-suitcase
-                  '&nbsp;
-                  'Receive recordings
+          .pull-right.pull-down-10
+              - if current_account_user.create_recording
+                => link_to account_account_uploads_audio_files_new_path(@account) do
+                  .btn.btn-default
+                    i.fa.fa-cloud-upload
+                    '&nbsp;
+                    'Upload
+                
+                = link_to account_account_recording_departures_path(@account) do
+                  .btn.btn-default
+                    i.fa.fa-suitcase
+                    '&nbsp;
+                    'Receive recordings
 
       .sexy_line
       - @recordings.each do |recording|
@@ -51,5 +57,3 @@
           
           
   == render 'shared/site_footer'  
- 
-

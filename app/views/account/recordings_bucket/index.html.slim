@@ -17,7 +17,14 @@
                                                       current:  ''}
       .row
         .col-sm-6
-          h2 Recordings bucket
+          .help
+            .help-text
+              h2 Recordings bucket
+            .help-button
+              == render 'admin/helps/help', identifier: 'account recordings bucket'
+        
+        
+        
         .col-sm-6
           - if current_account_user.create_recording
             .pull-right.pull-down-10

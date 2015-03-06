@@ -13,7 +13,7 @@
       = link_to account_account_recordings_path(@account) do
         i class="fa fa-headphones"
         '&nbsp;
-        = pluralize(@account.recordings.count, 'Recording')
+        = pluralize(@account.recordings.not_in_bucket.count, 'Recording')
 
   - if current_account_user.read_opportunity
     li class="#{'sidebar-selected' if selected == 'opportunity'}"
@@ -62,7 +62,7 @@
       = link_to account_account_documents_path(@account) do
         i class="fa fa-folder"
         '&nbsp;
-        'Files
+        'Documents
 
   - if current_user 
     .sexy_line

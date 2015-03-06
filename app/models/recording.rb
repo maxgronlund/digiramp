@@ -143,7 +143,7 @@ class Recording < ActiveRecord::Base
   
   def check_default_image
     #unless File.exist?(Rails.root.join('public' +  self.default_cover_art.to_s))
-    if(self.cover_art.to_s == "")
+    if(self.cover_art.to_s == "" || self.cover_art.include?('recording/default_cover_art'))
       prng      = Random.new
       random_id =  prng.rand(12)
     

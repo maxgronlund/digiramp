@@ -27,7 +27,7 @@ class Account::RecordingsBucketController < ApplicationController
     @authorized     = true
     
     if params[:recording_ids].nil?
-      flash[:danger] = { title: "Error", body: "You have to check at least one recording to edit" }
+      #flash[:danger] = { title: "Error", body: "You have to check at least one recording to edit" }
       redirect_to account_account_recordings_bucket_index_path(@account)
     else
       @recordings = Recording.find(params[:recording_ids])
