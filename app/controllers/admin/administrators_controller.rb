@@ -11,6 +11,7 @@ class Admin::AdministratorsController < ApplicationController
   end
 
   def update
+    @user = User.cached_find(params[:id])
     if @user.update(administrators_params)
       flash[:info] = { title: "SUCCESS: ", body: "User updated" }
     else

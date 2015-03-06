@@ -39,8 +39,10 @@ class AccessManager
     if user.old_role != user.role
       user.old_role = user.role
       if user.role == 'Super'
-        add_to_accounts user
+        # not adding to accounts anymore
+        #add_to_accounts user
       else
+        # we still have to remove from accounts
         remove_from_accounts user
         remove_from_catalogs user
       end

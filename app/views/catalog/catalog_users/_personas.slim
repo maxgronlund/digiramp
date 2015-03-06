@@ -1,9 +1,10 @@
+
 .account_users
   .row
     .col-sm-12
       #accordion
         -@catalog.catalog_users.order("email asc").each do |catalog_user|
-          - if current_catalog_user.can_read_catalog_user( catalog_user )
+          - if current_catalog_user.read_user && catalog_user.role != 'Super User'
             .panel.panel-default
               .panel-heading
                 .panel-title

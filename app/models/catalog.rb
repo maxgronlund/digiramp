@@ -109,7 +109,7 @@ class Catalog< ActiveRecord::Base
   
   # counter cache
   def count_users
-    self.nr_users = self.catalog_users.where(role: 'Catalog User').count
+    self.nr_users = self.catalog_users.where(role: ['Catalog User', 'Account Owner']).count
   end
   
 
