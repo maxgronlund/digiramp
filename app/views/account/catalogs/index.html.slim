@@ -73,7 +73,8 @@
                             = link_to catalog_account_catalog_catalog_users_path(@account, catalog) do
                               .btn.btn-default.btn-xs
                                 i.fa.fa-users
-                                =< pluralize( catalog.catalog_users.count, 'User')
+                                =< pluralize(catalog.nr_users, 'User')
+                                /=< pluralize( catalog.catalog_users.count, 'User')
                           
                           =
                         td

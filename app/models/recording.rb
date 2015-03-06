@@ -186,10 +186,10 @@ class Recording < ActiveRecord::Base
   
   
   def send_notifications_on_create
-    attach_to_common_work
+    #attach_to_common_work
     #notify_followers 'Has uploaded a recording', self.user_id 
     Activity.notify_followers( 'Uploaded this recording', self.user_id, 'Recording', self.id )
-    confirm_ipis
+    #confirm_ipis
   end
 
   #def notify_followers notification, user_id, postable_type, postable_id
@@ -569,7 +569,7 @@ class Recording < ActiveRecord::Base
   
   
   def attach_to_common_work
-    unless CommonWork.exists?(self.common_work_id)
+    if CommonWork.exists?(self.common_work_id)
       CommonWork.attach self, self.account_id, self.user
     end
     self.common_work

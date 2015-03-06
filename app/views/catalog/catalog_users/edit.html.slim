@@ -41,15 +41,17 @@
       'Edit user permissions for&nbsp;
       = @catalog_user.user.email
       .sexy_line
-      .account_users
-        =simple_form_for [:catalog, @account, @catalog, @catalog_user] do |f|   
-          = f.hidden_field :account_id,       value: @account.id
-          = f.hidden_field :catalog_id,       value: @catalog.id
-          /= f.hidden_field :catalog_user_id,  value: @catalog_user.id
-        
-          == render 'form', f: f
-          .sexy_line
-          .pull-right
-            = link_to 'Cancel', catalog_account_catalog_catalog_users_path(@catalog.account, @catalog), class: 'btn btn-default'
-            '&nbsp;
-            = f.submit 'Update', class: 'btn btn-primary'
+      .digi-box
+        .account_users
+          =simple_form_for [:catalog, @account, @catalog, @catalog_user] do |f|   
+            
+            = f.hidden_field :account_id,       value: @account.id
+            = f.hidden_field :catalog_id,       value: @catalog.id
+            /= f.hidden_field :catalog_user_id,  value: @catalog_user.id
+          
+            == render 'form', f: f
+            .sexy_line
+            .pull-right
+              = link_to 'Cancel', catalog_account_catalog_catalog_users_path(@catalog.account, @catalog), class: 'btn btn-default'
+              '&nbsp;
+              = f.submit 'Update', class: 'btn btn-primary'
