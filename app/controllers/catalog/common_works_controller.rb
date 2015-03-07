@@ -139,7 +139,7 @@ class Catalog::CommonWorksController < ApplicationController
   def create_recordings
     @common_work           = CommonWork.cached_find(params[:common_work_id])
 
-    begin
+
       #puts params[:recording][:add_to_catalogs]
       #params[:recording].delete :add_to_catalog
       result = TransloaditRecordingsParser.parse( params[:transloadit], @account.id, false, current_catalog_user.user_id )
@@ -154,37 +154,36 @@ class Catalog::CommonWorksController < ApplicationController
       end
       
       # success mesage
-      flash[:info]      = { title: "Succes", body: "#{pluralize(nr_files_uploaded, "File")} uploaded" }
-      
-      # error messages
-      unless result[:errors].size == 0
-        errors     = ''
-        nr_errors = 0
-        result[:errors].each do |error|
-          nr_errors += 1
-          errors << error + '<br>'
-        end
-        flash[:danger]    = { title: "Errors", body: errors }
-      end
+      #flash[:info]      = { title: "Succes", body: "#{pluralize(nr_files_uploaded, "File")} uploaded" }
+      #
+      ## error messages
+      #unless result[:errors].size == 0
+      #  errors     = ''
+      #  nr_errors = 0
+      #  result[:errors].each do |error|
+      #    nr_errors += 1
+      #    errors << error + '<br>'
+      #  end
+      #  flash[:danger]    = { title: "Errors", body: errors }
+      #end
       
       
       # selection from drop down
-      case params[:recording][:add_to_catalogs]
-        
-      when 'All Catalogs'
+      if params[:recording][:add_to_catalogs] == 'All Catalogs'
         @account.catalogs.each do |catalog|
-          catalog.add_recordings recordings
+          catalog.attach_recordings result[:recordings]
         end
-      when 'This Only'
-        @catalog.add_recordings recordings
+      else 
+        ap recordings
+        @catalog.attach_recordings result[:recordings]
       end
 
       redirect_to catalog_account_catalog_common_work_path( @account, @catalog, @common_work )
-    rescue
-      flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
-      #redirect_to catalog_account_catalog_common_work_new_recordings_path(@account, @catalog, @common_work )
-      redirect_to :back
-    end
+
+      #flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
+      ##redirect_to catalog_account_catalog_common_work_new_recordings_path(@account, @catalog, @common_work )
+      #redirect_to :back
+
 
   end
   
@@ -202,7 +201,16 @@ class Catalog::CommonWorksController < ApplicationController
     @common_work = CommonWork.cached_find(params[:common_work_id])
     @remove_tag  = "#remove_from_catalog_"       + @common_work.id.to_s
     
+    @common_work.recordings.each do |recording|
+      if catalog_recording = CatalogsRecordings.where(recording_id: recording.id, catalog_id: @catalog.id).first
+        catalog_recording.destroy!
+      end
+      
+    end
+    
     if catalog_common_work = CatalogsCommonWorks.where(catalog_id: @catalog.id, common_work_id: @common_work.id).first
+      
+      
       catalog_common_work.destroy!
     end
     

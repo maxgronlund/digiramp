@@ -55,7 +55,7 @@ class Catalog::UploadRecordingsController < ApplicationController
   # add to recording to catalog
   def add_recording_to_catalog recording
     
-    @catalog.add_recording recording
+    @catalog.attach_recording recording
 
   end
   

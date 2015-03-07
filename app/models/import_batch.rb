@@ -27,7 +27,7 @@ class ImportBatch < ActiveRecord::Base
     # iterate true all the recordings
     self.recordings.each do |recording|
       # add recording to catalog and include common works
-      catalog.add_recording recording
+      catalog.attach_recording recording
     end
     
   end

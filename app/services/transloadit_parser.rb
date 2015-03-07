@@ -245,7 +245,7 @@ class TransloaditParser
       if account.catalogs
         
         account.catalogs.each do |catalog|
-          catalog.add_recording recording
+          catalog.attach_recording recording
         end
         
       end

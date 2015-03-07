@@ -171,7 +171,7 @@ class Account::RecordingsBucketController < ApplicationController
       recording.common_work_id = common_work.id
       recording.in_bucket      = false
       recording.save!
-      @catalog.add_recording recording
+      @catalog.attach_recording recording
       common_work.update_completeness
     end
     #

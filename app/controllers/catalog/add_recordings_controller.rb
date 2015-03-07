@@ -24,7 +24,7 @@ class Catalog::AddRecordingsController < ApplicationController
     
     if @recordings
       @recordings.each do |recording|
-        @catalog.add_recording recording
+        @catalog.attach_recording recording
       end
     end
     
@@ -35,7 +35,7 @@ class Catalog::AddRecordingsController < ApplicationController
 
     if @recordings = @account.recordings.not_in_bucket
       @recordings.each do |recording|
-         @catalog.add_recording recording
+         @catalog.attach_recording recording
       end
     end
   end

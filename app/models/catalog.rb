@@ -130,16 +130,18 @@ class Catalog< ActiveRecord::Base
                       .first_or_create(artwork_id: artwork.id, catalog_id: self.id)
   end
   
-  def add_recordings new_recordings
-    new_recordings.each do |recording|
-      add_recording recording
+  def attach_recordings recordings_to_attach
+    ap recordings_to_attach
+    ap recordings_to_attach.class.name
+    recordings_to_attach.each do |recording|
+      attach_recording recording
     end
   end
 
 
   # add a recording to the catalog
   # after added also create a catalog item for the common work
-  def add_recording recording
+  def attach_recording recording
     CatalogsRecordings.where(catalog_id: self.id, recording_id: recording.id)
                       .first_or_create(catalog_id: self.id, recording_id: recording.id)
   end
@@ -152,7 +154,7 @@ class Catalog< ActiveRecord::Base
                       .first_or_create(catalog_id: self.id, common_work_id: common_work.id)
                       
     common_work.recordings.each do |recording|
-      self.add_recording recording
+      self.attach_recording recording
     end
   end
 
