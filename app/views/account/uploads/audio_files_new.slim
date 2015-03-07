@@ -14,7 +14,7 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ), 
                                                               recordings: account_account_recordings_path(@account)}, current:'' }
       .row
-        .col-sm-7
+        .col-sm-6
           .help
             .help-text
               h2 Add recordings
@@ -22,39 +22,43 @@
             .help-button
               == render 'admin/helps/help', identifier: 'add recordings to catalog'
 
-        .col-sm-5
+        .col-sm-6
           .pull-right.pull-down-10
-              
+            = link_to account_account_recordings_path(@account) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
 
       .sexy_line
       .row
         .col-sm-4
           .digi-box
             h4 Option 1:
-            'Add a recording to an existing work
-            .sexy_line
-            .row
-              .col-sm-12.pull-down-6
-                .pull-right
-                  = link_to account_account_uploads_common_works_path(@account) do
-                    .btn.btn-default
-                      i.fa.fa-plus-circle
-                      '&nbsp;
-                      'Add to work
-        
-        .col-sm-4
-          .digi-box
-            h4 Option 2:
             'Create a new work by uploading a recording
             .sexy_line
             .row
               .col-sm-12.pull-down-6
                 .pull-right
-                  = link_to account_account_uploads_common_works_path(@account) do
+                  /= link_to account_account_uploads_common_works_path(@account) do
+                  = link_to new_account_account_recording_path(@account) do
                     .btn.btn-default
                       i.fa.fa-cloud-upload
                       '&nbsp;
-                      'Create new work
+                      'Upload recording
+        
+        .col-sm-4
+          .digi-box
+            h4 Option 2:
+            'Add a recording to an existing work
+            .sexy_line
+            .row
+              .col-sm-12.pull-down-6
+                .pull-right
+                  = link_to account_account_common_works_path(@account) do
+                    .btn.btn-default
+                      i.fa.fa-plus-circle
+                      '&nbsp;
+                      'Add to work
         
         .col-sm-4
           .digi-box

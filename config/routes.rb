@@ -461,7 +461,6 @@ Digiramp::Application.routes.draw do
 
     resources :accounts do
       resources :recording_departures
-      
       member do
         #get 'find_recording_in_bucket'
         get "legal_documents"
@@ -471,7 +470,6 @@ Digiramp::Application.routes.draw do
       resources :account_ipis
       resources :account_users
       resources :artworks 
-      
       resources :audio_files
       resources :catalogs 
       resources :clients
@@ -496,18 +494,13 @@ Digiramp::Application.routes.draw do
         end
         
       end
-      #resources :common_work_table, only: [:update]
       resources :client_groups do
         post :import_client_emails
         get '/remove-member/:client_group_client_id', :to => "client_groups#remove_member", as: :remove_member
       end
       resources :common_works_imports
-      get 'crm/index'
       resources :admin_clients
-      resources :documents, only: [:index] do
-      end
-      
-
+      resources :documents, only: [:index]
       resources :opportunities do
         
         resources :opportunity_reviewers
@@ -546,12 +539,20 @@ Digiramp::Application.routes.draw do
         resources :mail_campaigns
         resources :project_tasks
       end
-      post "uploads/audio_files_create"
-      get "uploads/audio_files_new"
-      get "uploads/audio_files"
-      get "uploads/common_works"
-
-      
+      #resources :recordings
+      resources :recordings do
+        resources :recording_artworks
+        resources :recording_ipis 
+        member do
+          get "files"
+          get "documents"
+          get "legal_documents"
+          get "financial_documents"
+        end
+      end
+      resources :recording_basics, only: [:edit, :update]
+      resources :recording_lyrics, only: [:edit, :update]
+      resources :recording_tags, only: [:edit, :update]
       resources :recordings_bucket do
         collection do
           post :edit_multiple
@@ -570,18 +571,15 @@ Digiramp::Application.routes.draw do
           get  :use_common_work
         end
       end
-      resources :recordings do
-        resources :recording_artworks
-        resources :recording_ipis 
-        member do
-          get "files"
-          get "documents"
-          get "legal_documents"
-          get "financial_documents"
-        end
-      end
       resources :uploads, only: [:index]
       resources :widgets
+      
+
+      post "uploads/audio_files_create"
+      get "uploads/audio_files_new"
+      get "uploads/audio_files"
+      get "uploads/common_works"
+      get 'crm/index'
     end
   end
   # end of account namespace

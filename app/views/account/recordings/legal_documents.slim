@@ -1,45 +1,91 @@
-/= debug @recording.audio_upload
-- session[:return_url]  = request.url
-- blog = Blog.cached_find('RECORDING documents')
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .do           
-    .container
-      == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                             dashboard: account_account_path(@account), \
-                                                             recordings: account_account_recordings_path(@account),\
-                                                             @recording.title.to_sym => account_account_recording_path(@account, @recording), \
-                                                             files: files_account_account_recording_path(@account, @recording) \
-                                                             }, current: 'lagal documents' }
-      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-      /                                                        #assets: account_assets_path(@account), \
-      /                                                        recordings: account_account_recordings_path(@account), \
-      /                                                        }, current: @recording.title}
-      /
-      /
-      /
-      / add a link to 
-      / http://localhost:3000/accounts/6/common_works/6468/recordings/434/edit
-      -body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
-      - insert = 'account/recordings/edit'
-      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: insert} 
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'recording'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {recordings: account_account_recordings_path(@account),\
+                                                             @recording.title.to_sym => account_account_recording_path(@account, @recording) \
+                                                             },current:  ''}
+
+
       .row
-                                      
+        .col-sm-8
+          h2 Legal
+        .col-sm-4
 
-                                      
-       
-                                              
-                                      
-                            
-     
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-              
+      .sexy_line
+      .row
+        .col-sm-12
+          #digiWhams  class="/recordings/#{@recording.id.to_s}"
+        
+            == render 'account/recordings/account_recording', recording: @recording,
+                                                         info: true,
+                                                         add_to_playlist: true, 
+                                                         remove_from_playlist: false, 
+                                                         edit: true, 
+                                                         delete: false,
+                                                         description: false,
+                                                         share: true,
+                                                         target: "",
+                                                         music_request_link: false,
+                                                         remove_from_request: false
+        
+      == render 'account/recordings/shared/document_navigation', selected: 'legal'
 
+      
+      
+  == render 'shared/site_footer'
+  
+  
+//= debug @recording.audio_upload
+/- session[:return_url]  = request.url
+/- blog = Blog.cached_find('RECORDING documents')
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .do           
+/    .container
+/      == render 'admin/shared/messages'
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+/                                                             dashboard: account_account_path(@account), \
+/                                                             recordings: account_account_recordings_path(@account),\
+/                                                             @recording.title.to_sym => account_account_recording_path(@account, @recording), \
+/                                                             files: files_account_account_recording_path(@account, @recording) \
+/                                                             }, current: 'lagal documents' }
+/      /== render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/      /                                                        #assets: account_assets_path(@account), \
+/      /                                                        recordings: account_account_recordings_path(@account), \
+/      /                                                        }, current: @recording.title}
+/      /
+/      /
+/      /
+/      / add a link to 
+/      / http://localhost:3000/accounts/6/common_works/6468/recordings/434/edit
+/      -body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
+/      - insert = 'account/recordings/edit'
+/      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: insert} 
+/      .row
+/                                      
+/
+/                                      
+/       
+/                                              
+/                                      
+/                            
+/     
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/              
+/
             
  
           

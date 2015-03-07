@@ -1,18 +1,39 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
+    == render 'shared/navigationbar', page: 'account' 
   
 
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'recordings'
-      
-                        
-        
-      
-
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'recording'
+  
   #page-content-wrapper
-    .container-fluid 
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ) }, current:'' }
       == render 'recordings/wizard_step', step: 3
       .row
         .col-sm-6
@@ -25,7 +46,7 @@
         .col-sm-6
           .pull-right
             .recording-navigation
-              => link_to edit_user_recording_lyric_path(@user, @recording) do
+              => link_to edit_account_account_recording_lyric_path(@account, @recording) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;
@@ -40,11 +61,10 @@
       .sexy_line
       h4 = @recording.title
       .digi-box
-        = simple_form_for  [@user, @recording ], turboboost: true, :url => url_for(:action => 'update', :controller => 'recording_tags'), 
+        = simple_form_for  [@account, @recording ], turboboost: true, :url => url_for(:action => 'update', :controller => 'account/recording_tags'), 
                                                  :method => 'put' do |f|
           
-          == render 'shared/recordings/recording_tags_form', f: f
-        
+            == render 'shared/recordings/recording_tags_form', f: f
         
   == render 'shared/site_footer'  
  

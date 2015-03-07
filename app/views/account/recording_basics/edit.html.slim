@@ -1,0 +1,84 @@
+/#wrapper
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'home' 
+/  
+/
+/  #sidebar-wrapper
+/    ul class="sidebar-nav"
+/      == render 'users/shared/sidebar', selected: 'recordings'
+/
+/
+/  #page-content-wrapper
+/    .container-fluid 
+/      /== render 'admin/shared/messages'
+/      == render 'recordings/wizard_step', step: 1
+/      .row
+/        .col-sm-6
+/          .help
+/            .help-text
+/              h2 Basic information
+/            .help-button
+/              == render 'admin/helps/help', identifier: 'recording basic'
+/        .col-sm-6
+/          .pull-right
+/            .recording-navigation
+/              => link_to user_recording_path(@user, @recording) do
+/                .btn.btn-default
+/                  i.fa.fa-times
+/                  '&nbsp;Cancel
+/                  
+/              = link_to edit_user_recording_lyric_path(@user, @recording) do
+/                .btn.btn-default
+/                  '&nbsp;Skip
+/                  i.fa.fa-chevron-right
+/      .sexy_line
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'recording'
+  
+  #page-content-wrapper
+    .container-fluid
+  
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ) }, current:'' }
+      == render 'recordings/wizard_step', step: 1
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Edit basic information
+            .help-button
+              == render 'admin/helps/help', identifier: 'recording basic'
+        .col-sm-6
+          .pull-right
+            .recording-navigation
+              /=> link_to user_recording_path(@user, @recording) do
+              /  .btn.btn-default
+              /    i.fa.fa-times
+              /    '&nbsp;Cancel
+              /    
+              = link_to edit_account_account_recording_lyric_path(@account, @recording) do
+                .btn.btn-default
+                  '&nbsp;Skip
+                  i.fa.fa-chevron-right
+              
+      .sexy_line
+
+      .digi-box
+        = simple_form_for  [@account, @recording ], url: url_for(:action => 'update', :controller => 'account/recording_basics'), 
+                                                 html: { :id => 'recording_artwork' }, 
+                                                 method: 'put' do |f|
+        
+          == render 'shared/recordings/recording_basics_form', f: f, user: @account.user, recording: @recording
+
+        
+        
+          
+        
+  == render 'shared/site_footer'  
+ 

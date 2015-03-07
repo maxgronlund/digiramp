@@ -129,25 +129,25 @@
 
 
       -if current_account_user.update_recording
-        = link_to edit_account_account_common_work_recording_path(@account, recording.common_work, recording), \
+        = link_to edit_account_account_recording_basic_path(@account, recording), \
                   class: "btn btn-default"  do
           i class="fa fa-pencil"
         
           
-      -if current_account_user.delete_recording
-        = link_to user_recording_path(recording.user, recording, public: true), \
-                  method: :delete, \
-                  remote: true, \
-                  data: {confirm: "You are about to delete #{recording.title}"}, \
-                  class: "btn btn-default"  do
-          i class="fa fa-trash"
-          
-  
-        = link_to user_user_recording_transfer_path( recording.user, recording), \
-                  class: "btn btn-default"  do
-          i class="fa fa-rocket"
+      /-if current_account_user.delete_recording
+      /  = link_to user_recording_path(recording.user, recording, public: true), \
+      /            method: :delete, \
+      /            remote: true, \
+      /            data: {confirm: "You are about to delete #{recording.title}"}, \
+      /            class: "btn btn-default"  do
+      /    i class="fa fa-trash"
+      /    
+      /
+      /  = link_to user_user_recording_transfer_path( recording.user, recording), \
+      /            class: "btn btn-default"  do
+      /    i class="fa fa-rocket"
         
 
-- if current_user
-  == render 'playlists/select_playlist_form', recording: recording
+/- if current_user
+/  == render 'playlists/select_playlist_form', recording: recording
 

@@ -1,0 +1,27 @@
+.btn-group.btn-group-justified
+  
+  - if current_account_user.read_file?
+    = link_to files_account_account_recording_path(@account, @recording), class: "btn btn-default #{'active' if selected == 'files'}"
+      i.fa.fa-archive
+      '&nbsp;Files
+      
+  - if current_account_user.read_file?
+    = link_to documents_account_account_recording_path(@account, @recording), class: "btn btn-default #{'active' if selected == 'documents'}"
+      i.fa.fa-archive
+      '&nbsp;Documents
+      
+  - if current_account_user.read_financial_document?
+    = link_to financial_documents_account_account_recording_path(@account, @recording), class: "btn btn-default #{'active' if selected == 'financial'}"
+      i.fa.fa-money
+      '&nbsp;Financial
+      
+  - if current_account_user.read_artwork
+    = link_to account_account_recording_recording_artworks_path(@account, @recording), class: "btn btn-default #{'active' if selected == 'artwork'}"
+      i.fa.fa-picture-o
+      '&nbsp;
+      = pluralize(@recording.image_files.count, 'Artwork')
+  
+  - if current_account_user.read_legal_document?
+    = link_to legal_documents_account_account_recording_path(@account, @recording), class: "btn btn-default #{'active' if selected == 'legal'}"
+      i.fa.fa-gavel
+      '&nbsp;Legal 
