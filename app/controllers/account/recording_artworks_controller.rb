@@ -1,15 +1,17 @@
 class Account::RecordingArtworksController < ApplicationController
-  include Transloadit::Rails::ParamsDecoder
-  #include RecordingsHelper
+  
+  include RecordingsHelper
   include AccountsHelper
-  before_filter :find_recording
+  before_filter :access_account
+  before_filter :read_recording
   
   def index
-    
+    #@recording = Recording.cached_find(params[:id])
   end
   
   def show
-
+    @recording = Recording.cached_find(params[:recording_id])
+    @artwork = Artwork.cached_find(params[:id])
   end
   
   def new
@@ -31,7 +33,7 @@ class Account::RecordingArtworksController < ApplicationController
 private
   
   def find_recording
-    @recording = Recording.cached_find(params[:recording_id])
+    @recording  = Recording.cached_find(params[:recording_id])
     @account    = Account.cached_find(params[:account_id])
   end
   

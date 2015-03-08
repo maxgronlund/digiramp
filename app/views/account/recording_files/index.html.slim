@@ -16,9 +16,19 @@
 
 
       .row
-        .col-sm-8
-          h2 Files
-        .col-sm-4
+        .col-sm-6
+          .help
+            .help-text
+              h2 Recording files
+            .help-button
+              == render 'admin/helps/help', identifier: 'recording files'
+
+        .col-sm-6
+          .pull-right
+            = link_to new_account_account_recording_recording_file_path(@account, @recording) do
+              .btn.btn-default
+                i.fa.fa-cloud-upload
+                '&nbsp;Attach file
         
         
         
@@ -41,8 +51,38 @@
                                                          remove_from_request: false
         
       == render 'account/recordings/shared/document_navigation', selected: 'files'
-
       
+      .row.pull-down-10
+        .col-sm-12
+          .digi-box
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Name
+                    th Size
+                    th Download
+                    th 
+                    
+                tbody
+                  - @files.each do |file|
+                    tr
+                      td = File.basename(file.file_url)
+                      td
+                        =  number_to_human_size(file.file_size.to_i) 
+                      td 
+                        = link_to  file.file_url do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-cloud-download
+                            '&nbsp;Right clink and select save
+                      td 
+                        .pull-right
+                          = link_to account_account_attachment_path(@account, file, return_url: request.url), data: { confirm: 'Are you sure?' }, turboboost: true , :method => :delete do
+                            .btn.btn-danger.btn-xs
+                              i.fa.fa-times
+                        
+               
+               
       
   == render 'shared/site_footer'
   

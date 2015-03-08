@@ -2,8 +2,6 @@
 Digiramp::Application.routes.draw do
 
 
-  get 'log_in_or_signup/new'
-
   resources :add_to_playlists, only: [:create]
   resources :become_members, only: [:new]
   resources :business_account_info, only: [:index]
@@ -470,6 +468,7 @@ Digiramp::Application.routes.draw do
       resources :account_ipis
       resources :account_users
       resources :artworks 
+      resources :attachments, only: [:destroy]
       resources :audio_files
       resources :catalogs 
       resources :clients
@@ -542,13 +541,12 @@ Digiramp::Application.routes.draw do
       #resources :recordings
       resources :recordings do
         resources :recording_artworks
+        resources :recording_files
+        resources :recording_documents
+        resources :recording_legal_documents
+        resources :recording_financial_documents
+        resources :recording_files
         resources :recording_ipis 
-        member do
-          get "files"
-          get "documents"
-          get "legal_documents"
-          get "financial_documents"
-        end
       end
       resources :recording_basics, only: [:edit, :update]
       resources :recording_lyrics, only: [:edit, :update]
