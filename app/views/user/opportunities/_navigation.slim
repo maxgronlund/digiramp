@@ -4,8 +4,8 @@
     
       li class="#{ active == 'selected' ? 'active' : '' }"  
         = link_to user_user_selected_opportunities_path(@user) do
-          i.fa.fa-check
-          '&nbsp;Selected
+          i.fa.fa-eye
+          '&nbsp;Viewed
     
       li class="#{ active == 'removed' ? 'active' : '' }"  
         = link_to user_user_removed_opportunities_path(@user) do

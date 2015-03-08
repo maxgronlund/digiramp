@@ -236,7 +236,7 @@ class CommonWork < ActiveRecord::Base
     common_works    = CommonWork.where(id: account.common_work_ids - catalog.common_work_ids)
 
     if query.present?
-     common_works = common_works.search(query)
+     common_works = common_works.search_common_work(query)
     end
     common_works
   end

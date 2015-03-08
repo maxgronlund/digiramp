@@ -1,0 +1,59 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      .row
+        .col-sm-8
+          h2 Event tracking
+        .col-sm-4
+          .pull-right.pull-down-10
+            = link_to admin_issue_wipers_path(), data: {:confirm => 'Are you sure?'} do
+                    .btn.btn-danger
+                      i.fa.fa-times
+                      '&nbsp;Delete all
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Date
+                th Subject
+                th Subject id
+                th
+
+            tbody
+              - @issue_events.each do |issue_event|
+                tr
+                  td
+                    = issue_event.id
+                    ':
+                    = link_to issue_event.title, admin_issue_event_path(issue_event)
+                  td = issue_event.created_at.to_formatted_s(:short)
+                  td = issue_event.subject_type
+                  td = issue_event.subject_id
+                  td 
+                    = link_to admin_issue_event_path(issue_event), data: {:confirm => 'Are you sure?'}, 
+                                                                  turboboost: true, 
+                                                                  method: :delete
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+                    
+            
+          
+      .sexy_line
+      == paginate(@issue_events)
+  == render 'shared/site_footer'    
+ 
+
+

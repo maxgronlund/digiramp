@@ -1,0 +1,25 @@
+.old-dialog
+  .modal.fade id='digirampDialog' tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button type="button" class="close" data-dismiss="modal"
+            span aria-hidden="true" &times;
+            span class="sr-only" Close
+  
+          h4 class="modal-title" id="myModalLabel"
+            'Please login
+          .sexy_line
+          .modal-body
+            = @message
+          .modal-footer
+            .pull-right
+              = link_to signup_index_path do
+                .btn.btn-warning
+                  'Sign up
+              
+              =< link_to login_new_path do
+                .btn.btn-default
+                  i.fa.fa-sign-in
+                  '&nbsp;
+                  'Log in

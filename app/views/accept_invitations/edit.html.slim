@@ -28,7 +28,7 @@
           h2 Create pasword
           .sexy_line
           br
-          = simple_form_for(  @user, :url => accept_invitation_path(params[:id]) ) do |f|
+          = simple_form_for(  @user, :url => accept_invitation_path(params[:id]) ), turboboost: true do |f|
             .input-group
               span class="input-group-addon"
                 i class= 'fa fa-key'

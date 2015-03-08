@@ -40,7 +40,7 @@
                         i.fa.fa-times
                       =>
                     -else
-                      => link_to  admin_email_group_path(email_group), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                      => link_to  admin_email_group_path(email_group), data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete do
                           .btn.btn-danger.btn-xs
                             i.fa.fa-times
                      
@@ -68,27 +68,3 @@
       /== paginate(@users)        
   == render 'shared/site_footer'    
  
-/h1 Listing email_groups
-/
-/table
-/  thead
-/    tr
-/      th Title
-/      th Body
-/      th
-/      th
-/      th
-/
-/  tbody
-/    - @email_groups.each do |email_group|
-/      tr
-/        td = email_group.title
-/        td = email_group.body
-/        td = link_to 'Show', email_group
-/        td = link_to 'Edit', edit_email_group_path(email_group)
-/        td = link_to 'Destroy', email_group, data: {:confirm => 'Are you sure?'}, :method => :delete
-/
-/br
-/
-/= link_to 'New Email group', new_email_group_path
-/

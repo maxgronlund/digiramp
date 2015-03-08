@@ -2,6 +2,7 @@
 
 - @cms_page.cms_sections.order(:position).where(column_nr: 0).each do |section|
   == render section.view.view_name, section: section.view
+
 .row
   .col-sm-8
     - @cms_page.cms_sections.order(:position).where(column_nr: 1).each do |section|

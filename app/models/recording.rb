@@ -113,7 +113,7 @@ class Recording < ActiveRecord::Base
   
   # owners followers gets a new post on their dashboard
   has_many      :follower_events, as: :postable,    dependent: :destroy
-  after_create  :send_notifications_on_create
+  #after_create  :send_notifications_on_create
   #has_and_belongs_to_many :catalogs
   has_many :playlists_recordings
   has_many :catalogs, :through => :playlists_recordings
@@ -143,7 +143,7 @@ class Recording < ActiveRecord::Base
   
   def check_default_image
     #unless File.exist?(Rails.root.join('public' +  self.default_cover_art.to_s))
-    if(self.cover_art.to_s == "")
+    if(self.cover_art.to_s == "" || self.cover_art.include?('recording/default_cover_art'))
       prng      = Random.new
       random_id =  prng.rand(12)
     
@@ -186,10 +186,10 @@ class Recording < ActiveRecord::Base
   
   
   def send_notifications_on_create
-    attach_to_common_work
+    #attach_to_common_work
     #notify_followers 'Has uploaded a recording', self.user_id 
     Activity.notify_followers( 'Uploaded this recording', self.user_id, 'Recording', self.id )
-    confirm_ipis
+    #confirm_ipis
   end
 
   #def notify_followers notification, user_id, postable_type, postable_id
@@ -569,7 +569,7 @@ class Recording < ActiveRecord::Base
   
   
   def attach_to_common_work
-    unless CommonWork.exists?(self.common_work_id)
+    if CommonWork.exists?(self.common_work_id)
       CommonWork.attach self, self.account_id, self.user
     end
     self.common_work

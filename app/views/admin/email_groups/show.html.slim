@@ -49,6 +49,7 @@
                     - @email_group.digiramp_emails.each do |digiramp_email|
                       tr
                         td
+                          
                           - if digiramp_email.delivered
                             .btn.btn-danger.btn-xs disabled="disabled" 
                               i.fa.fa-times
@@ -65,7 +66,7 @@
                               .btn.btn-default.btn-xs
                                 i.fa.fa-pencil
                           '&nbsp;
-                          = link_to digiramp_email.subject, admin_email_group_digiramp_email_path(@email_group, digiramp_email), class: 'btn btn-default btn-xs'
+                          = link_to ( digiramp_email.id.to_s + ':' + digiramp_email.subject), admin_email_group_digiramp_email_path(@email_group, digiramp_email), class: 'btn btn-default btn-xs'
                         td = digiramp_email.layout
                         td 
                           - if digiramp_email.delivered

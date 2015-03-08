@@ -91,10 +91,9 @@ class CatalogUser < ActiveRecord::Base
   # can update catalog_user
   def can_update_catalog_user catalog_user
     #puts '+++++++++++++++++++++++ can_update_catalog_user ++++++++++++++++++++++++++'
-   
     # only if there is permissions to update
     return false unless self.update_user
-
+    
     handle_user_permissions_for catalog_user
   end
   

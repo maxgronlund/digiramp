@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150228173719) do
+ActiveRecord::Schema.define(version: 20150308100219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 20150228173719) do
     t.integer  "administrator_id",     default: 0
     t.boolean  "create_opportunities"
     t.boolean  "read_opportunities"
+    t.integer  "user_count"
   end
 
   add_index "accounts", ["administrator_id"], name: "index_accounts_on_administrator_id", using: :btree
@@ -341,6 +342,8 @@ ActiveRecord::Schema.define(version: 20150228173719) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "file_size",       default: ""
+    t.string   "content_type",    default: ""
   end
 
   add_index "attachments", ["account_id"], name: "index_attachments_on_account_id", using: :btree
@@ -659,7 +662,8 @@ ActiveRecord::Schema.define(version: 20150228173719) do
     t.text     "description"
     t.string   "user_uuid"
     t.integer  "user_id"
-    t.boolean  "invited",     default: false
+    t.boolean  "invited",          default: false
+    t.integer  "invitation_count"
   end
 
   add_index "client_groups", ["account_id"], name: "index_client_groups_on_account_id", using: :btree
@@ -1619,6 +1623,17 @@ ActiveRecord::Schema.define(version: 20150228173719) do
   add_index "ipis", ["import_ipi_id"], name: "index_ipis_on_import_ipi_id", using: :btree
   add_index "ipis", ["pro_affiliation_id"], name: "index_ipis_on_pro_affiliation_id", using: :btree
   add_index "ipis", ["user_id"], name: "index_ipis_on_user_id", using: :btree
+
+  create_table "issue_events", force: true do |t|
+    t.string   "title"
+    t.text     "data"
+    t.integer  "subject_id"
+    t.string   "subject_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "issue_events", ["subject_id", "subject_type"], name: "index_issue_events_on_subject_id_and_subject_type", using: :btree
 
   create_table "issues", force: true do |t|
     t.string   "title"

@@ -1,0 +1,54 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      h2 Client groups
+      'Handle with care
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Account
+                th Date
+                th Invited
+                th Clients
+                th
+
+            tbody
+              - @client_groups.each do |client_group|
+                tr
+                  td = client_group.title
+                  td = client_group.account.title
+                  td = client_group.created_at.to_formatted_s(:short)
+                  td 
+                    = client_group.invited
+                    ':
+                    = client_group.invitation_count
+                  td = client_group.clients.count
+                  td 
+                    .pull-right
+                      = simple_form_for [:admin, client_group], turboboost: true do |f|
+                        - if client_group.invited
+                          = f.submit 'Reinvite', class: 'btn btn-default'
+                        - else
+                          = f.submit 'Invite', class: 'btn btn-default'
+            
+          
+      .sexy_line
+      == paginate(@client_groups)
+  == render 'shared/site_footer'    
+ 
+
+

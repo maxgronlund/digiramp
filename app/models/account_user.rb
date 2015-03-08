@@ -268,6 +268,7 @@ class AccountUser < ActiveRecord::Base
   def grand_all_permissions 
     #  copy permissions 
     Permissions::TYPES.each do |permission_type|
+      ap permission_type
       #eval "self.#{permission_type} = true" 
       self[permission_type] = true
     end

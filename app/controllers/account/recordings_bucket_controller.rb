@@ -27,7 +27,7 @@ class Account::RecordingsBucketController < ApplicationController
     @authorized     = true
     
     if params[:recording_ids].nil?
-      flash[:danger] = { title: "Error", body: "You have to check at least one recording to edit" }
+      #flash[:danger] = { title: "Error", body: "You have to check at least one recording to edit" }
       redirect_to account_account_recordings_bucket_index_path(@account)
     else
       @recordings = Recording.find(params[:recording_ids])
@@ -171,7 +171,7 @@ class Account::RecordingsBucketController < ApplicationController
       recording.common_work_id = common_work.id
       recording.in_bucket      = false
       recording.save!
-      @catalog.add_recording recording
+      @catalog.attach_recording recording
       common_work.update_completeness
     end
     #

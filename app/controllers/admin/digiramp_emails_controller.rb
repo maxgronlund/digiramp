@@ -3,6 +3,7 @@
 class Admin::DigirampEmailsController < ApplicationController
   before_action :set_digiramp_email, only: [:show, :edit, :update, :destroy]
   before_filter :admin_only
+  
   def index
     @digiramp_emails = DigirampEmail.all
   end
@@ -38,13 +39,13 @@ class Admin::DigirampEmailsController < ApplicationController
   def update
     @email_group    = EmailGroup.find(params[:email_group_id])
 
-      @digiramp_email.update(digiramp_email_params)
-      
-      if params[:commit] == "Deliver"
-        DigirampEmailMailer.delay.news_email( @digiramp_email.id )
-      end
+    @digiramp_email.update(digiramp_email_params)
+    
+    if params[:commit] == "Deliver"
+      @digiramp_email.send_news_emails
+    end
 
-    redirect_to admin_email_group_digiramp_email_path( @email_group, @digiramp_email)
+    redirect_to admin_email_group_path( @email_group )
   end
 
   # DELETE /digiramp_emails/1

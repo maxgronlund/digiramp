@@ -73,7 +73,7 @@ class Catalog::CatalogsController < ApplicationController
               recipient_type: @catalog.class.name,
                   account_id: @catalog.account_id)
                   
-    flash[:info] = { title: "SUCCESS: ", body: "Catalog updated" }
+    #flash[:info] = { title: "SUCCESS: ", body: "Catalog updated" }
     redirect_to catalog_account_catalog_path( @account, @catalog)
   end
   

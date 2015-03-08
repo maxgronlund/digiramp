@@ -26,7 +26,7 @@ table
         td = mail_campaign.subscribtion_message
         td = link_to 'Show', mail_campaign
         td = link_to 'Edit', edit_mail_campaign_path(mail_campaign)
-        td = link_to 'Destroy', mail_campaign, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Destroy', mail_campaign, data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete
 
 br
 

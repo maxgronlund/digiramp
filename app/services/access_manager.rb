@@ -39,8 +39,10 @@ class AccessManager
     if user.old_role != user.role
       user.old_role = user.role
       if user.role == 'Super'
-        add_to_accounts user
+        # not adding to accounts anymore
+        #add_to_accounts user
       else
+        # we still have to remove from accounts
         remove_from_accounts user
         remove_from_catalogs user
       end
@@ -72,17 +74,20 @@ class AccessManager
   # AccessManager.add_super_users_to_account account
   def self.add_users_to_new_account account
     
-    User.supers.each do |super_user|
-      account_user = AccountUser.where(account_id: account.id, user_id: super_user.id, role: 'Super User')     
-                                .first_or_create(account_id: account.id, user_id: super_user.id, role: 'Super User')     
-      account_user.update_to_super
-    end
+    #User.supers.each do |super_user|
+    #  account_user = AccountUser.where(account_id: account.id, user_id: super_user.id, role: 'Super User')     
+    #                            .first_or_create(account_id: account.id, user_id: super_user.id, role: 'Super User')     
+    #  account_user.update_to_super
+    #end
     
     # create a account user for the account owner
     account_owner = AccountUser.where(account_id: account.id, user_id: account.user.id, role: 'Account Owner')
                                .first_or_create(account_id: account.id, user_id: account.user.id, role: 'Account Owner')
     # downgrade the owner
-    account_owner.grand_basic_permissions
+    #account_owner.grand_basic_permissions
+    account_owner.grand_all_permissions
+    
+    account.count_users
     #make_zebulon_admin account
 
   end

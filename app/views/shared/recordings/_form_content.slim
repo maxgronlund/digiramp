@@ -1,0 +1,46 @@
+.row
+  .col-sm-8.col-lg-6
+    .digi-box
+      = transloadit :recording_with_thumbs 
+      
+      = f.hidden_field :user_id, value:     user.id
+      = f.hidden_field :account_id, value:  account.id
+      
+      
+      
+      
+      .fileinput.fileinput-new.input-group data-provides="fileinput"
+        .form-control data-trigger="fileinput"
+          i.glyphicon.glyphicon-file.fileinput-exists
+          span.fileinput-filename
+      
+        span.input-group-addon.btn.btn-default.btn-file
+          span.fileinput-new
+            'Select file
+          span.fileinput-exists
+            'Change
+      
+          
+          = f.file_field :file, multiple: false, label: 'Select Audio File'
+        a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+          'Remove
+      
+      br
+      
+      /= f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
+      = f.input :acceptance_of_terms, 
+                id: 'acceptance_of_terms',
+                label: false, 
+                inline_label:  raw( "*I Have <a href=#{terms_and_conditions_path}>read and agree</a>  to the terms and conditions and have permission to upload this recording"),
+                :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+      
+      .row
+        .col-sm-12
+          .pull-right.pull-down-10
+            
+            => link_to 'Cancel', cancel_path, class: 'btn btn-default'
+            
+            = f.submit 'Next', class: 'btn btn-primary btn-next', disabled: "disabled"
+
+= transloadit_jquerify :audio_files, :wait => true
+        

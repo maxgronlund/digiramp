@@ -1,32 +1,75 @@
-/= debug @recording.audio_upload
-- session[:return_url]  = request.url
-- blog = Blog.cached_find('RECORDING FILES')
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .do           
-    .container
-      == render 'admin/shared/messages'
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'recording'
+  
+  #page-content-wrapper
+    .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: {recordings: account_account_recordings_path(@account),\
-                                                             @recording.title.to_sym => account_account_recording_path(@account, @recording), \
-                                                             files: files_account_account_recording_path(@account, @recording) \
-                                                             }, current: 'artwork' }
+                                                             @recording.title.to_sym => account_account_recording_path(@account, @recording) \
+                                                             },current:  ''}
 
-      /== render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'account/recordings/add_artwork' } 
-      /- if current_account_user.read_file 
+
       .row
-        -@recording.artworks.each do |artwork|
-          == render 'shared/artworks', locals: {artwork: artwork, links: 'account/recordings/artwork_links'}
+        .col-sm-6
+          .help
+            .help-text
+              h2 Artwork
+            .help-button
+              == render 'admin/helps/help', identifier: 'recording artwork'
+        .col-sm-6
 
-    == render 'shared/back', locals: {link: files_account_account_recording_path( @account, @recording)}
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-              
+      .sexy_line
+      .row
+        .col-sm-12
+          #digiWhams  class="/recordings/#{@recording.id.to_s}"
+        
+            == render 'account/recordings/account_recording', recording: @recording,
+                                                         info: true,
+                                                         add_to_playlist: true, 
+                                                         remove_from_playlist: false, 
+                                                         edit: true, 
+                                                         delete: true,
+                                                         description: false,
+                                                         share: true,
+                                                         target: "",
+                                                         music_request_link: false,
+                                                         remove_from_request: false
+        
+      == render 'account/recordings/shared/document_navigation', selected: 'artwork'
+      .sexy_line
+      .pull-down-10
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th 
+                th 
+                th 
+                th 
+                th
+            tbody
+              - @recording.artworks.each do |artwork|
+                tr
+                  td
+                    .artwork
+                      = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.file, id: artwork.id, caption: artwork.title}
+                  td
+                  td
+                  td
+                  td 
+                    = link_to 'info', account_account_recording_recording_artwork_path( @account, @recording, artwork), class: 'btn btn-default'
+                /== render 'shared/artworks', locals: {artwork: artwork, links: 'account/recordings/artwork_links'}
+      
+      
+  == render 'shared/site_footer'
 
-            
- 
           
           
           

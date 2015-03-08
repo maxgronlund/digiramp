@@ -17,7 +17,7 @@ table
         td 
           = link_to 'Show', video_post
           = link_to 'Edit', edit_video_post_path(video_post)
-          = link_to 'Destroy', video_post, data: {:confirm => 'Are you sure?'}, :method => :delete
+          = link_to 'Destroy', video_post, data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete
 
 br
 

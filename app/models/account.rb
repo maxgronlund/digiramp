@@ -311,6 +311,11 @@ class Account < ActiveRecord::Base
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
+  
+  def count_users
+    self.user_count = self.account_users.where.not(role: 'Super User').count
+    self.save!
+  end
 
   
 

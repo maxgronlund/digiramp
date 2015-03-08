@@ -39,7 +39,7 @@ class Catalog< ActiveRecord::Base
   
   
   def check_default_image
-    if self.image_url == "/assets/fallback/catalog.jpg" || self.image.to_s == ''
+    if self.image_url == "/assets/fallback/catalog.jpg" || self.image.to_s == '' || self.image.nil?
       prng      = Random.new
       random_id =  prng.rand(12)
 
@@ -47,9 +47,20 @@ class Catalog< ActiveRecord::Base
         random_id = '0' + random_id.to_s 
       end
       self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-accounts/default_#{random_id.to_s}.jpg"))
+      puts '1'
       self.image.recreate_versions!
+      puts '2'
+      self.save!
+      puts '3'
+    else
+      puts '4'
+      self.image.recreate_versions!
+      puts '5'
       self.save!
     end
+    
+    
+    
   end
   
   
@@ -109,7 +120,7 @@ class Catalog< ActiveRecord::Base
   
   # counter cache
   def count_users
-    self.nr_users = self.catalog_users.where(role: 'Catalog User').count
+    self.nr_users = self.catalog_users.where(role: ['Catalog User', 'Account Owner']).count
   end
   
 
@@ -119,16 +130,18 @@ class Catalog< ActiveRecord::Base
                       .first_or_create(artwork_id: artwork.id, catalog_id: self.id)
   end
   
-  def add_recordings new_recordings
-    new_recordings.each do |recording|
-      add_recording recording
+  def attach_recordings recordings_to_attach
+    ap recordings_to_attach
+    ap recordings_to_attach.class.name
+    recordings_to_attach.each do |recording|
+      attach_recording recording
     end
   end
 
 
   # add a recording to the catalog
   # after added also create a catalog item for the common work
-  def add_recording recording
+  def attach_recording recording
     CatalogsRecordings.where(catalog_id: self.id, recording_id: recording.id)
                       .first_or_create(catalog_id: self.id, recording_id: recording.id)
   end
@@ -141,7 +154,7 @@ class Catalog< ActiveRecord::Base
                       .first_or_create(catalog_id: self.id, common_work_id: common_work.id)
                       
     common_work.recordings.each do |recording|
-      self.add_recording recording
+      self.attach_recording recording
     end
   end
 

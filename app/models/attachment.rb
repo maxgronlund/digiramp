@@ -4,7 +4,7 @@ class Attachment < ActiveRecord::Base
   
   after_commit :flush_cache
   
-  #mount_uploader :file, DocumentUploader
+  mount_uploader :file, DocumentUploader
   
   include PgSearch
   pg_search_scope :search, against: [:title, :file_type ], :using => [:tsearch]
@@ -18,8 +18,9 @@ class Attachment < ActiveRecord::Base
   scope :files,               -> { where(file_type: "file") }
   scope :legal_documents,     -> { where(file_type: "legal_document") }
   scope :financial_documents, -> { where(file_type: "financial_document") }
+  scope :documents,           -> { where(file_type: "document") }
   
-  FILE_TYPES = ["file", "legal_document", "financial_document" ]
+  FILE_TYPES = ["file", "document", "legal_document", "financial_document" ]
 
   def self.account_search(account, query)
     attachments = account.attachments

@@ -84,7 +84,7 @@ class Account::CatalogsController < ApplicationController
     @catalog = Catalog.find(params[:id])
     @catalog_id = @catalog.id
     @catalog.destroy
-    #redirect_to account_account_catalogs_path( @account)
+    redirect_to account_account_catalogs_path( @account)
   end
   
 private

@@ -1,0 +1,83 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'recording'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {recordings: account_account_recordings_path(@account),\
+                                                             @recording.title.to_sym => account_account_recording_path(@account, @recording) \
+                                                             },current:  ''}
+
+
+      .row
+        .col-sm-8
+          h2 Upload legal document
+        .col-sm-4
+        
+        
+        
+
+      .sexy_line
+      .row
+        .col-sm-12
+          #digiWhams  class="/recordings/#{@recording.id.to_s}"
+        
+            == render 'account/recordings/account_recording', recording: @recording,
+                                                         info: true,
+                                                         add_to_playlist: true, 
+                                                         remove_from_playlist: false, 
+                                                         edit: true, 
+                                                         delete: false,
+                                                         description: false,
+                                                         share: true,
+                                                         target: "",
+                                                         music_request_link: false,
+                                                         remove_from_request: false
+        
+      == render 'account/recordings/shared/document_navigation', selected: 'legal'
+      .row.pull-down-10
+        .col-sm-6
+          .digi-box
+            = simple_form_for  [:account, @account, @recording, @attachments ] , :url => url_for(:action => 'create', :controller => 'account/recording_legal_documents'), 
+                                                     :method => 'post' do |f|
+                                                       
+                                                       
+              /= f.hidden_field :recording_id, value: @recording.id
+              = f.hidden_field :attachable_id, value: @recording.id
+              = f.hidden_field :attachable_type, value: @recording.class.name
+              = f.hidden_field :account_id, value: @account.id
+              = f.hidden_field :file_type, value: 'legal_document'
+              
+              .fileinput.fileinput-new.input-group data-provides="fileinput"
+                .form-control data-trigger="fileinput"
+                  i.glyphicon.glyphicon-file.fileinput-exists
+                  span.fileinput-filename
+              
+                span.input-group-addon.btn.btn-default.btn-file
+                  span.fileinput-new
+                    'Select file
+                  span.fileinput-exists
+                    'Change
+              
+              
+                  = f.file_field :file, multiple: false, label: 'Select file'
+                a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+                  'Remove
+                  
+              
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-primary please_wait'
+                                                       
+          
+
+      
+      
+  == render 'shared/site_footer'

@@ -1,5 +1,5 @@
 class OpportunityMailer < ActionMailer::Base
-  default from: "info@digiramp.com"
+  default from: "noreply@digiramp.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -17,22 +17,7 @@ class OpportunityMailer < ActionMailer::Base
     @opportunity_link        = url_for( controller: 'opportunity/opportunities', action: 'show', id: @opportunity.id, opportunity_invitation: 'true', user_id: user_id)
     @fotter_link             = url_for( controller: 'contacts', action: 'new')
     
-    #mail to: email, subject: @opportunity_invitation.title
-    
-    
-
-    #headers['X-SMTPAPI'] = '{
-    #                          "to": [
-    #                                  "max@digiramp.com",
-    #                                  "maria@pixelsonrails.com",
-    #                                  "test03@pixelsonrails.com",
-    #                                  "test04@pixelsonrails.com",
-    #                                  "test05@pixelsonrails.com",
-    #                                  "test06@pixelsonrails.com"
-    #                                ]
-    #                        }'
-    #
-    #
+  
     
     
     

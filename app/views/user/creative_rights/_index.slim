@@ -12,11 +12,12 @@
               th Title
               th 
                 i.fa.fa-music
-                '&nbsp;Work rights & credits
+                '&nbsp;Work
               th 
                 i.fa.fa-headphones
-                '&nbsp;Recording rights & credits
+                '&nbsp;Master
               th Clerance
+              th
       
           tbody
             
@@ -38,13 +39,23 @@
                         =< count
                 td 
                   - common_work.recordings.each do |recording|
+                    
                     = link_to edit_user_user_recording_credit_path(@user, recording)
                       .btn.btn-default.btn-xs
+                        => recording.title
+                      .pull-right
                         - count = recording.recording_ipis.count
-                        - if count == 0
-                          i.fa.fa-exclamation
-                          '&nbsp;Missing
-                        - else
+                        .btn.btn-default.btn-xs
                           i.fa.fa-users
-                          =< count
-                
+                          '&nbsp;
+                          = count
+  
+                    .sexy_line
+                    
+                td
+                  .pull-right
+                    = link_to user_user_creative_right_path(@user, common_work), data: { confirm: 'Are you sure?' } , 
+                                                                                          turboboost: true, 
+                                                                                          :method => :delete do
+                          .btn.btn-danger.btn-xs
+                            i class="fa fa-times"

@@ -95,7 +95,7 @@
                       => link_to edit_admin_issue_comment_path(  @issue, comment )
                         .btn.btn-default.btn-xs
                           i class="fa fa-pencil"
-                      = link_to admin_issue_comment_path( @issue, comment ), data: {:confirm => 'Are you sure?'}, :method => :delete
+                      = link_to admin_issue_comment_path( @issue, comment ), data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete
                         .btn.btn-danger.btn-xs
                           i class="fa fa-times"
               

@@ -1,0 +1,10 @@
+= simple_form_for(@issue_event) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :data
+    = f.association :subject
+
+  .form-actions
+    = f.button :submit

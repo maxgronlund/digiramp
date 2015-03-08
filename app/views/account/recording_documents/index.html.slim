@@ -1,0 +1,89 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'recording'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {recordings: account_account_recordings_path(@account),\
+                                                             @recording.title.to_sym => account_account_recording_path(@account, @recording) \
+                                                             },current:  ''}
+
+
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Recording documents
+            .help-button
+              == render 'admin/helps/help', identifier: 'recording documents'
+
+        .col-sm-6
+          .pull-right
+            = link_to new_account_account_recording_recording_document_path(@account, @recording) do
+              .btn.btn-default
+                i.fa.fa-cloud-upload
+                '&nbsp;Attach document
+        
+        
+        
+
+      .sexy_line
+      .row
+        .col-sm-12
+          #digiWhams  class="/recordings/#{@recording.id.to_s}"
+        
+            == render 'account/recordings/account_recording', recording: @recording,
+                                                         info: true,
+                                                         add_to_playlist: true, 
+                                                         remove_from_playlist: false, 
+                                                         edit: true, 
+                                                         delete: false,
+                                                         description: false,
+                                                         share: true,
+                                                         target: "",
+                                                         music_request_link: false,
+                                                         remove_from_request: false
+        
+      == render 'account/recordings/shared/document_navigation', selected: 'documents'
+      
+      .row.pull-down-10
+        .col-sm-12
+          .digi-box
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Name
+                    th Size
+                    th Download
+                    th 
+                    
+                tbody
+                  - @files.each do |file|
+                    tr
+                      td = File.basename(file.file_url)
+                      td
+                        =  number_to_human_size(file.file_size.to_i) 
+                      td 
+                        = link_to  file.file_url do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-cloud-download
+                            '&nbsp;Right clink and select save
+                      td 
+                        .pull-right
+                          = link_to account_account_attachment_path(@account, file, return_url: request.url), data: { confirm: 'Are you sure?' }, turboboost: true , :method => :delete do
+                            .btn.btn-danger.btn-xs
+                              i.fa.fa-times
+                        
+               
+               
+      
+  == render 'shared/site_footer'
+  
+

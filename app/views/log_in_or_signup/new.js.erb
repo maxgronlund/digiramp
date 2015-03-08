@@ -1,0 +1,12 @@
+$(".open-dialog").append("<%= j render 'log_in_or_signup/dialog'%>");
+
+$('#digirampDialog').modal('show')
+
+
+
+javascript:
+
+  $("#digirampDialog").on('hidden.bs.modal', function (event) {
+    $(".old-dialog").remove()
+  });
+  

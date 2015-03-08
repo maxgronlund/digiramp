@@ -59,7 +59,7 @@
                           '&nbsp;
                           'Edit
                       '&nbsp;
-                      = link_to account_account_project_path(@account, project), data: { confirm: 'Are you sure?' } , :method => :delete do
+                      = link_to account_account_project_path(@account, project), data: { confirm: 'Are you sure?' },turboboost: true , :method => :delete do
                         .btn.btn-danger
                           i.fa.fa-times
           
