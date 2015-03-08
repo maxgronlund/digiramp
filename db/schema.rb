@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206175606) do
+ActiveRecord::Schema.define(version: 20150308100219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.integer  "administrator_id",     default: 0
     t.boolean  "create_opportunities"
     t.boolean  "read_opportunities"
+    t.integer  "user_count"
   end
 
   add_index "accounts", ["administrator_id"], name: "index_accounts_on_administrator_id", using: :btree
@@ -288,6 +289,16 @@ ActiveRecord::Schema.define(version: 20150206175606) do
 
   add_index "artworks", ["account_id"], name: "index_artworks_on_account_id", using: :btree
 
+  create_table "artworks_catalogs", force: true do |t|
+    t.integer  "artwork_id"
+    t.integer  "catalog_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "artworks_catalogs", ["artwork_id"], name: "index_artworks_catalogs_on_artwork_id", using: :btree
+  add_index "artworks_catalogs", ["catalog_id"], name: "index_artworks_catalogs_on_catalog_id", using: :btree
+
   create_table "ascap_imports", force: true do |t|
     t.boolean  "in_progress"
     t.text     "params"
@@ -331,6 +342,8 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "file_size",       default: ""
+    t.string   "content_type",    default: ""
   end
 
   add_index "attachments", ["account_id"], name: "index_attachments_on_account_id", using: :btree
@@ -581,12 +594,43 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.string   "default_widget_key"
     t.integer  "user_id"
     t.integer  "default_playlist_id"
+    t.string   "image",               default: ""
   end
 
   add_index "catalogs", ["account_id"], name: "index_catalogs_on_account_id", using: :btree
   add_index "catalogs", ["default_playlist_id"], name: "index_catalogs_on_default_playlist_id", using: :btree
   add_index "catalogs", ["default_widget_key"], name: "index_catalogs_on_default_widget_key", using: :btree
   add_index "catalogs", ["user_id"], name: "index_catalogs_on_user_id", using: :btree
+
+  create_table "catalogs_common_works", force: true do |t|
+    t.integer  "catalog_id"
+    t.integer  "common_work_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "catalogs_common_works", ["catalog_id"], name: "index_catalogs_common_works_on_catalog_id", using: :btree
+  add_index "catalogs_common_works", ["common_work_id"], name: "index_catalogs_common_works_on_common_work_id", using: :btree
+
+  create_table "catalogs_documents", force: true do |t|
+    t.integer  "catalog_id"
+    t.integer  "document_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "catalogs_documents", ["catalog_id"], name: "index_catalogs_documents_on_catalog_id", using: :btree
+  add_index "catalogs_documents", ["document_id"], name: "index_catalogs_documents_on_document_id", using: :btree
+
+  create_table "catalogs_recordings", force: true do |t|
+    t.integer  "catalog_id"
+    t.integer  "recording_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "catalogs_recordings", ["catalog_id"], name: "index_catalogs_recordings_on_catalog_id", using: :btree
+  add_index "catalogs_recordings", ["recording_id"], name: "index_catalogs_recordings_on_recording_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "title"
@@ -618,7 +662,8 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.text     "description"
     t.string   "user_uuid"
     t.integer  "user_id"
-    t.boolean  "invited",     default: false
+    t.boolean  "invited",          default: false
+    t.integer  "invitation_count"
   end
 
   add_index "client_groups", ["account_id"], name: "index_client_groups_on_account_id", using: :btree
@@ -719,9 +764,30 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.string   "size"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title",      default: ""
+    t.text     "body",       default: ""
+  end
+
+  create_table "cms_comments", force: true do |t|
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cms_contacts", force: true do |t|
+    t.string   "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "cms_horizontal_links", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cms_images", force: true do |t|
+    t.string   "image"
+    t.string   "caption"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -731,6 +797,11 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "background_color", default: "#FFF"
+    t.string   "text_color",       default: "#555"
+    t.string   "layout",           default: "Alabama"
+    t.boolean  "hide_sidebar",     default: false
+    t.string   "theme",            default: "default"
   end
 
   add_index "cms_pages", ["user_id"], name: "index_cms_pages_on_user_id", using: :btree
@@ -744,6 +815,15 @@ ActiveRecord::Schema.define(version: 20150206175606) do
 
   add_index "cms_playlist_links", ["playlist_id"], name: "index_cms_playlist_links_on_playlist_id", using: :btree
 
+  create_table "cms_playlists", force: true do |t|
+    t.integer  "position"
+    t.integer  "playlist_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cms_playlists", ["playlist_id"], name: "index_cms_playlists_on_playlist_id", using: :btree
+
   create_table "cms_recordings", force: true do |t|
     t.integer  "recording_id"
     t.datetime "created_at"
@@ -754,7 +834,7 @@ ActiveRecord::Schema.define(version: 20150206175606) do
 
   create_table "cms_sections", force: true do |t|
     t.integer  "cms_page_id"
-    t.integer  "position"
+    t.integer  "position",        default: 0
     t.integer  "column_nr"
     t.string   "cms_type"
     t.integer  "cms_module_id"
@@ -765,6 +845,11 @@ ActiveRecord::Schema.define(version: 20150206175606) do
 
   add_index "cms_sections", ["cms_module_id", "cms_module_type"], name: "index_cms_sections_on_cms_module_id_and_cms_module_type", using: :btree
   add_index "cms_sections", ["cms_page_id"], name: "index_cms_sections_on_cms_page_id", using: :btree
+
+  create_table "cms_social_links", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cms_texts", force: true do |t|
     t.integer  "position"
@@ -817,8 +902,8 @@ ActiveRecord::Schema.define(version: 20150206175606) do
   create_table "common_works", force: true do |t|
     t.string   "title"
     t.string   "iswc_code"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.integer  "ascap_work_id"
     t.integer  "account_id"
     t.integer  "common_works_import_id"
@@ -827,7 +912,7 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.text     "description"
     t.text     "alternative_titles"
     t.integer  "recording_preview_id"
-    t.string   "step",                              default: "created"
+    t.string   "step",                   default: "created"
     t.text     "lyrics"
     t.integer  "catalog_id"
     t.string   "uuid"
@@ -840,15 +925,15 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.string   "ascap_award_winner"
     t.string   "work_type"
     t.string   "composite_type"
-    t.string   "arrangement_of_public_domain_work"
     t.string   "genre"
     t.string   "submitter_work_id"
-    t.string   "registration_date",                 default: ""
-    t.string   "bmi_work_id",                       default: ""
-    t.string   "bmi_catalog",                       default: "Main catalog"
-    t.string   "registration_origin",               default: ""
-    t.string   "pro_work_id",                       default: ""
-    t.string   "pro_catalog",                       default: ""
+    t.string   "registration_date",      default: ""
+    t.string   "bmi_work_id",            default: ""
+    t.string   "bmi_catalog",            default: "Main catalog"
+    t.string   "registration_origin",    default: ""
+    t.string   "pro_work_id",            default: ""
+    t.string   "pro_catalog",            default: ""
+    t.boolean  "arrangement",            default: false
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree
@@ -898,6 +983,24 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.string   "phone"
     t.string   "contact_subject", default: "contact"
   end
+
+  create_table "contracts", force: true do |t|
+    t.string   "title"
+    t.text     "subject"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "contract_type"
+    t.text     "body"
+    t.integer  "contractable_id"
+    t.string   "contractable_type"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.boolean  "template",          default: false
+  end
+
+  add_index "contracts", ["account_id"], name: "index_contracts_on_account_id", using: :btree
+  add_index "contracts", ["contractable_id", "contractable_type"], name: "index_contracts_on_contractable_id_and_contractable_type", using: :btree
+  add_index "contracts", ["user_id"], name: "index_contracts_on_user_id", using: :btree
 
   create_table "customer_events", force: true do |t|
     t.string   "event_type"
@@ -1469,41 +1572,55 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.string   "role"
     t.integer  "common_work_id"
     t.integer  "import_ipi_id"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.integer  "user_id"
     t.string   "ipi_code"
     t.string   "cae_code"
     t.boolean  "controlled"
     t.string   "territory"
-    t.decimal  "share",                   default: 0.0,   null: false
-    t.decimal  "mech_owned",              default: 0.0,   null: false
-    t.decimal  "mech_collected",          default: 0.0,   null: false
-    t.decimal  "perf_owned",              default: 0.0,   null: false
-    t.decimal  "perf_collected",          default: 0.0,   null: false
+    t.decimal  "share",                     default: 0.0,       null: false
+    t.decimal  "mech_owned",                default: 0.0,       null: false
+    t.decimal  "mech_collected",            default: 0.0,       null: false
+    t.decimal  "perf_owned",                default: 0.0,       null: false
+    t.decimal  "perf_collected",            default: 0.0,       null: false
     t.text     "notes"
-    t.string   "pro"
     t.boolean  "has_agreement"
     t.boolean  "linked_to_ascap_member"
     t.boolean  "controlled_by_submitter"
     t.string   "ascap_work_id"
-    t.string   "bmi_work_id",             default: ""
-    t.boolean  "writer",                  default: false
-    t.boolean  "composer",                default: false
-    t.boolean  "administrator",           default: false
-    t.boolean  "producer",                default: false
-    t.boolean  "original_publisher",      default: false
-    t.boolean  "artist",                  default: false
-    t.boolean  "distributor",             default: false
-    t.boolean  "remixer",                 default: false
-    t.boolean  "other",                   default: false
-    t.boolean  "publisher",               default: false
+    t.string   "bmi_work_id",               default: ""
+    t.boolean  "writer",                    default: false
+    t.boolean  "composer",                  default: false
+    t.boolean  "administrator",             default: false
+    t.boolean  "producer",                  default: false
+    t.boolean  "original_publisher",        default: false
+    t.boolean  "artist",                    default: false
+    t.boolean  "distributor",               default: false
+    t.boolean  "remixer",                   default: false
+    t.boolean  "other",                     default: false
+    t.boolean  "publisher",                 default: false
     t.string   "uuid"
+    t.integer  "pro_affiliation_id"
+    t.boolean  "show_credit_on_recordings", default: false
+    t.string   "confirmation",              default: "Missing"
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
   add_index "ipis", ["import_ipi_id"], name: "index_ipis_on_import_ipi_id", using: :btree
+  add_index "ipis", ["pro_affiliation_id"], name: "index_ipis_on_pro_affiliation_id", using: :btree
   add_index "ipis", ["user_id"], name: "index_ipis_on_user_id", using: :btree
+
+  create_table "issue_events", force: true do |t|
+    t.string   "title"
+    t.text     "data"
+    t.integer  "subject_id"
+    t.string   "subject_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "issue_events", ["subject_id", "subject_type"], name: "index_issue_events_on_subject_id_and_subject_type", using: :btree
 
   create_table "issues", force: true do |t|
     t.string   "title"
@@ -1519,6 +1636,7 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.string   "symtom"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "created_by"
   end
 
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
@@ -1762,6 +1880,12 @@ ActiveRecord::Schema.define(version: 20150206175606) do
   add_index "opportunity_views", ["opportunity_id"], name: "index_opportunity_views_on_opportunity_id", using: :btree
   add_index "opportunity_views", ["user_id"], name: "index_opportunity_views_on_user_id", using: :btree
 
+  create_table "page_views", force: true do |t|
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "permissions", force: true do |t|
     t.integer  "user_id"
     t.datetime "created_at",          null: false
@@ -1931,6 +2055,7 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.integer  "recording_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   add_index "playlists_recordings", ["playlist_id"], name: "index_playlists_recordings_on_playlist_id", using: :btree
@@ -2007,8 +2132,12 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.integer  "recording_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",        default: ""
-    t.boolean  "confirmed",    default: false
+    t.string   "email",                    default: ""
+    t.boolean  "confirmed",                default: false
+    t.string   "confirmation",             default: "Missing"
+    t.boolean  "show_credit_on_recording", default: false
+    t.text     "notes",                    default: ""
+    t.string   "credit_for",               default: ""
   end
 
   add_index "recording_ipis", ["recording_id"], name: "index_recording_ipis_on_recording_id", using: :btree
@@ -2115,6 +2244,7 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.boolean  "transferable",         default: false
     t.integer  "position",             default: 0
     t.datetime "featured_date"
+    t.string   "default_cover_art",    default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -2263,6 +2393,16 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.datetime "updated_at"
   end
 
+  create_table "tutorial_views", force: true do |t|
+    t.integer  "tutorial_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tutorial_views", ["tutorial_id"], name: "index_tutorial_views_on_tutorial_id", using: :btree
+  add_index "tutorial_views", ["user_id"], name: "index_tutorial_views_on_user_id", using: :btree
+
   create_table "tutorials", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -2276,7 +2416,7 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.boolean  "published",   default: false
     t.boolean  "pro_account", default: false
     t.boolean  "super",       default: false
-    t.text     "thumbnail",   default: ""
+    t.string   "thumbnail",   default: ""
     t.string   "identifier"
     t.string   "duration"
   end
@@ -2370,6 +2510,7 @@ ActiveRecord::Schema.define(version: 20150206175606) do
     t.text     "short_description"
     t.boolean  "show_introduction",          default: false
     t.integer  "default_cms_page_id"
+    t.integer  "news_count",                 default: 0
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

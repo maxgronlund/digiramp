@@ -4,116 +4,94 @@
     == render 'shared/navigationbar', page: 'account' 
   
   
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'account'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'catalog'
   
   #page-content-wrapper
     .container-fluid
-      h2 #{@account.title} <funky>Pro</funky>
-      'Catalogs controlled from this account
-      .sexy_line
-      .catalog
-        .catalog-badges
-          - @account.catalogs.each do |catalog|
-            -  user = current_account_user.user
-            .catalog-badge-container
-              .catalog-badge 
-                .title
-                  h4 = catalog.title
-                .body
-                  i class='fa fa-headphones'
-                  '&nbsp;
-                  'Recordings:
-                  '&nbsp;
-                  =catalog.nr_recordings
-                  .pull-right
-                    = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do
-                      .btn.btn-default.btn-xs
-                        'Show
-                        
-                        
-                        
-                  .sexy_line
-                  i class='fa fa-music'
-                  '&nbsp;
-                  'Common works:
-                  '&nbsp;
-                  =catalog.nr_common_works
-                  .pull-right
-                    = link_to catalog_account_catalog_common_works_path(catalog.account, catalog) do
-                      .btn.btn-default.btn-xs
-                        'Show
-                        
-                        
-                        
-                  .sexy_line
-                  i class='fa fa-folder'
-                  '&nbsp;
-                  'Assets:
-                  '&nbsp;
-                  =catalog.nr_assets
-                  .pull-right
-                    = link_to catalog_account_catalog_assets_path(catalog.account, catalog) do
-                      .btn.btn-default.btn-xs
-                        'Show
-                   
-                   
-                        
-                  /.sexy_line
-                  /i class='fa fa-user'
-                  /'&nbsp;
-                  /'Owner:
-                  /br
-                  /= catalog.account.title
-                  /- if catalog.account.administrator_id == current_user.id
-                  /  .pull-right
-                  /    = link_to catalog_account_catalog_path( catalog.account, catalog) do
-                  /      .btn.btn-primary.btn-xs
-                  /        i.fa.fa-pencil
-                  /        
-                  /  
-                  
-                      
-                  .sexy_line
-                  i class='fa fa-users'
-                  '&nbsp;
-                  'Users:
-                  '&nbsp;
-                  = catalog.nr_users
-
-                  - if catalog.account.administrator_id == current_user.id
-                    .pull-right
-                      = link_to catalog_account_catalog_catalog_users_path(@account, catalog)
-                        .btn.btn-default.btn-xs
-                          'Show
-                  .sexy_line
-                  
-                  
-                  .pull-right
-                    -if current_account_user.update_catalog?
-                      = link_to edit_catalog_account_catalog_path( @account, catalog) do
-                        .btn.btn-primary.btn-xs
-                          i class="fa fa-pencil"
-                      '&nbsp;
-                    -if current_account_user.delete_catalog?
-                      = link_to catalog_account_catalog_path( @account, catalog) , data: { confirm: 'Are you sure?' } , method: :delete do
-                        .btn.btn-danger.btn-xs
-                          i class="fa fa-trash-o"
-                  
-                  
-                  
-                  
-                  
-                  
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {account: account_account_path( @account) },current:  ''}
       
       
-      /-  user = current_account_user.user
-      /- @account.catalogs.each do |catalog|
-      /  - if catalog_user = catalog.catalog_users.where(user_id: current_user.id).last
-      /    = debug catalog.title
+      .row
+        .col-sm-8
+          h2 Catalogs
+        .col-sm-4
+          - if current_account_user.createx_catalog
+            .pull-right
+              = link_to new_account_account_catalog_path(@account) do
+                .btn.btn-primary
+                  i class="fa fa-plus-circle"
+                  '&nbsp;Create catalog
             
-                 
+      .sexy_line
+      .row
+        .col-sm-12
+          .digi-box
+            
+            - if current_account_user.read_catalog
+              .table-responsive
+                table class="table table-hover"
+                  thead
+                    tr
+                      th Title
+                      th Works
+                      th Recordings
+                      th Assets
+                      th Users
+                      th  
+                  tbody
+                    - @account.catalogs.each do |catalog|
+                      tr id="delete_catalog_#{catalog.id.to_s}"
+                        td 
+                          = link_to catalog.title, catalog_account_catalog_path(@account, catalog), class: 'btn btn-default btn-xs'
+                        td 
+                          - if current_account_user.read_common_work?
+                            = link_to catalog_account_catalog_common_works_path(@account, catalog) do
+                              .btn.btn-default.btn-xs
+                                i.fa.fa-music
+                                =< pluralize( catalog.common_works.count, 'Works')
+                            =
+                        
+                        td 
+                          - if current_account_user.read_recording?
+                            = link_to catalog_account_catalog_recordings_path(@account, catalog) do
+                              .btn.btn-default.btn-xs
+                                i.fa.fa-headphones
+                                =< pluralize( catalog.recordings.count, 'Recording')
+                               
+                        td 
+                          - if current_account_user.read_user?
+                            = link_to catalog_account_catalog_assets_path(@account, catalog) do
+                              .btn.btn-default.btn-xs
+                                i.fa.fa-folder-o
+                                =< pluralize( catalog.documents.count, 'Assets')
+                               
+                        td 
+                          - if current_account_user.read_user?
+                            = link_to catalog_account_catalog_catalog_users_path(@account, catalog) do
+                              .btn.btn-default.btn-xs
+                                i.fa.fa-users
+                                =< pluralize(catalog.nr_users, 'User')
+                                /=< pluralize( catalog.catalog_users.count, 'User')
+                          
+                          =
+                        td
+                          .pull-right
+                            - if current_account_user.update_catalog?
+                              = link_to edit_account_account_catalog_path( @account, catalog) do
+                                .btn.btn-default.btn-xs
+                                  i class="fa fa-pencil"
+                            
+                            - if current_account_user.delete_catalog?
+                              =< link_to account_account_catalog_path( @account, catalog), turboboost: true , data: { confirm: 'Are you sure?' } , method: :delete do
+                                .btn.btn-danger.btn-xs
+                                  i.fa.fa-times
+                              
+                      /= debug catalog
+                          
+                   
               
   == render 'shared/site_footer'    
  

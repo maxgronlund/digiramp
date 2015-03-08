@@ -1,0 +1,85 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+     
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'playlists'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 Edit playlist
+            .help-button
+              == render 'admin/helps/help', identifier: 'edit playlist'
+
+
+      .sexy_line
+      == render 'user/playlists/form'
+      .row
+        .col-sm-12
+          .new_playlist
+          == render 'playlist', playlist: @playlist
+      /.panel
+      /  .panel-body
+      /.digi-box
+      /  = simple_form_for [@user, @playlist] do |f|
+      /    .row
+      /      .col-sm-6
+      /        = f.hidden_field :user_id, value: @user.id
+      /        /= f.hidden_field :playlist_id, value: @playlist.id
+      /        = f.input :title
+      /  
+      /  
+      /  
+      /        .fileinput.fileinput-new data-provides="fileinput"
+      /          .fileinput-new.thumbnail style="width: 270px; height: 270px;"
+      /            = image_tag @playlist.playlist_image_url(:image_270x270), size: '270x270'
+      /  
+      /          div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 270px; max-height: 270px;"
+      /          div
+      /            span.btn.btn-default.btn-file
+      /              span class="fileinput-new"
+      /                'Change image 270x270
+      /              '&nbsp;
+      /              span class="fileinput-exists"
+      /                'Change 270x270
+      /              = f.file_field :playlist_image
+      /  
+      /            '&nbsp;
+      /            a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+      /              'Remove
+      /  
+      /      .col-sm-6  
+      /        b Description
+      /        br
+      /        div id="toolbar" class="wysihtml5-toolbar"
+      /          a data-wysihtml5-command="bold" Bold
+      /          '&nbsp; 
+      /          a data-wysihtml5-command="italic" Italic
+      /          .pull-right
+      /            a data-wysihtml5-action="change_view"  Html 
+      /        =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Description", id: 'wysihtml5_editor'}
+      /  
+      /
+      /        - if  @playlist.new_record?
+      /          = link_to 'Cancel', user_playlists_path(@user), class: 'btn btn-default'
+      /        -else
+      /          = link_to 'Cancel', user_playlist_path(@user, @playlist), class: 'btn btn-default'
+      /
+      /    .row
+      /      .col-sm-12
+      /        .pull-right
+      /          = f.submit 'Save', class: 'btn btn-primary'
+      /    .row
+      /      .col-sm-12
+      /        .new_playlist
+      /        == render 'playlist', playlist: @playlist
+      /        
+      /
+  == render 'shared/site_footer'  

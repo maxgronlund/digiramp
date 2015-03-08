@@ -28,7 +28,7 @@
       .account_users.digi-box
         .row
           .col-sm-12
-            =simple_form_for [:account, @account, @account_user] do |f|
+            =simple_form_for [:account, @account, @account_user], turboboost: true do |f|
               /= f.hidden_field :account_id, value: @account.id
               /= f.hidden_field :user_id, value: @account_user.user_id
               == render 'form', f: f

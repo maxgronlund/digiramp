@@ -11,7 +11,7 @@ class CatalogUser < ActiveRecord::Base
   after_commit  :flush_cache
   #before_save   :update_uuids
   #after_create  :attach_to_account_user
-  after_destroy :update_catalog_counter_cache
+  #after_destroy :update_catalog_counter_cache
   
 
   scope :invited,           ->  { where( role: 'Catalog User').order("email asc")  }
@@ -38,9 +38,9 @@ class CatalogUser < ActiveRecord::Base
   end
 
  
-  def update_catalog_counter_cache
-    #CatalogUserCounterCachWorker.perform_async(self.catalog_id)
-  end
+  #def update_catalog_counter_cache
+  #  #CatalogUserCounterCachWorker.perform_async(self.catalog_id)
+  #end
   
   
   #def update_uuids
@@ -91,10 +91,9 @@ class CatalogUser < ActiveRecord::Base
   # can update catalog_user
   def can_update_catalog_user catalog_user
     #puts '+++++++++++++++++++++++ can_update_catalog_user ++++++++++++++++++++++++++'
-   
     # only if there is permissions to update
     return false unless self.update_user
-
+    
     handle_user_permissions_for catalog_user
   end
   
@@ -131,7 +130,7 @@ class CatalogUser < ActiveRecord::Base
     return true if catalog_user.role        == 'Catalog User'
     
     puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-    puts 'ERROR: Unable assign edit permmision for account user'
+    puts 'ERROR: Unable assign edit permmision for catalog user'
     puts 'In CatalogUser#has_permisions'
     puts '+++++++++++++++++++++++++++++++++++++++++++++++++' 
     false

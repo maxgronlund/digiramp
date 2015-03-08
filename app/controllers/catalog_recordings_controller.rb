@@ -63,41 +63,17 @@ class CatalogRecordingsController < ApplicationController
     # add the recording to the catalog
     @catalog   = Catalog.cached_find(params[:catalog_id])
     @recording = Recording.cached_find(params[:recording])
-
-    catalog_item = CatalogItem.where(catalog_id: @catalog.id, 
-                                     catalog_itemable_id: @recording.id, 
-                                     catalog_itemable_type: @recording.class.name)
-                            .first_or_create(catalog_id: @catalog.id, 
-                                             catalog_itemable_id: @recording.id, 
-                                             catalog_itemable_type: @recording.class.name)
-                            
     
-    # activity log                   
-    catalog_item.create_activity(  :created, 
-                       owner: current_user,
-                   recipient: catalog_item,
-              recipient_type: catalog_item.class.name,
-                  account_id: @account.id)
-                  
-    # also add the common work
-    common_work = @recording.common_work
-    catalog_item = CatalogItem.where(           catalog_id: @catalog.id, 
-                                       catalog_itemable_id: common_work.id, 
-                                     catalog_itemable_type: common_work.class.name)
-                              .first_or_create(
-                                                        catalog_id: @catalog.id, 
-                                               catalog_itemable_id: common_work.id, 
-                                             catalog_itemable_type: common_work.class.name)
-                              
-    # !!! all the above has to move in to the catalog model
     @catalog.add_recording @recording
-    # activity log                   
-    catalog_item.create_activity(  :created, 
-                       owner: current_user,
-                   recipient: catalog_item,
-              recipient_type: catalog_item.class.name,
-                  account_id: @account.id)
-                  
+    @catalog.add_common_work @recording.common_work
+
+                 
+    #catalog_item.create_activity(  :created, 
+    #                   owner: current_user,
+    #               recipient: catalog_item,
+    #          recipient_type: catalog_item.class.name,
+    #              account_id: @account.id)
+    #              
     # insert the button for removing the recording again
     @prepend_tag = "#remove_from_catalog_"  + @recording.id.to_s
     
@@ -156,31 +132,10 @@ class CatalogRecordingsController < ApplicationController
     @catalog   = Catalog.cached_find(params[:catalog_id])
     @recording = Recording.cached_find(params[:id])
     
-    # remove the recording
-    catalog_item = CatalogItem.where( catalog_id: @catalog.id, 
-                                      catalog_itemable_id: @recording.id, 
-                                      catalog_itemable_type: @recording.class.name).first
-                                      
-    if catalog_item                                  
-      # activity log                   
-      catalog_item.create_activity(  :destroyed, 
-                         owner: current_user,
-                     recipient: catalog_item,
-                recipient_type: catalog_item.class.name,
-                    account_id: @account.id)
-                                        
-      catalog_item.destroy!
+    if catalog_recording = CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: @recording.id).first
+       catalog_recording.destroy!
     end
-    
-    # remove the common work if...
-    # common_work = @recording.common_work
-    
-    # remove the recording
-    # catalog_item = CatalogItem.where( catalog_id: @catalog.id, 
-    #                                   catalog_itemable_id: common_work.id, 
-    #                                   catalog_itemable_type: common_work.class.name).first
-                                   
-    
+
     @prepend_tag = "#add_to_catalog_"         + @recording.id.to_s
     @remove_tag  = "#remove_from_catalog_"    + @recording.id.to_s
   end

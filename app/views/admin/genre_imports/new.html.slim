@@ -1,25 +1,25 @@
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'admin'
-        
-  .container
-    
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
-                                                            content: admin_content_index_path, \
-                                                            tags: admin_tags_path, \
-                                                            genre: admin_genres_path, \
-                                                            }, current:  'import genre csv'}
-                                                            
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
 
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'Import Genre CSV'}
-    .row
-      .col-sm-3
-      
-      .col-sm-6
-        .panel
-          .panel-body
-            h3 SELECT CSV FILE
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { tags: admin_tags_path, \
+                                                              genre: admin_genres_path, \
+                                                              }, current: ''}
+      .row
+        .col-sm-12
+          h2 Import genre csv file
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
             = simple_form_for [:admin, @genre_import] do |f|
               - if @genre_import.errors.any?
                 #error_explanation
@@ -27,18 +27,85 @@
                   ul
                     - @genre_import.errors.full_messages.each do |message|
                       li = message
-
+          
               .field
                 = f.input :csv_file, label: 'CVS File'
-              hr
-              .pull-right
-                = f.submit 'Save', class: 'btn btn-primary btn-lg'
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-primary'
+                  
             
-      .col-sm-3
-    
+          
 
-  
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  == render 'shared/site_footer' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'admin'
+/        
+/  .container
+/    
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
+/                                                            content: admin_content_index_path, \
+/                                                            tags: admin_tags_path, \
+/                                                            genre: admin_genres_path, \
+/                                                            }, current:  'import genre csv'}
+/                                                            
+/
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'Import Genre CSV'}
+/    .row
+/      .col-sm-3
+/      
+/      .col-sm-6
+/        .panel
+/          .panel-body
+/            h3 SELECT CSV FILE
+/            = simple_form_for [:admin, @genre_import] do |f|
+/              - if @genre_import.errors.any?
+/                #error_explanation
+/                  h2 = "#{pluralize(@genre_import.errors.count, "error")} prohibited this genre_import from being saved:"
+/                  ul
+/                    - @genre_import.errors.full_messages.each do |message|
+/                      li = message
+/
+/              .field
+/                = f.input :csv_file, label: 'CVS File'
+/              hr
+/              .pull-right
+/                = f.submit 'Save', class: 'btn btn-primary btn-lg'
+/            
+/      .col-sm-3
+/    
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
 
 

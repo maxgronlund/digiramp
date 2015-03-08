@@ -44,34 +44,36 @@ class ContactInvitationsController < ApplicationController
   # if the invitation is ment for them
   def accept_connection
     
-    begin
-      client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
-      @inviter          = User.cached_find(client_invitation.user_id)
+    if client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
       
-
-      connect_with_user( current_user, @inviter )
-    rescue
-      @message = 'Unable to create connection'
+      if @inviter       = User.cached_find(client_invitation.user_id)
+        connect_with_user( current_user, @inviter )
+      else
+        @message        = 'Unable to create connection'
+      end
+    else
+      @message          = 'Unable to create connection'
     end
-    @message = "You are connected with #{@inviter.user_name}"
+    @message            = "You are connected with #{@inviter.user_name}"
   end
   
   
   # logged in user declines the invitation
   # if the invitation is ment for them
   def decline_connection
-    begin
-      client_invitation     = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
-      @inviter              = User.cached_find(client_invitation.user_id)
-      #xxxxxxxxxxxxxxxx not right xxxxxxxxxxxxxxxxxxxxxxx
-      connection            = connect_with_user( current_user, @inviter )
-      connection.dismissed  = true
-      connection.save!
-    rescue
+    
+    if client_invitation      = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
+      if @inviter             = User.where(id: client_invitation.user_id).first
+        connection            = connect_with_user( current_user, @inviter )
+        connection.dismissed  = true
+        connection.save!
+      else
+         @error = 'Error'
+      end
+    else
       @error = 'Error'
     end
     @message = "You have declined to connect with #{@inviter.user_name}"
-    
   end
   
   
@@ -100,22 +102,23 @@ private
     if @client = client_invitation.client
       
       if user_is_signed_up( client_invitation )
-        #ap '========================= USER IS SIGNED UP ========================='
-        #ap client_invitation
-        @inviter = client_invitation.user
-        connect_with_user(  @client.user, current_user  )
-        
-        return "You are now connected with #{client_invitation.user.user_name}"
+
+        if @inviter = client_invitation.user
+          connect_with_user(  @client.user, current_user  )
+          return "You are now connected with #{client_invitation.user.user_name}"
+        else
+           return 'Error: Inviter not found'
+        end
       
       else
         if @inviter = client_invitation.user
           return user_is_logged_in( @client )
         else
-          return 'Error: Inviter is deleted'
+          return 'Error: Inviter not found'
         end
       end
     else
-      'Error: Client is deleted'
+      'Error: Client not found'
     end
 
   end
@@ -180,11 +183,7 @@ private
   end
   
   def sign_up_with_new_user params, client_invitation, email, client
-    #logger.info '======================================================================================='
-    #logger.info '======================================================================================='
-    #logger.info '======================================================================================='
-    #logger.info client
-    
+
     full_name = client.full_name
     full_name = User.create_uniq_user_name_from_email( email )  if full_name == ' '
 
@@ -238,7 +237,7 @@ private
       
       session[:show_profile_completeness] = false
       
-      connect_with_user( client.user, @user )
+      connect_with_user( client.user, @user ) if client.user
       return 'Success'
     end
     return 'Error: no user created'

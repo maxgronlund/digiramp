@@ -1,12 +1,16 @@
 .nested-fields
   .row
     = f.hidden_field :recording_id, value: @recording.id
-    .col-sm-4
+    /.col-sm-1
+    /  h4
+    /    i.fa.fa-check
+    /    '&nbsp;Confirmed
+    .col-sm-2
+      = f.input :role  , collection: RecordingIpi::ROLES, :include_blank => true
+    .col-sm-3
       = f.input :name
     .col-sm-4
       = f.input :email
-    .col-sm-2
-      = f.input :role  , collection: RecordingIpi::ROLES, :include_blank => true
     .col-sm-2
        = f.input :share, label: 'Share in %'
   .row

@@ -1,0 +1,29 @@
+.social-links.pull-down-10
+  - if @user.link_to_facebook != ''
+    => link_to LinkValidator.validate( @user.link_to_facebook ) do
+      .fa.fa-facebook
+      '&nbsp;Facebook
+      
+  - if @user.link_to_twitter != ''
+    
+    => link_to LinkValidator.validate( @user.link_to_twitter ) do
+      .fa.fa-twitter
+      '&nbsp;Twitter
+      
+  - if @user.link_to_linkedin != ''
+    
+    => link_to LinkValidator.validate( @user.link_to_linkedin ) do
+      .fa.fa-linkedin
+      '&nbsp;Linkedin
+      
+  - if @user.link_to_google_plus != ''
+    
+    => link_to LinkValidator.validate( @user.link_to_google_plus ) do
+      .fa.fa-google-plus
+      '&nbsp;Google+
+      
+  - if @user.link_to_homepage != ''
+    => link_to LinkValidator.validate( @user.link_to_homepage ) do
+      .fa.fa-home
+      '&nbsp;www
+

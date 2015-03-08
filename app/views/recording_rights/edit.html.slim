@@ -35,7 +35,7 @@
       - common_work = @recording.attach_to_common_work
       h4 = @recording.title
       .digi-box
-        = simple_form_for [ @recording.account, common_work],  :html => { :id => 'common_work' } do |f|
+        = simple_form_for [ @recording.account, common_work], turboboost: true,  :html => { :id => 'common_work' } do |f|
           #common_work_ipis
           
             = f.hidden_field :recording_id, value: @recording.id
@@ -48,7 +48,7 @@
                   = f.simple_fields_for :ipis do |ipi|
                     = render 'recording_rights/ipi_fields', :f => ipi
                   .links
-                    = link_to_add_association 'Add IPI', f, :ipis, class: 'btn btn-primary'
+                    = link_to_add_association 'Add', f, :ipis, class: 'btn btn-primary'
                     
                     
             .row

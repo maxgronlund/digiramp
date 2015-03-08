@@ -1,0 +1,2 @@
+module CmsModuleMovesHelper
+end

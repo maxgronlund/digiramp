@@ -23,11 +23,7 @@ class Admin::BlogPostsController < ApplicationController
   def create
     @blog = Blog.find(params[:blog_id])
     if @blog_post = @blog.blog_posts.create(blog_post_params)
-      #if params[:blog_post][:image]
-      #  redirect_to crop_admin_blog_blog_post_path(@blog_post.blog, @blog_post, :version => :size_62x62)
-      #else
-        redirect_to admin_blog_path(@blog_post.blog)
-        #end
+      redirect_to_return_url admin_blog_path(@blog_post.blog)
     else
 
       render :new
@@ -41,7 +37,7 @@ class Admin::BlogPostsController < ApplicationController
       #if params[:blog_post][:image]
       #  redirect_to crop_admin_blog_blog_post_path(@blog_post.blog, @blog_post, :version => :size_62x62)
       #else
-        flash[:info] = { title: "SUCCESS: ", body: "#{@blog_post.title}  updated" }
+        #flash[:info] = { title: "SUCCESS: ", body: "#{@blog_post.title}  updated" }
         redirect_to_return_url admin_blog_path(@blog_post.blog)
       #end
     else

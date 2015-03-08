@@ -97,9 +97,11 @@ class Opportunity < ActiveRecord::Base
     #return unless self.public_opportunity
     
     if email_group = EmailGroup.where( identifier: 'opportunities').first
+      
+      #opportunity_url  = url_for( controller: '/public_opportunities', action: 'show', id: @digiramp_email.opportunity_id)
                                     
       digiramp_email = email_group.digiramp_emails.create( opportunity_id: self.id,
-                                                           subject:        'A new opportunity has been posted on DigiRAMP',
+                                                           subject:        self.title,
                                                            layout:         'opportunity_email',
                                                            title_1:        self.title,
                                                            title_2:        '',
@@ -119,8 +121,9 @@ class Opportunity < ActiveRecord::Base
                                                            deadline:       self.deadline        
                                                          )
 
-      DigirampEmailMailer.delay.opportunity_created( digiramp_email.id )
+      #DigirampEmailMailer.delay.opportunity_created( digiramp_email.id )
       
+      self.digiramp_email.send_opportunity_emails
       self.opportunity_email_send = true
       self.save!
         

@@ -1,0 +1,177 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'creative rights'.to_sym => user_user_creative_rights_path(@user)}, current: ''}
+      
+      
+      .row
+        .col-sm-6
+          h2 = @common_work.title
+        .col-sm-6
+          .pull-right.pull-down-10
+            == link_to user_user_creative_rights_path( @user ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+      
+      
+      .sexy_line
+      .row
+        .col-sm-12
+          .digi-box
+            
+            = simple_form_for [ :user, @common_work.account.user, @common_work], turboboost: true do |f|
+              .row
+                .col-sm-6
+                  h4 Basic informations
+                  
+                  /= f.label      :artwork, 'Thumbnail will be scaled to 184x184 pixels' 
+                  /= f.file_field :artwork, multiple: false
+                  /.fileinput.fileinput-new data-provides="fileinput"
+                  /  .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+                  /    - if @common_work.artwork
+                  /      = image_tag @common_work.artwork, size: '184x184'
+                  /    - else
+                  /      = image_tag 'default-cover.jpg'
+                  /
+                  /  div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+                  /  div
+                  /    span.btn.btn-default.btn-file
+                  /      span class="fileinput-new"
+                  /        'Change image
+                  /      '&nbsp;
+                  /      span class="fileinput-exists"
+                  /        'Change
+                  /      = f.file_field :artwork, multiple: false
+                  /
+                  /    '&nbsp;
+                  /    a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                  /      'Remove
+                  /  
+                  /  
+                  
+                  /= f.input :artwork
+                  = f.input :arrangement, label: 'Arrangement of public domain work',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+
+                   
+                  = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
+                  = f.input :alternative_titles, :input_html => {  style: "height: 120px;", placeholder: "Alternative Titles"}
+                  = f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
+                  
+                  .row
+                    .col-sm-6
+                      = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "ISWC Code"}
+                    .col-sm-6
+                      = f.input :surveyed_work
+                  .row
+                    .col-sm-6
+                      = f.input :last_distribution
+                    .col-sm-6
+                      = f.input :work_status
+                  .row
+                    .col-sm-6
+                      = f.input :ascap_award_winner
+                    .col-sm-6
+                      = f.input :work_type
+                  .row
+                    .col-sm-6
+                       = f.input :bmi_work_id
+                    .col-sm-6
+                      = f.input :bmi_catalog
+                      
+                      
+                  .row
+                    .col-sm-6
+                      = f.input :registration_origin
+                    .col-sm-6
+                      = f.input :registration_date
+                      
+                      
+                  .row
+                    .col-sm-6
+                      
+                      = f.input :pro_catalog
+                    .col-sm-6
+                      = f.input :pro_work_id
+                      
+                      
+                  .row
+                    .col-sm-6
+                       
+                       = f.input :submitter_work_id
+                    .col-sm-6
+                      = f.input :pro_work_id
+                  
+                  
+                  
+                 
+                  
+                  
+                
+                .col-sm-6
+                  h4 Lyrics
+                  div id="toolbar" class="wysihtml5-toolbar"
+                    a data-wysihtml5-command="bold" Bold
+                    '&nbsp; 
+                    a data-wysihtml5-command="italic" Italic
+                    .pull-right
+                      a data-wysihtml5-action="change_view"  Html 
+                
+                  =f.input :lyrics, label: false, :input_html => {  style: "height: 549px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
+                 
+                  /= f.input :arrangement, label: 'Arrangement of public domain work'
+                  /= f.input :genre
+                  
+                  
+                  
+                  
+                  
+              .row
+                .col-sm-12
+                  .pull-right
+                    => link_to 'Cancel', user_user_creative_rights_path( @user), class: 'btn btn-default'
+
+                    = f.submit 'Save', class: 'btn btn-primary'
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      /.wizard
+      /  == render @go_to, common_work: @common_work, user: @user, recording: @recording
+      
+                        
+            
+                 
+              
+  == render 'shared/site_footer'    
+

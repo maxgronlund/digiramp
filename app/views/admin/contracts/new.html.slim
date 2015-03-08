@@ -1,0 +1,25 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      h2 New contract templates
+
+      .sexy_line
+      .digi-box
+        = render 'form'
+        
+
+
+      /.sexy_line
+      /== paginate(@users)        
+  == render 'shared/site_footer'    
+ 

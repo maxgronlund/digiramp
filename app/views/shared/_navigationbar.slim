@@ -1,9 +1,7 @@
 .navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
   .navbar-header
-    .btn.btn-sidemenu id='menu-toggle'
-      i.fa.fa-angle-double-right
-      i.fa.fa-angle-double-left style="display: none;"
-      
+    
+    /  
     button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
       span class="sr-only"
         Toggle navigation
@@ -11,11 +9,25 @@
       span class="icon-bar"
       span class="icon-bar"
 
-    = link_to root_path do
-      /.navbar-brand
-      = image_tag 'logo2.png', size: "128x50", class: 'large-logo'
-      = image_tag 'logo3.png', size: "50x50", class: 'small-logo'
-        
+    .navbar-brand
+      
+      - if user_signed_in? && current_account
+        .navigation-avatar
+          = link_to profile_path_for( current_user) do
+            = image_tag current_user.image_url(:avatar_32x32)
+            '&nbsp;
+      - else
+        = link_to root_path do
+          /.navbar-brand
+          = image_tag 'logo5.png', size: "165x32", class: 'large-logo'
+          = image_tag 'logo4.png', size: "40x32", class: 'small-logo'
+          
+      - if @hide_sidebar_toggle.nil?
+        .navigation-toggle
+          .btn.btn-sidemenu id='menu-toggle'
+            i.fa.fa-angle-double-right
+            i.fa.fa-angle-double-left style="display: none;"
+          
       
     /.global-player
     /  .global-stop-button
@@ -48,6 +60,7 @@
     /                                :role => "search", \
     /                                value: params[:query]
     ul class="nav navbar-nav"
+      
       li class="#{page == 'songs' ? 'active' : ''}"
         = link_to songs_path(clear: 'clear') do
           i.fa.fa-headphones
@@ -70,6 +83,9 @@
             i.fa.fa-money
             '&nbsp;
             'Opportunities
+      li
+        h3 <funky> Beta</funky>
+      
           
         
         /.search-recording
@@ -100,17 +116,17 @@
       /    'Search
       - if user_signed_in? && current_account
         li class="#{page == 'messages' ? 'active' : ''}"
-          = link_to user_messages_path(current_user) do
+          = link_to user_unread_messages_path(current_user) do
             div id="message_count"
             == render 'messages/count'
             i.fa.fa-envelope
         li class="#{page == 'activities' && @user == current_user ? 'active' : ''}"
           = link_to user_activities_path(current_user) do
             i.fa.fa-home
-        li class="#{page == 'user' && @user == current_user ? 'active' : ''}"
-          = link_to user_path(current_user) do
-            = image_tag current_user.image_url(:avatar_32x32)
-            '&nbsp;
+        /li class="#{page == 'user' && @user == current_user ? 'active' : ''}"
+        /  = link_to profile_path_for( current_user) do
+        /    = image_tag current_user.image_url(:avatar_32x32)
+        /    '&nbsp;
         
         
       - if user_signed_in?  
@@ -120,29 +136,21 @@
             i.fa.fa-cog
           ul class="dropdown-menu" role="menu"
             - if current_user  
-              li  class="#{page == 'edit_profile' ? 'active' : ''}"
-                = link_to edit_user_path(current_user) do
-                  i class="fa fa-pencil"
+
+              
+              li    
+                = link_to logout_path do
+                  i class="fa fa-unlock"
                   '&nbsp;
-                  'Edit Profile
+                  'Log Out
+              li class="divider"    
+              /li  class="#{page == 'edit_profile' ? 'active' : ''}"
+              /  = link_to edit_user_path(current_user) do
+              /    i class="fa fa-pencil"
+              /    '&nbsp;
+              /    'Edit Profile
                   
-              /li  class="#{page == 'authorization_providers' ? 'active' : ''}"
-              /  = link_to user_user_authorization_providers_path(current_user) do
-              /    i class="fa fa-share-alt"
-              /    '&nbsp;
-              /    'Social Accounts
-              /
-              li  class="#{page == 'connections' ? 'active' : ''}"
-                = link_to user_user_connections_path(current_user ) do
-                  i class="fa fa-refresh"
-                  '&nbsp;
-                  'Connections
-              /
-              /li  class="#{page == 'subscribtions' ? 'active' : ''}"
-              /  = link_to user_user_mail_subscribtions_path(current_user ) do
-              /    i class="fa fa-envelope"
-              /    '&nbsp;
-              /    'Subscribtions
+
               
               li  class="#{page == 'contacts' ? 'active' : ''}"
                 = link_to user_user_control_panel_index_path(current_user ) do
@@ -150,11 +158,7 @@
                   '&nbsp;
                   'Control panel
       
-              /li  class="#{page == 'opportunities' ? 'active' : ''}"
-              /  = link_to user_user_opportunities_path( current_user ) do
-              /    i class="fa fa-money"
-              /    '&nbsp;
-              /    'Opportunities
+
                   
               - unless current_user.account.account_type  == "Social"    
                 li class="divider"
@@ -185,17 +189,6 @@
                       '&nbsp;
                       'Admin
 
-            /li  class="#{page == 'support' ? 'active' : ''}"
-            /  = link_to support_index_path do
-            /    i class="fa fa-life-ring"
-            /    '&nbsp;
-            /    'Support
-            li class="divider"
-            li    
-              = link_to logout_path do
-                i class="fa fa-unlock"
-                '&nbsp;
-                'Log Out
         
         
               
@@ -206,12 +199,19 @@
         /  i class="fa fa-sign-in"
         /  '&nbsp;
         /  'Log in
-
+        li
+          .pull-down-8
+            = link_to signup_index_path do
+              .btn.btn-warning
+                'Sign up
         li 
           = link_to login_new_path do
             i class="fa fa-sign-in"
             '&nbsp;
             'Log in
+
+
+    
       
 
 

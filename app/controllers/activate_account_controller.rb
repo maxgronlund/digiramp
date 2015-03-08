@@ -63,7 +63,7 @@ class ActivateAccountController < ApplicationController
                            )
                        
                        
-      flash[:info] = { title: "SUCCESS: ", body: "Your account has been activated" }
+      
       cookies.permanent[:auth_token]  = nil
       cookies[:auth_token]            = @user.auth_token  
       

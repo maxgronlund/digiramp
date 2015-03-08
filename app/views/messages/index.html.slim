@@ -21,35 +21,48 @@
           == render 'messages/navigation', selected: 'all'
 
       .sexy_line
-        .digi-box
-          - if params[:connection_id]
-            - connection = Connection.find(params[:connection_id])
+      .digi-box
+        - if params[:connection_id]
+          - connection = Connection.find(params[:connection_id])
+          - if connection.is_active || super?
             - if  user = connection.connected_to_user( @user )
               .row
                 .col-sm-8
                   h4 All messages between you and #{user.user_name}
                 .col-sm-4
                   .pull-right.pull-down-10
-                    = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{user.id.to_s}" do
-                      .btn.btn-primary
-                        i.fa.fa-envelope
-                        '&nbsp;New  
-                    == render 'messages/modal', modal_id: "pmModal_#{user.id.to_s}", recipient: user, subjebtable: user
+                    = link_to new_message_digalog_path(sender: current_user, 
+                                                       receiver: user, 
+                                                       title: '', 
+                                                       subjectable_id: current_user.id, 
+                                                       subjectable_type: 'User'), remote: true do
+                        .btn.btn-primary
+                          i.fa.fa-envelope
+                          '&nbsp;New message
+                                                         
+                    /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#message_modal_#{user.id.to_s}" do
+                    /  .btn.btn-primary
+                    /    i.fa.fa-envelope
+                    /    '&nbsp;New message 
                     
                     
-          
-                      
                     
-          -else
-            h4 All messages
-          .pull-down-10
-          .table-responsive
-            table class="table table-hover" id="messages"
-              tbody
-                - @messages.each do |message|
-                  == render 'messages/message', message: message
-          
-                
+            
+                    
+                  
+        - else
+          h4 All messages
+        .pull-down-10
+        .table-responsive
+          table class="table table-hover" id="messages"
+            tbody
+              - @messages.each do |message|
+                == render 'messages/message', message: message
+              
+      .row
+        .col-sm-12
+          .pull-right
+            == paginate(@messages)      
   == render 'shared/site_footer'    
  
 

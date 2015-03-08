@@ -3,7 +3,7 @@
     == render 'shared/navigationbar', page: 'home' 
   
   
-  .pro-account
+  .admin-account
     #sidebar-wrapper
       ul class="sidebar-nav"
         == render 'admin/shared/sidebar', selected: 'content'
@@ -75,7 +75,7 @@
                     i.fa.fa-gavel
                     '&nbsp;Legal
                 .body
-                  'Terms and condtions and othere legal stuff
+                  'Terms and condtions
                   
           /.admin-badge-container
           /  = link_to admin_video_blogs_path do
@@ -97,16 +97,16 @@
                 .body
                   'Text and images on the front page
                   
-          .admin-badge-container
-            = link_to admin_default_images_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-picture-o
-                    '&nbsp;Default images
-                .body
-                  'User avatars, company logos and more
-                  
+          /.admin-badge-container
+          /  = link_to admin_default_images_path do
+          /    .admin-badge
+          /      .title
+          /        h4
+          /          i.fa.fa-picture-o
+          /          '&nbsp;Default images
+          /      .body
+          /        'User avatars, company logos and more
+          /        
           .admin-badge-container
             = link_to admin_helps_path do
               .admin-badge
@@ -146,6 +146,16 @@
                     '&nbsp;Raw images
                 .body
                   'Used by emails and more
+          
+          .admin-badge-container
+            = link_to admin_contracts_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-gavel
+                    '&nbsp;Contracts
+                .body
+                  'Templates
           
           
           

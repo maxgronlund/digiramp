@@ -39,7 +39,7 @@
                   '&nbsp;
                   = link_to 'Edit', edit_admin_default_image_path(default_image), class: 'btn btn-default'
                   '&nbsp;
-                  = link_to 'Destroy', admin_default_image_path(default_image), data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'btn btn-default'
+                  = link_to 'Destroy', admin_default_image_path(default_image), data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete, class: 'btn btn-default'
 
       br
       .pull-right

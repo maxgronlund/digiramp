@@ -1,68 +1,150 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                            catalogs: catalog_account_catalogs_path(@account), \
-                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                            assets: catalog_account_catalog_assets_path(@account, @catalog), \
-                                                            'documents'.to_sym => catalog_account_catalog_documents_path(@account, @catalog), \
-                                                            }, current: 'show'}
-    
-    
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalog'), blog_post: 'Document'}
-    /-cache([ Admin.cached_find(1).version, request.url, @account.works_uuid, current_user.uuid ]) do 
-    
-    .row
-      .col-sm-6
-        .media
-          .pull-left
-            .thumbnail
-              = image_tag @document.image_thumb || 'digiramp-document.jpg'
-          .media-body
-            .media-heading
-              h3 = @document.title
-            i Document type: 
-            b = @document.file_type
-            br
-            i Size: 
-            = number_to_human_size @document.file_size
-            = simple_format @document.body
-        
-      .col-sm-6
-        .pull-right
-          - if current_catalog_user.update_file
-            = link_to edit_catalog_account_catalog_document_path(@account, @catalog, @document) do
-              .btn.btn-primary.btn-lg
-                i class="fa fa-pencil"
-            '&nbsp;
-          = link_to download_document_path(document: @document.id) do
-            .btn.btn-info.btn-lg
-              i class='fa fa-cloud-download'
-              '&nbsp;Download
-          '&nbsp;
-          = link_to @document.file do
-            .btn.btn-default.btn-lg
-              'Read File
-    .row
-      .col-sm-12
-        .panel.panel-primary
-          .panel-heading
-            .panel-title
-              a data-toggle="collapse" data-parent="#accordion" href="#collapse"
-                i  class="fa fa-eye"
-                '&nbsp;
-                'Extracted Text Content
-          div id="collapse" class="panel-collapse collapse"  
-            .panel-body
-              = simple_format @document.text_content
-
-            
-                      
-                    
-
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
   
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'assets'
+
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog) }, current: ''}
+      .row
+        .col-sm-8
+          .help
+            .help-text
+               h2 = @document.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'catalog document'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+            
+            
+     
+      .sexy_line
+      
+      == render 'catalog/documents/navigation'
+      .digi-box.pull-down-6
+        .row
+          .col-sm-6
+            .media
+              .pull-left
+                .thumbnail
+                  = image_tag @document.image_thumb || 'digiramp-document.jpg'
+              .media-body
+                .media-heading
+                  h3 = @document.title
+                i Document type: 
+                b = @document.file_type
+                br
+                i Size: 
+                = number_to_human_size @document.file_size
+                = simple_format @document.body
+        
+          .col-sm-6
+            .pull-right
+              - if current_catalog_user.update_file
+                = link_to edit_catalog_account_catalog_document_path(@account, @catalog, @document) do
+                  .btn.btn-default.btn
+                    i class="fa fa-pencil"
+                '&nbsp;
+              = link_to download_document_path(document: @document.id) do
+                .btn.btn-default.btn
+                  i class='fa fa-cloud-download'
+                  '&nbsp;Download
+              '&nbsp;
+              = link_to @document.file do
+                .btn.btn-default.btn
+                  'Read File
+        .row
+          .col-sm-12
+            = simple_format @document.text_content
+        
+      
+        
+  == render 'shared/site_footer'   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .container
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                            catalogs: catalog_account_catalogs_path(@account), \
+/                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                                            assets: catalog_account_catalog_assets_path(@account, @catalog), \
+/                                                            'documents'.to_sym => catalog_account_catalog_documents_path(@account, @catalog), \
+/                                                            }, current: 'show'}
+/    
+/    
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalog'), blog_post: 'Document'}
+/    /-cache([ Admin.cached_find(1).version, request.url, @account.works_uuid, current_user.uuid ]) do 
+/    
+/    .row
+/      .col-sm-6
+/        .media
+/          .pull-left
+/            .thumbnail
+/              = image_tag @document.image_thumb || 'digiramp-document.jpg'
+/          .media-body
+/            .media-heading
+/              h3 = @document.title
+/            i Document type: 
+/            b = @document.file_type
+/            br
+/            i Size: 
+/            = number_to_human_size @document.file_size
+/            = simple_format @document.body
+/        
+/      .col-sm-6
+/        .pull-right
+/          - if current_catalog_user.update_file
+/            = link_to edit_catalog_account_catalog_document_path(@account, @catalog, @document) do
+/              .btn.btn-primary.btn-lg
+/                i class="fa fa-pencil"
+/            '&nbsp;
+/          = link_to download_document_path(document: @document.id) do
+/            .btn.btn-info.btn-lg
+/              i class='fa fa-cloud-download'
+/              '&nbsp;Download
+/          '&nbsp;
+/          = link_to @document.file do
+/            .btn.btn-default.btn-lg
+/              'Read File
+/    .row
+/      .col-sm-12
+/        .panel.panel-primary
+/          .panel-heading
+/            .panel-title
+/              a data-toggle="collapse" data-parent="#accordion" href="#collapse"
+/                i  class="fa fa-eye"
+/                '&nbsp;
+/                'Extracted Text Content
+/          div id="collapse" class="panel-collapse collapse"  
+/            .panel-body
+/              = simple_format @document.text_content
+/
+/            
+/                      
+/                    
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'

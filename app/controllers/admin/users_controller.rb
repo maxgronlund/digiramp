@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   
-  include UsersHelper
+  #include UsersHelper
   before_filter :admin_only
   
   before_action :set_user, only: [:show, :update, :destroy]
@@ -11,7 +11,6 @@ class Admin::UsersController < ApplicationController
 
   def index
     @users = User.search(params[:query]).order('lower(email) ASC').page(params[:page]).per(50)
-    
   end
 
   def show

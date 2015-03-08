@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   force_ssl if: :ssl_configured?
-
+  helper_method :sort_column, :sort_direction
     
   
   
@@ -59,7 +59,6 @@ class ApplicationController < ActionController::Base
       session[:account_id] = current_user.account_id
       return  Account.cached_find( current_user.account_id ) 
     rescue
-      puts '************************************************* AUTCH ********************************'
       return nil
     end
   end
@@ -70,7 +69,7 @@ class ApplicationController < ActionController::Base
     account_user = AccountUser.cached_where( current_account.id, current_user.id)
     # this is a fix should be fixed by a migration
     return account_user if account_user
-    if current_user.super?
+    if super?
       account_user = AccountUser.create(user_id: current_user.id, account_id: current_account.id)
       account_user.grand_all_permissions
     end
@@ -79,7 +78,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_account_user
   
   def current_catalog_user
-    @catalog.catalog_users.where(user_id: current_user.id ).first
+    catalog_user = @catalog.catalog_users.where(user_id: current_user.id ).first
+    return catalog_user if catalog_user
+    if super?
+      catalog_user = CatalogUser.create(user_id: current_user.id, catalog_id: @catalog.id)
+      catalog_user.update_to_super
+    end
   end
   helper_method :current_catalog_user 
   
@@ -301,5 +305,7 @@ private
     end
     set_authorized
   end
+  
+  
   
 end

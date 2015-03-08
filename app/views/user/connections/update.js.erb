@@ -10,5 +10,5 @@ $("#old_connection_status_<%= @connection.id %>").remove()
 $("#connection_status_<%= @connection.id %>").append("<%= j render 'user/connections/connection_status' , connection: @connection%>");
 
 
-
+$("#digirampDialog").modal('hide')
 

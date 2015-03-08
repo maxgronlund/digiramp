@@ -1,0 +1,21 @@
+$(".open-dialog").append("<%= j render 'message_digalogs/message_dialog', sender: @sender, recipient: @recipient, message: @message %>");
+$('#digirampDialog').modal('show')
+
+
+
+javascript:
+
+  $("#digirampDialog").on('hidden.bs.modal', function (event) {
+    $(".old-dialog").remove()
+  });
+  
+  $("#digiramp_dialog_title").keyup(function() {
+    if ($("#digiramp_dialog_title").val() !== '') {
+      $(".digiramp_dialog_save_button").removeAttr("disabled");
+    } else {
+      $(".digiramp_dialog_save_button").attr('disabled', 'disabled');
+    }
+  });
+  
+
+  

@@ -31,7 +31,6 @@ class TransloaditDocumentsParser
     
     
     begin
-      # thumbnail
       uploads[:results][:image_thumb].each do |image_thumb|
         extracted[ image_thumb[:original_id] ][:image_thumb] = image_thumb[:url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
       end

@@ -1,52 +1,122 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'         
-  .container
-    /==render 'admin/shared/messages'
-    -cache ([Admin.cached_find(1).version, request.url, current_user.uuid  ]) do
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'info'
 
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { catalogs: catalog_account_catalogs_path(@account), \
                                                               @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
                                                               }, current: 'upload recordings'}
-      
-      - blog = Blog.cached_find('Add Catalog Recordings')
-      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Recordings'}
-
       .row
-        .col-sm-3
-      
+        .col-sm-8
+          .help
+            .help-text
+               h2 
+                 'Upload recordings to&nbsp;
+                 = @catalog.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'upload to catalog'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+            
+            
+     
+      .sexy_line
+      .row
         .col-sm-6
-          .panel.panel-primary
-            .panel-heading
-              'SELECT FILES
-            .panel-body
-              = simple_form_for [ @account, @cattalog, @recording ], \
-                                  :url => url_for(:action => 'create', \
-                                  :controller => 'catalog/upload_recordings'), \
-                                  :method => 'post',  \
-                                  :html => { :id => 'recording' } do |f| 
-                                  
-                = f.hidden_field :account_id, value: @account.id
-                = f.hidden_field :@catalog_id, value: @catalog.id
-                = transloadit :recording_with_thumbs 
-                /= form.label      :file, 'File to upload' 
-                = f.file_field :file, multiple: true
-                hr
-                .pull-right
-                  = f.submit 'Done', class: 'btn btn-primary btn-lg'
-              
-              
-              = transloadit_jquerify :recording, :wait => true
+          .digi-box
+            = simple_form_for [ @account, @cattalog, @recording ], \
+                                :url => url_for(:action => 'create', \
+                                :controller => 'catalog/upload_recordings'), \
+                                :method => 'post',  \
+                                :html => { :id => 'recording' } do |f| 
+                                
+              = f.hidden_field :account_id, value: @account.id
+              = f.hidden_field :@catalog_id, value: @catalog.id
+              = transloadit :recording_with_thumbs 
+              /= form.label      :file, 'File to upload' 
+              = f.file_field :file, multiple: true
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-primary'
             
-        .col-sm-3
-                                              
-
-        
-        
-
             
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+            = transloadit_jquerify :recording, :wait => true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account'         
+/  .container
+/    /==render 'admin/shared/messages'
+/    -cache ([Admin.cached_find(1).version, request.url, current_user.uuid  ]) do
+/
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              catalogs: catalog_account_catalogs_path(@account), \
+/                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                                              }, current: 'upload recordings'}
+/      
+/      - blog = Blog.cached_find('Add Catalog Recordings')
+/      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Recordings'}
+/
+/      .row
+/        .col-sm-3
+/      
+/        .col-sm-6
+/          .panel.panel-primary
+/            .panel-heading
+/              'SELECT FILES
+/            .panel-body
+/              = simple_form_for [ @account, @cattalog, @recording ], \
+/                                  :url => url_for(:action => 'create', \
+/                                  :controller => 'catalog/upload_recordings'), \
+/                                  :method => 'post',  \
+/                                  :html => { :id => 'recording' } do |f| 
+/                                  
+/                = f.hidden_field :account_id, value: @account.id
+/                = f.hidden_field :@catalog_id, value: @catalog.id
+/                = transloadit :recording_with_thumbs 
+/                /= form.label      :file, 'File to upload' 
+/                = f.file_field :file, multiple: true
+/                hr
+/                .pull-right
+/                  = f.submit 'Done', class: 'btn btn-primary btn-lg'
+/              
+/              
+/              = transloadit_jquerify :recording, :wait => true
+/            
+/        .col-sm-3
+/                                              
+/
+/        
+/        
+/
+/            
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'

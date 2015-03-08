@@ -12,14 +12,42 @@
       .row
         .col-sm-8
           == render 'users/shared/profile'
-          /-if current_user && current_user.id == @user.id
-          /  == render 'users/activities'
-          h3 Followed Users' Activities
-          / make endless pages here
-          - @user.wall_posts.where.not(user_id: @user.id).order('created_at desc').first(20).each do |follower_event|
-            div id="delete_wall_post_#{follower_event.id.to_s}"
-              == render "wall_posts/" + follower_event.postable_type.downcase , follower_event: follower_event
-        .col-sm-4
+
+          
+          
+
+
+          .row.visible-xs-block
+            .col-sm-12
+              h3 Comments
+              .comments
+                == render 'users/guest_book'
+                
+                br
+                .rec-comments
+                  - @user.comments.order('created_at desc').each do |comment|
+                    == render 'comments/show', comment: comment
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          h3 Followed Users' Activities         
+          == render 'activities/index'
+          .endless_activities
+          == paginate( @wall_posts ) 
+          
+         
+        
+        
+        
+        
+        
+        .col-sm-4.hidden-xs
           .comments
             == render 'users/guest_book'
                 

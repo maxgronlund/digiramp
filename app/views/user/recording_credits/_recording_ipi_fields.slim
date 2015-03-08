@@ -1,0 +1,28 @@
+.nested-fields
+  .digi-box
+    = f.hidden_field :recording_id, value: @recording.id
+  
+    
+    .row
+      .col-sm-12
+        = f.input :show_credit_on_recording, input_html: { class: 'icheck-me', 
+                                                          'data-skin'.to_sym => "square", 
+                                                          'data-color'.to_sym => "blue" }
+    .row
+      .col-sm-5
+        = f.input :name
+        = f.input :email
+        = f.input :role  , collection: RecordingIpi::ROLES, :include_blank => true
+      .col-sm-5
+        = f.input :credit_for, placeholder: "What the credit id for. i.e. Guitar"
+        = f.input :notes, :input_html => {  style: "height: 106px;", placeholder: "Notes will be shown on the recording if 'show credit on recording' is enabled"}
+      .col-sm-2
+        = f.input :share, label: 'Share in %'
+    .row
+      .col-sm-12
+        .pull-right
+          => link_to 'Request confirmation', '#', class: 'btn btn-default'
+          = link_to_remove_association "Remove Credit", f  , class: 'btn btn-default'
+      
+      
+        

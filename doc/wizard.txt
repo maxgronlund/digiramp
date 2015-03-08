@@ -1,0 +1,90 @@
+Learn more / explainer / video
+
+By signing up to digiramp you are not giving any rights avay. on the contraty DigiRAMP help you to protect you rights by
+
+1: help you understand the rights jungle and what you have to do
+2: help you get your work registrede in a manner so you can claim your rights
+3: makes your recordings usable by profecionals that require documentation for all rights
+
+
+
+registering the work
+
+If there is lyrics in the work
+
+
+rails g controller register_works
+
+
+1:  Who composed the music?
+
+1a: Is the composer/s registered with a rights organization
+  What did the composer do? melody cords... [   fill in   ]
+    I:    No
+    II:   Yes
+          Do the composer/s have an IPI code/s
+          No:
+          Yes: do you want up to get informations from pro (BMI / ASCAP)
+    III:  Do you want DigiRAMP to send a confirmation email to the composer/s?
+    IV:   Notes and documents
+    V:    What are the shares
+    V:    more...
+        
+2:  If there is lyrics. who wrote the lyrics
+2a  Is the writer/s registered.... 
+    ... Same as 1:
+    
+
+etc....
+
+
+If there is more than one recording for this please pick, or upload later
+
+rails g controller register_copyright index show edit update
+
+_who_composed_the_music
+_is_the_composer_registered
+_do_the_composer_has_an_ipi_code
+_if_bmi_should_we_scrape
+_if_ascap_should_we_scrape
+_get_confirmation
+_write_notes
+_upload_documents
+
+
+--------------------------------------------
+
+The recording/s
+
+1: what artist/s should have credit
+   please provide an for each artist and DigiRAMP can
+   a: generate an artist acount
+   b: link the recording to the artists accound
+   c: notify the artist
+   
+   I: Does the artist have a share?
+   II: Is there any documents?
+   
+   ! SUPER GREAT CONFIRMATION EMAIL, AND BACKEND SYSTME FOR LINKING ARTISTS
+
+
+2: who have shares?
+  email share role
+
+
+3: Original publisher (same as 1:)
+
+ 
+         
+
+2: If this an arangemnet of a existing piece who aranged it
+
+
+
+2: who wrote the lytics
+
+
+
+
+
+rails g controller register_recording_artists

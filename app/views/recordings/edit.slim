@@ -13,10 +13,13 @@
 
   #page-content-wrapper
     .container-fluid 
-      = simple_form_for [@user, @recording],  :html => { :id => 'recording_artwork' } do |f|
-        = transloadit :image_files_to_s3 
-        = f.hidden_field :user_id, value: @user.id
-        == render 'form', f: f
-      = transloadit_jquerify :recording_artwork, :wait => true
+      h2 Edit recording
+      .sexy_line
+      .digi-box
+        = simple_form_for [@user, @recording],  :html => { :id => 'recording_artwork' } do |f|
+          = transloadit :image_files_to_s3 
+          = f.hidden_field :user_id, value: @user.id
+          == render 'form', f: f
+        = transloadit_jquerify :recording_artwork, :wait => true
         
   == render 'shared/site_footer'  

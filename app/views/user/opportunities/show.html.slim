@@ -10,7 +10,7 @@
   #page-content-wrapper
     .container-fluid 
       .row
-        .col-sm-7
+        .col-sm-12
           .help
             .help-text
               h2 Opportunity
@@ -26,29 +26,33 @@
                       '&nbsp;Manage
           
         .col-sm-5
-          == render 'user/opportunities/navigation', active: ''
+          
                 
       /= @opportunity.title
       .sexy_line
+      .row
+        .col-sm-12
+          .pull-right
+            == render 'user/opportunities/navigation', active: ''
       .digi-box
         .opportunity
-          = render 'user/opportunities/show', opportunity: @opportunity
-          .row
-            .col-sm-12
-              .pull-right
-                = link_to user_user_selected_opportunity_path(@user, @opportunity) do
-                  .btn.btn-warning
-                    i.fa.fa-plus
-                    '&nbsp;Select
-                  
+          - viewed = SelectedOpportunity.where(user_id: @user.id, opportunity_id: @opportunity.id).first ? true : false
+            
+          == render 'user/opportunities/show', opportunity: @opportunity, viewed: viewed
+          /.row
+          /  .col-sm-12
+          /    .pull-right
+          /      = link_to user_user_selected_opportunity_path(@user, @opportunity) do
+          /        .btn.btn-default
+          /          'Save
+          /        
         
         
 
       br
       h3 Requests
       - @opportunity.music_requests.order('created_at asc').each do |music_request|
-        .digi-box.digi-box-dark
-          == render 'user/opportunities/music_request', music_request: music_request
+        == render 'user/selected_opportunities/music_request', music_request: music_request
           
 
             

@@ -1,0 +1,18 @@
+
+            
+.instructions
+  - introduction = Tutorial.introduction
+  
+  .digi-box
+    h4 = introduction.title
+    = introduction.body
+
+    #welcome-videos.pull-down-12
+      = raw introduction.video
+    
+    .row
+      .col-sm-12
+        = link_to user_dont_show_instructions_path( @user ), remote: true, method: :post
+          .pull-right.pull-down-10
+            .btn.btn-primary
+              'Don't show again

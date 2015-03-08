@@ -30,9 +30,9 @@ class RecordingIpi < ActiveRecord::Base
   
   
   def attach_user
-    if user = User.where(uuid: self.email).first
+    if user = User.where(email: self.email).first
       self.user_id = user.id
-      self.name   = user.user_name
+      self.name    = user.user_name
     end
   end
   

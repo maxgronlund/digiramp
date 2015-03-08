@@ -65,15 +65,17 @@
               
           .col-sm-6
             .digi-box
-              h4 Lysics
+              h4 Lyrics
               div id="toolbar" class="wysihtml5-toolbar"
                 a data-wysihtml5-command="bold" Bold
                 '&nbsp; 
                 a data-wysihtml5-command="italic" Italic
+                .pull-right
+                  a data-wysihtml5-action="change_view"  Html 
               
               =f.input :lyrics, label: false, :input_html => {  style: "height: 549px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
               = f.input :composite_type
-              = f.input :arrangement_of_public_domain_work
+              = f.input :arrangement, label: 'Arrangement of public domain work'
               = f.input :genre
               = f.input :submitter_work_id
               = f.input :registration_date

@@ -1,0 +1,2 @@
+module BecomeMembersHelper
+end

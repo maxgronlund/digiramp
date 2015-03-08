@@ -2,138 +2,72 @@
 Digiramp::Application.routes.draw do
 
 
-
-  resources :tutorials
-
-  resources :share_and_login, only: [:show]
-
-  resources :twitter_cards
-
-  #get 'replies/create'
-  #get 'replies/update'
-  #get 'replies/destroy'
-
-  resources :forum_posts
-  resources :forums, only: [:index, :show, :destroy]
-  resources :replies, only: [ :create, :update, :destroy, :edit]
-  
-  
-  resources :disqus
-
-  resources :selected_opportunities, only: [:show]
-  resources :public_opportunities, only: [:index, :show]
-
-  get 'search/index'
-
-  get 'user_ipis/index'
-
-  get "recordings/rezip"
-
-  resources :recording_zip_exports
-
-  resources :reprocess_recordings, only: [:show]
-
-  resources :unsubscribes
-
-  resources :homes
-  
-  get "home/index"
-  #root to: "home#index"
-  
-  get 'welcome/index'
-  root to: 'welcome#index'
-
-  #resources :message_counts
-
-  resources :message_counts
-
-  resources :follower_events, only: [:destroy]
-  resources :enterprise_account_info, only: [:index]
-  resources :business_account_info, only: [:index]
-  resources :pro_account_info, only: [:index]
-  resources :social_account_info, only: [:index]
-
-  resources :share_on_twitters
-
   resources :add_to_playlists, only: [:create]
-  
-  
-  resources :remove_from_playlists, only: [:destroy]
-
+  resources :become_members, only: [:new]
+  resources :business_account_info, only: [:index]
   resources :comments
   resources :contacts, only: [:new, :create, :show ]
   resources :create_playlists, only: [:new, :create]
   resources :digi_whams
   resources :discover, only: [:index]
-  #resources :fobars
-
-  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
-  
-  #match 'auth/failure', to: redirect('/')
-    
-  
-
-  #scope "api" do
-  #  resources :digi_wham_resources
-  #end
-  
+  resources :connection_digalogs, only: [:new]
+  resources :cms_modules, only: [:show,:index]
   resources :embed, only: [:index, :show]
+  resources :enterprise_account_info, only: [:index]
+  resources :forum_posts
+  resources :forums, only: [:index, :show, :destroy]
+  resources :follower_events, only: [:destroy]
   resources :gitter, only: [:index]
-
-
+  resources :homes
+  get "home/index"
+  resources :message_counts
+  resources :message_digalogs, only: [:new]
   resources :music_submissions_ratings, only: [:update]
-  resources :playlists 
+  resources :pro_account_info, only: [:index]
+  resources :public_opportunities, only: [:index, :show]
+  resources :playlists, only: [:index, :show] 
   resources :playlist_recordings, only: [:destroy]
   resources :recordings, only: [:index, :show] do
     resources :share_recording_with_emails
   end
+  resources :recording_zip_exports
+  resources :remove_from_playlists, only: [:destroy]
+  resources :reprocess_recordings, only: [:show]
+  resources :replies, only: [ :create, :update, :destroy, :edit]
   resources :recording_widgets, only: [:show]
   resources :remove_from_playlists, only: [:destroy]
   resources :share_on_facebooks, only: [:create, :show]
   resources :share_recordings, only: [:new, :edit, :create, :destroy]
   resources :songs, only: [:index, :show]
-
-  
-  #resources :footages
-  #resources :pro_affiliations
-  
-  
+  resources :share_and_login, only: [:show]
+  resources :selected_opportunities, only: [:show]
+  resources :share_on_twitters
+  resources :social_account_info, only: [:index]
+  resources :terms_and_conditions, only: [:index]
+  resources :tutorials
+  resources :twitter_cards
+  resources :uploads
+  resources :unsubscribes
+  resources :video_posts
   resources :widgets
-
-
+  get 'search/index'
+  get 'user_ipis/index'
+  get "recordings/rezip"
+  get 'welcome/index'
+  root to: 'welcome#index'
+  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   get "albums/index"
   get "albums/show"
   get "albums/new"
   get "albums/edit"
-  
-
-  
-  #get "export_works_csv/index"
-  #get "export_works/index"
-  resources :video_posts
-
   get "signup/index"
   get "tags/index"
-  #get "user_genre_tags/index"
   get "permissions/index"
-  resources :uploads
   require 'sidekiq/web'
   
   
-  
-
-  
   get 'account/embed/:id', to: 'embed#show'
   
-
-
-  #get "selling_points/selling_point_1"
-  #get "selling_points/selling_point_2"
-  #get "selling_points/selling_point_3"
-  
-  resources :terms_and_conditions, only: [:index]
-  
-  #resources :collections, controller: 'accounts', only: [:show, :edit, :update] do
   resources :accounts, only: [:show, :edit, :update] do
     
     #resources :add_catalog_assets, only: [:show]
@@ -148,8 +82,7 @@ Digiramp::Application.routes.draw do
     # SHOULD NOT BE USED
     resources :catalogs do
 
-      get "add_recordings/add_all"
-      get "add_recordings/add_all_from_account"
+      #get "add_recordings/add_all"
       resources :add_recordings, only: [:index]
       resources :catalog_footages
       resources :catalog_recordings
@@ -351,6 +284,7 @@ Digiramp::Application.routes.draw do
     resources :forums
     resources :forum_posts, only: [:edit, :update]
     resources :messages
+    get 'news/index'
     resources :received_messages, only: [:index]
     resources :replies
     resources :unread_messages, only: [:index]
@@ -410,11 +344,14 @@ Digiramp::Application.routes.draw do
 
   # Example resource route within a namespace:
   namespace :admin do
-    
+    resources :contracts
+    resources :client_groups, only: [:index, :show, :update]
     resources :digiramp_ads
-    
+    get 'features_and_values/index'
     resources :front_end_contents, only: [:edit, :update]
     resources :helps
+    resources :issue_events, only: [:index, :show, :destroy]
+    resources :issue_wipers, only: [ :index]
     resources :widget_themes
     get 'repair_permissions'
     resources :activities
@@ -440,6 +377,8 @@ Digiramp::Application.routes.draw do
         get 'ipis'
         get 'accounts'
         get 'opportunities'
+        get 'pages'
+        get 'tutorials'
       end
     end
 
@@ -479,6 +418,7 @@ Digiramp::Application.routes.draw do
     resources :moods_imports
     resources :pro_affiliations
     resources :set_default_avatars, only: [:index]
+    resources :set_default_recordings_badges, only: [:index]
     resources :tags, only: [:index]
     get "emails/index"
     resources :system_emails
@@ -486,6 +426,9 @@ Digiramp::Application.routes.draw do
     resources :users do
       resources :accounts, only: [:new]
     end
+    
+    resources :tutorials
+    
     resources :user_genres, only: [:index]
     resources :user_instruments, only: [:index]
     resources :user_moods, only: [:index]
@@ -499,6 +442,12 @@ Digiramp::Application.routes.draw do
     resources :zip_files
     
   end
+  # end of admin namespase
+  
+  
+  
+  
+  
   #resources :recording_departures
   namespace :account do
     
@@ -510,7 +459,6 @@ Digiramp::Application.routes.draw do
 
     resources :accounts do
       resources :recording_departures
-      
       member do
         #get 'find_recording_in_bucket'
         get "legal_documents"
@@ -520,11 +468,9 @@ Digiramp::Application.routes.draw do
       resources :account_ipis
       resources :account_users
       resources :artworks 
-      
+      resources :attachments, only: [:destroy]
       resources :audio_files
-      resources :catalogs do
-
-      end
+      resources :catalogs 
       resources :clients
       resources :client_imports
       resources :common_works do
@@ -547,18 +493,13 @@ Digiramp::Application.routes.draw do
         end
         
       end
-      #resources :common_work_table, only: [:update]
       resources :client_groups do
         post :import_client_emails
         get '/remove-member/:client_group_client_id', :to => "client_groups#remove_member", as: :remove_member
       end
       resources :common_works_imports
-      get 'crm/index'
       resources :admin_clients
-      resources :documents, only: [:index] do
-      end
-      
-
+      resources :documents, only: [:index]
       resources :opportunities do
         
         resources :opportunity_reviewers
@@ -597,12 +538,19 @@ Digiramp::Application.routes.draw do
         resources :mail_campaigns
         resources :project_tasks
       end
-      post "uploads/audio_files_create"
-      get "uploads/audio_files_new"
-      get "uploads/audio_files"
-      get "uploads/common_works"
-
-      
+      #resources :recordings
+      resources :recordings do
+        resources :recording_artworks
+        resources :recording_files
+        resources :recording_documents
+        resources :recording_legal_documents
+        resources :recording_financial_documents
+        resources :recording_files
+        resources :recording_ipis 
+      end
+      resources :recording_basics, only: [:edit, :update]
+      resources :recording_lyrics, only: [:edit, :update]
+      resources :recording_tags, only: [:edit, :update]
       resources :recordings_bucket do
         collection do
           post :edit_multiple
@@ -621,18 +569,15 @@ Digiramp::Application.routes.draw do
           get  :use_common_work
         end
       end
-      resources :recordings do
-        resources :recording_artworks
-        resources :recording_ipis 
-        member do
-          get "files"
-          get "documents"
-          get "legal_documents"
-          get "financial_documents"
-        end
-      end
       resources :uploads, only: [:index]
       resources :widgets
+      
+
+      post "uploads/audio_files_create"
+      get "uploads/audio_files_new"
+      get "uploads/audio_files"
+      get "uploads/common_works"
+      get 'crm/index'
     end
   end
   # end of account namespace
@@ -642,7 +587,8 @@ Digiramp::Application.routes.draw do
     
     resources :accounts do
       resources :catalogs do
-        
+        get "add_recordings/add_all"
+        get "add_recordings/add_found"
         get "move"
         get "get_code"
         get "get_catalog"
@@ -658,7 +604,9 @@ Digiramp::Application.routes.draw do
         
         
         resources :add_common_works, only: [:index]
-        resources :add_recordings, only: [:index]
+        resources :add_recordings , only: [:index]
+        #   get "add_all"
+        #end
         resources :artworks 
         resources :assets
         resources :attachments
@@ -690,14 +638,15 @@ Digiramp::Application.routes.draw do
         resources :find_in_collections
         resources :financial_documents
         resources :legal_documents
-        resources :recordings do
-          get "new_from_catalog_artworks"
-          post "create_from_catalog_artworks"
-          post "use_artwork"
-          resources :recording_artworks, only: [:index]
-          resources :image_files
-          get "info"
-        end
+        resources :recordings
+        #resources :recordings do
+        #  get "new_from_catalog_artworks"
+        #  post "create_from_catalog_artworks"
+        #  post "use_artwork"
+        #  resources :recording_artworks, only: [:index]
+        #  resources :image_files
+        #  get "info"
+        #end
         resources :recording_artworks, only: [:destroy]
         resources :select_artwork_from
         resources :upload_csvs
@@ -720,16 +669,41 @@ Digiramp::Application.routes.draw do
   
   #=================== USER =========================
   namespace :user do
-    
+    #resources :common_work_lyrics
     resources :users do
+      resources :creative_rights, only: [:index, :destroy]
+      resources :common_works do
+        resources :common_work_contracts
+      end
+      resources :common_works do
+        resources :creative_rights
+      end
+      resources :common_work_lyrics, only: [:edit, :update]
+      resources :common_work_credits, only: [:edit, :update]
+      resources :contracts
+      resources :playlists, only: [:edit, :update]
+      resources :recording_credits
+      resources :recordings do
+        resources :work_rights
+        resources :recording_confirmations, only: [:update]
+      end
+      #resources :work_rights, only: [:update]
+      resources :cms_module, only: [:new]
       resources :cms_sections, only: [:destroy]
-      resources :cms_banners
-      resources :cms_recordings
-      resources :cms_vertical_links
-      resources :cms_horizontal_links
-      resources :cms_playlist_links
-      resources :cms_videos
-      resources :cms_texts
+      resources :cms_banners, only: [:edit, :update]
+      resources :cms_images, only: [:edit, :update]
+      resources :cms_recordings, only: [:edit, :update]
+      resources :cms_vertical_links, only: [:edit, :update]
+      resources :cms_horizontal_links, only: [:edit, :update]
+      resources :cms_playlist_links, only: [:edit, :update]
+      resources :cms_videos, only: [:edit, :update]
+      resources :cms_texts, only: [:edit, :update]
+      resources :cms_playlists, only: [:edit, :update]
+      resources :cms_comments, only: [:edit, :update]
+      resources :cms_page_layouts, only: [:edit, :update]
+      resources :cms_contacts, only: [:edit, :update]
+      get 'cms_module_moves/update'
+      get 'playlist_recording_moves/update'
       resources :cms_pages do
         resources :cms_sections 
       end
@@ -755,22 +729,7 @@ Digiramp::Application.routes.draw do
       
       resources :add_contacts_by_emails, only: [:create]
       resources :invite_friends, only: [:new, :create]
-      
-      #get 'contact_wizard/fill_form'
-      #
-      #get 'contact_wizard/submit_form'
-      #
-      #get 'contact_wizard/upload_file'
-      #
-      #get 'contact_wizard/upload_custom_csv'
-      #
-      #get 'contact_wizard/submit_custom_csv'
-      #
-      #get 'contact_wizard/upload_linkedin_csv'
-      #
-      #get 'contact_wizard/submit_linkedin_csv'
-      #
-      
+
       
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
@@ -799,6 +758,7 @@ Digiramp::Application.routes.draw do
         end
         
       end
+      
       resources :recording_transfers
       
       resources :recording_basics, only: [:edit, :update]
@@ -809,17 +769,18 @@ Digiramp::Application.routes.draw do
       resources :recording_lyrics, only: [:edit, :update]
       resources :recording_common_work, only: [:edit, :update]
       resources :recording_meta_data, only: [:edit, :update]
+      
+      #resources :work_rights
     end
     
   end
   
   #=================== OPPORTUNITY =========================
   namespace :opportunity do
-    
-    
     resources :opportunities, only: [:index, :show] do
       resources :recordings
       resources :music_requests do
+        resources :request_recordings, only: [:index]
         resources :submit_from, only: [:index]  # <<<<<<<<<<<<< kil this
         resources :common_works do
           resources :recordings

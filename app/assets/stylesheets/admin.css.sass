@@ -2,12 +2,42 @@
 @import "colors"
 
 
-.pro-account
-  .admin-logo
-    margin-left: -2px
-    margin-top: 10px
-    margin-bottom: 8px
+
   
+.admin-account
+  #sidebar-wrapper 
+    h4
+      color: #AAA
+    background-color: #0D445E
+    color: #AAAAAA  
+    .sidebar-nav li a 
+      color: #AAAAAA
+
+      .user-avatar 
+        margin-left: -2px
+        margin-bottom: 8px
+        img
+          width: 164px
+          height: auto
+
+  
+    .sidebar-selected 
+      //background: rgba(200,200,200,0.2) 
+      background-color: #1C668D
+      a
+        color: #FFF !important
+        font-weight: 400
+      
+      a:hover  
+        background-color: #1C668D
+    
+    li  
+      a:hover  
+        background-color: #1C668D
+        
+        
+        
+    
 
 
 .admin
@@ -47,7 +77,8 @@
       .admin-badge 
         .title
           min-height: 40px
-          @include panel-title-green
+          //@include panel-title-green
+          background-color: #283653
           padding: 10px
           h4
             color: #fff

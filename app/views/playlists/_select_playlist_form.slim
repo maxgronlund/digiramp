@@ -19,21 +19,22 @@
         
         / the select playlist form goes here
         div id="select_playlist_form_#{recording.id.to_s}" 
+          == render 'playlists/playlist_form', playlist: @playlist, recording: recording, playlists: @playlists
           / this will be removed, should also be added dynamicaly
-          div id="old_select_playlist_form_#{recording.id.to_s}"  
-            = simple_form_for  [recording] , :url => url_for(:action => 'create', :controller => '/add_to_playlists'), :method => 'post', remote: true do |f|
-              .modal-body
-                
-                = f.hidden_field :recording_id, value: recording.id
-                = f.input :playlist, collection: @playlists, include_blank: false, label: 'Select Playlist'
-            
-              .modal-footer
-                = link_to new_create_playlist_path( user_id: current_user.id, recording_id: recording.id ), class: 'btn btn-default', remote: true  do
-                  i.fa.fa-list
-                  '&nbsp;New
-                
-                button type="button" class="btn btn-default" data-dismiss="modal"
-                  'Close
-                = f.submit 'Add', class: 'btn btn-primary'
-            
+          /div id="old_select_playlist_form_#{recording.id.to_s}"  
+          /  = simple_form_for  [recording] , :url => url_for(:action => 'create', :controller => '/add_to_playlists'), :method => 'post', remote: true do |f|
+          /    .modal-body
+          /      
+          /      = f.hidden_field :recording_id, value: recording.id
+          /      = f.input :playlist, collection: @playlists, include_blank: false, label: 'Select Playlist'
+          /  
+          /    .modal-footer
+          /      = link_to new_create_playlist_path( user_id: current_user.id, recording_id: recording.id ), class: 'btn btn-default', remote: true  do
+          /        i.fa.fa-list
+          /        '&nbsp;New playlist
+          /      
+          /      button type="button" class="btn btn-default" data-dismiss="modal"
+          /        'Add to playlist
+          /      = f.submit 'Add', class: 'btn btn-primary'
+          /  
   

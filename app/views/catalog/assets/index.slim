@@ -1,112 +1,24 @@
-/#wrap
-/  div class="#{'profile' if account_owner?}"
-/    .full-width-top
-/      == render 'admin/shared/navbar', page: 'account'         
-/  .container
-/    /==render 'admin/shared/messages'
-/    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
-/    .do
-/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-/                                                              catalogs: catalog_account_catalogs_path(@account), \
-/                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-/                                                              }, current: 'assets'}
-/      
-/      - blog = Blog.cached_find('Catalog Assets')
-/      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Assets'}
-/
-/      .row
-/        - if current_catalog_user.read_artwork
-/          .col-sm-6
-/            == render 'badge_button', locals: { \
-/                                                 blog_post: 'ARTWORK', \
-/                                                 link: catalog_account_catalog_artworks_path(@account, @catalog), \
-/                                                 css_class: 'btn btn-default', \
-/                                                 icon: 'fa fa-picture-o', \
-/                                                 no_turbo: true \
-/                                               }
-/        - if current_catalog_user.read_legal_document 
-/          .col-sm-6
-/            == render 'badge_button', locals: { \
-/                                                 blog_post: 'LEGAL DOCUMENTS', \
-/                                                 link: catalog_account_catalog_legal_documents_path(@account, @catalog), \
-/                                                 css_class: 'btn btn-danger', \
-/                                                 icon: 'fa fa-gavel'\
-/                                               }
-/        - if current_catalog_user.read_financial_document 
-/          .col-sm-6
-/            == render 'badge_button', locals: { \
-/                                                 blog_post: 'FINANCIAL DOCUMENTS', \
-/                                                 link: catalog_account_catalog_financial_documents_path(@account, @catalog), \
-/                                                 css_class: 'btn btn-primary', \
-/                                                 icon: 'fa fa-money'\
-/                                               }
-/        - if current_catalog_user.access_assets? 
-/          .col-sm-6
-/            == render 'badge_button', locals: { \
-/                                                 blog_post: 'DOCUMENTS', \
-/                                                 link: catalog_account_catalog_documents_path(@account, @catalog), \
-/                                                 css_class: 'btn btn-warning', \
-/                                                 icon: 'fa fa-archive'\
-/                                               }
-/              
-/            
-/    
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
+
 
 #wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'account'         
-
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'catalog/catalogs/sidebar', selected: 'assets'
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'assets'
       
 
           
 
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog) }, current: ''}
+      h2 Assets
 
-      = link_to "#menu-toggle", id: "menu-toggle" do
-        i class="fa fa-caret-square-o-left"
-      == render 'shared/headder', locals: {title: @catalog.title, body: @catalog.body}
-      - blog = Blog.cached_find('Catalog Assets')
-      
-      
-      .row
-        - if current_catalog_user.read_artwork
-          .col-sm-6
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'ARTWORK', \
-                                                 link: catalog_account_catalog_artworks_path(@account, @catalog), \
-                                                 css_class: 'btn btn-default', \
-                                                 icon: 'fa fa-picture-o', \
-                                                 no_turbo: true \
-                                               }
-        - if current_catalog_user.read_legal_document 
-          .col-sm-6
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'LEGAL DOCUMENTS', \
-                                                 link: catalog_account_catalog_legal_documents_path(@account, @catalog), \
-                                                 css_class: 'btn btn-danger', \
-                                                 icon: 'fa fa-gavel'\
-                                               }
-        - if current_catalog_user.read_financial_document 
-          .col-sm-6
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'FINANCIAL DOCUMENTS', \
-                                                 link: catalog_account_catalog_financial_documents_path(@account, @catalog), \
-                                                 css_class: 'btn btn-primary', \
-                                                 icon: 'fa fa-money'\
-                                               }
-        - if current_catalog_user.access_assets? 
-          .col-sm-6
-            == render 'badge_button', locals: { \
-                                                 blog_post: 'DOCUMENTS', \
-                                                 link: catalog_account_catalog_documents_path(@account, @catalog), \
-                                                 css_class: 'btn btn-warning', \
-                                                 icon: 'fa fa-archive'\
-                                               }
+      .sexy_line
+      == render 'catalog/documents/navigation'
+
           
-            
+              

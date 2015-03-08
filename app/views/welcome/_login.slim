@@ -1,14 +1,11 @@
 #accordion
   a data-toggle="collapse" data-parent="#accordion" href="#collapse_login"
     .btn.btn-default.btn-lg
-      i.fa.fa-sign-in
       '&nbsp;Log in
   .pull-right
 
     a data-toggle="collapse" data-parent="#accordion" href="#collapse_signup"
       .btn.btn-warning.btn-lg
-
-        i.fa.fa-plus
         '&nbsp;Sign up
     
 
@@ -17,7 +14,7 @@
     .row
       .col-sm-12
         h3 Sign up
-        = simple_form_for(User.new)    do |f|
+        = simple_form_for(User.new, turboboost: true)    do |f|
           .input-group
             span class="input-group-addon" @
             = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
@@ -68,7 +65,7 @@
   div id="collapse_login" class="panel-collapse collapse" 
     h3 Login
 
-    = simple_form_for(  :sessions, :url => sessions_path ) do |f|
+    = simple_form_for(  :sessions, :url => sessions_path, turboboost: true ) do |f|
       .input-group
         span class="input-group-addon" @
         = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off

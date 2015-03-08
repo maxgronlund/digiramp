@@ -28,7 +28,7 @@ table
         td = campaign.send
         td = link_to 'Show', campaign
         td = link_to 'Edit', edit_campaign_path(campaign)
-        td = link_to 'Destroy', campaign, data: {:btn btn-default => 'Are you sure?'}, :method => :delete
+        td = link_to 'Destroy', campaign, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 

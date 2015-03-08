@@ -1,6 +1,8 @@
 .pull-down-10
   .pull-right
     ul.nav.nav-pills
+      li  class="#{ selected == 'connections' ? 'active' : ''}"
+        = link_to 'Connections', user_user_connections_path(@user)
       li  class="#{ selected == 'received' ? 'active' : ''}"
         = link_to 'Received', user_received_messages_path(@user)
       li  class="#{ selected == 'send' ? 'active' : ''}"

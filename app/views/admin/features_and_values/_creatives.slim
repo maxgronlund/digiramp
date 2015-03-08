@@ -1,0 +1,76 @@
+.digi-box
+  h3 = @creatives.title
+  .sexy_line
+  .row
+    .col-sm-6
+      = simple_format @creatives.teaser
+    .col-sm-6
+      = simple_format @creatives.body
+  .row
+    .col-sm-12
+      .pull-right.pull-down-10
+        = link_to 'Edit', edit_admin_blog_blog_post_path(@features_and_values_blog, @creatives), class: 'btn btn-primary btn'
+      
+  .row
+    .sexy_line
+    .col-sm-12
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr 
+              th Need
+              th Feature
+              th User value %
+              th Dev hours
+              th Risc %
+              th Complete %
+              th Outsoure
+          
+          
+          tbody
+            tr
+              td Promote
+              td 
+                b Widgets
+                ul
+                  li Facebook
+                  li Twitter
+                  li Instagram
+              td 10%
+              td 160
+              td 20%
+              td 25%
+              td Some
+              
+            tr
+              td Promote
+              td Fanpages
+              td 30%
+              td 160
+              td 2%
+              td 25%
+              td No
+              
+            tr
+              td Rights
+              td 
+                b Manage
+                ul
+                  li Works
+                  li Masters
+                  li Contracts
+              td 10%
+              td 60
+              td 50%
+              td 30%
+              td No
+              
+            tr
+              td Sell
+              td Submit to opportunities
+              td 25%
+              td 80
+              td 0%
+              td 30%
+              td No
+          

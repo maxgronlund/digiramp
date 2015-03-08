@@ -3,7 +3,7 @@
     == render 'shared/navigationbar', page: 'home' 
   
   
-  .pro-account
+  .admin-account
     #sidebar-wrapper
       ul class="sidebar-nav"
         == render 'admin/shared/sidebar', selected: 'account'
@@ -78,80 +78,74 @@
                     tr
                       td Contact Email:
                       td = @account.contact_email
-                    tr
-                      td Visits:
-                      td = @account.visits
-                    tr
-                      td Recordings
-                      td = @account.recordings.count
-                    tr
-                      td Playbacks
-                      td = @account.playbacks.count
-                    tr
-                      td Users
-                      td = @account.account_users.where.not(role: [  "Account Owner", "Administrator", "Client User", "Super User","Catalog User" ]).count
-                    tr
-                      td Documents
-                      td = @account.attachments.count
-                    tr
-                      td Clients
-                      td = @account.clients.count
+                    /tr
+                    /  td Visits:
+                    /  td = @account.visits
+                    /tr
+                    /  td Recordings
+                    /  td = @account.recordings.count
+                    /tr
+                    /  td Playbacks
+                    /  td = @account.playbacks.count
+                    /tr
+                    /  td Users
+                    /  td = @account.account_users.where.not(role: [  "Account Owner", "Administrator", "Client User", "Super User","Catalog User" ]).count
+                    /tr
+                    /  td Documents
+                    /  td = @account.attachments.count
+                    /tr
+                    /  td Clients
+                    /  td = @account.clients.count
+                    /tr
+                    /  td Works
+                    /  td = @account.common_works.count
                     
-            br
-            a data-toggle="collapse" data-parent="#accordion" href="#delete_content"
-              .btn.btn-danger
-                i.fa.fa-times
-                '&nbsp;Delete Content
-             
-            br
-            br
-            div id="delete_content" class="panel-collapse collapse"
-              .users 
-                .table-responsive
-                  table class="table table-hover"
-                    tbody
-                      tr
-                        
-                        td = pluralize(@account.common_works.count, 'Work')      
-                        td
-                          .pull-right
-                            = link_to admin_account_delete_common_works_path(@account) ,data: { confirm: 'Are you sure?' } do
-                              .btn.btn-danger.btn-xs
-                                i class="fa fa-times"
-                                '&nbsp;
-                                'Delete all
-                      tr
-                        
-                        td = pluralize(@account.recordings.count, 'Recording')    
-                        td
-                          .pull-right
-                            = link_to = link_to admin_account_delete_recordings_path(@account) ,data: { confirm: 'Are you sure?' }  do
-                              .btn.btn-danger.btn-xs
-                                i class="fa fa-times"
-                                '&nbsp;
-                                'Delete all
-                      tr
-                        
-                        td = pluralize(@account.attachments.count, 'Document')    
-                        td
-                          .pull-right
-                            = link_to admin_account_delete_documents_path(@account) ,data: { confirm: 'Are you sure?' }  do
-                              .btn.btn-danger.btn-xs
-                                i class="fa fa-times"
-                                '&nbsp;
-                                'Delete all
-                      tr
-                        
-                        td = pluralize(@account.clients.count, 'Client')     
-                        td
-                          .pull-right
-                            = link_to admin_account_delete_clients_path(@account) ,data: { confirm: 'Are you sure?' }  do
-                              .btn.btn-danger.btn-xs
-                                i class="fa fa-times"
-                                '&nbsp;
-                                'Delete all
-                      
-                  
+            /br
+            /a data-toggle="collapse" data-parent="#accordion" href="#delete_content"
+            /  .btn.btn-danger
+            /    i.fa.fa-times
+            /    '&nbsp;Delete Content
+            / 
+            /br
+            /br
+            /div id="delete_content" class="panel-collapse collapse"
+            /  .users 
+            /    .table-responsive
+            /      table class="table table-hover"
+            /        tbody
+            /          tr
+            /            
+            /            td = pluralize(@account.common_works.count, 'Work')      
+            /            td
+            /              .pull-right
+            /                = link_to admin_account_delete_common_works_path(@account) ,data: { confirm: 'Are you sure?' } do
+            /                  .btn.btn-danger.btn-xs
+            /                    i class="fa fa-times"
+            /                    '&nbsp;
+            /                    'Delete all
+            /          tr
+            /            
+            /            td = pluralize(@account.recordings.count, 'Recording')    
+            /            td
+            /              .pull-right
+            /                = link_to = link_to admin_account_delete_recordings_path(@account) ,data: { confirm: 'Are you sure?' }  do
+            /                  .btn.btn-danger.btn-xs
+            /                    i class="fa fa-times"
+            /                    '&nbsp;
+            /                    'Delete all
+            /          tr
+            /            
+            /            td = pluralize(@account.attachments.count, 'Document')    
+            /            td
+            /              .pull-right
+            /                = link_to admin_account_delete_documents_path(@account) ,data: { confirm: 'Are you sure?' }  do
+            /                  .btn.btn-danger.btn-xs
+            /                    i class="fa fa-times"
+            /                    '&nbsp;
+            /                    'Delete all
+            /          
+            /          
+            /      
               
           .col-sm-6
             b Address
@@ -177,6 +171,54 @@
                     tr
                       td Contact Last Name:
                       td  = @account.contact_last_name
+        .row
+          .col-sm-12
+            h4 Content
+            .table-responsive
+              table class="table table-hover"
+                tbody
+                  tr
+                    td = pluralize(@account.recordings.count, 'Recording')    
+                    td
+                      .pull-right
+                        = link_to = link_to admin_account_delete_recordings_path(@account) ,data: { confirm: 'Are you sure?' }  do
+                          .btn.btn-danger.btn-xs
+                            i class="fa fa-times"
+                            '&nbsp;
+                            'Delete all
+                  
+
+                  tr      
+                    td = pluralize(@account.attachments.count, 'Document')    
+                    td
+                      .pull-right
+                        = link_to admin_account_delete_documents_path(@account) ,data: { confirm: 'Are you sure?' }  do
+                          .btn.btn-danger.btn-xs
+                            i class="fa fa-times"
+                            '&nbsp;
+                            'Delete all
+                    
+                    
+                  tr
+                    td = pluralize(@account.clients.count, 'Client')     
+                    td
+                      .pull-right
+                        = link_to admin_account_delete_clients_path(@account) ,data: { confirm: 'Are you sure?' }  do
+                          .btn.btn-danger.btn-xs
+                            i class="fa fa-times"
+                            '&nbsp;
+                            'Delete all
+                            
+                  tr
+                    td = pluralize(@account.common_works.count, 'Work')      
+                    td
+                      .pull-right
+                        = link_to admin_account_delete_common_works_path(@account) ,data: { confirm: 'Are you sure?' } do
+                          .btn.btn-danger.btn-xs
+                            i class="fa fa-times"
+                            '&nbsp;
+                            'Delete all
+        
         .row  
           .col-sm-12  
             .sexy_line

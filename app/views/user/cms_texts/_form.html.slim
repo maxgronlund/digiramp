@@ -1,26 +1,14 @@
-/= simple_form_for(@cms_text) do |f|
-/  = f.error_notification
-/
-/  .form-inputs
-/    = f.input :position
-/    = f.input :title
-/    = f.input :body
-/
-/  .form-actions
-/    = f.button :submit
-/
-
-= simple_form_for [:user, @user, @cms_text] do |f|
+= simple_form_for [:user, @user, @cms_text], turboboost: true do |f|
 
   .form-inputs
-    = f.input :position
+    = f.hidden_field :position,  input_html: { value: @cms_text.cms_section.position }
     = f.input :title
     div id="toolbar" class="wysihtml5-toolbar"
       a data-wysihtml5-command="bold" Bold
       '&nbsp; 
       a data-wysihtml5-command="italic" Italic
     
-    =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Put yur text here", id: 'wysihtml5_editor'}
+    =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Put your text here", id: 'wysihtml5_editor'}
 
 
 

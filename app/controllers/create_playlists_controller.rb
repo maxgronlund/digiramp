@@ -14,7 +14,7 @@ class CreatePlaylistsController < ApplicationController
     params[:playlist].delete :recording_id
     playlist      = Playlist.create(playlist_params)
     @playlists    = current_user.playlists
-
+    @selected     = params[:playlist][:title] 
     
   end
   

@@ -14,7 +14,7 @@ table
         td = artwork.title
         td = link_to 'Show', artwork
         td = link_to 'Edit', edit_artwork_path(artwork)
-        td = link_to 'Destroy', artwork, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Destroy', artwork, data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete
 
 br
 

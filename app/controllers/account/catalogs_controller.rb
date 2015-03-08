@@ -30,8 +30,8 @@ class Account::CatalogsController < ApplicationController
   end
 
   def new
-    #forbidden unless current_account_user.createx_catalog
-    #@catalog = Catalog.new
+    forbidden unless current_account_user.createx_catalog
+    @catalog = Catalog.new
   end
   
   def create
@@ -82,8 +82,9 @@ class Account::CatalogsController < ApplicationController
 
   def destroy
     @catalog = Catalog.find(params[:id])
+    @catalog_id = @catalog.id
     @catalog.destroy
-    redirect_to catalog_account_catalogs_path( @account)
+    redirect_to account_account_catalogs_path( @account)
   end
   
 private

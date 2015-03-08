@@ -1,1 +1,7 @@
 $("<%= @remove_tag %>").empty();
+
+$('.old-link-to-recordings').remove()
+$('.link-to-recordings').append("<%= j render 'catalog/catalogs/link_to_recordings', account: @account, catalog: @catalog, selected: 'common_works' %>");
+
+$('.old-link-to-common-works').remove()
+$('.link-to-common-work').append("<%= j render 'catalog/catalogs/link_to_common_works', account: @account, catalog: @catalog, selected: 'common_works' %>");

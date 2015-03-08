@@ -40,7 +40,7 @@
     font-size: 18px
     margin-left: -8px
   .tag 
-
+  
     .tag-title 
       padding-left: 10px
       display: inline-table
@@ -61,17 +61,26 @@
   .tag:hover 
     background-color: #E3E3E3  
     
-
+  
   .static-content
     margin-left: 10px
-
+  
   a
     color: #666 
-
+  
   
   .fa-heart
     color: #A70009
-
+  
+  .news
+    .label
+      border-radius: 10px
+    .label-danger
+      background-color: #A8423D
+    .fa-lightbulb-o
+      color: #F4913B
+      
+  
   .sidebar-nav  
     //position: absolute 
     top: 0 
@@ -84,26 +93,58 @@
       color: #FCAB22
     .sexy_line
       margin: 0px
-
-    .user-avatar
-      margin-left: -2px
-      margin-top: 10px
-      margin-bottom: 8px
-      img 
-        width: 164px
-        height: auto
-      //display: inline-block
-      //float: left
-    .user-name
-      //display: inline-block
-      //max-width: 150px
-      //margin-left: 50px
-      white-space: nowrap
-      overflow: hidden
-      text-overflow: ellipsis
-      //top: 0px
-      //position: relative
-      
+    
+    .sidebar-user-profile
+      li
+        a
+          display: inline
+      a:hover
+        background-color: transparent
+      margin-top: 8px
+      .user-avatar
+        margin-left: -2px
+        //margin-top: 10px
+        margin-bottom: 8px
+        img 
+          width: 164px
+          height: auto
+        //display: inline-block
+        //float: left
+      .user-name
+        //display: inline-block
+        //max-width: 150px
+        //margin-left: 50px
+        //white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+        h4
+          margin-top: 0px
+          margin-bottom: 6px
+        //top: 0px
+        //position: relative
+      .user-buttons
+        padding-left: 2px
+        margin-bottom: 8px  
+        text-indent: 4px !important 
+        //background-color: #DED
+        width: 100%
+        //height: 30px
+        .fa
+          font-size: 12px
+          margin-left: 2px
+        
+        .fa-envelope
+          margin-left: -8px
+        .fa-times
+          color: #A40010
+          margin-left: -8px
+          
+        line-height: 1.0
+        
+        .old-connect-buttons
+          margin-top: 8px
+          a
+            display: inline
     .invite-friends
       a
         color: #103993
@@ -121,7 +162,7 @@
     
     li  
       text-indent: 10px 
-      line-height: 40px 
+      line-height: 32px 
   
       a  
         display: block 
@@ -147,6 +188,15 @@
     color: #AAAAAA  
     .sidebar-nav li a 
       color: #AAAAAA
+      
+    .sidebar li a 
+      .user-avatar
+        margin-left: -2px
+        //margin-top: 10px
+        margin-bottom: 8px
+        img 
+          width: 164px
+          height: auto
 
   
     .sidebar-selected 
@@ -159,6 +209,40 @@
       a:hover  
         background-color: #32496A
     
+    li  
+      a:hover  
+        background-color: #32496A
+        
+
+.catalog
+  #sidebar-wrapper 
+    fa
+      margin-left: 0px
+    h4
+      color: #CFCFCF
+    background-color: #54565C
+    color: #C8C8C8 
+    .sidebar-nav li a 
+      color: #C8C8C8
+      .user-avatar
+        margin-left: -2px
+        //margin-top: 10px
+        margin-bottom: 8px
+        img 
+          width: 164px
+          height: auto
+
+
+    .sidebar-selected 
+      //background: rgba(200,200,200,0.2) 
+      background-color: #32496A
+      a
+        color: #DDD !important
+        font-weight: 400
+
+      a:hover  
+        background-color: #32496A
+
     li  
       a:hover  
         background-color: #32496A

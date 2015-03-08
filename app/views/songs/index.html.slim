@@ -98,11 +98,10 @@
                   = link_to 'Clear', songs_path(clear: 'clear'), class: 'btn btn-default'
             
       .sexy_line
-      
+      .endless-pages
       == render 'songs/index', songs: @songs
       .add_songs
       
-      .endless-pages
       
       .paggination-container
        == render 'pagination', songs: @songs

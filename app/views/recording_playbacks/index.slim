@@ -28,79 +28,10 @@
       .add_pagination
       == render 'users/paggination', users: @users
       
-      /#digiWhams  class="/recordings/#{@recording.id.to_s}"
-      /  == render 'recordings/recording_with_icons', recording: @recording, 
-      /                                               info: false,
-      /                                               add_to_playlist: true, 
-      /                                               remove_from_playlist: false, 
-      /                                               edit: true, 
-      /                                               delete: false,
-      /                                               description: false,
-      /                                               share: true,
-      /                                               target: "",
-      /                                               music_request_link: false,
-      /                                               remove_from_request: false
-      /
-      //=  Playback.where(recording_id: @recording.id).pluck(:user_id)
-      //- @recording.playbacks.each do |playback|
-      /h4 Who listen to this song
-      /
-      /  /= pluralize(@recording.likes.count, 'user')
-      /
-      /.endless-users
-      /  .person-badges
-      /    .all-users
-      /      == render 'users/index', users: @users
-      /      .add_users
-      /
-      /
-      /.add_pagination
-      /== render 'users/paggination', users: @users
-      
+
       
       
   == render 'shared/site_footer'  
- 
+/== render 'user/connections/modal', modal_id: "connect_modal_#{@user.id.to_s}", recipient: @user, subjebtable: @user   
       
-      /.recording_playbacks
-      /  - @users.each do |user|
-      /    
-      /    .user
-      /      .container
-      /        .avatar
-      /          = link_to image_tag( user.image_url(:avatar_270x270 )  ) , user_path( user)
-      /        
-      /        .info
-      /          - playback_count = Playback.where(user_id: user.id, recording_id: @recording.id).count
-      /          
-      /          h4 = link_to user.user_name, user_path( user)
-      /          'Listen &nbsp;
-      /          = pluralize(playback_count, 'Time')  
-      /
-      /      .footer
-      /        .pull-right
-      /          .small-symbols
-      /            = link_to user_recordings_path(user) do
-      /              i class="fa fa-headphones"
-      /              '&nbsp;
-      /              = user.recordings.count
-      /            '&nbsp;|&nbsp;
-      /            = link_to user_likes_path(user) do
-      /              i class="fa fa-heart red-heart"
-      /              '&nbsp;
-      /              = user.likes.count
-      /            '&nbsp;|&nbsp;
-      /            = link_to user_followers_path(user) do
-      /              i class="fa fa-users"
-      /              '&nbsp;
-      /              = user.followers.count
-      /
-      /      .clear-fix
-            
-      
-      
-      
-
-          
-/  == render 'shared/site_footer'  
-/ 
+    

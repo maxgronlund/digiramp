@@ -39,33 +39,11 @@
       .sexy_line
       h4 = @recording.title
       .digi-box
-        = simple_form_for  [@user, @recording ], :url => url_for(:action => 'update', :controller => 'recording_lyrics'), 
+        = simple_form_for  [@user, @recording ], turboboost: true , :url => url_for(:action => 'update', :controller => 'recording_lyrics'), 
                                                  :method => 'put' do |f|
-          
-          .row
-        
-            .col-sm-6
-              = f.input :lyrics, :input_html => {  style: "height: 480px;", placeholder: "Lyrics"}
-            .col-sm-6
-              = f.input :vocal,   collection: Recording::VOCAL,     as: :radio_buttons
-              = f.input :explicit
-              = f.hidden_field :next_step, value: 'next_step', id: 'next_step'
-        
-        
-          .row
-            .col-sm-12
-              .pull-right   
-                => f.button :submit, 'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
-        
-                /=> link_to edit_user_recording_tag_path(@user, @recording) do
-                /  .btn.btn-default
-                /    'Skip
-                /    '&nbsp;
-                /    i.fa.fa-chevron-right
-        
-                = f.submit 'Save', class: 'btn btn-primary'
-        
-          /== render 'form', f: f
+           
+           == render 'shared/recordings/recording_lyrics_form', f: f
+
       
         
   == render 'shared/site_footer'  

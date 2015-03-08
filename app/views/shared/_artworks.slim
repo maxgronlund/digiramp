@@ -5,7 +5,7 @@ div id="artwork_#{artwork.id}"
 
   .visible-xs.visible-sm
     .col-sm-6
-      .panel.panel-primary
+      .panel.panel-default
         .panel-heading
           .truncate 
             = artwork.title
@@ -13,12 +13,12 @@ div id="artwork_#{artwork.id}"
           
           .logo
             .thumbnail
-              = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
+              == render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
               == render links, artwork: artwork if links
   
   .visible-md
     .col-sm-4
-      .panel.panel-primary
+      .panel.panel-default
         .panel-heading
           .truncate 
             = artwork.title
@@ -26,12 +26,12 @@ div id="artwork_#{artwork.id}"
           
           .logo
             .thumbnail
-              = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
+              == render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
               == render links, artwork: artwork if links
   
   .visible-lg
     .col-sm-3
-      .panel.panel-primary
+      .panel.panel-default
         .panel-heading
           .truncate 
             = artwork.title
@@ -39,7 +39,7 @@ div id="artwork_#{artwork.id}"
           
           .logo
             .thumbnail
-              = render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
+              == render 'shared/lightbox', locals: {image_url: artwork.file, thumb_url: artwork.thumb, id: artwork.id, caption: artwork.title}
               == render links, artwork: artwork if links
               /.pull-right
   

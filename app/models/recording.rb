@@ -107,14 +107,20 @@ class Recording < ActiveRecord::Base
   #before_save :update_uuids
   after_commit :flush_cache
   before_destroy :remove_from_collections
+  #before_create :check_default_image
+  #before_save :check_default_image
   #after_create :count_stats_up
   
   # owners followers gets a new post on their dashboard
   has_many      :follower_events, as: :postable,    dependent: :destroy
-  after_create  :send_notifications_on_create
+  #after_create  :send_notifications_on_create
+  #has_and_belongs_to_many :catalogs
+  has_many :playlists_recordings
+  has_many :catalogs, :through => :playlists_recordings
+  
   #after_create  :update
   
-  #mount_uploader :cover_art, ArtworkUploader
+  mount_uploader :default_cover_art, ArtworkUploader
   
 
   
@@ -136,24 +142,54 @@ class Recording < ActiveRecord::Base
 
   
   def check_default_image
-    #if self.image_url == "/assets/fallback/artwork.jpg" || self.image.nil?
-    #  prng      = Random.new
-    #  random_id =  prng.rand(10)
+    #unless File.exist?(Rails.root.join('public' +  self.default_cover_art.to_s))
+    if(self.cover_art.to_s == "" || self.cover_art.include?('recording/default_cover_art'))
+      prng      = Random.new
+      random_id =  prng.rand(12)
+    
+      if random_id < 10
+        random_id = '0' + random_id.to_s 
+      end
+      self.default_cover_art = File.open(Rails.root.join('app', 'assets', 'images', "recording-fallbacks/recording_#{random_id.to_s}.jpg"))
+      self.default_cover_art.recreate_versions!
+      self.save!
+    end
+  end
+  
+  def get_artwork
+    self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art
+    #begin
+    #  art = Artwork.cached_find(self.image_file_id)
+    #  return art.file
+    #rescue
+    #  return self.cover_art     unless self.cover_art == ''
+    #  return self.artwork       unless self.artwork.to_s ==''
+    #  return self.get_cover_art unless self.get_cover_art == ''
+    #end
     #
-    #  if random_id < 10
-    #    random_id = '0' + random_id.to_s 
-    #  end
-    #  self.image = File.open(Rails.root.join('app', 'assets', 'images', "opportunities/default_#{random_id.to_s}.jpg"))
-    #  self.image.recreate_versions!
-    #  self.save!
+    #return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
+  end
+  
+  def get_cover_art
+    
+    self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art 
+    #begin
+    #  system_settings = SystemSetting.first_or_create
+    #  system_settings.recording_artwork_id
+    #  default_image   = DefaultImage.find(system_settings.recording_artwork_id)
+    #  return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
+    #  #https://digiramp.com/uploads/default_image/recording_artwork/3/size_184x184_logo-03.jpg'
+    #rescue
+    #  return ''
     #end
   end
   
+  
   def send_notifications_on_create
-    attach_to_common_work
+    #attach_to_common_work
     #notify_followers 'Has uploaded a recording', self.user_id 
     Activity.notify_followers( 'Uploaded this recording', self.user_id, 'Recording', self.id )
-    confirm_ipis
+    #confirm_ipis
   end
 
   #def notify_followers notification, user_id, postable_type, postable_id
@@ -194,33 +230,7 @@ class Recording < ActiveRecord::Base
     
   end
   
-  def catalogs
-    catalog_ids = CatalogItem.where(catalog_itemable_type: "Recording", catalog_itemable_id: self.id).pluck(:catalog_id)
-    cats = Catalog.find(catalog_ids)
-    cats
-  end
 
-  
-  def catalog_ids=(ids) 
-    
-    ids.each do |catalog_id|
-      index = catalog_id.to_i
-      if index != 0
-        catalog = AccountCatalog.find(index)
-        #logger.debug catalog.title
-        CatalogItem.create( catalog_itemable_id: id, account_catalog_id: catalog.id, catalog_itemable_type: 'Recording' )
-      end
-    end
-
-  end
-  
-  #def duration_text
-  #  duration.try(:strftime, "%H:%M:%S")
-  #end
-  #
-  #def duration_text=(duration)
-  #  self.duration = Time.zone.parse(duration) if duration.present?
-  #end
   
   def docs
     Document.where(documentable_id: self.id, documentable_type: 'Recording')
@@ -548,31 +558,7 @@ class Recording < ActiveRecord::Base
     
   end
   
-  def get_artwork
-    
-    begin
-      art = Artwork.cached_find(self.image_file_id)
-      return art.file
-    rescue
-      return self.cover_art     unless self.cover_art == ''
-      return self.artwork       unless self.artwork.to_s ==''
-      return self.get_cover_art unless self.get_cover_art == ''
-    end
-    
-    return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
-  end
   
-  def get_cover_art
-    begin
-      system_settings = SystemSetting.first_or_create
-      system_settings.recording_artwork_id
-      default_image   = DefaultImage.find(system_settings.recording_artwork_id)
-      return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
-      #https://digiramp.com/uploads/default_image/recording_artwork/3/size_184x184_logo-03.jpg'
-    rescue
-      return ''
-    end
-  end
   
   def get_comment
     return self.comment unless self.comment.to_s == ''
@@ -583,7 +569,7 @@ class Recording < ActiveRecord::Base
   
   
   def attach_to_common_work
-    unless CommonWork.exists?(self.common_work_id)
+    if CommonWork.exists?(self.common_work_id)
       CommonWork.attach self, self.account_id, self.user
     end
     self.common_work
@@ -843,7 +829,7 @@ class Recording < ActiveRecord::Base
                                       ascap_award_winner:                  self.common_work.ascap_award_winner,
                                       work_type:                           self.common_work.work_type,
                                       composite_type:                      self.common_work.composite_type,
-                                      arrangement_of_public_domain_work:   self.common_work.arrangement_of_public_domain_work,
+                                      arrangement:                         self.common_work.arrangement,
                                       genre:                               self.common_work.genre,
                                       submitter_work_id:                   self.common_work.submitter_work_id,
                                       registration_date:                   self.common_work.registration_date,                
@@ -883,31 +869,11 @@ private
   end
   
   def count_stats_up
-    #Statistics.first.recordings += 1
-    #Statistics.first.save!
-    
-    ## optimization
-    #catalogs.each do |catalog|
-    #  catalog.nr_recordings += 1
-    #  catalog.save!
-    #end
+
   end
   
   def count_stats_down
-    #puts '---------------------------------------------------------------'
-    #puts 'count_stats_down'
-    #puts catalogs.size
-    #puts '---------------------------------------------------------------'
-    #Statistics.first.recordings -= 1
-    #Statistics.first.save!
-    
 
-    # optimization
-    #catalogs.each do |catalog|
-    #  catalog.nr_recordings -= 1
-    #  catalog.save!
-    #  ap catalog
-    #*end*
   end
   
   

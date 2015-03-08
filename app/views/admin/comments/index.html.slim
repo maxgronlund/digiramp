@@ -20,7 +20,7 @@ table
         td = comment.image
         td = link_to 'Show', comment
         td = link_to 'Edit', edit_comment_path(comment)
-        td = link_to 'Destroy', comment, data: {:btn btn-default => 'Are you sure?'}, :method => :delete
+        td = link_to 'Destroy', comment, data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete
 
 br
 

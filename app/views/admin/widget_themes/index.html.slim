@@ -34,7 +34,7 @@
                           /'&nbsp;
                           = link_to 'Edit', edit_admin_widget_theme_path(widget_theme), class: 'btn btn-primary btn-lg'
                           '&nbsp;
-                          = link_to 'Destroy', admin_widget_theme_path(widget_theme), data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'btn btn-danger btn-lg'
+                          = link_to 'Destroy', admin_widget_theme_path(widget_theme), data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete, class: 'btn btn-danger btn-lg'
 
         .pull-right
           = link_to 'New Widget theme', new_admin_widget_theme_path, class: 'btn btn-success btn-lg'

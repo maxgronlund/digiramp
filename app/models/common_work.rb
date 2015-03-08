@@ -43,7 +43,7 @@ class CommonWork < ActiveRecord::Base
   
   #has_many :activity_events, as: :activity_eventable
   #has_many :documents,       as: :documentable, dependent: :destroy
-  has_many :work_users, dependent: :destroy
+  #has_many :work_users, dependent: :destroy
   
   #has_many :catalog_items, dependent: :destroy
   
@@ -57,6 +57,8 @@ class CommonWork < ActiveRecord::Base
   after_commit :flush_cache
   after_create :count_statistics_up
   
+  has_and_belongs_to_many :catalogs
+  
   
   
   PROS = ['ASCAP', 'BMI']
@@ -64,6 +66,10 @@ class CommonWork < ActiveRecord::Base
   #title @@ :q or lyrics @@ :q or alternative_titles @@ :q or iswc_code @@ :q or description
 
   #before_save :check_title
+  
+  def recording_id 
+  end
+  
   
   def audio_recordings 
     recordings.where(media_type: 'recording') 
@@ -226,15 +232,11 @@ class CommonWork < ActiveRecord::Base
   # find a common work in a collection
   # filter out those alreaddy in the catalog
   def self.find_from_collection(account, catalog, query)
-    
-    common_work_ids = CatalogItem.where(catalog_id: catalog.id, 
-                                        catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
-                                        
-    common_work_ids = account.common_work_ids - common_work_ids
-    common_works = CommonWork.where(id: common_work_ids)
-    
+
+    common_works    = CommonWork.where(id: account.common_work_ids - catalog.common_work_ids)
+
     if query.present?
-     common_works = common_works.search(query)
+     common_works = common_works.search_common_work(query)
     end
     common_works
   end
@@ -254,6 +256,8 @@ class CommonWork < ActiveRecord::Base
   end
   
   def update_completeness
+    
+    
     value = 0
     value += 5 unless self.recordings.size.to_i      == 0
     value += 5 unless self.title.to_s                == ''
@@ -706,14 +710,9 @@ class CommonWork < ActiveRecord::Base
   def add_to_catalog catalog_id
 
     if catalog_id
-      CatalogItem.where(catalog_itemable_type: 'CommonWork', 
-                        catalog_itemable_id: self.id, 
-                        catalog_id: catalog_id)
-                  .first_or_create(
-                        catalog_itemable_type: 'CommonWork', 
-                        catalog_itemable_id: self.id, 
-                        catalog_id: catalog_id
-                        )
+      CatalogsCommonWorks.where(catalog_id: catalog_id, common_work_id: self.id)
+                         .first_or_create(catalog_id: catalog_id, common_work_id: self.id)
+
     else
       puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
       puts 'ERROR: Unable to add common work to catalog:' 
@@ -783,30 +782,16 @@ private
   end
   
   def update_uuids
-    #AccountCache.update_works_uuid self.account
-    #Statistics.first.common_works -= 1
-    #Statistics.first.save!
+
     if self.uuid.to_s == ''
       self.uuid = UUIDTools::UUID.timestamp_create().to_s
     end
   end
   
   def count_statistics_up
-    #Statistics.first.common_works += 1
-    #Statistics.first.save!
+
   end
 
-  #def update_audio_file_attributes
-  #  
-  #  
-  #  if audio_file.present? && audio_file_changed?
-  #    
-  #    #self.content_type = audio_file.file.content_type
-  #    #self.file_size    = audio_file.size
-  #    #fo
-  #    
-  #  end
-  #end
   
 
   

@@ -1,4 +1,4 @@
 div id="old_message_count"
-  - if  current_user.unread_messages != 0
+  - if  current_user && current_user.unread_messages != 0
     span class="badge badge-dark-red"
       = current_user.unread_messages

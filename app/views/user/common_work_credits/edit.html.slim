@@ -1,0 +1,87 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'creative rights'.to_sym => user_user_creative_rights_path(@user)}, current: ''}
+      
+      
+      
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @common_work.title
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'common work credits'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to user_user_common_work_path( @user, @common_work ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+            /= link_to user_user_recording_common_work_path( @user, @recording, @common_work ) do
+            /  .btn.btn-default
+            /    i.fa.fa-chevron-right
+            /    '&nbsp;Skip
+                  
+
+            
+      
+      .sexy_line
+      /== render 'user/common_works/wizard_step', step: 3
+
+      = simple_form_for [ @common_work.account.user, @common_work], 
+                          turboboost: true,
+                          url:  url_for( controller: 'common_work_credits', action: 'update'), method: 'put' do |f| 
+      
+        #common_work_ipis
+
+
+          .row
+            .col-sm-12
+              #ipis
+                = f.simple_fields_for :ipis do |ipi|
+                  = render 'user/common_work_credits/ipi_fields', :f => ipi
+                .links
+                  .digi-box
+                    .row
+                      .col-sm-12
+                      
+                        .pull-right
+                          = link_to_add_association 'Add credit', f, :ipis, class: 'btn btn-default'
+                          =< f.submit 'Save', class: 'btn btn-primary'
+            
+          /.row
+          /  .col-sm-8
+          /  .col-sm-4              
+          /    b Total shares % 
+          /    .total_share
+          /    i Must equal 100%
+          /  
+          
+          /.digi-box.pull-down-12
+          /  .row
+          /    .col-sm-12  
+          /      .pull-right
+          /        /= link_to 'Skip', user_recording_path(@user, @recording), class: 'btn btn-default'
+          /        /'&nbsp;
+          /        = f.submit 'Save', class: 'btn btn-primary'
+          /
+      
+        
+            
+        
+  == render 'shared/site_footer'  
+ 
+
+javascript:
+  bind_share_fields();

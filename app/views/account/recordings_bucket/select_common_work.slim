@@ -12,7 +12,7 @@
     /-cache([ Admin.cached_find(1).version, request.url, @account.works_uuid, current_user.uuid ]) do 
     .do
       .row
-          = form_tag select_common_work_account_account_recordings_bucket_index_path(@account), :method => 'get' do
+          = form_tag select_common_work_account_account_recordings_bucket_index_path(@account), turboboost: true, :method => 'get' do
             .col-sm-6
               br
               = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]

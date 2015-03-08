@@ -1,10 +1,9 @@
 .pull-right
   br
   = link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
-    .btn.btn-info.btn-lg
+    .btn.btn-default
       i class="fa fa-info-circle"
   -if current_catalog_user.delete_artwork
-    '&nbsp;
-    = link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' } , :method => :delete do
-      .btn.btn-danger.btn-lg
+    =< link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork), data: { confirm: 'Are you sure?' },turboboost: true , :method => :delete do
+      .btn.btn-danger
         i class="fa fa-times"

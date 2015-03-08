@@ -17,8 +17,20 @@ module UsersHelper
   end
   
   def profile_path_for user
-    path = user_path( user)
+    if cms_page = CmsPage.where(id: user.default_cms_page_id).first
+      return user_cms_page_path(user, cms_page)
+    else
+      return user_path( user )
+    end
   end
+  
+  #def profile_page
+  #  if cms_page = CmsPage.where(id: self.default_cms_page_id).first
+  #    return user_cms_page_path(self, cms_page)
+  #  else
+  #    return user_path(self)
+  #  end
+  #end
   
   def avatar_url(user)
     if user.avatar_url.present?

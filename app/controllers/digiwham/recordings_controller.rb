@@ -24,6 +24,7 @@ class Digiwham::RecordingsController < ApplicationController
       @recording.uniq_playbacks_count = Uniqifyer.uniqify(@recording.playbacks_count)
       @recording.save!
       user_id                     = current_user ? current_user.id : nil
+      
       playback = Playback.create(
                         recording_id: @recording.id, 
                         user_id: user_id, 
@@ -46,7 +47,7 @@ class Digiwham::RecordingsController < ApplicationController
       end
     
       
-      #@recording.notify_followers 'Listen to this recording', current_user.id
+      
       
     rescue
     end

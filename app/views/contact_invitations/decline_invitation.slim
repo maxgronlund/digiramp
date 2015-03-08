@@ -30,7 +30,7 @@
                 - unless @client_invitation.status == 'Declined'
                   .declined-confirmed-form  style="visibility: visible"
       
-                    h4 Decline request
+                    h4 Dismiss request
                     'By pressing 'No thanks' #{@inviter.user_name} will not be able to contact you again.
                     = simple_form_for [ @client ], :url => url_for(:action => 'confirm_decline_of_invitation', \
                                                                   :controller => 'contact_invitations'), \

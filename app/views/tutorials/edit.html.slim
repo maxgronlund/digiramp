@@ -1,8 +1,49 @@
-h1 Editing tutorial
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Edit tutorial
+          
+          
+                
+            
+                 
+              
+  == render 'shared/site_footer'    
+ 
 
-== render 'form'
 
-= link_to 'Show', @tutorial
-'|
-= link_to 'Back', tutorials_path
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/h1 Editing tutorial
+/
+/== render 'form'
+/
+/= link_to 'Show', @tutorial
+/'|
+/= link_to 'Back', tutorials_path
+/
+/

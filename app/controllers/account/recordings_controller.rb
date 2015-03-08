@@ -53,20 +53,66 @@ class Account::RecordingsController < ApplicationController
   def new
     forbidden unless current_account_user.create_recording?
     #@common_work    = CommonWork.cached_find(params[:common_work_id])
-    #@recording      = Recording.new
+    @recording      = Recording.new
   end
   
   def create
+    
+    ap params
     forbidden unless current_account_user.create_recording?
-    @common_work           = CommonWork.cached_find(params[:common_work_id])
-    begin
-      TransloaditParser.add_to_common_work params[:transloadit], @common_work.id, @account.id
-      flash[:info]      = { title: "Success", body: "Recording added to Common Work" }
-      redirect_to account_work_work_recordings_path(@account, @common_work )
-    rescue
-      flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
-      redirect_to new_account_common_work_recording_path(@account, @common_work )
+
+    result = TransloaditRecordingsParser.parse( params[:transloadit],  @account.id, false, @account.user_id)
+    title = params[:recording][:title]
+    
+    if result[:recordings].size != 0
+      
+      result[:recordings].each do |recording|     
+        current_user.create_activity(  :created, 
+                                   owner: recording,
+                               recipient: @user,
+                          recipient_type: 'Recording',
+                              account_id: current_user.account_id) 
+                              
+        
+        @common_work = CommonWork.create(account_id: recording.account_id, 
+                                        title: recording.title, 
+                                        lyrics: recording.lyrics)
+                
+        recording.common_work_id = @common_work.id
+        recording.title = title unless title == 'no title'
+        
+        if last_recording = @account.user.recordings.order('position asc').last
+          begin
+            recording.position = last_recording.position + 100
+          rescue
+          end
+        end
+        
+        if recording.title.to_s == ''
+          recording.title = File.basename(recording.original_file_name, ".*") 
+        end
+        recording.save
+        recording.check_default_image
+        recording.common_work.update_completeness
+        @recording = recording
+      end
+      redirect_to edit_account_account_recording_basic_path(@account, @recording )
+    else
+      flash[:danger]      = { title: "Unknown fileformat", body: "Please check it's a real audio file you are uploading" }
+      redirect_to :back
     end
+    
+    
+    
+    #@common_work           = CommonWork.cached_find(params[:common_work_id])
+    #begin
+    #  TransloaditParser.add_to_common_work params[:transloadit], @common_work.id, @account.id
+    #  flash[:info]      = { title: "Success", body: "Recording added to Common Work" }
+    #  redirect_to account_work_work_recordings_path(@account, @common_work )
+    #rescue
+    #  flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
+    #  redirect_to new_account_common_work_recording_path(@account, @common_work )
+    #end
     
   end
   

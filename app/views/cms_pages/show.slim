@@ -1,41 +1,47 @@
-
-#wrapper
-  .full-width-top
-    == render 'shared/navigationbar', page: 'user' 
-  
-  
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
-  
-  #page-content-wrapper
-    .container-fluid
-      .row
-        .col-sm-8
-         h2 = @cms_page.title
-        -if (current_user && current_user.id == @user.id) || super?
-          .col-sm-4.pull-down-10
-            .pull-right
-              = link_to 'Manage', user_user_cms_page_path(@user, @cms_page), class: 'btn btn-primary'
-      .sexy_line
-      .digi-box
-
-        - @cms_page.cms_sections.order(:position).where(column_nr: 0).each do |section|
-          == render section.view.view_name, section: section.view
+- if @cms_page.hide_sidebar
+  #wrap
+    .full-width-top
+      == render 'shared/navigationbar', page: 'user' 
+    
+    .container-fluid.pull-down-48
+      == render "user/cms_pages/themes/#{@cms_page.theme.downcase}"
+      == render "cms_pages/layouts/#{@cms_page.layout.downcase}"
+      -if (current_user && current_user.id == @user.id) || super?
         .row
-          .col-sm-8
-            - @cms_page.cms_sections.order(:position).where(column_nr: 1).each do |section|
-              == render section.view.view_name, section: section.view
-          .col-sm-4
-            /= render 'cms_pages/page_selector', user: @user
-            - @cms_page.cms_sections.order(:position).where(column_nr: 2).each do |section|
-              == render section.view.view_name, section: section.view
-          
-          
-                
-            
-                 
-              
-  == render 'shared/site_footer'    
- 
+          .col-sm-12.pull-down-10
+            .pull-right
+              = link_to 'Edit', edit_user_user_cms_page_path(@user, @cms_page), class: 'btn btn-primary'
+        .row
+          .col-sm-12.pull-down-48
+    
+    == render 'shared/site_footer'   
 
+-else  
+  #wrapper
+    .full-width-top
+      == render 'shared/navigationbar', page: 'user' 
+    
+    
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'users/shared/sidebar', selected: 'user'
+    
+    #page-content-wrapper
+      .container-fluid
+        == render "user/cms_pages/themes/#{@cms_page.theme.downcase}"
+        == render "cms_pages/layouts/#{@cms_page.layout.downcase}"
+        -if (current_user && current_user.id == @user.id) || super? 
+          .row
+            .col-sm-12.pull-down-10
+              .pull-right
+                = link_to 'Edit', edit_user_user_cms_page_path(@user, @cms_page), class: 'btn btn-primary'
+                 
+                
+                   
+                
+    == render 'shared/site_footer'    
+    
+  
+  
+  
+  

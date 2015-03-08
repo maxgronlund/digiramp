@@ -1,0 +1,5 @@
+.cms_banner.pull-down-10
+  .banner
+    /= image_tag section.image_url
+    = render 'shared/lightbox', locals: {image_url: section.image_url(), thumb_url: section.image_url(), id: section.id, caption: section.caption}
+    

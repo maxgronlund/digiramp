@@ -12,13 +12,12 @@
       h2 Edit banner
       .sexy_line
       .digi-box
-        .cms_banner
-          .banner
-            = image_tag @cms_banner.image_url(:banner1024x256)
+        = render 'cms_pages/cms_banner', section: @cms_banner
+        /.cms_banner
+        /  .banner
+        /    = image_tag @cms_banner.image_url(:banner1024x256)
         h4 Size 1024 x 256
-        .row
-          .col-sm-6
-            == render 'form'
+        == render 'form'
                     
               
             

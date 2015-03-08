@@ -55,16 +55,8 @@ class Catalog::UploadRecordingsController < ApplicationController
   # add to recording to catalog
   def add_recording_to_catalog recording
     
-    catalog_item = CatalogItem.create( catalog_id: @catalog.id,
-                                       catalog_itemable_type: 'Recording',
-                                       catalog_itemable_id: recording.id
-                                      )
-     # activity log                   
-     catalog_item.create_activity(  :created, 
-                        owner: current_user,
-                    recipient: catalog_item,
-               recipient_type: catalog_item.class.name,
-                   account_id: @account.id)
+    @catalog.attach_recording recording
+
   end
   
   # create the common work and add it to the catalog
@@ -84,32 +76,17 @@ class Catalog::UploadRecordingsController < ApplicationController
     
     
     # add common work to catalog
-    catalog_item = CatalogItem.create( catalog_id: @catalog.id,
-                                       catalog_itemable_type: 'CommonWork',
-                                       catalog_itemable_id: common_work.id
-                                      )
-                       
-                       
-    # activity log                   
-    catalog_item.create_activity(  :created, 
-                       owner: current_user,
-                   recipient: catalog_item,
-              recipient_type: catalog_item.class.name,
-                  account_id: @account.id)
-    
-    
+    CatalogsCommonWorks.where(catalog_id: @catalog.id, common_work_id: common_work.id)
+                       .first_or_create(catalog_id: @catalog.id, common_work_id: common_work.id)
+            
+
     
   end
   
   # add artwork to catalogs 
-  def add_artwork_to_catalog recording
-                           
-    # get all artwork files, kind of optimistic hence ther is at max one artwork after upload                    
+  def add_artwork_to_catalog recording                  
     recording.artworks.each do |artwork|
-      CatalogItem.create( catalog_id:            @catalog.id,
-                          catalog_itemable_type: 'Artwork',
-                          catalog_itemable_id:    artwork.id
-                         )
+      @catalog.add_artwork artwork
     end                      
   end
   

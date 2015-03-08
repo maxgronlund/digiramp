@@ -162,12 +162,12 @@ class User < ActiveRecord::Base
   has_many :client_groups
   
   has_many :forums, dependent: :destroy
-  
   has_many :campaigns
-  
   has_many :cms_pages
+  has_many :contracts
   
-  has_one :default_cms_page
+  #has_one :default_cms_page
+  
   
   def user_activities
     self.wall_posts.where(user_id: self.id)
@@ -309,9 +309,10 @@ class User < ActiveRecord::Base
   
   def set_default_avatar
     
-    if self.image_url.include?("/assets/fallback/default" )
-      prng      = Random.new
-      random_id =  prng.rand(12)
+    #unless File.exist?(Rails.root.join('public' +  self.image_url.to_s))
+    if self.image_url.include?("/assets/fallback/default" )  
+      prng       = Random.new
+      random_id =  prng.rand(85)
 
       if random_id < 10
         random_id = '0' + random_id.to_s 
@@ -320,6 +321,7 @@ class User < ActiveRecord::Base
       self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-avatars/5GA3Zk1C_avatar_#{random_id.to_s}.jpg"))
       self.image.recreate_versions!
       self.save!
+
     end
   end
   
@@ -613,6 +615,7 @@ class User < ActiveRecord::Base
                             
     # save the account without validation                        
     @account.save(validate: false)    
+    
     
     AccessManager.add_users_to_new_account @account
     

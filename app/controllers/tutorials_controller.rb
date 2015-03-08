@@ -4,6 +4,7 @@ class TutorialsController < ApplicationController
   # GET /tutorials
   # GET /tutorials.json
   def index
+    PageView.create(url: '/tutorials' )
     @tutorials = Tutorial.all
     @user = current_user if current_user
   end
@@ -11,7 +12,10 @@ class TutorialsController < ApplicationController
   # GET /tutorials/1
   # GET /tutorials/1.json
   def show
-     @user = current_user if current_user
+    
+    @user = current_user if current_user
+    TutorialView.create(tutorial_id: @tutorial.id, user_id: @user)
+    
   end
 
   # GET /tutorials/new
@@ -23,6 +27,7 @@ class TutorialsController < ApplicationController
   # GET /tutorials/1/edit
   def edit
     forbidden unless super?
+     @user = current_user if current_user
   end
 
   # POST /tutorials
@@ -75,6 +80,6 @@ class TutorialsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tutorial_params
-      params.require(:tutorial).permit(:title, :body, :video, :views, :tag, :position, :link)
+      params.require(:tutorial).permit!
     end
 end

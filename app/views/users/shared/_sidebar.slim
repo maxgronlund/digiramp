@@ -4,14 +4,49 @@
         
   - if @user      
     li
-      
+      .sidebar-user-profile
+        = link_to profile_path_for( @user) do
+          .user-name
+            h4 = @user.user_name
+            
+          .user-avatar
+            =  image_tag @user.image_url(:avatar_184x184) 
+          
+        .user-buttons 
+          - if current_user 
+            
+            - if current_user.id == @user.id
+              / Edit profile
+              = link_to edit_user_path(current_user) do
+                .btn.btn-default.btn-xs
+                  i class="fa fa-pencil"
+                  '&nbsp;
+                  'Edit profile
+            - else
+              / Follow / unfollow
+              div id="follow_user_#{@user.id.to_s}"
+                -if current_user.following?(@user)
+                  == render 'users/unfollow', user: @user
+                - else 
+                  == render 'users/follow', user: @user
+     
+              .connect-container
+                .connect-buttons
+                == render 'users/connect', user: @user
+
+          - else
+            / connect when not logged in
+            = link_to new_become_member_path(user: @user, bounce_back: request.url), remote: true do
+                  .btn.btn-primary.btn-xs
+                    i.fa.fa-refresh
+                    '&nbsp;Connect
+              
+      .sexy_line 
+    li class="#{'sidebar-selected' if selected == 'profile'}"
       = link_to user_path(@user) do
-        .avatar_name
-          h4 = @user.user_name
-          
-        .user-avatar
-          
-          =  image_tag @user.image_url(:avatar_184x184)
+        i class="fa fa-user"
+        '&nbsp;
+        'Profile  
 
     li class="#{'sidebar-selected' if selected == 'recordings'}"
       = link_to user_recordings_path(@user, clear: 'clear') do
@@ -68,17 +103,35 @@
         '&nbsp;
         'Tutorials
         
-    li class="#{'sidebar-selected' if selected == 'support'}"
-      = link_to support_index_path do
+    li class="#{'sidebar-selected' if selected == 'issues'}"
+      = link_to user_issues_path(current_user) do
         i class="fa fa-life-ring"
         '&nbsp;
         'Support
+        
+    li class="#{'sidebar-selected' if selected == 'news'}"
+      = link_to user_news_index_path(current_user) do
+        - user_news_count       = current_user.news_count
+        - news_blog_news_count  = Blog.news_count
+        - if user_news_count < news_blog_news_count
+          .news
+            - news  =  news_blog_news_count - user_news_count
+            i class="fa fa-lightbulb-o "
+            '&nbsp;
+            'News
+            '&nbsp; 
+            .label.label-danger
+              = news
+        - else
+          i class="fa fa-lightbulb-o "
+          '&nbsp;
+          'News
 
-    li class="#{'sidebar-selected' if selected == 'issues'}"
-      = link_to user_issues_path(current_user) do
-        i class="fa fa-bug"
-        '&nbsp;
-        'Issues
+  li class="#{'sidebar-selected' if selected == 'contact'}"
+    = link_to support_index_path do
+      i class="fa fa-envelope"
+      '&nbsp;
+      'Contact
         
   li class="#{'sidebar-selected' if selected == 'forums'}"
     = link_to forums_path do
@@ -103,7 +156,7 @@
       
       
       
-      
+
       
       
       

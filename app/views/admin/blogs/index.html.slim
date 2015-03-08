@@ -3,7 +3,7 @@
     == render 'shared/navigationbar', page: 'home' 
   
   
-  .pro-account
+  .admin-account
     #sidebar-wrapper
       ul class="sidebar-nav"
         == render 'admin/shared/sidebar', selected: 'content'
@@ -21,8 +21,8 @@
       
         .col-sm-7
           .pull-down-10
-            = form_tag admin_blogs_path, :method => 'get' do
-            
+            /= form_tag admin_blogs_path, turbo_boost: true,  :method => 'get' do
+            = simple_form_for [current_user], :url => url_for(:action => 'index', :controller => 'blogs'),turboboost: true, :method => 'get' do |f|
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-search'
@@ -52,7 +52,7 @@
                   .btn.btn-default.btn-xs
                     i class='fa fa-pencil'
 
-                = link_to  admin_blog_path(blog, page: params[:page]), data: { confirm: 'Are you sure?' } , :method => :delete do
+                = link_to  admin_blog_path(blog, page: params[:page]), data: { confirm: 'Are you sure?' },turboboost: true , :method => :delete do
                   .btn.btn-danger.btn-xs
                     i class="fa fa-times"
           .sexy_line

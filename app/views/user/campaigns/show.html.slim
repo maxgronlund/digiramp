@@ -80,7 +80,7 @@
                     
                       td 
                         .pull-right
-                          => link_to user_user_campaign_campaign_event_path(@user, @campaign, campaign_event), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                          => link_to user_user_campaign_campaign_event_path(@user, @campaign, campaign_event), data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete do
                             .btn.btn-danger.btn-xs
                               i.fa.fa-times
                           

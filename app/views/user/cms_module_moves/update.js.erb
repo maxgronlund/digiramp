@@ -1,0 +1,2 @@
+$('#old_cms_sections_'+ "<%= @column_nr %>").remove()
+$("#cms_sections_"    + "<%= @column_nr %>" ).append("<%= j render 'user/cms_pages/cms_sections', cms_page: @cms_page, column_nr: @column_nr %>");

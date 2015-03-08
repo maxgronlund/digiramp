@@ -1,27 +1,46 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'         
-  .container
-    /==render 'admin/shared/messages'
-    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
-    .do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
-                                                              }, current: 'artwork'}
-      - blog = Blog.cached_find('Catalog Artwork')
-      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Catalog Artwork', insert: 'upload_artwork'}
-      /.panel.panel-primary
-      /  .panel-heading
-      /    'Artwork
-      /  .panel-body
-      .row
-        - @catalog.artworks.each do |artwork|
-          == render 'shared/artworks', locals: {artwork: artwork, links: 'catalog/artworks/catalog'}
-          
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'assets'
 
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { catalog: catalog_account_catalog_path(@account, @catalog), \
+                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
+                                                              }, current: ''}
+      .row
+        .col-sm-8
+          .help
+            .help-text
+               h2 Artwork
+            .help-button
+              == render 'admin/helps/help', identifier: 'catalog documents'
               
+        .col-sm-4
+          .pull-right.pull-down-10
+            -if current_catalog_user.create_file
+
+              = link_to catalog_account_catalog_select_artwork_from_index_path(@account, @catalog) do
+                .btn.btn-default.btn-lg
+                  i class="fa fa-plus-circle"
+                  '&nbsp;
+                  'Add artwork
+            
+            
+     
+      .sexy_line
+      
+      == render 'catalog/documents/navigation'
+      .digi-box.pull-down-6
+
+        .row
+          - @catalog.artworks.each do |artwork|
+            == render 'shared/artworks', locals: {artwork: artwork, links: 'catalog/artworks/catalog'}
+      
+        
+  == render 'shared/site_footer'  

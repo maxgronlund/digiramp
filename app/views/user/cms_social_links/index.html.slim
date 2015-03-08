@@ -1,0 +1,23 @@
+h1 Listing cms_social_links
+
+table
+  thead
+    tr
+      th Position
+      th User
+      th
+      th
+      th
+
+  tbody
+    - @cms_social_links.each do |cms_social_link|
+      tr
+        td = cms_social_link.position
+        td = cms_social_link.user
+        td = link_to 'Show', cms_social_link
+        td = link_to 'Edit', edit_cms_social_link_path(cms_social_link)
+        td = link_to 'Destroy', cms_social_link, data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete
+
+br
+
+= link_to 'New Cms social link', new_cms_social_link_path

@@ -1,0 +1,57 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    
+    ul class="sidebar-nav"
+      - if @user
+        == render 'users/shared/sidebar', selected: 'tutorials'
+      - else
+        'fo
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path 
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {'suport'.to_sym => support_index_path}, current:  ''}
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Instructions
+            .help-button
+              == render 'admin/helps/help', identifier: 'tutorials'
+        .col-sm-7.pull-down-10
+          - if super?
+            .pull-right
+              = link_to 'New screen cast', new_tutorial_path, class: 'btn btn-primary'
+       
+      .sexy_line
+      .digi-box
+        
+        - @tutorials.each do |tutorial|
+          = link_to tutorial do
+            .row
+              .col-sm-4
+                h4 = tutorial.title
+              .col-sm-4
+                
+              .col-sm-4
+                .pull-right
+                  .btn.btn-default
+                    'Show
+                  - if super?
+                    =< link_to 'Edit', edit_admin_tutorial_path(tutorial), class: 'btn btn-default'
+                    =< link_to  tutorial, data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete do
+                       .btn.btn-danger
+                         i.fa.fa-times
+          .sexy_line
+      
+        
+          
+  == render 'shared/site_footer' 

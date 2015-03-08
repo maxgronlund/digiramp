@@ -36,8 +36,18 @@ private
     Rails.cache.delete([self.class.name, id])
   end
   
-  
+#
 
+.row
+  .col-sm-12
+    .help
+      .help-text
+        h2 Connections
+      .help-button
+        == render 'admin/helps/help', identifier: 'user connections'
+      
+      
+    
   
   
   

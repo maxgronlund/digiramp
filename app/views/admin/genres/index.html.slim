@@ -1,87 +1,191 @@
-#wrap
-  .admin
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'admin'
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { content: admin_content_index_path, \
+                                                              tags: admin_tags_path, \
+                                                              }, current:  ''}
+      .row
+        .col-sm-5
+
+          h2 Genre
+      
+        .col-sm-7
+          .pull-down-10
+            = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                          :controller => 'genres'), \
+                                                          turboboost: true,\
+                                                          :method => 'get' do |f|
+            
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search for genre', \
+                                              value: params[:query]
+                .input-group-btn
+                  = f.submit 'Search', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Clear', admin_genres_path, class: 'btn btn-default'        
+      
+      .sexy_line
+      .row
+         .col-sm-12
+           == paginate(@genres)
+           .pull-right
+             = link_to 'Export CSV', admin_export_genres_path( format: "csv"), class: 'btn btn-default'
+             '&nbsp;
+             = link_to 'Import CSV', new_admin_genre_import_path, class: 'btn btn-default'
+             '&nbsp;
+             = link_to 'User Genre', admin_user_genres_path, class: 'btn btn-default'
+             '&nbsp;
+             = link_to 'New', new_admin_genre_path, class: 'btn btn-primary'
+      .digi-box.pull-down-8
+        .table-responsive
+          table class="table table-striped"
+            thead
+              tr
+                th Genre
+                th Category
+                th User Tag
+                th
+            tbody
+              - @genres.each do |genre|
+                tr
+                  td = genre.title
+                  td = genre.category
+                  td 
+                    -if genre.user_tag
+                      'User Genre!
+                  td 
+                    .pull-right
+                      = link_to edit_admin_genre_path(genre) do
+                        .btn.btn-default.btn-xs
+                          i class="fa fa-pencil"
+                      
+                      =< link_to admin_genre_path(genre)  , data: { confirm: 'Are you sure?' } , method: :delete do
+                        .btn.btn-danger.btn-xs
+                          i class="fa fa-times"
+                      
+            
+        
 
             
-  .container
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
-                                                            content: admin_content_index_path, \
-                                                            tags: admin_tags_path, \
-                                                            }, current:  'genre'}
-    
-    
-    
-    
-    == render 'admin/shared/messages'
-    
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'Genre'}
-    
-    .row
-      .col-sm-12
-        .panel
-          .panel-body
-            = form_tag admin_genres_path, :method => 'get' do
-              .row
-                .col-sm-6
-                  br
-                  = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search', value: params[:query]
-                .col-sm-6
-                  br
-                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-                  '&nbsp;
-                  = link_to 'Show All', admin_genres_path, class: 'btn btn-default btn-lg'
-              hr
-            .hidden-xs
-              == paginate(@genres)
-            .visible-xs
-              br
-              .btn-group.btn-group-sm
-                = link_to_previous_page @genres, '« Prev Page', class: 'btn btn-default mobile_pagination'
-                = link_to_next_page @genres, 'Next Page »', class: 'btn btn-default mobile_pagination'
-              br
-              b
-    .row 
-      .col-sm-12
-        .panel
-          .panel-body
-            .table-responsive
-              table class="table table-striped"
-                thead
-                  tr
-                    th Genre
-                    th Category
-                    th User Tag
-                    th
-                tbody
-                  -@genres.each do |genre|
-                    tr
-                      td = genre.title
-                      td = genre.category
-                      td 
-                        -if genre.user_tag
-                          'User Genre!
-                      td 
-                        .right
-                        = link_to edit_admin_genre_path(genre) do
-                          .btn.btn-primary.btn-lg
-                            i class="fa fa-pencil"
-                        '&nbsp;
-                        = link_to admin_genre_path(genre)  , data: { confirm: 'Are you sure?' } , method: :delete do
-                          .btn.btn-danger.btn-lg
-                            i class="fa fa-trash-o"
-              
-      
-    .row
-       .col-sm-12
-         .pull-right
-           = link_to 'Export CSV', admin_export_genres_path( format: "csv"), class: 'btn btn-default btn-lg'
-           '&nbsp;
-           = link_to 'Import CSV', new_admin_genre_import_path, class: 'btn btn-default btn-lg'
-           '&nbsp;
-           = link_to 'User Genre', admin_user_genres_path, class: 'btn btn-default btn-lg'
-           '&nbsp;
-           = link_to 'New', new_admin_genre_path, class: 'btn btn-primary btn-lg'
-     
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+          
+
+  == render 'shared/site_footer'    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  .admin
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'admin'
+/
+/            
+/  .container
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
+/                                                            content: admin_content_index_path, \
+/                                                            tags: admin_tags_path, \
+/                                                            }, current:  'genre'}
+/    
+/    
+/    
+/    
+/    == render 'admin/shared/messages'
+/    
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Tags'), blog_post: 'Genre'}
+/    
+/    .row
+/      .col-sm-12
+/        .panel
+/          .panel-body
+/            = form_tag admin_genres_path, :method => 'get' do
+/              .row
+/                .col-sm-6
+/                  br
+/                  = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search', value: params[:query]
+/                .col-sm-6
+/                  br
+/                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+/                  '&nbsp;
+/                  = link_to 'Show All', admin_genres_path, class: 'btn btn-default btn-lg'
+/              hr
+/            .hidden-xs
+/              == paginate(@genres)
+/            .visible-xs
+/              br
+/              .btn-group.btn-group-sm
+/                = link_to_previous_page @genres, '« Prev Page', class: 'btn btn-default mobile_pagination'
+/                = link_to_next_page @genres, 'Next Page »', class: 'btn btn-default mobile_pagination'
+/              br
+/              b
+/    .row 
+/      .col-sm-12
+/        .panel
+/          .panel-body
+/            .table-responsive
+/              table class="table table-striped"
+/                thead
+/                  tr
+/                    th Genre
+/                    th Category
+/                    th User Tag
+/                    th
+/                tbody
+/                  -@genres.each do |genre|
+/                    tr
+/                      td = genre.title
+/                      td = genre.category
+/                      td 
+/                        -if genre.user_tag
+/                          'User Genre!
+/                      td 
+/                        .right
+/                        = link_to edit_admin_genre_path(genre) do
+/                          .btn.btn-primary.btn-lg
+/                            i class="fa fa-pencil"
+/                        '&nbsp;
+/                        = link_to admin_genre_path(genre)  , data: { confirm: 'Are you sure?' } , method: :delete do
+/                          .btn.btn-danger.btn-lg
+/                            i class="fa fa-trash-o"
+/              
+/      
+/    .row
+/       .col-sm-12
+/         .pull-right
+/           = link_to 'Export CSV', admin_export_genres_path( format: "csv"), class: 'btn btn-default btn-lg'
+/           '&nbsp;
+/           = link_to 'Import CSV', new_admin_genre_import_path, class: 'btn btn-default btn-lg'
+/           '&nbsp;
+/           = link_to 'User Genre', admin_user_genres_path, class: 'btn btn-default btn-lg'
+/           '&nbsp;
+/           = link_to 'New', new_admin_genre_path, class: 'btn btn-primary btn-lg'
+/     
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/

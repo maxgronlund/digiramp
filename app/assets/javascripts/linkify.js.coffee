@@ -1,0 +1,8 @@
+ready = ->
+
+  $('p').linkify()
+  
+
+
+$(document).ready(ready)
+$(document).on('page:load', ready)

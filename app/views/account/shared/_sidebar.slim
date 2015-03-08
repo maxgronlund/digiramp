@@ -1,4 +1,3 @@
-
 .sidebar
   li
     
@@ -14,7 +13,7 @@
       = link_to account_account_recordings_path(@account) do
         i class="fa fa-headphones"
         '&nbsp;
-        = pluralize(@account.recordings.count, 'Recording')
+        = pluralize(@account.recordings.not_in_bucket.count, 'Recording')
 
   - if current_account_user.read_opportunity
     li class="#{'sidebar-selected' if selected == 'opportunity'}"
@@ -28,7 +27,7 @@
       = link_to account_account_account_users_path(@account) do
         i class="fa fa-users"
         '&nbsp;
-        = pluralize(@account.account_users.count, 'User')
+        = pluralize(@account.user_count, 'User')
     
   - if current_account_user.read_common_work
     li class="#{'sidebar-selected' if selected == 'common_work'}"
@@ -36,6 +35,13 @@
         i class="fa fa-music"
         '&nbsp;
         = pluralize(@account.common_works.count, 'Work')
+    
+  - if current_account_user.read_catalog
+    li class="#{'sidebar-selected' if selected == 'catalog'}"
+      = link_to account_account_catalogs_path(@account) do
+        i class="fa fa-book"
+        '&nbsp;
+        = pluralize(@account.catalogs.count, 'Catalog')
     
   - if current_account_user.read_crm
     li class="#{'sidebar-selected' if selected == 'crm'}"
@@ -56,11 +62,8 @@
       = link_to account_account_documents_path(@account) do
         i class="fa fa-folder"
         '&nbsp;
-        'Files
-    
-        
-  
-        
+        'Documents
+
   - if current_user 
     .sexy_line
     li class="#{'sidebar-selected' if selected == 'support'}"

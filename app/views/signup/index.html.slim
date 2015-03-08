@@ -13,7 +13,7 @@
           h3 Sign up
           
           
-          = simple_form_for(User.new)    do |f|
+          = simple_form_for [User.new], turboboost: true    do |f|
           
             .input-group
               span class="input-group-addon" @

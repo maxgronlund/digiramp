@@ -39,7 +39,7 @@
                   td
                     .pull-right
                       => link_to 'Edit', edit_admin_zip_file_path(zip_file), class: 'btn btn-default btn-xs'
-                      = link_to  admin_zip_file_path( zip_file ), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                      = link_to  admin_zip_file_path( zip_file ), data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete do
                         .btn.btn-danger.btn-xs
                           i.fa.fa-times
 

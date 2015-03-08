@@ -6,9 +6,9 @@ class Activity
   def self.notify_followers notification, user_id, postable_type, postable_id
     
     unless FollowerEvent.where( user_id: user_id, 
-                            postable_type: postable_type, 
-                            postable_id: postable_id, 
-                            created_at: (Time.now - 600)..Time.now).first
+                                postable_type: postable_type, 
+                                postable_id: postable_id, 
+                                created_at: (Time.now - 1800)..Time.now).first
 
       #unless FollowerEvent.where(user_id: user_id, postable_type: postable_type, created_at: (Time.now - 300)..Time.now).count > 0
       send_notification( notification, user_id, postable_type, postable_id )

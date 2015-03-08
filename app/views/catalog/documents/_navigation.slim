@@ -1,0 +1,23 @@
+.btn-group.btn-group-justified
+  - if current_catalog_user.read_financial_document 
+    = link_to catalog_account_catalog_documents_path(@account, @catalog), :class => "btn btn-default"
+      i.fa.fa-archive
+      '&nbsp;Documents
+      
+  - if current_catalog_user.read_artwork
+    = link_to catalog_account_catalog_artworks_path(@account, @catalog), :class => "btn btn-default"
+      i.fa.fa-picture-o
+      '&nbsp;
+      = pluralize(@catalog.artworks.count, 'Artwork')
+  
+  - if current_catalog_user.read_legal_document 
+    = link_to catalog_account_catalog_legal_documents_path(@account, @catalog), :class => "btn btn-default"
+      i.fa.fa-gavel
+      '&nbsp;Legal 
+      = pluralize(@catalog.artworks.count, 'document')
+  
+  - if current_catalog_user.read_financial_document 
+    = link_to catalog_account_catalog_financial_documents_path(@account, @catalog), :class => "btn btn-default"
+      i.fa.fa-money
+      '&nbsp;Financial documents
+      

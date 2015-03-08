@@ -3,7 +3,7 @@
     == render 'shared/navigationbar', page: 'home' 
   
 
-  .pro-account
+  .admin-account
     #sidebar-wrapper
       ul class="sidebar-nav"
         == render 'admin/shared/sidebar', selected: 'opportunity'
@@ -16,9 +16,10 @@
           h2 Opportunities
       
         .col-sm-7
-          .search-recording
+          .pull-down-10
             = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
                                                           :controller => 'opportunities'), \
+                                                          turboboost: true,\
                                                           :method => 'get' do |f|
             
               .input-group

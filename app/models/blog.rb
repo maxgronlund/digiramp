@@ -28,6 +28,12 @@ class Blog < ActiveRecord::Base
     Rails.cache.fetch([name, identity ]) {  Blog.where(identifier: identity)\
                                                 .first_or_create(identifier: identity, title: identity, body: '') }
   end 
+  
+  def self.news_count
+    
+    blog = Blog.cached_find('news blog')
+    blog.blog_posts.count
+  end
 private
 
   def flush_cache

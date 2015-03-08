@@ -76,6 +76,7 @@ class Account < ActiveRecord::Base
   has_many :campaigns, dependent: :destroy
   has_many :campaign_events
   has_many :client_invitation, dependent: :destroy
+  has_many :contracts, dependent: :destroy
   
   has_many :comments,        as: :commentable,          dependent: :destroy
                 
@@ -309,6 +310,11 @@ class Account < ActiveRecord::Base
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
+  end
+  
+  def count_users
+    self.user_count = self.account_users.where.not(role: 'Super User').count
+    self.save!
   end
 
   

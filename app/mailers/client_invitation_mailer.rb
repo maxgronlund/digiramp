@@ -1,5 +1,6 @@
 require 'json'
 require 'uri'
+require 'sendgrid-ruby'
 
 class ClientInvitationMailer < ActionMailer::Base
   default from: "noreply@digiramp.com"
@@ -24,40 +25,38 @@ class ClientInvitationMailer < ActionMailer::Base
   end
   
   # notice max 1000 at a time
-  def invite_all_from_group client_group_id
+  def invite_all_from_group client_batch, client_group_id
+
+    client_group    = ClientGroup.find(client_group_id)
+    @inviter        = client_group.user
+    user_name       = @inviter.user_name
+    @avatar_url     = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
     
-    client_group = ClientGroup.find(client_group_id)
-    @inviter     = client_group.user
-    user_name    = @inviter.user_name
-    @avatar_url           = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
-    
-    # create array of invitations
-    invitations = []
-    index = 0
-    client_group.clients.each do |client|
-      if client.member_id.nil?
-        invitations[index] = create_invitation( client )
-        index += 1
-      end
-    end
-    
-    
-    # prepare custom fields
+    invitations   = []
     emails        = []
     accept_urls   = []
     decline_urls  = []
     user_names    = []
     index         = 0
+    index         = 0
     
-    invitations.each do |invitation|
-      if email = EmailValidator.saintize( invitation.client.email )
-        emails[index]         = email
-        accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id: invitation.uuid )
-        decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
-        user_names[index]     = user_name    
-        index += 1
-      else
-        invitation.destroy!
+
+    client_batch.each do |client|
+      if client && email = EmailValidator.saintize( client.email )
+        
+        # Don't invite clients two times
+        unless ClientInvitation.where(  account_id:  client.account_id, 
+                                        client_id:   client.id,
+                                        user_id:     client.user_id,
+                                        status:     'Invited').first
+          # store invited clients
+          invitation            = create_invitation( client )
+          emails[index]         = email
+          accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
+          decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
+          user_names[index]     = user_name    
+          index += 1
+        end
       end
     end
     
@@ -80,13 +79,17 @@ class ClientInvitationMailer < ActionMailer::Base
     
                 }
     
+    # only send if there is someone to send to
+    unless emails.empty?
+     
+      
+      headder = JSON.generate(x_smtpapi)
+      #IssueEvent.create(title: 'ClientInvitationMailer#invite_all_from_group', data: headder, subject_type: 'ClientGroup', subject_id: client_group_id)
+      headers['X-SMTPAPI'] = headder
+      
+      mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
+    end
 
-    
-    headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
-    
-    mail to: "info@digiramp.com", subject: "I'd like to add you to my network of music professionals"
-    
-    
   end
   
   def create_invitation client
@@ -132,18 +135,7 @@ class ClientInvitationMailer < ActionMailer::Base
     
     headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
     
-    #headers['X-SMTPAPI'] = '{ "to": ["max@haxecasts.com"], 
-    #                          "filters": {"templates": {"settings": {"enabled": 1,"template_id": "9117870a-825a-4c81-8c04-8ff68d422ff7"}}}, 
-    #                          "sub": {  "<%user_name%>":  ["' + @inviter.user_name.to_s + '"],
-    #                                    "--accept_url--": ["' + @accept_url + '"],
-    #                                    "--decline_url--": ["' + @decline_url + '"]
-    #                                  } 
-    #                        }'
-    #
-    #
-    #                        
-    #
-    #                  }'
+
 
     mail to: "info@digiramp.com", subject: "I'd like to add you to my network of music professionals"
     
@@ -152,8 +144,8 @@ class ClientInvitationMailer < ActionMailer::Base
     #mail to: 'max@digiramp.com'
     
     
-
-    
   end
+    
+  
 
 end

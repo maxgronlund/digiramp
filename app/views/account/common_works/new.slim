@@ -38,10 +38,12 @@
             .panel-heading
               'Lyrics
             .panel-body
-              div id="toolbar" class="wysihtml5-toolbar"
+              .toolbar class="wysihtml5-toolbar"
                 a data-wysihtml5-command="bold" Bold
                 '&nbsp; 
                 a data-wysihtml5-command="italic" Italic
+                .pull-right
+                  a data-wysihtml5-action="change_view"  Html 
               
               =f.input :lyrics, label: false, :input_html => {  style: "height: 549px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
         

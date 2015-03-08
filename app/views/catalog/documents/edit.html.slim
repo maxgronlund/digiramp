@@ -25,9 +25,10 @@
             'EDIT
           .panel-body
             /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
-            = simple_form_for [ :catalog, @account, @catalog, @document ], \
-                                :url => url_for(:action => 'update', :controller => 'catalog/documents'), \
-                                :method => 'put',  \
+            = simple_form_for [ :catalog, @account, @catalog, @document ], 
+                                :url => url_for(:action => 'update', :controller => 'catalog/documents'), 
+                                :method => 'put',  
+                                turboboost: true,
                                 :html => { :id => 'documents' } do |f| 
               /= transloadit :files_to_s3 
               /= f.hidden_field :account_id, value: @account.id
@@ -37,14 +38,7 @@
               /hr
               /= f.input :document_type, collection: Document::TYPES, include_blank: false
               = f.input :title
-              b Description
-              br
-              div id="toolbar" class="wysihtml5-toolbar"
-                a data-wysihtml5-command="bold" Bold
-                '&nbsp; 
-                a data-wysihtml5-command="italic" Italic
-              
-              =f.input :body, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+              =f.input :body, label: 'Description', :input_html => {  style: "height: 80px;", placeholder: "Description max 100 charachters"}
               
               .pull-right
                 = f.submit 'Done', class: 'btn btn-primary btn-lg'

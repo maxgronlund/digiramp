@@ -199,8 +199,6 @@ private
       redirect_to go_to
     else  
       redirect_to session[:current_page]
-    
-      
     end
       
   end

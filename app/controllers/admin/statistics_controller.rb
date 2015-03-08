@@ -111,6 +111,37 @@ class Admin::StatisticsController < ApplicationController
   def accounts
     @user = current_user
     @authorized = true
+  end
+  
+  def pages
+    @total_views                  = PageView.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago}).count
+    @landing_page_views           = PageView.where(url: '/').where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @landing_page_chart           = @landing_page_views.group_by_day(:created_at).count
+    
+
+    @people_page_views            = PageView.where(url: '/users').where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @people_page_chart            = @people_page_views.group_by_day(:created_at).count
+    
+
+    @recordings_page_views        = PageView.where(url: '/recordings').where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @recordings_page_chart        = @recordings_page_views.group_by_day(:created_at).count
+    
+
+    @public_opportunities_views   = PageView.where(url: '/public_opportunities').where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @public_opportunities_chart   = @public_opportunities_views.group_by_day(:created_at).count
+    
+
+    @user_opportunities_views   = PageView.where(url: '/user/opportunities').where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @user_opportunities_chart   = @user_opportunities_views.group_by_day(:created_at).count
+  end
+  
+  def tutorials
+    
+    @tutorials_index            = PageView.where(url: '/tutorials').where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @tutorials_index_chart      = @tutorials_index.group_by_day(:created_at).count
+    
+    @tutorial_views             = TutorialView.where("created_at >= :start_date AND created_at <= :end_date",{ start_date: 4.weeks.ago, end_date: 0.weeks.ago})
+    @tutorial_views_chart       = @tutorial_views.group_by_day(:created_at).count
     
   end
 end

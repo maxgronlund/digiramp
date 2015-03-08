@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   #before_filter :find_user, only: [:show, :edit, :update, :destroy]
   before_filter :access_user, only: [:edit, :update, :destroy, :dont_show_instructions]
   before_filter :find_user, only: [:show]
-  protect_from_forgery only: :index
+  protect_from_forgery only: [:edit, :create, :sign_in]
   
   def omniauth_failure 
     #!!! make a custom screen
@@ -14,9 +14,9 @@ class UsersController < ApplicationController
   end
   
   def index
-  
-    
-    
+    # exclude ajax calls from statistic
+    PageView.create(url: '/users' ) if request.format.to_s == 'text/html'
+
     if params[:commit] == 'Go'
       @whipe_users = true
       params.delete :commit
@@ -47,18 +47,21 @@ class UsersController < ApplicationController
   end
 
   def show
-
-    if current_user && @user != current_user
-      @user.views += 1 
-      @user.save
-    end
     
-    @user.create_activity(  :show, 
-                              owner: current_user,
-                          recipient: @user,
-                     recipient_type: @user.class.name,
-                         account_id: @user.account_id)
-
+    if request.format.to_s == 'text/html'
+      unless current_user && @user != current_user
+       
+        @user.views += 1 
+        @user.save
+        
+        @user.create_activity(  :show, 
+                                  owner: current_user,
+                              recipient: @user,
+                         recipient_type: @user.class.name,
+                             account_id: @user.account_id)
+                             
+      end
+    end 
     session[:account_id] = @user.account_id 
     
     if current_user 
@@ -67,16 +70,12 @@ class UsersController < ApplicationController
         current_user.save!
       end
       @playlists  = current_user.playlists
-      @authorized = false
-      if current_user.id == @user.id || current_user.super?
-        @authorized = true
-      end
+      #@authorized = false
+      #if current_user.id == @user.id || current_user.super?
+      #  @authorized = true
+      #end
     end
-    
-    if cms_page = CmsPage.where(id: @user.default_cms_page_id).first
-      redirect_to user_cms_page_path(@user, cms_page)
-    end
-
+    @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
   end
   
   def find_user
@@ -131,9 +130,9 @@ class UsersController < ApplicationController
     
     elsif @user.save
       @account          = User.create_a_new_account_for_the @user
-      blog              = Blog.cached_find('Sign Up')
-      blog_post         = BlogPost.cached_find('Sucess', blog)
-      flash[:success]   = { title: blog_post.title, body: blog_post.body }
+      #blog              = Blog.cached_find('Sign Up')
+      #blog_post         = BlogPost.cached_find('Sucess', blog)
+      #flash[:success]   = { title: blog_post.title, body: blog_post.body }
       
       # signout if you was signed in as another user
       cookies.delete(:auth_token)
@@ -151,7 +150,7 @@ class UsersController < ApplicationController
       
       
       
-      redirect_to user_path(@user)
+      redirect_to edit_user_path(@user)
       
       
       
@@ -177,12 +176,15 @@ class UsersController < ApplicationController
   end
 
   def update
+
     @account    = @user.account
 
     @user.slug  = nil
     params[:user][:email_missing] = false
     params[:user][:initialized]   = true
     if @user.update(user_params)
+      
+      
       # show completeness if needed
       session[:show_profile_completeness] = true
       @user.flush_auth_token_cache(cookies[:auth_token])

@@ -31,6 +31,7 @@ gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+gem 'turboboost'
 
 # Angular is used for the Player
 #gem 'angularjs-rails'
@@ -129,6 +130,10 @@ gem "cocoon"
 gem 'rubyzip'
 #gem 'bootstrap-validator-rails', '~> 0.5.3'
 
+# pdf generator
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 # maintaince
 gem 'traceroute'
 
@@ -147,6 +152,8 @@ gem 'yomu'
 gem "awesome_print"
 
 #gem 'jquery_file_download-rails'
+
+gem "sendgrid-ruby"
 
 
 group :doc do

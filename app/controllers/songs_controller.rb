@@ -2,6 +2,8 @@ class SongsController < ApplicationController
   
   def index
     
+    PageView.create(url: '/recordings' ) if request.format.to_s == 'text/html'
+    
     if params[:commit] == 'Go'
       params[:commit] = ''
       @remove_old_recordings = true
@@ -49,8 +51,8 @@ class SongsController < ApplicationController
   end
   
   def show
-    #puts '-------------------------------- alert ------------------------------------------'
-    # this shoule never been calle dbut it is
+    # logger.debug '-------------------------------- alert ------------------------------------------'
+    # this shoule never been calle debug it is
     not_found params
   end
   

@@ -1,0 +1,7 @@
+$('.old-wizard').remove();
+$('.wizard').append("<%= j render 'user/work_rights/' + @go_to, user: @user, common_work: @common_work, recording: @recording %>");
+
+if( "<%= @go_to %>" != "who_wrote_the_music"){
+  history.pushState(null, "", "?go_to=<%= @go_to %>");
+}
+

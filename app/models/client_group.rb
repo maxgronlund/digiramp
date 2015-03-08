@@ -10,12 +10,14 @@ class ClientGroup < ActiveRecord::Base
   
   after_commit :flush_cache
   
-  after_save :invite_clients
+  
   
   def invite_clients
-    if self.invited
-      ClientInvitationMailer.delay.invite_all_from_group( self.id )
+    
+    self.clients.in_groups_of(50) do |client_batch|
+      ClientInvitationMailer.delay.invite_all_from_group( client_batch, self.id )
     end
+    
   end
 
   def self.cached_find(id)

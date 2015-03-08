@@ -31,8 +31,9 @@
         .btn.btn-default
           i.fa.fa-pencil
           '&nbsp;Edit
-      = link_to account_account_project_project_task_path(@account, @project, project_task), \
-                                                            data: { confirm: 'Are you sure?' } , \
+      = link_to account_account_project_project_task_path(@account, @project, project_task), 
+                                                            data: { confirm: 'Are you sure?' },
+                                                            turboboost: true , 
                                                             :method => :delete do
         .btn.btn-danger
           i.fa.fa-times

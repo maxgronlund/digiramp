@@ -1,0 +1,5 @@
+li class="old-link-to-recordings #{'sidebar-selected' if selected == 'recording'}"
+  = link_to catalog_account_catalog_recordings_path(account, catalog) do
+    i class="fa fa-headphones"
+    '&nbsp;
+    = pluralize(catalog.recordings.count, 'Recording')

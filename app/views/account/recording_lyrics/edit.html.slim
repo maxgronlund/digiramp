@@ -1,0 +1,46 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'recording'
+  
+  #page-content-wrapper
+    .container-fluid
+  
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ) }, current:'' }
+      == render 'recordings/wizard_step', step: 2
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Lyrics
+            .help-button
+              == render 'admin/helps/help', identifier: 'recording lyrics'
+        .col-sm-6
+          .pull-right
+            .recording-navigation
+              => link_to edit_account_account_recording_basic_path(@account, @recording) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+                  
+              = link_to edit_account_account_recording_tag_path(@account, @recording) do
+                .btn.btn-default
+                  'Skip
+                  i.fa.fa-chevron-right
+              
+      .sexy_line
+
+      .digi-box
+        = simple_form_for  [@account, @recording ], turboboost: true , :url => url_for(:action => 'update', :controller => 'account/recording_lyrics'), 
+                                                 :method => 'put' do |f|
+          
+          == render 'shared/recordings/recording_lyrics_form', f: f, user: @account.user, recording: @recording
+      
+        
+  == render 'shared/site_footer'  
+ 

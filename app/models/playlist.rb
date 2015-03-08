@@ -7,7 +7,12 @@ class Playlist < ActiveRecord::Base
   #has_many :playlist_items, dependent: :destroy
   has_many :playlist_keys,  dependent: :destroy
   has_many :widgets
-  has_and_belongs_to_many :recordings, dependent: :destroy
+  
+  has_many :playlists_recordings, dependent: :destroy
+  has_many :recordings, :through => :playlists_recordings
+  
+  has_and_belongs_to_many    :recordings
+  
   has_many :comments,        as: :commentable,          dependent: :destroy
 
   
@@ -135,11 +140,9 @@ class Playlist < ActiveRecord::Base
   end
   
   def self.cached_find(id)
-    begin
-      Rails.cache.fetch([name, id]) { find(id) }
-    rescue
-      nil
-    end
+    
+     Rails.cache.fetch([name, id]) { find(id) }
+
   end 
   
 private     

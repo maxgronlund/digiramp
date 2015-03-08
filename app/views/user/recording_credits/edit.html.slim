@@ -1,0 +1,89 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'creative rights'.to_sym => user_user_creative_rights_path(@user)}, current: ''}
+      
+      
+      
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              
+              h2 = @recording.title
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'edit recording credits'
+
+        .col-sm-4
+          .pull-right
+            .recording-navigation
+              => link_to user_user_creative_rights_path( @user ) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Back
+                  
+              /= link_to edit_user_user_recording_common_work_lyric_path(@user, @recording, @common_work) do
+              /  .btn.btn-default
+              /    'Skip
+              /    '&nbsp;
+              /    i.fa.fa-chevron-right
+              /
+      .sexy_line
+      h4 Credits for the recording
+      = simple_form_for  [@user, @recording ],turboboost: true, url: url_for(:action => 'update', :controller => 'recording_credits'), 
+                                               html: { :id => 'recording_ipi' }, 
+                                               method: 'put' do |f|
+        #recording_ipis
+      
+          .row
+            .col-sm-12
+              #ipis
+                /= fields_for :recording_ipis, @recording.recording_ipis do |recording_ipis|
+                = f.simple_fields_for :recording_ipis do |recording_ipis|
+                
+                  = render 'user/recording_credits/recording_ipi_fields', :f => recording_ipis
+                .links
+                  .row
+                    .col-sm-12
+                      .pull-right.pull-down-10
+                        = link_to_add_association 'Add Right & Credit', f, :recording_ipis, class: 'btn btn-default'
+                 
+                  
+          .row
+            .col-sm-8
+            .col-sm-4              
+              b Total shares % 
+              .total_share
+              i Must equal 100%
+      
+      
+      
+      
+      
+      
+      
+
+          .digi-box
+            .row
+              .col-sm-12
+                .pull-right.pull-down-12   
+                 
+                
+                  = f.submit 'Save', class: 'btn btn-primary'
+            
+            
+                 
+              
+  == render 'shared/site_footer'    
+

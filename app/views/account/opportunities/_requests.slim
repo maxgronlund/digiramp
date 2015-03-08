@@ -32,15 +32,24 @@
             
             b &nbsp;Submitted by:&nbsp;
             = music_submission.user.user_name if music_submission.user
-            == render 'messages/modal', modal_id: "pmModal_#{music_submission.id.to_s}",  recipient: music_submission.user, subjebtable: music_submission
-            '&nbsp;
-            = link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{music_submission.id.to_s}" do
-              .btn.btn-default.btn-xs
-                i.fa.fa-envelope
-                '&nbsp;Send message
+            
+            =< link_to new_message_digalog_path(sender: current_user, 
+                                               receiver: music_submission.user, 
+                                               title: "Regarding: #{music_submission.recording.title}", 
+                                               subjectable_id: music_submission.id, 
+                                               subjectable_type: 'MusicSubmission'), remote: true do
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-envelope
+                      '&nbsp;Send message  
+            
+            
+            /== render 'messages/modal', modal_id: "pmModal_#{music_submission.id.to_s}",  recipient: music_submission.user, subjebtable: music_submission
             /'&nbsp;
-            /'Submitted by:&nbsp;
-            /= music_submission.user.user_name
+            /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{music_submission.id.to_s}" do
+            /  .btn.btn-default.btn-xs
+            /    i.fa.fa-envelope
+            /    '&nbsp;Send message
+   
           
           
           

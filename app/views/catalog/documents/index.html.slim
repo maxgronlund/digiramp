@@ -1,66 +1,80 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                            catalogs: catalog_account_catalogs_path(@account), \
-                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                            assets: catalog_account_catalog_assets_path(@account, @catalog), \
-                                                            }, current: 'documents'}
-    
-    
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalog'), blog_post: 'Documents', insert: 'add_documents'}
-    /-cache([ Admin.cached_find(1).version, request.url, @account.works_uuid, current_user.uuid ]) do 
-    .do
-      .row
-          = form_tag catalog_account_catalog_documents_path(@account, @catalog), :method => 'get' do
-            .col-sm-6
-              br
-              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
-            .col-sm-6
-              br
-              = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-              '&nbsp;
-              = link_to 'Show All',catalog_account_catalog_documents_path(@account, @catalog), class: 'btn btn-default btn-lg'
-              
-      br        
-      .panel.panel-primary
-        .panel-heading
-          'Legal Documents
-        .panel-body
-          .table-responsive
-            table class="table table-hover"
-              thead
-                tr
-                  th Title
-                  th Description
-                  th
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'assets'
 
-              tbody
-                -@documents.each do |document|
-                  /-cache ([ 'index', current_catalog_user ,document]) do
-                  .do
-                    tr
-                      td 
-                        = link_to catalog_account_catalog_document_path(@account, @catalog, document) do
-                          .btn.btn-default.btn-lg
-                            = document.title
-                      td = simple_format document.body.truncate(100) if document.body.to_s != ''
-                      td 
-                        .pull-right
-                          = link_to catalog_account_catalog_document_path(@account, @catalog, document) do
-                            .btn.btn-default.btn-lg
-                              i class="fa fa-eye"
-                          - if current_catalog_user.update_file
-                            '&nbsp;
-                            = link_to edit_catalog_account_catalog_document_path(@account, @catalog, document) do
-                              .btn.btn-primary.btn-lg
-                                i class="fa fa-pencil"
-                          - if current_catalog_user.delete_file
-                            '&nbsp;
-                            = link_to catalog_account_catalog_document_path(@account, @catalog, document), method: :delete, data: {confirm: 'Are you sure?'} do
-                              .btn.btn-danger.btn-lg
-                                i class="fa fa-times"
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog) }, current: ''}
+      .row
+        .col-sm-8
+          .help
+            .help-text
+               h2 Documents
+            .help-button
+              == render 'admin/helps/help', identifier: 'catalog artwork'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+            -if current_catalog_user.create_file
+              .pull-right
+                = link_to new_catalog_account_catalog_document_path(@account, @catalog) do
+                  .btn.btn-default
+                    i class="fa fa-plus-circle"
+                    '&nbsp;
+                    'Upload documents
+            
+            
+     
+      .sexy_line
+      
+      == render 'catalog/documents/navigation'
+      .digi-box.pull-down-6
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Description
+                th
+            tbody
+              - @documents.each do |document|
+                tr
+                  td 
+                    = link_to catalog_account_catalog_document_path(@account, @catalog, document) do
+                      .btn.btn-default.btn-xs
+                        = document.title
+                  td = simple_format document.body.truncate(100) if document.body.to_s != ''
+                  td 
+                    .pull-right
+                      = link_to catalog_account_catalog_document_path(@account, @catalog, document) do
+                        .btn.btn-default.btn-xs
+                          i class="fa fa-eye"
+                      - if current_catalog_user.update_file
+                        '&nbsp;
+                        = link_to edit_catalog_account_catalog_document_path(@account, @catalog, document) do
+                          .btn.btn-default.btn-xs
+                            i class="fa fa-pencil"
+                      - if current_catalog_user.delete_file
+                        '&nbsp;
+                        = link_to catalog_account_catalog_document_path(@account, @catalog, document), method: :delete, data: {confirm: 'Are you sure?'} do
+                          .btn.btn-danger.btn-xs
+                            i class="fa fa-times"
+
+      
         
+  == render 'shared/site_footer'   
+  
+  
+  
+  
+  
+  
+  
+  
+  

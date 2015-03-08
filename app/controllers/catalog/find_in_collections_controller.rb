@@ -2,7 +2,7 @@ class Catalog::FindInCollectionsController < ApplicationController
   include AccountsHelper
   include CatalogsHelper
   before_filter :access_account
-  before_filter :access_catalog, only: [:index, :show, :edit, :update]
+  before_filter :access_catalog, only: [:index, :show, :edit,  :create, :update]
   #before_filter :there_is_access_to_catalog
   
   # list of recordings to add to the catalog
@@ -12,29 +12,27 @@ class Catalog::FindInCollectionsController < ApplicationController
     #@recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     #@recordings     -= @catalog.recordings
     @show_more      = true
-    @user = current_user
-    @authorized = true
+    session[:query] = params[:query]
+    #@user           = current_user
+    #@authorized     = true
+  end
+  
+  def create
+    ap params[:recording][:recording_id]
+    ap params[:recording][:catalog_id]
+    
+    forbidden unless current_catalog_user.create_recording?
+    if @recording = Recording.cached_find(params[:recording][:recording_id])
+      if @catalog   = Catalog.cached_find(params[:recording][:catalog_id])
+        
+        CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: @recording.id)
+                          .first_or_create(catalog_id: @catalog.id, recording_id: @recording.id)
+
+      end
+    end
   end
 
-  def new
-    @catalog   = Catalog.cached_find(params[:catalog_id])
-    @recording = Recording.cached_find(params[:recording])
-    
-    CatalogItem.where(catalog_id: @catalog.id, 
-                        catalog_itemable_id: @recording.id, 
-                        catalog_itemable_type: @recording.class.name)
-               .first_or_create(catalog_id: @catalog.id, 
-                                catalog_itemable_id: @recording.id, 
-                                catalog_itemable_type: @recording.class.name)
-                 
-
-    # ajax here
-    #@prepend_tag = "#remove_recording_" + @recording.id.to_s  + "_from_catalog"
-    #@remove_tag  = "#add_recording_"    + @recording.id.to_s  + "_to_catalog"
-    
-    @prepend_tag = "#remove_from_catalog_"  + @recording.id.to_s
-    @remove_tag  = "#add_to_catalog_"       + @recording.id.to_s
-  end
+ 
   
   
   
@@ -85,13 +83,9 @@ class Catalog::FindInCollectionsController < ApplicationController
     # add recordings not in the catalog
     if @recordings  = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(24)
       @recordings.each do |recording|
-        logger.debug '.'
-        CatalogItem.where(catalog_id:                         @catalog.id, 
-                          catalog_itemable_id:                recording.id, 
-                          catalog_itemable_type:              recording.class.name)
-                    .first_or_create( catalog_id:             @catalog.id, 
-                                      catalog_itemable_id:    recording.id, 
-                                      catalog_itemable_type:  recording.class.name)
+        CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: recording.id)
+                          .first_or_create(catalog_id: @catalog.id, recording_id: recording.id)
+       
       end
     end
     
@@ -104,33 +98,25 @@ class Catalog::FindInCollectionsController < ApplicationController
     # add recordings not in the catalog
     if @recordings  = @account.recordings
       @recordings.each do |recording|
-        logger.debug '.'
-        CatalogItem.where(catalog_id:                         @catalog.id, 
-                          catalog_itemable_id:                recording.id, 
-                          catalog_itemable_type:              recording.class.name)
-                    .first_or_create( catalog_id:             @catalog.id, 
-                                      catalog_itemable_id:    recording.id, 
-                                      catalog_itemable_type:  recording.class.name)
+        CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: recording.id)
+                          .first_or_create(catalog_id: @catalog.id, recording_id: recording.id)
+                          
+       
       end
     end
     
-    redirect_to :back
+    
   end
   
-  # ajax here
+  
   def destroy
     @catalog   = Catalog.cached_find(params[:catalog_id])
     @recording = Recording.cached_find(params[:id])
     
-    
-    catalog_item = CatalogItem.where( catalog_id: @catalog.id, 
-                                      catalog_itemable_id: @recording.id, 
-                                      catalog_itemable_type: @recording.class.name).first
-                                      
-    catalog_item.destroy! if catalog_item
-    
-    @prepend_tag = "#add_to_catalog_"         + @recording.id.to_s
-    @remove_tag  = "#remove_from_catalog_"    + @recording.id.to_s
+    if catalog_recording = CatalogsRecordings.where(catalog_id: @catalog.id, recording_id: @recording.id).first
+      catalog_recording.destroy!
+    end
+   
   end
   
 private

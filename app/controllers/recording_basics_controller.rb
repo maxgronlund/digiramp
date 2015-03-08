@@ -18,13 +18,6 @@ class RecordingBasicsController < ApplicationController
   end
 
   def update
-    
-    
-    
-    
-    
-    
-
     go_to = params[:recording][:next_step]
     params[:recording].delete :next_step
 
@@ -41,7 +34,7 @@ class RecordingBasicsController < ApplicationController
     end
 
     if @recording.update_attributes(recording_params)
-         
+      
       @recording.extract_genres
       @recording.extract_instruments
       @recording.extract_moods
@@ -73,7 +66,7 @@ class RecordingBasicsController < ApplicationController
           end 
         end
       end
-
+      @recording.check_default_image
 
       @recording.common_work.update_completeness if @recording.common_work
       

@@ -1,0 +1,3 @@
+- @wall_posts.each do |follower_event|
+  div id="delete_wall_post_#{follower_event.id.to_s}"
+    == render "wall_posts/" + follower_event.postable_type.downcase , follower_event: follower_event

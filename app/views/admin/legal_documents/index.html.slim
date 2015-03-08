@@ -1,44 +1,45 @@
-#wrap
-  .admin
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'admin'
-
-               
-  .container
-    /==render 'admin/shared/messages'
-    / fix cache expiration here
-    -cache (['content', Admin.cached_find(1).version ]) do
-      /.do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path,\
-                                                              content: admin_content_index_path,\
-                                                              }, current: 'legal'}
-
-      
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'Legal'} 
-      - blog = Blog.cached_find('Legal')
-      .row
-        .col-sm-6
-          - blog_post = BlogPost.cached_find( "TERMS AND CONDITIONS" , blog )
-          == render 'shared/badge', locals: {  \
-                                              blog: blog, \
-                                              post: blog_post, \
-                                              link: edit_admin_blog_blog_post_path(blog, blog_post), \
-                                              css_class: 'btn btn-primary', \
-                                              icon: 'fa fa-gavel', \
-                                              id: 'terms' \
-                                            }
-            
-        
-                                                    
-                                                    
-                                                    
-                      
-                                                    
-        
-       
-
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
 
   
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
+      .row
+        .col-sm-12
+          h2 Admin
+      .sexy_line
+      .digi-box
+        - blog = Blog.cached_find('Legal')
+        - blog_post = BlogPost.cached_find( "TERMS AND CONDITIONS" , blog )
+        h3 = blog_post.title
+        = simple_format blog_post.body
+        .sexy_line
+        .row
+          .col-sm-12
+            .pull-right
+              = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-primary'
+        /.row
+        /  .col-sm-6
+        /    - blog_post = BlogPost.cached_find( "TERMS AND CONDITIONS" , blog )
+        /    == render 'shared/badge', locals: {  \
+        /                                        blog: blog, \
+        /                                        post: blog_post, \
+        /                                        link: edit_admin_blog_blog_post_path(blog, blog_post), \
+        /                                        css_class: 'btn btn-primary', \
+        /                                        icon: 'fa fa-gavel', \
+        /                                        id: 'terms' \
+        /                                      }
+        /
+            
+          
+
+  == render 'shared/site_footer' 
+  
   

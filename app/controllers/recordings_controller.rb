@@ -16,13 +16,7 @@ class RecordingsController < ApplicationController
     
     session[:query] = nil if params[:clear] == 'clear'
     params[:query]  = session[:query]
-    
-    #if current_user && current_user.id == @user.id
-    #  @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
-    #else
-    #  @recordings =  Recording.public_access.recordings_search(@user.recordings, params[:query]).order('uniq_title asc').page(params[:page]).per(4)
-    #end
-    
+
     if current_user && current_user.id == @user.id
       @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('position desc').page(params[:page]).per(4)
     else
@@ -38,15 +32,11 @@ class RecordingsController < ApplicationController
   def create
     
     result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account_id, false, @user.id)
-
     title = params[:recording][:title]
-
     
     if result[:recordings].size != 0
       
-      result[:recordings].each do |recording|
-        
-                  
+      result[:recordings].each do |recording|     
         current_user.create_activity(  :created, 
                                    owner: recording,
                                recipient: @user,
@@ -57,8 +47,7 @@ class RecordingsController < ApplicationController
         common_work = CommonWork.create(account_id: recording.account_id, 
                                         title: recording.title, 
                                         lyrics: recording.lyrics)
-        
-                   
+                
         recording.common_work_id = common_work.id
         recording.title = title unless title == 'no title'
         
@@ -73,9 +62,9 @@ class RecordingsController < ApplicationController
           recording.title = File.basename(recording.original_file_name, ".*") 
         end
         recording.save
+        recording.check_default_image
         recording.common_work.update_completeness
         @recording = recording
-
       end
       redirect_to edit_user_recording_basic_path(@user, @recording)
     else
@@ -111,7 +100,7 @@ class RecordingsController < ApplicationController
   
   def destroy
     @recording_id = params[:id]
-    @recording = Recording.find(@recording_id)
+    @recording    = Recording.find(@recording_id)
 
     common_work = @recording.common_work
     @recording.destroy
@@ -143,7 +132,7 @@ class RecordingsController < ApplicationController
 
 
     if @recording.update_attributes(recording_params)
-         
+      
       @recording.extract_genres
       @recording.extract_instruments
       @recording.extract_moods
@@ -175,7 +164,7 @@ class RecordingsController < ApplicationController
           end 
         end
       end
-
+      @recording.check_default_image
 
       @recording.common_work.update_completeness if @recording.common_work
       

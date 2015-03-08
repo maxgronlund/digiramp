@@ -7,7 +7,6 @@ class CatalogCommonWorkCounterCachWorker
     catalog.save!
     
     account                     = catalog.account
-    #Statistics.first.recordings = Recording.size
-    #Statistics.first
+
   end
 end

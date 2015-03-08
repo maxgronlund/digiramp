@@ -6,7 +6,8 @@ class IssuesController < ApplicationController
   # GET /issues.json
   def index
     forbidden({forbidden: 'login', title: 'fobar'}) unless current_user
-    @issues = Issue.search( params[:query]).order('created_at desc').page(params[:page]).per(64)
+    
+    @issues = Issue.order( sort_column + ' ' + sort_direction).where.not(status: ['Closed', 'Resolved', 'Rejected']).search( params[:query]).order('created_at desc').page(params[:page]).per(64)
     @user = current_user if current_user
   end
 
@@ -31,7 +32,8 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     forbidden unless current_user
-    @issue = Issue.new(issue_params)
+    @issue            = Issue.new(issue_params)
+    @issue.created_by = current_user.user_name
     if @issue.save
       redirect_to user_issues_path(@user)
     else
@@ -70,4 +72,14 @@ private
   def issue_params
     params.require(:issue).permit!
   end
+  
+  def sort_column
+    Issue.column_names.include?(params[:sort]) ? params[:sort] : "title"
+  end
+  
+  def sort_direction
+     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+  end
+  
+  
 end

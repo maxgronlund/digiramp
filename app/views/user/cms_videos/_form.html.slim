@@ -1,9 +1,7 @@
-
-
-= simple_form_for [:user, @user, @cms_video] do |f|
+= simple_form_for [:user, @user, @cms_video], turboboost: true do |f|
 
   .form-inputs
-    = f.input :position, as: :integer 
+    = f.hidden_field :position, as: :integer ,  input_html: { value: @cms_video.cms_section.position }
     = f.input :snippet
 
   .row

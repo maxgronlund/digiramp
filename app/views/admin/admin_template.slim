@@ -2,7 +2,7 @@
   .full-width-top
     == render 'shared/navigationbar', page: 'admin' 
   
-  .pro-account
+  .admin-account
     #sidebar-wrapper
       ul class="sidebar-nav"
         == render 'admin/shared/sidebar', selected: 'admin'
@@ -11,8 +11,9 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
-      .row-sm-12
-        h2 Admin
+      .row
+        .col-sm-12
+          h2 Admin
       .sexy_line
       .digi-box
 

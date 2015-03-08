@@ -34,19 +34,17 @@
                   '&nbsp;Back
                 
             - if super?
-              =< link_to 'Edit', edit_tutorial_path(@tutorial), class: 'btn btn-primary'
+              =< link_to 'Edit', edit_admin_tutorial_path(@tutorial), class: 'btn btn-primary'
       .sexy_line
       .digi-box
-        #welcome-videos
-          = raw @tutorial.video
-      .row
-        .col-sm-6
-          .digi-box
-            h4 = @tutorial.title
-            = simple_format @tutorial.body
-        .col-sm-6
-          .digi-box
-            h4 Other tutorials you might like
+        .row
+          .col-sm-12
+            #welcome-videos
+              = raw @tutorial.video
+        .row.pull-down-12
+          .col-sm-6
+              = simple_format @tutorial.body
+
       /p
       /  strong Views:
       /  = @tutorial.views

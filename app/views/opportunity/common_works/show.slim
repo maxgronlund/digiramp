@@ -29,10 +29,12 @@
               = f.file_field :file, multiple: false
               hr
               .pull-right
-                =link_to 'Cancel', opportunity_opportunity_music_request_common_work_path(@opportunity, @music_request, @common_work), \
-                                                                          data: { confirm: 'Are you sure?' } , \
-                                                                          :method => :delete , class: 'btn btn-default btn-lg'
-                '&nbsp;
+                => link_to 'Cancel', opportunity_opportunity_music_request_common_work_path(@opportunity, @music_request, @common_work), 
+                                                                          data: { confirm: 'Are you sure?' },
+                                                                          turboboost: true , 
+                                                                          :method => :delete , 
+                                                                          class: 'btn btn-default btn-lg'
+                
                 = f.submit 'Continue', class: 'btn btn-primary btn-lg'
 
             = transloadit_jquerify :recording, :wait => true

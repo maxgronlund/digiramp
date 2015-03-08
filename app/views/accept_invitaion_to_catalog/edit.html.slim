@@ -21,7 +21,7 @@
               'Create Password
             hr
 
-            = simple_form_for  [@user, @catalog ], :url => url_for(:action => 'update', :controller => 'accept_invitaion_to_catalog'), :method => 'put' do |f|
+            = simple_form_for  [@user, @catalog ], :url => url_for(:action => 'update', :controller => 'accept_invitaion_to_catalog'), turboboost: true, :method => 'put' do |f|
               = f.hidden_field :user, value: @user.id
               = f.hidden_field :catalog_id, value: @catalog.id
               .input-group

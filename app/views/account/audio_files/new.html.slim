@@ -1,60 +1,136 @@
-/= debug current_account_user
-- session[:return_url]         = request.url
-- session[:go_to_after_update] = request.url
-- blog      = Blog.cached_find('Uploads')
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
   
-  .container
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                            dashboard: account_account_path(@account), \
-                                                            upload: account_account_uploads_path(@account), \
-                                                            'audio files'.to_sym => account_account_uploads_audio_files_new_path(@account) \
-                                                           }, \
-                                                    current:  'to bucket'}
-    /==render 'admin/shared/messages'
 
-    /- insert = 'accounts/shared/leave_account'
-    
-    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Audiofiles to Bucket'}
-    
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'recording'
+  
+  #page-content-wrapper
+    .container-fluid
+  
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ), 
+                                                              recordings: account_account_recordings_path(@account)}, current:'' }
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Mass upload recordings
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'mass upload to account'
 
-                                          
-    .row
-      .col-sm-3
-      
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            'SELECT FILE
-          .panel-body
-            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+        .col-sm-6
+          .pull-right.pull-down-10
+              
+
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
             = simple_form_for [ @account ], :url => url_for(:action => 'create', :controller => 'account/audio_files'), :method => 'post',  :html => { :id => 'audio_files' } do |f| 
               = transloadit :recording_with_thumbs 
               /= form.label      :file, 'File to upload' 
-              = f.hidden_field :common_work_id, value: @common_work_id
+              /= f.hidden_field :common_work_id, value: @common_work_id
               = f.file_field :file, multiple: true
-              hr
-              .pull-right
-                = f.submit 'Continue', class: 'btn btn-primary btn-lg'
-            
-            
+              
+              /.fileinput.fileinput-new.input-group data-provides="fileinput"
+              /  .form-control data-trigger="fileinput"
+              /    i.glyphicon.glyphicon-file.fileinput-exists
+              /    span.fileinput-filename
+              /
+              /  span.input-group-addon.btn.btn-default.btn-file
+              /    span.fileinput-new
+              /      'Select files
+              /    span.fileinput-exists
+              /      'Change
+              /
+              /    
+              /    = f.file_field :file, multiple: true, label: 'Select recordings files'
+                /a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+                /  'Remove
+                  
+                  
+              .row
+                .col-sm-12
+                  .sexy_line
+                  .pull-right
+                    = f.submit 'Continue', class: 'btn btn-primary'
+                  
+          
             = transloadit_jquerify :audio_files, :wait => true
-            
-      .col-sm-3
-    
-  
-        
-        
-        
-      
-    
-   
 
-        
-  
+      
+      
+          
+          
+  == render 'shared/site_footer' 
+
+
+
+
+
+
+/= debug current_account_user
+/- session[:return_url]         = request.url
+/- session[:go_to_after_update] = request.url
+/- blog      = Blog.cached_find('Uploads')
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  
+/  .container
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                            dashboard: account_account_path(@account), \
+/                                                            upload: account_account_uploads_path(@account), \
+/                                                            'audio files'.to_sym => account_account_uploads_audio_files_new_path(@account) \
+/                                                           }, \
+/                                                    current:  'to bucket'}
+/    /==render 'admin/shared/messages'
+/
+/    /- insert = 'accounts/shared/leave_account'
+/    
+/    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Upload Audiofiles to Bucket'}
     
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+                                          
+/    .row
+/      .col-sm-3
+/      
+/      .col-sm-6
+/        .panel.panel-primary
+/          .panel-heading
+/            'SELECT FILE
+/          .panel-body
+/            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+/            = simple_form_for [ @account ], :url => url_for(:action => 'create', :controller => 'account/audio_files'), :method => 'post',  :html => { :id => 'audio_files' } do |f| 
+/              = transloadit :recording_with_thumbs 
+/              /= form.label      :file, 'File to upload' 
+/              = f.hidden_field :common_work_id, value: @common_work_id
+/              = f.file_field :file, multiple: true
+/              hr
+/              .pull-right
+/                = f.submit 'Continue', class: 'btn btn-primary btn-lg'
+/            
+/            
+/            = transloadit_jquerify :audio_files, :wait => true
+/            
+/      .col-sm-3
+/    
+/  
+/        
+/        
+/        
+/      
+/    
+/   
+/
+/        
+/  
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/

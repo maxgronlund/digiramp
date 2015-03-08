@@ -1,57 +1,106 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'account'         
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'recording'
 
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'catalogs'
 
   #page-content-wrapper
     .container-fluid
-      == render 'catalog/shared/catalog_title'
-      .sexy_line
-      h4 Find in collection
-      = form_tag catalog_account_catalog_find_in_collections_path(@account, @catalog), :method => 'get' do
-        .col-sm-6
-          br
-          = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string', value: params[:query]
-        .col-sm-6
-          br
-          = submit_tag 'Search', class: 'btn btn-primary'
-          '&nbsp;
-          = link_to 'Show All',catalog_account_catalog_find_in_collections_path(@account, @catalog), class: 'btn btn-default'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog),
+                                                                recordings: catalog_account_catalog_recordings_path(@account, @catalog),
+                                                                'add recordings'.to_sym => catalog_account_catalog_add_recordings_path(@account, @catalog)}, current: ''}
       .row
-        .col-sm-12
-           .digiramp_player
-             div class="panel-group" id="accordion"
-               div class="permissions" value="add_recordings" id="#{@catalog.id}"
-               - @recordings.each do |recording|
-                 == render 'recordings/recording', recording: recording
-                        
-                   
-                  
-             .hidden-xs
-               == paginate(@recordings)
-             .visible-xs
-               .btn-group
-                 = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
-                 = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
-           
-             -if current_user.can_administrate @account
-               hr
-               .row
-                 .col-sm-12
-                   .pull-right
-                     = link_to  account_catalog_add_recordings_add_all_path(@account, @catalog, query: params[:query]) do
-                       .btn.btn-success.btn-lg
-                         i class="fa fa-plus-circle"   
-                         '&nbsp;Add All Recordings
-                     '&nbsp;
-                     = link_to  account_catalog_add_recordings_add_all_path(@account, @catalog, query: params[:query]) do
-                       .btn.btn-success.btn-lg
-                         i class="fa fa-plus-circle"   
-                         '&nbsp;Add All Found
-        
+        .col-sm-6
+          .help
+            .help-text
+               h2 Add recordings from account
+            .help-button
+              == render 'admin/helps/help', identifier: 'recordings to catalog from account'
+              
+        .col-sm-6
+          .search-recording
+            = simple_form_for  [ @account, @catalog ], :url => url_for(:action => 'index', \
+                                                          :controller => 'catalog/find_in_collections'), \
+                                                          :method => 'get',\
+                                                          remote: true do |f|
+            
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => "Search #{@account.title}'s recordings", \
+                                              value: params[:query]
+                .input-group-btn
+                  = f.submit 'Go', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Clear', catalog_account_catalog_find_in_collections_path(@account, @catalog), class: 'btn btn-default'
+            
+            
+     
+      .sexy_line
+      - if current_catalog_user.create_recording?
+        .row
+          .col-sm-6
+            h4 Account: #{@account.title}
+          .col-sm-6
+            .pull-right
+              = link_to  catalog_account_catalog_add_recordings_add_all_path(@account, @catalog), remote: true do
+                .btn.btn-default
+                  i class="fa fa-plus-circle"   
+                  '&nbsp;Add All Recordings
+              =< link_to  catalog_account_catalog_add_recordings_add_found_path(@account, @catalog), remote: true do
+                .btn.btn-default
+                  i class="fa fa-plus-circle"   
+                  '&nbsp;Add Found Recordings
+                
+      .pull-down-6
+        .recordings-index
+          == render 'index', recordings: @recordings
+      /= form_tag catalog_account_catalog_find_in_collections_path(@account, @catalog), :method => 'get' do
+      /  .col-sm-6
+      /    br
+      /    = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string', value: params[:query]
+      /  .col-sm-6
+      /    br
+      /    = submit_tag 'Search', class: 'btn btn-primary'
+      /    '&nbsp;
+      /    = link_to 'Show All',catalog_account_catalog_find_in_collections_path(@account, @catalog), class: 'btn btn-default'
+      /.row
+      /  .col-sm-12
+      /     .digiramp_player
+      /       div class="panel-group" id="accordion"
+      /         div class="permissions" value="add_recordings" id="#{@catalog.id}"
+      /         - @recordings.each do |recording|
+      /           == render 'recordings/recording', recording: recording
+      /                  
+      /             
+      /            
+      /       .hidden-xs
+      /         == paginate(@recordings)
+      /       .visible-xs
+      /         .btn-group
+      /           = link_to_previous_page @recordings, '« Prev Page', class: 'btn btn-default mobile_pagination'
+      /           = link_to_next_page @recordings, 'Next Page »', class: 'btn btn-default mobile_pagination'
+      /     
+      /       -if current_user.can_administrate @account
+      /         hr
+      /         .row
+      /           .col-sm-12
+      /             .pull-right
+      /               = link_to  account_catalog_add_recordings_add_all_path(@account, @catalog, query: params[:query]) do
+      /                 .btn.btn-success.btn-lg
+      /                   i class="fa fa-plus-circle"   
+      /                   '&nbsp;Add All Recordings
+      /               '&nbsp;
+      /               = link_to  account_catalog_add_recordings_add_all_path(@account, @catalog, query: params[:query]) do
+      /                 .btn.btn-success.btn-lg
+      /                   i class="fa fa-plus-circle"   
+      /                   '&nbsp;Add All Found
+      /  
         
   == render 'shared/site_footer'          
    

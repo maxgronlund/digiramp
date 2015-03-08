@@ -1,0 +1,97 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'creative rights'.to_sym => user_user_creative_rights_path(@user),
+                                                              @common_work.title.to_sym => user_user_creative_rights_path(@user)}, current: ''}
+      
+      
+      
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 Contracts
+              
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'common work contracts'
+        .col-sm-4
+          .pull-right.pull-down-10
+            = link_to 'Generate new', new_user_user_common_work_common_work_contract_path(@user, @common_work), class: 'btn btn-default'
+            =< link_to 'Upload existing', '#', class: 'btn btn-default'
+            
+      /  .col-sm-6
+      /    .pull-right.pull-down-10
+      /      => link_to edit_user_user_recording_common_work_path( @user, @recording, @common_work ) do
+      /        .btn.btn-primary
+      /          i.fa.fa-pencil
+      /          '&nbsp;Edit
+      /    /.pull-right.pull-down-10
+      /    /  => link_to edit_user_user_recording_common_work_lyric_path( @user, @recording, @common_work ) do
+      /    /    .btn.btn-default
+      /    /      i.fa.fa-chevron-left
+      /    /      '&nbsp;Back
+      /            
+      /
+      /      
+      
+      .sexy_line
+      h3 = @common_work.title
+      .digi-box
+        - @contracts.each do |contract|
+          div id="contract_to_destroy_#{contract.id.to_s}"
+            .row
+              .col-sm-8
+                = link_to contract.title, user_user_common_work_common_work_contract_path(@user, @common_work, contract), class: 'btn btn-default'
+              .col-sm-4
+                .row
+                  .col-sm-12
+                    .pull-right
+                      = link_to user_user_common_work_common_work_contract_path(@user, @common_work, contract, :format => 'pdf') do
+                        .btn.btn-default
+                          i.fa.fa-file-pdf-o
+                          '&nbsp;PDF
+                      
+                      =< link_to edit_user_user_common_work_common_work_contract_path(@user, @common_work, contract) do
+                        .btn.btn-default
+                          i.fa.fa-pencil
+                          '&nbsp;Edit
+                      =< link_to user_user_common_work_common_work_contract_path(@user, @common_work, contract), data: { confirm: 'Are you sure?' } ,remote: true , :method => :delete do
+                        .btn.btn-default
+                          i.fa.fa-times
+            .sexy_line
+            /.digi-box
+            /  h4 = contract.title
+            /  .sexy_line
+            /  = simple_format contract.body
+            /  .row
+            /    .col-sm-12
+            /      .pull-right
+            /        = link_to user_user_common_work_common_work_contract_path(@user, @common_work, contract, :format => 'pdf') do
+            /          .btn.btn-default
+            /            i.fa.fa-file-pdf-o
+            /            '&nbsp;PDF
+            /        
+            /        =< link_to edit_user_user_common_work_common_work_contract_path(@user, @common_work, contract) do
+            /          .btn.btn-default
+            /            i.fa.fa-pencil
+            /            '&nbsp;Edit
+            /        =< link_to user_user_common_work_common_work_contract_path(@user, @common_work, contract), data: { confirm: 'Are you sure?' } ,remote: true , :method => :delete do
+            /          .btn.btn-default
+            /            i.fa.fa-times
+        
+
+        
+            
+        
+  == render 'shared/site_footer'  
+ 

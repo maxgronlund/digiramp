@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    ap params
+
     if @comment = Comment.create!(comment_params)
       
       #@comment.user.create_activity(  :created, 

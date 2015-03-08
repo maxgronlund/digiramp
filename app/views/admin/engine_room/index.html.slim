@@ -3,7 +3,7 @@
     == render 'shared/navigationbar', page: 'home' 
   
   
-  .pro-account
+  .admin-account
     #sidebar-wrapper
       ul class="sidebar-nav"
         == render 'admin/shared/sidebar', selected: 'engine'
@@ -19,42 +19,102 @@
 
           
       .sexy_line
-      .digi-box
-        .row
-          .col-sm-6
-            == render 'shared/badge_button', locals: { \
-                                                        blog_post: 'SIDEKIQ', \
-                                                        link: sidekiq_web_path, \
-                                                        css_class: 'btn btn-warning', \
-                                                        icon: 'fa fa-clock-o' \
-                                                      }
-          .col-sm-6
-            == render 'shared/badge_button', locals: { \
-                                                        blog_post: 'FLUSH CACHE', \
-                                                        link: admin_flush_cache_path, \
-                                                        css_class: 'btn btn-danger', \
-                                                        icon: 'fa fa-bolt' \
-                                                      }
-          
-          
-          .col-sm-6
-            == render 'shared/badge_button', locals: { \
-                                                        blog_post: 'ADMINISTRATORS', \
-                                                        link: admin_administrators_path, \
-                                                        css_class: 'btn btn-primary', \
-                                                        icon: 'fa fa-group' \
-                                                      }
-          
-          
-          .col-sm-6
-            == render 'shared/badge_button', locals: { \
-                                                        blog_post: 'UPDATE USER BADGES', \
-                                                        link: admin_set_default_avatars_path, \
-                                                        css_class: 'btn btn-success', \
-                                                        icon: 'fa fa-file-image-o' \
-                                                      }
+
+      .admin
+        .admin-badges
+          .admin-badge-container
+            = link_to sidekiq_web_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.clock-o
+                    '&nbsp;Sidekiq
+                .body
+                  'Monitor background jobs, errore and retries
+                  
+        .admin-badges
+          .admin-badge-container
+            = link_to sidekiq_web_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-bolt
+                    '&nbsp;Flush cache
+                .body
+                  'Newer do this unless there are old records shown
+                  
+        .admin-badges
+          .admin-badge-container
+            = link_to admin_administrators_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-users
+                    '&nbsp;Administrators
+                .body
+                  'People with super access
+                  
+        .admin-badges
+          .admin-badge-container
+            = link_to admin_set_default_avatars_path, remote: true do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-file-image-o
+                    '&nbsp;Update avatars
+                .body
+                  '!Only for development
+                  
+        .admin-badges
+          .admin-badge-container
+            = link_to admin_set_default_recordings_badges_path, remote: true do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-file-image-o
+                    '&nbsp;Update artwork
+                .body
+                  '!Only for development
+                  
+      /.row
+      /  .col-sm-12
+      /    'fo
+      /.digi-boxz
+      /  .row
+      /    /.col-sm-6
+      /    /  == render 'shared/badge_button', locals: { \
+      /    /                                              blog_post: 'SIDEKIQ', \
+      /    /                                              link: sidekiq_web_path, \
+      /    /                                              css_class: 'btn btn-warning', \
+      /    /                                              icon: 'fa fa-clock-o' \
+      /    /                                            }
+      /    /.col-sm-6
+      /    /  == render 'shared/badge_button', locals: { \
+      /    /                                              blog_post: 'FLUSH CACHE', \
+      /    /                                              link: admin_flush_cache_path, \
+      /    /                                              css_class: 'btn btn-danger', \
+      /    /                                              icon: 'fa fa-bolt' \
+      /    /                                            }
+      /    /
+      /    /
+      /    /.col-sm-6
+      /    /  == render 'shared/badge_button', locals: { \
+      /    /                                              blog_post: 'ADMINISTRATORS', \
+      /    /                                              link: admin_administrators_path, \
+      /    /                                              css_class: 'btn btn-primary', \
+      /    /                                              icon: 'fa fa-group' \
+      /    /                                            }
+      /    /
+      /    /
+      /  .col-sm-6
+      /    == render 'shared/badge_button', locals: { \
+      /                                                blog_post: 'UPDATE USER BADGES', \
+      /                                                link: admin_set_default_avatars_path, \
+      /                                                css_class: 'btn btn-success', \
+      /                                                icon: 'fa fa-file-image-o' \
+      /                                              }
+      /  
         
-          
 
   
   == render 'shared/site_footer'   

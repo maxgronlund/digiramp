@@ -1,4 +1,6 @@
--if  sender          = message.sender
+-if  message.is_valid
+  - receiver = message.receiver
+  - sender   = message.sender
   - received_message = message.receiver.id == @user.id
   
     
@@ -18,7 +20,7 @@
         = link_to user_message_path(@user, message)  do
           .btn.btn-default.btn-xs
             i.fa.fa-exclamation-circle
-            '&nbsp;New
+            
     
     
     
@@ -49,17 +51,11 @@
           'User removed
         td
         td
-        /td
+
+   
 - else
-  tr
-    td Sender removed
-    td 
-      - message.destroy
-    td
-    td
-    td
-    td
-    td
+  - message.destroy
+  
 
 
 

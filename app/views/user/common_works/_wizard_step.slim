@@ -1,0 +1,45 @@
+
+.row
+  .col-sm-12
+
+    .wizard-steps
+      ul class="wizard-steps"
+      	li data-target="#step1" class="#{'active' if step == 1 } #{'complete' if step > 1 }" style="min-width: 33%; max-width: 33%;"
+          span
+            .step  
+              -if step == 1 
+                '1
+              -else
+                i.fa.fa-check
+          span.title 
+            i.fa.fa-pencil
+            '&nbsp;Basic
+    
+      
+      	li data-target="#step2" class="#{'active' if step == 2 } #{'complete' if step > 2 }"  style="min-width: 33%; max-width: 33%;"
+      		span
+            .step  
+              -if step <= 2 
+                '2
+              -else
+                i.fa.fa-check
+      		span.title 
+            i.fa.fa-comment
+            '&nbsp;Lyrics
+    
+      
+      	li data-target="#step3" class="#{'active' if step == 3 } #{'complete' if step > 3 }"  style="min-width: 33%; max-width: 33%;"
+      		span
+            .step  
+              -if step <= 3 
+                '3
+              -else
+                i.fa.fa-check
+      		span.title 
+            i.fa.fa-users
+            '&nbsp;Credits
+    
+      
+.row
+  .col-sm-12
+    .sexy_line

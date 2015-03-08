@@ -1,104 +1,266 @@
-- session[:return_url]  = request.url
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .do           
-    .container
-      == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              'common works'.to_sym => catalog_account_catalog_common_works_path(@account, @catalog), \
-                                                              }, current: @common_work.title}
-    
-                                         
-    
-      == render 'shared/page_title_text', locals: {title: @common_work.title, body: '', insert: 'catalog/common_works/edit'}
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'common_work'
+
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog),
+                                                               works: catalog_account_catalog_common_works_path(@account, @catalog)}, current: ''}
+      /.row
+      /  .col-sm-8
+      /    .help
+      /      .help-text
+      /         h2 = @common_work.title
+      /      .help-button
+      /        == render 'admin/helps/help', identifier: 'catalog work'
+      /        
+      /  .col-sm-4
+      /    .pull-right.pull-down-10
+      /      
+      /      
+      /
+      /.sexy_line
       .row
-        .col-sm-6.pull-down
-          .panel.panel-primary
-            .panel-heading
-              = @common_work.title
-            .panel-body
-              .row
-                .col-sm-12
-                  -art = @common_work.artwork || 'default-cover.jpg'
-                  = image_tag art, width: "184", height: "184", style: "float:left", alt: "#{@common_work.title}", class: "cover_thumb"
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @common_work.title
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'catalog work'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to edit_catalog_account_catalog_common_work_path(@account, @catalog, @common_work ) do
+              .btn.btn-primary
+                i.fa.fa-pencil
+                '&nbsp;Edit
+
                   
-                  'Alternative Titles: 
-                  br
-                  b = @common_work.alternative_titles
-                  hr
-                  = simple_format @common_work.description
-              .row
-                .col-sm-12
-                  - unless @common_work.iswc_code.to_s    == ''
-                    br
-                    b ISWC: 
-                    = @common_work.iswc_code
-                    
-                  - unless @common_work.bmi_catalog.to_s  == 'Main catalog'
-                    br
-                    b BMI Catalog: 
-                    = @common_work.bmi_catalog
-     
+
+            
+      
+      .sexy_line
+      .row
+        .col-sm-6
+          == render 'user/common_works/info'
+              
+        .col-sm-6
+          - if @common_work.description.to_s != ''
+            h4 Description
+            .digi-box
+              = @common_work.description
+          - if @common_work.lyrics.to_s != ''
+            h4 Lyrics
+            .digi-box
+              = simple_format @common_work.lyrics
+      
               
       
-          - if @common_work.lyrics.to_s != ''
-          
-            .panel.panel-primary
-              .panel-heading
-                'Lyrics
-              .panel-body
-                .text-center
-                  = simple_format @common_work.lyrics
-          
-     
-        .col-sm-6                                           
-          - if current_catalog_user.read_recording
-            == render 'shared/badge_button', locals: { \
-                                                        blog_post: 'RECORDINGS', \
-                                                        link: catalog_account_catalog_common_work_recordings_path(@account, @catalog, @common_work), \
-                                                        css_class: 'btn btn-warning', \
-                                                        icon: 'fa fa-headphones'\
-                                                      }
-            
-          /- if current_account_user.createx_user? || current_account_user.update_account_user? || current_account_user.delete_account_user?
-          /    == render 'shared/badge_button', locals: { \
-          /                                               blog_post: 'USERS', \
-          /                                               link: account_work_work_users_path(@account, @common_work), \
-          /                                               css_class: 'btn btn-default', \
-          /                                               icon: 'fa fa-group' \
-          /                                             }
-          /  
-          /-if current_catalog_user.read_file
-          /    == render 'shared/badge_button', locals: { \ 
-          /                                              blog_post: 'FILES', \
-          /                                              link: catalog_account_catalog_common_work_files_path(@account, @common_work), \
-          /                                              css_class: 'btn btn-success', \
-          /                                              icon: 'fa fa-folder' \
-          /                                             }
-          / 
-          /catalog/accounts/6/catalogs/53/common_works/6566/common_work_ipis 
-          -if current_catalog_user.read_common_work_ipi
-              == render 'shared/badge_button', locals: { \ 
-                                                        blog_post: 'IPIS', \
-                                                        link: catalog_account_catalog_common_work_common_work_ipis_path(@account, @catalog, @common_work), \
-                                                        css_class: 'btn btn-info', \
-                                                        icon: 'fa fa-exclamation-circle' \
-                                                       }
-          
-           
-       
+      h4 Creative credits & rights
+      .digi-box
+        .row
+          .col-sm-12
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Capacity
+                    th Name
+                    th Email
+                    th Show credits
+                    th Share
+                    th Confirmation
+                tbody
+                  - @common_work.ipis.each do |ipi|
+                    tr
+                      
+                      
+                      td
+                        - if ipi.composer
+                          'Composer
+                          br
+                          
+                        - if ipi.writer
+                          'Writer
+                          br
+                          
+                        - if ipi.administrator
+                          'Administrator
+                          br
+                          
+                        - if ipi.original_publisher
+                          'Original publisher
+                          br
+                      td = ipi.full_name
+                      td = ipi.email
+                      td 
+                        - if ipi.show_credit_on_recordings
+                          i.fa.fa-check
+                      td = ipi.share
+                      td 
+                        .pull-right
+                          /== render 'user/common_works/confirmation', ipi: ipi
+                          
+                  tr
+                    td
+                    td
+                    td
+                    td
+                    td = @common_work.total_share
+                    td
+                                
+      /  .sexy_line                        
+      /  .row
+      /    .col-sm-12
+      /      .pull-right
+      /        = link_to 'Contracts', user_user_common_work_common_work_contracts_path(@user, @common_work), class: 'btn btn-default'
+      /        - if @common_work.recordings
+      /          =< link_to 'Edit credits', edit_user_user_common_work_credit_path(@user, @common_work), class: 'btn btn-default'
+      /
+      /
+      /
+      /
+      h4 Recordings credits & rights
+      - @common_work.recordings.each do |recording|
+        #digiWhams  class="/recordings/#{recording.id.to_s}"
+          == render 'catalog/common_works/show_recording', recording: recording
       
       
       
       
       
-     
-     
-     
-  
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+        
+  == render 'shared/site_footer' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/- session[:return_url]  = request.url
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .do           
+/    .container
+/      == render 'admin/shared/messages'
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              catalogs: catalog_account_catalogs_path(@account), \
+/                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                                              'common works'.to_sym => catalog_account_catalog_common_works_path(@account, @catalog), \
+/                                                              }, current: @common_work.title}
+/    
+/                                         
+/    
+/      == render 'shared/page_title_text', locals: {title: @common_work.title, body: '', insert: 'catalog/common_works/edit'}
+/      .row
+/        .col-sm-6.pull-down
+/          .panel.panel-primary
+/            .panel-heading
+/              = @common_work.title
+/            .panel-body
+/              .row
+/                .col-sm-12
+/                  -art = @common_work.artwork || 'default-cover.jpg'
+/                  = image_tag art, width: "184", height: "184", style: "float:left", alt: "#{@common_work.title}", class: "cover_thumb"
+/                  
+/                  'Alternative Titles: 
+/                  br
+/                  b = @common_work.alternative_titles
+/                  hr
+/                  = simple_format @common_work.description
+/              .row
+/                .col-sm-12
+/                  - unless @common_work.iswc_code.to_s    == ''
+/                    br
+/                    b ISWC: 
+/                    = @common_work.iswc_code
+/                    
+/                  - unless @common_work.bmi_catalog.to_s  == 'Main catalog'
+/                    br
+/                    b BMI Catalog: 
+/                    = @common_work.bmi_catalog
+/     
+/              
+/      
+/          - if @common_work.lyrics.to_s != ''
+/          
+/            .panel.panel-primary
+/              .panel-heading
+/                'Lyrics
+/              .panel-body
+/                .text-center
+/                  = simple_format @common_work.lyrics
+/          
+/     
+/        .col-sm-6                                           
+/          - if current_catalog_user.read_recording
+/            == render 'shared/badge_button', locals: { \
+/                                                        blog_post: 'RECORDINGS', \
+/                                                        link: catalog_account_catalog_common_work_recordings_path(@account, @catalog, @common_work), \
+/                                                        css_class: 'btn btn-warning', \
+/                                                        icon: 'fa fa-headphones'\
+/                                                      }
+/            
+/          /- if current_account_user.createx_user? || current_account_user.update_account_user? || current_account_user.delete_account_user?
+/          /    == render 'shared/badge_button', locals: { \
+/          /                                               blog_post: 'USERS', \
+/          /                                               link: account_work_work_users_path(@account, @common_work), \
+/          /                                               css_class: 'btn btn-default', \
+/          /                                               icon: 'fa fa-group' \
+/          /                                             }
+/          /  
+/          /-if current_catalog_user.read_file
+/          /    == render 'shared/badge_button', locals: { \ 
+/          /                                              blog_post: 'FILES', \
+/          /                                              link: catalog_account_catalog_common_work_files_path(@account, @common_work), \
+/          /                                              css_class: 'btn btn-success', \
+/          /                                              icon: 'fa fa-folder' \
+/          /                                             }
+/          / 
+/          /catalog/accounts/6/catalogs/53/common_works/6566/common_work_ipis 
+/          -if current_catalog_user.read_common_work_ipi
+/              == render 'shared/badge_button', locals: { \ 
+/                                                        blog_post: 'IPIS', \
+/                                                        link: catalog_account_catalog_common_work_common_work_ipis_path(@account, @catalog, @common_work), \
+/                                                        css_class: 'btn btn-info', \
+/                                                        icon: 'fa fa-exclamation-circle' \
+/                                                       }
+/          
+/           
+/       
+/      
+/      
+/      
+/      
+/      
+/     
+/     
+/     
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/

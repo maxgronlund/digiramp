@@ -1,18 +1,3 @@
-/p#notice = notice
-/
-/p
-/  strong Identifier:
-/  = @raw_image.identifier
-/p
-/  strong Title:
-/  = @raw_image.title
-/p
-/  strong Image:
-/  = @raw_image.image
-/
-/= link_to 'Edit', edit_raw_image_path(@raw_image)
-/'|
-/= link_to 'Back', raw_images_path
 
 #wrapper
   .full-width-top
@@ -43,12 +28,10 @@
         br
         b url:
         br =  URI.parse(root_url) + @raw_image.image_url
-
-
-          
-          
             
           
 
   == render 'shared/site_footer'    
+
+ 
  

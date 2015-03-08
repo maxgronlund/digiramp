@@ -1,0 +1,7 @@
+= simple_form_for [:user, @user, @cms_contact] do |f|
+  = f.input :message
+
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'

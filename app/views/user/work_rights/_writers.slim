@@ -1,0 +1,36 @@
+.old-wizard
+  .row
+    .col-sm-6
+      .help
+        .help-text
+          h2 = common_work.title
+        .help-button
+           == render 'admin/helps/help', identifier: 'comon work writers'
+
+    .col-sm-6
+      'Add writer from here
+  
+      
+  .sexy_line
+  .row
+    .col-sm-12
+      h4 Stakeholders & Credits for the original work
+      .row
+        .col-sm-12
+          .digi-box
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Full name
+                    th Capacity
+                    th PRO
+                    th
+                tbody
+                  - common_work.ipis.each do |ipi|
+                    tr
+                      td = ipi.full_name
+                      td
+                      td
+            
+                    

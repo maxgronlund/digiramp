@@ -12,66 +12,46 @@
     .container-fluid
       h2 = @playlist.title
       .sexy_line
-      .digi-box
-        .row
-          .col-sm-8
-            .row
-              .col-sm-12
-                .show-playlist
-                  .playlist-image
-                    = image_tag( @playlist.playlist_image_url :image_270x270)
-                  .playlist-info
-                    = simple_format @playlist.body
-                    - if current_user && current_user == @user.id || super?
-                      .row
-                        .col-sm-12
-                          .pull-right
-                            = link_to edit_user_playlist_path(@user, @playlist) do
-                              .btn.btn-primary
-                                i.fa.fa-pencil
-                                '&nbsp;Edit
-                      /-if current_user.id == @playlist.user_id || can_edit?
-                      /  br
-                      /  = link_to edit_user_playlist_path(@user, @playlist) do
-                      /    .btn.btn-default
-                      /      i.fa.fa-pencil
-                      /      '&nbsp;Edit
-                      
-            /-if @playlist.downloadable
-            /  - if current_user
-            /    -if current_user.id == @playlist.user_id || can_edit?
-            /      .row
-            /        .col-sm-12
-            /          a data-toggle="collapse" data-parent="#accordion" href="#secure_download"
-            /            i.fa.fa-pencil
-            /            b &nbsp;Secure downloadble link
-            /         
-            /          br
-            /          br
-            /          div id="secure_download" class="panel-collapse collapse"  
-            /            .row
-            /              .col-sm-12
-            /                = root_url + url_for( user_playlist_path(@playlist.user_id, @playlist, downloadkey: @playlist.downloadkey) ).to_s
-            /  
- 
-            
-            
-            .pull-down-10
-            .endless-pages
-            .add_songs
-              
-             
-              - @recordings.each do |recording|
-                #digiWhams  class="/recordings/#{recording.id.to_s}"
-                  /#digiWhams class="/users/#{@user.slug}/playlists/#{@playlist.id.to_s}"
-                  div id="remove_recording_#{recording.id.to_s}"
-                    == render 'show', recording: recording  
-                    
-            /== paginate(@recordings)
-            
-          .col-sm-4
-            == render 'shared/comments', commentable: @playlist
+      
+      .row
+        .col-sm-8
+          .digi-box
+            .show-playlist
+              .playlist-image
+                = image_tag( @playlist.playlist_image_url :image_270x270)
+              .playlist-info
+                = simple_format @playlist.body
+                - if (current_user && current_user.id == @user.id) || super?
+                  .row
+                    .col-sm-12
+                      .pull-right
+                        = link_to edit_user_user_playlist_path(@user, @playlist) do
+                          .btn.btn-primary
+                            i.fa.fa-pencil
+                            '&nbsp;Edit
+
           
+          
+          .row
+            .col-sm-12
+              .pull-down-10
+              .endless-pages
+              .add_songs
+                
+               
+                 - @playlist.playlists_recordings.order(:position).each do |playlists_recording|
+                   - if recording = playlists_recording.recording
+                     #digiWhams  class="/recordings/#{recording.id.to_s}"
+                       /#digiWhams class="/users/#{@user.slug}/playlists/#{@playlist.id.to_s}"
+                       div id="remove_recording_#{recording.id.to_s}"
+                         == render 'show', recording: recording  
+                       
+              /== paginate(@recordings)
+          
+        .col-sm-4
+          .digi-box
+            == render 'shared/comments', commentable: @playlist
+            
     
   == render 'shared/site_footer'   
-   
+/== render 'user/connections/modal', modal_id: "connect_modal_#{@user.id.to_s}", recipient: @user, subjebtable: @user     

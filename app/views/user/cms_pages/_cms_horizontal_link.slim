@@ -1,24 +1,27 @@
 div id="cms_section_#{section.cms_section.id.to_s}"
   /== render 'cms_pages/cms_horizontal_link', section: section
   - if @user.cms_pages.count > 1
-    .cms-page-nav
-      - @user.cms_pages.each do |cms_page|
-       .horizontal-link class="#{'selected' if cms_page.id.to_s == params[:id].to_s }"
-         = link_to user_user_cms_page_path(@user, cms_page) do
-          .cms-nav-link 
-            = cms_page.title
-    .row
-      .col-sm-12
-        .pull-down-8
-        
+    .pull-down-10
+      .cms-page-nav
+        - @user.cms_pages.each do |cms_page|
+         .horizontal-link class="#{'selected' if cms_page.id.to_s == params[:id].to_s }"
+           = link_to edit_user_user_cms_page_path(@user, cms_page) do
+            .cms-nav-link 
+              = cms_page.title
+    
   .row
     .col-sm-12.pull-down-8
-      b Position:&nbsp;#{section.cms_section.position}
+      => link_to user_user_cms_module_moves_update_path(@user, 
+                                                        cms_page_id: section.cms_section.cms_page.id ,
+                                                        cms_section_id: section.cms_section.id), remote: true do
+        .btn.btn-default.btn-xs
+          i.fa.fa-arrow-up
+          '&nbsp;Move up
       .pull-right
-        => link_to 'Edit',   edit_user_user_cms_horizontal_link_path(section.cms_section.cms_page.user, 
-                                                      section.cms_section),  
-                                                      class: 'btn btn-default btn-xs'
-                                     
+        /=> link_to 'Edit',   edit_user_user_cms_horizontal_link_path(section.cms_section.cms_page.user, 
+        /                                              section.cms_section),  
+        /                                              class: 'btn btn-default btn-xs'
+        /                             
         = link_to  'Remove', user_user_cms_section_path(section.cms_section.cms_page.user, 
                                                       section.cms_section),  
                                                       data: { confirm: 'Are you sure?' } , 

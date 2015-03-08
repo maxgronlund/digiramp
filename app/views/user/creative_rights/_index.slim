@@ -1,0 +1,61 @@
+.row
+  .col-sm-12
+    .pull-right
+      == paginate(@common_works)
+.digi-box
+  .row
+    .col-sm-12
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Title
+              th 
+                i.fa.fa-music
+                '&nbsp;Work
+              th 
+                i.fa.fa-headphones
+                '&nbsp;Master
+              th Clerance
+              th
+      
+          tbody
+            
+            - @common_works.each do |common_work|
+              tr
+                td 
+                  = link_to  user_user_common_work_path(@user, common_work) do
+                                        .btn.btn-default.btn-xs
+                                          = common_work.title
+                td
+                  = link_to edit_user_user_common_work_path(@user, common_work) do
+                    .btn.btn-default.btn-xs
+                      - count = common_work.ipis.count
+                      - if count == 0
+                         i.fa.fa-exclamation
+                         '&nbsp;No registered
+                      - else
+                        i.fa.fa-users
+                        =< count
+                td 
+                  - common_work.recordings.each do |recording|
+                    
+                    = link_to edit_user_user_recording_credit_path(@user, recording)
+                      .btn.btn-default.btn-xs
+                        => recording.title
+                      .pull-right
+                        - count = recording.recording_ipis.count
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-users
+                          '&nbsp;
+                          = count
+  
+                    .sexy_line
+                    
+                td
+                  .pull-right
+                    = link_to user_user_creative_right_path(@user, common_work), data: { confirm: 'Are you sure?' } , 
+                                                                                          turboboost: true, 
+                                                                                          :method => :delete do
+                          .btn.btn-danger.btn-xs
+                            i class="fa fa-times"

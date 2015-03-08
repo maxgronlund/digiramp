@@ -1,0 +1,8 @@
+= simple_form_for [:user, @user, @cms_comment], turboboost: true do |f|
+
+  = f.hidden_field :position, as: :integer,  input_html: { value: @cms_comment.cms_section.position }
+
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'

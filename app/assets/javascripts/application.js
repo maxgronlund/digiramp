@@ -11,10 +11,9 @@
 // about supported directives.
 //
 //= require jquery
-// require jquery.ui.all
 //= require jquery_ujs
-// require jquery.ui.datepicker
 //= require turbolinks
+//= require turboboost
 //= require jquery.blockUI
 //= require bootstrap/bootstrap
 //= require jquery.ThreeDots
@@ -61,8 +60,10 @@
 //= require toggles
 //= require control_panel
 //= require replies
+//= require jquery.linkify.min
+//= require linkify
+//= require cms_module
 // require facebook
-// require disqus
 // require bootstrapValidator.min
 // require bootstrap-tokenfield
 // require chosen-jquery
@@ -72,6 +73,13 @@
 
 
 Turbolinks.enableTransitionCache();
+
+$(function () {
+  // Other functions omitted.
+  $(window).bind("popstate", function () {
+    $.getScript(location.href);
+  });
+})
 
 
 

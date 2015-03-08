@@ -1,0 +1,49 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Creative rights
+            .help-button
+              == render 'admin/helps/help', identifier: 'user creative rights'
+        .col-sm-7
+          .search-recording
+            = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                          :controller => 'user/creative_rights'), \
+                                                          :method => 'get',\
+                                                          turboboost: true do |f|
+        
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => "Search", \
+                                              value: params[:query]
+                .input-group-btn
+                  = f.submit 'Go', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Clear', user_user_creative_rights_path(@user, clear: 'clear'), class: 'btn btn-default'
+
+      .sexy_line
+      == render 'index', recordings: @recordings
+      /.add_recordings
+      /  == render 'index', recordings: @recordings
+            
+                        
+            
+                 
+              
+  == render 'shared/site_footer'    
+ 
+

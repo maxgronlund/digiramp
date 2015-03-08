@@ -10,6 +10,7 @@
       .row
         .col-sm-3
           = f.input :writer,                :as => :boolean
+          /= f.input :writer, label: 'Hide my profile',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
         .col-sm-3
           = f.input :composer,              :as => :boolean
         .col-sm-3
@@ -44,7 +45,7 @@
             = f.input :phone_number
             /= f.input :notes, :input_html => {  style: "height: 108px;", placeholder: "Notes"}
           .col-sm-6
-            = f.input :pro, collection: ProAffiliation.order(:title).all, label: 'Performance Rights Organization'
+            = f.input :pro_affiliation, collection: ProAffiliation.order(:title).all, label: 'Performance Rights Organization'
         .row
           .col-sm-6
             = f.input :address, :input_html => {  style: "height: 108px;", placeholder: "Address"}
@@ -64,7 +65,7 @@
             => link_to 'Advanced', "##{uuid}", 'data-toggle'.to_sym => 'collapse', 'data-parent'.to_sym => '#accordion', class: 'btn btn-default'
               /a data-toggle="collapse" data-parent="#accordion" href="##{uuid}"
               /  'Advanced
-            = link_to_remove_association "Remove IPI", f  , class: 'btn btn-default'
+            = link_to_remove_association "Remove", f  , class: 'btn btn-default'
   
        
   

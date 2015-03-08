@@ -1,5 +1,5 @@
 .row
-  = simple_form_for [:admin, @genre] do |f|
+  = simple_form_for [:admin, @genre], turboboost: true do |f|
     .col-sm-4
       .panel
         .panel-body
@@ -7,7 +7,7 @@
           hr
           = f.input :title, label: 'Genre'
           = f.input :category,  collection: Genre::GENRE_CATEGORY,  as: :radio_buttons, label: false
-          = f.input :user_tag
+          = f.input :user_tag,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
     .col-sm-4
       .panel
         .panel-body
@@ -25,6 +25,5 @@
     .col-sm-12   
       hr
       .pull-right
-        = link_to 'Music styles on Wikipedia', "http://en.wikipedia.org/wiki/List_of_music_styles", class: 'btn btn-default btn-lg'
-        '&nbsp;
-        = f.submit 'Save', class: 'btn btn-primary btn-lg'
+        => link_to 'Music styles on Wikipedia', "http://en.wikipedia.org/wiki/List_of_music_styles", class: 'btn btn-default'
+        = f.submit 'Save', class: 'btn btn-primary'

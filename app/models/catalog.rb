@@ -7,9 +7,18 @@ class Catalog< ActiveRecord::Base
   belongs_to :account
   has_many :catalog_items, dependent: :destroy
   has_many :catalog_users, dependent: :destroy
+  
   has_many :common_works_imports, dependent: :destroy
   has_many :widgets, dependent: :destroy
+  
+  has_and_belongs_to_many :common_works
+  has_and_belongs_to_many :recordings
+  has_and_belongs_to_many :artworks
+  has_and_belongs_to_many :documents
+  
   ASSTE_TYPES = ['CommonWork', 'Recording', 'Document']
+  
+  mount_uploader :image, CatalogUploader
 
   #belongs_to :catalog_itemable, polymorphic: true
   #attr_accessible :catalog_itemable_type, :catalog_itemable_id, :account_catalog_id
@@ -25,7 +34,36 @@ class Catalog< ActiveRecord::Base
     self.uuid     = UUIDTools::UUID.timestamp_create().to_s
     self.save
     default_playlist
+    check_default_image
   end
+  
+  
+  def check_default_image
+    if self.image_url == "/assets/fallback/catalog.jpg" || self.image.to_s == '' || self.image.nil?
+      prng      = Random.new
+      random_id =  prng.rand(12)
+
+      if random_id < 10
+        random_id = '0' + random_id.to_s 
+      end
+      self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-accounts/default_#{random_id.to_s}.jpg"))
+      puts '1'
+      self.image.recreate_versions!
+      puts '2'
+      self.save!
+      puts '3'
+    else
+      puts '4'
+      self.image.recreate_versions!
+      puts '5'
+      self.save!
+    end
+    
+    
+    
+  end
+  
+  
   
   def default_playlist
     Playlist.where( uuid: self.uuid)
@@ -65,90 +103,61 @@ class Catalog< ActiveRecord::Base
   
   # counter cache
   def count_recordings
-    self.nr_recordings  = self.catalog_items.where(catalog_itemable_type: 'Recording').size
+    self.nr_recordings  = self.catalog_items.where(catalog_itemable_type: 'Recording').count
   end
   
   # counter cache
   def count_common_works
-    self.nr_common_works = common_works.size
+    self.nr_common_works = self.common_works.count
 
   end
   
   # counter cache
   def count_assets
     #puts '-----------------------count_assets ---------------------------------'
-    self.nr_assets = self.catalog_items.where(catalog_itemable_type: ['Document', 'Artwork']).size
+    self.nr_assets = self.catalog_items.where(catalog_itemable_type: ['Document', 'Artwork']).count
   end
   
   # counter cache
   def count_users
-    self.nr_users = self.catalog_users.where(role: 'Catalog User').size
+    self.nr_users = self.catalog_users.where(role: ['Catalog User', 'Account Owner']).count
   end
   
-  def recordings
-    Recording.where(id: recording_ids)
-  end
-  
-  def recording_ids
-    recording_ids = self.catalog_items.where(catalog_itemable_type: 'Recording').pluck(:catalog_itemable_id)
-  end
 
   
-  def common_works
-    common_work_ids = CatalogItem.where(catalog_id: self.id, 
-                                        catalog_itemable_type: 'CommonWork').pluck(:catalog_itemable_id)
-                                        
-    CommonWork.where(id: common_work_ids)
-
+  def add_artwork artwork
+    ArtworksCatalogs.where(artwork_id: artwork.id, catalog_id: self.id)
+                      .first_or_create(artwork_id: artwork.id, catalog_id: self.id)
   end
   
-  def add_recording new_recordings
-    new_recordings.each do |recording|
-      add_recording recording
+  def attach_recordings recordings_to_attach
+    ap recordings_to_attach
+    ap recordings_to_attach.class.name
+    recordings_to_attach.each do |recording|
+      attach_recording recording
     end
   end
 
 
   # add a recording to the catalog
   # after added also create a catalog item for the common work
-  def add_recording recording
-    # find or create a new catalog item for the recording
-    catalog_item = CatalogItem.where( catalog_itemable_id: recording.id,
-                                      catalog_itemable_type: 'Recording',
-                                      catalog_id: self.id
-                                     )
-                              .first_or_create( catalog_itemable_id: recording.id,
-                                                catalog_itemable_type: 'Recording',
-                                                catalog_id: self.id
-                                               )
-                                
-    add_common_work recording.common_work 
-    default_playlist.add_item recording
+  def attach_recording recording
+    CatalogsRecordings.where(catalog_id: self.id, recording_id: recording.id)
+                      .first_or_create(catalog_id: self.id, recording_id: recording.id)
   end
   
   
   
   # add a common work to a catalog
-  def add_common_work common_work,
-    catalog_item = CatalogItem.where( catalog_itemable_id:    common_work.id,
-                                      catalog_itemable_type:  'CommonWork',
-                                      catalog_id:              self.id
-                                     )
-                              .first_or_create( catalog_itemable_id:    common_work.id,
-                                                catalog_itemable_type: 'CommonWork',
-                                                catalog_id:             self.id
-                                               )
+  def add_common_work common_work
+    CatalogsCommonWorks.where(catalog_id: self.id, common_work_id: common_work.id)
+                      .first_or_create(catalog_id: self.id, common_work_id: common_work.id)
+                      
+    common_work.recordings.each do |recording|
+      self.attach_recording recording
+    end
   end
-  
 
-  
-  
-  # fetch all artwork in the catalog
-  def artworks
-    artwork_ids = CatalogItem.where(catalog_id: self.id, catalog_itemable_type: 'Artwork').pluck(:catalog_itemable_id)
-    @artworks = Artwork.order('title asc').where(id: artwork_ids)
-  end
-  
   # when a new catalog is created add account users
   # when a new account user is created add the user
   # when a user is updated to super add the user

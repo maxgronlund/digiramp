@@ -3,6 +3,7 @@ class Ipi < ActiveRecord::Base
   has_many :activity_events, as: :activity_eventable
   
   belongs_to :common_work
+  belongs_to :pro_affiliation
   
   belongs_to :import_ipi
   belongs_to :user

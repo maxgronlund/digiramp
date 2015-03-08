@@ -1,0 +1,5 @@
+li class="old-link-to-common-works #{'sidebar-selected' if selected == 'common_work'}"
+  = link_to catalog_account_catalog_common_works_path(account, catalog) do
+    i class="fa fa-music"
+    '&nbsp;
+    = pluralize(catalog.common_works.count, 'Works')

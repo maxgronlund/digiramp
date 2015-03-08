@@ -1,0 +1,3 @@
+$('.old-link-to-recordings').remove()
+$('.link-to-recordings').append("<%= j render 'catalog/catalogs/link_to_recordings', account: @account, catalog: @catalog, selected: 'recording' %>");
+$("#remove_recording_<%= @recording.id.to_s %>").fadeOut('slow')

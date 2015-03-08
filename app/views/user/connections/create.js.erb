@@ -1,9 +1,8 @@
-$("#connect_modal_<%=@connection.connection_id%>").modal('hide')
-
-$(".old-connect-buttons").fadeOut( "slow" );
-
+$("#digirampDialog").modal('hide')
+$(".old-connect-buttons").remove()
 
 
 $(".connect-buttons" ).append("<%= j render 'users/connect', user: @user %>");
 
 
+//$("#connect_modal_<%=@connection.connection_id%>").modal('hide')
