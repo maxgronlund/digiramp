@@ -19,7 +19,7 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,\
                                                               statistics: admin_statistics_path \
                                                              }, current: ''}
-      h3 Recordings
+      h3 Recordings  #{Recording.count} 
       'Playback, uploads likes and views for the last four weeks
       .sexy_line
 

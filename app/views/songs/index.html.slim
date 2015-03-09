@@ -66,14 +66,31 @@
     .container-fluid
 
       .row
-        .col-sm-5
+        .col-sm-6
           .help
             .help-text
               h2 Recordings
             .help-button
               == render 'admin/helps/help', identifier: 'all recordings'
+        .col-sm-6
+          .pull-right.pull-down-10
+            - if current_user
+               = link_to new_user_recording_path(current_user) do
+                  .btn.btn-warning
+                    i.fa.fa-cloud-upload
+                    '&nbsp;Upload recording
+            - else
+              = link_to log_in_or_signup_new_path(bounce_back: request.url, message: 'Please login or signup before you upload a recording'), remote: true do
+                  .btn.btn-warning
+                    i.fa.fa-cloud-upload
+                    '&nbsp;Upload recording
 
-        .col-sm-7
+        
+            
+      .sexy_line
+      .row
+        .col-sm-6
+        .col-sm-6
           .search-recording
             = simple_form_for :recording, :url => url_for(:action => 'index', \
                                                         :controller => 'songs'), \
@@ -96,8 +113,6 @@
                   = f.submit 'Go', class: "btn btn-primary"
                   '&nbsp;
                   = link_to 'Clear', songs_path(clear: 'clear'), class: 'btn btn-default'
-            
-      .sexy_line
       .endless-pages
       == render 'songs/index', songs: @songs
       .add_songs

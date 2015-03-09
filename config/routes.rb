@@ -2,6 +2,8 @@
 Digiramp::Application.routes.draw do
 
 
+  
+
   resources :add_to_playlists, only: [:create]
   resources :become_members, only: [:new]
   resources :business_account_info, only: [:index]
@@ -61,6 +63,7 @@ Digiramp::Application.routes.draw do
   get "albums/new"
   get "albums/edit"
   get "signup/index"
+  get 'log_in_or_signup/new'
   get "tags/index"
   get "permissions/index"
   require 'sidekiq/web'
