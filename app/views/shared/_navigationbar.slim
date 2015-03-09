@@ -11,16 +11,16 @@
 
     .navbar-brand
       
-      /- if user_signed_in? && current_account
-      /  .navigation-avatar
-      /    = link_to profile_path_for( current_user) do
-      /      = image_tag current_user.image_url(:avatar_32x32)
-      /      '&nbsp;
-      /- else
-      = link_to root_path do
-        /.navbar-brand
-        = image_tag 'logo5.png', size: "165x32", class: 'large-logo'
-        = image_tag 'logo4.png', size: "40x32", class: 'small-logo'
+      - if user_signed_in? && current_account
+        .navigation-avatar
+          = link_to profile_path_for( current_user) do
+            = image_tag current_user.image_url(:avatar_32x32)
+            '&nbsp;
+      - else
+        = link_to root_path do
+          /.navbar-brand
+          = image_tag 'logo5.png', size: "165x32", class: 'large-logo'
+          = image_tag 'logo4.png', size: "40x32", class: 'small-logo'
           
       - if @hide_sidebar_toggle.nil?
         .navigation-toggle

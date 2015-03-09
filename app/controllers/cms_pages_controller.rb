@@ -10,7 +10,7 @@ class CmsPagesController < ApplicationController
   # GET /cms_pages/1
   # GET /cms_pages/1.json
   def show
-    ap params
+        @body_color = "#000000"
   end
 
   # GET /cms_pages/new

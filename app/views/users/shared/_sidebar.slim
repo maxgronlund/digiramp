@@ -18,7 +18,7 @@
             - if current_user.id == @user.id
               / Edit profile
               = link_to edit_user_path(current_user) do
-                .btn.btn-default.btn-xs
+                .btn.btn-default
                   i class="fa fa-pencil"
                   '&nbsp;
                   'Edit profile
@@ -37,7 +37,7 @@
           - else
             / connect when not logged in
             = link_to new_become_member_path(user: @user, bounce_back: request.url), remote: true do
-                  .btn.btn-primary.btn-xs
+                  .btn.btn-primary
                     i.fa.fa-refresh
                     '&nbsp;Connect
               

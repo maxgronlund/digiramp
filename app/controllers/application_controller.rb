@@ -32,6 +32,11 @@ class ApplicationController < ActionController::Base
   #def redirect_org
   #  
   #end
+  before_filter :set_body_color
+  
+  def set_body_color
+    @body_color = "#DDDDDD"
+  end
   
   def current_user
     #User.where(email: 'test06@digiramp.com').first

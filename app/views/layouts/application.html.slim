@@ -48,7 +48,7 @@ html
   
   
   
-  body
+  <body bgcolor="#{@body_color}">
     /== render 'layouts/facebook'
     - unless request.url.include?('/login/new') || request.url.include?('/signup/index') || request.url.include?('/admin/')
       - session[:current_page]    = request.url

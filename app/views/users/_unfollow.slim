@@ -1,7 +1,7 @@
 div id="old_follow_user_#{user.id.to_s}"
   - if relationship = current_user.relationships.find_by(followed_id: user.id)
     = link_to  relationship, remote: true,  method: :delete do
-      .btn.btn-default.btn-xs
+      div class="btn btn-default"
         i.fa.fa-times
         '&nbsp;
         'Following

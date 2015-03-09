@@ -94,64 +94,122 @@
           = @user.created_at.strftime("%Y-%m-%d")
         br
         .sexy_line
-        
-        = link_to user_followers_path(@user, clear: 'clear') do
-          .row
-            .col-xs-8
-              h5 
-                i.fa.fa-user
-                '&nbsp;
-                i.fa.fa-arrow-left
-                '&nbsp;Followers
+        .user-stat
+          .user-stat-row
+            .user-stat-title
+              h4 
+                i.fa.fa-eye
+                '&nbsp;Views
               
-            .col-xs-4
-              h4 = @user.followers.count
+            .user-stat-data
+              h4 = @user.views
               
-              
+          
+          = link_to user_recordings_path(@user, clear: 'clear') do
+            .user-stat-row
+              .user-stat-title
+                h4 
+                  i.fa.fa-headphones
+                  '&nbsp;Recordings
                 
-        = link_to user_following_index_path(@user, clear: 'clear') do
-          .row
-            .col-xs-8
-              h5 
-                i.fa.fa-user
-                '&nbsp;
-                i.fa.fa-arrow-right
-                '&nbsp;Following
-              
-            .col-xs-4
-              h4 = @user.followed_users.count
-  
-        .row
-          .col-xs-8
-            h5 
-              i.fa.fa-eye
-              '&nbsp;Views
+              .user-stat-data
+                h4 = @user.recordings.count
             
-          .col-xs-4
-            h4 = @user.views
+          = link_to user_followers_path(@user, clear: 'clear') do
+            .user-stat-row
+              .user-stat-title
+                h4 
+                  i.fa.fa-user
+                  '&nbsp;
+                  i.fa.fa-arrow-left
+                  '&nbsp;Followers
                 
+              .user-stat-data
+                h4 = @user.followers.count
+                
+                
+                  
+          = link_to user_following_index_path(@user, clear: 'clear') do
+            .user-stat-row
+              .user-stat-title
+                h4 
+                  i.fa.fa-user
+                  '&nbsp;
+                  i.fa.fa-arrow-right
+                  '&nbsp;Following
+                
+              .user-stat-data
+                h4 = @user.followed_users.count
+          
+          = link_to user_likes_path(@user) do
+            .user-stat-row
+              .user-stat-title
+                h4 
+                  i.fa.fa-heart
+                  '&nbsp;Likes
+                
+              .user-stat-data
+                h4 = @user.likes.count
+          
+          = link_to user_playlists_path(@user) do
+            .user-stat-row
+              .user-stat-title
+                h4 
+                  i.fa.fa-heart
+                  '&nbsp;Playlists
+                
+              .user-stat-data
+                h4 = @user.playlists.count
+              
+              
+              
+              
+              
+
+
+                  
                     
           
                
         
-
+    .pull-down-12
     .row
       .col-sm-12
-        - if (current_user && current_user.id == @user.id) || super?
-          => link_to edit_user_path(@user) do
-            .btn.btn-default
-              i.fa.fa-pencil
-              '&nbsp;Edit
-        .btn.btn-primary
-          i.fa.fa-envelope
-          '&nbsp;
-          'Message
-        '&nbsp;
-    
-        .btn.btn-default
-          i.fa.fa-eye
-          '&nbsp;
-          'Follow
+        .user-buttons 
+          - if current_user 
+            .inline-button
+              - if current_user.id == @user.id || super?
+                / Edit profile
+                = link_to edit_user_path(current_user) do
+                  .btn.btn-default
+                    i class="fa fa-pencil"
+                    '&nbsp;
+                    'Edit profile
+              - else
+                / Follow / unfollow
+                div id="follow_user_#{@user.id.to_s}"
+                  -if current_user.following?(@user)
+                    == render 'users/unfollow', user: @user, size: ''
+                  - else 
+                    == render 'users/follow',   user: @user, size: ''
+            - if current_user.id != @user.id
+              .inline-button
+                .connect-container
+                  .connect-buttons
+                  == render 'users/connect',    user: @user, size: ''
+
+          - else
+            / connect when not logged in
+            = link_to new_become_member_path(user: @user, bounce_back: request.url), remote: true do
+                  .btn.btn-primary.btn-xs
+                    i.fa.fa-refresh
+                    '&nbsp;Connect
+        
+        
+        
+        
+        
+       
     .row
       .col-sm-12.pull-down-8
         .sexy_line
@@ -159,6 +217,19 @@
     
       
       
-      
-
+      /- if current_user.id == @user.id
+      /  / Edit profile
+      /  = link_to edit_user_path(current_user) do
+      /    .btn.btn-default.btn-xs
+      /      i class="fa fa-pencil"
+      /      '&nbsp;
+      /      'Edit profile
+      /- else
+      /  / Follow / unfollow
+      /  div id="follow_user_#{@user.id.to_s}"
+      /    -if current_user.following?(@user)
+      /      == render 'users/unfollow', user: @user
+      /    - else 
+      /      == render 'users/follow', user: @user
+      /
      
