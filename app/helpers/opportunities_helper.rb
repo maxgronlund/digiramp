@@ -34,13 +34,13 @@ private
       
       # success the invited user is on the guest list
       if @opportunity_user
-        session[:landing_page]  = opportunity_opportunity_path( @opportunity )
+        session[:request_url]  = opportunity_opportunity_path( @opportunity )
         # check if we are logged in as the right user
         if current_user 
           if current_user.id == @opportunity_user.user_id
             # everything is ok 
             @authorized            = true
-            session[:landing_page] = nil
+            session[:request_url] = nil
             return
           else
             # we are logged in as another user
@@ -54,7 +54,7 @@ private
         end
         
       else
-        session[:landing_page] = nil
+        session[:request_url] = nil
         return forbidden
       end
       

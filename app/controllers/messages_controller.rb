@@ -20,6 +20,7 @@ class MessagesController < ApplicationController
   end
   
   def show
+    
     @message = Message.cached_find(params[:id])
     @message.read = true
     @message.save validate: false
