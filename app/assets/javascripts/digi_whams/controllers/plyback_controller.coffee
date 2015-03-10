@@ -159,7 +159,7 @@ class @PlaybackController
       $('.global-play-button').css 'display': 'inline'
       $('.global-stop-button').css 'display': 'none'
     # title artist
-    $('.global-player-song-title').text(window.song_title)
+    $('.global-player-song-title').text( window.song_title)
     $('.global-player-song-artist').text(window.song_artist)
     connect_global_buttons()
     

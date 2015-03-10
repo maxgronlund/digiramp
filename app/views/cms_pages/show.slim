@@ -12,7 +12,7 @@
 
     .container-fluid
       .cms-backdrop
-        = image_tag "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
+        = image_tag @image_url
         /== render "user/cms_pages/themes/#{@cms_page.theme.downcase}"
       
       .cms-content

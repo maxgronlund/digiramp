@@ -10,7 +10,8 @@ class CmsPagesController < ApplicationController
   # GET /cms_pages/1
   # GET /cms_pages/1.json
   def show
-        @body_color = "#000000"
+      @body_color = "#000000"
+      @image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
   end
 
   # GET /cms_pages/new
