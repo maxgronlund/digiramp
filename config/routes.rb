@@ -679,7 +679,7 @@ Digiramp::Application.routes.draw do
   namespace :user do
     #resources :common_work_lyrics
     resources :users do
-      resources :creative_rights, only: [:index, :show]
+      resources :creative_rights, only: [:index, :show, :destroy]
       resources :common_works do
         resources :common_work_contracts
       end

@@ -120,9 +120,9 @@
             div id="message_count"
             == render 'messages/count'
             i.fa.fa-envelope
-        li class="#{page == 'activities' && @user == current_user ? 'active' : ''}"
-          = link_to user_activities_path(current_user) do
-            i.fa.fa-home
+        /li class="#{page == 'activities' && @user == current_user ? 'active' : ''}"
+        /  = link_to user_user_activities_path(current_user) do
+        /    i.fa.fa-home
         /li class="#{page == 'user' && @user == current_user ? 'active' : ''}"
         /  = link_to profile_path_for( current_user) do
         /    = image_tag current_user.image_url(:avatar_32x32)

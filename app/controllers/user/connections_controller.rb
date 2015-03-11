@@ -10,7 +10,7 @@ class User::ConnectionsController < ApplicationController
     #@connections = @user.connections
     
     @connections = Connection.where("user_id = ?  OR  connection_id = ?" , @user.id, @user.id).order('created_at desc').page(params[:page]).per(8)
-    @authorized  = @user.id == current_user.id
+    #@authorized  = @user.id == current_user.id
   end
 
   

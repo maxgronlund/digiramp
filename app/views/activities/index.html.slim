@@ -1,63 +1,65 @@
-#wrapper
-  .full-width-top
-    == render 'shared/navigationbar', page: 'activities' 
-  
-  
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
-  
-  #page-content-wrapper
-    .container-fluid
-      .row
-        .col-sm-8
-          /== render 'users/shared/profile'
-
-          
-          
-
-
-          .row.visible-xs-block
-            .col-sm-12
-              h3 Comments
-              .comments
-                == render 'users/guest_book'
-                
-                br
-                .rec-comments
-                  - @user.comments.order('created_at desc').each do |comment|
-                    == render 'comments/show', comment: comment
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          h3 Followed Users' Activities         
-          == render 'activities/index'
-          .endless_activities
-          == paginate( @wall_posts ) 
-          
-         
-        
-        
-        
-        
-        
-        .col-sm-4.hidden-xs
-          .comments
-            == render 'users/guest_book'
-                
-            br
-            .rec-comments
-              - @user.comments.order('created_at desc').each do |comment|
-                == render 'comments/show', comment: comment
-                
-            
-                 
-              
-  == render 'shared/site_footer'    
- 
+/#wrapper
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'activities' 
+/  
+/  
+/  #sidebar-wrapper
+/    ul class="sidebar-nav"
+/      == render 'users/shared/sidebar', selected: 'user'
+/  
+/  #page-content-wrapper
+/    .container-fluid
+/      .row
+/        .col-sm-8
+/          /== render 'users/shared/profile'
+/
+/          
+/          
+/
+/
+/          .row.visible-xs-block
+/            .col-sm-12
+/              h3 Comments
+/              .comments
+/                == render 'users/guest_book'
+/                
+/                br
+/                .rec-comments
+/                  - @user.comments.order('created_at desc').each do |comment|
+/                    == render 'comments/show', comment: comment
+/          
+/          
+/          
+/          
+/          
+/          
+/          
+/          
+/          
+/          h3 Followed Users' Activities         
+/          == render 'activities/index'
+/          .endless_activities
+/          == paginate( @wall_posts ) 
+/          
+/         
+/        
+/        
+/        
+/        
+/        
+/        .col-sm-4.hidden-xs
+/          /- @connections.each do |connection|
+/          /  = debug connection
+/          /.comments
+/          /  == render 'users/guest_book'
+/          /      
+/          /  br
+/          /  .rec-comments
+/          /    - @user.comments.order('created_at desc').each do |comment|
+/          /      == render 'comments/show', comment: comment
+/          /      
+/            
+/                 
+/              
+/  == render 'shared/site_footer'    
+'depricated 

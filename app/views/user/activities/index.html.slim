@@ -1,39 +1,88 @@
-      
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'admin'          
-  .container
-    == render 'admin/shared/messages'
-    /== render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: 'Activities'}
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'ACTIVITIES'} 
-    .row
-      .col-sm-12
-        .panel.panel-primary
-          .panel-heading
-            'Activities
-          .panel-body
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr
-                    th Action
-                    th Object
-                    th Date
-                    th Performed by
-                    th Resource
-                tbody
-                  - @activities.each do |activity|
-                    tr
-                      = render_activity activity
-
-                   
-        
-                      
-          
-    /== paginate(@activities)
-
+    == render 'shared/navigationbar', page: 'activities' 
   
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h3 Followed Users' Activities    
+      .sexy_line
+      .row
+        .col-sm-8
+               
+          == render 'activities/index'
+          .endless_activities
+          == paginate( @wall_posts ) 
+
+        .col-sm-4.hidden-xs
+          h4 Featured users
+          .digi-box.recomended-users
+            - @users.each do |user|
+              h5
+                 = link_to user.user_name, user
+              .row
+                .col-sm-12
+                  .rimage
+                    = link_to image_tag(user.image_url :avatar_92x92) , user_path( user )
+                  .rprofile
+                     = user.profession
+              .sexy_line
+          /- @connections.each do |connection|
+          /  = debug connection
+          /.comments
+          /  == render 'users/guest_book'
+          /      
+          /  br
+          /  .rec-comments
+          /    - @user.comments.order('created_at desc').each do |comment|
+          /      == render 'comments/show', comment: comment
+          /      
+            
+                 
+              
+  == render 'shared/site_footer' 
+
+
+      
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'admin'          
+/  .container
+/    == render 'admin/shared/messages'
+/    /== render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: 'Activities'}
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Admin'), blog_post: 'ACTIVITIES'} 
+/    .row
+/      .col-sm-12
+/        .panel.panel-primary
+/          .panel-heading
+/            'Activities
+/          .panel-body
+/            .table-responsive
+/              table class="table table-hover"
+/                thead
+/                  tr
+/                    th Action
+/                    th Object
+/                    th Date
+/                    th Performed by
+/                    th Resource
+/                tbody
+/                  - @activities.each do |activity|
+/                    tr
+/                      = render_activity activity
+/
+/                   
+/        
+/                      
+/          
+/    /== paginate(@activities)
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
 
   

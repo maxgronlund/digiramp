@@ -32,6 +32,17 @@
           
         .col-sm-7.pull-down-10
           .pull-right
+            - if current_user
+              - if ( @user.id == current_user.id )|| super?
+                = link_to user_user_activities_path(@user) do
+                  .btn.btn-primary
+                    i.fa.fa-history
+                    '&nbsp;Activities
+      .sexy_line
+      .row
+        .col-sm-6
+        .col-sm-6
+          .pull-right
             = form_tag("/users/#{@user.slug}/following/", method: "get", remote: true) do |f|
               .input-group
                 span class="input-group-addon"
@@ -42,7 +53,7 @@
                 .input-group-btn
                   => submit_tag 'Go', class: "btn btn-primary"
                   = link_to 'Clear', users_path( clear: 'clear'), class: 'btn btn-default'
-      .sexy_line
+      .pull-down-10
       .endless-users
         .person-badges
           .all-users
