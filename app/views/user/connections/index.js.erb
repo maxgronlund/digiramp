@@ -1,0 +1,7 @@
+$('.endless-pages').append("<%= j render 'user/connections/index', connections: @connections, user: @user %>");
+
+<% if (@connections.next_page) %>
+        $('.pagination').replaceWith('<%= j paginate(@connections) %>');
+<% else %>
+        $('.pagination').remove();
+<% end %>

@@ -79,6 +79,7 @@ class UsersController < ApplicationController
     @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
     @body_color = "#15141C"
     @image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
+    @hide_sidebar_toggle  = true
   end
   
   def find_user

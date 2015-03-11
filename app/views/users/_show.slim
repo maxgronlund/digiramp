@@ -6,6 +6,10 @@
     .avatar
       = image_tag( user.image_url :avatar_170x170) 
       .user-tags
+        /- if user.profession.to_s != ''
+        /  .user-tag
+        /    = user.profession
+        /    
         - if user.composer
           .user-tag
             'Composer

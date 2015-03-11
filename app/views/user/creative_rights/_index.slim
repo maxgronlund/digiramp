@@ -54,8 +54,9 @@
                     
                 td
                   .pull-right
-                    = link_to user_user_creative_right_path(@user, common_work), data: { confirm: 'Are you sure?' } , 
-                                                                                          turboboost: true, 
-                                                                                          :method => :delete do
-                          .btn.btn-danger.btn-xs
-                            i class="fa fa-times"
+                    /- if common_work
+                    /= link_to user_user_creative_right_path(@user, common_work), data: { confirm: 'Are you sure?' } , 
+                    /                                                                      turboboost: true, 
+                    /                                                                      :method => :delete do
+                    /      .btn.btn-danger.btn-xs
+                    /        i class="fa fa-times"

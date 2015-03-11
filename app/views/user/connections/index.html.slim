@@ -19,9 +19,10 @@
         .col-sm-7
           == render 'messages/navigation', selected: 'connections'
       .sexy_line
+      
       .digi-box
         .table-responsive
-          table class="table table-hover"
+          table class="table table-hover endless-pages"
             thead
               tr
                 th Name
@@ -33,6 +34,8 @@
             tbody
               - @connections.each do |connection|
                 == render 'user/connections/connection', user: @user, connection: connection
+              
+              
         
                 
         .row
