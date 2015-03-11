@@ -48,6 +48,8 @@
                   br
                   - if @user.cms_pages.count > 0
                    = f.input :default_cms_page_id, collection: @user.cms_pages, label: 'Default profile page', value_method: :id, include_blank: true
+                   
+                  = f.input :page_style_id, collection: PageStyle.all, label: 'Default profile page', value_method: :id, include_blank: true
                   
                   = f.input :private_profile, label: 'Hide my profile',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
                   /- if @user.name == User.create_uniq_user_name_from_email(@user.email)

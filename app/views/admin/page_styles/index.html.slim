@@ -1,0 +1,68 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path}, current: 'content'}
+      == render 'admin/shared/messages'
+      .row
+        .col-sm-6
+          h3 Page styles
+        .col-sm-6
+          .pull-right
+            = link_to 'New Page style', new_admin_page_style_path, class: 'btn btn-default'
+      .sexy_line
+      .digi-box
+
+        .table-responsive
+          table class="table table-hover"
+       
+            thead
+              tr
+                th
+                th Title
+                th Css tag
+                th Show backdrop
+                th Bgcolor
+                
+                th
+                th
+            
+            tbody
+              - @page_styles.each do |page_style|
+                tr
+                  td = image_tag page_style.backdrop_image_url(:thumb_64x32)
+                  th = page_style.title
+                  td = page_style.css_tag
+                  td 
+                    - if page_style.show_backdrop
+                      '√
+                  td = page_style.bgcolor
+                  td 
+                    => link_to 'Edit', edit_admin_page_style_path(page_style), class: 'btn btn-default btn-xs'
+                    = link_to admin_page_style_path(page_style), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+        
+        
+          
+        
+        
+          
+          
+          
+            
+          
+
+  == render 'shared/site_footer'    
+ 
+
+
+

@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
   #include ImageCrop
   
   has_one :account_users
+  has_one :belongs_to
   has_many :account_users
   has_many :recordings
   has_many :client_imports
@@ -168,7 +169,12 @@ class User < ActiveRecord::Base
   
   #has_one :default_cms_page
   
-  
+  def styling
+    
+    #unless style = PageStyle.where(id: self.page_style_id).first
+    #  style = 
+    
+  end
   def user_activities
     self.wall_posts.where(user_id: self.id)
   end

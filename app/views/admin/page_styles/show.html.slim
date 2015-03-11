@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @page_style.title
+p
+  strong Css tag:
+  = @page_style.css_tag
+p
+  strong Backdrop image:
+  = @page_style.backdrop_image
+p
+  strong Show backdrop:
+  = @page_style.show_backdrop
+p
+  strong Bgcolor:
+  = @page_style.bgcolor
+
+= link_to 'Edit', edit_page_style_path(@page_style)
+'|
+= link_to 'Back', page_styles_path

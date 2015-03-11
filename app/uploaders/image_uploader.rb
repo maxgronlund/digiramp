@@ -17,7 +17,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
-
+  
+  process :convert => 'jpg'
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
@@ -34,9 +35,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process :scale => [50, 50]
-  # end
+  version :thumb_64x32       do process :resize_to_fill   => [64,32   , 'Center']      end
+  version :thumb_32x32       do process :resize_to_fill   => [32,32   , 'Center']      end
+  version :thumb_368x184     do process :resize_to_fill   => [368,184   , 'Center']    end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

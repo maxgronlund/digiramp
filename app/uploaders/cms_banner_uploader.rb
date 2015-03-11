@@ -20,7 +20,7 @@ class CmsBannerUploader < CarrierWave::Uploader::Base
   def default_url
     ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.jpg"].compact.join('_'))
   end
-
+  process :convert => 'jpg'
   # Process files as they are uploaded:
   # process :scale => [200, 300]
   #

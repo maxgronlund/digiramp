@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310112130) do
+ActiveRecord::Schema.define(version: 20150311134631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1901,6 +1901,16 @@ ActiveRecord::Schema.define(version: 20150310112130) do
   add_index "opportunity_views", ["opportunity_id"], name: "index_opportunity_views_on_opportunity_id", using: :btree
   add_index "opportunity_views", ["user_id"], name: "index_opportunity_views_on_user_id", using: :btree
 
+  create_table "page_styles", force: true do |t|
+    t.string   "title"
+    t.string   "css_tag"
+    t.string   "backdrop_image"
+    t.boolean  "show_backdrop"
+    t.string   "bgcolor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "page_views", force: true do |t|
     t.string   "url"
     t.datetime "created_at"
@@ -2532,12 +2542,14 @@ ActiveRecord::Schema.define(version: 20150310112130) do
     t.boolean  "show_introduction",          default: false
     t.integer  "default_cms_page_id"
     t.integer  "news_count",                 default: 0
+    t.integer  "page_style_id"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
   add_index "users", ["default_playlist_id"], name: "index_users_on_default_playlist_id", using: :btree
   add_index "users", ["default_widget_key"], name: "index_users_on_default_widget_key", using: :btree
+  add_index "users", ["page_style_id"], name: "index_users_on_page_style_id", using: :btree
 
   create_table "video_blogs", force: true do |t|
     t.string   "title"

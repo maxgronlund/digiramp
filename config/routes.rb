@@ -2,8 +2,6 @@
 Digiramp::Application.routes.draw do
 
 
-  
-
   get 'issue_events/index'
 
   get 'issue_events/show'
@@ -355,6 +353,10 @@ Digiramp::Application.routes.draw do
     resources :digiramp_ads
     get 'features_and_values/index'
     resources :front_end_contents, only: [:edit, :update]
+    resources :page_styles
+    resources :issue_events
+    resources :client_events
+    resources :client_groups
     resources :helps
     resources :widget_themes
     get 'repair_permissions'

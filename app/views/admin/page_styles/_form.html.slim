@@ -1,0 +1,46 @@
+.row
+  .col-sm-6
+    .digi-box
+      = simple_form_for [:admin, @page_style] do |f|
+        = f.error_notification
+      
+        .form-inputs
+          = f.input :title
+          = f.input :css_tag
+          
+          
+          
+          
+          
+
+          .fileinput.fileinput-new data-provides="fileinput"
+            .fileinput-new.thumbnail style="width: 368px; height: 184px;"
+              - if @page_style.backdrop_image
+                = image_tag @page_style.backdrop_image
+              - else
+                = image_tag 'default-cover.jpg'
+
+            div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 368px; max-height: 184px;"
+            div
+              span.btn.btn-default.btn-file
+                span class="fileinput-new"
+                  'Change image
+                '&nbsp;
+                span class="fileinput-exists"
+                  'Change
+                = f.file_field :backdrop_image, multiple: false
+
+              '&nbsp;
+              a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                'Remove
+                    
+                    
+          /= f.input :backdrop_image
+          = f.input :show_backdrop,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+          = f.input :bgcolor
+      
+        .row
+          .col-sm-12
+            .pull-right
+              = f.submit 'Save', class: 'btn btn-primart'
+      
