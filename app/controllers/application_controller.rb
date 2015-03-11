@@ -11,32 +11,13 @@ class ApplicationController < ActionController::Base
   # activity logging
   include PublicActivity::StoreController
   
-  #before_filter :store_landing_page
-  
-  
-  #def store_landing_page
-  #  if current_user.nil? && session[:landing_page].nil?
-  #    session[:landing_page]  = request.url 
-  #  end
-  #  puts '-----------------------------------------------'
-  #  puts session[:landing_page]
-  #  puts '-----------------------------------------------'
-  #end
-  
-  #def facebook_cookies
-  #    @facebook_cookies ||= Koala::Facebook::OAuth.new(FACEBOOK_CONFIG['app_id'], FACEBOOK_CONFIG['secret_key']).get_user_info_from_cookie(cookies)
-  #end
-  
-  #before_filter :redirect_org
-  #
-  #def redirect_org
-  #  
-  #end
+
   before_filter :set_body_color
   
   def set_body_color
     @body_color = "#DDDDDD"
   end
+
   
   def current_user
     #User.where(email: 'test06@digiramp.com').first
@@ -235,14 +216,14 @@ class ApplicationController < ActionController::Base
        
        
       if current_user
-        session[:redirect_to_message]  =  request.url
+        session[:request_url]  =  request.url
         redirect_to error_not_found_path( error_id: options[:id], 
                                           user_id: options[:user_id], 
-                                          error_type: 'log_in_as_new_user_to_read_message',
-                                          redirect_to_message:  request.url)
+                                          error_type: 'log_in_as_new_user_to_read_message'
+                                          )
        
       else
-        session[:go_to_message]          =  request.url
+        session[:request_url]  =  request.url
         
         redirect_to error_not_found_path( error_id: 0, 
                                           user_id: options[:user_id], 
@@ -251,7 +232,7 @@ class ApplicationController < ActionController::Base
       end
     else
 
-      session[:landing_page] = request.url
+      session[:request_url] = request.url
       render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
       # redirect_to error_not_found_path 0
     end

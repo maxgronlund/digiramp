@@ -47,7 +47,10 @@ class ContactInvitationsController < ApplicationController
     if client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
       
       if @inviter       = User.cached_find(client_invitation.user_id)
-        connect_with_user( current_user, @inviter )
+        if connect_with_user( current_user, @inviter )
+        else
+           @message        = 'Unable to create connection'
+        end
       else
         @message        = 'Unable to create connection'
       end
@@ -62,11 +65,14 @@ class ContactInvitationsController < ApplicationController
   # if the invitation is ment for them
   def decline_connection
     
-    if client_invitation      = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
-      if @inviter             = User.where(id: client_invitation.user_id).first
-        connection            = connect_with_user( current_user, @inviter )
-        connection.dismissed  = true
-        connection.save!
+    if client_invitation        = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
+      if @inviter               = User.where(id: client_invitation.user_id).first
+        if connection           = connect_with_user( current_user, @inviter )
+          connection.dismissed  = true
+          connection.save!
+        else
+          @error = 'Error'
+        end
       else
          @error = 'Error'
       end
@@ -104,8 +110,11 @@ private
       if user_is_signed_up( client_invitation )
 
         if @inviter = client_invitation.user
-          connect_with_user(  @client.user, current_user  )
-          return "You are now connected with #{client_invitation.user.user_name}"
+          if connect_with_user(  @client.user, current_user  )
+            return "You are now connected with #{client_invitation.user.user_name}"
+          else
+            return 'Error: Inviter not found'
+          end
         else
            return 'Error: Inviter not found'
         end
@@ -237,8 +246,13 @@ private
       
       session[:show_profile_completeness] = false
       
-      connect_with_user( client.user, @user ) if client.user
-      return 'Success'
+      if client.user
+        if connect_with_user( client.user, @user ) 
+          return 'Success'
+        else
+          return 'Error: no user created'
+        end
+      end
     end
     return 'Error: no user created'
     
@@ -248,35 +262,37 @@ private
     
     unless connection = Connection.connected( user_a, user_b)
       # create connection on behaf of the invitor
-      connection = Connection.create( user_id: user_a.id,
-                                      connection_id: user_b.id,
-                                      approved: true,
-                                      dismissed: false,
-                                      message: "" )
+      if user_a && user_b
+        connection = Connection.create( user_id: user_a.id,
+                                        connection_id: user_b.id,
+                                        approved: true,
+                                        dismissed: false,
+                                        message: "" )
+                                        
+                                        
                                       
-                                      
-                                    
-      
-      #sender    = User.cached_find(@user.id)
-    
-      
-      @message = Message.create(recipient_id: user_a.id, sender_id: user_b.id, title: 'Invitation accepted', body: "Your invitation send to #{user_b.email} has been accepted")
-      
-
-    
-      inviter   = User.cached_find(user_a.id)
-      invited   = User.cached_find(user_b.id)
-      channel = 'digiramp_radio_' + inviter.email
-      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Invitation accepted', 
-                                            "message" => "#{invited.user_name} has accepted your invitation", 
-                                            "time"    => '2000', 
-                                            "sticky"  => 'false', 
-                                            "image"   => 'notice'
-                                            })
-          
-    
- 
-      @message.send_as_email 
+        
+        #sender    = User.cached_find(@user.id)
+        
+        
+        @message = Message.create(recipient_id: user_a.id, sender_id: user_b.id, title: 'Invitation accepted', body: "Your invitation send to #{user_b.email} has been accepted")
+        
+        
+        
+        inviter   = User.cached_find(user_a.id)
+        invited   = User.cached_find(user_b.id)
+        channel = 'digiramp_radio_' + inviter.email
+        Pusher.trigger(channel, 'digiramp_event', {"title" => 'Invitation accepted', 
+                                              "message" => "#{invited.user_name} has accepted your invitation", 
+                                              "time"    => '2000', 
+                                              "sticky"  => 'false', 
+                                              "image"   => 'notice'
+                                              })
+            
+        
+       
+        @message.send_as_email 
+      end
 
     end
     connection

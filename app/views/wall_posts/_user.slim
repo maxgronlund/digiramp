@@ -6,11 +6,11 @@
       = follower_event.destroy
     - else
       
-      .sexy_line
       
-      .row
-        .col-sm-12
-          .comments-content
+      .comments-content
+        .row
+          .col-sm-12
+            
             - if current_user && current_user.id == @user.id
               .pull-right
                 = link_to follower_event_path(follower_event.id), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do

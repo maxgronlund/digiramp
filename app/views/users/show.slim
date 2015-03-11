@@ -1,45 +1,97 @@
 /== render 'user/connections/modal', modal_id: "connect_modal_#{@user.id.to_s}", recipient: @user, subjebtable: @user 
-#wrapper
-  .full-width-top
-    == render 'shared/navigationbar', page: 'user' 
-  
-  
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'profile'
-  
-  #page-content-wrapper
-    .container-fluid
-      .row
-        .col-sm-8
-          == render 'users/shared/profile'
-
-          - if current_user && current_user.id == @user.id && @user.show_introduction
-            == render 'instructions'
-
-          
-
-          h3 Activities
-          == render 'user_activities'
-          .endless_activities
-          
-          == paginate(@user_activities)
-          
-        .col-sm-4
-          .comments
-            == render 'users/guest_book'
-                
-            br
-            .rec-comments
-              - @user.comments.order('created_at desc').each do |comment|
-                == render 'comments/show', comment: comment
-          
-          
-                
-            
-                 
-              
-  == render 'shared/site_footer'    
+/#wrapper
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'user' 
+/  
+/  
+/  #sidebar-wrapper
+/    ul class="sidebar-nav"
+/      == render 'users/shared/sidebar', selected: 'profile'
+/  
+/  #page-content-wrapper
+/    .container-fluid
+/      .row
+/        .col-sm-8
+/          == render 'users/shared/profile'
+/
+/          - if current_user && current_user.id == @user.id && @user.show_introduction
+/            == render 'instructions'
+/
+/          
+/
+/          h3 Activities
+/          == render 'user_activities'
+/          .endless_activities
+/          == paginate(@user_activities)
+/          
+/        .col-sm-4
+/          .comments
+/            == render 'users/guest_book'
+/                
+/            br
+/            .rec-comments
+/              - @user.comments.order('created_at desc').each do |comment|
+/                == render 'comments/show', comment: comment
+/             
+/  == render 'shared/site_footer'    
  
 
+.default-style
+  /#wrap
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
 
+  .container-fluid
+    .cms-backdrop
+      = image_tag @image_url
+      /== render "user/cms_pages/themes/#{@cms_page.theme.downcase}"
+    
+    .cms-content
+      .container-fluid
+        /.row
+        /  .col-sm-12
+        .row
+          .col-sm-8
+            == render 'cms_pages/cms_profile'
+            h3 Activities
+            == render 'user_activities'
+            .endless_activities
+            == paginate(@user_activities)
+          
+          .col-sm-4.stick-to-top.hidden-xs
+            .digi-box
+              == render 'users/guest_book'
+              br
+              .rec-comments
+                - @user.comments.order('created_at desc').each do |comment|
+                  == render 'comments/show', comment: comment
+                  
+            /== render 'cms_pages/cms_comment'
+            /.comments
+            /  == render 'users/guest_book'
+            /      
+            /  br
+            /  .rec-comments
+            /    - @user.comments.order('created_at desc').each do |comment|
+            /      == render 'comments/show', comment: comment
+            /
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        /== render "cms_pages/layouts/#{@cms_page.layout.downcase}"
+        
+        /-if (current_user && current_user.id == @user.id) || super?
+        /  .row
+        /    .col-sm-12.pull-down-10
+        /      .pull-right
+        /        = link_to 'Edit', edit_user_user_cms_page_path(@user, @cms_page), class: 'btn btn-primary'
+        /  .row
+        /    .col-sm-12.pull-down-48
+        
+  == render 'shared/site_footer'   

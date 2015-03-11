@@ -1,0 +1,21 @@
+h1 Listing cms_user_activities
+
+table
+  thead
+    tr
+      th User
+      th
+      th
+      th
+
+  tbody
+    - @cms_user_activities.each do |cms_user_activity|
+      tr
+        td = cms_user_activity.user
+        td = link_to 'Show', cms_user_activity
+        td = link_to 'Edit', edit_cms_user_activity_path(cms_user_activity)
+        td = link_to 'Destroy', cms_user_activity, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Cms user activity', new_cms_user_activity_path

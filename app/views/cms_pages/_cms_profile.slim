@@ -1,5 +1,6 @@
-.cms-profile
-  .digi-box
+
+.digi-box
+  .cms-profile
     .row
       .col-sm-12
         h2 = @user.user_name
@@ -180,7 +181,7 @@
             .inline-button
               - if current_user.id == @user.id || super?
                 / Edit profile
-                = link_to edit_user_path(current_user) do
+                = link_to edit_user_path(@user) do
                   .btn.btn-default
                     i class="fa fa-pencil"
                     '&nbsp;

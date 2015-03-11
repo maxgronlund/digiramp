@@ -2,6 +2,12 @@
 Digiramp::Application.routes.draw do
 
 
+  
+
+  get 'issue_events/index'
+
+  get 'issue_events/show'
+
   resources :add_to_playlists, only: [:create]
   resources :become_members, only: [:new]
   resources :business_account_info, only: [:index]
@@ -700,10 +706,11 @@ Digiramp::Application.routes.draw do
       resources :cms_videos, only: [:edit, :update]
       resources :cms_texts, only: [:edit, :update]
       resources :cms_playlists, only: [:edit, :update]
-       resources :cms_profiles, only: [:edit, :update]
+      resources :cms_profiles, only: [:edit, :update]
       resources :cms_comments, only: [:edit, :update]
       resources :cms_page_layouts, only: [:edit, :update]
       resources :cms_contacts, only: [:edit, :update]
+      resources :cms_user_activities, only: [:edit, :update]
       get 'cms_module_moves/update'
       get 'playlist_recording_moves/update'
       resources :cms_pages do

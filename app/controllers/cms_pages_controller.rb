@@ -10,8 +10,11 @@ class CmsPagesController < ApplicationController
   # GET /cms_pages/1
   # GET /cms_pages/1.json
   def show
-      @body_color = "#000000"
+      @body_color = "#15141C"
       @image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
+      
+      @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
+      @playlists       = current_user.playlists
   end
 
   # GET /cms_pages/new

@@ -63,6 +63,8 @@
 //= require jquery.linkify.min
 //= require linkify
 //= require cms_module
+//= require jquery.slimscroll  
+//= require slimscroll  
 // require facebook
 // require bootstrapValidator.min
 // require bootstrap-tokenfield

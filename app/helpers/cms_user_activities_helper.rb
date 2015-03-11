@@ -1,0 +1,2 @@
+module CmsUserActivitiesHelper
+end

@@ -7,9 +7,13 @@ class PublicOpportunitiesController < ApplicationController
   
   def show
     @opportunity = Opportunity.cached_find(params[:id])
-    redirect_to user_user_opportunity_path( current_user, @opportunity) if current_user
     
-     OpportunityView.create(user_id: nil, opportunity_id: @opportunity.id)
+    if current_user
+      redirect_to user_user_opportunity_path( current_user, @opportunity) if current_user
+    else
+      forbidden unless @opportunity.public_opportunity
+    end
+    #OpportunityView.create(user_id: nil, opportunity_id: @opportunity.id)
 
   end
 end

@@ -168,9 +168,14 @@ private
               recipient_type: current_user.class.name,
                   account_id: user.account_id)
      
-    #go_to = session[:landing_page] 
-    #session[:landing_page]    = nil
-    if recording_id = session[:share_recording_id]   
+
+    if session[:request_url]
+      go_to = session[:request_url]
+      session[:request_url] = nil
+      redirect_to go_to
+
+    
+    elsif recording_id = session[:share_recording_id]   
       session[:share_recording_id]   = nil
       # switch provider
       if provider
@@ -200,6 +205,13 @@ private
     else  
       redirect_to session[:current_page]
     end
+    
+    
+    
+    
+    
+    
+    
       
   end
 

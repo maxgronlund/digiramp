@@ -49,6 +49,7 @@ class UsersController < ApplicationController
   def show
     
     if request.format.to_s == 'text/html'
+      
       unless current_user && @user != current_user
        
         @user.views += 1 
@@ -76,6 +77,8 @@ class UsersController < ApplicationController
       #end
     end
     @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
+    @body_color = "#15141C"
+    @image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
   end
   
   def find_user

@@ -13,6 +13,7 @@ class User::CmsPagesController < ApplicationController
       @user.save
     end
     
+    
   end
 
   def new
@@ -20,6 +21,14 @@ class User::CmsPagesController < ApplicationController
   end
 
   def edit
+    
+    @body_color = "#15141C"
+    @image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
+    
+    @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
+    @playlists       = current_user.playlists
+    
+    
   end
 
   def create

@@ -1,0 +1,7 @@
+$('.endless_activities').append("<%= j render 'users/user_activities' %>");
+
+<% if (@user_activities.next_page) %>
+        $('.pagination').replaceWith('<%= j paginate(@user_activities) %>');
+<% else %>
+        $('.pagination').remove();
+<% end %>

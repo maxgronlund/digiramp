@@ -1,0 +1,8 @@
+.row
+  .col-sm-12
+    .digi-box
+      h3 Activities
+      == render 'users/user_activities'
+      .endless_activities
+      
+      == paginate(@user_activities)

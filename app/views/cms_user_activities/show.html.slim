@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong User:
+  = @cms_user_activity.user
+
+= link_to 'Edit', edit_cms_user_activity_path(@cms_user_activity)
+'|
+= link_to 'Back', cms_user_activities_path

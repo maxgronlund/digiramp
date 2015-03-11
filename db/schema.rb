@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150308100219) do
+ActiveRecord::Schema.define(version: 20150310112130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -871,6 +871,14 @@ ActiveRecord::Schema.define(version: 20150308100219) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "cms_user_activities", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cms_user_activities", ["user_id"], name: "index_cms_user_activities_on_user_id", using: :btree
 
   create_table "cms_vertical_links", force: true do |t|
     t.datetime "created_at"

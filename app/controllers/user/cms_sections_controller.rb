@@ -128,6 +128,13 @@ class User::CmsSectionsController < ApplicationController
       @cms_section.cms_module_type  = @cms_text.class.name
       @cms_section.save!
       redirect_to edit_user_user_cms_text_path(@user, @cms_text)
+      
+    when 'Activities'
+      @cms_user_activities          = CmsUserActivity.create(user_id: @user.id)
+      @cms_section.cms_module_id    = @cms_user_activities.id
+      @cms_section.cms_module_type  = @cms_user_activities.class.name
+      @cms_section.save!
+      redirect_to edit_user_user_cms_page_path(@user, @cms_user_activities.cms_section.cms_page)
 
     when 'Vertical links'
       @cms_vertical_link = CmsVerticalLink.create
