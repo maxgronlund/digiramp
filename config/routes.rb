@@ -1,4 +1,3 @@
-
 Digiramp::Application.routes.draw do
 
 
@@ -577,6 +576,10 @@ Digiramp::Application.routes.draw do
       resources :recordings do
         resources :recording_artworks
         resources :recording_ipis 
+        resources :recording_files
+        resources :recording_documents
+        resources :recording_financial_documents
+        resources :recording_legal_documents
         member do
           get "files"
           get "documents"
@@ -584,6 +587,10 @@ Digiramp::Application.routes.draw do
           get "financial_documents"
         end
       end
+      resources :recording_basics, only: [:edit, :update]
+      resources :recording_lyrics, only: [:edit, :update]
+      resources :recording_tags, only: [:edit, :update]
+      
       resources :uploads, only: [:index]
       resources :widgets
     end
@@ -831,3 +838,4 @@ Digiramp::Application.routes.draw do
                                                             }
   
 end
+
