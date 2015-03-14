@@ -222,7 +222,7 @@
             i class="fa fa-sign-in"
             '&nbsp;
             'Log in
-- if current_user
+- if @user
   == render 'shared/user_navigation_bar', section: @user, page: page
   .pull-down-34
     
