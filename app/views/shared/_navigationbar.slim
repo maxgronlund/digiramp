@@ -1,8 +1,7 @@
+
 .navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
   .navbar-header
-    
-    /  
-    button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+    button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#system-navbar"
       span class="sr-only"
         Toggle navigation
       span class="icon-bar"
@@ -16,39 +15,19 @@
           = link_to profile_path_for( current_user) do
             = image_tag current_user.image_url(:avatar_32x32)
             '&nbsp;
-      - else
-        = link_to root_path do
-          /.navbar-brand
-          = image_tag 'logo5.png', size: "165x32", class: 'large-logo'
-          = image_tag 'logo4.png', size: "40x32", class: 'small-logo'
-          
+      /- else
+      = link_to root_path do
+        /.navbar-brand
+        = image_tag 'logo5.png', size: "165x32", class: 'large-logo'
+        = image_tag 'logo4.png', size: "40x32", class: 'small-logo'
+        
       - if @hide_sidebar_toggle.nil?
         .navigation-toggle
           .btn.btn-sidemenu id='menu-toggle'
             i.fa.fa-angle-double-right
             i.fa.fa-angle-double-left style="display: none;"
-          
-      
-    /.global-player
-    /  .global-stop-button
-    /    i.fa.fa-pause
-    /  .global-play-button
-    /    i.fa.fa-play
-    /  .global-spinner
-    /    i.fa.fa-spinner.fa-spin
 
-        
-        
-      /.title
-      /  h3 class='global-player-song-title'
-      /    '&nbsp;
-      /  h6 class='global-player-song-artist'
-      /    '&nbsp;
-
-
-      
-
-  .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
+  .collapse.navbar-collapse id="system-navbar"
     
     /= simple_form_for :search, :url => url_for(:action => 'index', \
     /                                            :controller => 'songs'), \
@@ -83,8 +62,8 @@
             i.fa.fa-money
             '&nbsp;
             'Opportunities
-      li
-        h3 <funky> Beta</funky>
+      /li
+      /  h3 <funky> Beta</funky>
       
           
         
@@ -109,106 +88,144 @@
         /
 
     ul class="nav navbar-nav navbar-right"   
+      /  li class="dropdown"
+      /    /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+      /    = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
+      /      i.fa.fa-cog
+      /    ul class="dropdown-menu" role="menu"
+      /      - if current_user  
+      /
+      /        
+      /        li    
+      /          = link_to logout_path do
+      /            i class="fa fa-unlock"
+      /            '&nbsp;
+      /            'Log Out
+      /        li class="divider"    
+      /        /li  class="#{page == 'edit_profile' ? 'active' : ''}"
+      /        /  = link_to edit_user_path(current_user) do
+      /        /    i class="fa fa-pencil"
+      /        /    '&nbsp;
+      /        /    'Edit Profile
+      /            
+      /
+      /        
+      /        li  class="#{page == 'contacts' ? 'active' : ''}"
+      /          = link_to user_user_control_panel_index_path(current_user ) do
+      /            i class="fa fa-tachometer"
+      /            '&nbsp;
+      /            'Control panel
+      /
+      
+      - if current_user
+        li    
+          = link_to logout_path do
+            i class="fa fa-unlock"
+            '&nbsp;
+            'Log Out
       /li.discover-back
       /  = link_to songs_path do
       /    i class="fa fa-search"
       /    '&nbsp;
       /    'Search
-      - if user_signed_in? && current_account
-        li class="#{page == 'messages' ? 'active' : ''}"
-          = link_to user_unread_messages_path(current_user) do
-            div id="message_count"
-            == render 'messages/count'
-            i.fa.fa-envelope
-        /li class="#{page == 'activities' && @user == current_user ? 'active' : ''}"
-        /  = link_to user_user_activities_path(current_user) do
-        /    i.fa.fa-home
-        /li class="#{page == 'user' && @user == current_user ? 'active' : ''}"
-        /  = link_to profile_path_for( current_user) do
-        /    = image_tag current_user.image_url(:avatar_32x32)
-        /    '&nbsp;
-        
-        
-      - if user_signed_in?  
-        li class="dropdown"
-          /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-          = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
-            i.fa.fa-cog
-          ul class="dropdown-menu" role="menu"
-            - if current_user  
-
-              
-              li    
-                = link_to logout_path do
-                  i class="fa fa-unlock"
-                  '&nbsp;
-                  'Log Out
-              li class="divider"    
-              /li  class="#{page == 'edit_profile' ? 'active' : ''}"
-              /  = link_to edit_user_path(current_user) do
-              /    i class="fa fa-pencil"
-              /    '&nbsp;
-              /    'Edit Profile
-                  
-
-              
-              li  class="#{page == 'contacts' ? 'active' : ''}"
-                = link_to user_user_control_panel_index_path(current_user ) do
-                  i class="fa fa-tachometer"
-                  '&nbsp;
-                  'Control panel
-      
-
-                  
-              - unless current_user.account.account_type  == "Social"    
-                li class="divider"
-                li  class="#{page == 'account' ? 'active' : ''}"
-                  = link_to account_account_path( current_user.account) do
-                    i class="fa fa-tachometer"
-                    '&nbsp;
-                    'Pro Account
-                    
-                li  class="#{page == 'user_collections' ? 'active' : ''}"
-                  = link_to user_user_collections_path( current_user) do
-                    i class="fa fa-tachometer"
-                    '&nbsp;
-                    'Other Accounts
-                    
-                li  class="#{page == 'catalogs' ? 'active' : ''}"
-                  = link_to user_user_catalogs_path( current_user) do
-                    i class="fa fa-book"
-                    '&nbsp;
-                    'Catalogs
-                    
-                - if super?
+      /- if user_signed_in? && current_account
+      /  li class="#{page == 'messages' ? 'active' : ''}"
+      /    = link_to user_unread_messages_path(current_user) do
+      /      div id="message_count"
+      /      == render 'messages/count'
+      /      i.fa.fa-envelope
+      /  /li class="#{page == 'activities' && @user == current_user ? 'active' : ''}"
+      /  /  = link_to user_user_activities_path(current_user) do
+      /  /    i.fa.fa-home
+      /  /li class="#{page == 'user' && @user == current_user ? 'active' : ''}"
+      /  /  = link_to profile_path_for( current_user) do
+      /  /    = image_tag current_user.image_url(:avatar_32x32)
+      /  /    '&nbsp;
+      /  
+      /  
+      /- if user_signed_in?  
+      /  li class="dropdown"
+      /    /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+      /    = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
+      /      i.fa.fa-cog
+      /    ul class="dropdown-menu" role="menu"
+      /      - if current_user  
+      /
+      /        
+      /        li    
+      /          = link_to logout_path do
+      /            i class="fa fa-unlock"
+      /            '&nbsp;
+      /            'Log Out
+      /        li class="divider"    
+      /        /li  class="#{page == 'edit_profile' ? 'active' : ''}"
+      /        /  = link_to edit_user_path(current_user) do
+      /        /    i class="fa fa-pencil"
+      /        /    '&nbsp;
+      /        /    'Edit Profile
+      /            
+      /
+      /        
+      /        li  class="#{page == 'contacts' ? 'active' : ''}"
+      /          = link_to user_user_control_panel_index_path(current_user ) do
+      /            i class="fa fa-tachometer"
+      /            '&nbsp;
+      /            'Control panel
+      /
+      /
+      /            
+      /        - unless current_user.account.account_type  == "Social"    
+      /          li class="divider"
+      /          li  class="#{page == 'account' ? 'active' : ''}"
+      /            = link_to account_account_path( current_user.account) do
+      /              i class="fa fa-tachometer"
+      /              '&nbsp;
+      /              'Pro Account
+      /              
+      /          li  class="#{page == 'user_collections' ? 'active' : ''}"
+      /            = link_to user_user_collections_path( current_user) do
+      /              i class="fa fa-tachometer"
+      /              '&nbsp;
+      /              'Other Accounts
+      /              
+      /          li  class="#{page == 'catalogs' ? 'active' : ''}"
+      /            = link_to user_user_catalogs_path( current_user) do
+      /              i class="fa fa-book"
+      /              '&nbsp;
+      /              'Catalogs
+      /              
+      /          - if super?
+      /
+      /
+      /            li  class="#{page == 'admin' ? 'active' : ''}"
+      /              = link_to admin_index_path do
+      /                i class="fa fa-gear"
+      /                '&nbsp;
+      /                'Admin
+      /
+      /  
+      /  
+      /        
+      /
     
-    
-                  li  class="#{page == 'admin' ? 'active' : ''}"
-                    = link_to admin_index_path do
-                      i class="fa fa-gear"
-                      '&nbsp;
-                      'Admin
-
-        
-        
-              
-    
-    - unless current_user
-      ul class="nav navbar-nav navbar-right"
+      - else
         /= link_to '#', 'type.to_sym'.to_sym => "button", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#loginModal" do
         /  i class="fa fa-sign-in"
         /  '&nbsp;
         /  'Log in
         li
-          .pull-down-8
+          .sign-up
             = link_to signup_index_path do
-              .btn.btn-warning
-                'Sign up
+              'Sign up
         li 
           = link_to login_new_path do
             i class="fa fa-sign-in"
             '&nbsp;
             'Log in
+- if current_user
+  == render 'shared/user_navigation_bar', section: @user, page: page
+  .pull-down-34
+    
 
 
     

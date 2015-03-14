@@ -6,10 +6,16 @@ class Account::RecordingArtworksController < ApplicationController
   before_filter :read_recording
   
   def index
+
+    forbidden unless current_account_user.read_file?   
+    @user  = current_user
     #@recording = Recording.cached_find(params[:id])
   end
   
   def show
+
+    forbidden unless current_account_user.read_file?   
+    @user  = current_user
     @recording = Recording.cached_find(params[:recording_id])
     @artwork = Artwork.cached_find(params[:id])
   end

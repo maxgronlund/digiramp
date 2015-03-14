@@ -9,29 +9,35 @@ class Account::RecordingIpisController < ApplicationController
   # GET /recording_ipis
   # GET /recording_ipis.json
   def index
-    @recording = Recording.cached_find(params[:recording_id])
 
+    forbidden unless current_account_user.read_recording_ipi?   
+    @recording = Recording.cached_find(params[:recording_id])
+    @user      = current_user
   end
 
   # GET /recording_ipis/1
   # GET /recording_ipis/1.json
   def show
+    
   end
 
   # GET /recording_ipis/new
   def new
+    forbidden unless current_account_user.create_recording_ipi?   
     @recording_ipi = RecordingIpi.new
     @recording = Recording.cached_find(params[:recording_id])
   end
 
   # GET /recording_ipis/1/edit
   def edit
+    forbidden unless current_account_user.update_recording_ipi?   
     @recording = Recording.cached_find(params[:recording_id])
   end
 
   # POST /recording_ipis
   # POST /recording_ipis.json
   def create
+    forbidden unless current_account_user.create_recording_ipi?   
     @recording      = Recording.cached_find(params[:recording_id])
     @recording_ipi  = RecordingIpi.create(recording_ipi_params)
     redirect_to account_account_recording_recording_ipis_path(@account, @recording)
@@ -50,6 +56,7 @@ class Account::RecordingIpisController < ApplicationController
   # PATCH/PUT /recording_ipis/1
   # PATCH/PUT /recording_ipis/1.json
   def update
+    forbidden unless current_account_user.update_recording_ipi?   
     @recording      = Recording.cached_find(params[:recording_id])
     @recording_ipi.update(recording_ipi_params)
 
@@ -60,6 +67,7 @@ class Account::RecordingIpisController < ApplicationController
   # DELETE /recording_ipis/1
   # DELETE /recording_ipis/1.json
   def destroy
+    forbidden unless current_account_user.delete_recording_ipi?   
     @recording      = Recording.cached_find(params[:recording_id])
     @recording_ipi.destroy
     redirect_to account_account_recording_recording_ipis_path(@account, @recording)
@@ -74,6 +82,7 @@ class Account::RecordingIpisController < ApplicationController
     def set_recording_ipi
       @recording = Recording.cached_find(params[:recording_id])
       @recording_ipi = RecordingIpi.cached_find(params[:id])
+      @user      = current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -8,7 +8,7 @@
   .default-style
     /#wrap
     .full-width-top
-      == render 'shared/navigationbar', page: 'user' 
+      == render 'shared/navigationbar', page: @cms_page.title 
 
     .container-fluid
       .cms-backdrop

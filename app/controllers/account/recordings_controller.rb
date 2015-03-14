@@ -15,12 +15,15 @@ class Account::RecordingsController < ApplicationController
     forbidden unless current_account_user.read_recording?
     @recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     @show_more      = true
+    @user           = current_user
   end
 
   def show
     
     forbidden unless current_account_user.read_recording
+    @user           = current_user
     begin
+      
       @recording      = Recording.cached_find(params[:id])
       
       @recording.create_activity(  :show, 
@@ -37,6 +40,7 @@ class Account::RecordingsController < ApplicationController
   
   def edit
     forbidden unless current_account_user.update_recording?
+    @user           = current_user
     #@common_work    = CommonWork.find(params[:common_work_id])
     @recording              = Recording.find(params[:id])
     
@@ -52,6 +56,7 @@ class Account::RecordingsController < ApplicationController
   
   def new
     forbidden unless current_account_user.create_recording?
+    @user           = current_user
     #@common_work    = CommonWork.cached_find(params[:common_work_id])
     @recording      = Recording.new
   end

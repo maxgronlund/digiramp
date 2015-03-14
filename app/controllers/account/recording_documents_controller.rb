@@ -6,13 +6,15 @@ class Account::RecordingDocumentsController < ApplicationController
   before_filter :read_recording
   
   def index
-    
+    forbidden unless current_account_user.can_manage_assets?
     @files = Attachment.where(attachable_type: 'Recording', attachable_id: @recording.id, file_type: 'document')
-    
+    @user  = current_user
   end
 
   def new
+    forbidden unless current_account_user.can_manage_assets?
     @attachments = Attachment.new
+    @user        = current_user
   end
 
   def create

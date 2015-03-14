@@ -3,45 +3,45 @@
 
         
   - if @user      
-    li
-      .sidebar-user-profile
-        = link_to profile_path_for( @user) do
-          .user-name
-            h4 = @user.user_name
-            
-          .user-avatar
-            =  image_tag @user.image_url(:avatar_184x184) 
-          
-        .user-buttons 
-          - if current_user 
-            
-            - if current_user.id == @user.id
-              / Edit profile
-              = link_to edit_user_path(current_user) do
-                .btn.btn-default
-                  i class="fa fa-pencil"
-                  '&nbsp;
-                  'Edit profile
-            - else
-              / Follow / unfollow
-              div id="follow_user_#{@user.id.to_s}"
-                -if current_user.following?(@user)
-                  == render 'users/unfollow', user: @user
-                - else 
-                  == render 'users/follow', user: @user
-     
-              .connect-container
-                .connect-buttons
-                == render 'users/connect', user: @user
-
-          - else
-            / connect when not logged in
-            = link_to new_become_member_path(user: @user, bounce_back: request.url), remote: true do
-                  .btn.btn-primary
-                    i.fa.fa-refresh
-                    '&nbsp;Connect
-              
-      .sexy_line 
+    /li
+    /  .sidebar-user-profile
+    /    /= link_to profile_path_for( @user) do
+    /    /  .user-name
+    /    /    h4 = @user.user_name
+    /    /    
+    /    /  .user-avatar
+    /    /    =  image_tag @user.image_url(:avatar_184x184) 
+    /    /  
+    /    .user-buttons 
+    /      - if current_user 
+    /        
+    /        /- if current_user.id == @user.id
+    /        /  / Edit profile
+    /        /  = link_to edit_user_path(current_user) do
+    /        /    .btn.btn-default
+    /        /      i class="fa fa-pencil"
+    /        /      '&nbsp;
+    /        /      'Edit profile
+    /        /- unless current_user.id == @user.id
+    /        /  / Follow / unfollow
+    /        /  div id="follow_user_#{@user.id.to_s}"
+    /        /    -if current_user.following?(@user)
+    /        /      == render 'users/unfollow', user: @user
+    /        /    - else 
+    /        /      == render 'users/follow', user: @user
+    /        /
+    /        /  .connect-container
+    /        /    .connect-buttons
+    /        /    == render 'users/connect', user: @user
+    /
+    /      - else
+    /        / connect when not logged in
+    /        = link_to new_become_member_path(user: @user, bounce_back: request.url), remote: true do
+    /              .btn.btn-primary
+    /                i.fa.fa-refresh
+    /                '&nbsp;Connect
+    /          
+    /  .sexy_line 
     li class="#{'sidebar-selected' if selected == 'profile'}"
       = link_to user_path(@user) do
         i class="fa fa-user"

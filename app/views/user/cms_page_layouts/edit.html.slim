@@ -40,6 +40,8 @@
               = f.input :title
               = f.input :layout, collection: CmsPage::LAYOUTS
               = f.input :hide_sidebar,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+              = f.input :show_in_menu,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+              
             .col-sm-6
               = f.input :theme, collection: CmsPage::THEMES, include_blank: false
               /.row

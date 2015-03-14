@@ -8,7 +8,7 @@ class CmsSection < ActiveRecord::Base
                    'Comment', 
                    'Horizontal links', 
                    'Image', 
-                   'Menu bar',
+                   #'Menu bar',
                    'Playlist', 
                    'Playlist link',
                    'Profile', 

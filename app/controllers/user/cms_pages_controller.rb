@@ -8,10 +8,15 @@ class User::CmsPagesController < ApplicationController
 
   def show
     
-    if current_user && @user != current_user
+    if current_user && @user.id != current_user.id
       @user.views += 1 
       @user.save
     end
+    
+    if current_user && (@user.id == current_user.id || super?)
+      @edit_page == true
+    end
+    
     
     
   end

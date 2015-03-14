@@ -14,7 +14,7 @@ class CmsPagesController < ApplicationController
       @image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
       
       @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
-      @playlists       = current_user.playlists
+      @playlists       = current_user.playlists if current_user
   end
 
   # GET /cms_pages/new

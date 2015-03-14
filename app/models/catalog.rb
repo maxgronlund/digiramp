@@ -26,7 +26,7 @@ class Catalog< ActiveRecord::Base
   #before_save  :update_uuid
   after_commit :flush_cache
 
-  before_destroy :remove_account_users
+  #before_destroy :remove_account_users
   after_create   :add_related_objects
   
   def add_related_objects
@@ -196,9 +196,9 @@ private
     Rails.cache.delete([self.class.name, id])
   end
   
-  def remove_account_users
-    puts '----------------------------------'
-    puts 'remove_account_users'
-  end
+  #def remove_account_users
+  #  puts '----------------------------------'
+  #  puts 'remove_account_users'
+  #end
 
 end

@@ -1,5 +1,5 @@
 
-= simple_form_for [:account, @account, @recording, @recording_ipi] do |f|
+= simple_form_for [:account, @account, @recording, @recording_ipi], turboboost: true do |f|
   .row
     .col-sm-12
       = f.hidden_field :recording_id, value: @recording.id

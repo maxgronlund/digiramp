@@ -4,7 +4,7 @@
       .col-sm-12
         = f.hidden_field  :commentable_id,    value: @user.id
         = f.hidden_field  :commentable_type,  value: @user.class.name
-        = f.hidden_field  :user_id,  value: current_user.id
+        = f.hidden_field  :user_id,           value: current_user.id
         h4 Comments
         /= f.input :title, placeholder: 'Title', label: false
         = f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Write Comment"}
@@ -12,6 +12,22 @@
       .col-sm-12
         .pull-right
           = f.submit 'Post', class: 'btn btn-primary'
-
+- else
+  = simple_form_for [ Comment.new ], remote: true do |f|
+    .row
+      .col-sm-12
+        /= f.hidden_field  :commentable_id,    value: @user.id
+        /= f.hidden_field  :commentable_type,  value: @user.class.name
+        /= f.hidden_field  :user_id,           value: current_user.id
+        h4 Comments
+        /= f.input :title, placeholder: 'Title', label: false
+        = f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Write Comment"}
+    .row
+      .col-sm-12
+        .pull-right
+          /= f.submit 'Post', class: 'btn btn-primary'
+          = link_to new_become_member_path(user: @user, bounce_back: request.url), remote: true do
+            .btn.btn-primary
+              '&nbsp;Post
     
 

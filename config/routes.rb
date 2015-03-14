@@ -1,6 +1,10 @@
 Digiramp::Application.routes.draw do
 
 
+  get 'user_menu/edit'
+
+  get 'user_menu/update'
+
   get 'issue_events/index'
 
   get 'issue_events/show'

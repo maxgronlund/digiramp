@@ -5,11 +5,45 @@ $navbar-color: #2B2B38
 
 //.navbar-digiramp .nav > li > a:hover, .navbar-digiramp .nav > li > a:focus 
 //  background-color: #166BAB
+.navbar
+  border: none
+  min-height: 34px
+  margin-bottom: 0px
+  
+.navbar-collapse
+  padding: 0px
+  
+.navbar-brand 
+  height: 34px
+  padding: 0px 
+
+.navbar-nav
+  margin: 0px
+
+  
+.navbar-nav > li > a 
+  font-size: 16px
+  
+.navbar-toggle 
+  padding: 0px
+  .icon-bar 
+    display: block
+    width: 22px
+    height: 2px
+    border-radius: 0px
+    background-color: #FFF
 
 
 .navbar-digiramp 
+  .sign-up
+    height: 34px
+    background-color: #F49B4E
+    padding: 7px
+    a
+      color: #fff
+
   background-color: $navbar-color
-  border-color: #d0d0d0
+  //border-color: #d0d0d0
   //@include opacity(0.93)
   //+box-shadow(#ddd 0px 0px 10px)
   a
@@ -19,9 +53,9 @@ $navbar-color: #2B2B38
     background-color: darken(#415F8E, 10%)
     color: #ddf
     
-  .navbar-brand 
-    padding: 9px
-    margin-left: -6px
+  //.navbar-brand 
+  //  //padding: 9px
+  //  margin-left: -6px
     
   .small-logo
     display: inline
@@ -33,13 +67,11 @@ $navbar-color: #2B2B38
     
 
   
-  .nav > li > a > img 
-    max-width: none
-    margin-bottom: -10px !important
-    margin-top: -10px
-    
-    
-    
+  //.nav > li > a > img 
+  //  max-width: none
+  //  margin-bottom: -10px !important
+  //  margin-top: -10px
+
   .navbar-nav 
     li.active 
       background-color:  #32496A
@@ -50,6 +82,11 @@ $navbar-color: #2B2B38
   border-width: 0 0 0px
 
   
+@media (min-width: 768px)
+  .navbar-nav > li > a 
+    padding-top: 7px
+    padding-bottom: 7px
+
 
 @media (min-width: 600px)
   .navbar-digiramp 
@@ -68,5 +105,35 @@ $navbar-color: #2B2B38
   display: inline
 
 .navigation-avatar
-  margin: 10px 0px 10px -6px
+  margin: 10px 0px 10px 0px
   display: inline
+  
+
+
+  
+.nav-user
+  position: fixed
+  top: 34px
+  left: 0px
+  width: 100%
+  z-index: 1000
+  background-color:  #313E53
+  border-color: #313E53
+  padding-left: 0px
+  padding-right: 0px
+  border-radius: 0px
+  a
+    color: #CDCDCD
+  .nav > li > a:hover, .nav > li > a:focus 
+    background-color: darken(#415F8E, 10%)
+    color: #ddf
+  .navbar-collapse
+    background-color:  #313E53
+  .navbar-nav 
+    li.active 
+      background-color:  #32496A
+      a
+        color: #CFCFCF
+  
+  
+  

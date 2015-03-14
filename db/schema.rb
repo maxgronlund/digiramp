@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311134631) do
+ActiveRecord::Schema.define(version: 20150314074213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -807,8 +807,12 @@ ActiveRecord::Schema.define(version: 20150311134631) do
     t.string   "layout",           default: "Alabama"
     t.boolean  "hide_sidebar",     default: false
     t.string   "theme",            default: "default"
+    t.boolean  "show_in_menu",     default: false
+    t.integer  "position",         default: 1
+    t.integer  "cms_page_id"
   end
 
+  add_index "cms_pages", ["cms_page_id"], name: "index_cms_pages_on_cms_page_id", using: :btree
   add_index "cms_pages", ["user_id"], name: "index_cms_pages_on_user_id", using: :btree
 
   create_table "cms_playlist_links", force: true do |t|
@@ -2276,6 +2280,7 @@ ActiveRecord::Schema.define(version: 20150311134631) do
     t.integer  "position",             default: 0
     t.datetime "featured_date"
     t.string   "default_cover_art",    default: ""
+    t.text     "sounds_like",          default: ""
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
