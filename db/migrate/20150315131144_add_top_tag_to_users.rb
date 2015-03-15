@@ -6,6 +6,7 @@ class AddTopTagToUsers < ActiveRecord::Migration
     
     
     User.find_each do |user|
+      user.set_top_tag
       user.save!
     end
     
