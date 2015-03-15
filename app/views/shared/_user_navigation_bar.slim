@@ -8,11 +8,17 @@ nav.navbar.nav-user
       span.icon-bar
       span.icon-bar
     
-    - if @user 
-      /- unless current_user && current_user.id == @user.id
-      .navigation-avatar
-        = link_to user_path( @user), class: 'navbar-brand' do
-          = image_tag @user.image_url(:avatar_32x32)
+    - if @user && current_user
+      - unless current_user.id == @user.id
+        .navigation-avatar
+          = link_to user_path( @user), class: 'navbar-brand' do
+            = image_tag @user.image_url(:avatar_32x32)
+    - elsif @user
+        .navigation-avatar
+          = link_to user_path( @user), class: 'navbar-brand' do
+            = image_tag @user.image_url(:avatar_32x32)
+    
+    
         /'&nbsp;
         /= current_user.user_name
     /a.navbar-brand href="#"  Brand
@@ -63,7 +69,7 @@ nav.navbar.nav-user
             == render 'messages/count'
             i.fa.fa-envelope
             '&nbsp;
-            'Messages
+            'Msg.
         /li class="#{page == 'activities' && @user == current_user ? 'active' : ''}"
         /  = link_to user_user_activities_path(current_user) do
         /    i.fa.fa-home
@@ -75,23 +81,14 @@ nav.navbar.nav-user
         
       
       
-      
-      li class="dropdown"
-        /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-        = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
-          i.fa.fa-cog
-
-        ul class="dropdown-menu" role="menu"
-          
-          /li class="divider"    
-          /li  class="#{page == 'edit_profile' ? 'active' : ''}"
-          /  = link_to edit_user_path(current_user) do
-          /    i class="fa fa-pencil"
-          /    '&nbsp;
-          /    'Edit Profile
+      - if current_user
+        li class="dropdown"
+          /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+          = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
+            i.fa.fa-cog
+        
+          ul class="dropdown-menu" role="menu"
             
-          
-          - if current_user
             li  class="#{page == 'contacts' ? 'active' : ''}"
               = link_to user_user_control_panel_index_path(current_user ) do
                 i class="fa fa-tachometer"
@@ -126,25 +123,9 @@ nav.navbar.nav-user
                 li  class="#{page == 'admin' ? 'active' : ''}"
                   = link_to admin_index_path do
                     i class="fa fa-gear"
-                    '&nbsp;
-                     'Admin
+                    '&nbsp;Admin
             
-      /li
-      /  a href="#"  Link
-      /li.dropdown
-      /  a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
-      /    | Dropdown
-      /    span.caret
-      /  ul.dropdown-menu role="menu" 
-      /    li
-      /      a href="#"  Action
-      /    li
-      /      a href="#"  Another action
-      /    li
-      /      a href="#"  Something else here
-      /    li.divider
-      /    li
-      /      a href="#"  Separated link
+
             
 
     

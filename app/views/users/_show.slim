@@ -4,15 +4,17 @@
 
   = link_to profile_path do
     .avatar
-      = image_tag( user.image_url :avatar_170x170) 
+      = image_tag( user.image_url :avatar_220x220) 
       .user-tags
         /- if user.profession.to_s != ''
         /  .user-tag
         /    = user.profession
-        /    
-        - if user.composer
+        /  
+        div class="#{user.top_tag}" 
+      
+        - if user.dj
           .user-tag
-            'Composer
+            'DJ 
   
         - if user.writer
           .user-tag
@@ -25,6 +27,10 @@
         - if user.author
           .user-tag
             'Author
+          
+        - if user.composer
+          .user-tag
+            'Composer
       
         - if user.producer
           .user-tag
@@ -37,14 +43,14 @@
         - if user.remixer
           .user-tag
             'Remixer
-      
-        - if user.dj
-          .user-tag
-            'DJ
             
     
-  .user-name
-    = link_to user.user_name, profile_path
+    .user-name
+      = user.user_name
+    .user-profession
+      = user.profession
+      
+    
 
   .small-symbols
     = link_to user_recordings_path(user) do

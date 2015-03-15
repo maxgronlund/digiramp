@@ -87,20 +87,58 @@
         /        = link_to 'Clear', songs_path, class: 'btn btn-default'
         /
 
-    ul class="nav navbar-nav navbar-right"   
-      /  li class="dropdown"
-      /    /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-      /    = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
-      /      i.fa.fa-cog
-      /    ul class="dropdown-menu" role="menu"
-      /      - if current_user  
-      /
-      /        
-      /        li    
-      /          = link_to logout_path do
-      /            i class="fa fa-unlock"
-      /            '&nbsp;
-      /            'Log Out
+    ul class="nav navbar-nav navbar-right"
+      - if current_user
+        li class="#{page == 'news' ? 'active' : ''}"
+          = link_to user_news_index_path(current_user) do
+            - user_news_count       = current_user.news_count
+            - news_blog_news_count  = Blog.news_count
+            - if user_news_count < news_blog_news_count
+              .news
+                - news  =  news_blog_news_count - user_news_count
+                i class="fa fa-lightbulb-o "
+                '&nbsp;
+                'News
+                '&nbsp; 
+                .label.label-danger
+                  = news
+            - else
+              i class="fa fa-lightbulb-o "
+              '&nbsp;
+              'News
+              
+        li class="dropdown"
+          /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+          = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
+            i.fa.fa-cog
+          ul class="dropdown-menu" role="menu"
+            li    
+              = link_to logout_path do
+                i class="fa fa-unlock"
+                '&nbsp;
+                'Log Out   
+            
+            li class="divider"  
+              
+            li  class="#{page == 'invite_friends' ? 'active' : ''}"
+              = link_to new_user_user_invite_friend_path(current_user) do
+                i class="fa fa-pencil"
+                '&nbsp;
+                'Invite friends
+          
+            li class="#{page == 'tutorial' ? 'active' : ''}"
+              = link_to tutorials_path do
+                i class="fa fa-video-camera"
+                '&nbsp;
+                'Tutorials
+                
+            li class="#{page == 'issues' ? 'active' : ''}"
+              = link_to user_issues_path(current_user) do
+                i class="fa fa-life-ring"
+                '&nbsp;
+                'Support
+            
+            
       /        li class="divider"    
       /        /li  class="#{page == 'edit_profile' ? 'active' : ''}"
       /        /  = link_to edit_user_path(current_user) do
@@ -117,12 +155,12 @@
       /            'Control panel
       /
       
-      - if current_user
-        li    
-          = link_to logout_path do
-            i class="fa fa-unlock"
-            '&nbsp;
-            'Log Out
+      /- if current_user
+      /  li    
+      /    = link_to logout_path do
+      /      i class="fa fa-unlock"
+      /      '&nbsp;
+      /      'Log Out
       /li.discover-back
       /  = link_to songs_path do
       /    i class="fa fa-search"
@@ -208,7 +246,7 @@
       /        
       /
     
-      - else
+      - unless current_user
         /= link_to '#', 'type.to_sym'.to_sym => "button", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#loginModal" do
         /  i class="fa fa-sign-in"
         /  '&nbsp;

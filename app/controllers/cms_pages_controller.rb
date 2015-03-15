@@ -15,6 +15,7 @@ class CmsPagesController < ApplicationController
       
       @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
       @playlists       = current_user.playlists if current_user
+      @edit_page       = (@user.id == current_user.id || super? ) if current_user
   end
 
   # GET /cms_pages/new

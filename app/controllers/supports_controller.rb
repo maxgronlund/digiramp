@@ -1,8 +1,8 @@
 class SupportsController < ApplicationController
   def index
     
-    forbidden unless current_user
-    @user = current_user
+    #forbidden unless current_user
+    #@user = current_user
     if params[:error_in_form]
       @contact = Contact.new(title: params[:title], body: params[:body], email: params[:email] )
     else

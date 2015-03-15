@@ -288,11 +288,61 @@ class User < ActiveRecord::Base
     #self.uniq_completeness    = Uniqifyer.uniqify(self.completeness)
     update_completeness
     update_search_field
+    set_top_tag
     
     self.uniq_followers_count = Uniqifyer.uniqify(self.followers_count)
     
   end
   
+  def set_top_tag
+    top = 0
+    if self.writer
+      top += 1
+    end
+    if self.author
+      top += 1
+    end
+    if self.producer
+      top += 1
+    end
+    if self.composer
+      top += 1
+    end
+    if self.remixer
+      top += 1
+    end
+    if self.musician
+      top += 1
+    end
+    if self.dj
+      top += 1
+    end
+    if self.artist
+      top += 1
+    end
+    
+    case top
+    when 0
+      self.top_tag = 'user-top-margin-0'
+    when 1
+      self.top_tag = 'user-top-margin-1'
+    when 2
+      self.top_tag = 'user-top-margin-2'
+    when 3
+      self.top_tag = 'user-top-margin-3'
+    when 4
+      self.top_tag = 'user-top-margin-4'
+    when 5
+      self.top_tag = 'user-top-margin-5'
+    when 6
+      self.top_tag = 'user-top-margin-6'
+    when 7
+      self.top_tag = 'user-top-margin-7'
+    when 8
+      self.top_tag = 'user-top-margin-8'
+    end
+
+  end
   
   
   
