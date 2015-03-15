@@ -238,9 +238,9 @@ class User < ActiveRecord::Base
     search_field_content = ''
     search_field_content <<   self.profession  if self.profession
     search_field_content <<  ' '
-    search_field_content <<   self.profile     if self.profile
+    #search_field_content <<   self.profile     if self.profile
     search_field_content <<  ' '
-    search_field_content <<   self.name        if self.name
+    #search_field_content <<   self.name        if self.name
     search_field_content <<  ' '
     
     search_field_content <<   self.email       if self.email
