@@ -288,7 +288,7 @@ class User < ActiveRecord::Base
     #self.uniq_completeness    = Uniqifyer.uniqify(self.completeness)
     update_completeness
     update_search_field
-    #set_top_tag
+    set_top_tag
     
     self.uniq_followers_count = Uniqifyer.uniqify(self.followers_count)
     
