@@ -1,18 +1,13 @@
 
 .full-width-top
-  == render 'shared/navigationbar', page: 'user' 
-  div class=" default-style #{@user.page_style.css_tag} "
   
+  div class=" default-style #{@user.page_style.css_tag} "
+    == render 'shared/navigationbar', page: 'user' 
     .container-fluid
       .cms-backdrop
         = image_tag @image_url
       .cms-content
         .container-fluid
-          /- if current_user
-          /  /.row
-          /  /  .col-sm-12
-          /  /    == render 'shared/user_navigation_bar', section: @user, page: 'user' 
-          /  /.pull-down-48
           .row
             .col-sm-8
               == render 'cms_pages/cms_profile'
