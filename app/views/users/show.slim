@@ -1,7 +1,8 @@
 
 .full-width-top
   == render 'shared/navigationbar', page: 'user' 
-  .default-style.deep_blue
+  div class=" default-style #{@user.page_style.css_tag} "
+  
     .container-fluid
       .cms-backdrop
         = image_tag @image_url

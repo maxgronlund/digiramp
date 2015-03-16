@@ -98,8 +98,13 @@ class UsersController < ApplicationController
       #end
     end
     @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
-    @body_color = "#15141C"
-    @image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
+    unless @user.page_style
+      @user.save!
+    end
+    @body_color =   @user.page_style.bgcolor
+    @image_url  =   @user.page_style.backdrop_image
+      
+    #@image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
     @hide_sidebar_toggle  = true
   end
   

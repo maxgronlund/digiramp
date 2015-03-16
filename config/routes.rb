@@ -30,6 +30,7 @@ Digiramp::Application.routes.draw do
   resources :message_counts
   resources :message_digalogs, only: [:new]
   resources :music_submissions_ratings, only: [:update]
+  resources :news, only: [:index]
   resources :pro_account_info, only: [:index]
   resources :public_opportunities, only: [:index, :show]
   resources :playlists, only: [:index, :show] 
@@ -292,7 +293,6 @@ Digiramp::Application.routes.draw do
     resources :forums
     resources :forum_posts, only: [:edit, :update]
     resources :messages
-    get 'news/index'
     resources :received_messages, only: [:index]
     resources :replies
     resources :unread_messages, only: [:index]

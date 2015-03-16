@@ -62,51 +62,25 @@
             i.fa.fa-money
             '&nbsp;
             'Opportunities
-      /li
-      /  h3 <funky> Beta</funky>
-      
-          
-        
-        /.search-recording
-        /
-        /  = simple_form_for :recording, :url => url_for(:action => 'index', \
-        /                                              :controller => 'songs'), \
-        /                                              :method => 'get' do |f|
-        /
-        /    .input-group
-        /      span class="input-group-addon"
-        /        i class= 'fa fa-search'
-        /      = text_field_tag "query", "", :class => 'search-query form-control', \
-        /                                    :placeholder => 'Search', \
-        /                                    value: params[:query]
-        /                                  
-        /
-        /      .input-group-btn
-        /        = f.submit 'Go', class: "btn btn-primary"
-        /        '&nbsp;
-        /        = link_to 'Clear', songs_path, class: 'btn btn-default'
-        /
+    
 
     ul class="nav navbar-nav navbar-right"
       - if current_user
         li class="#{page == 'news' ? 'active' : ''}"
-          = link_to user_news_index_path(current_user) do
-            - user_news_count       = current_user.news_count
-            - news_blog_news_count  = Blog.news_count
-            - if user_news_count < news_blog_news_count
+          = link_to news_index_path do
+            - unless current_user.news_count.to_i == Blog.news_count.to_i
               .news
-                - news  =  news_blog_news_count - user_news_count
+                - news  =  Blog.news_count - current_user.news_count
                 i class="fa fa-lightbulb-o "
-                '&nbsp;
-                'News
+                '&nbsp;News
                 '&nbsp; 
                 .label.label-danger
                   = news
             - else
               i class="fa fa-lightbulb-o "
-              '&nbsp;
-              'News
-              
+              '&nbsp;News
+      
+        
         li class="dropdown"
           /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
           = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
@@ -115,142 +89,33 @@
             li    
               = link_to logout_path do
                 i class="fa fa-unlock"
-                '&nbsp;
-                'Log Out   
+                '&nbsp;Log Out   
             
             li class="divider"  
               
             li  class="#{page == 'invite_friends' ? 'active' : ''}"
               = link_to new_user_user_invite_friend_path(current_user) do
                 i class="fa fa-pencil"
-                '&nbsp;
-                'Invite friends
+                '&nbsp;Invite friends
           
             li class="#{page == 'tutorial' ? 'active' : ''}"
               = link_to tutorials_path do
                 i class="fa fa-video-camera"
-                '&nbsp;
-                'Tutorials
+                '&nbsp;Tutorials
                 
             li class="#{page == 'issues' ? 'active' : ''}"
               = link_to user_issues_path(current_user) do
                 i class="fa fa-life-ring"
-                '&nbsp;
-                'Support
+                '&nbsp;Support
             
-            
-      /        li class="divider"    
-      /        /li  class="#{page == 'edit_profile' ? 'active' : ''}"
-      /        /  = link_to edit_user_path(current_user) do
-      /        /    i class="fa fa-pencil"
-      /        /    '&nbsp;
-      /        /    'Edit Profile
-      /            
-      /
-      /        
-      /        li  class="#{page == 'contacts' ? 'active' : ''}"
-      /          = link_to user_user_control_panel_index_path(current_user ) do
-      /            i class="fa fa-tachometer"
-      /            '&nbsp;
-      /            'Control panel
-      /
-      
-      /- if current_user
-      /  li    
-      /    = link_to logout_path do
-      /      i class="fa fa-unlock"
-      /      '&nbsp;
-      /      'Log Out
-      /li.discover-back
-      /  = link_to songs_path do
-      /    i class="fa fa-search"
-      /    '&nbsp;
-      /    'Search
-      /- if user_signed_in? && current_account
-      /  li class="#{page == 'messages' ? 'active' : ''}"
-      /    = link_to user_unread_messages_path(current_user) do
-      /      div id="message_count"
-      /      == render 'messages/count'
-      /      i.fa.fa-envelope
-      /  /li class="#{page == 'activities' && @user == current_user ? 'active' : ''}"
-      /  /  = link_to user_user_activities_path(current_user) do
-      /  /    i.fa.fa-home
-      /  /li class="#{page == 'user' && @user == current_user ? 'active' : ''}"
-      /  /  = link_to profile_path_for( current_user) do
-      /  /    = image_tag current_user.image_url(:avatar_32x32)
-      /  /    '&nbsp;
-      /  
-      /  
-      /- if user_signed_in?  
-      /  li class="dropdown"
-      /    /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-      /    = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
-      /      i.fa.fa-cog
-      /    ul class="dropdown-menu" role="menu"
-      /      - if current_user  
-      /
-      /        
-      /        li    
-      /          = link_to logout_path do
-      /            i class="fa fa-unlock"
-      /            '&nbsp;
-      /            'Log Out
-      /        li class="divider"    
-      /        /li  class="#{page == 'edit_profile' ? 'active' : ''}"
-      /        /  = link_to edit_user_path(current_user) do
-      /        /    i class="fa fa-pencil"
-      /        /    '&nbsp;
-      /        /    'Edit Profile
-      /            
-      /
-      /        
-      /        li  class="#{page == 'contacts' ? 'active' : ''}"
-      /          = link_to user_user_control_panel_index_path(current_user ) do
-      /            i class="fa fa-tachometer"
-      /            '&nbsp;
-      /            'Control panel
-      /
-      /
-      /            
-      /        - unless current_user.account.account_type  == "Social"    
-      /          li class="divider"
-      /          li  class="#{page == 'account' ? 'active' : ''}"
-      /            = link_to account_account_path( current_user.account) do
-      /              i class="fa fa-tachometer"
-      /              '&nbsp;
-      /              'Pro Account
-      /              
-      /          li  class="#{page == 'user_collections' ? 'active' : ''}"
-      /            = link_to user_user_collections_path( current_user) do
-      /              i class="fa fa-tachometer"
-      /              '&nbsp;
-      /              'Other Accounts
-      /              
-      /          li  class="#{page == 'catalogs' ? 'active' : ''}"
-      /            = link_to user_user_catalogs_path( current_user) do
-      /              i class="fa fa-book"
-      /              '&nbsp;
-      /              'Catalogs
-      /              
-      /          - if super?
-      /
-      /
-      /            li  class="#{page == 'admin' ? 'active' : ''}"
-      /              = link_to admin_index_path do
-      /                i class="fa fa-gear"
-      /                '&nbsp;
-      /                'Admin
-      /
-      /  
-      /  
-      /        
-      /
+ 
     
-      - unless current_user
-        /= link_to '#', 'type.to_sym'.to_sym => "button", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#loginModal" do
-        /  i class="fa fa-sign-in"
-        /  '&nbsp;
-        /  'Log in
+      - else
+        li
+          = link_to news_index_path do
+              i class="fa fa-lightbulb-o "
+              '&nbsp;News 
+            
         li
           .sign-up
             = link_to signup_index_path do
@@ -258,8 +123,7 @@
         li 
           = link_to login_new_path do
             i class="fa fa-sign-in"
-            '&nbsp;
-            'Log in
+            '&nbsp;Log in
 - if @user
   == render 'shared/user_navigation_bar', section: @user, page: page
   .pull-down-34

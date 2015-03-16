@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   #include ImageCrop
   
   has_one :account_users
-  has_one :belongs_to
+  belongs_to :page_style
   has_many :account_users
   has_many :recordings
   has_many :client_imports
@@ -289,9 +289,17 @@ class User < ActiveRecord::Base
     update_completeness
     update_search_field
     set_top_tag
+    set_page_style
     
     self.uniq_followers_count = Uniqifyer.uniqify(self.followers_count)
     
+  end
+  
+  def set_page_style
+
+    unless self.page_style
+      self.page_style_id = PageStyle.deep_blue.id
+    end
   end
   
   def set_top_tag

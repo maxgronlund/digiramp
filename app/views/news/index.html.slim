@@ -6,7 +6,7 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'news'
+      /== render 'users/shared/sidebar', selected: 'news'
                         
         
       
@@ -17,15 +17,16 @@
         .col-sm-6
           h2 News
         - if super?
-        .col-sm-6.pull-down-10
-          .pull-right
-            => link_to 'New post', new_admin_blog_blog_post_path(@news_blog), class: 'btn btn-default'
-            = link_to 'Edit blog', admin_blog_path( @news_blog), class: 'btn btn-primary'
+          .col-sm-6.pull-down-10
+            .pull-right
+              => link_to 'New post', new_admin_blog_blog_post_path(@news_blog), class: 'btn btn-default'
+              = link_to 'Edit blog', admin_blog_path( @news_blog), class: 'btn btn-primary'
             
 
             
                   
       .sexy_line
+      
       - @news_blog.blog_posts.order('created_at desc').last(10).each do |blog_post|
         .digi-box
           .row
