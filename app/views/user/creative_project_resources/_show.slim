@@ -25,7 +25,7 @@
     .col-sm-4
       b File name
       br
-      = File.basename(creative_project_resource.file_url)
+      = File.basename(creative_project_resource.file_url) if creative_project_resource.file_url
       .sexy_line
       - if user = creative_project_resource.user
         b Uploaded by
