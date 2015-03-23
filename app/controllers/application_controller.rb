@@ -120,7 +120,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :admins_only
   
-  
+  def permit_creative_project_user
+    return if super?
+    forbidden unless current_user
+    forbidden unless CreativeProjectUser.where(creative_project_id: params[:creative_project_id], 
+                                                user_id: current_user.id,
+                                                approved_by_project_manager: true).first
+  end
+  helper_method :permit_creative_project_user
 
   def access_user
     unless current_user

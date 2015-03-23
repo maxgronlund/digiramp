@@ -2,10 +2,16 @@ class User::CreativeProjectsController < ApplicationController
   before_action :set_creative_project, only: [:show, :edit, :update, :destroy]
   before_filter :access_user, only: [:new, :create, :edit, :update, :destroy]
   
-
+  #before_filter  :permit_creative_project_user
+  
   def index
     @user = User.cached_find(params[:user_id])
-    @creative_projects = @user.creative_projects
+    
+    if current_user && current_user.id == @user.id
+      @creative_projects = @user.creative_projects
+    else
+      @creative_projects = @user.creative_projects.where(public_project: true)
+    end
   end
 
   def show
@@ -25,7 +31,7 @@ class User::CreativeProjectsController < ApplicationController
     
     
     if @creative_project.save!
-      redirect_to user_user_creative_project_creative_project_dashboards_path( @user, @creative_project )
+      redirect_to user_user_creative_project_creative_project_roles_path( @user, @creative_project )
     else
       redirect_to new_user_user_creative_projects_path( @user )
     end

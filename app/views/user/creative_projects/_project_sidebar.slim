@@ -16,21 +16,23 @@
     = link_to user_user_creative_project_creative_project_dashboards_path(@user, @creative_project) do
       i.fa.fa-tachometer
       '&nbsp;Dashboard
-      
-  li class="#{'sidebar-selected' if selected == 'roles'}"
-    = link_to user_user_creative_project_creative_project_roles_path(@user, @creative_project) do
-      i.fa.fa-graduation-cap
-      '&nbsp;Roles 
-      
-  li class="#{'sidebar-selected' if selected == 'users'}"
-    = link_to user_user_creative_project_creative_project_users_path(@user, @creative_project) do
-      i.fa.fa-users
-      '&nbsp;Project members
-      
-  li class="#{'sidebar-selected' if selected == 'resources'}"
-    = link_to user_user_creative_project_creative_project_resources_path(@user, @creative_project) do
-      i.fa.fa-archive
-      '&nbsp;Resources
+  
+  - if current_user.id && (current_user.id == @user.id || super? )
+    li class="#{'sidebar-selected' if selected == 'roles'}"
+      = link_to user_user_creative_project_creative_project_roles_path(@user, @creative_project) do
+        i.fa.fa-graduation-cap
+        '&nbsp;Roles 
+  
+  - if current_user && @creative_project.permits( current_user  ) 
+    li class="#{'sidebar-selected' if selected == 'users'}"
+      = link_to user_user_creative_project_creative_project_users_path(@user, @creative_project) do
+        i.fa.fa-users
+        '&nbsp;Project members
+        
+    li class="#{'sidebar-selected' if selected == 'resources'}"
+      = link_to user_user_creative_project_creative_project_resources_path(@user, @creative_project) do
+        i.fa.fa-archive
+        '&nbsp;Resources
     
      
 

@@ -1,5 +1,7 @@
 Digiramp::Application.routes.draw do
 
+
+
   get 'social_icons/index'
 
   get 'user_menu/edit'
@@ -713,6 +715,7 @@ Digiramp::Application.routes.draw do
       resources :common_work_credits, only: [:edit, :update]
       resources :contracts
       resources :playlists, only: [:edit, :update]
+      resources :user_positions, only: [:index]
       resources :recording_credits
       resources :recordings do
         resources :work_rights

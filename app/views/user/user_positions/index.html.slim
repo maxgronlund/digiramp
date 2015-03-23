@@ -1,0 +1,80 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Positions
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Project
+                th Position
+                th Status
+                th Managed by
+                /th Description
+                /th User
+                /th Account
+                /th Public project
+                //th Roles
+                //th Composition
+                //th Recordings
+                //th Performance
+                //th Production
+                //th Financial services
+                //th Publishing
+                //th Remixing
+                //th Video
+                /th Deadline
+                /th
+              
+      
+            tbody
+              - @creative_project_users.each do |creative_project_user|
+                - creative_project = creative_project_user.creative_project
+                - project_owner    = creative_project.user
+                - accepted          = creative_project_user.approved_by_project_manager && creative_project_user.approved_by_user
+                tr
+                  - if accepted
+                    td = link_to creative_project_user.creative_project.title, \
+                                user_user_creative_project_creative_project_dashboards_path(project_owner, creative_project), class: 'btn btn-default'
+                    
+                    td = link_to creative_project_user.creative_project_role.role, \
+                                user_user_creative_project_creative_project_user_path(project_owner, \
+                                                                                      creative_project, \
+                                                                                     creative_project_user), class: 'btn btn-default'
+                  -else
+                    td = link_to creative_project_user.creative_project.title, \
+                                creative_project_path(creative_project), class: 'btn btn-default'
+                    td = link_to creative_project_user.creative_project_role.role, \
+                                creative_project_path(creative_project), class: 'btn btn-default'
+                    
+                                                                                     
+                  td
+                    - if creative_project_user.approved_by_project_manager && creative_project_user.approved_by_user
+                      .alert.alert-success
+                        'Active
+                    - else
+                      .alert.alert-info
+                        'Pending
+                  td = link_to project_owner.user_name, project_owner, class: 'btn btn-default'
+
+      
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

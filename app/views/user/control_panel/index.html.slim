@@ -88,7 +88,20 @@
                     h4 Creative rights
                   .body
                     'Manage rights for your assets
-                    
+                  
+            
+            - if current_user.betatester  
+              .control-panel-badge
+                = link_to  user_user_user_positions_path(@user) do
+                  .content
+                    .icon.icon-red
+                      i.fa.fa-university
+                      
+                    .title
+                      h4 Positions
+                    .body
+                      'Projects where you fulfill a role
+                      
                     
                       
                       

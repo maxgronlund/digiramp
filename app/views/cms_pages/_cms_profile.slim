@@ -209,11 +209,20 @@
             .inline-button
               - if current_user.id == @user.id || super?
                 / Edit profile
-                = link_to edit_user_path(@user) do
+                => link_to edit_user_path(@user) do
                   .btn.btn-default
                     i class="fa fa-pencil"
                     '&nbsp;
                     'Edit profile
+                    
+                = link_to user_user_cms_pages_path(@user) do
+                  .btn.btn-default
+                    i class="fa fa-plus"
+                    '&nbsp;
+                    'Add page
+                    
+                    
+                cms_pages
               - else
                 / Follow / unfollow
                 div id="follow_user_#{@user.id.to_s}"

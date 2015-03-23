@@ -58,6 +58,13 @@ class CreativeProject < ActiveRecord::Base
     save!
     ap self
   end
+  
+  def permits current_user
+    
+    return true if CreativeProjectUser.where(user_id: current_user.id, creative_project_id: self.id, approved_by_project_manager: true).first
+    return true if current_user.super?
+    return false
+  end
 
 private 
 
