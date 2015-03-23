@@ -4,11 +4,9 @@
   
   
   #sidebar-wrapper
-    .sidebar-ad.sidebar-top-ad
-      == render 'admin/digiramp_ads/show', identifier: 'signup to submit to opportunity'
-
-    #terms
-      = link_to 'Terms And Conditions', terms_and_conditions_path  
+    ul class="sidebar-nav"
+        == render 'public_opportunities/sidebar', selected: 'opportunities'
+    
   
   #page-content-wrapper
     .container-fluid

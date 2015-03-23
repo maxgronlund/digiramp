@@ -1,0 +1,55 @@
+/#wrapper
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'user' 
+/  
+/  
+/  #sidebar-wrapper
+/    ul class="sidebar-nav"
+/      == render 'user/creative_projects/project_sidebar', selected: 'roles'
+/  
+/  #page-content-wrapper
+/    .container-fluid
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'creative projects'.to_sym => user_user_creative_projects_path(@user),
+/                                                              @creative_project.title.to_sym => user_user_creative_project_creative_project_dashboards_path(@user, @creative_project),
+/                                                              'project members'.to_sym =>   user_user_creative_project_creative_project_users_path(@user, @creative_project)}, current: ''}
+/      .row
+/        .col-sm-6
+/          .help
+/            .help-text
+/              h2 Roles
+/            .help-button
+/              == render 'admin/helps/help', identifier: 'user creative project'
+/        .col-sm-6
+/          /.pull-right.pull-down-10
+/          /  => link_to user_user_creative_projects_path(@user) do
+/          /    .btn.btn-default
+/          /      i.fa.fa-chevron-left
+/          /      '&nbsp;Back
+/          /  /= link_to 'Edit', edit_user_user_creative_project_path(@user, @creative_project), class: 'btn btn-primary'
+/
+/      .sexy_line
+/      
+/      - if @creative_project.writers
+/        == render 'user/creative_project_roles/writers'
+/              
+/      - if @creative_project.composers
+/        == render 'user/creative_project_roles/composers'
+/              br
+/      - if @creative_project.musicians
+/        == render 'user/creative_project_roles/musicians'
+/              
+/      - if @creative_project.vocals
+/        == render 'user/creative_project_roles/vocals'
+/              
+/      - if @creative_project.dancers
+/        == render 'user/creative_project_roles/dancers'
+/              
+/      - if @creative_project.live_performers
+/        == render 'user/creative_project_roles/live_performers'
+/              
+/      - if @creative_project.producers
+/        == render 'user/creative_project_roles/producers'
+/              
+/            
+/  == render 'shared/site_footer'
+

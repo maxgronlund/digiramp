@@ -1,0 +1,86 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'user/creative_projects/project_sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'creative projects'.to_sym => user_user_creative_projects_path(@user)}, current: ''}
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 = @creative_project.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'user creative project'
+        .col-sm-4
+          .pull-right.pull-down-10
+            => link_to user_user_creative_projects_path(@user) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+            = link_to 'Edit', edit_user_user_creative_project_path(@user, @creative_project), class: 'btn btn-primary'
+
+      .sexy_line
+      .digi-box
+        .row
+          .col-sm-6
+            b Description
+            br
+            = simple_format @creative_project.description
+            .sexy_line
+            b Deadline
+            br
+            = @creative_project.deadline
+
+            
+          .col-sm-6
+            b Looking for
+            br
+            == render 'user/creative_project_roles/roles', creative_project: @creative_project
+            br
+            b Team members
+            br
+            - @creative_project_users.each do |creative_project_user|
+              - if user = creative_project_user.user
+                = link_to user_user_creative_project_creative_project_user_path( @user, @creative_project, creative_project_user) do
+                  .btn.btn-default.btn-xs
+                    =< user.user_name
+                    ' : 
+                    = creative_project_user.creative_project_role.role.capitalize  
+                
+                .pull-right
+                  = link_to user do
+                    .btn.btn-default.btn-xs
+                      'Profile
+                  
+                .sexy_line
+      .row
+        .col-sm-8
+        
+        .col-sm-4
+          .digi-box
+            = simple_form_for [ Comment.new ], remote: true do |f|
+              .row
+                .col-sm-12
+                  = f.hidden_field  :commentable_id,    value: @creative_project.id
+                  = f.hidden_field  :commentable_type,  value: @creative_project.class.name
+                  = f.hidden_field  :user_id,  value: current_user.id
+                  h4 Comments
+                  /= f.input :title, placeholder: 'Title', label: false
+                  = f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Write Comment"}
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Post', class: 'btn btn-primary'
+            br
+            .rec-comments
+              - @creative_project.comments.order('created_at desc').each do |comment|
+                == render 'comments/show', comment: comment
+            
+            
+  == render 'shared/site_footer'

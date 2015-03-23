@@ -5,22 +5,20 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+      == render 'messages/sidebar', selected: 'all'
   
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-5
+        .col-sm-12
           .help
             .help-text
               h2 Message center
             .help-button
               == render 'admin/helps/help', identifier: 'user messages'
           
-        .col-sm-7
-          == render 'messages/navigation', selected: 'all'
-
       .sexy_line
+      .messages
       .digi-box
         - if params[:connection_id]
           - connection = Connection.find(params[:connection_id])
@@ -40,15 +38,7 @@
                           i.fa.fa-envelope
                           '&nbsp;New message
                                                          
-                    /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#message_modal_#{user.id.to_s}" do
-                    /  .btn.btn-primary
-                    /    i.fa.fa-envelope
-                    /    '&nbsp;New message 
-                    
-                    
-                    
-            
-                    
+
                   
         - else
           h4 All messages

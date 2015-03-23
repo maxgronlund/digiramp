@@ -65,6 +65,8 @@
 //= require cms_module
 //= require jquery.slimscroll  
 //= require slimscroll  
+// require inlineplayer
+// require inlineplayer-init  
 // require facebook
 // require bootstrapValidator.min
 // require bootstrap-tokenfield

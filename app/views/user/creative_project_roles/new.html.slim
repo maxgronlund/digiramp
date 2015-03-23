@@ -1,0 +1,41 @@
+/h1 New creative_project_role
+/
+/== render 'form'
+/
+/= link_to 'Back', creative_project_roles_path
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'user/creative_projects/project_sidebar', selected: 'roles'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'creative projects'.to_sym => user_user_creative_projects_path(@user),
+                                                              @creative_project.title.to_sym => user_user_creative_project_creative_project_dashboards_path(@user, @creative_project),
+                                                              roles:   user_user_creative_project_creative_project_roles_path(@user, @creative_project)}, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 
+                'Add #{params[:role]}
+            .help-button
+              == render 'admin/helps/help', identifier: 'new creative project role'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to user_user_creative_project_creative_project_roles_path(@user, @creative_project) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+
+      .sexy_line
+      == render 'form'
+      
+            
+              
+  == render 'shared/site_footer' 

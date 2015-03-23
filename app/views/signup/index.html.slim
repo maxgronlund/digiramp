@@ -14,7 +14,13 @@
           
           
           = simple_form_for [User.new], turboboost: true    do |f|
-          
+            
+            .input-group
+              span class="input-group-addon" 
+                i.fa.fa-user
+              = f.input_field :user_name, input_html: {autocomplete: :off}, placeholder: 'Name', autocomplete: :off
+            br
+            
             .input-group
               span class="input-group-addon" @
               = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
@@ -33,7 +39,7 @@
               .col-sm-12
                 .pull-right
                   br
-                  = f.submit 'Sign Up', class: 'btn btn-warning', id: 'sign_up_form_button'
+                  = f.submit 'Sign Up', class: 'btn btn-primary', id: 'sign_up_form_button'
             br
             .sexy_line
             br

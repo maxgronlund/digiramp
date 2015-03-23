@@ -1,0 +1,66 @@
+
+.sidebar 
+
+        
+  - if @user     
+    
+    li class="#{'sidebar-selected' if selected == 'new'}"
+      = link_to user_unread_messages_path(@user) do
+        i class="fa fa-envelope"
+        '&nbsp;
+        'Unread  
+    
+    li class="#{'sidebar-selected' if selected == 'received'}"
+      = link_to user_received_messages_path(@user) do
+        i class="fa fa-envelope"
+        i class="fa fa-arrow-left"
+        '&nbsp;
+        'Received 
+    
+    li class="#{'sidebar-selected' if selected == 'send'}"
+      = link_to user_send_messages_path(@user) do
+        i class="fa fa-envelope"
+        i class="fa fa-arrow-right"
+        '&nbsp;
+        'Send 
+    
+    li class="#{'sidebar-selected' if selected == 'all'}"
+      = link_to user_messages_path(@user) do
+        i class="fa fa-envelope"
+        '&nbsp;
+        'All 
+    
+    li class="#{'sidebar-selected' if selected == 'connections'}"
+      = link_to user_user_connections_path(@user) do
+        i class="fa fa-users"
+        '&nbsp;
+        'Connections  
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+/pull-down-10
+/  .pull-right
+/    ul.nav.nav-pills
+/      li  class="#{ selected == 'connections' ? 'active' : ''}"
+/        = link_to 'Connections', user_user_connections_path(@user)
+/      li  class="#{ selected == 'received' ? 'active' : ''}"
+/        = link_to 'Received', user_received_messages_path(@user)
+/      li  class="#{ selected == 'send' ? 'active' : ''}"
+/        = link_to 'Sent', user_send_messages_path(@user)
+/      li  class="#{ selected == 'all' ? 'active' : ''}"
+/        = link_to 'All', user_messages_path(@user)
+/      li  class="#{ selected == 'new' ? 'active' : ''}"
+/        = link_to 'New', user_unread_messages_path(@user)

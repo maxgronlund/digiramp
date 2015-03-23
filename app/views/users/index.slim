@@ -57,65 +57,10 @@
         = link_to  users_path(artist: true) do
             'Artists
             
-      /li class="#{'sidebar-selected' if params[:author] == 'true'}"
-      /  = link_to  users_path(author: true) do
-      /      'Author
-      /.sexy_line
-      /.static-content
-      /  h4 Tags
-      /
-      /= link_to users_path(clear: 'clear')  do 
-      /  .tag
-      /    div class="#{'tag-selected' unless params[:tags]}"
-      /      .tag-title
-      /         'All
-      /      .tag-count 
-      /  .clearfix
-      /  /- parameters = { recording: {order: params[:recording][:order], direction: params[:recording][:direction]}, genre: genre.title }   
-      /  = link_to users_path( tag: 'composer' ) do
-      /    .tag
-      /      div class="#{'tag-selected' if params[:tag] == 'composer'}"
-      /        .tag-title
-      /          'Composers
-      /        .tag-count
-      /          '456
-      /    .clearfix
-      /    
-      /.sidebar
-      /  li class="#{'sidebar-selected' if params[:user][:order] ==  'created_at'}"
-      /    = link_to users_path(user: {order: 'created_at', direction: 'desc', clear: 'clear'}, genre: params[:genre]) do
-      /      i class="fa fa-clock-o"
-      /      '&nbsp;
-      /      'Latest
-      /  li class="#{'sidebar-selected' if params[:recording][:order] ==  'featured_date'}"
-      /    = link_to songs_path(recording: {order: 'featured_date', direction: 'desc', clear: 'clear', featured: 'true'}, genre: params[:genre]) do
-      /      i class="fa fa-star"
-      /      '&nbsp;
-      /      'Featured
-      /  li class="#{'sidebar-selected' if params[:recording][:order] == 'uniq_likes_count'}"
-      /    = link_to songs_path(recording: {order: 'uniq_likes_count', direction: 'desc', clear: 'clear'}, genre: params[:genre]) do
-      /      i class="fa fa-heart"
-      /      '&nbsp;
-      /      'Most Popular
-      /  li class="#{'sidebar-selected' if params[:recording][:order] ==  'uniq_playbacks_count'}"
-      /    = link_to songs_path(recording: {order: 'uniq_playbacks_count', direction: 'desc', clear: 'clear'}, genre: params[:genre]) do
-      /      i class="fa fa-headphones"
-      /      '&nbsp;
-      /      'Most Played
-        /li class="#{'sidebar-selected' if false}"
-        /  = link_to '#' do
-        /    i class="fa fa-thumbs-o-up"
-        /    '&nbsp;
-        /    'Featured
+     
     .clearfix
     
-    /ul class="sidebar-nav"
-    /  - if current_user
-    /    == render 'users/shared/sidebar', selected: 'user'
-    /  - else
-    /    .sidebar 
-    /      .sidebar-ad.sidebar-top-ad
-    /        == render 'admin/digiramp_ads/show', identifier: 'add on user page'
+  
   
   #page-content-wrapper
     .container-fluid

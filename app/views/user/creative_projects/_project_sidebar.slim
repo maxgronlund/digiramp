@@ -1,0 +1,38 @@
+.sidebar 
+
+        
+  
+  
+  li class="#{'sidebar-selected' if selected == 'projects'}"
+    = link_to user_user_creative_projects_path(@user) do
+      i.fa.fa-wrench
+      '&nbsp;Projects 
+  .sexy_line
+  li
+    =  @creative_project.title
+
+      
+  li class="#{'sidebar-selected' if selected == 'dashboard'}"
+    = link_to user_user_creative_project_creative_project_dashboards_path(@user, @creative_project) do
+      i.fa.fa-tachometer
+      '&nbsp;Dashboard
+      
+  li class="#{'sidebar-selected' if selected == 'roles'}"
+    = link_to user_user_creative_project_creative_project_roles_path(@user, @creative_project) do
+      i.fa.fa-graduation-cap
+      '&nbsp;Roles 
+      
+  li class="#{'sidebar-selected' if selected == 'users'}"
+    = link_to user_user_creative_project_creative_project_users_path(@user, @creative_project) do
+      i.fa.fa-users
+      '&nbsp;Project members
+      
+  li class="#{'sidebar-selected' if selected == 'resources'}"
+    = link_to user_user_creative_project_creative_project_resources_path(@user, @creative_project) do
+      i.fa.fa-archive
+      '&nbsp;Resources
+    
+     
+
+#terms
+  = link_to 'Terms And Conditions', terms_and_conditions_path

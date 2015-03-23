@@ -1,0 +1,23 @@
+- applications = creative_project_role.creative_project_users.count
+- creative_project = creative_project_role.creative_project
+.creative-projects
+  .digi-box
+    == render 'user/creative_project_roles/show', creative_project_role: creative_project_role
+    .sexy_line
+    .row
+      .col-sm-12
+        .pull-right.pull-down-8
+        
+           - if current_user && current_user.id != creative_project.user_id 
+        
+            - unless CreativeProjectUser.where( creative_project_role: creative_project_role.id, user_id: current_user.id).first
+              - unless creative_project_role.taken? 
+                = link_to new_creative_project_creative_project_user_path(creative_project, creative_project_role_id: creative_project_role.id) do
+                  .btn.btn-warning
+                    'Yes I want to do that
+
+            - else
+              .btn.btn-default disabled="disabled"
+                'You have applied for that
+           
+           

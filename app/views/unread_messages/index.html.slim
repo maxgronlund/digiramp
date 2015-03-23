@@ -5,37 +5,33 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+      == render 'messages/sidebar', selected: 'new'
   
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-5
+        .col-sm-12
           .help
             .help-text
               h2 Message center
             .help-button
               == render 'admin/helps/help', identifier: 'user messages'
-          
-        .col-sm-7
-          == render 'messages/navigation', selected: 'new'
-
       .sexy_line
       .messages
-        .digi-box
-          h4 New messages
-          table
-            .table-responsive
-              table class="table table-hover"
-                tbody
-                  - @new_messages.each do |message|
-                    == render 'messages/message', message: message
-            
-          .row
-            .col-sm-12
-              .pull-right
-                == paginate(@new_messages) 
-            
+      .digi-box
+        h4 Unread messages
+        table
+          .table-responsive
+            table class="table table-hover"
+              tbody
+                - @new_messages.each do |message|
+                  == render 'messages/message', message: message
+          
+        .row
+          .col-sm-12
+            .pull-right
+              == paginate(@new_messages) 
+          
                 
   == render 'shared/site_footer'    
  

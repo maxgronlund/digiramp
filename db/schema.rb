@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316150234) do
+ActiveRecord::Schema.define(version: 20150322205215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1026,6 +1026,116 @@ ActiveRecord::Schema.define(version: 20150316150234) do
   add_index "contracts", ["account_id"], name: "index_contracts_on_account_id", using: :btree
   add_index "contracts", ["contractable_id", "contractable_type"], name: "index_contracts_on_contractable_id_and_contractable_type", using: :btree
   add_index "contracts", ["user_id"], name: "index_contracts_on_user_id", using: :btree
+
+  create_table "creative_project_resources", force: true do |t|
+    t.integer  "creative_project_id"
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "file"
+    t.string   "file_size"
+    t.string   "content_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "creative_project_user_id"
+  end
+
+  add_index "creative_project_resources", ["creative_project_id"], name: "index_creative_project_resources_on_creative_project_id", using: :btree
+  add_index "creative_project_resources", ["creative_project_user_id"], name: "index_creative_project_resources_on_creative_project_user_id", using: :btree
+  add_index "creative_project_resources", ["user_id"], name: "index_creative_project_resources_on_user_id", using: :btree
+
+  create_table "creative_project_roles", force: true do |t|
+    t.integer  "creative_project_id"
+    t.string   "instrument"
+    t.string   "other_instrument"
+    t.boolean  "jazz"
+    t.boolean  "rock"
+    t.boolean  "pop"
+    t.boolean  "hip_hop"
+    t.boolean  "edm"
+    t.boolean  "classical"
+    t.boolean  "experimental"
+    t.string   "other_genre"
+    t.text     "description"
+    t.string   "budget"
+    t.decimal  "copyright_split"
+    t.decimal  "master_split"
+    t.string   "role"
+    t.boolean  "live_performance"
+    t.boolean  "online_collaboration"
+    t.boolean  "studio_sessions"
+    t.string   "location"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "creative_project_roles", ["creative_project_id"], name: "index_creative_project_roles_on_creative_project_id", using: :btree
+
+  create_table "creative_project_users", force: true do |t|
+    t.integer  "creative_project_id"
+    t.integer  "user_id"
+    t.boolean  "approved_by_project_manager"
+    t.boolean  "approved_by_user"
+    t.boolean  "locked"
+    t.string   "email"
+    t.integer  "created_by"
+    t.boolean  "writer"
+    t.boolean  "composer"
+    t.boolean  "musician"
+    t.boolean  "vocal"
+    t.boolean  "dancer"
+    t.boolean  "live_performer"
+    t.boolean  "producer"
+    t.boolean  "studio_facility"
+    t.boolean  "financial_service"
+    t.boolean  "legal_service"
+    t.boolean  "publicher"
+    t.boolean  "remixer"
+    t.boolean  "audio_engineer"
+    t.boolean  "video_artist"
+    t.boolean  "graphic_artist"
+    t.boolean  "other"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "message"
+    t.integer  "creative_project_role_id"
+    t.boolean  "dismissed_by_project_manager"
+  end
+
+  add_index "creative_project_users", ["creative_project_id"], name: "index_creative_project_users_on_creative_project_id", using: :btree
+  add_index "creative_project_users", ["creative_project_role_id"], name: "index_creative_project_users_on_creative_project_role_id", using: :btree
+  add_index "creative_project_users", ["user_id"], name: "index_creative_project_users_on_user_id", using: :btree
+
+  create_table "creative_projects", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.boolean  "public_project"
+    t.boolean  "writers"
+    t.boolean  "composers"
+    t.boolean  "musicians"
+    t.boolean  "vocals"
+    t.boolean  "dancers"
+    t.boolean  "live_performers"
+    t.boolean  "producers"
+    t.boolean  "studio_facilities"
+    t.boolean  "financial_services"
+    t.boolean  "legal_services"
+    t.boolean  "publishers"
+    t.boolean  "remixers"
+    t.boolean  "audio_engineers"
+    t.boolean  "video_artists"
+    t.boolean  "graphic_artists"
+    t.string   "other"
+    t.boolean  "locked",             default: false
+    t.date     "deadline"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "creative_projects", ["account_id"], name: "index_creative_projects_on_account_id", using: :btree
+  add_index "creative_projects", ["user_id"], name: "index_creative_projects_on_user_id", using: :btree
 
   create_table "customer_events", force: true do |t|
     t.string   "event_type"
@@ -2550,6 +2660,10 @@ ActiveRecord::Schema.define(version: 20150316150234) do
     t.integer  "page_style_id"
     t.string   "top_tag"
     t.string   "backdrop_image"
+    t.boolean  "betatester"
+    t.string   "link_to_tumblr",             default: ""
+    t.string   "link_to_instagram",          default: ""
+    t.string   "link_to_youtube",            default: ""
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

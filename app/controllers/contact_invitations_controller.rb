@@ -192,12 +192,16 @@ private
   end
   
   def sign_up_with_new_user params, client_invitation, email, client
-
-    full_name = client.full_name
-    full_name = User.create_uniq_user_name_from_email( email )  if full_name == ' '
+    
+    if params[:client][:user_name].to_s == ''
+      full_name = client.full_name
+      full_name = User.create_uniq_user_name_from_email( email )  if full_name == ' '
+    else
+      full_name = params[:client][:user_name]
+    end
 
     # create user
-    @user = User.new(   user_name:              client.full_name,
+    @user = User.new(   user_name:              full_name,
                         old_role:               'Customer',
                         provider:               'DigiRAMP',
                         private_profile:        false,

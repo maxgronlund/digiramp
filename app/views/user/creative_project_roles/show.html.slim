@@ -1,0 +1,95 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'user/creative_projects/project_sidebar', selected: 'roles'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'creative projects'.to_sym => user_user_creative_projects_path(@user),
+                                                              @creative_project.title.to_sym => user_user_creative_project_creative_project_dashboards_path(@user, @creative_project),
+                                                              roles:   user_user_creative_project_creative_project_roles_path(@user, @creative_project)}, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @creative_project.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'creative project appication'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to user_user_creative_project_creative_project_roles_path(@user, @creative_project) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+            /= link_to 'Edit', edit_user_user_creative_project_path(@user, @creative_project), class: 'btn btn-primary'
+      
+      .sexy_line
+      .digi-box
+        .creative-projects
+          .digi-box
+            /h3 = @creative_project_role.role.capitalize
+            == render 'user/creative_project_roles/show', creative_project_role: @creative_project_role
+      h3 Applications
+      - @creative_project_role.creative_project_users.order(:created_at).each do | creative_project_user |
+        - if user = creative_project_user.user
+          .digi-box
+            .row
+              .col-sm-6
+                .row
+                  .col-sm-12
+                    .person-badges
+                      .all-users
+                        == render 'users/show', user: user
+              .col-sm-6
+                b Message
+                br
+                = simple_format creative_project_user.message
+            .row
+              .col-sm-4
+                - if !creative_project_user.approved_by_project_manager && !creative_project_user.dismissed_by_project_manager
+                  .alert.alert-info
+                    b Pending
+              .col-sm-8
+                
+                .pull-right
+                  - if creative_project_user.approved_by_project_manager
+                    .btn.btn-default disabled="disabled"
+                      'Accepted
+                    '&nbsp;
+                  - else
+                    => link_to user_user_creative_project_creative_project_user_path( @user, 
+                                                                                      @creative_project, creative_project_user, 
+                                                                                      approved_by_project_manager: true,
+                                                                                      dismissed_by_project_manager: false,
+                                                                                      creative_project_role_id:   @creative_project_role.id), :method => 'put', turboboost: true do
+                      .btn.btn-default
+                        'Accept
+                  
+                  - if creative_project_user.dismissed_by_project_manager
+                    .btn.btn-default disabled="disabled"
+                      'Dismissed
+                    '&nbsp;
+                  
+                  - else
+                    => link_to user_user_creative_project_creative_project_user_path( @user, 
+                                                                                      @creative_project, creative_project_user, 
+                                                                                      dismissed_by_project_manager: true,
+                                                                                      approved_by_project_manager: false,
+                                                                                      creative_project_role_id:   @creative_project_role.id), :method => 'put', turboboost: true do
+                      .btn.btn-default
+                        'Dismiss
+            
+  == render 'shared/site_footer'
+  
+  
+  
+  
+  
+  
+  
+  
+  

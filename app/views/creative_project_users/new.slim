@@ -1,0 +1,69 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities'
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      - if current_user
+        == render 'user/opportunities/sidebar', selected: 'creative projects'
+      - else
+       == render 'public_opportunities/sidebar', selected: 'creative projects'
+   
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Joyn project
+              h4 = @creative_project.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'joyn public creative projects'
+          
+        .col-sm-7.pull-down-10
+
+      .sexy_line
+      .digi-box
+        = simple_form_for [  @creative_project, @creative_project_user], turboboost: true do |f|
+          = f.error_notification
+
+          .form-inputs
+            = f.input :message, :input_html => {  style: "height: 260px;", placeholder: "Write message"}
+            = f.hidden_field :creative_project_id,        value: @creative_project.id
+            /= f.hidden_field :creative_project_user_id,   value: @creative_project_user.id
+            = f.hidden_field :user_id,                    value: current_user.id
+            = f.hidden_field :created_by,                 value: current_user.id
+            = f.hidden_field :creative_project_role_id,   value: @creative_project_user.creative_project_role_id
+            = f.hidden_field :approved_by_project_manager, value: false
+            = f.hidden_field :approved_by_user           , value: true
+            = f.hidden_field :locked , value: false
+    
+    
+            /= f.input :email
+    
+            = f.hidden_field :writer              , value: @creative_project_role.role == 'writer'
+            = f.hidden_field :composer            , value: @creative_project_role.role == 'composer'
+            = f.hidden_field :musician            , value: @creative_project_role.role == 'musician'
+            = f.hidden_field :vocal               , value: @creative_project_role.role == 'vocal'
+            = f.hidden_field :dancer              , value: @creative_project_role.role == 'dancer'
+            = f.hidden_field :live_performer      , value: @creative_project_role.role == 'live_performer'
+            = f.hidden_field :producer            , value: @creative_project_role.role == 'producer'
+            = f.hidden_field :studio_facility     , value: @creative_project_role.role == 'studio_facility'
+            = f.hidden_field :financial_service   , value: @creative_project_role.role == 'financial_service'
+            = f.hidden_field :legal_service       , value: @creative_project_role.role == 'legal_service'
+            = f.hidden_field :publicher           , value: @creative_project_role.role == 'publicher'
+            = f.hidden_field :remixer             , value: @creative_project_role.role == 'remixer'
+            = f.hidden_field :audio_engineer      , value: @creative_project_role.role == 'audio_engineer'
+            = f.hidden_field :video_artist        , value: @creative_project_role.role == 'video_artist'
+            = f.hidden_field :graphic_artist      , value: @creative_project_role.role == 'graphic_artist'
+            = f.hidden_field :other               , value: @creative_project_role.role == 'other'
+            
+          .row
+            .col-sm-12
+              .pull-right
+                .form-actions
+                  = f.submit 'Save', class: 'btn btn-primary'
+
+
+  == render 'shared/site_footer'    

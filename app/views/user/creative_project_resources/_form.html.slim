@@ -1,0 +1,47 @@
+= simple_form_for [:user, @user, @creative_project, @creative_project_resource] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.hidden_field :creative_project_id, value: @creative_project.id
+    = f.hidden_field :user_id, value: current_user.id
+    = f.hidden_field :creative_project_user_id, value: @creative_project_user.id
+    = f.input :title
+    
+    b Description
+    br
+    div id="toolbar" class="wysihtml5-toolbar"
+      a data-wysihtml5-command="bold" Bold
+      '&nbsp; 
+      a data-wysihtml5-command="italic" Italic
+      .pull-right
+        a data-wysihtml5-action="change_view"  Html 
+    = f.input :description, label: false, :input_html => {  style: "height: 180px;", placeholder: "Description", id: 'wysihtml5_editor'}
+    
+    
+    
+    
+    
+    
+
+    fileinput.fileinput-new.input-group data-provides="fileinput"
+      .form-control data-trigger="fileinput"
+        i.glyphicon.glyphicon-file.fileinput-exists
+        span.fileinput-filename
+      
+      span.input-group-addon.btn.btn-default.btn-file
+        span.fileinput-new
+          'Select file
+        span.fileinput-exists
+          'Change
+      
+      
+        = f.file_field :file, multiple: false, label: 'Select Audio File'
+      a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+        'Remove
+      
+  
+  .form-actions
+    .row
+      .col-sm-12.pull-down-8
+        .pull-right
+          = f.submit 'Save', class: 'btn btn-primary please_wait'

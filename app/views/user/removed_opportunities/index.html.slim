@@ -6,7 +6,7 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'opportunities'
+      == render 'user/opportunities/sidebar', selected: 'removed opportunities'
   
   #page-content-wrapper
     .container-fluid
@@ -20,16 +20,11 @@
         
         
       .sexy_line
-        .row
-          .col-sm-12
-            .pull-right
-              == render 'user/opportunities/navigation', active: 'removed'
-        .row
-          .col-sm-12
-            .opportunity
-              .new_opportunities 
-              == render 'user/removed_opportunities/index'
-              
+      .row
+        .col-sm-12
+          .opportunity
+            == render 'user/removed_opportunities/index'
+            
             
                       
 

@@ -78,7 +78,9 @@ class Account < ActiveRecord::Base
   has_many :client_invitation, dependent: :destroy
   has_many :contracts, dependent: :destroy
   
-  has_many :comments,        as: :commentable,          dependent: :destroy
+  has_many :comments,    as: :commentable,     dependent: :destroy
+  
+  has_many :creative_projects
                 
 
   # account types
@@ -122,6 +124,13 @@ class Account < ActiveRecord::Base
   
   # update the uuid so all cached segments expires
   before_save :set_uuid
+  
+  before_destroy :destroy_unlocked_creative_projects
+  
+  def destroy_unlocked_creative_projects
+    creative_projects = self.creative_projects.where(locked: false)
+    creative_projects.destroy_all
+  end
   
   def transfer_codes=(uuids)
     

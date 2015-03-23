@@ -107,6 +107,18 @@
               = link_to user_issues_path(current_user) do
                 i class="fa fa-life-ring"
                 '&nbsp;Support
+                
+            li class="#{page == 'contact' ? 'active' : ''}"
+              = link_to support_index_path do
+                i class="fa fa-envelope"
+                '&nbsp;
+                'Contact
+        
+            li class="#{page == 'forums' ? 'active' : ''}"
+              = link_to forums_path do
+                i.fa.fa-comments-o
+                '&nbsp;
+                'Forums
             
  
     

@@ -1,0 +1,166 @@
+.sidebar 
+
+  /- if current_user  
+  li class="#{'sidebar-selected' if selected == 'opportunities'}"
+    = link_to user_user_opportunities_path(current_user) do
+      i class="fa fa-money"
+      '&nbsp;Opportunities 
+  
+
+  li class="#{ 'sidebar-selected' if selected == 'selected opportunities'  }"  
+    = link_to user_user_selected_opportunities_path(current_user) do
+      i.fa.fa-eye
+      '&nbsp;Viewed
+  
+  li class="#{ 'sidebar-selected' if selected == 'removed opportunities' }"  
+    = link_to user_user_removed_opportunities_path(current_user) do
+      i.fa.fa-trash
+      '&nbsp;Removed
+        
+  /- else
+  /  li class="#{'sidebar-selected' if selected == 'opportunities'}"
+  /    = link_to public_opportunities_path do
+  /        i class="fa fa-money"
+  /        '&nbsp;Opportunities
+  - if current_user.betatester
+    .sexy_line 
+    li &nbsp;       
+    li class="#{'sidebar-selected' if selected == 'creative projects'}"
+      = link_to creative_projects_path do
+          i class="fa fa-rocket"
+          '&nbsp;Projects      
+    
+    li class="#{'sidebar-selected' if selected == 'creative positions'}"
+      = link_to creative_project_positions_path do
+          i class="fa fa-road"
+          '&nbsp;Positions
+    
+    /li class="#{ active == 'new' ? 'active' : '' }"
+    /  = link_to 'New', user_user_new_opportunities_path(@user)
+    
+
+      
+      
+      
+      
+      
+    /li class="#{'sidebar-selected' if selected == 'recordings'}"
+    /  = link_to user_recordings_path(@user, clear: 'clear') do
+    /    i class="fa fa-headphones"
+    /    '&nbsp;
+    /    = pluralize(@user.recordings.count, 'Recording')  
+    /
+    /    
+    /li class="#{'sidebar-selected' if selected == 'likes'}"
+    /  = link_to user_likes_path(@user) do
+    /    i class="fa fa-heart"
+    /    '&nbsp;
+    /    = @user.likes.count
+    /    '&nbsp;
+    /    'Likes  
+    /    
+    /li class="#{'sidebar-selected' if selected == 'followers'}"
+    /  = link_to user_followers_path(@user, clear: 'clear') do
+    /    i class="fa fa-users"
+    /    '&nbsp;
+    /    = pluralize(@user.followers.count, 'Follower')  
+    /    
+    /li class="#{'sidebar-selected' if selected == 'following'}"
+    /  = link_to user_following_index_path(@user, clear: 'clear') do
+    /    i class="fa fa-users"
+    /    '&nbsp;
+    /    'Following
+    /    => @user.followed_users.count
+    /    /= pluralize(@user.followed_users.count, 'User')   
+    /    
+    /
+    /
+    /li class="#{'sidebar-selected' if selected == 'playlists'}"
+    /  = link_to user_playlists_path(@user) do
+    /    i class="fa fa-list"
+    /    '&nbsp;
+    /    = pluralize(@user.playlists.count, 'Playlists')   
+    /    
+  /- else
+  /    .sidebar-ad.sidebar-top-ad
+  /      == render 'admin/digiramp_ads/show', identifier: 'add on user page'
+        
+  /- if current_user 
+  /  .sexy_line
+  /  li class="invite-friends #{'sidebar-selected' if selected == 'invite_friends'}"
+  /    = link_to new_user_user_invite_friend_path(@user) do
+  /      i class="fa fa-user-plus"
+  /      '&nbsp;
+  /      'Invite friends
+  /      
+  /  li class="#{'sidebar-selected' if selected == 'tutorial'}"
+  /    = link_to tutorials_path do
+  /      i class="fa fa-video-camera"
+  /      '&nbsp;
+  /      'Tutorials
+  /      
+  /  li class="#{'sidebar-selected' if selected == 'issues'}"
+  /    = link_to user_issues_path(current_user) do
+  /      i class="fa fa-life-ring"
+  /      '&nbsp;
+  /      'Support
+  /      
+    /li class="#{'sidebar-selected' if selected == 'news'}"
+    /  = link_to user_news_index_path(current_user) do
+    /    - user_news_count       = current_user.news_count
+    /    - news_blog_news_count  = Blog.news_count
+    /    - if user_news_count < news_blog_news_count
+    /      .news
+    /        - news  =  news_blog_news_count - user_news_count
+    /        i class="fa fa-lightbulb-o "
+    /        '&nbsp;
+    /        'News
+    /        '&nbsp; 
+    /        .label.label-danger
+    /          = news
+    /    - else
+    /      i class="fa fa-lightbulb-o "
+    /      '&nbsp;
+    /      'News
+
+  /li class="#{'sidebar-selected' if selected == 'contact'}"
+  /  = link_to support_index_path do
+  /    i class="fa fa-envelope"
+  /    '&nbsp;
+  /    'Contact
+  /      
+  /li class="#{'sidebar-selected' if selected == 'forums'}"
+  /  = link_to forums_path do
+  /    i.fa.fa-comments-o
+  /    '&nbsp;
+  /    'Forums
+
+  
+/.sidebar-ad
+/  <div id="digiramp-ad" data-no-turbolink>
+/    = render 'admin/digiramp_ads/show', identifier: 'disqus added to site'
+/  </div>
+#terms
+  = link_to 'Terms And Conditions', terms_and_conditions_path
+  /-if can_edit?
+  /  '&nbsp;
+  /  = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+  /     i class="fa fa-pencil"
+  /'&nbsp;&nbsp;|&nbsp;&nbsp;
+  /= link_to 'Contact Us', new_contact_path
+      
+      
+      
+      
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+  

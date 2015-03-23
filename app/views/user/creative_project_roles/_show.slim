@@ -1,0 +1,72 @@
+.row
+  .col-sm-12
+    h4 = creative_project_role.role.capitalize
+    - if creative_project_role.instrument.to_s != ''
+      h4
+        - if creative_project_role.instrument == 'Other'
+          =creative_project_role.other_instrument
+        - else
+          = creative_project_role.instrument
+      .sexy_line
+.row
+  .col-sm-6
+    -if creative_project_role.description.to_s != ''
+      b Description
+      = simple_format creative_project_role.description
+      .sexy_line
+    .row
+      .col-sm-12  
+          b Budget
+          br
+          = number_to_currency( creative_project_role.budget.to_f) 
+      
+    -if creative_project_role.master_split.to_f != 0.0
+      .row
+        .col-sm-12
+          .sexy_line
+          b Master split
+          br
+          = number_to_percentage(creative_project_role.master_split, precision: 1) 
+      
+    -if creative_project_role.copyright_split.to_f != 0.0
+      .row
+        .col-sm-12
+          .sexy_line
+          b Copyright split
+          br
+          = number_to_percentage(creative_project_role.copyright_split, precision: 1) 
+      
+  .col-sm-3 
+    b Genre
+    br
+    .list
+      - if creative_project_role.jazz
+        p Jazz
+      - if creative_project_role.rock
+        p Rock
+      - if creative_project_role.pop
+        p Pop
+      - if creative_project_role.hip_hop
+        p Hip hop
+      - if creative_project_role.edm
+        p EDM
+      - if creative_project_role.classical
+        p Classical
+      - if creative_project_role.experimental
+        p Experimental
+      - if creative_project_role.other_genre.to_s != ''
+        p Other
+        
+  .col-sm-3
+    b Locations
+    br
+    .list
+      - if creative_project_role.live_performance
+        p Live performance
+      - if creative_project_role.online_collaboration
+        p Online
+      - if creative_project_role.studio_sessions
+        'Studio sessions
+      - if creative_project_role.location.to_s != ''
+        p = creative_project_role.location
+    

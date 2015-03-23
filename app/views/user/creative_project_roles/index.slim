@@ -1,0 +1,46 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'user/creative_projects/project_sidebar', selected: 'roles'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'creative projects'.to_sym => user_user_creative_projects_path(@user),
+                                                              @creative_project.title.to_sym => user_user_creative_project_creative_project_dashboards_path(@user, @creative_project)  }, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Roles
+            .help-button
+              == render 'admin/helps/help', identifier: 'user creative project'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to user_user_creative_project_creative_project_dashboards_path(@user, @creative_project) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+          /  /= link_to 'Edit', edit_user_user_creative_project_path(@user, @creative_project), class: 'btn btn-primary'
+
+      .sexy_line
+      
+      == render 'user/creative_project_roles/composers'
+      == render 'user/creative_project_roles/dancers'
+      == render 'user/creative_project_roles/live_performers'
+      == render 'user/creative_project_roles/musicians'
+      == render 'user/creative_project_roles/producers'
+      == render 'user/creative_project_roles/studio_facilities'
+      == render 'user/creative_project_roles/vocals'
+      
+      
+      == render 'user/creative_project_roles/writers'
+              
+
+      
+ 
+            
+  == render 'shared/site_footer'

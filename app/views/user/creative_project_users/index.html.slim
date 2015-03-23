@@ -1,0 +1,78 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'user/creative_projects/project_sidebar', selected: 'users'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'creative projects'.to_sym => user_user_creative_projects_path(@user),
+                                                              @creative_project.title.to_sym => user_user_creative_project_creative_project_dashboards_path(@user, @creative_project)  }, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Project members
+            .help-button
+              == render 'admin/helps/help', identifier: 'user creative project'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to user_user_creative_project_creative_project_dashboards_path(@user, @creative_project) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+      
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th
+                th Name
+                th Role
+                th Files
+                th 
+                
+            tbody
+              - @creative_project_users.each do |creative_project_user|
+                - if user = creative_project_user.user
+                  tr
+                    td = image_tag(user.image_url(:avatar_32x32))
+                    td 
+                      = link_to  user_user_creative_project_creative_project_user_path( @user, @creative_project, creative_project_user) do
+                                          .btn.btn-default
+                                            i.fa.fa-eye
+                                            '&nbsp;
+                                            = user.user_name
+                      
+                      
+                    td = creative_project_user.role.capitalize
+                    td = creative_project_user.creative_project_resources.count
+                    td
+                  
+
+
+            
+  == render 'shared/site_footer'
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+

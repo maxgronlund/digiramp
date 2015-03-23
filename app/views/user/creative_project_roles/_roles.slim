@@ -1,0 +1,69 @@
+- if creative_project.writers
+  - positions = creative_project.open_positions('writer')
+  - unless positions == 0
+    = pluralize(positions, 'Writer')
+    br
+-if creative_project.composers
+  - positions = creative_project.open_positions('composer')
+  - unless positions == 0
+    = pluralize(positions, 'Composer')
+    br
+-if creative_project.musicians
+  - positions = creative_project.open_positions('musician')
+  - unless positions == 0
+    = pluralize(positions, 'Musician')
+    br
+-if creative_project.vocals
+  - positions = creative_project.open_positions('vocal')
+  - unless positions == 0
+    = pluralize(positions, 'Vocal')
+    br
+-if creative_project.live_performers
+  - positions = creative_project.open_positions('live performer')
+  - unless positions == 0
+    = pluralize(positions, 'Live performer')
+  br
+-if creative_project.dancers
+  - positions = creative_project.open_positions('dancer')
+  - unless positions == 0
+    = pluralize(positions, 'Dancer')
+  br
+-if creative_project.producers
+  - positions = creative_project.open_positions('producer')
+  - unless positions == 0
+    = pluralize(positions, 'Producer')
+  br
+-if creative_project.studio_facilities
+  - positions = creative_project.open_positions('studio facility')
+  - unless positions == 0
+    = pluralize(positions, 'Studio facility')
+  br
+-if creative_project.financial_services
+  - positions = creative_project.open_positions('financial service')
+  - unless positions == 0
+    = pluralize(positions, 'Financial service')
+  br
+-if creative_project.legal_services
+  - positions = creative_project.open_positions('legal service')
+  - unless positions == 0
+    = pluralize(positions, 'Legal service')
+  br
+-if creative_project.publishers
+  - positions = creative_project.open_positions('publisher')
+  - unless positions == 0
+    = pluralize(positions, 'Publisher')
+  br
+-if creative_project.remixers
+  'Remixers
+  br
+-if creative_project.audio_engineers
+  'Audio engineers
+  br
+- if creative_project.video_artists
+  'Video artists
+  br
+- if creative_project.graphic_artists
+  'Graphic artists
+  br
+- if creative_project.other.to_s != ''
+  = creative_project.other

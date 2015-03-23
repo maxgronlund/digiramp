@@ -1,0 +1,2 @@
+module CreativeProjectsHelper
+end

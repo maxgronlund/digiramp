@@ -1,0 +1,58 @@
+.digi-box
+  = simple_form_for [:user, @user, @creative_project, @creative_project_role], turboboost: true do |f|
+    = f.hidden_field :creative_project_id, value: @creative_project.id
+    = f.hidden_field :role, value: params[:role]
+    /= f.hidden_field :creative_project_user
+    = f.error_notification
+    .form-inputs
+      .row
+        .col-sm-6
+
+          - if @creative_project_role.role == 'musician'
+            = f.input :instrument, collection: CreativeProjectRole::INSTRUMENTS, :include_blank => false
+            = f.input :other_instrument
+          - elsif @creative_project_role.role == 'vocal' 
+            = f.input :instrument, collection: CreativeProjectRole::VOCALS, :include_blank => false
+            = f.input :other_instrument, label: 'Other vocals'
+            
+          = f.input :description
+          .row
+            .col-sm-6
+              = f.input :budget, label: 'Budget (USD)'
+            .col-sm-6
+              - if @creative_project_role.role == 'musician' || \
+                   @creative_project_role.role == 'vocal' 
+                = f.input :master_split, placeholder: 'i.e. 25%', label: 'Master split %'
+                = f.hidden_field :copyright_split, value: 0.0
+              
+              - elsif @creative_project_role.role == 'writer'  || \
+                      @creative_project_role.role == 'composer'  
+                = f.input :copyright_split, placeholder: 'i.e. 25%'
+                = f.hidden_field :master_split, value: 0.0
+          
+          .sexy_line
+          b Work locations
+          = f.input :live_performance,          :input_html     => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          = f.input :online_collaboration,      :input_html     => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          = f.input :studio_sessions,           :input_html     => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          = f.input :location, placeholder: 'i.e. LA'
+        .col-sm-6
+          b Genre
+          = f.input :jazz,          :input_html     => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          = f.input :rock,          :input_html     => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          = f.input :classical,     :input_html     => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          = f.input :pop,           :input_html     => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          = f.input :hip_hop,       :input_html     => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          = f.input :edm, label: 'EDM',          :input_html     => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          = f.input :experimental,  :input_html     => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          .row
+            .col-sm-6
+              = f.input :other_genre,   :input_html     => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+        
+      
+    .row
+      .col-sm-12
+        .pull-right
+          .form-actions
+            = f.submit 'Save', class: 'btn btn-primary'
+  

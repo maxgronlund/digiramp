@@ -5,7 +5,7 @@
 
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'opportunities'
+      == render 'user/opportunities/sidebar', selected: 'selected opportunities'
   
   #page-content-wrapper
     .container-fluid 
@@ -31,9 +31,9 @@
                 
       /= @opportunity.title
       .sexy_line
-      .row
-        .col-sm-12
-           == render 'user/opportunities/navigation', active: ''
+      /.row
+      /  .col-sm-12
+      /     == render 'user/opportunities/navigation', active: ''
       .opportunity
         .digi-box
           - viewed = SelectedOpportunity.where(user_id: @user.id, opportunity_id: @opportunity.id).first ? true : false

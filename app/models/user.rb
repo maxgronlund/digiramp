@@ -167,6 +167,8 @@ class User < ActiveRecord::Base
   has_many :cms_pages
   has_many :contracts
   
+  has_many :creative_projects
+  
   #has_one :default_cms_page
   
   def styling
@@ -293,6 +295,17 @@ class User < ActiveRecord::Base
     
     self.uniq_followers_count = Uniqifyer.uniqify(self.followers_count)
     
+  end
+  
+  def validate_social_links
+    self.link_to_facebook = LinkValidator.validate( self.link_to_facebook )
+    self.link_to_twitter = LinkValidator.validate( self.link_to_twitter )
+    self.link_to_linkedin = LinkValidator.validate( self.link_to_linkedin )
+    self.link_to_google_plus = LinkValidator.validate( self.link_to_google_plus )
+    self.link_to_homepage = LinkValidator.validate( self.link_to_homepage )
+    self.link_to_tumblr = LinkValidator.validate( self.link_to_tumblr )
+    self.link_to_instagram = LinkValidator.validate( self.link_to_instagram )
+    self.link_to_youtube = LinkValidator.validate( self.link_to_youtube )
   end
   
   def set_page_style
@@ -596,6 +609,13 @@ class User < ActiveRecord::Base
   
   def can_edit?
     self.role == 'Super'
+  end
+  
+  def manage? user
+    return false unless user
+    return true if user.super?
+    return true if user.id == self.id
+    false
   end
 
   # user by?

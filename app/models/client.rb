@@ -44,6 +44,10 @@ class Client < ActiveRecord::Base
     
   end
   
+  def user_name
+    
+  end
+  
   def member
     # optimization: avoid db lookup
     if self.member_id

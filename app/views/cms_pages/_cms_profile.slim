@@ -56,6 +56,11 @@
       .col-sm-4
         /.user-avatar
         = render 'shared/lightbox', locals: {image_url: @user.image_url , thumb_url: @user.image_url(:avatar_184x184) , id: @user.id, caption: @user.user_name}
+
+        - if @user.account.account_type == 'Pro'
+          h4
+            span class='label label-default'
+             'Pro user
         /=  image_tag @user.image_url(:avatar_184x184) 
         .pull-down-10
       
@@ -157,12 +162,34 @@
             .user-stat-row
               .user-stat-title
                 h4 
-                  i.fa.fa-heart
+                  i.fa.fa-list
                   '&nbsp;Playlists
                 
               .user-stat-data
                 h4 = @user.playlists.count
-              
+          
+          - if current_user && current_user.betatester
+            - if current_user && current_user.id == @user.id
+              = link_to user_user_creative_projects_path(@user) do
+                .user-stat-row
+                  .user-stat-title
+                    h4 
+                      i.fa.fa-wrench
+                      '&nbsp;Projects
+                    
+                  .user-stat-data
+                    h4 = @user.creative_projects.count
+            - else
+              = link_to user_user_creative_projects_path(@user) do
+                .user-stat-row
+                  .user-stat-title
+                    h4 
+                      i.fa.fa-wrench
+                      '&nbsp;Projects
+                    
+                  .user-stat-data
+                    h4 = @user.creative_projects.where(public_project: true).count
+                  
               
               
               
@@ -220,7 +247,71 @@
         
         
         
-       
+    .row
+      .col-sm-12.pull-down-8
+        ul.social-icons2.icon-flat.list-unstyled.list-inline
+          - if @user.link_to_facebook != ''
+            li
+              => link_to @user.link_to_facebook , target: "_blank" do
+                i.fa.fa-facebook
+          - if @user.link_to_twitter != ''
+            li
+              => link_to @user.link_to_twitter , target: "_blank" do
+                i.fa.fa-twitter
+          - if @user.link_to_linkedin != ''
+            li
+              => link_to @user.link_to_linkedin , target: "_blank" do
+                i.fa.fa-linkedin
+          - if @user.link_to_google_plus != ''
+            li
+              => link_to @user.link_to_google_plus , target: "_blank" do
+                i.fa.fa-google-plus
+          - if @user.link_to_tumblr != ''
+            li
+              => link_to @user.link_to_tumblr , target: "_blank" do
+                i.fa.fa-tumblr
+          - if @user.link_to_instagram != ''
+            li
+              => link_to @user.link_to_instagram , target: "_blank" do
+                i.fa.fa-instagram
+          - if @user.link_to_youtube != ''
+            li
+              => link_to @user.link_to_youtube , target: "_blank" do
+                i.fa.fa-youtube-play
+              
+          /li
+          /  a href="#" 
+          /    i.fa.fa-adn
+          /li
+          /  a href="#" 
+          /    i.fa.fa-android
+          /li
+          /  a href="#" 
+          /    i.fa.fa-apple
+          /li
+          /  a href="#" 
+          /    i.fa.fa-bitbucket
+          /li
+          /  a href="#" 
+          /    i.fa.fa-bitcoin
+          /li
+          /  a href="#" 
+          /    i.fa.fa-css3
+          /li
+          /  a href="#" 
+          /    i.fa.fa-dribbble
+          /li
+          /  a href="#" 
+          /    i.fa.fa-dropbox
+          /li
+          /  a href="#" 
+          /    i.fa.fa-facebook
+          /li
+          /  a href="#" 
+          /    i.fa.fa-flickr
+          /li
+          /  a href="#" 
+          /    i.fa.fa-foursquare
     .row
       .col-sm-12.pull-down-8
         .sexy_line

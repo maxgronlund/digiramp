@@ -1,0 +1,55 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'user/creative_projects/project_sidebar', selected: 'resources'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'creative projects'.to_sym => user_user_creative_projects_path(@user), 
+                                                              @creative_project.title.to_sym => user_user_creative_project_creative_project_dashboards_path(@user, @creative_project),
+                                                              resources: user_user_creative_project_creative_project_resources_path(@user, @creative_project) }, current: ''}
+      .row
+        .col-sm-9
+          .help
+            .help-text
+              h2 Edit resources
+                
+            .help-button
+              == render 'admin/helps/help', identifier: 'creative project resources'
+        .col-sm-3
+          .pull-right.pull-down-10
+            = link_to user_user_creative_project_creative_project_resources_path(@user, @creative_project) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+          
+      .sexy_line
+      == render 'user/creative_project_resources/show', creative_project_resource: @creative_project_resource, show: false
+      .row
+        .col-sm-12
+          .digi-box
+            = simple_form_for [ Comment.new ], remote: true do |f|
+              .row
+                .col-sm-12
+                  = f.hidden_field  :commentable_id,    value: @creative_project_resource.id
+                  = f.hidden_field  :commentable_type,  value: @creative_project_resource.class.name
+                  = f.hidden_field  :user_id,  value: current_user.id
+                  h4 Comments
+                  /= f.input :title, placeholder: 'Title', label: false
+                  = f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Write Comment"}
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Post', class: 'btn btn-primary'
+            br
+            .rec-comments
+              - @creative_project_resource.comments.order('created_at desc').each do |comment|
+                == render 'comments/show', comment: comment
+      
+            
+              
+  == render 'shared/site_footer'

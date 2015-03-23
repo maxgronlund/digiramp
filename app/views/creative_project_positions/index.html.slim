@@ -1,0 +1,52 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities'
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      - if current_user
+        == render 'user/opportunities/sidebar', selected: 'creative positions'
+      - else
+       == render 'public_opportunities/sidebar', selected: 'creative positions'
+   
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Positions
+            .help-button
+              == render 'admin/helps/help', identifier: 'public creative projects possitions'
+          
+        .col-sm-7.pull-down-10
+
+      .sexy_line
+      - @creative_project_roles.each do |creative_project_role|
+        - unless creative_project_role.taken?
+          - applications = creative_project_role.creative_project_users.count
+          - creative_project = creative_project_role.creative_project
+          .creative-projects
+            .digi-box
+              == render 'user/creative_project_roles/show', creative_project_role: creative_project_role
+              .sexy_line
+              .row
+                .col-sm-12
+                  .pull-right.pull-down-8
+                    = link_to 'Show project', creative_project, class: 'btn btn-default'
+              /
+              /       - if current_user && current_user.id != creative_project.user_id 
+              /
+              /        - unless CreativeProjectUser.where( creative_project_role: creative_project_role.id, user_id: current_user.id).first
+              /          - unless creative_project_role.taken? 
+              /            = link_to new_creative_project_creative_project_user_path(creative_project, creative_project_role_id: creative_project_role.id) do
+              /              .btn.btn-warning
+              /                'Yes I want to do that
+              /
+              /        - else
+              /          .btn.btn-default disabled="disabled"
+              /            'You have applied for that
+
+
+  == render 'shared/site_footer'    

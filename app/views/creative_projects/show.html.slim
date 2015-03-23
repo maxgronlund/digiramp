@@ -1,0 +1,51 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities'
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'user/opportunities/sidebar', selected: 'creative projects'
+   
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @creative_project.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'public creative project'
+
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to creative_projects_path do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+           
+
+      .sexy_line
+      .digi-box
+        .row
+          .col-sm-6
+            b Description
+            br
+            = simple_format @creative_project.description
+            .sexy_line
+            b Deadline
+            br
+            = @creative_project.deadline
+
+      h4 Looking for
+      - @creative_project.creative_project_roles.each do |creative_project_role|
+        - unless creative_project_role.taken?
+          == render 'creative_project_roles/show', creative_project_role: creative_project_role
+          /.col-sm-6
+          /  b Looking for
+          /  br
+          /  == render 'user/creative_project_roles/roles', creative_project: @creative_project
+
+            
+            
+  == render 'shared/site_footer'

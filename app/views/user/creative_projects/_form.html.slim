@@ -1,0 +1,54 @@
+.row
+  .col-sm-8
+    .digi-box
+
+      = simple_form_for [:user, @user, @creative_project], turboboost: true do |f|
+        = f.error_notification
+        .form-inputs
+      
+        
+          = f.input :title
+          b Description
+          br
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
+            .pull-right
+              a data-wysihtml5-action="change_view"  Html 
+      
+          = f.input :description, label: false, :input_html => {  style: "height: 240px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+          
+          
+          = f.hidden_field :user_id, value: @user.id
+          = f.hidden_field :account_id, value: @user.account_id
+          = f.input :public_project,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :deadline
+          b Deadline
+          = f.text_field :deadline, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+          
+          /b Looking for
+          /.sexy_line
+          /= f.input :writers,  :input_html              => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :composers,  :input_html            => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :musicians,     :input_html         => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :vocals,        :input_html         => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :dancers,     :input_html           => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
+          /= f.input :live_performers,  :input_html      => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :producers  ,  :input_html           => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   
+          /= f.input :studio_facilities  ,  :input_html  => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :financial_services,  :input_html   => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :legal_services,  :input_html       => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :publishers,  :input_html           => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :remixers,  :input_html             => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :audio_engineers,  :input_html       => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :video_artists,  :input_html                => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+          /= f.input :graphic_artists,  :input_html              => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
+          /= f.input :other 
+          
+      
+        .row
+          .col-sm-12.pull-down-10
+            .pull-right
+              = f.submit 'Save', class: 'btn btn-primary'
+      

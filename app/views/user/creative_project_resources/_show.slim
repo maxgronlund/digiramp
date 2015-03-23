@@ -1,0 +1,62 @@
+.digi-box
+  .row
+    .col-sm-12
+      h3 = creative_project_resource.title
+        
+      /b File name
+      /br
+      /- basename  = File.basename(creative_project_resource.file_url)
+      /- extname   = File.extname(creative_project_resource.file_url)
+      /- if  extname == ".mp3" || \
+      /      extname == ".mp4" || \  
+      /      extname == ".ogg" || \
+      /      extname == ".wav"
+      /  .inlineplayer-init
+      /  ul.graphic
+      /    li
+      /      a.sm2_link.sm2_paused href="#{creative_project_resource.file_url}"  #{basename}
+      /- else
+      /  = basename
+  .row.pull-down-8
+    .col-sm-8
+      b Description
+      br
+      = simple_format creative_project_resource.description
+    .col-sm-4
+      b File name
+      br
+      = File.basename(creative_project_resource.file_url)
+      .sexy_line
+      - if user = creative_project_resource.user
+        b Uploaded by
+        br
+        = link_to user.user_name, user_user_creative_project_creative_project_user_path( @user, @creative_project, creative_project_resource.creative_project_user )
+      
+      .sexy_line
+      b File size
+      br
+       =  number_to_human_size(creative_project_resource.file_size.to_i) 
+ 
+     
+  .sexy_line  
+  .row.pull-down-8
+    .col-sm-6
+
+      => link_to  creative_project_resource.file_url do
+         .btn.btn-default
+           i.fa.fa-cloud-download
+           '&nbsp;Right clink and select save
+    .col-sm-6
+      .pull-right
+        - if show
+          => link_to 'Show', user_user_creative_project_creative_project_resource_path( @user, \
+                                                                                @creative_project,creative_project_resource \
+                                                                              ), class: 'btn btn-default'
+        => link_to 'Edit', edit_user_user_creative_project_creative_project_resource_path( @user, \
+                                                                              @creative_project,creative_project_resource \
+                                                                            ), class: 'btn btn-default'
+        = link_to user_user_creative_project_creative_project_resource_path( @user, \
+                                                                              @creative_project,creative_project_resource \
+                                                                            ), data: { confirm: 'Are you sure?' }, turboboost: true , :method => :delete do
+          .btn.btn-danger
+            i.fa.fa-times

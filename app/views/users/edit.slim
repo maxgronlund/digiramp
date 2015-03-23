@@ -25,6 +25,13 @@
             
               .row
                 .col-sm-6
+                  - if @user.user_name == User.create_uniq_user_name_from_email(@user.email)  
+                    = f.input :user_name, label: 'Name', placeholder: 'This name will be displayed on your profile.', hint: 'Change to improve completeness'
+                  - else
+                    = f.input :user_name, label: 'Name',  placeholder: 'This name will be displayed on your profile.'
+                  
+                  = f.input :profession
+                  = f.input :short_description, label: 'Short description (Max 100 chars)', :input_html => {  style: "height: 80px;", placeholder: "Short description, max 100 chars"}
                   'Ratio 1:1
                   br
                   .fileinput.fileinput-new data-provides="fileinput"
@@ -45,11 +52,8 @@
                       a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
                         'Remove
             
-                  br
-                  - if @user.cms_pages.count > 0
-                   = f.input :default_cms_page_id, collection: @user.cms_pages, label: 'Default profile page', value_method: :id, include_blank: true
-                   
-                  = f.input :page_style_id, collection: PageStyle.all, label: 'Profile page style', value_method: :id, include_blank: true
+                  .sexy_line
+                  
                   
                   = f.input :private_profile, label: 'Hide my profile',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
                   /- if @user.name == User.create_uniq_user_name_from_email(@user.email)
@@ -72,19 +76,19 @@
                           .col-sm-6
                             = f.input :password_confirmation, autocomplete: :off, placeholder: '•••••••••••', hint: 'Confirm new password'
                             
-                  - if @user.user_name == User.create_uniq_user_name_from_email(@user.email)  
-                    = f.input :user_name, label: 'Name', placeholder: 'This name will be displayed on your profile.', hint: 'Change to improve completeness'
-                  - else
-                    = f.input :user_name, label: 'Name',  placeholder: 'This name will be displayed on your profile.'
-                  = f.input :profession
-                  = f.input :short_description, label: 'Short description (Max 100 chars)', :input_html => {  style: "height: 80px;", placeholder: "Short description, max 100 chars"}
+                  
 
                   .row
                     .col-sm-6
                       = f.input :country, as: :country, priority: ['US'] 
                     .col-sm-6
                       = f.input :city
+                  .sexy_line
+                  .pull-down-10
+                  - if @user.cms_pages.count > 0
+                    = f.input :default_cms_page_id, collection: @user.cms_pages, label: 'Default profile page', value_method: :id, include_blank: true
                   
+                  = f.input :page_style_id, collection: PageStyle.all, label: 'Profile page style', value_method: :id, include_blank: true
                       
                 
                       
@@ -122,6 +126,11 @@
                       = f.input :link_to_twitter, placeholder: 'e.g. https://www.twitter/janis-joplin-psy',                 label: 'Twitter'
                       = f.input :link_to_linkedin, placeholder: 'e.g. https://www.linkedin.com/in/janis-joplin-psy',        label: 'Linkedin'
                       = f.input :link_to_google_plus, placeholder: 'e.g. https://plus.google.com/u/0/888888888888888/posts',label: 'Google+'
+                      
+                      = f.input :link_to_tumblr, placeholder: 'e.g. http://janis-joplin-psy.tumblr.com/',label: 'Tumblr'
+                      = f.input :link_to_instagram, placeholder: 'e.g. https://janis-joplin-psy/zebulonraphael/',label: 'Instagram'
+                      = f.input :link_to_youtube, placeholder: 'e.g. https://www.youtube.com/channel/xxxxxxxxxxxxxx',label: 'Youtube'
+                      
                       = f.input :link_to_homepage, placeholder: 'e.g. http://my-rocket-factory.com',                        label: 'Home page'
                   
 

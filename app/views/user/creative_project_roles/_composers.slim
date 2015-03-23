@@ -1,0 +1,13 @@
+h3 Composers
+- @creative_project.creative_project_roles.where(role: 'composer').each do |creative_project_role|
+  == render 'user/creative_project_roles/role', creative_project_role: creative_project_role
+- if @user.manage? current_user
+  .row
+    .col-sm-12
+      .pull-right
+        = link_to 'Add composer', new_user_user_creative_project_creative_project_role_path(@user, @creative_project, role: 'writer'), class: 'btn btn-default'
+.sexy_line
+      
+
+
+          

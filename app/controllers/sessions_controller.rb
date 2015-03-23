@@ -108,6 +108,7 @@ class SessionsController < ApplicationController
     
     session[:share_recording_id]        = nil
     session[:show_profile_completeness] = nil
+    session[:request_url]               = nil
     #reset_session
     
     if params[:opportunity_id]

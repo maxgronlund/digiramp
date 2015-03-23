@@ -5,36 +5,34 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+      == render 'messages/sidebar', selected: 'send'
   
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-5
+        .col-sm-12
           .help
             .help-text
               h2 Message center
             .help-button
               == render 'admin/helps/help', identifier: 'user messages'
           
-        .col-sm-7
-          == render 'messages/navigation', selected: 'send'
-
       .sexy_line
-        .digi-box
-          h4 Send messages
-          table
-            .table-responsive
-              table class="table table-hover"
-                tbody
-                  - @send_massages.each do |message|
-                    == render 'messages/message', message: message
-            
-          .row
-            .col-sm-12
-              .pull-right
-                == paginate(@send_massages) 
+      .messages
+      .digi-box
+        h4 Send messages
+        table
+          .table-responsive
+            table class="table table-hover"
+              tbody
+                - @send_massages.each do |message|
+                  == render 'messages/message', message: message
           
-                  
+        .row
+          .col-sm-12
+            .pull-right
+              == paginate(@send_massages) 
+        
+                
   == render 'shared/site_footer'    
  

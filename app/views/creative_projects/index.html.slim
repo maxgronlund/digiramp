@@ -1,0 +1,101 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities'
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      - if current_user
+        == render 'user/opportunities/sidebar', selected: 'creative projects'
+      - else
+       == render 'public_opportunities/sidebar', selected: 'creative projects'
+   
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Projects
+            .help-button
+              == render 'admin/helps/help', identifier: 'public creative projects'
+          
+        .col-sm-7.pull-down-10
+          /.pull-right
+          /  = form_tag("/public_opportunities", method: "get", remote: true) do |f|
+          /    .input-group
+          /      span class="input-group-addon"
+          /        i class= 'fa fa-search'
+          /      = text_field_tag "query", "", :class => 'search-query form-control', \
+          /                                    :placeholder => 'Search for opportunities', \
+          /                                    value: params[:query]
+          /      .input-group-btn
+          /        = submit_tag 'Go', class: "btn btn-primary"
+          /        /= f.submit 'Go', class: "btn btn-primary"
+          /        '&nbsp;
+          /        = link_to 'Clear', public_opportunities_path( clear: 'clear'), class: 'btn btn-default'
+          /
+      .sexy_line
+      - @creative_projects.each do |creative_project|
+        .digi-box
+          h3 = link_to creative_project.title, creative_project
+          .sexy_line
+          .row
+            .col-sm-6
+              - if user = creative_project.user
+                
+                b Managed by
+                br
+                = link_to user_path(user) do
+                  = image_tag(user.image_url(:avatar_32x32))
+                  '&nbsp;
+                  = user.user_name
+              
+                br
+                br
+              b Description
+              br
+              = simple_format creative_project.description
+                  
+              
+
+            
+            .col-sm-6
+              
+              b Deadline
+              br
+              
+              = creative_project.deadline
+              br
+              br
+              b Looking for
+              br
+              == render 'user/creative_project_roles/roles', creative_project: creative_project
+          .row
+            .col-sm-12
+              .pull-right
+                = link_to 'Show more', creative_project, class: 'btn btn-default'
+          
+          
+          
+              /b Team members
+              /br
+              /- creative_project_users.each do |creative_project_user|
+              /  - if user = creative_project_user.user
+              /    = link_to user_user_creative_project_creative_project_user_path( @user, @creative_project, creative_project_user) do
+              /      .btn.btn-default.btn-xs
+              /        =< user.user_name
+              /        ' : 
+              /        = creative_project_user.creative_project_role.role.capitalize  
+              /  
+              /    .pull-right
+              /      = link_to user do
+              /        .btn.btn-default.btn-xs
+              /          'Profile
+              /    
+              /    .sexy_line
+      /.opportunity
+      /  .new_opportunities 
+      /    == render 'public_opportunities/index'
+
+  == render 'shared/site_footer'    

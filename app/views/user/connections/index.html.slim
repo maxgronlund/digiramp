@@ -1,24 +1,23 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'connections' 
+    == render 'shared/navigationbar', page: 'messages' 
   
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'connections'
+      == render 'messages/sidebar', selected: 'connections'
   
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-5
+        .col-sm-12
           .help
             .help-text
-              h2 Connections
+              h2 Message center
             .help-button
-              == render 'admin/helps/help', identifier: 'user connections'
-        .col-sm-7
-          == render 'messages/navigation', selected: 'connections'
+              == render 'admin/helps/help', identifier: 'user messages'
       .sexy_line
+      .messages
       
       .digi-box
         .table-responsive

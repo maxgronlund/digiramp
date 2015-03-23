@@ -5,7 +5,7 @@
 
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'opportunities'
+      == render 'user/opportunities/sidebar', selected: 'selected opportunities'
   
   #page-content-wrapper
     .container-fluid
@@ -18,10 +18,6 @@
               == render 'admin/helps/help', identifier: 'user opportunities'
 
       .sexy_line
-      .row
-        .col-sm-12
-          .pull-right
-            == render 'user/opportunities/navigation', active: 'selected'
       .row
         .col-sm-12
           .opportunity
@@ -42,7 +38,6 @@
                     .pull-right
                       => link_to user_user_selected_opportunity_path(@user, opportunity) do
                         .btn.btn-default
-                          i.fa.fa-eye
                           '&nbsp;
                           'View
                       -if submissions_count > 0    

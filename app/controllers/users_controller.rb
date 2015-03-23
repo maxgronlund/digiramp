@@ -144,8 +144,10 @@ class UsersController < ApplicationController
     params[:user][:role]                = 'Customer'
     params[:user][:show_introduction]   = true
     params[:user][:email].downcase! if params[:user][:email]
-    user_name                 = User.create_uniq_user_name_from_email (params[:user][:email])
-    params[:user][:user_name] = user_name
+    if params[:user][:user_name].to_s == ''
+      user_name                 = User.create_uniq_user_name_from_email (params[:user][:email])
+      params[:user][:user_name] = user_name
+    end
     @user                     = User.new(user_params)
                               
     blog                      = Blog.cached_find('Sign Up')

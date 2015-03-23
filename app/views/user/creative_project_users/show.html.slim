@@ -1,0 +1,107 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'user/creative_projects/project_sidebar', selected: 'users'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'creative projects'.to_sym => user_user_creative_projects_path(@user),
+                                                              @creative_project.title.to_sym => user_user_creative_project_creative_project_dashboards_path(@user, @creative_project),
+                                                              'project members'.to_sym =>   user_user_creative_project_creative_project_users_path(@user, @creative_project)}, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Team member
+            .help-button
+              == render 'admin/helps/help', identifier: 'creative project user'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to user_user_creative_project_creative_project_users_path(@user, @creative_project) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+          /  /= link_to 'Edit', edit_user_user_creative_project_path(@user, @creative_project), class: 'btn btn-primary'
+      
+      .sexy_line
+      
+      .row
+        .col-lg-8
+          .digi-box
+            .row
+              .col-sm-12
+                
+                h4 = @creative_project_user.creative_project_role.role.capitalize
+                
+                .comments-content
+                  .row
+                    .col-sm-12
+          
+                      .pull-left
+                        .avatar
+                          .thumbnail
+                            = link_to image_tag( @project_user.image_url :avatar_48x48),  user_path( @project_user)
+
+                      .comment-content
+                        h5 = link_to @project_user.user_name, user_path( @project_user)
+                
+                
+                /h4 = @project_user.user_name
+                /= link_to image_tag(@project_user.image_url(:avatar_64x64)), @project_user
+                = simple_format @creative_project_user.creative_project_role.description
+              /.col-sm-9
+              /  .creative-projects
+              /    == render 'user/creative_project_roles/show', creative_project_role: @creative_project_user.creative_project_role
+          h3 Resources
+          .digi-box  
+            - @creative_project_user.creative_project_resources.each do |creative_project_resource|
+              == render 'user/creative_project_resources/show', creative_project_resource: creative_project_resource, show: true
+        
+        .col-lg-4
+          .digi-box
+            = simple_form_for [ Comment.new ], remote: true do |f|
+              .row
+                .col-sm-12
+                  = f.hidden_field  :commentable_id,    value: @creative_project_user.id
+                  = f.hidden_field  :commentable_type,  value: @creative_project_user.class.name
+                  = f.hidden_field  :user_id,  value: current_user.id
+                  h4 Comments
+                  /= f.input :title, placeholder: 'Title', label: false
+                  = f.input :body, label: false, :input_html => {  style: "height: 60px;", placeholder: "Write Comment"}
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Post', class: 'btn btn-primary'
+            br
+            .rec-comments
+              - @creative_project_user.comments.order('created_at desc').each do |comment|
+                == render 'comments/show', comment: comment
+
+     
+            
+  == render 'shared/site_footer'
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+

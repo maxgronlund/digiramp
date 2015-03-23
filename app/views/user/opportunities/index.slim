@@ -1,4 +1,3 @@
-
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'opportunities' 
@@ -6,7 +5,7 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'opportunities'
+      == render 'user/opportunities/sidebar', selected: 'opportunities'
 
   #page-content-wrapper
     .container-fluid
@@ -37,10 +36,10 @@
                   = link_to 'Clear', user_user_opportunities_path(@user, clear: 'clear'), class: 'btn btn-default'
             
       .sexy_line
-      .row
-        .col-sm-12
-          pull-right
-            == render 'user/opportunities/navigation', active: 'all'
+      /.row
+      /  .col-sm-12
+      /    pull-right
+      /      == render 'user/opportunities/navigation', active: 'all'
       .row
         .col-sm-12
           .opportunity

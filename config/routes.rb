@@ -1,5 +1,6 @@
 Digiramp::Application.routes.draw do
 
+  get 'social_icons/index'
 
   get 'user_menu/edit'
 
@@ -15,6 +16,10 @@ Digiramp::Application.routes.draw do
   resources :comments
   resources :contacts, only: [:new, :create, :show ]
   resources :create_playlists, only: [:new, :create]
+  resources :creative_projects, only: [:index, :show] do
+    resources :creative_project_users, only: [:new, :create]
+  end
+  resources :creative_project_positions, only: [:index]
   resources :digi_whams
   resources :discover, only: [:index]
   resources :connection_digalogs, only: [:new]
@@ -468,7 +473,7 @@ Digiramp::Application.routes.draw do
 
     resources :accounts do
       resources :recording_departures
-      
+      resources :attachments, only: [:destroy]
       member do
         #get 'find_recording_in_bucket'
         get "legal_documents"
@@ -690,6 +695,13 @@ Digiramp::Application.routes.draw do
   namespace :user do
     #resources :common_work_lyrics
     resources :users do
+      
+      resources :creative_projects do
+        resources :creative_project_dashboards, only: [:index]
+        resources :creative_project_users
+        resources :creative_project_roles
+        resources :creative_project_resources
+      end
       resources :creative_rights, only: [:index, :show, :destroy]
       resources :common_works do
         resources :common_work_contracts
