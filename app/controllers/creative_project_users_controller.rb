@@ -29,7 +29,10 @@ class CreativeProjectUsersController < ApplicationController
     
     
     message = "Hi #{@user.user_name}. \nI woul like to join the project: #{@creative_project.title}"
-    message += role_to_messages[@creative_project_role.role.to_sym]
+    begin
+      message += role_to_messages[@creative_project_role.role.to_sym]
+    rescue
+    end
     message += "\n\n-- #{current_user.user_name}"
     
     role_to_messages[@creative_project_role.role.to_sym]
