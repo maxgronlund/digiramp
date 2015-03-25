@@ -288,6 +288,10 @@
             li
               => link_to @user.link_to_youtube , target: "_blank" do
                 i.fa.fa-youtube-play
+          - if @user.link_to_homepage != ''
+            li
+              => link_to @user.link_to_homepage , target: "_blank" do
+                i.fa.fa-home
               
           /li
           /  a href="#" 
