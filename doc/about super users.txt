@@ -1,0 +1,11 @@
+super users are users of all accounts and all catalogs
+super users are granded all permissions
+
+when a new account is created all super users are added to it
+when a catalog is created all super users are added to it
+
+when the role on a user is upgraded to 'Super' the user is added to all accounts
+when the role on a user is upgraded to 'Super' the user is added to all catalogs
+
+when the role on a user is downgraded to 'Super' the user is removed from all accounts except the users owns account
+when the role on a user is downgraded to 'Super' the user is removed from all catalogs except the users owns catalog

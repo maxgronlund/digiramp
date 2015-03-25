@@ -1,0 +1,66 @@
+Objective
+To provide digiramp users the best qualifyed music based on requests
+
+
+The system is composed of some basic parts
+
+
+1: an inital who provides the first dataset
+2: an artifical inteligence hereby called Dirac
+3: a large group of people requesting music
+4: a usage history of each track reccomended
+5: reputations for personas. (submitter, requester, IPI's)
+
+
+
+
+
+
+Flow
+
+pt. 1
+The initial user creates the first data set and submit it
+The dataset is composed of:
+  a: an audio file for a spectrum analysics
+  b: ID3 tags
+  c: Lyrics
+  d: Informations about the work
+  e: Informations about the master
+
+pt. 2
+Dirac stores the dataset and qualify it based on 
+  a: The tags scaled by initial users reputation
+  b: The work ipi's reputation (composer, writer...)
+  c: The lyrics
+  d: The master ipi's reputation (artist, producer...)
+  e: (Dirac can lookup online databases. Wikipedia. e.t.c.)
+  
+pt. 3
+The requester submits a request to Dirac who process the request
+in a neural network and match the recomendation to the requesters reputation
+  a: Dirac makes a recomendation/s 
+  b: To each recomandation is attach a history log
+  
+pt. 4
+The requester interacts with the reccomendation
+  a: the user does nothing
+  b: the user play some of the recomendation
+  c: the user plays the entire reccomendation
+  d: the user likes the reccomendation
+  e: the user add the reccomendation to a playlist
+  f: the user share the reccomendation
+  g: the user submit the reccomendation to an opportunity
+  h: the user looks at the owners profile
+  i: the user contact the owner
+  j: the user follows the owner
+  k: the user listen to other recordings by the owner
+  
+Every time there has been an interaction Dirac is notifyed
+
+pt. 5
+Dirac learns from the user interaction
+  
+
+  
+
+

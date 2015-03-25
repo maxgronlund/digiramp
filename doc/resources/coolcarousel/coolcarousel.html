@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- 
+			This carousel example is created with jQuery and the carouFredSel-plugin.
+			http://jquery.com
+			http://caroufredsel.dev7studios.com
+		-->
+
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+		<meta name="description" value="This 100% width carousel has a fixed height set at 500 pixels, the images fill up the visible area using CSS. With a title and a beautifull fast uncover-fade animation, this carousel would be perfect for a header." />
+		<meta name="keywords" value="responsive, carousel, fast, uncover, fade, jquery" />
+		<title>100% width, 500px height fast animated responsive carousel</title>
+
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
+		<script src="jquery.carouFredSel-6.2.0-packed.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('#carousel').carouFredSel({
+					responsive: true,
+					items: {
+						visible: 1,
+						width: 900,
+						height: 500
+					},
+					scroll: {
+						duration: 250,
+						timeoutDuration: 2500,
+						fx: 'uncover-fade'
+					},
+					pagination: '#pager'
+				});
+			});
+		</script>
+		<style type="text/css">
+			html, body {
+				height: 100%;
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background: #fff;
+				min-height: 600px;
+			}
+			body * {
+				font-family: Arial, Geneva, SunSans-Regular, sans-serif;
+				font-size: 14px;
+				color: #666;
+				line-height: 22px;
+			}
+			
+			#wrapper {
+				width: 100%;
+				min-width: 900px;
+				height: 500px;
+				margin: -250px 0 0 0;
+				position: absolute;
+				top: 50%;
+				left: 0;
+			}
+			#carousel div {
+				height: 500px;
+				float: left;
+			}
+			#carousel img {
+				min-width: 100%;
+				min-height: 100%;
+			}
+			#title {
+				text-align: center;
+				width: 100%;
+				margin-top: -10px;
+				position: absolute;
+				top: 50%;
+			}
+			#title h3 {
+				text-shadow: 
+					0 3px 3px rgba( 0, 0, 0, 0.3 ),
+					0 -3px 3px rgba( 0, 0, 0, 0.3 ),
+					3px 0 3px rgba( 0, 0, 0, 0.3 ),
+					-3px 0 3px rgba( 0, 0, 0, 0.3 );
+
+				font-size: 50px;
+				font-weight: bold;
+				line-height: 50px;
+				color: #fff;
+				margin: 0;
+			}
+			#title a {
+				color: #fff;
+			}
+			#title a:hover {
+				background: rgba( 0, 0, 0, 0.5 );
+				padding: 2px 5px;
+			}
+			#pager {
+				border-radius: 20px;
+				background: #fff;
+				text-align: center;
+				width: 120px;
+				height: 50px;
+				padding-top: 2px;
+				margin: 235px 0 0 -60px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+			}
+			#pager a.selected span {
+				background: #666;
+			}
+			#pager a {
+				display: inline-block;
+				padding: 5px;
+			}
+			#pager span {
+				border-radius: 10px;
+				background: #ccc;
+				text-indent: -100px;
+				line-height: 0;
+				display: inline-block;
+				width: 10px;
+				height: 10px;
+				overflow: hidden;
+			}
+
+			#donate-spacer {
+				height: 100%;
+			}
+			#donate {
+				border-top: 1px solid #999;
+				width: 750px;
+				padding: 50px 75px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			#donate p, #donate form {
+				margin: 0;
+				float: left;
+			}
+			#donate p {
+				width: 650px;
+				color: #999;
+			}
+			#donate form {
+				width: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="carousel">
+				<div><img src="img/dj.jpg" /></div>
+				<div><img src="img/artists.jpg" /></div>
+				<div><img src="img/mixing.jpg" /></div>
+				<div><img src="img/composers.jpg" /></div>
+			</div>
+			<div id="title">
+        <!--
+				<h3>The Netherlands covered in snow</h3>
+				<p><a href="http://gigapica.geenstijl.nl/2013/01/the_netherlands_covered_in_sno.html">images from gigapica.geenstijl.nl</a></p>
+			</div>
+        -->
+			<div id="pager"></div>
+		</div>
+
+		<div id="donate-spacer"></div>
+		<div id="donate">
+			<p>This carousel-example is created for your inspiration, you may use it for free in all of your projects.<br />
+				If you like it, please help me &quot;keep up the good work&quot; and donate.</p>
+			<form id="c-donate" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+				<input type="hidden" name="cmd" value="_s-xclick" />
+				<input type="hidden" name="hosted_button_id" value="ENVLWPR4QMU3U" />
+				<input type="image" src="https://www.paypalobjects.com/en_US/NL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+				<img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1" />
+			</form>
+		</div>
+	</body>
+</html>
