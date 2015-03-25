@@ -16,7 +16,7 @@ class ProAccountInfoController < ApplicationController
                                                      body: "Please update body ")
               
     @info_3 =    blog.blog_posts.where(identifier: 'pro account info explained2')
-                                    .first_or_create(identifier: 'pro account info explained', 
+                                    .first_or_create(identifier: 'pro account info explained2', 
                                                      title: "Submit opportunities",
                                                      teaser: 'not posted on the page',
                                                      body: "Please update body ")

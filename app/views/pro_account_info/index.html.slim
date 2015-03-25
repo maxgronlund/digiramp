@@ -35,36 +35,5 @@
             .col-sm-12
               .pull-right.pull-down-10
                 = link_to 'edit', edit_admin_blog_blog_post_path(@info_3.blog, @info_3), class: 'btn btn-default'
-      
-      .col-sm-4
-        - unless current_user
-          br
-          
-          = link_to login_new_path, class: "btn btn-success btn-lg" do
-            i.fa.fa-play 
-            '&nbsp; 
-            'Signup now!  
-            '&nbsp;
-      /.sexy_line
-    /.explore-badges
-    /  .explore-badge
-    /    = link_to songs_path do
-    /    
-    /      = image_tag 'discover-music.jpg'
-    /      h3 Recordings
-    /  .explore-badge
-    /    = link_to users_path do  
-    /    
-    /      = image_tag 'discover-people.jpg'
-    /      h3 Users
-    /  .explore-badge
-    /    = link_to users_path do 
-    /      = image_tag 'discover-playlists.jpg'
-    /      h3 Playlists
-    /  .explore-badge
-    /    = link_to users_path do 
-    /      = image_tag 'discover-people.jpg'
-    /      h3 Artists
-    /    
-    /
+
 == render 'shared/site_footer'    

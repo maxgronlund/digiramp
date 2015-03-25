@@ -1,44 +1,39 @@
+
 #wrap
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
-  .container
-    h3 = @info_1.title
-    = @info_1.teaser
-    .sexy_line
+  .container.pro-account-info
     .row
-      .col-sm-4
-        h4 = @info_2.title
-        = @info_2.body
-      .col-sm-4
-      .col-sm-4
-        - unless current_user
-          br
-          
-          = link_to login_new_path, class: "btn btn-success btn-lg" do
-            i.fa.fa-play 
-            '&nbsp; 
-            'Signup now!  
-            '&nbsp;
-    .sexy_line
-    .explore-badges
-      .explore-badge
-        = link_to songs_path do
-        
-          = image_tag 'discover-music.jpg'
-          h3 Recordings
-      .explore-badge
-        = link_to users_path do  
-        
-          = image_tag 'discover-people.jpg'
-          h3 Users
-      .explore-badge
-        = link_to users_path do 
-          = image_tag 'discover-playlists.jpg'
-          h3 Playlists
-      .explore-badge
-        = link_to users_path do 
-          = image_tag 'discover-people.jpg'
-          h3 Artists
-        
+      .col-sm-8
+        h2 = @info_1.title
+        = @info_1.teaser
+      .col-sm-4.pull-down-10
+        - if super?
+              .row
+                .col-sm-12
+                  .pull-right.pull-down-10
+                    = link_to 'edit', edit_admin_blog_blog_post_path(@info_1.blog, @info_1), class: 'btn btn-default'
+    /.sexy_line
+    .pull-down-8
+      = image_tag @info_1.image_url
+    .row.pull-down-8
+      .col-sm-6
+        .digi-box
+          h3 = @info_2.title
+          = simple_format @info_2.body
+        - if super?
+          .row.pull-down-8
+            .col-sm-12
+              .pull-right.pull-down-10
+                = link_to 'edit', edit_admin_blog_blog_post_path(@info_2.blog, @info_2), class: 'btn btn-default'
+      .col-sm-6
+        .digi-box
+          h3 = @info_3.title
+          = simple_format @info_3.body
+        - if super?
+          .row.pull-down-8
+            .col-sm-12
+              .pull-right.pull-down-10
+                = link_to 'edit', edit_admin_blog_blog_post_path(@info_3.blog, @info_3), class: 'btn btn-default'
 
-  == render 'shared/site_footer'    
+== render 'shared/site_footer'    

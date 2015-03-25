@@ -12,6 +12,13 @@ class SocialAccountInfoController < ApplicationController
                                     .first_or_create(identifier: 'social account info explained', 
                                                      title: "Designed for creative souls",
                                                      teaser: 'not posted on the page',
-                                                     body: "Thundercats PBR pop-up, farm-to-table before they sold out four loko normcore Shoreditch. 8-bit Thundercats sartorial cred, Etsy craft beer cray vegan small batch farm-to-table aesthetic chillwave literally cardigan shabby chic. Messenger bag pickled McSweeney's, chia leggings High Life hashtag fanny pack direct trade. Viral fixie messenger bag, wayfarers gluten-free tattooed synth bitters Bushwick pour-over gastropub Wes Anderson chambray ")
+                                                     body: " chunky beacon ")
+                
+    @info_3 =    blog.blog_posts.where(identifier: 'social account info explained2')
+                                    .first_or_create(identifier: 'social account info explained2', 
+                                                     title: "Designed for creative souls",
+                                                     teaser: 'not posted on the page',
+                                                     body: " chunky beacon ")
+    @body_color = '#000'
   end
 end
