@@ -58,9 +58,10 @@
         = render 'shared/lightbox', locals: {image_url: @user.image_url , thumb_url: @user.image_url(:avatar_184x184) , id: @user.id, caption: @user.user_name}
 
         - if @user.account.account_type == 'Pro'
-          h4
-            span class='label label-default'
-             'Pro user
+          = link_to pro_account_info_index_path, id: "get_pro_account_info", class: 'bestPlanButton' do
+            h4
+              span class='label label-default'
+               'Pro user
         /=  image_tag @user.image_url(:avatar_184x184) 
         .pull-down-10
       

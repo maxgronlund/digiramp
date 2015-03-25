@@ -8,11 +8,12 @@
         h2 = @info_1.title
         = @info_1.teaser
       .col-sm-4.pull-down-10
-        - if super?
-              .row
-                .col-sm-12
-                  .pull-right.pull-down-10
-                    = link_to 'edit', edit_admin_blog_blog_post_path(@info_1.blog, @info_1), class: 'btn btn-default'
+        .row
+          .col-sm-12
+            .pull-right.pull-down-10
+              =< link_to 'Signup for a Pro account', 'http://digiramp.biz/', class: 'btn btn-warning'
+              - if super?
+                =< link_to 'edit', edit_admin_blog_blog_post_path(@info_1.blog, @info_1), class: 'btn btn-default'
     /.sexy_line
     .pull-down-8
       = image_tag @info_1.image_url
