@@ -93,7 +93,8 @@ class User < ActiveRecord::Base
   has_many :projects
   
   
-  has_many :ipis
+  has_many :ipis, dependent: :destroy
+  has_many :user_credits, dependent: :destroy
   has_many :issues, dependent: :destroy
   
   #has_many :permissions

@@ -190,7 +190,18 @@
                     
                   .user-stat-data
                     h4 = @user.creative_projects.where(public_project: true).count
+          
+          - if current_user && current_user.betatester
+            = link_to user_ipis_path(@user) do
+              .user-stat-row
+                .user-stat-title
+                  h4 
+                    i.fa.fa-tags
+                    '&nbsp;Credits
                   
+                .user-stat-data
+                  h4 = @user.user_credits.count
+                    
               
               
               

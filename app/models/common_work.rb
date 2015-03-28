@@ -36,6 +36,7 @@ class CommonWork < ActiveRecord::Base
   
   
   has_many :ipis,       dependent: :destroy
+  #has_many :user_credits, as: :ipiable
   #accepts_nested_attributes_for :ipis, allow_destroy: true
   accepts_nested_attributes_for :ipis, :reject_if => :all_blank, :allow_destroy => true
   
@@ -68,6 +69,10 @@ class CommonWork < ActiveRecord::Base
   #before_save :check_title
   
   def recording_id 
+  end
+  
+  def user_credits
+    UserCredit.where(ipiable_id: ipi_ids, ipiable_type: 'Ipi')
   end
   
   

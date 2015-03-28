@@ -1,0 +1,33 @@
+.old-dialog
+  .modal.fade id='digirampDialog' tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button type="button" class="close" data-dismiss="modal"
+            span aria-hidden="true" &times;
+            span class="sr-only" Close
+  
+          h4 class="modal-title" id="myModalLabel"
+            'New message
+          .sexy_line
+  
+  
+          /= simple_form_for [:user, user, common_work, ipi], remote: true, :url => url_for(:action => 'update', :controller => 'send_common_work_ipi_confirmations'), :method => 'put' do |f| 
+          = simple_form_for [:user, user, common_work, ipi], remote: true do |f| 
+            .modal-body
+              
+              = f.hidden_field :confirmation, value: 'Pending'
+              /= f.hidden_field :sender_id, value: sender.id
+              /= f.hidden_field :subjebtable_id, value: message.subjebtable_id
+              /= f.hidden_field :subjebtable_type, value: message.subjebtable_type
+              
+              = f.input :title, label: 'Subject', :input_html => {  id: "digiramp_dialog_title",  placeholder: 'Required'}
+              = f.input :message, :input_html => {  style: "height: 280px;", placeholder: "Message", id: "digiramp_dialog_body" }
+              
+            .modal-footer
+              = f.submit "Cancel", :type => "reset", class: 'btn btn-default',  "data-dismiss".to_sym => "modal"
+              '&nbsp;
+              - if ipi.title.to_s == ''
+                = f.submit 'Send', class: "btn btn-primary digiramp_dialog_save_button", disabled: "disabled"
+              -else
+                = f.submit 'Send', class: "btn btn-primary digiramp_dialog_save_button"

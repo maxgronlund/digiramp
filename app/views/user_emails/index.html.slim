@@ -1,0 +1,23 @@
+h1 Listing user_emails
+
+table
+  thead
+    tr
+      th Email
+      th User
+      th
+      th
+      th
+
+  tbody
+    - @user_emails.each do |user_email|
+      tr
+        td = user_email.email
+        td = user_email.user
+        td = link_to 'Show', user_email
+        td = link_to 'Edit', edit_user_email_path(user_email)
+        td = link_to 'Destroy', user_email, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New User email', new_user_email_path

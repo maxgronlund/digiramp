@@ -1,0 +1,78 @@
+
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'credits'
+    #terms
+      = link_to 'Terms And Conditions', terms_and_conditions_path 
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Credits
+            .help-button
+              == render 'admin/helps/help', identifier: 'user credits'
+      
+        .col-sm-7
+          .search-credits
+            /= simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+            /                                              :controller => 'recordings'), \
+            /                                              :method => 'get',\
+            /                                              remote: true do |f|
+            /
+            /  .input-group
+            /    span class="input-group-addon"
+            /      i class= 'fa fa-search'
+            /    = text_field_tag "query", "", :class => 'search-query form-control', \
+            /                                  :placeholder => "Search #{@user.user_name}'s recordings", \
+            /                                  value: params[:query]
+            /    .input-group-btn
+            /      = f.submit 'Go', class: "btn btn-primary"
+            /      '&nbsp;
+            /      = link_to 'Clear', user_recordings_path(@user, clear: 'clear'), class: 'btn btn-default'
+            /      
+            /
+                
+                  
+        
+      .sexy_line
+      .digi-box
+        - @user_credits.each do |user_credit|
+          == render "ipis/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
+          .sexy_line
+      
+      /- @user_credits.each do |credit|
+      /  = credit.title
+      /  .sexy_line
+      /h3 Works
+      /- @ipis.each do |ipi|
+      /  .digi-box
+      /    .row
+      /      .col-sm-12
+      /        h4 = ipi.common_work.title
+      /        = ipi.roles_as_string
+      /    .row
+      /      .col-sm-12
+      /        .sexy_line
+      /        h5 Recordings
+      /        - ipi.common_work.recordings.each do |recording|
+      /          /= image_tag( recording.get_cover_thumb, alt: "#{recording.title}" )
+      /          = link_to recording.title, user_recording_path(recording.user, recording)
+      /          .sexy_line  
+      /h3 Recordings  
+      /
+          
+  == render 'shared/site_footer'  
+  
+/== render 'user/connections/modal', modal_id: "connect_modal_#{@user.id.to_s}", recipient: @user, subjebtable: @user  

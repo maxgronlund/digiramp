@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322205215) do
+ActiveRecord::Schema.define(version: 20150328064243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1739,6 +1739,8 @@ ActiveRecord::Schema.define(version: 20150322205215) do
     t.integer  "pro_affiliation_id"
     t.boolean  "show_credit_on_recordings", default: false
     t.string   "confirmation",              default: "Missing"
+    t.string   "title",                     default: ""
+    t.text     "message",                   default: ""
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
@@ -2587,6 +2589,27 @@ ActiveRecord::Schema.define(version: 20150322205215) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "user_credits", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "ipiable_id"
+    t.string   "ipiable_type"
+    t.string   "title"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "user_credits", ["ipiable_id", "ipiable_type"], name: "index_user_credits_on_ipiable_id_and_ipiable_type", using: :btree
+  add_index "user_credits", ["user_id"], name: "index_user_credits_on_user_id", using: :btree
+
+  create_table "user_emails", force: true do |t|
+    t.string   "email"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_emails", ["user_id"], name: "index_user_emails_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

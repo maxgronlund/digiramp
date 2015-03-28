@@ -51,6 +51,23 @@
       
       .row
         .col-md-8
+          - if current_user && current_user.betatester
+            .digi-box
+              - @recording.user_credits.each do |user_credit|
+                == render "recordings/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
+                .sexy_line
+            /.digi-box
+            /  - @recording.recording_ipis.each do |recording_ipi|
+            /    = link_to recording_ipi.user do
+            /      .row
+            /        .col-sm-6
+            /          b = recording_ipi.user.user_name
+            /          br
+            /          i = recording_ipi.credit_for
+            /      
+            /        .col-sm-6
+            /          = simple_format recording_ipi.notes
+            /    .sexy_line
           .digi-box
             / description can be updated with AJAX
             .tags    

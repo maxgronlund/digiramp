@@ -74,16 +74,22 @@
         i class="fa fa-users"
         '&nbsp;
         'Following
-        => @user.followed_users.count
-        /= pluralize(@user.followed_users.count, 'User')   
-        
-    
+        = @user.followed_users.count 
     
     li class="#{'sidebar-selected' if selected == 'playlists'}"
       = link_to user_playlists_path(@user) do
         i class="fa fa-list"
         '&nbsp;
-        = pluralize(@user.playlists.count, 'Playlists')   
+        = pluralize(@user.playlists.count, 'Playlist')  
+     
+    - if current_user && current_user.betatester    
+      li class="#{'sidebar-selected' if selected == 'credits'}"
+        = link_to user_ipis_path(@user) do
+          i class="fa fa-tags"
+          '&nbsp;
+          = pluralize(@user.user_credits.count, 'Credit')  
+          
+ 
         
   - else
       .sidebar-ad.sidebar-top-ad

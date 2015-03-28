@@ -1,6 +1,8 @@
 Digiramp::Application.routes.draw do
 
 
+  
+  resources :user_emails
 
   get 'social_icons/index'
 
@@ -284,7 +286,7 @@ Digiramp::Application.routes.draw do
     #resources :contacts
     
     resources :cms_pages, only: [:show]
-
+    resources :ipis, only: [:index]
     
     post 'dont_show_instructions'
     resources :recording_basics, only: [:edit, :update]
@@ -710,6 +712,7 @@ Digiramp::Application.routes.draw do
       end
       resources :common_works do
         resources :creative_rights
+        resources :ipis, only: [:new, :update]
       end
       resources :common_work_lyrics, only: [:edit, :update]
       resources :common_work_credits, only: [:edit, :update]
@@ -721,6 +724,7 @@ Digiramp::Application.routes.draw do
         resources :work_rights
         resources :recording_confirmations, only: [:update]
       end
+      
       #resources :work_rights, only: [:update]
       resources :cms_module, only: [:new]
       resources :cms_sections, only: [:destroy]

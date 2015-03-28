@@ -122,6 +122,7 @@ class Recording < ActiveRecord::Base
   
   mount_uploader :default_cover_art, ArtworkUploader
   
+  
 
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
@@ -170,6 +171,16 @@ class Recording < ActiveRecord::Base
     #return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
   end
   
+  # for some reason this is not working
+  # forget about it until elastic transcoding is implemented
+  def update_thumbs
+    File.open(self.cover_art) do |f|
+      self.default_cover_art = f
+      self.default_cover_art.recreate_versions!
+      self.save!
+    end
+  end
+  
   def get_cover_art
     
     self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art 
@@ -182,6 +193,10 @@ class Recording < ActiveRecord::Base
     #rescue
     #  return ''
     #end
+  end
+  
+  def get_cover_thumb
+    self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_62x62 ) : self.cover_art 
   end
   
   
@@ -226,8 +241,11 @@ class Recording < ActiveRecord::Base
     #end
   end
   
-  def playlist
-    
+  def user_credits
+    self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, ipiable_type: 'RecordingIpi')
+  end
+
+  def playlist 
   end
   
 
@@ -887,6 +905,8 @@ private
     remove_from_playlists
     remove_share_on_facebooks
   end
+  
+  
   
   def remove_share_on_facebooks
     begin

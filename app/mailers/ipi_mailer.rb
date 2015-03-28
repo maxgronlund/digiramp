@@ -19,9 +19,28 @@ class IpiMailer < ActionMailer::Base
   #
   #   en.ipi.confirm_common_work.subject
   #
-  def confirm_common_work
-    @greeting = "Hi"
+  def common_work_ipi_confirmation_email ipi_id
 
-    mail to: "to@example.org"
+    @ipi        = Ipi.cached_find(ipi_id)
+    
+    @accept_url = 'http://digiramp.com'
+
+    mail to: @ipi.email, subject: @ipi.title
   end
+  
+  # Subject can be set in your I18n file at config/locales/en.yml
+  # with the following lookup:
+  #
+  #   en.ipi.confirm_common_work.subject
+  #
+  def common_work_ipi_confirmation_email_to_non_member ipi_id
+    @greeting = "Hi"
+    
+    @ipi  = Ipi.cached_find(ipi_id)
+
+    mail to: @ipi.email
+  end
+  
 end
+
+

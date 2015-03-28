@@ -34,8 +34,14 @@ class User::CommonWorkCreditsController < ApplicationController
       @common_work.update(common_work_params)
     end
     
+    @common_work.ipis.each do |ipi|
+      ipi.attach_to_user
+    end
     redirect_to user_user_common_work_path(@user, @common_work)
-    
+  end
+  
+  def create
+    ap params
   end
 
   def delete

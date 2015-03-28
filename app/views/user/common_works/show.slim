@@ -65,9 +65,10 @@
                     th Capacity
                     th Name
                     th Email
-                    th Show credits
                     th Share
-                    th Confirmation
+                    th 
+                      .pull-right
+                        'Confirmation
                 tbody
                   - @common_work.ipis.each do |ipi|
                     tr
@@ -91,21 +92,22 @@
                           br
                       td = ipi.full_name
                       td = ipi.email
-                      td 
-                        - if ipi.show_credit_on_recordings
-                          i.fa.fa-check
+                      /td 
+                      /  - if ipi.show_credit_on_recordings
+                      /    i.fa.fa-check
                       td = ipi.share
                       td 
                         .pull-right
-                          == render 'user/common_works/confirmation', ipi: ipi
+                          .confirmation-button
+                            == render 'user/ipis/confirmation_button', user: @user, common_work: @common_work, ipi: ipi
                           
-                  tr
-                    td
-                    td
-                    td
-                    td
-                    td = @common_work.total_share
-                    td
+                  
+            - if @common_work.total_share.to_i != 100
+              .sexy_line
+              .pull_right
+                .alert.alert-danger
+                  'Total share should add up to 100%
+              
                                 
         .sexy_line                        
         .row
