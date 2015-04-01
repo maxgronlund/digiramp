@@ -18,7 +18,7 @@ class Recording < ActiveRecord::Base
                                       :genre, 
                                       :artist, 
                                       :bpm, 
-                                      :comment, 
+                                      #:comment, 
                                       :vocal, 
                                       :isrc_code,
                                       :copyright,
