@@ -181,8 +181,11 @@ class UsersController < ApplicationController
       
       
       
-      
-      redirect_to edit_user_path(@user)
+      if @user.confirm_ips
+        redirect_to user_user_confirm_ipis_path(@user)
+      else
+        redirect_to edit_user_path(@user)
+      end
       
       
       
@@ -280,6 +283,8 @@ class UsersController < ApplicationController
   
   
 private
+
+  
 
   def remove_password_fields_if_blank!(user_params)
     if user_params[:password].blank? and user_params[:password_confirmation].blank?

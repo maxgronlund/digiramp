@@ -52,7 +52,7 @@ class Account::OpportunityInvitationsController < ApplicationController
 
     params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
       
-      sanitized_email =  EmailValidator.saintize email
+      sanitized_email =  EmailSanitizer.saintize email
 
       if user  = User.find_or_invite_from_email( sanitized_email )
 

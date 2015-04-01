@@ -14,7 +14,7 @@ class User::InviteFriendsController < ApplicationController
     
     params[:emails].split(',').each do |raw_email|
       raw_email.split(' ').each do |email|
-        if email = EmailValidator.saintize( email )
+        if email = EmailSanitizer.saintize( email )
           client = Client.where(email: email, user_id: @user.id).first_or_create(email: email, user_id: @user.id, account_id: @user.account_id)
           
           if client.full_name == ' '

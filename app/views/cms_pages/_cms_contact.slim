@@ -1,87 +1,46 @@
-- if @cms_page.hide_sidebar
-  .pull-down-10
-    .row
-      .col-sm-12
-        .connection-avatar
-          = link_to user_path( @user) do
-            = image_tag @user.image_url(:avatar_48x48)
-            '&nbsp;
-        .connection-link
-          = link_to @user.user_name, user_path( @user)
-          
-          
-          br
-          - if current_user 
-            - if current_user.id == @user.id
-              / Dummy
-              / 
-              .btn.btn-default.btn-xs
-                i.fa.fa-eye
-                '&nbsp;Follow
-              '&nbsp;  
-              .btn.btn-primary.btn-xs
-                i.fa.fa-refresh
-                '&nbsp;Connect
-              
-            - else
-              / Follow / unfollow
-              div id="follow_user_#{@user.id.to_s}"
-                -if current_user.following?(@user)
-                  == render 'users/unfollow', user: @user
-                - else 
-                  == render 'users/follow', user: @user
-              
-              .connect-container
-                .connect-buttons
-                == render 'users/connect', user: @user
 
+.pull-down-10
+  .row
+    .col-sm-12
+      .connection-avatar
+        = link_to user_path( @user) do
+          = image_tag @user.image_url(:avatar_48x48)
+          '&nbsp;
+      .connection-link
+        = link_to @user.user_name, user_path( @user)
+        
+        
+        br
+        - if current_user 
+          - if current_user.id == @user.id
+            / Dummy
+            / 
+            .btn.btn-default.btn-xs
+              i.fa.fa-eye
+              '&nbsp;Follow
+            '&nbsp;  
+            .btn.btn-primary.btn-xs
+              i.fa.fa-refresh
+              '&nbsp;Connect
+            
           - else
-            / connect when not logged in
-            = link_to new_become_member_path(user: @user), remote: true do
-                  .btn.btn-primary.btn-xs
-                    i.fa.fa-refresh
-                    '&nbsp;Connect
-                    
-                    
-                    
-                    
-          /- if current_user
-          /  
-          /  - unless current_user.id == @user.id
-          /
-          /
-          /    .connect-container.pull-down-6
-          /      .connect-buttons
-          /      == render 'users/connect', user: @user
-          /  - else
-          /    .pull-down-6
-          /      .btn.btn-primary.btn-xs
-          /        i.fa.fa-refresh
-          /        '&nbsp;Connect  
-          /- else
-          /  button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".become-member"
-          /    i.fa.fa-refresh
-          /    '&nbsp;Connect
-          /
-        
-        
-        
-  
-          
-        
-        /- if @cms_page.hide_sidebar
-        /== render 'user/connections/modal', modal_id: "connect_modal_#{@user.id.to_s}", recipient: @user, subjebtable: @user 
-    
-  
-- else
-  .alert.alert-info
-    b Connect
-    br This module requieres the sidebar to be hidden
-  
-  
+            / Follow / unfollow
+            div id="follow_user_#{@user.id.to_s}"
+              -if current_user.following?(@user)
+                == render 'users/unfollow', user: @user
+              - else 
+                == render 'users/follow', user: @user
+            
+            .connect-container
+              .connect-buttons
+              == render 'users/connect', user: @user
 
-
-/- if current_user 
-/
-/- else
-     
+        - else
+          / connect when not logged in
+          = link_to new_become_member_path(user: @user), remote: true do
+                .btn.btn-primary.btn-xs
+                  i.fa.fa-refresh
+                  '&nbsp;Connect
+                  
+                  
+                  

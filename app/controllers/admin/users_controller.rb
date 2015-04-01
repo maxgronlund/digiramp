@@ -31,7 +31,7 @@ class Admin::UsersController < ApplicationController
     
     old_role  = @user.role
     
-    if @user.update(user_params)
+    if @user.update!(user_params)
       flash[:info] = { title: "SUCCESS: ", body: "User updated" }
       
       @user.create_activity(  :updated, 
@@ -45,7 +45,8 @@ class Admin::UsersController < ApplicationController
       
       
     else
-      flash[:danger] = { title: "Error", body: "User not updated" }
+      #flash[:danger] = { title: "Error", body: "User not updated" }
+      render :edit
     end
 
     redirect_to admin_users_path

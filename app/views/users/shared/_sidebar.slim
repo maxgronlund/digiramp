@@ -1,7 +1,6 @@
 
 .sidebar 
 
-        
   - if @user      
     li
       .sidebar-user-profile
@@ -11,42 +10,16 @@
             
           .user-avatar
             =  image_tag @user.image_url(:avatar_184x184) 
-    /    /  
-    /    .user-buttons 
-    /      - if current_user 
-    /        
-    /        /- if current_user.id == @user.id
-    /        /  / Edit profile
-    /        /  = link_to edit_user_path(current_user) do
-    /        /    .btn.btn-default
-    /        /      i class="fa fa-pencil"
-    /        /      '&nbsp;
-    /        /      'Edit profile
-    /        /- unless current_user.id == @user.id
-    /        /  / Follow / unfollow
-    /        /  div id="follow_user_#{@user.id.to_s}"
-    /        /    -if current_user.following?(@user)
-    /        /      == render 'users/unfollow', user: @user
-    /        /    - else 
-    /        /      == render 'users/follow', user: @user
-    /        /
-    /        /  .connect-container
-    /        /    .connect-buttons
-    /        /    == render 'users/connect', user: @user
-    /
-    /      - else
-    /        / connect when not logged in
-    /        = link_to new_become_member_path(user: @user, bounce_back: request.url), remote: true do
-    /              .btn.btn-primary
-    /                i.fa.fa-refresh
-    /                '&nbsp;Connect
-    /          
-    /  .sexy_line 
+
+
+
     li class="#{'sidebar-selected' if selected == 'profile'}"
       = link_to user_path(@user) do
         i class="fa fa-user"
         '&nbsp;
-        'Profile  
+        'Profile
+
+
 
     li class="#{'sidebar-selected' if selected == 'recordings'}"
       = link_to user_recordings_path(@user, clear: 'clear') do
@@ -87,7 +60,15 @@
         = link_to user_ipis_path(@user) do
           i class="fa fa-tags"
           '&nbsp;
-          = pluralize(@user.user_credits.count, 'Credit')  
+          = pluralize(@user.user_credits.count, 'Credit') 
+    
+    - if super?
+      li class="#{'sidebar-selected' if selected == 'control panel'}"
+        = link_to user_user_control_panel_index_path(@user) do
+          i class="fa fa-tachometer"
+          '&nbsp;
+          'Settings
+
           
  
         

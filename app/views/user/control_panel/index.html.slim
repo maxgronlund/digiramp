@@ -1,15 +1,15 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'contacts' 
+    == render 'shared/navigationbar', page: 'settings' 
   
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'user'
+      == render 'users/shared/sidebar', selected: 'control panel'
   
   #page-content-wrapper
     .container-fluid
-      h2 Control panel
+      h2 Settings
       .sexy_line
       .row
         .col-sm-12
@@ -76,7 +76,6 @@
                   .body
                     'Build you own custom pages
                   
-            
               
             .control-panel-badge
               = link_to  user_user_creative_rights_path(@user) do
@@ -89,12 +88,24 @@
                   .body
                     'Manage rights for your assets
                   
+              
+            .control-panel-badge
+              = link_to  user_user_ipis_path(@user) do
+                .content
+                  .icon.icon-green
+                    i.fa.fa-tags
+                    
+                  .title
+                    h4 IPI' & Credits
+                  .body
+                    'Manage IPI's and credits
+                  
             
             - if current_user.betatester  
               .control-panel-badge
                 = link_to  user_user_user_positions_path(@user) do
                   .content
-                    .icon.icon-red
+                    .icon.icon-dr-blue
                       i.fa.fa-university
                       
                     .title
@@ -102,7 +113,29 @@
                     .body
                       'Projects where you fulfill a role
                       
+              .control-panel-badge
+                = link_to  user_user_user_emails_path(@user) do
+                  .content
+                    .icon.icon-gray
+                      i.fa.fa-at
+                      
+                    .title
+                      h4 Emails
+                    .body
+                      'Link aditional emails to your account. You can use this for copyrights
+            
+            .control-panel-badge
+              = link_to  edit_user_social_link_path(@user) do
+                .content
+                  .icon.icon-blue
+                    i.fa.fa-link
                     
+                  .title
+                    h4 Social links
+                  .body
+                    'Links to your social accounts will be shown on your profile page
+                    
+                  
                       
                       
       .pull-down-10

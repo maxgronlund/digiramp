@@ -42,7 +42,7 @@ class ClientInvitationMailer < ActionMailer::Base
     
 
     client_batch.each do |client|
-      if client && email = EmailValidator.saintize( client.email )
+      if client && email = EmailSanitizer.saintize( client.email )
         
         # Don't invite clients two times
         unless ClientInvitation.where(  account_id:  client.account_id, 

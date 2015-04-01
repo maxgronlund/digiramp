@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328064243) do
+ActiveRecord::Schema.define(version: 20150401193823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2595,8 +2595,10 @@ ActiveRecord::Schema.define(version: 20150328064243) do
     t.integer  "ipiable_id"
     t.string   "ipiable_type"
     t.string   "title"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "confirmation"
+    t.boolean  "show_credit_on_recordings", default: true
   end
 
   add_index "user_credits", ["ipiable_id", "ipiable_type"], name: "index_user_credits_on_ipiable_id_and_ipiable_type", using: :btree

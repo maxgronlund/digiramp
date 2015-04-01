@@ -1,1 +1,42 @@
-= debug @ipis
+/= debug @user_credits
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'settings'
+  
+  #page-content-wrapper
+    .container-fluid
+      
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'settings'.to_sym => user_user_control_panel_index_path(@user)}, current: ''}
+      
+      
+      
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 IPI's & Credits
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'common work credits'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to user_user_control_panel_index_path(@user ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+      
+      .sexy_line
+      .digi-box
+        /= debug @user_credits
+        - @user_credits.each do |user_credit|
+          == render "user/ipis/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
+          .sexy_line
+        
+            
+        
+  == render 'shared/site_footer'

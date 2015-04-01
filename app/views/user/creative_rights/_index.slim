@@ -12,11 +12,16 @@
               th Title
               th 
                 i.fa.fa-music
-                '&nbsp;Work
+                '&nbsp;Work 
+                .pull-right
+                  'Clerance
               th 
                 i.fa.fa-headphones
                 '&nbsp;Master
-              th Clerance
+              
+              th 
+                .pull-right
+                  'Clerance
               th
       
           tbody
@@ -28,35 +33,40 @@
                                         .btn.btn-default.btn-xs
                                           = common_work.title
                 td
-                  = link_to edit_user_user_common_work_path(@user, common_work) do
+                  = link_to edit_user_user_common_work_credit_path(@user, common_work) do
                     .btn.btn-default.btn-xs
-                      - count = common_work.ipis.count
-                      - if count == 0
-                         i.fa.fa-exclamation
-                         '&nbsp;No registered
-                      - else
-                        i.fa.fa-users
-                        =< count
+                        i.fa.fa-tags
+                        =< common_work.ipis.count
+                    .pull-right
+                      .btn.btn-default.btn-xs disabled='disabled'
+                        = common_work.total_share
+                        '&nbsp;%
+                      
                 td 
                   - common_work.recordings.each do |recording|
-                    
-                    = link_to edit_user_user_recording_credit_path(@user, recording)
-                      .btn.btn-default.btn-xs
-                        => recording.title
-                      .pull-right
+                    = recording.title
+                    .pull-right
+                      = link_to edit_user_user_recording_credit_path(@user, recording)
                         - count = recording.recording_ipis.count
                         .btn.btn-default.btn-xs
-                          i.fa.fa-users
-                          '&nbsp;
-                          = count
-  
-                    .sexy_line
+                          i.fa.fa-tags
+                          =< count
+                      
+                    br
+                    
+                td
+                  .pull-right
+                    - common_work.recordings.each do |recording|
+                      .btn.btn-default.btn-xs disabled='disabled'
+                        = recording.total_share
+                        '&nbsp;%
+
                     
                 td
                   .pull-right
                     - if common_work
-                    = link_to user_user_creative_right_path(@user, common_work), data: { confirm: 'Are you sure?' } , 
-                                                                                          turboboost: true, 
-                                                                                          :method => :delete do
-                          .btn.btn-danger.btn-xs
-                            i class="fa fa-times"
+                      = link_to user_user_creative_right_path(@user, common_work), data: { confirm: 'Are you sure?' } , 
+                                                                                            turboboost: true, 
+                                                                                            :method => :delete do
+                            .btn.btn-danger.btn-xs
+                              i class="fa fa-times"

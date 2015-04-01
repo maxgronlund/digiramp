@@ -25,13 +25,13 @@ class User::CommonWorkCreditsController < ApplicationController
   end
 
   def update
-
+    ap params
     @recording    = Recording.cached_find(params[:recording_id])
     params.delete :recording_id
     
     @common_work  = CommonWork.cached_find(params[:id])
     unless params[:common_work].nil?
-      @common_work.update(common_work_params)
+      @common_work.update!(common_work_params)
     end
     
     @common_work.ipis.each do |ipi|

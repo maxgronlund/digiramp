@@ -7,6 +7,8 @@ class Ipi < ActiveRecord::Base
   
   belongs_to :import_ipi
   belongs_to :user
+  #validates_with IpiEmailValidator 
+  validates_formatting_of :email, :using => :email 
   after_create :update_relations
   after_update :attach_user_credits
   before_destroy :remove_user_credits
@@ -24,10 +26,15 @@ class Ipi < ActiveRecord::Base
   end
   
   def attach_user_credits
+   
     if self.user
-      UserCredit
+      user_credit = UserCredit
       .where(ipiable_type: self.class.name, ipiable_id: self.id, user_id: self.user_id)
       .first_or_create(title: self.common_work.title, ipiable_type: self.class.name, ipiable_id: self.id, user_id: self.user_id)
+
+      user_credit.confirmation = self.confirmation
+      user_credit.show_credit_on_recordings = self.show_credit_on_recordings
+      user_credit.save!
     end
   end
   
@@ -50,18 +57,15 @@ class Ipi < ActiveRecord::Base
   def attach_to_user
     if attach_to_user = User.where(email: self.email).first
       self.user_id    = attach_to_user.id
-      self.save!
+      self.save!(validate: false)
     end
   end
   
   def send_confirmation_request
     attach_to_user
-    unless user.nil?
-      send_confirmation_notification
-      send_confirmation_email
-    else
-      send_confirmation_email_to_non_member
-    end 
+    send_confirmation_email
+    send_confirmation_notification
+    
   end
 
   def roles_as_string
@@ -85,19 +89,20 @@ private
     Rails.cache.delete([self.class.name, id])
   end
   
-  def send_confirmation_notification
-    ap 'send_confirmation_notification'
-  end
-  
   def send_confirmation_email
     ap 'send_confirmation_email'
     IpiMailer.delay.common_work_ipi_confirmation_email self.id
   end
   
-  def send_confirmation_email_to_non_member
-    ap 'send_confirmation_email_to_non_member'
-    IpiMailer.delay.common_work_ipi_confirmation_email_to_non_member self.id
+  def send_confirmation_notification
+    # if self.user
+    ap 'send_confirmation_notification'
   end
+  
+  #def send_confirmation_email_to_non_member
+  #  ap 'send_confirmation_email_to_non_member'
+  #  IpiMailer.delay.common_work_ipi_confirmation_email_to_non_member self.id
+  #end
   
 end
 

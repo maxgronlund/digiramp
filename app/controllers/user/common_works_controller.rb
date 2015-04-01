@@ -1,6 +1,6 @@
 class User::CommonWorksController < ApplicationController
   before_filter :access_user
-  #include AccountsHelper
+
 
   
   def index

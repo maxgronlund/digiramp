@@ -1,0 +1,81 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'settings'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Additional emails
+            .help-button
+              == render 'admin/helps/help', identifier: 'additional emails'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to 'Add email', new_user_user_user_email_path(@user), class: 'btn btn-primary'
+            
+        
+        
+        
+        
+      
+      .sexy_line
+      .digi-box
+
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Email
+                th
+            tbody
+              tr
+                td = @user.email
+                td 
+                - @user_emails.each do |user_email|
+                  tr
+                    td = user_email.email
+                    
+                    td 
+                      .pull-right
+                        => link_to 'Edit', edit_user_user_user_email_path(@user, user_email), class: 'btn btn-default'
+                        = link_to user_user_user_email_path(@user, user_email), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete
+                          .btn.btn-danger
+                            i.fa.fa-times
+                
+            
+            
+      
+                 
+              
+  == render 'shared/site_footer'    
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

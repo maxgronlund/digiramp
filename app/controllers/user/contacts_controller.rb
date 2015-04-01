@@ -35,7 +35,7 @@ class User::ContactsController < ApplicationController
 
   def create
     @message = 'Contact created'
-    if email = EmailValidator.saintize( params[:client][:email] )
+    if email = EmailSanitizer.saintize( params[:client][:email] )
       params[:client][:email] = email
       unless @user.clients.where(email: email ).present?
         Client.create(client_params)

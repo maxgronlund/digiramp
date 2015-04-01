@@ -76,7 +76,7 @@ class RecordingsController < ApplicationController
   def show
     if @recording = Recording.cached_find(params[:id]) 
       @playlists  = current_user.playlists if current_user
-      
+      @user_credits = @recording.user_credits
       
       unless request.xhr?
         user_id = current_user ? current_user.id : nil

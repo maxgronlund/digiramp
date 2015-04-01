@@ -9,7 +9,7 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'settings'.to_sym => user_user_control_panel_index_path(@user),
                                                               'creative rights'.to_sym => user_user_creative_rights_path(@user)}, current: ''}
       
       
@@ -41,47 +41,66 @@
               /
       .sexy_line
       h4 Credits for the recording
-      = simple_form_for  [@user, @recording ],turboboost: true, url: url_for(:action => 'update', :controller => 'recording_credits'), 
-                                               html: { :id => 'recording_ipi' }, 
-                                               method: 'put' do |f|
-        #recording_ipis
-      
-          .row
-            .col-sm-12
-              #ipis
-                /= fields_for :recording_ipis, @recording.recording_ipis do |recording_ipis|
-                = f.simple_fields_for :recording_ipis do |recording_ipis|
-                
-                  = render 'user/recording_credits/recording_ipi_fields', :f => recording_ipis
-                .links
-                  .row
-                    .col-sm-12
-                      .pull-right.pull-down-10
-                        = link_to_add_association 'Add Right & Credit', f, :recording_ipis, class: 'btn btn-default'
-                 
-                  
-          .row
-            .col-sm-8
-            .col-sm-4              
-              b Total shares % 
-              .total_share
-              i Must equal 100%
-      
-      
-      
-      
-      
-      
-      
-
-          .digi-box
+      .digi-box
+        = simple_form_for  [@user, @recording ],turboboost: true, url: url_for(:action => 'update', :controller => 'recording_credits'), 
+                                                 html: { :id => 'recording_ipi' }, 
+                                                 method: 'put' do |f|
+          #recording_ipis
+        
             .row
               .col-sm-12
-                .pull-right.pull-down-12   
-                 
+                #ipis
+                  /= fields_for :recording_ipis, @recording.recording_ipis do |recording_ipis|
+                  = f.simple_fields_for :recording_ipis do |recording_ipis|
+                  
+                    = render 'user/recording_credits/recording_ipi_fields', :f => recording_ipis
+                  /.links
+                  /  .row
+                  /    .col-sm-12
+                  /      .pull-right.pull-down-10
+                  /        = link_to_add_association 'Add Right & Credit', f, :recording_ipis, class: 'btn btn-default'
+                  / 
+                    
+            /row
+            / .col-sm-8
+            /   'total
+            / .col-sm-4   
+            /   = @recording.total_share
+            /   '&nbsp%
+            /   /b Total shares % 
+            /   /.total_share
+            /   /i Must equal 100%
+        
+        
+        
+        
+        
+        
+        
+        
+
+          .row
+            .col-sm-8
+              b Total share
+            .col-sm-4  
+              .pull-right
+                = @recording.total_share
+                '&nbsp%
+          .pull-down-10
+          .sexy_line
+          .row
+            .col-sm-12
+              
+              .pull-right.pull-down-12   
+               
+                /.links
+                /  .row
+                /    .col-sm-12
+                /      .pull-right.pull-down-10
+                => link_to_add_association 'Add Right & Credit', f, :recording_ipis, class: 'btn btn-default'
                 
-                  = f.submit 'Save', class: 'btn btn-primary'
-            
+                = f.submit 'Save', class: 'btn btn-primary'
+          
             
                  
               

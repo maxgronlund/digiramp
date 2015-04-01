@@ -111,6 +111,9 @@ gem 'public_activity'
 #gem 'jquery-fileupload-rails'
 gem 'icheck-rails'
 
+# url validation
+gem 'validates_formatting_of'
+
 
 #=====================================
 # Marilyn

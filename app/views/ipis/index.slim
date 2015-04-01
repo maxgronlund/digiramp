@@ -52,27 +52,6 @@
           == render "ipis/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
           .sexy_line
       
-      /- @user_credits.each do |credit|
-      /  = credit.title
-      /  .sexy_line
-      /h3 Works
-      /- @ipis.each do |ipi|
-      /  .digi-box
-      /    .row
-      /      .col-sm-12
-      /        h4 = ipi.common_work.title
-      /        = ipi.roles_as_string
-      /    .row
-      /      .col-sm-12
-      /        .sexy_line
-      /        h5 Recordings
-      /        - ipi.common_work.recordings.each do |recording|
-      /          /= image_tag( recording.get_cover_thumb, alt: "#{recording.title}" )
-      /          = link_to recording.title, user_recording_path(recording.user, recording)
-      /          .sexy_line  
-      /h3 Recordings  
-      /
-          
+
   == render 'shared/site_footer'  
   
-/== render 'user/connections/modal', modal_id: "connect_modal_#{@user.id.to_s}", recipient: @user, subjebtable: @user  

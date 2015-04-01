@@ -12,7 +12,7 @@ class SupportsController < ApplicationController
   
   def create
     
-    if EmailValidator.validate( params[:contact][:email])
+    if EmailSanitizer.validate( params[:contact][:email])
       flash[:info] = { title: "Message send: ", body: "We will come back to you asap." }
       @contact = Contact.create(contact_params)
       SupportMailer.delay.contact(@contact.id)   

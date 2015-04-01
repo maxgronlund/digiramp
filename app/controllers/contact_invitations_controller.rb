@@ -168,7 +168,7 @@ private
   
   def sign_up_with_valid_invitation params, client_invitation
     
-    if email = EmailValidator.saintize( params[:client][:email])
+    if email = EmailSanitizer.saintize( params[:client][:email])
       return sign_up_with_valid_email( params, client_invitation, email )
     end
     return 'Error: Invalid email'

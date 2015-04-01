@@ -2,7 +2,7 @@ class CreativeProject < ActiveRecord::Base
   belongs_to :user
   belongs_to :account
   
-  has_many :creative_project_users
+  has_many :creative_project_users, dependent: :destroy
   has_many :creative_project_roles, dependent: :destroy
   has_many :creative_project_resources, dependent: :destroy
   has_many :comments,        as: :commentable,          dependent: :destroy

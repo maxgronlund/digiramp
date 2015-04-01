@@ -11,7 +11,7 @@ class EmailGroup < ActiveRecord::Base
 
     recipients.split(',').each do |recipient|
       
-      if email = EmailValidator.saintize( recipient )
+      if email = EmailSanitizer.saintize( recipient )
         if user = User.where(email: email).first
           mail_list_subscriber = MailListSubscriber.where(user_id: user.id, email_group_id: self.id)
                                                     .first_or_create(user_id: user.id, email_group_id: self.id)

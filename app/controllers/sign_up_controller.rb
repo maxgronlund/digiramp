@@ -4,7 +4,7 @@ class SignUpController < ApplicationController
 
     email = params['/sign_up']['email']
     
-    sanitized_email = EmailValidator.saintize email
+    sanitized_email = EmailSanitizer.saintize email
     params['/sign_up']['email']  =  sanitized_email
     go_to = :back
     

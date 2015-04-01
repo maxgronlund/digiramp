@@ -1,0 +1,25 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user' if @user
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 422 Not found
+      .sexy_line
+      .alert.alert-danger
+        'The Ipi / Account / Work  you are looking for do not exists or might be removed
+      .row
+        .col-sm-12  
+          .not_found_2
+      .row
+        .col-sm-12
+          .pull-right
+            = link_to 'Image by Frank Vassen', 'https://www.flickr.com/photos/42244964@N03/'
+
+              
+  == render 'shared/site_footer'    

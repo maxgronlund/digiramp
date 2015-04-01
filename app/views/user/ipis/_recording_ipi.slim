@@ -1,0 +1,15 @@
+- recording = user_credit.ipiable.recording
+= link_to user_recording_path( recording.user, recording) do
+  .row
+    .col-sm-3
+      b = user_credit.title
+      br
+      i = user_credit.ipiable.confirmation
+    .col-sm-3
+      'Recording
+    .col-sm-4
+      = user_credit.ipiable.role
+      br
+      = user_credit.ipiable.credit_for
+    .col-sm-2
+    

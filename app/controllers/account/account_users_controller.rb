@@ -57,7 +57,7 @@ class Account::AccountUsersController < ApplicationController
   # create an account user and send an invitation email
   def create
     
-    sanitized_email = EmailValidator.saintize params[:account_user][:email]
+    sanitized_email = EmailSanitizer.saintize params[:account_user][:email]
 
     # secure the permissions is in place
     unless current_user.role == 'Super'

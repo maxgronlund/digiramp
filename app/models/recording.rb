@@ -28,7 +28,7 @@ class Recording < ActiveRecord::Base
                                       :album_name,
                                       :performer,
                                       :band,
-                                      :mood,
+                                      #:mood,
                                       :instruments,
                                       :tempo 
                                     ], 
@@ -242,7 +242,15 @@ class Recording < ActiveRecord::Base
   end
   
   def user_credits
-    self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, ipiable_type: 'RecordingIpi')
+    self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, ipiable_type: 'RecordingIpi', show_credit_on_recordings: true)
+  end
+  
+  def total_share
+    share = 0.0
+    self.recording_ipis.each do |recording_ipi|
+      share += recording_ipi.share.to_f
+    end
+    share
   end
 
   def playlist 

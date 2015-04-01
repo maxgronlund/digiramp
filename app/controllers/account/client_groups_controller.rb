@@ -68,7 +68,7 @@ class Account::ClientGroupsController < ApplicationController
     emails = params[:emails].split(',')
     emails.each do |email|
       
-      if EmailValidator.saintize email
+      if EmailSanitizer.saintize email
       
         client = Client.where(email:email).first_or_create(email:email, name:email, show_alert: true)
         

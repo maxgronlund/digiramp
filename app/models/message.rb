@@ -52,7 +52,7 @@ class Message < ActiveRecord::Base
   
   def send_as_email
     if self.receiver
-      if EmailValidator.validate( self.receiver.email   )            
+      if EmailSanitizer.validate( self.receiver.email   )            
         MessageMailer.delay.send_message(self.id) 
       end 
     end

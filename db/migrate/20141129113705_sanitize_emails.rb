@@ -3,7 +3,7 @@ class SanitizeEmails < ActiveRecord::Migration
     
     User.find_each do |user|
       
-      user.email = EmailValidator.saintize user.email
+      user.email = EmailSanitizer.saintize user.email
       begin
         user.save!
       rescue

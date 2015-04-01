@@ -9,7 +9,7 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'control panel'.to_sym => user_user_control_panel_index_path(@user),
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'settings'.to_sym => user_user_control_panel_index_path(@user),
                                                               'creative rights'.to_sym => user_user_creative_rights_path(@user)}, current: ''}
       
       

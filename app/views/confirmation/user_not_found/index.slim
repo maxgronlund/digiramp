@@ -1,0 +1,32 @@
+#wrap
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+       
+  .container
+    /.alert.alert-danger
+    /  b #{@ipi.email} is not in the system 
+    /
+    h2 Confirm IPI / Credit 
+    .sexy_line
+    h4 Hi #{current_user.user_name} this IPS / Credits confirmation was send to #{@ipi.email}. What do you want to do?
+    .row
+      .col-sm-6
+        .digi-box
+          
+          'Confirm that this was ment for me and add the email: #{@ipi.email} to my current account
+          .row
+            .col-sm-12
+              .pull-down-34
+              .pull-right
+                /= simple_form_for [:confirmation, UserEmail.new(email: @ipi.email, user_id: current_user.id) ], :url => url_for(:action => 'create', :controller => 'confirmation/add_emails'), turboboost: true  do |f|
+                /  
+                /  = f.submit 'Add email', class: 'btn btn-default'
+                = link_to new_confirmation_add_email_path( uuid: @ipi.uuid )
+                  .btn.btn-success
+                    'Confirm and add email
+      .col-sm-6
+        .digi-box
+          'Logout and create a new account for #{@ipi.email}
+      
+ 
+  == render 'shared/site_footer'

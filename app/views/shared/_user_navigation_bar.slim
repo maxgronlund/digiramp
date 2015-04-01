@@ -8,16 +8,16 @@ nav.navbar.nav-user
       span.icon-bar
       span.icon-bar
     
-    - if @user && current_user
-      - unless current_user.id == @user.id
-        .navigation-avatar
-          = link_to user_path( @user), class: 'navbar-brand' do
-            = image_tag @user.image_url(:avatar_32x32)
-    - elsif @user
-        .navigation-avatar
-          = link_to user_path( @user), class: 'navbar-brand' do
-            = image_tag @user.image_url(:avatar_32x32)
-    
+    /- if @user && current_user
+    /  - unless current_user.id == @user.id
+    /    .navigation-avatar
+    /      = link_to user_path( @user), class: 'navbar-brand' do
+    /        = image_tag @user.image_url(:avatar_32x32)
+    /- elsif @user
+    /    .navigation-avatar
+    /      = link_to user_path( @user), class: 'navbar-brand' do
+    /        = image_tag @user.image_url(:avatar_32x32)
+    /
     
         /'&nbsp;
         /= current_user.user_name
@@ -55,76 +55,76 @@ nav.navbar.nav-user
     /  /
     ul.nav.navbar-nav.navbar-right
       
-      - if current_user
+      - if current_user 
+
         - if @edit_page
           li
             = link_to edit_user_user_cms_page_path(@cms_page.user, @cms_page) do
               i.fa.fa-pencil
               '&nbsp;
               'Edit page
+        -if current_user.account.account_type  == "Social" 
+            
+          li class="#{page == 'messages' ? 'active' : ''}"
+            = link_to user_unread_messages_path(current_user) do
+              div id="message_count"
+              == render 'messages/count'
+              i.fa.fa-envelope
+              '&nbsp;
+              'Msg.
+            
+          li class="#{page == 'settings' ? 'active' : ''}"
+            = link_to user_user_control_panel_index_path(current_user) do
+              i.fa.fa-tachometer
+              '&nbsp;
+              'Settings
+
+        - else
           
-        li class="#{page == 'messages' ? 'active' : ''}"
-          = link_to user_unread_messages_path(current_user) do
-            div id="message_count"
-            == render 'messages/count'
-            i.fa.fa-envelope
-            '&nbsp;
-            'Msg.
-        /li class="#{page == 'activities' && @user == current_user ? 'active' : ''}"
-        /  = link_to user_user_activities_path(current_user) do
-        /    i.fa.fa-home
-        /li class="#{page == 'user' && @user == current_user ? 'active' : ''}"
-        /  = link_to profile_path_for( current_user) do
-        /    = image_tag current_user.image_url(:avatar_32x32)
-        /    '&nbsp;
-        
-        
-      
-      
-      - if current_user
-        li class="dropdown"
-          /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-          = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
-            i.fa.fa-cog
-        
-          ul class="dropdown-menu" role="menu"
-            
-            li  class="#{page == 'contacts' ? 'active' : ''}"
-              = link_to user_user_control_panel_index_path(current_user ) do
-                i class="fa fa-tachometer"
-                '&nbsp;
-                'Control panel
-            
-            
+          li class=" dropdown #{page == 'settings' ? 'active' : ''}"
+            /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+            = link_to '#', class: "dropdown-toggle", 'data-toggle'.to_sym => "dropdown" do
+              i.fa.fa-tachometer
+              '&nbsp;
+              'Settings
+          
+            ul class="dropdown-menu" role="menu"
               
-            - unless current_user.account.account_type  == "Social"    
-              li class="divider"
-              li  class="#{page == 'account' ? 'active' : ''}"
-                = link_to account_account_path( current_user.account) do
+              li  class="#{page == 'contacts' ? 'active' : ''}"
+                = link_to user_user_control_panel_index_path(current_user ) do
                   i class="fa fa-tachometer"
                   '&nbsp;
-                  'Pro Account
+                  'Settings
+              
+              
                 
-              li  class="#{page == 'user_collections' ? 'active' : ''}"
-                = link_to user_user_collections_path( current_user) do
-                  i class="fa fa-tachometer"
-                  '&nbsp;
-                  'Other Accounts
-                
-              li  class="#{page == 'catalogs' ? 'active' : ''}"
-                = link_to user_user_catalogs_path( current_user) do
-                  i class="fa fa-book"
-                  '&nbsp;
-                  'Catalogs
-                
-              - if super?
-            
-            
-                li  class="#{page == 'admin' ? 'active' : ''}"
-                  = link_to admin_index_path do
-                    i class="fa fa-gear"
-                    '&nbsp;Admin
-            
+              - unless current_user.account.account_type  == "Social"    
+                li  class="#{page == 'account' ? 'active' : ''}"
+                  = link_to account_account_path( current_user.account) do
+                    i class="fa fa-tachometer"
+                    '&nbsp;
+                    'Pro Account
+                  
+                li  class="#{page == 'user_collections' ? 'active' : ''}"
+                  = link_to user_user_collections_path( current_user) do
+                    i class="fa fa-tachometer"
+                    '&nbsp;
+                    'Other Accounts
+                  
+                li  class="#{page == 'catalogs' ? 'active' : ''}"
+                  = link_to user_user_catalogs_path( current_user) do
+                    i class="fa fa-book"
+                    '&nbsp;
+                    'Catalogs
+                  
+                - if super?
+              
+              
+                  li  class="#{page == 'admin' ? 'active' : ''}"
+                    = link_to admin_index_path do
+                      i class="fa fa-gear"
+                      '&nbsp;Admin
+              
 
             
 

@@ -19,7 +19,7 @@
           .sexy_line
           .digi-box
             = simple_form_for @user do |f|
-              
+              = f.error_notification
               -if @user.errors.any?
                 = render 'shared/errors', errors: @user.errors
             
@@ -118,20 +118,20 @@
                       = f.input :producer,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
                       = f.input :remixer,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
                       = f.input :dj,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                  .row
-                    .col-sm-12
-                      
-                      h4 Links to social accounts
-                      = f.input :link_to_facebook, placeholder: 'e.g. https://www.facebook.com/janis-joplin-psy',           label: 'Facebook'
-                      = f.input :link_to_twitter, placeholder: 'e.g. https://www.twitter/janis-joplin-psy',                 label: 'Twitter'
-                      = f.input :link_to_linkedin, placeholder: 'e.g. https://www.linkedin.com/in/janis-joplin-psy',        label: 'Linkedin'
-                      = f.input :link_to_google_plus, placeholder: 'e.g. https://plus.google.com/u/0/888888888888888/posts',label: 'Google+'
-                      
-                      = f.input :link_to_tumblr, placeholder: 'e.g. http://janis-joplin-psy.tumblr.com/',label: 'Tumblr'
-                      = f.input :link_to_instagram, placeholder: 'e.g. https://janis-joplin-psy/zebulonraphael/',label: 'Instagram'
-                      = f.input :link_to_youtube, placeholder: 'e.g. https://www.youtube.com/channel/xxxxxxxxxxxxxx',label: 'Youtube'
-                      
-                      = f.input :link_to_homepage, placeholder: 'e.g. http://my-rocket-factory.com',                        label: 'Home page'
+                  /.row
+                  /  .col-sm-12
+                  /    
+                  /    h4 Links to social accounts
+                  /    = f.input :link_to_facebook, placeholder: 'e.g. https://www.facebook.com/janis-joplin-psy',           label: 'Facebook'
+                  /    = f.input :link_to_twitter, placeholder: 'e.g. https://www.twitter/janis-joplin-psy',                 label: 'Twitter'
+                  /    = f.input :link_to_linkedin, placeholder: 'e.g. https://www.linkedin.com/in/janis-joplin-psy',        label: 'Linkedin'
+                  /    = f.input :link_to_google_plus, placeholder: 'e.g. https://plus.google.com/u/0/888888888888888/posts',label: 'Google+'
+                  /    
+                  /    = f.input :link_to_tumblr, placeholder: 'e.g. http://janis-joplin-psy.tumblr.com/',label: 'Tumblr'
+                  /    = f.input :link_to_instagram, placeholder: 'e.g. https://janis-joplin-psy/zebulonraphael/',label: 'Instagram'
+                  /    = f.input :link_to_youtube, placeholder: 'e.g. https://www.youtube.com/channel/xxxxxxxxxxxxxx',label: 'Youtube'
+                  /    
+                  /    = f.input :link_to_homepage, placeholder: 'e.g. http://my-rocket-factory.com',                        label: 'Home page'
                   
 
                   

@@ -12,7 +12,7 @@ class ShareRecordingWithEmail < ActiveRecord::Base
     # !!! make a limitation here to avoid spammers
     self.recipients.split(',').each do |email|
       email.strip!
-      if EmailValidator.validate( email )
+      if EmailSanitizer.validate( email )
         ShareRecordingWithEmailMailer.delay_for(8.seconds).send_email( self.id, email )  
         send_emails += 1                       
       end

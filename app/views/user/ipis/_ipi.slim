@@ -1,0 +1,14 @@
+.row
+  .col-sm-3
+    = user_credit.title
+    br
+    i = user_credit.ipiable.confirmation
+  .col-sm-3
+    'Work
+  .col-sm-4
+    = user_credit.ipiable.roles_as_string
+  .col-sm-2
+    .pull-right
+      = link_to 'Info', user_user_ipi_path(@user, user_credit.ipiable), class: 'btn btn-default'
+    /= user_credit.ipiable.confirmation
+

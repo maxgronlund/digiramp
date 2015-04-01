@@ -1,7 +1,10 @@
-.row
-  .col-sm-4
-    = user_credit.title
-  .col-sm-3
-    'Work
-  .col-sm-5
-    = user_credit.ipiable.roles_as_string
+- if user_credit.ipiable
+  .row
+    .col-sm-4
+      = user_credit.title
+    .col-sm-3
+      'Work
+    .col-sm-5
+      = user_credit.ipiable.roles_as_string
+-else
+  - user_credit.destroy!

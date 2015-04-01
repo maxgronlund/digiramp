@@ -1,0 +1,41 @@
+/h1 New user_email
+/
+/== render 'form'
+/
+/= link_to 'Back', user_emails_path
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'settings'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Add email
+            .help-button
+              == render 'admin/helps/help', identifier: 'add emails'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to 'New User email', new_user_user_user_email_path(@user), class: 'btn btn-primary'
+            
+        
+        
+        
+        
+      
+      .sexy_line
+      
+      == render 'form'
+
+      
+                 
+              
+  == render 'shared/site_footer' 

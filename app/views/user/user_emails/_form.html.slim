@@ -1,0 +1,20 @@
+.row
+  .col-sm-6
+    .digi-box
+      = simple_form_for [:user, @user, @user_email], turbo_boost: true do |f|
+        - if  f.error_notification
+          .alert.alert-danger
+            = f.error_notification
+        /-if @user_email.errors.any?
+        /  = render 'shared/errors', errors: @user.errors
+          
+        .form-inputs
+          = f.input :email
+          = f.hidden_field :user_id, value: @user.id
+      
+        .form-actions
+          .row
+            .col-sm-12
+              .pull-right
+                = f.submit 'Save', class: 'btn btn-primary'
+      

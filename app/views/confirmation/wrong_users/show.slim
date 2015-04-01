@@ -1,0 +1,47 @@
+#wrap
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+       
+  .container
+    h2 Hi #{current_user.user_name}
+      
+    .sexy_line
+    .row
+      .col-sm-6
+        .alert.alert-danger
+          b This confirmation request was send to #{@ipi.email} 
+    .row
+      /.col-sm-6
+      /  .digi-box
+      /    h4 I have only one DigiRAMP account
+      /    'I would like to add the email 
+      /    b #{@ipi.email} 
+      /    'to my account
+      /    .row
+      /      .col-sm-12
+      /        .pull-right.pull-down-12
+      /          .btn.btn-success
+      /            'Add email
+      .col-sm-6
+        .digi-box
+          h4 
+            = @ipi.email
+            '&nbsp;is used by another account
+          'Please log out and login with 
+          b = @ipi.email
+          '&nbsp;and retry
+          .row
+            .col-sm-12
+              .pull-right.pull-down-12
+                = link_to logout_path do
+                  .btn.btn-warning
+                    i class="fa fa-unlock"
+                    '&nbsp;Log Out
+      /.col-sm-6
+      /  = debug @ipi
+                  
+                
+
+
+ 
+  == render 'shared/site_footer'

@@ -48,7 +48,7 @@ class Admin::EmailGroupsController < ApplicationController
 
     User.all.each do |user|
       
-      if EmailValidator.validate( user.email )
+      if EmailSanitizer.validate( user.email )
         MailListSubscriber.where(user_id: user.id, email_group_id: @email_group.id)
                           .first_or_create(user_id: user.id, email_group_id: @email_group.id)
       end

@@ -1,0 +1,65 @@
+/ this view is rendered when the user and current_user and ipi is valid
+/= debug @user_credits
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'settings'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'settings'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'ipis'.to_sym => user_user_ipis_path(@user) }, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 IPI / Credit 
+            .help-button
+              == render 'admin/helps/help', identifier: 'edit user ipi'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to user_user_ipi_path(@user, @ipi ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+
+      .sexy_line
+      .digi-box
+        = simple_form_for [:user, @user, @common_work, @ipi], turbo_boost: true do |f|
+          - if  f.error_notification
+            .alert.alert-danger
+              = f.error_notification
+          .row
+            .col-sm-6
+              .form-inputs
+                = f.input :full_name
+                = f.input :email
+                = f.input :ipi_code
+                /= f.input :ascap_work_id
+                /= f.input :bmi_work_id
+                
+                
+            .col-sm-6
+              .form-inputs
+                = f.input :address
+                = f.input :phone_number
+                = f.association :pro_affiliation, label: 'Performance Rights Organization'
+                /= f.input :email
+          .row
+            .col-sm-12
+              .pull-right
+                = f.submit 'Save', class: 'btn btn-primary'
+
+
+
+                  
+   
+  == render 'shared/site_footer'   
+  
+
+
+

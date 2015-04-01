@@ -40,6 +40,19 @@ class User < ActiveRecord::Base
   validates_presence_of   :user_name, :on => :update
   
   validates_presence_of :password, :on => :create
+  
+  #validates_presence_of :link_to_facebook
+  
+  validates_formatting_of :link_to_facebook        , :using => :url, :allow_blank => true      # URLs
+  validates_formatting_of :link_to_twitter         , :using => :url, :allow_blank => true      # URLs
+  validates_formatting_of :link_to_linkedin        , :using => :url, :allow_blank => true      # URLs
+  validates_formatting_of :link_to_google_plus     , :using => :url, :allow_blank => true      # URLs
+  validates_formatting_of :link_to_tumblr          , :using => :url, :allow_blank => true      # URLs
+  validates_formatting_of :link_to_instagram       , :using => :url, :allow_blank => true      # URLs
+  validates_formatting_of :link_to_youtube         , :using => :url, :allow_blank => true      # URLs
+  validates_formatting_of :link_to_homepage        , :using => :url, :allow_blank => true      # URLs
+  #validates_uniqueness_of :link_to_facebook, :allow_blank => true      # URLs
+  
   #validates_presence_of :name, :on => :update
   #before_create :set_uuid
   
@@ -93,7 +106,7 @@ class User < ActiveRecord::Base
   has_many :projects
   
   
-  has_many :ipis, dependent: :destroy
+  has_many :ipis
   has_many :user_credits, dependent: :destroy
   has_many :issues, dependent: :destroy
   
@@ -167,10 +180,33 @@ class User < ActiveRecord::Base
   has_many :campaigns
   has_many :cms_pages
   has_many :contracts
+  has_many :user_emails, dependent: :destroy
   
-  has_many :creative_projects
+  has_many :creative_projects, dependent: :destroy
   
   #has_one :default_cms_page
+  
+  def has_email test_this_email
+    return true if test_this_email == self.email
+    return true if self.user_emails.where(email: test_this_email).first
+  end
+  
+  def self.get_by_email email
+    if user =  User.where(email: email).first
+      return user
+    elsif user_email = UserEmail.where(email: email).first
+      return user_email.user if user_email.user
+    end 
+    nil
+  end
+  
+  def confirm_ips
+    if ipis = Ipi.where(email: self.email)
+      ipis.update_all(user_id: self.id)
+      return true
+    end
+    false
+  end
   
   def styling
     
@@ -190,33 +226,29 @@ class User < ActiveRecord::Base
   
   def sanitize_relations
     # messages
-    send_messages       = Message.where(sender_id: self.id)
-    send_messages.update_all(sender_removed: true)
+    if send_messages       = Message.where(sender_id: self.id)
+      send_messages.update_all(sender_removed: true)
+    end
     
-    
-    
-    received_messages   = Message.where(recipient_id: self.id)
-    received_messages.update_all(recipient_removed: true)
+    if received_messages   = Message.where(recipient_id: self.id)
+      received_messages.update_all(recipient_removed: true)
+    end
     
     client_ids          = Client.where(member_id: self.id).pluck(:id)
-
     if client_invitations  = ClientInvitation.where(client_id: client_ids)
       client_invitations.destroy_all
     end
     
-    clients             = Client.where(member_id: self.id)    
-    clients.update_all(member_id: nil)
-    
-
-    
-    self.recordings.each do |recording|
-      recording.user_id = User.system_user.id
-      recording.privacy = 'Only me'
-      recording.save!
+    if clients             = Client.where(member_id: self.id)    
+      clients.update_all(member_id: nil)
     end
 
+    self.recordings.update_all( user_id: User.system_user.id, 
+                                privacy: 'Only me'
+                              )
     
-    
+    self.ipis.update_all(user_id: nil)
+
   end
   
   def self.system_user
@@ -280,14 +312,14 @@ class User < ActiveRecord::Base
     # always start as a customer
     self.role = 'Customer' if self.role.to_s == ''
     
-    if EmailValidator.saintize( self.email )
-      self.user_name  = User.create_uniq_user_name_from_email(self.email)    if self.user_name.to_s  == ''
-      #self.name      = user_name                                            if self.name.to_s       == ''
-      self.first_name = user_name.split('@').first                            if self.first_name.to_s == ''
-      self.last_name = user_name.split('@').last.gsup('_', '')                if self.first_name.to_s == ''
-      self.uuid      = UUIDTools::UUID.timestamp_create().to_s                if self.uuid.to_s       == ''
-    end
-    
+    #if EmailSanitizer.saintize( self.email )
+    #  self.user_name  = User.create_uniq_user_name_from_email(self.email)    if self.user_name.to_s  == ''
+    #  #self.name      = user_name                                            if self.name.to_s       == ''
+    #  self.first_name = user_name.split('@').first                            if self.first_name.to_s == ''
+    #  self.last_name = user_name.split('@').last.gsup('_', '')                if self.first_name.to_s == ''
+    #  
+    #end
+    self.uuid      = UUIDTools::UUID.timestamp_create().to_s                if self.uuid.to_s       == ''
     #self.uniq_completeness    = Uniqifyer.uniqify(self.completeness)
     update_completeness
     update_search_field
@@ -297,17 +329,7 @@ class User < ActiveRecord::Base
     self.uniq_followers_count = Uniqifyer.uniqify(self.followers_count)
     
   end
-  
-  def validate_social_links
-    self.link_to_facebook = LinkValidator.validate( self.link_to_facebook )
-    self.link_to_twitter = LinkValidator.validate( self.link_to_twitter )
-    self.link_to_linkedin = LinkValidator.validate( self.link_to_linkedin )
-    self.link_to_google_plus = LinkValidator.validate( self.link_to_google_plus )
-    self.link_to_homepage = LinkValidator.validate( self.link_to_homepage )
-    self.link_to_tumblr = LinkValidator.validate( self.link_to_tumblr )
-    self.link_to_instagram = LinkValidator.validate( self.link_to_instagram )
-    self.link_to_youtube = LinkValidator.validate( self.link_to_youtube )
-  end
+
   
   def set_page_style
 
@@ -785,7 +807,7 @@ class User < ActiveRecord::Base
   # invite a user based on an email 
   def self.invite_user email
     
-    if email = EmailValidator.saintize( email )
+    if email = EmailSanitizer.saintize( email )
       user_name = create_uniq_user_name_from_email email
       
       
@@ -841,7 +863,7 @@ class User < ActiveRecord::Base
   def self.invite_to_account_by_email email, title, body, account_id, current_user_id
     
     
-    sanitized_email = EmailValidator.saintize email
+    sanitized_email = EmailSanitizer.saintize email
 
     # the user is already signed up
     if found_user       = User.where(email: sanitized_email).first

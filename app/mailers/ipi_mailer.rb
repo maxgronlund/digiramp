@@ -20,10 +20,12 @@ class IpiMailer < ActionMailer::Base
   #   en.ipi.confirm_common_work.subject
   #
   def common_work_ipi_confirmation_email ipi_id
-
-    @ipi        = Ipi.cached_find(ipi_id)
-    
-    @accept_url = 'http://digiramp.com'
+    @ipi  = Ipi.cached_find(ipi_id)
+    @accept_url  = url_for( controller: 'confirmation/ipi_confirmations', action: 'show', id: @ipi.uuid )
+    #@ipi.user ?
+    #  @accept_url  = url_for( controller: 'confirmation/ipi_confirmations', action: 'show', id: @ipi.uuid, user_uuid: @ipi.user.uuid  )
+    #  :
+    #  @accept_url  = url_for( controller: 'confirmation/ipi_confirmations', action: 'show', id: @ipi.uuid )
 
     mail to: @ipi.email, subject: @ipi.title
   end

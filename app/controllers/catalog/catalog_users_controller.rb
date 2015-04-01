@@ -45,7 +45,7 @@ class Catalog::CatalogUsersController < ApplicationController
   def create
     forbidden unless current_catalog_user.create_user
 
-    if email    = EmailValidator.saintize( params[:catalog_user][:email])
+    if email    = EmailSanitizer.saintize( params[:catalog_user][:email])
       title     = params[:catalog_user][:title]
       body      = params[:catalog_user][:body]
       catalog   = Catalog.cached_find(params[:catalog_user][:catalog_id])

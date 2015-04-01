@@ -1,10 +1,9 @@
 Digiramp::Application.routes.draw do
 
 
-  
-  resources :user_emails
 
-  get 'social_icons/index'
+
+  #get 'social_icons/index'
 
   get 'user_menu/edit'
 
@@ -13,6 +12,18 @@ Digiramp::Application.routes.draw do
   get 'issue_events/index'
 
   get 'issue_events/show'
+  
+  namespace :confirmation do
+    resources :ipi_confirmations
+    resources :ipi_not_found, only: [:index]
+    resources :user_not_found, only: [:index]
+    resources :invalid_ipis, only: [:index]
+    resources :wrong_users, only: [:show]
+    resources :users, only: [:new]
+    resources :add_emails, only: [:new]
+  end
+  
+  
 
   resources :add_to_playlists, only: [:create]
   resources :become_members, only: [:new]
@@ -697,15 +708,13 @@ Digiramp::Application.routes.draw do
   
   #=================== USER =========================
   namespace :user do
+    
+    resources :social_links
     #resources :common_work_lyrics
     resources :users do
-      
-      resources :creative_projects do
-        resources :creative_project_dashboards, only: [:index]
-        resources :creative_project_users
-        resources :creative_project_roles
-        resources :creative_project_resources
-      end
+      resources :activities
+      resources :authorization_providers
+      resources :confirm_ipis
       resources :creative_rights, only: [:index, :show, :destroy]
       resources :common_works do
         resources :common_work_contracts
@@ -713,10 +722,17 @@ Digiramp::Application.routes.draw do
       resources :common_works do
         resources :creative_rights
         resources :ipis, only: [:new, :update]
+        resources :accept_ipis, only: [:update]
       end
       resources :common_work_lyrics, only: [:edit, :update]
       resources :common_work_credits, only: [:edit, :update]
       resources :contracts
+      resources :creative_projects do
+        resources :creative_project_dashboards, only: [:index]
+        resources :creative_project_users
+        resources :creative_project_roles
+        resources :creative_project_resources
+      end
       resources :playlists, only: [:edit, :update]
       resources :user_positions, only: [:index]
       resources :recording_credits
@@ -750,8 +766,8 @@ Digiramp::Application.routes.draw do
       end
       
       resources :user_ipis, only: [:index]
-      resources :authorization_providers
-      resources :activities
+      
+      
       resources :campaigns do
         resources :campaign_events
       end
@@ -778,6 +794,7 @@ Digiramp::Application.routes.draw do
       resources :contacts 
       resources :contact_invitations, only: [:show]
       resources :invite_client_groups, only: [:update]
+      resources :ipis
       resources :contact_groups do
         get 'toggle_selection'
         get 'add_all'
@@ -812,6 +829,7 @@ Digiramp::Application.routes.draw do
       resources :recording_meta_data, only: [:edit, :update]
       
       #resources :work_rights
+      resources :user_emails
     end
     
   end

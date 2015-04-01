@@ -14,7 +14,7 @@ class DigirampEmailMailer < ActionMailer::Base
     receipients = []
     index       = 0
     users.each do |user|
-      if user && email = EmailValidator.saintize( user.email )
+      if user && email = EmailSanitizer.saintize( user.email )
         receipients[index] = email
         index += 1
       end
@@ -45,7 +45,7 @@ class DigirampEmailMailer < ActionMailer::Base
     index = 0
     
     users.each do |user|
-      if user && email = EmailValidator.saintize( user.email )
+      if user && email = EmailSanitizer.saintize( user.email )
         receipients[index] = email
         index += 1
       end

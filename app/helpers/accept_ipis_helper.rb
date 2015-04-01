@@ -1,0 +1,2 @@
+module AcceptIpisHelper
+end
