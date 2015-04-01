@@ -11,7 +11,8 @@ class LinkValidator
   end
   
   def self.sanitize link
-    return link.gsub('www.', 'http://') if link.start_with?('www.')
+    return link if link.nil?
+    return link.gsub('www.', 'http://')  if link.start_with?('www.')
     return link.gsub('WWW.', 'http://')  if link.start_with?('WWW.') 
     link
   end
