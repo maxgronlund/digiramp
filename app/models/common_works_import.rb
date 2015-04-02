@@ -15,9 +15,12 @@ class CommonWorksImport < ActiveRecord::Base
   
   
   def parse_common_works
-    
+    ap '------------------'
+    ap 'parse_common_works'
     self.imported_works = 0
+    
     self.params.each do |param|
+      ap param
       
       begin
         common_work = CommonWork.where( ascap_work_id:  param[:ascap_work_id].to_i,
@@ -54,7 +57,7 @@ class CommonWorksImport < ActiveRecord::Base
           end
           common_work.work_type                             = details["Work Type"]
           common_work.composite_type                        = details["Composite Type"]
-          common_work.arrangement_of_public_domain_work     = details["Arrangement of Public Domain Work"]
+          common_work.arrangement     = details["Arrangement of Public Domain Work"]
         end
           
         # save
@@ -72,7 +75,7 @@ class CommonWorksImport < ActiveRecord::Base
         
         # add to catalog
         add_to_catalog common_work, self.catalog_id
-
+        ap common_work
       rescue
         puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
         puts 'ERROR: Unable to parse ascap common work:' 
@@ -117,15 +120,19 @@ class CommonWorksImport < ActiveRecord::Base
   def parse_ipis common_work_id, ipis, ascap_work_id
     #puts '+++++++++++++++++++++  PARSE IPIS ++++++++++++++++++++++++++++'
     ipis.each do |ipi_scrape|
-      ipi = Ipi.where(common_work_id: common_work_id, 
-                      ipi_code: ipi_scrape[:ipi_number] )
-               .first_or_create( common_work_id:  common_work_id, 
-                                 ipi_code:        ipi_scrape[:ipi_number]
-                                )
-      
+      if ipi = Ipi.where(common_work_id: common_work_id, 
+                         ipi_code: ipi_scrape[:ipi_number] ).first
+      else  ipi = Ipi.new( common_work_id:  common_work_id, 
+                           ipi_code:        ipi_scrape[:ipi_number]
+                          )
+      end
+      ap ipi
       ipi.full_name                 = ipi_scrape[:full_name]
       ipi.role                      = ipi_scrape[:role]
-      ipi.pro                       = ipi_scrape[:society]
+      ap '++++++++++++++++++++++++++++ 123 ++++++++++++++++++++++++++++++++'
+      pro_affiliation = ProAffiliation.where(title: ipi_scrape[:society]).first_or_create(title: ipi_scrape[:society])
+      
+      ipi.pro_affiliation_id        = pro_affiliation.id
       ipi.perf_owned                = ipi_scrape[:own_percent]
       ipi.perf_collected            = ipi_scrape[:collect_percent]
       ipi.has_agreement             = ipi_scrape[:has_agreement]

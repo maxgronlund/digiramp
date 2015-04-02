@@ -11,7 +11,7 @@ module CatalogsHelper
     rescue
       not_found
     end
-    
+    @user = current_user
 
     #forbidden unless current_catalog_user @catalog
   end

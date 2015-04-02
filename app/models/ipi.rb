@@ -8,7 +8,7 @@ class Ipi < ActiveRecord::Base
   belongs_to :import_ipi
   belongs_to :user
   #validates_with IpiEmailValidator 
-  validates_formatting_of :email, :using => :email 
+  validates_formatting_of :email, :using => :email, :allow_nil => true
   after_create :update_relations
   after_update :attach_user_credits
   before_destroy :remove_user_credits

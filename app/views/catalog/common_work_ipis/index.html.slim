@@ -62,7 +62,7 @@
                       
                         tr
                           td PRO:
-                          td  = ipi.pro_affiliation
+                          td  = ipi.pro_affiliation.title
                       
                         - unless ipi.address.to_s == ''
                           tr
@@ -144,11 +144,16 @@
                             td Controlled By Submitter:
                             td Yes
                       
+                  
+              .row
+                .col-sm-12
+                  
                   .pull-right
                     - if current_catalog_user.update_common_work_ipi
                       = link_to edit_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, ipi) do
-                        .btn.btn-primary.btn-lg
+                        .btn.btn-default
                           i class="fa fa-pencil"
+                          '&nbsp;Edit
                       
                     - if current_catalog_user.delete_common_work_ipi
                       '&nbsp;
@@ -157,9 +162,9 @@
                                   turboboost: true ,
                                   :method => :delete do
                                   
-                        .btn.btn-danger.btn-lg
+                        .btn.btn-danger
                           i class="fa fa-times"
-                  
+              
         
         
       

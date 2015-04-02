@@ -719,8 +719,6 @@ Digiramp::Application.routes.draw do
       resources :creative_rights, only: [:index, :show, :destroy]
       resources :common_works do
         resources :common_work_contracts
-      end
-      resources :common_works do
         resources :creative_rights
         resources :ipis, only: [:new, :update]
         resources :accept_ipis, only: [:update]
