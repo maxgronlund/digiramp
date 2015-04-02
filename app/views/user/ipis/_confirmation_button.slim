@@ -1,4 +1,4 @@
-.old-confirmation-button
+div class="old-confirmation-button-#{ipi.id.to_s}"
   - if ipi.confirmation == 'Missing'
     => link_to 'Request confirmation', new_user_user_common_work_ipi_path( user,  common_work, ipi: ipi), remote: true, class: 'btn btn-default'
   - elsif ipi.confirmation == 'Pending'

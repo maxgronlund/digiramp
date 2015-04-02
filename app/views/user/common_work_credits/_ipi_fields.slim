@@ -49,7 +49,8 @@
               = f.input :phone_number
               /= f.input :notes, :input_html => {  style: "height: 108px;", placeholder: "Notes"}
             .col-sm-6
-              = f.association :pro_affiliation, label: 'Performance Rights Organization'
+              /= f.association :pro_affiliation, label: 'Performance Rights Organization'
+              = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization'
           .row
             .col-sm-6
               = f.input :address, :input_html => {  style: "height: 108px;", placeholder: "Address"}

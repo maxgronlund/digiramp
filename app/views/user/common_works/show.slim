@@ -96,7 +96,7 @@
                       td = ipi.share
                       td 
                         .pull-right
-                          .confirmation-button
+                          div class="confirmation-button-#{ipi.id.to_s}"
                             == render 'user/ipis/confirmation_button', user: @user, common_work: @common_work, ipi: ipi
                           
                   

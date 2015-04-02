@@ -39,7 +39,14 @@
                   'Full name:
                 .panel-body
                   b = @ipi.full_name
-                  br
+
+                  
+            - if @ipi.email.to_s != ''        
+              .panel.panel-default
+                .panel-heading
+                  'Email:
+                .panel-body
+
                   b = @ipi.email
 
             .panel.panel-default
@@ -47,20 +54,15 @@
                 'Work title
               .panel-body
                 b = @common_work.title
-                        
-            - if @ipi.address.to_s != ''
+            
+            - unless @ipi.share.to_i == 0
               .panel.panel-default
                 .panel-heading
-                  'Address:
+                  'Share:
                 .panel-body
-                  b = @ipi.address
-                        
-            - if @ipi.phone_number.to_s != ''
-              .panel.panel-default
-                .panel-heading
-                  'Phone number:
-                .panel-body
-                  b = @ipi.phone_number
+                  b
+                    = @ipi.share
+                    '&nbsp;%
                       
             .row
               .col-sm-6
@@ -105,15 +107,20 @@
               
               
           .col-sm-6
-            
-            - unless @ipi.share.to_i == 0
+                        
+            - if @ipi.address.to_s != ''
               .panel.panel-default
                 .panel-heading
-                  'Share:
+                  'Address:
                 .panel-body
-                  b
-                    = @ipi.share
-                    '&nbsp;%
+                  b = @ipi.address
+                        
+            - if @ipi.phone_number.to_s != ''
+              .panel.panel-default
+                .panel-heading
+                  'Phone number:
+                .panel-body
+                  b = @ipi.phone_number
             
             - unless  @ipi.ipi_code.to_s == ''        
               .panel.panel-default

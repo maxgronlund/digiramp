@@ -2,7 +2,6 @@ Digiramp::Application.routes.draw do
 
 
 
-
   #get 'social_icons/index'
 
   get 'user_menu/edit'
@@ -712,8 +711,10 @@ Digiramp::Application.routes.draw do
     resources :social_links
     #resources :common_work_lyrics
     resources :users do
+      
       resources :activities
       resources :authorization_providers
+      resources :auto_fill_ipis, only: [:update]
       resources :confirm_ipis
       resources :creative_rights, only: [:index, :show, :destroy]
       resources :common_works do
@@ -764,7 +765,6 @@ Digiramp::Application.routes.draw do
       resources :cms_pages do
         resources :cms_sections 
       end
-      
       resources :user_ipis, only: [:index]
       
       
@@ -831,6 +831,8 @@ Digiramp::Application.routes.draw do
       #resources :work_rights
       resources :user_emails
     end
+    resources :user_addresses
+    
     
   end
   

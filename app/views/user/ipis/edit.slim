@@ -28,6 +28,7 @@
                 '&nbsp;Back
 
       .sexy_line
+      h4 = @ipi.common_work.title
       .digi-box
         = simple_form_for [:user, @user, @common_work, @ipi], turbo_boost: true do |f|
           - if  f.error_notification
@@ -47,11 +48,14 @@
               .form-inputs
                 = f.input :address
                 = f.input :phone_number
-                = f.association :pro_affiliation, label: 'Performance Rights Organization'
+                /= f.association :pro_affiliation, label: 'Performance Rights Organization'
+                = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization'
+                = f.input :notes
                 /= f.input :email
           .row
             .col-sm-12
               .pull-right
+                => link_to 'Auto fill address', user_user_auto_fill_ipi_path(@user, @ipi), method: 'put', class: 'btn btn-default'
                 = f.submit 'Save', class: 'btn btn-primary'
 
 

@@ -29,38 +29,43 @@
                     = f.input :user_name, label: 'Name', placeholder: 'This name will be displayed on your profile.', hint: 'Change to improve completeness'
                   - else
                     = f.input :user_name, label: 'Name',  placeholder: 'This name will be displayed on your profile.'
-                  
+
+                  = f.input :email
                   = f.input :profession
-                  = f.input :short_description, label: 'Short description (Max 100 chars)', :input_html => {  style: "height: 80px;", placeholder: "Short description, max 100 chars"}
-                  'Ratio 1:1
-                  br
-                  .fileinput.fileinput-new data-provides="fileinput"
-                    .fileinput-new.thumbnail style="width: 184px; height: 184px;"
-                      = image_tag @user.image, size: '184x184'
-            
-                    div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
-                    div
-                      span.btn.btn-default.btn-file
-                        span class="fileinput-new"
-                          'Change image
-                        '&nbsp;
-                        span class="fileinput-exists"
-                          'Change
-                        = f.file_field :image, multiple: false
-            
-                      '&nbsp;
-                      a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-                        'Remove
-            
-                  .sexy_line
+                  /= f.input :short_description, label: 'Short description (Max 100 chars)', :input_html => {  style: "height: 80px;", placeholder: "Short description, max 100 chars"}
+                  .row
+                    .col-sm-6
+                      'Ratio 1:1
+                      br
+                      .fileinput.fileinput-new data-provides="fileinput"
+                        .fileinput-new.thumbnail style="width: 92px; height: 92px;"
+                          = image_tag @user.image, size: '92x92'
+                      
+                        div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 92px; max-height: 92px;"
+                        div
+                          span.btn.btn-default.btn-file
+                            span class="fileinput-new"
+                              'Change image
+                            '&nbsp;
+                            span class="fileinput-exists"
+                              'Change
+                            = f.file_field :image, multiple: false
+                      
+                          '&nbsp;
+                          a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+                            'Remove
+                    .col-sm-6
+                      = f.input :private_profile, label: 'Hide my profile',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                      = f.input :page_style_id, collection: PageStyle.all, label: 'Profile page style', value_method: :id, include_blank: true
+                  /.sexy_line
                   
                   
-                  = f.input :private_profile, label: 'Hide my profile',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                  
                   /- if @user.name == User.create_uniq_user_name_from_email(@user.email)
                   /  = f.input :name, hint: 'Change to improve completeness'
                   /- else
                   /  = f.input :name
-                  = f.input :email
+                  /= f.input :email
                   .row
                     .col-sm-12
                       a data-toggle="collapse" data-parent="#accordion" href="#change_email"
@@ -78,24 +83,20 @@
                             
                   
 
-                  .row
-                    .col-sm-6
-                      = f.input :country, as: :country, priority: ['US'] 
-                    .col-sm-6
-                      = f.input :city
-                  .sexy_line
+
+                  /.sexy_line
                   .pull-down-10
                   - if @user.cms_pages.count > 0
                     = f.input :default_cms_page_id, collection: @user.cms_pages, label: 'Default profile page', value_method: :id, include_blank: true
                   
-                  = f.input :page_style_id, collection: PageStyle.all, label: 'Profile page style', value_method: :id, include_blank: true
+                  
                       
                 
                       
                 .col-sm-6
                   .row
                     .col-sm-12
-                      h4 Bio
+                      b Bio
                       
                       div id="toolbar" class="wysihtml5-toolbar"
                         a data-wysihtml5-command="bold" Bold
@@ -104,9 +105,9 @@
                         .pull-right
                           a data-wysihtml5-action="change_view"  Html 
 
-                      =f.input :profile, label: false, :input_html => {  style: "height: 240px;", placeholder: "Profile", id: 'wysihtml5_editor'}
+                      =f.input :profile, label: false, :input_html => {  style: "height: 180px;", placeholder: "Profile", id: 'wysihtml5_editor'}
                   
-                  h4 Tags
+                  b Tags
                   .row
                     .col-sm-6
                       = f.input :artist,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
@@ -138,7 +139,7 @@
                   
 
               .row
-                .col-sm-12
+                .col-sm-12.pull-down-8
                   = link_to 'Delete account', account_account_path(@user.account), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-default'
                   .pull-right
                     
