@@ -8,7 +8,10 @@ class AddTitleToRecordingIpis < ActiveRecord::Migration
     
     RecordingIpi.find_each do |recording_ipi|
       recording_ipi.uuid = UUIDTools::UUID.timestamp_create().to_s
-      recording_ipi.save!
+      begin
+        recording_ipi.save!(validate: false)
+      rescue
+      end
     end
   end
 end
