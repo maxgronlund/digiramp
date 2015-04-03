@@ -1,0 +1,13 @@
+
+
+$(".open-dialog").append("<%= j render 'user/recording_confirmations/confirmation_dialog', user: @user, recording: @recording, recording_ipi: @recording_ipi %>");
+
+$('#digirampDialog').modal('show')
+
+
+
+javascript:
+
+  $("#digirampDialog").on('hidden.bs.modal', function (event) {
+    $(".old-dialog").remove()
+  });

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402145915) do
+ActiveRecord::Schema.define(version: 20150403144856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2285,6 +2285,9 @@ ActiveRecord::Schema.define(version: 20150402145915) do
     t.boolean  "show_credit_on_recording", default: false
     t.text     "notes",                    default: ""
     t.string   "credit_for",               default: ""
+    t.string   "title",                    default: ""
+    t.text     "message",                  default: ""
+    t.string   "uuid",                     default: ""
   end
 
   add_index "recording_ipis", ["recording_id"], name: "index_recording_ipis_on_recording_id", using: :btree

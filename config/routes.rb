@@ -20,6 +20,7 @@ Digiramp::Application.routes.draw do
     resources :wrong_users, only: [:show]
     resources :users, only: [:new]
     resources :add_emails, only: [:new]
+    resources :recording_ipi_confirmations
   end
   
   
@@ -737,7 +738,8 @@ Digiramp::Application.routes.draw do
       resources :recording_credits
       resources :recordings do
         resources :work_rights
-        resources :recording_confirmations, only: [:update]
+        resources :recording_ipis
+        resources :recording_confirmations, only: [:new, :update]
       end
       
       #resources :work_rights, only: [:update]

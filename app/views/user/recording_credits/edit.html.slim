@@ -27,7 +27,7 @@
         .col-sm-4
           .pull-right
             .recording-navigation
-              => link_to user_user_creative_rights_path( @user ) do
+              => link_to user_user_common_work_path( @user, @recording.common_work ) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;

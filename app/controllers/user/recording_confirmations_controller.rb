@@ -1,27 +1,14 @@
 class User::RecordingConfirmationsController < ApplicationController
-  def update
+  
+  def new
     
-    ap params
-    @recording_ipi = RecordingIpi.cached_find(params[:id])
-    #@recording_ipi = RecordingIpi.cached_find(params[:recording][:recording_ipi_id])
-    #
-    #case params[:commit]
-    #  
-    #when 'Request confirmation'
-    #  @recording_ipi.confirmation = 'pending'
-    #  @render = 'user/recording_confirmations/pending'
-    #  
-    #  # send confirmatiion email
-    #
-    #when 'Cancel'
-    #  @recording_ipi.confirmation = 'missing'
-    #  @render = 'user/recording_confirmations/missing'
-    #else
-    #  ap 'bar'
-    #end
-    #
-    #@recording_ipi.save!
-    redirect_to :back
+    
+    @user                   = User.cached_find(params[:user_id])
+    @recording              = Recording.cached_find(params[:recording_id])
+    @recording_ipi          = RecordingIpi.cached_find(params[:recording_ipi_id])
+    @recording_ipi.title    = "Please confirm your rights on #{@recording.title}"
+    @recording_ipi.message  = "Hi \nI would like you to confirm you credits share and rights on #{@recording.title} as:\n#{@recording_ipi.role} \n\n--#{@user.user_name}"
+
 
   end
 end

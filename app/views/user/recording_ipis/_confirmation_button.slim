@@ -1,4 +1,8 @@
 div class="old-recording-confirmation-button-#{recording_ipi.id.to_s}"
-  - if recording_ipi.confirmation = 'Missing'
-    = link_to 'Request confirmation', user_user_recording_recording_confirmation_path( user,  recording, recording_ipi), method: 'put', class: 'btn btn-default'
+  - if recording_ipi.confirmation == 'Missing'
+    = link_to 'Request confirmation', new_user_user_recording_recording_confirmation_path( user,  recording, recording_ipi_id: recording_ipi), remote: true, class: 'btn btn-default'
+  - elsif recording_ipi.confirmation == 'Pending'
+    = link_to 'Resend confirmation request', new_user_user_recording_recording_confirmation_path( user,  recording, recording_ipi_id: recording_ipi), remote: true, class: 'btn btn-default'
+    .btn.btn-info disabled="disabled"
+      'Pending
     

@@ -3,8 +3,3 @@ $('#digirampDialog').modal('hide')
 $(".old-confirmation-button-<%= @ipi.id.to_s %>").remove()
 $(".confirmation-button-<%= @ipi.id.to_s %>").append("<%= j render 'user/ipis/confirmation_button', user: @user, common_work: @common_work, ipi: @ipi %>");
 
-javascript:
-
-  $("#digirampDialog").on('hidden.bs.modal', function (event) {
-    $(".old-dialog").remove()
-  });
