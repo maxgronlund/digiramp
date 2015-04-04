@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150404182534) do
+ActiveRecord::Schema.define(version: 20150404202947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1837,8 +1837,8 @@ ActiveRecord::Schema.define(version: 20150404182534) do
     t.integer  "sender_id"
     t.string   "title"
     t.text     "body"
-    t.integer  "subjebtable_id"
-    t.string   "subjebtable_type"
+    t.integer  "subjectable_id"
+    t.string   "subjectable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "sender_removed",    default: false
@@ -1849,7 +1849,7 @@ ActiveRecord::Schema.define(version: 20150404182534) do
 
   add_index "messages", ["recipient_id"], name: "index_messages_on_recipient_id", using: :btree
   add_index "messages", ["sender_id"], name: "index_messages_on_sender_id", using: :btree
-  add_index "messages", ["subjebtable_id", "subjebtable_type"], name: "index_messages_on_subjebtable_id_and_subjebtable_type", using: :btree
+  add_index "messages", ["subjectable_id", "subjectable_type"], name: "index_messages_on_subjectable_id_and_subjectable_type", using: :btree
 
   create_table "mood_tags", force: true do |t|
     t.integer  "recording_id"

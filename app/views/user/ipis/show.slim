@@ -164,6 +164,17 @@
                   'Confirmation requested by:
                 .panel-body
                   = link_to @requester.user_name, @requester
+                  .row
+                    .col-sm-12
+                      .pull-right
+                        =< link_to new_message_digalog_path(sender: @ipi.user, 
+                                                           receiver: @requester, 
+                                                           title: "Regarding: #{@ipi.common_work.title}", 
+                                                           subjectable_id: @ipi.id, 
+                                                           subjectable_type: 'Ipi'), remote: true do
+                              .btn.btn-default
+                                i.fa.fa-envelope
+                                  '&nbsp;Send message
             
 
 

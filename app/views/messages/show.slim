@@ -33,22 +33,22 @@
                   = link_to new_message_digalog_path( sender: current_user, 
                                                       receiver: @message.sender,
                                                       title: "re: #{@message.title}",
-                                                      subjebtable_id: @message.id,
-                                                      subjebtable_type: 'Message'), remote: true do
+                                                      subjectable_id: @message.id,
+                                                      subjectable_type: 'Message'), remote: true do
                         .btn.btn-default
                           i.fa.fa-reply
                             '&nbsp;Reply
                 
                 
 
-                - elsif @message.subjebtable_type == 'Connection'
+                - elsif @message.subjectable_type == 'Connection'
                   .row
                     .col-sm-12.pull-down-12
                       = link_to new_message_digalog_path(sender: current_user, 
                                                         receiver: @message.sender, 
                                                         title: "re: #{@message.title}",
-                                                        subjebtable_id: @message.id,
-                                                        subjebtable_type: 'Message'), remote: true do
+                                                        subjectable_id: @message.id,
+                                                        subjectable_type: 'Message'), remote: true do
                             .btn.btn-default
                               i.fa.fa-reply
                                 '&nbsp;Reply
@@ -79,15 +79,26 @@
 
         .row
           .col-sm-9
-            - case @message.subjebtable_type
+            - case @message.subjectable_type
             - when 'User'
+              '&nbsp;
+            - when 'Ipi'
               '&nbsp;
             - when 'Recording'
               '&nbsp;
+            - when 'RecordingIpi'
+
+              - if recording_ipi = RecordingIpi.cached_find(@message.subjectable_id)
+                - if recording = recording_ipi.recording
+                  #digiWhams  class="/recordings/#{recording.id.to_s}"
+                    == render 'recording', recording: recording
+              - else
+                .alert.alert-danger
+                  '!Recording removed
             - when 'MusicSubmission'
               ruby:
                 begin
-                  if music_submission = MusicSubmission.cached_find(@message.subjebtable_id)
+                  if music_submission = MusicSubmission.cached_find(@message.subjectable_id)
                     if recording = music_submission.recording
                     
                     end
@@ -103,8 +114,8 @@
                   '!Recording removed
               /ruby:
               /  begin
-              /    /- if MusicSubmission.exists?(@message.subjebtable_id)
-              /    /  - music_submission =  MusicSubmission.find(@message.subjebtable_id)
+              /    /- if MusicSubmission.exists?(@message.subjectable_id)
+              /    /  - music_submission =  MusicSubmission.find(@message.subjectable_id)
               /    /  - recording = music_submission.recording
               /    /  /= debug music_submission.recording
               /    /  #digiWhams  class="/recordings/#{recording.id.to_s}"
@@ -114,7 +125,7 @@
               /  end
                 
             - when 'Connection'
-              - if connection = Connection.where( id: @message.subjebtable_id ).first
+              - if connection = Connection.where( id: @message.subjectable_id ).first
                 .connection-invitation
                 == render 'messages/connection_invitation', receiver: @message.receiver, connection: connection
                   /= simple_form_for [ @message.receiver , connection ], remote: true do |f|
@@ -134,7 +145,7 @@
   == render 'shared/site_footer'    
  
 - if @message.sender
-  == render 'messages/modal', modal_id: "message_modal_#{@message.id.to_s}", recipient: @message.sender, subjebtable: @message, title: "re: #{@message.title}"
+  == render 'messages/modal', modal_id: "message_modal_#{@message.id.to_s}", recipient: @message.sender, subjectable: @message, title: "re: #{@message.title}"
   
 javascript:
   update_count();

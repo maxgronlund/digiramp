@@ -17,8 +17,8 @@
               
               = f.hidden_field :confirmation, value: 'Pending'
               /= f.hidden_field :sender_id, value: sender.id
-              /= f.hidden_field :subjebtable_id, value: message.subjebtable_id
-              /= f.hidden_field :subjebtable_type, value: message.subjebtable_type
+              /= f.hidden_field :subjectable_id, value: message.subjectable_id
+              /= f.hidden_field :subjectable_type, value: message.subjectable_type
               
               = f.input :title, label: 'Subject', :input_html => {  id: "digiramp_dialog_title",  placeholder: 'Required'}
               = f.input :message, :input_html => {  style: "height: 280px;", placeholder: "Message", id: "digiramp_dialog_body" }

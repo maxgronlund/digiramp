@@ -8,7 +8,7 @@ FactoryGirl.define do
     body "MyText"
     recipient_removed false
     sender_removed false
-    subjebtable_id 1
+    subjectable_id 1
     subjectable_type "MyString"
   end
 end

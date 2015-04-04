@@ -77,8 +77,8 @@ class Account::MusicSubmissionsController < ApplicationController
         message.sender_id          = current_user.id
         message.title              = 'I have submitted a recording'
         message.body               = "Thank's for the opportunity. I have submitted " + @opportunity.title + '. Please listen to it and see if you like it'
-        message.subjebtable_id     = @music_submission.id
-        message.subjebtable_type   = 'MusicSubmission'
+        message.subjectable_id     = @music_submission.id
+        message.subjectable_type   = 'MusicSubmission'
         message.save!
         message.send_as_email
       end

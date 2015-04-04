@@ -10,15 +10,14 @@
           h4 class="modal-title" id="myModalLabel"
             'New message
           .sexy_line
-  
-  
+
           = simple_form_for [sender, message], remote: true do |f|
             .modal-body
               /= f.hidden_field :sender_id, value: current_user.id
-              = f.hidden_field :recipient_id, value: recipient.id
-              = f.hidden_field :sender_id, value: sender.id
-              = f.hidden_field :subjebtable_id, value: message.subjebtable_id
-              = f.hidden_field :subjebtable_type, value: message.subjebtable_type
+              = f.hidden_field :recipient_id,     value: recipient.id
+              = f.hidden_field :sender_id,        value: sender.id
+              = f.hidden_field :subjectable_id,   value: message.subjectable_id
+              = f.hidden_field :subjectable_type, value: message.subjectable_type
               
               = f.input :title, label: 'Subject', :input_html => {  id: "digiramp_dialog_title",  placeholder: 'Required'}
               = f.input :body, :input_html => {  style: "height: 280px;", placeholder: "Message", id: "digiramp_dialog_body" }

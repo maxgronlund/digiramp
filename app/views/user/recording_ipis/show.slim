@@ -77,8 +77,24 @@
                 'Share
               .panel-body
                 b = number_to_percentage(@recording_ipi.share, precision: 1)
+            .panel.panel-default
+              .panel-heading
+                'Controlled by
+              .panel-body
+                b = @recording_ipi.recording.user.user_name
+                .row
+                  .col-sm-12
+                    .pull-right
+                      =< link_to new_message_digalog_path(sender: @recording_ipi.user, 
+                                                         receiver: @recording_ipi.recording.user, 
+                                                         title: "Regarding: #{@recording_ipi.recording.title}", 
+                                                         subjectable_id: @recording_ipi.id, 
+                                                         subjectable_type: 'RecordingIpi'), remote: true do
+                            .btn.btn-default
+                              i.fa.fa-envelope
+                                '&nbsp;Send message
 
-                  
+        
    
   == render 'shared/site_footer'   
   

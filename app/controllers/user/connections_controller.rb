@@ -34,8 +34,8 @@ class User::ConnectionsController < ApplicationController
     @message.sender_id          = sender.id
     @message.title              = sender.user_name + ' wants to connect with you'
     @message.body               = @connection.message
-    @message.subjebtable_id     = @connection.id
-    @message.subjebtable_type   = 'Connection'
+    @message.subjectable_id     = @connection.id
+    @message.subjectable_type   = 'Connection'
     @message.save!
     @message.send_as_email
   
@@ -114,8 +114,8 @@ class User::ConnectionsController < ApplicationController
                                             "image"   => 'notice'
                                             })
     end
-    @message.subjebtable_id     =  @connection.id
-    @message.subjebtable_type   = 'Connection'
+    @message.subjectable_id     =  @connection.id
+    @message.subjectable_type   = 'Connection'
     @message.save!
     
     @message.send_as_email
@@ -165,8 +165,8 @@ end
 #  t.integer  "sender_id"
 #  t.string   "title"
 #  t.text     "body"
-#  t.integer  "subjebtable_id"
-#  t.string   "subjebtable_type"
+#  t.integer  "subjectable_id"
+#  t.string   "subjectable_type"
 #  t.datetime "created_at"
 #  t.datetime "updated_at"
 #  t.boolean  "sender_removed",    default: false

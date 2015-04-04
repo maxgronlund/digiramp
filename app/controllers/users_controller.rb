@@ -211,7 +211,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    ap params
+
     @account    = @user.account
 
     @user.slug  = nil
@@ -267,7 +267,7 @@ class UsersController < ApplicationController
               recipient_type: @user.class.name,
                   account_id: @user.account_id)
     
-    flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} is deleted" } 
+    #flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} is deleted" } 
     @user.destroy
     #go_to = session[:go_to_after_edit] || account_users_path(@account)
     session[:go_to_after_edit]          = nil

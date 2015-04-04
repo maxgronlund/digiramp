@@ -1,5 +1,5 @@
 - if current_user
-  == render 'messages/modal', modal_id: "pmModal_#{@user.id.to_s}", recipient: @user, subjebtable: @user
+  == render 'messages/modal', modal_id: "pmModal_#{@user.id.to_s}", recipient: @user, subjectable: @user
   .modal.fade id="#{modal_id}" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true" 
     .modal-dialog
       .modal-content
