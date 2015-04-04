@@ -78,7 +78,7 @@ private
 
   def send_confirmation_email
     ap 'send_confirmation_email'
-    #IpiMailer.delay.common_work_ipi_confirmation_email self.id
+    RecordingIpiMailer.delay.recording_ipi_confirmation_email self.id
   end
   
   def send_confirmation_notification

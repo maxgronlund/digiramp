@@ -18,6 +18,8 @@ Digiramp::Application.routes.draw do
     resources :user_not_found, only: [:index]
     resources :invalid_ipis, only: [:index]
     resources :wrong_users, only: [:show]
+    resources :login_users, only: [:show]
+    resources :wrong_recording_users, only: [:show]
     resources :users, only: [:new]
     resources :add_emails, only: [:new]
     resources :recording_ipi_confirmations
@@ -827,7 +829,7 @@ Digiramp::Application.routes.draw do
       resources :recording_lyrics, only: [:edit, :update]
       resources :recording_common_work, only: [:edit, :update]
       resources :recording_meta_data, only: [:edit, :update]
-      
+      resources :recording_ipis
       #resources :work_rights
       resources :user_emails
     end

@@ -17,7 +17,7 @@
         .col-sm-6
           .help
             .help-text
-              h2 IPI / Credit 
+              h2 IPI / Credits on work 
             .help-button
               == render 'admin/helps/help', identifier: 'user ipi'
         .col-sm-6
@@ -27,12 +27,21 @@
                 i.fa.fa-chevron-left
                 '&nbsp;Back
       .sexy_line
-      .alert.alert-info
-        'Status:&nbsp;
-        = @ipi.confirmation
       .digi-box.ipi-confirmations
         .row
           .col-sm-6
+            .panel.panel-warning
+              .panel-heading
+                'Status
+              .panel-body
+                b = @ipi.confirmation
+                
+            .panel.panel-default
+              .panel-heading
+                'Work title
+              .panel-body
+                b = @common_work.title
+                
             - if @ipi.full_name.to_s != ''        
               .panel.panel-default
                 .panel-heading
@@ -48,12 +57,6 @@
                 .panel-body
 
                   b = @ipi.email
-
-            .panel.panel-default
-              .panel-heading
-                'Work title
-              .panel-body
-                b = @common_work.title
             
             - unless @ipi.share.to_i == 0
               .panel.panel-default

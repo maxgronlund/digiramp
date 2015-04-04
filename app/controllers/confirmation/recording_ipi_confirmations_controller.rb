@@ -1,16 +1,15 @@
-class Confirmation::IpiConfirmationsController < ApplicationController
-  
+class Confirmation::RecordingIpiConfirmationsController < ApplicationController
   def show
-   
-    if @ipi    = Ipi.where(uuid: params[:id]).first
-      @user   = User.get_by_email( @ipi.email )
+    if @recording_ipi    = RecordingIpi.where(uuid: params[:id]).first
+      @user   = User.get_by_email( @recording_ipi.email )
     end
+    
+    #ap @user
     
     # things that can happen if the ipi the current_user ore the user is missing
     if current_user.nil?
       # login or signup
-      redirect_to confirmation_login_user_path(uuid: params[:id])
-    elsif @ipi.nil?
+    elsif @recording_ipi.nil?
       # there is a current_user but IPI is not found
       redirect_to confirmation_ipi_not_found_index_path
     
@@ -31,12 +30,13 @@ class Confirmation::IpiConfirmationsController < ApplicationController
     # the current user don't have the user email on his account
     elsif current_user.id != @user.id
       #there is a IPI and a user but the user 
-      redirect_to confirmation_wrong_user_path(uuid: params[:id])
+      redirect_to confirmation_wrong_recording_user_path(uuid: params[:id])
     end
     
-    redirect_to user_user_ipi_path(@user, @ipi ) if  @ipi.confirmation == "Confirmed"
+    redirect_to user_user_recording_ipi_path(@user, @recording_ipi ) if  @recording_ipi.confirmation == "Confirmed"
     
-    not_found( params )  unless ( @common_work = @ipi.common_work ) && ( account = @common_work.account ) && ( @requester = account.user )
+    not_found( params )  unless ( @recording = @recording_ipi.recording ) && ( account = @recording.account ) && ( @requester = account.user )
+    
     
     
     
@@ -47,13 +47,13 @@ class Confirmation::IpiConfirmationsController < ApplicationController
   end
 
   def update
-    @ipi              = Ipi.where(uuid: params[:id]).first
-    @user             = User.get_by_email( @ipi.email )
-    @ipi.user_id      = @user.id
-    @ipi.confirmation = 'Confirmed'
-    @ipi.save!
+    @recording_ipi              = RecordingIpi.where(uuid: params[:id]).first
+    @user                       = User.get_by_email( @recording_ipi.email )
+    @recording_ipi.user_id      = @user.id
+    @recording_ipi.confirmation = 'Confirmed'
+    @recording_ipi.save!
     
-    redirect_to user_user_ipi_path( @user, @ipi)
+    redirect_to user_user_recording_ipi_path( @user, @recording_ipi)
     
   end
   
