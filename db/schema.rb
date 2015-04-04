@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150403144856) do
+ActiveRecord::Schema.define(version: 20150404182534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2288,6 +2288,8 @@ ActiveRecord::Schema.define(version: 20150403144856) do
     t.string   "title",                    default: ""
     t.text     "message",                  default: ""
     t.string   "uuid",                     default: ""
+    t.text     "address",                  default: ""
+    t.string   "phone_number",             default: ""
   end
 
   add_index "recording_ipis", ["recording_id"], name: "index_recording_ipis_on_recording_id", using: :btree

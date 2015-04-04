@@ -48,14 +48,21 @@
             .digi-box
               = @common_work.description
           - if @common_work.lyrics.to_s != ''
-            h4 Lyrics
-            .digi-box
-              = simple_format @common_work.lyrics
+            h4 
+              a aria-controls="collapseExample" aria-expanded="false" data-toggle="collapse" href="#collapseExample" 
+                | Show lyrics
+
+            #collapseExample.collapse
+              .digi-box
+                = simple_format @common_work.lyrics
 
               
       
       h4 Creative credits & rights
       .digi-box
+        - if @common_work.total_share.to_i != 100
+          .alert.alert-danger
+            'Total share should add up to 100%
         .row
           .col-sm-12
             .table-responsive
@@ -72,7 +79,6 @@
                 tbody
                   - @common_work.ipis.each do |ipi|
                     tr
-                      
                       td
                         - if ipi.composer
                           'Composer
@@ -93,21 +99,24 @@
                       /td 
                       /  - if ipi.show_credit_on_recordings
                       /    i.fa.fa-check
-                      td = ipi.share
+                      td 
+                        = number_to_percentage(ipi.share, precision: 1) 
+                        /= ipi.share
                       td 
                         .pull-right
                           div class="confirmation-button-#{ipi.id.to_s}"
                             == render 'user/ipis/confirmation_button', user: @user, common_work: @common_work, ipi: ipi
+                  tr
+                    td
+                      b Total share
+                    td
+                    td
+                    td 
+                      b = number_to_percentage(@common_work.total_share, precision: 1) 
+
+                    td
                           
-                  
-            - if @common_work.total_share.to_i != 100
-              .sexy_line
-              .pull_right
-                .alert.alert-danger
-                  'Total share should add up to 100%
-              
-                                
-        .sexy_line                        
+                    
         .row
           .col-sm-12
             .pull-right
@@ -120,8 +129,7 @@
       
       h4 Recordings credits & rights
       - @common_work.recordings.each do |recording|
-        #digiWhams  class="/recordings/#{recording.id.to_s}"
-          == render 'user/recordings/show', recording: recording
+        == render 'user/recordings/show', recording: recording
               
       /= debug @common_work
         
