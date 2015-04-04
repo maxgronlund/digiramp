@@ -30,7 +30,7 @@
                   /td
                   /  - if recording_ipi.show_credit_on_recording
                   /    i.fa.fa-check
-                  td = recording_ipi.share
+                  td = number_to_percentage(recording_ipi.share, precision: 1) 
                   td
                     .pull-right
                       div class="recording-confirmation-button-#{recording_ipi.id.to_s}"
@@ -44,7 +44,7 @@
                 td
                 td
                 td
-                  b = recording.total_share
+                  b = number_to_percentage(recording.total_share, precision: 1)  
                 td
       
           .pull-right

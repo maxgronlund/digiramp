@@ -211,7 +211,7 @@ class UsersController < ApplicationController
   end
 
   def update
-
+    ap params
     @account    = @user.account
 
     @user.slug  = nil
@@ -236,8 +236,11 @@ class UsersController < ApplicationController
         @account.title = @user.user_name
         @account.save!
       end
-                                            
-      redirect_to user_path(@user)
+      if params[:commit] == 'Save info'       
+        redirect_to user_user_control_panel_index_path(@user)  
+      else                               
+        redirect_to user_path(@user)
+      end
     else
       #if User.where(user_name: params[:user_name])
       #  flash[:danger] = { title: "Error", body: "User name alreaddy used" }
