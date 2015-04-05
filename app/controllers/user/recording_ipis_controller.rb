@@ -15,11 +15,10 @@ class User::RecordingIpisController < ApplicationController
   
   def show
     @recording_ipi                = RecordingIpi.cached_find(params[:id])
-    ap params
-    #@user                         = User.cached_find(params[:user_id])
+
   end
   
-  
+
   
 private
 

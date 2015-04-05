@@ -36,6 +36,13 @@
               .panel-body
                 b = @recording_ipi.confirmation
                 
+                
+                - if @recording_ipi.confirmation == 'Confirmed'
+                  .row
+                    .col-sm-12
+                      .pull-right
+                        = link_to 'Accept', user_user_accept_recording_ipi_path(@user, @recording_ipi), turboboost: true, :method => 'put', class: 'btn btn-success'
+                
             .panel.panel-default
               .panel-heading
                 'Master title

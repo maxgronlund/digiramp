@@ -1,29 +1,64 @@
-.social-links.pull-down-10
-  - if @user.link_to_facebook != ''
-    => link_to LinkValidator.validate( @user.link_to_facebook ) do
-      .fa.fa-facebook
-      '&nbsp;Facebook
-      
-  - if @user.link_to_twitter != ''
-    
-    => link_to LinkValidator.validate( @user.link_to_twitter ) do
-      .fa.fa-twitter
-      '&nbsp;Twitter
-      
-  - if @user.link_to_linkedin != ''
-    
-    => link_to LinkValidator.validate( @user.link_to_linkedin ) do
-      .fa.fa-linkedin
-      '&nbsp;Linkedin
-      
-  - if @user.link_to_google_plus != ''
-    
-    => link_to LinkValidator.validate( @user.link_to_google_plus ) do
-      .fa.fa-google-plus
-      '&nbsp;Google+
-      
-  - if @user.link_to_homepage != ''
-    => link_to LinkValidator.validate( @user.link_to_homepage ) do
-      .fa.fa-home
-      '&nbsp;www
-
+/.social-links.pull-down-10
+/  - if @user.link_to_facebook != ''
+/    => link_to LinkValidator.validate( @user.link_to_facebook ) do
+/      .fa.fa-facebook
+/      '&nbsp;Facebook
+/      
+/  - if @user.link_to_twitter != ''
+/    
+/    => link_to LinkValidator.validate( @user.link_to_twitter ) do
+/      .fa.fa-twitter
+/      '&nbsp;Twitter
+/      
+/  - if @user.link_to_linkedin != ''
+/    
+/    => link_to LinkValidator.validate( @user.link_to_linkedin ) do
+/      .fa.fa-linkedin
+/      '&nbsp;Linkedin
+/      
+/  - if @user.link_to_google_plus != ''
+/    
+/    => link_to LinkValidator.validate( @user.link_to_google_plus ) do
+/      .fa.fa-google-plus
+/      '&nbsp;Google+
+/      
+/  - if @user.link_to_homepage != ''
+/    => link_to LinkValidator.validate( @user.link_to_homepage ) do
+/      .fa.fa-home
+/      '&nbsp;www
+/
+.row
+  .col-sm-12.pull-down-8
+    ul.social-icons2.icon-flat.list-unstyled.list-inline
+      - if @user.link_to_facebook != ''
+        li
+          => link_to @user.link_to_facebook , target: "_blank" do
+            i.fa.fa-facebook
+      - if @user.link_to_twitter != ''
+        li
+          => link_to @user.link_to_twitter , target: "_blank" do
+            i.fa.fa-twitter
+      - if @user.link_to_linkedin != ''
+        li
+          => link_to @user.link_to_linkedin , target: "_blank" do
+            i.fa.fa-linkedin
+      - if @user.link_to_google_plus != ''
+        li
+          => link_to @user.link_to_google_plus , target: "_blank" do
+            i.fa.fa-google-plus
+      - if @user.link_to_tumblr != ''
+        li
+          => link_to @user.link_to_tumblr , target: "_blank" do
+            i.fa.fa-tumblr
+      - if @user.link_to_instagram != ''
+        li
+          => link_to @user.link_to_instagram , target: "_blank" do
+            i.fa.fa-instagram
+      - if @user.link_to_youtube != ''
+        li
+          => link_to @user.link_to_youtube , target: "_blank" do
+            i.fa.fa-youtube-play
+      - if @user.link_to_homepage != ''
+        li
+          => link_to @user.link_to_homepage , target: "_blank" do
+            i.fa.fa-home

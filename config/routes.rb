@@ -714,7 +714,7 @@ Digiramp::Application.routes.draw do
     resources :social_links
     #resources :common_work_lyrics
     resources :users do
-      
+      resources :accept_recording_ipis
       resources :activities
       resources :authorization_providers
       resources :auto_fill_ipis, only: [:update]
