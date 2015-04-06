@@ -10,7 +10,8 @@
 
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {}, current: 'Catalog'}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog),
+                                                     works: catalog_account_catalog_common_works_path(@account, @catalog)}, current: ''}
       .row
         .col-sm-8
           .help

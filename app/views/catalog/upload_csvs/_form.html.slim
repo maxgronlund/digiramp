@@ -1,13 +1,33 @@
-=simple_form_for [:catalog, @account, @catalog, @upload_csv], :html => { :id => 'csv_file' }  do |f|
+= simple_form_for [:catalog, @account, @catalog, @upload_csv], :html => { :id => 'csv_file' }  do |f|
   = f.hidden_field :account_id, value: @account.id
   = f.hidden_field :catalog_id, value: @catalog.id
   = f.hidden_field :user_email, value: current_user.email
   
   = f.input :title
   = f.input :body
-  = f.file_field :file, multiple: false
-  br
-  .pull-right
-    = f.submit 'Save', class: 'btn btn-primary btn-lg'
+  
+  
+  .fileinput.fileinput-new.input-group data-provides="fileinput"
+    .form-control data-trigger="fileinput"
+      i.glyphicon.glyphicon-file.fileinput-exists
+      span.fileinput-filename
+
+    span.input-group-addon.btn.btn-default.btn-file
+      span.fileinput-new
+        'Select file
+      span.fileinput-exists
+        'Change
+
+      
+      = f.file_field :file, multiple: false, label: 'Select CSV File'
+    a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+      'Remove
+      
+      
+  /= f.file_field :file, multiple: false
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'
   
 = transloadit_jquerify :csv_file, :wait => true

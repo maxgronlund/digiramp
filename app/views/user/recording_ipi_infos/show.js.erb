@@ -1,0 +1,15 @@
+$(".recording-ipi-info-dialog-<%= @recording_ipi.id.to_s %>").append("<%= j render 'user/recording_ipi_infos/dialog', recording_ipi: @recording_ipi %>");
+
+$('#digirampDialog').modal('show')
+
+
+
+javascript:
+
+  $("#digirampDialog").on('hidden.bs.modal', function (event) {
+    $(".old-recording-ipi-info-dialog-<%= @recording_ipi.id.to_s %>").remove()
+  });
+  
+  
+  
+

@@ -1,6 +1,9 @@
 Digiramp::Application.routes.draw do
 
 
+  
+
+  
 
   #get 'social_icons/index'
 
@@ -72,6 +75,7 @@ Digiramp::Application.routes.draw do
   resources :share_and_login, only: [:show]
   resources :selected_opportunities, only: [:show]
   resources :share_on_twitters
+  resources :show_lyrics, only: [:show]
   resources :social_account_info, only: [:index]
   resources :terms_and_conditions, only: [:index]
   resources :tutorials
@@ -641,7 +645,7 @@ Digiramp::Application.routes.draw do
         get "common_works/export_to_counterpoint"
         get "common_works/remove"
         
-  
+
         
         
         resources :add_common_works, only: [:index]
@@ -808,6 +812,7 @@ Digiramp::Application.routes.draw do
       resources :from_linkedin
       resources :from_csv
       resources :import_contacts, only: [:index]
+      resources :ipi_infos, only: [:show]
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :new_opportunities, only: [:index, :show, :destroy]
@@ -830,6 +835,7 @@ Digiramp::Application.routes.draw do
       resources :recording_common_work, only: [:edit, :update]
       resources :recording_meta_data, only: [:edit, :update]
       resources :recording_ipis
+      resources :recording_ipi_infos, only: [:show]
       #resources :work_rights
       resources :user_emails
     end

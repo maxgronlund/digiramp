@@ -265,10 +265,11 @@ class Catalog::CommonWorksController < ApplicationController
     #data            = @common_works.to_csv 
     respond_to do |format|
       format.html
+      #format.csv { render text: @common_works.to_csv }
       format.csv { 
         send_data(
-          @common_works.to_csv, 
-          disposition: "attachment; filename=#{@catalog.title}",
+          @common_works.to_csv,  
+          disposition: "attachment; filename=#{@catalog.title.gsub(' ', '-')}-#{ DateTime.now.to_date}.csv",
           type: 'text/csv',
           stream: 'true', 
           buffer_size: '4096' 

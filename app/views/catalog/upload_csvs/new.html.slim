@@ -1,29 +1,81 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  /-cache([ @account.id, @account.works_uuid, params]) do  
-  .do   
-    .container
-      /==render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              }, current: 'new catalog'}
-      
-      
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Import CSV File'}
-
-
-      .row
-        .col-sm-3
-        .col-sm-6
-          .panel
-            .panel-body
-              = render 'form'
-              
-    
-
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
   
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'common_work'
+
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog),
+                                                     works: catalog_account_catalog_common_works_path(@account, @catalog),
+                                                     add: catalog_account_catalog_add_common_works_path(@account, @catalog)}, current: ''}
+      
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Upload csv file
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'import works from csv to catalog'
+        .col-sm-7
+          .pull-down-10
+
+      
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            = render 'form'
+            
+
+                
+                  
+
+      
+         
+          
+      
+      
+      
+      
+      
+        
+  == render 'shared/site_footer' 
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  /-cache([ @account.id, @account.works_uuid, params]) do  
+/  .do   
+/    .container
+/      /==render 'admin/shared/messages'
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              catalogs: catalog_account_catalogs_path(@account), \
+/                                                              }, current: 'new catalog'}
+/      
+/      
+/      == render 'shared/page_title', locals: {blog: Blog.cached_find('Catalogs'), blog_post: 'Import CSV File'}
+/
+/
+/      .row
+/        .col-sm-3
+/        .col-sm-6
+/          .panel
+/            .panel-body
+/              = render 'form'
+/              
+/    
+/
+/  
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'

@@ -1,0 +1,11 @@
+$(".lyrics-dialog-<%= @id.to_s %>").append("<%= j render 'show_lyrics/dialog', id: @id, lyrics: @lyrics %>");
+
+$('#digirampDialog').modal('show')
+
+
+
+javascript:
+
+  $("#digirampDialog").on('hidden.bs.modal', function (event) {
+    $(".old-lyrics-dialog-<%= @id.to_s %>").remove()
+  });

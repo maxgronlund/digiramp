@@ -1,56 +1,151 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'         
-  .container
-    /==render 'admin/shared/messages'
-    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
-    .do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              }, current: 'add common work'}
-      
-      - blog = Blog.cached_find('Add Catalog Common Works')
-      == render 'shared/page_title', locals: {blog: blog, blog_post: 'IMPORT FROM PRO'}
-      .row
-        /-if current_user.can_manage 'access recordings', @account
-        - if current_account_user.create_common_work
-          .row
-            .col-sm-3
-            
-            .col-sm-6
-              .panel.panel-primary
-                .panel-heading
-                  'IMPORT FROM PRO
-                .panel-body
-                  /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
-                  = simple_form_for [ :catalog, @account, @catalog, CommonWorksImport.new ] do |f|
-                    = f.hidden_field :account_id, value: @account.id
-                    = f.hidden_field :catalog_id, value: @catalog.id
-                    = f.hidden_field :user_email, value: current_user.email
-                    = f.hidden_field :in_progress, value: true
-                    = f.input :pro, collection: CommonWorksImport::PROS, include_blank: false, label: 'Performance Rights Organization'
-                    /= f.input :user_name
-                    /= f.input :password
-                    = f.input :title
-                    b Description
-                    br
-                    div id="toolbar" class="wysihtml5-toolbar"
-                      a data-wysihtml5-command="bold" Bold
-                      '&nbsp; 
-                      a data-wysihtml5-command="italic" Italic
-      
-                    =f.input :body, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
-                    
-                    .pull-right
-                      
-                      = f.submit 'Continue', class: 'btn btn-primary btn-lg'
-            
-            .col-sm-3
-                                              
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
   
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'info'
+
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog),
+                                                     works: catalog_account_catalog_common_works_path(@account, @catalog),
+                                                     add: catalog_account_catalog_add_common_works_path(@account, @catalog)}, current: ''}
+      
+      .row
+        .col-sm-8
+          .help
+            .help-text
+               h2 = @catalog.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'import catalog from pro'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
             
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+            
+     
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [ :catalog, @account, @catalog, CommonWorksImport.new ] do |f|
+              = f.hidden_field :account_id, value: @account.id
+              = f.hidden_field :catalog_id, value: @catalog.id
+              = f.hidden_field :user_email, value: current_user.email
+              = f.hidden_field :in_progress, value: true
+              = f.input :pro, collection: CommonWorksImport::PROS, include_blank: false, label: 'Performance Rights Organization'
+              /= f.input :user_name
+              /= f.input :password
+              = f.input :title
+              b Description
+              br
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+            
+              =f.input :body, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Continue', class: 'btn btn-primary '
+
+  == render 'shared/site_footer'   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account'         
+/  .container
+/    /==render 'admin/shared/messages'
+/    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
+/    .do
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              catalogs: catalog_account_catalogs_path(@account), \
+/                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                                              }, current: 'add common work'}
+/      
+/      - blog = Blog.cached_find('Add Catalog Common Works')
+/      == render 'shared/page_title', locals: {blog: blog, blog_post: 'IMPORT FROM PRO'}
+/      .row
+/        /-if current_user.can_manage 'access recordings', @account
+/        - if current_account_user.create_common_work
+/          .row
+/            .col-sm-3
+/            
+/            .col-sm-6
+/              .panel.panel-primary
+/                .panel-heading
+/                  'IMPORT FROM PRO
+/                .panel-body
+/                  /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+/                  = simple_form_for [ :catalog, @account, @catalog, CommonWorksImport.new ] do |f|
+/                    = f.hidden_field :account_id, value: @account.id
+/                    = f.hidden_field :catalog_id, value: @catalog.id
+/                    = f.hidden_field :user_email, value: current_user.email
+/                    = f.hidden_field :in_progress, value: true
+/                    = f.input :pro, collection: CommonWorksImport::PROS, include_blank: false, label: 'Performance Rights Organization'
+/                    /= f.input :user_name
+/                    /= f.input :password
+/                    = f.input :title
+/                    b Description
+/                    br
+/                    div id="toolbar" class="wysihtml5-toolbar"
+/                      a data-wysihtml5-command="bold" Bold
+/                      '&nbsp; 
+/                      a data-wysihtml5-command="italic" Italic
+/      
+/                    =f.input :body, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+/                    
+/                    .pull-right
+/                      
+/                      = f.submit 'Continue', class: 'btn btn-primary btn-lg'
+/            
+/            .col-sm-3
+/                                              
+/  
+/            
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'

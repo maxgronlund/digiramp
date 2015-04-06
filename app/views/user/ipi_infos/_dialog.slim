@@ -1,0 +1,107 @@
+div class="old-ipi-info-dialog-#{ipi.id.to_s}"
+  .modal.fade id='digirampDialog' tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button type="button" class="close" data-dismiss="modal"
+            span aria-hidden="true" &times;
+            span class="sr-only" Close
+  
+          h4 class="modal-title" id="myModalLabel"
+            = ipi.full_name
+          'Work IPI
+          
+            
+  
+          
+
+          .row
+            .col-sm-6
+              .table-responsive
+                table class="table table-hover"
+                  tbody
+                    tr
+                      th Role:
+                      td 
+                        b = ipi.roles_as_string
+                  
+                    tr
+                      th PRO:
+                      td  = ipi.pro_affiliation.title
+                  
+                    - unless ipi.address.to_s == ''
+                      tr
+                        th Address:
+                        td  = simple_format ipi.address
+                    - unless ipi.email.to_s == ''
+                      tr
+                        th Email:
+                        td  = ipi.email
+                  
+                    - unless ipi.phone_number.to_s == ''
+                      tr
+                        th Phone Number
+                        td = ipi.phone_number
+                   
+                    - unless ipi.ipi_code.to_s == ''
+                      tr
+                        th IPI Code:
+                        td  = ipi.ipi_code
+                      
+                    - unless ipi.bmi_work_id.to_s == ''
+                      tr
+                        th BMI Work Id:
+                        td  = ipi.bmi_work_id
+                  
+                    - unless ipi.cae_code.to_s == ''
+                      tr
+                        th CAE Code:
+                        td  = ipi.cae_code
+            .col-sm-6
+              .table-responsive
+                table class="table table-hover"
+                  tbody
+                    - unless ipi.controlled.to_s == ''
+                      tr
+                        th  Controlled:
+                        td  = ipi.controlled
+                        
+                    - unless ipi.territory.to_s == ''
+                      tr
+                        th Territory:
+                        td  = ipi.territory
+                        
+                    - unless ipi.share.to_s == ''
+                      tr
+                        th  Share:
+                        td = number_to_percentage(ipi.share, precision: 0) 
+
+                    
+                    - unless ipi.mech_owned.to_s == ''
+                      tr
+                        th Mechanical Owned
+                        td = number_to_percentage(ipi.mech_owned, precision: 0) 
+                    
+                    - unless ipi.mech_collected.to_s == ''  
+                      tr
+                        th Mechanical Collected:
+                        td = number_to_percentage(ipi.mech_collected, precision: 0) 
+                    
+                    - unless ipi.perf_owned.to_s == ''  
+                      tr
+                        th Performance Owned:
+                        td = number_to_percentage(ipi.perf_owned, precision: 0) 
+                    
+                    - unless ipi.perf_collected.to_s == ''  
+                      tr
+                        th Performance Collected:
+                        td = number_to_percentage(ipi.perf_collected, precision: 0)
+                    
+                    - unless ipi.notes.to_s == ''  
+                      tr
+                        th Notes:
+                        td = simple_format ipi.notes
+              /= debug ipi
+            
+          .modal-footer
+            = link_to "Close", '#' , class: 'btn btn-default',  "data-dismiss".to_sym => "modal"

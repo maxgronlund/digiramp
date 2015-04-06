@@ -1,0 +1,2 @@
+module IpiInfosHelper
+end

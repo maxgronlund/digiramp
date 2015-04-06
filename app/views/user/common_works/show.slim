@@ -47,14 +47,21 @@
             h4 Description
             .digi-box
               = @common_work.description
+              
           - if @common_work.lyrics.to_s != ''
-            h4 
-              a aria-controls="collapseExample" aria-expanded="false" data-toggle="collapse" href="#collapseExample" 
-                | Show lyrics
-
-            #collapseExample.collapse
-              .digi-box
-                = simple_format @common_work.lyrics
+            = link_to show_lyric_path(@common_work.id, work: true), remote: true do
+              .btn.btn-default
+                i.fa.fa-eye
+                '&nbsp;Show lyrics
+            div class="lyrics-dialog-#{@common_work.id.to_s}"
+              
+            /h4 
+            /  a aria-controls="collapseExample" aria-expanded="false" data-toggle="collapse" href="#collapseExample" 
+            /    | Show lyrics
+            /
+            /#collapseExample.collapse
+            /  .digi-box
+            /    = simple_format @common_work.lyrics
 
               
       
@@ -80,20 +87,25 @@
                   - @common_work.ipis.each do |ipi|
                     tr
                       td
-                        - if ipi.composer
-                          'Composer
-                          br
-                        - if ipi.writer
-                          'Writer
-                          br
-                          
-                        - if ipi.administrator
-                          'Administrator
-                          br
-                          
-                        - if ipi.original_publisher
-                          'Original publisher
-                          br
+                        div class="ipi-info-dialog-#{ipi.id.to_s}"
+                        => link_to user_user_ipi_info_path(@user, ipi), remote: true do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-info-circle
+                            '&nbsp;
+                            - if ipi.composer
+                              'Composer
+                              br
+                            - if ipi.writer
+                              'Writer
+                              br
+                              
+                            - if ipi.administrator
+                              'Administrator
+                              br
+                              
+                            - if ipi.original_publisher
+                              'Original publisher
+                              
                       td = ipi.full_name
                       td = ipi.email
                       /td 
@@ -106,6 +118,8 @@
                         .pull-right
                           div class="confirmation-button-#{ipi.id.to_s}"
                             == render 'user/ipis/confirmation_button', user: @user, common_work: @common_work, ipi: ipi
+
+                          
                   tr
                     td
                       b Total share
@@ -136,4 +150,6 @@
             
         
   == render 'shared/site_footer'  
+  
+  
  

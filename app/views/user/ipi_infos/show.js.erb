@@ -1,0 +1,15 @@
+$(".ipi-info-dialog-<%= @ipi.id.to_s %>").append("<%= j render 'user/ipi_infos/dialog', ipi: @ipi %>");
+
+$('#digirampDialog').modal('show')
+
+
+
+javascript:
+
+  $("#digirampDialog").on('hidden.bs.modal', function (event) {
+    $(".old-ipi-info-dialog-<%= @ipi.id.to_s %>").remove()
+  });
+  
+  
+  
+

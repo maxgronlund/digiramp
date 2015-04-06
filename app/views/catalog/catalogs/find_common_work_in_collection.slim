@@ -10,9 +10,9 @@
 
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              }, current: 'add common work'}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog),
+                                                     works: catalog_account_catalog_common_works_path(@account, @catalog),
+                                                     add: catalog_account_catalog_add_common_works_path(@account, @catalog)}, current: ''}
       
       .row
         .col-sm-5

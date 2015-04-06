@@ -42,17 +42,20 @@
                         = common_work.total_share
                         '&nbsp;%
                       
-                td 
-                  - common_work.recordings.each do |recording|
-                    = recording.title
-                    .pull-right
-                      = link_to edit_user_user_recording_credit_path(@user, recording)
-                        - count = recording.recording_ipis.count
-                        .btn.btn-default.btn-xs
-                          i.fa.fa-tags
-                          =< count
+                td
+                  .master
+                    table
+                      - common_work.recordings.each do |recording|
+                        tr
+                          td
+                            = link_to edit_user_user_recording_credit_path(@user, recording) do 
+                              .btn.btn-default.btn-xs
+                                i.fa.fa-headphones
+                                  =< recording.title
+                    
+                            
                       
-                    br
+                   
                     
                 td
                   .pull-right

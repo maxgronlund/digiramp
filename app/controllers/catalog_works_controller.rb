@@ -5,6 +5,8 @@ class CatalogWorksController < ApplicationController
   before_filter :access_account
   before_filter :access_catalog, only: [:index, :show, :edit, :update, :destroy]
   
+  
+  # is this used?
   def index
     forbidden unless current_catalog_user.read_common_work
 

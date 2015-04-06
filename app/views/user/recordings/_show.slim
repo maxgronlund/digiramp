@@ -24,7 +24,13 @@
             tbody
               - recording.recording_ipis.order(:id).each do |recording_ipi|
                 tr
-                  td = recording_ipi.credit_for
+                  td 
+                    div class="recording-ipi-info-dialog-#{recording_ipi.id.to_s}"
+                    => link_to user_user_recording_ipi_info_path(@user, recording_ipi), remote: true do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-info-circle
+                        '&nbsp;
+                        = recording_ipi.role
                   td = recording_ipi.name
                   td = recording_ipi.email
                   /td

@@ -6,20 +6,11 @@
     #sidebar-wrapper
       ul class="sidebar-nav"
         == render 'catalog/catalogs/sidebar', selected: 'common_work'
-      
-      /br
-      /-if current_catalog_user.create_common_work
-      /  .pull-right
-      /    = link_to catalog_account_catalog_add_common_works_path(@account, @catalog) do
-      /      .btn.btn-success.btn-lg
-      /        i class="fa fa-plus-circle"
-      /        '&nbsp;
-      /        'Add Work
-      /    
+
 
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog) }, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog) }, current: ''}
       .row
         .col-sm-6
           h2 Common works
@@ -29,6 +20,12 @@
           .pull-right.pull-down-10
             -if current_catalog_user.create_common_work
               .pull-right
+                => link_to catalog_account_catalog_common_works_export_common_works_path(@account, @catalog, format: "csv", query: params[:query], page: params[:page]) do
+                  .btn.btn-default
+                    i class="fa fa-cloud-download"
+                    '&nbsp;
+                    'Download CSV
+                    
                 = link_to catalog_account_catalog_add_common_works_path(@account, @catalog) do
                   .btn.btn-default
                     i class="fa fa-plus-circle"

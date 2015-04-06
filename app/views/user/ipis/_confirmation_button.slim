@@ -1,14 +1,14 @@
 div class="old-confirmation-button-#{ipi.id.to_s}"
   - if ipi.confirmation == 'Missing'
-    => link_to 'Request confirmation', new_user_user_common_work_ipi_path( user,  common_work, ipi: ipi), remote: true, class: 'btn btn-default'
+    => link_to 'Request confirmation', new_user_user_common_work_ipi_path( user,  common_work, ipi: ipi), remote: true, class: 'btn btn-default btn-xs'
   - elsif ipi.confirmation == 'Pending'
-    => link_to 'Resend confirmation request', new_user_user_common_work_ipi_path( user,  common_work, ipi: ipi), remote: true, class: 'btn btn-default'
-    .btn.btn-info disabled="disabled"
+    => link_to 'Resend confirmation request', new_user_user_common_work_ipi_path( user,  common_work, ipi: ipi), remote: true, class: 'btn btn-default btn-xs'
+    .btn.btn-info.btn-xs disabled="disabled"
       'Pending
   - elsif ipi.confirmation == 'Confirmed'
-    .btn.btn-warning disabled="disabled"
+    .btn.btn-warning.btn-xs disabled="disabled"
       'Confirmed
   - elsif ipi.confirmation == 'Accepted'
-    .btn.btn-success disabled="disabled"
+    .btn.btn-success.btn-xs disabled="disabled"
       'Accepted
   
