@@ -25,10 +25,11 @@ div class="old-ipi-info-dialog-#{ipi.id.to_s}"
                       td 
                         b = ipi.roles_as_string
                   
-                    tr
-                      th PRO:
-                      td  = ipi.pro_affiliation.title
-                  
+                    - unless ipi.pro_affiliation.nil?
+                      tr
+                        th PRO:
+                        td  = ipi.pro_affiliation.title
+                      
                     - unless ipi.address.to_s == ''
                       tr
                         th Address:
