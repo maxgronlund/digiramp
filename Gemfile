@@ -158,6 +158,8 @@ gem "awesome_print"
 
 gem "sendgrid-ruby"
 
+gem 'activemerchant'
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

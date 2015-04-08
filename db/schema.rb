@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150404202947) do
+ActiveRecord::Schema.define(version: 20150408153847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2405,6 +2405,22 @@ ActiveRecord::Schema.define(version: 20150404202947) do
   add_index "recordings", ["image_file_id"], name: "index_recordings_on_image_file_id", using: :btree
   add_index "recordings", ["import_batch_id"], name: "index_recordings_on_import_batch_id", using: :btree
   add_index "recordings", ["user_id"], name: "index_recordings_on_user_id", using: :btree
+
+  create_table "registrations", force: true do |t|
+    t.integer  "order_id"
+    t.string   "full_name"
+    t.string   "company"
+    t.string   "email"
+    t.string   "telephone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "notification_params"
+    t.string   "status"
+    t.string   "transaction_id"
+    t.datetime "purchased_at"
+  end
+
+  add_index "registrations", ["order_id"], name: "index_registrations_on_order_id", using: :btree
 
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"
