@@ -17,7 +17,7 @@ class MessageMailer < ActionMailer::Base
     @unsubscribe_url = '#'
     @avatar_url   = ( URI.parse(root_url) + @sender.image_url(:avatar_92x92) ).to_s
 
-    mail to: @receiver.email, subject: "#{@sender.user_name} has send you a message on DigiRAMP"
+    mail to: @receiver.email, subject: "#{@sender.user_name} has sent you a message on DigiRAMP"
 
   end
 end

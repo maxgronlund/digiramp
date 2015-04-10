@@ -1,0 +1,19 @@
+= simple_form_for [:admin, @account_feature] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :account_type
+    = f.input :max_recordings
+    = f.input :enable_catalogs
+    = f.input :max_catalogs
+    = f.input :max_catalog_users
+    = f.input :multiply_recordings_on_works
+    = f.input :export_works_as_csv
+    = f.input :import_works_as_csv
+    = f.input :import_from_pros
+    = f.input :manage_opportunities
+    = f.input :max_account_users
+    = f.input :max_ipi_codes
+
+  .form-actions
+    = f.button :submit

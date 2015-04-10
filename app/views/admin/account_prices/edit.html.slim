@@ -1,0 +1,73 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, 'Subscribtion fees'.to_sym => admin_account_prices_path }, current: ''}
+      h2 Edit subscribtion fee
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            == render 'form'
+          
+
+  == render 'shared/site_footer'    
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/h1 Editing account_price
+/
+/== render 'form'
+/
+/= link_to 'Show', @account_price
+/'|
+/= link_to 'Back', account_prices_path
+/
+/

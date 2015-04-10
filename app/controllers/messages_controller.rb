@@ -30,9 +30,7 @@ class MessagesController < ApplicationController
   def create
 
     @message = Message.create(message_params)
-    ap @message
 
-    
     @receiver = User.cached_find(@message.recipient_id)
     sender    = User.cached_find(@message.sender_id)
     

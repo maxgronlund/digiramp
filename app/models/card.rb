@@ -15,7 +15,7 @@ class Card < ActiveRecord::Base
   end
 
   def price_in_cents
-    (registration.course.price*100).round
+    (registration.account.subscribtion_price*100).round
   end
 
   private

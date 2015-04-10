@@ -5,6 +5,10 @@ Digiramp::Application.routes.draw do
 
   
 
+  
+
+  
+
   #get 'social_icons/index'
 
   get 'user_menu/edit'
@@ -14,6 +18,117 @@ Digiramp::Application.routes.draw do
   get 'issue_events/index'
 
   get 'issue_events/show'
+  
+  resources :registrations
+  post "/hook" => "registrations#hook"
+  post "/registrations/:id" => "registrations#show"
+  
+  # Example resource route within a namespace:
+  namespace :admin do
+    resources :account_features
+    resources :account_prices
+    resources :contracts
+    resources :digiramp_ads
+    get 'features_and_values/index'
+    resources :front_end_contents, only: [:edit, :update]
+    resources :page_styles
+    resources :issue_events
+    resources :client_events
+    resources :client_groups
+    resources :helps
+    resources :widget_themes
+    get 'repair_permissions'
+    resources :activities
+    resources :activity_counter
+    resources :contacts
+    resources :default_images
+    resources :raw_images
+
+    resources :email_groups do
+      get 'add_all_members'
+      get 'remove_all_subscribers'
+      resources :digiramp_emails
+      resources :email_recipients
+      
+    end
+    resources :email_group_recipients, only: [:edit, :update]
+    
+    resources :statistics do
+      member do
+        get 'recordings'
+        get 'common_works'
+        get 'users'
+        get 'ipis'
+        get 'accounts'
+        get 'opportunities'
+        get 'pages'
+        get 'tutorials'
+      end
+    end
+
+    resources :opportunities
+
+    resources :accounts do
+      get 'delete_common_works'
+      get 'delete_recordings'
+      get 'delete_documents'
+      get 'delete_clients'
+      
+      get 'repair_users'
+      get 'repair_catalogs'
+      get 'repair_recordings'
+      get 'repair_works'
+
+    end
+    resources :administrators
+    get "engine_room"   => "engine_room#index", :as => :engine_room_index
+    get "content"   => "content#index", :as => :content_index
+    get "development_log/index"
+    resources :emails
+    resources :export_users, only: [:index]
+    resources :export_genres, only: [:index]
+    resources :export_instruments, only: [:index]
+    resources :export_moods, only: [:index]
+    resources :genres
+    resources :genre_imports
+    resources :homes, only: [:edit, :update]
+    resources :issues do
+      resources :comments
+    end
+    resources :instruments
+    resources :instruments_imports
+    resources :legal_documents
+    resources :moods
+    resources :moods_imports
+    resources :pro_affiliations
+    resources :set_default_avatars, only: [:index]
+    resources :set_default_recordings_badges, only: [:index]
+    resources :tags, only: [:index]
+    get "emails/index"
+    resources :system_emails
+    resources :system_settings
+    resources :users do
+      resources :accounts, only: [:new]
+    end
+    
+    resources :tutorials
+    
+    resources :user_genres, only: [:index]
+    resources :user_instruments, only: [:index]
+    resources :user_moods, only: [:index]
+    resources :video_blogs do
+      resources :videos
+    end
+    
+    resources :blogs do
+      resources :blog_posts
+    end
+    resources :zip_files
+    
+  end
+  # end of admin namespase
+  
+  
   
   namespace :confirmation do
     resources :ipi_confirmations
@@ -236,8 +351,7 @@ Digiramp::Application.routes.draw do
     #get "upload_recording/new"
     #get "upload_recording/edit"
   end
-  # CLEAN UP END
-  ##############################################
+
   
   resources :features
   resources :single_work_steps
@@ -289,199 +403,9 @@ Digiramp::Application.routes.draw do
     
   end
   
-  #####################################################################################
-  # hui v. 2
-  #####################################################################################
+
   resources :music_submissions, only: [ :destroy, :update]
-  
-  resources :users do
-    # hui v. 2
-    #member do
-    #  get :following, :followers
-    #end
-    #resources :connections, only: [:index, :create, :update, :destroy]
-    #resources :contacts
-    
-    resources :cms_pages, only: [:show]
-    resources :ipis, only: [:index]
-    
-    post 'dont_show_instructions'
-    resources :recording_basics, only: [:edit, :update]
-    resources :recording_personas, only: [:edit, :update]
-    resources :recording_tags, only: [:edit, :update]
-    resources :recording_rights, only: [:edit, :update]
-    resources :recording_uploads, only: [:edit, :update]
-    resources :recording_lyrics, only: [:edit, :update]
-    resources :recording_common_work, only: [:edit, :update]
-    resources :recording_meta_data, only: [:edit, :update]
-    
-    
-    resources :forums
-    resources :forum_posts, only: [:edit, :update]
-    resources :messages
-    resources :received_messages, only: [:index]
-    resources :replies
-    resources :unread_messages, only: [:index]
-    resources :send_messages, only: [:index]
-    #resources :recording_basics, only: [:edit, :update]
-    #resources :recording_personas, only: [:edit, :update]
-    #resources :recording_tags, only: [:edit, :update]
-    #resources :recording_rights, only: [:edit, :update]
-    #resources :recording_uploads, only: [:edit, :update]
-    #resources :recording_lyrics, only: [:edit, :update]
-    #resources :recording_common_work, only: [:edit, :update]
-    #resources :recording_meta_data, only: [:edit, :update]
-    #resources :recording_lyrics, only: [:edit, :update]
-    #resources :recording_playbacks, only: [:show]
-    
-    
-    
-    resources :playlists
-    resources :recordings do
-      resources :likes
-      resources :recording_likes, only: [:index]
-      resources :recording_playbacks, only: [:index]
-    end
-    resources :likes, only: [:index, :destroy]
-    # forms on the recording page
-    resources :lyrics, only: [:update, :edit]
-    resources :descriptions, only: [:update, :edit]
-    resources :tags, only: [:update, :edit]
-    resources :artists, only: [:update, :edit]
-    #
-    resources :followers, only: [:index]
-    resources :following, only: [:index]
-    
-    resources :widgets
-    resources :activities, only: [:index]
-    
-    # hui v. 1
-    resources :user_accounts, only: [:index]
-    resources :accounts, only: [:edit, :show, :update]
-    resources :issues do
-      resources :comments
-    end
-    resources :issue_images, only: [:show]
-    
-    resources :feature_requests do
-      resources :features do
-        member do
-          post 'create_comment'
-        end
-        
-      end
-    end
-    
-  end
 
-
-
-  # Example resource route within a namespace:
-  namespace :admin do
-    resources :contracts
-    resources :digiramp_ads
-    get 'features_and_values/index'
-    resources :front_end_contents, only: [:edit, :update]
-    resources :page_styles
-    resources :issue_events
-    resources :client_events
-    resources :client_groups
-    resources :helps
-    resources :widget_themes
-    get 'repair_permissions'
-    resources :activities
-    resources :activity_counter
-    resources :contacts
-    resources :default_images
-    resources :raw_images
-
-    resources :email_groups do
-      get 'add_all_members'
-      get 'remove_all_subscribers'
-      resources :digiramp_emails
-      resources :email_recipients
-      
-    end
-    resources :email_group_recipients, only: [:edit, :update]
-    
-    resources :statistics do
-      member do
-        get 'recordings'
-        get 'common_works'
-        get 'users'
-        get 'ipis'
-        get 'accounts'
-        get 'opportunities'
-        get 'pages'
-        get 'tutorials'
-      end
-    end
-
-    resources :opportunities
-
-    resources :accounts do
-      get 'delete_common_works'
-      get 'delete_recordings'
-      get 'delete_documents'
-      get 'delete_clients'
-      
-      get 'repair_users'
-      get 'repair_catalogs'
-      get 'repair_recordings'
-      get 'repair_works'
-
-    end
-    resources :administrators
-    get "engine_room"   => "engine_room#index", :as => :engine_room_index
-    get "content"   => "content#index", :as => :content_index
-    get "development_log/index"
-    resources :emails
-    resources :export_users, only: [:index]
-    resources :export_genres, only: [:index]
-    resources :export_instruments, only: [:index]
-    resources :export_moods, only: [:index]
-    resources :genres
-    resources :genre_imports
-    resources :homes, only: [:edit, :update]
-    resources :issues do
-      resources :comments
-    end
-    resources :instruments
-    resources :instruments_imports
-    resources :legal_documents
-    resources :moods
-    resources :moods_imports
-    resources :pro_affiliations
-    resources :set_default_avatars, only: [:index]
-    resources :set_default_recordings_badges, only: [:index]
-    resources :tags, only: [:index]
-    get "emails/index"
-    resources :system_emails
-    resources :system_settings
-    resources :users do
-      resources :accounts, only: [:new]
-    end
-    
-    resources :tutorials
-    
-    resources :user_genres, only: [:index]
-    resources :user_instruments, only: [:index]
-    resources :user_moods, only: [:index]
-    resources :video_blogs do
-      resources :videos
-    end
-    
-    resources :blogs do
-      resources :blog_posts
-    end
-    resources :zip_files
-    
-  end
-  # end of admin namespase
-  
-  
-  
-  
   
   #resources :recording_departures
   namespace :account do
@@ -710,7 +634,23 @@ Digiramp::Application.routes.draw do
     resources :recordings, only: [:index, :show]
   end
   
-
+  #=================== OPPORTUNITY =========================
+  namespace :opportunity do
+    resources :opportunities, only: [:index, :show] do
+      resources :recordings
+      resources :music_requests do
+        resources :request_recordings, only: [:index]
+        resources :submit_from, only: [:index]  # <<<<<<<<<<<<< kil this
+        resources :common_works do
+          resources :recordings
+        end
+        resources :music_submissions do
+          
+          resources :comments
+        end
+      end
+    end
+  end
   
   #=================== USER =========================
   namespace :user do
@@ -844,23 +784,88 @@ Digiramp::Application.routes.draw do
     
   end
   
-  #=================== OPPORTUNITY =========================
-  namespace :opportunity do
-    resources :opportunities, only: [:index, :show] do
-      resources :recordings
-      resources :music_requests do
-        resources :request_recordings, only: [:index]
-        resources :submit_from, only: [:index]  # <<<<<<<<<<<<< kil this
-        resources :common_works do
-          resources :recordings
+  resources :users do
+    # hui v. 2
+    #member do
+    #  get :following, :followers
+    #end
+    #resources :connections, only: [:index, :create, :update, :destroy]
+    #resources :contacts
+    
+    resources :cms_pages, only: [:show]
+    resources :ipis, only: [:index]
+    
+    post 'dont_show_instructions'
+    resources :recording_basics, only: [:edit, :update]
+    resources :recording_personas, only: [:edit, :update]
+    resources :recording_tags, only: [:edit, :update]
+    resources :recording_rights, only: [:edit, :update]
+    resources :recording_uploads, only: [:edit, :update]
+    resources :recording_lyrics, only: [:edit, :update]
+    resources :recording_common_work, only: [:edit, :update]
+    resources :recording_meta_data, only: [:edit, :update]
+    
+    
+    resources :forums
+    resources :forum_posts, only: [:edit, :update]
+    resources :messages
+    resources :received_messages, only: [:index]
+    resources :replies
+    resources :unread_messages, only: [:index]
+    resources :send_messages, only: [:index]
+    #resources :recording_basics, only: [:edit, :update]
+    #resources :recording_personas, only: [:edit, :update]
+    #resources :recording_tags, only: [:edit, :update]
+    #resources :recording_rights, only: [:edit, :update]
+    #resources :recording_uploads, only: [:edit, :update]
+    #resources :recording_lyrics, only: [:edit, :update]
+    #resources :recording_common_work, only: [:edit, :update]
+    #resources :recording_meta_data, only: [:edit, :update]
+    #resources :recording_lyrics, only: [:edit, :update]
+    #resources :recording_playbacks, only: [:show]
+    
+    
+    
+    resources :playlists
+    resources :recordings do
+      resources :likes
+      resources :recording_likes, only: [:index]
+      resources :recording_playbacks, only: [:index]
+    end
+    resources :likes, only: [:index, :destroy]
+    # forms on the recording page
+    resources :lyrics, only: [:update, :edit]
+    resources :descriptions, only: [:update, :edit]
+    resources :tags, only: [:update, :edit]
+    resources :artists, only: [:update, :edit]
+    #
+    resources :followers, only: [:index]
+    resources :following, only: [:index]
+    
+    resources :widgets
+    resources :activities, only: [:index]
+    
+    # hui v. 1
+    resources :user_accounts, only: [:index]
+    resources :accounts, only: [:edit, :show, :update]
+    resources :issues do
+      resources :comments
+    end
+    resources :issue_images, only: [:show]
+    
+    resources :feature_requests do
+      resources :features do
+        member do
+          post 'create_comment'
         end
-        resources :music_submissions do
-          
-          resources :comments
-        end
+        
       end
     end
+    
   end
+
+  
+  
    
   match '/404', via: :all, to: 'errors#not_found'
   match '/422', via: :all, to: 'errors#unprocessable_entity'

@@ -1,0 +1,114 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      h2 Account types features
+      .sexy_line
+      .digi-box
+        .table-responsive       
+          table class="table table-hover"
+            thead
+              tr
+                th Account type
+                th Max recordings
+                th Enable catalogs
+                th Max catalogs
+                th Max catalog users
+                th Multiply recordings on works
+                th Export  works as csv
+                th Import works as csv
+                th Import from pros
+                th Manage opportunities
+                th Max account users
+                th Max ipi codes
+                /th
+                /th
+                th
+          
+            tbody
+              - @account_features.each do |account_feature|
+                tr
+                  td = account_feature.account_type
+                  td = account_feature.max_recordings
+                  td = account_feature.enable_catalogs
+                  td = account_feature.max_catalogs
+                  td = account_feature.max_catalog_users
+                  td = account_feature.multiply_recordings_on_works
+                  td = account_feature.export_works_as_csv
+                  td = account_feature.import_works_as_csv
+                  td = account_feature.import_from_pros
+                  td = account_feature.manage_opportunities
+                  td = account_feature.max_account_users
+                  td = account_feature.max_ipi_codes
+                  /td = link_to 'Show', admin_account_feature
+                  td = link_to 'Edit', edit_admin_account_feature_path(account_feature), class: 'btn btn-default'
+                  /td = link_to 'Destroy', account_feature, data: {:confirm => 'Are you sure?'}, :method => :delete
+                      
+                  /td = link_to 'Destroy', admin_account_price_path(account_price), data: {:confirm => 'Are you sure?'}, :method => :delete
+
+        
+
+        /= link_to 'New Account price', new_admin_account_price_path
+            
+          
+
+  == render 'shared/site_footer'    
+ 
+
+
+
+
+
+/h1 Listing account_features
+/
+/table
+/  thead
+/    tr
+/      th Account type
+/      th Max recordings
+/      th Enable catalogs
+/      th Max catalogs
+/      th Max catalog users
+/      th Multiply recordings on works
+/      th Export  works ad csv
+/      th Import works as csv
+/      th Import from pros
+/      th Manage opportunities
+/      th Max account users
+/      th Max ipi codes
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @account_features.each do |account_feature|
+/      tr
+/        td = account_feature.account_type
+/        td = account_feature.max_recordings
+/        td = account_feature.enable_catalogs
+/        td = account_feature.max_catalogs
+/        td = account_feature.max_catalog_users
+/        td = account_feature.multiply_recordings_on_works
+/        td = account_feature.export_works_as_csv
+/        td = account_feature.import_works_as_csv
+/        td = account_feature.import_from_pros
+/        td = account_feature.manage_opportunities
+/        td = account_feature.max_account_users
+/        td = account_feature.max_ipi_codes
+/        td = link_to 'Show', account_feature
+/        td = link_to 'Edit', edit_account_feature_path(account_feature)
+/        td = link_to 'Destroy', account_feature, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Account feature', new_account_feature_path
+/

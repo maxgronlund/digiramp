@@ -1,0 +1,42 @@
+p#notice = notice
+
+p
+  strong Account type:
+  = @account_feature.account_type
+p
+  strong Max recordings:
+  = @account_feature.max_recordings
+p
+  strong Enable catalogs:
+  = @account_feature.enable_catalogs
+p
+  strong Max catalogs:
+  = @account_feature.max_catalogs
+p
+  strong Max catalog users:
+  = @account_feature.max_catalog_users
+p
+  strong Multiply recordings on works:
+  = @account_feature.multiply_recordings_on_works
+p
+  strong Export  works ad csv:
+  = @account_feature.export_works_as_csv
+p
+  strong Import works as csv:
+  = @account_feature.import_works_as_csv
+p
+  strong Import from pros:
+  = @account_feature.import_from_pros
+p
+  strong Manage opportunities:
+  = @account_feature.manage_opportunities
+p
+  strong Max account users:
+  = @account_feature.max_account_users
+p
+  strong Max ipi codes:
+  = @account_feature.max_ipi_codes
+
+= link_to 'Edit', edit_account_feature_path(@account_feature)
+'|
+= link_to 'Back', account_features_path

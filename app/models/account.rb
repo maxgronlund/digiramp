@@ -81,6 +81,8 @@ class Account < ActiveRecord::Base
   has_many :comments,    as: :commentable,     dependent: :destroy
   
   has_many :creative_projects
+  
+  belongs_to :account_feature
                 
 
   # account types
@@ -126,6 +128,12 @@ class Account < ActiveRecord::Base
   before_save :set_uuid
   
   before_destroy :destroy_unlocked_creative_projects
+  
+  def subscribtion_price
+    
+    100
+    
+  end
   
   def destroy_unlocked_creative_projects
     creative_projects = self.creative_projects.where(locked: false)

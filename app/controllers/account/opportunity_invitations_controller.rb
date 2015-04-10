@@ -71,7 +71,17 @@ class Account::OpportunityInvitationsController < ApplicationController
           OpportunityMailer.delay.invite_to_account(sanitized_email, @opportunity_invitation.id, user.id, current_user.id)
         end
         
-       
+        
+        begin
+          #send_message( user, @opportunity.account.user, @opportunity_invitation.title, @opportunity_invitation.body  ) 
+          send_message( user, current_user, @opportunity_invitation.title, @opportunity_invitation.body  ) 
+        rescue Exception => e 
+          ap e.message
+          puts '-----------------------------'
+          ap e.backtrace.inspect  
+        end                             
+                                          
+        
         @opportunity_user.create_activity(   :created, 
                                        owner: current_user,
                                    recipient: @opportunity_user,
@@ -94,6 +104,23 @@ class Account::OpportunityInvitationsController < ApplicationController
     
 
     redirect_to account_account_opportunity_path(@account, @opportunity)
+  end
+  
+  def send_message recipient, sender, title, body
+    
+    message = Message.create(recipient_id: recipient.id, sender_id: sender.id, title: title, body: body, subjectable_id: @opportunity.id, subjectable_type: @opportunity.class.name)
+    ap message
+
+    channel = 'digiramp_radio_' + recipient.email
+    Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
+                                          "message" => "#{sender.user_name} has send you a message", 
+                                          "time"    => '2000', 
+                                          "sticky"  => 'false', 
+                                          "image"   => 'notice'
+                                          })
+                                      
+                                      
+                                      
   end
   
 

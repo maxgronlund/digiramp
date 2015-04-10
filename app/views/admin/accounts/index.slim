@@ -84,8 +84,12 @@
                   
                 
                 
-                td  
-                  = account.account_type
+                td 
+                  .pull-right
+                    - if account.special_subscription_fee
+                      i.fa.fa-money 
+                      '&nbsp;
+                    = account.account_type
                 td
                   - unless account.account_type == 'Social'
                     - if account.expiration_date.nil?

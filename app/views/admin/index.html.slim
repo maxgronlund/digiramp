@@ -97,15 +97,36 @@
                 .body
                   'Numbers and usage
           
+          /.admin-badge-container
+          /  = link_to admin_system_settings_path do
+          /    .admin-badge
+          /      .title
+          /        h4
+          /          i.fa.fa-cogs
+          /          '&nbsp;System settings
+          /      .body
+          /        'Default badges
+          
           .admin-badge-container
-            = link_to admin_system_settings_path do
+            = link_to admin_account_prices_path do
               .admin-badge
                 .title
                   h4
-                    i.fa.fa-cogs
-                    '&nbsp;System settings
+                    i.fa.fa-money
+                    '&nbsp;Prices
                 .body
-                  'Default badges
+                  'Subscription fees for account types
+          
+          .admin-badge-container
+            = link_to admin_account_features_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-money
+                    '&nbsp;Features
+                .body
+                  'Enabled features on different account types
+          
           
           .admin-badge-container
             = link_to admin_opportunities_path do

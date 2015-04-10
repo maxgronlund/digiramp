@@ -1,0 +1,87 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      h2 Subscribtion fees
+      .sexy_line
+      .digi-box
+        .table-responsive       
+          table class="table table-hover"
+            thead
+              tr
+                th Subscription fee
+                th Account type
+                th
+                /th
+                /th
+          
+            tbody
+              - @account_prices.each do |account_price|
+                tr
+                  td = number_to_currency(account_price.subscription_fee, locale: :en, precision: 2)
+                  td = account_price.account_type
+                  /td = link_to 'Show', admin_account_price_path(account_price)
+                  
+                  td 
+                    .pull-right
+                      = link_to 'Edit', edit_admin_account_price_path(account_price), class: 'btn btn-default'
+                      
+                  /td = link_to 'Destroy', admin_account_price_path(account_price), data: {:confirm => 'Are you sure?'}, :method => :delete
+
+        
+
+        /= link_to 'New Account price', new_admin_account_price_path
+            
+          
+
+  == render 'shared/site_footer'    
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

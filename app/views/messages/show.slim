@@ -137,7 +137,8 @@
                 
                 '! Connection deleted
         
-        
+            - when 'Opportunity'
+              = link_to 'Show me the opportunity', opportunity_opportunity_path(@message.subjectable_id, opportunity_invitation: 'true', user_id: @user.id), class: 'btn btn-primary'
         
         
         

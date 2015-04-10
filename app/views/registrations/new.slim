@@ -1,0 +1,106 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid   
+      .row
+        .col-sm-6   
+          h3 Register
+        .col-sm-6
+          .pull-right
+            .recording-navigation
+              => link_to root_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Back
+
+      .sexy_line
+      
+      .digi-box
+        = simple_form_for [@registration] do |f|
+          - if @registration.errors.any?
+            #error_explanation
+              h2
+                = pluralize(@registration.errors.count, "error")
+                prohibited this registration from being saved:
+              ul
+                - @registration.errors.full_messages.each do |message|
+                  li= message
+          
+          = f.hidden_field :account_id, value: @account.id
+          .row
+            .col-sm-12
+              .field.payment_method
+            
+                = label_tag :payment_method
+                
+                .row.
+                  .col-sm-6
+                    = radio_button_tag :payment_method, "card", checked: true
+                    '&nbsp;
+                    = image_tag "credit-card.jpg", style: "max-width: 100px;"
+                  .col-sm-6.pull-down-12
+                    = radio_button_tag :payment_method, "paypal"
+                    '&nbsp;
+                    = image_tag "paypal-logo.svg"
+            
+            
+                coffee:
+                  $(document).on "click", "#new_registration input[type='radio']", (e)->
+                    if $("#payment_method_card:checked").val() == "card"
+                      $("fieldset.card_info").show()
+                    else
+                      $("fieldset.card_info").hide()
+          .sexy_line.pull-down-12
+          .row
+            .col-sm-6
+              .field
+                = f.hidden_field :account_id, value: @account.id
+              .field
+                = f.input :full_name
+              .field
+                = f.input :company
+              .field
+                = f.input :email
+              .field
+                = f.input :telephone
+            
+            
+            .col-sm-6
+              fieldset.card_info
+                .legend Card info
+                = f.simple_fields_for :card do |c|
+                  .field
+                    = c.input :first_name
+                  .field
+                    = c.input :last_name
+                  .field
+                    = c.input :card_type, collection: [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], include_blank: false
+                  .field
+                    = c.input :card_number
+                  .field
+                    = c.input :card_verification, label: "Card Verification Value (CVV)"
+                  .field
+            
+                    = c.input :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), add_month_numbers: true
+            
+          .actions
+            .row
+              .col-sm-12
+                .pull-right
+                  = f.submit "Pay", class: "btn btn-warning"
+                  coffee:
+                    $("form#new_registration").submit ->
+                      $(this).find('input[type=submit]').attr('disabled', 'disabled')
+                      $(this).find('input[type=submit]').val "Submitting, please wait ..."
