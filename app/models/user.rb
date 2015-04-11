@@ -201,7 +201,9 @@ class User < ActiveRecord::Base
   end
   
   def confirm_ips
-    if ipis = Ipi.where(email: self.email)
+    ap self
+    if ipis = Ipi.where(email: self.email, confirmation: 'Missing')
+      ap ipis.first
       ipis.update_all(user_id: self.id)
       return true
     end

@@ -4,7 +4,7 @@ class Admin::AccountFeaturesController < ApplicationController
   # GET /account_features
   # GET /account_features.json
   def index
-    @account_features = AccountFeature.all
+    @account_features = AccountFeature.order(:position)
   end
 
   # GET /account_features/1
