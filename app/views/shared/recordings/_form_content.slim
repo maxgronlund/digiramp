@@ -16,7 +16,7 @@
       
         span.input-group-addon.btn.btn-default.btn-file
           span.fileinput-new
-            'Select file
+            'Select file 
           span.fileinput-exists
             'Change
       
@@ -41,6 +41,15 @@
             => link_to 'Cancel', cancel_path, class: 'btn btn-default'
             
             = f.submit 'Next', class: 'btn btn-primary btn-next', disabled: "disabled"
+            coffee:
+              $("form#audio_files").submit ->
+                $(this).find('input[type=submit]').attr('disabled', 'disabled')
+                $(this).find('input[type=submit]').val "Uploading, please wait ..."
+            
+            
+            
+            
+            
 
 = transloadit_jquerify :audio_files, :wait => true
         
