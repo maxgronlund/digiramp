@@ -69,10 +69,11 @@ class Account::ProUserSubscribtionsController < ApplicationController
   # DELETE /pro_user_subscribtions/1.json
   def destroy
     @pro_user_subscribtion.destroy
-    respond_to do |format|
-      format.html { redirect_to pro_user_subscribtions_url, notice: 'Pro user subscribtion was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    account_account_account_users_path(@account)
+    #respond_to do |format|
+    #  format.html { redirect_to pro_user_subscribtions_url, notice: 'Pro user subscribtion was successfully destroyed.' }
+    #  format.json { head :no_content }
+    #end
   end
 
   private
