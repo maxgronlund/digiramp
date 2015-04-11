@@ -123,7 +123,7 @@ class Opportunity < ActiveRecord::Base
 
       #DigirampEmailMailer.delay.opportunity_created( digiramp_email.id )
       
-      self.digiramp_email.send_opportunity_emails
+      digiramp_email.send_opportunity_emails
       self.opportunity_email_send = true
       self.save!
         
