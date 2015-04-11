@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409135734) do
+ActiveRecord::Schema.define(version: 20150411055500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,9 @@ ActiveRecord::Schema.define(version: 20150409135734) do
     t.string   "max_ipi_codes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position",                     default: 100
+    t.boolean  "enabled",                      default: false
+    t.decimal  "subscription_fee",             default: 0.0
   end
 
   create_table "account_prices", force: true do |t|

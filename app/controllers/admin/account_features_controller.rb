@@ -25,30 +25,25 @@ class Admin::AccountFeaturesController < ApplicationController
   # POST /account_features.json
   def create
     @account_feature = AccountFeature.new(account_feature_params)
-
-    respond_to do |format|
-      if @account_feature.save
-        format.html { redirect_to @account_feature, notice: 'Account feature was successfully created.' }
-        format.json { render :show, status: :created, location: @account_feature }
-      else
-        format.html { render :new }
-        format.json { render json: @account_feature.errors, status: :unprocessable_entity }
-      end
+    if @account_feature.save!
+      
+      redirect_to admin_account_features_path
+    else
+      redirect_to new_admin_account_features_path(@account_feature)
     end
+    
   end
 
   # PATCH/PUT /account_features/1
   # PATCH/PUT /account_features/1.json
   def update
-    respond_to do |format|
-      if @account_feature.update(account_feature_params)
-        format.html { redirect_to @account_feature, notice: 'Account feature was successfully updated.' }
-        format.json { render :show, status: :ok, location: @account_feature }
-      else
-        format.html { render :edit }
-        format.json { render json: @account_feature.errors, status: :unprocessable_entity }
-      end
+
+    if @account_feature.update(account_feature_params)
+      redirect_to admin_account_features_path
+    else
+      redirect_to edit_admin_account_features_path(@account_feature)
     end
+
   end
 
   # DELETE /account_features/1
@@ -69,6 +64,6 @@ class Admin::AccountFeaturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_feature_params
-      params.require(:account_feature).permit(:account_type, :max_recordings, :enable_catalogs, :max_catalogs, :max_catalog_users, :multiply_recordings_on_works, :export_works_as_csv, :import_works_as_csv, :import_from_pros, :manage_opportunities, :max_account_users, :max_ipi_codes)
+      params.require(:account_feature).permit!
     end
 end

@@ -15,7 +15,8 @@
     .container-fluid   
       .row
         .col-sm-6   
-          h3 Register
+          h3 
+            'Sign up for a #{@account_type} account
         .col-sm-6
           .pull-right
             .recording-navigation
@@ -65,8 +66,8 @@
           .sexy_line.pull-down-12
           .row
             .col-sm-6
-              .field
-                = f.hidden_field :account_id, value: @account.id
+              'Billing info
+              = f.hidden_field :account_id, value: @account.id
               .field
                 = f.input :full_name
               .field
@@ -79,7 +80,7 @@
             
             .col-sm-6
               fieldset.card_info
-                .legend Card info
+                'Card info
                 = f.simple_fields_for :card do |c|
                   .field
                     = c.input :first_name

@@ -1,13 +1,6 @@
 Digiramp::Application.routes.draw do
 
 
-  
-
-  
-
-  
-
-  
 
   #get 'social_icons/index'
 
@@ -679,14 +672,6 @@ Digiramp::Application.routes.draw do
         resources :creative_project_roles
         resources :creative_project_resources
       end
-      resources :playlists, only: [:edit, :update]
-      resources :user_positions, only: [:index]
-      resources :recording_credits
-      resources :recordings do
-        resources :work_rights
-        resources :recording_ipis
-        resources :recording_confirmations, only: [:new, :update]
-      end
       
       #resources :work_rights, only: [:update]
       resources :cms_module, only: [:new]
@@ -711,7 +696,6 @@ Digiramp::Application.routes.draw do
       resources :cms_pages do
         resources :cms_sections 
       end
-      resources :user_ipis, only: [:index]
       
       
       resources :campaigns do
@@ -731,7 +715,6 @@ Digiramp::Application.routes.draw do
       end
       
       resources :add_contacts_by_emails, only: [:create]
-      resources :invite_friends, only: [:new, :create]
 
       
       resources :catalogs, only: [:index]
@@ -739,8 +722,6 @@ Digiramp::Application.routes.draw do
       resources :connections, only: [:index, :create, :update, :destroy]
       resources :contacts 
       resources :contact_invitations, only: [:show]
-      resources :invite_client_groups, only: [:update]
-      resources :ipis
       resources :contact_groups do
         get 'toggle_selection'
         get 'add_all'
@@ -753,18 +734,26 @@ Digiramp::Application.routes.draw do
       resources :from_csv
       resources :import_contacts, only: [:index]
       resources :ipi_infos, only: [:show]
-      resources :removed_opportunities, only: [:index, :show, :destroy]
-      resources :selected_opportunities, only: [:index, :show, :destroy]
-      resources :new_opportunities, only: [:index, :show, :destroy]
+      resources :invite_client_groups, only: [:update]
+      resources :invite_friends, only: [:new, :create]
+      resources :ipis
       resources :mail_subscribtions, only: [:index, :show, :destroy, :create]
+      resources :new_opportunities, only: [:index, :show, :destroy]
       resources :opportunities, only: [:index, :show, :destroy] do
         resources :music_requests do
           resources :request_recordings
         end
         
       end
-      
+      resources :plans
+      resources :playlists, only: [:edit, :update]
       resources :recording_transfers
+      resources :recording_credits
+      resources :recordings do
+        resources :work_rights
+        resources :recording_ipis
+        resources :recording_confirmations, only: [:new, :update]
+      end
       
       resources :recording_basics, only: [:edit, :update]
       resources :recording_personas, only: [:edit, :update]
@@ -776,11 +765,13 @@ Digiramp::Application.routes.draw do
       resources :recording_meta_data, only: [:edit, :update]
       resources :recording_ipis
       resources :recording_ipi_infos, only: [:show]
-      #resources :work_rights
+      resources :removed_opportunities, only: [:index, :show, :destroy]
+      resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :user_emails
+      resources :user_positions, only: [:index]
+      resources :user_ipis, only: [:index]
     end
     resources :user_addresses
-    
     
   end
   

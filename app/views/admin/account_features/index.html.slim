@@ -19,6 +19,7 @@
             thead
               tr
                 th Account type
+                th Enabled
                 th Max recordings
                 th Enable catalogs
                 th Max catalogs
@@ -38,6 +39,9 @@
               - @account_features.each do |account_feature|
                 tr
                   td = account_feature.account_type
+                  td 
+                    - if account_feature.enabled
+                      '√
                   td = account_feature.max_recordings
                   td = account_feature.enable_catalogs
                   td = account_feature.max_catalogs

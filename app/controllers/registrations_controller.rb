@@ -15,8 +15,9 @@ class RegistrationsController < ApplicationController
     #validates :full_name, :company, :email, :telephone, presence: true
     @registration = Registration.new(full_name: current_user.user_name, email: current_user.email, telephone: current_user.phone_number)
     @registration.build_card
-    @account        = Account.cached_find( params[:account_id] )
+    @account      = Account.cached_find( params[:account_id] )
     @user         = current_user
+    @account_type = params[:account_type]
   end
 
   # POST /registrations

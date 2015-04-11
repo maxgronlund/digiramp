@@ -107,25 +107,25 @@
           /      .body
           /        'Default badges
           
-          .admin-badge-container
-            = link_to admin_account_prices_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-money
-                    '&nbsp;Prices
-                .body
-                  'Subscription fees for account types
-          
+          /.admin-badge-container
+          /  = link_to admin_account_prices_path do
+          /    .admin-badge
+          /      .title
+          /        h4
+          /          i.fa.fa-money
+          /          '&nbsp;Prices
+          /      .body
+          /        'Subscription fees for account types
+          /
           .admin-badge-container
             = link_to admin_account_features_path do
               .admin-badge
                 .title
                   h4
                     i.fa.fa-money
-                    '&nbsp;Features
+                    '&nbsp;Account types
                 .body
-                  'Enabled features on different account types
+                  'Set features and price on account types
           
           
           .admin-badge-container
@@ -150,19 +150,19 @@
                     li News mails
                     li Campaigns
           
-          .admin-badge-container
-            = link_to admin_features_and_values_index_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-envelope
-                    '&nbsp;Roadmap
-                .body
-                  ul
-                    li Features
-                    li User value
-                    li Dev. status
-          
+          /.admin-badge-container
+          /  = link_to admin_features_and_values_index_path do
+          /    .admin-badge
+          /      .title
+          /        h4
+          /          i.fa.fa-envelope
+          /          '&nbsp;Roadmap
+          /      .body
+          /        ul
+          /          li Features
+          /          li User value
+          /          li Dev. status
+          /
           .admin-badge-container
             = link_to admin_issue_events_path do
               .admin-badge

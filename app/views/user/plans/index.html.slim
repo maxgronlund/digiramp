@@ -1,0 +1,168 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Plans
+      .sexy_line
+
+      - @account_features.each do |account_feature|
+        .digi-box
+          .row
+            .col-sm-12
+              - unless  account_feature.account_type == 'Enterprice'
+                .row
+                  .col-sm-8
+                    h3 
+                      = account_feature.account_type + ' account: '
+                      
+                  .col-sm-4.pull-down-10
+                    .pull-right
+                      = link_to '#' do
+                        - if @current_account_type == account_feature.account_type
+                          .btn.btn-default disabled='true'
+                            'Current plan
+                        - else
+                          .btn.btn-success
+                            'Select
+                
+                .sexy_line
+                .row
+                  .col-sm-6
+                    'Price / mo:
+                    .pull-right
+                      = number_to_currency(account_feature.subscription_fee)
+                    .sexy_line
+                    
+                    'Max recordings:
+                    .pull-right
+                      = account_feature.max_recordings
+                    .sexy_line
+                    
+                    'Catalogs:
+                    .pull-right
+                      - if account_feature.enable_catalogs
+                        i.fa.fa-check
+                      - else
+                        i.fa.fa-minus
+                    .sexy_line
+                    
+                    'Max catalogs:
+                    .pull-right
+                      - if account_feature.max_catalogs > 0
+                        = account_feature.max_catalogs
+                      - else
+                        i.fa.fa-minus
+                    .sexy_line
+                    
+                    'Catalogs users:
+                    .pull-right
+                      - if account_feature.max_catalog_users > 0
+                        = account_feature.max_catalog_users
+                      - else
+                        i.fa.fa-minus
+                    .sexy_line
+                    
+                    'Manage opportunities:
+                    .pull-right
+                      - if account_feature.manage_opportunities
+                        i.fa.fa-check
+                      - else
+                        i.fa.fa-minus
+                    .sexy_line
+                    
+                  .col-sm-6
+                    
+                    'Multiply recordings on works:
+                    .pull-right
+                      - if account_feature.multiply_recordings_on_works
+                        i.fa.fa-check
+                      - else
+                        i.fa.fa-minus
+                    .sexy_line
+                    
+                    'Export works as csv:
+                    .pull-right
+                      - if account_feature.export_works_as_csv
+                        i.fa.fa-check
+                      - else
+                        i.fa.fa-minus
+                    .sexy_line
+                    
+                    'Import works as csv:
+                    .pull-right
+                      - if account_feature.import_works_as_csv
+                        i.fa.fa-check
+                      - else
+                        i.fa.fa-minus
+                    .sexy_line
+                    
+                    'Import works from ASCAP/BMI:
+                    .pull-right
+                      - if account_feature.import_from_pros
+                        i.fa.fa-check
+                      - else
+                        i.fa.fa-minus
+                    .sexy_line
+                    
+                    'Max account users:
+                    .pull-right
+                      = account_feature.max_account_users 
+                    .sexy_line
+                    
+                    'Max account IPI's:
+                    .pull-right
+                      = account_feature.max_ipi_codes 
+                    .sexy_line
+                    
+              - else
+                .row
+                  .col-sm-8
+                    h3 Enterprice account: 
+                      
+                  .col-sm-4.pull-down-10
+                    .pull-right
+                      = link_to '#' do
+                        - if @current_account_type == account_feature.account_type
+                          .btn.btn-default disabled='true'
+                            'Current plan
+                        - else
+                          .btn.btn-success
+                            'Contact us
+                  
+        
+              
+                  /table
+                  /  tr
+                  /    td 
+                  /      b Max recordings
+                  /    td = account_feature.max_recordings
+                  /  tr
+                  /    td 
+                  /      b Catalogs
+                  /    td 
+                  /      - if account_feature.enable_catalogs
+                  /        i.fa.fa-check
+                  /
+
+            
+            /- case @account_type
+            /
+            /- when 'Social'
+            /  'Social
+            /- when 'Pro'
+            /  'Pro
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+
