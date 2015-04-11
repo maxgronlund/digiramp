@@ -68,7 +68,7 @@
               .col-sm-4
                 .pull-right
                   => link_to 'Edit', edit_account_account_pro_user_subscribtion_path(@account, pro_user_subscribtion), class: 'btn btn-default'
-                  = link_to  account_account_pro_user_subscribtion_path(@account, pro_user_subscribtion), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                  = link_to  account_account_pro_user_subscribtion_path(@account, pro_user_subscribtion), data: {:confirm => 'Are you sure?'}, turboboost: true, :method => :delete do
                     .btn.btn-danger
                       i.fa.fa-times
             .sexy_line
