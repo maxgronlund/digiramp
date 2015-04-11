@@ -2,7 +2,7 @@ class CreateRegistrations < ActiveRecord::Migration
   
   def change
     create_table :registrations do |t|
-      t.references :order, index: true
+      t.references :account, index: true
       t.string :full_name
       t.string :company
       t.string :email

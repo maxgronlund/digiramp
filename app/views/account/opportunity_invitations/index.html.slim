@@ -31,29 +31,32 @@
                   i.fa.fa-envelope
                   '&nbsp;
                   'Invite more
-      'Invitations
-      .sexy_line
-      - if @opportunity_invitations
-        - @opportunity_invitations.order('created_at desc').each do |opportunity_invitation|
-          h5 = opportunity_invitation.title
-          'Send:&nbsp
-          i = opportunity_invitation.created_at.to_formatted_s(:short) 
-          br
-          br
-          .row
-            .col-sm-6
-              =  opportunity_invitation.body
-            .col-sm-6
-              b Send to
-              br
-              - opportunity_invitation.invitees.split(',').each do |invitee|
-                = invitee
-                br
-          .sexy_line
-          /- opportunity_invitation.invitees.split(',').each do |invitee|
-          /  = invitees
       
-      /= debug @opportunity_invitations.first
+      .sexy_line
+      
+      - if @opportunity_invitations
+        .digi-box
+          - @opportunity_invitations.order('created_at desc').each_with_index do |opportunity_invitation, index|
+            h5 = opportunity_invitation.title
+            'Send:&nbsp
+            i = opportunity_invitation.created_at.to_formatted_s(:short) 
+            br
+            br
+            .row
+              .col-sm-6
+                =  opportunity_invitation.body
+              .col-sm-6
+                b Send to
+                br
+                - opportunity_invitation.invitees.split(',').each do |invitee|
+                  = invitee
+                  br
+                  
+            - unless index == @opportunity_invitations.count - 1
+              .sexy_line
+            /- opportunity_invitation.invitees.split(',').each do |invitee|
+            /  = invitees
+          br
             
       
             

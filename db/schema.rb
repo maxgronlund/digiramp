@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408153847) do
+ActiveRecord::Schema.define(version: 20150409135734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,30 @@ ActiveRecord::Schema.define(version: 20150408153847) do
   end
 
   add_index "account_catalogs", ["account_id"], name: "index_account_catalogs_on_account_id", using: :btree
+
+  create_table "account_features", force: true do |t|
+    t.string   "account_type"
+    t.integer  "max_recordings"
+    t.boolean  "enable_catalogs"
+    t.integer  "max_catalogs"
+    t.integer  "max_catalog_users"
+    t.boolean  "multiply_recordings_on_works"
+    t.boolean  "export_works_as_csv"
+    t.boolean  "import_works_as_csv"
+    t.boolean  "import_from_pros"
+    t.boolean  "manage_opportunities"
+    t.integer  "max_account_users"
+    t.string   "max_ipi_codes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "account_prices", force: true do |t|
+    t.decimal  "subscription_fee"
+    t.string   "account_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "account_users", force: true do |t|
     t.integer  "account_id"
@@ -117,28 +141,32 @@ ActiveRecord::Schema.define(version: 20150408153847) do
     t.string   "city"
     t.string   "state"
     t.string   "postal_code"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.integer  "users_count",          default: 0,                null: false
-    t.integer  "documents_count",      default: 0,                null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.integer  "users_count",              default: 0,                null: false
+    t.integer  "documents_count",          default: 0,                null: false
     t.date     "expiration_date"
-    t.integer  "visits",               default: 0
+    t.integer  "visits",                   default: 0
     t.string   "logo"
-    t.boolean  "activated",            default: true
+    t.boolean  "activated",                default: true
     t.integer  "default_catalog_id"
-    t.string   "uuid",                 default: ""
-    t.integer  "version",              default: 0
-    t.string   "works_uuid",           default: "first love 727"
-    t.string   "recordings_uuid",      default: "first love 727"
-    t.string   "customers_uuid",       default: "first love 727"
-    t.string   "playlists_uuid",       default: "first love 727"
-    t.string   "users_uuid",           default: "first love 727"
-    t.integer  "administrator_id",     default: 0
+    t.string   "uuid",                     default: ""
+    t.integer  "version",                  default: 0
+    t.string   "works_uuid",               default: "first love 727"
+    t.string   "recordings_uuid",          default: "first love 727"
+    t.string   "customers_uuid",           default: "first love 727"
+    t.string   "playlists_uuid",           default: "first love 727"
+    t.string   "users_uuid",               default: "first love 727"
+    t.integer  "administrator_id",         default: 0
     t.boolean  "create_opportunities"
     t.boolean  "read_opportunities"
     t.integer  "user_count"
+    t.decimal  "subscription_fee",         default: 0.0
+    t.boolean  "special_subscription_fee", default: false
+    t.integer  "account_feature_id"
   end
 
+  add_index "accounts", ["account_feature_id"], name: "index_accounts_on_account_feature_id", using: :btree
   add_index "accounts", ["administrator_id"], name: "index_accounts_on_administrator_id", using: :btree
   add_index "accounts", ["default_catalog_id"], name: "index_accounts_on_default_catalog_id", using: :btree
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
@@ -465,6 +493,31 @@ ActiveRecord::Schema.define(version: 20150408153847) do
 
   add_index "campaigns_client_groups", ["campaign_id"], name: "index_campaigns_client_groups_on_campaign_id", using: :btree
   add_index "campaigns_client_groups", ["client_group_id"], name: "index_campaigns_client_groups_on_client_group_id", using: :btree
+
+  create_table "card_transactions", force: true do |t|
+    t.integer  "card_id"
+    t.string   "action"
+    t.integer  "amount"
+    t.boolean  "success"
+    t.string   "authorization"
+    t.string   "message"
+    t.text     "params"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "card_transactions", ["card_id"], name: "index_card_transactions_on_card_id", using: :btree
+
+  create_table "cards", force: true do |t|
+    t.integer  "registration_id"
+    t.string   "ip_address"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "card_type"
+    t.date     "card_expires_on"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "catalog_items", force: true do |t|
     t.integer  "catalog_id"
@@ -2407,7 +2460,7 @@ ActiveRecord::Schema.define(version: 20150408153847) do
   add_index "recordings", ["user_id"], name: "index_recordings_on_user_id", using: :btree
 
   create_table "registrations", force: true do |t|
-    t.integer  "order_id"
+    t.integer  "account_id"
     t.string   "full_name"
     t.string   "company"
     t.string   "email"
@@ -2420,7 +2473,7 @@ ActiveRecord::Schema.define(version: 20150408153847) do
     t.datetime "purchased_at"
   end
 
-  add_index "registrations", ["order_id"], name: "index_registrations_on_order_id", using: :btree
+  add_index "registrations", ["account_id"], name: "index_registrations_on_account_id", using: :btree
 
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"

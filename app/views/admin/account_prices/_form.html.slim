@@ -1,0 +1,13 @@
+= simple_form_for [:admin, @account_price] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :account_type, disabled: true, hint: 'You cannot change account type.'
+    = f.input :subscription_fee
+    
+
+  .form-actions
+    .row
+      .col-sm-12
+        .pull-right
+          = f.submit 'Save', class: 'btn btn-default'

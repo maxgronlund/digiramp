@@ -1,25 +1,26 @@
 class Registration < ActiveRecord::Base
-  belongs_to :course
+  belongs_to :account
   has_one :card
   accepts_nested_attributes_for :card
 
-  validates :full_name, :company, :email, :telephone, presence: true
+  #validates :full_name, :company, :email, :telephone, presence: true
 
   serialize :notification_params, Hash
   def paypal_url(return_path)
+    
     values = {
-        business: "merchant@gotealeaf.com",
+        business: "test01@pixelsonrails.com",
         cmd: "_xclick",
         upload: 1,
-        return: "#{Rails.application.secrets.app_host}#{return_path}",
-        invoice: id,
-        amount: course.price,
-        item_name: course.name,
-        item_number: course.id,
+        return: "#{ENV["APP_HOST"]}#{return_path}",
+        invoice: id + 12345,
+        amount:       account.subscribtion_price,
+        item_name:    account.title,
+        item_number:  account.id,
         quantity: '1',
-        notify_url: "#{Rails.application.secrets.app_host}/hook"
+        notify_url: "#{ENV["APP_HOST"]}/hook"
     }
-    "#{Rails.application.secrets.paypal_host}/cgi-bin/webscr?" + values.to_query
+    "#{ENV["PAYPAL_HOST"]}/cgi-bin/webscr?" + values.to_query
   end
 
   def payment_method

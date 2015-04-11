@@ -12,17 +12,20 @@ class RegistrationsController < ApplicationController
 
   # GET /registrations/new
   def new
-    puts 'new'
-    @registration = Registration.new
+    #validates :full_name, :company, :email, :telephone, presence: true
+    @registration = Registration.new(full_name: current_user.user_name, email: current_user.email, telephone: current_user.phone_number)
     @registration.build_card
-    @course = Course.find_by id: params["course_id"]
+    @account        = Account.cached_find( params[:account_id] )
+    @user         = current_user
   end
 
   # POST /registrations
   def create
     @registration = Registration.new(registration_params)
     @registration.card.ip_address = request.remote_ip
-    if @registration.save
+    
+    if @registration.save!
+
       case params['payment_method']
         when "paypal"
           redirect_to @registration.paypal_url(registration_path(@registration))
@@ -44,7 +47,7 @@ class RegistrationsController < ApplicationController
     params.permit! # Permit all Paypal input params
     status = params[:payment_status]
     if status == "Completed"
-      @registration = Registration.find params[:invoice]
+      @registration = Registration.find( params[:invoice].to_i - 12345 )
       @registration.update_attributes notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now
     end
     render nothing: true
@@ -58,7 +61,7 @@ class RegistrationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def registration_params
-      params.require(:registration).permit(:course_id, :full_name, :company, :email, :telephone,
+      params.require(:registration).permit(:account_id, :full_name, :company, :email, :telephone,
                                            card_attributes: [
                                                :first_name, :last_name, :card_type, :card_number,
                                                :card_verification, :card_expires_on])

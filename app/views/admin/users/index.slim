@@ -65,17 +65,19 @@
                       .btn.btn-default.btn-xs
                         i class="fa fa-pencil"
                     
-                    - if account = user.account
-                    => link_to edit_admin_account_path( account) do 
-                      .btn.btn-default.btn-xs
-                        i class="fa fa-gear"
-
-                    -if user.account
-                      => link_to account_account_path( user.account) do 
+                    - if account = user.account  
+                      => link_to edit_admin_account_path( account) do 
                         .btn.btn-default.btn-xs
+                          i class="fa fa-gear"
+                      
+
+
+                      => link_to account_account_path(account) do 
+                         div class="btn btn-default btn-xs #{ disabled ='disabled' if account.account_type == 'Social'}"
                           i.fa.fa-tachometer
                           '&nbsp;
                           'Pro
+                          
                     -else
                       .btn.btn-warning.btn-xs
                         i.fa.fa-frown-o 
