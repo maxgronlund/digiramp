@@ -18,8 +18,10 @@ class RecordingBasicsController < ApplicationController
   end
 
   def update
-    go_to = params[:recording][:next_step]
-    params[:recording].delete :next_step
+    ap params
+    #go_to = params[:recording][:next_step]
+    #
+    #params[:recording].delete :next_step
 
     @recording      = Recording.find(params[:id])
     
@@ -71,11 +73,12 @@ class RecordingBasicsController < ApplicationController
       @recording.common_work.update_completeness if @recording.common_work
       
     end
-    if go_to == 'next_step'
-      redirect_to edit_user_recording_lyric_path( @user, @recording )
-    else
-      redirect_to user_recording_path( @recording.user, @recording )
-    end
+    redirect_to edit_user_recording_lyric_path( @user, @recording )
+    #if go_to == 'next_step'
+    #  redirect_to edit_user_recording_lyric_path( @user, @recording )
+    #else
+    #  redirect_to user_recording_path( @recording.user, @recording )
+    #end
   end
   
   

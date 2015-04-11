@@ -71,9 +71,12 @@
                         :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
               .pull-right
                 
-                = link_to 'Cancel', user_recordings_path(@user), class: 'btn btn-default'
-                '&nbsp;
+                => link_to 'Cancel', user_recordings_path(@user), class: 'btn btn-default'
                 = f.submit 'Next', class: 'btn btn-primary btn-next', disabled: "disabled"
+                coffee:
+                  $("form#audio_files").submit ->
+                    $(this).find('input[type=submit]').attr('disabled', 'disabled')
+                    $(this).find('input[type=submit]').val "Uploading, please wait ..."
             
 
             

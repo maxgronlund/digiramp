@@ -9,15 +9,15 @@ class RecordingLyricsController < ApplicationController
   end
 
   def update
-    go_to = params[:recording][:next_step]
-    params[:recording].delete :next_step
+    #go_to = params[:recording][:next_step]
+    #params[:recording].delete :next_step
     @recording.update_attributes(recording_params)
-    
-    if go_to == 'next_step'
-      redirect_to edit_user_recording_tag_path(@recording.user, @recording)
-    else
-      redirect_to user_recording_path( @recording.user, @recording )
-    end
+    redirect_to edit_user_recording_tag_path(@recording.user, @recording)
+    #if go_to == 'next_step'
+    #  redirect_to edit_user_recording_tag_path(@recording.user, @recording)
+    #else
+    #  redirect_to user_recording_path( @recording.user, @recording )
+    #end
     
     
   end

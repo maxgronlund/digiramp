@@ -10,8 +10,8 @@ class RecordingTagsController < ApplicationController
   end
 
   def update
-    go_to = params[:recording][:next_step]
-    params[:recording].delete :next_step
+    #go_to = params[:recording][:next_step]
+    #params[:recording].delete :next_step
 
     @recording.update_attributes(recording_params)
     @recording.extract_genres
