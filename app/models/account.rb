@@ -82,6 +82,8 @@ class Account < ActiveRecord::Base
   
   has_many :creative_projects
   
+  has_many :pro_user_subscribtions
+  
   belongs_to :account_feature
                 
 

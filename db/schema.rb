@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150411055500) do
+ActiveRecord::Schema.define(version: 20150411210242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2283,6 +2283,17 @@ ActiveRecord::Schema.define(version: 20150411055500) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "pro_user_subscribtions", force: true do |t|
+    t.string   "email"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pro_user_subscribtions", ["account_id"], name: "index_pro_user_subscribtions_on_account_id", using: :btree
+  add_index "pro_user_subscribtions", ["user_id"], name: "index_pro_user_subscribtions_on_user_id", using: :btree
 
   create_table "project_tasks", force: true do |t|
     t.integer  "project_id"

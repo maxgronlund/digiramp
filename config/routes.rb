@@ -2,6 +2,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+
   #get 'social_icons/index'
 
   get 'user_menu/edit'
@@ -214,6 +216,7 @@ Digiramp::Application.routes.draw do
   resources :accounts, only: [:show, :edit, :update] do
     
     #resources :add_catalog_assets, only: [:show]
+    
     resources :account_users
     #resources :account_works, only: [:index]
     #resources :albums
@@ -249,6 +252,7 @@ Digiramp::Application.routes.draw do
     resources :drm, only: [:index]
     resources :recording_permissions
     resources :promotion, only: [:index]
+    
     #resources :playlist_keys
     #resources :playlists do
     #  get "playlist_recordings/add_all"
@@ -410,6 +414,7 @@ Digiramp::Application.routes.draw do
     end
 
     resources :accounts do
+      resources :pro_user_subscribtions, only: [:new, :edit, :update, :create, :destroy]
       resources :recording_departures
       resources :attachments, only: [:destroy]
       member do

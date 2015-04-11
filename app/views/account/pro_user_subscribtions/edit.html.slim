@@ -1,0 +1,42 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {account: account_account_path(@account),
+                                                             'account users'.to_sym => account_account_account_users_path(@account)}, current:  ''}
+
+
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 Edit pro subscribtion
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'pro user subscription'
+          
+          
+
+ 
+            
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            == render 'form'
+
+      
+      
+  == render 'shared/site_footer'
+ 
+      
+
+/= link_to 'Back', pro_user_subscribtions_path

@@ -15,8 +15,13 @@
 
       .row
         .col-sm-8
-          h2 Account Users
-        .col-sm-4
+          .help
+            .help-text
+              h2 Account users
+            .help-button
+              == render 'admin/helps/help', identifier: 'account users'
+          
+        .col-sm-4.pull-down-10
           - if current_account_user.createx_user
             .pull-right
               = link_to new_account_account_account_user_path(@account) do
@@ -27,7 +32,46 @@
       .sexy_line
       .digi-box
         == render 'personas'
-
+        
+      
+      
+      
+      
+      
+      - if current_user.betatester
+        .row.pull-down-10
+          .col-sm-8
+            .help
+              .help-text
+                h2 Pro users subscribtions
+              .help-button
+                == render 'admin/helps/help', identifier: 'pro users subscription'
+            
+            
+        
+          .col-sm-4.pull-down-10
+            - if current_account_user.createx_user
+              .pull-right
+                = link_to new_account_account_pro_user_subscribtion_path(@account) do
+                  .btn.btn-primary
+                    i class="fa fa-plus-circle"
+                    '&nbsp;Add subscribtion
+        .digi-box
+        
+          - @pro_user_subscribtions.each do |pro_user_subscribtion|
+            .row
+              .col-sm-4
+                -if user = pro_user_subscribtion.user
+                  = link_to user.user_name, user, class: 'btn btn-default'
+              .col-sm-4
+                = pro_user_subscribtion.email
+              .col-sm-4
+                .pull-right
+                  => link_to 'Edit', edit_account_account_pro_user_subscribtion_path(@account, pro_user_subscribtion), class: 'btn btn-default'
+                  = link_to  account_account_pro_user_subscribtion_path(@account, pro_user_subscribtion), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                    .btn.btn-danger
+                      i.fa.fa-times
+            .sexy_line
       
       
   == render 'shared/site_footer'
