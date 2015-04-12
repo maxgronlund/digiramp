@@ -5,6 +5,7 @@ class NewsController < ApplicationController
     if current_user
       current_user.news_count  =  Blog.news_count
       current_user.save!
+      @user = current_user
     end
   end
 end

@@ -1,50 +1,97 @@
-
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'account' 
-  .hidden-xs
-    .full-width-sign-up
-      .container
-        /== render 'shared/sign_up'
-            
-  .container
-    
-    .row
-      .col-sm-3
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
         
+      
 
-      .col-sm-6
-        ==render 'admin/shared/messages'
-        .panel.panel-primary
-          .panel-heading
-            i class= 'fa fa-lock'
-            '&nbsp;
-            'RESET PASSWORD
-          .panel-body
+  #page-content-wrapper
+    .container-fluid   
+      .row
+        .col-sm-6   
+          h3 Reset password
+        .col-sm-6
+          .pull-right
+            .recording-navigation
+              => link_to root_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Back
 
-            = simple_form_for(  :sessions, :url => password_resets_path ) do |f|
-    
+      .sexy_line
+      
+      
+      .row
+        .col-sm-6
+          ==render 'admin/shared/messages'
+          .digi-box
+            = simple_form_for(  :sessions, :url => password_resets_path ) do |f|   
               .input-group
                 span class="input-group-addon" @
                 = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+              
+              .row
+                .col-sm-12
+                  .pull-right
+                    br
+                    = f.submit 'Reset', class: 'btn btn-primary'
 
+    == render 'shared/site_footer' 
+              
 
-              .pull-right
-                br
-                = f.submit 'Reset', class: 'btn btn-primary btn-lg'
-
-        
-
-  
-#footer
-  .container
-    .footer
-      .row
-        .col-sm-12
-          '©2014 All rights reserved
-
-
-
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'account' 
+/  .hidden-xs
+/    .full-width-sign-up
+/      .container
+/        /== render 'shared/sign_up'
+/            
+/  .container
+/    
+/    .row
+/      .col-sm-3
+/        
+/
+/      .col-sm-6
+/        ==render 'admin/shared/messages'
+/        .panel.panel-primary
+/          .panel-heading
+/            i class= 'fa fa-lock'
+/            '&nbsp;
+/            'RESET PASSWORD
+/          .panel-body
+/
+/            = simple_form_for(  :sessions, :url => password_resets_path ) do |f|
+/    
+/              .input-group
+/                span class="input-group-addon" @
+/                = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+/
+/
+/              .pull-right
+/                br
+/                = f.submit 'Reset', class: 'btn btn-primary btn-lg'
+/
+/        
+/
+/  
+/#footer
+/  .container
+/    .footer
+/      .row
+/        .col-sm-12
+/          '©2014 All rights reserved
+/
+/
+/
 
 
 

@@ -19,18 +19,24 @@
               - unless  account_feature.account_type == 'Enterprise'
                 .row
                   .col-sm-8
-                    h3 
-                      = account_feature.account_type + ' account: '
+                    h3  = account_feature.account_type + ' account: '
+                    b = simple_format account_feature.description
                       
                   .col-sm-4.pull-down-10
                     .pull-right
-                      = link_to '#' do
-                        - if @current_account_type == account_feature.account_type
-                          .btn.btn-default disabled='true'
-                            'Current plan
-                        - else
-                          .btn.btn-success
+                      - if account_feature.account_type == 'Social'
+                        .btn.btn-success disabled='disabled
+                          'Free
+                      - else
+                        = link_to new_user_user_registration_path(@user, account_type: account_feature.account_type) do
+                          .btn.btn-warning
                             'Select
+                          /- if @current_account_type == account_feature.account_type
+                          /  .btn.btn-default disabled='true'
+                          /    'Current plan
+                          /- else
+                          /  .btn.btn-success
+                          /    'Select
                 
                 .sexy_line
                 .row
@@ -133,7 +139,7 @@
                           .btn.btn-default disabled='true'
                             'Current plan
                         - else
-                          .btn.btn-success
+                          .btn.btn-warning
                             'Contact us
                   
         

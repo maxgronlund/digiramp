@@ -1,6 +1,7 @@
 class Admin::ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
   before_filter :admins_only
+ 
 
   def index
     @contacts = Contact.all
@@ -17,10 +18,11 @@ class Admin::ContactsController < ApplicationController
 
   def destroy
     @contact.destroy
-    respond_to do |format|
-      format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to admin_contracts_path
+    #respond_to do |format|
+    #  format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
+    #  format.json { head :no_content }
+    #end
   end
 
   private

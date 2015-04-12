@@ -1,6 +1,6 @@
 class RegistrationsController < ApplicationController
   before_action :set_registration, only: [:show, :edit, :update, :destroy]
-
+  layout "application"
   # GET /registrations
   def index
     @registrations = Registration.all
@@ -8,6 +8,7 @@ class RegistrationsController < ApplicationController
 
   # GET /registrations/1
   def show
+    @user = current_user
   end
 
   # GET /registrations/new
@@ -32,8 +33,10 @@ class RegistrationsController < ApplicationController
           redirect_to @registration.paypal_url(registration_path(@registration))
         when "card"
           if @registration.card.purchase
+            ap registration_path(@registration)
             redirect_to registration_path(@registration), notice: @registration.card.card_transaction.message
           else
+            registration_path(@registration)
             redirect_to registration_path(@registration), alert: @registration.card.card_transaction.message
           end
       end
@@ -57,12 +60,12 @@ class RegistrationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_registration
-      @registration = Registration.find(params[:id])
+      @registration = Registration.cached_find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def registration_params
-      params.require(:registration).permit(:account_id, :full_name, :company, :email, :telephone,
+      params.require(:registration).permit(:account_id, :full_name, :company, :email, :telephone,:address1, :city, :state, :country, :zip,
                                            card_attributes: [
                                                :first_name, :last_name, :card_type, :card_number,
                                                :card_verification, :card_expires_on])

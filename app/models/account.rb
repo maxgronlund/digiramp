@@ -85,6 +85,8 @@ class Account < ActiveRecord::Base
   has_many :pro_user_subscribtions
   
   belongs_to :account_feature
+  
+  has_many :registrations
                 
 
   # account types
@@ -133,7 +135,13 @@ class Account < ActiveRecord::Base
   
   def subscribtion_price
     
-    100
+    ap self.account_type
+    
+    if account_feature = AccountFeature.where(account_type: self.account_type).first
+      return account_feature.subscription_fee
+    else
+      return 0
+    end
     
   end
   

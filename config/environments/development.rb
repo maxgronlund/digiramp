@@ -36,9 +36,9 @@ Digiramp::Application.configure do
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :test  # :production when you will use a real Pro Account
     ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
-      login: "test03_api1.pixelsonrails.com",
-      password: "ABP5WKJ8247ME6QY",
-      signature: "AFcWxV21C7fd0v3bYYYRCpSSRl31AnfXxTooprxe959j9Ml0csDEDvzm"
+      login: "max-facilitator_api1.pixelsonrails.com",
+      password: "9FB6E9K77TYCG9WC",
+      signature: "AFcWxV21C7fd0v3bYYYRCpSSRl31AP7PPsPfmbyk1noEznLw5G..KLfd"
     )
   end
   

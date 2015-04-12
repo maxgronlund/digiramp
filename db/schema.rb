@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150411210242) do
+ActiveRecord::Schema.define(version: 20150412174056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20150411210242) do
     t.integer  "position",                     default: 100
     t.boolean  "enabled",                      default: false
     t.decimal  "subscription_fee",             default: 0.0
+    t.text     "description",                  default: ""
   end
 
   create_table "account_prices", force: true do |t|
@@ -167,6 +168,9 @@ ActiveRecord::Schema.define(version: 20150411210242) do
     t.decimal  "subscription_fee",         default: 0.0
     t.boolean  "special_subscription_fee", default: false
     t.integer  "account_feature_id"
+    t.boolean  "recurring"
+    t.string   "period"
+    t.integer  "cycles"
   end
 
   add_index "accounts", ["account_feature_id"], name: "index_accounts_on_account_feature_id", using: :btree
@@ -2485,6 +2489,14 @@ ActiveRecord::Schema.define(version: 20150411210242) do
     t.string   "status"
     t.string   "transaction_id"
     t.datetime "purchased_at"
+    t.text     "address1"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "zip"
+    t.string   "account_type"
+    t.text     "description",         default: ""
+    t.decimal  "subscription_fee"
   end
 
   add_index "registrations", ["account_id"], name: "index_registrations_on_account_id", using: :btree

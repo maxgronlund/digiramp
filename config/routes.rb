@@ -2,10 +2,6 @@ Digiramp::Application.routes.draw do
 
 
 
-  
-
-  #get 'social_icons/index'
-
   get 'user_menu/edit'
 
   get 'user_menu/update'
@@ -656,6 +652,15 @@ Digiramp::Application.routes.draw do
     resources :social_links
     #resources :common_work_lyrics
     resources :users do
+      
+      
+      
+      resources :registrations
+      post "/hook" => "registrations#hook"
+      post "/registrations/:id" => "registrations#show"
+      
+      
+      
       resources :accept_recording_ipis
       resources :activities
       resources :authorization_providers

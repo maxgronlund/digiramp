@@ -1,5 +1,22 @@
-h1 New account_feature
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
 
-== render 'form'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, 'Account types features'.to_sym => admin_account_features_path }, current: ''}
+      h2 New account type feature
+      .sexy_line
+      .row
+        .col-sm-12
+          .digi-box
+            == render 'form'
+          
 
-= link_to 'Back', account_features_path
+  == render 'shared/site_footer'    

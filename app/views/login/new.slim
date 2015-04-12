@@ -1,97 +1,93 @@
-
-#wrap
+#wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'account' 
-       
-  .container
-    .row
-      .col-sm-3
-      .col-sm-6
-        .digi-box
-          - if current_user
-            h3 You are loged in as somebody else
-            = link_to "Log out", logout_path(params), class: 'btn btn-primary'
-          - else  
-            ==render 'admin/shared/messages'
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid   
+      .row
+        .col-sm-6   
+          h3 Login
+        .col-sm-6
+          .pull-right
+            .recording-navigation
+              => link_to root_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Back
+
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            - if current_user
+              .alert.alert-warning
+                b You are already loged in as as #{current_user.user_name}
+              .row
+                .col-sm-12
+                  .pull-right.pull-down-12
+                    = link_to "Log out", logout_path(params), class: 'btn btn-primary'
+            - else  
+              ==render 'admin/shared/messages'
+              
+              h3 Log in
             
-            h3 Log in
-          
-            = simple_form_for(  :sessions, :url => sessions_path, turboboost: true) do |f|
-              .input-group
-                span class="input-group-addon" @
-                = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+              = simple_form_for(  :sessions, :url => sessions_path, turboboost: true) do |f|
+                .input-group
+                  span class="input-group-addon" @
+                  = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+                br
+                .input-group
+                  span class="input-group-addon" 
+                    i class= 'fa fa-key'
+                  = f.input_field :password, placeholder: 'Password', autocomplete: :off
+                br
+                = f.input :remember_me, as: :boolean, input_html: { value: '1' }
+                .row
+                  .col-sm-12
+                    .pull-right
+            
+                      = link_to "Forgot Password?", new_password_reset_path, class: 'btn btn-default'
+                      '&nbsp;
+                      = f.submit 'Log in', class: 'btn btn-primary', id: 'log_in_form_button' 
+                  
               br
-              .input-group
-                span class="input-group-addon" 
-                  i class= 'fa fa-key'
-                = f.input_field :password, placeholder: 'Password', autocomplete: :off
+              .sexy_line
               br
-              = f.input :remember_me, as: :boolean, input_html: { value: '1' }
+              h4 Continue with your favorite network
+              '
+              .social-icons
+                .social-icon
+                  = link_to "/auth/twitter" do
+                    .twitter-icon
+                    'Twitter
+                .social-icon
+                  = link_to  "/auth/facebook" do
+                    .facebook-icon
+                    'Facebook 
+                .social-icon
+                  = link_to "/auth/linkedin" do
+                    .linkedin-icon
+                    'Linkedin
+                .social-icon
+                  = link_to  "/auth/gplus" do
+                    .google-icon
+                    'Google+ 
               .row
                 .col-sm-12
                   .pull-right
-          
-                    = link_to "Forgot Password?", new_password_reset_path, class: 'btn btn-default'
-                    '&nbsp;
-                    = f.submit 'Log in', class: 'btn btn-primary', id: 'log_in_form_button' 
-                
-            br
-            .sexy_line
-            br
-            h4 Continue with your favorite network
-            '
-            .social-icons
-              .social-icon
-                = link_to "/auth/twitter" do
-                  .twitter-icon
-                  'Twitter
-              .social-icon
-                = link_to  "/auth/facebook" do
-                  .facebook-icon
-                  'Facebook 
-              .social-icon
-                = link_to "/auth/linkedin" do
-                  .linkedin-icon
-                  'Linkedin
-              .social-icon
-                = link_to  "/auth/gplus" do
-                  .google-icon
-                  'Google+ 
-          .row
-            .col-sm-12
-              .pull-right
-                = link_to signup_index_path do
-                  .btn.btn-warning
-                    i class="fa fa-key"
-                    '&nbsp;
-                    'Sign up
-              
-            
-          
-          
-          
-          
-          /.row
-          /  .col-sm-12
-          /    br
-          /    .sexy_line
-          /    br
-          /    .pull-right
-          /      = link_to "Sign Up", signup_index_path, class: 'btn btn-warning'
-          /      '&nbsp;
-          /      = link_to "Forgot Password?", new_password_reset_path, class: 'btn btn-default'
-          /      '&nbsp;
-      .col-sm-3
-        //!--
-        /  Below we include the Login Button social plugin. This button uses
-        /  the JavaScript SDK to present a graphical Login button that triggers
-        /  the FB.login() function when clicked.
-        /
-        /fb:login-button scope="public_profile,email" onlogin="checkLoginState();"
-        /
-        /
-        /div id="status"
-        /
-        /.btn.btn-default id="login_with_facebook"  onlogin="checkLoginState();"
-        /  'login
-        /
+                    = link_to signup_index_path do
+                      .btn.btn-warning
+                        i class="fa fa-key"
+                        '&nbsp;
+                        'Sign up
+

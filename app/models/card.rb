@@ -21,15 +21,17 @@ class Card < ActiveRecord::Base
   private
 
   def purchase_options
+    account = self.registration.account
     {
+      
         ip: ip_address,
         billing_address: {
-            name:      "Flaying Cakes",
-            address1:  "123 5th Av.",
-            city:      "New York",
-            state:     "NY",
-            country:   "US",
-            zip:       "10001"
+            name:      registration.company,
+            address1:  registration.address1,
+            city:      registration.city,
+            state:     registration.state,
+            country:   registration.country,
+            zip:       registration.zip
         }
     }
   end
@@ -44,7 +46,7 @@ class Card < ActiveRecord::Base
 
   def credit_card
     @credit_card ||= ActiveMerchant::Billing::CreditCard.new(
-        type:                card_type,
+        brand:               card_type,
         number:              card_number,
         verification_value:  card_verification,
         month:               card_expires_on.month,

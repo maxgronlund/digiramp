@@ -15,12 +15,14 @@
     .container-fluid   
       .row
         .col-sm-6   
-          h3 
-            'Sign up for a #{@account_type} account
+          h3 Sign up for a #{@account_features.account_type} account
+          b 
+            'Price:&nbsp;
+            = number_to_currency( @account_features.subscription_fee )
         .col-sm-6
           .pull-right
             .recording-navigation
-              => link_to root_path do
+              => link_to user_user_plans_path(@user) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;
@@ -29,7 +31,7 @@
       .sexy_line
       
       .digi-box
-        = simple_form_for [@registration] do |f|
+        = simple_form_for [ :user, @user, @registration] do |f|
           - if @registration.errors.any?
             #error_explanation
               h2
@@ -68,6 +70,9 @@
             .col-sm-6
               'Billing info
               = f.hidden_field :account_id, value: @account.id
+              = f.hidden_field :account_type, value: @registration.account_type
+              = f.hidden_field :description, value: @registration.description
+              = f.hidden_field :subscription_fee, value: @registration.subscription_fee
               .field
                 = f.input :full_name
               .field
@@ -119,3 +124,9 @@
                     $("form#new_registration").submit ->
                       $(this).find('input[type=submit]').attr('disabled', 'disabled')
                       $(this).find('input[type=submit]').val "Submitting, please wait ..."
+
+
+
+
+    = debug @registration
+
