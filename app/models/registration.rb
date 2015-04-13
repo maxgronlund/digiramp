@@ -16,7 +16,7 @@ class Registration < ActiveRecord::Base
         cmd:          "_xclick",
         upload:       1,
         return:       "#{ENV["APP_HOST"]}#{return_path}.pdf",
-        invoice:      id + 12345,
+        invoice:      id + 22345,
         amount:       self.subscription_fee,
         item_name:    self.account_type + ' account subscription',
         item_number:  item_number,

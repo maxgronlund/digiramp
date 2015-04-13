@@ -16,7 +16,7 @@ class Card < ActiveRecord::Base
     response = GATEWAY.purchase(price_in_cents, credit_card, purchase_options)
     create_card_transaction(action: "purchase", amount: price_in_cents, response: response)
     if response.success?
-      notification_params = { "invoice"       => (registration.id + 12345), 
+      notification_params = { "invoice"       => (registration.id + 22345), 
                               "first_name"    => registration.full_name,
                               "quantity"      => registration.quantity,
                               "mc_gross"      => registration.subscription_fee,

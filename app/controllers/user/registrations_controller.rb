@@ -111,7 +111,7 @@ class User::RegistrationsController < ApplicationController
     params.permit! # Permit all Paypal input params
     status = params[:payment_status]
     if status == "Completed"
-      @registration = Registration.find( params[:invoice].to_i - 12345 )
+      @registration = Registration.find( params[:invoice].to_i - 22345 )
       @registration.update_attributes( notification_params: params, status: status, transaction_id: params[:txn_id], purchased_at: Time.now )
       @registration.account.update_expiration_date
     end
