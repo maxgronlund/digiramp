@@ -14,7 +14,7 @@ class ContactInvitationsController < ApplicationController
   def decline_invitation
 
     if @client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
-      #ap @client_invitation
+
       @message = validate_invitation( @client_invitation ) 
     else
       @message = 'Error: Invitation do not exists?'
@@ -34,7 +34,7 @@ class ContactInvitationsController < ApplicationController
    # linked to from email
   def decline_all_from_digiramp
     if client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
-      #ap client_invitation
+
     end
   end
   
@@ -87,7 +87,7 @@ class ContactInvitationsController < ApplicationController
   
   # filling in the form and accepting the connection
   def signup
-    #ap params
+
     if PasswordValidator.validate( params[:client][:password], params[:client][:password_confirmation])
       message = sign_up_with_valid_password( params )
       if message == 'Success'
@@ -223,8 +223,7 @@ private
     
 
     if @user.save
-      #ap @user
-      # create account
+
       @account                        = User.create_a_new_account_for_the @user
       @account.title                  = client.company if client.company.to_s != ''
       @account.account_type           = 'Social'

@@ -12,7 +12,6 @@ class SessionsController < ApplicationController
       log_in_up_or_sign_up_with_omniauth env
 
     #elsif params[:provider] == 'facebook'
-    #  ap '======================= BANG ================================='
     #  @facebook_cookies ||= Koala::Facebook::OAuth.new(FACEBOOK_CONFIG['app_id'], FACEBOOK_CONFIG['secret_key']).get_user_info_from_cookie(cookies)
     #  @graph = Koala::Facebook::API.new(@facebook_cookies['access_token'])
     #  ap @graph.get_object("me")

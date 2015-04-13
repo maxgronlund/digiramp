@@ -12,7 +12,7 @@ class Account::RecordingLyricsController < ApplicationController
 
 
   def update
-    ap params
+
     forbidden unless current_account_user.update_recording?
     go_to = params[:recording][:next_step]
     params[:recording].delete :next_step

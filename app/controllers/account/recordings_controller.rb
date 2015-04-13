@@ -63,7 +63,7 @@ class Account::RecordingsController < ApplicationController
   
   def create
     
-    ap params
+
     forbidden unless current_account_user.create_recording?
 
     result = TransloaditRecordingsParser.parse( params[:transloadit],  @account.id, false, @account.user_id)

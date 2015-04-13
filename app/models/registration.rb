@@ -9,19 +9,19 @@ class Registration < ActiveRecord::Base
   def paypal_url(return_path)
     item_number = 0
     if account_feature = AccountFeature.where(account_type: self.account_type).first
-      item_number = account_feature.id
+      item_number = account_feature.id + 1
     end
     values = {
-        business: "max-facilitator@pixelsonrails.com",
-        cmd: "_xclick",
-        upload: 1,
-        return: "#{ENV["APP_HOST"]}#{return_path}.pdf",
-        invoice: id + 12345,
-        amount:       account.subscribtion_price,
-        item_name:    account_type + ' account subscription',
+        business:     "max-facilitator@pixelsonrails.com",
+        cmd:          "_xclick",
+        upload:       1,
+        return:       "#{ENV["APP_HOST"]}#{return_path}.pdf",
+        invoice:      id + 12345,
+        amount:       self.subscription_fee,
+        item_name:    self.account_type + ' account subscription',
         item_number:  item_number,
-        quantity: 1,
-        notify_url: "#{ENV["APP_HOST"]}/user/users/#{account.user.slug}/hook"
+        quantity:     self.quantity,
+        notify_url:  "#{ENV["APP_HOST"]}/user/users/#{account.user.slug}/hook"
     }
     "#{ENV["PAYPAL_HOST"]}/cgi-bin/webscr?" + values.to_query
   end
@@ -30,10 +30,7 @@ class Registration < ActiveRecord::Base
     if card.nil? then "paypal"; else "card"; end
   end
   
-  
-  
 
-  
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end

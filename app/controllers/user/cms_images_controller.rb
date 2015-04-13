@@ -8,7 +8,7 @@ class User::CmsImagesController < ApplicationController
 
 
   def update
-    ap params
+
     cms_section           = @cms_image.cms_section
     cms_section.position = params[:cms_image][:position]
     cms_section.save!

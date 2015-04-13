@@ -15,8 +15,7 @@ class CommonWorksImport < ActiveRecord::Base
   
   
   def parse_common_works
-    ap '------------------'
-    ap 'parse_common_works'
+
     self.imported_works = 0
     
     self.params.each do |param|

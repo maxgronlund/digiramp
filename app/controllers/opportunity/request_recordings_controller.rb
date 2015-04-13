@@ -4,7 +4,7 @@ class Opportunity::RequestRecordingsController < ApplicationController
   before_filter :access_opportunity
   
   def index
-    ap params
+
 
     @opportunity          = Opportunity.cached_find(params[:opportunity_id])
     @music_request        = MusicRequest.cached_find(params[:music_request_id])

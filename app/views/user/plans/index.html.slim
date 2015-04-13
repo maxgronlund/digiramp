@@ -11,7 +11,6 @@
     .container-fluid
       h2 Plans
       .sexy_line
-
       - @account_features.each do |account_feature|
         .digi-box
           .row
@@ -19,9 +18,16 @@
               - unless  account_feature.account_type == 'Enterprise'
                 .row
                   .col-sm-8
-                    h3  = account_feature.account_type + ' account: '
-                    b = simple_format account_feature.description
-                      
+                    .help
+                      .help-text
+                        - if @current_account_type == account_feature.account_type
+                          h3 class="green-text"  = '√ ' + account_feature.account_type + ' account: '
+                        - else 
+                          h3  = account_feature.account_type + ' account: '
+                        
+                      .help-button
+                        == render 'admin/helps/help', identifier: "user plan #{account_feature.account_type}"
+                     
                   .col-sm-4.pull-down-10
                     .pull-right
                       - if account_feature.account_type == 'Social'
@@ -37,7 +43,7 @@
                           /- else
                           /  .btn.btn-success
                           /    'Select
-                
+                = simple_format account_feature.description 
                 .sexy_line
                 .row
                   .col-sm-6

@@ -38,71 +38,97 @@
       .users.digi-box
         .table-responsive
           table class="table table-hover"
-            -@accounts.order('lower(title) ASC').each do |account|
-              tr id="delete_account_#{account.id.to_s}"
-                td
-                  / delete
-                  = link_to admin_account_path( account ), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do 
-                    - unless account.user && account.user.role == 'Super'
-                      .btn.btn-danger.btn-xs
-                        i class="fa fa-times"
-                    -else 
-                      .btn.btn-danger.btn-xs disabled="disabled"
-                        i class="fa fa-times"
-                  '&nbsp;
-                  / edit
-                  = link_to edit_admin_account_path( account ) do
-                    .btn.btn-default.btn-xs
-                      i class="fa fa-pencil"
-                      '&nbsp;Edit
-                  '&nbsp;
-                  / edit
-                  = link_to admin_account_path( account ) do
-                    .btn.btn-default.btn-xs
-                      i class="fa fa-bar-chart"
-                  '&nbsp;
-                      
-                  / dashboard
-                  = link_to account_account_path( account ) do
-                    .btn.btn-default.btn-xs
-                      i class="fa fa-tachometer"
-                  
-                  '&nbsp;
-                  / user
-                  - if account.account_owner
-                    = link_to user_path(account.account_owner) do 
+            thead
+              tr
+                th Account
+                th
+                th
+                th Type
+                th Expires
+                th 
+                
+            tbody
+              - @accounts.order('lower(title) ASC').each do |account|
+                tr id="delete_account_#{account.id.to_s}"
+                  th = account.title
+                    
+                  td
+                    = link_to admin_account_path( account ) do
                       .btn.btn-default.btn-xs
-                        i class="fa fa-user"
-
-                  - else
-                    .btn.btn-default.btn-xs.btn-warning
-                      i class="fa fa-exclamation-triangle"
+                        i class="fa fa-info"
+                    '&nbsp;
+                        
+                    / dashboard
+                    /= link_to account_account_path( account ) do
+                    /  - if account.account_type == 'Social'
+                    /     div class="btn btn-default btn-xs" disabled="disabled"
+                    /       i class="fa fa-tachometer"
+                    /  - else
+                    /    .btn.btn-default.btn-xs
+                    /      i class="fa fa-tachometer"
+                    /
+                    /'&nbsp;
+                    // user
+                    - if account.account_owner
+                      = link_to user_path(account.account_owner) do 
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-user
+                          '&nbsp;
+                          = account.account_owner.user_name
+              
+                    - else
+                      .btn.btn-default.btn-xs.btn-warning
+                        i class="fa fa-exclamation-triangle"
+                    
+                    /'&nbsp; 
+                    // front page     
+                    /= link_to account.title, account, class: 'btn btn-default btn-xs'
+                    
                   
-                  '&nbsp; 
-                  / front page     
-                  = link_to account.title, account, class: 'btn btn-default btn-xs'
                   
-                
-                
-                td 
-                  .pull-right
+                  td 
                     - if account.special_subscription_fee
                       i.fa.fa-money 
                       '&nbsp;
-                    = account.account_type
-                td
-                  - unless account.account_type == 'Social'
-                    - if account.expiration_date.nil?
-                      .expired
-                        i class="fa fa-exclamation-circle"
-                    - elsif account.expiration_date < Date.current
-                      .expired
-                        i class="fa fa-exclamation-circle"
-                        '&nbsp;
+                  td
+                    - if account.account_type == 'Social'
+                      = account.account_type
+                    - else
+                      = link_to account_account_path( account ) do
+                        .btn.btn-default.btn-xs
+                          i class="fa fa-tachometer"
+                          =< account.account_type
+                  td
+                    - if account.account_type == 'Social'
+                      '&nbsp;
+                    - else
+                      - if account.expiration_date.nil?
+                        .expired
+                          i class="fa fa-exclamation-circle"
+                      - elsif account.expiration_date < Date.current
+                        .expired
+                          i class="fa fa-exclamation-circle"
+                          '&nbsp;
+                          = account.expiration_date
+                      - else
                         = account.expiration_date
-                    
-                        
-                
+                  td
+                    .pull-right
+                      => link_to edit_admin_account_path( account ) do
+                        .btn.btn-default.btn-xs
+                          i class="fa fa-pencil"
+                          '&nbsp;Edit
+                      
+                      = link_to admin_account_path( account ), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do 
+                        - unless account.user && account.user.role == 'Super'
+                          .btn.btn-danger.btn-xs
+                            i class="fa fa-times"
+                        -else 
+                          .btn.btn-danger.btn-xs disabled="disabled"
+                            i class="fa fa-times"
+                      
+                          
+                  
         .sexy_line
         == paginate(@accounts)        
             

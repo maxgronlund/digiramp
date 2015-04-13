@@ -33,7 +33,7 @@ class RegistrationsController < ApplicationController
           redirect_to @registration.paypal_url(registration_path(@registration))
         when "card"
           if @registration.card.purchase
-            ap registration_path(@registration)
+            #ap registration_path(@registration)
             redirect_to registration_path(@registration), notice: @registration.card.card_transaction.message
           else
             registration_path(@registration)

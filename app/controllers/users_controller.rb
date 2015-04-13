@@ -140,9 +140,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    ap '--------------------------------------------------------'
-    ap params
-    ap '--------------------------------------------------------'
+    #ap '--------------------------------------------------------'
+    #ap params
+    #ap '--------------------------------------------------------'
     session[:show_profile_completeness] = true
     params[:user][:role]                = 'Customer'
     params[:user][:show_introduction]   = true

@@ -19,13 +19,17 @@
         .col-sm-6
           .pull-right
             .recording-navigation
-              => link_to root_path do
+              => link_to user_user_control_panel_index_path(@user) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;
                   'Back
 
       .sexy_line
+      - if notice
+        .alert.alert-info
+          = notice
+
       
       .digi-box
         .table-responsive
@@ -33,6 +37,7 @@
             thead
               tr
                 th Invoice #
+                th Status
                 th Date
                 th Amount
                 th 
@@ -43,9 +48,10 @@
               - @registrations.each do |registration|
                 - if notification_params = registration[:notification_params]
                   tr
-                    td = notification_params[:invoice]
+                    td = notification_params["invoice"]
+                    td = registration.status
                     td = registration[:purchased_at].to_formatted_s(:month_date_and_year) if registration[:purchased_at]
-                    td = number_to_currency(notification_params[:payment_gross])
+                    td = number_to_currency(notification_params["payment_gross"])
                     td 
                       .pull-right
                         = link_to user_user_registration_path(@user, registration, :format => 'pdf') do

@@ -8,14 +8,28 @@ class Card < ActiveRecord::Base
   before_create :validate_card
 
   def purchase
+    subscription_fee = 0.0
+    #if account_features = AccountFeature.where(account_type: registration.account_type).first
+    #  subscription_fee = account_features.subscription_fee
+    #end
+    
     response = GATEWAY.purchase(price_in_cents, credit_card, purchase_options)
     create_card_transaction(action: "purchase", amount: price_in_cents, response: response)
-    registration.update_attribute(:purchased_at, Time.now) if response.success?
+    if response.success?
+      notification_params = { "invoice"       => (registration.id + 12345), 
+                              "first_name"    => registration.full_name,
+                              "quantity"      => registration.quantity,
+                              "mc_gross"      => registration.subscription_fee,
+                              "payment_gross" => registration.subscription_fee * registration.quantity
+      
+                            }
+      registration.update_attributes(purchased_at: Time.now, notification_params: notification_params, status: 'Completed') 
+    end
     response.success?
   end
 
   def price_in_cents
-    (registration.account.subscribtion_price*100).round
+    ( registration.subscription_fee * 100 ).round
   end
 
   private

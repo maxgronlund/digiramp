@@ -25,7 +25,7 @@ class User::CommonWorkCreditsController < ApplicationController
   end
 
   def update
-    ap params
+
     @recording    = Recording.cached_find(params[:recording_id])
     params.delete :recording_id
     
@@ -41,7 +41,7 @@ class User::CommonWorkCreditsController < ApplicationController
   end
   
   def create
-    ap params
+
   end
 
   def delete

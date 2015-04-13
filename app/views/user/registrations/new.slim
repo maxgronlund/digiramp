@@ -29,7 +29,9 @@
                   'Back
 
       .sexy_line
-      
+      - if alert
+        .alert.alert-danger
+          = alert
       .digi-box
         = simple_form_for [ :user, @user, @registration] do |f|
           - if @registration.errors.any?
@@ -49,14 +51,14 @@
                 = label_tag :payment_method
                 
                 .row.
-                  .col-sm-6
-                    = radio_button_tag :payment_method, "card", checked: true
-                    '&nbsp;
-                    = image_tag "credit-card.jpg", style: "max-width: 100px;"
                   .col-sm-6.pull-down-12
                     = radio_button_tag :payment_method, "paypal"
                     '&nbsp;
                     = image_tag "paypal-logo.svg"
+                  .col-sm-6
+                    = radio_button_tag :payment_method, "card", checked: true
+                    '&nbsp;
+                    = image_tag "credit-card.jpg", style: "max-width: 100px;"
             
             
                 coffee:
@@ -69,10 +71,13 @@
           .row
             .col-sm-6
               'Billing info
-              = f.hidden_field :account_id, value: @account.id
-              = f.hidden_field :account_type, value: @registration.account_type
-              = f.hidden_field :description, value: @registration.description
-              = f.hidden_field :subscription_fee, value: @registration.subscription_fee
+              = f.hidden_field :account_id,           value: @account.id
+              = f.hidden_field :account_type,         value: @registration.account_type
+              = f.hidden_field :description,          value: @registration.description
+              = f.hidden_field :subscription_fee,     value: @registration.subscription_fee
+              = f.hidden_field :expiration_date,      value: @registration.expiration_date
+              = f.hidden_field :quantity,             value: @registration.quantity
+              = f.hidden_field :status,               value: @registration.status
               .field
                 = f.input :full_name
               .field
@@ -128,5 +133,5 @@
 
 
 
-    = debug @registration
+    /= debug @registration
 

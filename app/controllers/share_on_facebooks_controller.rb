@@ -101,7 +101,7 @@ class ShareOnFacebooksController < ApplicationController
     
     recording  = Recording.cached_find(params[:recording_id])
     user = current_user
-    ap user
+
     
     message    = ''
     if session[:message]  

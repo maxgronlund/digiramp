@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150412174056) do
+ActiveRecord::Schema.define(version: 20150413084337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2497,6 +2497,8 @@ ActiveRecord::Schema.define(version: 20150412174056) do
     t.string   "account_type"
     t.text     "description",         default: ""
     t.decimal  "subscription_fee"
+    t.integer  "quantity",            default: 1
+    t.date     "expiration_date"
   end
 
   add_index "registrations", ["account_id"], name: "index_registrations_on_account_id", using: :btree

@@ -133,17 +133,24 @@ class Account < ActiveRecord::Base
   
   before_destroy :destroy_unlocked_creative_projects
   
-  def subscribtion_price
-    
-    ap self.account_type
-    
-    if account_feature = AccountFeature.where(account_type: self.account_type).first
-      return account_feature.subscription_fee
-    else
-      return 0
+  def update_expiration_date
+    if last_registration = self.registrations.last
+      self.expiration_date = last_registration.expiration_date
+      save!
     end
-    
   end
+  
+  #def subscribtion_price
+  #  
+  #  ap self.account_type
+  #  
+  #  if account_feature = AccountFeature.where(account_type: self.account_type).first
+  #    return account_feature.subscription_fee
+  #  else
+  #    return 0
+  #  end
+  #  
+  #end
   
   def destroy_unlocked_creative_projects
     creative_projects = self.creative_projects.where(locked: false)

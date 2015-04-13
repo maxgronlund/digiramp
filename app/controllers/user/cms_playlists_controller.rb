@@ -7,8 +7,7 @@ class User::CmsPlaylistsController < ApplicationController
   end
   
   def update
-    ap params
-    ap @user
+
     cms_section           = @cms_playlist.cms_section
     cms_section.position = params[:cms_playlist][:position]
     cms_section.save!

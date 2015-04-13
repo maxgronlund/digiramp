@@ -85,6 +85,6 @@ class User::CreativeProjectResourcesController < ApplicationController
       @creative_project           = CreativeProject.cached_find(params[:creative_project_id])
       @creative_project_user      = CreativeProjectUser.where(creative_project_id: @creative_project.id, user_id: current_user.id).first
       
-      ap @creative_project_user
+
     end
 end

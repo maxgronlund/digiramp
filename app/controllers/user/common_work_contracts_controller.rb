@@ -47,7 +47,6 @@ class User::CommonWorkContractsController < ApplicationController
     contract = Contract.cached_find(params[:id])
     @contract_id = contract.id
     contract.destroy!
-    ap params
   end
   
 private 

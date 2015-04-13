@@ -37,7 +37,7 @@ class User::CmsPagesController < ApplicationController
   end
 
   def create
-    ap params
+
     @cms_page = CmsPage.create(cms_page_params)
     redirect_to edit_user_user_cms_page_path(@user, @cms_page)
 

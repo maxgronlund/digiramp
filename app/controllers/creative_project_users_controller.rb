@@ -3,13 +3,13 @@ class CreativeProjectUsersController < ApplicationController
 
 
   def new
-    ap params
+   
 
     
     @creative_project         = CreativeProject.cached_find(params[:creative_project_id])
     @user                     = @creative_project.user
     @creative_project_role    = CreativeProjectRole.cached_find(params[:creative_project_role_id])
-    ap @creative_project_role
+
     role_to_messages = {writer:                         " as a writer.",
                         composer:                       " as a composer.",
                         musician:                       " as a musician.",

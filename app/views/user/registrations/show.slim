@@ -48,14 +48,25 @@ main
     thead
       tr
         th.service SERVICE
-        th.desc DESCRIPTION
+        th.desc PERIOD
         th PRICE
         th QTY
         th TOTAL
     tbody
       tr
-        td.service = @registration.account_type
-        td.desc = simple_format @registration.description
+        td.service 
+          = @registration.account_type
+          '&nbsp;account subscription for
+          br
+          = @registration.account.title
+          
+        td.desc 
+          'From&nbsp;
+          = @registration.expiration_date - 1.months
+          '&nbsp;to&nbsp;
+          = @registration.expiration_date
+          
+          /= @registration.description
         td.unit = number_to_currency(@registration.subscription_fee)
         td.qty = @quantity
         td.total = number_to_currency( @mc_gross )

@@ -18,8 +18,8 @@ class Catalog::FindInCollectionsController < ApplicationController
   end
   
   def create
-    ap params[:recording][:recording_id]
-    ap params[:recording][:catalog_id]
+
+
     
     forbidden unless current_catalog_user.create_recording?
     if @recording = Recording.cached_find(params[:recording][:recording_id])
