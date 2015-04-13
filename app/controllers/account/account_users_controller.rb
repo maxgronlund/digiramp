@@ -12,7 +12,7 @@ class Account::AccountUsersController < ApplicationController
     @user       = current_user
     @authorized = true
     
-    @pro_user_subscribtions = @account.pro_user_subscribtions
+    @subscriptions = @account.subscriptions
     
     #forbidden unless current_account_user && current_account_user.read_user
   end

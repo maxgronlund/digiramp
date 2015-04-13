@@ -30,6 +30,10 @@ class Registration < ActiveRecord::Base
     if card.nil? then "paypal"; else "card"; end
   end
   
+  def self.get_new_invoice_id
+    Registration.last.nil? ? 22346 : Registration.last.id + 22346 
+  end
+  
 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }

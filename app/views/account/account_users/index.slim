@@ -52,23 +52,23 @@
           .col-sm-4.pull-down-10
             - if current_account_user.createx_user
               .pull-right
-                = link_to new_account_account_pro_user_subscribtion_path(@account) do
+                = link_to new_account_account_subscription_path(@account) do
                   .btn.btn-primary
                     i class="fa fa-plus-circle"
                     '&nbsp;Add subscribtion
         .digi-box
         
-          - @pro_user_subscribtions.each do |pro_user_subscribtion|
+          - @subscriptions.each do |subscription|
             .row
               .col-sm-4
-                -if user = pro_user_subscribtion.user
+                -if user = subscription.user
                   = link_to user.user_name, user, class: 'btn btn-default'
               .col-sm-4
-                = pro_user_subscribtion.email
+                = subscription.email
               .col-sm-4
                 .pull-right
-                  => link_to 'Edit', edit_account_account_pro_user_subscribtion_path(@account, pro_user_subscribtion), class: 'btn btn-default'
-                  = link_to  account_account_pro_user_subscribtion_path(@account, pro_user_subscribtion), data: {:confirm => 'Are you sure?'}, turboboost: true, :method => :delete do
+                  => link_to 'Edit', edit_account_account_subscription_path(@account, subscription), class: 'btn btn-default'
+                  = link_to  account_account_subscription_path(@account, subscription), data: {:confirm => 'Are you sure?'}, turboboost: true, :method => :delete do
                     .btn.btn-danger
                       i.fa.fa-times
             .sexy_line

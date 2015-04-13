@@ -410,7 +410,7 @@ Digiramp::Application.routes.draw do
     end
 
     resources :accounts do
-      resources :pro_user_subscribtions, only: [:new, :edit, :update, :create, :destroy]
+      resources :subscriptions, only: [:new, :edit, :update, :create, :destroy]
       resources :recording_departures
       resources :attachments, only: [:destroy]
       member do

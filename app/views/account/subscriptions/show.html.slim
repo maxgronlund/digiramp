@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Email:
+  = @pro_user_subscribtion.email
+p
+  strong User:
+  = @pro_user_subscribtion.user
+p
+  strong Account:
+  = @pro_user_subscribtion.account
+
+= link_to 'Edit', edit_pro_user_subscribtion_path(@pro_user_subscribtion)
+'|
+= link_to 'Back', pro_user_subscribtions_path

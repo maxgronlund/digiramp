@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413144339) do
+ActiveRecord::Schema.define(version: 20150413200534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2288,17 +2288,6 @@ ActiveRecord::Schema.define(version: 20150413144339) do
     t.datetime "updated_at"
   end
 
-  create_table "pro_user_subscribtions", force: true do |t|
-    t.string   "email"
-    t.integer  "user_id"
-    t.integer  "account_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "pro_user_subscribtions", ["account_id"], name: "index_pro_user_subscribtions_on_account_id", using: :btree
-  add_index "pro_user_subscribtions", ["user_id"], name: "index_pro_user_subscribtions_on_user_id", using: :btree
-
   create_table "project_tasks", force: true do |t|
     t.integer  "project_id"
     t.integer  "user_id"
@@ -2634,6 +2623,19 @@ ActiveRecord::Schema.define(version: 20150413144339) do
   end
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
+
+  create_table "subscriptions", force: true do |t|
+    t.string   "email"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "months"
+    t.string   "account_type"
+  end
+
+  add_index "subscriptions", ["account_id"], name: "index_subscriptions_on_account_id", using: :btree
+  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
   create_table "system_settings", force: true do |t|
     t.integer  "recording_artwork_id"

@@ -1,0 +1,18 @@
+= simple_form_for [:account, @account, @subscription] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :email
+    .row
+      .col-sm-6
+        = f.input :months
+      .col-sm-6
+        = @account_feature.subscription_fee 
+    /= f.association :user
+    = f.hidden_field :account_id, value: @account.id
+
+  .form-actions
+    .row
+      .col-sm-12
+        .pull-right
+          = f.submit 'Save', class: 'btn btn-primary'
