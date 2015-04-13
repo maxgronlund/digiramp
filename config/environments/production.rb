@@ -87,9 +87,20 @@ Digiramp::Application.configure do
   # config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
-
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test  # :production when you will use a real Pro Account
+    ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+      login: ENV["PAYPAL_login"],
+      password: ENV["APP_PASSWORD"],
+      signature: ENV["PAYPAL_SIGNATURE"]
+    )
+  end
   
 end
+
+    
+   
+
 
 
 ActionMailer::Base.smtp_settings = {
