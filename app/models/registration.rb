@@ -12,7 +12,7 @@ class Registration < ActiveRecord::Base
       item_number = account_feature.id + 1
     end
     values = {
-        business:     "max-facilitator@pixelsonrails.com",
+        business:     "max@pixelsonrails.com",
         cmd:          "_xclick",
         upload:       1,
         return:       "#{ENV["APP_HOST"]}#{return_path}.pdf",
