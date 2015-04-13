@@ -88,7 +88,7 @@ Digiramp::Application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
   config.after_initialize do
-    ActiveMerchant::Billing::Base.mode = :test  # :production when you will use a real Pro Account
+    ActiveMerchant::Billing::Base.mode = :production  
     ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
       login: ENV["PAYPAL_login"],
       password: ENV["APP_PASSWORD"],
