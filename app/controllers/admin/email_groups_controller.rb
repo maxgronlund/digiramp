@@ -8,7 +8,6 @@ class Admin::EmailGroupsController < ApplicationController
               .first_or_create(  title: 'Opportunities', 
                                 identifier: 'opportunities',
                                 uuid: UUIDTools::UUID.timestamp_create().to_s,
-                                subscripeable: true,
                                 body: 'Get notified when new opportunities are posted on DigiRAMP',
                                 subscripeable: true)
     

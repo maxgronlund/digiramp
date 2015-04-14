@@ -36,9 +36,9 @@ Digiramp::Application.configure do
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :test  # :production when you will use a real Pro Account
     ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
-      login: ENV["PAYPAL_login"],
-      password: ENV["APP_PASSWORD"],
-      signature: ENV["PAYPAL_SIGNATURE"]
+      login:      ENV["PAYPAL_login"],
+      password:   ENV["APP_PASSWORD"],
+      signature:  ENV["PAYPAL_SIGNATURE"]
     )
   end
   
