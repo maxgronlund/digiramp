@@ -92,7 +92,7 @@
         /.user-profile
         
         
-        - if @user.country.to_s != ''
+        - if @user.country.to_s != '' || @user.city.to_s != ''
           .location
             = @user.city
             - if c = Country.find_country_by_alpha2(@user.country)
