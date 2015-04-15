@@ -94,8 +94,10 @@
         
         - if @user.country.to_s != ''
           .location
-            - c = Country.find_country_by_alpha2(@user.country)
-            = " #{@user.city}, #{c.name}"
+            = @user.city
+            - if c = Country.find_country_by_alpha2(@user.country)
+              '&nbsp;,
+              = c.name
         
         i
           'Member since:
