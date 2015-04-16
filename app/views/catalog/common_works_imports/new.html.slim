@@ -5,7 +5,7 @@
   .catalog
     #sidebar-wrapper
       ul class="sidebar-nav"
-        == render 'catalog/catalogs/sidebar', selected: 'info'
+        == render 'catalog/catalogs/sidebar', selected: 'common_work'
 
 
   #page-content-wrapper
@@ -24,6 +24,11 @@
               
         .col-sm-4
           .pull-right.pull-down-10
+             = link_to  catalog_account_catalog_add_common_works_path(@account, @catalog) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
             
             
      

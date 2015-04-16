@@ -36,6 +36,10 @@ module Digiramp
     config.autoload_paths += %W(#{config.root}/app/workers)
     
     Koala.config.api_version = 'v2.2'
+    
+    # prepare for rails 5
+    config.active_record.raise_in_transactional_callbacks = true
+    
 
   end
 end

@@ -51,7 +51,7 @@ class Ipi < ActiveRecord::Base
   def add_uuid
     if self.uuid.to_s == ''
       self.uuid = UUIDTools::UUID.timestamp_create().to_s
-      self.save!
+      self.save!(validate: false)
     end
   end
   

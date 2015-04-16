@@ -21,7 +21,7 @@ class CommonWorksImport < ActiveRecord::Base
     self.params.each do |param|
       ap param
       
-      begin
+      #begin
         common_work = CommonWork.where( ascap_work_id:  param[:ascap_work_id].to_i,
                                         account_id:     self.account_id
                                       )
@@ -56,7 +56,7 @@ class CommonWorksImport < ActiveRecord::Base
           end
           common_work.work_type                             = details["Work Type"]
           common_work.composite_type                        = details["Composite Type"]
-          common_work.arrangement     = details["Arrangement of Public Domain Work"]
+          common_work.arrangement                           = (details["Arrangement of Public Domain Work"] != 'N')
         end
           
         # save
@@ -75,12 +75,17 @@ class CommonWorksImport < ActiveRecord::Base
         # add to catalog
         add_to_catalog common_work, self.catalog_id
         ap common_work
-      rescue
-        puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-        puts 'ERROR: Unable to parse ascap common work:' 
-        puts 'In CommonWorksImport#parse_common_works'
-        puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-      end
+      #rescue => e
+      #  
+      #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+      #  puts 'ERROR: Unable to parse ascap common work:' 
+      #  puts 'In CommonWorksImport#parse_common_works'
+      #  puts e.message
+      #  puts '.'
+      #  puts e.backtrace.inspect  
+      #  puts '.'
+      #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+      #end
     end
     # not in progress any more
     self.in_progress = false
@@ -138,7 +143,7 @@ class CommonWorksImport < ActiveRecord::Base
       ipi.linked_to_ascap_member    = ipi_scrape[:linked_to_ascap_member]
       ipi.controlled_by_submitter   = ipi_scrape[:controlled_by_submitter]
       ipi.ascap_work_id             = ascap_work_id
-      ipi.save!
+      ipi.save!(:validate => false)
       #puts '+++++++++++++++++++++++ LOGGING IPI ++++++++++++++++++++++++++'
       #ap ipi
       #puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'

@@ -1,45 +1,114 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'         
-  .container
-    /==render 'admin/shared/messages'
-    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
-    .do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              }, current: 'add common work'}
-      
-      - blog = Blog.cached_find('Add Catalog Common Works')
-      == render 'shared/page_title', locals: {blog: blog, blog_post: 'IMPORT FROM ASCAP'}
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'common_work'
+
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { works: catalog_account_catalog_common_works_path(@account, @catalog),
+                                                              add: catalog_account_catalog_add_common_works_path(@account, @catalog),
+                                                              new: new_catalog_account_catalog_common_works_import_path(@account, @catalog)}, current: ''}
       .row
-        /-if current_user.can_manage 'access recordings', @account
-        - if current_account_user.create_common_work
-          .row
-            .col-sm-3
-            
-            .col-sm-6
-              .panel.panel-primary
-                .panel-heading
-                  'IMPORT FROM ASCAP
-                .panel-body
-                  = simple_form_for  [ :catalog, @account, @catalog, @common_work_import ], url: url_for(action: 'ascap_import', controller: 'common_works_imports'), method: 'post' do |f|
-                    = f.input :user_name
-                    = f.input :password
-                   
+        .col-sm-8
+          .help
+            .help-text
+               h2 Import from ASCAP
+            .help-button
+              == render 'admin/helps/help', identifier: 'import common works from ascap'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+             = link_to  new_catalog_account_catalog_common_works_import_path(@account, @catalog) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+     
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for  [ :catalog, @account, @catalog, @common_work_import ], url: url_for(action: 'ascap_import', controller: 'common_works_imports'), method: 'post' do |f|
+              = f.input :user_name
+              = f.input :password
+             
+              .row
+                .col-sm-12
+                  .pull-right
                     
-                    .pull-right
-                      
-                      = f.submit 'Start', class: 'btn btn-primary btn-lg'
-                  
-            .col-sm-3
-                                              
-  
+                    = f.submit 'Start', class: 'btn btn-primary'
+              
             
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-  
+      
+      
+        
+  == render 'shared/site_footer'   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account'         
+/  .container
+/    /==render 'admin/shared/messages'
+/    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
+/    .do
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              catalogs: catalog_account_catalogs_path(@account), \
+/                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                                              }, current: 'add common work'}
+/      
+/      - blog = Blog.cached_find('Add Catalog Common Works')
+/      == render 'shared/page_title', locals: {blog: blog, blog_post: 'IMPORT FROM ASCAP'}
+/      .row
+/        /-if current_user.can_manage 'access recordings', @account
+/        - if current_account_user.create_common_work
+/          .row
+/            .col-sm-3
+/            
+/            .col-sm-6
+/              .panel.panel-primary
+/                .panel-heading
+/                  'IMPORT FROM ASCAP
+/                .panel-body
+/                  = simple_form_for  [ :catalog, @account, @catalog, @common_work_import ], url: url_for(action: 'ascap_import', controller: 'common_works_imports'), method: 'post' do |f|
+/                    = f.input :user_name
+/                    = f.input :password
+/                   
+/                    
+/                    .pull-right
+/                      
+/                      = f.submit 'Start', class: 'btn btn-primary btn-lg'
+/                  
+/            .col-sm-3
+/                                              
+/  
+/            
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/  
   
   

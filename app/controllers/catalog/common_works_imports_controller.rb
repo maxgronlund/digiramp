@@ -8,10 +8,11 @@ class Catalog::CommonWorksImportsController < ApplicationController
                                        
                                        
   def new
+    @user = current_user
   end
   
   def create
-    
+
     @common_work_import = CommonWorksImport.create(common_work_import_params)
     
     #CommonWorksImport.post_info current_user.email, info = {start: 'starting'}
@@ -40,9 +41,11 @@ class Catalog::CommonWorksImportsController < ApplicationController
   end
 
   def select_pro
+    @user               = current_user
   end
 
   def from_ascap
+    @user               = current_user
     @common_work_import = CommonWorksImport.cached_find(params[:common_works_import_id])
     
   end
@@ -66,6 +69,7 @@ class Catalog::CommonWorksImportsController < ApplicationController
   end
 
   def from_bmi
+    @user               = current_user
     @common_work_import = CommonWorksImport.cached_find(params[:common_works_import_id])
   end
   
@@ -87,7 +91,7 @@ class Catalog::CommonWorksImportsController < ApplicationController
   end
 
   def show
-    
+    @user               = current_user
     @common_work_import = CommonWorksImport.cached_find(params[:id])
     
   end
