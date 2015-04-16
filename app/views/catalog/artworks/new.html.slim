@@ -1,42 +1,123 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .do           
-    .container
-      == render 'admin/shared/messages'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
-                                                              artwork: catalog_account_catalog_artworks_path(@account, @catalog), \
-                                                              }, current: 'upload'}
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'assets'
 
-      == render 'shared/title', locals: {title: @catalog.title, body: "UPLOAD ARTWORK"} 
-      
-      
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), 
+                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), 
+                                                              artwork: catalog_account_catalog_artworks_path(@account, @catalog),
+                                                              }, current: ''}
       .row
-        .col-sm-3
-        .col-sm-6
-          .panel.panel-primary
-            .panel-heading
-              'Select Files
-            .panel-body
-
+        .col-sm-8
+          .help
+            .help-text
+               h2 Upload files
+            .help-button
+              == render 'admin/helps/help', identifier: 'upload artwork to catalog'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+            /-if current_catalog_user.create_file
+            /
+            /  = link_to catalog_account_catalog_select_artwork_from_index_path(@account, @catalog) do
+            /    .btn.btn-default
+            /      i class="fa fa-plus-circle"
+            /      '&nbsp;
+            /      'Add artwork
+            /
+            /
+     
+      .sexy_line
+      
+      == render 'catalog/documents/navigation'
+      .pull-down-6
+        .row
+          .col-sm-8
+            .digi-box
               = simple_form_for [:catalog, @account, @catalog, @artwork],  :html => { :id => 'artwork' } do |f| 
                 = f.hidden_field :account_id, value: @account.id
                 = transloadit :image_files_to_s3 
 
                 = f.file_field :file, multiple: true
-                hr
-                .pull-right
-                  = f.submit 'Done', class: 'btn btn-primary btn-lg'
+                .row.pull-down-12
+                  .col-sm-12
+                    .pull-right
+                      = f.submit 'Done', class: 'btn btn-primary'
             
             
               = transloadit_jquerify :artwork, :wait => true
-        .col-sm-3
-          
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-              
+
+  == render 'shared/site_footer'  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .do           
+/    .container
+/      == render 'admin/shared/messages'
+/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                              catalogs: catalog_account_catalogs_path(@account), \
+/                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
+/                                                              artwork: catalog_account_catalog_artworks_path(@account, @catalog), \
+/                                                              }, current: 'upload'}
+/
+/      == render 'shared/title', locals: {title: @catalog.title, body: "UPLOAD ARTWORK"} 
+/      
+/      
+/      .row
+/        .col-sm-3
+/        .col-sm-6
+/          .panel.panel-primary
+/            .panel-heading
+/              'Select Files 
+/            .panel-body
+/
+/              = simple_form_for [:catalog, @account, @catalog, @artwork],  :html => { :id => 'artwork' } do |f| 
+/                = f.hidden_field :account_id, value: @account.id
+/                = transloadit :image_files_to_s3 
+/
+/                = f.file_field :file, multiple: true
+/                hr
+/                .pull-right
+/                  = f.submit 'Done', class: 'btn btn-primary btn-lg'
+/            
+/            
+/              = transloadit_jquerify :artwork, :wait => true
+/        .col-sm-3
+/          
+/    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/              

@@ -1,64 +1,143 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-        
-  .container
-    
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', \
-              breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                      catalogs: catalog_account_catalogs_path(@account), \
-                                      @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                      assets: catalog_account_catalog_assets_path(@account, @catalog), \
-                                      'Financial Documents'.to_sym => catalog_account_catalog_financial_documents_path(@account, @catalog ), \
-                                      }, current: 'upload'}
-    
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'common_work'
 
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Financial Documents'), blog_post: 'Upload Financial Documents'}
-    .row
-      .col-sm-3
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
+                                                              }, current: ''}
       
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            'SELECT FILE
-          .panel-body
-            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+      .row
+        .col-sm-8
+          .help
+            .help-text
+               h2 Upload financial documents
+            .help-button
+              == render 'admin/helps/help', identifier: 'upload legal documents to catalog'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+             = link_to  catalog_account_catalog_financial_documents_path(@account, @catalog) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
+            
+            
+     
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
             = simple_form_for [ :catalog, @account, @catalog, Document.new ], \
                                 :url => url_for(:action => 'create', :controller => 'catalog/financial_documents'), \
                                 :method => 'post',  \
                                 :html => { :id => 'financial_documents' } do |f| 
               = transloadit :files_to_s3 
               = f.hidden_field :account_id, value: @account.id
-              b Document
+              b Documents
               br
               = f.file_field :file, multiple: true
-              hr
-              /= f.input :document_type, collection: Document::TYPES, include_blank: false
-              /= f.input :title
-              /b Description
-              /br
-              /div id="toolbar" class="wysihtml5-toolbar"
-              /  a data-wysihtml5-command="bold" Bold
-              /  '&nbsp; 
-              /  a data-wysihtml5-command="italic" Italic
-              /
-              /=f.input :body, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
-              /
-              .pull-right
-                = f.submit 'Done', class: 'btn btn-primary btn-lg'
-            
-            
-            = transloadit_jquerify :financial_documents, :wait => true
-            
-      .col-sm-3
-    
 
-  
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-    
+            
+            
+              = transloadit_jquerify :financial_documents, :wait => true
+              .pull-down-12
+
+              .row
+                .col-sm-12
+                  .pull-right
+
+                    = f.submit 'Done', class: 'btn btn-primary'
+                    coffee:
+                      $("form#financial_documents").submit ->
+                        $(this).find('input[type=submit]').attr('disabled', 'disabled')
+                        $(this).find('input[type=submit]').val "Uploading, please wait ..."
+            
+            
+            = transloadit_jquerify :legal_documents, :wait => true
+            
+  == render 'shared/site_footer'   
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/        
+/  .container
+/    
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', \
+/              breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                      catalogs: catalog_account_catalogs_path(@account), \
+/                                      @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                      assets: catalog_account_catalog_assets_path(@account, @catalog), \
+/                                      'Financial Documents'.to_sym => catalog_account_catalog_financial_documents_path(@account, @catalog ), \
+/                                      }, current: 'upload'}
+/    
+/
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Financial Documents'), blog_post: 'Upload Financial Documents'}
+/    .row
+/      .col-sm-3
+/      
+/      .col-sm-6
+/        .panel.panel-primary
+/          .panel-heading
+/            'SELECT FILE
+/          .panel-body
+/            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+/            = simple_form_for [ :catalog, @account, @catalog, Document.new ], \
+/                                :url => url_for(:action => 'create', :controller => 'catalog/financial_documents'), \
+/                                :method => 'post',  \
+/                                :html => { :id => 'financial_documents' } do |f| 
+/              = transloadit :files_to_s3 
+/              = f.hidden_field :account_id, value: @account.id
+/              b Document
+/              br
+/              = f.file_field :file, multiple: true
+/              hr
+/              /= f.input :document_type, collection: Document::TYPES, include_blank: false
+/              /= f.input :title
+/              /b Description
+/              /br
+/              /div id="toolbar" class="wysihtml5-toolbar"
+/              /  a data-wysihtml5-command="bold" Bold
+/              /  '&nbsp; 
+/              /  a data-wysihtml5-command="italic" Italic
+/              /
+/              /=f.input :body, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+/              /
+/              .pull-right
+/                = f.submit 'Done', class: 'btn btn-primary btn-lg'
+/            
+/            
+/            = transloadit_jquerify :financial_documents, :wait => true
+/            
+/      .col-sm-3
+/    
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/    
 
 
 

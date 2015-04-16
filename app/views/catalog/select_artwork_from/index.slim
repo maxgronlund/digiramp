@@ -1,47 +1,71 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account'         
-  .container
-    /==render 'admin/shared/messages'
-    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
-    .do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
-                                                              artwork: catalog_account_catalog_artworks_path(@account, @catalog), \
-                                                              }, current: 'select'}
-      
-      - blog = Blog.cached_find('Add Catalog Common Works')
-      == render 'shared/page_title', locals: {blog: blog, blog_post: 'Add Artwork'}
-
-      .row
-        /-if current_user.can_manage 'access recordings', @account
-        - if current_catalog_user.create_artwork
-          - if current_account_user.read_artwork
-            .col-sm-6
-              == render 'shared/badge', locals: {  \
-                                                  blog: blog, \
-                                                  post: BlogPost.cached_find( "SELECT FROM COLLECTION" , blog ), \
-                                                  link: account_account_artworks_path(@account), \
-                                                  css_class: 'btn btn-primary', \
-                                                  icon: 'fa fa-archive', \
-                                                  id: 'add-common-work' \
-                                                }
-            
-          .col-sm-6
-            == render 'shared/badge', locals: {  \
-                                                blog: blog, \
-                                                post: BlogPost.cached_find( "UPLOAD" , blog ), \
-                                                link: new_catalog_account_catalog_artwork_path(@account, @catalog), \
-                                                css_class: 'btn btn-info', \
-                                                icon: 'fa fa-cloud-upload', \
-                                                id: 'add-recordings' \
-                                              }
-                                              
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
   
-            
-    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'assets'
+
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { catalog: catalog_account_catalog_path(@account, @catalog), \
+                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
+                                                              }, current: ''}
+      .row
+        .col-sm-8
+          .help
+            .help-text
+               h2 Add artwork
+            .help-button
+              == render 'admin/helps/help', identifier: 'add artwork'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+            /-if current_catalog_user.create_file
+            /
+            /  = link_to catalog_account_catalog_select_artwork_from_index_path(@account, @catalog) do
+            /    .btn.btn-default
+            /      i class="fa fa-plus-circle"
+            /      '&nbsp;
+            /      'Add artwork
+            /
+            /
+     
+      .sexy_line
+      
+      == render 'catalog/documents/navigation'
+      .pull-down-6
+        .row
+          .col-sm-4
+            .digi-box
+              h4 Option 1:
+              'Select from collection
+              .sexy_line
+              .row
+                .col-sm-12.pull-down-6
+                  .pull-right
+                    = link_to account_account_artworks_path(@account) do
+                      .btn.btn-default
+                        i.fa.fa-search
+                        '&nbsp;
+                        'Ok
+        
+          .col-sm-4
+            .digi-box
+              h4 Option 2:
+              'Upload
+              .sexy_line
+              .row
+                .col-sm-12.pull-down-6
+                  .pull-right
+                    = link_to new_catalog_account_catalog_artwork_path(@account, @catalog) do
+                      .btn.btn-default
+                        i.fa.fa-plus-circle
+                        '&nbsp;
+                        'Ok
+                        
+
+  == render 'shared/site_footer'  
+

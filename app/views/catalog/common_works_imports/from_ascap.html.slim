@@ -32,7 +32,7 @@
       .row
         .col-sm-6
           .digi-box
-            = simple_form_for  [ :catalog, @account, @catalog, @common_work_import ], url: url_for(action: 'ascap_import', controller: 'common_works_imports'), method: 'post' do |f|
+            = simple_form_for  [ :catalog, @account, @catalog, @common_work_import ], turboboost: true, url: url_for(action: 'ascap_import', controller: 'common_works_imports'), method: 'post' do |f|
               = f.input :user_name
               = f.input :password
              

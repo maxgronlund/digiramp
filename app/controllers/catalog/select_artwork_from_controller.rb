@@ -8,6 +8,7 @@ class Catalog::SelectArtworkFromController < ApplicationController
   
   
   def index
+    forbidden unless current_catalog_user.create_artwork
      #@catalog = Catalog.cached_find(params[:catalog_id])
   end
   

@@ -36,7 +36,7 @@
       .row
         .col-sm-6
           .digi-box
-            = simple_form_for [ :catalog, @account, @catalog, CommonWorksImport.new ] do |f|
+            = simple_form_for [ :catalog, @account, @catalog, CommonWorksImport.new ], turboboost: true do |f|
               = f.hidden_field :account_id, value: @account.id
               = f.hidden_field :catalog_id, value: @catalog.id
               = f.hidden_field :user_email, value: current_user.email
