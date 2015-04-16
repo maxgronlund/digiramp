@@ -193,6 +193,7 @@ group :test, :development do
   gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'rails_best_practices'
+  gem 'brakeman', :require => false
 end
 
 
