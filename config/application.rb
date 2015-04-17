@@ -40,6 +40,9 @@ module Digiramp
     # prepare for rails 5
     config.active_record.raise_in_transactional_callbacks = true
     
+    # new rails 4.2 abstraction layer for background jobs
+    ActiveJob::Base.queue_adapter = :sidekiq
+    
 
   end
 end

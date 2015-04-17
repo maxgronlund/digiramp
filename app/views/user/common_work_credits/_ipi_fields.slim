@@ -25,10 +25,9 @@
         .row
           .col-sm-8
     
-            - uuid =  (f.input :id).to_s.split('id=').last
-            - uuid =  uuid.split(' name=').first
-            - uuid =  uuid.gsub('"', '')
-    
+            - uuid =  (f.input :id).to_s.split('id="').last
+            - uuid =  uuid.split('" /></div>').first
+
         div id="#{uuid}" class="panel-collapse collapse"
           .row
             .col-sm-3

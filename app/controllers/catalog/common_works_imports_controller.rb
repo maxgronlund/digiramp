@@ -56,10 +56,15 @@ class Catalog::CommonWorksImportsController < ApplicationController
     
     CommonWorksImport.post_info current_user.email, info = {start: :ascap_import}
     
-    AscapScraperWorker.perform_async( params[:common_works_import][:user_name], 
-                                      params[:common_works_import][:password],
-                                      @common_work_import.id
-                                    )
+    #AscapScraperWorker.perform_async( params[:common_works_import][:user_name], 
+    #                                  params[:common_works_import][:password],
+    #                                  @common_work_import.id
+    #                                )
+    #
+    AscapScraperJob.perform_later( params[:common_works_import][:user_name], 
+                                    params[:common_works_import][:password],
+                                    @common_work_import.id
+                                  )
     
     
 
