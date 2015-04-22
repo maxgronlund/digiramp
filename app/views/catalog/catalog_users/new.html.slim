@@ -12,6 +12,10 @@
 
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', \
+                breadcrumbs: { links: { 'Catalog' => catalog_account_catalog_path(@account, @catalog), \
+                                        Users: catalog_account_catalog_catalog_users_path(@account, @catalog ), \
+                                        }, current: ''}
       .row
         .col-sm-12
           .container-fluid

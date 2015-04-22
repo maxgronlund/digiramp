@@ -10,7 +10,8 @@
 
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog) }, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog),
+                                                                documents: catalog_account_catalog_documents_path(@account, @catalog ) }, current: ''}
       .row
         .col-sm-8
           .help

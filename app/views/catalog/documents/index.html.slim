@@ -62,7 +62,10 @@
                             i class="fa fa-pencil"
                       - if current_catalog_user.delete_file
                         '&nbsp;
-                        = link_to catalog_account_catalog_document_path(@account, @catalog, document), method: :delete, data: {confirm: 'Are you sure?'} do
+                        = link_to catalog_account_catalog_document_path(@account, @catalog, document), 
+                                                                        method: :delete, 
+                                                                        turboboost: true,
+                                                                        data: {confirm: 'Are you sure?'} do
                           .btn.btn-danger.btn-xs
                             i class="fa fa-times"
 

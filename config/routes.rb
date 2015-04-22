@@ -1,13 +1,12 @@
 Digiramp::Application.routes.draw do
 
 
-
+  
+  resources :irons
+  
   get 'user_menu/edit'
-
   get 'user_menu/update'
-
   get 'issue_events/index'
-
   get 'issue_events/show'
   
   resources :registrations

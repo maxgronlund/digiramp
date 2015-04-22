@@ -161,8 +161,9 @@ gem "awesome_print"
 #gem 'jquery_file_download-rails'
 
 gem "sendgrid-ruby"
-
 gem 'activemerchant'
+
+gem 'iron_mq'
 
 
 group :doc do
@@ -213,6 +214,15 @@ gem 'uuid_stamper', '~> 0.0.3', git: 'git://github.com/maxgronlund/uuid_stamper.
 
 gem 'aws-sdk', '~> 1.48.1'
 gem 'uuid', '~> 2.3.7'
+
+# payment
+gem 'stripe', '~> 1.20.4'
+# handling webhooks
+gem 'stripe_event'
+# state maching
+gem 'aasm'
+# history
+gem 'paper_trail', '~> 4.0.0.beta'
 
 group :development do
   # Use Capistrano for deployment

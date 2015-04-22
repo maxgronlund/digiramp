@@ -1,30 +1,4 @@
-/#wrap
-/  .full-width-top
-/    == render 'admin/shared/navbar', page: 'users'
-/
-/            
-/  .container
-/    /==render 'admin/shared/messages'
-/
-/    
-/    -blog = Blog.cached_find('Catalog Users')
-/    == render 'shared/page_title', locals: {blog: blog, blog_post: 'Edit Permissions'}
-/    =simple_form_for [:catalog, @account, @catalog, @catalog_user] do |f|   
-/      = f.hidden_field :account_id,       value: @account.id
-/      = f.hidden_field :catalog_id,       value: @catalog.id
-/      /= f.hidden_field :catalog_user_id,  value: @catalog_user.id
-/
-/      == render 'form', f: f
-/      .pull-right
-/        =f.submit 'Update', class: 'btn btn-primary btn-lg'
-/    
-/
-/    
-/    
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
-  
-  
+
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
@@ -37,9 +11,14 @@
 
   #page-content-wrapper
     .container-fluid
-      h3 = @catalog.title
-      'Edit user permissions for&nbsp;
-      = @catalog_user.user.email
+
+      == render 'shared/breadcrumbs', \
+                breadcrumbs: { links: { 'Catalog' => catalog_account_catalog_path(@account, @catalog), \
+                                        Users: catalog_account_catalog_catalog_users_path(@account, @catalog ), \
+                                        }, current: ''}
+
+      h3 Edit user permissions for&nbsp;
+      b = @catalog_user.user.email
       .sexy_line
       .digi-box
         .account_users

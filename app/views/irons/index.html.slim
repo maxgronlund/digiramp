@@ -1,0 +1,21 @@
+h1 Listing irons
+
+table
+  thead
+    tr
+      th Title
+      th
+      th
+      th
+
+  tbody
+    - @irons.each do |iron|
+      tr
+        td = iron.title
+        td = link_to 'Show', iron
+        td = link_to 'Edit', edit_iron_path(iron)
+        td = link_to 'Destroy', iron, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Iron', new_iron_path

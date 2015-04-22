@@ -1,0 +1,2 @@
+module SnsMessagesHelper
+end

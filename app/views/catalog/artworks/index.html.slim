@@ -11,7 +11,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { catalog: catalog_account_catalog_path(@account, @catalog), \
-                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
+                                                              documents: catalog_account_catalog_documents_path(@account, @catalog), \
                                                               }, current: ''}
       .row
         .col-sm-8
@@ -40,7 +40,7 @@
 
         .row
           - @catalog.artworks.each do |artwork|
-            == render 'shared/artworks', locals: {artwork: artwork, links: 'catalog/artworks/catalog'}
+            == render 'shared/artworks', artwork: artwork, links: 'catalog/artworks/catalog'
       
         
   == render 'shared/site_footer'  

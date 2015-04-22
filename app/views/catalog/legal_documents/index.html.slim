@@ -11,7 +11,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
+                                                              'Documents'.to_sym => catalog_account_catalog_documents_path(@account, @catalog ), \
                                                               }, current: ''}
       .row
         .col-sm-8
@@ -19,7 +19,7 @@
             .help-text
                h2 Legal documents
             .help-button
-              == render 'admin/helps/help', identifier: 'catalog documents'
+              == render 'admin/helps/help', identifier: 'catalog legal documents'
               
         .col-sm-4
           .pull-right.pull-down-10
@@ -75,7 +75,10 @@
                             i class="fa fa-pencil"
                       - if current_catalog_user.delete_legal_document
                         '&nbsp;
-                        = link_to catalog_account_catalog_legal_document_path(@account, @catalog, legal_document), method: :delete, data: {confirm: 'Are you sure?'} do
+                        = link_to catalog_account_catalog_legal_document_path(@account, @catalog, legal_document), 
+                                                                  method: :delete, 
+                                                                  turboboost: true,
+                                                                  data: {confirm: 'Are you sure?'} do
                           .btn.btn-danger.btn-xs
                             i class="fa fa-times"
           

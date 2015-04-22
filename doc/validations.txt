@@ -1,0 +1,7 @@
+after_validation :set_coupon
+validates_associated :coupon
+
+
+-----------------------------
+validates :stripe_id, inclusion: { in: Plan.pluck('DISTINCT stripe_id'), message: "not a valid subscription plan" }
+returns an array of valid plans. The validation forces the display of an error message if the submitted plan is not included in the array of valid subscription plans.

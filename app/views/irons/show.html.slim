@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @iron.title
+
+= link_to 'Edit', edit_iron_path(@iron)
+'|
+= link_to 'Back', irons_path

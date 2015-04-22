@@ -1,41 +1,46 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-        
-  .container
-    
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', \
-              breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                      catalogs: catalog_account_catalogs_path(@account), \
-                                      @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                      assets: catalog_account_catalog_assets_path(@account, @catalog), \
-                                      'Legal Documents'.to_sym => catalog_account_catalog_legal_documents_path(@account, @catalog ), \
-                                      }, current: 'upload'}
-    
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'assets'
 
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Legal Documents'), blog_post: 'Edit Legal Document'}
-    .row
-      .col-sm-3
-      
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            'EDIT
-          .panel-body
-            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', \
+                breadcrumbs: { links: { @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                        'Documents'.to_sym => catalog_account_catalog_documents_path(@account, @catalog ), \
+                                        'Legal Documents'.to_sym => catalog_account_catalog_legal_documents_path(@account, @catalog ), \
+                                        }, current: ''}
+      .row
+        .col-sm-8
+          .help
+            .help-text
+               h2 Edit legal document
+            .help-button
+              == render 'admin/helps/help', identifier: 'edit catalog legal document'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+            = link_to  catalog_account_catalog_legal_documents_path(@account, @catalog) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
+            
+     
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
             = simple_form_for [ :catalog, @account, @catalog, @document ], \
-                                :url => url_for(:action => 'update', :controller => 'catalog/legal_documents'), \
-                                :method => 'put',  \
-                                :html => { :id => 'legal_documents' } do |f| 
-              /= transloadit :files_to_s3 
-              /= f.hidden_field :account_id, value: @account.id
-              /b Document
-              /br
-              /= f.file_field :file, multiple: true
-              /hr
-              /= f.input :document_type, collection: Document::TYPES, include_blank: false
+                                            :url => url_for(:action => 'update', :controller => 'catalog/legal_documents'), \
+                                            :method => 'put',  \
+                                            :html => { :id => 'legal_documents' },\
+                                            turboboost: true do |f|
               = f.input :title
               b Description
               br
@@ -45,19 +50,86 @@
                 a data-wysihtml5-command="italic" Italic
               
               =f.input :body, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+            
               
-              .pull-right
-                = f.submit 'Done', class: 'btn btn-primary btn-lg'
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-primary'
             
-            
-            /= transloadit_jquerify :legal_documents, :wait => true
-            
-      .col-sm-3
-    
+        
+      
+        
+  == render 'shared/site_footer'   
 
-  
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/        
+/  .container
+/    
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', \
+/              breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                      catalogs: catalog_account_catalogs_path(@account), \
+/                                      @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                      assets: catalog_account_catalog_assets_path(@account, @catalog), \
+/                                      'Legal Documents'.to_sym => catalog_account_catalog_legal_documents_path(@account, @catalog ), \
+/                                      }, current: 'upload'}
+/    
+/
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Legal Documents'), blog_post: 'Edit Legal Document'}
+/    .row
+/      .col-sm-3
+/      
+/      .col-sm-6
+/        .panel.panel-primary
+/          .panel-heading
+/            'EDIT
+/          .panel-body
+/            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+/            = simple_form_for [ :catalog, @account, @catalog, @document ], \
+/                                :url => url_for(:action => 'update', :controller => 'catalog/legal_documents'), \
+/                                :method => 'put',  \
+/                                :html => { :id => 'legal_documents' } do |f| 
+/              /= transloadit :files_to_s3 
+/              /= f.hidden_field :account_id, value: @account.id
+/              /b Document
+/              /br
+/              /= f.file_field :file, multiple: true
+/              /hr
+/              /= f.input :document_type, collection: Document::TYPES, include_blank: false
+/              = f.input :title
+/              b Description
+/              br
+/              div id="toolbar" class="wysihtml5-toolbar"
+/                a data-wysihtml5-command="bold" Bold
+/                '&nbsp; 
+/                a data-wysihtml5-command="italic" Italic
+/              
+/              =f.input :body, label: false, :input_html => {  style: "height: 120px;", placeholder: "Description", id: 'wysihtml5_editor'}
+/              
+/              .pull-right
+/                = f.submit 'Done', class: 'btn btn-primary btn-lg'
+/            
+/            
+/            /= transloadit_jquerify :legal_documents, :wait => true
+/            
+/      .col-sm-3
+/    
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
     
 
 

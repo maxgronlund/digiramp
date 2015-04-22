@@ -5,13 +5,14 @@
   .catalog
     #sidebar-wrapper
       ul class="sidebar-nav"
-        == render 'catalog/catalogs/sidebar', selected: 'common_work'
+        == render 'catalog/catalogs/sidebar', selected: 'assets'
 
 
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
+                                                              'Documents'.to_sym => catalog_account_catalog_documents_path(@account, @catalog ), \
+                                                              'Legal documents'.to_sym => catalog_account_catalog_legal_documents_path(@account, @catalog ), \
                                                               }, current: ''}
       
       .row

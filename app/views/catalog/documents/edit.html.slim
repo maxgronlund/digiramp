@@ -1,60 +1,133 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-        
-  .container
-    
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', \
-              breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                      catalogs: catalog_account_catalogs_path(@account), \
-                                      @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                      assets: catalog_account_catalog_assets_path(@account, @catalog), \
-                                      'Documents'.to_sym => catalog_account_catalog_documents_path(@account, @catalog ), \
-                                      }, current: 'edit'}
-    
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'catalog'         
+  
+  .catalog
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'catalog/catalogs/sidebar', selected: 'assets'
 
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Documents'), blog_post: 'Edit Document'}
-    .row
-      .col-sm-3
-      
-      .col-sm-6
-        .panel.panel-primary
-          .panel-heading
-            'EDIT
-          .panel-body
-            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', \
+                breadcrumbs: { links: { 'catalog'.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                        'Documents'.to_sym => catalog_account_catalog_documents_path(@account, @catalog ), \
+                                        'Legal documents'.to_sym => catalog_account_catalog_legal_documents_path(@account, @catalog ), \
+                                        }, current: ''}
+      .row
+        .col-sm-8
+          .help
+            .help-text
+               h2 Edit
+            .help-button
+              == render 'admin/helps/help', identifier: 'catalog artwork'
+              
+        .col-sm-4
+          .pull-right.pull-down-10
+            = link_to  catalog_account_catalog_documents_path(@account, @catalog) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
+            
+     
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
             = simple_form_for [ :catalog, @account, @catalog, @document ], 
                                 :url => url_for(:action => 'update', :controller => 'catalog/documents'), 
                                 :method => 'put',  
                                 turboboost: true,
                                 :html => { :id => 'documents' } do |f| 
-              /= transloadit :files_to_s3 
-              /= f.hidden_field :account_id, value: @account.id
-              /b Document
-              /br
-              /= f.file_field :file, multiple: true
-              /hr
-              /= f.input :document_type, collection: Document::TYPES, include_blank: false
+            
               = f.input :title
               =f.input :body, label: 'Description', :input_html => {  style: "height: 80px;", placeholder: "Description max 100 charachters"}
-              
-              .pull-right
-                = f.submit 'Done', class: 'btn btn-primary btn-lg'
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Done', class: 'btn btn-primary'
             
-            
-            /= transloadit_jquerify :financial_documents, :wait => true
-            
-      .col-sm-3
-    
-
-  
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-    
+      
+      
+      
+        
+  == render 'shared/site_footer'   
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/        
+/  .container
+/    
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', \
+/              breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                      catalogs: catalog_account_catalogs_path(@account), \
+/                                      @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                      assets: catalog_account_catalog_assets_path(@account, @catalog), \
+/                                      'Documents'.to_sym => catalog_account_catalog_documents_path(@account, @catalog ), \
+/                                      }, current: 'edit'}
+/    
+/
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Documents'), blog_post: 'Edit Document'}
+/    .row
+/      .col-sm-3
+/      
+/      .col-sm-6
+/        .panel.panel-primary
+/          .panel-heading
+/            'EDIT
+/          .panel-body
+/            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+/            = simple_form_for [ :catalog, @account, @catalog, @document ], 
+/                                :url => url_for(:action => 'update', :controller => 'catalog/documents'), 
+/                                :method => 'put',  
+/                                turboboost: true,
+/                                :html => { :id => 'documents' } do |f| 
+/
+/              = f.input :title
+/              =f.input :body, label: 'Description', :input_html => {  style: "height: 80px;", placeholder: "Description max 100 charachters"}
+/              
+/              .pull-right
+/                = f.submit 'Done', class: 'btn btn-primary btn-lg'
+/            
+/            
+/            /= transloadit_jquerify :financial_documents, :wait => true
+/            
+/      .col-sm-3
+/    
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/    
+/
+/
+/
+/
+/
+/
