@@ -10,6 +10,7 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/flash_message'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
       h2 Account types features
       .sexy_line
@@ -20,6 +21,7 @@
               tr
                 th Account type
                 th Enabled
+                th Plan
                 th Max recordings
                 th Enable catalogs
                 th Max catalogs
@@ -42,6 +44,9 @@
                   td 
                     - if account_feature.enabled
                       '√
+                  td 
+                    - if plan = account_feature.plan
+                      = plan.name
                   td = account_feature.max_recordings
                   td = account_feature.enable_catalogs
                   td = account_feature.max_catalogs

@@ -68,7 +68,7 @@ class Account::AccountUsersController < ApplicationController
     
     # if the account user alreaddy exists
     if AccountUser.where(email: sanitized_email, account_id: params[:account_user][:account_id]).first
-      flash[:info] = { title: "Notice: ", body: "User already a member" }                                    
+      flash[:info] =  "User already a member"                                   
     else
       # validate the email, returns to the user if unapproved
       validate_email
@@ -131,12 +131,12 @@ class Account::AccountUsersController < ApplicationController
     # missing email
     
     if params[:account_user][:email].to_s == ""
-      flash[:danger] = { title: "Email can't be blank", body: "" }
+      flash[:danger] = "Email can't be blank"
       redirect_to new_account_account_account_user_path( @account )
     
     #  invalid email
     elsif /^\S+@\S+\.\S+$/.match(params[:account_user][:email]).nil?
-      flash[:danger] = { title: "Invalid email", body: "" }
+      flash[:danger] = "Invalid email"
       redirect_to new_account_account_account_user_path( @account )
     end
   end

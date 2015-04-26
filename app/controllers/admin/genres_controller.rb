@@ -15,7 +15,6 @@ class Admin::GenresController < ApplicationController
     
     
     if @genre = Genre.create(genre_params)
-      flash[:success]   = { title: 'Success', body: 'Genre created' }
       redirect_to_return_url admin_genres_path
     else
       redirect_to :back
@@ -36,7 +35,6 @@ class Admin::GenresController < ApplicationController
     
     @genre = Genre.find(params[:id])
     if @genre.update_attributes(genre_params)
-      flash[:success]   = { title: 'Success', body: 'Genre updated' }
       redirect_to_return_url admin_genres_path
     else
       redirect_to :back
@@ -46,8 +44,7 @@ class Admin::GenresController < ApplicationController
   
   def destroy
     @genre = Genre.find(params[:id])
-    @genre.destroy!
-    flash[:success]   = { title: 'Success', body: 'Genre deleted' }
+    @genre.destroy! 
     redirect_to_return_url admin_genres_path
   end
   

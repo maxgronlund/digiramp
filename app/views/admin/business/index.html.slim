@@ -1,0 +1,70 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path}, current: ''}
+      h2 Business
+      .sexy_line
+      .admin
+        .admin-badges
+
+          .admin-badge-container
+            = link_to admin_sales_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-shopping-cart
+                    '&nbsp;Sales
+                .body
+                  ul
+                    li Papertrail of sales
+          
+          .admin-badge-container
+            = link_to admin_subscriptions_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-members
+                    '&nbsp;Subscriptions
+                .body
+                  ul
+                    li Papertrail of subscriptions
+
+          
+          .admin-badge-container
+            = link_to admin_plans_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-cc-stripe
+                    '&nbsp;Plans
+                .body
+                  ul
+                    li Management of Stripe plans
+          
+          .admin-badge-container
+            = link_to admin_account_features_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-cogs
+                    '&nbsp;Account types
+                .body
+                  ul
+                    li Connect to plans
+                    li Limit features
+                  
+            
+          
+
+  == render 'shared/site_footer'    
+ 
+

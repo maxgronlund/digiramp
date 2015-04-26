@@ -61,6 +61,7 @@ class User < ActiveRecord::Base
 
   has_many :selected_opportunities
   has_many :client_invitation
+  has_many :subscriptions
   
 
   

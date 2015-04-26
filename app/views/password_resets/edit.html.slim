@@ -1,44 +1,74 @@
-
 #wrap
   .full-width-top
-    == render 'admin/shared/navbar', page: 'account' 
-  .hidden-xs
-    .full-width-sign-up
-      .container
-        /== render 'shared/sign_up'
-            
+    == render 'shared/navigationbar', page: 'account' 
   .container
-    
     .row
       .col-sm-3
+
       .col-sm-6
-        /==render 'admin/shared/messages'
-        .panel.panel-primary
-          .panel-heading
-            i class= 'fa fa-lock'
-            '&nbsp;
-            'RESET PASSWORD
-          .panel-body
+        .digi-box
+          ==render 'admin/shared/messages'
+          h2 Reset password
+          = simple_form_for(  @reset_user, :url => password_reset_path(params[:id]) ) do |f|
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-key'
+              = f.input_field :password, placeholder: 'Password', autocomplete: :off
+            br
+            
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-key'
+              = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
 
-            = simple_form_for(  @user, :url => password_reset_path(params[:id]) ) do |f|
-              .input-group
-                span class="input-group-addon"
-                  i class= 'fa fa-key'
-                = f.input_field :password, placeholder: 'Password', autocomplete: :off
-              br
-              
-              .input-group
-                span class="input-group-addon"
-                  i class= 'fa fa-key'
-                = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+            .row
+              .col-sm-12.pull-down-10
+                .pull-right
+                  = f.submit 'Reset', class: 'btn btn-primary'
 
-              .pull-right
-                br
-                = f.submit 'Reset', class: 'btn btn-green btn-lg'
-
-        
-
-  
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-
+      
+  == render 'shared/site_footer'
+/#wrap
+/  .full-width-top
+/    == render 'admin/shared/navbar', page: 'account' 
+/  .hidden-xs
+/    .full-width-sign-up
+/      .container
+/        /== render 'shared/sign_up'
+/            
+/  .container
+/    
+/    .row
+/      .col-sm-3
+/      .col-sm-6
+/        /==render 'admin/shared/messages'
+/        .panel.panel-primary
+/          .panel-heading
+/            i class= 'fa fa-lock'
+/            '&nbsp;
+/            'RESET PASSWORD
+/          .panel-body
+/
+/            = simple_form_for(  @user, :url => password_reset_path(params[:id]) ) do |f|
+/              .input-group
+/                span class="input-group-addon"
+/                  i class= 'fa fa-key'
+/                = f.input_field :password, placeholder: 'Password', autocomplete: :off
+/              br
+/              
+/              .input-group
+/                span class="input-group-addon"
+/                  i class= 'fa fa-key'
+/                = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+/
+/              .pull-right
+/                br
+/                = f.submit 'Reset', class: 'btn btn-green btn-lg'
+/
+/        
+/
+/  
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/
+/

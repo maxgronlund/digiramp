@@ -113,7 +113,7 @@ class Admin::AccountsController < ApplicationController
       end 
       @account.destroy!   
     rescue
-      flash[:danger] = { title: "ERROR: ", body: "Unable to delete #{@account.title}" }
+      flash[:danger] = "Unable to delete #{@account.title}" 
     end        
     #redirect_to admin_accounts_path
   end

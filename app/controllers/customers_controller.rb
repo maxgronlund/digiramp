@@ -46,9 +46,9 @@ class CustomersController < ApplicationController
       
     
     if @account_user
-      flash[:info] = { title: "Info", body: "A new customer is added to your account" }
+      flash[:info] = "A new customer is added to your account" 
     else
-      flash[:danger] = { title: "Error", body: "User is already added to account" }
+      flash[:danger] = "User is already added to account" 
     end
     @account.customer_cache_version += 1
     
@@ -67,9 +67,8 @@ class CustomersController < ApplicationController
     user = @account_user.user
     
     if user.id == @account.user_id
-      flash[:danger] = { title: "Error", body: "Unable to delete account owner" }
+      flash[:danger] =  "Unable to delete account owner" 
     else
-      flash[:info] = { title: "Info", body: "#{@account_user.user.email} is deleted" }
       @account_user.destroy
       @account.customer_cache_version += 1
       @account.save!

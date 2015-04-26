@@ -42,7 +42,7 @@ class Catalog::UploadRecordingsController < ApplicationController
       
     end
     
-    flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
+    flash[:info]          = "Import completed" 
     
     @catalog.count_recordings
     @catalog.count_common_works

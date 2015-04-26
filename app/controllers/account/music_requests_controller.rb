@@ -47,7 +47,7 @@ class Account::MusicRequestsController < ApplicationController
      result = TransloaditRecordingsParser.parse params[:transloadit],  current_account_user.account_id, true, current_account_user.user_id
      # success mesage
      unless result[:recordings].size == 0
-       flash[:info]      = { title: "Succes", body: "#{pluralize(result[:recordings].size, "File")} uploaded" }
+       flash[:info]      = "#{pluralize(result[:recordings].size, "File")} uploaded" 
        # fetch recording id
        recording_id = result[:recordings][0].id
        # assign the recording id to the request
@@ -61,10 +61,10 @@ class Account::MusicRequestsController < ApplicationController
          nr_errors += 1
          errors << error + '<br>'
        end
-       flash[:danger]    = { title: "Errors", body: errors }
+       flash[:danger]    = errors 
      end
     rescue
-      flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
+      flash[:danger]      = "Unable to create Recording! Please check if you selected a valid file" 
       #redirect_to new_account_account_audio_file_path(@account, @common_work )
     end
     
@@ -73,16 +73,7 @@ class Account::MusicRequestsController < ApplicationController
     else
       
     end
-    #
-    #if @opportunity.save
-    #  flash[:info]      = { title: "Success", body: "Opportunity Created" }
-    #  redirect_to account_account_opportunity_path(@account, @opportunity)
-    #   
-    #else
-    #  flash[:danger]      = { title: "Error", body: "Unable to create opportunity" }
-    #  redirect_to new_account_account_opportunity_path(@account)
-    #end
-    #
+
   end
 
   def update
@@ -97,55 +88,18 @@ class Account::MusicRequestsController < ApplicationController
      result = TransloaditRecordingsParser.parse params[:transloadit],  current_account_user.account_id , true, current_account_user.user_id
      # success mesage
      unless result[:recordings].size == 0
-       flash[:info]      = { title: "Succes", body: "#{pluralize(result[:recordings].size, "File")} uploaded" }
+       flash[:info]      = "#{pluralize(result[:recordings].size, "File")} uploaded" 
        # fetch recording id
        recording_id = result[:recordings][0].id
        # assign the recording id to the request
        params[:music_request][:recording_id] = recording_id
      end
-     # error messages
-     #unless result[:errors].size == 0
-     #  errors     = ''
-     #  nr_errors = 0
-     #  result[:errors].each do |error|
-     #    nr_errors += 1
-     #    errors << error + '<br>'
-     #  end
-     #  flash[:danger]    = { title: "Errors", body: errors }
-     #end
-     #
-    
-    
-     #redirect_to account_account_recordings_bucket_index_path(@account)
-    #rescue
-    #  flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
-    #  #redirect_to new_account_account_audio_file_path(@account, @common_work )
-    #end
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 
 
     @music_request.update(music_request_params)
     redirect_to account_account_opportunity_path(@account, @opportunity)
-    
-    
-    
-    
-    #if @music_request.update(music_request_params)
-    #  flash[:info]      = { title: "Success", body: "Music Request Updated" }
-    #  redirect_to account_account_opportunity_music_request_path(@account, @opportunity, @music_request)
-    #else
-    #  flash[:danger]      = { title: "Error", body: "Unable to update Music Request" }
-    #  redirect_to new_account_account_opportunity_path(@account)
-    #end
+
 
   end
 
@@ -156,24 +110,7 @@ class Account::MusicRequestsController < ApplicationController
     @music_request.destroy
     redirect_to account_account_opportunity_path(@account, opportunity)
   end
-  
-  #def find_recording
-  #  forbidden unless current_account_user.read_recording?
-  #  @opportunity    = Opportunity.cached_find(params[:opportunity_id])
-  #  @recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
-  #  
-  #  #recordings_to_remove = []
-  #  #@opportunity.music_requests.each do |music_request|
-  #  #  music_request.music_submissions.each do |music_submission|
-  #  #    recordings_to_remove << music_submission.recording
-  #  #  end
-  #  #end
-  #  #puts '-------------------- @recordings.class.name -------------------------'
-  #  #puts @recordings.class.name
-  #  #puts '---------------------------------------------------------------------'
-  #  #@recordings
-  #  @show_more      = true
-  #end
+
   
   def upload_recording
     forbidden unless current_account_user.create_recording?

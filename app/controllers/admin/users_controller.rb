@@ -32,7 +32,7 @@ class Admin::UsersController < ApplicationController
     old_role  = @user.role
     
     if @user.update!(user_params)
-      flash[:info] = { title: "SUCCESS: ", body: "User updated" }
+   
       
       @user.create_activity(  :updated, 
                          owner: current_user,
@@ -45,32 +45,13 @@ class Admin::UsersController < ApplicationController
       
       
     else
-      #flash[:danger] = { title: "Error", body: "User not updated" }
+      
       render :edit
     end
 
     redirect_to admin_users_path
   end
   
-  # this function is expencieve when the user 
-  # change role from and to 'SuperUser'
-  # move it to worker
-  #def update_account_users
-  #  if @user.super?
-  #    # time to create an account_user for all accounts
-  #    Account.all.each do |account|
-  #      account_user = AccountUser.where(user_id: @user.id, account_id: account.id)
-  #                                .first_or_create(user_id: @user.id, account_id: account.id)
-  #      # secure the account_user is 'Super User'                          
-  #      account_user.update_super 'upgrade'
-  #    end
-  #  else
-  #    @user.account_users.each do |account_user|
-  #      # remove 'Super Users' from account
-  #      account_users.update_super 'downgrade'
-  #    end
-  #  end
-  #end
   
   def destroy
     begin
@@ -96,7 +77,7 @@ class Admin::UsersController < ApplicationController
 
       
     rescue
-      flash[:danger] = { title: "ERROR: ", body: "Something went wrong" }
+      flash[:danger] = "Something went wrong" 
       puts '===============================   ERROR ==================================='
     end
     #redirect_to admin_users_path

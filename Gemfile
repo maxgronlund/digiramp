@@ -12,7 +12,6 @@ gem 'pg'
 #gem 'bootstrap-sass', '~> 3.3.1'
 #gem 'sass-rails', '~> 5.0.0.beta1'
 gem 'sass-rails', '~> 5.0'
-
 gem 'font-awesome-sass'
 
 # Use compass for mixin stylesheets
@@ -216,13 +215,19 @@ gem 'aws-sdk', '~> 1.48.1'
 gem 'uuid', '~> 2.3.7'
 
 # payment
-gem 'stripe', '~> 1.20.4'
+#gem 'stripe', '~> 1.20.4'
+gem 'stripe', '~> 1.21.0'
 # handling webhooks
 gem 'stripe_event'
 # state maching
 gem 'aasm'
 # history
 gem 'paper_trail', '~> 4.0.0.beta'
+
+#pdf converter
+gem 'docverter'
+
+#gem 'httparty'
 
 group :development do
   # Use Capistrano for deployment

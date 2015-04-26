@@ -68,7 +68,7 @@ class RecordingsController < ApplicationController
       end
       redirect_to edit_user_recording_basic_path(@user, @recording)
     else
-      flash[:danger]      = { title: "Unknown fileformat", body: "Please check it's a real audio file you are uploading" }
+      flash[:danger]      = "Please check it's a real audio file you are uploading"
       redirect_to new_user_recording_path(@user)
     end
   end

@@ -86,7 +86,7 @@ class Account < ActiveRecord::Base
   
   belongs_to :account_feature
   
-  has_many :registrations
+  #has_many :registrations
                 
 
   # account types
@@ -138,6 +138,16 @@ class Account < ActiveRecord::Base
       self.expiration_date = last_registration.expiration_date
       save!
     end
+  end
+  
+  def current_plan
+    # can return nil
+    return current_subscription.plan if current_subscription
+  end
+  
+  def current_subscription
+    # latest subscription not expired
+    subscription = subscriptions.last
   end
   
   #def subscribtion_price

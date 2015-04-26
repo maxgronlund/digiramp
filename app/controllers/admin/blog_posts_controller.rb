@@ -33,13 +33,7 @@ class Admin::BlogPostsController < ApplicationController
   def update
     @blog = Blog.find(params[:blog_id])
     if @blog_post.update(blog_post_params)
-    #if params[:blog_post][:image] && params[:blog_post][:remove_image] != '1'
-      #if params[:blog_post][:image]
-      #  redirect_to crop_admin_blog_blog_post_path(@blog_post.blog, @blog_post, :version => :size_62x62)
-      #else
-        #flash[:info] = { title: "SUCCESS: ", body: "#{@blog_post.title}  updated" }
-        redirect_to_return_url admin_blog_path(@blog_post.blog)
-      #end
+      redirect_to_return_url admin_blog_path(@blog_post.blog)   
     else
 
       render :edit

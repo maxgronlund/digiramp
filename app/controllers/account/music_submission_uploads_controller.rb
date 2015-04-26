@@ -57,11 +57,11 @@ class Account::MusicSubmissionUploadsController < ApplicationController
                        
         
         
-        flash[:info]      = { title: "Recording Submitted", body: "You can now fill in additional informations or go back to the opportunity" } 
+        flash[:info]      = "You can now fill in additional informations or go back to the opportunity"  
       end
       redirect_to edit_user_recording_basic_path(@user, @recording)
     else
-      flash[:danger]      = { title: "Unknown fileformat", body: "Please check it's a real audio file you are uploading" }
+      flash[:danger]      = "Please check it's a real audio file you are uploading" 
       redirect_to new_user_recording_path(@user)
     end
   end

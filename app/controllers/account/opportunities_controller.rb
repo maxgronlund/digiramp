@@ -63,10 +63,10 @@ class Account::OpportunitiesController < ApplicationController
     forbidden unless current_account_user &&  current_account_user.update_opportunity
     if @opportunity.update(opportunity_params)
       @opportunity.check_default_image
-      #flash[:info]      = { title: "Success", body: "Opportunity Updated" }
+      
       redirect_to account_account_opportunity_path(@account, @opportunity)
     else
-      flash[:danger]      = { title: "Error", body: "Unable to update opportunity" }
+      flash[:danger]      = "Unable to update opportunity" 
       redirect_to edit_new_account_account_opportunity_path(@account)
     end
   end
@@ -123,8 +123,5 @@ class Account::OpportunitiesController < ApplicationController
                                                                       :_destroy])
     end
     
-    #def current_user_authorized
-    #  @user        = current_user
-    #  @authorized = true if current_user
-    #end
+
 end

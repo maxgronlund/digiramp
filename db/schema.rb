@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417163611) do
+ActiveRecord::Schema.define(version: 20150425134443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,16 +44,11 @@ ActiveRecord::Schema.define(version: 20150417163611) do
     t.datetime "updated_at"
     t.integer  "position",                                 default: 100
     t.boolean  "enabled",                                  default: false
-    t.decimal  "subscription_fee",                         default: 0.0
     t.text     "description",                              default: ""
+    t.integer  "plan_id"
   end
 
-  create_table "account_prices", force: :cascade do |t|
-    t.decimal  "subscription_fee"
-    t.string   "account_type",     limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "account_features", ["plan_id"], name: "index_account_features_on_plan_id", using: :btree
 
   create_table "account_users", force: :cascade do |t|
     t.integer  "account_id"
@@ -133,43 +128,39 @@ ActiveRecord::Schema.define(version: 20150417163611) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "title",                    limit: 255
+    t.string   "title",                limit: 255
     t.text     "description"
-    t.string   "account_type",             limit: 255
-    t.string   "contact_first_name",       limit: 255
-    t.string   "contact_last_name",        limit: 255
-    t.string   "contact_email",            limit: 255
-    t.string   "fax",                      limit: 255
-    t.string   "country",                  limit: 255
-    t.string   "street_address",           limit: 255
-    t.string   "city",                     limit: 255
-    t.string   "state",                    limit: 255
-    t.string   "postal_code",              limit: 255
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
-    t.integer  "users_count",                          default: 0,                null: false
-    t.integer  "documents_count",                      default: 0,                null: false
+    t.string   "account_type",         limit: 255
+    t.string   "contact_first_name",   limit: 255
+    t.string   "contact_last_name",    limit: 255
+    t.string   "contact_email",        limit: 255
+    t.string   "fax",                  limit: 255
+    t.string   "country",              limit: 255
+    t.string   "street_address",       limit: 255
+    t.string   "city",                 limit: 255
+    t.string   "state",                limit: 255
+    t.string   "postal_code",          limit: 255
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.integer  "users_count",                      default: 0,                null: false
+    t.integer  "documents_count",                  default: 0,                null: false
     t.date     "expiration_date"
-    t.integer  "visits",                               default: 0
-    t.string   "logo",                     limit: 255
-    t.boolean  "activated",                            default: true
+    t.integer  "visits",                           default: 0
+    t.string   "logo",                 limit: 255
+    t.boolean  "activated",                        default: true
     t.integer  "default_catalog_id"
-    t.string   "uuid",                     limit: 255, default: ""
-    t.integer  "version",                              default: 0
-    t.string   "works_uuid",               limit: 255, default: "first love 727"
-    t.string   "recordings_uuid",          limit: 255, default: "first love 727"
-    t.string   "customers_uuid",           limit: 255, default: "first love 727"
-    t.string   "playlists_uuid",           limit: 255, default: "first love 727"
-    t.string   "users_uuid",               limit: 255, default: "first love 727"
-    t.integer  "administrator_id",                     default: 0
+    t.string   "uuid",                 limit: 255, default: ""
+    t.integer  "version",                          default: 0
+    t.string   "works_uuid",           limit: 255, default: "first love 727"
+    t.string   "recordings_uuid",      limit: 255, default: "first love 727"
+    t.string   "customers_uuid",       limit: 255, default: "first love 727"
+    t.string   "playlists_uuid",       limit: 255, default: "first love 727"
+    t.string   "users_uuid",           limit: 255, default: "first love 727"
+    t.integer  "administrator_id",                 default: 0
     t.boolean  "create_opportunities"
     t.boolean  "read_opportunities"
     t.integer  "user_count"
-    t.decimal  "subscription_fee",                     default: 0.0
-    t.boolean  "special_subscription_fee",             default: false
     t.integer  "account_feature_id"
-    t.boolean  "recurring"
-    t.string   "period",                   limit: 255
     t.integer  "cycles"
   end
 
@@ -2166,6 +2157,21 @@ ActiveRecord::Schema.define(version: 20150417163611) do
   add_index "permitted_models", ["account_user_id"], name: "index_permitted_models_on_account_user_id", using: :btree
   add_index "permitted_models", ["user_id"], name: "index_permitted_models_on_user_id", using: :btree
 
+  create_table "plans", force: :cascade do |t|
+    t.string   "stripe_id"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "amount"
+    t.string   "interval"
+    t.string   "currency"
+    t.boolean  "published"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "trial_period_days",    default: 0
+    t.string   "statement_descriptor"
+    t.text     "metadata"
+  end
+
   create_table "playbacks", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "recording_id"
@@ -2293,6 +2299,18 @@ ActiveRecord::Schema.define(version: 20150417163611) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "products", force: :cascade do |t|
+    t.string   "name"
+    t.string   "permalink"
+    t.text     "description"
+    t.integer  "price"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
   create_table "project_tasks", force: :cascade do |t|
     t.integer  "project_id"
@@ -2540,6 +2558,23 @@ ActiveRecord::Schema.define(version: 20150417163611) do
   add_index "representatives", ["account_id"], name: "index_representatives_on_account_id", using: :btree
   add_index "representatives", ["user_id"], name: "index_representatives_on_user_id", using: :btree
 
+  create_table "sales", force: :cascade do |t|
+    t.string   "email"
+    t.string   "guid"
+    t.integer  "product_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "state"
+    t.string   "stripe_id"
+    t.string   "stripe_token"
+    t.date     "card_expiration"
+    t.text     "error"
+    t.integer  "fee_amount"
+    t.integer  "amount"
+  end
+
+  add_index "sales", ["product_id"], name: "index_sales_on_product_id", using: :btree
+
   create_table "search_recordings", force: :cascade do |t|
     t.integer  "user_id"
     t.boolean  "advanced_search"
@@ -2630,17 +2665,31 @@ ActiveRecord::Schema.define(version: 20150417163611) do
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
 
+  create_table "stripe_webhooks", force: :cascade do |t|
+    t.string   "stripe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "subscriptions", force: :cascade do |t|
-    t.string   "email",        limit: 255
+    t.string   "email_address",    limit: 255
     t.integer  "user_id"
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "months"
-    t.string   "account_type", limit: 255
+    t.string   "account_type",     limit: 255
+    t.integer  "plan_id"
+    t.string   "stripe_id"
+    t.string   "state"
+    t.string   "guid"
+    t.string   "error"
+    t.string   "stripe_token"
+    t.string   "cardholders_name"
   end
 
   add_index "subscriptions", ["account_id"], name: "index_subscriptions_on_account_id", using: :btree
+  add_index "subscriptions", ["plan_id"], name: "index_subscriptions_on_plan_id", using: :btree
   add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
   create_table "system_settings", force: :cascade do |t|
@@ -2802,6 +2851,7 @@ ActiveRecord::Schema.define(version: 20150417163611) do
     t.text     "address",                                default: ""
     t.string   "zip_code",                   limit: 255, default: ""
     t.string   "phone_number",               limit: 255, default: ""
+    t.string   "stripe_customer_id"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
@@ -2809,6 +2859,18 @@ ActiveRecord::Schema.define(version: 20150417163611) do
   add_index "users", ["default_playlist_id"], name: "index_users_on_default_playlist_id", using: :btree
   add_index "users", ["default_widget_key"], name: "index_users_on_default_widget_key", using: :btree
   add_index "users", ["page_style_id"], name: "index_users_on_page_style_id", using: :btree
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+    t.text     "object_changes"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   create_table "video_blogs", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -2984,4 +3046,8 @@ ActiveRecord::Schema.define(version: 20150417163611) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "account_features", "plans"
+  add_foreign_key "products", "users"
+  add_foreign_key "sales", "products"
+  add_foreign_key "subscriptions", "plans"
 end

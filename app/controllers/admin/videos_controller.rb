@@ -26,7 +26,7 @@ class Admin::VideosController < ApplicationController
     results = TransloaditVideosParser.parse( params, nil, @video_blog.id)
 
     if results[:errors][0].to_s == 'No valid files uploaded'
-      flash[:danger]   = { title: "Unable to create Video", body: results[:errors][0] }
+      flash[:danger]   = results[:errors][0] 
       Video.create(video_params)
     end
     
@@ -40,7 +40,7 @@ class Admin::VideosController < ApplicationController
     
     results = TransloaditVideosParser.update( params[:transloadit], @video)
     unless results[:errors][0].to_s == ''
-      flash[:danger]   = { title: "Unable to update Video", body: results[:errors][0] }
+      flash[:danger]   =  results[:errors][0] 
     end
     redirect_to admin_video_blog_path(@video_blog)
     #redirect_to admin_video_blog_video_path(@video_blog, @video)

@@ -1,0 +1,76 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'sale'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
+                                                              business: admin_business_index_path}, current: ''}
+      .row
+        .col-sm-6
+          h2 Subscriptions
+        .col-sm-6
+          .pull-right.pull-down-10
+            
+          
+
+      .sexy_line
+      .digi-box
+        table.table.table-hover
+          thead
+            tr
+              th User
+              /th Guid
+              th Plan
+              /th Stripe
+              th Date
+              th 
+            
+          tbody
+            - @subscriptions.each do |subscription| 
+              tr
+                td 
+                  - if user = subscription.user 
+                    = link_to user.user_name, user
+                td
+                  - if plan = subscription.plan
+                    = plan.stripe_id
+                td = subscription.created_at.to_formatted_s(:short)
+                td
+                  .pull-right
+                    => link_to 'Show', admin_subscription_path(subscription), class: 'btn btn-default btn-xs'
+                    - if user = subscription.user
+
+                    - if Rails.env == 'development'
+                      = link_to 'Stripe', "https://dashboard.stripe.com/test/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-primary btn-xs'
+                    - else
+                      = link_to 'Stripe', "https://dashboard.stripe.com/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-primary btn-xs'
+                    /https://dashboard.stripe.com/test/payments/ch_15vUn1DCWuUtTcRTs0mQb1YN
+                /td = sale.email 
+                //td = sale.guid 
+                /td = sale.product.name 
+                //td = sale.stripe_id 
+                /td = sale.created_at.to_formatted_s(:short) 
+                /td 
+                /  .pull-right
+                /    => link_to 'Show', admin_sale_path( sale ), class: 'btn btn-default btn-xs'
+                /    = link_to 'Stripe', "https://manage.stripe.com/payments/#{sale.stripe_id}" , class: 'btn btn-primary btn-xs'
+          
+
+
+  == render 'shared/site_footer'    
+  
+
+
+
+
+
+
+
+
+

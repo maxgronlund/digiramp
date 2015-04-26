@@ -97,7 +97,7 @@ class Opportunity::RecordingsController < ApplicationController
       
       # success mesage
       unless result[:recordings].size == 0
-        flash[:info]      = { title: "Succes", body: "#{pluralize(result[:recordings].size, "File")} uploaded" }
+        flash[:info]      =  "#{pluralize(result[:recordings].size, "File")} uploaded" 
       end
       # error messages
       unless result[:errors].size == 0
@@ -107,17 +107,13 @@ class Opportunity::RecordingsController < ApplicationController
           nr_errors += 1
           errors << error + '<br>'
         end
-        flash[:danger]    = { title: "Errors", body: errors }
+        flash[:danger]    =  errors 
       end
       
       
 
       redirect_to edit_opportunity_opportunity_music_request_common_work_recording_path(@opportunity, @music_request, @common_work, result[:recordings][0])
-    #rescue
-    #  flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
-    #  #redirect_to new_recordings_account_account_common_work_path(@account, @common_work )
-    #  redirect_to :back
-    #end
+
   end
   
   def edit

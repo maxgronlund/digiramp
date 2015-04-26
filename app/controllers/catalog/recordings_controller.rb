@@ -47,10 +47,7 @@ class Catalog::RecordingsController < ApplicationController
     @recording.instruments  = @recording.instruments_tags_as_csv_string
     @recording.mood         = @recording.moods_tags_as_csv_string
     
-    #@recording.copy_genre_tags_in_to_genre_string
-    #if params[:genre_category]
-    #  redirect_to account_common_work_recording_genre_tags_path(@account, @common_work, @recording, genre_category: params[:genre_category])
-    #end
+
   end
   
   def new
@@ -65,10 +62,10 @@ class Catalog::RecordingsController < ApplicationController
     @common_work           = CommonWork.cached_find(params[:common_work_id])
     begin
       TransloaditParser.add_to_common_work params[:transloadit], @common_work.id, @account.id
-      flash[:info]      = { title: "Success", body: "Recording added to Common Work" }
+      flash[:info]      =  "Recording added to Common Work" 
       redirect_to account_work_work_recordings_path(@account, @common_work )
     rescue
-      flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
+      flash[:danger]      =  "Please check if you selected a valid file" 
       redirect_to new_account_common_work_recording_path(@account, @common_work )
     end
     
@@ -136,10 +133,10 @@ class Catalog::RecordingsController < ApplicationController
       
       
       @recording.common_work.update_completeness
-      flash[:info]      = { title: "Success", body: "Recording updated" }
+      
 
     else
-      flash[:danger]      = { title: "Sorry", body: "Unable to update recording" }
+      flash[:danger]      =  "Unable to update recording" 
     end
     redirect_to catalog_account_catalog_recording_path(@account, @catalog, @recording )
   end

@@ -1,0 +1,88 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path,
+                                                              business: admin_business_index_path,
+                                                              subscriptions: admin_subscriptions_path }, current: ''}
+      .row
+        .col-sm-6
+          h2 Subscription
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to  admin_subscriptions_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+                  
+            - if user = @subscription.user
+              - if Rails.env == 'development'
+                = link_to 'Stripe', "https://dashboard.stripe.com/test/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-primary'
+              - else 
+                = link_to 'Stripe', "https://dashboard.stripe.com/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-primary'
+                  
+
+      .sexy_line
+      /p id="notice" 
+      /  = notice 
+      .digi-box  
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Key
+                th Value
+            tbody
+              - @subscription.attributes.sort.each do |key, value| 
+                tr
+                  td = key 
+                  td = value 
+            
+            
+      
+      
+      .digi-box  
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Timestamp
+                th Event
+                th Changes
+            
+            tbody
+              - if versions = @subscription.versions
+                - versions.each do |version| 
+                  tr
+                    td  = version.created_at.to_formatted_s(:short)
+                    td  = version.event
+                    td 
+                      - if changeset = version.changeset
+                        - changeset.sort.each do |key, value| 
+                          b = key 
+                          ':
+                          = value[0] 
+                          '&nbsp;to&nbsp;
+                          = value[1] 
+                          .sexy_line
+            
+        
+  == render 'shared/site_footer'          
+ 
+
+
+
+
+
+
+
+
+
+

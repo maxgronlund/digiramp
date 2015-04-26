@@ -64,7 +64,7 @@ class Account::UploadsController < ApplicationController
 
       end
       
-      flash[:info]      = { title: "Succes", body: "#{pluralize(result[:recordings].size, "File")} uploaded" }
+      flash[:info]      = "#{pluralize(result[:recordings].size, "File")} uploaded" 
     end
     # error messages
     unless result[:errors].size == 0
@@ -74,7 +74,7 @@ class Account::UploadsController < ApplicationController
         nr_errors += 1
         errors << error + '<br>'
       end
-      flash[:danger]    = { title: "Errors", body: errors }
+      flash[:danger]    =  errors 
     end
     
     

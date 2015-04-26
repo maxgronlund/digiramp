@@ -1,0 +1,44 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      /= debug @plan.errors.full_messages
+      /- @plan.errors.full_messages.each do |msg|
+      /  = debug msg
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,
+                                                              plans: admin_plans_path }, current: ''}
+      .row
+        .col-sm-6
+          h2 New plan
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to  admin_plans_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+                  
+            
+                  
+
+      .sexy_line
+      /p id="notice" 
+      /  = notice 
+      .row
+        .col-sm-12
+          .digi-box  
+            = render 'form'
+
+            
+          
+
+  == render 'shared/site_footer' 
+
+

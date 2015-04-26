@@ -13,12 +13,12 @@ class SupportsController < ApplicationController
   def create
     
     if EmailSanitizer.validate( params[:contact][:email])
-      flash[:info] = { title: "Message send: ", body: "We will come back to you asap." }
+      flash[:info] = "Message send: We will come back to you asap." 
       @contact = Contact.create(contact_params)
       SupportMailer.delay.contact(@contact.id)   
       redirect_to support_index_path
     else
-      flash[:danger] = { title: "Sorry: ", body: "Please check the email." }
+      flash[:danger] = "Please check the email." 
       redirect_to support_index_path(error_in_form: true, title: params[:contact][:title], body: params[:contact][:body], email: params[:contact][:email])
     end
     

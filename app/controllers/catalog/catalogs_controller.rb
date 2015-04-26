@@ -73,7 +73,7 @@ class Catalog::CatalogsController < ApplicationController
               recipient_type: @catalog.class.name,
                   account_id: @catalog.account_id)
                   
-    #flash[:info] = { title: "SUCCESS: ", body: "Catalog updated" }
+  
     redirect_to catalog_account_catalog_path( @account, @catalog)
   end
   
@@ -85,48 +85,11 @@ class Catalog::CatalogsController < ApplicationController
     forbidden unless current_account_user.read_common_work?
     
     @common_works  = CommonWork.find_from_collection(@account, @catalog, params[:query]).order('title asc').page(params[:page]).per(32)
-    #@common_works  = CommonWork.catalog_search(@catalog, params[:query]).order('title asc').page(params[:page]).per(32)
+    
   end
   
   
-  
-  #def move
-  #  @catalog = Catalog.cached_find(params[:catalog_id])
-  #end
-  
-  #def receive
-  #  @catalog = Catalog.cached_find(params[:catalog_id])
-  #end
-  
-  
-  #def get_catalog
-  #  @catalog = Catalog.new
-  #end
-  
-  #def receive
-  #  
-  #  @catalog      = Catalog.where(move_code: params[:catalog][:move_code]).first
-  #
-  #  if @catalog
-  #    MoveCatalog.move_to_account @catalog, @account
-  #    @catalog.move_code  = ''
-  #    @catalog.movable    = false
-  #    @catalog.save!
-  #    flash[:info] = { title: "SUCCESS: ", body: "Catalog received" }
-  #    redirect_to account_catalog_path( @account, @catalog )
-  #  else
-  #    flash[:danger] = { title: "ERROR: ", body: "No catalog found" }
-  #    redirect_to account_catalog_get_catalog_path(@account, 1)
-  #  end
-  #end
-  
-  
-  #def confirm
-  #  @catalog = Catalog.cached_find(params[:catalog_id])
-  #  @catalog.move_code = UUIDTools::UUID.timestamp_create().to_s
-  #  @catalog.save!
-  #  redirect_to account_catalog_move_path @account, @catalog
-  #end
+
   
   def generate_code
     @catalog            = Catalog.cached_find(params[:catalog_id])

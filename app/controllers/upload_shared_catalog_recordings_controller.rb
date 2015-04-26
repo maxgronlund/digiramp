@@ -32,7 +32,7 @@ class UploadSharedCatalogRecordingsController < ApplicationController
       add_to_catalog @import_batch, @catalog.id
 
       # post message
-      flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
+      flash[:info]          =  "Import completed" 
       
       # bounce back to the shared catalog
       redirect_to user_shared_catalog_upload_shared_catalog_recording_path(@user, @catalog,  @import_batch)

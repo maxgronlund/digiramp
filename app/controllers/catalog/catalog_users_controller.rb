@@ -55,9 +55,8 @@ class Catalog::CatalogUsersController < ApplicationController
       # if the user already is in the system
       if user    = User.where(email: email).first
       
-        flash[:info] = { title: "User Invited: ", 
-                         body: "You have invited a DigiRAMP member with the email #{email} to the #{catalog.title} catalog" 
-                       }
+        flash[:info] = "You have invited a DigiRAMP member with the email #{email} to the #{catalog.title} catalog" 
+                       
         # send email
         UserMailer.delay.invite_user_to_catalog( email,
                                                  title, 
@@ -82,7 +81,7 @@ class Catalog::CatalogUsersController < ApplicationController
                                                    false
                                                   )
           
-          flash[:info] = { title: "User Invited: ", body: "You have invited #{email} to the #{catalog.title.upcase} catalog" }
+          flash[:info] =  "You have invited #{email} to the #{catalog.title.upcase} catalog" 
         else
           
         end
@@ -93,12 +92,12 @@ class Catalog::CatalogUsersController < ApplicationController
       params[:catalog_user][:uuid]          = UUIDTools::UUID.timestamp_create().to_s
       unless user && @catalog_user         = CatalogUser.create!( catalog_user_params ) 
         # notify if something went wrong
-        flash[:danger] = { title: "Error: ", body: "User not invited, If this error persists please contact support" }
+        flash[:danger] =  "User not invited, If this error persists please contact support" 
       end
       @catalog_user.attach_to_account_user
       @user = current_user
     else
-      flash[:danger] = { title: "Error: ", body: "Unable to validate email" }
+      flash[:danger] =  "Unable to validate email" 
     end
     redirect_to catalog_account_catalog_catalog_users_path(@account, @catalog)
   end

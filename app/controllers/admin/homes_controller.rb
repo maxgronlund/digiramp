@@ -12,7 +12,7 @@ class Admin::HomesController < ApplicationController
   def update
     @home = Home.find(params[:id])
     @home.update(home_params)
-    flash[:info] = { title: "SUCCESS: ", body: "Public front page updated" }
+
     redirect_to edit_admin_home_path(@home) 
   end
 

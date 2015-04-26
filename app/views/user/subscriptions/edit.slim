@@ -1,0 +1,44 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Change plan
+      .sexy_line
+      - @account_features.each do |account_feature|
+        .digi-box
+          .row
+            .col-sm-8
+              h4 = account_feature.name
+              -if account_feature.price
+                = number_to_currency(account_feature.price, locale: :en, precision: 2)  
+                '/
+                = account_feature.interval
+              - else
+                'Free
+            .col-sm-4
+              .pull-right
+                - if @subscription.plan && (@subscription.plan_id == account_feature.plan_id) 
+                  .btn.btn-success disabled="disabled"
+                    '√ Current plan
+                -else
+                  = link_to 'Select', user_user_subscription_path(@user, @subscription, plan_id: account_feature.plan_id), class: 'btn btn-success', method: 'put'
+              
+        
+
+         
+              
+  == render 'shared/site_footer'   
+
+
+
+
+
+
+

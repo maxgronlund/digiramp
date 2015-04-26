@@ -1,0 +1,84 @@
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  
+<script type="text/javascript">
+  Stripe.setPublishableKey('<%= Rails.application.secrets.stripe_publishable_key %>');
+  jQuery(function($) {
+    $('#payment-form').submit(function(event) {
+      var $form = $(this);
+      $form.find('button').prop('disabled', true);
+      Stripe.card.createToken($form, stripeResponseHandler);
+      return false;
+    });
+  });
+
+  function stripeResponseHandler(status, response) {
+    var $form = $('#payment-form');
+    if (response.error) {
+      showError(response.error.message);
+      // Show the errors on the form
+      /*
+      $form.find('.payment-errors').text(response.error.message);
+      $form.find('button').prop('disabled', false);
+      */
+    } else {
+      // response contains id and card, which contains additional card details
+      var token = response.id;
+      // Insert the token into the form so it gets submitted to the server
+      $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+      // and submit
+      //$form.get(0).submit();
+      
+      $.ajax({
+        type: "POST",
+        /*/user/users/max-groenlund/subscriptions*/
+        url: "/user/users/<%=@user.slug%>/subscriptions/<%= @subscription %>",
+        data: $('#payment-form').serialize(),
+        success: function(data) { /*console.log(data);*/ poll(data.guid, 30) },
+        error: function(data)   { /*console.log(data);*/ showError(data.responseJSON.error) }
+      });
+      
+      
+    }
+  };
+  
+  
+  
+  
+  
+  // Recursively poll for completion.
+  function poll(guid, num_retries_left) {
+    console.log(num_retries_left);
+    if (num_retries_left === 0) {
+      showError("This seems to be taking too long. Email max@digiramp.com and reference subscription " + guid + " and we'll take a look.");
+      return;
+    }
+    
+    //$.get("/user/users/"<%=@user.slug%>"/subsctiption_status/" + guid, function(data)) {
+    $.get("/user/users/<%=@user.slug%>/subsctiption_status/" + guid, function(data) {
+      console.log(data.status);
+      if (data.status === "finished") {
+          /*window.location = "/pickup/" + guid;*/
+        window.location = "/"
+      } else if (data.status === "error") {
+        showError(data.error)
+      } else {
+        setTimeout(function() { poll(guid, num_retries_left - 1) }, 500);
+      }
+    });
+  }
+  
+  
+  
+  
+  
+  
+  function showError(error) {
+    var form = $('#payment-form');
+    form.find('button').prop('disabled', false);
+    $('#payment-errors').html(error);
+    $('#payment-errors').show();
+    $('#pay-button').show();
+    $('#powered-by-stripe').hide();
+    $('#spinner-button').hide();
+  };
+</script>

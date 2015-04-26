@@ -42,7 +42,7 @@
               tr
                 th Account
                 th
-                th
+                /th
                 th Type
                 th Expires
                 th 
@@ -83,13 +83,7 @@
                     /'&nbsp; 
                     // front page     
                     /= link_to account.title, account, class: 'btn btn-default btn-xs'
-                    
-                  
-                  
-                  td 
-                    - if account.special_subscription_fee
-                      i.fa.fa-money 
-                      '&nbsp;
+
                   td
                     - if account.account_type == 'Social'
                       = account.account_type

@@ -9,6 +9,7 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/flash_message'
       h2 Settings
       .sexy_line
       .row
@@ -146,29 +147,29 @@
                   .body
                     'Use this to update your IPI's and find people in your array
             
-            - if super?
+            - if current_user.betatester
               .control-panel-badge
-                = link_to  user_user_plans_path(@user) do
+                = link_to  user_user_subscriptions_path(@user) do
                   .content
                     .icon.icon-dr-blue
                       i.fa.fa-trophy
                       
                     .title
-                      h4 Account plan
+                      h4 Subscription
                     .body
-                      'Manage your DigiRAMP plan
+                      'Your DigiRAMP plan
                       
-              .control-panel-badge
-                = link_to  user_user_registrations_path(@user) do
-                  .content
-                    .icon.icon-red
-                      i.fa.fa-money
-                      
-                    .title
-                      h4 Invoices
-                    .body
-                      'Payments
-                      
+              /.control-panel-badge
+              /  = link_to  user_user_registrations_path(@user) do
+              /    .content
+              /      .icon.icon-red
+              /        i.fa.fa-money
+              /        
+              /      .title
+              /        h4 Invoices
+              /      .body
+              /        'Payments
+              /        
                   
                       
                       

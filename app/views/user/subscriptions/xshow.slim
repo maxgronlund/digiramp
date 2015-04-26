@@ -1,0 +1,81 @@
+header.clearfix
+  #logo
+    = wicked_pdf_image_tag "invoice-logo.png"
+  h1 = @invoice
+  #company.clearfix
+    div = @registration[:purchased_at].to_formatted_s(:month_date_and_year) if @registration[:purchased_at]
+    div
+      'DigiRAMP
+      /= @registration.company
+      br/
+      /= @full_name
+    div 
+      /= @registration.telephone
+    div
+      a href="mailto:sales@digiramp.com"  sales@digiramp.com
+  #project
+    div
+      span COMPANY  
+      = @registration.company
+    div
+      span NAME
+      = @full_name
+    div
+      span ADDRESS
+      =  @registration.address1
+    div
+      span CITY
+      =  @registration.city
+    div
+      span ZIP
+      =  @registration.zip
+    div
+      span STATE
+      =  @registration.state
+    div
+      span CITY
+      =  @registration.city
+    div
+      span COUNTRY
+      =  @registration.country
+    div
+      span EMAIL
+      a href="mailto:#{@registration.email}"  #{@registration.email}
+
+
+main
+  table
+    thead
+      tr
+        th.service SERVICE
+        th.desc PERIOD
+        th PRICE
+        th QTY
+        th TOTAL
+    tbody
+      tr
+        td.service 
+          = @registration.account_type
+          '&nbsp;account subscription for
+          br
+          = @registration.account.title
+          
+        td.desc 
+          'From&nbsp;
+          = @registration.expiration_date - 1.months
+          '&nbsp;to&nbsp;
+          = @registration.expiration_date
+          
+          /= @registration.description
+        td.unit = number_to_currency(@registration.subscription_fee)
+        td.qty = @quantity
+        td.total = number_to_currency( @mc_gross )
+     
+      tr
+        td.grand.total colspan="4"  GRAND TOTAL
+        td.grand.total = number_to_currency(@payment_gross)
+  /#notices
+  /  div NOTICE:
+  /  .notice A finance charge of 1.5% will be made on unpaid balances after 30 days.
+footer
+  | Invoice was created on a computer and is valid without the signature and seal.

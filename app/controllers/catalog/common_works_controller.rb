@@ -29,15 +29,12 @@ class Catalog::CommonWorksController < ApplicationController
   end
 
   def new
-    #forbidden unless current_account_user.create_catalog
-    #@catalog = Catalog.new
+
   end
   
   def create
     
-    #@catalog = Catalog.create(catalog_params)
-    #flash[:info] = { title: "SUCCESS: ", body: "Catalog created" }
-    #redirect_to catalog_account_catalog_path( @account, @catalog)
+
   end
 
   def edit
@@ -151,21 +148,7 @@ class Catalog::CommonWorksController < ApplicationController
           recording.save!
         end
       end
-      
-      # success mesage
-      #flash[:info]      = { title: "Succes", body: "#{pluralize(nr_files_uploaded, "File")} uploaded" }
-      #
-      ## error messages
-      #unless result[:errors].size == 0
-      #  errors     = ''
-      #  nr_errors = 0
-      #  result[:errors].each do |error|
-      #    nr_errors += 1
-      #    errors << error + '<br>'
-      #  end
-      #  flash[:danger]    = { title: "Errors", body: errors }
-      #end
-      
+
       
       # selection from drop down
       if params[:recording][:add_to_catalogs] == 'All Catalogs'
@@ -179,23 +162,15 @@ class Catalog::CommonWorksController < ApplicationController
 
       redirect_to catalog_account_catalog_common_work_path( @account, @catalog, @common_work )
 
-      #flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
-      ##redirect_to catalog_account_catalog_common_work_new_recordings_path(@account, @catalog, @common_work )
-      #redirect_to :back
+
 
 
   end
   
   def destroy
-    #@catalog = Catalog.find(params[:id])
-    #@catalog.destroy
-    #redirect_to catalog_account_catalogs_path( @account)
+
   end
-  
-  #def find_in_collection
-  #  
-  #end
-  
+
   def remove_common_work_from_catalog
     @common_work = CommonWork.cached_find(params[:common_work_id])
     @remove_tag  = "#remove_from_catalog_"       + @common_work.id.to_s

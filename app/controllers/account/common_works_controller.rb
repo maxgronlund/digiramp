@@ -131,12 +131,9 @@ class Account::CommonWorksController < ApplicationController
         end
         
       end
-      #flash[:info]      = { title: "Success", body: "Recording added to Common Work" }
+    
       redirect_to account_account_common_work_path(@account, @common_work )
-      #rescue
-      #flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
-      #redirect_to new_recordings_account_account_common_work_path(@account, @common_work )
-      #end
+
 
   end
   

@@ -12,7 +12,7 @@ class UploadRecordingsController < ApplicationController
   # called when an  import is completed
   def create
     @import_batch         = TransloaditParser.parse_recordings( params[:transloadit], @account.id, current_user )
-    flash[:info]          = { title: "SUCCESS: ", body: "Import completed" }
+    flash[:info]          =  "Import completed" 
     redirect_to account_import_batch_path(@account,   @import_batch)
   end
   
@@ -31,7 +31,7 @@ class UploadRecordingsController < ApplicationController
   end
   
   def update
-    flash[:info]            = { title: "SUCCESS: ", body: "Audio file uploaded" }
+    flash[:info]            =  "Audio file uploaded" 
     @recording              = Recording.cached_find(params[:id])
     @common_work            = CommonWork.cached_find(params[:common_work_id])
     transloadets            = TransloaditParser.update(@recording, params[:transloadit] )

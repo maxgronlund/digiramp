@@ -7,7 +7,7 @@
       .col-sm-6
         = f.input :months
       .col-sm-6
-        = @account_feature.subscription_fee 
+        /= @account_feature.subscription_fee 
     /= f.association :user
     = f.hidden_field :account_id, value: @account.id
 

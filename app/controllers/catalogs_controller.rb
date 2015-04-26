@@ -20,8 +20,6 @@ class CatalogsController < ApplicationController
   
   def create
     @catalog = Catalog.create(catalog_params)
-    
-    flash[:info] = { title: "SUCCESS: ", body: "Catalog created" }
     redirect_to account_catalog_path( @account, @catalog)
   end
 
@@ -32,7 +30,6 @@ class CatalogsController < ApplicationController
   def update
     @catalog = Catalog.cached_find(params[:id])
     @catalog.update_attributes(catalog_params)
-    flash[:info] = { title: "SUCCESS: ", body: "Catalog updated" }
     redirect_to account_catalog_path( @account, @catalog)
   end
   
@@ -58,10 +55,10 @@ class CatalogsController < ApplicationController
       @catalog.move_code  = ''
       @catalog.movable    = false
       @catalog.save!
-      flash[:info] = { title: "SUCCESS: ", body: "Catalog received" }
+      flash[:info] = "Catalog received" 
       redirect_to account_catalog_path( @account, @catalog )
     else
-      flash[:danger] = { title: "ERROR: ", body: "No catalog found" }
+      flash[:danger] = "No catalog found" 
       redirect_to account_catalog_get_catalog_path(@account, 1)
     end
   end

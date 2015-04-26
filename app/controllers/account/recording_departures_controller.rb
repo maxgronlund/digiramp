@@ -26,7 +26,7 @@ class Account::RecordingDeparturesController < ApplicationController
           end
         end
       end
-      flash[:success] = { title: "SUCCESS: ", body: "#{count} recordings was received" }
+      flash[:success] = "#{count} recordings was received" 
     end
     redirect_to :back
   end

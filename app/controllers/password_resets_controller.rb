@@ -10,9 +10,9 @@ class PasswordResetsController < ApplicationController
     
     if user
       user.send_password_reset 
-      flash[:info] = { title: "Request received", body: "You should receive an email with instructions in a few moments" }
+      flash[:info] = "You should receive an email with instructions in a few moments" 
     else
-      flash[:danger] = { title: "Sorry", body: "No user with that email  #{email}  on record" }
+      flash[:danger] = "No user with that email  #{email}  on record" 
     end
     redirect_to :back
   end
@@ -23,7 +23,7 @@ class PasswordResetsController < ApplicationController
 
   def edit
     begin
-      @user = User.find_by_password_reset_token!(params[:id])
+      @reset_user = User.find_by_password_reset_token!(params[:id])
     rescue
       not_found
     end
@@ -36,13 +36,12 @@ class PasswordResetsController < ApplicationController
         reset has expired."
         
     elsif params[:user][:password].to_s == ''
-      flash[:danger] = { title: "ERROR: ", body: "Password can't be blank" }
+      flash[:danger] = "Password can't be blank" 
       redirect_to edit_password_reset_path(params[:id])
     elsif params[:user][:password] != params[:user][:password_confirmation]
-      flash[:danger] = { title: "ERROR: ", body: "Password and Password Confirmation mismatch" }
+      flash[:danger] = "Password and Password Confirmation mismatch" 
       redirect_to edit_password_reset_path(params[:id])
     elsif @user.update(user_params)
-      flash[:info] = { title: "SUCCESS: ", body: "Your password has been reset" }
       cookies.permanent[:auth_token]  = nil
       cookies[:auth_token]            = @user.auth_token  
       

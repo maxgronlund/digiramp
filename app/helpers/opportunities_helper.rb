@@ -44,7 +44,7 @@ private
             return
           else
             # we are logged in as another user
-            flash[:danger] = { title: "Warning!", body: "You are not logged in as the user invited to this opportunity, please log out and try again" }
+            flash[:danger] =  "You are not logged in as the user invited to this opportunity, please log out and try again" 
             redirect_to login_new_path
             return
           end
@@ -59,7 +59,7 @@ private
       end
       
     rescue
-      flash[:danger] = { title: "Autch", body: "The invitation is not for you, or the opportunity has been removed" }
+      flash[:danger] =  "The invitation is not for you, or the opportunity has been removed" 
       redirect_to current_user ? current_user : login_new_path
       return
     end

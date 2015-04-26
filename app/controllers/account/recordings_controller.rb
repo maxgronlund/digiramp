@@ -103,21 +103,10 @@ class Account::RecordingsController < ApplicationController
       end
       redirect_to edit_account_account_recording_basic_path(@account, @recording )
     else
-      flash[:danger]      = { title: "Unknown fileformat", body: "Please check it's a real audio file you are uploading" }
+      flash[:danger]      = "Please check it's a real audio file you are uploading" 
       redirect_to :back
     end
-    
-    
-    
-    #@common_work           = CommonWork.cached_find(params[:common_work_id])
-    #begin
-    #  TransloaditParser.add_to_common_work params[:transloadit], @common_work.id, @account.id
-    #  flash[:info]      = { title: "Success", body: "Recording added to Common Work" }
-    #  redirect_to account_work_work_recordings_path(@account, @common_work )
-    #rescue
-    #  flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
-    #  redirect_to new_account_common_work_recording_path(@account, @common_work )
-    #end
+
     
   end
   

@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Stripe:
+  = @plan.stripe_id
+p
+  strong Name:
+  = @plan.name
+p
+  strong Description:
+  = @plan.description
+p
+  strong Amount:
+  = @plan.amount
+p
+  strong Interval:
+  = @plan.interval
+p
+  strong Published:
+  = @plan.published
+
+/= link_to 'Edit', edit_plan_path(@plan)
+/'|
+/= link_to 'Back', plans_path

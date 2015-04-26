@@ -156,18 +156,16 @@ class UsersController < ApplicationController
     blog                      = Blog.cached_find('Sign Up')
 
     if params[:user][:password]    != params[:user][:password_confirmation]
-      flash[:danger]   = { error: 'Sorry:', body: 'Password and Passoword confirmation mismatch' }
+      flash[:danger]   = 'Password and Passoword confirmation mismatch' 
       redirect_to signup_index_path
     
     elsif  params[:user][:email].to_s == ''
-      flash[:danger]   = { error: 'Sorry:', body: 'Email is missing' }
+      flash[:danger]   = 'Email is missing'
       redirect_to signup_index_path
     
     elsif @user.save
       @account          = User.create_a_new_account_for_the @user
-      #blog              = Blog.cached_find('Sign Up')
-      #blog_post         = BlogPost.cached_find('Sucess', blog)
-      #flash[:success]   = { title: blog_post.title, body: blog_post.body }
+
       
       # signout if you was signed in as another user
       cookies.delete(:auth_token)
@@ -194,7 +192,7 @@ class UsersController < ApplicationController
       
       
     else
-      flash[:danger]   = { title: 'Sorry:', body: 'Email has already been taken' }
+      flash[:danger]   = 'Email has already been taken' 
       redirect_to signup_index_path
     end
 
@@ -246,12 +244,7 @@ class UsersController < ApplicationController
         redirect_to user_path(@user)
       end
     else
-      #if User.where(user_name: params[:user_name])
-      #  flash[:danger] = { title: "Error", body: "User name alreaddy used" }
-      #else
-      #  flash[:danger] = { title: "Error", body: "Check if password and password confirmation" }
-      #end
-      
+
       render :edit
     end
     
@@ -271,9 +264,9 @@ class UsersController < ApplicationController
               recipient_type: @user.class.name,
                   account_id: @user.account_id)
     
-    #flash[:info] = { title: "SUCCESS: ", body: "#{@user.name} is deleted" } 
+
     @user.destroy
-    #go_to = session[:go_to_after_edit] || account_users_path(@account)
+
     session[:go_to_after_edit]          = nil
     cookies.delete(:user_id)
     self.flush_auth_token_cache(cookies[:auth_token])
@@ -303,28 +296,6 @@ private
   def user_params
     params.require(:user).permit!
   end
-          
-  
-  
-  
-  #def find_user
-  #  if current_user
-  #    @user = User.cached_find(params[:id])
-  #  else
-  #    render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
-  #  end
-  #end
-  
-  
-  
-  
 
-  
-  #def add_roles
-  #  @roles = AccountUser::ROLES
-  #  @roles << 'super'           if current_user.super?
-  #  @roles << 'account owner'   if current_user.super?
-  #  @roles.uniq!
-  #end
 
 end

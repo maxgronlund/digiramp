@@ -1,14 +1,16 @@
 - flash.each do |name, msg|
+  'fo
   div class="alert alert-#{name}"
     button type="button" class="close" data-dismiss="alert" ×
-    table
-      row
-        td
-          h4 = msg[:title] rescue nil
-        td &nbsp;&nbsp;&nbsp;
-        td
-          =simple_format msg[:body] rescue nil
-    
+    =  msg rescue ''
+    /table
+    /  row
+    /    td
+    /      h4 = msg[:title] rescue nil
+    /    td &nbsp;&nbsp;&nbsp;
+    /    td
+    /      =simple_format msg[:body] rescue nil
+    /
 
 
 

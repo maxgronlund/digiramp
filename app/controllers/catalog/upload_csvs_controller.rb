@@ -38,36 +38,13 @@ class Catalog::UploadCsvsController < ApplicationController
     
     begin
       TransloaditCSVParser.add_to_common_work params[:transloadit], @catalog.id, @account.id
-      flash[:info]      = { title: "Success", body: "Recording added to Common Work" }
+      flash[:info]      = "Recording added to Common Work" 
       #redirect_to account_work_work_recordings_path(@account, @common_work )
     rescue
-      flash[:danger]      = { title: "Unable to create Recording", body: "Please check if you selected a valid file" }
-      #redirect_to new_account_common_work_recording_path(@account, @common_work )
+      flash[:danger]      = "Unable to create Recording! Please check if you selected a valid file" 
+     
     end
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    #@upload_csv = UploadCsv.new(upload_csv_params)
-    #
-    #respond_to do |format|
-    #  if @upload_csv.save
-    #    format.html { redirect_to @upload_csv, notice: 'Upload csv was successfully created.' }
-    #    format.json { render action: 'show', status: :created, location: @upload_csv }
-    #  else
-    #    format.html { render action: 'new' }
-    #    format.json { render json: @upload_csv.errors, status: :unprocessable_entity }
-    #  end
-    #end
+
   end
 
   # PATCH/PUT /upload_csvs/1

@@ -1,0 +1,27 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 You have changed your plan
+      .sexy_line
+      .digi-box
+        'You will receive a confirmation email if everything went well
+      
+
+         
+              
+  == render 'shared/site_footer'   
+
+
+
+
+
+
+

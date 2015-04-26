@@ -30,9 +30,9 @@ class SessionsController < ApplicationController
     # '-------------- SessionsController#attach_authorization_provider_to_existing_user -----------'
     
     unless Omniauth.attach_provider( env, user )
-      flash[:info] = { title: "Notice: ", body: "Provider already attached to account" }
+      flash[:info] = "Provider already attached to account" 
     else
-      flash[:info] = { title: "SUCCESS: ", body: "#{env['omniauth.auth'][:provider].upcase} is linked to your account" }
+      flash[:info] = "#{env['omniauth.auth'][:provider].upcase} is linked to your account" 
     end
 
     redirect_to session[:current_page]
@@ -52,7 +52,7 @@ class SessionsController < ApplicationController
       initialize_session_for user[:user]
       
     else
-      flash[:danger] = { title: "Sorry", body: user[:message]}
+      flash[:danger] =  user[:message]
       redirect_to login_new_path
     end
   end
@@ -79,9 +79,9 @@ class SessionsController < ApplicationController
       initialize_session_for user
     else
 
-      flash[:danger] = { title: "Sorry", body: "No user we can't authorize found.
-                                                If you have signed up directly on DigiRAMP we can resend you password.
-                                                Otherwise make sure you are signed in with you authorization provider" }
+      flash[:danger] =  "No user we can't authorize found.
+                         If you have signed up directly on DigiRAMP we can resend you password.
+                         Otherwise make sure you are signed in with you authorization provider" 
       redirect_to login_new_path
     end
     
@@ -113,7 +113,7 @@ class SessionsController < ApplicationController
     if params[:opportunity_id]
       redirect_to :back
     elsif params[:opportunity_invitation]
-      flash[:info] = { title: "Ok", body: "Please login as the user invited to the opportunity" }
+      flash[:info] =  "Please login as the user invited to the opportunity" 
       redirect_to login_new_path(params) 
     elsif params[:redirect_to_message]
       session[:current_page] = params[:redirect_to_message]

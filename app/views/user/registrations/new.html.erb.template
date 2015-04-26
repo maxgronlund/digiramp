@@ -1,0 +1,139 @@
+
+<%- if @plan %>
+<h2>Subscribing to <%= @plan.name %></h2>
+  <%= simple_form_for [:user, @user, @subscription], html: { id: 'payment-form' } do |f| %>
+    <input type="hidden" name="plan_id" value="<%= @plan.id %>" />
+    <span class="payment-errors"></span>
+    
+    <div class="form-row">
+      <label>
+        <span>Email Address</span>
+        <input type="email" size="20" name="email_address"/>
+      </label>
+    </div>
+    <div class="form-row">
+      <label>
+        <span>Card Number</span>
+        <input type="text" size="20" data-stripe="number"/>
+      </label>
+    </div>
+    <div class="form-row">
+      <label>
+        <span>CVC</span>
+        <input type="text" size="4" data-stripe="cvc"/>
+      </label>
+    </div>
+    <div class="form-row">
+      <label>
+        <span>Expiration (MM/YYYY)</span>
+        <input type="text" size="2" data-stripe="exp-month"/>
+      </label>
+      <span> / </span>
+      <input type="text" size="4" data-stripe="exp-year"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Pay</button>
+  <% end %>
+
+<% end %>  
+
+
+<div class="payment-well" style="margin-top: 0px; margin-bottom: 0px;">
+  <div class="row">
+    <div id="powered-by-stripe" style="<%= @subscription.errors.any? ? 'display: none;' : '' %> margin-left: auto; margin-right: auto; text-align: center; margin-top: 15px;">
+      <img src="<%= asset_path('powered_by_stripe.png') %>">
+    </div>
+    <div id="payment-errors" class="alert payment-alert" style="<%= @subscription.errors.any? ? '' : 'display: none;' %> margin-bottom: 0px;">
+      <% @subscription.errors.full_messages.each do |msg| %>
+        <span><%= msg %></span>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  
+<script type="text/javascript">
+  Stripe.setPublishableKey('<%= Rails.application.secrets.stripe_publishable_key %>');
+  jQuery(function($) {
+    $('#payment-form').submit(function(event) {
+      var $form = $(this);
+      $form.find('button').prop('disabled', true);
+      Stripe.card.createToken($form, stripeResponseHandler);
+      return false;
+    });
+  });
+
+  function stripeResponseHandler(status, response) {
+    var $form = $('#payment-form');
+    if (response.error) {
+      showError(response.error.message);
+      // Show the errors on the form
+      /*
+      $form.find('.payment-errors').text(response.error.message);
+      $form.find('button').prop('disabled', false);
+      */
+    } else {
+      // response contains id and card, which contains additional card details
+      var token = response.id;
+      // Insert the token into the form so it gets submitted to the server
+      $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+      // and submit
+      //$form.get(0).submit();
+      
+      $.ajax({
+        type: "POST",
+        /*/user/users/max-groenlund/subscriptions*/
+        url: "/user/users/<%=@user.slug%>/subscriptions/<%= @subscription %>",
+        data: $('#payment-form').serialize(),
+        success: function(data) { /*console.log(data);*/ poll(data.guid, 30) },
+        error: function(data)   { /*console.log(data);*/ showError(data.responseJSON.error) }
+      });
+      
+      
+    }
+  };
+  
+  
+  
+  
+  
+  // Recursively poll for completion.
+  function poll(guid, num_retries_left) {
+    console.log(num_retries_left);
+    if (num_retries_left === 0) {
+      showError("This seems to be taking too long. Email max@digiramp.com and reference subscription " + guid + " and we'll take a look.");
+      return;
+    }
+    
+    //$.get("/user/users/"<%=@user.slug%>"/subsctiption_status/" + guid, function(data)) {
+    $.get("/user/users/<%=@user.slug%>/subsctiption_status/" + guid, function(data) {
+      console.log(data.status);
+      if (data.status === "finished") {
+          /*window.location = "/pickup/" + guid;*/
+        window.location = "/"
+      } else if (data.status === "errored") {
+        showError(data.error)
+      } else {
+        setTimeout(function() { poll(guid, num_retries_left - 1) }, 500);
+      }
+    });
+  }
+  
+  
+  
+  
+  
+  
+  function showError(error) {
+    var form = $('#payment-form');
+    form.find('button').prop('disabled', false);
+    $('#payment-errors').html(error);
+    $('#payment-errors').show();
+    $('#pay-button').show();
+    $('#powered-by-stripe').hide();
+    $('#spinner-button').hide();
+  };
+</script>
+  
+  

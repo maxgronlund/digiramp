@@ -1,0 +1,31 @@
+= simple_form_for [:admin, @plan] do |f|
+  = f.error_notification
+
+  .form-inputs  
+    .row
+      .col-sm-6
+        /= f.hidden_field :stripe_id, value: 'DigiRAMP plan-' + (Plan.count + 123  ).to_s
+        = f.input :name
+        = f.input :description
+        = f.input :amount, label: 'Price in cents'
+        = f.input :interval, collection: Plan::INTERVALS , include_blank: false
+        = f.input :currency, collection: Plan::CURRENCY  , include_blank: false
+      .col-sm-6
+        = f.input :trial_period_days
+        = f.input :published, hint: 'Use this to hide plans'
+        = f.input :statement_descriptor
+        .panel.panel-default
+          .panel-body
+            b Statement descriptor
+            br
+            'An arbitrary string to be displayed on your customer's credit card statement. This may be up to 22 characters. As an example, if your website is RunClub and the item you're charging for is your Silver Plan, you may want to specify a statement_descriptor of DigiRAMP Pro Plan. The statement description may not include '<>' characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped. While most banks display this information consistently, some may display it incorrectly or not at all. This can be unset by updating leaving the field blank and then saving.
+
+    
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'
+        coffee:
+          $("form#new_plan").submit ->
+            $(this).find('input[type=submit]').attr('disabled', 'disabled')
+            $(this).find('input[type=submit]').val "Updating Stripe, please wait ..."

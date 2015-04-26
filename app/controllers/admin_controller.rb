@@ -16,7 +16,7 @@ class AdminController < ApplicationController
   def index
     @users      = User.where(role: 'super')
     @user       = current_user
-    @authorized = true
+    #@authorized = true
     #where.('lower(email) ASC')
   end
   

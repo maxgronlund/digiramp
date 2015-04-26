@@ -13,9 +13,9 @@ class Admin::AdministratorsController < ApplicationController
   def update
     @user = User.cached_find(params[:id])
     if @user.update(administrators_params)
-      flash[:info] = { title: "SUCCESS: ", body: "User updated" }
+
     else
-      flash[:danger] = { title: "Error", body: "User not updated" }
+      flash[:danger] =  "User not updated" 
     end
       redirect_to admin_administrators_path
   end

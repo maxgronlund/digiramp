@@ -1,0 +1,57 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,
+                                                              plans: admin_plans_path }, current: ''}
+      .row
+        .col-sm-6
+          h2 Edit plan
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to  admin_plans_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+                  
+            
+                  
+
+      .sexy_line
+      /p id="notice" 
+      /  = notice 
+      .row
+        .col-sm-6
+          .digi-box  
+            = simple_form_for [:admin, @plan], turboboost: true do |f|
+              = f.error_notification
+
+              .form-inputs
+                = f.input :name
+                = f.input :published, hint: 'Use this to hide plans'
+                = f.input :statement_descriptor
+                .panel.panel-default
+                  .panel-body
+                    b Statement descriptor
+                    br
+                    'An arbitrary string to be displayed on your customer's credit card statement. This may be up to 22 characters. As an example, if your website is RunClub and the item you're charging for is your Silver Plan, you may want to specify a statement_descriptor of DigiRAMP Pro Plan. The statement description may not include '<>' characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped. While most banks display this information consistently, some may display it incorrectly or not at all. This can be unset by updating leaving the field blank and then saving.
+
+    
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-primary'
+            
+
+            
+          
+
+  == render 'shared/site_footer' 
+

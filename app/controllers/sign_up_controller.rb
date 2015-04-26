@@ -9,7 +9,7 @@ class SignUpController < ApplicationController
     go_to = :back
     
     if User.exists?(email: sanitized_email)
-      flash[:error]      = { title: "User exists", body: "You are already signed up for an account. Please login" }
+      flash[:danger]      = "You are already signed up for an account. Please login" 
       go_to = login_index_path
       
     else
@@ -31,11 +31,11 @@ class SignUpController < ApplicationController
       @user.name        = user_params[:user_name]
       
       if@user.save!
-        flash[:info]      = { title: "SUCCESS: ", body: "You are signed up"}
+        flash[:info]      = "You are signed up"
         go_to = login_index_path
       else
         account.destroy
-        flash[:error]      = { title: "Hmmm", body: "Please Check email and password" }
+        flash[:danger]      = "Please Check email and password" 
       end
     end
     

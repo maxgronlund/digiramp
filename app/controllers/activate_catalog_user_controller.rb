@@ -27,14 +27,14 @@ class ActivateCatalogUserController < ApplicationController
                            )
                        
                        
-      flash[:info] = { title: "SUCCESS: ", body: "Your have access to this catalog" }
+      flash[:info] = "Your have access to this catalog" 
       cookies.permanent[:auth_token]  = nil
       cookies[:auth_token]            = @user.auth_token  
       
       if @user.current_account
         redirect_to catalog_account_catalog_path(@catalog.account, @catalog)
       else
-        flash[:danger] = { title: "ERROR: ", body: "Something went wrong" }
+        flash[:danger] = "Something went wrong" 
         redirect_to root_path
       end
 

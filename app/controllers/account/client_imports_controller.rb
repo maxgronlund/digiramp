@@ -20,7 +20,7 @@ class Account::ClientImportsController < ApplicationController
     @client_import = ClientImport.create(client_import_params)
     
     ClientCsvImportWorker.perform_async( @client_import.id, current_user.email )
-    flash[:info] = { title: "Info: ", body: "This might take a little time. You will see a notification when done" }
+    flash[:info] = "This might take a little time. You will see a notification when done" 
 
 
     redirect_to account_account_clients_path(@account)

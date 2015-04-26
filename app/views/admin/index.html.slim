@@ -188,6 +188,54 @@
                     li Users contact groups
                     li Dev only
                     li 
+          
+          /.admin-badge-container
+          /  = link_to admin_sales_path do
+          /    .admin-badge
+          /      .title
+          /        h4
+          /          i.fa.fa-shopping-cart
+          /          '&nbsp;Sales
+          /      .body
+          /        ul
+          /          li Papertrail of sales
+          /
+          /.admin-badge-container
+          /  = link_to admin_plans_path do
+          /    .admin-badge
+          /      .title
+          /        h4
+          /          i.fa.fa-cc-stripe
+          /          '&nbsp;Plans
+          /      .body
+          /        ul
+          /          li Management of Stripe plans
+          /
+          .admin-badge-container
+            = link_to admin_business_index_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-money
+                    '&nbsp;Business
+                .body
+                  ul
+                    li Stripe
+                    li Plans
+                    ll Paper trails
+                    
+          /.admin-badge-container
+          /  = link_to admin_account_features_path do
+          /    .admin-badge
+          /      .title
+          /        h4
+          /          i.fa.fa-cogs
+          /          '&nbsp;Account types
+          /      .body
+          /        ul
+          /          li Connect to plans
+          /          li Limit features
+          /           
                   
             
           

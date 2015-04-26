@@ -25,7 +25,7 @@ class AcceptInvitaionToCatalogController < ApplicationController
     
     
     if @user.password_reset_sent_at < 2.weeks.ago
-      #flash[:info] = { title: "Sorry: ", body: "Invitation has expired" }
+
       redirect_to :back
     else
       @user.password  = password
@@ -38,13 +38,7 @@ class AcceptInvitaionToCatalogController < ApplicationController
       
       redirect_to account_path( @user.account) 
       
-      #redirect_to user_shared_catalog_path(@user, @catalog)
-      
-      #if @user.current_account
-      #  redirect_to account_path( @user.account) 
-      #else
-      #  redirect_to root_path
-      #end
+
     end
     
 

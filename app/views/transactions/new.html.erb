@@ -1,0 +1,12 @@
+
+
+
+
+<div class="container">
+  
+  <%= render 'form', permalink: @product.permalink, sale: @sale, price: number_to_currency(@product.price * 0.01, locale: :en, precision: 2) %>
+
+</div>
+
+
+

@@ -35,10 +35,7 @@ class Account::CatalogsController < ApplicationController
   end
   
   def create
-    #@catalog = Catalog.create(catalog_params)
-    #
-    #flash[:info] = { title: "SUCCESS: ", body: "Catalog created" }
-    #redirect_to catalog_account_catalog_path( @account, @catalog)
+
   end
 
   def edit
@@ -46,10 +43,7 @@ class Account::CatalogsController < ApplicationController
   end
   
   def update
-    #@catalog = Catalog.cached_find(params[:id])
-    #@catalog.update_attributes(catalog_params)
-    #flash[:info] = { title: "SUCCESS: ", body: "Catalog updated" }
-    #redirect_to catalog_account_catalog_path( @account, @catalog)
+
   end
   
   def move

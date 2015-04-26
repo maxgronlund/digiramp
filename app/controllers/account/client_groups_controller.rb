@@ -86,7 +86,7 @@ class Account::ClientGroupsController < ApplicationController
   def remove_member
     client_groups_client = ClientGroupsClients.where(id: params[:client_group_client_id].to_i, client_group_id: @client_group.id).first
     if client_groups_client.destroy
-      flash[:notice] = "Member has successfully deleted."
+
     else
       flash[:error] = "Requested member does not exists for this group."
     end

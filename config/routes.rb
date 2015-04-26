@@ -1,6 +1,19 @@
 Digiramp::Application.routes.draw do
 
 
+
+  resources :products
+  
+  get '/buy/:permalink', to: 'transactions#new', as: :show_buy
+  post '/buy/:permalink', to: 'transactions#create', as: :buy
+  get '/pickup/:guid', to: 'transactions#pickup', as: :pickup
+  get '/download/:guid', to: 'transactions#download', as: :download
+  match '/status/:guid'               => 'transactions#status',   via: :get,  as: :status
+  
+  
+  mount StripeEvent::Engine => '/stripe-events'
+  resources :subscriptions, only: [:index, :new, :create]
+  
   
   resources :irons
   
@@ -16,33 +29,31 @@ Digiramp::Application.routes.draw do
   # Example resource route within a namespace:
   namespace :admin do
     resources :account_features
-    resources :account_prices
+      resources :activities
+    resources :activity_counter
+    get 'business/index'
     resources :contracts
-    resources :digiramp_ads
-    get 'features_and_values/index'
-    resources :front_end_contents, only: [:edit, :update]
-    resources :page_styles
-    resources :issue_events
     resources :client_events
     resources :client_groups
-    resources :helps
-    resources :widget_themes
-    get 'repair_permissions'
-    resources :activities
-    resources :activity_counter
     resources :contacts
     resources :default_images
-    resources :raw_images
-
+    resources :digiramp_ads
+    resources :email_group_recipients, only: [:edit, :update]
     resources :email_groups do
       get 'add_all_members'
       get 'remove_all_subscribers'
       resources :digiramp_emails
       resources :email_recipients
-      
     end
-    resources :email_group_recipients, only: [:edit, :update]
-    
+    get 'features_and_values/index'
+    resources :front_end_contents, only: [:edit, :update]
+    resources :helps
+    resources :issue_events
+    resources :page_styles
+    resources :plans
+    get 'repair_permissions'
+    resources :raw_images
+    resources :sales, only: [:index, :show]
     resources :statistics do
       member do
         get 'recordings'
@@ -54,21 +65,19 @@ Digiramp::Application.routes.draw do
         get 'pages'
         get 'tutorials'
       end
+      resources :widget_themes
     end
 
     resources :opportunities
-
     resources :accounts do
       get 'delete_common_works'
       get 'delete_recordings'
       get 'delete_documents'
       get 'delete_clients'
-      
       get 'repair_users'
       get 'repair_catalogs'
       get 'repair_recordings'
       get 'repair_works'
-
     end
     resources :administrators
     get "engine_room"   => "engine_room#index", :as => :engine_room_index
@@ -100,7 +109,7 @@ Digiramp::Application.routes.draw do
     resources :users do
       resources :accounts, only: [:new]
     end
-    
+    resources :subscriptions, only: [:index, :show]
     resources :tutorials
     
     resources :user_genres, only: [:index]
@@ -652,8 +661,8 @@ Digiramp::Application.routes.draw do
     #resources :common_work_lyrics
     resources :users do
       
-      
-      
+      match '/subsctiption_status/:guid'  => 'subscriptions#status',  via: :get,  as: :subscription_status
+      resources :subscriptions
       resources :registrations
       post "/hook" => "registrations#hook"
       post "/registrations/:id" => "registrations#show"
@@ -754,7 +763,8 @@ Digiramp::Application.routes.draw do
         end
         
       end
-      resources :plans
+      #resources :plans
+      resources :payment_methods
       resources :playlists, only: [:edit, :update]
       resources :recording_transfers
       resources :recording_credits

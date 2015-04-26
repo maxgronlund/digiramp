@@ -1,0 +1,62 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'sale'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path,
+                                                               business: admin_business_index_path}, current: ''}
+      .row
+        .col-sm-6
+          h2 Sales
+        .col-sm-6
+          .pull-right.pull-down-10
+            
+          
+
+      .sexy_line
+      .digi-box
+        table.table.table-hover
+          thead
+            tr
+              th Email
+              /th Guid
+              th Product
+              /th Stripe
+              th Date
+              th 
+            
+          tbody
+            -@sales.each do |sale| 
+              tr
+                td = sale.email 
+                /td = sale.guid 
+                td = sale.product.name 
+                /td = sale.stripe_id 
+                td = sale.created_at.to_formatted_s(:short) 
+                td 
+                  .pull-right
+                    => link_to 'Show', admin_sale_path( sale ), class: 'btn btn-default btn-xs'
+                    - if Rails.env == 'development'
+                      = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{sale.stripe_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
+                    - else
+                      = link_to 'Stripe', "https://manage.stripe.com/payments/#{sale.stripe_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
+          
+
+
+  == render 'shared/site_footer'    
+  
+
+
+
+
+
+
+
+
+

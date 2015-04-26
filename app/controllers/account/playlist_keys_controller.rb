@@ -33,7 +33,7 @@ class Account::PlaylistKeysController < ApplicationController
       redirect_to account_account_playlist_path( @account, @playlist_key.playlist)
     else
     
-      flash[:danger] = { title: "Please check password: ", body: "If Password is enabled password and password confirmation has to be filled in and macth" }
+      flash[:danger] = "If Password is enabled password and password confirmation has to be filled in and macth" 
       redirect_to :back
     end
 

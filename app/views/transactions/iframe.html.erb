@@ -1,0 +1,5 @@
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel= "stylesheet">
+
+<h1><%= @product.name %></h1>
+<p>Price: <%= formatted_price(@product.price) %></p>
+<%= render 'form', permalink: @product.permalink, sale: @sale, price: formatted_price(@product.price) %>

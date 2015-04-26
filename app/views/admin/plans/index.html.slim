@@ -1,0 +1,75 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'sale'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path}, current: ''}
+      .row
+        .col-sm-6
+          h2 
+            i.fa.fa-cc-stripe
+            '&nbsp;Plans
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to 'New plan', new_admin_plan_path, class: 'btn btn-primary'
+          
+
+      .sexy_line
+
+      .panel.panel-default
+        .panel-body
+          b READ ME
+          .sexy_line
+          b Delete a plan
+          br
+          'You can delete plans. However, deleting a plan does not affect any current subscribers to the plan; 
+          br it merely means that new subscribers can't be added to that plan.
+          .sexy_line
+          b Updating a plan
+          br
+          'It's not possible to update price, period or any business data on a plan
+      .digi-box
+        table.table.table-hover
+          thead
+            tr
+              th Stripe id
+              th Name
+              th Description
+              /th Amount
+              th Interval
+              th Published
+              th
+            
+          tbody
+            - @plans.each do |plan|
+              tr
+                td = plan.stripe_id
+                td = plan.name
+                td = plan.description
+                /td = plan.amount
+                td = plan.interval
+                td = plan.published
+                td
+                  .pull-right
+                    /=> link_to 'Show', admin_plan_path( plan ), class: 'btn btn-default btn-xs'
+                    => link_to 'Edit', edit_admin_plan_path(plan), class: 'btn btn-default btn-xs'
+                    - if Rails.env == 'development'
+                      = link_to 'Stripe', "https://dashboard.stripe.com/test/plans/#{plan.stripe_id}", :target => "_blank" , class: 'btn btn-primary btn-xs'
+                    - else
+                      = link_to 'Stripe', "https://dashboard.stripe.com/plans/#{plan.stripe_id}", :target => "_blank" , class: 'btn btn-primary btn-xs'
+                    = link_to admin_plan_path( plan ), data: {:confirm => 'Are you sure?'}, turboboost: true, :method => :delete do
+                          .btn.btn-danger.btn-xs
+                            i.fa.fa-times
+          
+
+
+  == render 'shared/site_footer'    
+
+

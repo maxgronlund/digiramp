@@ -63,8 +63,6 @@ class SingleWorkController < ApplicationController
 
     @common_work          = CommonWork.find(params[:single_work_id])
     TransloaditParser.add_to_common_work( params[:transloadit], @common_work.id, @account.id )
-    
-    flash[:info]          = { title: "SUCCESS: ", body: "Common Work Created" }
     redirect_to account_single_work_path(@account, @common_work)
     #redirect_to account_single_work_ipis_path(@account, @common_work)
   end

@@ -26,7 +26,6 @@ class SharedCatalogsController < ApplicationController
   def update
     @catalog = Catalog.cached_find(params[:id])
     @catalog.update_attributes(catalog_params)
-    flash[:info] = { title: "SUCCESS: ", body: "Catalog updated" }
     redirect_to user_shared_catalog_path(@user, @catalog)
   end
   
@@ -37,10 +36,8 @@ class SharedCatalogsController < ApplicationController
   end
   
   def export_all
-    flash[:info] = { title: "SUCCESS: ", body: "Catalog exported as csv" }
-    
-    #@catalog = Catalog.cached_find(params[:id])
-    
+    flash[:info] = "Catalog exported as csv" 
+
     @catalog       = Catalog.cached_find(params[:shared_catalog_id])
     
     if recording_ids   = @catalog.catalog_items.where(catalog_itemable_type: "Recording").pluck(:catalog_itemable_id)

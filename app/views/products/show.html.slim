@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @product.name
+p
+  strong Permalink:
+  = @product.permalink
+p
+  strong Description:
+  = @product.description
+p
+  strong Price:
+  = @product.price
+p
+  strong Created by user:
+  = @product.user.user_name
+
+= link_to 'Edit', edit_product_path(@product)
+'|
+= link_to 'Back', products_path

@@ -1,0 +1,326 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'settings'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
+      - if @plan 
+      
+        .row
+          .col-sm-8
+            h2 #{@plan.name} Subscription
+            b =  number_to_currency(@plan.amount * 0.01, locale: :en, precision: 2)
+          .col-sm-4
+
+        .sexy_line
+        .digi-box
+          .row
+            .col-sm-12
+                #payment-errors.alert.payment-alert style=("#{ @subscription.errors.any? ? '' : 'display: none;' } margin-bottom: 0px;") 
+                  
+                  - @subscription.errors.full_messages.each do |msg| 
+                    span = msg
+          = simple_form_for [:user, @user, @subscription], html: { id: 'payment-form', class: 'form-horizontal'} do |f| 
+            input name="plan_id" type="hidden" value="#{@plan.id}"
+            fieldset
+              /- if @user.email.to_s == ''
+              /  .row.pull-down-10.cc-input
+              /    label.col-sm-3.control-label for="email-address"  * Email
+              /    input.col-sm-9.form-control name="email_address" placeholder=("Email") type="text"
+              /    
+              h3 Credit card   
+              .row.pull-down-10.cc-input
+                label.col-sm-3.control-label for="name"  * Name on Card
+                .col-sm-9
+                  input#card-holder-name.form-control data-stripe="name" placeholder=("Card holder's name") type="text" 
+
+              .row.pull-down-10.cc-input
+                label.col-sm-3.control-label for="card-number" data-stripe="number" * Card Number
+                .col-sm-9
+                  input#card-number.form-control data-stripe="number" placeholder=("Debit/Credit Card Number") type="text" 
+              .row.pull-down-10
+                label.col-sm-3.control-label for="expiry-month" * Expiration Date
+                .col-sm-9
+                  .row.cc-col-xs-3
+                    .col-xs-3
+                      select.cc-expiry-dropdown name="expiry-month" data-stripe="exp-month"
+                        
+                        - @months.each_with_index do |month, index|
+                          option value="#{ format('%02d', index+1)}"  #{month}
+                        
+                    .col-xs-3
+                      select.cc-expiry-dropdown name="expiry-year" data-stripe="exp-year"
+                        - @years.each do |year|
+                          option value="#{ format('%02d',year-2000)}"  #{year}
+
+              
+                      
+              .row.pull-down-10
+                label.col-sm-3#expiry-month.control-label for="cvv"  * Card CVV
+                .cc-security-code
+                  .col-sm-3
+                    input#cvv.form-control name="cvv" data-stripe="cvc" placeholder=("Security Code") type="text" /
+              
+              .sexy_line 
+              h3 Billing address
+              .row.pull-down-10.cc-input
+                label.col-sm-3.control-label for="address_line1"  Address line 1
+                .col-sm-9
+                  input#card-holder-name.form-control data-stripe="address_line1" placeholder=("Address line 1") type="text" 
+                  
+              .row.pull-down-10.cc-input
+                label.col-sm-3.control-label for="address_line2"  Address line 2
+                .col-sm-9
+                  input#card-holder-name.form-control data-stripe="address_line2" placeholder=("Address line 2") type="text" 
+                  
+              .row.pull-down-10.cc-input
+                label.col-sm-3.control-label for="address_city"  City
+                .col-sm-9
+                  input#card-holder-name.form-control data-stripe="address_city" placeholder=("City") type="text" 
+                  
+              .row.pull-down-10.cc-input
+                label.col-sm-3.control-label for="address_zip"  Zip
+                .col-sm-9
+                  input#card-holder-name.form-control data-stripe="address_zip" placeholder=("Zip") type="text" 
+                  
+              .row.pull-down-10.cc-input
+                label.col-sm-3.control-label for="address_country"  Country
+                .col-sm-9
+                  input#card-holder-name.form-control data-stripe="address_country" placeholder=("Country") type="text" 
+              
+              
+              
+              
+              .row.pull-down-10
+                .col-sm-offset-3.col-sm-9
+                  .pull-right
+                    button.btn.btn-success type="submit"  Pay Now
+                  
+                  
+          .row
+            .col-sm-12
+              #powered-by-stripe
+                = image_tag 'powered_by_stripe.png'
+                  
+                  
+
+      
+          == render 'user/subscriptions/stripe_integration'
+  
+
+
+
+
+
+/#wrapper
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'home' 
+/  
+/
+/  #sidebar-wrapper
+/    ul class="sidebar-nav"
+/      == render 'users/shared/sidebar', selected: 'recordings'
+/      
+/                        
+/        
+/      
+/
+/  #page-content-wrapper
+/    .container-fluid   
+/      == render 'shared/flash_message'
+/      - if @plan
+/        .row
+/          .col-sm-8   
+/            h3 Sign up for a #{ @plan.name}
+/            b 
+/              'Price:&nbsp;
+/              = number_to_currency( @plan.amount * 0.01 )
+/          .col-sm-4
+/            .pull-right
+/              .recording-navigation
+/                => link_to user_user_plans_path(@user) do
+/                  .btn.btn-default
+/                    i.fa.fa-chevron-left
+/                    '&nbsp;
+/                    'Back
+/        
+/        .sexy_line
+/        .digi-box
+/          = form_for [:user, @user, @subscription], html: { id: 'payment-form' } do |f| 
+/            input name="plan_id" type="hidden" value="#{@plan.id}"
+/            span.payment-errors
+/            .form-row
+/              label
+/                span Email Address
+/                input name="email_address" size="20" type="email" 
+/            .form-row
+/              label
+/                span Card Number
+/                input data-stripe="number" size="20" type="text" 
+/            .form-row
+/              label
+/                span CVC
+/                input data-stripe="cvc" size="4" type="text" 
+/            .form-row
+/              label
+/                span Expiration (MM/YYYY)
+/                input data-stripe="exp-month" size="2" type="text" 
+/              span /
+/              input data-stripe="exp-year" size="4" type="text" 
+/            button type="submit"  Pay Now
+/
+/      
+/      
+/      
+/== render 'user/registrations/stripe_integration'      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+/      - if alert
+/        .alert.alert-danger
+/          = alert
+/      .digi-box
+/        = simple_form_for [ :user, @user, @registration] do |f|
+/          - if @registration.errors.any?
+/            #error_explanation
+/              h2
+/                = pluralize(@registration.errors.count, "error")
+/                prohibited this registration from being saved:
+/              ul
+/                - @registration.errors.full_messages.each do |message|
+/                  li= message
+/          
+/          = f.hidden_field :account_id, value: @account.id
+/          .row
+/            .col-sm-12
+/              .field.payment_method
+/            
+/                = label_tag :payment_method
+/                
+/                .row.
+/                  .col-sm-6.pull-down-12
+/                    = radio_button_tag :payment_method, "paypal"
+/                    '&nbsp;
+/                    = image_tag "paypal-logo.svg"
+/                  .col-sm-6
+/                    = radio_button_tag :payment_method, "card", checked: true
+/                    '&nbsp;
+/                    = image_tag "credit-card.jpg", style: "max-width: 100px;"
+/            
+/            
+/                coffee:
+/                  $(document).on "click", "#new_registration input[type='radio']", (e)->
+/                    if $("#payment_method_card:checked").val() == "card"
+/                      $("fieldset.card_info").show()
+/                    else
+/                      $("fieldset.card_info").hide()
+/          .sexy_line.pull-down-12
+/          .row
+/            .col-sm-6
+/              'Billing info
+/              = f.hidden_field :account_id,           value: @account.id
+/              = f.hidden_field :account_type,         value: @registration.account_type
+/              = f.hidden_field :description,          value: @registration.description
+/              /= f.hidden_field :subscription_fee,     value: @registration.subscription_fee
+/              = f.hidden_field :expiration_date,      value: @registration.expiration_date
+/              = f.hidden_field :quantity,             value: @registration.quantity
+/              = f.hidden_field :status,               value: @registration.status
+/              .field
+/                = f.input :full_name
+/              .field
+/                = f.input :company
+/              .field
+/                = f.input :email
+/              .field
+/                = f.input :telephone
+/              .field
+/                = f.input :address1
+/              .field
+/                = f.input :city
+/              .field
+/                = f.input :zip
+/              .field
+/                = f.input :state
+/              .field
+/                = f.input :country
+/            
+/
+/            
+/            
+/            
+/            
+/            .col-sm-6
+/              fieldset.card_info
+/                'Card info
+/                = f.simple_fields_for :card do |c|
+/                  .field
+/                    = c.input :first_name
+/                  .field
+/                    = c.input :last_name
+/                  .field
+/                    = c.input :card_type, collection: [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], include_blank: false
+/                  .field
+/                    = c.input :card_number
+/                  .field
+/                    = c.input :card_verification, label: "Card Verification Value (CVV)"
+/                  .field
+/            
+/                    = c.input :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), add_month_numbers: true
+/            
+/          .actions
+/            .row
+/              .col-sm-12
+/                .pull-right
+/                  = f.submit "Pay", class: "btn btn-warning"
+/                  coffee:
+/                    $("form#new_registration").submit ->
+/                      $(this).find('input[type=submit]').attr('disabled', 'disabled')
+/                      $(this).find('input[type=submit]').val "Submitting, please wait ..."
+/
+/
+/
+/
+/    /= debug @registration
+/
+/

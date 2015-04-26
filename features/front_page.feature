@@ -1,3 +1,5 @@
+# cucumber features/front_page.feature -r features
+
 Feature:
 As an guest I can se the front page
 
