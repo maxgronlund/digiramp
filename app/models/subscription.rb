@@ -13,8 +13,13 @@ class Subscription < ActiveRecord::Base
   aasm column: 'state' do
     state :pending, initial: true
     state :processing
+    state :updating_cc
+    state :updating_plan
     state :finished
     state :errored
+
+    
+    
     event :process, after: :charge_card do
       transitions from: :pending, to: :processing
     end
@@ -23,8 +28,32 @@ class Subscription < ActiveRecord::Base
       transitions from: :processing, to: :finished
     end
     
+    #event :finish do
+    #  transitions from: :updating_cc, to: :finished
+    #end
+    
     event :fail do
-        transitions from: :processing, to: :errored
+      transitions from: :processing, to: :errored
+    end
+    
+    event :reset do
+      transitions from: :errored, to: :finished
+    end
+    
+    event :update do
+      transitions from: :finished, to: :processing
+    end
+    
+    event :update_cc do
+      transitions from: :finished, to: :processing
+    end
+    
+    event :source_deleted do
+      transitions from: :processing, to: :updating_cc
+    end
+    
+    event :source_created do
+      transitions from: :updating_cc, to: :finished
     end
   end
   
@@ -36,42 +65,53 @@ class Subscription < ActiveRecord::Base
   end
   
   def change_plan plan_id
+
+    self.error = ''
+    self.update!
+    
+    # start a job to check if validation from stripe went true
+    StripeCheckUpdateJob.set(wait: 3.minute).perform_later(self.guid)
     
     # notice plan will be updated from stripe_event.rb hook
-    plan = Plan.cached_find(plan_id)
-    begin
-      customer      = Stripe::Customer.retrieve(self.user.stripe_customer_id)
-      subscription  = customer.subscriptions.retrieve(self.stripe_id)
-      subscription.plan = plan.stripe_id
-      subscription.save
-    rescue Stripe::StripeError => e
-      return e.message
+    if plan = Plan.cached_find(plan_id)
+      
+      begin
+        stripe_customer          = Stripe::Customer.retrieve(self.user.stripe_customer_id)
+        stripe_subscription      = stripe_customer.subscriptions.retrieve(self.stripe_id)
+        stripe_subscription.plan = plan.stripe_id
+        stripe_subscription.save
+
+      rescue Stripe::StripeError => e
+        self.error << e.message
+        
+        self.save
+        self.fail!
+        self.reset!
+        return e.message
+      end
+    else
+      ap 'plan not found'
     end
     nil
   end
   
   def cancel_when_plan_expires
     begin
+      
       customer      = Stripe::Customer.retrieve(self.user.stripe_customer_id)
       subscription  = customer.subscriptions.retrieve(self.stripe_id)
-      
       subscription.delete(at_period_end: true)
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       #customer.subscriptions.retrieve(self.stripe_id).delete
     rescue Stripe::StripeError => e
       return e.message
     end
     nil
   end
+  
+  #def update_card
+  #  save!
+  #  
+  #end
   
 
 private 

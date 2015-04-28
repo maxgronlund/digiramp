@@ -762,13 +762,24 @@ class Recording < ActiveRecord::Base
   end
   
   
+  
+  
+  
+  #Rails.application.secrets.s3_key_id, # ENV["S3_KEY_ID"] , 
+  #Rails.application.secrets.s3_access_key, # 3ENV["S3_ACCESS_KEY"],
+  #Rails.application.secrets.aws_s3_region
+  #
+  #Rails.application.secrets.aws_s3_bucket  #ENV["AWS_S3_BUCKET"]
+  
+  
+  
   # add this to environment variables
   # read from yaml file
   def download_url(style = nil, expires_in = 90.minutes)
     begin
-      AWS.config(access_key_id: ENV["S3_KEY_ID"],  secret_access_key: ENV["S3_ACCESS_KEY"] ) 
+      #AWS.config(access_key_id: Rails.application.secrets.s3_key_id,  secret_access_key: Rails.application.secrets.s3_access_key ) 
       s3 = AWS::S3.new
-      bucket = s3.buckets['digiramp'] # makes no request
+      bucket = s3.buckets[Rails.application.secrets.aws_s3_bucket] # makes no request
       if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
         bucket.objects[self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')].url_for(:read, :secure => true, :expires => expires_in)
       else

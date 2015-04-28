@@ -32,25 +32,14 @@ class User::SubscriptionsController < ApplicationController
   end
   
   def create
+
     @plan           = Plan.find(params[:plan_id])
     
     if @user.email.blank?
       @user.email = params[:email_address]
       @user.save!
     end
-    
-    
-    #if @user.stripe_customer_id.blank?
-    #    customer    = Stripe::Customer.create( source: params[:stripeToken], email: @user.email, plan: @plan.stripe_id )
-    #    #:card  => params[:stripeToken]
-    #    @user.stripe_customer_id = customer.id
-    #    @user.save!
-    #    stripe_sub  = customer.subscriptions.first
-    #else
-    #  customer    = Stripe::Customer.retrieve(@user.stripe_customer_id)
-    #  stripe_sub  = customer.subscriptions.create( plan: @plan.stripe_id )
-    #end
-    
+
     
     subscription    = Subscription.new( plan_id:          @plan.id, 
                                         user_id:          @user.id,
@@ -85,8 +74,11 @@ class User::SubscriptionsController < ApplicationController
   end
   
   def update
+
     @subscription       =  Subscription.cached_find(params[:id])
+
     if plan = params[:plan_id] && Plan.where(id: params[:plan_id]).first
+
       msg = @subscription.change_plan(plan.id)
       if msg
         flash[:danger] = msg
@@ -94,6 +86,8 @@ class User::SubscriptionsController < ApplicationController
         flash[:info] = "Your will receive an email in a few minutes when your plan has changed" 
       end
     else
+      # this is a 'social' plan or a plan without a stripe connection
+      
       @subscription.cancel_when_plan_expires
     end
     

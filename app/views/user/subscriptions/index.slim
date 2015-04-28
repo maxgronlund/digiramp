@@ -48,7 +48,7 @@
                       - if @current_plan
                         / edit current plan
                         - if @current_plan &&  @current_plan.id == account_feature.plan_id
-                          = link_to edit_user_user_subscription_path(@user, @current_subscription, update_payment_method: true) do
+                          = link_to edit_user_user_subscription_path(@user, @current_subscription, update_payment_method: true),'data-no-turbolink'=>'true' do
                             .btn.btn-default
                               i.fa.fa-cc-stripe
                               '&nbsp;Update payment method
@@ -58,11 +58,12 @@
                           = link_to 'Select', user_user_subscription_path(@user, @current_subscription, 
                                                                         plan_id: account_feature.plan_id), 
                                                                         method: 'put', 
-                                                                        class: 'btn btn-success please_wait'
+                                                                        class: 'btn btn-success please_wait',
+                                                                        'data-no-turbolink'=>'true'
             
                                                                            
                           
-                          /= link_to 'Change', edit_user_user_subscription_path(@user, @current_subscription), class: 'btn btn-default'
+
                         - else
                           'new
                         

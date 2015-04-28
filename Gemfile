@@ -160,9 +160,9 @@ gem "awesome_print"
 #gem 'jquery_file_download-rails'
 
 gem "sendgrid-ruby"
-gem 'activemerchant'
+#gem 'activemerchant'
 
-gem 'iron_mq'
+#gem 'iron_mq'
 
 
 group :doc do
@@ -211,7 +211,13 @@ gem 'uuid_stamper', '~> 0.0.3', git: 'git://github.com/maxgronlund/uuid_stamper.
 #gem 'capistrano-sidekiq' , github: 'seuros/capistrano-sidekiq'
 #gem 'capistrano-sidekiq'
 
-gem 'aws-sdk', '~> 1.48.1'
+#gem 'aws-sdk', '~> 1.48.1'
+gem 'aws-sdk', '~> 2'
+
+require 'json'
+require 'httparty'
+
+
 gem 'uuid', '~> 2.3.7'
 
 # payment

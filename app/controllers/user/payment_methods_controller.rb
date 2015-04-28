@@ -9,38 +9,25 @@ class User::PaymentMethodsController < ApplicationController
   end
   
   def update
-    ap params
-    @subscription       =  Subscription.cached_find(params[:id])
-    
-    ap ChangeSubscriptionCard.call(@subscription, params[:stripeToken])
-    
-    #if subscription.save
-    #  StripeChargerSubscriptionJob.perform_later(subscription.guid)
-    #  render json: { guid: subscription.guid }
-    #else
-    #  ap 'error +'
-    #  errors = subscription.errors.full_messages
-    #  render json: { error: errors.join(" ") }, status: 400
-    #end
-    
-    
-    
-    redirect_to root_path
-    #ChangeSubscriptionCard.call(@subscription, @subscription.stripe_token)
-    #if plan = params[:plan_id] && Plan.where(id: params[:plan_id]).first
-    #  msg = @subscription.change_plan(plan.id)
-    #  if msg
-    #    flash[:danger] = msg
-    #  else
-    #    flash[:info] = "Your will receive an email in a few minutes when your plan has changed" 
-    #  end
-    #else
-    #  @subscription.cancel_when_plan_expires
-    #end
-    #
-    #redirect_to user_user_control_panel_index_path(@user)
-    
+
+    subscription   =  Subscription.cached_find(params[:id])
+    subscription.update_cc!
+    subscription.error = ''
+    subscription.save
+    StripeUpdateCardJob.perform_now(subscription.guid, params[:stripeToken])
+    #redirect_to user_user_subscriptions_path( @user )
+    render nothing: true
   end
+  
+  def status
+    'PaymentMethodsController#status'
+    @subscription = Subscription.where(guid: params[:guid]).first
+    #ap @sale
+    render nothing: true, status: 404 and return unless @subscription
+    render json: {guid: @subscription.guid, status: @subscription.state, error: @subscription.error}
+  end
+  
+  
   
 protected
 

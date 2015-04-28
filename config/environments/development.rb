@@ -32,35 +32,27 @@ Digiramp::Application.configure do
   
   
   #OmniAuth.config.logger = Rails.logger
+  config.action_mailer.smtp_settings = {
+    address: Rails.application.secrets.email_provider_address,
+    port: 587,
+    domain: Rails.application.secrets.domain_name,
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: Rails.application.secrets.email_provider_username,
+    password: Rails.application.secrets.email_provider_password,
+  }
   
-  config.after_initialize do
-    ActiveMerchant::Billing::Base.mode = :test  # :production when you will use a real Pro Account
-    ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
-      login:      ENV["PAYPAL_login"],
-      password:   ENV["APP_PASSWORD"],
-      signature:  ENV["PAYPAL_SIGNATURE"]
-    )
-  end
-  
-  
+  #config.after_initialize do
+  #  ActiveMerchant::Billing::Base.mode = :test  # :production when you will use a real Pro Account
+  #  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+  #    login:      ENV["PAYPAL_login"],
+  #    password:   ENV["APP_PASSWORD"],
+  #    signature:  ENV["PAYPAL_SIGNATURE"]
+  #  )
+  #end
+
+
   
 end
-
-
-ActionMailer::Base.smtp_settings = {
-    :address => "smtp.sendgrid.net",
-    :port => 587,
-    :domain => "localhost:3000",
-    :authentication => :plain,
-    :user_name => "info-digiramp",
-    :password => "GnoDg4jq7Wm"
-}
-
-
-#ENV["MAIL_USERNAME"]    = 'info@digiramp.org'
-#ENV["MAIL_PASSWORD"]    = 'IS5pleyu'
-
-
-
 
 

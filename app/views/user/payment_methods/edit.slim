@@ -31,11 +31,7 @@
             input name="plan_id" type="hidden" value="#{@plan.id}"
             input name="id" type="hidden" value="#{@subscription.id}"
             fieldset
-              /- if @user.email.to_s == ''
-              /  .row.pull-down-10.cc-input
-              /    label.col-sm-3.control-label for="email-address"  * Email
-              /    input.col-sm-9.form-control name="email_address" placeholder=("Email") type="text"
-              / 
+   
               h3 Credit card   
               .row.pull-down-10.cc-input
                 label.col-sm-3.control-label for="name"  * Name on Card
@@ -102,7 +98,7 @@
               .row.pull-down-10
                 .col-sm-offset-3.col-sm-9
                   .pull-right
-                    button.btn.btn-success type="submit"  Change
+                    button.btn.btn-success type="submit"  Update
                   
                   
           .row

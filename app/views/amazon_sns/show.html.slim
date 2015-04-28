@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @amazon_sn.title
+
+= link_to 'Edit', edit_amazon_sn_path(@amazon_sn)
+'|
+= link_to 'Back', amazon_sns_path

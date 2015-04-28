@@ -33,11 +33,6 @@ GEM
     activejob (4.2.1)
       activesupport (= 4.2.1)
       globalid (>= 0.3.0)
-    activemerchant (1.48.0)
-      activesupport (>= 3.2.14, < 5.0.0)
-      builder (>= 2.1.2, < 4.0.0)
-      i18n (>= 0.6.9)
-      nokogiri (~> 1.4)
     activemodel (4.2.1)
       activesupport (= 4.2.1)
       builder (~> 3.1)
@@ -57,9 +52,14 @@ GEM
       multi_json
     arel (6.0.0)
     awesome_print (1.6.1)
-    aws-sdk (1.48.1)
-      json (~> 1.4)
-      nokogiri (>= 1.4.4)
+    aws-sdk (2.0.41)
+      aws-sdk-resources (= 2.0.41)
+    aws-sdk-core (2.0.41)
+      builder (~> 3.0)
+      jmespath (~> 1.0)
+      multi_json (~> 1.0)
+    aws-sdk-resources (2.0.41)
+      aws-sdk-core (= 2.0.41)
     bcrypt (3.1.10)
     bcrypt-ruby (3.1.5)
       bcrypt (>= 3.1.3)
@@ -320,7 +320,7 @@ GEM
     haml (4.0.6)
       tilt
     hashie (3.4.1)
-    headless (1.0.2)
+    headless (2.0.0)
     highline (1.6.21)
     hike (1.2.3)
     hitimes (1.2.2)
@@ -338,14 +338,12 @@ GEM
       sass-rails
     inflecto (0.0.2)
     ipaddress (0.8.0)
-    iron_core (1.0.7)
-      rest (>= 3.0.4)
-    iron_mq (5.0.1)
-      iron_core (>= 0.5.1)
     jQuery-Validation-Engine-rails (0.0.2)
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jmespath (1.0.2)
+      multi_json (~> 1.0)
     jquery-rails (4.0.3)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -381,8 +379,8 @@ GEM
     mime-types (1.25.1)
     mini_magick (4.2.3)
     mini_portile (0.6.0)
-    minitest (5.6.0)
-    momentjs-rails (2.9.0)
+    minitest (5.6.1)
+    momentjs-rails (2.10.2)
       railties (>= 3.1)
     multi_json (1.11.0)
     multi_test (0.1.2)
@@ -390,7 +388,6 @@ GEM
     multipart-post (2.0.0)
     naught (1.0.0)
     nenv (0.2.0)
-    net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -503,9 +500,6 @@ GEM
     require_all (1.3.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
-    rest (3.0.6)
-      net-http-persistent (>= 2.9.1)
-      netrc
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
@@ -556,7 +550,7 @@ GEM
     sendgrid-ruby (0.0.3)
       rest-client
       smtpapi
-    sexp_processor (4.5.0)
+    sexp_processor (4.5.1)
     shellany (0.0.1)
     sidekiq (3.3.4)
       celluloid (>= 0.16.0)
@@ -653,7 +647,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.1)
     unicode_utils (1.4.0)
-    unicorn (4.8.3)
+    unicorn (4.9.0)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
@@ -684,10 +678,9 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
-  activemerchant
   airbrake
   awesome_print
-  aws-sdk (~> 1.48.1)
+  aws-sdk (~> 2)
   bcrypt-ruby
   better_errors
   binding_of_caller
@@ -722,10 +715,10 @@ DEPENDENCIES
   guard-rspec
   headless
   icheck-rails
-  iron_mq
   jQuery-Validation-Engine-rails
   jbuilder (~> 2.0)
   jquery-rails
+  json
   kaminari
   kaminari-bootstrap (~> 3.0.1)
   koala (~> 1.11.0rc)

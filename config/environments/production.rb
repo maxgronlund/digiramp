@@ -83,41 +83,30 @@ Digiramp::Application.configure do
   
   Rails.application.routes.default_url_options[:host] = 'digiramp.com'
   
+  config.action_mailer.smtp_settings = {
+    address: Rails.application.secrets.email_provider_address,
+    port: 587,
+    domain: Rails.application.secrets.domain_name,
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: Rails.application.secrets.email_provider_username,
+    password: Rails.application.secrets.email_provider_password,
+  }
+  
   
   # config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
-  config.after_initialize do
-    ActiveMerchant::Billing::Base.mode = :production  
-    ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
-      login: ENV["PAYPAL_login"],
-      password: ENV["APP_PASSWORD"],
-      signature: ENV["PAYPAL_SIGNATURE"]
-    )
-  end
+  #config.after_initialize do
+  #  ActiveMerchant::Billing::Base.mode = :production  
+  #  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+  #    login: ENV["PAYPAL_login"],
+  #    password: ENV["APP_PASSWORD"],
+  #    signature: ENV["PAYPAL_SIGNATURE"]
+  #  )
+  #end
   
 end
-
-    
-   
-
-
-
-ActionMailer::Base.smtp_settings = {
-    :address => "smtp.sendgrid.net",
-    :port => 587,
-    :domain => "digiramp.com",
-    :authentication => :plain,
-    :user_name => "info-digiramp",
-    :password => "GnoDg4jq7Wm"
-}
-
-
-#ENV["MAIL_USERNAME"]    = 'info@digiramp.org'
-#ENV["MAIL_PASSWORD"]    = 'IS5pleyu'
-#
-
-
 
 
 

@@ -1,0 +1,21 @@
+h1 Listing amazon_sns
+
+table
+  thead
+    tr
+      th Title
+      th
+      th
+      th
+
+  tbody
+    - @amazon_sns.each do |amazon_sn|
+      tr
+        td = amazon_sn.title
+        td = link_to 'Show', amazon_sn
+        td = link_to 'Edit', edit_amazon_sn_path(amazon_sn)
+        td = link_to 'Destroy', amazon_sn, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Amazon sn', new_amazon_sn_path

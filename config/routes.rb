@@ -2,6 +2,7 @@ Digiramp::Application.routes.draw do
 
 
 
+  resources :amazon_sns
   resources :products
   
   get '/buy/:permalink', to: 'transactions#new', as: :show_buy
@@ -25,6 +26,8 @@ Digiramp::Application.routes.draw do
   resources :registrations
   post "/hook" => "registrations#hook"
   post "/registrations/:id" => "registrations#show"
+  
+  post "/sns_hook/:id" => "amazon_sns#sns_hook"
   
   # Example resource route within a namespace:
   namespace :admin do
@@ -661,7 +664,9 @@ Digiramp::Application.routes.draw do
     #resources :common_work_lyrics
     resources :users do
       
-      match '/subsctiption_status/:guid'  => 'subscriptions#status',  via: :get,  as: :subscription_status
+      match '/subsctiption_status/:guid'   => 'subscriptions#status',  via: :get,  as: :subscription_status
+      match '/payment_method_status/:guid' => 'payment_methods#status',  via: :get,  as: :payment_method_status
+     
       resources :subscriptions
       resources :registrations
       post "/hook" => "registrations#hook"

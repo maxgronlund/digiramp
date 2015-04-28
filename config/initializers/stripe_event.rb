@@ -34,14 +34,19 @@ StripeEvent.configure do |events|
     end
   end
   
+  
+  # users are changing to another plan
   events.subscribe 'customer.subscription.updated' do |event|
-    stripe_id = event.data.object.id
-    if subscription = Subscription.where(stripe_id: stripe_id).first
+
+    stripe_subscription_id = event.data.object.id
+    
+    if digiramp_subscription = Subscription.where(stripe_id: stripe_subscription_id).first                                                            
       if stripe_plan = event.data.object.plan
-        if stripe_id = stripe_plan.name
-          if plan = Plan.where(stripe_id: stripe_id).first
-            subscription.plan_id = plan.id
-            subscription.save
+        if stripe_plan_id = stripe_plan.id
+          if digiramp_plan = Plan.where(stripe_id: stripe_plan_id).first
+            digiramp_subscription.plan_id = digiramp_plan.id
+            digiramp_subscription.save
+            digiramp_subscription.finish!
             # 'send plane changed notification'
             StripeMailer.subscription_updated(stripe_event: event.data.object).deliver_now
           end
@@ -49,6 +54,106 @@ StripeEvent.configure do |events|
       end
     end
   end
+  
+  # The info on the cc is updated for a given subscription
+  events.subscribe 'customer.updated' do |event|
+    ap 'customer.updated'
+    digiramp_user         = nil
+    digiramp_subscription = nil
+    if data = event.data
+      if object = data.object
+        if stripe_subscriptions = object.subscriptions
+          if subscriptions_data = stripe_subscriptions.data
+            subscriptions_data.each do |stripe_data|
+              if stripe_id = stripe_data.id
+                if digiramp_subscription = Subscription.where(stripe_id: stripe_id).first
+                  digiramp_user = digiramp_subscription.user
+                  begin
+                    digiramp_subscription.finish!
+                  rescue  => error
+                    digiramp_subscription.error = error.inspect
+                    digiramp_subscription.save
+                    digiramp_subscription.reset!
+                  end
+                end
+              end
+            end
+          end
+        end
+        ap object
+        if sources =  object.sources
+          
+          if source_data = sources.data
+            
+            source_data.each do |payment_source|
+              # there is a problem here
+              digiramp_payment_source = PaymentSource.where(stripe_id: payment_source.id).first_or_create(stripe_id: payment_source.id)
+              digiramp_payment_source.stripe_data     = JSON.parse(payment_source.to_json).deep_symbolize_keys
+              digiramp_payment_source.user_id         = digiramp_user.id if digiramp_user
+              digiramp_payment_source.subscription_id = digiramp_subscription.id if digiramp_subscription
+              digiramp_payment_source.save!
+              ap digiramp_payment_source
+              #:stripe_data
+
+            end
+          end
+          
+        end
+        # sub_688tZqzz1r3Y54
+        #customer = Stripe::Customer.retrieve("cus_688tyu8yi65mHj")
+        # customer.subscriptions.retrieve
+        #if stripe_customer = object.id
+        #  ap id
+        #end
+      end
+    end
+
+
+  end
+  
+  events.subscribe 'customer.source.deleted' do |event|
+    ap 'customer.source.deleted'
+    #stripe_id = event.data.object.id
+    #ap stripe_id
+    #if subscription = Subscription.where(stripe_id: stripe_id).first
+    #  
+    #  subscription.source_deleted!
+    #  #if stripe_plan = event.data.object.plan
+    #  #  if stripe_id = stripe_plan.name
+    #  #    if plan = Plan.where(stripe_id: stripe_id).first
+    #  #      subscription.plan_id = plan.id
+    #  #      subscription.save
+    #  #      # 'send plane changed notification'
+    #  #      StripeMailer.subscription_updated(stripe_event: event.data.object).deliver_now
+    #  #    end
+    #  #  end
+    #  #end
+    #end
+  end
+  #
+  events.subscribe 'customer.source.created' do |event|
+    ap 'customer.source.created'
+    #stripe_id = event.data.object.id
+    #ap stripe_id
+    #if subscription = Subscription.where(stripe_id: stripe_id).first
+    #  
+    #   subscription.source_created!
+    #  #if stripe_plan = event.data.object.plan
+    #  #  if stripe_id = stripe_plan.name
+    #  #    if plan = Plan.where(stripe_id: stripe_id).first
+    #  #      subscription.plan_id = plan.id
+    #  #      subscription.save
+    #  #      # 'send plane changed notification'
+    #  #      StripeMailer.subscription_updated(stripe_event: event.data.object).deliver_now
+    #  #    end
+    #  #  end
+    #  #end
+    #end
+  end
+  
+  
+  
+  
   
   
   
