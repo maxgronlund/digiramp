@@ -82,11 +82,9 @@ StripeEvent.configure do |events|
         end
         ap object
         if sources =  object.sources
-          
           if source_data = sources.data
-            
             source_data.each do |payment_source|
-              # there is a problem here
+
               digiramp_payment_source = PaymentSource.where(stripe_id: payment_source.id).first_or_create(stripe_id: payment_source.id)
               digiramp_payment_source.stripe_data     = JSON.parse(payment_source.to_json).deep_symbolize_keys
               digiramp_payment_source.user_id         = digiramp_user.id if digiramp_user
