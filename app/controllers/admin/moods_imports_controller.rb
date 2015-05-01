@@ -1,6 +1,6 @@
 class Admin::MoodsImportsController < ApplicationController
   #before_action :set_moods_import, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_only
+  before_action :admin_only
 
   def new
     @moods_import = MoodsImport.new

@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   #respond_to :html, :xml, :json, :js
  
-  #before_filter :find_user, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user, only: [:edit, :update, :destroy, :dont_show_instructions]
-  before_filter :find_user, only: [:show]
+  #before_action :find_user, only: [:show, :edit, :update, :destroy]
+  before_action :access_user, only: [:edit, :update, :destroy, :dont_show_instructions]
+  before_action :find_user, only: [:show]
   protect_from_forgery only: [:edit, :create, :sign_in]
   
   def omniauth_failure 
@@ -152,7 +152,8 @@ class UsersController < ApplicationController
       params[:user][:user_name] = user_name
     end
     @user                     = User.new(user_params)
-                              
+      
+    #!!! hmmm... is this realy in usage                          
     blog                      = Blog.cached_find('Sign Up')
 
     if params[:user][:password]    != params[:user][:password_confirmation]

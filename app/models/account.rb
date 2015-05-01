@@ -493,7 +493,7 @@ private
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])
-    Admin.cached_find(1).raise_accounts_version
+    #Admin.cached_find(1).raise_accounts_version
   end
 
   #def init_activity_log

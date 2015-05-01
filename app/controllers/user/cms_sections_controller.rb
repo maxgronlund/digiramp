@@ -1,6 +1,6 @@
 class User::CmsSectionsController < ApplicationController
   before_action :set_cms_section, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user
+  before_action :access_user
   # GET /cms_sections
   # GET /cms_sections.json
   def index

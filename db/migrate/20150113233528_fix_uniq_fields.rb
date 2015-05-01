@@ -4,8 +4,8 @@ class FixUniqFields < ActiveRecord::Migration
     change_column :users, :uniq_followers_count, :string, default: ''
     
     User.find_each do |user|
-      user.uniq_completeness = Uniqifyer.uniqify(user.completeness)
-      user.uniq_followers_count = Uniqifyer.uniqify(user.followers_count)
+      user.uniq_completeness = user.completeness.to_uniq
+      user.uniq_followers_count = user.followers_count.to_uniq
       user.save!
     end
   end

@@ -1,9 +1,9 @@
 class User::CreativeProjectRolesController < ApplicationController
   
   before_action :set_creative_project_role, only: [ :show, :edit, :update, :destroy]
-  before_filter :access_user, except: [:index]
+  before_action :access_user, except: [:index]
   
-  before_filter  :permit_creative_project_user
+  before_action  :permit_creative_project_user
 
   def index
     @user                   = User.cached_find(params[:user_id])

@@ -4,10 +4,10 @@ class Account::CommonWorkIpisController < ApplicationController
   include AccountsHelper
   #include ActionView::Helpers::TextHelper
   
-  before_filter :access_account
+  before_action :access_account
 
   
-  before_filter :get_common_work
+  before_action :get_common_work
                                         
                                         
                                         

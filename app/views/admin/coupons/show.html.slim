@@ -1,0 +1,36 @@
+p#notice = notice
+
+p
+  strong Percent off:
+  = @coupon.percent_off
+p
+  strong Duration:
+  = @coupon.duration
+p
+  strong Duration in month:
+  = @coupon.duration_in_month
+p
+  strong Stripe:
+  = @coupon.stripe_id
+p
+  strong Currency:
+  = @coupon.currency
+p
+  strong Max redemptions:
+  = @coupon.max_redemptions
+p
+  strong Metadata:
+  = @coupon.metadata
+p
+  strong Redeem by:
+  = @coupon.redeem_by
+p
+  strong User:
+  = @coupon.user
+p
+  strong Account:
+  = @coupon.account
+
+= link_to 'Edit', edit_coupon_path(@coupon)
+'|
+= link_to 'Back', coupons_path

@@ -1,5 +1,5 @@
 class FollowerEventsController < ApplicationController
-  #before_filter :get_user
+  #before_action :get_user
   
   def destroy
     follower_event =  FollowerEvent.cached_find(params[:id])

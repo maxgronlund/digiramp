@@ -1,6 +1,6 @@
 class Admin::IssueEventsController < ApplicationController
   before_action :set_issue_event, only: [:show, :destroy]
-  before_filter :admins_only
+  before_action :admins_only
 
   def index
     @issue_events = IssueEvent.order('created_at desc').page(params[:page]).per(50)

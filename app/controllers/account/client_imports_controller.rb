@@ -2,7 +2,7 @@ class Account::ClientImportsController < ApplicationController
   before_action :set_client_import, only: [:show, :edit, :update, :destroy]
   include AccountsHelper
   include Transloadit::Rails::ParamsDecoder
-  before_filter :access_account
+  before_action :access_account
 
 
 

@@ -1,5 +1,5 @@
 class Admin::EmailsController < ApplicationController
-  before_filter :admin_only
+  before_action :admin_only
   def index
     @emails = Email.order('created_at desc')
     

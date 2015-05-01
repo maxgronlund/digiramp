@@ -1,8 +1,8 @@
 class Account::AccountsController < ApplicationController
   
   include AccountsHelper
-  #before_filter :access_account
-  before_filter :get_account_account
+  #before_action :access_account
+  before_action :get_account_account
   
   
   def show

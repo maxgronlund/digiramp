@@ -5,8 +5,8 @@ class Catalog::UploadCsvsController < ApplicationController
   include AccountsHelper
   include CatalogsHelper
   
-  before_filter :access_account
-  before_filter :access_catalog
+  before_action :access_account
+  before_action :access_catalog
 
   # GET /upload_csvs
   # GET /upload_csvs.json

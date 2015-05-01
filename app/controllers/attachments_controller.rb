@@ -1,6 +1,6 @@
 class AttachmentsController < ApplicationController
   include AccountsHelper
-  before_filter :access_to_account
+  before_action :access_to_account
   
   def new
     #account_id"=>"6", "common_work_id

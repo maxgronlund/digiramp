@@ -1,6 +1,6 @@
 class User::CmsPageLayoutsController < ApplicationController
   before_action :set_cms_page, only: [:edit, :update]
-  before_filter :access_user
+  before_action :access_user
   
   def edit
     

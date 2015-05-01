@@ -1,6 +1,6 @@
 class Admin::ContractsController < ApplicationController
   
-  before_filter :admin_only
+  before_action :admin_only
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
   
   def index

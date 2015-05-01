@@ -5,8 +5,8 @@ class Catalog::LegalDocumentsController < ApplicationController
   include CatalogsHelper
   
   before_action :set_document, only: [:show, :edit, :update, :destroy]
-  before_filter :access_account
-  before_filter :access_catalog
+  before_action :access_account
+  before_action :access_catalog
   
   
   def index

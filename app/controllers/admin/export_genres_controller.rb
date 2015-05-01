@@ -1,5 +1,5 @@
 class Admin::ExportGenresController < ApplicationController
-  before_filter :admin_only
+  before_action :admin_only
   
   def index
     @genres = Genre.order(category: :asc, title: :asc)

@@ -1,10 +1,10 @@
 class User::RegistrationsController < ApplicationController
   before_action :set_registration, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user, only: [:show, :new, :create, :index]
+  before_action :access_user, only: [:show, :new, :create, :index]
   #layout "registrations", only: [:show]
   # GET /registrations
   
-  before_filter :obsolete
+  before_action :obsolete
   
   def obsolete
     ap '===================================================='

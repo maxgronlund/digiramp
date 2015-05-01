@@ -1,5 +1,5 @@
 class User::WorkRightsController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   #include AccountsHelper
   
   NEXT_STEP = { arrangement_true: 'arrangers',

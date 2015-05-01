@@ -2,8 +2,8 @@ class Admin::VideosController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   respond_to :html, :xml, :json
   
-  before_filter :find_video, only: [ :edit, :update, :destroy, :show]
-  before_filter :admins_only
+  before_action :find_video, only: [ :edit, :update, :destroy, :show]
+  before_action :admins_only
   
   def new
     @video_blog = VideoBlog.find(params[:video_blog_id])

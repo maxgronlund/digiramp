@@ -2,7 +2,7 @@ class Admin::DigirampAdsController < ApplicationController
   before_action :set_digiramp_ad, only: [:show, :edit, :update, :destroy]
   
   include UsersHelper
-  before_filter :admin_only
+  before_action :admin_only
 
   # GET /digiramp_ads
   # GET /digiramp_ads.json

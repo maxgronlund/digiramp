@@ -2,7 +2,7 @@
 
 class Admin::DigirampEmailsController < ApplicationController
   before_action :set_digiramp_email, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_only
+  before_action :admin_only
   
   def index
     @digiramp_emails = DigirampEmail.all

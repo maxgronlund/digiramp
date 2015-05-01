@@ -1,6 +1,6 @@
 class User::CreativeProjectDashboardsController < ApplicationController
   
-  #before_filter  :permit_creative_project_user
+  #before_action  :permit_creative_project_user
   
   def index
     @user                     = User.cached_find(params[:user_id])

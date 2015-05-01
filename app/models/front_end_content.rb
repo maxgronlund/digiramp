@@ -51,7 +51,6 @@ class FrontEndContent < ActiveRecord::Base
             page_4_account_1_option_3: 'Unlimited Widgets',
             page_4_account_1_option_4: '1000 hours Streaming',
             page_4_account_1_option_5: 'Social features',
-            page_4_account_1_option_5: '',
             page_4_account_1_option_6: '',
             page_4_account_2_title: 'Pro',
             page_4_account_2_price: '$19/month',

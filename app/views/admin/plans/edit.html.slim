@@ -10,6 +10,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,
+                                                              business: admin_business_index_path,
                                                               plans: admin_plans_path }, current: ''}
       .row
         .col-sm-6

@@ -3,10 +3,10 @@ class SharedRecordingsController < ApplicationController
   
   include RecordingsHelper
   
-  before_filter :access_user
-  before_filter :update_recording, only: [:edit, :update]
-  before_filter :delete_recording, only: [:destroy]
-  before_filter :read_recording, only:[:show]
+  before_action :access_user
+  before_action :update_recording, only: [:edit, :update]
+  before_action :delete_recording, only: [:destroy]
+  before_action :read_recording, only:[:show]
   
   def index
     

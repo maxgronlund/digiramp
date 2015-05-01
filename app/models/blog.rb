@@ -24,9 +24,9 @@ class Blog < ActiveRecord::Base
   end
   
 
-  def self.cached_find(identity)
-    Rails.cache.fetch([name, identity ]) {  Blog.where(identifier: identity)\
-                                                .first_or_create(identifier: identity, title: identity, body: '') }
+  def self.cached_find(idnf)
+    Rails.cache.fetch([name, idnf ]) {  Blog.where(identifier: idnf)\
+                                                .first_or_create(identifier: idnf, title: idnf, body: '') }
   end 
   
   def self.news_count
@@ -37,7 +37,7 @@ class Blog < ActiveRecord::Base
 private
 
   def flush_cache
-    Rails.cache.delete([self.class.name, self.identity])
+    Rails.cache.delete([self.class.name, self.identifier])
   end
 end
 

@@ -1,8 +1,8 @@
 class SingleWorkController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
-  before_filter :access_account
-  #before_filter :get_blog
+  before_action :access_account
+  #before_action :get_blog
   
   def show
     @common_work      = CommonWork.find(params[:id])

@@ -1,7 +1,7 @@
 class Admin::OpportunitiesController < ApplicationController
   #before_action :set_opportunity, only: [:show, :edit, :update, :destroy, :music_submissions]
   
-  before_filter :admin_only
+  before_action :admin_only
 
   
   def index

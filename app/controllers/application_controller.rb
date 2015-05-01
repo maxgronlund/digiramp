@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
   
 
-  before_filter :set_body_color
+  before_action :set_body_color
   
   def set_body_color
     @body_color = "#DDDDDD"
@@ -36,7 +36,8 @@ class ApplicationController < ActionController::Base
   hide_action :current_user
   
   def ssl_configured?
-    !Rails.env.development?
+    #!Rails.env.development?
+    Rails.env.production?
   end
   
   def current_account

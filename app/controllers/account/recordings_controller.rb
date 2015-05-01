@@ -2,8 +2,8 @@ class Account::RecordingsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include RecordingsHelper
   include AccountsHelper
-  before_filter :access_account
-  before_filter :read_recording, only:[ :show, 
+  before_action :access_account
+  before_action :read_recording, only:[ :show, 
                                         :files, 
                                         :artwork,
                                         :new_artwork,

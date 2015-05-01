@@ -1,5 +1,5 @@
 class Admin::ExportUsersController < ApplicationController
-  before_filter :admin_only
+  before_action :admin_only
   
   def index
     @users = User.order(:name)

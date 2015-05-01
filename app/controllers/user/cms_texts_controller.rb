@@ -1,7 +1,7 @@
 class User::CmsTextsController < ApplicationController
   before_action :set_cms_text, only: [:show, :edit, :update, :destroy]
 
-  before_filter :access_user
+  before_action :access_user
 
   def edit
   end

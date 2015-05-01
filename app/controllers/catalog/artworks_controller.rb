@@ -3,8 +3,8 @@ class Catalog::ArtworksController < ApplicationController
   include AccountsHelper
   include CatalogsHelper
   
-  before_filter :access_account
-  before_filter :access_catalog
+  before_action :access_account
+  before_action :access_catalog
   
   
   before_action :set_artwork, only: [:show, :edit, :update, :destroy]

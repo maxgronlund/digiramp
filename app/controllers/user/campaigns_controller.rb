@@ -1,7 +1,7 @@
 class User::CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
-  before_filter :access_user
+  before_action :access_user
   include AccountsHelper
 
   def index

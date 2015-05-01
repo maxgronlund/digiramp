@@ -5,7 +5,7 @@ class Digiwham::LikesController < ApplicationController
     puts '------------------- LOVE THIS ----------------------'
     recording               = Recording.cached_find(params[:id])
     recording.likes_count   += 1
-    recording.uniq_likes_count = Uniqifyer.uniqify(recording.likes_count)
+    recording.uniq_likes_count = recording.likes_count.to_uniq
     recording.save!
     user_id                 = current_user ? current_user.id : nil
     Like.where( recording_id: recording.id, 

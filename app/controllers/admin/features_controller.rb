@@ -1,5 +1,5 @@
 class Admin::FeaturesController < ApplicationController
-  before_filter :admins_only
+  before_action :admins_only
   def edit
     @feature = Feature.front
   end

@@ -1,6 +1,6 @@
 class WidgetsController < ApplicationController
   #before_action :set_widget, only: [ :edit, :update, :destroy]
-  before_filter :get_user, only: [:show, :edit, :update, :new, :create, :destroy, :index]
+  before_action :get_user, only: [:show, :edit, :update, :new, :create, :destroy, :index]
 
   def index
     #if current_user && current_user.id == @user.id

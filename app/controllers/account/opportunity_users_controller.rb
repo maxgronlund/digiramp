@@ -1,7 +1,7 @@
 class Account::OpportunityUsersController < ApplicationController
   before_action :set_opportunity, only: [:show] 
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
 
   # GET /opportunities
   # GET /opportunities.json

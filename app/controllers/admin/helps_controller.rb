@@ -2,7 +2,7 @@ class Admin::HelpsController < ApplicationController
   before_action :set_help, only: [:show, :edit, :update, :destroy]
   
   include UsersHelper
-  before_filter :admin_only
+  before_action :admin_only
 
   # GET /helps
   # GET /helps.json

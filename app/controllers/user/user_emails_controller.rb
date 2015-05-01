@@ -1,6 +1,6 @@
 class User::UserEmailsController < ApplicationController
   before_action :set_user_email, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user
+  before_action :access_user
 
   def index
     @user_emails = @user.user_emails

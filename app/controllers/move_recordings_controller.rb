@@ -1,8 +1,8 @@
 class MoveRecordingsController < ApplicationController
   include RecordingsHelper
   include AccountsHelper
-  before_filter :access_account
-  #before_filter :read_recording, only:[:edit, :update]
+  before_action :access_account
+  #before_action :read_recording, only:[:edit, :update]
   
   def edit
     @common_work            = CommonWork.cached_find(params[:common_work_id])

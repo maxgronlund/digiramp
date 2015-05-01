@@ -1,0 +1,79 @@
+h1 Listing invoices
+
+table
+  thead
+    tr
+      th Stripe
+      th Stripe object
+      th Livemode
+      th Amount due
+      th Attempted
+      th Closed
+      th Currency
+      th Stripe customer
+      th Date
+      th Forgiven
+      th Lines
+      th Paid
+      th Period start
+      th Period end
+      th Starting balance
+      th Subtotal
+      th Total
+      th Application fee
+      th Charge
+      th Description
+      th Discount
+      th Ending balance
+      th Receipt number
+      th Statement descriptor
+      th Subscription
+      th Metadata
+      th Tax
+      th Tax percent
+      th User
+      th Account
+      th
+      th
+      th
+
+  tbody
+    - @invoices.each do |invoice|
+      tr
+        td = invoice.stripe_id
+        td = invoice.stripe_object
+        td = invoice.livemode
+        td = invoice.amount_due
+        td = invoice.attempted
+        td = invoice.closed
+        td = invoice.currency
+        td = invoice.stripe_customer_id
+        td = invoice.date
+        td = invoice.forgiven
+        td = invoice.lines
+        td = invoice.paid
+        td = invoice.period_start
+        td = invoice.period_end
+        td = invoice.starting_balance
+        td = invoice.subtotal
+        td = invoice.total
+        td = invoice.application_fee
+        td = invoice.charge
+        td = invoice.description
+        td = invoice.discount
+        td = invoice.ending_balance
+        td = invoice.receipt_number
+        td = invoice.statement_descriptor
+        td = invoice.subscription_id
+        td = invoice.metadata
+        td = invoice.tax
+        td = invoice.tax_percent
+        td = invoice.user
+        td = invoice.account
+        td = link_to 'Show', invoice
+        td = link_to 'Edit', edit_invoice_path(invoice)
+        td = link_to 'Destroy', invoice, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Invoice', new_invoice_path

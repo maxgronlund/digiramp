@@ -1,6 +1,6 @@
 class User::CmsPlaylistLinksController < ApplicationController
   before_action :set_cms_playlist_link, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user
+  before_action :access_user
 
   def edit
   end

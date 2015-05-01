@@ -1,6 +1,6 @@
 class User::CmsCommentsController < ApplicationController
   before_action :set_cms_comment, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user
+  before_action :access_user
 
   def edit
     

@@ -1,5 +1,5 @@
 class RecordingLikesController < ApplicationController
-  before_filter :get_user
+  before_action :get_user
   
   def index
 

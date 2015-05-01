@@ -1,7 +1,7 @@
 class Catalog::AttachmentsController < ApplicationController
   
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
   
   def new
     #account_id"=>"6", "common_work_id

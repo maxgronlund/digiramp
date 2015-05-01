@@ -1,8 +1,8 @@
 class Admin::BlogsController < ApplicationController
   #respond_to :html, :xml, :json
-  before_filter :admin_only
-  before_filter :find_blog, only: [:edit, :update, :destroy, :show]
-  #skip_before_filter :verify_authenticity_token, :only => [:destroy]
+  before_action :admin_only
+  before_action :find_blog, only: [:edit, :update, :destroy, :show]
+  #skip_before_action :verify_authenticity_token, :only => [:destroy]
   #layout "core_admin"
   def index
     @blogs = Blog.search(params[:query]).order('title asc').page(params[:page]).per(48)

@@ -1,6 +1,6 @@
 class ExportRecordingsController < ApplicationController
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
   def index
     @recordings = @account.recordings.order(:title)
     respond_to do |format|

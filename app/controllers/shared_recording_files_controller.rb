@@ -2,9 +2,9 @@ class SharedRecordingFilesController < ApplicationController
   include RecordingsHelper
   include SharedCatalogsHelper
   
-  before_filter :access_user, only:[:show]
-  before_filter :read_catalog, only:[:show]
-  before_filter :read_recording, only:[:show]
+  before_action :access_user, only:[:show]
+  before_action :read_catalog, only:[:show]
+  before_action :read_recording, only:[:show]
   
   
   def show

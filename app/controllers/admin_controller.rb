@@ -12,7 +12,7 @@ class AdminController < ApplicationController
     response.stream.close
   end
   
-  before_filter :admin_only
+  before_action :admin_only
   def index
     @users      = User.where(role: 'super')
     @user       = current_user

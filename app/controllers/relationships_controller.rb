@@ -7,7 +7,7 @@ class RelationshipsController < ApplicationController
     relationship              = current_user.follow!(@user)
     
     @user.followers_count      = @user.followers.count
-    @user.uniq_followers_count = Uniqifyer.uniqify(@user.followers_count)
+    @user.uniq_followers_count = @user.followers_count.to_uniq
     @user.save!
     
 

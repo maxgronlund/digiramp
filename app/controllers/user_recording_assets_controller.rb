@@ -1,5 +1,5 @@
 class UserRecordingAssetsController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   
   def show
     @recording = Recording.cached_find(params[:id]) 

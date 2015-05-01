@@ -1,0 +1,29 @@
+/h1 New coupon
+/
+/== render 'form'
+/
+/= link_to 'Back', coupons_path
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, 
+                                                              business: admin_business_index_path,
+                                                               coupons: admin_coupons_path }, current: ''}
+      h2 New cuppon
+      .sexy_line
+      .row
+        .col-sm-12
+          .digi-box
+            == render 'form'
+          
+
+  == render 'shared/site_footer'  

@@ -1,7 +1,7 @@
 class User::CmsVideosController < ApplicationController
   before_action :set_cms_video, only: [:show, :edit, :update, :destroy]
 
-  before_filter :access_user
+  before_action :access_user
 
   def edit
   end

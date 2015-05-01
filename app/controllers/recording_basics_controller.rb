@@ -1,9 +1,9 @@
 class RecordingBasicsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   
-  before_filter :get_user, only: [ :edit, :update]
+  before_action :get_user, only: [ :edit, :update]
   include RecordingsHelper
-  before_filter :update_user_recording, only: [ :edit, :update]
+  before_action :update_user_recording, only: [ :edit, :update]
   
   def edit
     

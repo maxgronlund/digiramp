@@ -1,5 +1,5 @@
 class Admin::PlansController < ApplicationController
-  before_filter :admin_only
+  before_action :admin_only
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
   
 
@@ -34,8 +34,6 @@ class Admin::PlansController < ApplicationController
                              )
         redirect_to admin_plans_path
       rescue Stripe::StripeError => e
-        ap e.message
-        #@plan.errors[:base] << e.message
         flash[:danger] = e.message 
         @plan.destroy
         redirect_to new_admin_plan_path

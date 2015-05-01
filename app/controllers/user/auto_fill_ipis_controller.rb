@@ -1,5 +1,5 @@
 class User::AutoFillIpisController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   def update
     @ipi = Ipi.cached_find(params[:id])         
     @ipi.full_name      = @user.user_name       if @user.user_name.to_s     != ''

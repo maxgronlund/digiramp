@@ -1,7 +1,7 @@
 class Account::OpportunityReviewersController < ApplicationController
   include AccountsHelper
-  #before_filter :get_account_account
-  before_filter :access_account
+  #before_action :get_account_account
+  before_action :access_account
   
   def index
     

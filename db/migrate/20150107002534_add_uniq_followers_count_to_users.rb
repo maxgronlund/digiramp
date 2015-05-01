@@ -3,7 +3,7 @@ class AddUniqFollowersCountToUsers < ActiveRecord::Migration
     add_column :users, :uniq_followers_count, :string
     
     User.find_each do |user|
-      user.uniq_followers_count = Uniqifyer.uniqify(user.followers.count)
+      user.uniq_followers_count = user.followers.count.to_uniq
       user.save
     end
   end

@@ -1,5 +1,5 @@
 class Admin::EmailRecipientsController < ApplicationController
-  before_filter :admin_only
+  before_action :admin_only
   def edit
     #@email_group    = EmailGroup.find(params[:email_group_id])
     #@digiramp_email = DigirampEmail.find(params[:id])

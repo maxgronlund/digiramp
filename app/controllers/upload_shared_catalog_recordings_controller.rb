@@ -1,7 +1,7 @@
 class UploadSharedCatalogRecordingsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   
-  before_filter :access_user
+  before_action :access_user
 
   def new
     @catalog_user      = CatalogUser.where(user_id: @user.id, catalog_id: params[:shared_catalog_id]).first

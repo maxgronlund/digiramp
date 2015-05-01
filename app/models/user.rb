@@ -187,6 +187,8 @@ class User < ActiveRecord::Base
   
   #has_one :default_cms_page
   
+
+  
   def has_email test_this_email
     return true if test_this_email == self.email
     return true if self.user_emails.where(email: test_this_email).first
@@ -323,13 +325,13 @@ class User < ActiveRecord::Base
     #  
     #end
     self.uuid      = UUIDTools::UUID.timestamp_create().to_s                if self.uuid.to_s       == ''
-    #self.uniq_completeness    = Uniqifyer.uniqify(self.completeness)
+    
     update_completeness
     update_search_field
     set_top_tag
     set_page_style
     
-    self.uniq_followers_count = Uniqifyer.uniqify(self.followers_count)
+    self.uniq_followers_count = self.followers_count.to_uniq
     
   end
 
@@ -463,7 +465,7 @@ class User < ActiveRecord::Base
     nr_required_params      += 1    
       
     self.completeness       = (completeness / nr_required_params * 100).to_i
-    self.uniq_completeness  = Uniqifyer.uniqify(self.completeness)
+    self.uniq_completeness  = self.completeness.to_uniq
 
     #artist        
     #author
@@ -777,13 +779,13 @@ class User < ActiveRecord::Base
     user.account_id = account.id
     user.save!
     
-    AccountUser.create( account_id: account.id, 
-                        user_id: user.id, 
-                        role: 'Account Owner', 
-                        email: user.email,
-                        name:  user.name
-                       )
-
+    #AccountUser.create( account_id: account.id, 
+    #                    user_id: user.id, 
+    #                    role: 'Account Owner', 
+    #                    email: user.email,
+    #                    name:  user.name
+    #                   )
+    #
     account
   end
   

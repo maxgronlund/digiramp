@@ -1,6 +1,6 @@
 class DownloadController < ApplicationController
   #include AccountsHelper
-  #before_filter :access_account
+  #before_action :access_account
   
   def image_file
     @image_file = ImageFile.find(params[:image_file])

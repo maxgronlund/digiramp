@@ -4,7 +4,7 @@ class Opportunity::RecordingsController < ApplicationController
   include ActionView::Helpers::TextHelper
   include Transloadit::Rails::ParamsDecoder
   include OpportunitiesHelper
-  before_filter :access_opportunity
+  before_action :access_opportunity
   
   def index
     @recordings = []

@@ -4,8 +4,8 @@ class AddUniqCountsToRecordings < ActiveRecord::Migration
     add_column :recordings, :uniq_likes_count,      :string, default: ''
     
     Recording.find_each do |recording|
-      recording.uniq_playbacks_count  = Uniqifyer.uniqify(recording.playbacks_count)
-      recording.uniq_likes_count      = Uniqifyer.uniqify(recording.likes_count)
+      recording.uniq_playbacks_count  = recording.playbacks_count.to_uniq
+      recording.uniq_likes_count      = recording.likes_count.to_uniq
       recording.save
     end
   end

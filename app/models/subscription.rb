@@ -55,6 +55,17 @@ class Subscription < ActiveRecord::Base
     event :source_created do
       transitions from: :updating_cc, to: :finished
     end
+    
+    event :restart do
+      transitions from: :updating, to: :finished
+    end
+  end
+  
+  def reset_state
+    self.reset!           if self.state == 'errored'
+    self.restart!         if self.state == 'updating'
+    self.finish!          if self.state == 'processing'
+    self.source_created!  if self.state == 'updating_cc'
   end
   
 
@@ -83,10 +94,8 @@ class Subscription < ActiveRecord::Base
 
       rescue Stripe::StripeError => e
         self.error << e.message
-        
         self.save
         self.fail!
-        self.reset!
         return e.message
       end
     else

@@ -1,6 +1,6 @@
 class Admin::RawImagesController < ApplicationController
   before_action :set_raw_image, only: [:show, :edit, :update, :destroy]
-  before_filter :admins_only
+  before_action :admins_only
   # GET /raw_images
   # GET /raw_images.json
   def index

@@ -10,10 +10,8 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
-      /= debug @plan.errors.full_messages
-      /- @plan.errors.full_messages.each do |msg|
-      /  = debug msg
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,
+                                                              business: admin_business_index_path,
                                                               plans: admin_plans_path }, current: ''}
       .row
         .col-sm-6

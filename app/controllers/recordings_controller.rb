@@ -3,7 +3,7 @@ class RecordingsController < ApplicationController
   #protect_from_forgery only: :show
   skip_before_action :verify_authenticity_token
   
-  before_filter :get_user, only: [:show, :edit, :update, :new, :create, :destroy, :index]
+  before_action :get_user, only: [:show, :edit, :update, :new, :create, :destroy, :index]
   include Transloadit::Rails::ParamsDecoder
 
 
@@ -18,12 +18,14 @@ class RecordingsController < ApplicationController
     params[:query]  = session[:query]
 
     if current_user && current_user.id == @user.id
-      @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('position desc').page(params[:page]).per(4)
+      @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('uniq_position desc').page(params[:page]).per(4)
     else
-      @recordings =  Recording.public_access.recordings_search(@user.recordings, params[:query]).order('position desc').page(params[:page]).per(4)
+      @recordings =  Recording.public_access.recordings_search(@user.recordings, params[:query]).order('uniq_position desc').page(params[:page]).per(4)
     end
     @playlists  = current_user.playlists if current_user
   end
+  
+
 
   def new
     @recording = Recording.new
@@ -61,6 +63,11 @@ class RecordingsController < ApplicationController
         if recording.title.to_s == ''
           recording.title = File.basename(recording.original_file_name, ".*") 
         end
+        
+        
+        
+        
+        
         recording.save
         recording.check_default_image
         recording.common_work.update_completeness

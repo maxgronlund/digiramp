@@ -205,13 +205,7 @@ private
     else  
       redirect_to session[:current_page]
     end
-    
-    
-    
-    
-    
-    
-    
+
       
   end
 

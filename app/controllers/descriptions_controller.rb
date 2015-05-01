@@ -1,6 +1,6 @@
 class DescriptionsController < ApplicationController
   #include AccountsHelper
-  #before_filter :access_account
+  #before_action :access_account
   def edit
     #@common_work = CommonWork.cached_find(params[:common_work_id])
     @user         = User.friendly.find(params[:user_id])

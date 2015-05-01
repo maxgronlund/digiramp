@@ -1,6 +1,6 @@
 class Admin::PageStylesController < ApplicationController
   before_action :set_page_style, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_only
+  before_action :admin_only
   # GET /page_styles
   # GET /page_styles.json
   def index

@@ -1,7 +1,7 @@
 class Opportunity::SubmitFromController < ApplicationController
   
   include OpportunitiesHelper
-  before_filter :access_opportunity
+  before_action :access_opportunity
   
   def index
     

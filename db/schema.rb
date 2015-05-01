@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428090713) do
+ActiveRecord::Schema.define(version: 20150430230558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1084,6 +1084,28 @@ ActiveRecord::Schema.define(version: 20150428090713) do
   add_index "contracts", ["contractable_id", "contractable_type"], name: "index_contracts_on_contractable_id_and_contractable_type", using: :btree
   add_index "contracts", ["user_id"], name: "index_contracts_on_user_id", using: :btree
 
+  create_table "coupons", force: :cascade do |t|
+    t.integer  "amount_off"
+    t.integer  "percent_off"
+    t.string   "duration",           default: "once"
+    t.integer  "duration_in_months", default: 0
+    t.string   "stripe_id"
+    t.string   "currency",           default: "usd"
+    t.integer  "max_redemptions",    default: 1
+    t.integer  "times_redeemed",     default: 0
+    t.text     "metadata"
+    t.date     "redeem_by"
+    t.integer  "plan_id"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "coupons", ["account_id"], name: "index_coupons_on_account_id", using: :btree
+  add_index "coupons", ["plan_id"], name: "index_coupons_on_plan_id", using: :btree
+  add_index "coupons", ["user_id"], name: "index_coupons_on_user_id", using: :btree
+
   create_table "creative_project_resources", force: :cascade do |t|
     t.integer  "creative_project_id"
     t.integer  "user_id"
@@ -1740,6 +1762,45 @@ ActiveRecord::Schema.define(version: 20150428090713) do
   add_index "invites", ["from_user_id"], name: "index_invites_on_from_user_id", using: :btree
   add_index "invites", ["inviteable_id", "inviteable_type"], name: "index_invites_on_inviteable_id_and_inviteable_type", using: :btree
   add_index "invites", ["user_id"], name: "index_invites_on_user_id", using: :btree
+
+  create_table "invoices", force: :cascade do |t|
+    t.string   "stripe_id"
+    t.string   "stripe_object"
+    t.boolean  "livemode"
+    t.integer  "amount_due"
+    t.boolean  "attempted"
+    t.boolean  "closed"
+    t.string   "currency"
+    t.string   "stripe_customer_id"
+    t.boolean  "discountable"
+    t.date     "date"
+    t.boolean  "forgiven"
+    t.text     "lines"
+    t.boolean  "paid"
+    t.date     "period_start"
+    t.date     "period_end"
+    t.integer  "starting_balance"
+    t.integer  "subtotal"
+    t.integer  "total"
+    t.integer  "application_fee"
+    t.string   "charge"
+    t.string   "description"
+    t.text     "discount"
+    t.integer  "ending_balance"
+    t.string   "receipt_number"
+    t.string   "statement_descriptor"
+    t.string   "subscription_id"
+    t.text     "metadata"
+    t.integer  "tax"
+    t.decimal  "tax_percent"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "invoices", ["account_id"], name: "index_invoices_on_account_id", using: :btree
+  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id", using: :btree
 
   create_table "ipi_codes", force: :cascade do |t|
     t.integer  "account_id"
@@ -2500,6 +2561,7 @@ ActiveRecord::Schema.define(version: 20150428090713) do
     t.datetime "featured_date"
     t.string   "default_cover_art",    limit: 255, default: ""
     t.text     "sounds_like",                      default: ""
+    t.string   "uniq_position"
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -2690,13 +2752,13 @@ ActiveRecord::Schema.define(version: 20150428090713) do
   end
 
   create_table "subscriptions", force: :cascade do |t|
-    t.string   "email_address",    limit: 255
+    t.string   "email_address",        limit: 255
     t.integer  "user_id"
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "months"
-    t.string   "account_type",     limit: 255
+    t.string   "account_type",         limit: 255
     t.integer  "plan_id"
     t.string   "stripe_id"
     t.string   "state"
@@ -2704,6 +2766,9 @@ ActiveRecord::Schema.define(version: 20150428090713) do
     t.string   "error"
     t.string   "stripe_token"
     t.string   "cardholders_name"
+    t.date     "expiration_date"
+    t.date     "card_expiration_date"
+    t.boolean  "expired",                          default: false
   end
 
   add_index "subscriptions", ["account_id"], name: "index_subscriptions_on_account_id", using: :btree
@@ -3065,6 +3130,11 @@ ActiveRecord::Schema.define(version: 20150428090713) do
   end
 
   add_foreign_key "account_features", "plans"
+  add_foreign_key "coupons", "accounts"
+  add_foreign_key "coupons", "plans"
+  add_foreign_key "coupons", "users"
+  add_foreign_key "invoices", "accounts"
+  add_foreign_key "invoices", "users"
   add_foreign_key "payment_sources", "subscriptions"
   add_foreign_key "payment_sources", "users"
   add_foreign_key "products", "users"

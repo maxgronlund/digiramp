@@ -1,5 +1,5 @@
 class UserRecordingsController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   def index
     # all catalogs where the user is graned permission
     catalog_ids       =  CatalogUser.where(user_id: @user.id).pluck(:catalog_id)

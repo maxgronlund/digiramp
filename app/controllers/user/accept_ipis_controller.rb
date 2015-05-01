@@ -1,5 +1,5 @@
 class User::AcceptIpisController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   def update
     @ipi = Ipi.cached_find(params[:id])
     @ipi.confirmation = 'Accepted'

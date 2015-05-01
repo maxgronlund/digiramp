@@ -1,6 +1,6 @@
 class User::CampaignEventsController < ApplicationController
   before_action :set_campaign_event, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user
+  before_action :access_user
   include AccountsHelper
 
   # GET /campaign_events

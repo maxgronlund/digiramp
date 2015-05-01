@@ -68,7 +68,7 @@ class Recording < ActiveRecord::Base
   #
   
   validates :title, :presence => true
-  validates :acceptance_of_terms, acceptance: true
+  #validates :acceptance_of_terms, acceptance: true
   
   scope :bucket,            -> { where( in_bucket: true)  }
   scope :not_in_bucket,     -> { where.not( in_bucket: true)  }
@@ -118,7 +118,15 @@ class Recording < ActiveRecord::Base
   has_many :playlists_recordings
   has_many :catalogs, :through => :playlists_recordings
   
-  #after_create  :update
+
+  before_save :uniqify_fields
+  
+  def uniqify_fields
+    self.uniq_title              = self.title.to_uniq
+    self.uniq_position           = self.position.to_uniq
+    self.uniq_playbacks_count    = self.playbacks_count.to_uniq
+    self.uniq_likes_count        = self.likes_count.to_uniq
+  end
   
   mount_uploader :default_cover_art, ArtworkUploader
   
@@ -136,9 +144,8 @@ class Recording < ActiveRecord::Base
     VOCAL_HASH << [k,k]
   end
   
-  #def update_relations
-  #  self.save!
-  #end
+
+
   
 
   

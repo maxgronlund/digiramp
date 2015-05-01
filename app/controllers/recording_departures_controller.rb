@@ -1,7 +1,7 @@
 class RecordingDeparturesController < ApplicationController
   
   include AccountsHelper
-  before_filter :get_account_account
+  before_action :get_account_account
   
   def index
     forbidden unless current_account_user && current_account_user.create_recording

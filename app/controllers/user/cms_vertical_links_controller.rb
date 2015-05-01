@@ -1,6 +1,6 @@
 class User::CmsVerticalLinksController < ApplicationController
   before_action :set_cms_vertical_link, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user
+  before_action :access_user
 
   def edit
   end

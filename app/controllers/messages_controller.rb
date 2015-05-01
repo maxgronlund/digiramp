@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   
-  before_filter :access_user, only: [ :show, :index, :create, :destroy]
+  before_action :access_user, only: [ :show, :index, :create, :destroy]
 
   def new
   end

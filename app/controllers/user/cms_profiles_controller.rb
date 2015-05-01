@@ -1,6 +1,6 @@
 class User::CmsProfilesController < ApplicationController
   before_action :set_cms_profile, only: [ :edit, :update]
-  before_filter :access_user
+  before_action :access_user
  
 
   def edit

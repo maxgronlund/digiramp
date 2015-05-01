@@ -1,5 +1,5 @@
 class User::CmsModuleMovesController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   def update
     cms_section   = CmsSection.cached_find(params[:cms_section_id])
     @column_nr    = cms_section.column_nr

@@ -3,8 +3,8 @@ class Catalog::AssetsController < ApplicationController
   include AccountsHelper
   include CatalogsHelper
   
-  before_filter :access_account
-  before_filter :access_catalog, only: [:index, :new]
+  before_action :access_account
+  before_action :access_catalog, only: [:index, :new]
   
   
   def index

@@ -2,9 +2,9 @@ class SharedCommonWorksController < ApplicationController
   
   include SharedCommonWorksHelper
   
-  before_filter :access_user
-  before_filter :read_common_work, only:[:show]
-  before_filter :update_common_work, only:[:edit, :update]
+  before_action :access_user
+  before_action :read_common_work, only:[:show]
+  before_action :update_common_work, only:[:edit, :update]
   
   
   def show

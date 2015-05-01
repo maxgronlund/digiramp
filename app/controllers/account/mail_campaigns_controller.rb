@@ -1,7 +1,7 @@
 class Account::MailCampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
   # GET /campaigns
   # GET /campaigns.json
   def index

@@ -1,6 +1,6 @@
 class Opportunity::CommonWorksController < ApplicationController
   include OpportunitiesHelper
-  before_filter :access_opportunity
+  before_action :access_opportunity
   
   def new
     @music_request   = MusicRequest.cached_find(params[:music_request_id])

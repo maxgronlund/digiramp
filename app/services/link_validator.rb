@@ -1,25 +1,14 @@
+# when users can type in a link to an external page
+# it needs to be prefixed with 'http'
+# usage
+# LinkValidator.validate "somelink.com"
+
 class LinkValidator
-  
-  def self.validate link
-    if link.to_s != ''
-      link = link.gsub('www.', '')
-      link = link.gsub('WWW.', '')
-      return 'http://' + link
-    else
-      return ''
-    end
-  end
-  
   def self.sanitize link
-    return link if link.nil?
-    return link.gsub('www.', 'http://')  if link.start_with?('www.')
-    return link.gsub('WWW.', 'http://')  if link.start_with?('WWW.') 
+    return link if link.blank?
+    return link.downcase.sub('www.', 'http://') if link.downcase.start_with?('www.') 
     link
   end
-  
-  
-  
 end
 
-# usage
-#  LinkValidator.validate "somelink.com"
+

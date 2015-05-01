@@ -1,9 +1,9 @@
 class Catalog::FindInCollectionsController < ApplicationController
   include AccountsHelper
   include CatalogsHelper
-  before_filter :access_account
-  before_filter :access_catalog, only: [:index, :show, :edit,  :create, :update]
-  #before_filter :there_is_access_to_catalog
+  before_action :access_account
+  before_action :access_catalog, only: [:index, :show, :edit,  :create, :update]
+  #before_action :there_is_access_to_catalog
   
   # list of recordings to add to the catalog
   def index

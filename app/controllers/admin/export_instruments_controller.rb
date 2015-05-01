@@ -1,5 +1,5 @@
 class Admin::ExportInstrumentsController < ApplicationController
-  before_filter :admin_only
+  before_action :admin_only
   
   def index
     @instruments = Instrument.order(category: :asc, title: :asc)

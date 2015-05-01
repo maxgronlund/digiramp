@@ -7,6 +7,10 @@ class ChangeSubscriptionCard
           stripe_sub          = customer.subscriptions.retrieve(subscription.stripe_id)
           stripe_sub.source   = token
           stripe_sub.save
+        else
+          subscription.error << 'unable to find customer'
+          subscription.save
+          subscription.fail!
         end
       rescue Stripe::StripeError => e
         ap e.message

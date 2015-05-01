@@ -2,8 +2,8 @@ class Account::MusicSubmissionsController < ApplicationController
   before_action :set_music_request_and_submission, only: [:index, :show, :new, :edit, :update, :destroy, :download]
   
   include AccountsHelper
-  #before_filter :access_account
-  before_filter :get_account_account
+  #before_action :access_account
+  before_action :get_account_account
   
   #def index
   #  @recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)

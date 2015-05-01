@@ -1,6 +1,6 @@
 class Admin::FrontEndContentsController < ApplicationController
   
-  before_filter :admins_only
+  before_action :admins_only
 
 
 

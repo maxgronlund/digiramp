@@ -3,9 +3,9 @@ class Catalog::RecordingsController < ApplicationController
   #include RecordingsHelper
   include AccountsHelper
   include CatalogsHelper
-  before_filter :access_account
-  before_filter :access_catalog
-  #before_filter :read_recording, only:[:show]
+  before_action :access_account
+  before_action :access_catalog
+  #before_action :read_recording, only:[:show]
   
   def index
     

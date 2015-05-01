@@ -1,6 +1,6 @@
 class User::ContractsController < ApplicationController
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user
+  before_action :access_user
   
   # GET /contracts
   # GET /contracts.json

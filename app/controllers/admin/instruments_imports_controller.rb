@@ -1,6 +1,6 @@
 class Admin::InstrumentsImportsController < ApplicationController
   #before_action :set_instruments_import, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_only
+  before_action :admin_only
 
   def new
     @instruments_import = InstrumentsImport.new

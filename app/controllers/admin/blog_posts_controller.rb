@@ -1,7 +1,7 @@
 class Admin::BlogPostsController < ApplicationController
   
-  before_filter :admins_only
-  before_filter :find_blog_post, only: [ :edit, :update, :destroy, :crop, :crop_update, :show]
+  before_action :admins_only
+  before_action :find_blog_post, only: [ :edit, :update, :destroy, :crop, :crop_update, :show]
 
   
   def new

@@ -25,9 +25,6 @@ class SongsController < ApplicationController
     end  
     
 
-    
-    
-    
     if params[:genre]
       if genre = Genre.where(title: params[:genre]).first
         recordings = genre.ordered_recordings_with_public_access order
@@ -41,12 +38,10 @@ class SongsController < ApplicationController
       recordings = Recording.public_access.order(order)
     end
     
-    
 
     @songs      =  Recording.recordings_search(recordings, params[:query]).page(params[:page]).per(4)
     @playlists  =  current_user.playlists if current_user
     @user       =  current_user
-    
     
   end
   

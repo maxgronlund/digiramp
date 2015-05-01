@@ -1,8 +1,8 @@
 class SharedCommonWorkIpisController < ApplicationController
   
   include SharedCommonWorkIpisHelper
-  before_filter :access_user
-  before_filter :read_common_work_ipis, only:[:index]
+  before_action :access_user
+  before_action :read_common_work_ipis, only:[:index]
   
   def show
   end

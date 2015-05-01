@@ -1,6 +1,6 @@
 class User::CmsPagesController < ApplicationController
   before_action :set_cms_page, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user
+  before_action :access_user
 
   def index
     @cms_pages = CmsPage.all

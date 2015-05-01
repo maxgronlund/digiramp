@@ -1,5 +1,5 @@
 class LikesController < ApplicationController
-  before_filter :get_user
+  before_action :get_user
   
   def index
    
@@ -46,7 +46,7 @@ class LikesController < ApplicationController
     recording.likes_count += 1
     #recording.likes_count = recording.likes.count
 
-    recording.uniq_likes_count = Uniqifyer.uniqify(recording.likes_count)
+    recording.uniq_likes_count = recording.likes_count.to_uniq
     recording.save!
              
     @unlike = '.unlike_recording_' + params[:recording_id].to_s   
@@ -67,7 +67,7 @@ class LikesController < ApplicationController
     
     recording = Recording.cached_find(params[:id])
     recording.likes_count -= 1
-    recording.uniq_likes_count = Uniqifyer.uniqify(recording.likes_count)
+    recording.uniq_likes_count = recording.likes_count.to_uniq
     recording.save
     
     

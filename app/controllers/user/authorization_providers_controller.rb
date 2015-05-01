@@ -1,5 +1,5 @@
 class User::AuthorizationProvidersController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   def index
     #@authorized = false
     #if current_user.id == @user.id || current_user.super?

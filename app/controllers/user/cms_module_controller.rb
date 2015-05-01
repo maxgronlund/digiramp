@@ -1,5 +1,5 @@
 class User::CmsModuleController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   def new
     @position = 0
     @cms_page    = CmsPage.cached_find(params[:cms_page_id]) 

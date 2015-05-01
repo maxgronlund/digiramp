@@ -53,9 +53,11 @@
       console.log(data.status);
       if (data.status === "finished") {
         window.location = "/user/users/<%=@user.slug%>/subscriptions"
-      } else if (data.status === "error") {
+      } else if (data.status === "errored") {
+        console.log(data.error);
         showError(data.error)
       } else {
+        //$.getScript( "/user/users/<%=@user.slug%>/payment_method_fail/" + guid)
         setTimeout(function() { poll(guid, num_retries_left - 1) }, 500);
       }
     });

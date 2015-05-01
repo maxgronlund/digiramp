@@ -1,6 +1,6 @@
 class Admin::ZipFilesController < ApplicationController
   before_action :set_zip_file, only: [:show, :edit, :update, :destroy]
-  before_filter :admins_only
+  before_action :admins_only
 
   # GET /zip_files
   # GET /zip_files.json

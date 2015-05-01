@@ -1,7 +1,7 @@
 class Admin::VideoBlogsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
-  before_filter :admin_only
-  before_filter :find_video_blog, only: [:show, :edit, :update, :destroy]
+  before_action :admin_only
+  before_action :find_video_blog, only: [:show, :edit, :update, :destroy]
   
   
   

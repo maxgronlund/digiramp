@@ -1,7 +1,7 @@
 class DocumentsController < ApplicationController
   include AccountsHelper
 
-  before_filter :access_account
+  before_action :access_account
   
   def index
     @documents = @account.attachments.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(16)

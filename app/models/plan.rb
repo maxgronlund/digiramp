@@ -3,6 +3,7 @@ class Plan < ActiveRecord::Base
   
   has_many :account_features
   has_many :subscriptions
+  has_many :coupons
   
   INTERVALS = ['day', 'week', 'month',  'year']
   CURRENCY  = ['usd']

@@ -1,6 +1,6 @@
 class User::CmsRecordingsController < ApplicationController
   before_action :set_cms_recording, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user
+  before_action :access_user
 
   def edit
   end

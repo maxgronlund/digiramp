@@ -1,6 +1,6 @@
 class Admin::WidgetThemesController < ApplicationController
   before_action :set_widget_theme, only: [:show, :edit, :update, :destroy]
-  before_filter :admins_only
+  before_action :admins_only
   # GET /widget_themes
   # GET /widget_themes.json
   def index

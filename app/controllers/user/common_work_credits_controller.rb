@@ -1,5 +1,5 @@
 class User::CommonWorkCreditsController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   #include AccountsHelper
 
   

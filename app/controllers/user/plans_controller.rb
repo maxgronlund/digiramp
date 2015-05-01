@@ -1,7 +1,7 @@
 class User::PlansController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   
-  before_filter :obsolete
+  before_action :obsolete
   
   def obsolete
     ap '===================================================='

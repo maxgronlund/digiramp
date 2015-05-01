@@ -1,0 +1,96 @@
+p#notice = notice
+
+p
+  strong Stripe:
+  = @invoice.stripe_id
+p
+  strong Stripe object:
+  = @invoice.stripe_object
+p
+  strong Livemode:
+  = @invoice.livemode
+p
+  strong Amount due:
+  = @invoice.amount_due
+p
+  strong Attempted:
+  = @invoice.attempted
+p
+  strong Closed:
+  = @invoice.closed
+p
+  strong Currency:
+  = @invoice.currency
+p
+  strong Stripe customer:
+  = @invoice.stripe_customer_id
+p
+  strong Date:
+  = @invoice.date
+p
+  strong Forgiven:
+  = @invoice.forgiven
+p
+  strong Lines:
+  = @invoice.lines
+p
+  strong Paid:
+  = @invoice.paid
+p
+  strong Period start:
+  = @invoice.period_start
+p
+  strong Period end:
+  = @invoice.period_end
+p
+  strong Starting balance:
+  = @invoice.starting_balance
+p
+  strong Subtotal:
+  = @invoice.subtotal
+p
+  strong Total:
+  = @invoice.total
+p
+  strong Application fee:
+  = @invoice.application_fee
+p
+  strong Charge:
+  = @invoice.charge
+p
+  strong Description:
+  = @invoice.description
+p
+  strong Discount:
+  = @invoice.discount
+p
+  strong Ending balance:
+  = @invoice.ending_balance
+p
+  strong Receipt number:
+  = @invoice.receipt_number
+p
+  strong Statement descriptor:
+  = @invoice.statement_descriptor
+p
+  strong Subscription:
+  = @invoice.subscription_id
+p
+  strong Metadata:
+  = @invoice.metadata
+p
+  strong Tax:
+  = @invoice.tax
+p
+  strong Tax percent:
+  = @invoice.tax_percent
+p
+  strong User:
+  = @invoice.user
+p
+  strong Account:
+  = @invoice.account
+
+= link_to 'Edit', edit_invoice_path(@invoice)
+'|
+= link_to 'Back', invoices_path

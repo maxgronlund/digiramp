@@ -5,8 +5,8 @@ class Catalog::DocumentsController < ApplicationController
   include CatalogsHelper
 
   
-  before_filter :access_account
-  before_filter :access_catalog
+  before_action :access_account
+  before_action :access_catalog
 
   # GET /documents
   # GET /documents.json

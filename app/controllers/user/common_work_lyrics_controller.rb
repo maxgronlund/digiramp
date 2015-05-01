@@ -1,5 +1,5 @@
 class User::CommonWorkLyricsController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   #include AccountsHelper
 
   

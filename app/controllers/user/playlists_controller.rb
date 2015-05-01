@@ -1,7 +1,7 @@
 class User::PlaylistsController < ApplicationController
   #include AccountsHelper
-  #before_filter :access_account
-  before_filter :access_user
+  #before_action :access_account
+  before_action :access_user
   
   
  

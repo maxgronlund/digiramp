@@ -1,7 +1,7 @@
 class FeaturesController < ApplicationController
   
-  before_filter :access_user, only: [:create, :edit, :update, :new, :destroy]
-  before_filter :feature_requests
+  before_action :access_user, only: [:create, :edit, :update, :new, :destroy]
+  before_action :feature_requests
   
   def index
     

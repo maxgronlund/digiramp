@@ -1,7 +1,7 @@
 class User::CreativeRightsController < ApplicationController
   
   
-  before_filter :access_user
+  before_action :access_user
   
   
   def index

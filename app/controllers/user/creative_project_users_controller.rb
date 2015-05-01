@@ -1,6 +1,6 @@
 class User::CreativeProjectUsersController < ApplicationController
   before_action :set_creative_project_user, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user, only: [:destroy, :update]
+  before_action :access_user, only: [:destroy, :update]
 
   def index
     @user                     = User.cached_find(params[:user_id])

@@ -1,6 +1,6 @@
 class Admin::EmailGroupsController < ApplicationController
   before_action :set_email_group, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_only
+  before_action :admin_only
   def index
     @email_groups = EmailGroup.all
     EmailGroup.where(  title: 'Opportunities', 

@@ -1,0 +1,69 @@
+= simple_form_for [:admin, @coupon] do |f|
+  = f.error_notification
+  .row
+    
+    .form-inputs
+      .col-sm-6
+        .panel.panel-default
+          .panel-body
+            = f.input :stripe_id, label: 'Stripe id'
+            'Unique string of your choice that will be used to identify this coupon when applying it a customer. This is often a specific code you’ll give to your customer to use when signing up (e.g. FALL25OFF). If you don’t want to specify a particular code, you can leave the ID blank and Stripe will generate a random code.
+        
+        
+        .panel.panel-default
+          .panel-body
+            = f.input :amount_off
+            'A positive integer representing the amount to subtract from an invoice total (required if Percent off is not passed)
+        
+        
+        .panel.panel-default
+          .panel-body
+            = f.input :percent_off
+            'A positive integer between 1 and 100 that represents the discount the coupon will apply (required if Amount off is not passed)
+        
+        
+        .panel.panel-default
+          .panel-body
+            = f.input :currency, collection: Plan::CURRENCY  , include_blank: false
+            'Currency of the amount_off parameter (required if amount_off is passed)
+      
+      
+      .col-sm-6
+      
+        .panel.panel-default
+          .panel-body
+            = f.input :duration, collection: Coupon::DURATION, include_blank: false
+            'Specifies how long the discount will be in effect. Can be forever, once, or repeating.
+      
+        .panel.panel-default
+          .panel-body
+            = f.input :duration_in_months
+            'required only if duration is repeating If duration is repeating, a positive integer that specifies the number of months the discount will be in effect
+        
+        .panel.panel-default
+          .panel-body
+            = f.input :max_redemptions
+            'A positive integer specifying the number of times the coupon can be redeemed before it’s no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use.
+        .panel.panel-default
+          .panel-body
+            b Redeem by
+            = f.text_field :redeem_by, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+            br The last time at which the coupon can be redeemed. After the redeem by date, the coupon can no longer be applied to new customers.
+        
+        .panel.panel-default
+          .panel-body
+            = f.association :plan
+            'The coupon can be tied to a specific plan. so it can only be used for that
+      /= f.input :redeem_by
+      /= f.association :user
+      /= f.association :account
+      /= f.input :metadata
+    
+  .form-actions
+    .row.pull-down-10
+      .col-sm-12
+        .pull-right
+          = f.submit 'Save', class: 'btn btn-primary', id: 'commit-form'
+          
+          
+          

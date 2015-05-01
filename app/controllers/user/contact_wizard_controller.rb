@@ -1,5 +1,5 @@
 class User::ContactWizardController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   
   def fill_form
     @contact = Client.new

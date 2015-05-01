@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
   #skip_before_action :authenticate_user!, only: [:new, :create, :status]
   
-  #before_filter :strip_iframe_protection
+  #before_action :strip_iframe_protection
   #def iframe
   #  @product = Product.find_by!(permalink: params[:permalink])
   #  @sale = Sale.new(product_id: @product)

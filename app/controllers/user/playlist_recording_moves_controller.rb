@@ -1,5 +1,5 @@
 class User::PlaylistRecordingMovesController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   def update
 
     @playlist                      = Playlist.cached_find(params[:playlist_id])

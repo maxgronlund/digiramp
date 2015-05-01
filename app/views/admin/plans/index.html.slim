@@ -10,7 +10,8 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path}, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path,
+                                                              business: admin_business_index_path}, current: ''}
       .row
         .col-sm-6
           h2 

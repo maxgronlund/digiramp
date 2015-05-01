@@ -1,6 +1,6 @@
 class RecordingUploadsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
-  before_filter :get_user, only: [ :edit, :update]
+  before_action :get_user, only: [ :edit, :update]
   def edit
     
     @user           = User.cached_find(params[:user_id])

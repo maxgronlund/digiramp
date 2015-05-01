@@ -5,10 +5,10 @@ class Catalog::CommonWorkIpisController < ApplicationController
   include CatalogsHelper
   include ActionView::Helpers::TextHelper
   
-  before_filter :access_account
-  before_filter :access_catalog
+  before_action :access_account
+  before_action :access_catalog
   
-  before_filter :authorize_common_work
+  before_action :authorize_common_work
   before_action :common_work_ipi_params, only: :update
                                         
   def index

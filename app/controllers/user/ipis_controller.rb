@@ -1,6 +1,6 @@
 class User::IpisController < ApplicationController
   
-  before_filter :access_user
+  before_action :access_user
   
   def index
     #@user_credits = @user.user_credits.where.not(confirmation: 'Missing').order(:title)

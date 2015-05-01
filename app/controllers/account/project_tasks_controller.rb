@@ -1,6 +1,6 @@
 class Account::ProjectTasksController < ApplicationController
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
   before_action :set_project_task, only: [:show, :edit, :update, :destroy]
 
   # GET /project_tasks

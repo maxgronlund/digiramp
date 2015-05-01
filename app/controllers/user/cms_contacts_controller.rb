@@ -1,7 +1,7 @@
 class User::CmsContactsController < ApplicationController
   before_action :set_cms_contact, only: [ :edit, :update]
 
-  before_filter :access_user
+  before_action :access_user
 
   def edit
   end

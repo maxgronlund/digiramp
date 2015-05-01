@@ -1,6 +1,6 @@
 class WorkLegalDocumentsController < ApplicationController
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
   
   def index
     @common_work    = CommonWork.cached_find(params[:work_id])

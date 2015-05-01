@@ -1,6 +1,6 @@
 class User::SubscriptionsController < ApplicationController
-  before_filter :access_user
-  before_filter :load_plans
+  before_action :access_user
+  before_action :load_plans
   
  
   def index
@@ -13,13 +13,13 @@ class User::SubscriptionsController < ApplicationController
     @account_features     =  AccountFeature.order(:position).where(enabled: true)
   end
   
-  def show
-    
-  end
+  #def show
+  #  
+  #end
   
   def new
-    build_cc_month
-    build_cc_years
+    @months = CreditCard.months
+    @years  = CreditCard.years
 
     @account              = @user.account
     @subscription         = Subscription.new
@@ -73,12 +73,17 @@ class User::SubscriptionsController < ApplicationController
     #end
   end
   
-  def update
-
+  def time_out
     @subscription       =  Subscription.cached_find(params[:id])
+    @subscription.fail!
+  end
+  
+  def update
+    
+    @subscription       =  Subscription.cached_find(params[:id])
+    @subscription.reset_state
 
     if plan = params[:plan_id] && Plan.where(id: params[:plan_id]).first
-
       msg = @subscription.change_plan(plan.id)
       if msg
         flash[:danger] = msg
@@ -106,13 +111,5 @@ class User::SubscriptionsController < ApplicationController
       @plans = Plan.where(published: true).order('amount')
     end
     
-    def build_cc_month
-      @months = []
-      months = ["Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec"]
-      months.each_with_index {|month, index| @months << "#{months[index]} (#{ format('%02d', index+1)})" }
-    end
-  
-    def build_cc_years
-      @years = *( Time.now.year.to_i.. Time.now.year.to_i+10 )
-    end
+
 end

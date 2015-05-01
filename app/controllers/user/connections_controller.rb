@@ -3,7 +3,7 @@
 class User::ConnectionsController < ApplicationController
   before_action :set_connection, only: [:edit, :update, :destroy]
 
-  before_filter :access_user, only: [:index, :show]
+  before_action :access_user, only: [:index, :show]
   
 
   def index

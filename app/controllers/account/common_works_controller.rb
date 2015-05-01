@@ -1,8 +1,8 @@
 class Account::CommonWorksController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
-  #before_filter :access_account
-  before_filter :get_account_account
+  #before_action :access_account
+  before_action :get_account_account
   # show list or export as cvs
   
   def index

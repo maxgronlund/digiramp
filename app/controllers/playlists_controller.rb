@@ -1,8 +1,8 @@
 class PlaylistsController < ApplicationController
   #include AccountsHelper
-  #before_filter :access_account
-  before_filter :get_user
-  before_filter :authorized, except: [:show, :index]
+  #before_action :access_account
+  before_action :get_user
+  before_action :authorized, except: [:show, :index]
   
   def index
     #@playlists = @user.playlists

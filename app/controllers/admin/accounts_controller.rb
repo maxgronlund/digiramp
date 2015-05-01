@@ -1,6 +1,6 @@
 class Admin::AccountsController < ApplicationController
   
-  before_filter :admins_only
+  before_action :admins_only
   
   def index
     @accounts   = Account.activated.search(params[:query]).order('lower(title) ASC').page(params[:page]).per(50)

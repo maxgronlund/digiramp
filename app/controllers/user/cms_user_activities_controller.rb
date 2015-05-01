@@ -1,6 +1,6 @@
 class User::CmsUserActivitiesController < ApplicationController
   before_action :set_cms_user_activity, only: [:show, :edit, :update, :destroy]
-  before_filter :access_user
+  before_action :access_user
 
 
   def edit

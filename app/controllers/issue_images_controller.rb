@@ -1,5 +1,5 @@
 class IssueImagesController < ApplicationController
-  #before_filter :access_user, only: [:show]
+  #before_action :access_user, only: [:show]
 
 
 

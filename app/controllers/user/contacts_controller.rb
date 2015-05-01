@@ -1,6 +1,6 @@
 class User::ContactsController < ApplicationController
   #before_action :set_contact, only: [:create]
-  before_filter :access_user
+  before_action :access_user
   def index
 
     #session[:select_all_recordings] = false if params[:page].nil?

@@ -2,7 +2,7 @@ class Account::AccountIpisController < ApplicationController
   include AccountsHelper
   #include CatalogsHelper
   
-  before_filter :access_account
+  before_action :access_account
   
   
   def index

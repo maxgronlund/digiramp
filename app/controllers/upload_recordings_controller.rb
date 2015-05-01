@@ -2,7 +2,7 @@ class UploadRecordingsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
 
   def new
     forbidden unless current_account_user.create_recording? 

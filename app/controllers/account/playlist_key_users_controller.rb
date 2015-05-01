@@ -1,7 +1,7 @@
 class Account::PlaylistKeyUsersController < ApplicationController
   
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
   
   def index
     @playlist           = Playlist.cached_find(params[:playlist_id])

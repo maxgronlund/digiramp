@@ -1,7 +1,7 @@
 class Account::AudioFilesController < ApplicationController
   include ActionView::Helpers::TextHelper
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
   
   include Transloadit::Rails::ParamsDecoder
   

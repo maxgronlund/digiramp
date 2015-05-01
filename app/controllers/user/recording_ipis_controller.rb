@@ -1,5 +1,5 @@
 class User::RecordingIpisController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   def update
     
     #ap params[:commit]

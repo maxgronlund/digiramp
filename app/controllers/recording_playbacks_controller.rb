@@ -1,5 +1,5 @@
 class RecordingPlaybacksController < ApplicationController
-  before_filter :get_user
+  before_action :get_user
   
   protect_from_forgery except: :index
   

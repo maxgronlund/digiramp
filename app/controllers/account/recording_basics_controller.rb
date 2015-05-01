@@ -3,8 +3,8 @@ class Account::RecordingBasicsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include RecordingsHelper
   include AccountsHelper
-  before_filter :access_account
-  before_filter :read_recording, only:[ :edit]
+  before_action :access_account
+  before_action :read_recording, only:[ :edit]
   
   def edit
     forbidden unless current_account_user.update_recording?

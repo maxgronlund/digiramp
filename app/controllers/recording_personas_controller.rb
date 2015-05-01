@@ -1,8 +1,8 @@
 class RecordingPersonasController < ApplicationController
 
-  before_filter :get_user, only: [ :edit, :update]
+  before_action :get_user, only: [ :edit, :update]
   include RecordingsHelper
-  before_filter :update_user_recording, only: [ :edit, :update]
+  before_action :update_user_recording, only: [ :edit, :update]
 
   def edit
     not_found( params ) unless @recording

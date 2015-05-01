@@ -1,7 +1,7 @@
 class Account::ClientGroupsController < ApplicationController
   
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
   before_action :set_client_group, only: [:show, :edit, :update, :destroy, :import_client_emails, :remove_member]
   
   # GET /client_groups

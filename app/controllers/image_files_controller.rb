@@ -2,7 +2,7 @@
 class ImageFilesController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
   
   before_action :set_image_file, only: [:show, :edit, :update, :destroy]
 

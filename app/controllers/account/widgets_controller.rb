@@ -1,7 +1,7 @@
 class Account::WidgetsController < ApplicationController
   before_action :set_widget, only: [:show, :edit, :update, :destroy]
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
 
   # GET /widgets
   # GET /widgets.json

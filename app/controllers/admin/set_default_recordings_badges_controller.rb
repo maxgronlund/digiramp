@@ -1,5 +1,5 @@
 class Admin::SetDefaultRecordingsBadgesController < ApplicationController
-  before_filter :admin_only
+  before_action :admin_only
   def index
     #count = 0
     Recording.find_each do |recording|

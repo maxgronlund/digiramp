@@ -1,5 +1,5 @@
 class Admin::IssuesController < ApplicationController
-  before_filter :admin_only
+  before_action :admin_only
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
   # GET /issues

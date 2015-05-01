@@ -1,5 +1,5 @@
 class Admin::ContentController < ApplicationController
-  before_filter :admins_only
+  before_action :admins_only
 
   def index
     

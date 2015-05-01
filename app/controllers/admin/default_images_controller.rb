@@ -1,6 +1,6 @@
 class Admin::DefaultImagesController < ApplicationController
   before_action :set_default_image, only: [:show, :edit, :update, :destroy]
-  before_filter :admins_only
+  before_action :admins_only
 
   def index
     @default_images = DefaultImage.all

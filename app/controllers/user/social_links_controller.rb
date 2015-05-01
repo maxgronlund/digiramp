@@ -1,5 +1,5 @@
 class User::SocialLinksController < ApplicationController
-  before_filter :access_user
+  before_action :access_user
   def edit
   end
   

@@ -1,6 +1,6 @@
 class Admin::SystemSettingsController < ApplicationController
   before_action :set_system_setting, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_only
+  before_action :admin_only
   # GET /system_settings
   # GET /system_settings.json
   def index

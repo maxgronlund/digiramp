@@ -1,6 +1,6 @@
 class Admin::AccountFeaturesController < ApplicationController
   before_action :set_account_feature, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_only
+  before_action :admin_only
   # GET /account_features
   # GET /account_features.json
   def index

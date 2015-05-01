@@ -3,8 +3,8 @@ class Account::OpportunityProvidersController < ApplicationController
   #before_action :set_opportunity, only: [:show, :edit, :update, :destroy, :music_submissions]
   
   include AccountsHelper
-  before_filter :access_account
-  #before_filter :current_user_authorized, only: [:index, :show, :new, :edit]
+  before_action :access_account
+  #before_action :current_user_authorized, only: [:index, :show, :new, :edit]
 
 
   

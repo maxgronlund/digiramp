@@ -1,5 +1,5 @@
 class Admin::FeaturesAndValuesController < ApplicationController
-  before_filter :admin_only, except: [:destroy]
+  before_action :admin_only, except: [:destroy]
   def index
     @features_and_values_blog = Blog.cached_find('features and values')
     @intro          = BlogPost.cached_find( 'intro', @features_and_values_blog)

@@ -1,6 +1,6 @@
 class Admin::ProAffiliationsController < ApplicationController
   before_action :set_pro_affiliation, only: [:show, :edit, :update, :destroy]
-  before_filter :admins_only
+  before_action :admins_only
   
 
   def index

@@ -1,5 +1,5 @@
 class IssuesController < ApplicationController
-  before_filter :access_user, only: [:create, :edit, :update, :new, :destroy]
+  before_action :access_user, only: [:create, :edit, :update, :new, :destroy]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
   # GET /issues

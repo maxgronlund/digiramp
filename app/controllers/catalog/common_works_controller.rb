@@ -4,8 +4,8 @@ class Catalog::CommonWorksController < ApplicationController
   include CatalogsHelper
   include ActionView::Helpers::TextHelper
   
-  before_filter :access_account
-  before_filter :access_catalog
+  before_action :access_account
+  before_action :access_catalog
 
   
   def index

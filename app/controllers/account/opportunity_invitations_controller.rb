@@ -1,7 +1,7 @@
 class Account::OpportunityInvitationsController < ApplicationController
   before_action :set_opportunity_invitation, only: [:show, :edit, :update, :destroy]
   include AccountsHelper
-  before_filter :access_account
+  before_action :access_account
 
   # GET /opportunity_invitations
   # GET /opportunity_invitations.json

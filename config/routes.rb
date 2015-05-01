@@ -2,6 +2,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+  resources :invoices
   resources :amazon_sns
   resources :products
   
@@ -36,6 +38,7 @@ Digiramp::Application.routes.draw do
     resources :activity_counter
     get 'business/index'
     resources :contracts
+    resources :coupons
     resources :client_events
     resources :client_groups
     resources :contacts
@@ -664,8 +667,9 @@ Digiramp::Application.routes.draw do
     #resources :common_work_lyrics
     resources :users do
       
-      match '/subsctiption_status/:guid'   => 'subscriptions#status',  via: :get,  as: :subscription_status
+      match '/subsctiption_status/:guid'   => 'subscriptions#status',    via: :get,  as: :subscription_status
       match '/payment_method_status/:guid' => 'payment_methods#status',  via: :get,  as: :payment_method_status
+      match '/payment_method_fail/:guid' => 'payment_methods#fail',    via: :get,  as: :payment_method_fail
      
       resources :subscriptions
       resources :registrations

@@ -1,5 +1,5 @@
 class Admin::CommentsController < ApplicationController
-  before_filter :admin_only
+  before_action :admin_only
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
 

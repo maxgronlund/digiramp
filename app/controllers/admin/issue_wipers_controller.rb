@@ -1,6 +1,6 @@
 class Admin::IssueWipersController < ApplicationController
   
-  before_filter :admins_only
+  before_action :admins_only
 
   def index
     IssueEvent.delete_all

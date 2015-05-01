@@ -182,8 +182,8 @@ end
 
 
 group :test, :development do
-  gem "rspec-rails", '~> 3.1.0'
-  gem "factory_girl_rails"
+  gem "rspec-rails"
+  gem "factory_girl_rails", "~> 4.0"
   gem "capybara"
   gem "guard-rspec"
   gem "rb-fsevent"
@@ -206,7 +206,7 @@ gem 'unicorn'
 gem 'thin'
 
 # uniqify names to work with caminari
-gem 'uuid_stamper', '~> 0.0.3', git: 'git://github.com/maxgronlund/uuid_stamper.git'
+gem 'uuid_stamper', git: 'git://github.com/maxgronlund/uuid_stamper.git'
 
 #gem 'capistrano-sidekiq' , github: 'seuros/capistrano-sidekiq'
 #gem 'capistrano-sidekiq'

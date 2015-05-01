@@ -1,6 +1,6 @@
 class Admin::ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
-  before_filter :admins_only
+  before_action :admins_only
  
 
   def index
