@@ -4,8 +4,9 @@ Feature:
 As an administrator manage coupons
 
   Background:
-    Given I am the administrator
-    And I am logged in
+    Given I am logged in as administrator
+    #Given I am the administrator
+    #And I am logged in
     
   @javascript  
   Scenario: As an administrator i can view the coupon page

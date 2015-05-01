@@ -203,7 +203,7 @@ private
       session[:go_to_message] = nil
       redirect_to go_to
     else  
-      redirect_to session[:current_page]
+      redirect_to session[:current_page] || root_path
     end
 
       

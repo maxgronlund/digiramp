@@ -4,8 +4,7 @@ Feature:
 As an administrator i can se all the pages
 
   Background:
-    Given I am the administrator
-    And I am logged in
+    Given I am logged in as administrator
     And there is a blog named "chunky beacon"
     And there is a blog post named "fried chunky beacon"
     
