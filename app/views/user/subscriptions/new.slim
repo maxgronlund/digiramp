@@ -9,7 +9,8 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'settings'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { settings: user_user_control_panel_index_path(@user),
+                                                               plans: user_user_subscriptions_path(@user)}, current: ''}
       - if @plan 
       
         .row
@@ -70,6 +71,12 @@
               .sexy_line 
               h3 Billing address
               .row.pull-down-10.cc-input
+                label.col-sm-3.control-label for="email"  * Email
+                .col-sm-9
+                  input#card-holder-name.form-control  name="email" placeholder=("Email") type="text"
+                  /input.col-sm-9.form-control name="email" placeholder=("Email") type="text"
+                
+              .row.pull-down-10.cc-input
                 label.col-sm-3.control-label for="address_line1"  Address line 1
                 .col-sm-9
                   input#card-holder-name.form-control data-stripe="address_line1" placeholder=("Address line 1") type="text" 
@@ -117,74 +124,6 @@
 
 
 
-
-/#wrapper
-/  .full-width-top
-/    == render 'shared/navigationbar', page: 'home' 
-/  
-/
-/  #sidebar-wrapper
-/    ul class="sidebar-nav"
-/      == render 'users/shared/sidebar', selected: 'recordings'
-/      
-/                        
-/        
-/      
-/
-/  #page-content-wrapper
-/    .container-fluid   
-/      == render 'shared/flash_message'
-/      - if @plan
-/        .row
-/          .col-sm-8   
-/            h3 Sign up for a #{ @plan.name}
-/            b 
-/              'Price:&nbsp;
-/              = number_to_currency( @plan.amount * 0.01 )
-/          .col-sm-4
-/            .pull-right
-/              .recording-navigation
-/                => link_to user_user_plans_path(@user) do
-/                  .btn.btn-default
-/                    i.fa.fa-chevron-left
-/                    '&nbsp;
-/                    'Back
-/        
-/        .sexy_line
-/        .digi-box
-/          = form_for [:user, @user, @subscription], html: { id: 'payment-form' } do |f| 
-/            input name="plan_id" type="hidden" value="#{@plan.id}"
-/            span.payment-errors
-/            .form-row
-/              label
-/                span Email Address
-/                input name="email_address" size="20" type="email" 
-/            .form-row
-/              label
-/                span Card Number
-/                input data-stripe="number" size="20" type="text" 
-/            .form-row
-/              label
-/                span CVC
-/                input data-stripe="cvc" size="4" type="text" 
-/            .form-row
-/              label
-/                span Expiration (MM/YYYY)
-/                input data-stripe="exp-month" size="2" type="text" 
-/              span /
-/              input data-stripe="exp-year" size="4" type="text" 
-/            button type="submit"  Pay Now
-/
-/      
-/      
-/      
-/== render 'user/registrations/stripe_integration'      
-      
-      
-      
-      
-      
-      
       
       
       

@@ -22,7 +22,7 @@ class User::SubscriptionsController < ApplicationController
     @years  = CreditCard.years
 
     @account              = @user.account
-    @subscription         = Subscription.new
+    @subscription         = Subscription.new(email: @user.email)
     if @account_features  = AccountFeature.where(account_type: params[:account_type]).first
       @plan               = @account_features.plan
     else
@@ -36,19 +36,18 @@ class User::SubscriptionsController < ApplicationController
     @plan           = Plan.find(params[:plan_id])
     
     if @user.email.blank?
-      @user.email = params[:email_address]
+      # sugger
+      @user.email = params[:email]
       @user.save!
     end
 
     
     subscription    = Subscription.new( plan_id:          @plan.id, 
                                         user_id:          @user.id,
-                                        #email_address:    params[:email_address],
-                                        stripe_token:     params[:stripeToken],
                                         account_id:       @user.account_id,
+                                        email:            params[:email],
+                                        stripe_token:     params[:stripeToken],
                                         guid:             UUIDTools::UUID.timestamp_create().to_s,
-                                        #month:           0,
-                                        account_type:     @plan.name,
                                         cardholders_name: params[:cardholders_name]
                                        )
     
@@ -64,7 +63,7 @@ class User::SubscriptionsController < ApplicationController
   end
   
   def edit
-
+    #ap 'user/subscriptions_controller # edit'
     @subscription       =  Subscription.cached_find(params[:id])
     redirect_to edit_user_user_payment_method_path(@user, @subscription) if params[:update_payment_method]
     @account_features   =  AccountFeature.order(:position).where(enabled: true)
@@ -79,24 +78,33 @@ class User::SubscriptionsController < ApplicationController
   end
   
   def update
-    
-    @subscription       =  Subscription.cached_find(params[:id])
-    @subscription.reset_state
+    #ap 'user/subscriptions_controller # update'
+    ap params
+    @subscription       = Subscription.cached_find(params[:id])
+    flash[:warning]     = @subscription.change_plan(params[:plan_id])
 
-    if plan = params[:plan_id] && Plan.where(id: params[:plan_id]).first
-      msg = @subscription.change_plan(plan.id)
-      if msg
-        flash[:danger] = msg
-      else
-        flash[:info] = "Your will receive an email in a few minutes when your plan has changed" 
-      end
-    else
-      # this is a 'social' plan or a plan without a stripe connection
-      
-      @subscription.cancel_when_plan_expires
-    end
-    
+    #if plan = Plan.cached_find(params[:plan_id])
+    #  msg = @subscription.change_plan(params[:plan_id].id)
+    #  if msg
+    #    flash[:warning] = @subscription.change_plan(params[:plan_id].id)
+    #  else
+    #    flash[:info] = "Your will receive an email in a few minutes when your plan has changed" 
+    #  end
+    #else
+    #  
+    #end
+    #
     redirect_to user_user_control_panel_index_path(@user)
+  end
+  
+  def destroy
+    #ap 'user/subscriptions_controller # destroy'
+    @subscription       =  Subscription.cached_find(params[:id])
+    # this is a 'social' plan or a plan without a stripe connection
+    flash[:info] =  @subscription.cancel_when_plan_expires
+   
+    
+    redirect_to user_user_subscriptions_path(@user)
   end
   
   def status

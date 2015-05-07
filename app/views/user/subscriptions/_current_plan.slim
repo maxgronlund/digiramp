@@ -1,0 +1,122 @@
+/ dereference pointers
+ruby: 
+  ####################################
+  # default flags
+  ####################################
+  selected_plan              = false
+  show_update_card           = false
+  show_cancel_subscription   = false
+  show_select_plan           = true
+  show_reactivate_plan       = false
+  
+  ####################################
+  # change flags for selected plan
+  ####################################
+  if account_feature.plan_id
+    # THIS PLAN IS SUBSCRIABLE
+    
+    if selected_plan = @current_plan.id == account_feature.plan_id 
+      # THE USER SUBSCRIBES TO THIS PLAN
+      
+      show_select_plan         = false
+      
+      if @current_subscription.cancel_at_period_end
+        # THE USER HAS CANCLED THE SUBSCRIBTION
+        show_reactivate_plan    = true
+      else
+        # THIS PLAN CAN BE CANCLED AND THE CARD CAN BE UPDATED
+        show_cancel_subscription = true
+        show_update_card         = true
+      end
+      
+      # THE CARD WILL EXPIRES BEFORE THE END OF THE SUBSCRIPTION PERIOD ENDS
+      # if payment_method = @current_subscription && @current_subscription.payment_method
+      # 
+    end
+  else
+    # IT IS NOT A SUBSCRIPEABLE PLAN
+    show_select_plan           = false
+  end
+
+
+
+
+- if show_update_card
+  = link_to edit_user_user_subscription_path(@user, @current_subscription, update_payment_method: true),'data-no-turbolink'=>'true' do
+    .btn.btn-default
+      i.fa.fa-cc-stripe
+      '&nbsp;Update payment method
+      
+- if show_reactivate_plan
+  .alert.alert-warning
+    'The plan has been cancled. It will continue working until the period paid for expires
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to user_user_subscription_path(@user, @current_subscription, 
+                                                        plan_id: account_feature.plan_id), 
+                                                        method: 'put', 
+                                                        'data-no-turbolink'=>'true'
+          
+                    .btn.btn-success.please_wait
+                      i.fa.fa-plus
+                        '&nbsp;Reactivate
+          
+
+- if show_select_plan
+  = link_to user_user_subscription_path(@user, @current_subscription, 
+                                                plan_id: account_feature.plan_id), 
+                                                method: 'put', 
+                                                'data-no-turbolink'=>'true'
+
+            .btn.btn-success.please_wait
+              i.fa.fa-plus
+                '&nbsp;Select
+                                                
+- if show_cancel_subscription
+  = link_to user_user_subscription_path(@user, @current_subscription, 
+                                                plan_id: account_feature.plan_id), 
+                                                method: :delete,
+                                                turboboost: true , 
+                                                data: { confirm: 'Are you sure?' } ,
+                                                'data-no-turbolink'=>'true'
+    .btn.btn-danger
+      i.fa.fa-minus
+      '&nbsp;Cancel subscription
+
+/ this is the celected plan
+/- if selected_plan 
+/    - if subscription_cancled
+/    - select_plan = true
+/    b
+/      '! This plan is cancled and will expire: &nbsp;
+/      = @current_subscription.current_period_end
+/      
+/  - else
+/    - cancel_subscription = true
+/
+/  
+/- elsif select_plan    
+/  = link_to edit_user_user_subscription_path(@user, @current_subscription, update_payment_method: true),'data-no-turbolink'=>'true' do
+/    .btn.btn-default
+/      i.fa.fa-cc-stripe
+/      '&nbsp;Update payment method
+  
+  
+  
+  
+/  .btn.btn-success disabled='disabled'
+/    = account_feature.name
+/
+/
+// select another plan
+/- elsif @current_subscription
+/  = link_to 'Select', user_user_subscription_path(@user, @current_subscription, 
+/                                                plan_id: account_feature.plan_id), 
+/                                                method: 'put', 
+/                                                class: 'btn btn-success please_wait',
+/                                                'data-no-turbolink'=>'true'
+/
+                                                   
+  
+

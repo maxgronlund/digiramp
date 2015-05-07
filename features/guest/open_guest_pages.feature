@@ -16,6 +16,18 @@ As an guest I can see all public pages
     
     When I'm on the "Public users page"
     Then I can see "People"
+    
+    When I'm on the "Public recordings page"
+    Then I can see "Recordings"
+    
+    When I'm on the "Public opportunities page"
+    Then I can see "Opportunities"
+    
+    When I'm on the "Public news page"
+    Then I can see "News"
+    
+    When I'm on the "Sign up page"
+    Then I can see "Sign up"
   #  
   #  When I'm on the "Account info page"
   #  Then I can see "Account info"

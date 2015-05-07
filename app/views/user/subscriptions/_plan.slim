@@ -1,0 +1,30 @@
+.row
+  .col-sm-6
+    == render 'plan_name', account_feature: account_feature
+
+    
+     
+  .col-sm-6.pull-down-10
+    .pull-right
+      - if @current_plan
+        == render 'current_plan', account_feature: account_feature
+        
+            
+      - else
+        - if account_feature.account_type == 'Social'
+            .btn.btn-success disabled='disabled
+              'Current plan
+          
+
+        / select a new plan
+        /- if account_feature.account_type == 'Social'
+        /  .btn.btn-success disabled='disabled
+        /    'Free
+        - else
+          = link_to new_user_user_subscription_path(@user, account_type: account_feature.account_type),
+                                                    'data-no-turbolink'=>'true'  do
+            .btn.btn-warning
+              'Select plan
+          
+
+= render 'account_features', account_feature: account_feature

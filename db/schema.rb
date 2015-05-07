@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430230558) do
+ActiveRecord::Schema.define(version: 20150506234742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2164,6 +2164,7 @@ ActiveRecord::Schema.define(version: 20150430230558) do
     t.text     "stripe_data"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "customer"
   end
 
   add_index "payment_sources", ["subscription_id"], name: "index_payment_sources_on_subscription_id", using: :btree
@@ -2745,6 +2746,25 @@ ActiveRecord::Schema.define(version: 20150430230558) do
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
 
+  create_table "stripe_customers", force: :cascade do |t|
+    t.string   "stripe_object"
+    t.date     "created"
+    t.string   "stripe_id"
+    t.boolean  "livemode"
+    t.string   "description"
+    t.string   "email"
+    t.boolean  "delinquent"
+    t.text     "metadata"
+    t.text     "subscriptions"
+    t.text     "discount"
+    t.integer  "account_balance"
+    t.string   "currency"
+    t.text     "sources"
+    t.string   "default_source"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "stripe_webhooks", force: :cascade do |t|
     t.string   "stripe_id"
     t.datetime "created_at", null: false
@@ -2752,23 +2772,34 @@ ActiveRecord::Schema.define(version: 20150430230558) do
   end
 
   create_table "subscriptions", force: :cascade do |t|
-    t.string   "email_address",        limit: 255
     t.integer  "user_id"
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "months"
-    t.string   "account_type",         limit: 255
     t.integer  "plan_id"
     t.string   "stripe_id"
     t.string   "state"
     t.string   "guid"
     t.string   "error"
     t.string   "stripe_token"
+    t.date     "current_period_end"
+    t.boolean  "cancel_at_period_end",    default: false
+    t.text     "stripe_plan"
+    t.string   "stripe_object"
+    t.date     "start"
+    t.string   "stripe_customer"
+    t.date     "current_period_start"
+    t.date     "ended_at"
+    t.date     "trial_start"
+    t.date     "trial_end"
+    t.date     "canceled_at"
+    t.integer  "quantity"
+    t.decimal  "application_fee_percent"
+    t.text     "discount"
+    t.decimal  "tax_percent"
+    t.text     "metadata"
     t.string   "cardholders_name"
-    t.date     "expiration_date"
-    t.date     "card_expiration_date"
-    t.boolean  "expired",                          default: false
+    t.string   "email"
   end
 
   add_index "subscriptions", ["account_id"], name: "index_subscriptions_on_account_id", using: :btree

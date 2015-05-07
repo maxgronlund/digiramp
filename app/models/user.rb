@@ -184,6 +184,7 @@ class User < ActiveRecord::Base
   has_many :user_emails, dependent: :destroy
   
   has_many :creative_projects, dependent: :destroy
+  has_many :payment_sources, dependent: :destroy
   
   #has_one :default_cms_page
   
@@ -430,7 +431,9 @@ class User < ActiveRecord::Base
     end
   end
   
-
+  def stripe_customers
+    StripeCustomer.where(stripe_id: self.stripe_customer_id )
+  end
   
   def update_completeness
     

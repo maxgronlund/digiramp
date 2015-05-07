@@ -27,7 +27,8 @@
         type: "POST",
         url: "/user/users/<%=@user.slug%>/subscriptions/<%= @subscription %>",
         data: $('#payment-form').serialize(),
-        success: function(data) { /*console.log(data);*/ poll(data.guid, 30) },
+        success: function(data) { console.log(data); poll(data.guid, 45) },
+        /*success: function(data) { window.location = "/user/users/<%=@user.slug%>/subscriptions" },*/
         error: function(data)   { /*console.log(data);*/ showError(data.responseJSON.error) }
       });
       
@@ -41,7 +42,7 @@
   function poll(guid, num_retries_left) {
     console.log(num_retries_left);
     if (num_retries_left === 0) {
-      showError("This seems to be taking too long. Email max@digiramp.com and reference subscription " + guid + " and we'll take a look.");
+      showError("This seems to be taking too long. Email support@digiramp.com and reference subscription " + guid + " and we'll take a look.");
       return;
     }
 
@@ -49,7 +50,7 @@
       console.log(data.status);
       if (data.status === "finished") {
           /*window.location = "/pickup/" + guid;*/
-        window.location = "/"
+        window.location = "/user/users/<%=@user.slug%>/subscriptions"
       } else if (data.status === "error") {
         showError(data.error)
       } else {

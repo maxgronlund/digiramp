@@ -47,6 +47,18 @@ def visit_page page
   when "Public users page"
     visit "/users?clear=clear"
     
+  when "Public recordings page"
+    visit "/songs?clear=clear"
+    
+  when "Public opportunities page"
+    visit "/public_opportunities?clear=clear"
+    
+  when "Public news page"
+    visit "/news"
+    
+  when "Sign up page"
+    visit "/signup/index"
+    
     
   
   when "Admin coupons page"
