@@ -14,8 +14,8 @@
 #Rails.application.secrets.aws_s3_bucket  #ENV["AWS_S3_BUCKET"]
 
 
-ENV['AWS_ACCESS_KEY_ID']        = Rails.application.secrets.s3_key_id
-ENV['AWS_SECRET_ACCESS_KEY']    = Rails.application.secrets.s3_access_key
+#ENV['AWS_ACCESS_KEY_ID']        = Rails.application.secrets.s3_key_id
+#ENV['AWS_SECRET_ACCESS_KEY']    = Rails.application.secrets.s3_access_key
 
 
 Aws.config.update({
