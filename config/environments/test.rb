@@ -35,6 +35,11 @@ Digiramp::Application.configure do
   config.active_support.deprecation = :stderr
 end
 
+
+
+Rails.application.secrets.secret_key_base = ENV["SECRET_KEY_BASE"]
+Rails.application.secrets.secret_token    = ENV["SECRET_TOKEN"]
+
 #ENV["MAIL_USERNAME"]    = 'info@digiramp.org'
 #ENV["MAIL_PASSWORD"]    = 'IS5pleyu'
 #
