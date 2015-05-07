@@ -213,8 +213,8 @@ gem 'uuid_stamper', git: 'git://github.com/maxgronlund/uuid_stamper.git'
 #gem 'aws-sdk', '~> 1.48.1'
 gem 'aws-sdk', '~> 2'
 
-require 'json'
-require 'httparty'
+#require 'json'
+#require 'httparty'
 
 
 gem 'uuid', '~> 2.3.7'
