@@ -1,4 +1,4 @@
-# cucumber features/guest/open_guest_pages.feature -r features
+# cucumber features/guest/open_guest_pages.feature:32 -r features
 
 Feature:
 As an guest I can see all public pages
@@ -28,6 +28,8 @@ As an guest I can see all public pages
     
     When I'm on the "Sign up page"
     Then I can see "Sign up"
+    
+
   #  
   #  When I'm on the "Account info page"
   #  Then I can see "Account info"

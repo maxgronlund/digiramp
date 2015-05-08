@@ -1,4 +1,4 @@
-## a user can be created by someone else than the user
+################################# a user can be created by someone else than the user
 # E:G: an other user can add the user as a client to his account.
 # In that case there is send no notification to the user
 # and the user is marked as not signed up
@@ -62,6 +62,7 @@ class User < ActiveRecord::Base
   has_many :selected_opportunities
   has_many :client_invitation
   has_many :subscriptions
+  
   
 
   
@@ -187,7 +188,7 @@ class User < ActiveRecord::Base
   has_many :payment_sources, dependent: :destroy
   
   #has_one :default_cms_page
-  
+
 
   
   def has_email test_this_email

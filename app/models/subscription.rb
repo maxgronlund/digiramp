@@ -3,6 +3,10 @@ class Subscription < ActiveRecord::Base
   belongs_to :account
   belongs_to :plan
   has_many   :payment_sources
+  
+  belongs_to :coupon
+  validates_with CouponValidator, fields: [:coupon_code]
+  
   #before_save :populate_guid
   #validates :email, presence: true
   validates_formatting_of :email, :using => :email, :allow_nil => false
@@ -13,7 +17,19 @@ class Subscription < ActiveRecord::Base
   
   serialize :stripe_plan, Hash
   serialize :discount, Hash
+  serialize :stripe_coupon_object, Hash
   serialize :metadata, Hash
+  
+  before_create :apply_stripe_coupon_object
+  
+  def apply_stripe_coupon_object
+    unless self.coupon_code.blank?
+      if coupon = Coupon.find_by( stripe_id: self.coupon_code)
+        self.stripe_coupon_object = coupon.stripe_object 
+      end
+    end
+    ap self
+  end
 
   
   before_destroy :remove_payment_sources
@@ -59,6 +75,7 @@ class Subscription < ActiveRecord::Base
   def reset_state
     self.reset!           if self.state == 'errored'
     self.finish!          if self.state == 'processing'
+    self.error    = ''
     #self.source_created!  if self.state == 'updating_cc'
   end
   
@@ -70,8 +87,7 @@ class Subscription < ActiveRecord::Base
   end
   
   def change_plan plan_id
-
-    self.error = ''
+    self.reset_state
     self.update!
     
     # start a job to check if validation from stripe went true
@@ -133,15 +149,20 @@ private
 
   
   def charge_card
+    ap 'charge_card'
+    ap self.stripe_coupon_object.class.name
     save!
     begin
       stripe_sub = nil
+      coupon_object = nil
+      
       # the customer is not in stripe
       if self.user.stripe_customer_id.blank?
         # this will create a customer and a subscription
         customer               = Stripe::Customer.create( source:  self.stripe_token, 
                                                           email:   self.email, 
-                                                          plan:    self.plan.stripe_id
+                                                          plan:    self.plan.stripe_id,
+                                                          coupon:  self.coupon_code 
                                                          )
         self.user.stripe_customer_id  = customer.id
         self.user.save!
@@ -151,7 +172,11 @@ private
         # there is already a customer in the stripe system                           
         customer                      = Stripe::Customer.retrieve(self.user.stripe_customer_id)
         # create the subscription
-        stripe_sub                    = customer.subscriptions.create( plan: self.plan.stripe_id )
+
+        stripe_sub     = customer.subscriptions.create( plan:   self.plan.stripe_id, 
+                                                        coupon: self.coupon_code)
+   
+        
       end
 
       # store the stripe is for future payments
@@ -165,6 +190,7 @@ private
       self.update_attributes(error: e.message)
       self.fail!
     end
+    ap customer
   end
   
  

@@ -23,3 +23,4 @@ Given(/^I am logged in as administrator$/) do
   find_by_id('log_in_form_button').click
   find('.all-users')
 end
+

@@ -315,21 +315,21 @@ StripeEvent.configure do |events|
     ap '########################################################'
     if data = event.data
       if object = data.object
-        stripe_id = object.id
-        #ap stripe_id
-        Coupon.where(stripe_id: stripe_id)
-               .first_or_create(
-                      stripe_id:          stripe_id,
-                      percent_off:        object.percent_off,
-                      amount_off:         object.amount_off,
-                      currency:           object.currency,
-                      duration:           object.duration,
-                      redeem_by:          object.redeem_by.nil? ? nil : Date.strptime(object.redeem_by.to_s, '%s'), 
-                      max_redemptions:    object.max_redemptions,
-                      times_redeemed:     object.times_redeemed,
-                      duration_in_months: object.duration_in_months,
-                      metadata:           object.metadata
-        )
+
+        coupon = Coupon.where(stripe_id: object.id)
+                       .first_or_create(stripe_id: object.id)
+        coupon.percent_off         = object.percent_off
+        coupon.amount_off          = object.amount_off
+        coupon.currency            = object.currency
+        coupon.duration            = object.duration
+        coupon.redeem_by           = object.redeem_by.nil? ? nil : Date.strptime(object.redeem_by.to_s, '%s')
+        coupon.max_redemptions     = object.max_redemptions
+        coupon.times_redeemed      = object.times_redeemed
+        coupon.duration_in_months  = object.duration_in_months
+        coupon.metadata            = JSON.parse(object.metadata.to_json).deep_symbolize_keys 
+        coupon.stripe_object       = JSON.parse(object.to_json).deep_symbolize_keys
+        coupon.save!
+        
       end
     end
   end

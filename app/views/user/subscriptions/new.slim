@@ -66,9 +66,9 @@
                 label.col-sm-3#expiry-month.control-label for="cvv"  * Card CVV
                 .cc-security-code
                   .col-sm-3
-                    input#cvv.form-control name="cvv" data-stripe="cvc" placeholder=("Security Code") type="text" /
-              
-              .sexy_line 
+                    input#cvv.form-control name="cvv" data-stripe="cvc" placeholder=("Security Code") type="text" 
+              .pull-down-10 
+              .sexy_line
               h3 Billing address
               .row.pull-down-10.cc-input
                 label.col-sm-3.control-label for="email"  * Email
@@ -101,6 +101,17 @@
                 .col-sm-9
                   input#card-holder-name.form-control data-stripe="address_country" placeholder=("Country") type="text" 
               
+              .pull-down-10 
+              .sexy_line
+              h3 Coupon code
+              .row.pull-down-10.cc-input
+                label.col-sm-3.control-label for="coupon_code"  Coupon code
+                .col-sm-9
+                  input#coupon-code.form-control  name="coupon_code" placeholder=("Coupon code") type="text"
+                  /input.col-sm-9.form-control name="email" placeholder=("Email") type="text"
+             
+                  
+              
               
               
               
@@ -124,142 +135,4 @@
 
 
 
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-/      - if alert
-/        .alert.alert-danger
-/          = alert
-/      .digi-box
-/        = simple_form_for [ :user, @user, @registration] do |f|
-/          - if @registration.errors.any?
-/            #error_explanation
-/              h2
-/                = pluralize(@registration.errors.count, "error")
-/                prohibited this registration from being saved:
-/              ul
-/                - @registration.errors.full_messages.each do |message|
-/                  li= message
-/          
-/          = f.hidden_field :account_id, value: @account.id
-/          .row
-/            .col-sm-12
-/              .field.payment_method
-/            
-/                = label_tag :payment_method
-/                
-/                .row.
-/                  .col-sm-6.pull-down-12
-/                    = radio_button_tag :payment_method, "paypal"
-/                    '&nbsp;
-/                    = image_tag "paypal-logo.svg"
-/                  .col-sm-6
-/                    = radio_button_tag :payment_method, "card", checked: true
-/                    '&nbsp;
-/                    = image_tag "credit-card.jpg", style: "max-width: 100px;"
-/            
-/            
-/                coffee:
-/                  $(document).on "click", "#new_registration input[type='radio']", (e)->
-/                    if $("#payment_method_card:checked").val() == "card"
-/                      $("fieldset.card_info").show()
-/                    else
-/                      $("fieldset.card_info").hide()
-/          .sexy_line.pull-down-12
-/          .row
-/            .col-sm-6
-/              'Billing info
-/              = f.hidden_field :account_id,           value: @account.id
-/              = f.hidden_field :account_type,         value: @registration.account_type
-/              = f.hidden_field :description,          value: @registration.description
-/              /= f.hidden_field :subscription_fee,     value: @registration.subscription_fee
-/              = f.hidden_field :expiration_date,      value: @registration.expiration_date
-/              = f.hidden_field :quantity,             value: @registration.quantity
-/              = f.hidden_field :status,               value: @registration.status
-/              .field
-/                = f.input :full_name
-/              .field
-/                = f.input :company
-/              .field
-/                = f.input :email
-/              .field
-/                = f.input :telephone
-/              .field
-/                = f.input :address1
-/              .field
-/                = f.input :city
-/              .field
-/                = f.input :zip
-/              .field
-/                = f.input :state
-/              .field
-/                = f.input :country
-/            
-/
-/            
-/            
-/            
-/            
-/            .col-sm-6
-/              fieldset.card_info
-/                'Card info
-/                = f.simple_fields_for :card do |c|
-/                  .field
-/                    = c.input :first_name
-/                  .field
-/                    = c.input :last_name
-/                  .field
-/                    = c.input :card_type, collection: [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], include_blank: false
-/                  .field
-/                    = c.input :card_number
-/                  .field
-/                    = c.input :card_verification, label: "Card Verification Value (CVV)"
-/                  .field
-/            
-/                    = c.input :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), add_month_numbers: true
-/            
-/          .actions
-/            .row
-/              .col-sm-12
-/                .pull-right
-/                  = f.submit "Pay", class: "btn btn-warning"
-/                  coffee:
-/                    $("form#new_registration").submit ->
-/                      $(this).find('input[type=submit]').attr('disabled', 'disabled')
-/                      $(this).find('input[type=submit]').val "Submitting, please wait ..."
-/
-/
-/
-/
-/    /= debug @registration
-/
-/
+     

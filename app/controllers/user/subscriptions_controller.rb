@@ -32,7 +32,7 @@ class User::SubscriptionsController < ApplicationController
   end
   
   def create
-
+   
     @plan           = Plan.find(params[:plan_id])
     
     if @user.email.blank?
@@ -41,21 +41,26 @@ class User::SubscriptionsController < ApplicationController
       @user.save!
     end
 
-    
     subscription    = Subscription.new( plan_id:          @plan.id, 
                                         user_id:          @user.id,
                                         account_id:       @user.account_id,
                                         email:            params[:email],
                                         stripe_token:     params[:stripeToken],
                                         guid:             UUIDTools::UUID.timestamp_create().to_s,
-                                        cardholders_name: params[:cardholders_name]
+                                        cardholders_name: params[:cardholders_name],
+                                        coupon_code:      params[:coupon_code]
                                        )
+    
+    #if coupon = Coupon.find_by( stripe_id: params[:coupon_code])
+    #  subscription.coupon_code = coupon.stripe_object 
+    #end
     
     if subscription.save
       StripeChargerSubscriptionJob.perform_later(subscription.guid)
       render json: { guid: subscription.guid }
     else
-      ap 'error +'
+      ap '+ error +'
+      ap subscription.errors.full_messages
       errors = subscription.errors.full_messages
       render json: { error: errors.join(" ") }, status: 400
     end
@@ -79,7 +84,7 @@ class User::SubscriptionsController < ApplicationController
   
   def update
     #ap 'user/subscriptions_controller # update'
-    ap params
+    #ap params
     @subscription       = Subscription.cached_find(params[:id])
     flash[:warning]     = @subscription.change_plan(params[:plan_id])
 
