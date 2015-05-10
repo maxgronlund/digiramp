@@ -37,24 +37,9 @@ end
 
 
 
-#Rails.application.secrets.secret_key_base = ENV["SECRET_KEY_BASE"]
-#Rails.application.secrets.secret_token    = ENV["SECRET_TOKEN"]
+Rails.application.secrets.secret_key_base = ENV["SECRET_KEY_BASE"]
+Rails.application.secrets.secret_token    = ENV["SECRET_TOKEN"]
 
-#ENV["MAIL_USERNAME"]    = 'info@digiramp.org'
-#ENV["MAIL_PASSWORD"]    = 'IS5pleyu'
-#
-#
-#ENV["S3_KEY_ID"]        = 'AKIAJN4UDAY5IF3CRYDA'
-#ENV["S3_ACCESS_KEY"]    = 'UDH4rSx4N6A267q/Tii+K+9APoElnIQzwdlqo530'
-#ENV["AWS_S3_BUCKET"]    = 'digiramp-widget'
-#
-#ENV['TWITTER_KEY']      = 'sxnwvjajuSgGiWWVlWMRXj6Qq'
-#ENV['TWITTER_SECRET']   = 'HVZQ8tlkDGTeOvaZnFjK4vAwmHPyfHtzDg6tbu98gslj6moCh9'
-#
-#ENV['LINKEDIN_KEY']      = '77geot159kgi5l'
-#ENV['LINKEDIN_SECRET']   = 'VztOr48kHMunUq1L'
-#
-#ENV['GPLUS_KEY']         = '49205251565-g2eq19fs28jcuotor86o9ls075nnovnk.apps.googleusercontent.com'
-#ENV['GPLUS_SECRET']      = 'Ox9KrfvCX9FCrTEyPBb6oQ94'
+
 
    
