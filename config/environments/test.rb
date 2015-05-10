@@ -37,8 +37,8 @@ end
 
 
 
-Rails.application.secrets.secret_key_base = ENV["SECRET_KEY_BASE"]
-Rails.application.secrets.secret_token    = ENV["SECRET_TOKEN"]
+Rails.application.secrets.secret_key_base = 'aa288b794d1bcc3b4cbeb7945a63467da5ab2fc95a624b9c4848ad731e494b0338c144b7c35f6c593fe29d2ae3706cf7c99cb5f6cd6893a39bcc6b9eb2c86672'
+Rails.application.secrets.secret_token    = '6613549ba36cfe5dcd4635cf6d648ea97d7c886cfe2276fd2ee305f29294f33b66dac74b741c3373c8bcc48d89026bf6ec6435fec2a5bfcfa5a1531b4a850fc6'
 
 
 
