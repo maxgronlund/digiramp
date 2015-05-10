@@ -16,7 +16,7 @@
       .row
         .col-sm-5
 
-          h2 Genre
+          h2 Moods
       
         .col-sm-7
           .pull-down-10
@@ -65,7 +65,7 @@
                         'User Mood!
                     td 
                       .pull-right
-                        = link_to edit_admin_mood_path(mood) do
+                        = link_to edit_admin_mood_path(mood), id: mood.title do
                           .btn.btn-default.btn-xs
                             i class="fa fa-pencil"
                             '&nbsp;Edit

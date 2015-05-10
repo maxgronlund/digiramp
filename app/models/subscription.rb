@@ -159,24 +159,20 @@ private
       # the customer is not in stripe
       if self.user.stripe_customer_id.blank?
         # this will create a customer and a subscription
-        customer               = Stripe::Customer.create( source:  self.stripe_token, 
-                                                          email:   self.email, 
-                                                          plan:    self.plan.stripe_id,
-                                                          coupon:  self.coupon_code 
-                                                         )
+        stripe_params = { source: self.stripe_token, email:   self.email }
+        stripe_params[:coupon] = self.coupon_code unless self.coupon_code.blank?
+        
+        customer      = Stripe::Customer.create( stripe_params )
         self.user.stripe_customer_id  = customer.id
         self.user.save!
-
         stripe_sub                    = customer.subscriptions.first
       else 
         # there is already a customer in the stripe system                           
         customer                      = Stripe::Customer.retrieve(self.user.stripe_customer_id)
         # create the subscription
-
         stripe_sub     = customer.subscriptions.create( plan:   self.plan.stripe_id, 
                                                         coupon: self.coupon_code)
    
-        
       end
 
       # store the stripe is for future payments
@@ -192,11 +188,7 @@ private
     end
     ap customer
   end
-  
- 
-  
 
-  
   def flush_cache
     Rails.cache.delete([self.class.name, id])
   end

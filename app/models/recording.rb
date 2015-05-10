@@ -123,7 +123,10 @@ class Recording < ActiveRecord::Base
   
   def uniqify_fields
     self.uniq_title              = self.title.to_uniq
-    self.uniq_position           = self.position.to_uniq
+    begin
+      self.uniq_position           = self.position.to_uniq
+    rescue
+    end
     self.uniq_playbacks_count    = self.playbacks_count.to_uniq
     self.uniq_likes_count        = self.likes_count.to_uniq
   end

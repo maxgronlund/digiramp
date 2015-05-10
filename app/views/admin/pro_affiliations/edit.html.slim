@@ -11,7 +11,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
-                                                              'engine room'.to_sym => admin_engine_room_index_path, \
+                                                              content: admin_content_index_path, \
                                                               'pro affiliations'.to_sym => admin_pro_affiliations_path, \
                                                     }, current: ''}
       .row-sm-12

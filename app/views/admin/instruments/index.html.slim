@@ -62,7 +62,7 @@
                     'User Instrument!
                 td 
                   .pull-right
-                    = link_to edit_admin_instrument_path(instrument) do
+                    = link_to edit_admin_instrument_path(instrument), id: instrument.title do
                       .btn.btn-default.btn-xs
                         i class="fa fa-pencil"
                         '&nbsp;Edit

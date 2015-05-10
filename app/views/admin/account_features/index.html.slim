@@ -20,6 +20,7 @@
           table class="table table-hover"
             thead
               tr
+                th
                 th Account type
                 th Enabled
                 th Plan
@@ -36,11 +37,15 @@
                 th Max ipi codes
                 /th
                 /th
-                th
+                
           
             tbody
               - @account_features.each do |account_feature|
                 tr
+                  td = link_to edit_admin_account_feature_path(account_feature), id: account_feature.account_type do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                        
                   td = account_feature.account_type
                   td 
                     - if account_feature.enabled
@@ -60,7 +65,7 @@
                   td = account_feature.max_account_users
                   td = account_feature.max_ipi_codes
                   /td = link_to 'Show', admin_account_feature
-                  td = link_to 'Edit', edit_admin_account_feature_path(account_feature), class: 'btn btn-default'
+                  
                   /td = link_to 'Destroy', account_feature, data: {:confirm => 'Are you sure?'}, :method => :delete
                       
                   /td = link_to 'Destroy', admin_account_price_path(account_price), data: {:confirm => 'Are you sure?'}, :method => :delete

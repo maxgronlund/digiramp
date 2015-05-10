@@ -107,8 +107,7 @@ class User::SubscriptionsController < ApplicationController
     @subscription       =  Subscription.cached_find(params[:id])
     # this is a 'social' plan or a plan without a stripe connection
     flash[:info] =  @subscription.cancel_when_plan_expires
-   
-    
+
     redirect_to user_user_subscriptions_path(@user)
   end
   

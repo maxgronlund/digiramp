@@ -67,8 +67,8 @@
                       'User Genre!
                   td 
                     .pull-right
-                      = link_to edit_admin_genre_path(genre) do
-                        .btn.btn-default.btn-xs
+                      = link_to edit_admin_genre_path(genre), id: genre.title  do
+                        .btn.btn-default.btn-xs 
                           i class="fa fa-pencil"
                       
                       =< link_to admin_genre_path(genre)  , data: { confirm: 'Are you sure?' } , method: :delete do

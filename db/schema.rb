@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508085338) do
+ActiveRecord::Schema.define(version: 20150510095902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,13 +39,13 @@ ActiveRecord::Schema.define(version: 20150508085338) do
     t.boolean  "import_from_pros"
     t.boolean  "manage_opportunities"
     t.integer  "max_account_users"
-    t.string   "max_ipi_codes",                limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position",                                 default: 100
     t.boolean  "enabled",                                  default: false
     t.text     "description",                              default: ""
     t.integer  "plan_id"
+    t.integer  "max_ipi_codes",                            default: 0
   end
 
   add_index "account_features", ["plan_id"], name: "index_account_features_on_plan_id", using: :btree
@@ -2571,7 +2571,7 @@ ActiveRecord::Schema.define(version: 20150508085338) do
   add_index "recordings", ["user_id"], name: "index_recordings_on_user_id", using: :btree
 
   create_table "registrations", force: :cascade do |t|
-    t.integer  "account_id"
+    t.integer  "order_id"
     t.string   "full_name",           limit: 255
     t.string   "company",             limit: 255
     t.string   "email",               limit: 255
@@ -2592,9 +2592,11 @@ ActiveRecord::Schema.define(version: 20150508085338) do
     t.decimal  "subscription_fee"
     t.integer  "quantity",                        default: 1
     t.date     "expiration_date"
+    t.integer  "account_id"
   end
 
   add_index "registrations", ["account_id"], name: "index_registrations_on_account_id", using: :btree
+  add_index "registrations", ["order_id"], name: "index_registrations_on_order_id", using: :btree
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"

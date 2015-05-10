@@ -40,6 +40,64 @@ def visit_page page
   when "Edit post page"
     visit "/admin/blogs/1/blog_posts/1/edit"
   
+  when "Tags page"
+    visit "/admin/tags"
+  
+  when "Genres page"
+    visit "/admin/genres"
+  
+  when "New genre page"
+    visit "/admin/genres/new"
+  
+  when "Instruments page"
+    visit "/admin/instruments"
+  
+  when "New instrument page"
+    visit "/admin/instruments/new"
+  
+  when "Moods page"
+    visit "/admin/moods"
+  
+  when "New mood page"
+    visit "/admin/moods/new"
+  
+  when "Pro affiliations page"
+    visit "/admin/pro_affiliations"
+  
+  when "New pro affiliations page"
+    visit "/admin/pro_affiliations/new"
+    
+    
+  #business
+  when "Business page"
+    visit "/admin/business/index"
+  
+  when "Sales page"
+    visit "/admin/sales"
+  
+  when "Subscriptions page"
+    visit "/admin/subscriptions"
+  
+  when "Account types features page"
+    visit "/admin/account_features"
+  
+  when "New account type features page"
+    visit "/admin/account_features/new"
+    
+    
+  
+  when "Sales page"
+    visit "/admin/sales"
+  
+  when "Sales page"
+    visit "/admin/sales"
+    
+    
+    
+    
+    
+    
+  
   # public pages
   when "Public songs page"
     visit "/songs?clear=clear"

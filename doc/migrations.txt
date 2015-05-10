@@ -24,15 +24,3 @@ rails generate model Coupon code role mailing_list_id list_group price:integer -
 
 
 
-rails g scaffold Product name:string permalink:string description:text price:integer user:references
-rails g scaffold Sale email:string guid:string product:references 
-rails g scaffold Plan stripe_id name description:text amount:integer interval published:boolean 
-rails g migration AddStripeCustomerIdToUser stripe_customer_id:string
-
-rails g model subscription user:references plan:references stripe_id:string
-
-rails g migration AddStripeToSubscriptions plan:references stripe_id:string
-
-rails g migration AddPlanRefToAccountFeatures plan:references
-
-rails g migration RemoveSubscriptionFeeFromAccountFeatures subscription_fee
