@@ -4,7 +4,6 @@ end
 
 When(/^I'm on the edit account type feature page for the "(.*?)" account type$/) do |account_type|
   visit "/admin/account_features"
-  sleep(30)
   find_by_id(account_type).click
   find('.edit_account_feature')
 end
