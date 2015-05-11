@@ -1,2 +1,0 @@
-module CatalogUsersHelper
-end

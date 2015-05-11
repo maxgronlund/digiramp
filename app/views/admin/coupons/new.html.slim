@@ -15,6 +15,7 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/flash_message'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, 
                                                               business: admin_business_index_path,
                                                                coupons: admin_coupons_path }, current: ''}

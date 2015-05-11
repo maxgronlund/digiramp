@@ -15,6 +15,8 @@ class Plan < ActiveRecord::Base
   def remove_from_subscriptions
     account_features.update_all(plan_id: nil)
     subscriptions.update_all(plan_id: nil) if self.subscriptions
+    account_features.update_all(plan_id: nil) if self.account_features
+    coupons.update_all(plan_id: nil) if self.coupons
   end
   
   

@@ -20,16 +20,16 @@ class Subscription < ActiveRecord::Base
   serialize :stripe_coupon_object, Hash
   serialize :metadata, Hash
   
-  before_create :apply_stripe_coupon_object
+  #before_create :apply_stripe_coupon_object
   
-  def apply_stripe_coupon_object
-    unless self.coupon_code.blank?
-      if coupon = Coupon.find_by( stripe_id: self.coupon_code)
-        self.stripe_coupon_object = coupon.stripe_object 
-      end
-    end
-    ap self
-  end
+  #def apply_stripe_coupon_object
+  #  unless self.coupon_code.blank?
+  #    if coupon = Coupon.find_by( stripe_id: self.coupon_code)
+  #      self.stripe_coupon_object = coupon.stripe_object 
+  #    end
+  #  end
+  #  ap self
+  #end
 
   
   before_destroy :remove_payment_sources
@@ -73,7 +73,9 @@ class Subscription < ActiveRecord::Base
   end
   
   def reset_state
+    ap 'reset_state'
     self.reset!           if self.state == 'errored'
+    ap self.state
     self.finish!          if self.state == 'processing'
     self.error    = ''
     #self.source_created!  if self.state == 'updating_cc'
@@ -150,42 +152,59 @@ private
   
   def charge_card
     ap 'charge_card'
-    ap self.stripe_coupon_object.class.name
+    #ap self.stripe_coupon_object.class.name
     save!
-    begin
-      stripe_sub = nil
-      coupon_object = nil
-      
-      # the customer is not in stripe
-      if self.user.stripe_customer_id.blank?
-        # this will create a customer and a subscription
-        stripe_params = { source: self.stripe_token, email:   self.email }
-        stripe_params[:coupon] = self.coupon_code unless self.coupon_code.blank?
+    #begin
+    stripe_sub    = nil
+    coupon_object = nil
+    stripe_params = {}
+    stripe_params[:coupon]  = self.coupon_code unless self.coupon_code.blank?
+    stripe_params[:plan]    = self.plan.stripe_id 
+    # the customer is not in stripe
+    if self.user.stripe_customer_id.blank?
+    ap "create a customer and a subscription"
+      begin
+        stripe_params[:source] = self.stripe_token
+        stripe_params[:email]  = self.email 
+        customer        = Stripe::Customer.create( stripe_params )
         
-        customer      = Stripe::Customer.create( stripe_params )
         self.user.stripe_customer_id  = customer.id
         self.user.save!
         stripe_sub                    = customer.subscriptions.first
-      else 
-        # there is already a customer in the stripe system                           
-        customer                      = Stripe::Customer.retrieve(self.user.stripe_customer_id)
-        # create the subscription
-        stripe_sub     = customer.subscriptions.create( plan:   self.plan.stripe_id, 
-                                                        coupon: self.coupon_code)
-   
+        
+      rescue Stripe::StripeError => e
+        ap e.message
+        self.update_attributes(error: e.message)
+        self.fail!
       end
+    else 
+      ap "there is already a customer in the stripe system"  
+      begin                         
+        customer                = Stripe::Customer.retrieve(self.user.stripe_customer_id)
+        stripe_sub              = customer.subscriptions.create( stripe_params )
+      rescue Stripe::StripeError => e
+        ap e.message
+        self.update_attributes(error: e.message)
+        self.fail!
+      end
+    end
 
-      # store the stripe is for future payments
+    # store the stripe is for future payments
+    if stripe_sub
       self.stripe_id                  = stripe_sub.id
       self.error = ''
-      self.save!
       self.finish!
       ap self
-    rescue Stripe::StripeError => e
-      ap e.message
-      self.update_attributes(error: e.message)
+    else
+      self.update_attributes(error: 'No subscription created')
       self.fail!
     end
+    self.save!
+    #rescue Stripe::StripeError => e
+    #  ap e.message
+    #  self.update_attributes(error: e.message)
+    #  self.fail!
+    #end
     ap customer
   end
 

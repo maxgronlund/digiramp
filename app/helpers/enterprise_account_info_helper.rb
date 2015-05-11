@@ -1,2 +1,0 @@
-module EnterpriseAccountInfoHelper
-end

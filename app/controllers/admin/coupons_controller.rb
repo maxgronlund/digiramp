@@ -29,6 +29,8 @@ class Admin::CouponsController < ApplicationController
     if @coupon.save
       unless Rails.env.test?
         begin
+          
+          
           Stripe::Coupon.create(
             id:                   @coupon.stripe_id,
             amount_off:           @coupon.amount_off.to_i  <= 0 ? nil : @coupon.amount_off,
@@ -36,7 +38,7 @@ class Admin::CouponsController < ApplicationController
             duration:             @coupon.duration,
             duration_in_months:   @coupon.duration_in_months.to_i <= 0 ? nil : @coupon.duration_in_months,
             currency:             @coupon.currency,
-            max_redemptions:      @coupon.max_redemptions.to_i <= 0 ? nil : @coupon.percent_off,
+            max_redemptions:      @coupon.max_redemptions.to_i <= 0 ? nil : @coupon.max_redemptions,
             redeem_by:            @coupon.redeem_by.nil? ? nil : Time.parse(@coupon.redeem_by.to_s).to_i
           )
           redirect_to admin_coupons_path
