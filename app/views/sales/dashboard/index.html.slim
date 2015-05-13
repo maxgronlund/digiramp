@@ -1,0 +1,29 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+     
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'sales/shared/sidebar', selected: 'playlists'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 Sales
+            .help-button
+              /== render 'admin/helps/help', identifier: 'edit playlist'
+
+
+      .sexy_line
+       .digi-box
+        .row
+          .col-sm-12
+
+      
+      
+  == render 'shared/site_footer'  

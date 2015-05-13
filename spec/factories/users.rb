@@ -28,6 +28,7 @@ FactoryGirl.define do
     f.email_missing false
     f.social_avatar ""
     f.slug "max-groenlund"
+    f.salesperson false
     
   end
 end

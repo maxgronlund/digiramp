@@ -1,0 +1,2 @@
+module Sales::DashboardHelper
+end

@@ -12,10 +12,11 @@ class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
   
 
-  before_action :set_body_color
+  before_action :set_defaults
   
-  def set_body_color
+  def set_defaults
     @body_color = "#DDDDDD"
+    #session[:return_url] = nil
   end
 
   

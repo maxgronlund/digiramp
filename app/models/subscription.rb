@@ -33,9 +33,11 @@ class Subscription < ActiveRecord::Base
 
   
   before_destroy :remove_payment_sources
+  #after_save :check_coupon
   
   def remove_payment_sources
     payment_sources.destroy_all unless payment_sources.blank?
+
   end
   
 
@@ -81,6 +83,7 @@ class Subscription < ActiveRecord::Base
     #self.source_created!  if self.state == 'updating_cc'
   end
   
+ 
 
   after_commit :flush_cache
 
@@ -200,13 +203,21 @@ private
       self.fail!
     end
     self.save!
+    update_coupon
     #rescue Stripe::StripeError => e
     #  ap e.message
     #  self.update_attributes(error: e.message)
     #  self.fail!
     #end
-    ap customer
+    #ap customer
   end
+  
+  def update_coupon
+    if self.coupon
+      coupon.update_times_redeemed
+    end
+  end
+  
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])

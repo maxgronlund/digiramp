@@ -3,6 +3,21 @@ Digiramp::Application.routes.draw do
 
 
   
+ 
+
+  get "shop"         => "shop/shop#index",     :as => :shop_shop_index
+  namespace :shop do
+  get 'buy_coupon/show'
+  get 'shop/index'
+  end
+
+  get "sales"         => "sales/dashboard#index",     :as => :sales_dashboard_index
+  namespace :sales do
+    resources :dashboard, only: [:index]
+    resources :coupon_batches
+  end
+
+  
   resources :invoices
   resources :amazon_sns
   resources :products

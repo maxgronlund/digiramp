@@ -1,0 +1,37 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+     
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'sales/shared/sidebar', selected: 'playlists'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 New coupon
+            .help-button
+        .col-sm-6
+          .pull-right
+            = link_to 'Back', sales_coupon_batches_path
+
+
+
+      .sexy_line
+       .digi-box
+        .row
+          .col-sm-12
+            == render 'form'
+
+      
+      
+  == render 'shared/site_footer' 
+
+
+
+

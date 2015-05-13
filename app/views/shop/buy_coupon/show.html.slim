@@ -1,0 +1,28 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'shop/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'settings'.to_sym => user_user_control_panel_index_path( @user), \
+                                                              contacts: user_user_contacts_path( @user )}, current: ''}
+      .row
+        .col-sm-8
+          h2 fo
+        .col-sm-4
+          /.pull-right.pull-down-10
+          /
+          /  => link_to user_user_contacts_path( @user ) do
+          /    .btn.btn-default
+          /      i.fa.fa-chevron-left
+          /      '&nbsp;Back
+          /  
+          /  = link_to 'Edit', user_user_contact_path(@user, @contact), class: 'btn btn-primary'
+      .sexy_line
+
+        = debug @coupon_batch

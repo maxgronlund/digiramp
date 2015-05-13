@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150510095902) do
+ActiveRecord::Schema.define(version: 20150512203402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1087,23 +1087,25 @@ ActiveRecord::Schema.define(version: 20150510095902) do
   create_table "coupons", force: :cascade do |t|
     t.integer  "amount_off"
     t.integer  "percent_off"
-    t.string   "duration",           default: "once"
-    t.integer  "duration_in_months", default: 0
+    t.string   "duration",              default: "once"
+    t.integer  "duration_in_months",    default: 0
     t.string   "stripe_id"
-    t.string   "currency",           default: "usd"
-    t.integer  "max_redemptions",    default: 1
-    t.integer  "times_redeemed",     default: 0
+    t.string   "currency",              default: "usd"
+    t.integer  "max_redemptions",       default: 1
+    t.integer  "times_redeemed",        default: 0
     t.text     "metadata"
     t.date     "redeem_by"
     t.integer  "plan_id"
     t.integer  "account_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.text     "stripe_object"
+    t.integer  "sales_coupon_batch_id"
   end
 
   add_index "coupons", ["account_id"], name: "index_coupons_on_account_id", using: :btree
   add_index "coupons", ["plan_id"], name: "index_coupons_on_plan_id", using: :btree
+  add_index "coupons", ["sales_coupon_batch_id"], name: "index_coupons_on_sales_coupon_batch_id", using: :btree
 
   create_table "creative_project_resources", force: :cascade do |t|
     t.integer  "creative_project_id"
@@ -2657,6 +2659,19 @@ ActiveRecord::Schema.define(version: 20150510095902) do
 
   add_index "sales", ["product_id"], name: "index_sales_on_product_id", using: :btree
 
+  create_table "sales_coupon_batches", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "email"
+    t.string   "created_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "discount"
+    t.boolean  "sold"
+    t.string   "uuid"
+    t.string   "subject"
+  end
+
   create_table "search_recordings", force: :cascade do |t|
     t.integer  "user_id"
     t.boolean  "advanced_search"
@@ -2971,6 +2986,7 @@ ActiveRecord::Schema.define(version: 20150510095902) do
     t.string   "zip_code",                   limit: 255, default: ""
     t.string   "phone_number",               limit: 255, default: ""
     t.string   "stripe_customer_id"
+    t.boolean  "salesperson",                            default: false
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

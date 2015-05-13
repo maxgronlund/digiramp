@@ -13,7 +13,7 @@ module StripeCustomerSubscriptionService
                                        
             subscription.update!                             
             subscription.current_period_end        = Date.strptime(stripe_object.current_period_end.to_s, '%s')     unless stripe_object.current_period_end.nil?
-            subscription.cancel_at_period_end      = stripe_object.cancel_at_period_end,                            
+            subscription.cancel_at_period_end      = stripe_object.cancel_at_period_end.nil ? false : stripe_object.cancel_at_period_end,                            
             subscription.stripe_plan               = JSON.parse(stripe_object.plan.to_json).deep_symbolize_keys     unless stripe_object.plan.nil?
             subscription.stripe_object             = stripe_object.object                                          
             subscription.start                     = Date.strptime(stripe_object.start.to_s, '%s')                  unless stripe_object.start.nil?

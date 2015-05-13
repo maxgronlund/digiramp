@@ -40,6 +40,8 @@ class User::SubscriptionsController < ApplicationController
       @user.email = params[:email]
       @user.save!
     end
+    
+    
 
     subscription    = Subscription.new( plan_id:          @plan.id, 
                                         user_id:          @user.id,
@@ -50,6 +52,10 @@ class User::SubscriptionsController < ApplicationController
                                         cardholders_name: params[:cardholders_name],
                                         coupon_code:      params[:coupon_code]
                                        )
+    
+    if coupon = Coupon.find_by(stripe_id: params[:coupon_code])
+      subscription.coupon_id = coupon.id
+    end
     
     #if coupon = Coupon.find_by( stripe_id: params[:coupon_code])
     #  subscription.coupon_code = coupon.stripe_object 

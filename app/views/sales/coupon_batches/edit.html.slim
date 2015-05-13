@@ -1,0 +1,79 @@
+- session[:return_url] = request.url
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+     
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'sales/shared/sidebar', selected: 'playlists'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { sales: sales_dashboard_index_path,
+                                                              'coupon batches'.to_sym => sales_coupon_batches_path}, current: ''}
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Coupon batch
+            .help-button
+        .col-sm-6
+          .pull-right
+            = link_to 'Back', sales_coupon_batches_path
+
+
+
+      .sexy_line
+      .digi-box.uniq-codes
+        .row
+          .col-sm-6
+            h3 = @sales_coupon_batch.title
+            b Created by:&nbsp;
+            = @sales_coupon_batch.created_by
+            br
+            b link:&nbsp;
+            = link_to 'Show in shop', shop_buy_coupon_show_path(coupon: @sales_coupon_batch.uuid)
+          .col-sm-6
+            - unless @sales_coupon_batch.sold
+              == render 'mail_form'
+            
+            
+        .sexy_line
+        - if @sales_coupon_batch.coupons
+          .row
+            .col-sm-12
+             .table-responsive
+                table class="table table-hover"
+                  thead
+                    tr
+                      th CODE
+                      th Amount off
+                      th Percent off
+                      th Redemed by
+                      th
+                  tbody
+                    - @sales_coupon_batch.coupons.each do |coupon|
+                      tr
+                        td = coupon.stripe_id
+                        td = number_to_currency(coupon.amount_off , locale:  :en, precision: 2)
+                        td = number_to_percentage(coupon.percent_off, precision: 0)  
+                        td 
+                           - if coupon.times_redeemed == 1
+                             '√&nbsp;
+                             - if subscription = Subscription.where(coupon_id: coupon.id).first
+                               - if user = subscription.user
+                                 = user.email
+                        td
+                          .pull-right
+                            = link_to admin_coupon_path( coupon ), data: { confirm: "Deleting this coupon will not affect discounts \
+                                                                                    for customers who have already redeemed the coupon, \
+                                                                                      but new redemptions of the coupon won't be allowed." } , 
+                                method: :delete do
+                              .btn.btn-danger.btn-xs.please_wait
+                                i.fa.fa-times
+                    
+                 
+              
+  == render 'shared/site_footer' 

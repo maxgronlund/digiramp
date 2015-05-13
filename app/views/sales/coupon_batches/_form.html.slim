@@ -1,0 +1,113 @@
+= simple_form_for(@sales_coupon_batch) do |f|
+  - unless f.error_notification.blank?
+    .alert.alert-danger
+      = f.error_notification
+
+  .form-inputs
+    .row
+      .col-sm-6
+        .panel.panel-default
+          .panel-body
+            = f.input :title, label: 'Name of the coupon batch', placeholder: 'SPECIAL-OFFER-FOR-SOMEONE'
+            = f.input :email, label: 'Email of the person to get this offer', placeholder: 'someone@special.com'
+            = f.input :discount, label: 'Discount in percent', placeholder: 'i.e. 20'
+            'A positive integer representing the discount in percent
+            
+            /.table-responsive
+            /  table class="table table-hover"
+            /    thead
+            /      tr
+            /        th Original price
+            /        th Discount
+            /        th Number of coupons
+            /    tbody
+            /      tr
+            /        td 1900
+            /        td 20
+            /        td 10
+            /      tr
+            /        th Total
+            /        td
+            /        th 15200
+            /
+        
+      .col-sm-6
+        .panel.panel-default
+          .panel-body
+            = f.input :body, label: 'Notes, will be in the email',  :input_html => {  style: "height: 180px;", placeholder: "A message that goes in the email"}
+            = f.hidden_field :created_by, value: current_user.email
+        
+
+    
+    .sexy_line
+    h3 Coupon settings
+    .alert.alert-warning
+      'Pay attention Coupons can not be eddited when they first are created
+    .row
+    
+      .form-inputs
+        .col-sm-6
+          /.panel.panel-default
+          /  .panel-body
+          /    = f.input :stripe_id, label: 'Stripe id'
+          /    'Unique string of your choice that will be used to identify this coupon when applying it a customer. This is often a specific code you’ll give to your customer to use when signing up (e.g. FALL25OFF). If you don’t want to specify a particular code, you can leave the ID blank and Stripe will generate a random code.
+          /
+          /
+          .panel.panel-default
+            .panel-body
+              = f.input :amount_off, as: :integer
+              'A positive integer representing the amount to subtract from an invoice total (required if Percent off is not passed)
+        
+        
+          .panel.panel-default
+            .panel-body
+              = f.input :percent_off, as: :integer
+              'A positive integer between 1 and 100 that represents the discount the coupon will apply (required if Amount off is not passed)
+        
+        
+          .panel.panel-default
+            .panel-body
+              = f.input :currency, collection: Plan::CURRENCY  , include_blank: false
+              'Currency of the amount_off parameter (required if amount_off is passed)
+        
+          .panel.panel-default
+            .panel-body
+              = f.input :number_of_coupons, as: :integer
+              /= f.input :max_redemptions
+              /'A positive integer specifying the number of times the coupon can be redeemed before it’s no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use.
+      
+      
+        .col-sm-6
+      
+          .panel.panel-default
+            .panel-body
+              = f.input :duration, collection: Coupon::DURATION, include_blank: false
+              'Specifies how long the discount will be in effect. Can be forever, once, or repeating.
+      
+          .panel.panel-default
+            .panel-body
+              = f.input :duration_in_months, as: :integer
+              'required only if duration is repeating If duration is repeating, a positive integer that specifies the number of months the discount will be in effect
+          
+          .panel.panel-default
+            .panel-body
+              b Redeem by
+              = f.text_field :redeem_by, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+              br The last time at which the coupon can be redeemed. After the redeem by date, the coupon can no longer be applied to new customers.
+        
+          .panel.panel-default
+            .panel-body
+              = f.input :plan_id , :include_blank => true, :collection => Plan.all , label: 'Plan'
+              /= f.association :plan
+              /'The coupon can be tied to a specific plan. so it can only be used for that
+        /= f.input :redeem_by
+
+  
+
+
+  .form-actions
+    .row
+      .col-sm-12
+        .pull-right
+          = f.submit 'Save', class: 'btn btn-primary'
+.pull-down-34

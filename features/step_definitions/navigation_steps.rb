@@ -117,8 +117,14 @@ def visit_page page
   when "Sign up page"
     visit "/signup/index"
     
-    
   
+  
+  when "Sales board"
+    visit "/sales/dashboard"
+  
+  when "Custom coupons board"
+    visit "/sales/coupon_batches"
+    
   when "Admin coupons page"
     visit "/admin/coupons"
   else

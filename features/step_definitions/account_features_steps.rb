@@ -8,6 +8,13 @@ When(/^I'm on the edit account type feature page for the "(.*?)" account type$/)
   find('.edit_account_feature')
 end
 
+Given(/^there is a plan named "(.*?)" linked to an account type named "(.*?)"$/) do |plan_name, account_type|
+  plan            = find_or_create_plan( plan_name)
+  account_feature = find_or_create_account_feature( account_type)
+  account_feature.plan_id = plan.id
+  account_feature.save!
+end
+
 
 
 

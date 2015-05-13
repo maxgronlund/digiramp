@@ -5,7 +5,7 @@ class Admin::CouponsController < ApplicationController
   # GET /coupons
   # GET /coupons.json
   def index
-    @coupons = Coupon.all
+    @coupons = Coupon.where(sales_coupon_batch_id: nil)
   end
 
   # GET /coupons/1
@@ -80,7 +80,8 @@ class Admin::CouponsController < ApplicationController
   # DELETE /coupons/1.json
   def destroy
     @coupon.destroy
-    redirect_to admin_coupons_path
+    redirect_to_return_url admin_coupons_path
+    #redirect_to admin_coupons_path
   end
 
   private
