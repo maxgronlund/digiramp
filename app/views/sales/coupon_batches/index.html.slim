@@ -3,10 +3,10 @@
     == render 'shared/navigationbar', page: 'user' 
      
   
-
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'sales/shared/sidebar', selected: 'playlists'
+  .sales
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'sales/shared/sidebar', selected: 'coupons'
   
   #page-content-wrapper
     .container-fluid

@@ -4,24 +4,28 @@
     == render 'shared/navigationbar', page: 'user' 
      
   
-
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'sales/shared/sidebar', selected: 'playlists'
+  .sales
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'sales/shared/sidebar', selected: 'coupons'
   
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { sales: sales_dashboard_index_path,
                                                               'coupon batches'.to_sym => sales_coupon_batches_path}, current: ''}
       .row
-        .col-sm-5
+        .col-sm-6
           .help
             .help-text
               h2 Coupon batch
             .help-button
         .col-sm-6
-          .pull-right
-            = link_to 'Back', sales_coupon_batches_path
+          .pull-right.pull-down-10
+            = link_to  sales_coupon_batches_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
 
 
 
@@ -30,11 +34,21 @@
         .row
           .col-sm-6
             h3 = @sales_coupon_batch.title
-            b Created by:&nbsp;
-            = @sales_coupon_batch.created_by
-            br
-            b link:&nbsp;
-            = link_to 'Show in shop', shop_buy_coupon_show_path(coupon: @sales_coupon_batch.uuid)
+            .row
+              .col-sm-6
+                b Price: #{number_to_currency(@sales_coupon_batch.total_price * 0.01, locale: :en, precision: 2)}
+              .col-sm-6
+                b Discount: #{number_to_percentage(@sales_coupon_batch.discount, precision: 0)}
+            .sexy_line 
+            .row
+              .col-sm-6
+                b Created by:&nbsp
+                br = @sales_coupon_batch.created_by
+              .col-sm-6
+                b link
+                br = link_to 'Show in shop', shop_buy_coupon_path(@sales_coupon_batch.uuid)
+                
+            /= debug @sales_coupon_batch
           .col-sm-6
             - unless @sales_coupon_batch.sold
               == render 'mail_form'
@@ -75,5 +89,34 @@
                                 i.fa.fa-times
                     
                  
-              
+      .digi-box
+        h3 Papertrail
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Timestamp
+                th Event
+                th Made by
+                th Changes
+        
+            tbody
+              - if versions = @sales_coupon_batch.versions
+                - versions.each do |version| 
+                  tr
+                    td  = version.created_at.to_formatted_s(:short)
+                    td  = version.event
+                    td  
+                      - if user = User.find_by(id: version.whodunnit.to_i)
+                        = user.user_name
+                    td
+                      - if changeset = version.changeset
+                        - changeset.sort.each do |key, value| 
+                          b = key 
+                          ':
+                          = value[0] 
+                          '&nbsp;to&nbsp;
+                          = value[1] 
+                          .sexy_line
+                          
   == render 'shared/site_footer' 

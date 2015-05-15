@@ -200,7 +200,7 @@ gem 'bcrypt-ruby'
 
 
 # Use unicorn as the app server
-gem 'unicorn'
+#gem 'unicorn'
 
 gem 'thin'
 

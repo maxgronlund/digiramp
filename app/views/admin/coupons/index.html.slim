@@ -43,8 +43,8 @@
               - @coupons.each do |coupon|
                 tr
                   td = coupon.stripe_id
-                  td = number_to_percentage(coupon.percent_off, precision: 0) 
-                  td = number_to_currency(coupon.amount_off, locale: :en, precision: 2)
+                  td = number_to_percentage(coupon.percent_off.to_f, precision: 0) if coupon.percent_off 
+                  td = number_to_currency(coupon.amount_off.to_f * 0.01, locale: :en, precision: 2) if coupon.amount_off
                   td = coupon.duration
                   td = coupon.duration_in_months
                   /td = coupon.currency

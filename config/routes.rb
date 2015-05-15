@@ -7,7 +7,8 @@ Digiramp::Application.routes.draw do
 
   get "shop"         => "shop/shop#index",     :as => :shop_shop_index
   namespace :shop do
-  get 'buy_coupon/show'
+  #get 'buy_coupon/show'
+  resources :buy_coupons
   get 'shop/index'
   end
 

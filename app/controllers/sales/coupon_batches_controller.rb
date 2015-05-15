@@ -14,7 +14,7 @@ class Sales::CouponBatchesController < Sales::SalesController
 
   # GET /sales/coupon_batches/new
   def new
-    @sales_coupon_batch = Sales::CouponBatch.new
+    @sales_coupon_batch = Sales::CouponBatch.new( redeem_by: Date.today + 3.month)
   end
 
   # GET /sales/coupon_batches/1/edit
@@ -24,10 +24,12 @@ class Sales::CouponBatchesController < Sales::SalesController
   # POST /sales/coupon_batches
   # POST /sales/coupon_batches.json
   def create
+   
     @sales_coupon_batch = Sales::CouponBatch.new(sales_coupon_batch_params)
 
     respond_to do |format|
       if @sales_coupon_batch.save
+        
         CouponBatchService.call( params, @sales_coupon_batch.id)
         format.html { redirect_to edit_sales_coupon_batch_path(@sales_coupon_batch), notice: 'Coupon batch was successfully created.' }
         format.json { render :show, status: :created, location: @sales_coupon_batch }
@@ -42,15 +44,18 @@ class Sales::CouponBatchesController < Sales::SalesController
   # PATCH/PUT /sales/coupon_batches/1.json
   def update
 
-    @sales_coupon_batch.email = params[:sales_coupon_batch][:email]
+    @sales_coupon_batch.email     = params[:sales_coupon_batch][:email]
+    @sales_coupon_batch.subject   = params[:sales_coupon_batch][:subject]
+    @sales_coupon_batch.body      = params[:sales_coupon_batch][:body]
+    
     respond_to do |format|
-      ap @sales_coupon_batch
+      
       if @sales_coupon_batch.save(validate: false)
         
-        CouponBatchMailer.delay.send_coupon(@sales_coupon_batch.id) 
+        CouponBatchMailer.delay.send_coupon_offer(@sales_coupon_batch.id) 
         
-        format.html { redirect_to sales_coupon_batch_path(@sales_coupon_batch), notice: 'Coupon batch was successfully updated.' }
-        format.json { render :show, status: :ok, location: @sales_coupon_batch }
+        format.html { redirect_to edit_sales_coupon_batch_path(@sales_coupon_batch), notice: 'Coupon batch was successfully updated.' }
+        format.json { render :edit, status: :ok, location: @sales_coupon_batch }
       else
         format.html { render :edit }
         format.json { render json: @sales_coupon_batch.errors, status: :unprocessable_entity }
@@ -76,29 +81,30 @@ class Sales::CouponBatchesController < Sales::SalesController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sales_coupon_batch_params
-      params.require(:sales_coupon_batch).permit( :title, 
-                                                  :body, 
-                                                  :email, 
-                                                  :created_by,
-                                                  :stripe_id,
-                                                  :amount_off,
-                                                  :percent_off,
-                                                  :duration,
-                                                  :duration_in_months,
-                                                  :currency,
-                                                  :max_redemptions,
-                                                  :times_redeemed,
-                                                  :metadata,
-                                                  :redeem_by,
-                                                  :plan_id,
-                                                  :account_id,
-                                                  :stripe_object,
-                                                  :sales_coupon_batches_id,
-                                                  :discount,
-                                                  :sold,
-                                                  :number_of_coupons,
-                                                  :uuid,
-                                                  :subject
-                                                  )
+      params.require(:sales_coupon_batch).permit!
+                                                  #( :title, 
+                                                  #:body, 
+                                                  #:email, 
+                                                  #:created_by,
+                                                  #:stripe_id,
+                                                  #:amount_off,
+                                                  #:percent_off,
+                                                  #:duration,
+                                                  #:duration_in_months,
+                                                  #:currency,
+                                                  #:max_redemptions,
+                                                  #:times_redeemed,
+                                                  #:metadata,
+                                                  #:redeem_by,
+                                                  #:plan_id,
+                                                  #:account_id,
+                                                  #:stripe_object,
+                                                  #:sales_coupon_batches_id,
+                                                  #:discount,
+                                                  #:sold,
+                                                  #:number_of_coupons,
+                                                  #:uuid,
+                                                  #:subject
+                                                  #)
     end
 end

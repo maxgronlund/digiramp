@@ -10,12 +10,12 @@ end
 
 StripeEvent.configure do |events|
   
-  StripeCustomerSubscriptionService.subscribe events
-  StripeCustomerService.subscribe events
-  StripeCustomerSourceService.subscribe events
-  StripeCouponService.subscribe events
-  StripePlanService.subscribe events
-  StripeInvoiceService.subscribe events
+  StripeCustomerSubscriptionService.new.subscribe( events )
+  StripeCustomerService.new.subscribe events
+  StripeCustomerSourceService.new.subscribe events
+  StripeCouponService.new.subscribe events
+  StripePlanService.new.subscribe events
+  StripeInvoiceService.new.subscribe events
   
   events.subscribe 'charge.dispute.created' do |event|
     ap '########################################################'

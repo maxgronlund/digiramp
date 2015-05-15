@@ -5,7 +5,7 @@ class Admin::CouponsController < ApplicationController
   # GET /coupons
   # GET /coupons.json
   def index
-    @coupons = Coupon.where(sales_coupon_batch_id: nil)
+    @coupons = Coupon.order('created_at desc').where(sales_coupon_batch_id: nil)
   end
 
   # GET /coupons/1
@@ -15,7 +15,7 @@ class Admin::CouponsController < ApplicationController
 
   # GET /coupons/new
   def new
-    @coupon = Coupon.new
+    @coupon = Coupon.new(redeem_by: Date.today + 3.month)
   end
 
   # GET /coupons/1/edit
@@ -27,34 +27,36 @@ class Admin::CouponsController < ApplicationController
   def create
     @coupon = Coupon.new(coupon_params)
     if @coupon.save
-      unless Rails.env.test?
-        begin
-          
-          
-          Stripe::Coupon.create(
-            id:                   @coupon.stripe_id,
-            amount_off:           @coupon.amount_off.to_i  <= 0 ? nil : @coupon.amount_off,
-            percent_off:          @coupon.percent_off.to_i <= 0 ? nil : @coupon.percent_off,
-            duration:             @coupon.duration,
-            duration_in_months:   @coupon.duration_in_months.to_i <= 0 ? nil : @coupon.duration_in_months,
-            currency:             @coupon.currency,
-            max_redemptions:      @coupon.max_redemptions.to_i <= 0 ? nil : @coupon.max_redemptions,
-            redeem_by:            @coupon.redeem_by.nil? ? nil : Time.parse(@coupon.redeem_by.to_s).to_i
-          )
-          redirect_to admin_coupons_path
-        rescue Stripe::StripeError => e
-          
-          flash[:danger] = e.message 
-          @coupon.destroy
-          redirect_to new_admin_coupon_path
-        end
-      else
-        redirect_to admin_coupons_path
+      if error = @coupon.push_to_stripe[:error]
+        #  flash[:danger] = e.message 
+        ap error
+        flash[:danger] = error if error
+         @coupon.destroy
       end
-      
-    
+      redirect_to admin_coupons_path
+      #begin
+      #  
+      #  
+      #  Stripe::Coupon.create(
+      #    id:                   @coupon.stripe_id,
+      #    amount_off:           @coupon.amount_off.to_i  <= 0 ? nil : @coupon.amount_off,
+      #    percent_off:          @coupon.percent_off.to_i <= 0 ? nil : @coupon.percent_off,
+      #    duration:             @coupon.duration,
+      #    duration_in_months:   @coupon.duration_in_months.to_i <= 0 ? nil : @coupon.duration_in_months,
+      #    currency:             @coupon.currency,
+      #    max_redemptions:      @coupon.max_redemptions.to_i <= 0 ? nil : @coupon.max_redemptions,
+      #    redeem_by:            @coupon.redeem_by.nil? ? nil : Time.parse(@coupon.redeem_by.to_s).to_i
+      #  )
+      #  redirect_to admin_coupons_path
+      #rescue Stripe::StripeError => e
+      #  
+      #  flash[:danger] = e.message 
+      #  @coupon.destroy
+      #  redirect_to new_admin_coupon_path
+      #end
+
     else
-      redirect_to new_admin_coupon_path
+      render :new
     end
   
   end

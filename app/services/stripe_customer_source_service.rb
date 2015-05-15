@@ -2,9 +2,9 @@
 # Stripe payment sources 
 ########################################################
 
-module StripeCustomerSourceService
+class StripeCustomerSourceService
   
-  def self.subscribe events
+  def subscribe events
     
     ########################################################
     # Customer payment source CUD

@@ -1,12 +1,12 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'user' 
+    == render 'shared/navigationbar', page: 'sales' 
      
   
-
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'sales/shared/sidebar', selected: 'playlists'
+  .sales
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'sales/shared/sidebar', selected: 'dashboard'
   
   #page-content-wrapper
     .container-fluid

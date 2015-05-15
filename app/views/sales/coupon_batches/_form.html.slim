@@ -10,8 +10,7 @@
           .panel-body
             = f.input :title, label: 'Name of the coupon batch', placeholder: 'SPECIAL-OFFER-FOR-SOMEONE'
             = f.input :email, label: 'Email of the person to get this offer', placeholder: 'someone@special.com'
-            = f.input :discount, label: 'Discount in percent', placeholder: 'i.e. 20'
-            'A positive integer representing the discount in percent
+           
             
             /.table-responsive
             /  table class="table table-hover"
@@ -34,7 +33,9 @@
       .col-sm-6
         .panel.panel-default
           .panel-body
-            = f.input :body, label: 'Notes, will be in the email',  :input_html => {  style: "height: 180px;", placeholder: "A message that goes in the email"}
+            = f.input :discount, label: 'Discount in percent', placeholder: 'i.e. 20'
+            'A positive integer representing the discount in percent
+            /= f.input :body, label: 'Notes, will be in the email',  :input_html => {  style: "height: 180px;", placeholder: "A message that goes in the email"}
             = f.hidden_field :created_by, value: current_user.email
         
 

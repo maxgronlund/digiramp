@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512203402) do
+ActiveRecord::Schema.define(version: 20150513224658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1101,9 +1101,11 @@ ActiveRecord::Schema.define(version: 20150512203402) do
     t.datetime "updated_at",                             null: false
     t.text     "stripe_object"
     t.integer  "sales_coupon_batch_id"
+    t.integer  "coupon_batch_id"
   end
 
   add_index "coupons", ["account_id"], name: "index_coupons_on_account_id", using: :btree
+  add_index "coupons", ["coupon_batch_id"], name: "index_coupons_on_coupon_batch_id", using: :btree
   add_index "coupons", ["plan_id"], name: "index_coupons_on_plan_id", using: :btree
   add_index "coupons", ["sales_coupon_batch_id"], name: "index_coupons_on_sales_coupon_batch_id", using: :btree
 
@@ -2664,12 +2666,27 @@ ActiveRecord::Schema.define(version: 20150512203402) do
     t.text     "body"
     t.string   "email"
     t.string   "created_by"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "discount"
     t.boolean  "sold"
     t.string   "uuid"
     t.string   "subject"
+    t.string   "download_uuid"
+    t.integer  "total_price",        default: 0
+    t.string   "stripe_id"
+    t.integer  "amount_off"
+    t.integer  "percent_off"
+    t.string   "duration"
+    t.integer  "duration_in_months"
+    t.string   "currency"
+    t.integer  "number_of_coupons"
+    t.integer  "times_redeemed"
+    t.text     "metadata"
+    t.integer  "plan_id"
+    t.integer  "account_id"
+    t.date     "redeem_by"
+    t.integer  "original_price",     default: 0
   end
 
   create_table "search_recordings", force: :cascade do |t|
@@ -3184,6 +3201,7 @@ ActiveRecord::Schema.define(version: 20150512203402) do
   add_foreign_key "account_features", "plans"
   add_foreign_key "coupons", "accounts"
   add_foreign_key "coupons", "plans"
+  add_foreign_key "coupons", "sales_coupon_batches"
   add_foreign_key "invoices", "accounts"
   add_foreign_key "invoices", "users"
   add_foreign_key "payment_sources", "subscriptions"

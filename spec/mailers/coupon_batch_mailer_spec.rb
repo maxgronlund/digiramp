@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.describe CouponBatchMailer, :type => :mailer do
-  describe "send_coupon" do
-    let(:mail) { CouponBatchMailer.send_coupon }
+  describe "send_coupon_offer" do
+    let(:mail) { CouponBatchMailer.send_coupon_offer }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Send coupon")
+      expect(mail.subject).to eq("Send coupon offer")
       expect(mail.to).to eq(["to@example.org"])
       expect(mail.from).to eq(["from@example.com"])
     end

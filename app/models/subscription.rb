@@ -5,7 +5,7 @@ class Subscription < ActiveRecord::Base
   has_many   :payment_sources
   
   belongs_to :coupon
-  validates_with CouponValidator, fields: [:coupon_code]
+  validates_with CouponCodeValidator, fields: [:coupon_code]
   
   #before_save :populate_guid
   #validates :email, presence: true

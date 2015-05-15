@@ -2,9 +2,9 @@
 # Stripe Plam
 ########################################################
 
-module StripePlanService
+class StripePlanService
   
-  def self.subscribe events
+  def subscribe events
 
     # Created
     events.subscribe 'plan.created' do |event|

@@ -2,9 +2,9 @@
 # Stripe Invoice
 ########################################################
 
-module StripeInvoiceService
+class StripeInvoiceService
   
-  def self.subscribe events
+  def subscribe events
 
     ########################################################
     # Invoice item CU

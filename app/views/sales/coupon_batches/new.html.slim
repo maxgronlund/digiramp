@@ -3,22 +3,27 @@
     == render 'shared/navigationbar', page: 'user' 
      
   
-
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'sales/shared/sidebar', selected: 'playlists'
+  .sales
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'sales/shared/sidebar', selected: 'coupons'
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { sales: sales_dashboard_index_path,
+                                                              'coupon batches'.to_sym => sales_coupon_batches_path}, current: ''}
       .row
-        .col-sm-5
+        .col-sm-6
           .help
             .help-text
               h2 New coupon
             .help-button
         .col-sm-6
-          .pull-right
-            = link_to 'Back', sales_coupon_batches_path
+          .pull-right.pull-down-10
+            = link_to  sales_coupon_batches_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
 
 
 

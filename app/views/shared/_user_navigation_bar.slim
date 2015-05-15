@@ -120,12 +120,15 @@ nav.navbar.nav-user
                     'Catalogs
                   
                 - if super?
-              
-              
                   li  class="#{page == 'admin' ? 'active' : ''}"
                     = link_to admin_index_path do
                       i class="fa fa-gear"
                       '&nbsp;Admin
+                - if current_user.salesperson
+                  li  class="#{page == 'sales' ? 'active' : ''}"
+                    = link_to sales_dashboard_index_path do
+                      i class="fa fa-money"
+                      '&nbsp;Sales
               
 
             

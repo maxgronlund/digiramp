@@ -1,28 +1,52 @@
-
 .sidebar 
 
         
   
   li
     
-    = link_to admin_index_path do
-      .avatar_name
-        h4 Sales
-        
-      .user-avatar
-        =  image_tag 'https://digiramp.com/uploads/raw_image/image/3/admin-logo.jpg'
+    /= link_to sales_dashboard_index_path do
+    /  .sales-title
+    /    h4 Sales
+    /  
+    .sales-badge
+      =  image_tag 'https://digiramp.com/uploads/raw_image/image/28/digi-logo.jpg'
+  
   
   li class="#{'sidebar-selected' if selected == 'dashboard'}"
     = link_to sales_dashboard_index_path do
-      i class="fa fa-dashboard"
+      i class="fa fa-money"
       '&nbsp;Dashboard
   
-  li class="#{'sidebar-selected' if selected == 'dashboard'}"
+  li class="#{'sidebar-selected' if selected == 'coupons'}"
     = link_to sales_coupon_batches_path do
       i class="fa fa-ticket"
       '&nbsp;Coupons
-      
-      
+  
+  
+/.sidebar 
+/
+/        
+/  
+/  li
+/    
+/    = link_to admin_index_path do
+/      .user-name
+/        h4 Sales
+/        
+/      .user-avatar
+/        =  image_tag 'https://digiramp.com/uploads/raw_image/image/28/digi-logo.jpg'
+/  
+/  li class="#{'sidebar-selected' if selected == 'dashboard'}"
+/    = link_to sales_dashboard_index_path do
+/      i class="fa fa-money"
+/      '&nbsp;Dashboard
+/  
+/  li class="#{'sidebar-selected' if selected == 'coupons'}"
+/    = link_to sales_coupon_batches_path do
+/      i class="fa fa-ticket"
+/      '&nbsp;Coupons
+/      
+/      
 
   
       

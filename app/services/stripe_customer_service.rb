@@ -2,9 +2,9 @@
 # Stripe Customer CUD
 ########################################################
 
-module StripeCustomerService
+class StripeCustomerService
   
-  def self.subscribe events
+  def subscribe events
     
     events.subscribe 'customer.created' do |event|
       ap '########################################################'
