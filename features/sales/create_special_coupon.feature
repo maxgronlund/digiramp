@@ -26,6 +26,14 @@ As an salesperson I can make special offers to customers and sell them coupons
     Then I can see "New coupon"
     Then I fill the custom coupon form and save
     Then I can se the list of uniq coupon codes
+    
+  #@javascript  
+  #Scenario: As an salesperson I can try to create a new coupon but enter some invalid data
+  #  When I'm on the "Custom coupons board"
+  #  Then I clik on the link with the id "new-coupon-batch"
+  #  Then I can see "New coupon"
+  #  Then I fill the custom coupon form with invalid data and save
+  #  Then I can se the list of uniq coupon codes
 
     
     
