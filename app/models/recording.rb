@@ -789,17 +789,33 @@ class Recording < ActiveRecord::Base
   # add this to environment variables
   # read from yaml file
   def download_url(style = nil, expires_in = 90.minutes)
-    begin
-      #AWS.config(access_key_id: Rails.application.secrets.s3_key_id,  secret_access_key: Rails.application.secrets.s3_access_key ) 
-      s3 = AWS::S3.new
-      bucket = s3.buckets[Rails.application.secrets.aws_s3_bucket] # makes no request
-      if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
-        bucket.objects[self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')].url_for(:read, :secure => true, :expires => expires_in)
-      else
-        bucket.objects[self.mp3.gsub('https://digiramp.s3.amazonaws.com/', '')].url_for(:read, :secure => true, :expires => expires_in)
-      end
-    rescue
-    end
+    self.mp3
+    #begin
+    #  ap Rails.application.secrets.aws_s3_bucket
+    #  #Aws.config(access_key_id: Rails.application.secrets.s3_key_id,  secret_access_key: Rails.application.secrets.s3_access_key ) 
+    #  #s3 = Aws::S3::Client.new
+    #  s3 = Aws::S3::Resource.new
+    #  
+    #  #ap s3.operation_names
+    #  #ap s3.list_buckets
+    #  
+    #  bucket = s3.bucket(Rails.application.secrets.aws_s3_bucket)
+    #  ap bucket
+    #  
+    #  #ap s3.list_buckets
+    #  
+    #  #bucket = s3.bucket(bucket: Rails.application.secrets.aws_s3_bucket) 
+    #  #ap bucket
+    #  #bucket = s3.bucket(Rails.application.secrets.aws_s3_bucket) # makes no request
+    #  #if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
+    #  #  bucket.objects[self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')].url_for(:read, :secure => true, :expires => expires_in)
+    #  #else
+    #  #  bucket.objects[self.mp3.gsub('https://digiramp.s3.amazonaws.com/', '')].url_for(:read, :secure => true, :expires => expires_in)
+    #  #end
+    #rescue Aws::S3::Errors => e
+    #  ap 'autch'
+    #  ap e.inspect
+    #end
   end
   
   def widget_snippet widget_url
