@@ -188,7 +188,10 @@ class User < ActiveRecord::Base
   has_many :payment_sources, dependent: :destroy
   
   #has_one :default_cms_page
-
+  
+  has_many :orders, class_name: 'Shop::Order'
+  has_many :products, class_name: 'Shop::Product'
+  #has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
 
   
   def has_email test_this_email

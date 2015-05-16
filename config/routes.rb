@@ -1,11 +1,38 @@
 Digiramp::Application.routes.draw do
 
 
+  #namespace :user do
+  #get 'products/index'
+  #end
+  #
+  #namespace :user do
+  #get 'products/show'
+  #end
+  #
+  #namespace :user do
+  #get 'products/new'
+  #end
+  #
+  #namespace :user do
+  #get 'products/create'
+  #end
+  #
+  #namespace :user do
+  #get 'products/update'
+  #end
+
+  #namespace :shop do
+  #  resources :products
+  #end
+  #namespace :shop do
+  #  resources :orders
+  #end
   get "shop"         => "shop/shop#index",     :as => :shop_shop_index
   namespace :shop do
   #get 'buy_coupon/show'
   resources :buy_coupons
   resources :orders
+  resources :products
   get 'shop/index'
   end
 
@@ -18,7 +45,6 @@ Digiramp::Application.routes.draw do
   
   resources :invoices
   resources :amazon_sns
-  resources :products
   
   get '/buy/:permalink', to: 'transactions#new', as: :show_buy
   post '/buy/:permalink', to: 'transactions#create', as: :buy
@@ -676,6 +702,9 @@ Digiramp::Application.routes.draw do
   #=================== USER =========================
   namespace :user do
     
+    
+    resources :shop, only: [:index, :show]
+    
     resources :social_links
     #resources :common_work_lyrics
     resources :users do
@@ -685,6 +714,7 @@ Digiramp::Application.routes.draw do
       match '/payment_method_fail/:guid' => 'payment_methods#fail',    via: :get,  as: :payment_method_fail
      
       resources :subscriptions
+      resources :products
       resources :registrations
       post "/hook" => "registrations#hook"
       post "/registrations/:id" => "registrations#show"
@@ -817,12 +847,15 @@ Digiramp::Application.routes.draw do
   end
   
   resources :users do
+    #get "shop"         => "user/shop#index",     :as => :user_shop_index
     # hui v. 2
     #member do
     #  get :following, :followers
     #end
     #resources :connections, only: [:index, :create, :update, :destroy]
     #resources :contacts
+    get "shop"         => "shop#index",     :as => :user_shop_index
+    resources :shop, only: [:index]
     
     resources :cms_pages, only: [:show]
     resources :ipis, only: [:index]

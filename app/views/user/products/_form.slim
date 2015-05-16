@@ -1,0 +1,18 @@
+/= simple_form_for(@shop_product) do |f|
+
+= f.error_notification
+
+.form-inputs
+  = f.input :title
+  = f.input :body
+  = f.input :additionl_info
+  = f.input :image
+  = f.input :price
+  = f.hidden_field :user_id   , value: @user.id
+  = f.hidden_field :account_id, value: @user.account_id
+  = f.input :download_link
+  = f.input :for_sale
+  = f.input :category, :include_blank => false, :collection => Shop::Product::CATEGORIES  
+
+.form-actions
+  = f.button :submit

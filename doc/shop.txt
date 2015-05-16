@@ -2,15 +2,21 @@
 
 rails g migration EnableUuidOsspExtension
 
+rails d scaffold products
+
 
 rails g scaffold shop/order user:belongs_to stripe_customer:belongs_to
 
-rails g scaffold shop/product title body:text image price:integer user:belongs_to account:belongs_to download_link
 
-rails g scaffold shop/order_item shop_order:belongs_to shop_product:belongs_to
+rails g scaffold shop/product title body:text additionl_info:text image price:integer user:belongs_to account:belongs_to download_link for_sale:boolean
 
+rails g model shop/order_item shop_order:belongs_to shop_product:belongs_to
+
+rails g controller user/products index show new create update 
 
 
 
     
 rails g controller sales/coustomers index show
+
+has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry

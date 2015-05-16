@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516145653) do
+ActiveRecord::Schema.define(version: 20150516184635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2384,18 +2384,6 @@ ActiveRecord::Schema.define(version: 20150516145653) do
     t.datetime "updated_at"
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string   "name"
-    t.string   "permalink"
-    t.text     "description"
-    t.integer  "price"
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
-
   create_table "project_tasks", force: :cascade do |t|
     t.integer  "project_id"
     t.integer  "user_id"
@@ -2645,23 +2633,6 @@ ActiveRecord::Schema.define(version: 20150516145653) do
   add_index "representatives", ["account_id"], name: "index_representatives_on_account_id", using: :btree
   add_index "representatives", ["user_id"], name: "index_representatives_on_user_id", using: :btree
 
-  create_table "sales", force: :cascade do |t|
-    t.string   "email"
-    t.string   "guid"
-    t.integer  "product_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "state"
-    t.string   "stripe_id"
-    t.string   "stripe_token"
-    t.date     "card_expiration"
-    t.text     "error"
-    t.integer  "fee_amount"
-    t.integer  "amount"
-  end
-
-  add_index "sales", ["product_id"], name: "index_sales_on_product_id", using: :btree
-
   create_table "sales_coupon_batches", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
@@ -2772,7 +2743,17 @@ ActiveRecord::Schema.define(version: 20150516145653) do
   add_index "share_recording_with_emails", ["recording_id"], name: "index_share_recording_with_emails_on_recording_id", using: :btree
   add_index "share_recording_with_emails", ["user_id"], name: "index_share_recording_with_emails_on_user_id", using: :btree
 
-  create_table "shop_orders", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "shop_order_items", force: :cascade do |t|
+    t.integer  "shop_order_id"
+    t.integer  "shop_product_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "shop_order_items", ["shop_order_id"], name: "index_shop_order_items_on_shop_order_id", using: :btree
+  add_index "shop_order_items", ["shop_product_id"], name: "index_shop_order_items_on_shop_product_id", using: :btree
+
+  create_table "shop_orders", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "stripe_customer_id"
     t.datetime "created_at",         null: false
@@ -2781,6 +2762,24 @@ ActiveRecord::Schema.define(version: 20150516145653) do
 
   add_index "shop_orders", ["stripe_customer_id"], name: "index_shop_orders_on_stripe_customer_id", using: :btree
   add_index "shop_orders", ["user_id"], name: "index_shop_orders_on_user_id", using: :btree
+
+  create_table "shop_products", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.text     "additionl_info"
+    t.string   "image"
+    t.integer  "price"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.string   "download_link"
+    t.boolean  "for_sale"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "category"
+  end
+
+  add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
+  add_index "shop_products", ["user_id"], name: "index_shop_products_on_user_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -3217,10 +3216,12 @@ ActiveRecord::Schema.define(version: 20150516145653) do
   add_foreign_key "invoices", "users"
   add_foreign_key "payment_sources", "subscriptions"
   add_foreign_key "payment_sources", "users"
-  add_foreign_key "products", "users"
-  add_foreign_key "sales", "products"
+  add_foreign_key "shop_order_items", "shop_orders"
+  add_foreign_key "shop_order_items", "shop_products"
   add_foreign_key "shop_orders", "stripe_customers"
   add_foreign_key "shop_orders", "users"
+  add_foreign_key "shop_products", "accounts"
+  add_foreign_key "shop_products", "users"
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
 end

@@ -86,6 +86,8 @@ class Account < ActiveRecord::Base
   
   belongs_to :account_feature
   
+  has_many :products, class_name: 'Shop::Product'
+  
   #has_many :registrations
                 
 
