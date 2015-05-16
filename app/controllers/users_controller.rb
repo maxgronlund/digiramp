@@ -74,7 +74,7 @@ class UsersController < ApplicationController
       unless current_user && @user != current_user
        
         @user.views += 1 
-        @user.save
+        #@user.save
         
         @user.create_activity(  :show, 
                                   owner: current_user,
