@@ -252,7 +252,10 @@ class Recording < ActiveRecord::Base
   end
   
   def user_credits
-    self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, ipiable_type: 'RecordingIpi', show_credit_on_recordings: true, confirmation: "Accepted")
+    begin
+      self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, ipiable_type: 'RecordingIpi', show_credit_on_recordings: true, confirmation: "Accepted")
+    rescue
+    end
   end
   
   def total_share
