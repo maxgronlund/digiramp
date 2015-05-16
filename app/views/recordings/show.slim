@@ -53,8 +53,9 @@
         .col-md-8
           - if current_user && current_user.betatester
             .digi-box
-              - @user_credits.each do |user_credit|
-                == render "recordings/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
+              - if  @user_credits
+                - @user_credits.each do |user_credit|
+                  == render "recordings/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
                 .sexy_line
             /.digi-box
             /  - @recording.recording_ipis.each do |recording_ipi|
