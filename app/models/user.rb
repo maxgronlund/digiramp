@@ -982,8 +982,15 @@ class User < ActiveRecord::Base
       if provider_twitter = self.authorization_providers.where(provider: 'twitter').first
       
         client = Twitter::REST::Client.new do |config|
-          config.consumer_key        = TWITTER_KEY
-          config.consumer_secret     = TWITTER_SECRET
+          #config.consumer_key        = TWITTER_KEY
+          #config.consumer_secret     = TWITTER_SECRET
+          
+          config.consumer_key        = Rails.application.secrets.twitter_app_id
+          config.consumer_secret     = Rails.application.secrets.twitter_secret_key
+          
+          
+          
+          
           config.access_token        = provider_twitter[:oauth_token]
           config.access_token_secret = provider_twitter[:oauth_secret]
         
