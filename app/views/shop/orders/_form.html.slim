@@ -1,0 +1,9 @@
+= simple_form_for(@shop_order) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :user
+    = f.association :stripe_customer
+
+  .form-actions
+    = f.button :submit

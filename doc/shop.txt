@@ -1,79 +1,16 @@
 
 
-
----------------------
-Sell products
-
-By DigiRamp
-- coupons
-- services
-- products ?
+rails g migration EnableUuidOsspExtension
 
 
-By users
-- streaming
-- subscribtions
-- merchandize
-- music
-- services
+rails g scaffold shop/order user:belongs_to stripe_customer:belongs_to
 
-Buy pros
-- rights
+rails g scaffold shop/product title body:text image price:integer user:belongs_to account:belongs_to download_link
 
-
-
----------------------
-Buy products
-- from a DigiRAMP store
-- from a user store
+rails g scaffold shop/order_item shop_order:belongs_to shop_product:belongs_to
 
 
 
 
-
-----------------------
-Get paid
-
-from stripe
-with USD
-with Bitcoins
-
-Account number form
-
-
-
-
-
-
-
-
------------------------
-Entities
-
-Products page
-Product preview
-Basket
-Checkout
-Payment
-Invoice
-
-
-
-Embedable shope
-Embedable streaming
-
-shop section for custom pages
-streaming section for for ustom pages 
-
-
-----------------------
-Management
-fees
-when to payout
-treshold
-monthly
-selected by users
-time it takes
-
----------------------- 
-terms
+    
+rails g controller sales/coustomers index show

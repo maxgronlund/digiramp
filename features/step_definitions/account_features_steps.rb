@@ -15,6 +15,10 @@ Given(/^there is a plan named "(.*?)" linked to an account type named "(.*?)"$/)
   account_feature.save!
 end
 
+Given(/^there is an account type named "(.*?)"$/) do |account_type|
+  account_feature = find_or_create_account_feature(account_type)
+end
+
 
 
 

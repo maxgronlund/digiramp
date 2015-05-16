@@ -1,12 +1,12 @@
-# cucumber features/admin/coupon.feature -r features
+# cucumber features/admin/coupon.feature:16 -r features
 
 Feature:
 As an administrator I can manage coupons
 
   Background:
     Given I am logged in as administrator
-    #Given I am the administrator
-    #And I am logged in
+    And there is a plan named "DigiRAMP Pro" linked to an account type named "DigiRAMP Pro"
+
     
   @javascript  
   Scenario: As an administrator i can view the coupon page
@@ -18,10 +18,10 @@ As an administrator I can manage coupons
     When I'm on the "Admin coupons page"
     Then I create a new coupon named "FREE-FUN"
     Then I can see "FREE-FUN"
-    
-  @javascript  
-  Scenario: As an administrator i create a set of coupons for an institution  
-    When I'm on the "Admin coupons page"
-    Then I create a new coupon named "FREE-FUN"
-    Then I can see "FREE-FUN"
+#    
+#  @javascript  
+#  Scenario: As an administrator i create a set of coupons for an institution  
+#    When I'm on the "Admin coupons page"
+#    Then I create a new coupon named "FREE-FUN"
+#    Then I can see "FREE-FUN"
     

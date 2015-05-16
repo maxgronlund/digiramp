@@ -18,7 +18,7 @@ class Coupon < ActiveRecord::Base
   
   
   def push_to_stripe
-    return if  Rails.env.test?
+    return {} if  Rails.env.test?
     
     self.redeem_by = Date.today + 3.month if self.redeem_by.blank?
 

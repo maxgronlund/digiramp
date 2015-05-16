@@ -1,0 +1,23 @@
+h1 Listing shop_orders
+
+table
+  thead
+    tr
+      th User
+      th Stripe customer
+      th
+      th
+      th
+
+  tbody
+    - @shop_orders.each do |shop_order|
+      tr
+        td = shop_order.user
+        td = shop_order.stripe_customer
+        td = link_to 'Show', shop_order
+        td = link_to 'Edit', edit_shop_order_path(shop_order)
+        td = link_to 'Destroy', shop_order, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Order', new_shop_order_path

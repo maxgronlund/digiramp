@@ -6,8 +6,8 @@ As an salesperson I can make special offers to customers and sell them coupons
   Background:
     Given I am logged in as a salesperson with the email "sales@digiramp.com"
     And there is a plan named "DigiRAMP Pro" linked to an account type named "DigiRAMP Pro"
-    #Given I am the administrator
-    #And I am logged in
+
+
     
   @javascript  
   Scenario: As a salesperson I can se the sales section
