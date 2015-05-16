@@ -1,5 +1,9 @@
 class RemoveFoFromUsers < ActiveRecord::Migration
   def change
-    remove_column :users, :fo, :string
+    begin
+      remove_column :users, :fo, :string
+    rescue
+    end
+    
   end
 end
