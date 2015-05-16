@@ -18,6 +18,10 @@ Without test
 rails generate model Coupon code role mailing_list_id list_group price:integer --no-test-framework
 
 
+has_many :entries_media, class_name: 'Join::EntryMedia', foreign_key: :media_item_id
+  has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
+
+
 
 
 
