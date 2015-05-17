@@ -72,8 +72,8 @@ def visit_page page
   when "Business page"
     visit "/admin/business/index"
   
-  when "Sales page"
-    visit "/admin/sales"
+  #when "Sales page"
+  #  visit "/admin/sales"
   
   when "Subscriptions page"
     visit "/admin/subscriptions"

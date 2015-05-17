@@ -75,9 +75,9 @@ class Subscription < ActiveRecord::Base
   end
   
   def reset_state
-    ap 'reset_state'
+    #ap 'reset_state'
     self.reset!           if self.state == 'errored'
-    ap self.state
+    #ap self.state
     self.finish!          if self.state == 'processing'
     self.error    = ''
     #self.source_created!  if self.state == 'updating_cc'
@@ -135,7 +135,7 @@ class Subscription < ActiveRecord::Base
       
       # send subscription canceled email
       
-      ap self
+      #ap self
       return "You have cancled your current plan, it will continue until the period you have paied for expires" 
     rescue Stripe::StripeError => e
       self.fail!
@@ -165,7 +165,7 @@ private
     stripe_params[:plan]    = self.plan.stripe_id 
     # the customer is not in stripe
     if self.user.stripe_customer_id.blank?
-    ap "create a customer and a subscription"
+      #ap "create a customer and a subscription"
       begin
         stripe_params[:source] = self.stripe_token
         stripe_params[:email]  = self.email 
@@ -181,7 +181,7 @@ private
         self.fail!
       end
     else 
-      ap "there is already a customer in the stripe system"  
+      #ap "there is already a customer in the stripe system"  
       begin                         
         customer                = Stripe::Customer.retrieve(self.user.stripe_customer_id)
         stripe_sub              = customer.subscriptions.create( stripe_params )
@@ -197,7 +197,7 @@ private
       self.stripe_id                  = stripe_sub.id
       self.error = ''
       self.finish!
-      ap self
+      
     else
       self.update_attributes(error: 'No subscription created')
       self.fail!
