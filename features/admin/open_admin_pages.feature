@@ -1,4 +1,4 @@
-# cucumber features/admin/open_admin_pages.feature:36 -r features
+# cucumber features/admin/open_admin_pages.feature:107 -r features
 
 Feature:
 As an administrator i can se all the pages
@@ -104,6 +104,8 @@ As an administrator i can se all the pages
     When I'm on the edit account type feature page for the "DigiRAMP-Pro" account type 
     Then I can see "Edit account type feature"
     
+  @javascript  
+  Scenario: As an administrator i can open the sales pages
     When I'm on the "Sales page"
     Then I can see "Sales"
     

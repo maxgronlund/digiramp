@@ -5,7 +5,7 @@ class Admin::SalesController < ApplicationController
   # GET /sales
   # GET /sales.json
   def index
-    @sales = Sale.order('created_at desc')
+    #@sales = Sale.order('created_at desc')
   end
 
   # GET /sales/1

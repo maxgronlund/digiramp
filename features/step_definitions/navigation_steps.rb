@@ -84,14 +84,11 @@ def visit_page page
   when "New account type features page"
     visit "/admin/account_features/new"
     
-    
-  
+
   when "Sales page"
-    visit "/admin/sales"
+    visit "/sales"
   
-  when "Sales page"
-    visit "/admin/sales"
-    
+
     
     
     
