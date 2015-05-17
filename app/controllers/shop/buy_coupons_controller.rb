@@ -7,4 +7,6 @@ class Shop::BuyCouponsController < ApplicationController
     @years  = CreditCard.years
     @coupon_batch = Sales::CouponBatch.find_by(uuid: params[:id])
   end
+  
+  
 end

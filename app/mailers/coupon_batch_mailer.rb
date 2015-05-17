@@ -15,7 +15,7 @@ class CouponBatchMailer < ApplicationMailer
     
 
     
-    @link     = url_for( controller: 'shop/buy_coupons', action: 'edit', id: @coupon_batch.uuid)
+    @link     = url_for( controller: 'shop/buy_coupons', action: 'show', id: @coupon_batch.uuid)
     #
     #
     #

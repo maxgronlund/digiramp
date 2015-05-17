@@ -1,2 +1,4 @@
-h1 new
-== render 'form'
+- session[:return_url] = request.url
+h1 New shop_product
+= simple_form_for [:user, @user, @shop_product], :url => url_for(:action => 'create', :controller => 'products') do |f|
+  == render 'form', f: f

@@ -1,6 +1,8 @@
 class User::CmsPagesController < ApplicationController
   before_action :set_cms_page, only: [:show, :edit, :update, :destroy]
   before_action :access_user
+  
+  protect_from_forgery except: :show
 
   def index
     @cms_pages = CmsPage.all

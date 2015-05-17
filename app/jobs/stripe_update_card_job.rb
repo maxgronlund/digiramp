@@ -2,6 +2,7 @@ class StripeUpdateCardJob < ActiveJob::Base
   queue_as :default
 
   def perform(guid, token)
+    error = false
     ActiveRecord::Base.connection_pool.with_connection do
       if subscription = Subscription.find_by(guid: guid)
         return unless subscription
@@ -13,45 +14,20 @@ class StripeUpdateCardJob < ActiveJob::Base
               stripe_sub.save
             else
               subscription.error << 'unable to find customer'
+              error = true
               subscription.fail!
             end
           rescue Stripe::StripeError => e
-            ap e.message
             subscription.error << e.message
-            subscription.fail!
+            error = true
           end
         else
-          subscription.fail!     
+          error = true  
           subscription.error << 'User not found'
         end
         subscription.save
       end
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      #ChangeSubscriptionCard.call(subscription, token )
-      #subscription.update_card(token)
+      subscription.fail! if error
     end
   end
 end

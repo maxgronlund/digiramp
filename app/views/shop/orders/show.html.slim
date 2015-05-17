@@ -15,7 +15,7 @@ p Find me in app/views/shop/orders/show.html.slim
           th Total
           th
       tbody    
-        - @shop_order.order_items.each do |order_item|
+        - @shop_order.order_items.order('created_at asc').each do |order_item|
           - if product = order_item.product
             tr
               td = link_to product.title, user_product_path(product.user_id, product)

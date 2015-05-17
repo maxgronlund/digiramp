@@ -1,3 +1,8 @@
-h1 User::ProductAdmin#edit
-p Find me in app/views/user/product_admin/edit.html.slim
-== render 'form'
+- session[:return_url] = request.url
+h1 Editing shop_product
+= simple_form_for [:user, @user, @shop_product], :url => url_for(:action => 'update', :controller => 'products') do |f|
+  == render 'form', f: f
+
+= link_to 'Show', user_user_product_path(@user, @shop_product)
+'|
+= link_to 'Back', user_user_products_path(@user, @shop_product)
