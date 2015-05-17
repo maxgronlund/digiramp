@@ -12,6 +12,7 @@ rails g scaffold shop/product title body:text additionl_info:text image price:in
 
 rails g model shop/order_item shop_order:belongs_to shop_product:belongs_to
 
+
 rails g controller user/products index show new create update 
 
 
@@ -19,4 +20,23 @@ rails g controller user/products index show new create update
     
 rails g controller sales/coustomers index show
 
-has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
+
+
+links
+
+
+Public shop
+ 
+http://localhost:3000/shop/products/2
+
+Public user shop
+http://localhost:3000/users/max-groenlund/shop
+
+
+Admin user products
+http://localhost:3000/user/users/max-groenlund/shop_admin
+http://localhost:3000/user/users/max-groenlund/product_admin/2/edit
+
+
+Sales rep
+http://localhost:3000/sales

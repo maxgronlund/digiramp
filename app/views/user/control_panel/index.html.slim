@@ -159,6 +159,17 @@
                     .body
                       'Your DigiRAMP plan
                       
+              .control-panel-badge
+                = link_to  user_user_shop_admin_index_path(@user) do
+                  .content
+                    .icon.icon-red
+                      i.fa.fa-trophy
+                      
+                    .title
+                      h4 Shop administration
+                    .body
+                      'Manage your personal shop
+                      
               /.control-panel-badge
               /  = link_to  user_user_registrations_path(@user) do
               /    .content

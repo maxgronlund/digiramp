@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516184635) do
+ActiveRecord::Schema.define(version: 20150517131206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2744,20 +2744,23 @@ ActiveRecord::Schema.define(version: 20150516184635) do
   add_index "share_recording_with_emails", ["user_id"], name: "index_share_recording_with_emails_on_user_id", using: :btree
 
   create_table "shop_order_items", force: :cascade do |t|
-    t.integer  "shop_order_id"
-    t.integer  "shop_product_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "quantity",   default: 1
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "order_id"
+    t.integer  "product_id"
   end
 
-  add_index "shop_order_items", ["shop_order_id"], name: "index_shop_order_items_on_shop_order_id", using: :btree
-  add_index "shop_order_items", ["shop_product_id"], name: "index_shop_order_items_on_shop_product_id", using: :btree
+  add_index "shop_order_items", ["order_id"], name: "index_shop_order_items_on_order_id", using: :btree
+  add_index "shop_order_items", ["product_id"], name: "index_shop_order_items_on_product_id", using: :btree
 
   create_table "shop_orders", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "stripe_customer_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "state"
+    t.string   "uuid"
   end
 
   add_index "shop_orders", ["stripe_customer_id"], name: "index_shop_orders_on_stripe_customer_id", using: :btree
@@ -3216,8 +3219,6 @@ ActiveRecord::Schema.define(version: 20150516184635) do
   add_foreign_key "invoices", "users"
   add_foreign_key "payment_sources", "subscriptions"
   add_foreign_key "payment_sources", "users"
-  add_foreign_key "shop_order_items", "shop_orders"
-  add_foreign_key "shop_order_items", "shop_products"
   add_foreign_key "shop_orders", "stripe_customers"
   add_foreign_key "shop_orders", "users"
   add_foreign_key "shop_products", "accounts"

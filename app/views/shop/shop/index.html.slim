@@ -1,0 +1,43 @@
+/ ----------------------------------------
+/ this is the public shop 
+/-----------------------------------------
+h1 Find me in shop/shop/index
+
+
+
+
+table
+  thead
+    tr
+      th Title
+      th Body
+      th Additionl info
+      th Image
+      th Price
+      /th User
+      /th Account
+      th Download link
+      th For sale
+      th Category
+      th
+      th
+      th
+
+  tbody
+    - @products.each do |product|
+      tr
+        td = product.title
+        td = product.body
+        td = product.additionl_info
+        td = product.image
+        td = product.price
+        /td = product.user
+        /td = product.account
+        td = product.download_link
+        /td = product.for_sale
+        td = product.category
+        td = link_to 'Show', shop_product_path(product), class: 'btn btn-default'
+        /td = link_to 'Edit', edit_user_user_product_path(@user, product)
+        /td = link_to 'Destroy', user_user_product_path(@user, product), data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br

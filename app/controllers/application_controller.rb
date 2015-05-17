@@ -300,6 +300,37 @@ private
     set_authorized
   end
   
+
+  # get the order
+  def current_order
+    
+
+    if current_user 
+      order = current_user.get_order
+    else
+      if session[:order_uuid] && (order = Shop::Order.find_by(uuid: session[:order_uuid]) )
+      else 
+        order = Shop::Order.create(uuid: UUIDTools::UUID.timestamp_create().to_s)
+        session[:order_uuid] = order.uuid
+      end
+    end
+    order
+  end
+  
+  
+  
+  #def current_cart
+  #  Cart.find(session[:cart_id])
+  #  rescue ActiveRecord::RecordNotFound
+  #  cart = Cart.create
+  #  session[:cart_id] = cart.id
+  #  cart
+  #end
+  
+  
+  
+  
+  
   
   
 end

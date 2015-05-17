@@ -10,6 +10,11 @@ class Shop::ProductsController < ApplicationController
   # GET /shop/products/1
   # GET /shop/products/1.json
   def show
+    ap params
+    @user            = current_user
+    @shop_product    = Shop::Product.cached_find(params[:id])
+    @shop_order_item = Shop::OrderItem.new
+    @shop_order      = current_order
   end
 
   # GET /shop/products/new
@@ -19,6 +24,10 @@ class Shop::ProductsController < ApplicationController
 
   # GET /shop/products/1/edit
   def edit
+  end
+  
+  def buy
+    
   end
 
   # POST /shop/products

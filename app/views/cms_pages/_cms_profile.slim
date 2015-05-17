@@ -203,6 +203,13 @@
                   
                 .user-stat-data
                   h4 = @user.user_credits.count
+                  
+              = link_to user_user_shop_index_path(@user) do
+                .user-stat-row
+                  .user-stat-title
+                    h4 
+                      i.fa.fa-shopping-cart
+                      '&nbsp;Shop
                     
               
               

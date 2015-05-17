@@ -1,39 +1,17 @@
 Digiramp::Application.routes.draw do
 
 
-  #namespace :user do
-  #get 'products/index'
-  #end
-  #
-  #namespace :user do
-  #get 'products/show'
-  #end
-  #
-  #namespace :user do
-  #get 'products/new'
-  #end
-  #
-  #namespace :user do
-  #get 'products/create'
-  #end
-  #
-  #namespace :user do
-  #get 'products/update'
-  #end
 
-  #namespace :shop do
-  #  resources :products
-  #end
-  #namespace :shop do
-  #  resources :orders
-  #end
+  
+
   get "shop"         => "shop/shop#index",     :as => :shop_shop_index
   namespace :shop do
-  #get 'buy_coupon/show'
-  resources :buy_coupons
-  resources :orders
-  resources :products
-  get 'shop/index'
+    #get 'buy_coupon/show'
+    resources :buy_coupons
+    resources :orders 
+    resources :products 
+    resources :shop_order_items
+    get 'shop/index'
   end
 
   get "sales"         => "sales/dashboard#index",     :as => :sales_dashboard_index
@@ -719,6 +697,11 @@ Digiramp::Application.routes.draw do
       post "/hook" => "registrations#hook"
       post "/registrations/:id" => "registrations#show"
       
+      #get "shop"         => "shop#index",     :as => :user_user_shop_index
+      #resources :shop, only: [:index]
+      resources :shop_admin, only: [:index] 
+      resources :product_admin, only: [:edit, :new, :create, :new]   
+      
       
       
       resources :accept_recording_ipis
@@ -856,6 +839,7 @@ Digiramp::Application.routes.draw do
     #resources :contacts
     get "shop"         => "shop#index",     :as => :user_shop_index
     resources :shop, only: [:index]
+    resources :products, only: [:show]
     
     resources :cms_pages, only: [:show]
     resources :ipis, only: [:index]

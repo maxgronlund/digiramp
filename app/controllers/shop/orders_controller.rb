@@ -1,5 +1,5 @@
 class Shop::OrdersController < ApplicationController
-  before_action :set_shop_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_shop_order, only: [ :edit, :update, :destroy]
 
   # GET /shop/orders
   # GET /shop/orders.json
@@ -10,6 +10,9 @@ class Shop::OrdersController < ApplicationController
   # GET /shop/orders/1
   # GET /shop/orders/1.json
   def show
+    @shop_order = current_order
+    ap @shop_order
+    #@shop_order = Shop::Order.find_by(uuid: params[:id])
   end
 
   # GET /shop/orders/new

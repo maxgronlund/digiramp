@@ -2,11 +2,6 @@ class Shop::BuyCouponsController < ApplicationController
   
 
   
-  def update
-    
-  end
-  
-  
   def show
     @months = CreditCard.months
     @years  = CreditCard.years
