@@ -116,7 +116,10 @@ class Client < ActiveRecord::Base
     client_import                = ClientImport.find(client_import_id)
     count = 0
     
-    CSV.foreach(client_import.file.path, headers: true, :encoding => 'ISO-8859-1') do |row|
+    #CSV.read('/path/to/file', :encoding => 'windows-1251:utf-8')
+    
+    #CSV.foreach(client_import.file.path, headers: true, :encoding => 'ISO-8859-1') do |row|
+    CSV.foreach(client_import.file.path, headers: true, :encoding => 'windows-1251:utf-8') do |row|
       
         #Product.create! row.to_hash
         client_info                 =  row.to_hash
