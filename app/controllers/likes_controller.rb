@@ -2,7 +2,7 @@ class LikesController < ApplicationController
   before_action :get_user
   
   def index
-   
+     
     #@likes = Like.order('created_at desc').where(user_id: @user.id).page(params[:page]).per(4)
     if params[:recording_id]
       redirect_to user_recording_recording_likes_path(@user, params[:recording_id])

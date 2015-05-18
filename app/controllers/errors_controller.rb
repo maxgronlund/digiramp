@@ -4,7 +4,7 @@ class ErrorsController < ApplicationController
  
   # 404
   def not_found
-
+    
     if params[:error_type]
       
       @error_type           = params[:error_type].gsub('user/', '') 
@@ -27,7 +27,8 @@ class ErrorsController < ApplicationController
   end
   
   def index
-    
+    ap params
+    render :file => "#{Rails.root}/public/500.html", :status => 500, :layout => false
   end
   
 end

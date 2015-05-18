@@ -153,16 +153,14 @@ class ApplicationController < ActionController::Base
 
   # v 2
   def get_user
-
     begin
       @user = User.friendly.find(params[:user_id])
       #set_authorized
       set_account
       return @user
     rescue ActiveRecord::RecordNotFound
-      return nil
+      not_found id: params[:user_id]
     end
-    
   end
   helper_method :get_user
   
@@ -222,17 +220,13 @@ class ApplicationController < ActionController::Base
   
   
   def forbidden options = {}
-    
     if params[:controller] && options[:controller] == 'messages'
-       
-       
       if current_user
         session[:request_url]  =  request.url
         redirect_to error_not_found_path( error_id: options[:id], 
                                           user_id: options[:user_id], 
                                           error_type: 'log_in_as_new_user_to_read_message'
                                           )
-       
       else
         session[:request_url]  =  request.url
         
@@ -242,7 +236,6 @@ class ApplicationController < ActionController::Base
         
       end
     else
-
       session[:request_url] = request.url
       render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
       # redirect_to error_not_found_path 0
@@ -253,7 +246,7 @@ class ApplicationController < ActionController::Base
 
   
   def not_found options = {}
-
+    
     if params[:controller]
       if current_user
         
