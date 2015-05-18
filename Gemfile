@@ -131,7 +131,7 @@ gem 'gravatarify', '~> 3.0.0'
 gem 'pusher'
 gem "gritter", "1.1.0"
 #gem "airbrake"
-gem "opbeat"
+
 gem "cocoon"
 gem 'rubyzip'
 #gem 'bootstrap-validator-rails', '~> 0.5.3'
@@ -179,7 +179,9 @@ end
 #  gem 'factory_girl'
 #  gem 'selenium-webdriver'
 #end
-
+group :test, :development do
+  gem "opbeat"
+end
 
 group :test, :development do
   gem "rspec-rails"
