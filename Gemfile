@@ -179,7 +179,7 @@ end
 #  gem 'factory_girl'
 #  gem 'selenium-webdriver'
 #end
-group :test, :development do
+group :prodution do
   gem "opbeat"
 end
 
