@@ -153,13 +153,16 @@ class ApplicationController < ActionController::Base
 
   # v 2
   def get_user
-    if params[:user_id]
-      if @user = User.friendly.find(params[:user_id])
-        #set_authorized
-        set_account
-        return @user
-      end
+
+    begin
+      @user = User.friendly.find(params[:user_id])
+      #set_authorized
+      set_account
+      return @user
+    rescue ActiveRecord::RecordNotFound
+      return nil
     end
+    
   end
   helper_method :get_user
   

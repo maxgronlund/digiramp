@@ -1,0 +1,40 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Not found
+      .sexy_line
+      .alert.alert-danger
+        'The opportunity you are looking for do not exists
+      .row
+        .col-sm-12  
+          .not_found_2
+      .row
+        .col-sm-12
+          .pull-right
+            = link_to 'Image by Frank Vassen', 'https://www.flickr.com/photos/42244964@N03//'
+      /.row
+      /  .col-xs-12.col-sm-6.col-lg-4
+      /    
+      /    .digi-box    
+      /      => link_to logout_path(redirect_to_message: @redirect_to_message) do
+      /        .btn.btn-warning
+      /          i class="fa fa-unlock"
+      /          '&nbsp;
+      /          'Yes lets go
+      /      = link_to user_path(current_user)
+      /        .btn.btn-default
+      /          'No thanks
+      /              
+            
+                 
+              
+  == render 'shared/site_footer'    
+ 
