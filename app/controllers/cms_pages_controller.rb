@@ -9,7 +9,7 @@ class CmsPagesController < ApplicationController
 
   # GET /cms_pages/1
   # GET /cms_pages/1.json
-  protect_from_forgery only: :show
+  protect_from_forgery :except => :show
   def show
     @body_color = "#15141C"
     @image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"

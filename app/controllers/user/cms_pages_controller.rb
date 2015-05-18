@@ -7,9 +7,10 @@ class User::CmsPagesController < ApplicationController
     @cms_pages = CmsPage.all
   end
 
+  protect_from_forgery :except => :show
   def show
-    Opbeat.capture_message("Hey I can send events to opbeat")
-    ap 'hohohohohohohohohoho'
+    #Opbeat.capture_message("Hey I can send events to opbeat from CmsPagesController")
+    #ap 'hohohohohohohohohoho'
     if current_user && @user.id != current_user.id
       @user.views += 1 
       @user.save
