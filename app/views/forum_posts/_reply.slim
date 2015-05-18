@@ -1,46 +1,41 @@
-div id="delete_reply_#{reply.id.to_s}"
+- if user = reply.user
 
-  .digi-box
-    .forum
+  div id="delete_reply_#{reply.id.to_s}"
   
-      .forum-body
-        .user
-          .user-avatar
-            = link_to  user_path(reply.user) do
-              = image_tag( reply.user.image_url(:avatar_48x48))
-            br
-          .user-name
-            b = reply.user.user_name
-            br
-            i = "#{time_ago_in_words(reply.created_at) } ago"
-            /i = reply.created_at.strftime("%d %b %Y")
-        .content
-          - unless reply.image_url == '/assets/fallback/artwork.jpg'
-            = render 'shared/lightbox', locals: {image_url: reply.image_url(), thumb_url: reply.image_url(:size_62x62), id: reply.id, caption: reply.title}
-            br
-            i Click to enlarge
-          = simple_format reply.body
-     
-    .row            
-      .col-sm-12  
-        .pull-right
-          - if current_user
-            /= link_to 'Qoute', '#qoute', class: 'btn btn-default btn-xs', id: reply.id
-            -if reply.user_id == current_user.id || super?
-              =< link_to edit_reply_path(reply) do
-                .btn.btn-default.btn-xs
-                  i.fa.fa-pencil
-              
-              =< link_to reply_path(reply), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
-                .btn.btn-danger.btn-xs
-                  i class="fa fa-times"
-/.digi-box
-/  .row
-/    .col-sm-12
-/      .avatar
-/        =image_tag( reply.user.image_url(:avatar_64x64))
-/      .user
-/        = reply.user.user_name
-/        br
-/        i = reply.created_at.strftime("%d %b %Y")
-/      
+    .digi-box
+      .forum
+    
+        .forum-body
+          .user
+            .user-avatar
+              = link_to  user_path(user) do
+                = image_tag( reply.user.image_url(:avatar_48x48))
+              br
+            .user-name
+              b = user.user_name if user
+              br
+              i = "#{time_ago_in_words(reply.created_at) } ago"
+              /i = reply.created_at.strftime("%d %b %Y")
+          .content
+            - unless reply.image_url == '/assets/fallback/artwork.jpg'
+              = render 'shared/lightbox', locals: {image_url: reply.image_url(), thumb_url: reply.image_url(:size_62x62), id: reply.id, caption: reply.title}
+              br
+              i Click to enlarge
+            = simple_format reply.body
+       
+      .row            
+        .col-sm-12  
+          .pull-right
+            - if current_user
+              /= link_to 'Qoute', '#qoute', class: 'btn btn-default btn-xs', id: reply.id
+              -if reply.user_id == current_user.id || super?
+                =< link_to edit_reply_path(reply) do
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-pencil
+                
+                =< link_to reply_path(reply), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
+                  .btn.btn-danger.btn-xs
+                    i class="fa fa-times"
+
+- else
+  - reply.destroy
