@@ -1,6 +1,5 @@
 require "opbeat"
 
-
 Opbeat.configure do |config|
  config.organization_id = "db3a398ec4034b3b9f8e9d5ce0bd1ac3"
  config.app_id = "08ddd0a9f0"
