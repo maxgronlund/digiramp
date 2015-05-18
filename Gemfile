@@ -164,6 +164,8 @@ gem "sendgrid-ruby"
 
 #gem 'iron_mq'
 
+gem 'charlock_holmes'
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

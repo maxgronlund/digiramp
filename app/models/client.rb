@@ -12,6 +12,12 @@ class Client < ActiveRecord::Base
   before_save :set_full_name
   validates_presence_of :email
   
+  after_create :print_self
+  
+  def print_self
+    ap self
+  end
+  
   include PgSearch
   pg_search_scope :search, against: [ :name,         
                                       :last_name,    
@@ -118,8 +124,7 @@ class Client < ActiveRecord::Base
     
     #CSV.read('/path/to/file', :encoding => 'windows-1251:utf-8')
     
-    #CSV.foreach(client_import.file.path, headers: true, :encoding => 'ISO-8859-1') do |row|
-    CSV.foreach(client_import.file.path, headers: true, :encoding => 'windows-1251:utf-8') do |row|
+    CSV.foreach(client_import.file.path, headers: true, :encoding => 'ISO-8859-1') do |row|
       
         #Product.create! row.to_hash
         client_info                 =  row.to_hash
@@ -168,15 +173,26 @@ class Client < ActiveRecord::Base
   
   # called from a worker
   def self.import_clients_from client_import_id
-    
+    ap 'import_clients_from'
     client_import                = ClientImport.find(client_import_id)
-
+    
+    content              = File.read(client_import.file.path)
+    detection            = CharlockHolmes::EncodingDetector.detect(client_import.file.path)
+    utf8_encoded_content = CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
+    
+    File.open(client_import.file.path, 'w:UTF-8') { |file| file << utf8_encoded_content }
+    
+    #CSV.foreach(utf8_encoded_content, headers: true ) do |row|
 
     CSV.foreach(client_import.file.path, headers: true) do |row|
       #Product.create! row.to_hash
+      ap '----------------------------------------'
+      ap row.to_hash
       client_info                 =  row.to_hash
       
-
+      if client_info["Email"].nil?
+        client_info["Email"] = client_info["E-mail Address"] unless client_info["E-mail Address"].nil?
+      end 
 
       if client_info["Email"].to_s != ''
         client   = Client.where(email: client_info["Email"], account_id:  client_import.account_id ).first_or_create(email: client_info["Email"])

@@ -46,22 +46,25 @@ class StripeCustomerSubscriptionService
           ap stripe_object
         
           if stripe_plan = stripe_object.plan
-            plan = Plan.find_by(stripe_id: stripe_plan.id)
+            if plan = Plan.find_by(stripe_id: stripe_plan.id)
         
-            if subscription = Subscription.find_by(stripe_id: stripe_object.id)
-              subscription.update! 
-              subscription.plan_id                   = plan.id                            
-              subscription.cancel_at_period_end      = stripe_object.cancel_at_period_end                         unless stripe_object.cancel_at_period_end.nil?
-              subscription.stripe_plan               = JSON.parse(stripe_object.plan.to_json).deep_symbolize_keys unless stripe_object.plan.nil?
-              subscription.stripe_object             = stripe_object.object
-              subscription.quantity                  = stripe_object.quantity
-              subscription.application_fee_percent   = stripe_object.application_fee_percent
-              subscription.discount                  = JSON.parse(stripe_object.discount.to_json).deep_symbolize_keys unless stripe_object.discount.nil?
-              subscription.tax_percent               = stripe_object.tax_percent
-              subscription.metadata                  = JSON.parse(stripe_object.metadata.to_json).deep_symbolize_keys unless stripe_object.metadata.nil?
-          
-              subscription.finish!
-              subscription.save! 
+              if subscription = Subscription.find_by(stripe_id: stripe_object.id)
+                subscription.update! 
+                subscription.plan_id                   = plan.id                            
+                subscription.cancel_at_period_end      = stripe_object.cancel_at_period_end                         unless stripe_object.cancel_at_period_end.nil?
+                subscription.stripe_plan               = JSON.parse(stripe_object.plan.to_json).deep_symbolize_keys unless stripe_object.plan.nil?
+                subscription.stripe_object             = stripe_object.object
+                subscription.quantity                  = stripe_object.quantity
+                subscription.application_fee_percent   = stripe_object.application_fee_percent
+                subscription.discount                  = JSON.parse(stripe_object.discount.to_json).deep_symbolize_keys unless stripe_object.discount.nil?
+                subscription.tax_percent               = stripe_object.tax_percent
+                subscription.metadata                  = JSON.parse(stripe_object.metadata.to_json).deep_symbolize_keys unless stripe_object.metadata.nil?
+              
+                subscription.finish!
+                subscription.save! 
+              end
+            else
+              Opbeat.capture_message("plan not found")
             end
           end
         end
@@ -72,6 +75,7 @@ class StripeCustomerSubscriptionService
       ap '########################################################'
       ap 'customer.subscription.deleted'
       ap '########################################################'
+      
       if data = event.data
         if object = data.object
           if  subscription = Subscription.find_by(stripe_id: object.id)

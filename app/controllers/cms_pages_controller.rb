@@ -9,13 +9,14 @@ class CmsPagesController < ApplicationController
 
   # GET /cms_pages/1
   # GET /cms_pages/1.json
+  protect_from_forgery only: :show
   def show
-      @body_color = "#15141C"
-      @image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
-      
-      @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
-      @playlists       = current_user.playlists if current_user
-      @edit_page       = (@user.id == current_user.id || super? ) if current_user
+    @body_color = "#15141C"
+    @image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
+    
+    @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
+    @playlists       = current_user.playlists if current_user
+    @edit_page       = (@user.id == current_user.id || super? ) if current_user
   end
 
   # GET /cms_pages/new
