@@ -130,7 +130,8 @@ gem "rails-erd"
 gem 'gravatarify', '~> 3.0.0'
 gem 'pusher'
 gem "gritter", "1.1.0"
-gem "airbrake"
+#gem "airbrake"
+gem "opbeat"
 gem "cocoon"
 gem 'rubyzip'
 #gem 'bootstrap-validator-rails', '~> 0.5.3'

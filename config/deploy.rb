@@ -1,3 +1,5 @@
+require "opbeat/capistrano"
+
 set :pty,  false
 set :application, 'digiramp'
 set :deploy_user, 'deploy'
