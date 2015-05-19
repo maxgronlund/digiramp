@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20150519131602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "uuid-ossp"
 
   create_table "account_catalogs", force: :cascade do |t|
     t.string   "title",        limit: 255

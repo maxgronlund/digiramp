@@ -14,54 +14,71 @@
     .row
       .col-sm-12
         h3 Sign up
-        = simple_form_for(User.new, turboboost: true)    do |f|
+        = simple_form_for [User.new] do |f|
+          - unless f.error_notification.blank?
+            .alert.alert-danger
+              = f.error_notification
+  
+          .form-inputs
+            = f.input :user_name
+            = f.input :email
+            = f.input :password
+            = f.input :password_confirmation
+          .form-actions
+            .row.pull-down-10
+              .col-sm-12
+                .pull-right
+                  = f.submit 'Save', class: 'btn btn-primary', id: 'commit-form'
           
-          .input-group
-            span class="input-group-addon" 
-              i.fa.fa-user
-            = f.input_field :user_name, input_html: {autocomplete: :off}, placeholder: 'Name', autocomplete: :off
-          br
-          .input-group
-            span class="input-group-addon" @
-            = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
-          br
-          .input-group
-            span class="input-group-addon" 
-              i class= 'fa fa-key'
-            = f.input_field :password, placeholder: 'Password', autocomplete: :off
         
-          br
-          .input-group
-            span class="input-group-addon" 
-              i class= 'fa fa-key'
-            = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
-          .row
-            .col-sm-12
-              .pull-right
-                br
-                = f.submit 'Sign Up', class: 'btn btn-primary', id: 'sign_up_form_button'
-          br
-          .sexy_line
-          br
-          
-          h4 Signup with
-          .social-icons
-            .social-icon
-              = link_to "/auth/twitter" do
-                .twitter-icon
-                'Twitter
-            .social-icon
-              = link_to  "/auth/facebook" do
-                .facebook-icon
-                'Facebook 
-            .social-icon
-              = link_to "/auth/linkedin" do
-                .linkedin-icon
-                'Linkedin
-            .social-icon
-              = link_to  "/auth/gplus" do
-                .google-icon
-                'Google+
+        /= simple_form_for(User.new, turboboost: true)    do |f|
+        /  
+        /  .input-group
+        /    span class="input-group-addon" 
+        /      i.fa.fa-user
+        /    = f.input_field :user_name, input_html: {autocomplete: :off}, placeholder: 'Name', autocomplete: :off
+        /  br
+        /  .input-group
+        /    span class="input-group-addon" @
+        /    = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+        /  br
+        /  .input-group
+        /    span class="input-group-addon" 
+        /      i class= 'fa fa-key'
+        /    = f.input_field :password, placeholder: 'Password', autocomplete: :off
+        /
+        /  br
+        /  .input-group
+        /    span class="input-group-addon" 
+        /      i class= 'fa fa-key'
+        /    = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+        /  .row
+        /    .col-sm-12
+        /      .pull-right
+        /        br
+        /        = f.submit 'Sign Up', class: 'btn btn-primary', id: 'sign_up_form_button'
+        br
+        .sexy_line
+        br
+        
+        h4 Signup with
+        .social-icons
+          .social-icon
+            = link_to "/auth/twitter" do
+              .twitter-icon
+              'Twitter
+          .social-icon
+            = link_to  "/auth/facebook" do
+              .facebook-icon
+              'Facebook 
+          .social-icon
+            = link_to "/auth/linkedin" do
+              .linkedin-icon
+              'Linkedin
+          .social-icon
+            = link_to  "/auth/gplus" do
+              .google-icon
+              'Google+
   
   
   

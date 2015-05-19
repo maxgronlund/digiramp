@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
   has_many :subscriptions
   
   
+  
 
   
   serialize :crop_params, Hash
@@ -267,6 +268,14 @@ class User < ActiveRecord::Base
                               )
     
     self.ipis.update_all(user_id: nil)
+    
+    if shop_orders = Shop::Order.where(user_id: self.id)
+      shop_orders.update_all(user_id: nil)
+    end
+    
+    if shop_products = Shop::Product.where(user_id: self.id)
+      shop_products.update_all(user_id: nil, account_id: nil)
+    end
 
   end
   
