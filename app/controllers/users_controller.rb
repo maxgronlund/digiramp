@@ -147,23 +147,8 @@ class UsersController < ApplicationController
     #params[:user][:role]                = 'Customer'
     params[:user][:show_introduction]   = true
     params[:user][:email].downcase! if params[:user][:email]
-    #if params[:user][:user_name].to_s == ''
-    #  user_name                 = User.create_uniq_user_name_from_email (params[:user][:email])
-    #  params[:user][:user_name] = user_name
-    #end
     @user                     = User.new(user_params)
       
-    #!!! hmmm... is this realy in usage                          
-    #blog                      = Blog.cached_find('Sign Up')
-
-    #if params[:user][:password]    != params[:user][:password_confirmation]
-    #  flash[:danger]   = 'Password and Passoword confirmation mismatch' 
-    #  redirect_to signup_index_path
-    #
-    #elsif  params[:user][:email].to_s == ''
-    #  flash[:danger]   = 'Email is missing'
-    #  redirect_to signup_index_path
-    
     if @user.save
       @account          = User.create_a_new_account_for_the @user
 
@@ -171,30 +156,17 @@ class UsersController < ApplicationController
       # signout if you was signed in as another user
       cookies.delete(:auth_token)
       sign_in
-      
-      
+
       @user.create_activity(  :created, 
                          owner: @user,
                      recipient: @user,
                 recipient_type: @user.class.name,
                     account_id: @user.account_id) 
-      
-      
-      
-      
+
       @user.confirm_ips
       redirect_to edit_user_path(@user)
-      #if @user.confirm_ips
-      #  redirect_to edit_user_path(@user)
-      #  #redirect_to user_user_confirm_ipis_path(@user)
-      #else
-      #  redirect_to edit_user_path(@user)
-      #end
-      #
-      
-      
+
     else
-      #redirect_to signup_index_path
       render :new
     end
 
@@ -253,13 +225,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    #@user.activity_events.create! \
-    #  activity_log_id: @account.activity_log.id,
-    #  user_id: current_user.id,
-    #  title: "Deleted #{@user.name}",
-    #  r: true,
-    #  activity_url: account_users_path( @account)
-    
+
     @user.create_activity(  :destroyed, 
                        owner: @user,
                    recipient: @user,
