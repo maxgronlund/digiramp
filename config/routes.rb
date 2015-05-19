@@ -235,7 +235,7 @@ Digiramp::Application.routes.draw do
   get "albums/show"
   get "albums/new"
   get "albums/edit"
-  get "signup/index"
+  #get "signup/index"
   get 'log_in_or_signup/new'
   get "tags/index"
   get "permissions/index"
@@ -406,7 +406,7 @@ Digiramp::Application.routes.draw do
   get "download/document"
   get "download/original_recording"
   get "download/mp3_recording"
-  #get 'signup', to: 'users#new', as: 'signup'
+  get 'signup/index', to: 'users#new', as: 'signup/index'
   #get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
   # The priority is based upon order of creation: first created -> highest priority.
@@ -776,7 +776,7 @@ Digiramp::Application.routes.draw do
       
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
-      resources :connections, only: [:index, :create, :update, :destroy]
+      resources :connections, only: [:index, :create, :update, :destroy, :show]
       resources :contacts 
       resources :contact_invitations, only: [:show]
       resources :contact_groups do

@@ -33,13 +33,15 @@ class User < ActiveRecord::Base
                                     
                                     
   
-  validates_uniqueness_of :email
-  validates_presence_of   :email, :on => :update
+
+  validates :email, presence: true, uniqueness: true
+  validates_formatting_of :email
   
   #validates_uniqueness_of :user_name
-  validates_presence_of   :user_name, :on => :update
-  
+  validates_presence_of :user_name
   validates_presence_of :password, :on => :create
+  #validates_with PasswordValidator, fields: [:password, :password_confirmation]
+
   
   #validates_presence_of :link_to_facebook
   

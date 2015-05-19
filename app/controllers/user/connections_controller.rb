@@ -3,7 +3,7 @@
 class User::ConnectionsController < ApplicationController
   before_action :set_connection, only: [:edit, :update, :destroy]
 
-  before_action :access_user, only: [:index, :show]
+  before_action :access_user, only: [:index, :show, :destroy]
   
 
   def index
@@ -127,12 +127,17 @@ class User::ConnectionsController < ApplicationController
   end
 
   
-
+  def show
+    redirect_to user_user_connections_path( @user )
+  end
   # DELETE /connections/1
   # DELETE /connections/1.json
   def destroy
+    
     @connection_id = @connection.id
     @connection.destroy
+    
+    redirect_to user_user_connections_path( @user )
   end
   
   def self.connected user_1, user_2

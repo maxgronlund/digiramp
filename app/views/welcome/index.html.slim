@@ -90,10 +90,10 @@
           .col-sm-4
             h4 Welcome to DigiRAMP
             .digi-box
-              - unless current_user
-                == render 'welcome/login'
-                
-                br
+              /- unless current_user
+              /  == render 'welcome/login'
+              /  
+              /  br
               #welcome-videos
                 iframe src="https://player.vimeo.com/video/109593195" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
               /.row

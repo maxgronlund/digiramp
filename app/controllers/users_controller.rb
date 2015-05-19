@@ -4,7 +4,9 @@ class UsersController < ApplicationController
   #before_action :find_user, only: [:show, :edit, :update, :destroy]
   before_action :access_user, only: [:edit, :update, :destroy, :dont_show_instructions]
   before_action :find_user, only: [:show]
-  protect_from_forgery only: [:edit, :create, :sign_in]
+  protect_from_forgery only: [:edit, :create, :sign_in, :update]
+  
+  
   
   def omniauth_failure 
     #!!! make a custom screen
@@ -132,7 +134,7 @@ class UsersController < ApplicationController
 
 
   def new
-
+    @user = User.new
   end
 
   def edit
@@ -142,27 +144,27 @@ class UsersController < ApplicationController
   def create
 
     session[:show_profile_completeness] = true
-    params[:user][:role]                = 'Customer'
+    #params[:user][:role]                = 'Customer'
     params[:user][:show_introduction]   = true
     params[:user][:email].downcase! if params[:user][:email]
-    if params[:user][:user_name].to_s == ''
-      user_name                 = User.create_uniq_user_name_from_email (params[:user][:email])
-      params[:user][:user_name] = user_name
-    end
+    #if params[:user][:user_name].to_s == ''
+    #  user_name                 = User.create_uniq_user_name_from_email (params[:user][:email])
+    #  params[:user][:user_name] = user_name
+    #end
     @user                     = User.new(user_params)
       
     #!!! hmmm... is this realy in usage                          
-    blog                      = Blog.cached_find('Sign Up')
+    #blog                      = Blog.cached_find('Sign Up')
 
-    if params[:user][:password]    != params[:user][:password_confirmation]
-      flash[:danger]   = 'Password and Passoword confirmation mismatch' 
-      redirect_to signup_index_path
+    #if params[:user][:password]    != params[:user][:password_confirmation]
+    #  flash[:danger]   = 'Password and Passoword confirmation mismatch' 
+    #  redirect_to signup_index_path
+    #
+    #elsif  params[:user][:email].to_s == ''
+    #  flash[:danger]   = 'Email is missing'
+    #  redirect_to signup_index_path
     
-    elsif  params[:user][:email].to_s == ''
-      flash[:danger]   = 'Email is missing'
-      redirect_to signup_index_path
-    
-    elsif @user.save
+    if @user.save
       @account          = User.create_a_new_account_for_the @user
 
       
@@ -180,19 +182,19 @@ class UsersController < ApplicationController
       
       
       
-      
-      if @user.confirm_ips
-        redirect_to edit_user_path(@user)
-        #redirect_to user_user_confirm_ipis_path(@user)
-      else
-        redirect_to edit_user_path(@user)
-      end
-      
+      @user.confirm_ips
+      #if @user.confirm_ips
+      #  redirect_to edit_user_path(@user)
+      #  #redirect_to user_user_confirm_ipis_path(@user)
+      #else
+      #  redirect_to edit_user_path(@user)
+      #end
+      #
       
       
     else
-      flash[:danger]   = 'Email has already been taken' 
-      redirect_to signup_index_path
+      #redirect_to signup_index_path
+      render :new
     end
 
   end
@@ -293,7 +295,66 @@ private
   end
 
   def user_params
-    params.require(:user).permit!
+    params.require(:user).permit!#( :name,
+                                 # :password,
+                                 # :password_confirmation,
+                                 # :email,
+                                 # :admin,
+                                 # :image,
+                                 # :crop_params,
+                                 # :profile,
+                                 # :auth_token,                 
+                                 # :current_account_id,
+                                 # :first_name,                 
+                                 # :last_name,                  
+                                 # :avatar_url,                 
+                                 # :account_id,
+                                 # :show_welcome_message,       
+                                 # :activated,                  
+                                 # :uuid,                       
+                                 # :curent_catalog_id,
+                                 # :invited,                    
+                                 # :administrator,              
+                                 # :has_a_collection,           
+                                 # :old_role,                   
+                                 # :account_activated,          
+                                 # #:provider,                  
+                                 # #:uid,                        
+                                 # #:email_missing,      
+                                 # :writer,                     
+                                 # :author,                     
+                                 # :producer,                   
+                                 # :composer,                   
+                                 # :remixer,                    
+                                 # :musician,                   
+                                 # :dj,                         
+                                 # :user_name,                         
+                                 # :profession,                 
+                                 # :country,                    
+                                 # :city,                       
+                                 # :artist,              
+                                 # :gender,                    
+                                 # :link_to_facebook,           
+                                 # :link_to_twitter,            
+                                 # :link_to_linkedin,           
+                                 # :link_to_google_plus,        
+                                 # :link_to_homepage,           
+                                 # :initialized,                
+                                 # :short_description,
+                                 # :show_introduction,          
+                                 # :default_cms_page_id,
+                                 # :news_count,                 
+                                 # :page_style_id,
+                                 # :top_tag,                    
+                                 # :backdrop_image, 
+                                 # :link_to_tumblr,             
+                                 # :link_to_instagram,          
+                                 # :link_to_youtube,            
+                                 # :address,                    
+                                 # :zip_code,                   
+                                 # :phone_number 
+                                 # )
+      
   end
 
 

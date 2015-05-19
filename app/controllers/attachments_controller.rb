@@ -59,7 +59,7 @@ class AttachmentsController < ApplicationController
   def download
     begin
       @attachment = Attachment.find(params[:id])
-      @file_name = Pathname.new(@attachment.file_url).basename 
+      @file_name  = Pathname.new(@attachment.file_url).basename 
       send_file 'public'+ @attachment.file_url.to_s
     rescue
       redirect_to :back

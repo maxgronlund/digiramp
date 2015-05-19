@@ -110,7 +110,7 @@ class Account::RecordingsBucketController < ApplicationController
     # set the artwork url if any
     params[:common_work][:artwork]  = artwork_url if artwork_url
     
-    @recording_ids    = eval(params[:common_work][:recording_ids])
+    @recording_ids    = params[:common_work][:recording_ids]
     @recordings       = Recording.where(id: @recording_ids  )
     
     params[:common_work].delete :recording_ids
@@ -147,7 +147,7 @@ class Account::RecordingsBucketController < ApplicationController
   def create_catalog
     forbidden unless current_account_user.createx_catalog?
 
-    recording_ids    = eval(params[:catalog][:ids])
+    recording_ids    = params[:catalog][:ids]
     @recordings      = Recording.find( recording_ids )
     
     params[:catalog].delete :ids

@@ -9,16 +9,16 @@ class AcceptInvitaionToCatalogController < ApplicationController
     @catalog  = Catalog.cached_find(params[:catalog][:catalog_id])
     password  = params[:catalog][:password]
     
-    logger.debug '------------------------------------'
-    logger.debug params
-    logger.debug '-------------------------------------'
+    #logger.debug '------------------------------------'
+    #logger.debug params
+    #logger.debug '-------------------------------------'
     
     params = nil
     params = {"user" => { "id" => @user.id, "password" => password}}
     
-    logger.debug '------------------------------------'
-    logger.debug params
-    logger.debug '-------------------------------------'
+    #logger.debug '------------------------------------'
+    #logger.debug params
+    #logger.debug '-------------------------------------'
     
     #params[:user]             = 'user'.to_sym
     #params[:user][:password]  = params[:catalog][:password]
@@ -32,22 +32,17 @@ class AcceptInvitaionToCatalogController < ApplicationController
       @user.invited   = true
       @user.save
       
-      
       cookies.permanent[:auth_token]  = nil
       cookies[:auth_token]            = @user.auth_token  
       
       redirect_to account_path( @user.account) 
-      
 
     end
-    
-
-    
   end
   
-  def user_params
-    #if can_edit?
-      params.require(:user).permit!
-    #end
-  end
+  #def user_params
+  #  #if can_edit?
+  #    params.require(:user).permit!
+  #  #end
+  #end
 end

@@ -60,13 +60,15 @@ class ClientInvitationMailer < ActionMailer::Base
       end
     end
     
+    
+    
     # prepre JSON
     x_smtpapi = { 
                   to: emails,
                   filters: { templates: {
                                        settings: {
                                                      enabled: 1,
-                                                     template_id: "9117870a-825a-4c81-8c04-8ff68d422ff7"
+                                                     template_id: template_id
                                                    }
                                       }
                            }, 
@@ -119,7 +121,7 @@ class ClientInvitationMailer < ActionMailer::Base
                   filters: { templates: {
                                        settings: {
                                                      enabled: 1,
-                                                     template_id: "9117870a-825a-4c81-8c04-8ff68d422ff7"
+                                                     template_id: template_id
                                                    }
                                       }
                            }, 
@@ -146,6 +148,16 @@ class ClientInvitationMailer < ActionMailer::Base
     
   end
     
+  private
+  
+  def template_id
+    if Rails.env.production?
+      return "9117870a-825a-4c81-8c04-8ff68d422ff7"
+    else
+      return "1db1d5b2-d6d8-4f93-b1ff-9a8fa43457e8"
+    end
+
+  end
   
 
 end

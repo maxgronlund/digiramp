@@ -1,0 +1,94 @@
+#wrap
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+       
+  .container
+    .row
+      .col-sm-3
+
+      .col-sm-6
+        .digi-box
+          ==render 'admin/shared/messages'
+          h2 Sign up
+          
+          
+          = simple_form_for [@user] do |f|
+            - unless f.error_notification.blank?
+              .alert.alert-danger
+                = f.error_notification
+    
+            .form-inputs
+              = f.input :user_name
+              = f.input :email
+              = f.input :password
+              = f.input :password_confirmation
+
+    
+            .form-actions
+              .row.pull-down-10
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-primary', id: 'commit-form'
+            
+            .row
+              .col-sm-12
+                .sexy_line
+                br
+                
+                h4 Signup with your favorite network
+                .social-icons
+                  .social-icon
+                    = link_to "/auth/twitter" do
+                      .twitter-icon
+                      'Twitter
+                  .social-icon
+                    = link_to  "/auth/facebook" do
+                      .facebook-icon
+                      'Facebook 
+                  .social-icon
+                    = link_to "/auth/linkedin" do
+                      .linkedin-icon
+                      'Linkedin
+                  .social-icon
+                    = link_to  "/auth/gplus" do
+                      .google-icon
+                      'Google+ 
+            
+        /.col-sm-6
+        /  == render 'shared/sign_up'
+      
+  == render 'shared/site_footer'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
