@@ -2,6 +2,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+
   namespace :api do
     post 'sendgrid_hook/update'
   end
@@ -821,7 +823,6 @@ Digiramp::Application.routes.draw do
       resources :recording_meta_data, only: [:edit, :update]
       resources :recording_ipis
       resources :recording_ipi_infos, only: [:show]
-      resources :recording_widgets, only: [:edit, :update]
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :user_emails
@@ -856,7 +857,7 @@ Digiramp::Application.routes.draw do
     resources :recording_lyrics, only: [:edit, :update]
     resources :recording_common_work, only: [:edit, :update]
     resources :recording_meta_data, only: [:edit, :update]
-    
+    resources :recording_socials, only:[:edit, :update]
     
     resources :forums
     resources :forum_posts, only: [:edit, :update]
