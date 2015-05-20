@@ -72,50 +72,9 @@
                     .pull-right
                       .form-actions
                         = f.submit 'Save', class: 'btn btn-primary'
-      /= simple_form_for [current_user, @forum] do |f|
-      /  = f.error_notification
-      /  .row
-      /    .col-sm-7.col-xs-12.col-lg-5
-      /      .digi-box
-      /        .form-inputs
-      /          = f.input :title
-      /          div id="toolbar" class="wysihtml5-toolbar"
-      /            a data-wysihtml5-command="bold" Bold
-      /            '&nbsp; 
-      /            a data-wysihtml5-command="italic" Italic
-      /            .pull-right
-      /              a data-wysihtml5-action="change_view"  Html 
-      /    
-      /          =f.input :body, label: false, :input_html => {  style: "height: 240px;", placeholder: "Description", id: 'wysihtml5_editor'}
-      /    
-      /    
-      /          = f.input :image
-      /          = f.hidden_field :user_id, value: current_user.id
-      /          = f.input :public_forum,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-      /
-      /      .row
-      /        .col-sm-12
-      /          .pull-right
-      /            .form-actions
-      /              = f.submit 'Save', class: 'btn btn-primary'
-      /
-      
-      
-      
-      /.forums
-      /  == render 'forums/form'
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+
+
       
   == render 'shared/site_footer'    
+== render 'shared/init_wysiwyg5'   
  

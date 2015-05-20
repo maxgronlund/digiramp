@@ -21,5 +21,4 @@
     
     == render 'shared/back', locals: {link: admin_video_blog_path(@video_blog), no_turbo: true }
   
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+== render 'shared/init_wysiwyg5'

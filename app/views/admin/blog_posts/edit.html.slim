@@ -28,25 +28,5 @@
   
   == render 'shared/site_footer' 
 
-/#wrap
-/  .admin
-/    .full-width-top
-/      == render 'admin/shared/navbar', page: 'admin'
-/
-/            
-/  .container
-/    .row
-/      .col-sm-12
-/        /==render 'admin/shared/messages'
-/        == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path, \
-/                                                                content: admin_content_index_path, \
-/                                                                blogs: admin_blogs_path, \
-/                                                                @blog.title.to_sym => admin_blog_path(@blog), \
-/                                                                }, current: @blog_post.title}
-/    h1 = @blog_post.title
-/    == render 'shared/line'
-/    
-/
-/    == render 'form'
-/
+== render 'shared/init_wysiwyg5'
         

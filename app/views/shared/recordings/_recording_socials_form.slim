@@ -1,0 +1,60 @@
+/.row
+/  .col-sm-6
+/    /= f.hidden_field :next_step, value: 'next_step', id: 'next_step'
+/    = f.input :artist, :input_html => {  style: "height: 80px;", placeholder: "Artist"}
+/  .col-sm-6
+/    = f.input :performer, :input_html => {  style: "height: 80px;", placeholder: "Performer"}
+/.row
+/  .col-sm-6
+/    = f.input :composer, :input_html => {  style: "height: 80px;", placeholder: "Composer"}
+/  .col-sm-6
+/    = f.input :band, :input_html => {  style: "height: 80px;", placeholder: "Band"}
+/.row
+/  /.col-sm-6
+/  /  = f.input :bpm
+/  /  /= f.hidden_field :next_step, value: 'next_step', id: 'next_step'
+/  /
+/  .col-sm-6
+/    = f.input :tempo,   collection: Recording::TEMPO
+/
+/.row
+/  .col-sm-6
+/    = f.input :mood, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Happy, Uplifting, Scary, Action"}
+/  .col-sm-6
+/    = f.input :genre, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Pop, Cinimatic, Hip-Hop, Christmas"}
+/.row
+/  .col-sm-6
+/    = f.input :instruments, hint: 'Comma seperated list', :input_html => {  placeholder: "i.e. Drums, Banjo, Choir, Electric Guitar"}
+        
+h4 Settings for Facebook
+p Image
+p text
+.sexy_line
+h4 Settings for Twitter
+p image
+p text
+.sexy_line
+h4 Settings for Google+
+p image
+p text
+.sexy_line
+h4 Settings for Linkedin
+p image
+p text
+.sexy_line
+h4 Settings for instagram
+p image
+p text
+.sexy_line
+h4 Settings for pinterest
+p image
+p text
+
+.row
+  .col-sm-12
+    .pull-right    
+      /= f.button :submit,'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
+      /'&nbsp; 
+      /= link_to 'Skip', edit_user_recording_persona_path(@user, @recording), class: 'btn btn-default'
+      => link_to 'Close', user_recording_path(@user, @recording), class: 'btn btn-default', data: { confirm: "Your changes will not be saved and the wizard will close. Are you sure that's what you want?"  }
+      = f.submit 'Save', class: 'btn btn-primary'

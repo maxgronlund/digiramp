@@ -55,5 +55,8 @@
     = transloadit_jquerify :common_work, :wait => true
 
     == render 'shared/back', locals: {link: account_account_common_works_path( @account)} 
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+    
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+
+== render 'shared/init_wysiwyg5'

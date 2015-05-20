@@ -40,10 +40,11 @@
       .sexy_line
       h4 = @recording.title
       .digi-box
-        = simple_form_for  [@user, @recording ], turboboost: true, :url => url_for(:action => 'update', :controller => 'recording_tags'), 
+
+        = simple_form_for  [@user, @recording ], turboboost: true, :url => url_for(:action => 'update', :controller => 'recording_socials'), 
                                                  :method => 'put' do |f|
           
-          == render 'shared/recordings/recording_tags_form', f: f
+          == render 'shared/recordings/recording_socials_form', f: f
         
         
   == render 'shared/site_footer'  

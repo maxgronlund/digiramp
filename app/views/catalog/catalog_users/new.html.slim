@@ -46,15 +46,11 @@
                   =f.submit 'Save', class: 'btn btn-primary'
           
     
-    
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
-/  
-/  
-/  
+== render 'shared/init_wysiwyg5'  
+
 /  == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                          catalogs: catalog_account_catalogs_path(@account), \
-                                                          @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                          users: catalog_account_catalog_catalog_users_path(@account, @catalog), \
-                                                          }, current: 'invite user to catalog'}
-  
+/                                                          catalogs: catalog_account_catalogs_path(@account), \
+/                                                          @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                                          users: catalog_account_catalog_catalog_users_path(@account, @catalog), \
+/                                                          }, current: 'invite user to catalog'}
+/  

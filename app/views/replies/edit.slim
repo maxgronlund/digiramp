@@ -54,40 +54,9 @@
                 .col-sm-12
                   .pull-right
                     = f.submit 'Save', class: 'btn btn-primary'
-            
-      /== render 'shared/breadcrumbs', breadcrumbs: { links: { forums: forums_path, \
-      /                                                        @forum_post.forum.title.to_sym => forum_path( @forum_post.forum) }, \
-      /                                                        current: ''}
-      /.row
-      /  .col-sm-6
-      /    .help
-      /      .help-text
-      /       h2 = @forum_post.title
-      /
-      /    
-      /  .col-sm-6.pull-down-10
-      /    .pull-right
-      /      - if current_user
-      /        => link_to forum_path( @forum_post.forum ) do
-      /          .btn.btn-default
-      /            i.fa.fa-chevron-left
-      /            '&nbsp;
-      /            'Back
-      /      
-      /        - if @forum_post.user_id == current_user.id || super?
-      /          = link_to 'Edit', edit_user_forum_post_path(@forum_post.user, @forum_post), class: 'btn btn-primary'
-      /              
-      /
-      /.sexy_line
-      /  == render 'forum_posts/reply_form', forum_post: @forum_post
-      /        
-      /
-      /
-      
-      
-      
       
   == render 'shared/site_footer'    
+== render 'shared/init_wysiwyg5'
  
 
 

@@ -62,74 +62,8 @@
         
   == render 'shared/site_footer'   
   
+== render 'shared/init_wysiwyg5'
   
   
   
   
-  
-  
-  
-  
-/#wrap
-/  div class="#{'profile' if account_owner?}"
-/    .full-width-top
-/      == render 'admin/shared/navbar', page: 'account' 
-/  .do           
-/    .container
-/      == render 'admin/shared/messages'
-/      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-/                                                              catalogs: catalog_account_catalogs_path(@account), \
-/                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-/                                                              assets: catalog_account_catalog_assets_path(@account, @catalog), \
-/                                                              artwork: catalog_account_catalog_artworks_path(@account, @catalog), \
-/                                                              show: catalog_account_catalog_artwork_path(@account, @catalog, @artwork), \
-/                                                              }, current: 'edit'}
-/
-/      == render 'shared/title', locals: {title: @catalog.title, body: "EDIT ARTWORK"}
-/      
-/      = simple_form_for [ :catalog, @account, @catalog, @artwork ],  :html => { :id => 'artwork' }   do |f|
-/        .row
-/          .col-sm-6
-/            .panel.panel-primary
-/              .panel-heading
-/                'Edit Artwork
-/              .panel-body
-/
-/
-/                  = f.input :title, value: @artwork.title
-/                  
-/                  div id="toolbar" class="wysihtml5-toolbar"
-/                    a data-wysihtml5-command="bold" Bold
-/                    '&nbsp; 
-/                    a data-wysihtml5-command="italic" Italic
-/            
-/                  =f.input :description, label: false, :input_html => {  style: "height: 182px;", placeholder: "Description", id: 'wysihtml5_editor'}
-/                  
-/                  /= f.input :body, value: @artwork.body
-/          .col-sm-6
-/            .panel.panel-primary
-/              .panel-heading
-/                'Metadata
-/              .panel-body
-/                =f.input :creator
-/                =f.input :author
-/                =f.input :copyright
-/                =f.input :copyright_notice
-/                =f.input :keywords
-/        
-/        
-/        .pull-right
-/
-/          = f.submit 'Save', class: 'btn btn-primary btn-lg'
-/                    
-/   
-/        .col-sm-3
-/
-/            
-/      
-/          
-/              
-/
-/    
-/-cache (['footer', Admin.cached_find(1).version]) do      
-/  =render 'shared/footer'
