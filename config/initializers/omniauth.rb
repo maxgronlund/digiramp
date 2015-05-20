@@ -33,6 +33,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :developer unless Rails.env.production?
   provider :twitter,  Rails.application.secrets.twitter_app_id,  Rails.application.secrets.twitter_secret_key
   provider :facebook, Rails.application.secrets.facebook_app_id, Rails.application.secrets.facebook_secret_key, scope: "email, publish_actions, user_actions.music"
-  provider :linkedin, Rails.application.secrets.linkedin_app_id, Rails.application.secrets.linkedin_secret_key
+  #provider :linkedin, Rails.application.secrets.linkedin_app_id, Rails.application.secrets.linkedin_secret_key
+  provider :linkedin,  Rails.application.secrets.linkedin_app_id, Rails.application.secrets.linkedin_secret_key, :scope => 'r_basicprofile r_emailaddress w_share rw_company_admin', :fields => ["id", "email-address", "first-name", "last-name", "headline", "industry", "picture-url", "public-profile-url", "location", "connections"]
   provider :gplus,    Rails.application.secrets.gplus_app_id,    Rails.application.secrets.gplus_secret_key, scope: 'userinfo.email, userinfo.profile'
 end

@@ -22,11 +22,12 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
+    ap params
     begin
       @reset_user = User.find_by_password_reset_token!(params[:id])
     rescue
-      not_found
     end
+    forbidden unless @reset_user
   end
   
   def update
