@@ -1,0 +1,9 @@
+= simple_form_for(@recording_widget) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :edit
+    = f.input :update
+
+  .form-actions
+    = f.button :submit

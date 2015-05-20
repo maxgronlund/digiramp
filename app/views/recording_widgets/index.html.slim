@@ -1,0 +1,23 @@
+h1 Listing recording_widgets
+
+table
+  thead
+    tr
+      th Edit
+      th Update
+      th
+      th
+      th
+
+  tbody
+    - @recording_widgets.each do |recording_widget|
+      tr
+        td = recording_widget.edit
+        td = recording_widget.update
+        td = link_to 'Show', recording_widget
+        td = link_to 'Edit', edit_recording_widget_path(recording_widget)
+        td = link_to 'Destroy', recording_widget, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Recording widget', new_recording_widget_path

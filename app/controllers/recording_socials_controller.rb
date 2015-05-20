@@ -1,5 +1,4 @@
-class RecordingTagsController < ApplicationController
-  
+class RecordingSocialsController < ApplicationController
   before_action :get_user, only: [ :edit, :update]
   include RecordingsHelper
   before_action :update_user_recording, only: [ :edit, :update]
@@ -14,14 +13,15 @@ class RecordingTagsController < ApplicationController
     #params[:recording].delete :next_step
 
     @recording.update_attributes(recording_params)
-    @recording.extract_genres
-    @recording.extract_instruments
-    @recording.extract_moods
-    @recording.save!
-    
-    redirect_to edit_user_recording_social_path( @user, @recording )
     
     
+    redirect_to user_recording_path( @recording.user, @recording )
+    
+    #if go_to == 'next_step'
+    #  redirect_to edit_user_recording_persona_path(@recording.user, @recording)
+    #else
+    #  redirect_to user_recording_path( @recording.user, @recording )
+    #end
     
     
     

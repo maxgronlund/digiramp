@@ -1,0 +1,50 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'recordings/wizard_step', step: 4
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Social sharing
+            .help-button
+              == render 'admin/helps/help', identifier: 'Social sharing'
+          
+        .col-sm-6
+          .pull-right
+            .recording-navigation
+              => link_to edit_user_recording_tag_path(@user, @recording) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Back
+                  
+              /= link_to edit_user_recording_persona_path(@user, @recording) do
+              /  .btn.btn-default
+              /    'Skip
+              /    '&nbsp;
+              /    i.fa.fa-chevron-right
+              
+      .sexy_line
+      h4 = @recording.title
+      .digi-box
+        = simple_form_for  [@user, @recording ], turboboost: true, :url => url_for(:action => 'update', :controller => 'recording_tags'), 
+                                                 :method => 'put' do |f|
+          
+          == render 'shared/recordings/recording_tags_form', f: f
+        
+        
+  == render 'shared/site_footer'  
+ 

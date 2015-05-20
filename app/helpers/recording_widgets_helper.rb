@@ -1,0 +1,2 @@
+module RecordingWidgetsHelper
+end
