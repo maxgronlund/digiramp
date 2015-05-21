@@ -8,10 +8,12 @@
   <meta property="og:url"                content="#{request.url}" /> 
   <meta property="og:title"              content="#{@recording.title.force_encoding('UTF-8')}" /> 
   <meta property="og:image"              content="#{@recording.get_artwork}" /> 
-  <meta property="music:preview_url:url" content="#{@recording.title} URL: #{@recording.mp3.gsub('http', 'https') if @recording.mp3}" />
-  <meta property="og:description"        content="#{@recording.comment}" /> 
-  <meta property="og:audio"              content="#{@recording.mp3.gsub('http', 'https') if @recording.mp3 }" /> 
-/<meta property="og:audio:secure_url"   content="#{@recording.mp3.gsub('http', 'https')}" /> 
+/<meta property="music:preview_url:url" content="#{@recording.title} URL: #{@recording.mp3.gsub('http:', 'https:') if @recording.mp3}" />
+<meta property="og:description"        content="#{@recording.comment}" />
+<meta property="og:audio"              content="#{@recording.mp3.gsub('https:', 'http:') if @recording.mp3 }" />
+<meta property="og:audio:type" content="audio/vnd.facebook.bridge" />
+<meta property="music:duration" content="#{@recording.duration.to_i}" />
+<meta property="og:audio:secure_url"   content="#{@recording.mp3.gsub('http:', 'https:') if @recording.mp3 }" />
 /<meta property="og:audio:type"         content="audio/mpeg">
 /<meta property="fb:app_id"             content="728817730525571" /> 
 /<meta property="og:type"               content="music.song" /> 
