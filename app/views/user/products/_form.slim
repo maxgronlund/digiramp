@@ -1,16 +1,38 @@
 = f.error_notification
-
+= f.hidden_field :user_id   , value: @user.id
+= f.hidden_field :account_id, value: @user.account_id
 .form-inputs
   = f.input :title
-  = f.input :body
-  = f.input :additionl_info
-  = f.input :image
-  = f.input :price
-  = f.hidden_field :user_id   , value: @user.id
-  = f.hidden_field :account_id, value: @user.account_id
-  = f.input :download_link
-  = f.input :for_sale
-  = f.input :category, :include_blank => false, :collection => Shop::Product::CATEGORIES  
-
-.form-actions
-  = f.button :submit
+  .row
+    .col-sm-6
+      = f.input :price, label: 'Price in cent'
+      = f.input :image
+      = f.input :category, :include_blank => false, :collection => Shop::Product::CATEGORIES
+      = f.input :download_link
+      = f.input :for_sale,  :input_html => { class: 'icheck-me', 
+                                                    'data-skin'.to_sym => "square", 
+                                                    'data-color'.to_sym => "blue" }  
+      
+    .col-sm-6
+      b Description
+      br
+      div id="toolbar" class="wysihtml5-toolbar"
+        a data-wysihtml5-command="bold" Bold
+        '&nbsp; 
+        a data-wysihtml5-command="italic" Italic
+        .pull-right
+          a data-wysihtml5-action="change_view"  Html 
+      = f.input :body, label: false, :input_html => {  style: "height: 180px;", placeholder: "Short text about the product", id: 'wysihtml5_editor'}
+      = f.input :additional_info, :input_html => {  style: "height: 80px;", placeholder: "Aditional info i.e. contact me for shipping terms"}
+  /=f.input :invitation_message, label: false, :input_html => {  style: "height: 280px;", placeholder: "Invitation message", id: 'wysihtml5_editor'}
+  
+  
+  
+  
+  
+  
+.form-actions  
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'

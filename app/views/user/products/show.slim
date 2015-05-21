@@ -1,34 +1,83 @@
-h1 Product status
-p#notice = notice
+- session[:return_url] = request.url
 
-p
-  strong Title:
-  = @shop_product.title
-p
-  strong Body:
-  = @shop_product.body
-p
-  strong Additionl info:
-  = @shop_product.additionl_info
-p
-  strong Image:
-  = @shop_product.image
-p
-  strong Price:
-  = @shop_product.price
-p
-  strong User:
-  = @shop_product.user.user_name
-p
-  strong Category:
-  = @shop_product.category
-p
-  strong Download link:
-  = @shop_product.download_link
-p
-  strong For sale:
-  = @shop_product.for_sale
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'edit_profile' 
+  
 
-= link_to 'Edit', edit_user_user_product_path(@user, @shop_product)
-'|
-= link_to 'Back', user_user_shop_admin_index_path(@user)
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { settings: user_user_control_panel_index_path(@user),
+                                                              'shop admin'.to_sym => user_user_shop_admin_index_path(@user)}, current: ''}
+      .row
+        .col-sm-8
+          h3 = @shop_product.title
+        .col-sm-4
+          .pull-right.pull-down-10
+            => link_to  user_user_shop_admin_index_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
+            
+            = link_to 'Edit', edit_user_user_product_path(@user, @shop_product), class: 'btn btn-primary'
+            /'|
+            /= link_to 'Back', user_user_shop_admin_index_path(@user)
+            
+      .sexy_line
+      .digi-box 
+        p#notice = notice
+        /== render 'shop/products/shared/show' , product: @shop_product
+        == render 'shop/products/shared/show' , product: @shop_product, buy: false
+        /.row
+        /  .col-sm-6
+        /    h4 = number_to_currency(@shop_product.price * 0.01, locale: :en, procision: 2)
+        /    = image_tag @shop_product.image_url(:thumb_470x470)
+        /  .col-sm-6
+        /    = simple_format @shop_product.body
+        /    .sexy_line
+        /    = @shop_product.additional_info
+        /
+        /
+        /  
+        //p
+        //  strong User:
+        //  = @shop_product.user.user_name
+        /p
+        /  strong Category:
+        /  = @shop_product.category
+        /p
+        /  strong Download link:
+        /  = @shop_product.download_link
+        /p
+        /  strong For sale:
+        /  = @shop_product.for_sale
+        /
+          
+                                                          
+
+        
+     
+            
+
+  == render 'shared/site_footer' 
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,97 @@
+// Place all the styles related to the shop/products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "colors"
+@import "truncate"
+@import "compass/css3/box-shadow"
+
+
+
+//.social-links
+//  a
+//    font-size: 12px
+//    background-color: #FFF
+//    color: #666
+//    margin-right: 6px
+//    margin-top: 8px
+//    padding: 3px 5px 3px 5px
+//    +box-shadow(#CACACA 1px 1px 1px)
+//    border-top: solid 1px #C1C2C3
+//    border-left: solid 1px #C1C2C3
+//  a:hover
+//    background-color: #E8E8E8
+//    
+//.avatar_name
+//  display: block
+//  text-indent: 0px
+//  margin-left: 10px
+//  margin-right: 10px
+.show-product
+  img
+    width: 100%
+    height: auto
+.products 
+  width: 100%
+  
+  a
+    color: #666
+  a:hover
+    color: #000
+    
+  .product:hover
+    +box-shadow(#252F3F 1px 2px 1px)
+  .product
+    overflow: hidden
+    width: 300px
+    height: 464px
+    background-color: #FFF
+    +box-shadow(#CACACA 1px 2px 1px)
+    border-top: solid 1px #C1C2C3
+    border-left: solid 1px #C1C2C3
+    margin: 0px 10px 10px 0px
+    display: inline
+    
+    //padding: 6px
+    float: left
+    .product-image
+      img
+        border-bottom: solid 1px #C1C2C3
+      position: relative
+      height: 300px
+      
+    .product-category
+      height: 20px
+      padding: 4px
+      font-style: italic
+    .product-title
+      margin-top: 8px
+      height: 36px
+      padding: 4px
+      //@include truncate
+      font-size: 14px
+      font-weight: bold
+      
+    .product-info
+      margin-top: 12px
+      height: 74px
+      padding: 4px
+      font-size: 12px
+      //@include truncate
+      
+      
+    .product-price
+      //padding: 0px 6px 0px 6px
+      background-color: #E6E6E6
+      padding: 4px
+      margin-top: 6px
+      border-top: 1px solid #BBB
+      //.fa-heart
+      //  color: #A40010
+      //
+      //.fa-star
+      //  color: #FFAD00
+      //  font-size: 15px
+      //
+      
+      
+      

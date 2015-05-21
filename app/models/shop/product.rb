@@ -2,9 +2,10 @@ class Shop::Product < ActiveRecord::Base
   belongs_to :user
   belongs_to :account
   
-  validates :title, :body, presence: true
-  validates_presence_of :title, :on => :update
+  validates :title, :body, :image, :price, presence: true
+  #validates_presence_of :title, :on => :update
   validates_with ProductValidator
+  mount_uploader :image,    ProductImageUploader
   
   CATEGORIES = ['Streaming', 'download', 'Service', 'Physical product', 'Coupon']
   

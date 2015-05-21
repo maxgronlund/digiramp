@@ -211,6 +211,9 @@
                     i.fa.fa-shopping-cart
                     '&nbsp;Shop
                   
+                .user-stat-data
+                  h4 = @user.products.where(for_sale: true).count
+                  
             
               
               
