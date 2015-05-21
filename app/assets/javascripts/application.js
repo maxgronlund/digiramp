@@ -19,7 +19,7 @@
 //= require jquery.ThreeDots
 //= require eclipsis
 //= require simple
-// require wysihtml5-0.4.0pre
+//= require wysihtml5-0.4.0pre
 // require init_wysiwyg5
 //= require soundmanager2
 //= require soundmanager2-nodebug-jsmin
