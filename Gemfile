@@ -15,7 +15,7 @@ gem 'font-awesome-sass'
 
 # Use compass for mixin stylesheets
 #gem 'compass-rails'
-gem 'compass', '~> 1.0.0.alpha.21'
+gem 'compass', '~> 1.0.3'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -149,7 +149,7 @@ gem 'traceroute'
 # gem 'rack-cors', :require => 'rack/cors'
 
 
-gem 'friendly_id', '~> 5.0.0' 
+gem 'friendly_id', '~> 5.0.0'
 #gem 'bootstrap-datepicker-rails'
 
 
@@ -172,7 +172,7 @@ gem 'charlock_holmes'
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', '~> 0.4.0'
-  
+
 end
 
 # For cucumber
@@ -232,7 +232,7 @@ gem 'stripe_event'
 # state maching
 gem 'aasm'
 # history
-gem 'paper_trail', '~> 4.0.0.beta'
+gem 'paper_trail', '~> 4.0.0.rc1'
 
 #pdf converter
 gem 'docverter'
@@ -240,35 +240,34 @@ gem 'docverter'
 #gem 'httparty'
 
 group :development do
+  gem 'rb-readline'
   # Use Capistrano for deployment
   gem 'capistrano'
-  
+
   gem 'capistrano-rbenv'
-  
+
   # rails specific capistrano functions
   gem 'capistrano-rails'
-  
+
   # integrate bundler with capistrano
   gem 'capistrano-bundler'
-  
+
   #gem "capistrano-sidekiq"
   #gem 'capistrano-sidekiq'
   gem 'capistrano-sidekiq'
-  
+
   # if you are using RVM
   #gem 'capistrano-rvm'
-  
+
   #gem "sshkit", '~> 1.2'
 
   # Use debugger
   # gem 'debugger', group: [:development, :test]
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'byebug'  
+  gem 'byebug'
   gem 'quiet_assets'
-  
+
   gem 'better_errors'
   gem 'binding_of_caller'
 end
-
-
