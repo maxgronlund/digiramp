@@ -45,6 +45,14 @@ class Shop::Order < ActiveRecord::Base
     self.save
   end
   
+  def total_price
+    tp  = 0.0
+    self.order_items.to_a.each do |shop_item|
+      tp += shop_item.product.price * shop_item.quantity
+    end
+    tp
+  end
+  
   private
   
   def remove_order_items

@@ -6,36 +6,12 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      li class="#{'sidebar-selected' if params[:clear] == 'clear'}"
+      == render 'shop/shared/sidebar', selected: 'products'
 
-        /= link_to users_path(clear: 'clear')
-        /  i.fa.fa-users
-        /  '&nbsp;All
-      
-      
-            
-     
-    .clearfix
     
   
   
   #page-content-wrapper
     .container-fluid
       .digi-box
-
-        
-        
-        /= simple_form_for  [ :shop, @shop_order_item] do |f|
-        /  
-        /  = f.hidden_field :shop_order_id,   value: @shop_order.uuid
-        /  = f.hidden_field :shop_product_id, value: @shop_product.id
-        /  /= f.hidden_field :user_id, value: @user.id
-        /  = f.input :quantity
-        /  
-        /  = f.submit 'Buy', class: 'btn btn-primary'
-        /  
-        /hr
-        /  = link_to 'Basket', shop_order_path(@shop_order.uuid)
-        
-        
         == render 'shop/products/shared/show' , product: @shop_product, buy: true

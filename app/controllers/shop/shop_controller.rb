@@ -3,8 +3,9 @@ class Shop::ShopController < ApplicationController
   
   #http://localhost:3000/shop
   def index
-    ap 'index'
-    @products = Shop::Product.where(for_sale: true)
+    @user         = current_user
+    @shop_order   = current_order
+    @products     = Shop::Product.where(for_sale: true)
   end
   
   #def show

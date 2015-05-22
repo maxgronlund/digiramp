@@ -1,51 +1,81 @@
 - session[:return_url] = request.url
-h1 Shop::Orders#show
-p Find me in app/views/shop/orders/show.html.slim
 
-
-.digi-box  
-  .table-responsive
-    table class="table table-hover"
-      thead
-        tr
-          th Title
-          th Price
-          th Units
-          th 
-          th Total
-          th
-      tbody    
-        - @shop_order.order_items.order('created_at asc').each do |order_item|
-          - if product = order_item.product
-            tr
-              td = link_to product.title, user_product_path(product.user_id, product)
-              td = number_to_currency(product.price * 0.01, locale: :en, precision: 2)
-              td 
-              
-                = simple_form_for  [ :shop, order_item] do |f|
-                  - unless f.error_notification.blank?
-                    .alert.alert-danger
-                      = f.error_notification
-
-                  .form-inputs
+/ this is the public shop
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
   
-                    = f.hidden_field :shop_order_id,   value: @shop_order.uuid
-                    = f.hidden_field :shop_product_id, value: order_item.product_id
-                    /= f.hidden_field :user_id, value: @user.id
-                    = f.input :quantity
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'shop/shared/sidebar', selected: 'products'
+
+    
+  
+  
+  #page-content-wrapper
+    .container-fluid
+      .digi-box  
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                td
+                th Title
+                th Price
+                th Units
+                th 
+                th Total
+                th
+            tbody    
+              - @shop_order.order_items.order('created_at asc').each do |order_item|
+                - if product = order_item.product
+                  tr
+                    td = link_to image_tag(product.image_url(:thumb_120x120)), user_product_path(product.user_id, product)
+                    td 
+                      b = product.title
+                    td = number_to_currency(product.price * 0.01, locale: :en, precision: 2)
+                    td 
                     
-                    = f.submit 'update', class: 'btn btn-primary'
-                    
-                
-                
-              
-              
-                /= order_item.quantity
-              td
-              th = number_to_currency(product.price * order_item.quantity * 0.01, locale: :en, precision: 2)
-              th = link_to shop_shop_order_item_path(order_item), data: { confirm: 'Are you sure?' } , 
-                                                                                        turboboost: true, 
-                                                                                        :method => :delete do
-                  .btn.btn-default
-                    'Remove
+                      = simple_form_for  [ :shop, order_item] do |f|
+                        - unless f.error_notification.blank?
+                          .alert.alert-danger
+                            = f.error_notification
+      
+                        .form-inputs
         
+                          = f.hidden_field :shop_order_id,   value: @shop_order.uuid
+                          = f.hidden_field :shop_product_id, value: order_item.product_id
+                          /= f.hidden_field :user_id, value: @user.id
+                          = f.input :quantity, label: false
+                          
+                          = f.submit 'update', class: 'btn btn-primary'
+                          
+                      
+                      
+                    
+                    
+                      /= order_item.quantity
+                    td
+                    th = link_to shop_shop_order_item_path(order_item), data: { confirm: 'Are you sure?' } , 
+                                                                                              turboboost: true, 
+                                                                                              :method => :delete do
+                        .btn.btn-default
+                          'Remove
+                    th = number_to_currency(product.price * order_item.quantity * 0.01, locale: :en, precision: 2)
+                    
+              tr
+                th Total
+                td
+                td
+                td
+                td
+                td
+                th = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precision: 2) 
+                  
+        .row
+          .col-sm-12
+            .pull-right
+              = link_to edit_shop_order_path(@shop_order.uuid) do
+                .btn.btn-success.btn-xl
+                  'Check out

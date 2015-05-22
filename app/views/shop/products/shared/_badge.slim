@@ -1,17 +1,3 @@
-/.product-badge
-/  =link_to link_to_product do
-/    .avatar
-/      .product-image
-/        = image_tag(product.image_url(:thumb_300x300)) 
-/      .user-name
-/        = product.title
-/  /.product-caption
-/  /  .product-price
-/  /    = number_to_currency(product.price * 0.01, locale: :en, precission: 2)
-/  /  .product-title
-/  /    = product.title
-/  /  
-
 
 
 .product
@@ -20,44 +6,7 @@
     .product-image
       = image_tag( product.image_url :thumb_300x300) 
       .user-tags
-        /- if user.profession.to_s != ''
-        /  .user-tag
-        /    = user.profession
-        /  
-        /div class="#{user.top_tag}" 
-        /
-        /- if user.dj
-        /  .user-tag
-        /    'DJ 
-        /
-        /- if user.writer
-        /  .user-tag
-        /    'Writer
-        /
-        /- if user.artist
-        /  .user-tag
-        /    'Artist
-        /
-        /- if user.author
-        /  .user-tag
-        /    'Author
-        /  
-        /- if user.composer
-        /  .user-tag
-        /    'Composer
-        /
-        /- if user.producer
-        /  .user-tag
-        /    'Producer
-        /
-        /- if user.musician
-        /  .user-tag
-        /    'Musician
-        /
-        /- if user.remixer
-        /  .user-tag
-        /    'Remixer
-        /    
+
     
     /.product-category
     /  = product.category

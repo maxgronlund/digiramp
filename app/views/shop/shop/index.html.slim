@@ -9,54 +9,51 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      li class="#{'sidebar-selected' if params[:clear] == 'clear'}"
+      == render 'shop/shared/sidebar', selected: 'products'   
 
-        /= link_to users_path(clear: 'clear')
-        /  i.fa.fa-users
-        /  '&nbsp;All
-      
-      
-            
-     
-    .clearfix
     
   
   
   #page-content-wrapper
     .container-fluid
-      .digi-box
-        table
-          thead
-            tr
-              th Title
-              th Body
-              th Additionl info
-              th Image
-              th Price
-              /th User
-              /th Account
-              th Download link
-              th For sale
-              th Category
-              th
-              th
-              th
-        
-          tbody
-            - @products.each do |product|
-              tr
-                td = product.title
-                td = product.body
-                td = product.additional_info
-                td = product.image
-                td = product.price
-                /td = product.user
-                /td = product.account
-                td = product.download_link
-                /td = product.for_sale
-                td = product.category
-                td = link_to 'Show', shop_product_path(product), class: 'btn btn-default'
-                /td = link_to 'Edit', edit_user_user_product_path(@user, product)
-                /td = link_to 'Destroy', user_user_product_path(@user, product), data: {:confirm => 'Are you sure?'}, :method => :delete
-        
-        br
+      h2 DigiRAMP shop
+      .sexy_line
+      .products
+        - @products.each do |product|
+          == render 'shop/products/shared/badge', product: product, link_to_product: shop_product_path(product)
+      /.digi-box
+      /  table
+      /    thead
+      /      tr
+      /        th Title
+      /        th Body
+      /        th Additionl info
+      /        th Image
+      /        th Price
+      /        /th User
+      /        /th Account
+      /        th Download link
+      /        th For sale
+      /        th Category
+      /        th
+      /        th
+      /        th
+      /  
+      /    tbody
+      /      - @products.each do |product|
+      /        tr
+      /          td = product.title
+      /          td = product.body
+      /          td = product.additional_info
+      /          td = product.image
+      /          td = product.price
+      /          /td = product.user
+      /          /td = product.account
+      /          td = product.download_link
+      /          /td = product.for_sale
+      /          td = product.category
+      /          td = link_to 'Show', shop_product_path(product), class: 'btn btn-default'
+      /          /td = link_to 'Edit', edit_user_user_product_path(@user, product)
+      /          /td = link_to 'Destroy', user_user_product_path(@user, product), data: {:confirm => 'Are you sure?'}, :method => :delete
+      /  
+      /  br

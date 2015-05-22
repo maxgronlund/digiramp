@@ -8,20 +8,22 @@
     == render 'shared/navigationbar', page: 'home' 
   
   
+  /#sidebar-wrapper
+  /  ul class="sidebar-nav"
+  /    li class="#{'sidebar-selected' if params[:clear] == 'clear'}"
+  /
+  /      = link_to users_path(clear: 'clear')
+  /        i.fa.fa-users
+  /        '&nbsp;All
+  /    
+  /    
+  /          
+  /   
+  /  .clearfix
+  /  
   #sidebar-wrapper
     ul class="sidebar-nav"
-      li class="#{'sidebar-selected' if params[:clear] == 'clear'}"
-
-        = link_to users_path(clear: 'clear')
-          i.fa.fa-users
-          '&nbsp;All
-      
-      
-            
-     
-    .clearfix
-    
-  
+      == render 'shop/shared/sidebar', selected: 'products'
   
   #page-content-wrapper
     .container-fluid

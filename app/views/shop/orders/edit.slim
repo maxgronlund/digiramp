@@ -1,0 +1,39 @@
+- session[:return_url] = request.url
+
+/ this is the public shop
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'shop/shared/sidebar', selected: 'products'
+
+    
+  
+  
+  #page-content-wrapper
+    .container-fluid
+      .digi-box
+        .row
+          .col-sm-12
+              #payment-errors.alert.payment-alert style=("#{ @shop_order.errors.any? ? '' : 'display: none;' } margin-bottom: 0px;") 
+                
+                - @shop_order.errors.full_messages.each do |msg| 
+                  span = msg
+        = simple_form_for [ @shop_order], html: { id: 'payment-form', class: 'form-horizontal'} do |f| 
+          input name="shop_order" type="hidden" value="#{@shop_order.id}"
+          == render 'form', f: f, show_coupon_code: false
+          
+        .row
+          .col-sm-12
+            #powered-by-stripe
+              = image_tag 'powered_by_stripe.png'
+                
+                
+
+    
+        == render 'shop/orders/stripe_integration'
+      
+        

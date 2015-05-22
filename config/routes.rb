@@ -13,6 +13,7 @@ Digiramp::Application.routes.draw do
     #get 'buy_coupon/show'
     resources :buy_coupons
     resources :orders 
+     match '/payment_status/:guid'   => 'payment_status#status',    via: :get,  as: :payment_status
     resources :products 
     resources :shop_order_items
     get 'shop/index'
