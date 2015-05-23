@@ -62,7 +62,7 @@ class WorksController < ApplicationController
 private
   
   def common_work_params
-    params.require(:common_work).permit(:title
+    params.require(:common_work).permit(:title,
                                         :iswc_code,
                                         :ascap_work_id,
                                         :account_id,
