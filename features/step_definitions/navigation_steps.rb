@@ -89,6 +89,8 @@ def visit_page page
     visit "/sales"
   
 
+  when "Public shop page"
+    visit "/shop"
     
     
     

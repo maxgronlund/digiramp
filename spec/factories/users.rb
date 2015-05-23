@@ -8,6 +8,7 @@ FactoryGirl.define do
     f.user_name 'Administrator'
     f.email 'max@digiramp.com'
     f.password 'adminadmin'
+    f.image     Faker::Avatar.image
     #f.password_digest "$2a$10$uOacV2a4MtlCgH9rluewnOsF4QlLWpVFLKV1lCW5hJh0mXRRJEHwW"
     f.role 'Super'
     f.profile 'Super duper administrator'
@@ -29,6 +30,7 @@ FactoryGirl.define do
     f.social_avatar ""
     f.slug "max-groenlund"
     f.salesperson false
+    f.betatester true
     
   end
 end

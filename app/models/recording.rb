@@ -109,12 +109,11 @@ class Recording < ActiveRecord::Base
   before_destroy :remove_from_collections
   #before_create :check_default_image
   #before_save :check_default_image
-  #after_create :count_stats_up
+
   
   # owners followers gets a new post on their dashboard
   has_many      :follower_events, as: :postable,    dependent: :destroy
-  #after_create  :send_notifications_on_create
-  #has_and_belongs_to_many :catalogs
+
   has_many :playlists_recordings
   has_many :catalogs, :through => :playlists_recordings
   
@@ -572,7 +571,7 @@ class Recording < ActiveRecord::Base
   
   
   def attach_to_common_work
-    if CommonWork.exists?(self.common_work_id)
+    if self.common_work
       CommonWork.attach self, self.account_id, self.user
     end
     self.common_work

@@ -78,8 +78,8 @@ class TransloaditRecordingsParser
     extracted.each do | k, v|
       transloadets << v
     end
-    ap '==================================================================='
-    ap transloadets
+    #ap '==================================================================='
+    #ap transloadets
     # copy meta hash in to transloaded hash
     transloadets.each do |transloadet|
     
@@ -101,8 +101,8 @@ class TransloaditRecordingsParser
       transloadet[:track]       = meta[:track].to_s 
     end
 
-    ap '==================================================================='
-    ap transloadets
+    #ap '==================================================================='
+    #ap transloadets
     transloadets
     
   end

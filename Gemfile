@@ -198,6 +198,7 @@ group :test, :development do
   gem 'selenium-webdriver'
   gem 'rails_best_practices'
   gem 'brakeman', :require => false
+  gem 'faker'
 end
 
 

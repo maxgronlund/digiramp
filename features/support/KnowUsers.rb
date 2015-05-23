@@ -9,8 +9,14 @@ module KnowUsersHelper
   end
   
   def user_with_email email
-    User.where(email: email).first
+    User.find_by(email: email)
   end
+  
+  def get_user email
+    find_or_create_user Faker::Name.name, email, Faker::Internet.password, 'Customer'
+  end
+  
+  
   
   #def create_user role, first_name, last_name , email, password, super_user
   #  user = User.new()
