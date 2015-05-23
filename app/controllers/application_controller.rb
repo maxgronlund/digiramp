@@ -155,7 +155,6 @@ class ApplicationController < ActionController::Base
   def get_user
     begin
       @user = User.friendly.find(params[:user_id])
-      #set_authorized
       set_account
       return @user
     rescue ActiveRecord::RecordNotFound
@@ -163,6 +162,16 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :get_user
+  
+  def try_get_user
+    begin
+      @user = User.friendly.find(params[:user_id])
+      set_account
+      return @user
+    rescue
+    end
+  end
+  helper_method :try_get_user
   
   def get_private_user
     get_user
