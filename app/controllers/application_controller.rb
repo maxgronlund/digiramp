@@ -159,7 +159,7 @@ class ApplicationController < ActionController::Base
       set_account
       return @user
     rescue ActiveRecord::RecordNotFound
-      not_found params: params, id: params[:user_id]
+      not_found id: params[:user_id]
     end
   end
   helper_method :get_user
@@ -246,25 +246,25 @@ class ApplicationController < ActionController::Base
 
   
   def not_found options = {}
-
-    if params && params[:controller]
-      if current_user
-        
-        redirect_to error_not_found_path( error_id: options[:id] || params[:id], 
-                                          user_id: options[:user_id], 
-                                          error_type: params[:controller],
-                                          redirect_to_message:  request.url, 
-                                          action: params[:action])
-      else
-        
-        redirect_to error_not_found_path( error_id: options[:id] || params[:id],
-                                          error_type: params[:controller],
-                                          redirect_to_message:  request.url, 
-                                          action: params[:action])
-      end
-    else
-      render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
-    end
+    render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+    #if params[:controller]
+    #  if current_user
+    #    
+    #    redirect_to error_not_found_path( error_id: options[:id] || params[:id], 
+    #                                      user_id: options[:user_id], 
+    #                                      error_type: params[:controller],
+    #                                      redirect_to_message:  request.url, 
+    #                                      action: params[:action])
+    #  else
+    #    
+    #    redirect_to error_not_found_path( error_id: options[:id] || params[:id],
+    #                                      error_type: params[:controller],
+    #                                      redirect_to_message:  request.url, 
+    #                                      action: params[:action])
+    #  end
+    #else
+    #  render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+    #end
   end
   helper_method :not_found
   
