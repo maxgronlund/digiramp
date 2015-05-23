@@ -53,6 +53,14 @@ class Shop::Order < ActiveRecord::Base
     tp
   end
   
+  def items_count
+    count = 0
+    self.order_items.to_a.each do |shop_item|
+      count += shop_item.quantity
+    end
+    count
+  end
+  
   private
   
   def remove_order_items

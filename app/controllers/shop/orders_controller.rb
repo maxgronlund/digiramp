@@ -99,11 +99,7 @@ class Shop::OrdersController < ApplicationController
     respond_to do |format|
       if @shop_order.update(shop_order_params)
         
-        
-        
-        
-        
-        
+
         #Stripe::Charge.create(
         #  :amount => 400,
         #  :currency => "usd",
@@ -111,12 +107,7 @@ class Shop::OrdersController < ApplicationController
         #  :description => "Charge for test@example.com"
         #)
     
-        
-        
-        
-        
-        
-        
+
         
         
         #format.html { redirect_to @shop_order, notice: 'Order was successfully updated.' }

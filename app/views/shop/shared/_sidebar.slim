@@ -1,12 +1,16 @@
 
 .sidebar 
 
-        
-  
   li
 
-    = link_to 'Basket', shop_order_path(@shop_order.uuid)
-      
+    = link_to  shop_order_path(@shop_order.uuid) do
+      i.fa.fa-shopping-cart
+      '&nbsp;
+      = pluralize(@shop_order.items_count, 'Item')
+      div
+        i.fa.fa-money
+        '&nbsp;
+        = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
 
       
       
