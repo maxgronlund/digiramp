@@ -88,7 +88,7 @@ class ContactInvitationsController < ApplicationController
   # filling in the form and accepting the connection
   def signup
 
-    if PasswordValidator.validate( params[:client][:password], params[:client][:password_confirmation])
+    if InvitationPasswordValidatorService.validate( params[:client][:password], params[:client][:password_confirmation])
       message = sign_up_with_valid_password( params )
       if message == 'Success'
         redirect_to user_path( @user )
@@ -210,7 +210,7 @@ private
                         profession:             client.capacity,
                         email:                  email,
                         password:               params[:client][:password],
-                        link_to_homepage:       LinkValidator.validate( client.home_page),
+                        link_to_homepage:       LinkValidator.sanitize( client.home_page),
                         messages_not_read:      0,
                         uniq_followers_count:   0.to_uniq,
                         uniq_completeness:      0.to_uniq,
