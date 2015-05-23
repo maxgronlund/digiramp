@@ -62,7 +62,39 @@ class WorksController < ApplicationController
 private
   
   def common_work_params
-    params.require(:common_work).permit!
+    params.require(:common_work).permit(:title
+                                        :iswc_code,
+                                        :ascap_work_id,
+                                        :account_id,
+                                        :common_works_import_id,
+                                        :audio_file,             
+                                        :content_type,           
+                                        :description,
+                                        :alternative_titles,
+                                        :recording_preview_id,
+                                        :step,                   
+                                        :lyrics,
+                                        :catalog_id,
+                                        :uuid,                   
+                                        :completeness,
+                                        :artwork,                
+                                        :pro,                    
+                                        :surveyed_work,          
+                                        :last_distribution,      
+                                        :work_status,            
+                                        :ascap_award_winner,     
+                                        :work_type,              
+                                        :composite_type,         
+                                        :genre,                  
+                                        :submitter_work_id,      
+                                        :registration_date,      
+                                        :bmi_work_id,            
+                                        :bmi_catalog,            
+                                        :registration_origin,    
+                                        :pro_work_id,            
+                                        :pro_catalog,            
+                                        :arrangement           
+                                        )
   end
   
   

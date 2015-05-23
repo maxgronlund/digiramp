@@ -8,6 +8,7 @@ class CatalogWorksController < ApplicationController
   
   # is this used?
   def index
+    ap 'in usage------------------------------------'
     forbidden unless current_catalog_user.read_common_work
 
     @common_works  = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
