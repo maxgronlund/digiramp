@@ -6,16 +6,17 @@ class PublicOpportunitiesController < ApplicationController
   end
   
   def show
+    
     begin
       @opportunity = Opportunity.cached_find(params[:id])
-      
+      ap @opportunity
       if current_user
         redirect_to user_user_opportunity_path( current_user, @opportunity) if current_user
       else
         forbidden unless @opportunity.public_opportunity
       end
     rescue ActiveRecord::RecordNotFound
-      not_found
+      not_found( id: params[:id] )
     end
     #OpportunityView.create(user_id: nil, opportunity_id: @opportunity.id)
 

@@ -1,7 +1,7 @@
 # when users can type in a link to an external page
 # it needs to be prefixed with 'http'
 # usage
-# LinkValidator.validate "somelink.com"
+# LinkValidator.sanitize "somelink.com"
 
 class LinkValidator
   def self.sanitize link
