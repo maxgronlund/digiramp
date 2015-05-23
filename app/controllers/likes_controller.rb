@@ -17,16 +17,16 @@ class LikesController < ApplicationController
   
   def new
     
-    #user = User.friendly.find(params[:user_id])
+    user = User.friendly.find(params[:user_id])
     
     like = Like.where(
-                        user_id: @user.id,
+                        user_id: user.id,
                         recording_id: params[:recording_id],
                         )
                 .first_or_create(
-                        user_id: @user.id,
+                        user_id: user.id,
                         recording_id: params[:recording_id],
-                        account_id: @user.account_id
+                        account_id: user.account_id
                         )
     recording             = Recording.cached_find(params[:recording_id])
     
