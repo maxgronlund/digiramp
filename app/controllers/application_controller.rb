@@ -159,7 +159,7 @@ class ApplicationController < ActionController::Base
       set_account
       return @user
     rescue ActiveRecord::RecordNotFound
-      not_found id: params[:user_id]
+      not_found params: params, id: params[:user_id]
     end
   end
   helper_method :get_user
@@ -246,7 +246,7 @@ class ApplicationController < ActionController::Base
 
   
   def not_found options = {}
-    ap params
+
     if params[:controller]
       if current_user
         
@@ -266,7 +266,7 @@ class ApplicationController < ActionController::Base
       render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
     end
   end
-  helper_method :forbidden
+  helper_method :not_found
   
 private
 

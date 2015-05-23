@@ -2,23 +2,11 @@ class LikesController < ApplicationController
   before_action :get_user
   
   def index
-     
-    #@likes = Like.order('created_at desc').where(user_id: @user.id).page(params[:page]).per(4)
+    
+    
     if params[:recording_id]
       redirect_to user_recording_recording_likes_path(@user, params[:recording_id])
-      #@recording    = Recording.cached_find(params[:recording_id])
-      #
-      ## !!! optimization needed
-      ## fetching all likes on each ajax request
-      #user_ids      = Like.where(recording_id: @recording.id).pluck(:user_id)
-      #@users        = User.where(id: user_ids).page(params[:page]).per(4)
-      #
-      #@show         = 'likes for a recording'
-      #@playlists    = current_user.playlists if current_user
-      #
-      #
-      #
-      #
+
     else
       recording_ids = Like.order('created_at desc').where(user_id: @user.id).pluck(:recording_id)
       @show         = 'what the user likes'
