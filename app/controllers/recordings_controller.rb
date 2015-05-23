@@ -3,7 +3,7 @@ class RecordingsController < ApplicationController
   #protect_from_forgery only: :show
   skip_before_action :verify_authenticity_token
   
-  before_action :get_user, only: [:show, :edit, :update, :new, :create, :destroy, :index]
+  before_action :get_user, only: [ :edit, :update, :new, :create, :destroy, :index]
   include Transloadit::Rails::ParamsDecoder
 
 
@@ -81,6 +81,9 @@ class RecordingsController < ApplicationController
   end
   
   def show
+    if params[:user_id]
+      @user = User.friendly.find(params[:user_id])
+    end
     if @recording = Recording.cached_find(params[:id]) 
       @playlists  = current_user.playlists if current_user
       @user_credits = @recording.user_credits
@@ -99,7 +102,7 @@ class RecordingsController < ApplicationController
         format.json { render :json => @this.to_json }
       end
     else
-      
+      ap '//////////////////////////////////////////////////////////'
       not_found params
     end
       
