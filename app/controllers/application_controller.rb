@@ -247,7 +247,7 @@ class ApplicationController < ActionController::Base
   
   def not_found options = {}
 
-    if params[:controller]
+    if params && params[:controller]
       if current_user
         
         redirect_to error_not_found_path( error_id: options[:id] || params[:id], 

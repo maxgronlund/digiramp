@@ -70,7 +70,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    
+    not_found(params) unless @user
     if request.format.to_s == 'text/html'
       
       unless current_user && @user != current_user

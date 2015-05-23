@@ -2,21 +2,20 @@ class LikesController < ApplicationController
   before_action :get_user
   
   def index
-    
-    
-    if params[:recording_id]
-      redirect_to user_recording_recording_likes_path(@user, params[:recording_id])
 
-    else
+    #if params[:recording_id]
+    #  redirect_to user_recording_recording_likes_path( @user, params[:recording_id])
+    #else
       recording_ids = Like.order('created_at desc').where(user_id: @user.id).pluck(:recording_id)
       @show         = 'what the user likes'
       @songs        = Recording.where(id: recording_ids).page(params[:page]).per(4)
       @playlists    = current_user.playlists if current_user
-    end
+      #end
   end
   
   def new
     
+
     user = User.friendly.find(params[:user_id])
     
     like = Like.where(
@@ -33,7 +32,7 @@ class LikesController < ApplicationController
     # !!! optimization counter cache ?
     recording.likes_count += 1
     #recording.likes_count = recording.likes.count
-
+    
     recording.uniq_likes_count = recording.likes_count.to_uniq
     recording.save!
              
@@ -42,6 +41,7 @@ class LikesController < ApplicationController
     
     #recording.notify_followers 'Like this', @user.id, 'Recording', recording
     Activity.notify_followers(  'Like this', @user.id, 'Recording', recording.id )
+
     
   end
   
