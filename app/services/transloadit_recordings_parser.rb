@@ -1,3 +1,5 @@
+require 'uri'
+
 class TransloaditRecordingsParser
   
   def initialize
@@ -17,17 +19,19 @@ class TransloaditRecordingsParser
   end
   
   def self.extract uploads
-    ap '+++++++++++++++++++++++++++++++++++++++++++++++++'
+   
+    # validate uploads
     if uploads.nil? || uploads[:results].nil? ||  uploads[:results][':original'].nil?
       error_message uploads
       return nil 
     end
     transloadets  = []
     extracted     = {}
-
+    results       = uploads[:results]
+    
 
     # original file
-    uploads[:results][':original'].each do |original|
+    results[':original'].to_a.each do |original|
       extracted[ original[:original_id] ] =  {  original_file:        original[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp'),
                                                 name:                 original[:name], 
                                                 original_md5hash:     original[:original_md5hash],  
@@ -38,74 +42,69 @@ class TransloaditRecordingsParser
                                                 meta:                 original[:meta]}
     end
 
-    if results = uploads[:results]
-      results[:thumbnail].to_a.each do |thumbnail|
-        extracted[ thumbnail[:original_id] ][:thumbnail]     = thumbnail[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
-      end
 
-
-      # waveform
-      results[:waveform].to_a.each do |waveform|
-        extracted[ waveform[:original_id] ][:waveform]       = waveform[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
-      end
- 
-
-      # mp3 file
-      results[:mp3].to_a.each do |mp3|
-        extracted[ mp3[:original_id] ][:mp3]                 = mp3[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
-        extracted[ mp3[:original_id] ][:original_file_name]  = mp3[:name]
-        extracted[ mp3[:original_id] ][:original_name]       = mp3[:original_basename]
-      end
-
-      # zipp file
-      results[:zipp].to_a.each do |zipp|
-        extracted[ zipp[:original_id] ][:zipp]               = zipp[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
-      end
-
-      # artwork_thumb
-      results[:artwork_thumb].to_a.each do |artwork_thumb|
-        extracted[ artwork_thumb[:original_id] ][:cover_art]       = artwork_thumb[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
-      end
-
-
-      
-
-      # artwork 
-      results[:artwork].to_a.each do |artwork|
-        extracted[ artwork[:original_id] ][:artwork]              = artwork[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
-      end
-
-      
-      extracted.each do | k, v|
-        transloadets << v
-      end
-      
-      # copy meta hash in to transloaded hash
-      transloadets.each do |transloadet|
-      
-        meta                      = transloadet[:meta]
-        # remove curupted iTunes info
-        comment                   = meta[:comment].to_s 
-        comment                   = '' if comment.include?('(iTun')
-        transloadet[:title]       = meta[:title].to_s 
-        transloadet[:duration]    = meta[:duration].to_f.round(2)
-        transloadet[:lyrics]      = meta[:lyrics].to_s.gsub(/\//, '<br>')
-        transloadet[:bpm]         = meta[:beats_per_minute].to_i
-        transloadet[:album]       = meta[:album].to_s 
-        transloadet[:year]        = meta[:year].to_s 
-        transloadet[:genre]       = meta[:genre].to_s 
-        transloadet[:artist]      = meta[:artist].to_s 
-        transloadet[:comment]     = comment 
-        transloadet[:performer]   = meta[:performer].to_s 
-        transloadet[:band]        = meta[:band].to_s 
-        transloadet[:disc]        = meta[:disc].to_s 
-        transloadet[:track]       = meta[:track].to_s 
-      end
-      transloadets
-    else
-      Opbeat.capture_message("TransloaditRecordingsParser: uploads[:results] is nil")
-      return nil
+    # thumbnail
+    results[:thumbnail].to_a.each do |thumbnail|
+      extracted[ thumbnail[:original_id] ][:thumbnail]     = thumbnail[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
     end
+
+    # waveform
+    results[:waveform].to_a.each do |waveform|
+      extracted[ waveform[:original_id] ][:waveform]       = waveform[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
+    end
+
+    # mp3 file
+    results[:mp3].to_a.each do |mp3|
+      extracted[ mp3[:original_id] ][:mp3]                 = mp3[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
+      extracted[ mp3[:original_id] ][:original_file_name]  = mp3[:name]
+      extracted[ mp3[:original_id] ][:original_name]       = mp3[:original_basename]
+    end
+
+    # zipp file
+    results[:zipp].to_a.each do |zipp|
+      extracted[ zipp[:original_id] ][:zipp]               = zipp[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
+    end
+
+    # artwork_thumb
+    results[:artwork_thumb].to_a.each do |artwork_thumb|
+      extracted[ artwork_thumb[:original_id] ][:cover_art] = artwork_thumb[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
+    end
+
+    # artwork 
+    results[:artwork].to_a.each do |artwork|
+      extracted[ artwork[:original_id] ][:artwork]         = artwork[:ssl_url].sub('https://s3.amazonaws.com/digiramp', 'https://s3-us-west-1.amazonaws.com/digiramp')
+    end
+
+    extracted.each do | k, v|
+      transloadets << v
+    end
+    ap '==================================================================='
+    ap transloadets
+    # copy meta hash in to transloaded hash
+    transloadets.each do |transloadet|
+    
+      meta                      = transloadet[:meta]
+
+      
+      transloadet[:title]       = meta[:title].to_s 
+      transloadet[:duration]    = meta[:duration].to_f.round(2)
+      transloadet[:lyrics]      = meta[:lyrics].to_s.gsub(/\//, '<br>')
+      transloadet[:bpm]         = meta[:beats_per_minute].to_i
+      transloadet[:album]       = meta[:album].to_s 
+      transloadet[:year]        = meta[:year].to_s 
+      transloadet[:genre]       = meta[:genre].to_s 
+      transloadet[:artist]      = meta[:artist].to_s 
+      transloadet[:comment]     = sanitize_comment( meta[:comment])
+      transloadet[:performer]   = meta[:performer].to_s 
+      transloadet[:band]        = meta[:band].to_s 
+      transloadet[:disc]        = meta[:disc].to_s 
+      transloadet[:track]       = meta[:track].to_s 
+    end
+
+    ap '==================================================================='
+    ap transloadets
+    transloadets
+    
   end
   
   def self.parse uploads, account_id, in_bucket, user_id
@@ -205,18 +204,13 @@ class TransloaditRecordingsParser
   end
   
   def self.sanitize_comment comment
-    if comment
-      return '' if comment.include? '(iTunSMPB)'
-    end
-    return ''
+    comment.to_s.include?('iTun') ? '' : comment
   end
   
   def self.sanitize_lyrics lyrics
-    if lyrics
-      return lyrics.gsub(/\//, '<br>') 
-    end
-    return ''
-      
+    lyrics = URI.unescape(lyrics)
+    lyrics.to_s.gsub('/', '<br/>') 
+    
   end
   
   def self.write_recording recording, transloadet

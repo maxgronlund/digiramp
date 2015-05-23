@@ -60,7 +60,7 @@ class RecordingsController < ApplicationController
           end
         end
         
-        if recording.title.to_s == ''
+        if recording.title.blank?
           recording.title = File.basename(recording.original_file_name, ".*") 
         end
         
