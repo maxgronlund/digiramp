@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150521091210) do
+ActiveRecord::Schema.define(version: 20150523201649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -720,7 +720,7 @@ ActiveRecord::Schema.define(version: 20150521091210) do
     t.string   "user_uuid",        limit: 255
     t.integer  "user_id"
     t.boolean  "invited",                      default: false
-    t.integer  "invitation_count"
+    t.integer  "invitation_count",             default: 0
   end
 
   add_index "client_groups", ["account_id"], name: "index_client_groups_on_account_id", using: :btree

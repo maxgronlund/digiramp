@@ -25,11 +25,23 @@ class ClientInvitationMailer < ActionMailer::Base
   end
   
   # notice max 1000 at a time
-  def invite_all_from_group client_batch, client_group_id
+  def invite_all_from_group client_group_id
 
     client_group    = ClientGroup.find(client_group_id)
+    
+    client_group.clients.in_groups_of(50) do |client_batch|
+      invite_batch( client_group, client_batch)
+    end
+    
+  end
+    
+  def invite_batch client_group, client_batch
+    
+
+    
     @inviter        = client_group.user
     user_name       = @inviter.user_name
+    
     @avatar_url     = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
     
     invitations   = []
@@ -40,22 +52,25 @@ class ClientInvitationMailer < ActionMailer::Base
     index         = 0
     index         = 0
     
-
+    
     client_batch.each do |client|
-      if client && email = EmailSanitizer.saintize( client.email )
-        
-        # Don't invite clients two times
-        unless ClientInvitation.where(  account_id:  client.account_id, 
-                                        client_id:   client.id,
-                                        user_id:     client.user_id,
-                                        status:     'Invited').first
-          # store invited clients
-          invitation            = create_invitation( client )
-          emails[index]         = email
-          accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
-          decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
-          user_names[index]     = user_name    
-          index += 1
+      
+      if client 
+        if email = EmailSanitizer.saintize( client.email )
+          # Don't invite clients two times
+          unless ClientInvitation.where(  account_id:  client.account_id, 
+                                          client_id:   client.id,
+                                          user_id:     client.user_id,
+                                          status:     'Invited').first
+            # store invited clients
+            ap email
+            invitation            = create_invitation( client )
+            emails[index]         = email
+            accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
+            decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
+            user_names[index]     = user_name    
+            index += 1
+          end
         end
       end
     end
@@ -73,7 +88,7 @@ class ClientInvitationMailer < ActionMailer::Base
                                       }
                            }, 
                    sub: {  
-                           "<%user_name%>".to_sym =>    user_names,
+                           "--user_name--".to_sym =>    user_names,
                            "--accept_url--".to_sym =>   accept_urls,
                            "--decline_url--".to_sym =>  decline_urls,
                            "--avatar_url--".to_sym =>   decline_urls
@@ -83,15 +98,12 @@ class ClientInvitationMailer < ActionMailer::Base
     
     # only send if there is someone to send to
     unless emails.empty?
-     
-      
       headder = JSON.generate(x_smtpapi)
-      #IssueEvent.create(title: 'ClientInvitationMailer#invite_all_from_group', data: headder, subject_type: 'ClientGroup', subject_id: client_group_id)
+      ap x_smtpapi
       headers['X-SMTPAPI'] = headder
-      
       mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
     end
-
+    
   end
   
   def create_invitation client
@@ -126,7 +138,7 @@ class ClientInvitationMailer < ActionMailer::Base
                                       }
                            }, 
                    sub: {  
-                           "<%user_name%>".to_sym =>    [ @inviter.user_name.to_s ],
+                           "--user_name--".to_sym =>    [ @inviter.user_name.to_s ],
                            "--accept_url--".to_sym =>   [ @accept_url],
                            "--decline_url--".to_sym =>  [ @decline_url]
                         } 
@@ -151,12 +163,12 @@ class ClientInvitationMailer < ActionMailer::Base
   private
   
   def template_id
-    if Rails.env.production?
-      return "9117870a-825a-4c81-8c04-8ff68d422ff7"
-    else
-      return "1db1d5b2-d6d8-4f93-b1ff-9a8fa43457e8"
-    end
-
+    #if Rails.env.production?
+    #  return "9117870a-825a-4c81-8c04-8ff68d422ff7"
+    #else
+    #  return "1db1d5b2-d6d8-4f93-b1ff-9a8fa43457e8"
+    #end
+    "9117870a-825a-4c81-8c04-8ff68d422ff7"
   end
   
 

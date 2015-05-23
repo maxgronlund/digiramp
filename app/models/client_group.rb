@@ -13,11 +13,9 @@ class ClientGroup < ActiveRecord::Base
   
   
   def invite_clients
-    
-    self.clients.in_groups_of(50) do |client_batch|
-      ClientInvitationMailer.delay.invite_all_from_group( client_batch, self.id )
-    end
-    
+    ap 'invite clients'
+    ClientInvitationMailer.delay.invite_all_from_group( self.id )
+
   end
 
   def self.cached_find(id)
