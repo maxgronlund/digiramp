@@ -1,37 +1,29 @@
-# cucumber features/guest/open_guest_pages.feature:32 -r features
+# cucumber features/error_triggering/guest_open_not_found.feature -r features
 
 Feature:
-As an guest I can see all public pages
+As an guest I get decent errors on pages not found
 
   Background:
-    #Given there is a user with the email "user@digiramp.com" and the password "sesamsesamlukdigop"
     Given there is a user with the name "Some Dude" email "user@digiramp.com" and the password "sesamsesamlukdigop"
-    And the user with the email "user@digiramp.com" has a recording with the name "play me softly"
+    And the user with the email "some-dude@digiramp.com" has a recording with the name "play me softly"
     
     
     
   @javascript  
-  Scenario: As a guest I can open all public pages
-    When I'm on the "Public songs page"
-    Then I can see "Recordings"
+  Scenario: As a guest I can open not found pages
+  
+    When I'm on the "A not existing users recording page"
+    Then I can see "422 Not found"
+  
+    #When I visit the user "Some Dude"
+    When I visit a non existing recording page the user "Some Dude"
+    Then I can see "422 Not found"
     
-    When I'm on the "Public users page"
-    Then I can see "People"
+
     
-    When I'm on the "Public recordings page"
-    Then I can see "Recordings"
     
-    When I'm on the "Public opportunities page"
-    Then I can see "Opportunities"
     
-    When I'm on the "Public news page"
-    Then I can see "News"
-    
-    When I'm on the "Sign up page"
-    Then I can see "Sign up"
-    
-    When I visit the user "Some Dude"
-    Then I can see "Some Dude"
+
     
 
   #  

@@ -84,9 +84,9 @@ class RecordingsController < ApplicationController
   def show
     #ap 'rec contrl'
     #ap params 
-    ap '-'
-    ap request.original_fullpath
-    ap '-'
+    #ap '-'
+    #ap request.original_fullpath
+    #ap '-'
 
     if @recording = Recording.cached_find(params[:id]) 
       @playlists  = current_user.playlists if current_user
@@ -106,7 +106,6 @@ class RecordingsController < ApplicationController
         format.json { render :json => @this.to_json }
       end
     else
-      ap '//////////////////////////////////////////////////////////'
       not_found params
     end
       

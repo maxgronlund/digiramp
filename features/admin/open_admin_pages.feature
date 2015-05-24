@@ -1,4 +1,4 @@
-# cucumber features/admin/open_admin_pages.feature:107 -r features
+# cucumber features/admin/open_admin_pages.feature -r features
 
 Feature:
 As an administrator i can se all the pages
@@ -29,13 +29,14 @@ As an administrator i can se all the pages
     When I'm on the "Edit account page"
     Then I can see "Edit account"
     
-    When I'm on the "Users page"
+    
+    When I'm on the "Admin users page"
     Then I can see "Users"
     
-    When I'm on the "Edit user page"
+    When I'm on the "Admin users page"
+    Then I can edit the first user
     Then I can see "Edit user"
-    
-    
+
     # content
     When I'm on the "Content page"
     Then I can see "Content"

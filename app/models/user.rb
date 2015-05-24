@@ -740,7 +740,7 @@ class User < ActiveRecord::Base
   end
   
   def self.create_a_new_account_for_the user
-    # creating the acount
+    #return user.account if user.account
     @account = Account.new(   title: user.user_name, 
                               user_id: user.id, 
                               expiration_date: Date.current()>>1,
@@ -754,8 +754,7 @@ class User < ActiveRecord::Base
                             
     # save the account without validation                        
     @account.save(validate: false)    
-    
-    
+
     AccessManager.add_users_to_new_account @account
     
     # set the account owned by the user
@@ -766,6 +765,7 @@ class User < ActiveRecord::Base
     
     # save
     user.save!
+   
     @account
   end
   

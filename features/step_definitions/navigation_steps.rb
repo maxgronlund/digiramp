@@ -22,7 +22,7 @@ def visit_page page
   when "Edit account page"
     visit "/admin/accounts/1/edit"
   
-  when "Users page"
+  when "Admin users page"
     visit "/admin/users"
   
   when "Edit user page"
@@ -91,6 +91,18 @@ def visit_page page
 
   when "Public shop page"
     visit "/shop"
+    
+  when "A not existing users recording page"
+    visit "/users/not-existing/recordings/123456"
+    
+  when "A not existing recording page"
+    user = User.first
+    visit "/users/#{user.slug}/12346"
+    
+  when "A not existing message"
+    user = User.first
+    visit "/users/#{user.slug}/messages/123456"
+    
     
     
     

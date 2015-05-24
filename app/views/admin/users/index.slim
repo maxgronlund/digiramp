@@ -63,7 +63,7 @@
 
                     => link_to edit_admin_user_path( user) do 
                       .btn.btn-default.btn-xs
-                        i class="fa fa-pencil"
+                        i class="fa fa-pencil edit-user-#{user.id.to_s}"
                     
                     - if account = user.account  
                       => link_to edit_admin_account_path( account) do 

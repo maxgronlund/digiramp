@@ -2,10 +2,12 @@ module KnowUsersHelper
 
   def find_or_create_user  name, email, password, role
     return @user if @user = user_with_email( email )
-
-    @user       = FactoryGirl.create(:user, email: email, password: password, role: role)
-    @account    = User.create_a_new_account_for_the @user
-    
+    @page_style         = FactoryGirl.create(:page_style)
+    @user               = FactoryGirl.create(:user, user_name: name, email: email, password: password, role: role, slug: name.downcase.gsub(' ', '_'))
+    @user.page_style_id = @page_style.id
+    @user.save!
+    @account            = User.create_a_new_account_for_the (@user)
+    @user
   end
   
   def user_with_email email
@@ -16,21 +18,11 @@ module KnowUsersHelper
     find_or_create_user Faker::Name.name, email, Faker::Internet.password, 'Customer'
   end
   
-  
-  
-  #def create_user role, first_name, last_name , email, password, super_user
-  #  user = User.new()
-  #  user.first_name = first_name
-  #  user.last_name  = last_name
-  #  user.role       = role
-  #  
-  #  user.super_user = super_user
-  #  user.save  validate: false
-  #  user.profile = MemberProfile.new email: email, password: password, password_confirmation: password
-  #  user.email      = email
-  #  user.profile.save!
-  #  user.save  validate: false
-  #end
+  def user_with_name name
+    
+    User.find_by(user_name: name)
+  end
+
   
 end
 

@@ -6,8 +6,7 @@ class MessagesController < ApplicationController
   end
 
   def index
-    
-    
+
     #@authorized = true 
 
     if params[:connection_id]
@@ -20,11 +19,22 @@ class MessagesController < ApplicationController
   end
   
   def show
-    
-    @message = Message.cached_find(params[:id])
-    @message.read = true
-    @message.save validate: false
 
+    begin
+      if @user
+        @message = Message.cached_find(params[:id])
+        @message.read = true
+        @message.save validate: false
+        unless  @message.sender
+          @message.destroy
+          not_found params
+        end
+      else
+        not_found params
+      end
+    rescue
+      not_found params
+    end
   end
 
   def create

@@ -1,10 +1,10 @@
 FactoryGirl.define do
   factory :page_style do
-    title "MyString"
-css_tag "MyString"
-backdrop_image "MyString"
-show_backdrop "MyString"
-bgcolor "MyString"
+    title           "Deep blue"
+    css_tag         "deep_blue"
+    backdrop_image  { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'support', 'page_styles', 'crowd.jpg')) }
+    show_backdrop   true
+    bgcolor         "#14131B"
   end
 
 end
