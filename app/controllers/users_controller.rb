@@ -29,35 +29,36 @@ class UsersController < ApplicationController
     params[:query]  = session[:user_query]
     
     
-    
-    if params[:latest]
+    case params
+      
+    when :latest
       @users = User.public_profiles.order('created_at desc').page(params[:page]).per(8)
     
-    elsif params[:featured]
+    when :featured
       @users = User.public_profiles.where(featured: true).order('featured_date desc').page(params[:page]).per(8)
     
-    elsif params[:followers]
+    when :followers
       @users = User.public_profiles.order('uniq_followers_count desc').page(params[:page]).per(8)
     
-    elsif params[:composer]
+    when :composer
       @users = User.public_profiles.where(composer: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    elsif params[:writer]
+    when :writer
       @users = User.public_profiles.where(writer: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    elsif params[:author]
+    when :author
       @users = User.public_profiles.where(author: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    elsif params[:producer]
+    when :producer
       @users = User.public_profiles.where(producer: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    elsif params[:musician]
+    when :musician
       @users = User.public_profiles.where(musician: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    elsif params[:dj]
+    when :dj
       @users = User.public_profiles.where(dj: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    elsif params[:remixer]
+    when :remixer
       @users = User.public_profiles.where(remixer: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
     else

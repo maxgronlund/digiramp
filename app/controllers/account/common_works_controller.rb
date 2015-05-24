@@ -46,19 +46,23 @@ class Account::CommonWorksController < ApplicationController
 
     if @common_work = CommonWork.create(common_work_params)
       
-      @common_work.create_activity(  :created, 
-                                owner: current_user,
-                            recipient: @common_work,
-                       recipient_type: @common_work.class.name,
-                           account_id: @account.id)
-                           
-                    
-      @common_work.update_completeness
+      log_state :created
+      #@common_work.create_activity(  :created, 
+      #                          owner: current_user,
+      #                      recipient: @common_work,
+      #                 recipient_type: @common_work.class.name,
+      #                     account_id: @account.id)
+      #                     
+      #              
+      #@common_work.update_completeness
+      
       render :show
     else
       render :new
     end
   end
+  
+  
   
   def edit
     forbidden unless current_account_user.update_common_work
@@ -79,13 +83,14 @@ class Account::CommonWorksController < ApplicationController
     @common_work    = CommonWork.cached_find(params[:id])
     if @common_work.update_attributes(common_work_params)
       
-      @common_work.create_activity(  :updated, 
-                                owner: current_user,
-                            recipient: @common_work,
-                       recipient_type: @common_work.class.name,
-                           account_id: @account.id)
-                           
-      @common_work.update_completeness
+      log_state :updated
+      #@common_work.create_activity(  :updated, 
+      #                          owner: current_user,
+      #                      recipient: @common_work,
+      #                 recipient_type: @common_work.class.name,
+      #                     account_id: @account.id)
+      #                     
+      #@common_work.update_completeness
       redirect_to_return_url account_account_common_work_path(@account, @common_work)
     else
       render :edit
@@ -104,7 +109,6 @@ class Account::CommonWorksController < ApplicationController
   end
   
   def recordings_create
-
     forbidden unless current_account_user.update_common_work
     forbidden unless current_account_user.create_recording?
     
@@ -145,7 +149,16 @@ class Account::CommonWorksController < ApplicationController
 
   end
   
-private
+  private
+  def log_state state
+    @common_work.create_activity(  state, 
+                              owner: current_user,
+                          recipient: @common_work,
+                     recipient_type: @common_work.class.name,
+                         account_id: @account.id)
+                                 
+    @common_work.update_completeness
+  end
   
   def common_work_params
     params.require(:common_work).permit!
