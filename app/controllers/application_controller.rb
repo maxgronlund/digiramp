@@ -153,6 +153,9 @@ class ApplicationController < ActionController::Base
 
   # v 2
   def get_user
+    # user id is not passed
+    # could be called from the player or endless pages
+    return unless params[:user_id]
     begin
       @user = User.friendly.find(params[:user_id])
       set_account
