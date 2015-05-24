@@ -7,8 +7,6 @@ class MessagesController < ApplicationController
 
   def index
 
-    #@authorized = true 
-
     if params[:connection_id]
       connection = Connection.cached_find(params[:connection_id])
       @messages = connection.messages.order(created_at: :desc).page(params[:page]).per(24)
@@ -19,7 +17,6 @@ class MessagesController < ApplicationController
   end
   
   def show
-
     begin
       if @user
         @message = Message.cached_find(params[:id])

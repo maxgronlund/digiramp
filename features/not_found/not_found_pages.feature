@@ -1,4 +1,4 @@
-# cucumber features/admin/open_admin_pages.feature:107 -r features
+# cucumber features/admin/open_admin_pages.feature -r features
 
 Feature:
 As an administrator i can se all the pages
@@ -12,6 +12,7 @@ As an administrator i can se all the pages
     And there is an instrument named "guitar"
     And there is an plan named "DigiRAMP-Pro"
     And there is an account feature named "DigiRAMP-Pro"
+    And the user with the email "user@digiramp.com" has a recording with the name "play me softly"
     
     
     
@@ -32,7 +33,7 @@ As an administrator i can se all the pages
     When I'm on the "Admin users page"
     Then I can see "Users"
     
-    When I'm on the "Edit user page"
+    When I'm on the "Edit user page" for the user with the email "user@digiramp.com"
     Then I can see "Edit user"
     
     

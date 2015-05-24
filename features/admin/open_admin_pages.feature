@@ -29,7 +29,6 @@ As an administrator i can se all the pages
     When I'm on the "Edit account page"
     Then I can see "Edit account"
     
-    
     When I'm on the "Admin users page"
     Then I can see "Users"
     

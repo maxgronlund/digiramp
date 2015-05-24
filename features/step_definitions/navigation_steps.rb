@@ -25,9 +25,6 @@ def visit_page page
   when "Admin users page"
     visit "/admin/users"
   
-  when "Edit user page"
-    visit "/admin/users/max-groenlund/edit"
-  
   when "Content page"
     visit "/admin/content"
   
