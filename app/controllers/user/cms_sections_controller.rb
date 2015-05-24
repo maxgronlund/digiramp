@@ -34,123 +34,43 @@ class User::CmsSectionsController < ApplicationController
     @cms_section = CmsSection.new(cms_section_params)
 
     case @cms_section.cms_type
-      
     when 'Banner'
-      @cms_banner = CmsBanner.create
-      @cms_section.cms_module_id    = @cms_banner.id
-      @cms_section.cms_module_type  = @cms_banner.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_banner_path(@user, @cms_banner)
-      
+      banner
     when 'Contact'
-      @cms_contact = CmsContact.create
-      @cms_section.cms_module_id    = @cms_contact.id
-      @cms_section.cms_module_type  = @cms_contact.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_contact.cms_section.cms_page)
-      
+      contact
     when 'Comment'
-      @cms_comment = CmsComment.create
-      @cms_section.cms_module_id    = @cms_comment.id
-      @cms_section.cms_module_type  = @cms_comment.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_comment.cms_section.cms_page)
-      
+      comment
     when 'Horizontal links'
-      @cms_horizontal_link = CmsHorizontalLink.create
-      @cms_section.cms_module_id    = @cms_horizontal_link.id
-      @cms_section.cms_module_type  = @cms_horizontal_link.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_horizontal_link.cms_section.cms_page)
-
-      
+      horizontal_links
     when 'Image'
-      @cms_image = CmsImage.create
-      @cms_section.cms_module_id    = @cms_image.id
-      @cms_section.cms_module_type  = @cms_image.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_image_path(@user, @cms_image)
-      
+      image
     when 'Menu bar'
-      @cms_navigation_bar            = CmsNavigationBar.create
-      @cms_section.cms_module_id    = @cms_navigation_bar.id
-      @cms_section.cms_module_type  = @cms_navigation_bar.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_navigation_bar_path(@user, @cms_navigation_bar)
-      
+      menu_bar
     when 'Video snippet'
-      @cms_video                    = CmsVideo.create
-      @cms_section.cms_module_id    = @cms_video.id
-      @cms_section.cms_module_type  = @cms_video.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_video_path(@user, @cms_video)
-    
-    
+      video_snippet
     when 'Recording'
-      @cms_recording = CmsRecording.create
-      @cms_section.cms_module_id    = @cms_recording.id
-      @cms_section.cms_module_type  = @cms_recording.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_recording_path(@user, @cms_recording)
-      
+      recording
     when 'Playlist link'
-      @cms_playlist_link            = CmsPlaylistLink.create
-      @cms_section.cms_module_id    = @cms_playlist_link.id
-      @cms_section.cms_module_type  = @cms_playlist_link.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_playlist_link_path(@user, @cms_playlist_link)
-      
+      playlist_link
     when 'Playlist'
-      @cms_playlist                 = CmsPlaylist.create
-      @cms_section.cms_module_id    = @cms_playlist.id
-      @cms_section.cms_module_type  = @cms_playlist.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_playlist_path(@user, @cms_playlist)
-      
+      playlist
     when 'Profile'
-      @cms_profile                  = CmsProfile.create
-      @cms_section.cms_module_id    = @cms_profile.id
-      @cms_section.cms_module_type  = @cms_profile.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_profile_path(@user, @cms_profile)
-      
+      profile
     when 'Social links'
-      @cms_social_link = CmsSocialLink.create()
-      @cms_section.cms_module_id    = @cms_social_link.id
-      @cms_section.cms_module_type  = @cms_social_link.class.name
-      
-      @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_social_link.cms_section.cms_page)
-      
+      social_links
     when 'Text'
-      @cms_text = CmsText.create
-      @cms_section.cms_module_id    = @cms_text.id
-      @cms_section.cms_module_type  = @cms_text.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_text_path(@user, @cms_text)
-      
+      text
     when 'Activities'
-      @cms_user_activities          = CmsUserActivity.create(user_id: @user.id)
-      @cms_section.cms_module_id    = @cms_user_activities.id
-      @cms_section.cms_module_type  = @cms_user_activities.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_user_activities.cms_section.cms_page)
-
+       activities
     when 'Vertical links'
-      @cms_vertical_link = CmsVerticalLink.create
-      @cms_section.cms_module_id    = @cms_vertical_link.id
-      @cms_section.cms_module_type  = @cms_vertical_link.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_page_path(@user, @cms_vertical_link.cms_section.cms_page)
-      
+      vertical_links
     when 'Video snippet'
-      @cms_video                    = CmsVideo.create
-      @cms_section.cms_module_id    = @cms_video.id
-      @cms_section.cms_module_type  = @cms_video.class.name
-      @cms_section.save!
-      redirect_to edit_user_user_cms_video_path(@user, @cms_video)
+      video_snippet
     end
   end
+  
+  
+    
 
   # PATCH/PUT /cms_sections/1
   # PATCH/PUT /cms_sections/1.json
@@ -187,36 +107,125 @@ class User::CmsSectionsController < ApplicationController
   end
 
   private
-    # always add new sections at the bottom 
-    def get_next_possition
-      cms_page = CmsPage.cached_find(params[:cms_section][:cms_page_id])
-      if last_cms_sections = cms_page.cms_sections.order(:position).where(column_nr: params[:cms_section][:column_nr]).last
-        if last_cms_sections.position.nil?
-          return fix_positions_for( cms_page )
-        else
-          return last_cms_sections.position + 1
-        end
+  # always add new sections at the bottom 
+  def get_next_possition
+    cms_page = CmsPage.cached_find(params[:cms_section][:cms_page_id])
+    if last_cms_sections = cms_page.cms_sections.order(:position).where(column_nr: params[:cms_section][:column_nr]).last
+      if last_cms_sections.position.nil?
+        return fix_positions_for( cms_page )
+      else
+        return last_cms_sections.position + 1
       end
-      0
     end
-    
-    def fix_positions_for cms_page
-      position = 0
-      cms_page.cms_sections.order(:position).each_with_index do |cms_section, index|
-        cms_section.position = index
-        cms_section.save!
-        position = index
-      end
-      position + 1
+    0
+  end
+  
+  def fix_positions_for cms_page
+    position = 0
+    cms_page.cms_sections.order(:position).each_with_index do |cms_section, index|
+      cms_section.position = index
+      cms_section.save!
+      position = index
     end
-    
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cms_section
-      @cms_section = CmsSection.find(params[:id])
-    end
+    position + 1
+  end
+  
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cms_section
+    @cms_section = CmsSection.find(params[:id])
+  end
+  
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def cms_section_params
+    params.require(:cms_section).permit( :cms_page_id,
+                                         :position,
+                                         :column_nr,
+                                         :cms_type,
+                                         :cms_module_id,
+                                         :cms_module_type
+                                        )
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def cms_section_params
-      params.require(:cms_section).permit!
-    end
+  def banner
+    @cms_banner = create_section( CmsBanner.create )
+    redirect_to edit_user_user_cms_banner_path(@user, @cms_banner)
+  end
+  
+  def contact
+    @cms_contact = create_section( CmsContact.create )
+    redirect_to edit_user_user_cms_page_path(@user, @cms_contact.cms_section.cms_page)
+  end
+  
+  def comment
+    @cms_comment = create_section( CmsComment.create )
+    redirect_to edit_user_user_cms_page_path(@user, @cms_comment.cms_section.cms_page)
+  end
+  
+  def horizontal_links
+    @cms_horizontal_link = create_section( CmsHorizontalLink.create)
+    redirect_to edit_user_user_cms_page_path(@user, @cms_horizontal_link.cms_section.cms_page)
+  end
+  
+  def image
+    @cms_image = create_section( CmsImage.create )
+    redirect_to edit_user_user_cms_image_path(@user, @cms_image)
+  end
+  
+  def menu_bar
+    @cms_navigation_bar            = create_section( CmsNavigationBar.create )
+    redirect_to edit_user_user_cms_navigation_bar_path(@user, @cms_navigation_bar)
+  end
+  
+  def recording
+    @cms_recording = create_section( CmsRecording.create )
+    redirect_to edit_user_user_cms_recording_path(@user, @cms_recording)
+  end
+  
+  def playlist_link
+    @cms_playlist_link = create_section( CmsPlaylistLink.create )
+    redirect_to edit_user_user_cms_playlist_link_path(@user, @cms_playlist_link)
+  end
+  
+  def playlist
+    @cms_playlist = create_section( CmsPlaylist.create)
+    redirect_to edit_user_user_cms_playlist_path(@user, @cms_playlist)
+  end
+  
+  def profile
+    @cms_profile = create_section( CmsProfile.create)
+    redirect_to edit_user_user_cms_profile_path(@user, @cms_profile)
+  end
+  
+  def social_links
+    @cms_social_link = create_section( CmsSocialLink.create)
+    redirect_to edit_user_user_cms_page_path(@user, @cms_social_link.cms_section.cms_page)
+  end
+  
+  def text
+    @cms_text = create_section( CmsText.create )
+    redirect_to edit_user_user_cms_text_path(@user, @cms_text)
+  end
+  
+  def activities
+    @cms_user_activities = create_section( CmsUserActivity.create(user_id: @user.id))
+    redirect_to edit_user_user_cms_page_path(@user, @cms_user_activities.cms_section.cms_page)
+  end
+  
+  def vertical_links
+    @cms_vertical_link = create_section( CmsVerticalLink.create )
+    redirect_to edit_user_user_cms_page_path(@user, @cms_vertical_link.cms_section.cms_page)
+  end
+  
+  def video_snippet
+    @cms_video = create_section( CmsVideo.create )
+    redirect_to edit_user_user_cms_video_path(@user, @cms_video)
+  end
+  
+  def create_section section
+    @cms_section.cms_module_id    = section.id
+    @cms_section.cms_module_type  = section.class.name
+    @cms_section.save!
+    section
+  end
+  
 end

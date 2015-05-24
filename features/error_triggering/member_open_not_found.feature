@@ -1,7 +1,7 @@
 # cucumber features/error_triggering/member_open_not_found.feature -r features
 
 Feature:
-As an guest I open non existing pages and get decent errors
+As an member I open non existing pages and get decent errors
 
   Background:
     Given there is a user with the email "user@digiramp.com" and the password "sesamsesamlukdigop"
