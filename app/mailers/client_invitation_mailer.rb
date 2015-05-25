@@ -99,7 +99,7 @@ class ClientInvitationMailer < ActionMailer::Base
     # only send if there is someone to send to
     unless emails.empty?
       headder = JSON.generate(x_smtpapi)
-      ap x_smtpapi
+
       headers['X-SMTPAPI'] = headder
       mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
     end
