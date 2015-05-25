@@ -8,9 +8,9 @@ class Api::SendgridHookController < ApplicationController
         #ap params.class.name
         if params.class.name == "ActionController::Parameters"
           params["_json"].to_a.each do |event|
-            ap '===================================================================================='
-            ap event
-            ap '===================================================================================='
+            Rails.logger.info '===================================================================================='
+            Rails.logger.info event
+            Rails.logger.info '===================================================================================='
             case event["event"]
             when "processed"    
               processed event
@@ -37,8 +37,8 @@ class Api::SendgridHookController < ApplicationController
   def processed event
     if client_invitation = ClientInvitation.pending.where(email: event["email"]).last
       client_invitation.processed!
-      ap '---------------------- found and processed --------------------------'
-      ap client_invitation
+      Rails.logger.info '---------------------- found and processed --------------------------'
+      Rails.logger.info client_invitation
     end
   end
   
@@ -53,8 +53,8 @@ class Api::SendgridHookController < ApplicationController
   def delivered event
     if client_invitation = ClientInvitation.processed.where(email: event["email"]).last
       client_invitation.delivered!
-      ap '---------------------- found and delivered --------------------------'
-      ap client_invitation
+      Rails.logger.info '---------------------- found and delivered --------------------------'
+      Rails.logger.info client_invitation
     end
     
   end
@@ -62,16 +62,16 @@ class Api::SendgridHookController < ApplicationController
   def open event
     if client_invitation = ClientInvitation.delivered.where(email: event["email"]).last
       client_invitation.opened!
-      ap '---------------------- found and opened --------------------------'
-      ap client_invitation
+      Rails.logger.info '---------------------- found and opened --------------------------'
+      Rails.logger.info client_invitation
     end
   end
   
   def click event
     if client_invitation = ClientInvitation.opened.where(email: event["email"]).last
       client_invitation.clicked!
-      ap '---------------------- found and clicked --------------------------'
-      ap client_invitation
+      Rails.logger.info '---------------------- found and clicked --------------------------'
+      Rails.logger.info client_invitation
     end
   end
   
