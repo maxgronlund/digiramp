@@ -35,8 +35,10 @@ class Api::SendgridHookController < ApplicationController
   def processed event
     ap '-- processed --'
     ap event["email"]
-    ap event
-    ap '======================='
+    if client_invitations = ClientInvitation.where(email: event["email"], status: :pending)
+      ap client_invitations
+      client_invitations.update_all(status: :processed)
+    end
   end
   
   def dropped event
@@ -76,6 +78,4 @@ class Api::SendgridHookController < ApplicationController
     
     
   end
-  
-  
 end
