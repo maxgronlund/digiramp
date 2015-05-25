@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
   
   def index
-    ap params
+
     # exclude ajax calls from statistic
     PageView.create(url: '/users' ) if request.format.to_s == 'text/html'
 
@@ -30,36 +30,34 @@ class UsersController < ApplicationController
     params[:query]  = session[:user_query]
     
     
-    case params
-      
-    when :latest
+    if params[:latest]
       @users = User.public_profiles.order('created_at desc').page(params[:page]).per(8)
     
-    when :featured
+    elsif params[:featured]
       @users = User.public_profiles.where(featured: true).order('featured_date desc').page(params[:page]).per(8)
     
-    when :followers
+    elsif params[:followers]
       @users = User.public_profiles.order('uniq_followers_count desc').page(params[:page]).per(8)
     
-    when :composer
+    elsif params[:composer]
       @users = User.public_profiles.where(composer: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    when :writer
+    elsif params[:writer]
       @users = User.public_profiles.where(writer: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    when :author
+    elsif params[:author]
       @users = User.public_profiles.where(author: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    when :producer
+    elsif params[:producer]
       @users = User.public_profiles.where(producer: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    when :musician
+    elsif params[:musician]
       @users = User.public_profiles.where(musician: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    when :dj
+    elsif params[:dj]
       @users = User.public_profiles.where(dj: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
-    when :remixer
+    elsif params[:remixer]
       @users = User.public_profiles.where(remixer: true).order('uniq_completeness desc').page(params[:page]).per(8)
     
     else
