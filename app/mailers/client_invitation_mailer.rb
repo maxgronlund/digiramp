@@ -111,7 +111,6 @@ class ClientInvitationMailer < ActionMailer::Base
     ClientInvitation.create( account_id: client.account_id, 
                              client_id:  client.id,
                              user_id:    client.user_id,
-                             status:     'Invited',
                              uuid:       UUIDTools::UUID.timestamp_create().to_s,
                              email:      client.email )
     

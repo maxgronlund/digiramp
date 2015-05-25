@@ -8,7 +8,9 @@ class Api::SendgridHookController < ApplicationController
         #ap params.class.name
         if params.class.name == "ActionController::Parameters"
           params["_json"].to_a.each do |event|
+            ap '===================================================================================='
             ap event
+            ap '===================================================================================='
             case event["event"]
             when "processed"    
               processed event
@@ -33,49 +35,57 @@ class Api::SendgridHookController < ApplicationController
   
   
   def processed event
-    ap '-- processed --'
-    ap event["email"]
-    if client_invitations = ClientInvitation.where(email: event["email"], status: :pending)
-      ap client_invitations
-      client_invitations.update_all(status: :processed)
+    if client_invitation = ClientInvitation.pending.where(email: event["email"]).last
+      client_invitation.processed!
+      ap '---------------------- found and processed --------------------------'
+      ap client_invitation
     end
   end
   
   def dropped event
-    ap '-- dropped --'
-    ap event["email"]
-    ap event["reason"]
+    if client_invitation = ClientInvitation.pending.where(email: event["email"]).last
+      client_invitation.dropped!
+      client_invitation.sendgrid_msg = event["reason"]
+      client_invitation.save
+    end
   end
   
   def delivered event
-    ap '-- delivered --'
-    ap event["email"]
+    if client_invitation = ClientInvitation.processed.where(email: event["email"]).last
+      client_invitation.delivered!
+      ap '---------------------- found and delivered --------------------------'
+      ap client_invitation
+    end
     
   end
   
   def open event
-    ap '-- open --'
-    ap event["email"]
-    
+    if client_invitation = ClientInvitation.delivered.where(email: event["email"]).last
+      client_invitation.opened!
+      ap '---------------------- found and opened --------------------------'
+      ap client_invitation
+    end
   end
   
   def click event
-    ap '-- click --'
-    ap event["email"]
-    
+    if client_invitation = ClientInvitation.opened.where(email: event["email"]).last
+      client_invitation.clicked!
+      ap '---------------------- found and clicked --------------------------'
+      ap client_invitation
+    end
   end
   
   def bounce event
-    ap '-- bounce --'
-    ap event["email"]
-    
-    ap event["reason"]
+    if client_invitation = ClientInvitation.processed.where(email: event["email"]).last
+      client_invitation.bounced!
+      client_invitation.sendgrid_msg = event["reason"]
+      client_invitation.save
+    end
   end
   
   def unsubscribe event
-    ap '-- unsubscribe --'
-    ap event["email"]
-    
-    
+    if client_invitation = ClientInvitation.where(email: event["email"], sendgrid_status: 'processed').last
+      client_invitation.unsubscribed!
+    end
   end
 end

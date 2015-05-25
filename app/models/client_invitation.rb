@@ -7,7 +7,7 @@ class ClientInvitation < ActiveRecord::Base
   
   #after_create :send_one_with_avatar
   
-  enum status: [ :pending, :archived, :dropped, :delivered, :opened, :clicked, :bounceed, :unsubscribed ]
+  enum sendgrid_status: [ :pending, :processed, :dropped, :delivered, :opened, :clicked, :bounced, :unsubscribed ]
   
   
   def send_one_with_avatar
