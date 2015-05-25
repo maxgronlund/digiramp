@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150523201649) do
+ActiveRecord::Schema.define(version: 20150525172130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -764,10 +764,13 @@ ActiveRecord::Schema.define(version: 20150523201649) do
     t.integer  "user_id"
     t.integer  "account_id"
     t.integer  "client_id"
-    t.string   "status",     limit: 255
+    t.string   "status",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "uuid",       limit: 255
+    t.string   "uuid",            limit: 255
+    t.integer  "sendgrid_status",             default: 0
+    t.string   "sendgrid_msg",                default: ""
+    t.string   "email",                       default: ""
   end
 
   add_index "client_invitations", ["account_id"], name: "index_client_invitations_on_account_id", using: :btree

@@ -26,8 +26,8 @@ class User::InviteFriendsController < ApplicationController
                  client_invitation = ClientInvitation.create( account_id: @user.account_id, 
                                                               client_id:  client.id,
                                                               user_id:    @user.id,
-                                                              status:     'Invited',
-                                                              uuid:       UUIDTools::UUID.timestamp_create().to_s )
+                                                              uuid:       UUIDTools::UUID.timestamp_create().to_s,
+                                                              email:      client.email )
              client_invitation.send_one_with_avatar
              invitations_send_to[invitations_send_to_index] = email 
              invitations_send_to_index                      += 1

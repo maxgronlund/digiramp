@@ -8,10 +8,11 @@
       i.fa.fa-check
       '&nbsp; Member
     - elsif client_invitation = ClientInvitation.where(client_id: contact.id, user_id: contact.user_id).first
-      .btn.btn-default.btn-xs disabled="disabled"
-        i.fa.fa-ticket
-        '&nbsp;#{client_invitation.status}
-      '&nbsp;
+        => client_invitation.sendgrid_status.capitalize
+        - if client_invitation.dropped?
+          =< client_invitation.sendgrid_msg
+        /= client_invitation.id
+        /'&nbsp;
   .col-sm-3
     .ellipsis
       = contact.full_name

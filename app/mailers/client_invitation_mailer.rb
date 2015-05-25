@@ -63,7 +63,7 @@ class ClientInvitationMailer < ActionMailer::Base
                                           user_id:     client.user_id,
                                           status:     'Invited').first
             # store invited clients
-            ap email
+            
             invitation            = create_invitation( client )
             emails[index]         = email
             accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
@@ -99,7 +99,7 @@ class ClientInvitationMailer < ActionMailer::Base
     # only send if there is someone to send to
     unless emails.empty?
       headder = JSON.generate(x_smtpapi)
-      ap x_smtpapi
+
       headers['X-SMTPAPI'] = headder
       mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
     end
@@ -111,8 +111,8 @@ class ClientInvitationMailer < ActionMailer::Base
     ClientInvitation.create( account_id: client.account_id, 
                              client_id:  client.id,
                              user_id:    client.user_id,
-                             status:     'Invited',
-                             uuid:       UUIDTools::UUID.timestamp_create().to_s )
+                             uuid:       UUIDTools::UUID.timestamp_create().to_s,
+                             email:      client.email )
     
   end
   
