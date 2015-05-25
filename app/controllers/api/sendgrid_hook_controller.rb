@@ -3,6 +3,7 @@ class Api::SendgridHookController < ApplicationController
   def update
     Rails.logger.info request.content_type
     params.each do |p|
+      ap '============================= from sendgrid =================================='
       Rails.logger.info '----------------------------------------------------------------'
       Rails.logger.info p
     end

@@ -240,6 +240,9 @@ gem 'docverter'
 
 #gem 'httparty'
 
+# sendgrid webhooks
+gem 'gridhook'
+
 group :development do
   gem 'rb-readline'
   # Use Capistrano for deployment
