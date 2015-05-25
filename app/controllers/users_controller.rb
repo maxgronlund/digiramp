@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   end
   
   def index
+    ap params
     # exclude ajax calls from statistic
     PageView.create(url: '/users' ) if request.format.to_s == 'text/html'
 
