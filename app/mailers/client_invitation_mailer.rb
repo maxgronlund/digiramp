@@ -56,6 +56,7 @@ class ClientInvitationMailer < ActionMailer::Base
     client_batch.each do |client|
       
       if client 
+        #if email = EmailSanitizer.saintize( client.email )
           # Don't invite clients two times
           unless ClientInvitation.where(  account_id:  client.account_id, 
                                           client_id:   client.id,
@@ -70,8 +71,7 @@ class ClientInvitationMailer < ActionMailer::Base
             user_names[index]     = user_name    
             index += 1
           end
-        
-        end
+        #end
       end
     end
     
