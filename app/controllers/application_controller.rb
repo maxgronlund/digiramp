@@ -232,6 +232,7 @@ class ApplicationController < ActionController::Base
   
   
   def forbidden options = {}
+    ap '-------------------------------'
     render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
     #if params[:controller] && options[:controller] == 'messages'
     #  if current_user
