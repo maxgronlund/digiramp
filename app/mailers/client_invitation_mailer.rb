@@ -163,8 +163,14 @@ class ClientInvitationMailer < ActionMailer::Base
                    sub: {  
                            "--user_name--".to_sym =>    [ @inviter.user_name.to_s ],
                            "--accept_url--".to_sym =>   [ @accept_url],
-                           "--decline_url--".to_sym =>  [ @decline_url]
-                        } 
+                           "--decline_url--".to_sym =>  [ @decline_url],
+                           "--uniq_ids--".to_sym =>     [ @uniq_ids]
+                        }, 
+                  unique_args: 
+                       {
+                         uniq_ids: "--uniq_ids--"
+
+                       }
     
                 }
     
