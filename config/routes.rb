@@ -925,9 +925,9 @@ Digiramp::Application.routes.draw do
   #match '/422', via: :all, to: 'errors#unprocessable_entity'
   #match '/500', via: :all, to: 'errors#server_error'
   
-  resources :errors do
-    get 'not_found'
-  end
+  #resources :errors do
+  #  get 'not_found'
+  #end
   
   #admin_constraint = lambda do |request|
   #  request.session[:init] = true # Starts up the session so we can access values from it later.
