@@ -28,7 +28,7 @@ module Digiramp
     #      g.integration_tool :rspec
     #end
     
-    config.exceptions_app = self.routes
+    #config.exceptions_app = self.routes
     
     
     config.action_dispatch.default_headers = {

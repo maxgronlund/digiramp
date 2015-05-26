@@ -921,9 +921,9 @@ Digiramp::Application.routes.draw do
   
   
    
-  match '/404', via: :all, to: 'errors#not_found'
-  match '/422', via: :all, to: 'errors#unprocessable_entity'
-  match '/500', via: :all, to: 'errors#server_error'
+  #match '/404', via: :all, to: 'errors#not_found'
+  #match '/422', via: :all, to: 'errors#unprocessable_entity'
+  #match '/500', via: :all, to: 'errors#server_error'
   
   resources :errors do
     get 'not_found'

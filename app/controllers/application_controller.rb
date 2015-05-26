@@ -232,26 +232,27 @@ class ApplicationController < ActionController::Base
   
   
   def forbidden options = {}
-    if params[:controller] && options[:controller] == 'messages'
-      if current_user
-        session[:request_url]  =  request.url
-        redirect_to error_not_found_path( error_id: options[:id], 
-                                          user_id: options[:user_id], 
-                                          error_type: 'log_in_as_new_user_to_read_message'
-                                          )
-      else
-        session[:request_url]  =  request.url
-        
-        redirect_to error_not_found_path( error_id: 0, 
-                                          user_id: options[:user_id], 
-                                          error_type: 'log_in_to_read_message')
-        
-      end
-    else
-      session[:request_url] = request.url
-      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
-      # redirect_to error_not_found_path 0
-    end
+    render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+    #if params[:controller] && options[:controller] == 'messages'
+    #  if current_user
+    #    session[:request_url]  =  request.url
+    #    redirect_to error_not_found_path( error_id: options[:id], 
+    #                                      user_id: options[:user_id], 
+    #                                      error_type: 'log_in_as_new_user_to_read_message'
+    #                                      )
+    #  else
+    #    session[:request_url]  =  request.url
+    #    
+    #    redirect_to error_not_found_path( error_id: 0, 
+    #                                      user_id: options[:user_id], 
+    #                                      error_type: 'log_in_to_read_message')
+    #    
+    #  end
+    #else
+    #  session[:request_url] = request.url
+    #  render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+    #  # redirect_to error_not_found_path 0
+    #end
   end
   helper_method :forbidden
 
@@ -259,24 +260,24 @@ class ApplicationController < ActionController::Base
   
   def not_found options = {}
     
-    if params && params[:controller]
-      if current_user
-        
-        redirect_to error_not_found_path( error_id: options[:id] || params[:id], 
-                                          user_id: options[:user_id], 
-                                          error_type: params[:controller],
-                                          redirect_to_message:  request.url, 
-                                          action: params[:action])
-      else
-        
-        redirect_to error_not_found_path( error_id: options[:id] || params[:id],
-                                          error_type: params[:controller],
-                                          redirect_to_message:  request.url, 
-                                          action: params[:action])
-      end
-    else
-      render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
-    end
+    #if params && params[:controller]
+    #  if current_user
+    #    
+    #    redirect_to error_not_found_path( error_id: options[:id] || params[:id], 
+    #                                      user_id: options[:user_id], 
+    #                                      error_type: params[:controller],
+    #                                      redirect_to_message:  request.url, 
+    #                                      action: params[:action])
+    #  else
+    #    
+    #    redirect_to error_not_found_path( error_id: options[:id] || params[:id],
+    #                                      error_type: params[:controller],
+    #                                      redirect_to_message:  request.url, 
+    #                                      action: params[:action])
+    #  end
+    #else
+    render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+    #end
   end
   helper_method :not_found
   
