@@ -149,7 +149,7 @@ class ClientInvitationMailer < ActionMailer::Base
     @accept_url           = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id: @client_invitation.uuid )
     @decline_url          = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: @client_invitation.uuid )
     @avatar_url           = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
-    
+    @uniq_ids             = @client_invitation.id
                 
     x_smtpapi = { 
                   to: [@client.email],

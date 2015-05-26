@@ -94,7 +94,7 @@
                 - if @contact.home_page.to_s != ''
                   tr
                     th Home Page: &nbsp;
-                    td = link_to @contact.home_page, LinkValidator.validate(@contact.home_page)
+                    td = link_to @contact.home_page, LinkValidator.sanitize(@contact.home_page)
                     
                 - if @contact.business_phone.to_s != ''
                   tr
