@@ -29,7 +29,7 @@ class ClientInvitationMailer < ActionMailer::Base
 
     client_group    = ClientGroup.find(client_group_id)
     
-    client_group.clients.in_groups_of(50) do |client_batch|
+    client_group.clients.in_groups_of(100) do |client_batch|
       invite_batch( client_group, client_batch)
     end
     
@@ -49,6 +49,7 @@ class ClientInvitationMailer < ActionMailer::Base
     accept_urls   = []
     decline_urls  = []
     user_names    = []
+    uniq_ids      = []
     index         = 0
     index         = 0
     
@@ -61,11 +62,11 @@ class ClientInvitationMailer < ActionMailer::Base
           # Don't invite clients two times
           unless ClientInvitation.where(  account_id:  client.account_id, 
                                           client_id:   client.id,
-                                          user_id:     client.user_id,
-                                          status:     'Invited').first
+                                          user_id:     client.user_id ).first
             # store invited clients
             
             invitation            = create_invitation( client )
+            uniq_ids[index]       = invitation.id
             emails[index]         = email
             accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
             decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
@@ -92,8 +93,29 @@ class ClientInvitationMailer < ActionMailer::Base
                            "--user_name--".to_sym =>    user_names,
                            "--accept_url--".to_sym =>   accept_urls,
                            "--decline_url--".to_sym =>  decline_urls,
-                           "--avatar_url--".to_sym =>   decline_urls
-                        } 
+                           "--avatar_url--".to_sym =>   decline_urls,
+                           "--uniq_ids--".to_sym =>   uniq_ids,
+                           
+                        } ,
+                   unique_args: 
+                       {
+                         uniq_ids: "--uniq_ids--"
+
+                       }
+                   
+                  
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
     
                 }
     

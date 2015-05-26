@@ -10,7 +10,8 @@
     - elsif client_invitation = ClientInvitation.where(client_id: contact.id, user_id: contact.user_id).first
         => client_invitation.sendgrid_status.capitalize
         - if client_invitation.dropped?
-          =< client_invitation.sendgrid_msg
+          => client_invitation.sendgrid_msg
+        /= client_invitation.id
         /= client_invitation.id
         /'&nbsp;
   .col-sm-3
