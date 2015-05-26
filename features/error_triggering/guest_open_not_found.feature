@@ -13,11 +13,11 @@ As an guest I get decent errors on pages not found
   Scenario: As a guest I can open not found pages
   
     When I'm on the "A not existing users recording page"
-    Then I can see "422 Not found"
+    Then I can see "404 Page not found"
   
     #When I visit the user "Some Dude"
     When I visit a non existing recording page the user "Some Dude"
-    Then I can see "422 Not found"
+    Then I can see "404 Page not found"
     
 
     
