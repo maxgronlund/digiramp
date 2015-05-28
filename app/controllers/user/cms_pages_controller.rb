@@ -58,11 +58,16 @@ class User::CmsPagesController < ApplicationController
   end
 
   private
-    def set_cms_page
-      @cms_page = CmsPage.find(params[:id])
+  def set_cms_page
+    begin
+      @cms_page = CmsPage.cached_find(params[:id])
+    rescue
+      not_found
     end
+  end
+    
 
-    def cms_page_params
-      params.require(:cms_page).permit!
-    end
+  def cms_page_params
+    params.require(:cms_page).permit!
+  end
 end

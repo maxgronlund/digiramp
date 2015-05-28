@@ -13,7 +13,8 @@ Digiramp::Application.routes.draw do
     #get 'buy_coupon/show'
     resources :buy_coupons
     resources :orders 
-     match '/payment_status/:guid'   => 'payment_status#status',    via: :get,  as: :payment_status
+    match '/orders/payment_status/:uuid'   => 'orders#payment_status',    via: :get,  as: :payment_status
+
     resources :products 
     resources :shop_order_items
     get 'shop/index'
@@ -222,7 +223,7 @@ Digiramp::Application.routes.draw do
   resources :terms_and_conditions, only: [:index]
   resources :tutorials
   resources :twitter_cards
-  resources :uploads
+  #resources :uploads
   resources :unsubscribes
   resources :video_posts
   resources :widgets

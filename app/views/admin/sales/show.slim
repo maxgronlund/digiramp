@@ -23,9 +23,9 @@
                   '&nbsp;Back
 
             - if Rails.env == 'development'      
-              = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{@sale.stripe_id}", :target => "_blank" , class: 'btn btn-primary'
+              = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{@shop_order.charge_id}", :target => "_blank" , class: 'btn btn-primary'
             - else
-              = link_to 'Stripe', "https://manage.stripe.com/payments/#{@sale.stripe_id}" , :target => "_blank", class: 'btn btn-primary'
+              = link_to 'Stripe', "https://manage.stripe.com/payments/#{@shop_order.charge_id}" , :target => "_blank", class: 'btn btn-primary'
                   
 
       .sexy_line
@@ -39,7 +39,7 @@
                 th Key
                 th Value
             tbody
-              - @sale.attributes.sort.each do |key, value| 
+              - @shop_order.attributes.sort.each do |key, value| 
                 tr
                   td = key 
                   td = value 
@@ -57,7 +57,7 @@
                 th Changes
             
             tbody
-              - if versions = @sale.versions
+              - if versions = @shop_order.versions
                 - versions.each do |version| 
                   tr
                     td  = version.created_at.to_formatted_s(:short)

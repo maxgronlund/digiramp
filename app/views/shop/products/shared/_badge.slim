@@ -14,7 +14,7 @@
       = truncate(product.title, length: 76)
       /= word_wrap(product.title, line_width: 8)
     .product-info
-      = word_wrap(product.additional_info)
+      = word_wrap(product.additional_info.to_s)
     .product-price
       'PRICE&nbsp;
       => number_to_currency(product.price * 0.01, locale: :en, procision: 2)

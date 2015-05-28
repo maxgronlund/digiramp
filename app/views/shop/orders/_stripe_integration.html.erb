@@ -27,7 +27,8 @@
         type: "POST",
         url: "/shop/orders/<%=@shop_order.uuid %>",
         data: $('#payment-form').serialize(),
-        success: function(data) { console.log(data); poll( data.uuid, 45) },
+        success: function(data) { console.log(data); poll( "<%= @shop_order.uuid %>", 45) },
+        /*success: function(data) { console.log(data); poll( data.uuid, 45) },*/
         /*success: function(data) { window.location = "/user/users/<%=@user.slug%>/subscriptions" },*/
         error: function(data)   { /*console.log(data);*/ showError(data.responseJSON.error) }
       });
@@ -39,22 +40,22 @@
   
 
   // Recursively poll for completion.
-  function poll(guid, num_retries_left) {
+  function poll(uuid, num_retries_left) {
     console.log(num_retries_left);
     if (num_retries_left === 0) {
-      showError("This seems to be taking too long. Email support@digiramp.com and reference subscription " + guid + " and we'll take a look.");
+      showError("This seems to be taking too long. Email support@digiramp.com and reference order " + uuid + " and we'll take a look.");
       return;
     }
 
-    $.get("/shop/orders/payment_status/" + guid, function(data) {
+    $.get("/shop/orders/payment_status/" + uuid, function(data) {
       console.log(data.status);
       if (data.status === "finished") {
           /*window.location = "/pickup/" + guid;*/
-        window.location = "/shop/orders/<%=@shop_order.uuid%>"
+        window.location = "/shop"
       } else if (data.status === "error") {
         showError(data.error)
       } else {
-        setTimeout(function() { poll(guid, num_retries_left - 1) }, 500);
+        setTimeout(function() { poll(uuid, num_retries_left - 1) }, 500);
       }
     });
   }

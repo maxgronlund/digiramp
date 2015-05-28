@@ -151,7 +151,7 @@ private
     #session[:user_id]           = user.id
     cookies.permanent[:user_id] = user.id
     session[:account_id]        = user.account_id
-    
+    user.merge_order(session[:order_uuid])
      
     # hmm.. some error handling should not be needed   
     unless account        = Account.where(user_id: user.id).first

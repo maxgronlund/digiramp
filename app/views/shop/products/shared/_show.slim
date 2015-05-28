@@ -1,3 +1,4 @@
+- session[:return_url] = request.url
 .show-product
   .row
     .col-sm-6
@@ -9,7 +10,7 @@
       /.sexy_line
       /= product.additional_info
       - if buy
-        = simple_form_for  [ :shop, @shop_order_item] do |f|
+        = simple_form_for  [ :shop, @shop_order_item], turboboost: true do |f|
           /= f.hidden_field :user_id, value: @user.id
           = f.hidden_field :shop_order_id,   value: @shop_order.uuid
           = f.hidden_field :shop_product_id, value: product.id
@@ -21,8 +22,9 @@
               .pull-right.pull-down-12
                 = f.submit 'Buy', class: 'btn btn-orange btn-lg'
         
-        hr
-          = link_to 'Basket', shop_order_path(@shop_order.uuid)
+        .sexy_line
+          /= link_to 'Basket', shop_order_path(@shop_order.uuid), id: 'data-no-turbolink'
+          == render 'admin/shared/messages'
         
   
     

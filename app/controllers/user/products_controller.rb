@@ -12,6 +12,7 @@ class User::ProductsController < ApplicationController
   # GET /shop/products/1
   # GET /shop/products/1.json
   def show
+    @shop_order = current_order
   end
 
   # GET /shop/products/new

@@ -24,7 +24,8 @@
                 - @shop_order.errors.full_messages.each do |msg| 
                   span = msg
         = simple_form_for [ @shop_order], html: { id: 'payment-form', class: 'form-horizontal'} do |f| 
-          input name="shop_order" type="hidden" value="#{@shop_order.id}"
+          /input name="shop_order" type="hidden" value="#{@shop_order.id}"
+          = f.hidden_field :uuid, value: @shop_order.uuid
           == render 'form', f: f, show_coupon_code: false
           
         .row
@@ -35,6 +36,6 @@
                 
 
     
-        == render 'shop/orders/stripe_integration'
+== render 'shop/orders/stripe_integration'
       
         

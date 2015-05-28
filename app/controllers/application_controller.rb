@@ -314,17 +314,18 @@ private
   # get the order
   def current_order
     
-
+    #session[:order_uuid] = nil
     if current_user 
-      order = current_user.get_order
+      @order = current_user.get_order
     else
-      if session[:order_uuid] && (order = Shop::Order.find_by(uuid: session[:order_uuid]) )
+      if session[:order_uuid] && (@order = Shop::Order.find_by(uuid: session[:order_uuid]) )
       else 
-        order = Shop::Order.create(uuid: UUIDTools::UUID.timestamp_create().to_s)
-        session[:order_uuid] = order.uuid
+        @order = Shop::Order.create(uuid: UUIDTools::UUID.timestamp_create().to_s)
+        session[:order_uuid] = @order.uuid
       end
     end
-    order
+    ap @order
+    @order
   end
   
   

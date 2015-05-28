@@ -12,6 +12,7 @@ class Shop::ShopOrderItemsController < ApplicationController
           if order_item = current_order.order_items.find_by(product_id: shop_order_item[:shop_product_id].to_i)
             order_item.quantity += shop_order_item[:quantity].to_i
             order_item.save
+            flash[:info] = "#{order_item.product.title} is added to your basket" 
           else
             current_order.order_items.create(quantity: shop_order_item[:quantity], product_id: shop_order_item[:shop_product_id])
           end

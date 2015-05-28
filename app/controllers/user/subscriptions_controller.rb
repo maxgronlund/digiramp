@@ -42,7 +42,7 @@ class User::SubscriptionsController < ApplicationController
     end
     
     
-
+    # use strong parameters
     subscription    = Subscription.new( plan_id:          @plan.id, 
                                         user_id:          @user.id,
                                         account_id:       @user.account_id,

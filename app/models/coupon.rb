@@ -4,6 +4,7 @@ class Coupon < ActiveRecord::Base
   belongs_to :plan
   belongs_to :sales_coupon_batch, class_name: "Digiramp::Sales::CouponBatch"
   has_many :subscriptions
+  has_many :shop_orders
   after_create :push_to_stripe
   
 

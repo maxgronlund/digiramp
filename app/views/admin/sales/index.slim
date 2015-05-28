@@ -26,27 +26,42 @@
             tr
               th Email
               /th Guid
-              th Product
+              th Id
               /th Stripe
               th Date
               th 
             
           tbody
-            -@sales.each do |sale| 
+            -@shop_orders.each do |shop_order| 
               tr
-                td = sale.email 
+                td = shop_order.email 
                 /td = sale.guid 
-                td = sale.product.name 
+                td = shop_order.id 
                 /td = sale.stripe_id 
-                td = sale.created_at.to_formatted_s(:short) 
+                td = shop_order.updated_at.to_formatted_s(:short) 
                 td 
                   .pull-right
-                    => link_to 'Show', admin_sale_path( sale ), class: 'btn btn-default btn-xs'
+                    => link_to 'Show', admin_sale_path( shop_order ), class: 'btn btn-default btn-xs'
                     - if Rails.env == 'development'
-                      = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{sale.stripe_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
+                      = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{shop_order.charge_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
                     - else
-                      = link_to 'Stripe', "https://manage.stripe.com/payments/#{sale.stripe_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
-          
+                      = link_to 'Stripe', "https://manage.stripe.com/payments/#{shop_order.charge_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
+            
+            /-@sales.each do |sale| 
+            /  tr
+            /    td = sale.email 
+            /    /td = sale.guid 
+            /    td = sale.product.name 
+            /    /td = sale.stripe_id 
+            /    td = sale.created_at.to_formatted_s(:short) 
+            /    td 
+            /      .pull-right
+            /        => link_to 'Show', admin_sale_path( sale ), class: 'btn btn-default btn-xs'
+            /        - if Rails.env == 'development'
+            /          = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{sale.stripe_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
+            /        - else
+            /          = link_to 'Stripe', "https://manage.stripe.com/payments/#{sale.stripe_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
+            /
 
 
   == render 'shared/site_footer'    

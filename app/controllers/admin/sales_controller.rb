@@ -1,16 +1,18 @@
 class Admin::SalesController < ApplicationController
   before_action :admin_only
-  before_action :set_sale, only: [:show, :edit, :update, :destroy]
+  #before_action :set_sale, only: [:show, :edit, :update, :destroy]
 
   # GET /sales
   # GET /sales.json
   def index
+    @shop_orders = Shop::Order.all
     #@sales = Sale.order('created_at desc')
   end
 
   # GET /sales/1
   # GET /sales/1.json
   def show
+    @shop_order = Shop::Order.cached_find(params[:id])
   end
 
   # GET /sales/new
@@ -64,12 +66,12 @@ class Admin::SalesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_sale
-      @sale = Sale.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def sale_params
-      params.require(:sale).permit(:email, :guid, :product_id, :stripe_id)
-    end
+    #def set_sale
+    #  @sale = Sale.find(params[:id])
+    #end
+    #
+    ## Never trust parameters from the scary internet, only allow the white list through.
+    #def sale_params
+    #  params.require(:sale).permit(:email, :guid, :product_id, :stripe_id)
+    #end
 end

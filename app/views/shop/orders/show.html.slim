@@ -15,6 +15,7 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'admin/shared/messages'
       .digi-box  
         .table-responsive
           table class="table table-hover"
@@ -37,7 +38,7 @@
                     td = number_to_currency(product.price * 0.01, locale: :en, precision: 2)
                     td 
                     
-                      = simple_form_for  [ :shop, order_item] do |f|
+                      = simple_form_for  [ :shop, order_item], turboboost: true do |f|
                         - unless f.error_notification.blank?
                           .alert.alert-danger
                             = f.error_notification
@@ -76,6 +77,6 @@
         .row
           .col-sm-12
             .pull-right
-              = link_to edit_shop_order_path(@shop_order.uuid) do
+              = link_to edit_shop_order_path(@shop_order.uuid) , 'data-no-turbolink'=>'true' do
                 .btn.btn-success.btn-xl
                   'Check out

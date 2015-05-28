@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525172130) do
+ActiveRecord::Schema.define(version: 20150527220226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2758,14 +2758,19 @@ ActiveRecord::Schema.define(version: 20150525172130) do
 
   create_table "shop_orders", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "stripe_customer_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "state"
     t.string   "uuid"
+    t.string   "stripe_token"
+    t.integer  "coupon_id"
+    t.string   "email"
+    t.string   "error"
+    t.string   "charge_id"
+    t.text     "invoice_object"
   end
 
-  add_index "shop_orders", ["stripe_customer_id"], name: "index_shop_orders_on_stripe_customer_id", using: :btree
+  add_index "shop_orders", ["coupon_id"], name: "index_shop_orders_on_coupon_id", using: :btree
   add_index "shop_orders", ["user_id"], name: "index_shop_orders_on_user_id", using: :btree
 
   create_table "shop_products", force: :cascade do |t|
@@ -3221,7 +3226,7 @@ ActiveRecord::Schema.define(version: 20150525172130) do
   add_foreign_key "invoices", "users"
   add_foreign_key "payment_sources", "subscriptions"
   add_foreign_key "payment_sources", "users"
-  add_foreign_key "shop_orders", "stripe_customers"
+  add_foreign_key "shop_orders", "coupons"
   add_foreign_key "shop_orders", "users"
   add_foreign_key "shop_products", "accounts"
   add_foreign_key "shop_products", "users"
