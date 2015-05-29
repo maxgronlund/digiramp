@@ -4,9 +4,7 @@ class Shop::Product < ActiveRecord::Base
   
   validates :title, :body, :additional_info, presence: true
   
-  validates_numericality_of :price,
-                            greater_than: 49,
-                            message: "must be at least 50 cents"
+  #validates_numericality_of :price, greater_than: 49, message: "must be at least 50 cents"
                             
   validates_with ProductValidator
   mount_uploader :image,    ProductImageUploader
@@ -37,8 +35,6 @@ class Shop::Product < ActiveRecord::Base
     end
   end
   
-  
-  end
 
   def flush_cache
     Rails.cache.delete([self.class.name, uuid])

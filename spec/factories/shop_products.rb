@@ -10,6 +10,8 @@ FactoryGirl.define do
     account         nil
     download_link   "MyString"
     for_sale        true
+    show_in_shop    true
+    user_id         1
     
   end
 

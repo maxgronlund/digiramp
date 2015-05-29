@@ -4,6 +4,7 @@ Feature:
 As an guest I can se the public shop pages
 
   Background:
+    Given there is a user with the email "user@digiramp.com" and the password "sesamsesamlukdigop"
     Given there is a product called "Chunky beacon"
     Given there is a product called "Happy coder"
     Given there is a product called "Light house"
@@ -32,4 +33,4 @@ As an guest I can se the public shop pages
     Then I can see "Happy coder"
     Then I can see "Chunky beacon"
     Then I clik on the link with the id "payment_form"
-    Then I fill in the payment form with wrong data and save
+    #Then I fill in the payment form with wrong data and save
