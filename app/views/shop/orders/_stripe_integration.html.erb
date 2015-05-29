@@ -28,8 +28,6 @@
         url: "/shop/orders/<%=@shop_order.uuid %>",
         data: $('#payment-form').serialize(),
         success: function(data) { console.log(data); poll( "<%= @shop_order.uuid %>", 45) },
-        /*success: function(data) { console.log(data); poll( data.uuid, 45) },*/
-        /*success: function(data) { window.location = "/user/users/<%=@user.slug%>/subscriptions" },*/
         error: function(data)   { /*console.log(data);*/ showError(data.responseJSON.error) }
       });
       
@@ -43,7 +41,7 @@
   function poll(uuid, num_retries_left) {
     console.log(num_retries_left);
     if (num_retries_left === 0) {
-      showError("This seems to be taking too long. Email support@digiramp.com and reference order " + uuid + " and we'll take a look.");
+      showError("This seems this takes too long. Please retry, if the problem persists you can Email support@digiramp.com and reference order " + uuid + " and we'll take a look.");
       return;
     }
 
@@ -51,9 +49,10 @@
       console.log(data.status);
       if (data.status === "finished") {
           /*window.location = "/pickup/" + guid;*/
-        window.location = "/shop"
-      } else if (data.status === "error") {
+        window.location = "/shop/invoices/<%= @shop_order.uuid %>"
+      } else if (data.status === "errored") {
         showError(data.error)
+        <% @shop_order.reset! %>
       } else {
         setTimeout(function() { poll(uuid, num_retries_left - 1) }, 500);
       }

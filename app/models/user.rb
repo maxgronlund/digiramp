@@ -197,18 +197,23 @@ class User < ActiveRecord::Base
   #has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
 
   def get_order
-    ap 'get_order'
+
     # lock if there is a order in the process of being paid
     #return nil if Shop::Order.find_by(state: 'pending', user_id: self.id)
     
-    Shop::Order.where(state: 'pending').first_or_create!( user_id: self.id, 
-                                                          email: self.email,
-                                                          uuid: UUIDTools::UUID.timestamp_create().to_s)
+    @shop_order  = Shop::Order.where(state: 'pending', 
+                                      user_id: self.id,
+                                      email: self.email )
+                              .first_or_create!( user_id: self.id, 
+                                                 email: self.email,
+                                                 uuid: UUIDTools::UUID.timestamp_create().to_s)
+    @shop_order.errors.clear
+    @shop_order
   end
   
   def merge_order order_uuid
-    if shop_order = Shop::Order.find_by(uuid: uuid)
-      get_order.merge_with_and_delete shop_order
+    if old_shop_order = Shop::Order.find_by(uuid: order_uuid)
+      get_order.merge_with_and_delete old_shop_order
     end
   end
   
@@ -227,7 +232,7 @@ class User < ActiveRecord::Base
   end
   
   def confirm_ips
-    ap self
+    #ap self
     if ipis = Ipi.where(email: self.email, confirmation: 'Missing')
       ap ipis.first
       ipis.update_all(user_id: self.id)

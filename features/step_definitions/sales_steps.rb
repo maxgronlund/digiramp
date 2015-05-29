@@ -35,3 +35,8 @@ end
 Then(/^I can send the offer to an email$/) do
   pending # express the regexp above with the code you wish you had
 end
+
+
+Then(/^I fill in the payment form with wrong data and save$/) do
+  pending # express the regexp above with the code you wish you had
+end

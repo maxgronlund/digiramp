@@ -35,7 +35,7 @@
       .sexy_line
       .products
         - @products.each do |product|
-          == render 'shop/products/shared/badge', product: product, link_to_product: user_product_path(@user, product)
+          == render 'shop/products/shared/badge', product: product, link_to_product: user_product_path(@user, product.uuid)
       / ----------------------------------------
       / this is a public shop that belongs to a user
       /-----------------------------------------

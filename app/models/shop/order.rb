@@ -8,6 +8,7 @@ class Shop::Order < ActiveRecord::Base
   belongs_to :coupon
   
   serialize :invoice_object, Hash
+  serialize :order_lines, Array
   #has_and_belongs_to_many :products, :class_name => "Shop::Product"
   #has_many :shop_products, through: :order_items, :class_name => "Shop::OrderItem"
   
@@ -15,23 +16,33 @@ class Shop::Order < ActiveRecord::Base
   
   before_destroy :remove_order_items
   
+  #validates :email, presence: true
+  validates_formatting_of :email
+  
+  
   aasm column: 'state' do
     state :pending, initial: true
     state :processing
-    state :finished
+    state :finished#, :before_enter => :store_order_lines
     state :errored
+    
     
     event :process, after: :charge_card do
       transitions from: :pending, to: :processing
     end
     
-    event :finish do
+    event :finish, after: :store_order_lines do
       transitions from: :processing, to: :finished
     end
     
     event :fail do
         transitions from: :processing, to: :errored
     end
+    
+    event :reset do
+        transitions from: [:pending, :errored, :processing, :finished], to: :pending
+    end
+    
   end
   
   def charge_card
@@ -62,11 +73,16 @@ class Shop::Order < ActiveRecord::Base
     end
   end
   
-  def merge_with_and_delete order
-    order.order_items.to_a.each do |order_item|
-      order_item.update(order_id: self.id)
+  def merge_with_and_delete old_shop_order
+
+    
+    old_shop_order.order_items.to_a.each do |order_item|
+      new_order_item          = order_item.dup
+      new_order_item.order_id = self.id
+      new_order_item.save!
+
     end
-    order.destroy!
+    old_shop_order.destroy!
   end
   
   
@@ -91,6 +107,19 @@ class Shop::Order < ActiveRecord::Base
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
+  
+  def store_order_lines
+    self.order_lines = []
+    self.order_items.each_with_index do |order_item, index|
+      if product = order_item.product
+        self.order_lines[index] = product.as_json.merge("total_price" => (order_item.quantity * product.price),
+                                                         "quantity" => order_item.quantity)
+      end
+    end
+    save!
+  end
+  
+  
 
   private 
 

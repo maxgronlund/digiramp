@@ -2,7 +2,11 @@ Digiramp::Application.routes.draw do
 
 
 
-  
+  get '/auth/stripe_connect/callback', to: 'stripe_connect#create'
+
+  namespace :stripe do
+    resources :success
+  end
 
   namespace :api do
     post 'sendgrid_hook/update'
@@ -12,6 +16,7 @@ Digiramp::Application.routes.draw do
   namespace :shop do
     #get 'buy_coupon/show'
     resources :buy_coupons
+    resources :invoices, only: [:show]
     resources :orders 
     match '/orders/payment_status/:uuid'   => 'orders#payment_status',    via: :get,  as: :payment_status
 
@@ -688,10 +693,13 @@ Digiramp::Application.routes.draw do
     
     
     resources :shop, only: [:index, :show]
-    
+    resources :checking_accounts
     resources :social_links
     #resources :common_work_lyrics
     resources :users do
+      
+      
+      
       
       match '/subsctiption_status/:guid'   => 'subscriptions#status',    via: :get,  as: :subscription_status
       match '/payment_method_status/:guid' => 'payment_methods#status',  via: :get,  as: :payment_method_status
@@ -706,6 +714,7 @@ Digiramp::Application.routes.draw do
       #get "shop"         => "shop#index",     :as => :user_user_shop_index
       #resources :shop, only: [:index]
       resources :shop_admin, only: [:index] 
+      resources :special_offer, only: [:index] 
       resources :product_admin, only: [:edit, :new, :create, :new]   
       
       

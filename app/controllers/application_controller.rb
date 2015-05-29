@@ -232,7 +232,7 @@ class ApplicationController < ActionController::Base
   
   
   def forbidden options = {}
-    ap '-------------------------------'
+    
     render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
     #if params[:controller] && options[:controller] == 'messages'
     #  if current_user
@@ -320,11 +320,11 @@ private
     else
       if session[:order_uuid] && (@order = Shop::Order.find_by(uuid: session[:order_uuid]) )
       else 
-        @order = Shop::Order.create(uuid: UUIDTools::UUID.timestamp_create().to_s)
+        @order = Shop::Order.new(uuid: UUIDTools::UUID.timestamp_create().to_s)
+        @order.save(:validate => false)
         session[:order_uuid] = @order.uuid
       end
     end
-    ap @order
     @order
   end
   

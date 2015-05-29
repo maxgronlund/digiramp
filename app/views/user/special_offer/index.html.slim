@@ -1,0 +1,41 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'edit_profile' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { settings: user_user_control_panel_index_path(@user)}, current: ''}
+      .row
+        .col-sm-8
+          h3 Special offers
+        .col-sm-4
+          .pull-down-10.pull-right
+            
+      .sexy_line
+      .products
+        - @products.each do |product|
+          == render 'shop/products/shared/badge', product: product, link_to_product: user_product_path(@user, product.uuid)
+      
+      
+      
+     
+            
+
+  == render 'shared/site_footer'     
+  
+  
+  
+  
+
+
+
+

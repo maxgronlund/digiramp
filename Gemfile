@@ -113,7 +113,7 @@ gem 'public_activity'
 #gem "taglib-ruby"
 #gem 'id3_tags'
 #gem 'jquery-fileupload-rails'
-gem 'icheck-rails'
+gem 'icheck-rails', git: 'git://github.com/maxgronlund/icheck-rails.git'
 
 # url validation
 gem 'validates_formatting_of'
@@ -232,6 +232,9 @@ gem 'uuid', '~> 2.3.7'
 gem 'stripe', '~> 1.21.0'
 # handling webhooks
 gem 'stripe_event'
+# handling user/ stripe accounts
+gem 'omniauth-stripe-connect', '>= 2.4.0'
+
 # state maching
 gem 'aasm'
 # history

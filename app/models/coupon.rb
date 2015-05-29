@@ -35,7 +35,8 @@ class Coupon < ActiveRecord::Base
         redeem_by:            self.redeem_by.nil? ? nil : Time.parse(self.redeem_by.to_s).to_i
       )
     rescue Stripe::StripeError => e
-      return {error: e}
+      Opbeat.capture_message("Coupon#push_to_stripe: #{e}")
+      self.destroy
     end
 
     #Stripe::Coupon.create(

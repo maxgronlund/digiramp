@@ -2,7 +2,7 @@
 
 .product
 
-  = link_to link_to_product do
+  = link_to link_to_product, id: "#{product.title.gsub(' ','_').downcase}" do
     .product-image
       = image_tag( product.image_url :thumb_300x300) 
       .user-tags

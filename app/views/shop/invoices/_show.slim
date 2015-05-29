@@ -1,0 +1,117 @@
+
+.container
+  .row
+    .col-xs-6
+      h1 DigiRAMP
+      /a href="https://digiramp.com/" 
+      /  img src="logo.png" 
+      /  | DigiRAMP
+    .col-xs-6.text-right
+      h1
+        small Invoice #001
+  .row
+    .col-xs-5
+      .panel.panel-default
+        .panel-heading
+          h4
+            | From:
+            a href="#"  Your Name
+        .panel-body
+          p
+            | Address
+            br
+            | details
+            br
+            | more
+            br
+    .col-xs-5.col-xs-offset-2.text-right
+      .panel.panel-default
+        .panel-heading
+          h4
+            | To :
+            a href="#"  Client Name
+        .panel-body
+          p
+            | Address
+            br/
+            | details
+            br/
+            | more
+            br/
+  /! / end client details section
+  table.table.table-bordered
+    thead
+      tr
+        th Service
+        th Details
+        th Qty
+        th Price
+        th Sub Total
+    tbody
+      - @shop_order.order_lines.each do |order_line|
+        tr
+          td =order_line["title"]
+          td =order_line["additional_info"]
+            
+          td.text-right =order_line["quantity"]
+          td.text-right =number_to_currency(order_line["price"].to_i * 0.01, locale: :en, precision: 2)
+          td.text-right =number_to_currency(order_line["total_price"].to_i * 0.01 , locale: :en, precision: 2)
+      /tr
+      /  td Template Design
+      /  td
+      /    a href="#"  Details of project here
+      /  td.text-right 10
+      /  td.text-right 75.00
+      /  td.text-right $750.00
+      /tr
+      /  td Development
+      /  td
+      /    a href="#"  WordPress Blogging theme
+      /  td.text-right 5
+      /  td.text-right 50.00
+      /  td.text-right $250.00
+  .row.text-right
+    .col-xs-2.col-xs-offset-8
+      p
+        strong
+          | Sub Total :
+          br
+          | TAX :
+          br
+          | Total :
+          br
+    .col-xs-2
+      strong
+        = number_to_currency(@shop_order.total_price.to_i * 0.01 , locale: :en, precision: 2)
+        br/
+        | N/A
+        br/
+        = number_to_currency(@shop_order.total_price.to_i * 0.01 , locale: :en, precision: 2)
+        br
+  /.row
+  /  .col-xs-5
+  /    .panel.panel-info
+  /      .panel-heading
+  /        h4 Bank details
+  /      .panel-body
+  /        p Your Name
+  /        p Bank Name
+  /        p SWIFT : --------
+  /        p Account Number : --------
+  /        p IBAN : --------
+  /  .col-xs-7
+  /    .span7
+  /      .panel.panel-info
+  /        .panel-heading
+  /          h4 Contact Details
+  /        .panel-body
+  /          p
+  /            | Email : you@example.com
+  /            br/
+  /            br/
+  /            | Mobile : --------
+  /            br/
+  /            br/
+  /            | Twitter :
+  /            a href="https://twitter.com/tahirtaous"  @TahirTaous
+  /          h4 Payment should be made by Bank Transfer

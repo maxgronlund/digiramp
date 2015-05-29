@@ -63,16 +63,20 @@
                   thead
                     tr
                       th CODE
-                      th Amount off
+                      - if @sales_coupon_batch.amount_off
+                        th Amount off
                       th Percent off
-                      th Redemed by
+                      th Duration
+                      th Redemed
                       th
                   tbody
                     - @sales_coupon_batch.coupons.each do |coupon|
                       tr
                         td = coupon.stripe_id
-                        td = number_to_currency(coupon.amount_off , locale:  :en, precision: 2)
-                        td = number_to_percentage(coupon.percent_off, precision: 0)  
+                        - if coupon.amount_off
+                          td = number_to_currency(coupon.amount_off , locale:  :en, precision: 2)
+                        td = number_to_percentage(coupon.percent_off, precision: 0) 
+                        td = coupon.duration_in_months
                         td 
                            - if coupon.times_redeemed == 1
                              '√&nbsp;

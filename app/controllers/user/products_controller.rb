@@ -31,7 +31,7 @@ class User::ProductsController < ApplicationController
 
     respond_to do |format|
       if @shop_product.save
-        format.html { redirect_to user_user_product_path(@user, @shop_product), notice: 'Product was successfully created.' }
+        format.html { redirect_to user_user_product_path(@user, @shop_product.uuid), notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @shop_product }
       else
         format.html { render :new }
@@ -43,9 +43,11 @@ class User::ProductsController < ApplicationController
   # PATCH/PUT /shop/products/1
   # PATCH/PUT /shop/products/1.json
   def update
+    
     respond_to do |format|
-      if @shop_product.update(shop_product_params)
-        format.html { redirect_to user_user_product_path(@user, @shop_product), notice: 'Product was successfully updated.' }
+      if @shop_product.update!(shop_product_params)
+        update_show_in_shop
+        format.html { redirect_to user_user_product_path(@user, @shop_product.uuid), notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @shop_product }
       else
         format.html { render :edit }
@@ -67,13 +69,43 @@ class User::ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shop_product
-      @shop_product = Shop::Product.find(params[:id])
+      @shop_product = Shop::Product.cached_find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shop_product_params
       #if super? || current_user.id == @user.id
-      params.require(:shop_product).permit(:title, :body, :additionl_info, :image, :price, :user_id, :account_id, :download_link, :for_sale, :category)
+      params.require(:shop_product).permit!#( :title, 
+                                           # :body, 
+                                           # :additional_info, 
+                                           # :image, 
+                                           # :price, 
+                                           # :user_id, 
+                                           # :account_id, 
+                                           # :download_link, 
+                                           # :for_sale, 
+                                           # :category,
+                                           # :exclusive_offer,
+                                           # :units_on_stock)
       #end
     end
+    
+    
+    def update_show_in_shop
+      # only make additional checks if the product is for sale
+      if @shop_product.show_in_shop = @shop_product.for_sale
+        # don't show exclucive offers in the shop
+        unless @shop_product.exclusive_offer.blank?
+          # this is a exclucive offer
+          @shop_product.show_in_shop = false
+        end
+        # don't show the product if the units is limited and there is nothing left
+        if @shop_product.units_on_stock &&  @shop_product.units_on_stock < 1
+          # out of stock
+          @shop_product.show_in_shop = false
+        end
+      end
+      @shop_product.save
+    end
+    
 end

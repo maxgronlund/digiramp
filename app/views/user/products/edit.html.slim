@@ -29,10 +29,10 @@
                                                               'shop admin'.to_sym => user_user_shop_admin_index_path(@user)}, current: ''}
       .row
         .col-sm-8
-          h3 New product
+          h3 Edit product
         .col-sm-4
           .pull-right.pull-down-10
-            => link_to  user_user_product_path(@user, @shop_product) do
+            => link_to  user_user_product_path(@user, @shop_product.uuid) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back

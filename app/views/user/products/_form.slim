@@ -5,15 +5,27 @@
   = f.input :title
   .row
     .col-sm-6
-      = f.input :price, label: 'Price in cent'
+      .row
+        .col-sm-6
+          = f.input :price, label: 'Price in cent'
+        .col-sm-6.pull-down-12
+          = f.input :for_sale,  :input_html => { class: 'icheck-me', 
+                                                        'data-skin'.to_sym => "square", 
+                                                        'data-color'.to_sym => "blue" }
+          
       = f.input :image
-      = f.input :category, :include_blank => false, :collection => Shop::Product::CATEGORIES
+      .row
+        .col-sm-6
+          = f.input :category, :include_blank => false, :collection => Shop::Product::CATEGORIES
+        .col-sm-6
+          = f.input :units_on_stock, placeholder: 'Will not go out of stuck if blank'
+          
       = f.input :download_link
-      = f.input :for_sale,  :input_html => { class: 'icheck-me', 
-                                                    'data-skin'.to_sym => "square", 
-                                                    'data-color'.to_sym => "blue" }  
+      = f.input :exclusive_offer, placeholder: 'email@someone-lucky.com'
+      
       
     .col-sm-6
+      = f.input :additional_info, :input_html => {  style: "height: 80px;", placeholder: "Text for small badges and invoice statements"}, label: 'Product info'
       b Description
       br
       div id="toolbar" class="wysihtml5-toolbar"
@@ -22,8 +34,7 @@
         a data-wysihtml5-command="italic" Italic
         .pull-right
           a data-wysihtml5-action="change_view"  Html 
-      = f.input :body, label: false, :input_html => {  style: "height: 180px;", placeholder: "Short text about the product", id: 'wysihtml5_editor'}
-      = f.input :additional_info, :input_html => {  style: "height: 80px;", placeholder: "Aditional info i.e. contact me for shipping terms"}
+      = f.input :body, label: false, :input_html => {  style: "height: 180px;", placeholder: "Detailed text about the product", id: 'wysihtml5_editor'}
   /=f.input :invitation_message, label: false, :input_html => {  style: "height: 280px;", placeholder: "Invitation message", id: 'wysihtml5_editor'}
   
   

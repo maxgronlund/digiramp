@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527220226) do
+ActiveRecord::Schema.define(version: 20150529163219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2768,6 +2768,12 @@ ActiveRecord::Schema.define(version: 20150527220226) do
     t.string   "error"
     t.string   "charge_id"
     t.text     "invoice_object"
+    t.string   "address_line_1"
+    t.string   "address_line_2"
+    t.string   "city"
+    t.string   "zip"
+    t.string   "country"
+    t.text     "order_lines"
   end
 
   add_index "shop_orders", ["coupon_id"], name: "index_shop_orders_on_coupon_id", using: :btree
@@ -2783,9 +2789,13 @@ ActiveRecord::Schema.define(version: 20150527220226) do
     t.integer  "account_id"
     t.string   "download_link"
     t.boolean  "for_sale"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "category"
+    t.integer  "units_on_stock"
+    t.string   "exclusive_offer"
+    t.string   "uuid"
+    t.boolean  "show_in_shop",    default: false
   end
 
   add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
@@ -3024,6 +3034,7 @@ ActiveRecord::Schema.define(version: 20150527220226) do
     t.string   "phone_number",               limit: 255, default: ""
     t.string   "stripe_customer_id"
     t.boolean  "salesperson",                            default: false
+    t.string   "stripe_recipient_id"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

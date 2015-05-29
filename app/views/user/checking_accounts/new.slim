@@ -1,0 +1,6 @@
+.row
+  .col-sm-12
+      /#payment-errors.alert.payment-alert style=("#{ @shop_order.errors.any? ? '' : 'display: none;' } margin-bottom: 0px;") 
+      #payment-errors.alert.payment-alert style=("#{ true ? '' : 'display: none;' } margin-bottom: 0px;") 
+
+== render 'form'

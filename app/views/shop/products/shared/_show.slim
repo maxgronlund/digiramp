@@ -1,6 +1,8 @@
 - session[:return_url] = request.url
 .show-product
   .row
+    .col-sm-12
+      h3 = product.title
     .col-sm-6
       
       = image_tag product.image_url(:thumb_470x470)

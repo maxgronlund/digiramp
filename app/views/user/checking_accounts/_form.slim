@@ -1,0 +1,123 @@
+script type="text/javascript" src="https://js.stripe.com/v2/"
+
+= form_tag user_checking_accounts_path(id: @user.id), :class => 'form-horizontal', :id =>'account-form' do 
+  
+  .control-group
+    label.control-label for="fullName"  Full Name
+    .controls
+      input#fullName name="fullName" type="text" 
+  .control-group
+    label.control-label for="number"  Routing Number
+    .controls
+      input#number.routingNumber placeholder="*********" size="9" type="text" 
+  .control-group
+    label.control-label Account Number
+    .controls
+      input.accountNumber type="text" 
+  .form-row
+    .controls
+      button.btn.btn-primary type="submit"  Pay
+  
+
+
+table
+  thead
+    tr
+      th Number
+      th Type
+  tbody
+    tr
+      td.number
+        code 110000000
+      td STRIPE TEST BANK US routing number
+
+
+table
+  thead
+    tr
+      th Number
+      th Type
+  tbody
+    tr
+      td.number
+        code 000123456789
+      td Transfer will succeed.
+    tr
+      td.number
+        code 000111111116
+      td
+        | Transfer will fail with a
+        code no_account
+        | code.
+    tr
+      td.number
+        code 000111111113
+      td
+        | Transfer will fail with an
+        code account_closed
+        | code.
+    tr
+      td.number
+        code 000222222227
+      td
+        | Transfer will fail with an
+        code insufficient_funds
+        | code.
+    tr
+      td.number
+        code 000333333335
+      td
+        | Transfer will fail with a
+        code not_authorized
+        | code.
+    tr
+      td.number
+        code 000444444440
+      td
+        | Transfer will fail with an
+        code invalid_currency
+        | code.
+
+
+
+
+
+
+
+
+
+
+javascript:
+  $('#account-form').submit(function() {
+    console.log('SUBMITTING');
+      Stripe.setPublishableKey('pk_test_4NSClcsd1oGSIlgzaMQVPx7I');
+      Stripe.bankAccount.createToken({
+        country: 'US',
+        routingNumber: $('.routingNumber').val(),
+        accountNumber: $('.accountNumber').val()
+      }, stripeResponseHandler);
+      return false;
+    });
+    
+  //function stripeResponseHandler(status, response) {
+  //  var form = $('#account-form');
+  //  form.append("<input type='hidden' name='stripeToken' value='" + response.id + "'/>");
+  //  form.get(0).submit();
+  //}
+
+  function stripeResponseHandler(status, response) {
+    var $form = $('#account-form');
+  
+    if (response.error) {
+      // Show the errors on the form
+      $form.find('.bank-errors').text(response.error.message);
+      $form.find('button').prop('disabled', false);
+    } else {
+      // response contains id and bank_account, which contains additional bank account details
+      var token = response.id;
+      // Insert the token into the form so it gets submitted to the server
+      $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+      // and submit
+      $form.get(0).submit();
+    }
+  }

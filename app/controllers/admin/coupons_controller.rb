@@ -27,12 +27,13 @@ class Admin::CouponsController < ApplicationController
   def create
     @coupon = Coupon.new(coupon_params)
     if @coupon.save
-      if error = @coupon.push_to_stripe[:error]
-        #  flash[:danger] = e.message 
-        ap error
-        flash[:danger] = error if error
-         @coupon.destroy
-      end
+      #if error = @coupon.push_to_stripe[:error]
+      #  #  flash[:danger] = e.message 
+      #  ap '-------------- error ---------------------'
+      #  Opbeat.capture_message("Admin::CouponsController#create")
+      #  #flash[:danger] = error if error
+      #  @coupon.destroy
+      #end
       redirect_to admin_coupons_path
       #begin
       #  

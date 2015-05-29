@@ -132,9 +132,9 @@ class SessionsController < ApplicationController
 private
   
   def initialize_session_for user
-    # '-------------- SessionsController#initialize_session_for -----------'
-    # params
-    # session[:current_page]
+    '-------------- SessionsController#initialize_session_for -----------'
+    params
+    session[:current_page]
 
     provider = nil
     if env['omniauth.auth']
@@ -151,8 +151,9 @@ private
     #session[:user_id]           = user.id
     cookies.permanent[:user_id] = user.id
     session[:account_id]        = user.account_id
+    
     user.merge_order(session[:order_uuid])
-     
+    session[:order_uuid] = nil
     # hmm.. some error handling should not be needed   
     unless account        = Account.where(user_id: user.id).first
       account             = User.create_a_new_account_for_the user

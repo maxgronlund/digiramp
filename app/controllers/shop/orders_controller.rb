@@ -22,23 +22,34 @@ class Shop::OrdersController < ApplicationController
     @total_price  = @shop_order.total_price
     @years        = CreditCard.years
     @months       = CreditCard.months
+    
+    @shop_order.reset!
+    
 
   end
 
   # PATCH/PUT /shop/orders/1
   # PATCH/PUT /shop/orders/1.json
   def update
-
+    ap params
+    params[:shop_order][:email]           = params[:email]
+    params[:shop_order][:address_line_1]  = params[:address_line1]
+    params[:shop_order][:address_line_2]  = params[:address_line2]
+    params[:shop_order][:city]            = params[:address_city]
+    params[:shop_order][:zip]             = params[:address_zip]
+    params[:shop_order][:country]         = params[:country]
+    params[:shop_order][:stripe_token]    = params[:stripeToken]
+    params[:stripeToken]                  = nil
     @shop_order = Shop::Order.find_by(uuid: params[:id])
     
-    params[:shop_order][:stripe_token] = params[:stripeToken]
-    params[:stripeToken]  = nil
+    
     
 
-    if @shop_order.update!(shop_order_params)
+    if @shop_order.update(shop_order_params)
       StripeChargeJob.perform_later(@shop_order.uuid)
       render json: { uuid: @shop_order.uuid }
     else
+      ap 'AUTCH'
       errors = @shop_order.errors.full_messages
       render json: {
                     error: errors.join(" ")
@@ -73,6 +84,10 @@ class Shop::OrdersController < ApplicationController
                                          :stripe_token, 
                                          :uuid, 
                                          :coupon_id,
-                                         :email)
+                                         :email,
+                                         :address_line_1,
+                                         :address_line_2,
+                                         :address_city,
+                                         :address_country)
     end
 end

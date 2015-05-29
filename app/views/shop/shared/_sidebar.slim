@@ -3,7 +3,7 @@
 
   li
 
-    = link_to  shop_order_path(@shop_order.uuid) do
+    = link_to  shop_order_path(@shop_order.uuid), id: 'checkout' do
       i.fa.fa-shopping-cart
       '&nbsp;
       = pluralize(@shop_order.items_count, 'Item')
@@ -11,6 +11,9 @@
         i.fa.fa-money
         '&nbsp;
         = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
+        
+
+        
 
       
       
