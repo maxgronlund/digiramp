@@ -1,22 +1,22 @@
 
-
-= form_tag user_checking_accounts_path(id: @user.id), :class => 'form-horizontal', :id =>'account-form' do 
-  
-  .control-group
-    label.control-label for="fullName"  Full Name
-    .controls
-      input#fullName name="fullName" type="text" 
-  .control-group
-    label.control-label for="number"  Routing Number
-    .controls
-      input#number.routingNumber placeholder="*********" size="9" type="text" 
-  .control-group
-    label.control-label Account Number
-    .controls
-      input.accountNumber type="text" 
-  .form-row
-    .controls
-      button.btn.btn-primary type="submit"  Pay
-  
+== render 'form'
+/= form_tag user_checking_accounts_path(id: @user.id), :class => 'form-horizontal', :id =>'account-form' do 
+/  
+/  .control-group
+/    label.control-label for="fullName"  Full Name
+/    .controls
+/      input#fullName name="fullName" type="text" 
+/  .control-group
+/    label.control-label for="number"  Routing Number
+/    .controls
+/      input#number.routingNumber placeholder="*********" size="9" type="text" 
+/  .control-group
+/    label.control-label Account Number
+/    .controls
+/      input.accountNumber type="text" 
+/  .form-row
+/    .controls
+/      button.btn.btn-primary type="submit"  Pay
+/  
 
 

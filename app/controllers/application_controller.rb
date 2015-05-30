@@ -53,7 +53,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_account
   
   def current_account_user
-    
     account_user = AccountUser.cached_where( current_account.id, current_user.id)
     # this is a fix should be fixed by a migration
     return account_user if account_user
@@ -84,10 +83,16 @@ class ApplicationController < ActionController::Base
     current_user != nil
   end
   
+  def profile_user?
+    return true if super?
+    return false unless current_user
+    return false current_user.account_id
+    current_user.account_id == current_account 
+  end
+  
   def admin_only
     unless  user_signed_in?  && current_user.super?
       forbidden
-      
     end
     @user       = current_user
     @authorized = true

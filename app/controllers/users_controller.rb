@@ -124,15 +124,6 @@ class UsersController < ApplicationController
       not_found
     end
   end
-  
-  #def find_user
-  #  if current_user
-  #    @user = User.cached_find(params[:id])
-  #  else
-  #    render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
-  #  end
-  #end
-
 
   def new
     @user = User.new
@@ -153,7 +144,6 @@ class UsersController < ApplicationController
     if @user.save
       @account          = User.create_a_new_account_for_the @user
 
-      
       # signout if you was signed in as another user
       cookies.delete(:auth_token)
       sign_in
@@ -188,7 +178,6 @@ class UsersController < ApplicationController
   end
 
   def update
-
     @account    = @user.account
 
     @user.slug  = nil
@@ -219,7 +208,6 @@ class UsersController < ApplicationController
         redirect_to user_path(@user)
       end
     else
-
       render :edit
     end
     
@@ -233,7 +221,6 @@ class UsersController < ApplicationController
               recipient_type: @user.class.name,
                   account_id: @user.account_id)
     
-
     @user.destroy
 
     session[:go_to_after_edit]          = nil
@@ -244,16 +231,13 @@ class UsersController < ApplicationController
   end
   
   def dont_show_instructions
-    
     @user.show_introduction = false
     @user.save!
-    
   end
   
   
 private
 
-  
 
   def remove_password_fields_if_blank!(user_params)
     if user_params[:password].blank? and user_params[:password_confirmation].blank?
@@ -263,66 +247,69 @@ private
   end
 
   def user_params
-    params.require(:user).permit( :name,
-                                 :password,
-                                 :password_confirmation,
-                                 :email,
-                                 :admin,
-                                 :image,
-                                 :crop_params,
-                                 :profile,
-                                 :auth_token,                 
-                                 :current_account_id,
-                                 :first_name,                 
-                                 :last_name,                  
-                                 :avatar_url,                 
-                                 :account_id,
-                                 :show_welcome_message,       
-                                 :activated,                  
-                                 :uuid,                       
-                                 :curent_catalog_id,
-                                 :invited,                    
-                                 :administrator,              
-                                 :has_a_collection,           
-                                 :old_role,                   
-                                 :account_activated,          
-                                 #:provider,                  
-                                 #:uid,                        
-                                 #:email_missing,      
-                                 :writer,                     
-                                 :author,                     
-                                 :producer,                   
-                                 :composer,                   
-                                 :remixer,                    
-                                 :musician,                   
-                                 :dj,                         
-                                 :user_name,                         
-                                 :profession,                 
-                                 :country,                    
-                                 :city,                       
-                                 :artist,              
-                                 :gender,                    
-                                 :link_to_facebook,           
-                                 :link_to_twitter,            
-                                 :link_to_linkedin,           
-                                 :link_to_google_plus,        
-                                 :link_to_homepage,           
-                                 :initialized,                
-                                 :short_description,
-                                 :show_introduction,          
-                                 :default_cms_page_id,
-                                 :news_count,                 
-                                 :page_style_id,
-                                 :top_tag,                    
-                                 :backdrop_image, 
-                                 :link_to_tumblr,             
-                                 :link_to_instagram,          
-                                 :link_to_youtube,            
-                                 :address,                    
-                                 :zip_code,                   
-                                 :phone_number 
-                                 )
-      
+    if profile_user?
+      params.require(:user).permit( :name,
+                                   :password,
+                                   :password_confirmation,
+                                   :email,
+                                   :admin,
+                                   :image,
+                                   :crop_params,
+                                   :profile,
+                                   #:auth_token,                 
+                                   #:current_account_id,
+                                   :first_name,                 
+                                   :last_name,                  
+                                   :avatar_url,                 
+                                   :account_id,
+                                   #:show_welcome_message,       
+                                   #:activated,                  
+                                   #:uuid,                       
+                                   #:curent_catalog_id,
+                                   #:invited,                    
+                                   #:administrator,              
+                                   #:has_a_collection,           
+                                   #:old_role,                   
+                                   :account_activated,          
+                                   #:provider,                  
+                                   #:uid,                        
+                                   #:email_missing,      
+                                   :writer,                     
+                                   :author,                     
+                                   :producer,                   
+                                   :composer,                   
+                                   :remixer,                    
+                                   :musician,                   
+                                   :dj,                         
+                                   :user_name,                         
+                                   :profession,                 
+                                   :country,                    
+                                   :city,                       
+                                   :artist,              
+                                   :gender,                    
+                                   :link_to_facebook,           
+                                   :link_to_twitter,            
+                                   :link_to_linkedin,           
+                                   :link_to_google_plus,        
+                                   :link_to_homepage,           
+                                   :initialized,                
+                                   #:short_description,
+                                   #:show_introduction,          
+                                   #:default_cms_page_id,
+                                   #:news_count,                 
+                                   #:page_style_id,
+                                   :top_tag,                    
+                                   :backdrop_image, 
+                                   :link_to_tumblr,             
+                                   :link_to_instagram,          
+                                   :link_to_youtube,            
+                                   :address,                    
+                                   :zip_code,                   
+                                   :phone_number 
+                                   )
+    else
+      forbidden
+    end   
   end
 
 

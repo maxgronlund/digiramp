@@ -74,20 +74,24 @@ class User::ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shop_product_params
-      #if super? || current_user.id == @user.id
-      params.require(:shop_product).permit!#( :title, 
-                                           # :body, 
-                                           # :additional_info, 
-                                           # :image, 
-                                           # :price, 
-                                           # :user_id, 
-                                           # :account_id, 
-                                           # :download_link, 
-                                           # :for_sale, 
-                                           # :category,
-                                           # :exclusive_offer,
-                                           # :units_on_stock)
-      #end
+      if super? || current_user.id == @user.id
+      params.require(:shop_product).permit( :title,
+                                            :body,
+                                            :additional_info,
+                                            :image,
+                                            :price,
+                                            :user_id,
+                                            :account_id,
+                                            :download_link,
+                                            :for_sale,
+                                            :created_at,       
+                                            :updated_at,       
+                                            :category,
+                                            :units_on_stock,
+                                            :exclusive_offer,
+                                            :uuid,
+                                            :show_in_shop)
+      end
     end
     
     

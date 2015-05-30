@@ -68,6 +68,17 @@ class User::CmsPagesController < ApplicationController
     
 
   def cms_page_params
-    params.require(:cms_page).permit!
+    params.require(:cms_page).permit( :user_id,
+                                      :title,            
+                                      :created_at,
+                                      :updated_at,
+                                      :background_color, 
+                                      :text_color,       
+                                      :layout,           
+                                      :hide_sidebar,     
+                                      :theme,            
+                                      :show_in_menu,     
+                                      :position,         
+                                      :cms_page_id)
   end
 end

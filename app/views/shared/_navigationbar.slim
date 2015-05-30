@@ -10,7 +10,7 @@
 
     .navbar-brand
       
-      - if user_signed_in? && current_account
+      - if current_user && current_account
         .navigation-avatar
           = link_to profile_path_for( current_user) do
             = image_tag current_user.image_url(:avatar_32x32)

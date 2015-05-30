@@ -3,10 +3,9 @@
 ########################################################
 
 class StripeCustomerService
-  
   def subscribe events
-    
     events.subscribe 'customer.created' do |event|
+      
       ap '########################################################'
       ap 'customer.created'
       ap '########################################################'
@@ -78,11 +77,10 @@ class StripeCustomerService
             user.save!
             PaymentSource.where(customer: stripe_object.id).destroy_all
           end
-        
         end
       end
     end
-  end
-  
-
+  end 
 end
+
+
