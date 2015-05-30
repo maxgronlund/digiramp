@@ -4,17 +4,17 @@ module UsersHelper
   #  admin_users_path(*args)+"#admin_users"
   #end
   
-  def can_edit?
-    user_signed_in? && current_user.super?
-  end
-  
-  def user_signed_in?
-    current_user != nil
-  end
-  
-  def current_user_is_max?
-    can_edit? && current_user.email == 'max@synthmax.dk'
-  end
+  #def can_edit?
+  #  user_signed_in? && current_user.super?
+  #end
+  #
+  #def user_signed_in?
+  #  current_user != nil
+  #end
+  #
+  #def current_user_is_max?
+  #  can_edit? && current_user.email == 'max@synthmax.dk'
+  #end
   
   def profile_path_for user
     if cms_page = CmsPage.where(id: user.default_cms_page_id).first

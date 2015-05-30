@@ -9,7 +9,8 @@
       span class="icon-bar"
 
     .navbar-brand
-      
+
+        
       - if current_user && current_account
         .navigation-avatar
           = link_to profile_path_for( current_user) do
