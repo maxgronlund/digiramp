@@ -86,8 +86,8 @@ class ApplicationController < ActionController::Base
   def profile_user?
     return true if super?
     return false unless current_user
-    return false current_user.account_id
-    current_user.account_id == current_account 
+    return false unless current_user.current_account_id
+    current_user.current_account_id == current_account.id
   end
   
   def admin_only
