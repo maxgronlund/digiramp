@@ -4,11 +4,9 @@
       == render 'admin/shared/navbar', page: 'account' 
   .container
     == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account), \
-                                                           crm: account_account_crm_index_path(@account),\
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {crm: account_account_crm_index_path(@account),\
                                                            projects: account_account_projects_path(@account), \
-                                                           @project.title.to_sym => account_account_project_path(@account, @project) \
+                                                           project: account_account_project_path(@account, @project) \
                                                            }, current:  'New Campaign'}
     
     
@@ -17,6 +15,3 @@
     
 
   
-    == render 'shared/back', locals: {link: account_account_project_path(@account, @project)}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'

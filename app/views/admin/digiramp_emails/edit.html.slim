@@ -11,7 +11,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: {'email groups'.to_sym => admin_email_groups_path,\
-                                                              @email_group.title.to_sym => admin_email_group_path(@email_group) }, current: ''}
+                                                              'email group'.to_sym => admin_email_group_path(@email_group) }, current: ''}
       .row
         .col-sm-8
           h2 Edit email

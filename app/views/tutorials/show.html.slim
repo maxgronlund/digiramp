@@ -18,7 +18,7 @@
 
   #page-content-wrapper
     .container-fluid 
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {'suport'.to_sym => support_index_path, tutorials: tutorials_path}, current:  ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {support: support_index_path, tutorials: tutorials_path}, current:  ''}
       .row
         .col-sm-8
           .help

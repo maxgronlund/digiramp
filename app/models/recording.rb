@@ -384,85 +384,19 @@ class Recording < ActiveRecord::Base
   
   # remove disk_number, disk_count, track_count, available_date
   def update_completeness
-
-    self.completeness_in_pct = 0
-    
-    
-    self.completeness_in_pct += 4 unless self.isrc_code.to_s             == ''                 
-    self.completeness_in_pct += 4 unless self.artist.to_s                == ''                    
-    self.completeness_in_pct += 4 unless self.lyrics.to_s                == ''                    
-    self.completeness_in_pct += 4 unless self.bpm.to_s                   == '0'                       
-    self.completeness_in_pct += 4 unless self.comment.to_s               == ''                                      
-    self.completeness_in_pct += 4 unless self.copyright.to_s             == ''              
-    self.completeness_in_pct += 4 unless self.production_company.to_s    == ''         
-    self.completeness_in_pct += 4 unless self.album_artist.to_s          == ''     
-    self.completeness_in_pct += 4 unless self.album_title.to_s           == ''     
-    self.completeness_in_pct += 4 unless self.grouping.to_s              == ''     
-    self.completeness_in_pct += 4 unless self.composer.to_s              == ''     
-    #self.completeness_in_pct += 4 unless self.compilation.to_s           == ''     
-    self.completeness_in_pct += 4 unless self.year.to_s                  == ''                   
-    self.completeness_in_pct += 4 unless self.duration.to_s              == ''               
-    self.completeness_in_pct += 4 unless self.album_name.to_s            == ''             
-    self.completeness_in_pct += 4 unless self.genre.to_s                 == ''                  
-    self.completeness_in_pct += 4 unless self.performer.to_s             == ''              
-    self.completeness_in_pct += 4 unless self.band.to_s                  == ''                   
-    self.completeness_in_pct += 4 unless self.disc.to_s                  == ''                   
-    self.completeness_in_pct += 4 unless self.track.to_s                 == ''                  
-    self.completeness_in_pct += 4 unless self.cover_art.to_s             == ''     
-    self.completeness_in_pct += 5 unless self.vocal.to_s                 == ''                  
-    self.completeness_in_pct += 5 unless self.mood.to_s                  == ''                   
-    self.completeness_in_pct += 5 unless self.instruments.to_s           == ''            
-    self.completeness_in_pct += 5 unless self.tempo.to_s                 == '' 
-    
-    self.cache_version += 1
-    
-    self.save!(validate: false)
-    
-    
-
+    RecordingCompleteness.update self
   end
   
   def in_good_condition?
-    
     self.completeness_in_pct > 30
-
   end
   
   def build_permissions
-    
-    
-    
+
   end
   
   def extract_metadata
-    
-    begin
-      meta              = audio_upload[:uploads].first[:meta]
-
-      self.title        = TransloaditParser.sanitize_title( meta[:title].to_s )    
-      self.duration     = meta[:duration].to_f.round(2)   
-      self.lyrics        = TransloaditParser.sanitize_lyrics( meta[:lyrics].to_s )        
-      #self.lyrics       = meta[:lyrics].gsub(/\//, '<br>')      
-      self.bpm          = meta[:beats_per_minute].to_i          
-      self.album_name   = meta[:album].to_s                     
-      self.year         = meta[:year].to_s                           
-      self.genre        = meta[:genre].to_s                           
-      self.artist       = meta[:artist].to_s                          
-      self.comment      = TransloaditParser.sanitize_comment( meta[:comment].to_s )     
-      self.performer    = meta[:performer].to_s                                  
-      self.band         = meta[:band].to_s                            
-      self.disc         = meta[:disc].to_s                            
-      self.track        = meta[:track].to_s    
-      #copyright:         transloaded[:copyright],
-      #composer:          transloaded[:composer],                       
-      self.save!            
-
-    rescue
-      
-    end
- 
-    
-  
+    RecordingExtractMetadata.extract self
   end
 
   
@@ -481,79 +415,12 @@ class Recording < ActiveRecord::Base
   
   
   def self.to_csv
-    CSV.generate do |csv|
+    RecordingCsvParser.process( all )
 
-      #csv << column_names
-      csv << ['Account Id',
-              'Recording Id', 
-              'Work ID', 
-              'Title', 
-              'ISRC Code', 
-              'Artist', 
-              'Performer', 
-              'Band', 
-              'Year', 
-              'Album Name',
-              'Vocal',
-              'Genre', 
-              'Mood', 
-              'Instruments', 
-              'Disc', 
-              'Track', 
-              'BPM', 
-              'Tempo',
-              #'Comment',
-              'Explicit', 
-              'Clearance', 
-              'Copyright', 
-              'Production Company',
-              'Composer'  
-            ]
-      
-      all.each do |recording|
-        
-        #genre = ''
-        #recording.genre_tags.each do |genre_tag|
-        #  genre << genre_tag.genre.title
-        #  genre << ','
-        #end
-        
-        
-
-        csv << [  recording.account_id, 
-                  recording.id, 
-                  recording.common_work_id,
-                  recording.title,
-                  recording.isrc_code,
-                  recording.artist.to_s.squish,
-                  recording.performer.to_s.squish,
-                  recording.band.to_s.squish,
-                  recording.year,
-                  recording.album_name.to_s.squish,
-                  recording.vocal,
-                  recording.genre_tags_as_csv_string,
-                  recording.moods_tags_as_csv_string,
-                  recording.instruments_tags_as_csv_string,
-                  recording.disc,
-                  recording.track,
-                  recording.bpm,
-                  recording.tempo,
-                  #recording.comment.to_s.squish,
-                  recording.explicit,
-                  recording.clearance,
-                  recording.copyright.to_s.squish,
-                  recording.production_company,
-                  recording.composer
-                
-                ]
-      end
-
-    end
   end
   
   def self.import_csv(csv_file)
-
-    RecordingCvsParser.process recording, csv_file
+    RecordingCsvImporter.process recording, csv_file
   end
   
   def next_step

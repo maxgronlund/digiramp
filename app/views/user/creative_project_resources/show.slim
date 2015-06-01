@@ -10,7 +10,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'creative projects'.to_sym => user_user_creative_projects_path(@user), 
-                                                              @creative_project.title.to_sym => user_user_creative_project_creative_project_dashboards_path(@user, @creative_project),
+                                                              'creative project'.to_sym => user_user_creative_project_creative_project_dashboards_path(@user, @creative_project),
                                                               resources: user_user_creative_project_creative_project_resources_path(@user, @creative_project) }, current: ''}
       .row
         .col-sm-9
