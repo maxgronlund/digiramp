@@ -5,7 +5,6 @@ class User::PurchasesController < ApplicationController
   end
 
   def show
-    forbidden unless @shop_order = Shop::Order.find_by(uuid: params[:id])
-    
+    forbidden unless @shop_order = Shop::Order.find_by(uuid: params[:id]) 
   end
 end

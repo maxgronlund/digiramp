@@ -24,6 +24,7 @@ class Shop::OrdersController < ApplicationController
     @months       = CreditCard.months
     
     @shop_order.reset!
+    ap @shop_order
     
 
   end

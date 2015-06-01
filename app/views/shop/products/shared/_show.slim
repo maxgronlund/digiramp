@@ -35,6 +35,9 @@
         .sexy_line
           /= link_to 'Basket', shop_order_path(@shop_order.uuid), id: 'data-no-turbolink'
           == render 'admin/shared/messages'
-        
-  
+  - if buy
+    .row
+      .col-sm-12        
+        .pull-right
+          = link_to 'Checkout', edit_shop_order_path(@shop_order.uuid), class: 'btn btn-success btn-lg'
     

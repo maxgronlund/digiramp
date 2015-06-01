@@ -190,6 +190,12 @@ def visit_page page
     user = User.first
     visit "/user/users/#{user.slug}/subscriptions"
     
+  when "User projects page"
+    user = User.first
+    visit "/user/users/#{user.slug}/creative_projects"
+    
+    
+    
   when "User creative projects page"
     user = User.first
     visit "/user/users/#{user.slug}/creative_projects"

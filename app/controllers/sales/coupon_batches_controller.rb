@@ -24,8 +24,7 @@ class Sales::CouponBatchesController < Sales::SalesController
   # POST /sales/coupon_batches
   # POST /sales/coupon_batches.json
   def create
-    ap 'create'
-    ap params
+    
     params[:sales_coupon_batch][:user_id]     = current_user.id
     params[:sales_coupon_batch][:account_id]  = current_user.account_id
     params[:sales_coupon_batch][:created_by]  = current_user.email
@@ -49,8 +48,7 @@ class Sales::CouponBatchesController < Sales::SalesController
   # PATCH/PUT /sales/coupon_batches/1
   # PATCH/PUT /sales/coupon_batches/1.json
   def update
-    ap 'update'
-    ap params
+   
     #@sales_coupon_batch.email     = params[:sales_coupon_batch][:email]
     #@sales_coupon_batch.subject   = params[:sales_coupon_batch][:subject]
     #@sales_coupon_batch.body      = params[:sales_coupon_batch][:body]

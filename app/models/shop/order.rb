@@ -22,7 +22,7 @@ class Shop::Order < ActiveRecord::Base
   #has_many :addresses, as: :addressable, dependent: :destroy
   
   #validates :email, presence: true
-  validates_formatting_of :email
+  #validates_formatting_of :email
   
   
   aasm column: 'state' do

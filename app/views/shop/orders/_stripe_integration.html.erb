@@ -46,14 +46,10 @@
     }
 
     $.get("/shop/orders/payment_status/" + uuid, function(data) {
-      console.log(data.status);
+
       if (data.status === "finished") {
-          /*window.location = "/pickup/" + guid;*/
-        if (<%= @shop_order.user_id.blank? %>){
-          window.location = "/shop/invoices/<%= @shop_order.uuid %>"
-        }else{
-          window.location = "/user/users/<%= @shop_order.user.slug %>/invoices/<%= @shop_order.uuid %>"
-        }
+        window.location = "/shop/invoices/<%= @shop_order.uuid %>";
+        
         
       } else if (data.status === "errored") {
         showError(data.error)

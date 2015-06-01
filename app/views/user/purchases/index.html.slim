@@ -27,6 +27,7 @@
                 th Order #ID
                 th Date
                 th Amount
+                th
                 /th Additionl info
                 /th Image
                 /th Price
@@ -45,6 +46,9 @@
                   td = order.id
                   td = l order.updated_at, format: :date
                   td = order.total_price
+                  td
+                    .pull-right
+                      = link_to 'Show', user_user_purchase_path(@user, order.uuid), class: 'btn btn-default btn-xs'
                   /td = product.body
                   /td = product.additional_info
                   /td = product.image
