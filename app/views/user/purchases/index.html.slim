@@ -48,6 +48,7 @@
                   td = number_to_currency(order.total_price * 0.01, locale: :en, precision: 2)
                   td
                     .pull-right
+                      => link_to 'Invoice', user_user_invoice_path(@user, order.uuid), class: 'btn btn-default btn-xs'
                       = link_to 'Show', user_user_purchase_path(@user, order.uuid), class: 'btn btn-default btn-xs'
                   /td = product.body
                   /td = product.additional_info
