@@ -1,14 +1,18 @@
 
 .sidebar 
 
-  li
-
-    = link_to  shop_order_path(@shop_order.uuid), id: 'checkout' do
+  li class="#{'sidebar-selected' if selected == 'basket'}"
+    = link_to  shop_order_path(@shop_order.uuid), id: 'sidebar-basket' do
       i.fa.fa-shopping-cart
+      '&nbsp;
+      'Basket
+  li class="#{'sidebar-selected' if selected == 'payment'}"
+    = link_to  edit_shop_order_path(@shop_order.uuid), id: 'checkout' do
+      i.fa.fa-gift
       '&nbsp;
       = pluralize(@shop_order.items_count, 'Item')
       div
-        i.fa.fa-money
+        i.fa.fa-credit-card
         '&nbsp;
         = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
         

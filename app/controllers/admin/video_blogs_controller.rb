@@ -44,7 +44,7 @@ private
   end
 
   def video_blog_params
-    params.require(:video_blog).permit!  if current_user.can_edit?
+    params.require(:video_blog).permit!  if super?
 
   end
 

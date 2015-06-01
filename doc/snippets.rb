@@ -50,5 +50,5 @@ private
     
   
   
-  
+  #Opbeat.capture_message("Not happy with the way things turned out")
 

@@ -20,7 +20,7 @@
             .col-sm-6
               /= debug Account.cached_find(@user.account_id)
               
-              - if current_user.can_edit?
+              - if super?
                 - if Account.exists?(@edit_user.account_id)
                   = f.input :account_id , :include_blank => false, :collection => Account.all , label: 'Account'
                 - else

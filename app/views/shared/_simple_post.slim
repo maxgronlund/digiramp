@@ -2,7 +2,7 @@
 - blog_post = BlogPost.cached_find(locals[:post_identifyer], blog)
 h3 
   = blog_post.title
-  -if can_edit?
+  -if super?
     '&nbsp;
     = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
        i class="fa fa-pencil"

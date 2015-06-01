@@ -10,14 +10,14 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
-      h2 Settings
+      h2 Account  settings
       .sexy_line
       .row
         .col-sm-12
           .control-panel.pull-down-10
            
             .control-panel-badge
-              = link_to user_user_contacts_path(@user) do
+              = link_to user_user_contacts_path(@user), id: 'user_contacts' do
                 .content
                   .icon-box
                     .icon.icon-green

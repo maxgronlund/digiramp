@@ -19,6 +19,7 @@ class StripeChargeService
       ap '########################################################'
       ap 'charge.succeeded'
       ap '########################################################'
+      #ap event
       errored = true
       if stripe_data = event.data
         if stripe_object = stripe_data.object
@@ -26,6 +27,13 @@ class StripeChargeService
             # finish transaction
             shop_order.finish!
             errored = false
+            
+            if stripe_payment_source = stripe_object.source
+              ap stripe_payment_source
+              shop_order.order_content[:payment_source] = JSON.parse(stripe_payment_source.to_json).deep_symbolize_keys 
+              shop_order.order_content[:total_price]    = shop_order.total_price
+              shop_order.save
+            end
           end
         end
       end

@@ -242,11 +242,10 @@ class User < ActiveRecord::Base
   end
   
   def styling
-    
     #unless style = PageStyle.where(id: self.page_style_id).first
     #  style = 
-    
   end
+  
   def user_activities
     self.wall_posts.where(user_id: self.id)
   end
@@ -693,7 +692,6 @@ class User < ActiveRecord::Base
        
     # super user can access all profiles 
     return true if current_user.role == 'Super'
-      
     # no access
     return false
   end

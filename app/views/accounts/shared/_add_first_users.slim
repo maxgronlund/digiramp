@@ -6,7 +6,7 @@
      h3 = @add_first_users.title
      = simple_format @add_first_users.body
      .pull-right
-       -if can_edit?
+       -if super?
          = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @add_first_users), class: 'btn btn-default btn-lg'
          '&nbsp;
        = link_to 'Add Users', account_add_content_index_path( @account), class: 'btn btn-primary btn-lg', id: 'add_content'

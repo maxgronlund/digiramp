@@ -4,7 +4,7 @@
   
   = post.title
   = f.submit "", :type => :image, :src => "#{post.image_url(:size_570x320)}", class: 'img-responsive'
-  -if can_edit?
+  -if super?
     .pull-right
       =link_to 'Edit', edit_admin_blog_blog_post_path(@blog, post)
   hr

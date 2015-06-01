@@ -44,6 +44,6 @@ class Admin::MoodsController < ApplicationController
   end
 private
   def mood_params
-    params.require(:mood).permit! if current_user.can_edit?
+    params.require(:mood).permit! if super?
   end
 end

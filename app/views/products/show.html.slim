@@ -1,5 +1,5 @@
+/ user shop product show
 - session[:return_url] = request.url
-
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
@@ -12,6 +12,4 @@
   #page-content-wrapper
     .container-fluid
       .digi-box
-
-
         == render 'shop/products/shared/show' , product: @shop_product, buy: true

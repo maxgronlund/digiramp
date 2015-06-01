@@ -1,4 +1,3 @@
-
 .container
   .row
     .col-xs-6
@@ -8,7 +7,7 @@
       /  | DigiRAMP
     .col-xs-6.text-right
       h1
-        small Invoice #001
+        small Invoice ##{@shop_order.id}
   .row
     .col-xs-5
       .panel.panel-default
@@ -36,7 +35,7 @@
             br/
             | details
             br/
-            | more
+            | email: #{@shop_order.email}
             br/
   /! / end client details section
   table.table.table-bordered
@@ -82,11 +81,11 @@
           br
     .col-xs-2
       strong
-        = number_to_currency(@shop_order.total_price.to_i * 0.01 , locale: :en, precision: 2)
+        = number_to_currency(@shop_order.price_total.to_i * 0.01 , locale: :en, precision: 2)
         br/
         | N/A
         br/
-        = number_to_currency(@shop_order.total_price.to_i * 0.01 , locale: :en, precision: 2)
+        = number_to_currency(@shop_order.price_total.to_i * 0.01 , locale: :en, precision: 2)
         br
   /.row
   /  .col-xs-5

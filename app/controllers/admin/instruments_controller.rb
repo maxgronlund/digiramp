@@ -41,6 +41,6 @@ class Admin::InstrumentsController < ApplicationController
   end
 private
   def instrument_params
-    params.require(:instrument).permit! if current_user.can_edit?
+    params.require(:instrument).permit! if super?
   end
 end

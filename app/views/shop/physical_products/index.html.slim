@@ -1,0 +1,27 @@
+h1 Listing shop_physical_products
+
+table
+  thead
+    tr
+      th Dimensions
+      th Waight
+      th Shipping cost
+      th Units on stock
+      th
+      th
+      th
+
+  tbody
+    - @shop_physical_products.each do |shop_physical_product|
+      tr
+        td = shop_physical_product.dimensions
+        td = shop_physical_product.waight
+        td = shop_physical_product.shipping_cost
+        td = shop_physical_product.units_on_stock
+        td = link_to 'Show', shop_physical_product
+        td = link_to 'Edit', edit_shop_physical_product_path(shop_physical_product)
+        td = link_to 'Destroy', shop_physical_product, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Physical product', new_shop_physical_product_path

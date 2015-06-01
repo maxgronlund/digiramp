@@ -13,9 +13,10 @@
 
   #page-content-wrapper
     .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { settings: user_user_control_panel_index_path(@user)}, current: ''}
       .row
         .col-sm-12
-          h3 Edit Social links
+          h2 Edit Social links
       .sexy_line
       = simple_form_for [ @user ], :url => url_for(:action => 'update', :controller => 'user/social_links'), :method => 'put' do |f| 
         /= f.error_notification      

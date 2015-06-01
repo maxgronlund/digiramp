@@ -44,7 +44,7 @@
             td = link_to issue.user.user_name, issue.user
             td = time_ago_in_words(issue.created_at).titleize 
             td
-              - if can_edit? || current_user.id == issue.user_id
+              - if super? || current_user.id == issue.user_id
                 .pull-right
                   - 
                   = link_to edit_user_issue_path(issue.user, issue) do 

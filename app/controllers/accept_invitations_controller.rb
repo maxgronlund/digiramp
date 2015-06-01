@@ -38,8 +38,6 @@ class AcceptInvitationsController < ApplicationController
   end
   
   def user_params
-    #if can_edit?
-      params.require(:user).permit!
-    #end
+    params.require(:user).permit!
   end
 end

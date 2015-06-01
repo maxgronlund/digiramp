@@ -149,7 +149,7 @@
 /                          = link_to edit_admin_issue_path( issue ) do
 /                            .btn.btn-primary.btn-lg
 /                              i class="fa fa-pencil"
-/                          /-if can_edit?
+/                          /-if super?
 /                          /  '&nbsp;
 /                          /  = link_to user_issue_path(issue.user, issue), data: { confirm: 'Are you sure?' } , :method => :delete do
 /                          /    .btn.btn-danger.btn-lg'

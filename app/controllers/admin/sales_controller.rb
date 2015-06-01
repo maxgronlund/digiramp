@@ -1,5 +1,5 @@
 class Admin::SalesController < ApplicationController
-  before_action :admin_only
+  before_action :sales_only
   #before_action :set_sale, only: [:show, :edit, :update, :destroy]
 
   # GET /sales

@@ -9,11 +9,10 @@
     = f.input :composer, :input_html => {  style: "height: 80px;", placeholder: "Composer"}
   .col-sm-6
     = f.input :band, :input_html => {  style: "height: 80px;", placeholder: "Band"}
+
 .row
-  /.col-sm-6
-  /  = f.input :bpm
-  /  /= f.hidden_field :next_step, value: 'next_step', id: 'next_step'
-  /
+  .col-sm-6
+    = f.input :bpm
   .col-sm-6
     = f.input :tempo,   collection: Recording::TEMPO
 

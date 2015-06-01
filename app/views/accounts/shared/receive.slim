@@ -26,7 +26,7 @@
           .panel.panel-primary
             .panel-heading
               = blog_post.title
-              -if can_edit?
+              -if super?
                 '&nbsp;
                 = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
                    i class="fa fa-pencil"

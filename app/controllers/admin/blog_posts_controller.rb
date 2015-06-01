@@ -78,7 +78,7 @@ private
   end
   
   def blog_post_params
-    params.require(:blog_post).permit! if current_user.can_edit?
+    params.require(:blog_post).permit! if super?
   end
 
 

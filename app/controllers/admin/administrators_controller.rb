@@ -33,6 +33,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def administrators_params
-    params.require(:user).permit!  if current_user.can_edit?
+    params.require(:user).permit!  if super?
   end
 end

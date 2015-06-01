@@ -15,7 +15,6 @@ module CouponBatchService
       coupon.currency                   = coupon_params[:currency] 
       coupon.redeem_by                  = coupon_params[:redeem_by] 
       coupon.plan_id                    = coupon_params[:plan_id] 
-      #coupon.sales_coupon_batch_id      = coupon_batch_id
       coupon.coupon_batch_id            = coupon_batch_id
       coupon.save
     end

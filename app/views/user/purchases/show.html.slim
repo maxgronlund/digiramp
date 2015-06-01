@@ -1,0 +1,62 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'edit_profile' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { settings: user_user_control_panel_index_path(@user),
+                                                              purchases: user_user_purchases_path(@user)}, current: ''}
+      .row
+        .col-sm-8
+          h2 Purchase
+        .col-sm-4
+          .pull-right.pull_down_10
+            = link_to  user_user_purchases_path(@user) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+        
+      .sexy_line
+      .digi-box
+        /= debug @shop_order.order_content
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Info
+                th 
+                th 
+
+            tbody
+              - @shop_order.order_lines.each do |order_line|
+                tr
+                  td = order_line["title"]
+                  td = order_line["additional_info"]
+                  td
+                  td = purchase_link_for order_line
+                  /td.text-right =order_line["quantity"]
+                  /td.text-right =number_to_currency(order_line["price"].to_i * 0.01, locale: :en, precision: 2)
+                  /td.text-right =number_to_currency(order_line["total_price"].to_i * 0.01 , locale: :en, precision: 2)
+              /tr
+      
+          
+
+  == render 'shared/site_footer'     
+  
+  
+  
+  
+
+
+
+

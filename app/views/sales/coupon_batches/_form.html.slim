@@ -36,7 +36,7 @@
             = f.input :discount, label: 'Discount in percent', placeholder: 'i.e. 20'
             'A positive integer representing the discount in percent
             /= f.input :body, label: 'Notes, will be in the email',  :input_html => {  style: "height: 180px;", placeholder: "A message that goes in the email"}
-            = f.hidden_field :created_by, value: current_user.email
+            /= f.hidden_field :created_by, value: current_user.email
         
 
     

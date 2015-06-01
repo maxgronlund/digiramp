@@ -1,3 +1,4 @@
+
 class Shop::Order < ActiveRecord::Base
   
   has_paper_trail
@@ -9,12 +10,16 @@ class Shop::Order < ActiveRecord::Base
   
   serialize :invoice_object, Hash
   serialize :order_lines, Array
+  serialize :order_content, Hash
   #has_and_belongs_to_many :products, :class_name => "Shop::Product"
   #has_many :shop_products, through: :order_items, :class_name => "Shop::OrderItem"
   
   has_many :order_items, :class_name => "Shop::OrderItem"
   
   before_destroy :remove_order_items
+  #after_save :save_addresses
+  
+  #has_many :addresses, as: :addressable, dependent: :destroy
   
   #validates :email, presence: true
   validates_formatting_of :email
@@ -23,7 +28,7 @@ class Shop::Order < ActiveRecord::Base
   aasm column: 'state' do
     state :pending, initial: true
     state :processing
-    state :finished#, :before_enter => :store_order_lines
+    state :finished
     state :errored
     
     
@@ -46,7 +51,7 @@ class Shop::Order < ActiveRecord::Base
   end
   
   def charge_card
-    ap ' Order#charge_card'
+
     save!
     begin
       
@@ -114,12 +119,23 @@ class Shop::Order < ActiveRecord::Base
       if product = order_item.product
         self.order_lines[index] = product.as_json.merge("total_price" => (order_item.quantity * product.price),
                                                          "quantity" => order_item.quantity)
+                                                         
+        order_item.update_stock
       end
     end
+    
+    
     save!
   end
   
+  def payment_source
+    self.order_content[:payment_source]
+  end
   
+  def price_total
+    self.order_content[:total_price]
+  end
+
 
   private 
 

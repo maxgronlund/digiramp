@@ -13,16 +13,24 @@
       /= product.additional_info
       - if buy
         = simple_form_for  [ :shop, @shop_order_item], turboboost: true do |f|
-          /= f.hidden_field :user_id, value: @user.id
+
           = f.hidden_field :shop_order_id,   value: @shop_order.uuid
           = f.hidden_field :shop_product_id, value: product.id
           
           .row
-            .col-sm-6
-              = f.input :quantity, input_html: {style: "width: 120px;"}
-            .col-sm-6
+            .col-sm-12
+
+              - if product.units_on_stock == 1
+                = f.hidden_field :quantity, value: 1
+              - else
+                = f.input :quantity, input_html: {style: "width: 120px;"}
+          .row
+            .col-sm-12
               .pull-right.pull-down-12
-                = f.submit 'Buy', class: 'btn btn-orange btn-lg'
+                => link_to shop_order_path(@shop_order.uuid), id: 'basket' do
+                  .btn.btn-default.btn-lg
+                    'Basket
+                = f.submit 'Add to basket', class: 'btn btn-orange btn-lg'
         
         .sexy_line
           /= link_to 'Basket', shop_order_path(@shop_order.uuid), id: 'data-no-turbolink'
@@ -30,37 +38,3 @@
         
   
     
-  /p
-  /  strong User:
-  /  = product.user.user_name
-/p
-/  strong Category:
-/  = product.category
-/p
-/  strong Download link:
-/  = product.download_link
-/p
-/  strong For sale:
-/  = product.for_sale
-/    
-/    / this is the public shop
-/    h1 =  @shop_product.title
-/    =  @shop_order.uuid
-/    br
-/    =  @shop_product.body
-/
-/
-/    = simple_form_for  [ :shop, @shop_order_item] do |f|
-/  
-/      = f.hidden_field :shop_order_id,   value: @shop_order.uuid
-/      = f.hidden_field :shop_product_id, value: @shop_product.id
-/      /= f.hidden_field :user_id, value: @user.id
-/      = f.input :quantity
-/  
-/      = f.submit 'Buy', class: 'btn btn-primary'
-/  
-/    hr
-/      = link_to 'Basket', shop_order_path(@shop_order.uuid)
-/
-/
-/    == render 'shop/products/shared/show' , product: @shop_product

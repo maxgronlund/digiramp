@@ -1,0 +1,11 @@
+= simple_form_for(@shop_physical_product) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :dimensions
+    = f.input :waight
+    = f.input :shipping_cost
+    = f.input :units_on_stock
+
+  .form-actions
+    = f.button :submit

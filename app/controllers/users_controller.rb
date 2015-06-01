@@ -72,6 +72,7 @@ class UsersController < ApplicationController
   def show
 
     not_found(params) unless @user
+    
     if request.format.to_s == 'text/html'
       
       unless current_user && @user != current_user
@@ -90,15 +91,12 @@ class UsersController < ApplicationController
     session[:account_id] = @user.account_id 
     
     if current_user 
-      if current_user.current_account_id != current_user.account.id
-        current_user.current_account_id  = current_user.account.id
+      if current_user.current_account_id != current_user.account_id
+        current_user.current_account_id  = current_user.account_id
         current_user.save!
       end
       @playlists  = current_user.playlists
-      #@authorized = false
-      #if current_user.id == @user.id || current_user.super?
-      #  @authorized = true
-      #end
+
     end
     @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
     unless @user.page_style
@@ -184,9 +182,7 @@ class UsersController < ApplicationController
     params[:user][:email_missing] = false
     params[:user][:initialized]   = true
     if @user.update(user_params)
-      
-      
-      # show completeness if needed
+      # show completeness 
       session[:show_profile_completeness] = true
       @user.flush_auth_token_cache(cookies[:auth_token])
 

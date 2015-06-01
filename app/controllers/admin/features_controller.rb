@@ -18,6 +18,6 @@ class Admin::FeaturesController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def feature_params
-      params.require(:feature).permit(:title, :body, :video1_id, :video2_id, :video3_id, :video4_id, :video5_id) if current_user.can_edit?
+      params.require(:feature).permit(:title, :body, :video1_id, :video2_id, :video3_id, :video4_id, :video5_id) if super?
     end
 end

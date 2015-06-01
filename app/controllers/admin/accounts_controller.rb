@@ -182,6 +182,45 @@ class Admin::AccountsController < ApplicationController
   private 
   
   def account_params
-    params.require(:account).permit! if current_user.can_edit?
+    if super?
+      params.require(:account).permit(:user_id,
+                                      :title,               
+                                      :description,
+                                      :account_type,        
+                                      :contact_first_name,  
+                                      :contact_last_name,   
+                                      :contact_email,       
+                                      :fax,                 
+                                      :country,             
+                                      :street_address,      
+                                      :city,                
+                                      :state,               
+                                      :postal_code,         
+                                      :created_at,          
+                                      :updated_at,          
+                                      :users_count,         
+                                      :documents_count,     
+                                      :expiration_date,
+                                      :visits,              
+                                      :logo,                
+                                      :activated,           
+                                      :default_catalog_id,
+                                      :uuid,                
+                                      :version,             
+                                      :works_uuid,          
+                                      :recordings_uuid,     
+                                      :customers_uuid,      
+                                      :playlists_uuid,      
+                                      :users_uuid,          
+                                      :administrator_id,    
+                                      :create_opportunities,
+                                      :read_opportunities,
+                                      :user_count,
+                                      :account_feature_id,
+                                      :cycles
+                                      )
+    else
+      forbidden
+    end
   end
 end

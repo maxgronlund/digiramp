@@ -24,11 +24,17 @@ class Sales::CouponBatchesController < Sales::SalesController
   # POST /sales/coupon_batches
   # POST /sales/coupon_batches.json
   def create
-   
+    ap 'create'
+    ap params
+    params[:sales_coupon_batch][:user_id]     = current_user.id
+    params[:sales_coupon_batch][:account_id]  = current_user.account_id
+    params[:sales_coupon_batch][:created_by]  = current_user.email
+    
+    
     @sales_coupon_batch = Sales::CouponBatch.new(sales_coupon_batch_params)
 
     respond_to do |format|
-      if @sales_coupon_batch.save
+      if @sales_coupon_batch.save!
         
         CouponBatchService.call( params, @sales_coupon_batch.id)
         format.html { redirect_to edit_sales_coupon_batch_path(@sales_coupon_batch), notice: 'Coupon batch was successfully created.' }
@@ -43,18 +49,41 @@ class Sales::CouponBatchesController < Sales::SalesController
   # PATCH/PUT /sales/coupon_batches/1
   # PATCH/PUT /sales/coupon_batches/1.json
   def update
-
-    @sales_coupon_batch.email     = params[:sales_coupon_batch][:email]
-    @sales_coupon_batch.subject   = params[:sales_coupon_batch][:subject]
-    @sales_coupon_batch.body      = params[:sales_coupon_batch][:body]
+    ap 'update'
+    ap params
+    #@sales_coupon_batch.email     = params[:sales_coupon_batch][:email]
+    #@sales_coupon_batch.subject   = params[:sales_coupon_batch][:subject]
+    #@sales_coupon_batch.body      = params[:sales_coupon_batch][:body]
     
     respond_to do |format|
       
-      if @sales_coupon_batch.save(validate: false)
+      if @sales_coupon_batch.update!(sales_coupon_batch_params)
+        
+        
+        
+        image =  File.open(Rails.root.join('app', 'assets', 'images', "coupon-code.jpg"))
+        
+        product_params = {  title:                         @sales_coupon_batch.title, 
+                            body:                          @sales_coupon_batch.body, 
+                            additional_info:               @sales_coupon_batch.body, 
+                            price:                         @sales_coupon_batch.total_price,
+                            exclusive_offered_to_email:    @sales_coupon_batch.email,
+                            download_link:                 @sales_coupon_batch.uuid,
+                            user_id:                       @sales_coupon_batch.user_id,
+                            account_id:                    @sales_coupon_batch.account_id,
+                            units_on_stock:                1,
+                            for_sale:                      true,
+                            image:                         image,
+                            download_link:                 @sales_coupon_batch.uuid
+                          }
+        
+        Shop::Product.attach(@sales_coupon_batch, product_params)
+        
+        #@sales_coupon_batch.attach_to_product
         
         CouponBatchMailer.delay.send_coupon_offer(@sales_coupon_batch.id) 
         
-        format.html { redirect_to edit_sales_coupon_batch_path(@sales_coupon_batch), notice: 'Coupon batch was successfully updated.' }
+        format.html { redirect_to edit_sales_coupon_batch_path(@sales_coupon_batch), notice: "Special offer is send to #{@sales_coupon_batch.email}" }
         format.json { render :edit, status: :ok, location: @sales_coupon_batch }
       else
         format.html { render :edit }
@@ -74,37 +103,41 @@ class Sales::CouponBatchesController < Sales::SalesController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sales_coupon_batch
-      @sales_coupon_batch = Sales::CouponBatch.find(params[:id])
+  # Use callbacks to share common setup or constraints between actions.
+  def set_sales_coupon_batch
+    @sales_coupon_batch = Sales::CouponBatch.find(params[:id])
+  end
+  
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def sales_coupon_batch_params
+    if can_sell?
+      params.require(:sales_coupon_batch).permit( :title,
+                                                 :body,
+                                                 :email,
+                                                 :created_by,        
+                                                 :discount,
+                                                 :sold,
+                                                 :uuid,
+                                                 :subject,
+                                                 :download_uuid,
+                                                 :total_price,        
+                                                 :stripe_id,
+                                                 :amount_off,
+                                                 :percent_off,
+                                                 :duration,
+                                                 :duration_in_months,
+                                                 :currency,
+                                                 :number_of_coupons,
+                                                 :times_redeemed,
+                                                 :metadata,
+                                                 :plan_id,
+                                                 :account_id,
+                                                 :redeem_by,
+                                                 :original_price,    
+                                                 :product_uuid,
+                                                 :user_id )
+      
+      
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def sales_coupon_batch_params
-      params.require(:sales_coupon_batch).permit!
-                                                  #( :title, 
-                                                  #:body, 
-                                                  #:email, 
-                                                  #:created_by,
-                                                  #:stripe_id,
-                                                  #:amount_off,
-                                                  #:percent_off,
-                                                  #:duration,
-                                                  #:duration_in_months,
-                                                  #:currency,
-                                                  #:max_redemptions,
-                                                  #:times_redeemed,
-                                                  #:metadata,
-                                                  #:redeem_by,
-                                                  #:plan_id,
-                                                  #:account_id,
-                                                  #:stripe_object,
-                                                  #:sales_coupon_batches_id,
-                                                  #:discount,
-                                                  #:sold,
-                                                  #:number_of_coupons,
-                                                  #:uuid,
-                                                  #:subject
-                                                  #)
-    end
+  end
 end

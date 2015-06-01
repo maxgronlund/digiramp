@@ -3,7 +3,10 @@ rails g scaffold issue_events title data:text subject:references{polymorphic}
 
 -------------
 Associations
-rails generate migration AddCouponRefToUsers coupon:references
+rails g migration AddUserRefToSalesCouponBatches user:references
+
+add_reference :shop_products, :productable, index: true, polymorphic: true
+
 
 -------------
 reset the db !DONT
@@ -18,12 +21,13 @@ Without test
 rails generate model Coupon code role mailing_list_id list_group price:integer --no-test-framework
 
 
-
-
-
 -------------
 Access a namespace
 has_many :orders, class_name: 'Shop::Order'
+
+-------------
+rename_column :table_name, :old_column_name, :new_column_name
+
 
 
 

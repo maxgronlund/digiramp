@@ -17,7 +17,7 @@
           h2 = @issue.title
         .col-sm-4.pull-down-10
 
-          -if can_edit? || current_user.id == @user.id
+          -if super? || current_user.id == @user.id
             .pull-right
               = link_to 'Edit', edit_admin_issue_path( @issue), class: 'btn btn-primary'
       .sexy_line
@@ -91,7 +91,7 @@
                     i Click to enlarge
                 .col-sm-6
                   .pull-right
-                    - if @issue.user_id == current_user.id || can_edit?
+                    - if @issue.user_id == current_user.id || super?
                       => link_to edit_admin_issue_comment_path(  @issue, comment )
                         .btn.btn-default.btn-xs
                           i class="fa fa-pencil"

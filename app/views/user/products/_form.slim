@@ -18,10 +18,10 @@
         .col-sm-6
           = f.input :category, :include_blank => false, :collection => Shop::Product::CATEGORIES
         .col-sm-6
-          = f.input :units_on_stock, placeholder: 'Will not go out of stuck if blank'
+          = f.input :units_on_stock, placeholder: 'Leave blank for unlimmited'
           
       = f.input :download_link
-      = f.input :exclusive_offer, placeholder: 'email@someone-lucky.com'
+      = f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
       
       
     .col-sm-6

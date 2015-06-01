@@ -31,7 +31,7 @@ class StripeCouponService
           coupon.metadata            = JSON.parse(object.metadata.to_json).deep_symbolize_keys 
           coupon.stripe_object       = JSON.parse(object.to_json).deep_symbolize_keys
           coupon.save!
-          coupon.push_to_stripe
+          #coupon.push_to_stripe
         
         end
       end

@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Dimensions:
+  = @shop_physical_product.dimensions
+p
+  strong Waight:
+  = @shop_physical_product.waight
+p
+  strong Shipping cost:
+  = @shop_physical_product.shipping_cost
+p
+  strong Units on stock:
+  = @shop_physical_product.units_on_stock
+
+= link_to 'Edit', edit_shop_physical_product_path(@shop_physical_product)
+'|
+= link_to 'Back', shop_physical_products_path

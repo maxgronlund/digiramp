@@ -1,9 +1,29 @@
+
 class Sales::CouponBatch < ActiveRecord::Base
+  
+  # move in to module
+  #ATTRIBUTES_LIST = [ :title, :body, :additional_info, :image, :price, :user_id, :account_id, :for_sale, :exclusive_offered_to_email,:show_in_shop ]
+  #attr_accessor *ATTRIBUTES_LIST  
+  #
+  #def title
+  #  'title string'
+  #end
+  #
+  #def body
+  #  'hi body text'
+  #end
+  #
+  #def additional_info
+  #  'additional info text'
+  #end
+  
+
+
   has_many :coupons
   has_paper_trail :only => [:email, :subject, :body, :title]
   
 
-  validates :title, presence: true, uniqueness: true
+  #validates :title, presence: true, uniqueness: true
   validates :discount, presence: true
   validates :number_of_coupons, presence: true
   validates_with CouponBatchValidator, fields: [:coupon_code, :amount_off, :percent_off]
@@ -11,34 +31,11 @@ class Sales::CouponBatch < ActiveRecord::Base
   
   before_destroy :remove_coupons
   before_create :initialize_uuid
-  #after_create :calculate_total_price
-  #belongs_to :plan
 
   
   def initialize_uuid
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
-  
-  #attr_accessor :stripe_id,
-  #              :amount_off,
-  #              :percent_off,
-  #              :duration,
-  #              :duration_in_months,
-  #              :currency,
-  #              :number_of_coupons,
-  #              :times_redeemed,
-  #              :metadata,
-  #              :redeem_by,
-  #              :plan_id,
-  #              :account_id,
-  #              :stripe_object,
-  #              :sales_coupon_batch_id
-                
-  #def coupons
-  #  Coupon.where(sales_coupon_batch_id: self.id)
-  #end
-  
-
   
   def remove_coupons
     self.coupons.destroy_all
@@ -50,6 +47,12 @@ class Sales::CouponBatch < ActiveRecord::Base
     end
     nil
   end
+  
+  def product
+    Shop::Product.find_by(uuid: self.product_uuid)
+  end
+  
+  private
   
   
   

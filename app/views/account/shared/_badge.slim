@@ -7,11 +7,11 @@
 /.account-badge
 /  h4 
 /    = link_to title,  link
-/    - if can_edit?
+/    - if super?
 /      = link_to edit_admin_blog_blog_post_path(blog, post) do
 /        '&nbsp;
 /        i.fa.fa-pencil
-/    -if can_edit?
+/    -if super?
 /      '&nbsp;
 /  = link_to link do
 /    = simple_format body

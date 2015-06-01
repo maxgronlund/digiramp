@@ -101,6 +101,98 @@ def visit_page page
     visit "/users/#{user.slug}/messages/123456"
     
     
+  # member pages
+  when "User account settings page"
+    user = User.first
+    visit "/user/users/#{user.slug}/control_panel"
+    
+  when "User contacts page"
+    user = User.first
+    visit "/user/users/#{user.slug}/contacts"
+    
+  when "New user contacts page"
+    user = User.first
+    visit "/user/users/#{user.slug}/contacts/new"
+    
+  when "User contact groups page"
+    user = User.first
+    visit "/user/users/#{user.slug}/contact_groups"
+    
+  when "New user contact group page"
+    user = User.first
+    visit "/user/users/#{user.slug}/contact_groups/new"
+    
+  when "User campaigns page"
+    user = User.first
+    visit "/user/users/#{user.slug}/campaigns"
+    
+  when "User campaigns page"
+    user = User.first
+    visit "/user/users/#{user.slug}/campaigns"
+    
+  when "New user campaigns page"
+    user = User.first
+    visit "/user/users/#{user.slug}/campaigns/new"
+    
+  when "User pages page"
+    user = User.first
+    visit "/user/users/#{user.slug}/cms_pages"
+    
+  when "New user pages page"
+    user = User.first
+    visit "/user/users/#{user.slug}/cms_pages/new"
+    
+  when "User creative rights page"
+    user = User.first
+    visit "/user/users/#{user.slug}/creative_rights"
+    
+  when "User IPIs & Credits page"
+    user = User.first
+    visit "/user/users/#{user.slug}/ipis"
+    
+  when "User positions page"
+    user = User.first
+    visit "/user/users/#{user.slug}/user_positions"
+    
+  when "User emails page"
+    user = User.first
+    visit "/user/users/#{user.slug}/user_emails"
+    
+  when "New user email page"
+    user = User.first
+    visit "/user/users/#{user.slug}/user_emails/new"
+    
+  when "Edit user social links page"
+    user = User.first
+    visit "/user/social_links/#{user.slug}/edit"
+    
+  when "User shop admin page"
+    user = User.first
+    visit "/user/users/#{user.slug}/shop_admin"
+    
+  when "User shop select product type page"
+    user = User.first
+    visit "/user/users/#{user.slug}/select_product_type"
+    
+  when "User special offers page"
+    user = User.first
+    visit "/user/users/#{user.slug}/special_offer"
+    
+  when "Edit contact info page"
+    user = User.first
+    visit "/user/user_addresses/#{user.slug}/edit"
+    
+  when "User special offers page"
+    user = User.first
+    visit "/user/users/#{user.slug}/special_offer"
+    
+  when "User subscriptions page"
+    user = User.first
+    visit "/user/users/#{user.slug}/subscriptions"
+    
+  when "User creative projects page"
+    user = User.first
+    visit "/user/users/#{user.slug}/creative_projects"
     
     
     

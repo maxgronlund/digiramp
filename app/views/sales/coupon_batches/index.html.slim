@@ -32,6 +32,7 @@
               thead
                 tr
                   th Title
+                  th Coupons
                   th Created for
                   th Created by
                   th
@@ -41,7 +42,7 @@
                 - @sales_coupon_batches.each do |sales_coupon_batch|
                   tr
                     td = sales_coupon_batch.title
-                    /td = sales_coupon_batch.body
+                    td = sales_coupon_batch.coupons.count
                     td = sales_coupon_batch.email
                     td = sales_coupon_batch.created_by
                     td

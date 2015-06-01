@@ -42,9 +42,14 @@ class ApplicationController < ActionController::Base
   end
   
   def current_account
+    
+    
+    
+    
+    
     begin
       return  Account.cached_find( session[:account_id]) if session[:account_id]
-      session[:account_id] = current_user.account_id
+      session[:account_id]    = current_user.account_id
       return  Account.cached_find( current_user.account_id ) 
     rescue
       return nil
@@ -78,7 +83,13 @@ class ApplicationController < ActionController::Base
     current_user && current_user.super?
   end
   helper_method :super?
+  
+  def can_sell?
+    super? || (current_user && current_user.salesperson?)
+  end
+  helper_method :can_sell?
    
+  
   def user_signed_in?
     current_user != nil
   end
@@ -96,6 +107,10 @@ class ApplicationController < ActionController::Base
     end
     @user       = current_user
     @authorized = true
+  end
+  
+  def sales_only
+    forbidden unless ( super? || (current_user && current_user.salesperson) )
   end
   
   def zaap_cokkies
@@ -121,7 +136,7 @@ class ApplicationController < ActionController::Base
   
   
   def admins_only
-    forbidden unless current_user && current_user.can_edit?
+    forbidden unless super?
     @user       = current_user
     @authorized = true
   end
@@ -137,21 +152,19 @@ class ApplicationController < ActionController::Base
   helper_method :permit_creative_project_user
 
   def access_user
-    unless current_user
-      forbidden params
-    else
+    if current_user
       if params[:user_id]
         @user = User.cached_find(params[:user_id])
       else
         @user = User.cached_find(params[:id])
       end
       begin
-        forbidden( params ) unless @user.permits? current_user
+        forbidden unless @user.permits? current_user
       rescue
-        #ap '======================= not found ================='
-        params[:id] = 0
-        not_found params
+        not_found
       end
+    else
+      forbidden
     end
   end
   helper_method :access_user
@@ -166,20 +179,11 @@ class ApplicationController < ActionController::Base
       set_account
       return @user
     rescue ActiveRecord::RecordNotFound
-      not_found id: params[:user_id]
+      not_found
     end
   end
   helper_method :get_user
   
-  def try_get_user
-    begin
-      @user = User.friendly.find(params[:user_id])
-      set_account
-      return @user
-    rescue
-    end
-  end
-  helper_method :try_get_user
   
   def get_private_user
     get_user
@@ -189,27 +193,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :get_private_user
   
-  # v2 
-  # used by the account namespace to find the right account
-  # and the accounts user
-  def get_account_user
-    if params[:id]
-      if @account = Account.cached_find(params[:id])
-        @user = @account.user
-        #set_authorized
-        set_account
-      end
-    else
-      not_found
-    end
-  end
-  helper_method :get_account_user
   
   def get_account
     if params[:account_id]
       if @account = Account.cached_find(params[:account_id])
         @user = @account.user
-        #set_authorized
         set_account
       end
     else
@@ -224,8 +212,7 @@ class ApplicationController < ActionController::Base
     url_for :only_path => false, :params => params.merge(overwrite)
   end
   helper_method :current_url
-  
-  
+
   
   def account_belongs_to_current_user
     @account.user_id == current_user.id
@@ -237,53 +224,14 @@ class ApplicationController < ActionController::Base
   
   
   def forbidden options = {}
-    
     render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
-    #if params[:controller] && options[:controller] == 'messages'
-    #  if current_user
-    #    session[:request_url]  =  request.url
-    #    redirect_to error_not_found_path( error_id: options[:id], 
-    #                                      user_id: options[:user_id], 
-    #                                      error_type: 'log_in_as_new_user_to_read_message'
-    #                                      )
-    #  else
-    #    session[:request_url]  =  request.url
-    #    
-    #    redirect_to error_not_found_path( error_id: 0, 
-    #                                      user_id: options[:user_id], 
-    #                                      error_type: 'log_in_to_read_message')
-    #    
-    #  end
-    #else
-    #  session[:request_url] = request.url
-    #  render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
-    #  # redirect_to error_not_found_path 0
-    #end
   end
   helper_method :forbidden
 
 
   
   def not_found options = {}
-    
-    #if params && params[:controller]
-    #  if current_user
-    #    
-    #    redirect_to error_not_found_path( error_id: options[:id] || params[:id], 
-    #                                      user_id: options[:user_id], 
-    #                                      error_type: params[:controller],
-    #                                      redirect_to_message:  request.url, 
-    #                                      action: params[:action])
-    #  else
-    #    
-    #    redirect_to error_not_found_path( error_id: options[:id] || params[:id],
-    #                                      error_type: params[:controller],
-    #                                      redirect_to_message:  request.url, 
-    #                                      action: params[:action])
-    #  end
-    #else
     render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
-    #end
   end
   helper_method :not_found
   
@@ -318,7 +266,6 @@ private
 
   # get the order
   def current_order
-    
     #session[:order_uuid] = nil
     if current_user 
       @order = current_user.get_order
@@ -332,21 +279,6 @@ private
     end
     @order
   end
-  
-  
-  
-  #def current_cart
-  #  Cart.find(session[:cart_id])
-  #  rescue ActiveRecord::RecordNotFound
-  #  cart = Cart.create
-  #  session[:cart_id] = cart.id
-  #  cart
-  #end
-  
-  
-  
-  
-  
-  
+
   
 end

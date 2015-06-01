@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150529163219) do
+ActiveRecord::Schema.define(version: 20150601084528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,6 +215,23 @@ ActiveRecord::Schema.define(version: 20150529163219) do
   end
 
   add_index "activity_logs", ["account_id"], name: "index_activity_logs_on_account_id", using: :btree
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer  "address_type",     default: 0
+    t.string   "first_name"
+    t.string   "last_name"
+    t.text     "address_line_1"
+    t.text     "address_line_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.integer  "addressable_id"
+    t.string   "addressable_type"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "addresses", ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
 
   create_table "administrations", force: :cascade do |t|
     t.integer  "user_id"
@@ -2661,7 +2678,11 @@ ActiveRecord::Schema.define(version: 20150529163219) do
     t.integer  "account_id"
     t.date     "redeem_by"
     t.integer  "original_price",     default: 0
+    t.string   "product_uuid"
+    t.integer  "user_id"
   end
+
+  add_index "sales_coupon_batches", ["user_id"], name: "index_sales_coupon_batches_on_user_id", using: :btree
 
   create_table "search_recordings", force: :cascade do |t|
     t.integer  "user_id"
@@ -2758,8 +2779,8 @@ ActiveRecord::Schema.define(version: 20150529163219) do
 
   create_table "shop_orders", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "state"
     t.string   "uuid"
     t.string   "stripe_token"
@@ -2768,16 +2789,21 @@ ActiveRecord::Schema.define(version: 20150529163219) do
     t.string   "error"
     t.string   "charge_id"
     t.text     "invoice_object"
-    t.string   "address_line_1"
-    t.string   "address_line_2"
-    t.string   "city"
-    t.string   "zip"
-    t.string   "country"
     t.text     "order_lines"
+    t.text     "order_content",  default: "--- {}\n"
   end
 
   add_index "shop_orders", ["coupon_id"], name: "index_shop_orders_on_coupon_id", using: :btree
   add_index "shop_orders", ["user_id"], name: "index_shop_orders_on_user_id", using: :btree
+
+  create_table "shop_physical_products", force: :cascade do |t|
+    t.string   "dimensions"
+    t.string   "waight"
+    t.integer  "shipping_cost"
+    t.integer  "units_on_stock"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "shop_products", force: :cascade do |t|
     t.string   "title"
@@ -2789,16 +2815,19 @@ ActiveRecord::Schema.define(version: 20150529163219) do
     t.integer  "account_id"
     t.string   "download_link"
     t.boolean  "for_sale"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.string   "category"
     t.integer  "units_on_stock"
-    t.string   "exclusive_offer"
+    t.string   "exclusive_offered_to_email"
     t.string   "uuid"
-    t.boolean  "show_in_shop",    default: false
+    t.boolean  "show_in_shop",               default: false
+    t.integer  "productable_id"
+    t.string   "productable_type"
   end
 
   add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
+  add_index "shop_products", ["productable_type", "productable_id"], name: "index_shop_products_on_productable_type_and_productable_id", using: :btree
   add_index "shop_products", ["user_id"], name: "index_shop_products_on_user_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
@@ -3237,6 +3266,7 @@ ActiveRecord::Schema.define(version: 20150529163219) do
   add_foreign_key "invoices", "users"
   add_foreign_key "payment_sources", "subscriptions"
   add_foreign_key "payment_sources", "users"
+  add_foreign_key "sales_coupon_batches", "users"
   add_foreign_key "shop_orders", "coupons"
   add_foreign_key "shop_orders", "users"
   add_foreign_key "shop_products", "accounts"

@@ -25,6 +25,6 @@ class Admin::HomesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def home_params
-      params.require(:home).permit! if current_user.can_edit?
+      params.require(:home).permit! if super?
     end
 end

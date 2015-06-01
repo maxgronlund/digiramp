@@ -13,6 +13,7 @@
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { sales: sales_dashboard_index_path,
                                                               'coupon batches'.to_sym => sales_coupon_batches_path}, current: ''}
+      ==render 'admin/shared/messages'
       .row
         .col-sm-6
           .help

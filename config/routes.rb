@@ -2,6 +2,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  resources :addresses
+
   get '/auth/stripe_connect/callback', to: 'stripe_connect#create'
 
   namespace :stripe do
@@ -19,7 +21,7 @@ Digiramp::Application.routes.draw do
     resources :invoices, only: [:show]
     resources :orders 
     match '/orders/payment_status/:uuid'   => 'orders#payment_status',    via: :get,  as: :payment_status
-
+    resources :physical_products
     resources :products 
     resources :shop_order_items
     get 'shop/index'
@@ -714,10 +716,12 @@ Digiramp::Application.routes.draw do
       #get "shop"         => "shop#index",     :as => :user_user_shop_index
       #resources :shop, only: [:index]
       resources :shop_admin, only: [:index] 
+      resources :select_product_type, only: [:index] 
       resources :special_offer, only: [:index] 
       resources :product_admin, only: [:edit, :new, :create, :new]   
-      
-      
+      resources :invoices, only: [:index, :show]
+      resources :purchases, only: [:index, :show]
+      resources :coupon_batches, only: [:show]
       
       resources :accept_recording_ipis
       resources :activities

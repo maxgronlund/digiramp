@@ -18,7 +18,7 @@
           h2 = @issue.title
         .col-sm-4.pull-down-10
 
-          -if can_edit? || current_user.id == @user.id
+          -if super? || current_user.id == @user.id
             .pull-right
               = link_to 'Edit', edit_user_issue_path(@user, @issue), class: 'btn btn-primary'
               - if super?

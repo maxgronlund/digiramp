@@ -2,6 +2,7 @@ class Shop::Product < ActiveRecord::Base
   belongs_to :user
   belongs_to :account
   
+  
   validates :title, :body, :additional_info, presence: true
   
   #validates_numericality_of :price, greater_than: 49, message: "must be at least 50 cents"
@@ -10,6 +11,9 @@ class Shop::Product < ActiveRecord::Base
   mount_uploader :image,    ProductImageUploader
   
   CATEGORIES = ['Streaming', 'download', 'Service', 'Physical product', 'Coupon']
+  
+  
+  
   
   before_save :populate_uuid
   
@@ -23,6 +27,38 @@ class Shop::Product < ActiveRecord::Base
     Rails.cache.fetch([name, uuid]) { find_by(uuid: uuid) }
   end
   
+  def exclusive_offer?
+    #if self.category == 
+    ! self.exclusive_offered_to_email.blank?
+  end
+  
+  def add_productable type, id
+    self.productable_type = type
+    self.productable_type = type
+  end
+  
+  
+  def self.attach record, product_params = {}
+
+    product = Shop::Product.create(  title:                         product_params[:title], 
+                                     body:                          product_params[:body], 
+                                     additional_info:               product_params[:additional_info], 
+                                     price:                         product_params[:price],
+                                     exclusive_offered_to_email:    product_params[:exclusive_offered_to_email],
+                                     download_link:                 product_params[:download_link],
+                                     user_id:                       product_params[:user_id],
+                                     account_id:                    product_params[:account_id],
+                                     units_on_stock:                product_params[:units_on_stock],
+                                     for_sale:                      product_params[:for_sale],
+                                     image:                         product_params[:image],
+                                     download_link:                 product_params[:download_link],
+                                     productable_id:                record.id,      
+                                     productable_type:              record.class.name      
+                                     
+                                  )
+
+    
+  end
   
 
   private 

@@ -61,7 +61,7 @@ class User::ProductsController < ApplicationController
   def destroy
     @shop_product.destroy
     respond_to do |format|
-      format.html { redirect_to shop_products_url, notice: 'Product was successfully destroyed.' }
+      format.html { redirect_to user_user_shop_admin_index_path(@user) }
       format.json { head :no_content }
     end
   end
@@ -88,7 +88,7 @@ class User::ProductsController < ApplicationController
                                             :updated_at,       
                                             :category,
                                             :units_on_stock,
-                                            :exclusive_offer,
+                                            :exclusive_offered_to_email,
                                             :uuid,
                                             :show_in_shop)
       end
@@ -99,7 +99,7 @@ class User::ProductsController < ApplicationController
       # only make additional checks if the product is for sale
       if @shop_product.show_in_shop = @shop_product.for_sale
         # don't show exclucive offers in the shop
-        unless @shop_product.exclusive_offer.blank?
+        unless @shop_product.exclusive_offered_to_email.blank?
           # this is a exclucive offer
           @shop_product.show_in_shop = false
         end

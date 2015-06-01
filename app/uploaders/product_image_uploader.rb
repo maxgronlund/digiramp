@@ -31,10 +31,9 @@ class ProductImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb_120x120     do process :resize_to_fill   => [120,120   , 'Center']      end
+  version :thumb_120x120     do process :resize_to_fill   => [120,120   , 'Center']    end
   version :thumb_300x300     do process :resize_to_fill   => [300,300 , 'Center']      end
-  
-  version :thumb_470x470     do process :resize_to_fill   => [470,470 , 'Center']    end
+  version :thumb_470x470     do process :resize_to_fill   => [470,470 , 'Center']      end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

@@ -10,7 +10,7 @@ class PasswordResetsController < ApplicationController
     
     if user
       user.send_password_reset 
-      flash[:info] = "You should receive an email with instructions in a few moments" 
+      flash[:info]   = "You should receive an email with instructions in a few moments" 
     else
       flash[:danger] = "No user with that email  #{email}  on record" 
     end
@@ -59,9 +59,7 @@ class PasswordResetsController < ApplicationController
   end
   
   def user_params
-    #if can_edit?
-      params.require(:user).permit!
-    #end
+    params.require(:user).permit(:password, :password_confirmation)
   end
   
 end

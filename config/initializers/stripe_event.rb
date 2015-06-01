@@ -12,7 +12,7 @@ end
 
 
 StripeEvent.configure do |events|
-
+  
   StripeCustomerSubscriptionService.new.subscribe( events )
   StripeCustomerService.new.subscribe events
   StripeCustomerSourceService.new.subscribe events
@@ -27,4 +27,3 @@ end
 
 
 
-#Opbeat.capture_message("Not happy with the way things turned out")

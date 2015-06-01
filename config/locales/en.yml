@@ -20,4 +20,38 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  time:
+    formats:
+      default: '%A, %d %b %Y %l:%M %p'
+      date: '%A, %B %e, %Y'
+      time: '%l:%M %p'
+      short: '%b %d, %Y'
+  mailer:
+    copy: © Copyright 2015. All rights reserved.
+  meetings:
+    objective: Objective
+    summary: Summary
+    notes: Notes
+    agenda: Agenda
+    tasks: Action items
+    files_and_links: 'Files & links'
+    screen_notes: Screen notes
+    show:
+      shared_by: 'This meeting has been shared with you by %{name}'
+    mailer:
+      disclaimer: You are receiving this email as you have been included as a meeting participant in a meeting created in Pinstriped.
+      full_summary: See full summary
+      shared:
+        files: file
+        links: link
+        notes: note
+        tasks: action item
+        and: and
+      pre:
+        title: Pre-meeting email
+        link: View files
+        shared: has been shared with you.
+      post:
+        title: 'Follow-up meeting held %{date}'
+        link: View follow-up
+        dont_miss: Dont miss the

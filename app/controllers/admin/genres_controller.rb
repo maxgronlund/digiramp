@@ -51,6 +51,6 @@ class Admin::GenresController < ApplicationController
   
 private
   def genre_params
-    params.require(:genre).permit! if current_user.can_edit?
+    params.require(:genre).permit! if super?
   end
 end
