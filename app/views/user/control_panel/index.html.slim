@@ -182,6 +182,17 @@
                       'Products and servces only you can buy
                       
               .control-panel-badge
+                = link_to  user_user_purchases_path(@user) do
+                  .content
+                    .icon.icon-green
+                      i.fa.fa-shopping-cart
+                      
+                    .title
+                      h4 Purchases
+                    .body
+                      'Coupons, services, downloads and othere resources you have bought
+                      
+              .control-panel-badge
                 = link_to  user_user_creative_projects_path(@user) do
                   .content
                     .icon.icon-dr-blue

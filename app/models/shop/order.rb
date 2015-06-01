@@ -64,10 +64,10 @@ class Shop::Order < ActiveRecord::Base
       
       #ap charge 
       
-      balance = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
-      ap '----------------- balance ----------------------------'
-      ap balance
-      ap '======================================================'
+      #balance = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
+      #ap '----------------- balance ----------------------------'
+      #ap balance
+      #ap '======================================================'
 
       self.update(charge_id: charge.id)
 

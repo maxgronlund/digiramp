@@ -45,7 +45,7 @@
                 tr
                   td = order.id
                   td = l order.updated_at, format: :date
-                  td = order.total_price
+                  td = number_to_currency(order.total_price * 0.01, locale: :en, precision: 2)
                   td
                     .pull-right
                       = link_to 'Show', user_user_purchase_path(@user, order.uuid), class: 'btn btn-default btn-xs'

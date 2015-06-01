@@ -51,7 +51,6 @@ class Shop::Product < ActiveRecord::Base
                                      units_on_stock:                product_params[:units_on_stock],
                                      for_sale:                      product_params[:for_sale],
                                      image:                         product_params[:image],
-                                     download_link:                 product_params[:download_link],
                                      productable_id:                record.id,      
                                      productable_type:              record.class.name      
                                      
