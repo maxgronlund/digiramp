@@ -29,7 +29,7 @@ class StripeChargeService
             errored = false
             
             if stripe_payment_source = stripe_object.source
-              ap stripe_payment_source
+              #ap stripe_payment_source
               shop_order.order_content[:payment_source] = JSON.parse(stripe_payment_source.to_json).deep_symbolize_keys 
               shop_order.order_content[:total_price]    = shop_order.total_price
               shop_order.save

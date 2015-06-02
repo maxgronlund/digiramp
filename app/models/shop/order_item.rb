@@ -13,15 +13,7 @@ class Shop::OrderItem < ActiveRecord::Base
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
-  
-  def update_stock
-    if shop_product
-      unless shop_product.units_in_stock.blank?
-        shop_product.units_in_stock -= 1 
-        shop_product.save
-      end
-    end
-  end
+
 
   private 
 

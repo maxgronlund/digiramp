@@ -120,12 +120,12 @@ class Shop::Order < ActiveRecord::Base
         self.order_lines[index] = product.as_json.merge("total_price" => (order_item.quantity * product.price),
                                                          "quantity" => order_item.quantity)
                                                          
-        order_item.update_stock
+        product.update_stock
       end
     end
     save!
   end
-  
+
   def require_shippint_address
     return true if self.order_items.where(require_shipping: true).first
   end

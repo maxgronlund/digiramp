@@ -26,7 +26,7 @@
           /li class="#{page == 'admin' ? 'active' : ''}"
           /  = link_to 'ADMIN', admin_index_path
 
-        -if user_signed_in?
+        -if current_user
             li  class="#{page == 'support' ? 'active' : ''}"
               = link_to support_index_path do
                 i class="fa fa-life-ring"
@@ -36,7 +36,7 @@
             /li class="#{page == 'admin' ? 'active' : ''}"
             /  = link_to 'ADMIN', admin_index_path
 
-      -if user_signed_in? && current_account
+      -if current_user && current_account
         ul class="nav navbar-nav navbar-right"
           
           li  class="#{page == 'account' ? 'active' : ''}"

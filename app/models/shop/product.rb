@@ -59,6 +59,13 @@ class Shop::Product < ActiveRecord::Base
     
   end
   
+  def update_stock
+    if self.units_on_stock 
+      self.units_on_stock -= 1 
+      save
+    end
+  end
+  
 
   private 
   
