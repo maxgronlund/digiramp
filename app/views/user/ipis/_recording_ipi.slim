@@ -1,16 +1,18 @@
-- recording = user_credit.ipiable.recording
-= link_to user_recording_path( recording.user, recording) do
-  .row
-    .col-sm-3
-      b = user_credit.title
-      br
-      i = user_credit.ipiable.confirmation
-    .col-sm-3
-      'Recording
-    .col-sm-4
-      = user_credit.ipiable.role
-      br
-      = user_credit.ipiable.credit_for
-    .col-sm-2
-      .pull-right
-        = link_to 'Info', user_user_recording_ipi_path(@user, user_credit.ipiable), class: 'btn btn-default'
+- if ipiable = user_credit.ipiable
+  - if recording = ipiable.recording
+  
+    = link_to user_recording_path( recording.user, recording) do
+      .row
+        .col-sm-3
+          b = user_credit.title
+          br
+          i = ipiable.confirmation
+        .col-sm-3
+          'Recording
+        .col-sm-4
+          = ipiable.role
+          br
+          = ipiable.credit_for
+        .col-sm-2
+          .pull-right
+            = link_to 'Info', user_user_recording_ipi_path(@user, ipiable), class: 'btn btn-default'

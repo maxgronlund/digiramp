@@ -153,12 +153,12 @@ class ApplicationController < ActionController::Base
 
   def access_user
     if current_user
-      if params[:user_id]
-        @user = User.cached_find(params[:user_id])
-      else
-        @user = User.cached_find(params[:id])
-      end
       begin
+        if params[:user_id]
+          @user = User.cached_find(params[:user_id])
+        else
+          @user = User.cached_find(params[:id])
+        end
         forbidden unless @user.permits? current_user
       rescue
         not_found
