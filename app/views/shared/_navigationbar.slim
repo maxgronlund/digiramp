@@ -63,6 +63,11 @@
             i.fa.fa-money
             '&nbsp;
             'Opportunities
+      li class="#{page == 'shop' ? 'active' : ''}"
+        = link_to shop_shop_index_path do
+          i.fa.fa-shopping-cart
+          '&nbsp;
+          'Shop
     
 
     ul class="nav navbar-nav navbar-right"

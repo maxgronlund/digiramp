@@ -19,8 +19,8 @@ class RecordingTagsController < ApplicationController
     @recording.extract_moods
     @recording.save!
     
-    redirect_to edit_user_recording_social_path( @user, @recording )
-    
+    #redirect_to edit_user_recording_social_path( @user, @recording )
+    redirect_to user_recording_path( @recording.user, @recording )
     
     
     

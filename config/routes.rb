@@ -2,6 +2,8 @@ Digiramp::Application.routes.draw do
 
 
 
+
+
   resources :addresses
 
   get '/auth/stripe_connect/callback', to: 'stripe_connect#create'
@@ -24,6 +26,7 @@ Digiramp::Application.routes.draw do
     resources :physical_products
     resources :products 
     resources :shop_order_items
+    resources :shipping_address
     get 'shop/index'
   end
 
@@ -696,7 +699,7 @@ Digiramp::Application.routes.draw do
     
     resources :shop, only: [:index, :show]
     resources :checking_accounts
-    resources :social_links
+    resources :social_links, only: [:edit, :update]
     #resources :common_work_lyrics
     resources :users do
       

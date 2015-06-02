@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601084528) do
+ActiveRecord::Schema.define(version: 20150602091708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2767,11 +2767,12 @@ ActiveRecord::Schema.define(version: 20150601084528) do
   add_index "share_recording_with_emails", ["user_id"], name: "index_share_recording_with_emails_on_user_id", using: :btree
 
   create_table "shop_order_items", force: :cascade do |t|
-    t.integer  "quantity",   default: 1
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "quantity",         default: 1
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "order_id"
     t.integer  "product_id"
+    t.boolean  "require_shipping", default: false
   end
 
   add_index "shop_order_items", ["order_id"], name: "index_shop_order_items_on_order_id", using: :btree

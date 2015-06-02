@@ -15,14 +15,14 @@
   #page-content-wrapper
     .container-fluid 
       .row
-        .col-sm-5
+        .col-sm-5.col-xs-12
           .help
             .help-text
               h2 Recordings
             .help-button
               == render 'admin/helps/help', identifier: 'user recordings'
       
-        .col-sm-7
+        .col-sm-7.col-xs-12
           .search-recording
             = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
                                                           :controller => 'recordings'), \

@@ -123,9 +123,11 @@ class Shop::Order < ActiveRecord::Base
         order_item.update_stock
       end
     end
-    
-    
     save!
+  end
+  
+  def require_shippint_address
+    return true if self.order_items.where(require_shipping: true).first
   end
   
   def payment_source
