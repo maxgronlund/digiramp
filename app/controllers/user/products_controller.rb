@@ -12,6 +12,7 @@ class User::ProductsController < ApplicationController
   # GET /shop/products/1
   # GET /shop/products/1.json
   def show
+    not_found unless @shop_product
     @shop_order = current_order
   end
 
