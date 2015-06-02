@@ -4,7 +4,8 @@ class User::IpisController < ApplicationController
   
   def index
     #@user_credits = @user.user_credits.where.not(confirmation: 'Missing').order(:title)
-    ap params
+    logger.info params
+    logger.info @user
     @user_credits = @user.user_credits
   end
   
