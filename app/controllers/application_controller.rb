@@ -273,7 +273,7 @@ private
       if session[:order_uuid] && (@order = Shop::Order.find_by(uuid: session[:order_uuid]) )
       else 
         @order = Shop::Order.new(uuid: UUIDTools::UUID.timestamp_create().to_s)
-        @order.save(:validate => false)
+        @order.save(validate: false)
         session[:order_uuid] = @order.uuid
       end
     end

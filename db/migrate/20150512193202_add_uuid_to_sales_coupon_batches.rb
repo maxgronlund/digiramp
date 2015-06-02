@@ -4,7 +4,7 @@ class AddUuidToSalesCouponBatches < ActiveRecord::Migration
     
     Sales::CouponBatch.find_each do |sb|
       sb.uuid = UUIDTools::UUID.timestamp_create().to_s
-      sb.save(validates: false)
+      sb.save(validate: false)
     end
   end
 end
