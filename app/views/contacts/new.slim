@@ -1,12 +1,19 @@
-#wrap
+#wrapper
   .full-width-top
-    == render 'admin/shared/navbar', page: 'account' 
-       
-  .container
-    /==render 'admin/shared/messages'
-    == render 'form'
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'contact'
+  
+  #page-content-wrapper
+    .container-fluid
+      ==render 'admin/shared/messages'
+      h2 Contact us
+      .sexy_line
+      == render 'form'
         
 
 
 
-== render 'shared/init_wysiwyg5'
