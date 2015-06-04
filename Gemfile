@@ -230,6 +230,7 @@ gem 'uuid', '~> 2.3.7'
 # payment
 #gem 'stripe', '~> 1.20.4'
 gem 'stripe', '~> 1.21.0'
+
 # handling webhooks
 gem 'stripe_event'
 # handling user/ stripe accounts

@@ -56,13 +56,13 @@ end
 #end
 #
 #
-#Then(/^Does it look right\?$/) do
-#  ask('does that look right?')
-#end
+Then(/^Does it look right\?$/) do
+  ask('does that look right?')
+end
 #
-#Then(/^I'm enabling the checkbox "(.*?)"$/) do |checkbox|
-#  check(checkbox)
-#end
+Then(/^I'm enabling the checkbox "(.*?)"$/) do |checkbox|
+  check(checkbox)
+end
 #
 #Then(/^I'm disabling the checkbox "(.*?)"$/) do |checkbox|
 #  uncheck(checkbox)

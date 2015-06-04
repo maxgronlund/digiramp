@@ -1,3 +1,4 @@
+
 When(/^I'm on the admin shop pages for the user with the email "(.*?)"$/) do |email|
   @user = user_with_email email
   visit "/user/users/#{@user.slug}/shop_admin"

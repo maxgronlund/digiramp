@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602111203) do
+ActiveRecord::Schema.define(version: 20150604091712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3065,6 +3065,8 @@ ActiveRecord::Schema.define(version: 20150602111203) do
     t.string   "stripe_customer_id"
     t.boolean  "salesperson",                            default: false
     t.string   "stripe_recipient_id"
+    t.boolean  "has_enabled_shop",                       default: false
+    t.boolean  "has_an_approved_shop",                   default: false
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

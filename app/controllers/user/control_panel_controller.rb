@@ -6,9 +6,5 @@ class User::ControlPanelController < ApplicationController
   
   
   def index
-    
-    @email_groups = EmailGroup.where(subscripeable: true)
-    
-    
   end
 end

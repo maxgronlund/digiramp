@@ -160,15 +160,25 @@
                       'Your DigiRAMP plan
                       
               .control-panel-badge
-                = link_to  user_user_shop_admin_index_path(@user) do
-                  .content
-                    .icon.icon-red
-                      i.fa.fa-shopping-cart
+                - if @user.has_enabled_shop
+                  = link_to  user_user_shop_admin_index_path(@user) do
+                    .content
+                      .icon.icon-red
+                        i.fa.fa-shopping-cart
+                      .title
+                        h4 Shop administration
+                      .body
+                        'Manage your personal shop
+                - else
+                  = link_to user_user_create_shop_index_path(@user) do
+                    .content
+                      .icon.icon-red
+                        i.fa.fa-shopping-cart
+                      .title
+                        h4 Shop administration
+                      .body
+                        'Manage your personal shop
                       
-                    .title
-                      h4 Shop administration
-                    .body
-                      'Manage your personal shop
                       
               .control-panel-badge
                 = link_to  user_user_special_offer_index_path(@user) do

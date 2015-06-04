@@ -4,6 +4,10 @@ Digiramp::Application.routes.draw do
 
 
 
+  namespace :user do
+  get 'create_shop/index'
+  end
+
   resources :addresses
 
   get '/auth/stripe_connect/callback', to: 'stripe_connect#create'
@@ -718,6 +722,7 @@ Digiramp::Application.routes.draw do
       
       #get "shop"         => "shop#index",     :as => :user_user_shop_index
       #resources :shop, only: [:index]
+      resources :create_shop, only: [:index] 
       resources :shop_admin, only: [:index] 
       resources :select_product_type, only: [:index] 
       resources :special_offer, only: [:index] 
