@@ -41,26 +41,9 @@
                   = f.submit 'Sign Up', class: 'btn btn-primary', id: 'sign_up_form_button'
             br
             .sexy_line
-            br
+            == render 'users/shared/social_signup'
             
-            h4 Signup with your favorite network
-            .social-icons
-              .social-icon
-                = link_to "/auth/twitter" do
-                  .twitter-icon
-                  'Twitter
-              .social-icon
-                = link_to  "/auth/facebook" do
-                  .facebook-icon
-                  'Facebook 
-              .social-icon
-                = link_to "/auth/linkedin" do
-                  .linkedin-icon
-                  'Linkedin
-              .social-icon
-                = link_to  "/auth/gplus" do
-                  .google-icon
-                  'Google+ 
+            
 
         /.col-sm-6
         /  == render 'shared/sign_up'

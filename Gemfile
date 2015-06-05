@@ -81,6 +81,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 gem "omniauth-gplus"
+gem 'omniauth-stripe-connect', '>= 2.4.0'
 
 # API's
 # facebook
@@ -230,11 +231,10 @@ gem 'uuid', '~> 2.3.7'
 # payment
 #gem 'stripe', '~> 1.20.4'
 gem 'stripe', '~> 1.21.0'
-
 # handling webhooks
 gem 'stripe_event'
 # handling user/ stripe accounts
-gem 'omniauth-stripe-connect', '>= 2.4.0'
+
 
 # state maching
 gem 'aasm'

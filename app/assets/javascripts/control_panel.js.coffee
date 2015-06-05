@@ -80,6 +80,22 @@ ready = ->
     else
       authorization_provider_id = $(this).attr 'authorization_provider_id'
       $.getScript("/user/users/" + user_id + "/authorization_providers/"  + authorization_provider_id + '/?submit=0')
+  
+  #==========================
+  $(".stripe-toggle").toggles(
+    text:
+      on: "On" 
+      off: "Off")
+  
+  $(".stripe-toggle").on "toggle", (e, active) ->
+    user_id                   = $(this).attr 'user_id'
+    if active
+       #$.getScript("/user/users/" + user_id + "/authorization_providers/facebook/?submit=1")
+      wait_for_authorization()
+      window.location.replace("/auth/stripe_connect")
+    else
+      authorization_provider_id = $(this).attr 'authorization_provider_id'
+      $.getScript("/user/users/" + user_id + "/authorization_providers/"  + authorization_provider_id + '/?submit=0')
       
       
   

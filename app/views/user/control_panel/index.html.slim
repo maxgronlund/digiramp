@@ -321,6 +321,16 @@
               - else 
                 .google-plus-toggle.toggle-light  user_id="#{@user.id}"
             .sexy_line
+            
+            / google+  -------------------
+            i.fa.fa-cc-stripe
+            '&nbsp;Stripe
+            .pull-right
+              - if authorization_provider = @user.authorization_providers.where(provider: 'stripe').first
+                .stripe-toggle.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
+              - else 
+                .stripe-toggle.toggle-light  user_id="#{@user.id}"
+            .sexy_line
       
       
                   

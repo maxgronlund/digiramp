@@ -48,7 +48,7 @@ Digiramp::Application.routes.draw do
   post '/buy/:permalink', to: 'transactions#create', as: :buy
   get '/pickup/:guid', to: 'transactions#pickup', as: :pickup
   get '/download/:guid', to: 'transactions#download', as: :download
-  match '/status/:guid'               => 'transactions#status',   via: :get,  as: :status
+  match '/status/:guid'  => 'transactions#status',   via: :get,  as: :status
   
   
   mount StripeEvent::Engine => '/stripe-events'
