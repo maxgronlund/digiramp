@@ -246,6 +246,8 @@ gem 'docverter'
 
 #gem 'httparty'
 
+gem "recaptcha", :require => "recaptcha/rails"
+
 
 
 group :development do

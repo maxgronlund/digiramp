@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   
   scope :public_profiles,  ->  { where( private_profile: false)  }
   
-  
+  has_paper_trail 
   has_secure_password
   include PublicActivity::Common
   
