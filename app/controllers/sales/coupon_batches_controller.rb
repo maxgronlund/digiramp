@@ -71,8 +71,7 @@ class Sales::CouponBatchesController < Sales::SalesController
                             account_id:                    @sales_coupon_batch.account_id,
                             units_on_stock:                1,
                             for_sale:                      true,
-                            image:                         image,
-                            download_link:                 @sales_coupon_batch.uuid
+                            image:                         image
                           }
         
         Shop::Product.attach(@sales_coupon_batch, product_params)

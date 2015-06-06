@@ -109,10 +109,11 @@ class User::SubscriptionsController < ApplicationController
   end
   
   def destroy
+    ap '=============================destroy===================================='
     #ap 'user/subscriptions_controller # destroy'
     @subscription       =  Subscription.cached_find(params[:id])
     # this is a 'social' plan or a plan without a stripe connection
-    flash[:info] =  @subscription.cancel_when_plan_expires
+    flash[:info]        =  @subscription.cancel_when_plan_expires
 
     redirect_to user_user_subscriptions_path(@user)
   end
@@ -122,6 +123,8 @@ class User::SubscriptionsController < ApplicationController
     #ap @sale
     render nothing: true, status: 404 and return unless @subscription
     render json: {guid: @subscription.guid, status: @subscription.state, error: @subscription.error}
+    ap @subscription.state
+    
   end
   
   protected

@@ -3,7 +3,7 @@ class User::PaymentMethodsController < ApplicationController
   
   def edit
     @subscription = Subscription.cached_find(params[:id])
-    @subscription.reset_state
+    @subscription.reset!
     @plan         = @subscription.plan
     @months       = CreditCard.months
     @years        = CreditCard.years
@@ -33,7 +33,7 @@ class User::PaymentMethodsController < ApplicationController
   
   def time_out
     @subscription = Subscription.where(guid: params[:guid]).first
-    @subscription.reset_state
+    @subscription.reset!
     render nothing: true
   end
   
