@@ -95,6 +95,6 @@ class Admin::PlansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def plan_params
-      params.require(:plan).permit(:stripe_id, :name, :description, :amount, :interval, :published, :currency, :trial_period_days, :statement_descriptor, :metadata)
+      params.require(:plan).permit(:stripe_id, :name, :description, :amount, :interval, :published, :currency, :trial_period_days, :statement_descriptor, :metadata, :account_type)
     end
 end

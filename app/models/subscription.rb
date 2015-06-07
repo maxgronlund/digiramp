@@ -149,7 +149,7 @@ private
 
   
   def charge_card
-    ap 'charge_card'
+    #ap 'charge_card'
     #ap params
     
     
@@ -179,25 +179,29 @@ private
         stripe_params[:source]        = self.stripe_token
         stripe_params[:email]         = self.email 
         stripe_customer               = Stripe::Customer.create( stripe_params )
-        ap '======================= stripe customer ================================'
-        ap stripe_customer
-        ap '========================================================================'
+        #ap '======================= stripe customer ================================'
+        #ap stripe_customer
+        #ap '========================================================================'
         self.user.stripe_customer_id  = stripe_customer.id
         self.user.save!
       rescue Stripe::StripeError => e
         self.update_attributes(error: e.message)
         self.fail!
         Opbeat.capture_message(e.message)
+        ap e.message
+        return 
       end
     end
     
     
     # create the subscription
-    begin                
-      stripe_sub        = stripe_customer.subscriptions.create( stripe_params )
-      self.stripe_id    = stripe_sub.id
+    begin     
+      stripe_params[:email]   = nil           
+      stripe_params[:source]  = nil
+      stripe_sub            = stripe_customer.subscriptions.create( stripe_params )
+      self.stripe_id        = stripe_sub.id
       self.error = ''
-      self.finish!
+      #self.finish!
       update_coupon
     rescue Stripe::StripeError => e
       self.update_attributes(error: e.message, stripe_id: nil)
@@ -208,61 +212,7 @@ private
     
     #ap self.stripe_coupon_object.class.name
     self.save!
-    ##begin
-    #stripe_sub    = nil
-    #coupon_object = nil
-    #stripe_params = {}
-    #stripe_params[:coupon]  = self.coupon_code unless self.coupon_code.blank?
-    #stripe_params[:plan]    = self.plan.stripe_id 
-    ## the customer is not in stripe
-    #if self.user.stripe_customer_id.blank?
-    #  #ap "create a customer and a subscription"
-    #  begin
-    #    stripe_params[:source] = self.stripe_token
-    #    stripe_params[:email]  = self.email 
-    #    customer        = Stripe::Customer.create( stripe_params )
-    #    ap '============================== customer created ======================='
-    #    ap customer
-    #    ap 
-    #    self.user.stripe_customer_id  = customer.id
-    #    self.user.save!
-    #    stripe_sub                    = customer.subscriptions.first
-    #    ap 
-    #  rescue Stripe::StripeError => e
-    #    ap e.message
-    #    self.update_attributes(error: e.message)
-    #    #self.fail!
-    #  end
-    #else 
-    #  #ap "there is already a customer in the stripe system"  
-    #  begin                         
-    #    customer                = Stripe::Customer.retrieve(self.user.stripe_customer_id)
-    #    stripe_sub              = customer.subscriptions.create( stripe_params )
-    #  rescue Stripe::StripeError => e
-    #    ap e.message
-    #    self.update_attributes(error: e.message)
-    #    #self.fail!
-    #  end
-    #end
-    #
-    ## store the stripe is for future payments
-    #if stripe_sub
-    #  self.stripe_id                  = stripe_sub.id
-    #  self.error = ''
-    #  self.finish!
-    #  
-    #else
-    #  self.update_attributes(error: 'No subscription created')
-    #  #self.fail!
-    #end
-    #self.save!
-    #update_coupon
-    ##rescue Stripe::StripeError => e
-    ##  ap e.message
-    ##  self.update_attributes(error: e.message)
-    ##  self.fail!
-    ##end
-    ##ap customer
+    
   end
   
   def update_coupon

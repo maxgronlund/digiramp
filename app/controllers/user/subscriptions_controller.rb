@@ -91,6 +91,12 @@ class User::SubscriptionsController < ApplicationController
   def update
     #ap 'user/subscriptions_controller # update'
     #ap params
+    
+    
+    
+    
+    
+    
     @subscription       = Subscription.cached_find(params[:id])
     flash[:warning]     = @subscription.change_plan(params[:plan_id])
 
@@ -119,11 +125,11 @@ class User::SubscriptionsController < ApplicationController
   end
   
   def status
-    @subscription = Subscription.where(guid: params[:guid]).first
-    #ap @sale
+   
+    @subscription = Subscription.find_by(guid: params[:guid])
     render nothing: true, status: 404 and return unless @subscription
     render json: {guid: @subscription.guid, status: @subscription.state, error: @subscription.error}
-    ap @subscription.state
+    
     
   end
   

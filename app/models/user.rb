@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_secure_password
   include PublicActivity::Common
   
+  
   include PgSearch
   #pg_search_scope :search_user, against: [:search_field], :using => [:tsearch]
   pg_search_scope :search_user,  against: [ :search_field

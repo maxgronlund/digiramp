@@ -14,6 +14,7 @@
         = f.input :trial_period_days
         = f.input :published, hint: 'Use this to hide plans'
         = f.input :statement_descriptor
+        = f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES  
         .panel.panel-default
           .panel-body
             b Statement descriptor

@@ -6,10 +6,12 @@ class StripeCustomerSubscriptionService
       ap 'customer.subscription.created'
       ap '########################################################'
       if data = event.data
+        ap 'data found'
         if stripe_object = data.object
-
-          if  subscription = Subscription.where(stripe_id: stripe_object.id)
-                                         .first_or_create( stripe_id:  stripe_object.id)
+          ap 'stripe_object found'
+          ap stripe_object.id
+          if  subscription = Subscription.find_by(stripe_id: stripe_object.id)
+                                         #.first_or_create( stripe_id:  stripe_object.id)
                                        
             subscription.update!                             
             subscription.current_period_end        = Date.strptime(stripe_object.current_period_end.to_s, '%s')     unless stripe_object.current_period_end.nil?
@@ -28,9 +30,21 @@ class StripeCustomerSubscriptionService
             subscription.discount                  = JSON.parse(stripe_object.discount.to_json).deep_symbolize_keys unless stripe_object.discount.nil?
             subscription.tax_percent               = stripe_object.tax_percent
             subscription.metadata                  = JSON.parse(stripe_object.metadata.to_json).deep_symbolize_keys unless stripe_object.metadata.nil?
-          
+            #subscription.email                    = 
             subscription.finish!
-            subscription.save!
+            subscription.save(validate: false)
+            
+            if user = subscription.user
+              if plan = subscription.plan
+                user.account_type = plan.account_type
+                user.save(validate: false)
+                ap 'user updated'
+              end
+            end
+            ap 'subscription finished'
+          else
+            ap '============================================================='
+            ap 'Outch !!!'
           end
         end
       end
@@ -62,6 +76,11 @@ class StripeCustomerSubscriptionService
               
                 subscription.finish!
                 subscription.save! 
+                
+                if user = subscription.user
+                  user.account_type = plan.account_type
+                  user.save(validate: false)
+                end
               end
             else
               Opbeat.capture_message("plan not found")
@@ -79,6 +98,12 @@ class StripeCustomerSubscriptionService
       if data = event.data
         if object = data.object
           if  subscription = Subscription.find_by(stripe_id: object.id)
+            ap 'subscription found'
+            if user = subscription.user
+              ap 'user found'
+              user.account_type = 'Social'
+              user.save(validate: false)
+            end
             subscription.destroy
           end
         end

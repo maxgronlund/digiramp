@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604091712) do
+ActiveRecord::Schema.define(version: 20150607074019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2273,6 +2273,7 @@ ActiveRecord::Schema.define(version: 20150604091712) do
     t.integer  "trial_period_days",    default: 0
     t.string   "statement_descriptor"
     t.text     "metadata"
+    t.string   "account_type"
   end
 
   create_table "playbacks", force: :cascade do |t|
@@ -3067,6 +3068,7 @@ ActiveRecord::Schema.define(version: 20150604091712) do
     t.string   "stripe_recipient_id"
     t.boolean  "has_enabled_shop",                       default: false
     t.boolean  "has_an_approved_shop",                   default: false
+    t.string   "account_type",                           default: "Social"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

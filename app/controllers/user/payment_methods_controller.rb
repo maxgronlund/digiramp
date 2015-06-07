@@ -3,14 +3,13 @@ class User::PaymentMethodsController < ApplicationController
   
   def edit
     @subscription = Subscription.cached_find(params[:id])
-    @subscription.reset!
     @plan         = @subscription.plan
     @months       = CreditCard.months
     @years        = CreditCard.years
   end
   
   def update
-    
+
     
     subscription            =  Subscription.cached_find(params[:id])
     StripeUpdateCardJob.perform_later(subscription.guid, params[:stripeToken])
@@ -24,8 +23,9 @@ class User::PaymentMethodsController < ApplicationController
     @subscription = Subscription.where(guid: params[:guid]).first
     puts '-------------------'
     ap @subscription.error
-    puts '-------------------'
     ap @subscription.state
+    puts '-------------------'
+    
     #ap @sale
     render nothing: true, status: 404 and return unless @subscription
     render json: {guid: @subscription.guid, status: @subscription.state, error: @subscription.error}
