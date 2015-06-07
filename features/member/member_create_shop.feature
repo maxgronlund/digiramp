@@ -10,24 +10,27 @@ As an member I can create a shop
   @javascript   
   Scenario: As a member I can create my personal shop
     #When I'm on the admin shop pages for the user with the email "user@digiramp.com"
-    Then Does it look right
+    When I'm on the "User account settings page"
+    Then I can see "Shop administration"
+    Then I clik on the link with the id "shop-administration"
     Then I can see "Create a personal shop"
-    Then I can see "DigiRAMP charges"
-    Then I can see "Terms of usage"
-    When I click on the button "Continue"
-    Then i can see "You have to agree to the terms"
-    Then I'm enabling the checkbox "I understand and aggree to the terms"
-    When I click on the button "Continue"
-    Then I can see "Edit terms of usage"
-    Then I fill in the edit terms form
-    When I click on the button "Continue"
-    Then I can see "Edit company info"
-    Then I fill in company info form
-    When I click on the button "Continue"
-    Then I can see "Fill in bank informations"
-    Then I can see "Skip"
-    When I click on the button "Continue"
-    When I click on the button "Congratulation your shop is ready to use"
+    Then I can see "Register your account"
+    #Then I can see "DigiRAMP charges"
+    #Then I can see "Terms of usage"
+    #When I click on the button "Continue"
+    #Then i can see "You have to agree to the terms"
+    #Then I'm enabling the checkbox "I understand and aggree to the terms"
+    #When I click on the button "Continue"
+    #Then I can see "Edit terms of usage"
+    #Then I fill in the edit terms form
+    #When I click on the button "Continue"
+    #Then I can see "Edit company info"
+    #Then I fill in company info form
+    #When I click on the button "Continue"
+    #Then I can see "Fill in bank informations"
+    #Then I can see "Skip"
+    #When I click on the button "Continue"
+    #When I click on the button "Congratulation your shop is ready to use"
 
     
     

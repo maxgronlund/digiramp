@@ -3,7 +3,7 @@ module KnowUsersHelper
   def find_or_create_user  name, email, password, role
     return @user if @user = user_with_email( email )
     @page_style         = FactoryGirl.create(:page_style)
-    @user               = FactoryGirl.create(:user, user_name: name, email: email, password: password, role: role, slug: name.downcase.gsub(' ', '_'))
+    @user               = FactoryGirl.create(:user, user_name: name, email: email, password: password, role: role, slug: name.downcase.gsub(' ', '_'), betatester: true)
     @user.page_style_id = @page_style.id
     @user.save!
     @account            = User.create_a_new_account_for_the (@user)
