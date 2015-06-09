@@ -1,0 +1,81 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      ==render 'admin/shared/messages'
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { settings: user_user_control_panel_index_path(@user)}, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Playlist email
+            .help-button
+              == render 'admin/helps/help', identifier: 'playlist email'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to new_user_user_playlist_playlist_email_path(@user, @playlist) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+      
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            h3 = @playlist_email.title
+            = @playlist_email.body
+            /.sexy_line
+            /b
+            /  'Downloadable files:&nbsp;
+            /  => @playlist_email.attach_files ? '√ Yes' : 'No'
+
+        .col-sm-6
+          .digi-box
+            h3 Send to
+            = @playlist_email.email_list
+            .sexy_line
+            b 
+              'Send:&nbsp;
+              =< l @playlist_email.created_at, format: :date
+              
+  == render 'shared/site_footer'    
+ 
+
+
+
+
+/p#notice = notice
+/
+/p
+/  strong Emails:
+/  = @playlist_email.emails
+/p
+/  strong Title:
+/  = @playlist_email.title
+/p
+/  strong Body:
+/  = @playlist_email.body
+/p
+/  strong Attach files:
+/  = @playlist_email.attach_files
+/p
+/  strong Playlist:
+/  = @playlist_email.playlist
+/p
+/  strong User:
+/  = @playlist_email.user
+/p
+/  strong Account:
+/  = @playlist_email.account
+/
+/= link_to 'Edit', edit_playlist_email_path(@playlist_email)
+/'|
+/= link_to 'Back', playlist_emails_path
+/

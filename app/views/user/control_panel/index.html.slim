@@ -12,6 +12,7 @@
       == render 'shared/flash_message'
       h2 Account  settings
       .sexy_line
+      
       .row
         .col-sm-12
           .control-panel.pull-down-10
@@ -160,25 +161,16 @@
                       'Your DigiRAMP plan
                       
               .control-panel-badge
-                - if @user.has_enabled_shop
-                  = link_to  user_user_shop_admin_index_path(@user) do
-                    .content
-                      .icon.icon-red
-                        i.fa.fa-shopping-cart
-                      .title
-                        h4 Shop administration
-                      .body
-                        'Manage your personal shop
-                - else
-                  = link_to user_user_create_shop_index_path(@user) do
-                    .content
-                      .icon.icon-red
-                        i.fa.fa-shopping-cart
-                      .title
-                        h4 Shop administration
-                      .body
-                        'Manage your personal shop
-                      
+                - shop_link = @user.has_enabled_shop ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
+                = link_to  shop_link, id: 'shop-administration' do
+                  .content
+                    .icon.icon-red
+                      i.fa.fa-shopping-cart
+                    .title
+                      h4 Shop administration
+                    .body
+                      'Manage your personal shop
+               
                       
               .control-panel-badge
                 = link_to  user_user_special_offer_index_path(@user) do
@@ -326,7 +318,7 @@
             i.fa.fa-cc-stripe
             '&nbsp;Stripe
             .pull-right
-              - if authorization_provider = @user.authorization_providers.where(provider: 'stripe').first
+              - if authorization_provider = @user.authorization_providers.where(provider: 'stripe_connect').first
                 .stripe-toggle.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
               - else 
                 .stripe-toggle.toggle-light  user_id="#{@user.id}"

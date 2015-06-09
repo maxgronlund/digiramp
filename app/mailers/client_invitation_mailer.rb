@@ -83,11 +83,11 @@ class ClientInvitationMailer < ActionMailer::Base
     x_smtpapi = { 
                   to: emails,
                   filters: { templates: {
-                                       settings: {
-                                                     enabled: 1,
-                                                     template_id: template_id
-                                                   }
-                                      }
+                               settings: {
+                                  enabled: 1,
+                                  template_id: template_id
+                                }
+                              }
                            }, 
                    sub: {  
                            "--user_name--".to_sym =>    user_names,
@@ -95,28 +95,11 @@ class ClientInvitationMailer < ActionMailer::Base
                            "--decline_url--".to_sym =>  decline_urls,
                            "--avatar_url--".to_sym =>   decline_urls,
                            "--uniq_ids--".to_sym =>   uniq_ids,
-                           
                         } ,
                    unique_args: 
                        {
                          uniq_ids: "--uniq_ids--"
-
                        }
-                   
-                  
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-    
                 }
     
     # only send if there is someone to send to
@@ -173,8 +156,6 @@ class ClientInvitationMailer < ActionMailer::Base
                        }
     
                 }
-    
-
     
     headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
     

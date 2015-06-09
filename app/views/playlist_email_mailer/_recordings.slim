@@ -1,0 +1,36 @@
+/- if @playlist_email.attach_files
+- @recordings.each do |recording|
+  /! Pure css border of the video. We start with the Black border
+  table align="center" border="0" cellpadding="0" cellspacing="0" width="574" 
+    tr
+      td bgcolor="#000000" height="1" width="574" 
+  /! Pure css border of the video. We second with the gray border
+  table align="center" border="0" cellpadding="0" cellspacing="0" width="574" 
+    tr
+      td bgcolor="#3e3a39" height="1" style=("border-left: 1px solid #000000; border-right: 1px solid #000000;") width="572" 
+  /! Video Images as borders
+  table align="center" border="0" cellpadding="0" cellspacing="0" width="574" 
+    tr
+      td style=("line-height: 1px;") 
+        /! Border-left Image
+        img height="70" src="https://digiramp.com/uploads/raw_image/image/31/border-left.jpg" style=("display: block;") width="2" /
+      td bgcolor="#000000" width="570" 
+        - recording_url  = url_for( controller: 'recordings', action: 'show', user_id: recording.user_id, id: recording.id)
+        a href="#{recording_url}" style="text-transform: uppercase; color: #c8c8c8; font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: bold; text-decoration: none; text-shadow: 1px 1px 1px #000000; margin-bottom: 8px; margin-left: 6px;"
+          =recording.title
+        audio controls=""
+          source src="#{recording.mp3}" type="audio/mpeg" 
+            'Your browser does not support the audio element.
+        
+      td style=("line-height: 1px;") 
+        /! Border right Image
+        img height="70" src="https://digiramp.com/uploads/raw_image/image/32/border-right.jpg" style=("display: block;") width="2" /
+  /! Border bottom
+  table align="center" border="0" cellpadding="0" cellspacing="0" width="603" 
+    tr
+      td height="2" width="603" 
+        /! Border bottom Image
+        img src="https://digiramp.com/uploads/raw_image/image/33/border-bottom.jpg" style=("display: block;") /
+    tr
+      td height="15" 
+  

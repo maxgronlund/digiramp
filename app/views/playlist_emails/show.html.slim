@@ -1,0 +1,27 @@
+p#notice = notice
+
+p
+  strong Emails:
+  = @playlist_email.emails
+p
+  strong Title:
+  = @playlist_email.title
+p
+  strong Body:
+  = @playlist_email.body
+p
+  strong Attach files:
+  = @playlist_email.attach_files
+p
+  strong Playlist:
+  = @playlist_email.playlist
+p
+  strong User:
+  = @playlist_email.user
+p
+  strong Account:
+  = @playlist_email.account
+
+= link_to 'Edit', edit_playlist_email_path(@playlist_email)
+'|
+= link_to 'Back', playlist_emails_path

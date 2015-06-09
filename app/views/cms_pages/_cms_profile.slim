@@ -57,7 +57,9 @@
         /.user-avatar
         = render 'shared/lightbox', locals: {image_url: @user.image_url , thumb_url: @user.image_url(:avatar_184x184) , id: @user.id, caption: @user.user_name}
 
-        - if @user.account.account_type == 'Pro'
+        /- if @user.settings.has_a_subscription
+        /= debug @user.account_type
+        - if @user.account_type == 'Pro'
           = link_to pro_account_info_index_path, id: "get_pro_account_info", class: 'bestPlanButton' do
             h4
               span class='label label-default'

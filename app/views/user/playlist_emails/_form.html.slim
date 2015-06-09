@@ -1,0 +1,22 @@
+= simple_form_for [:user, @user, @playlist, @playlist_email] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :email_list, placeholder: 'i.e. benny@goodman.jazz, micael@jacon.pop',  label: 'Comma seperated list of emails'
+    = f.input :title, 
+              placeholder: 'i.e. A crisp playlist for you', 
+              label: 'Subject', 
+              hint: 'Subject for the email'
+    = f.input :body, 
+              placeholder: 'i.e. Hi I have created a crisp playlist on digiramp for you', 
+              label: 'Message'
+    /= f.input :attach_files,  input_html: { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+    = f.hidden_field :playlist_id, value: @playlist.id
+    = f.hidden_field :user_id, value: @user.id
+    = f.hidden_field :account_id, value: @user.account_id
+
+  .form-actions
+    .row
+      .col-sm-12
+        .pull-right
+          = f.submit 'Send', class: 'btn btn-primary'

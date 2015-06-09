@@ -34,6 +34,10 @@ class StripeChargeService
               shop_order.order_content[:total_price]    = shop_order.total_price
               shop_order.save
             end
+          elsif subscription  = Subscription.find_by(stripe_id: stripe_object.id)
+            #subscription.finish!
+            #errored           = false
+            #account_type
           end
         end
       end
@@ -46,20 +50,23 @@ class StripeChargeService
       ap '########################################################'
       ap 'charge.failed'
       ap '########################################################'
-      errored = true
-      if stripe_data = event.data
-        if stripe_object = stripe_data.object
-          if shop_order = Shop::Order.find_by(charge_id: stripe_object.id)
+      errored             = true
+      if stripe_data      = event.data
+        if stripe_object  = stripe_data.object
+          if shop_order   = Shop::Order.find_by(charge_id: stripe_object.id)
             # finish transaction
             shop_order.error = stripe_object.failure_code
             shop_order.save
             shop_order.fail!
-            errored = false
+            errored          = false
+          elsif subscription = Subscription.find_by(stripe_id: stripe_object.id)
+            subscription.fail!
+            errored           = false
           end
         end
       end
       if errored
-        Opbeat.capture_message("charge.failed: #{event}")
+        Opbeat.capture_message("charge.failed", event: event)
       end
     end
   

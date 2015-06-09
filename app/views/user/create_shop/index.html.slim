@@ -27,7 +27,23 @@
       .sexy_line
       .row
         .col-sm-12
-
+          .digi-box
+            - if authorization_provider = @user.authorization_providers.where(provider: 'stripe_connect').first
+              = debug authorization_provider
+            = link_to 'Register shop', '/auth/stripe_connect', class: 'btn btn-primary'
+            br
+          
+            .terms-of-service
+              'By registering your account, you agree to our &mbsp;
+              => link_to 'Terms of Service', "/", taget:"_blank"
+              'and the
+              =< link_to 'Stripe Connected Account Agreement', "https://stripe.com/connect/account-terms", target: "_blank"
+              
+        
+        
+        
+        /<a target="_blank" href="https://stripe.com/connect/account-terms">Stripe Connected Account Agreement</a>
+        / https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_6Nu7SAsH42FEm8avPstuM2iUaiUhT7ng&scope=read_write
       
                   
 

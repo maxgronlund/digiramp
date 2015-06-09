@@ -46,26 +46,27 @@
                   = f.submit 'Sign Up', class: 'btn btn-primary', id: 'sign_up_form_button'
             br
             .sexy_line
-            br
-          
-            h4 Signup with
-            .social-icons
-              .social-icon
-                = link_to "/auth/twitter" do
-                  .twitter-icon
-                  'Twitter
-              .social-icon
-                = link_to  "/auth/facebook" do
-                  .facebook-icon
-                  'Facebook 
-              .social-icon
-                = link_to "/auth/linkedin" do
-                  .linkedin-icon
-                  'Linkedin
-              .social-icon
-                = link_to  "/auth/gplus" do
-                  .google-icon
-                  'Google+
+            == render 'users/shared/social_signup'
+            /br
+            /
+            /h4 Signup with
+            /.social-icons
+            /  .social-icon
+            /    = link_to "/auth/twitter" do
+            /      .twitter-icon
+            /      'Twitter
+            /  .social-icon
+            /    = link_to  "/auth/facebook" do
+            /      .facebook-icon
+            /      'Facebook 
+            /  .social-icon
+            /    = link_to "/auth/linkedin" do
+            /      .linkedin-icon
+            /      'Linkedin
+            /  .social-icon
+            /    = link_to  "/auth/gplus" do
+            /      .google-icon
+            /      'Google+
       .col-sm-6
         .digi-box
           h4 I have a DigiRAMP account but uses another email

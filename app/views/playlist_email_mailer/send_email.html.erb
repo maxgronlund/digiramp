@@ -1,0 +1,147 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>DigiRAMP Playlist</title>
+
+<!-- Hotmail ignores some valid styling, so we have to add this -->
+<style type="text/css">
+  .ReadMsgBody{width: 100%; background-color: #FFFFFF;}
+  .ExternalClass{width: 100%; background-color: #FFFFFF;}
+  body{width: 100%; background-color: #FFFFFF;}
+  audio { width: 570px; }
+</style>
+</head>
+
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<!-- The very top border of the template, it's made of pure CSS -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+	<tr>
+		<td height="10" width="100%" bgcolor="#000000">
+		</td>
+	</tr>
+	<tr>
+		<td height="1" width="100%" bgcolor="#3e3a39">
+		</td>
+	</tr>
+</table>
+
+<!-- Let's wrap the template up -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#282423">
+	<tr>
+		<td valign="top">
+			<!-- Padding between the box and the main content -->
+			<table width="573" border="0" cellpadding="0" cellspacing="0" align="center">
+				<tr>
+					<td height="20"></td>
+				</tr>
+			</table>
+			
+			<!-- Here we create our logo and our nav-->
+			<table width="573" border="0" cellpadding="0" cellspacing="0" align="center">
+				<tr>
+					<td style="line-height: 1px;">
+						<!-- Logo Videomail -->
+						<a href="http://digiramp.com"><img src="https://digiramp.com/uploads/raw_image/image/34/video-mail-logo.jpg" width="196" height="41" border="0" alt="Videomail" style="display: block;"></a>
+					</td>
+					
+          <td width="377" height="41" bgcolor="#282423" align="right" style="text-transform: uppercase; color: #c8c8c8; font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: bold; text-shadow: 1px 1px 1px #000000;">
+					
+						<!-- Navigation -->
+						<a href="http://digiramp.com" style="text-transform: uppercase; color: #c8c8c8; font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: bold; text-decoration: none; text-shadow: 1px 1px 1px #000000;">
+						
+						DigiRAMP</a> / <a href="<%= url_for( controller: 'users', action: 'show', id: @playlist.user_id) %>" style="text-transform: uppercase; color: #c8c8c8; font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: bold; text-decoration: none; text-shadow: 1px 1px 1px #000000;">
+						<%=@playlist.user.user_name%></td>
+					</tr>
+			</table>
+			
+			<!-- The Video name and Author Name -->
+			<table width="572" border="0" cellpadding="0" cellspacing="0" align="center">
+				<tr>
+					<td width="387" height="36" bgcolor="#282423">
+					
+						<a href="<%= url_for( controller: 'playlists', action: 'show', user_id: @playlist.user_id, id: @playlist.id) %>" style="font-family: Helvetica, Arial, sans-serif; color: #c8c8c8; text-transform: uppercase; font-weight: bold; text-shadow: 1px 1px 1px #000000; font-size: 18px; text-decoration: none; margin-top: 10px;">
+						
+							<!-- Headline of the video -->
+              <%= @playlist.title%></a><br/>
+						
+						<span style="font-family: Helvetica, Arial, sans-serif; color: #cecece; text-transform: uppercase; font-weight: normal; text-shadow: 1px 1px 1px #000000; font-size: 12px; margin-top: 6px;">
+						
+							<!-- By who? -->
+							by <%=@playlist.user.user_name%></span>
+					
+					</td>
+					
+				</tr>
+			</table>
+			
+			<!-- Border bottom -->
+			<table width="603" border="0" cellpadding="0" cellspacing="0" align="center">
+				<tr>
+					<td height="15"></td>
+				</tr>
+				<tr>
+					<td height="2" width="603">
+					
+						<!-- Border bottom Image -->
+						<img src="https://digiramp.com/uploads/raw_image/image/33/border-bottom.jpg" style="display: block;"></td>
+				</tr>
+				<tr>
+					<td height="10"></td>
+				</tr>
+			</table>
+			
+			<!-- The Text about the playlist -->
+			<table width="572" border="0" cellpadding="0" cellspacing="0" align="center">
+				<tr>
+					<td style="font-family: Helvetica, Arial, sans-serif; color: #cecece; font-weight: normal; font-size: 14px; line-height: 32px;">
+					
+						<!-- Video Text -->
+						<%= @playlist_email.body %>
+						
+					</td>
+				</tr>
+			</table>
+			
+			<!-- Border bottom -->
+			<table width="603" border="0" cellpadding="0" cellspacing="0" align="center">
+				<tr>
+					<td height="15"></td>
+				</tr>
+				<tr>
+					<td height="2" width="603"><img src="https://digiramp.com/uploads/raw_image/image/33/border-bottom.jpg" style="display: block;"></td>
+				</tr>
+				<tr>
+					<td height="30"></td>
+				</tr>
+			</table>
+			<%= render 'recordings'%>
+			<!-- Let's create a pure html/css border. 6 Pixels. Simulates a soft shadow -->
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+				<tr>
+					<td height="1" width="100%" bgcolor="#080707"></td>
+				</tr>
+				<tr>
+					<td height="1" width="100%" bgcolor="#201d1c"></td>
+				</tr>
+				<tr>
+					<td height="2" width="100%" bgcolor="#282423"></td>
+				</tr>
+				<tr>
+					<td height="1" width="100%" bgcolor="#050505"></td>
+				</tr>
+				<tr>
+					<td height="1" width="100%" bgcolor="#131313"></td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+
+
+
+</body>
+
+</html>

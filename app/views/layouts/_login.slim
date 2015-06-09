@@ -29,35 +29,36 @@
               
           br
           .sexy_line
-          br
-          h4 Continue with your favorite network
-          '
-          .social-icons
-            .social-icon
-              = link_to "/auth/twitter" do
-                .twitter-icon
-                'Twitter
-            .social-icon
-              = link_to  "/auth/facebook" do
-                .facebook-icon
-                'Facebook 
-            .social-icon
-              = link_to "/auth/linkedin" do
-                .linkedin-icon
-                'Linkedin
-            .social-icon
-              = link_to  "/auth/gplus" do
-                .google-icon
-                'Google+ 
-          .row
-            .col-sm-12
-              .pull-right
-                = link_to signup_index_path do
-                  .btn.btn-warning
-                    i class="fa fa-key"
-                    '&nbsp;
-                    'Sign up
-          
+          == render '/users/shared/social_login'
+          /br
+          /h4 Continue with your favorite network
+          /'
+          /.social-icons
+          /  .social-icon
+          /    = link_to "/auth/twitter" do
+          /      .twitter-icon
+          /      'Twitter
+          /  .social-icon
+          /    = link_to  "/auth/facebook" do
+          /      .facebook-icon
+          /      'Facebook 
+          /  .social-icon
+          /    = link_to "/auth/linkedin" do
+          /      .linkedin-icon
+          /      'Linkedin
+          /  .social-icon
+          /    = link_to  "/auth/gplus" do
+          /      .google-icon
+          /      'Google+ 
+          /.row
+          /  .col-sm-12
+          /    .pull-right
+          /      = link_to signup_index_path do
+          /        .btn.btn-warning
+          /          i class="fa fa-key"
+          /          '&nbsp;
+          /          'Sign up
+          /
 
       
 

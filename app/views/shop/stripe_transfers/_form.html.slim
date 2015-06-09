@@ -1,0 +1,12 @@
+= simple_form_for(@shop_stripe_transfer) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :shop_order_item
+    = f.association :shop_order
+    = f.association :user
+    = f.input :split
+    = f.input :due_date
+
+  .form-actions
+    = f.button :submit

@@ -246,6 +246,8 @@ gem 'docverter'
 
 #gem 'httparty'
 
+gem "recaptcha", :require => "recaptcha/rails"
+
 
 
 group :development do
@@ -279,4 +281,6 @@ group :development do
 
   gem 'better_errors'
   gem 'binding_of_caller'
+  
+  gem 'deadweight'
 end

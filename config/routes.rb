@@ -1,16 +1,20 @@
 Digiramp::Application.routes.draw do
 
 
+  resources :playlist_emails
 
 
-
+  
+  namespace :shop do
+    resources :stripe_transfers
+  end
   namespace :user do
   get 'create_shop/index'
   end
 
   resources :addresses
 
-  get '/auth/stripe_connect/callback', to: 'stripe_connect#create'
+  
 
   namespace :stripe do
     resources :success
@@ -247,6 +251,7 @@ Digiramp::Application.routes.draw do
   get 'welcome/index'
   root to: 'welcome#index'
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  get '/auth/stripe_connect/callback', to: 'stripe_connect#create'
   get "albums/index"
   get "albums/show"
   get "albums/new"
@@ -827,7 +832,10 @@ Digiramp::Application.routes.draw do
       end
       #resources :plans
       resources :payment_methods
-      resources :playlists, only: [:edit, :update]
+      resources :playlists, only: [:edit, :update] 
+      resources :playlists do
+        resources :playlist_emails
+      end
       resources :recording_transfers
       resources :recording_credits
       resources :recordings do
@@ -902,7 +910,10 @@ Digiramp::Application.routes.draw do
     
     
     
-    resources :playlists
+    resources :playlists do
+      resources :playlist_emails
+    end
+    
     resources :recordings do
       resources :likes
       resources :recording_likes, only: [:index]

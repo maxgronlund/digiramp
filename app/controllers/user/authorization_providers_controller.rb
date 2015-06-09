@@ -12,6 +12,8 @@ class User::AuthorizationProvidersController < ApplicationController
     if params[:submit] == '0'
       authorization_provider = AuthorizationProvider.find(params[:id])
       authorization_provider.destroy
+      @user.has_enabled_shop = false
+      @user.save
       render nothing: true
     else
       

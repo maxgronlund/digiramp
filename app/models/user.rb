@@ -1,4 +1,5 @@
-################################# a user can be created by someone else than the user
+################################# 
+# a user can be created by someone else than the user
 # E:G: an other user can add the user as a client to his account.
 # In that case there is send no notification to the user
 # and the user is marked as not signed up
@@ -13,9 +14,10 @@ class User < ActiveRecord::Base
   
   scope :public_profiles,  ->  { where( private_profile: false)  }
   
-  
+  has_paper_trail 
   has_secure_password
   include PublicActivity::Common
+  
   
   include PgSearch
   #pg_search_scope :search_user, against: [:search_field], :using => [:tsearch]

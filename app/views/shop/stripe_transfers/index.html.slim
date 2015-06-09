@@ -1,0 +1,29 @@
+h1 Listing shop_stripe_transfers
+
+table
+  thead
+    tr
+      th Shop order item
+      th Shop order
+      th User
+      th Split
+      th Due date
+      th
+      th
+      th
+
+  tbody
+    - @shop_stripe_transfers.each do |shop_stripe_transfer|
+      tr
+        td = shop_stripe_transfer.shop_order_item
+        td = shop_stripe_transfer.shop_order
+        td = shop_stripe_transfer.user
+        td = shop_stripe_transfer.split
+        td = shop_stripe_transfer.due_date
+        td = link_to 'Show', shop_stripe_transfer
+        td = link_to 'Edit', edit_shop_stripe_transfer_path(shop_stripe_transfer)
+        td = link_to 'Destroy', shop_stripe_transfer, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Stripe transfer', new_shop_stripe_transfer_path

@@ -3,5 +3,6 @@ class Stripe::SuccessController < ApplicationController
   end
   
   def index
+    ap '================== SUCCESS#INDEX  ============================'
   end
 end

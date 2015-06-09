@@ -12,7 +12,7 @@ class Omniauth
       credentials =  env['omniauth.auth']["credentials"]
 
 
-      return AuthorizationProvider.create! do |provider|
+      new_provider = AuthorizationProvider.create! do |provider|
                         provider.provider           = env['omniauth.auth']["provider"]
                         provider.uid                = env['omniauth.auth']["uid"]
                         provider.oauth_token        = credentials['token']
@@ -24,8 +24,19 @@ class Omniauth
                         #provider.profile_name       
                         
       end
-    end
+      # attach stripe to user
+      if env['omniauth.auth']["provider"] == 'stripe_connect'
+        auth_hash = env['omniauth.auth']
+        user.stripe_id              = auth_hash['uid']
+        user.stripe_access_key      = auth_hash['credentials']['token']
+        user.stripe_publishable_key = auth_hash['info']['stripe_publishable_key']
+        user.stripe_refresh_token   = auth_hash['credentials']['refresh_token']
+        user.has_enabled_shop       = true
+        user.save!
+      end
 
+      return new_provider
+    end
   end
   
   # authorize or create an new account

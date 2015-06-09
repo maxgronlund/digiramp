@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604182343) do
+ActiveRecord::Schema.define(version: 20150608055200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2273,6 +2273,7 @@ ActiveRecord::Schema.define(version: 20150604182343) do
     t.integer  "trial_period_days",    default: 0
     t.string   "statement_descriptor"
     t.text     "metadata"
+    t.string   "account_type"
   end
 
   create_table "playbacks", force: :cascade do |t|
@@ -2286,6 +2287,22 @@ ActiveRecord::Schema.define(version: 20150604182343) do
   add_index "playbacks", ["account_id"], name: "index_playbacks_on_account_id", using: :btree
   add_index "playbacks", ["recording_id"], name: "index_playbacks_on_recording_id", using: :btree
   add_index "playbacks", ["user_id"], name: "index_playbacks_on_user_id", using: :btree
+
+  create_table "playlist_emails", force: :cascade do |t|
+    t.text     "email_list"
+    t.string   "title"
+    t.text     "body"
+    t.boolean  "attach_files"
+    t.integer  "playlist_id"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "playlist_emails", ["account_id"], name: "index_playlist_emails_on_account_id", using: :btree
+  add_index "playlist_emails", ["playlist_id"], name: "index_playlist_emails_on_playlist_id", using: :btree
+  add_index "playlist_emails", ["user_id"], name: "index_playlist_emails_on_user_id", using: :btree
 
   create_table "playlist_items", force: :cascade do |t|
     t.integer  "playlist_id"
@@ -2831,6 +2848,21 @@ ActiveRecord::Schema.define(version: 20150604182343) do
   add_index "shop_products", ["productable_type", "productable_id"], name: "index_shop_products_on_productable_type_and_productable_id", using: :btree
   add_index "shop_products", ["user_id"], name: "index_shop_products_on_user_id", using: :btree
 
+  create_table "shop_stripe_transfers", force: :cascade do |t|
+    t.integer  "shop_order_item_id"
+    t.integer  "shop_order_id"
+    t.integer  "user_id"
+    t.decimal  "split"
+    t.date     "due_date"
+    t.integer  "amount"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "shop_stripe_transfers", ["shop_order_id"], name: "index_shop_stripe_transfers_on_shop_order_id", using: :btree
+  add_index "shop_stripe_transfers", ["shop_order_item_id"], name: "index_shop_stripe_transfers_on_shop_order_item_id", using: :btree
+  add_index "shop_stripe_transfers", ["user_id"], name: "index_shop_stripe_transfers_on_user_id", using: :btree
+
   create_table "songs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -3067,6 +3099,7 @@ ActiveRecord::Schema.define(version: 20150604182343) do
     t.string   "stripe_recipient_id"
     t.boolean  "has_enabled_shop",                       default: false
     t.boolean  "has_an_approved_shop",                   default: false
+    t.string   "account_type",                           default: "Social"
     t.string   "stripe_id"
     t.string   "stripe_access_key"
     t.string   "stripe_publishable_key"
@@ -3273,11 +3306,17 @@ ActiveRecord::Schema.define(version: 20150604182343) do
   add_foreign_key "invoices", "users"
   add_foreign_key "payment_sources", "subscriptions"
   add_foreign_key "payment_sources", "users"
+  add_foreign_key "playlist_emails", "accounts"
+  add_foreign_key "playlist_emails", "playlists"
+  add_foreign_key "playlist_emails", "users"
   add_foreign_key "sales_coupon_batches", "users"
   add_foreign_key "shop_orders", "coupons"
   add_foreign_key "shop_orders", "users"
   add_foreign_key "shop_products", "accounts"
   add_foreign_key "shop_products", "users"
+  add_foreign_key "shop_stripe_transfers", "shop_order_items"
+  add_foreign_key "shop_stripe_transfers", "shop_orders"
+  add_foreign_key "shop_stripe_transfers", "users"
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
 end

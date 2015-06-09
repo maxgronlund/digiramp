@@ -10,6 +10,7 @@ class Playlist < ActiveRecord::Base
   
   has_many :playlists_recordings, dependent: :destroy
   has_many :recordings, :through => :playlists_recordings
+  has_many :playlist_emails
   
   has_and_belongs_to_many    :recordings
   

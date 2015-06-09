@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Shop order item:
+  = @shop_stripe_transfer.shop_order_item
+p
+  strong Shop order:
+  = @shop_stripe_transfer.shop_order
+p
+  strong User:
+  = @shop_stripe_transfer.user
+p
+  strong Split:
+  = @shop_stripe_transfer.split
+p
+  strong Due date:
+  = @shop_stripe_transfer.due_date
+
+= link_to 'Edit', edit_shop_stripe_transfer_path(@shop_stripe_transfer)
+'|
+= link_to 'Back', shop_stripe_transfers_path

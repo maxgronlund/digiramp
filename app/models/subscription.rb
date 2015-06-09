@@ -42,7 +42,7 @@ class Subscription < ActiveRecord::Base
   
 
   
-  aasm column: 'state' do
+  aasm column: 'state', whiny_transitions: false do
     state :pending, initial: true
     state :processing
     #state :updating_cc
@@ -65,22 +65,17 @@ class Subscription < ActiveRecord::Base
     end
     
     event :fail do
-      transitions from: :processing, to: :errored
+      transitions from: [:errored, :processing, :finished], to: :errored
     end
     
     event :reset do
-      transitions from: :errored, to: :finished
+      transitions from: [:errored, :processing, :finished], to: :finished
     end
     
   end
   
   def reset_state
-    #ap 'reset_state'
-    self.reset!           if self.state == 'errored'
-    #ap self.state
-    self.finish!          if self.state == 'processing'
-    self.error    = ''
-    #self.source_created!  if self.state == 'updating_cc'
+    self.reset        
   end
   
  
@@ -120,7 +115,7 @@ class Subscription < ActiveRecord::Base
   
   def cancel_when_plan_expires
     ap 'cancel_when_plan_expires'
-    self.reset_state
+    self.reset!
     self.update!
     self.cancel_at_period_end = true
 
@@ -138,7 +133,7 @@ class Subscription < ActiveRecord::Base
       #ap self
       return "You have cancled your current plan, it will continue until the period you have paied for expires" 
     rescue Stripe::StripeError => e
-      self.fail!
+      #self.fail!
       self.error = e.message
       return 'An error occurred. You will be contacted by support'
     end
@@ -154,62 +149,70 @@ private
 
   
   def charge_card
-    ap 'charge_card'
-    #ap self.stripe_coupon_object.class.name
-    save!
-    #begin
-    stripe_sub    = nil
-    coupon_object = nil
-    stripe_params = {}
+    #ap 'charge_card'
+    #ap params
+    
+    
+    
+    
+    
+    stripe_sub      = nil
+    coupon_object   = nil
+    stripe_customer = nil
+    stripe_params   = {}
     stripe_params[:coupon]  = self.coupon_code unless self.coupon_code.blank?
     stripe_params[:plan]    = self.plan.stripe_id 
-    # the customer is not in stripe
-    if self.user.stripe_customer_id.blank?
-      #ap "create a customer and a subscription"
-      begin
-        stripe_params[:source] = self.stripe_token
-        stripe_params[:email]  = self.email 
-        customer        = Stripe::Customer.create( stripe_params )
-        
-        self.user.stripe_customer_id  = customer.id
-        self.user.save!
-        stripe_sub                    = customer.subscriptions.first
-        
-      rescue Stripe::StripeError => e
-        ap e.message
-        self.update_attributes(error: e.message)
-        self.fail!
-      end
-    else 
-      #ap "there is already a customer in the stripe system"  
+    
+    # try to get stripe sustomer
+    if self.user.stripe_customer_id
       begin                         
-        customer                = Stripe::Customer.retrieve(self.user.stripe_customer_id)
-        stripe_sub              = customer.subscriptions.create( stripe_params )
+        stripe_customer   = Stripe::Customer.retrieve(self.user.stripe_customer_id)
       rescue Stripe::StripeError => e
-        ap e.message
+        self.user.stripe_customer_id = nil
+        self.user.save!
+      end 
+    end
+    
+    # get a fresh stripe customer
+    unless stripe_customer
+      begin
+        stripe_params[:source]        = self.stripe_token
+        stripe_params[:email]         = self.email 
+        stripe_customer               = Stripe::Customer.create( stripe_params )
+        #ap '======================= stripe customer ================================'
+        #ap stripe_customer
+        #ap '========================================================================'
+        self.user.stripe_customer_id  = stripe_customer.id
+        self.user.save!
+      rescue Stripe::StripeError => e
         self.update_attributes(error: e.message)
         self.fail!
+        Opbeat.capture_message(e.message)
+        ap e.message
+        return 
       end
+    end
+    
+    
+    # create the subscription
+    begin     
+      stripe_params[:email]   = nil           
+      stripe_params[:source]  = nil
+      stripe_sub            = stripe_customer.subscriptions.create( stripe_params )
+      self.stripe_id        = stripe_sub.id
+      self.error = ''
+      #self.finish!
+      update_coupon
+    rescue Stripe::StripeError => e
+      self.update_attributes(error: e.message, stripe_id: nil)
+      self.fail!
+      Opbeat.capture_message(e.message)
     end
 
-    # store the stripe is for future payments
-    if stripe_sub
-      self.stripe_id                  = stripe_sub.id
-      self.error = ''
-      self.finish!
-      
-    else
-      self.update_attributes(error: 'No subscription created')
-      self.fail!
-    end
+    
+    #ap self.stripe_coupon_object.class.name
     self.save!
-    update_coupon
-    #rescue Stripe::StripeError => e
-    #  ap e.message
-    #  self.update_attributes(error: e.message)
-    #  self.fail!
-    #end
-    #ap customer
+    
   end
   
   def update_coupon

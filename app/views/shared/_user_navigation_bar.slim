@@ -56,7 +56,6 @@ nav.navbar.nav-user
     ul.nav.navbar-nav.navbar-right
       
       - if current_user 
-
         - if @edit_page
           li
             = link_to edit_user_user_cms_page_path(@cms_page.user, @cms_page) do
@@ -71,9 +70,7 @@ nav.navbar.nav-user
             '&nbsp;
             'Msg.
             
-        -if current_user.account.account_type  == "Social" 
-            
-          
+        -if current_user.account_type  == "Social" 
             
           li class="#{page == 'settings' ? 'active' : ''}"
             = link_to user_user_control_panel_index_path(current_user) do
@@ -98,9 +95,8 @@ nav.navbar.nav-user
                   '&nbsp;
                   'Settings
               
-              
-                
-              - unless current_user.account.account_type  == "Social"    
+
+              - unless current_user.account_type  == "Social"    
                 li  class="#{page == 'account' ? 'active' : ''}"
                   = link_to account_account_path( current_user.account) do
                     i class="fa fa-tachometer"

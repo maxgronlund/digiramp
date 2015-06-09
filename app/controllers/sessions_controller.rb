@@ -138,6 +138,7 @@ private
 
     provider = nil
     if env['omniauth.auth']
+      
       if credentials                =  env['omniauth.auth']["credentials"]
         if provider                 = user.authorization_providers.where(provider: env['omniauth.auth']['provider']).first
           provider.oauth_token      = credentials['token']        if credentials['token']
