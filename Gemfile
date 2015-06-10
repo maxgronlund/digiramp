@@ -170,7 +170,7 @@ gem 'gridhook'
 #gem 'iron_mq'
 
 gem 'charlock_holmes'
-
+gem 'cloudsponge', github: 'cloudsponge/cloudsponge-lib-ruby'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
