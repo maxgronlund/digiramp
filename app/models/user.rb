@@ -315,7 +315,7 @@ class User < ActiveRecord::Base
   end
   
   def update_search_field
-    UserSearchfield.process self
+    UserSearchField.process self
   end
   
   def set_token

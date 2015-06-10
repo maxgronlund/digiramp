@@ -1,6 +1,6 @@
 # UserSearchfield.process
 
-class UserSearchfield
+class UserSearchField
   
   def self.process user
     search_field_content = ''
