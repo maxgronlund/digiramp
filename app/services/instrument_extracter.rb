@@ -3,7 +3,6 @@
 class InstrumentExtracter
 
   def self.process recording
-    
     # store old  tag id's so we can delete unused
     instrument_tag_ids      = recording.instrument_tags.pluck(:id)
     new_instrument_tag_ids  = []
@@ -34,8 +33,7 @@ class InstrumentExtracter
     if instrument_tags = InstrumentTag.where(id: (instrument_tag_ids - new_instrument_tag_ids))
       instrument_tags.destroy_all
     end
-    
-    
+
     
   end
 
