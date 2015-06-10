@@ -40,9 +40,5 @@ class AcceptInvitaionToCatalogController < ApplicationController
     end
   end
   
-  #def user_params
-
-  #    params.require(:user).permit!
-
-  #end
+ 
 end

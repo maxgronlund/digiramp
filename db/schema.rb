@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609210946) do
+ActiveRecord::Schema.define(version: 20150610113808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2800,8 +2800,8 @@ ActiveRecord::Schema.define(version: 20150609210946) do
 
   create_table "shop_orders", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "state"
     t.string   "uuid"
     t.string   "stripe_token"
@@ -2811,7 +2811,9 @@ ActiveRecord::Schema.define(version: 20150609210946) do
     t.string   "charge_id"
     t.text     "invoice_object"
     t.text     "order_lines"
-    t.text     "order_content",  default: "--- {}\n"
+    t.text     "order_content",    default: "--- {}\n"
+    t.string   "shipping_address"
+    t.string   "billing_address"
   end
 
   add_index "shop_orders", ["coupon_id"], name: "index_shop_orders_on_coupon_id", using: :btree

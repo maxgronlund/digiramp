@@ -31,6 +31,6 @@ class Account::RecordingLyricsController < ApplicationController
 private
 
   def recording_params
-    params.require(:recording).permit!
+    params.require(:recording).permit( RecordingParams::PARAMS )
   end
 end

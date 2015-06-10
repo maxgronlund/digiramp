@@ -8,9 +8,12 @@ class User::FromLinkedinController < ApplicationController
 
   def create
     params[:client_import][:source] = 'linkedin'
-    @client_import = ClientImport.create(client_import_params)
-    ClientLinkedinImportWorker.perform_async( @client_import.id, current_user.email )
-    redirect_to user_user_control_panel_index_path(@user)
+    if @client_import = ClientImport.create(client_import_params)
+      ClientLinkedinImportWorker.perform_async( @client_import.id, current_user.email )
+      redirect_to user_user_control_panel_index_path(@user)
+    else
+      
+    end
   end
   
   def index
@@ -27,7 +30,7 @@ class User::FromLinkedinController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def client_import_params
-    params.require(:client_import).permit!
+    params.require(:client_import).permit(:account_id,:user_uuid,:file,:user_id,:source)
   end
 end
 

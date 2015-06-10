@@ -9,6 +9,7 @@ class RecordingSocialsController < ApplicationController
   end
 
   def update
+    ap params
     #go_to = params[:recording][:next_step]
     #params[:recording].delete :next_step
 
@@ -30,6 +31,6 @@ class RecordingSocialsController < ApplicationController
 private
 
   def recording_params
-    params.require(:recording).permit!
+    params.require(:recording).permit( RecordingParams::PARAMS )
   end
 end

@@ -113,8 +113,9 @@ class Client < ActiveRecord::Base
   
   
   def self.import_clients_from_linkedin client_import_id
-    client_import                = ClientImport.find(client_import_id)
+    
     begin
+      client_import        = ClientImport.cached_find(client_import_id)
       count = 0
       
       

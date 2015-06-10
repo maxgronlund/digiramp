@@ -10,7 +10,6 @@ As an member I can create custom pages and add content to them
     
     
   #@javascript  
-  
   Scenario: As a member can open pages from my controll panel
   
    When I'm on the "User account settings page"
@@ -56,10 +55,7 @@ As an member I can create custom pages and add content to them
    Then I can see "Add email"
    
    When I'm on the "User shop admin page"
-   Then I can see "Shop administration"
-   
-   When I'm on the "User shop admin page"
-   Then I can see "Shop administration"
+   Then I can see "Create a personal shop"   
    
    When I'm on the "User shop select product type page"
    Then I can see "Select product type"

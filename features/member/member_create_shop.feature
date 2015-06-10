@@ -7,14 +7,14 @@ As an member I can create a shop
     Given there is a user with the email "user@digiramp.com" and the password "sesamsesamlukdigop"
     And I'm logged in as "user@digiramp.com" with the password "sesamsesamlukdigop"
   
-  @javascript   
+  #@javascript   
   Scenario: As a member I can create my personal shop
     #When I'm on the admin shop pages for the user with the email "user@digiramp.com"
     When I'm on the "User account settings page"
     Then I can see "Shop administration"
     Then I clik on the link with the id "shop-administration"
     Then I can see "Create a personal shop"
-    Then I can see "Register your account"
+    #Then I can see "Register your account"
     #Then I can see "DigiRAMP charges"
     #Then I can see "Terms of usage"
     #When I click on the button "Continue"

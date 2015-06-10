@@ -38,6 +38,6 @@ class AcceptInvitationsController < ApplicationController
   end
   
   def user_params
-    params.require(:user).permit!
+    params.require(:user).permit(UserParams::PUBLIC_PARAMS) 
   end
 end

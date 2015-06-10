@@ -42,11 +42,6 @@ class ApplicationController < ActionController::Base
   end
   
   def current_account
-    
-    
-    
-    
-    
     begin
       return  Account.cached_find( session[:account_id]) if session[:account_id]
       session[:account_id]    = current_user.account_id

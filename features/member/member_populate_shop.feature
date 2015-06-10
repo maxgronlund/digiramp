@@ -11,25 +11,25 @@ As an member I can create a shop and add products to it
     
     
     
-  #@javascript  
-  Scenario: As a member I can create a physical product
-    When I'm on the admin shop pages for the user with the email "user@digiramp.com"
-    Then I clik on the link with the id "new-product"
-    Then I can see "Select product type"
-    Then I clik on the link with the id "new-physical-product"
-    Then I fill the physical product form form with title: "Golden guitar", price: "12000", forsale: "true", dimentions: "100x100", shipping cost: "1000", units in stock: "1", waight: "2 lb"
-    When I go the shop for "user@digiramp.com" 
-    Then I can see "Golden guitar"
-    When I look at the product details for "golden-guitat"
-    Then I can see "Golden guitar"
-    Then I can see "1200" 
-    Then I can see "100x100"
-    Then I can see "10.00"
-    Then I can see "2 lb"
-    When I go to the public shop and select "physical-products"
-    Then I can see "Golden guitar"
-    When I look at the product details for "golden-guitat"
-    Then I can see "Golden guitar"
+#  #@javascript  
+#  Scenario: As a member I can create a physical product
+#    When I'm on the admin shop pages for the user with the email "user@digiramp.com"
+#    Then I clik on the link with the id "new-product"
+#    Then I can see "Select product type"
+#    Then I clik on the link with the id "new-physical-product"
+#    Then I fill the physical product form form with title: "Golden guitar", price: "12000", forsale: "true", dimentions: "100x100", shipping cost: "1000", units in stock: "1", waight: "2 lb"
+#    When I go the shop for "user@digiramp.com" 
+#    Then I can see "Golden guitar"
+#    When I look at the product details for "golden-guitat"
+#    Then I can see "Golden guitar"
+#    Then I can see "1200" 
+#    Then I can see "100x100"
+#    Then I can see "10.00"
+#    Then I can see "2 lb"
+#    When I go to the public shop and select "physical-products"
+#    Then I can see "Golden guitar"
+#    When I look at the product details for "golden-guitat"
+#    Then I can see "Golden guitar"
 #    
 #  @javascript  
 #  Scenario: As a member I can create a downloadable product
