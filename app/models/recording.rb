@@ -168,16 +168,7 @@ class Recording < ActiveRecord::Base
   
   def get_artwork
     self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art
-    #begin
-    #  art = Artwork.cached_find(self.image_file_id)
-    #  return art.file
-    #rescue
-    #  return self.cover_art     unless self.cover_art == ''
-    #  return self.artwork       unless self.artwork.to_s ==''
-    #  return self.get_cover_art unless self.get_cover_art == ''
-    #end
-    #
-    #return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
+    
   end
   
   # for some reason this is not working
@@ -193,15 +184,6 @@ class Recording < ActiveRecord::Base
   def get_cover_art
     
     self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art 
-    #begin
-    #  system_settings = SystemSetting.first_or_create
-    #  system_settings.recording_artwork_id
-    #  default_image   = DefaultImage.find(system_settings.recording_artwork_id)
-    #  return 'https://digiramp.com' + default_image.recording_artwork_url(:size_184x184).to_s
-    #  #https://digiramp.com/uploads/default_image/recording_artwork/3/size_184x184_logo-03.jpg'
-    #rescue
-    #  return ''
-    #end
   end
   
   def get_cover_thumb
@@ -210,26 +192,9 @@ class Recording < ActiveRecord::Base
   
   
   def send_notifications_on_create
-    #attach_to_common_work
-    #notify_followers 'Has uploaded a recording', self.user_id 
     Activity.notify_followers( 'Uploaded this recording', self.user_id, 'Recording', self.id )
-    #confirm_ipis
   end
 
-  #def notify_followers notification, user_id, postable_type, postable_id
-  #
-  #  Activity.notify_followers( notification, user_id, 'Recording', self.id ) if self.privacy == "Anyone"
-  #
-  #end
-  
-  #def send_notification  notification, user_id
-  #  FollowerEvent.create(  user_id:               user_id,
-  #                         body:                  notification,
-  #                         postable_type:         'Recording',
-  #                         postable_id:           self.id  
-  #                        )
-  #  
-  #end
   
   def confirm_ipis
     #ap '======================= confirm_ipis ============================'
@@ -301,19 +266,6 @@ class Recording < ActiveRecord::Base
     false
   end
   
-  
-  #def extract_id3_tags_from_audio_file
-  # 
-  #
-  #end
-  
-  #def check_common_work
-  #  if common_work_id.nil?
-  #    common_work           = account.common_works.create(title: title, account_id: account_id, audio_file: audio_file)
-  #    self.common_work_id   = common_work.id 
-  #    self.save
-  #  end
-  #end
   
   def self.find_in_collection(catalog, account, query)
     
@@ -433,39 +385,19 @@ class Recording < ActiveRecord::Base
     return self.comment unless self.comment.to_s == ''
     return 'Provided by DigiRAMP'
   end
-  
-  
-  
-  
+
   def attach_to_common_work
     if self.common_work
       CommonWork.attach self, self.account_id, self.user
     end
     self.common_work
   end
-  
 
-  
-  #def get_full_size_artwork
-  #  
-  #  begin
-  #    return Artwork.cached_find(self.image_file_id).file 
-  #  rescue
-  #  end
-  #  begin
-  #    return self.audio_upload[:artwork]
-  #  rescue
-  #  end
-  #  self.cover_art
-  #end
-  
   # update the genre
   def extract_genres
-
     GenreExtracter.process self
   end
-  
-  
+
   # update instruments
   def extract_instruments 
     InstrumentExtracter.process self
@@ -502,6 +434,7 @@ class Recording < ActiveRecord::Base
     comma_seperated_instruments_tags.rstrip.gsub(/\W\z/, '') 
   end
   
+  
   def moods_tags_as_csv_string
     comma_seperated_moods_tags = ''
     mood_tags.each do |mood_tag|
@@ -516,16 +449,7 @@ class Recording < ActiveRecord::Base
   end
   
   
-  
-  
-  
-  #Rails.application.secrets.s3_key_id, # ENV["S3_KEY_ID"] , 
-  #Rails.application.secrets.s3_access_key, # 3ENV["S3_ACCESS_KEY"],
-  #Rails.application.secrets.aws_s3_region
-  #
-  #Rails.application.secrets.aws_s3_bucket  #ENV["AWS_S3_BUCKET"]
-  
-  
+
   
   # add this to environment variables
   # read from yaml file
@@ -565,11 +489,9 @@ class Recording < ActiveRecord::Base
   
   def zip
     begin
-      logger.info '========================================= ZIPPING =================================================='
       folder = UUIDTools::UUID.timestamp_create().to_s
       new_dir = FileUtils.mkdir_p( Rails.root.join("public", "uploads", "recordings", "zip", folder ).to_s )
-      
-      
+
       temp_file = Tempfile.new("recording-zip-#{UUIDTools::UUID.timestamp_create().to_s}")
         Zip::OutputStream.open(temp_file.path) do |z|
           title = self.original_file_name
@@ -586,24 +508,9 @@ class Recording < ActiveRecord::Base
         self.save
       temp_file.close
     
-    
     rescue Exception => e  
-      #logger.info '.'
-      #logger.info '.'
-      #logger.info '.'
-      #logger.info '========================================= ERROR ZIPPING =================================================='
-      #logger.info '=========================================================================================================='
-      #logger.info self.id
-      #logger.info self.title
-      ##logger.info e.backtrace.inspect
-      #logger.info '...'
-      #logger.info '...'
-      #logger.info '...'
-      #logger.info '...'
-      #logger.info '...'
+      ap e.inspect
     end
-    #sleep(20)
-    #ZipRecordingsWorker.perform_async()
 
   end
   

@@ -298,7 +298,6 @@ class User < ActiveRecord::Base
   end
   
   def self.system_user
-    
     if user= User.where(email: 'digiramp_system_default_957@digiramp.com').first
     
     else
@@ -316,31 +315,7 @@ class User < ActiveRecord::Base
   end
   
   def update_search_field
-    search_field_content = ''
-    search_field_content <<   self.profession  if self.profession
-    search_field_content <<  ' '
-    #search_field_content <<   self.profile     if self.profile
-    search_field_content <<  ' '
-    #search_field_content <<   self.name        if self.name
-    search_field_content <<  ' '
-    
-    search_field_content <<   self.email       if self.email
-    search_field_content <<  ' '
-    
-    search_field_content <<   self.user_name  if self.user_name
-    search_field_content <<  ' '
-    
-    search_field_content <<  'writer '        if self.writer
-    search_field_content <<  'author '        if self.author
-    search_field_content <<  'producer '      if self.producer
-    search_field_content <<  'composer '      if self.composer
-    search_field_content <<  'remixer '       if self.remixer
-    search_field_content <<  'musician '      if self.musician
-    search_field_content <<  'dj '            if self.dj
-    search_field_content <<  'country '       if self.country
-    search_field_content <<  'city '          if self.city
-    search_field_content <<  'artist '        if self.artist
-    self.search_field = search_field_content
+    UserSearchfield.process self
   end
   
   def set_token
@@ -354,90 +329,30 @@ class User < ActiveRecord::Base
   
   def validate_info
 
-    
     # always start as a customer
     self.role = 'Customer' if self.role.to_s == ''
-    
-    #if EmailSanitizer.saintize( self.email )
-    #  self.user_name  = User.create_uniq_user_name_from_email(self.email)    if self.user_name.to_s  == ''
-    #  #self.name      = user_name                                            if self.name.to_s       == ''
-    #  self.first_name = user_name.split('@').first                            if self.first_name.to_s == ''
-    #  self.last_name = user_name.split('@').last.gsup('_', '')                if self.first_name.to_s == ''
-    #  
-    #end
     self.uuid      = UUIDTools::UUID.timestamp_create().to_s                if self.uuid.to_s       == ''
     
     update_completeness
     update_search_field
     set_top_tag
     set_page_style
-    
     self.uniq_followers_count = self.followers_count.to_uniq
     
   end
 
   
   def set_page_style
-
     unless self.page_style
       self.page_style_id = PageStyle.deep_blue.id
     end
   end
   
   def set_top_tag
-    top = 0
-    if self.writer
-      top += 1
-    end
-    if self.author
-      top += 1
-    end
-    if self.producer
-      top += 1
-    end
-    if self.composer
-      top += 1
-    end
-    if self.remixer
-      top += 1
-    end
-    if self.musician
-      top += 1
-    end
-    if self.dj
-      top += 1
-    end
-    if self.artist
-      top += 1
-    end
-    
-    case top
-    when 0
-      self.top_tag = 'user-top-margin-0'
-    when 1
-      self.top_tag = 'user-top-margin-1'
-    when 2
-      self.top_tag = 'user-top-margin-2'
-    when 3
-      self.top_tag = 'user-top-margin-3'
-    when 4
-      self.top_tag = 'user-top-margin-4'
-    when 5
-      self.top_tag = 'user-top-margin-5'
-    when 6
-      self.top_tag = 'user-top-margin-6'
-    when 7
-      self.top_tag = 'user-top-margin-7'
-    when 8
-      self.top_tag = 'user-top-margin-8'
-    end
-
+    SetUserTopTag.process self
   end
   
-  
-  
 
-  
   def set_relations
     
     EmailGroup.find_each do |email_group|
@@ -476,49 +391,7 @@ class User < ActiveRecord::Base
   end
   
   def update_completeness
-    
-    nr_required_params      = 0.0
-    completeness            = 0.0
-    default_name            = User.create_uniq_user_name_from_email(self.email)
-    
-    # user name is still default name
-    #completeness            += 1 unless self.name               == default_name
-    #nr_required_params      += 1                                                                    
-                                                                
-    # user user_name is     still default name                                                                                            
-    completeness            += 1 unless self.user_name                  == default_name
-    nr_required_params      += 1                                        
-                                                                        
-    completeness            += 1 unless self.profile.to_s               == ''
-    nr_required_params      += 1 
-                                                                                            
-    completeness            += 1 unless self.profession.to_s            == ''
-    nr_required_params      += 1                                        
-                                                                        
-    completeness            += 1 unless self.profession.to_s            == ''
-    nr_required_params      += 1                                        
-                                                                        
-    completeness            += 1 unless self.country.to_s               == ''
-    nr_required_params      += 1                                      
-                                                                        
-    completeness            += 1 unless self.city.to_s                  == ''
-    nr_required_params      += 1    
-                            
-    completeness            += 1 unless self.image_url.include?('5GA3Zk1C_avatar_')
-    nr_required_params      += 1    
-      
-    self.completeness       = (completeness / nr_required_params * 100).to_i
-    self.uniq_completeness  = self.completeness.to_uniq
-
-    #artist        
-    #author
-    #composer
-    #writer
-    #
-    #musician
-    #producer
-    #remixer
-    #dj
+    UserCompleteness.process self
   end
   
 
