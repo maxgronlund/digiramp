@@ -42,50 +42,28 @@ class Admin::AccountsController < ApplicationController
     old_account_type      = @account.account_type
     
     # update
-    @account.update_attributes(account_params)
+    if @account.update_attributes(account_params)
     
-    # if the account type is updated
-    @account.update_account_type if @account.account_type != old_account_type
-    
-    # if the administrator is updated  
-    @account.reassign_administrator( old_administrator_id ) if old_administrator_id != @account.administrator_id
-    
-
-    
-    @account.create_activity(  :updated, 
-                          owner: current_user,
-                      recipient: @account,
-                 recipient_type: @account.class.name,
-                 account_id:     @account.id
-                 )
-    
-    
-    
-    
-    
-    #@account.account_users.each do |account_user|
-    #if @account.create_opportunities
-    #  account_user = AccountUser.where(account_id: @account.id, user_id: @account.user_id).first
-    #  account_user.create_opportunity = true
-    #  account_user.read_opportunity   = true
-    #  account_user.save!
-    #
-    #else
-    #
-    #  
-    #    account_user.create_opportunity   = false
-    #    account_user.read_opportunity     = false
-    #    account_user.update_opportunity   = false
-    #    account_user.delete_opportunity   = false
-    #    account_user.save!
-    #  end
-    #end
-    #
-    
-    
-    
-    # go to the account
-    redirect_to admin_account_path( @account)
+      # if the account type is updated
+      @account.update_account_type if @account.account_type != old_account_type
+      
+      # if the administrator is updated  
+      @account.reassign_administrator( old_administrator_id ) if old_administrator_id != @account.administrator_id
+      
+      
+      
+      @account.create_activity(  :updated, 
+                            owner: current_user,
+                        recipient: @account,
+                   recipient_type: @account.class.name,
+                   account_id:     @account.id
+                   )
+      
+      # go to the account
+      redirect_to admin_account_path( @account)
+    else
+      render :edit
+    end
   end
   
   
@@ -217,7 +195,9 @@ class Admin::AccountsController < ApplicationController
                                       :read_opportunities,
                                       :user_count,
                                       :account_feature_id,
-                                      :cycles
+                                      :cycles,
+                                      :stripe_flat_transfer_fee,    
+                                      :stripe_percent_transfer_fee,  
                                       )
     else
       forbidden

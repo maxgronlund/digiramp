@@ -7,7 +7,7 @@
 
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'shop/shared/sidebar', selected: 'products'
+      == render 'users/shared/sidebar', selected: 'user'
       
                         
         
@@ -20,6 +20,7 @@
       .row
         .col-sm-8
           h3 = @shop_product.title
+          b Views: #{@shop_product.views}
         .col-sm-4
           .pull-right.pull-down-10
             => link_to  user_user_shop_admin_index_path(@user) do
@@ -37,6 +38,27 @@
         p#notice = notice
         /== render 'shop/products/shared/show' , product: @shop_product
         == render 'shop/products/shared/show' , product: @shop_product, buy: false
+      .digi-box
+        h4 Sales
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Order Id
+                th Quantity
+                th Date
+                th Stakeholders
+                th 
+            tbody
+              - @order_items.to_a.each do |order_item|
+                tr
+                  th = order_item.order_id
+                  td = order_item.quantity
+                  td = l order_item.updated_at, format: :date
+                  td = order_item.stripe_transfers.count
+                  td
+                    .pull-right
+                      = link_to 'Details', user_user_order_item_path(@user, order_item), class: 'btn btn-default btn-xs'
         /.row
         /  .col-sm-6
         /    h4 = number_to_currency(@shop_product.price * 0.01, locale: :en, procision: 2)

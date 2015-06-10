@@ -1,6 +1,5 @@
 Digiramp::Application.routes.draw do
 
-
   resources :playlist_emails
 
 
@@ -830,7 +829,9 @@ Digiramp::Application.routes.draw do
         end
         
       end
+      resources :order_items
       #resources :plans
+      resources :payouts, only: [:index]
       resources :payment_methods
       resources :playlists, only: [:edit, :update] 
       resources :playlists do

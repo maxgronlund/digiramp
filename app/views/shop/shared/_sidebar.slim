@@ -7,15 +7,17 @@
       '&nbsp;
       'Basket
   li class="#{'sidebar-selected' if selected == 'payment'}"
-    = link_to  edit_shop_order_path(@shop_order.uuid), id: 'checkout' do
-      i.fa.fa-gift
-      '&nbsp;
-      = pluralize(@shop_order.items_count, 'Item')
-      div
-        i.fa.fa-credit-card
+    <div data-no-turbolink>
+      = link_to  edit_shop_order_path(@shop_order.uuid), id: 'checkout' do
+        i.fa.fa-gift
         '&nbsp;
-        = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
-        
+        = pluralize(@shop_order.items_count, 'Item')
+        div
+          i.fa.fa-credit-card
+          '&nbsp;
+          = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
+    </div>
+          
 
         
 

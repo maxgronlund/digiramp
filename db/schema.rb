@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608055200) do
+ActiveRecord::Schema.define(version: 20150609210946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,40 +128,42 @@ ActiveRecord::Schema.define(version: 20150608055200) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "title",                limit: 255
+    t.string   "title",                       limit: 255
     t.text     "description"
-    t.string   "account_type",         limit: 255
-    t.string   "contact_first_name",   limit: 255
-    t.string   "contact_last_name",    limit: 255
-    t.string   "contact_email",        limit: 255
-    t.string   "fax",                  limit: 255
-    t.string   "country",              limit: 255
-    t.string   "street_address",       limit: 255
-    t.string   "city",                 limit: 255
-    t.string   "state",                limit: 255
-    t.string   "postal_code",          limit: 255
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
-    t.integer  "users_count",                      default: 0,                null: false
-    t.integer  "documents_count",                  default: 0,                null: false
+    t.string   "account_type",                limit: 255
+    t.string   "contact_first_name",          limit: 255
+    t.string   "contact_last_name",           limit: 255
+    t.string   "contact_email",               limit: 255
+    t.string   "fax",                         limit: 255
+    t.string   "country",                     limit: 255
+    t.string   "street_address",              limit: 255
+    t.string   "city",                        limit: 255
+    t.string   "state",                       limit: 255
+    t.string   "postal_code",                 limit: 255
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
+    t.integer  "users_count",                             default: 0,                null: false
+    t.integer  "documents_count",                         default: 0,                null: false
     t.date     "expiration_date"
-    t.integer  "visits",                           default: 0
-    t.string   "logo",                 limit: 255
-    t.boolean  "activated",                        default: true
+    t.integer  "visits",                                  default: 0
+    t.string   "logo",                        limit: 255
+    t.boolean  "activated",                               default: true
     t.integer  "default_catalog_id"
-    t.string   "uuid",                 limit: 255, default: ""
-    t.integer  "version",                          default: 0
-    t.string   "works_uuid",           limit: 255, default: "first love 727"
-    t.string   "recordings_uuid",      limit: 255, default: "first love 727"
-    t.string   "customers_uuid",       limit: 255, default: "first love 727"
-    t.string   "playlists_uuid",       limit: 255, default: "first love 727"
-    t.string   "users_uuid",           limit: 255, default: "first love 727"
-    t.integer  "administrator_id",                 default: 0
+    t.string   "uuid",                        limit: 255, default: ""
+    t.integer  "version",                                 default: 0
+    t.string   "works_uuid",                  limit: 255, default: "first love 727"
+    t.string   "recordings_uuid",             limit: 255, default: "first love 727"
+    t.string   "customers_uuid",              limit: 255, default: "first love 727"
+    t.string   "playlists_uuid",              limit: 255, default: "first love 727"
+    t.string   "users_uuid",                  limit: 255, default: "first love 727"
+    t.integer  "administrator_id",                        default: 0
     t.boolean  "create_opportunities"
     t.boolean  "read_opportunities"
     t.integer  "user_count"
     t.integer  "account_feature_id"
     t.integer  "cycles"
+    t.integer  "stripe_flat_transfer_fee",                default: 10
+    t.decimal  "stripe_percent_transfer_fee",             default: 0.01
   end
 
   add_index "accounts", ["account_feature_id"], name: "index_accounts_on_account_feature_id", using: :btree
@@ -2790,6 +2792,7 @@ ActiveRecord::Schema.define(version: 20150608055200) do
     t.integer  "order_id"
     t.integer  "product_id"
     t.boolean  "require_shipping", default: false
+    t.boolean  "sold",             default: false
   end
 
   add_index "shop_order_items", ["order_id"], name: "index_shop_order_items_on_order_id", using: :btree
@@ -2842,6 +2845,7 @@ ActiveRecord::Schema.define(version: 20150608055200) do
     t.boolean  "show_in_shop",               default: false
     t.integer  "productable_id"
     t.string   "productable_type"
+    t.integer  "views",                      default: 0
   end
 
   add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
@@ -2849,18 +2853,26 @@ ActiveRecord::Schema.define(version: 20150608055200) do
   add_index "shop_products", ["user_id"], name: "index_shop_products_on_user_id", using: :btree
 
   create_table "shop_stripe_transfers", force: :cascade do |t|
-    t.integer  "shop_order_item_id"
-    t.integer  "shop_order_id"
+    t.integer  "order_item_id"
+    t.integer  "order_id"
     t.integer  "user_id"
     t.decimal  "split"
     t.date     "due_date"
     t.integer  "amount"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "state",              default: "pending"
+    t.string   "source_transaction"
+    t.string   "currency"
+    t.string   "destination"
+    t.string   "stripe_errors"
+    t.integer  "account_id"
+    t.string   "description"
   end
 
-  add_index "shop_stripe_transfers", ["shop_order_id"], name: "index_shop_stripe_transfers_on_shop_order_id", using: :btree
-  add_index "shop_stripe_transfers", ["shop_order_item_id"], name: "index_shop_stripe_transfers_on_shop_order_item_id", using: :btree
+  add_index "shop_stripe_transfers", ["account_id"], name: "index_shop_stripe_transfers_on_account_id", using: :btree
+  add_index "shop_stripe_transfers", ["order_id"], name: "index_shop_stripe_transfers_on_order_id", using: :btree
+  add_index "shop_stripe_transfers", ["order_item_id"], name: "index_shop_stripe_transfers_on_order_item_id", using: :btree
   add_index "shop_stripe_transfers", ["user_id"], name: "index_shop_stripe_transfers_on_user_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
@@ -3314,8 +3326,9 @@ ActiveRecord::Schema.define(version: 20150608055200) do
   add_foreign_key "shop_orders", "users"
   add_foreign_key "shop_products", "accounts"
   add_foreign_key "shop_products", "users"
-  add_foreign_key "shop_stripe_transfers", "shop_order_items"
-  add_foreign_key "shop_stripe_transfers", "shop_orders"
+  add_foreign_key "shop_stripe_transfers", "accounts"
+  add_foreign_key "shop_stripe_transfers", "shop_order_items", column: "order_item_id"
+  add_foreign_key "shop_stripe_transfers", "shop_orders", column: "order_id"
   add_foreign_key "shop_stripe_transfers", "users"
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"

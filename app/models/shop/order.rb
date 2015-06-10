@@ -14,7 +14,8 @@ class Shop::Order < ActiveRecord::Base
   #has_and_belongs_to_many :products, :class_name => "Shop::Product"
   #has_many :shop_products, through: :order_items, :class_name => "Shop::OrderItem"
   
-  has_many :order_items, :class_name => "Shop::OrderItem"
+  has_many :order_items,      class_name: "Shop::OrderItem"
+  has_many :stripe_transfers, class_name: "Shop::StripeTransfer"
   
   before_destroy :remove_order_items
   #after_save :save_addresses
@@ -54,13 +55,13 @@ class Shop::Order < ActiveRecord::Base
 
     save!
     begin
-      
       charge = Stripe::Charge.create( amount: self.total_price.to_i.to_s,
                                       currency: "usd",
                                       source: self.stripe_token,
                                       description: self.email,
+                                      statement_descriptor: nil,
+                                      shipping: {}
                                     )
-      
       
       #ap charge 
       
@@ -138,13 +139,24 @@ class Shop::Order < ActiveRecord::Base
   def price_total
     self.order_content[:total_price]
   end
-
+  
+  # the order is paid for, time to pay the stakeholders
+  def create_transfers stripe_charge_id, amount
+    begin
+      self.order_items.each do |order_item|
+        order_item.send_transfer_to_stakeholders( amount, stripe_charge_id) 
+      end
+    rescue => error
+      Opbeat.capture_message("create_transfers: #{error.inspect}")
+      ap error.inspect
+    end
+  end
 
   private 
 
-    def flush_cache
-      Rails.cache.delete([self.class.name, id])
-    end
+  def flush_cache
+    Rails.cache.delete([self.class.name, id])
+  end
   
   def remove_order_items
     self.order_items.destroy_all

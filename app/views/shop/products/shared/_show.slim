@@ -38,6 +38,8 @@
   - if buy
     .row
       .col-sm-12        
-        .pull-right
-          = link_to 'Checkout', edit_shop_order_path(@shop_order.uuid), class: 'btn btn-success btn-lg', id: 'checkout'
+        .pull-right 
+          <div data-no-turbolink>
+            = link_to 'Checkout', edit_shop_order_path(@shop_order.uuid), class: 'btn btn-success btn-lg', id: 'checkout'
+          </div>
     

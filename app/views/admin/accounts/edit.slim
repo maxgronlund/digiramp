@@ -93,15 +93,18 @@
                   =f.input :postal_code
               br
               .sexy_line
+              =f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES  
+              /b Expiration date ( Not used for Social accounts)
+              /= f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+              /= f.input :create_opportunities
+              /= f.input :read_opportunities
+              
+              .sexy_line
               .row
                 .col-sm-6
-
-                  =f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES  
-                  /b Expiration date ( Not used for Social accounts)
-                  /= f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
-                  /= f.input :create_opportunities
-                  /= f.input :read_opportunities
-            
+                  = f.input :stripe_flat_transfer_fee, hint: 'Amount in cent'
+                .col-sm-6
+                  = f.input :stripe_percent_transfer_fee, hint: 'In the range 0.0 to 1.0'
                 
           .row
             .col-sm-12

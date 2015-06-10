@@ -10,10 +10,12 @@ class Shop::ProductsController < ApplicationController
   # GET /shop/products/1
   # GET /shop/products/1.json
   def show
-    @user            = current_user
-    @shop_product    = Shop::Product.cached_find(params[:id])
-    @shop_order_item = Shop::OrderItem.new
-    @shop_order      = current_order
+    @user               = current_user
+    @shop_product       = Shop::Product.cached_find(params[:id])
+    @shop_product.views += 1
+    @shop_product.save
+    @shop_order_item    = Shop::OrderItem.new
+    @shop_order         = current_order
   end
 
   # GET /shop/products/new

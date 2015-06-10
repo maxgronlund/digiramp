@@ -1,0 +1,2 @@
+module User::PayoutsHelper
+end

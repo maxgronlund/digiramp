@@ -13,7 +13,8 @@ class User::ProductsController < ApplicationController
   # GET /shop/products/1.json
   def show
     not_found unless @shop_product
-    @shop_order = current_order
+    @order_items = @shop_product.order_items.order('created_at desc').where(sold: true)
+    #@shop_order = current_order
   end
 
   # GET /shop/products/new

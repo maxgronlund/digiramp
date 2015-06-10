@@ -19,7 +19,7 @@ class Shop::Product < ActiveRecord::Base
   
   #has_and_belongs_to_many :order_items, :class_name => "Shop::OrderItem"
   #has_and_belongs_to_many :orders, :class_name => "Shop::Order"
-  has_many :shop_orders, through: :order_items, :class_name => "Shop::OrderItem"
+  has_many :order_items, :class_name => "Shop::OrderItem"
   
   after_commit :flush_cache
 
@@ -57,6 +57,12 @@ class Shop::Product < ActiveRecord::Base
                                   )
 
     
+  end
+  
+  def stakeholders
+    # populate with more here
+    sh = []
+    sh << {user_id: self.user_id, split: 1.0 , account_id: self.account_id }
   end
   
   def update_stock
