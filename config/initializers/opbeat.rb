@@ -6,5 +6,5 @@ Opbeat.configure do |config|
  config.secret_token = "306e385b0cb8765801763d25cb472e8ba6b8097b"
  
  config.environments = %w[ production ]
- #config.excluded_exceptions = ['ActionController::RoutingError', 'ActiveRecord::RecordNotFound']
+ config.excluded_exceptions = ['ActionController::RoutingError', 'ActiveRecord::RecordNotFound']
 end
