@@ -19,6 +19,11 @@
               h2 Import contacts from Linkedin
         .col-sm-4.pull-down-10
           .pull-right
+
+            => link_to user_user_from_linkedin_index_path( @user ) do
+              .btn.btn-default
+                '&nbsp;CSV Arrchive
+                
             = link_to new_user_user_contact_path( @user ) do
               .btn.btn-default
                 i.fa.fa-chevron-left

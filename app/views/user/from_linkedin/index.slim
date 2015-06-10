@@ -26,27 +26,30 @@
                 '&nbsp;Back
           
       .sexy_line
-      .digi-box
-        .row
-          .col-sm-12
-            -@client_imports.order(:id).each do |client_import|
-              .row
-                .col-sm-6
-                  b = client_import.file
-                .col-sm-1
-                  = client_import.id
-                .col-sm-5
-                  .pull-right
-                    = link_to client_import.file_url do
-                      .btn.btn-default
-                        i.fa.fa-cloud-download
-                        '&nbsp;Download
-              .sexy_line
+      .digi-box 
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th File
+                th ID
+                th
+            tbody  
 
-      = link_to user_user_import_contacts_path( @user ) do
-        .btn.btn-default
-          i.fa.fa-chevron-left
-          '&nbsp;Back      
+              .col-sm-12
+                -@client_imports.order(:id).each do |client_import|
+                  tr
+                    td = client_import.file
+                    td = client_import.id
+                    td
+                      .pull-right
+                        = link_to client_import.file_url do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-cloud-download
+                            '&nbsp;Download
+                  
+              
+  
 
          
               
