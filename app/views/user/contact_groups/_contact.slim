@@ -1,9 +1,6 @@
 .row
    
   .col-sm-3
-    => link_to user_user_contact_group_add_contact_path(@user,  @contact_group, contact), data: { confirm: 'Are you sure?' }, remote: true , :method => :delete do
-      .btn.btn-danger.btn-xs
-        i.fa.fa-times
     - if contact.member_id
       i.fa.fa-check
       '&nbsp; Member
@@ -14,6 +11,10 @@
         /= client_invitation.id
         /= client_invitation.id
         /'&nbsp;
+    - else
+      => link_to user_user_contact_group_add_contact_path(@user,  @contact_group, contact), data: { confirm: 'Are you sure?' }, remote: true , :method => :delete do
+        .btn.btn-danger.btn-xs
+          i.fa.fa-times
   .col-sm-3
     .ellipsis
       = contact.full_name
