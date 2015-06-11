@@ -26,7 +26,7 @@ class ClientInvitationMailer < ActionMailer::Base
   
   # notice max 1000 at a time
   def invite_all_from_group client_group_id
-    ap '+++++++++++++++++++++++++++++++ invite_all_from_group 3 +++++++++++++++++++++++++++++++++++++++++++'
+    ap '+++++++++++++++++++++++++++++++ invite_all_from_group 4 +++++++++++++++++++++++++++++++++++++++++++'
     client_group    = ClientGroup.find(client_group_id)
     clients = 
     
@@ -128,7 +128,7 @@ class ClientInvitationMailer < ActionMailer::Base
   end
   
   def client_has_received_email client
-    ap 'check if client has received invitation'
+    ap "check user_id: #{client.user_id}, email: #{client.email}"
     invite = ClientInvitation.where( user_id: client.user_id, email: client.email ).first
     ap invite
     invite && !invite.pending?
@@ -142,7 +142,7 @@ class ClientInvitationMailer < ActionMailer::Base
                                                      user_id:    client.user_id,
                                                      account_id: client.account_id, 
                                                      uuid:       UUIDTools::UUID.timestamp_create().to_s,
-                                                   email:      client.email )
+                                                     email:      client.email )
     rescue => error
       Opbeat.capture_message(error.inspect)
       ap error.inspect
