@@ -93,7 +93,7 @@ class ClientInvitationMailer < ActionMailer::Base
                            "--user_name--".to_sym =>    user_names,
                            "--accept_url--".to_sym =>   accept_urls,
                            "--decline_url--".to_sym =>  decline_urls,
-                           "--avatar_url--".to_sym =>   decline_urls,
+                           "--avatar_url--".to_sym =>   @avatar_url,
                            "--uniq_ids--".to_sym =>     uniq_ids,
                        
                         } ,
@@ -102,19 +102,53 @@ class ClientInvitationMailer < ActionMailer::Base
                          uniq_ids: "--uniq_ids--"
                        }
                 }
+    #
+    #
+    #
+    #if emails.empty?
+    #  #Opbeat.capture_message("ClientInvitationMailer: no emails")
+    #else
+    #  ap '============================================== emails ===================================================='
+    #  ap x_smtpapi
+    #  ap '=========================================================================================================='
+    #  headder = JSON.generate(x_smtpapi)
+    #  headers['X-SMTPAPI'] = headder
+    #  mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
+    #end
     
     
     
-    if emails.empty?
-      #Opbeat.capture_message("ClientInvitationMailer: no emails")
-    else
-      ap '============================================== emails ===================================================='
-      ap x_smtpapi
-      ap '=========================================================================================================='
-      headder = JSON.generate(x_smtpapi)
-      headers['X-SMTPAPI'] = headder
-      mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
+    
+    
+    
+    
+    client = SendGrid::Client.new(api_user: 'info-digiramp', api_key: 'Back-Minister-Distinguish-Engineer-6')
+
+    mail = SendGrid::Mail.new do |m|
+      m.to = 'max@synthmax.dk'
+      m.from = 'noreply@digiramp.com'
+      m.subject = "I'd like to add you my DigiRAMP music network"
     end
+    html =  render_to_string "client_invitation_mailer/invite_all_from_group", :layout => false
+    
+    #mail.html = '<html><body>Stuff in here, yo!</body></html>'
+    mail.html = "<html><body>#{html}</body></html>"
+    
+    header = Smtpapi::Header.new
+    header.add_to(emails)
+    header.add_substitution('--user_name--', user_names)      
+    header.add_substitution('--accept_url--', accept_urls)  
+    header.add_substitution('--decline_url--', decline_urls)  
+    header.add_substitution('--avatar_url--', @avatar_url)  
+    header.add_substitution('--uniq_ids--', uniq_ids)  
+    
+    header.add_unique_arg("uniq_ids", "--uniq_ids--")
+    header.add_category("Newsletter")
+    header.add_filter('templates', 'enable', 1)    # necessary for each time the template engine is used
+    header.add_filter('templates', 'template_id', '9117870a-825a-4c81-8c04-8ff68d422ff7')
+
+    mail.smtpapi = header
+    client.send(mail)
     
   end
   

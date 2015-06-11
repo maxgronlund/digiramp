@@ -10,7 +10,7 @@ class GenreExtracter
 
     
     # go true the list of comma seperated tags
-    self.genre.split(',').each do |genre|
+    recording.genre.split(',').each do |genre|
       
       # find or create the genre
       extracted_genre = Genre.where(title: genre.strip)
