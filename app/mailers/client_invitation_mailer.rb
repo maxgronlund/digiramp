@@ -109,27 +109,36 @@ class ClientInvitationMailer < ActionMailer::Base
                 }
     
     # only send if there is someone to send to
-    ap '------------------- emails in badge ----------------------------------'
-    ap index
+    ap '---------------------------- emails ----------------------------------'
+    ap emails
+    ap '---------------------------- user_names ----------------------------------'
+    ap user_names
+    ap '---------------------------- accept_urls ----------------------------------'
+    ap accept_urls
+    ap '---------------------------- decline_urls ----------------------------------'
+    ap decline_urls
+    ap '---------------------------- uniq_ids ----------------------------------'
+    ap uniq_ids
     ap '======================================================================'
     if emails.empty?
       Opbeat.capture_message("ClientInvitationMailer: no emails")
     else
       headder = JSON.generate(x_smtpapi)
       headers['X-SMTPAPI'] = headder
-      mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
+      #mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
     end
     
   end
   
   def client_has_received_email client
-    ClientInvitation.where.not(sendgrid_status: "pending")
-                    .find_by( 
+    invite = ClientInvitation.find_by( 
                              account_id: client.account_id, 
                              client_id:  client.id,
                              user_id:    client.user_id,
                              email:      client.email 
                              )
+    invite && !invite.pending?
+    
   end
   
   
