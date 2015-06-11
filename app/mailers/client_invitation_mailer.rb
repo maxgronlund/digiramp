@@ -26,7 +26,7 @@ class ClientInvitationMailer < ActionMailer::Base
   
   # notice max 1000 at a time
   def invite_all_from_group client_group_id
-    ap '+++++++++++++++++++++++++++++++ invite_all_from_group 6 +++++++++++++++++++++++++++++++++++++++++++'
+    ap '+++++++++++++++++++++++++++++++ invite_all_from_group 7 +++++++++++++++++++++++++++++++++++++++++++'
     client_group    = ClientGroup.find(client_group_id)
     clients = 
     
@@ -64,9 +64,7 @@ class ClientInvitationMailer < ActionMailer::Base
       if client && email = client.email
         # Don't invite clients two times
         if client_has_received_email( client )
-          ap '==================================='
           ap "client: #{client.email} has receiced email"
-          ap '.'
         elsif invitation        = get_client_invitation( client )
           uniq_ids[index]       = invitation.id
           emails[index]         = invitation.email
@@ -105,18 +103,7 @@ class ClientInvitationMailer < ActionMailer::Base
                        }
                 }
     
-    # only send if there is someone to send to
-    ap '---------------------------- emails ----------------------------------'
-    ap emails
-    # ap '---------------------------- user_names ----------------------------------'
-    # ap user_names
-    # ap '---------------------------- accept_urls ----------------------------------'
-    # ap accept_urls
-    # ap '---------------------------- decline_urls ----------------------------------'
-    # ap decline_urls
-    # ap '---------------------------- uniq_ids ----------------------------------'
-    # ap uniq_ids
-    ap '======================================================================'
+    
     if emails.empty?
       Opbeat.capture_message("ClientInvitationMailer: no emails")
     else
@@ -128,25 +115,20 @@ class ClientInvitationMailer < ActionMailer::Base
   end
   
   def client_has_received_email client
-    ap "check user_id: #{client.user_id}, email: #{client.email}"
-    ap ClientInvitation.where( user_id: client.user_id, email: client.email ).first
-    
     invitation = ClientInvitation.where( user_id: client.user_id, email: client.email ).first
     invitation && !invitation.pending?
   end
   
   
   def get_client_invitation client
-    ap 'get'
-    ap ClientInvitation.where( user_id: client.user_id, email: client.email ).first
     
     ClientInvitation.where( user_id: client.user_id, email: client.email )
-                    .first_or_create( user_id:    client.user_id,
-                                      email:      client.email, 
-                                      client_id:  client.id,
-                                      account_id: client.account_id, 
-                                      uuid:       UUIDTools::UUID.timestamp_create().to_s)
-
+          .first_or_create( user_id:    client.user_id,
+                            email:      client.email, 
+                            client_id:  client.id,
+                            account_id: client.account_id, 
+                            uuid:       UUIDTools::UUID.timestamp_create().to_s)
+          
   end
   
 
@@ -185,8 +167,6 @@ class ClientInvitationMailer < ActionMailer::Base
                 }
     
     headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
-    
-
 
     mail to: "info@digiramp.com", subject: "I'd like to add you to my network of music professionals"
     

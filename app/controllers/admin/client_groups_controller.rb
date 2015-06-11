@@ -16,7 +16,7 @@ class Admin::ClientGroupsController < ApplicationController
   def update
     begin
       @clint_group = ClientGroup.cached_find(params[:id])
-      remove_invitations_from @clint_group
+      #remove_invitations_from @clint_group
       count = @clint_group.invitation_count 
       @clint_group.invitation_count = count + 1
       @clint_group.invited          = true
