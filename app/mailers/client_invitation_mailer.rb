@@ -61,7 +61,7 @@ class ClientInvitationMailer < ActionMailer::Base
     
     # pack info into arays
     client_batch.each do |client|
-      if email = client.email
+      if client && email = client.email
         # Don't invite clients two times
         if client_has_received_email( client )
           ap '==================================='
@@ -129,7 +129,7 @@ class ClientInvitationMailer < ActionMailer::Base
   
   def client_has_received_email client
     ap 'check if client has received invitation'
-    invite = ClientInvitation.find_by( user_id: client.user_id, email: client.email )
+    invite = ClientInvitation.where( user_id: client.user_id, email: client.email ).first
     ap invite
     invite && !invite.pending?
   end
