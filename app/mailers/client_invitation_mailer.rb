@@ -26,7 +26,7 @@ class ClientInvitationMailer < ActionMailer::Base
   
   # notice max 1000 at a time
   def invite_all_from_group client_group_id
-    ap '+++++++++++++++++++++++++++++++ invite_all_from_group 7 +++++++++++++++++++++++++++++++++++++++++++'
+    ap '+++++++++++++++++++++++++++++++ invite_all_from_group 8 +++++++++++++++++++++++++++++++++++++++++++'
     client_group    = ClientGroup.find(client_group_id)
     clients = 
     
@@ -43,7 +43,6 @@ class ClientInvitationMailer < ActionMailer::Base
   def invite_batch client_group, client_batch
     
 
-    
     @inviter        = client_group.user
     user_name       = @inviter.user_name
     
@@ -79,7 +78,7 @@ class ClientInvitationMailer < ActionMailer::Base
     
     
     
-    # prepre JSON
+    # prepare JSON
     x_smtpapi = { 
                   to: emails,
                   filters: { templates: {
@@ -105,50 +104,50 @@ class ClientInvitationMailer < ActionMailer::Base
     #
     #
     #
-    #if emails.empty?
-    #  #Opbeat.capture_message("ClientInvitationMailer: no emails")
-    #else
-    #  ap '============================================== emails ===================================================='
-    #  ap x_smtpapi
-    #  ap '=========================================================================================================='
-    #  headder = JSON.generate(x_smtpapi)
-    #  headers['X-SMTPAPI'] = headder
-    #  mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
-    #end
-    
-    
-    
-    
-    
-    
-    
-    client = SendGrid::Client.new(api_user: 'info-digiramp', api_key: 'Back-Minister-Distinguish-Engineer-6')
-
-    mail = SendGrid::Mail.new do |m|
-      m.to = 'max@synthmax.dk'
-      m.from = 'noreply@digiramp.com'
-      m.subject = "I'd like to add you my DigiRAMP music network"
+    if emails.empty?
+      #Opbeat.capture_message("ClientInvitationMailer: no emails")
+    else
+      ap '============================================== emails ===================================================='
+      ap x_smtpapi
+      ap '=========================================================================================================='
+      headder = JSON.generate(x_smtpapi)
+      headers['X-SMTPAPI'] = headder
+      mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
     end
-    html =  render_to_string "client_invitation_mailer/invite_all_from_group", :layout => false
     
+    
+    
+    
+    
+    
+    
+    #client = SendGrid::Client.new(api_user: 'info-digiramp', api_key: 'Back-Minister-Distinguish-Engineer-6')
+    #
+    #mail = SendGrid::Mail.new do |m|
+    #  m.to = 'max@synthmax.dk'
+    #  m.from = 'noreply@digiramp.com'
+    #  m.subject = "I'd like to add you my DigiRAMP music network"
+    #end
+    #html =  render_to_string "client_invitation_mailer/invite_all_from_group", :layout => false
+    #
     #mail.html = '<html><body>Stuff in here, yo!</body></html>'
-    mail.html = "<html><body>#{html}</body></html>"
-    
-    header = Smtpapi::Header.new
-    header.add_to(emails)
-    header.add_substitution('--user_name--', user_names)      
-    header.add_substitution('--accept_url--', accept_urls)  
-    header.add_substitution('--decline_url--', decline_urls)  
-    header.add_substitution('--avatar_url--', @avatar_url)  
-    header.add_substitution('--uniq_ids--', uniq_ids)  
-    
-    header.add_unique_arg("uniq_ids", "--uniq_ids--")
-    header.add_category("Newsletter")
-    header.add_filter('templates', 'enable', 1)    # necessary for each time the template engine is used
-    header.add_filter('templates', 'template_id', '9117870a-825a-4c81-8c04-8ff68d422ff7')
-
-    mail.smtpapi = header
-    client.send(mail)
+    ##mail.html = "<html><body>#{html}</body></html>"
+    #
+    #header = Smtpapi::Header.new
+    #header.add_to(emails)
+    #header.add_substitution('--user_name--', user_names)      
+    #header.add_substitution('--accept_url--', accept_urls)  
+    #header.add_substitution('--decline_url--', decline_urls)  
+    #header.add_substitution('--avatar_url--', @avatar_url)  
+    #header.add_substitution('--uniq_ids--', uniq_ids)  
+    #
+    #header.add_unique_arg("uniq_ids", "--uniq_ids--")
+    #header.add_category("Newsletter")
+    #header.add_filter('templates', 'enable', 1)    # necessary for each time the template engine is used
+    #header.add_filter('templates', 'template_id', '9117870a-825a-4c81-8c04-8ff68d422ff7')
+    #
+    #mail.smtpapi = header
+    #client.send(mail)
     
   end
   
