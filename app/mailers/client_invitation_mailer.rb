@@ -129,26 +129,24 @@ class ClientInvitationMailer < ActionMailer::Base
   
   def client_has_received_email client
     ap "check user_id: #{client.user_id}, email: #{client.email}"
+    ap ClientInvitation.where( user_id: client.user_id, email: client.email ).first
+    
     invitation = ClientInvitation.where( user_id: client.user_id, email: client.email ).first
-    ap invitation
     invitation && !invitation.pending?
   end
   
   
   def get_client_invitation client
-    begin
-      invitation = ClientInvitation.where( user_id: client.user_id, email: client.email )
-                                   .first_or_create( client_id:  client.id,
-                                                     user_id:    client.user_id,
-                                                     account_id: client.account_id, 
-                                                     uuid:       UUIDTools::UUID.timestamp_create().to_s,
-                                                     email:      client.email )
-    rescue => error
-      Opbeat.capture_message(error.inspect)
-      ap error.inspect
-      return nil
-    end
-    invitation
+    ap 'get'
+    ap ClientInvitation.where( user_id: client.user_id, email: client.email ).first
+    
+    ClientInvitation.where( user_id: client.user_id, email: client.email )
+                    .first_or_create( user_id:    client.user_id,
+                                      email:      client.email, 
+                                      client_id:  client.id,
+                                      account_id: client.account_id, 
+                                      uuid:       UUIDTools::UUID.timestamp_create().to_s)
+
   end
   
 
