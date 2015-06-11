@@ -26,14 +26,17 @@ class ClientInvitationMailer < ActionMailer::Base
   
   # notice max 1000 at a time
   def invite_all_from_group client_group_id
-
+    ap 'invite_all_from_group'
     client_group    = ClientGroup.find(client_group_id)
+    clients = 
     
     client_group.clients.in_groups_of(50) do |client_batch|
       invite_batch( client_group, client_batch)
     end
     
   end
+  
+ 
     
   def invite_batch client_group, client_batch
     
@@ -60,12 +63,14 @@ class ClientInvitationMailer < ActionMailer::Base
         #if email = EmailSanitizer.saintize( client.email )
         if email = client.email
           # Don't invite clients two times
-          unless ClientInvitation.where(  account_id:  client.account_id, 
-                                          client_id:   client.id,
-                                          user_id:     client.user_id ).first
+          if client_has_received_email( client )
+            ap '==================================='
+            ap "client: #{client.email} has receiced email"
+            ap '.'
+          else
             # store invited clients
             
-            invitation            = create_invitation( client )
+            invitation            = get_client_invitation( client )
             uniq_ids[index]       = invitation.id
             emails[index]         = email
             accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
@@ -80,46 +85,65 @@ class ClientInvitationMailer < ActionMailer::Base
     
     
     # prepre JSON
-        x_smtpapi = { 
-                      to: emails,
-                      filters: { templates: {
-                                           settings: {
-                                                         enabled: 1,
-                                                         template_id: template_id
-                                                       }
-                                          }
-                               }, 
-                       sub: {  
-                               "--user_name--".to_sym =>    user_names,
-                               "--accept_url--".to_sym =>   accept_urls,
-                               "--decline_url--".to_sym =>  decline_urls,
-                               "--avatar_url--".to_sym =>   decline_urls,
-                               "--uniq_ids--".to_sym =>   uniq_ids,
-                           
-                            } ,
-                       unique_args: 
-                           {
-                             uniq_ids: "--uniq_ids--"
-                           }
-                    }
+    x_smtpapi = { 
+                  to: emails,
+                  filters: { templates: {
+                                       settings: {
+                                                     enabled: 1,
+                                                     template_id: template_id
+                                                   }
+                                      }
+                           }, 
+                   sub: {  
+                           "--user_name--".to_sym =>    user_names,
+                           "--accept_url--".to_sym =>   accept_urls,
+                           "--decline_url--".to_sym =>  decline_urls,
+                           "--avatar_url--".to_sym =>   decline_urls,
+                           "--uniq_ids--".to_sym =>     uniq_ids,
+                       
+                        } ,
+                   unique_args: 
+                       {
+                         uniq_ids: "--uniq_ids--"
+                       }
+                }
     
     # only send if there is someone to send to
-    unless emails.empty?
+    ap '------------------- emails in badge ----------------------------------'
+    ap index
+    ap '======================================================================'
+    if emails.empty?
+      Opbeat.capture_message("ClientInvitationMailer: no emails")
+    else
       headder = JSON.generate(x_smtpapi)
-      ap headder
       headers['X-SMTPAPI'] = headder
       mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
     end
     
   end
   
-  def create_invitation client
-    
-    ClientInvitation.create( account_id: client.account_id, 
+  def client_has_received_email client
+    ClientInvitation.where.not(sendgrid_status: "pending")
+                    .find_by( 
+                             account_id: client.account_id, 
                              client_id:  client.id,
                              user_id:    client.user_id,
-                             uuid:       UUIDTools::UUID.timestamp_create().to_s,
+                             email:      client.email 
+                             )
+  end
+  
+  
+  def get_client_invitation client
+    
+    ClientInvitation.where(  account_id: client.account_id, 
+                             client_id:  client.id,
+                             user_id:    client.user_id,
                              email:      client.email )
+                    .first_or_create( account_id: client.account_id, 
+                                                 client_id:  client.id,
+                                                 user_id:    client.user_id,
+                                                 uuid:       UUIDTools::UUID.timestamp_create().to_s,
+                                                 email:      client.email )
     
   end
   

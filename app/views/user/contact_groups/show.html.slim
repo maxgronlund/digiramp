@@ -42,9 +42,11 @@
           .group_invited 
           .pull-right
             - unless  @contact_group.invited
-            .invite_group
-              = simple_form_for [:user, @user, @contact_group] , :url => url_for(:action => 'update', :controller => 'invite_client_groups'), :method => 'put' do |f|
-                = f.submit 'Invite', class: 'btn btn-default'
+              .invite_group
+                = simple_form_for [:user, @user, @contact_group] , :url => url_for(:action => 'update', :controller => 'invite_client_groups'), :method => 'put' do |f|
+                  = f.submit 'Invite', class: 'btn btn-default'
+            - else
+              
                 
       
       .digi-box

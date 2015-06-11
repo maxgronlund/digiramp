@@ -23,6 +23,8 @@ class Api::SendgridHookController < ApplicationController
               bounce event
             when "unsubscribe"  
               unsubscribe event
+            else
+              Opbeat.capture_message("SendgridHookController: #{event["event"]}")
             end
           end
         end
