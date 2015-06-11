@@ -33,7 +33,7 @@ class ClientInvitationMailer < ActionMailer::Base
     client_group.clients.in_groups_of(32) do |client_batch|
       invite_batch( client_group, client_batch)
       # take a break
-      sleep 1
+      sleep 3
     end
     
   end
@@ -133,25 +133,21 @@ class ClientInvitationMailer < ActionMailer::Base
   end
   
   def client_has_received_email client
-    invite = ClientInvitation.find_by(user_id:    client.user_id,
-                                      email:      client.email 
-                                      )
+    invite = ClientInvitation.find_by(user_id: client.user_id, email: client.email )
+    ap invite
     invite && !invite.pending?
-    
   end
   
   
   def get_client_invitation client
     
-    ClientInvitation.where(  account_id: client.account_id, 
-                             client_id:  client.id,
-                             user_id:    client.user_id,
+    ClientInvitation.where(  user_id:    client.user_id,
                              email:      client.email )
                     .first_or_create( account_id: client.account_id, 
-                                                 client_id:  client.id,
-                                                 user_id:    client.user_id,
-                                                 uuid:       UUIDTools::UUID.timestamp_create().to_s,
-                                                 email:      client.email )
+                                      client_id:  client.id,
+                                      user_id:    client.user_id,
+                                      uuid:       UUIDTools::UUID.timestamp_create().to_s,
+                                      email:      client.email )
     
   end
   
