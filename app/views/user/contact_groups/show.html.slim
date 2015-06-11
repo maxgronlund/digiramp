@@ -32,6 +32,7 @@
             table class="table table-hover"
               thead
                 tr
+                  th Send
                   th Pending
                   th Delivered
                   th Opened
@@ -40,6 +41,7 @@
                   th Dropped
               tbody
                 tr
+                  td = @contact_group.client_invitations.count
                   td = @contact_group.client_invitations.pending.count
                   td = @contact_group.client_invitations.delivered.count
                   td = @contact_group.client_invitations.opened.count
