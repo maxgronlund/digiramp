@@ -2,6 +2,7 @@ class ClientInvitation < ActiveRecord::Base
   belongs_to :user
   belongs_to :account
   belongs_to :client
+  belongs_to :client_group
 
   after_commit :flush_cache
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610113808) do
+ActiveRecord::Schema.define(version: 20150611163054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -790,9 +790,11 @@ ActiveRecord::Schema.define(version: 20150610113808) do
     t.integer  "sendgrid_status",             default: 0
     t.string   "sendgrid_msg",                default: ""
     t.string   "email",                       default: ""
+    t.integer  "client_group_id"
   end
 
   add_index "client_invitations", ["account_id"], name: "index_client_invitations_on_account_id", using: :btree
+  add_index "client_invitations", ["client_group_id"], name: "index_client_invitations_on_client_group_id", using: :btree
   add_index "client_invitations", ["client_id"], name: "index_client_invitations_on_client_id", using: :btree
   add_index "client_invitations", ["user_id"], name: "index_client_invitations_on_user_id", using: :btree
 
@@ -3313,6 +3315,7 @@ ActiveRecord::Schema.define(version: 20150610113808) do
   end
 
   add_foreign_key "account_features", "plans"
+  add_foreign_key "client_invitations", "client_groups"
   add_foreign_key "coupons", "accounts"
   add_foreign_key "coupons", "plans"
   add_foreign_key "coupons", "sales_coupon_batches"

@@ -65,7 +65,7 @@ class ClientInvitationMailer < ActionMailer::Base
         # Don't invite clients two times
         if client_has_received_email( client )
           ap "client: #{client.email} has received email"
-        elsif invitation        = get_client_invitation( client )
+        elsif invitation        = get_client_invitation( client, client_group.id )
           uniq_ids[index]       = invitation.id
           emails[index]         = invitation.email
           accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
@@ -104,9 +104,13 @@ class ClientInvitationMailer < ActionMailer::Base
                 }
     
     
+    
     if emails.empty?
       #Opbeat.capture_message("ClientInvitationMailer: no emails")
     else
+      ap '============================================== emails ===================================================='
+      ap x_smtpapi
+      ap '=========================================================================================================='
       headder = JSON.generate(x_smtpapi)
       headers['X-SMTPAPI'] = headder
       mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
@@ -120,14 +124,15 @@ class ClientInvitationMailer < ActionMailer::Base
   end
   
   
-  def get_client_invitation client
+  def get_client_invitation client, client_group_id
     
-    ClientInvitation.where( user_id: client.user_id, email: client.email )
-          .first_or_create( user_id:    client.user_id,
-                            email:      client.email, 
-                            client_id:  client.id,
-                            account_id: client.account_id, 
-                            uuid:       UUIDTools::UUID.timestamp_create().to_s)
+    ClientInvitation.where( user_id:          client.user_id, email: client.email )
+          .first_or_create( user_id:          client.user_id,
+                            email:            client.email, 
+                            client_id:        client.id,
+                            account_id:       client.account_id, 
+                            client_group_id:  client_group_id,
+                            uuid:             UUIDTools::UUID.timestamp_create().to_s)
           
   end
   

@@ -2,11 +2,13 @@ class ClientGroup < ActiveRecord::Base
   belongs_to :account
   belongs_to :user
   
+  
 
   
   has_and_belongs_to_many :clients
   has_and_belongs_to_many :campaigns
   has_and_belongs_to_many :playlist_key_users
+  has_many :client_invitations
   
   after_commit :flush_cache
   
