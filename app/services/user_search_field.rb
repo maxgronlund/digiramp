@@ -1,7 +1,7 @@
 # UserSearchfield.process
 
+# optimization: only search on one field
 class UserSearchField
-  
   def self.process user
     search_field_content = ''
     search_field_content <<   user.profession  if user.profession
@@ -29,7 +29,5 @@ class UserSearchField
     search_field_content <<  'artist '        if user.artist
     user.search_field = search_field_content
   end
-  
-  
   
 end

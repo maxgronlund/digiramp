@@ -20,7 +20,6 @@ class GenreExtracter
                                               )
                                               
       # check if the genre tag alreaddy is there
-
       genre_tag = GenreTag.where( genre_id: extracted_genre.id, 
                                   genre_tagable_type: recording.class.to_s, 
                                   genre_tagable_id: recording.id)

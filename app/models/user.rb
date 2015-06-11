@@ -913,14 +913,14 @@ class User < ActiveRecord::Base
         
         
         # 1* Getting error here
-        #open( share_on_twitter.recording.get_artwork) do |file|
-        #  client.update_with_media( share_on_twitter.message, file );
-        #end
+        open( share_on_twitter.recording.get_artwork) do |file|
+          client.update_with_media( share_on_twitter.message, file );
+        end
         
         # 1* Replace with
         
-        media_id = client.upload File.new share_on_twitter.recording.get_artwork
-        client.update share_on_twitter.message, {media_ids: media_id }
+        #media_id = client.upload File.new share_on_twitter.recording.get_artwork
+        #client.update share_on_twitter.message, {media_ids: media_id }
       else
         ap '----------- twitter provider not found. Link account now ----------------------'
       end

@@ -2863,10 +2863,10 @@ ActiveRecord::Schema.define(version: 20150610113808) do
     t.integer  "amount"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.string   "state",              default: "pending"
-    t.string   "source_transaction"
-    t.string   "currency"
     t.string   "destination"
+    t.string   "source_transaction"
+    t.string   "currency",           default: "usd"
+    t.string   "state",              default: "pending"
     t.string   "stripe_errors"
     t.integer  "account_id"
     t.string   "description"
@@ -3113,11 +3113,11 @@ ActiveRecord::Schema.define(version: 20150610113808) do
     t.string   "stripe_recipient_id"
     t.boolean  "has_enabled_shop",                       default: false
     t.boolean  "has_an_approved_shop",                   default: false
-    t.string   "account_type",                           default: "Social"
     t.string   "stripe_id"
     t.string   "stripe_access_key"
     t.string   "stripe_publishable_key"
     t.string   "stripe_refresh_token"
+    t.string   "account_type",                           default: "Social"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

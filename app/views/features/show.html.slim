@@ -24,8 +24,8 @@
           .panel-heading
             'Write Comments
           .panel-body
-            == simple_form_for [ current_user, @feature, Comment.new], \
-                            :url => url_for(:action => 'create_comment', controller: 'features'), \
+            == simple_form_for [ current_user, @feature, Comment.new ], 
+                            :url => url_for(:action => 'create_comment', controller: 'features'), 
                             :method => 'post' do |f|
                               
               = f.hidden_field :commentable_id, value: @feature.id
@@ -37,7 +37,7 @@
                 '&nbsp; 
                 a data-wysihtml5-command="italic" Italic
           
-              =f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
+              = f.input :body, label: false, :input_html => {  style: "height: 244px;", placeholder: "Description", id: 'wysihtml5_editor'}
               = f.input :image
               hr
                 .pull-right

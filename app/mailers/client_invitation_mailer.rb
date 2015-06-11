@@ -29,7 +29,7 @@ class ClientInvitationMailer < ActionMailer::Base
 
     client_group    = ClientGroup.find(client_group_id)
     
-    client_group.clients.in_groups_of(100) do |client_batch|
+    client_group.clients.in_groups_of(50) do |client_batch|
       invite_batch( client_group, client_batch)
     end
     
@@ -80,32 +80,33 @@ class ClientInvitationMailer < ActionMailer::Base
     
     
     # prepre JSON
-    x_smtpapi = { 
-                  to: emails,
-                  filters: { templates: {
-                               settings: {
-                                  enabled: 1,
-                                  template_id: template_id
-                                }
-                              }
-                           }, 
-                   sub: {  
-                           "--user_name--".to_sym =>    user_names,
-                           "--accept_url--".to_sym =>   accept_urls,
-                           "--decline_url--".to_sym =>  decline_urls,
-                           "--avatar_url--".to_sym =>   decline_urls,
-                           "--uniq_ids--".to_sym =>   uniq_ids,
-                        } ,
-                   unique_args: 
-                       {
-                         uniq_ids: "--uniq_ids--"
-                       }
-                }
+        x_smtpapi = { 
+                      to: emails,
+                      filters: { templates: {
+                                           settings: {
+                                                         enabled: 1,
+                                                         template_id: template_id
+                                                       }
+                                          }
+                               }, 
+                       sub: {  
+                               "--user_name--".to_sym =>    user_names,
+                               "--accept_url--".to_sym =>   accept_urls,
+                               "--decline_url--".to_sym =>  decline_urls,
+                               "--avatar_url--".to_sym =>   decline_urls,
+                               "--uniq_ids--".to_sym =>   uniq_ids,
+                           
+                            } ,
+                       unique_args: 
+                           {
+                             uniq_ids: "--uniq_ids--"
+                           }
+                    }
     
     # only send if there is someone to send to
     unless emails.empty?
       headder = JSON.generate(x_smtpapi)
-
+      ap headder
       headers['X-SMTPAPI'] = headder
       mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
     end
