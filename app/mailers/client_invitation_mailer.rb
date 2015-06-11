@@ -26,7 +26,7 @@ class ClientInvitationMailer < ActionMailer::Base
   
   # notice max 1000 at a time
   def invite_all_from_group client_group_id
-    ap '+++++++++++++++++++++++++++++++ invite_all_from_group 2 +++++++++++++++++++++++++++++++++++++++++++'
+    ap '+++++++++++++++++++++++++++++++ invite_all_from_group 3 +++++++++++++++++++++++++++++++++++++++++++'
     client_group    = ClientGroup.find(client_group_id)
     clients = 
     
@@ -35,7 +35,7 @@ class ClientInvitationMailer < ActionMailer::Base
       # take a break
       sleep 3
     end
-    
+    ap '+++++++++++++++++++++++++++++++++++++++ done ++++++++++++++++++++++++++++++++++++++++++++++++++++++'
   end
   
  
@@ -59,29 +59,24 @@ class ClientInvitationMailer < ActionMailer::Base
     index         = 0
     
     
+    # pack info into arays
     client_batch.each do |client|
-      
-      if client 
-        #if email = EmailSanitizer.saintize( client.email )
-        if email = client.email
-          # Don't invite clients two times
-          if client_has_received_email( client )
-            ap '==================================='
-            ap "client: #{client.email} has receiced email"
-            ap '.'
-          else
-            # store invited clients
-            
-            invitation            = get_client_invitation( client )
-            uniq_ids[index]       = invitation.id
-            emails[index]         = email
-            accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
-            decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
-            user_names[index]     = user_name    
-            index += 1
-          end
+      if email = client.email
+        # Don't invite clients two times
+        if client_has_received_email( client )
+          ap '==================================='
+          ap "client: #{client.email} has receiced email"
+          ap '.'
+        elsif invitation        = get_client_invitation( client )
+          uniq_ids[index]       = invitation.id
+          emails[index]         = email
+          accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
+          decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
+          user_names[index]     = user_name    
+          index += 1
         end
       end
+      
     end
     
     
@@ -133,22 +128,27 @@ class ClientInvitationMailer < ActionMailer::Base
   end
   
   def client_has_received_email client
-    invite = ClientInvitation.where(user_id: client.user_id, email: client.email ).first
+    ap 'check if client has received invitation'
+    invite = ClientInvitation.find_by( user_id: client.user_id, email: client.email )
     ap invite
     invite && !invite.pending?
   end
   
   
   def get_client_invitation client
-    
-    ClientInvitation.where(  user_id:    client.user_id,
-                             email:      client.email )
-                    .first_or_create( account_id: client.account_id, 
-                                      client_id:  client.id,
-                                      user_id:    client.user_id,
-                                      uuid:       UUIDTools::UUID.timestamp_create().to_s,
-                                      email:      client.email )
-    
+    begin
+      invitation = ClientInvitation.where( user_id: client.user_id, email: client.email )
+                                   .first_or_create( client_id:  client.id,
+                                                     user_id:    client.user_id,
+                                                     account_id: client.account_id, 
+                                                     uuid:       UUIDTools::UUID.timestamp_create().to_s,
+                                                   email:      client.email )
+    rescue => error
+      Opbeat.capture_message(error.inspect)
+      ap error.inspect
+      return nil
+    end
+    invitation
   end
   
 

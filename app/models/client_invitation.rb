@@ -6,6 +6,7 @@ class ClientInvitation < ActiveRecord::Base
   after_commit :flush_cache
   
   #after_create :send_one_with_avatar
+  validates_formatting_of :email, :using => :email
   
   enum sendgrid_status: [ :pending, :processed, :dropped, :delivered, :opened, :clicked, :bounced, :unsubscribed ]
   

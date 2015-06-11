@@ -77,7 +77,7 @@ $ ssh deploy@78.46.19.136
 $ cd apps/digiramp_production/current
 $ RAILS_ENV=production bundle exec sidekiq
 
-RAILS_ENV=production bundle exec db:rollback
+
 
 
 ssh deploy@78.46.19.136
@@ -147,3 +147,5 @@ Opbeat.capture_message("Not happy with the way things turned out")
 m7moud.said@gmail.com
 
 https://28ef8081.ngrok.io/user/checking_accounts/max-groenlund/edit
+
+RAILS_ENV=production bundle exec db:rollback
