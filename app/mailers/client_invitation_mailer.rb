@@ -30,7 +30,7 @@ class ClientInvitationMailer < ActionMailer::Base
     client_group    = ClientGroup.find(client_group_id)
     clients = 
     
-    client_group.clients.in_groups_of(50) do |client_batch|
+    client_group.clients.in_groups_of(32) do |client_batch|
       invite_batch( client_group, client_batch)
     end
     
@@ -125,7 +125,7 @@ class ClientInvitationMailer < ActionMailer::Base
     else
       headder = JSON.generate(x_smtpapi)
       headers['X-SMTPAPI'] = headder
-      #mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
+      mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
     end
     
   end
