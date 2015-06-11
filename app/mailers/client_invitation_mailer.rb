@@ -26,7 +26,7 @@ class ClientInvitationMailer < ActionMailer::Base
   
   # notice max 1000 at a time
   def invite_all_from_group client_group_id
-    ap '+++++++++++++++++++++++++++++++ invite_all_from_group 4 +++++++++++++++++++++++++++++++++++++++++++'
+    ap '+++++++++++++++++++++++++++++++ invite_all_from_group 5 +++++++++++++++++++++++++++++++++++++++++++'
     client_group    = ClientGroup.find(client_group_id)
     clients = 
     
@@ -69,7 +69,7 @@ class ClientInvitationMailer < ActionMailer::Base
           ap '.'
         elsif invitation        = get_client_invitation( client )
           uniq_ids[index]       = invitation.id
-          emails[index]         = email
+          emails[index]         = invitation.email
           accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
           decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
           user_names[index]     = user_name    
@@ -108,14 +108,14 @@ class ClientInvitationMailer < ActionMailer::Base
     # only send if there is someone to send to
     ap '---------------------------- emails ----------------------------------'
     ap emails
-    ap '---------------------------- user_names ----------------------------------'
-    ap user_names
-    ap '---------------------------- accept_urls ----------------------------------'
-    ap accept_urls
-    ap '---------------------------- decline_urls ----------------------------------'
-    ap decline_urls
-    ap '---------------------------- uniq_ids ----------------------------------'
-    ap uniq_ids
+    # ap '---------------------------- user_names ----------------------------------'
+    # ap user_names
+    # ap '---------------------------- accept_urls ----------------------------------'
+    # ap accept_urls
+    # ap '---------------------------- decline_urls ----------------------------------'
+    # ap decline_urls
+    # ap '---------------------------- uniq_ids ----------------------------------'
+    # ap uniq_ids
     ap '======================================================================'
     if emails.empty?
       Opbeat.capture_message("ClientInvitationMailer: no emails")
@@ -129,9 +129,9 @@ class ClientInvitationMailer < ActionMailer::Base
   
   def client_has_received_email client
     ap "check user_id: #{client.user_id}, email: #{client.email}"
-    invite = ClientInvitation.where( user_id: client.user_id, email: client.email ).first
-    ap invite
-    invite && !invite.pending?
+    invitation = ClientInvitation.where( user_id: client.user_id, email: client.email ).first
+    ap invitation
+    invitation && !invitation.pending?
   end
   
   

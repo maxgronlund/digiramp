@@ -72,19 +72,20 @@ ps aux | grep sidekiq
 to kill a process
 $ kill -9 PID
 
-# restart
+
+# restart DONT DO THIS
 $ ssh deploy@78.46.19.136
 $ cd apps/digiramp_production/current
 $ RAILS_ENV=production bundle exec sidekiq
 
 
 
-
+# not sure working
 ssh deploy@78.46.19.136
       sudo "../../etc/init.d/sidekiq_digiramp_production stop"
       sudo "../../etc/init.d/sidekiq_digiramp_production start"
       
-      
+# not sure it's working      
 bundle exec sidekiqctl quiet SIDEKIQ_PID      
       
 
