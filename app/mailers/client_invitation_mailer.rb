@@ -64,7 +64,7 @@ class ClientInvitationMailer < ActionMailer::Base
       if client && email = client.email
         # Don't invite clients two times
         if client_has_received_email( client )
-          ap "client: #{client.email} has receiced email"
+          ap "client: #{client.email} has received email"
         elsif invitation        = get_client_invitation( client )
           uniq_ids[index]       = invitation.id
           emails[index]         = invitation.email
@@ -105,11 +105,11 @@ class ClientInvitationMailer < ActionMailer::Base
     
     
     if emails.empty?
-      Opbeat.capture_message("ClientInvitationMailer: no emails")
+      #Opbeat.capture_message("ClientInvitationMailer: no emails")
     else
       headder = JSON.generate(x_smtpapi)
       headers['X-SMTPAPI'] = headder
-      #mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
+      mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
     end
     
   end
