@@ -26,7 +26,27 @@
           .pull-right.pull-down-10
             => link_to 'Add contacts', user_user_contact_group_add_contacts_path(@user, @contact_group), class: 'btn btn-primary'
             => link_to 'Edit', edit_user_user_contact_group_path(@user, @contact_group), class: 'btn btn-default'
-            
+      .row
+        .col-sm-12
+          .table-responsive
+            table class="table table-hover"
+              thead
+                tr
+                  th Send
+                  th Delivered
+                  th Opened
+                  th Clicked
+                  th Bounced
+                  th Dropped
+              tbody
+                tr
+                  td = @contact_group.client_invitations.count
+                  td = @contact_group.client_invitations.delivered.count
+                  td = @contact_group.client_invitations.opened.count
+                  td = @contact_group.client_invitations.clicked.count
+                  td = @contact_group.client_invitations.bounced.count
+                  td = @contact_group.client_invitations.dropped.count
+          
             
             
       /.row
