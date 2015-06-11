@@ -125,18 +125,15 @@ class ClientInvitationMailer < ActionMailer::Base
     else
       headder = JSON.generate(x_smtpapi)
       headers['X-SMTPAPI'] = headder
-      mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
+      #mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
     end
     
   end
   
   def client_has_received_email client
-    invite = ClientInvitation.find_by( 
-                             account_id: client.account_id, 
-                             client_id:  client.id,
-                             user_id:    client.user_id,
-                             email:      client.email 
-                             )
+    invite = ClientInvitation.find_by(user_id:    client.user_id,
+                                      email:      client.email 
+                                      )
     invite && !invite.pending?
     
   end
