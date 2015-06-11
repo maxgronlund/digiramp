@@ -32,6 +32,8 @@ class ClientInvitationMailer < ActionMailer::Base
     
     client_group.clients.in_groups_of(32) do |client_batch|
       invite_batch( client_group, client_batch)
+      # take a break
+      sleep 1
     end
     
   end
