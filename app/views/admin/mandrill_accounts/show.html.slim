@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Account:
+  = @admin_mandrill_account.account
+p
+  strong Notes:
+  = @admin_mandrill_account.notes
+p
+  strong Custom quota:
+  = @admin_mandrill_account.custom_quota
+
+= link_to 'Edit', edit_admin_mandrill_account_path(@admin_mandrill_account)
+'|
+= link_to 'Back', admin_mandrill_accounts_path

@@ -1,5 +1,13 @@
 Digiramp::Application.routes.draw do
 
+  namespace :admin do
+    resources :mandrill_accounts
+  end
+  #namespace :api do
+  #  get 'mandrill_hook/update'
+  #end
+
+  resources :mandrill_testers
   resources :playlist_emails
 
 
@@ -21,6 +29,8 @@ Digiramp::Application.routes.draw do
 
   namespace :api do
     post 'sendgrid_hook/update'
+    post 'mandrill_hook/update'
+    resources :mandrill_hook
   end
 
   get "shop"         => "shop/shop#index",     :as => :shop_shop_index

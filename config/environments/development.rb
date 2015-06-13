@@ -43,20 +43,21 @@ Digiramp::Application.configure do
     address: Rails.application.secrets.email_provider_address,
     port: 587,
     domain: Rails.application.secrets.domain_name,
-    authentication: "plain",
+    authentication: "login",
     enable_starttls_auto: true,
     user_name: Rails.application.secrets.email_provider_username,
     password: Rails.application.secrets.email_provider_password,
+    
   }
   
-  #config.after_initialize do
-  #  ActiveMerchant::Billing::Base.mode = :test  # :production when you will use a real Pro Account
-  #  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
-  #    login:      ENV["PAYPAL_login"],
-  #    password:   ENV["APP_PASSWORD"],
-  #    signature:  ENV["PAYPAL_SIGNATURE"]
-  #  )
-  #end
+ 
+  
+  # ActionMailer Config
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true
+  # Send email in development mode?
+  config.action_mailer.perform_deliveries = true
 
 
   

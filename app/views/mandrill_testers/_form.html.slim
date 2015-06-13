@@ -1,0 +1,10 @@
+= simple_form_for(@mandrill_tester) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :email
+    = f.input :subject
+    = f.input :message
+
+  .form-actions
+    = f.button :submit

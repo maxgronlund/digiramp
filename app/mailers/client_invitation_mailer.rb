@@ -1,6 +1,6 @@
 require 'json'
 require 'uri'
-require 'sendgrid-ruby'
+#require 'sendgrid-ruby'
 
 class ClientInvitationMailer < ActionMailer::Base
   default from: "noreply@digiramp.com"

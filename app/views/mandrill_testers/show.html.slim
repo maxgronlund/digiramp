@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Email:
+  = @mandrill_tester.email
+p
+  strong Subject:
+  = @mandrill_tester.subject
+p
+  strong Message:
+  = @mandrill_tester.message
+
+= link_to 'Edit', edit_mandrill_tester_path(@mandrill_tester)
+'|
+= link_to 'Back', mandrill_testers_path

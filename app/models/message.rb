@@ -1,5 +1,8 @@
 class Message < ActiveRecord::Base
   
+  #enum status: [ :pending, :send, :open, :click, :hard_bounce, :soft_bounce, :bounced, :unsubscribed ]
+  enum state: [ :pending, :sent, :opened, :clicked, :hard_bounce, :soft_bounce, :bounced, :unsubscribed, :spam, :unsub, :reject ]
+  
   validates_presence_of :title
   
   after_commit :flush_cache

@@ -8,6 +8,8 @@
 
 class User < ActiveRecord::Base
   
+
+  
   extend FriendlyId
   friendly_id :user_name, :use => :history
   #friendly_id :user_name, use: :slugged
@@ -294,7 +296,10 @@ class User < ActiveRecord::Base
     if self.stripe_transfers
       self.stripe_transfers.update_all(user_id: nil, order_id: nil, order_item_id: nil )
     end
-
+    
+    unless self.mandrill_account_id.blank?
+      DeleteUserMandrillAccountJob.perform_later(self.mandrill_account_id)
+    end
   end
   
   def self.system_user
@@ -366,6 +371,8 @@ class User < ActiveRecord::Base
     end
     Client.where(email: self.email).update_all(member_id: self.id)
     set_default_avatar
+    
+    CreateUserMandrillAccountJob.perform_later(self.id)
   end
   
   def set_default_avatar

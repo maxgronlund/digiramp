@@ -1,0 +1,2 @@
+module MandrillTestersHelper
+end

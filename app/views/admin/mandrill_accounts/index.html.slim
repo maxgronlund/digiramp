@@ -1,0 +1,25 @@
+h1 Listing mandrill_accounts
+
+/table
+/  thead
+/    tr
+/      th Account
+/      th Notes
+/      th Custom quota
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @admin_mandrill_accounts.each do |admin_mandrill_account|
+/      tr
+/        td = admin_mandrill_account.account
+/        td = admin_mandrill_account.notes
+/        td = admin_mandrill_account.custom_quota
+/        td = link_to 'Show', admin_mandrill_account
+/        td = link_to 'Edit', edit_admin_mandrill_account_path(admin_mandrill_account)
+/        td = link_to 'Destroy', admin_mandrill_account, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Mandrill account', new_admin_mandrill_account_path

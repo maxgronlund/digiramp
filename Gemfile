@@ -162,9 +162,14 @@ gem "awesome_print"
 
 #gem 'jquery_file_download-rails'
 
-gem "sendgrid-ruby"
-# sendgrid webhooks
-gem 'gridhook'
+#gem "sendgrid-ruby"
+## sendgrid webhooks
+#gem 'gridhook'
+
+#gem 'mandrill-api', '~> 1.0.53'
+gem 'mandrill-api', require: 'mandrill'
+gem 'mandrill-rails'
+
 #gem 'activemerchant'
 
 #gem 'iron_mq'

@@ -7,7 +7,7 @@ class AddUAccountRefToShopStripeTransfers < ActiveRecord::Migration
     Account.find_each do |account|
       account.stripe_flat_transfer_fee    = 25
       account.stripe_percent_transfer_fee = 0.01
-      account.save(validates: false)
+      account.save(validate: false)
     end
     
   end
