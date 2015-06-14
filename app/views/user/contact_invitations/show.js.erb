@@ -1,5 +1,5 @@
-$("#old_member_<%= @contact.id.to_s %>").remove();
+$("#old_member_<%= @client.id.to_s %>").remove();
    
-$("#new_member_<%= @contact.id.to_s %>").append("<%= j render 'user/contacts/member', contact: @contact %>");
+$("#new_member_<%= @client.id.to_s %>").append("<%= j render 'user/contacts/member', client: @client %>");
 
 

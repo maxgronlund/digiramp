@@ -1,18 +1,18 @@
 
-.old-member id="old_member_#{contact.id.to_s}"
-  - if contact.member_id
-      => link_to user_path( contact.member ) do
+.old-member id="old_member_#{client.id.to_s}"
+  - if client.member_id
+      => link_to user_path( client.member ) do
           .btn.btn-default.btn-xs
             i.fa.fa-check.green-text
             '&nbsp;Member
   - else
-    -if client_invitation = ClientInvitation.where(client_id: contact.id, user_id: contact.user_id).first
+    -if client_invitation = ClientInvitation.where(client_id: client.id, user_id: client.user_id).first
       .btn.btn-default.btn-xs disabled="disabled"
         i.fa.fa-ticket
-        '&nbsp;#{client_invitation.sendgrid_status}
+        '&nbsp;#{client_invitation.state}
       '&nbsp;
     -else
-      => link_to user_user_contact_invitation_path( contact.user_id, contact.id ), remote: true do
+      => link_to user_user_contact_invitation_path( client.user_id, client.id ), remote: true do
           .btn.btn-default.btn-xs
             i.fa.fa-envelope
             '&nbsp;Invite
