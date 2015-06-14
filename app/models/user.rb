@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
   has_many :share_on_facebooks, dependent: :destroy
   has_many :share_on_twitters, dependent: :destroy
   
-  after_save :update_access
+
   after_commit :set_propperties
   
   before_save   :validate_info
@@ -429,11 +429,6 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
     self.relationships.find_by(followed_id: other_user.id).destroy
   end
-    
-  def update_access
-    AccessManager.update_access self
-  end
-  
 
   def set_propperties
     flush_cache
@@ -500,40 +495,7 @@ class User < ActiveRecord::Base
   end 
   
 
-  def invite_existing_user_to_account account_id , invitation_message, current_user_id
-    UserMailer.delay.invite_existing_user_to_account self.id, account_id, invitation_message, current_user_id
-  end
   
-  def invite_new_user_to_account( account_id , invitation_message)
-    generate_token(:password_reset_token)
-    self.password_reset_sent_at = Time.zone.now
-    save!
-    self.add_token
-    UserMailer.delay.invite_new_user_to_account(self.id, account_id, invitation_message)
-  end
-
-
-  #def asseccible_recordings
-  #  recordings = []
-  #  
-  #  accounts.each do |acnt|
-  #    acnt.recordings.each do |rec|
-  #      recordings << rec
-  #    end
-  #  end
-  #  recordings.uniq
-  #end
-  
-  #def playlists
-  #  playlists = []
-  #  accounts.each do |account|
-  #    account.playlists.each do |playlist|
-  #      playlists << playlist
-  #    end
-  #  end
-  #end
-  
-
   
   def current_account
     
@@ -803,10 +765,7 @@ class User < ActiveRecord::Base
       
       # invite found user to account
       UserMailer.delay.invite_existing_user_to_account found_user.id, account_id, body, current_user_id
-      #UserMailer.delay.invite_existing_user_to_account( found_user.id , title, body, account_id )
-      
-      # force uuid to update
-      #found_user.save!
+
     else
       # create user
       #user_name = User.create_uniq_user_name_from_email(email)

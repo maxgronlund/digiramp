@@ -8,56 +8,56 @@
       .user-avatar
         = image_tag @account.logo_url(:size_184x184)
 
-  - if current_account_user.read_recording
+  - if super? || current_account_user.read_recording
     li class="#{'sidebar-selected' if selected == 'recording'}"
       = link_to account_account_recordings_path(@account) do
         i class="fa fa-headphones"
         '&nbsp;
         = pluralize(@account.recordings.not_in_bucket.count, 'Recording')
 
-  - if current_account_user.read_opportunity
+  - if super? || current_account_user.read_opportunity 
     li class="#{'sidebar-selected' if selected == 'opportunity'}"
       = link_to account_account_opportunities_path(@account) do
         i class="fa fa-book"
         '&nbsp;
         = pluralize(@account.opportunities.count, 'Opportunity')
     
-  - if current_account_user.read_user
+  - if super? || current_account_user.read_user 
     li class="#{'sidebar-selected' if selected == 'account_user'}"
       = link_to account_account_account_users_path(@account) do
         i class="fa fa-users"
         '&nbsp;
         = pluralize(@account.user_count, 'User')
     
-  - if current_account_user.read_common_work
+  - if super? || current_account_user.read_common_work 
     li class="#{'sidebar-selected' if selected == 'common_work'}"
       = link_to account_account_common_works_path(@account) do
         i class="fa fa-music"
         '&nbsp;
         = pluralize(@account.common_works.count, 'Work')
     
-  - if current_account_user.read_catalog
+  - if super? || current_account_user.read_catalog 
     li class="#{'sidebar-selected' if selected == 'catalog'}"
       = link_to account_account_catalogs_path(@account) do
         i class="fa fa-book"
         '&nbsp;
         = pluralize(@account.catalogs.count, 'Catalog')
     
-  - if current_account_user.read_crm
+  - if super? || current_account_user.read_crm 
     li class="#{'sidebar-selected' if selected == 'crm'}"
       = link_to account_account_crm_index_path(@account) do
         i class="fa fa-calendar"
         '&nbsp;
         'CRM
     
-  - if current_account_user.read_common_work_ipi
+  - if super? || current_account_user.read_common_work_ipi 
     li class="#{'sidebar-selected' if selected == 'ipi'}"
       = link_to account_account_account_ipis_path(@account) do
         i class="fa fa-barcode"
         '&nbsp;
         'IPI Codes
     
-  - if current_account_user.read_file
+  - if super? || current_account_user.read_file 
     li class="#{'sidebar-selected' if selected == 'file'}"
       = link_to account_account_documents_path(@account) do
         i class="fa fa-folder"

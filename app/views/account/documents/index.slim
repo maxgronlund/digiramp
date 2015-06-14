@@ -24,7 +24,7 @@
               == render 'admin/helps/help', identifier: 'account documents'
       .sexy_line
       .admin
-        - if current_account_user.read_file?
+        - if super? || current_account_user.read_file?
           .admin-badges
             .admin-badge-container
               = link_to account_account_artworks_path(@account) do
@@ -39,7 +39,7 @@
                       
                       
                       
-        - if current_account_user.read_legal_document?
+        - if super? || current_account_user.read_legal_document?
           .admin-badges
             .admin-badge-container
               = link_to legal_documents_account_account_path(@account) do
@@ -55,7 +55,7 @@
                       li ...
                       
                       
-        - if current_account_user.read_financial_document?
+        - if super? || current_account_user.read_financial_document?
           .admin-badges
             .admin-badge-container
               = link_to financial_documents_account_account_path(@account) do
@@ -69,7 +69,7 @@
                       li ...
                       
                       
-        - if current_account_user.read_recording?
+        - if super? || current_account_user.read_recording?
           .admin-badges
             .admin-badge-container
               = link_to account_account_recordings_bucket_index_path(@account) do

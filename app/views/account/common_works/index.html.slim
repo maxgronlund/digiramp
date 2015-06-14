@@ -24,7 +24,7 @@
         .col-sm-5
           .pull-right
             .pull_down_10
-              - if current_account_user.create_common_work
+              - if super? || current_account_user.create_common_work
                 = link_to new_account_account_common_work_path(@account) do
                   .btn.btn-default
                     i.fa.fa-plus-circle

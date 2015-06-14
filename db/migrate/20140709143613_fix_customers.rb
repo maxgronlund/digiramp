@@ -7,14 +7,7 @@ class FixCustomers < ActiveRecord::Migration
         user.save!
       end
     end
-    
-    CatalogUser.all.each do |catalog_user|
-      
-      if catalog_user.user.role == 'Super'
-        catalog_user.role = 'Super User'
-        catalog_user.save!
-      end
-    end
+
     
   end
   

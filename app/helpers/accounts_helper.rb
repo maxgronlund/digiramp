@@ -3,7 +3,7 @@ module AccountsHelper
 
   def access_account
     return forbidden if current_user.nil?
-
+    
     if params[:account_id]
       @account = Account.cached_find(params[:account_id])
     elsif
@@ -28,7 +28,7 @@ module AccountsHelper
     elsif session[:account_id]
       @account = Account.cached_find( session[:account_id])
     end
-    @authorized = true
+    #@authorized = true
     return forbidden unless @account.can_be_accessed_by current_user
   end
   

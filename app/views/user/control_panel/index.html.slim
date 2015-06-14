@@ -148,6 +148,17 @@
                   .body
                     'Use this to update your IPI's and find people in your array
             
+            .control-panel-badge
+              = link_to  user_user_accounts_path(@user) do
+                .content
+                  .icon.icon-purpel
+                    i.fa.fa-home
+                    
+                  .title
+                    h4 Accounts
+                  .body
+                    'Account you have access to
+            
             - if current_user.betatester
               .control-panel-badge
                 = link_to  user_user_subscriptions_path(@user) do

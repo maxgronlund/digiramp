@@ -17,7 +17,7 @@
 
                 
                 
-            - if current_account_user.create_recording
+            - if super? || current_account_user.create_recording
               '&nbsp;
               = link_to recordings_new_account_account_common_work_path(@account, common_work)
                 .btn.btn-default.btn-xs
@@ -42,11 +42,11 @@
               /  .btn.btn-default.btn-xs
               /    i class="fa fa-gears"
               /'&nbsp;
-              - if current_account_user.update_common_work
+              - if super? || current_account_user.update_common_work
                 = link_to edit_account_account_common_work_path(@account, common_work)
                   .btn.btn-default.btn-xs
                     i class="fa fa-pencil"
-              - if current_account_user.delete_common_work
+              - if super? || current_account_user.delete_common_work
                 =< link_to account_account_common_work_path(@account, common_work), data: { confirm: 'Are you sure?' },turboboost: true , :method => :delete do
                   .btn.btn-danger.btn-xs
                     i class="fa fa-times"

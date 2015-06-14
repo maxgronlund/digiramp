@@ -128,7 +128,7 @@
         i class="fa fa-download"
 
 
-      -if current_account_user.update_recording
+      -if super? || current_account_user.update_recording
         = link_to edit_account_account_recording_basic_path(@account, recording), \
                   class: "btn btn-default"  do
           i class="fa fa-pencil"

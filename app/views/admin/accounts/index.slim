@@ -41,48 +41,60 @@
             thead
               tr
                 th Account
-                th
-                /th
+                th Owner
                 th Type
-                th Expires
-                th 
+                 
                 
             tbody
               - @accounts.order('lower(title) ASC').each do |account|
                 tr id="delete_account_#{account.id.to_s}"
-                  th = account.title
+                  /th = account.title
                     
                   td
-                    = link_to admin_account_path( account ) do
+
+                    
+                    = link_to admin_account_path( account ), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do 
+                      - unless account.user && account.user.role == 'Super'
+                        .btn.btn-danger.btn-xs
+                          i class="fa fa-times"
+                      -else 
+                        .btn.btn-danger.btn-xs disabled="disabled"
+                          i class="fa fa-times"
+                          
+                    =< link_to admin_account_path( account ) do
                       .btn.btn-default.btn-xs
-                        i class="fa fa-info"
+                        i.fa.fa-info&nbsp;
+                        'Admin
+                    =< link_to edit_admin_account_path( account ) do
+                      .btn.btn-default.btn-xs
+                        i class="fa fa-pencil"
+                        '&nbsp;Edit
                     '&nbsp;
                         
                     / dashboard
                     /= link_to account_account_path( account ) do
                     /  - if account.account_type == 'Social'
                     /     div class="btn btn-default btn-xs" disabled="disabled"
-                    /       i class="fa fa-tachometer"
+                    /       i.fa.fa-tachometer&nbsp;
+                    /       'NA on social accounts
                     /  - else
                     /    .btn.btn-default.btn-xs
-                    /      i class="fa fa-tachometer"
-                    /
-                    /'&nbsp;
+                    /      i.fa.fa-tachometer
+                    /      =< account.title
+                    /      
+                    
+                  td
                     // user
                     - if account.account_owner
                       = link_to user_path(account.account_owner) do 
                         .btn.btn-default.btn-xs
                           i.fa.fa-user
-                          '&nbsp;
-                          = account.account_owner.user_name
+                          =< account.account_owner.user_name
               
                     - else
                       .btn.btn-default.btn-xs.btn-warning
                         i class="fa fa-exclamation-triangle"
-                    
-                    /'&nbsp; 
-                    // front page     
-                    /= link_to account.title, account, class: 'btn btn-default btn-xs'
+
 
                   td
                     - if account.account_type == 'Social'
@@ -92,34 +104,8 @@
                         .btn.btn-default.btn-xs
                           i class="fa fa-tachometer"
                           =< account.account_type
-                  td
-                    - if account.account_type == 'Social'
-                      '&nbsp;
-                    - else
-                      - if account.expiration_date.nil?
-                        .expired
-                          i class="fa fa-exclamation-circle"
-                      - elsif account.expiration_date < Date.current
-                        .expired
-                          i class="fa fa-exclamation-circle"
-                          '&nbsp;
-                          = account.expiration_date
-                      - else
-                        = account.expiration_date
-                  td
-                    .pull-right
-                      => link_to edit_admin_account_path( account ) do
-                        .btn.btn-default.btn-xs
-                          i class="fa fa-pencil"
-                          '&nbsp;Edit
+                 
                       
-                      = link_to admin_account_path( account ), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do 
-                        - unless account.user && account.user.role == 'Super'
-                          .btn.btn-danger.btn-xs
-                            i class="fa fa-times"
-                        -else 
-                          .btn.btn-danger.btn-xs disabled="disabled"
-                            i class="fa fa-times"
                       
                           
                   

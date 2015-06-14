@@ -22,7 +22,7 @@
               == render 'admin/helps/help', identifier: 'account users'
           
         .col-sm-4.pull-down-10
-          - if current_account_user.createx_user
+          - if super? || current_account_user.createx_user
             .pull-right
               = link_to new_account_account_account_user_path(@account) do
                 .btn.btn-primary
@@ -38,42 +38,42 @@
       
       
       
-      - if current_user.betatester
-        .row.pull-down-10
-          .col-sm-8
-            .help
-              .help-text
-                h2 Pro users subscribtions
-              .help-button
-                == render 'admin/helps/help', identifier: 'pro users subscription'
-            
-            
-        
-          .col-sm-4.pull-down-10
-            - if current_account_user.createx_user
-              .pull-right
-                = link_to new_account_account_subscription_path(@account) do
-                  .btn.btn-primary
-                    i class="fa fa-plus-circle"
-                    '&nbsp;Add subscribtion
-        .digi-box
-        
-          - @subscriptions.each do |subscription|
-            .row
-              .col-sm-4
-                -if user = subscription.user
-                  = link_to user.user_name, user, class: 'btn btn-default'
-              .col-sm-4
-                = subscription.email
-              .col-sm-4
-                .pull-right
-                  => link_to 'Edit', edit_account_account_subscription_path(@account, subscription), class: 'btn btn-default'
-                  = link_to  account_account_subscription_path(@account, subscription), data: {:confirm => 'Are you sure?'}, turboboost: true, :method => :delete do
-                    .btn.btn-danger
-                      i.fa.fa-times
-            .sexy_line
-      
-      
+      /- if current_user.betatester
+      /  .row.pull-down-10
+      /    .col-sm-8
+      /      .help
+      /        .help-text
+      /          h2 Pro users subscribtions
+      /        .help-button
+      /          == render 'admin/helps/help', identifier: 'pro users subscription'
+      /      
+      /      
+      /  
+      /    .col-sm-4.pull-down-10
+      /      - if current_account_user.createx_user
+      /        .pull-right
+      /          = link_to new_account_account_subscription_path(@account) do
+      /            .btn.btn-primary
+      /              i class="fa fa-plus-circle"
+      /              '&nbsp;Add subscribtion
+      /  .digi-box
+      /  
+      /    - @subscriptions.each do |subscription|
+      /      .row
+      /        .col-sm-4
+      /          -if user = subscription.user
+      /            = link_to user.user_name, user, class: 'btn btn-default'
+      /        .col-sm-4
+      /          = subscription.email
+      /        .col-sm-4
+      /          .pull-right
+      /            => link_to 'Edit', edit_account_account_subscription_path(@account, subscription), class: 'btn btn-default'
+      /            = link_to  account_account_subscription_path(@account, subscription), data: {:confirm => 'Are you sure?'}, turboboost: true, :method => :delete do
+      /              .btn.btn-danger
+      /                i.fa.fa-times
+      /      .sexy_line
+      /
+      /
   == render 'shared/site_footer'
   
 

@@ -17,7 +17,7 @@
         .col-sm-6
           h2 Projects
         .col-sm-6
-          - if current_account_user.create_crm
+          - if super? || current_account_user.create_crm
             .pull-right
               = link_to new_account_account_project_path(@account) do
                 .btn.btn-primary

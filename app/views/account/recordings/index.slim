@@ -23,7 +23,7 @@
 
         .col-sm-5
           .pull-right.pull-down-10
-              - if current_account_user.create_recording
+              - if super? || current_account_user.create_recording
                 => link_to account_account_uploads_audio_files_new_path(@account) do
                   .btn.btn-default
                     i.fa.fa-plus

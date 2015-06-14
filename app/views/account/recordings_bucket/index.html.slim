@@ -26,7 +26,7 @@
         
         
         .col-sm-6
-          - if current_account_user.create_recording
+          - if super? || current_account_user.create_recording
             .pull-right.pull-down-10
               = link_to new_account_account_audio_file_path(@account) do
                 .btn.btn-primary
@@ -95,12 +95,12 @@
                         td = recording.original_file_name
                         td
                           .pull-right
-                            -if current_account_user.update_recording?
+                            -if super? || current_account_user.update_recording?
                               = link_to edit_account_account_recording_path(@account , recording) do
                                 .btn.btn-default.btn-xs
                                   i class="fa fa-pencil"
                                   '&nbsp;Edit
-                            -if current_account_user.update_recording?
+                            -if super? || current_account_user.update_recording?
                               =< link_to account_account_recordings_bucket_path(@account , recording), data: { confirm: 'Are you sure?'},turboboost: true , :method => :delete do
                                 .btn.btn-danger.btn-xs
                                   i class="fa fa-times"

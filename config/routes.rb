@@ -1,5 +1,7 @@
 Digiramp::Application.routes.draw do
 
+  
+
   namespace :admin do
     resources :mandrill_accounts
   end
@@ -721,6 +723,7 @@ Digiramp::Application.routes.draw do
     resources :users do
       
       
+      resources :accounts, only: [:index]
       
       
       match '/subsctiption_status/:guid'   => 'subscriptions#status',    via: :get,  as: :subscription_status
@@ -944,7 +947,7 @@ Digiramp::Application.routes.draw do
     
     # hui v. 1
     resources :user_accounts, only: [:index]
-    resources :accounts, only: [:edit, :show, :update]
+    #resources :accounts, only: [:edit, :show, :update]
     resources :issues do
       resources :comments
     end

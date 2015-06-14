@@ -37,8 +37,7 @@
           .digi-box
             - @account.account_users.non_catalog_users.each do |account_user|
               
-              - user = account_user.user
-              - unless account_user.role == 'Super User'
+              - if user = account_user.user
                 => link_to image_tag( user.image_url(:avatar_32x32)), user_path( user )
                 = user.user_name
                 .sexy_line

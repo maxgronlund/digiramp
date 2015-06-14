@@ -6,11 +6,10 @@ class Account::AccountUsersController < ApplicationController
   before_action :get_account_account
 
   def index
-    unless current_user.role == 'Super'
-      forbidden unless current_account_user.read_user
-    end
+    forbidden unless super? || current_account_user.read_user
+    
     @user       = current_user
-    @authorized = true
+    #@authorized = true
     
     @subscriptions = @account.subscriptions
     
@@ -25,7 +24,8 @@ class Account::AccountUsersController < ApplicationController
   end
   
   def new
-    forbidden unless current_account_user.createx_user
+    
+    forbidden unless super? || current_account_user.createx_user
     
     @account_user = @account.account_users.new( role: "Associate", 
                                                 invitation_title: "You have been invited to a DigiRAMP Account by #{current_user.name}",
@@ -39,7 +39,7 @@ class Account::AccountUsersController < ApplicationController
   
   def create_user
 
-    forbidden unless current_account_user.createx_user
+    forbidden unless super? || current_account_user.createx_user
     
     activated = params[:account_user][:role] == 'Client' ? false : true
     # make a temporary password
@@ -58,13 +58,11 @@ class Account::AccountUsersController < ApplicationController
   
   # create an account user and send an invitation email
   def create
+    forbidden unless super? || current_account_user.createx_user
     
     sanitized_email = EmailSanitizer.saintize params[:account_user][:email]
 
-    # secure the permissions is in place
-    unless current_user.role == 'Super'
-      forbidden unless current_account_user.createx_user
-    end
+
     
     # if the account user alreaddy exists
     if AccountUser.where(email: sanitized_email, account_id: params[:account_user][:account_id]).first
@@ -72,9 +70,7 @@ class Account::AccountUsersController < ApplicationController
     else
       # validate the email, returns to the user if unapproved
       validate_email
-      
-      
-      
+
       # set the acces
       set_access
       
@@ -143,14 +139,14 @@ class Account::AccountUsersController < ApplicationController
   
 
   def edit
-    forbidden unless current_account_user.update_user
+    forbidden unless super? || current_account_user.update_user
     @account_user = AccountUser.cached_find(params[:id])
     @user         = current_user
   end
   
   def update
 
-    forbidden unless current_account_user.update_user
+    forbidden unless  super? || current_account_user.update_user
     
     @account_user = AccountUser.cached_find(params[:id])
     
@@ -205,6 +201,8 @@ class Account::AccountUsersController < ApplicationController
   end
   
   def destroy
+    forbidden unless  super? || current_account_user.delete_user
+    
     account_user = AccountUser.cached_find(params[:id])
     
     account_user.create_activity(  :destroyed, 

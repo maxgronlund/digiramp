@@ -16,22 +16,14 @@ class CatalogUser < ActiveRecord::Base
 
   scope :invited,           ->  { where( role: 'Catalog User').order("email asc")  }
   scope :account_users,     ->  { where( role: 'Account User').order("email asc")  }
-  scope :super_users,       ->  { where( role: 'Super User').order("email asc")  }
   scope :account_owners,    ->  { where( role: 'Account Owner').order("email asc")  }
   
   # catalog users comes in four flavors
   # 1: Catalog User, this role is set when the catalog user is invited to a catalog
   # 2: Account User, this role is set when a user is invited to an account
-  # 3: Super User, this role is set for all super users
-  # 4: Account owner this role is set for the account owner
-  ROLE = ['Catalog User', 'Account User', 'Super User', 'Account Owner']
+
+  ROLE = ['Catalog User', 'Account User', 'Account Owner']
   
-  def update_to_super
-    unless self.role == 'Account Owner'
-      self.role     = 'Super User' 
-      grand_all_permissions
-    end
-  end
   
   def downgrade
     
@@ -61,9 +53,6 @@ class CatalogUser < ActiveRecord::Base
   # when a catalog user is created, the account user attached to an account_user
   # so the persona can access the hosting account true the account user
   def attach_to_account_user
-    
-     puts '++++++++++++++++++++++ attach_to_account_user ++++++++++++++++++++++++++++'
-     
     # find or create an account user for all catalog users
     account_user = AccountUser.where( account_id: self.account_id, 
                                       user_id:    self.user_id)
@@ -71,20 +60,10 @@ class CatalogUser < ActiveRecord::Base
                                                 user_id:      self.user_id,
                                                 role:         'Catalog User',
                                                 email:        self.user.email)
-                                                
-    
-    
-    #account_user.read_catalog = true   
+
     account_user.save!                                       
     self.account_user_id      = account_user.id
-    self.role                 = 'Super User' if self.user.role == 'Super User'
     self.save!
-    
-    
-    if account_user.user.super?
-      grand_all_permissions 
-    end
-    #CatalogUserCounterCachWorker.perform_async(self.catalog_id)
   end
   
   
@@ -110,10 +89,6 @@ class CatalogUser < ActiveRecord::Base
     #puts '+++++++++++++++++++++++ handle_user_permissions_for ++++++++++++++++++++++++++'
     #puts catalog_user.user.email
     #puts catalog_user.role
-    
-    # never edit a super user               
-    return false if catalog_user.role      == 'Super User'
-    
     
     # always edit account users
     return true if catalog_user.role        == 'Account User'

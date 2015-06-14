@@ -1,6 +1,6 @@
 class Account::SubscriptionsController < ApplicationController
   before_action :set_subscription, only: [:show, :edit, :update, :destroy]
-  #include AccountsHelper
+  include AccountsHelper
   before_action :access_account
 
   #def index

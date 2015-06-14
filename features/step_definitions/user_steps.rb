@@ -35,7 +35,7 @@ end
 
 Given(/^there is a user with the email "(.*?)" and the password "(.*?)"$/) do |email, password|
   #user = FactoryGirl.create(:user, email: email, password: password, role: 'Customer')
-  find_or_create_user(  'Member Joe', email, password, 'Customer')
+  find_or_create_user(  Faker::Name.first_name , email, password, 'Customer')
 end
 
 Given(/^the user with the email "(.*?)" has a recording with the name "(.*?)"$/) do |email, title|

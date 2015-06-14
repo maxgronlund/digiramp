@@ -1,0 +1,40 @@
+
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'settings'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
+      h2 Account you have access to
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+            tbody
+              -@account_users.each do |account_user|
+                - if account = account_user.account
+                  tr
+                    td = link_to account.title, account_account_path(account), class: 'btn btn-default btn-xs'
+                  
+              
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

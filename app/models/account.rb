@@ -224,68 +224,12 @@ class Account < ActiveRecord::Base
   end
   
   
-  # call this from the ReassignAdministratorWorker
-  # remove the old administrator and
-  # initialize the new administrator
-  # update the whitelist
-  #def reassign_administrator old_administrator_id
-  #
-  #  #puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>remove the old administrators account_user'
-  #  #begin
-  #    if old_administrator = AccountUser.where(user_id: old_administrator_id, account_id: self.id).first
-  #      #old_administrator     = User.cached_find(old_administrator_id)
-  #      
-  #      if old_administrator_id == user_id
-  #        # if the old administrator is the Account Owner
-  #        # then downgrade premissions to the basic
-  #        old_administrator.grand_basic_permissions
-  #        
-  #      elsif old_administrator.user.super?
-  #        # if the old administrator is 'Super'
-  #        # then grand all permissions
-  #        old_administrator.role = 'Super User'
-  #        old_administrator.save!
-  #      else
-  #        # if none of the above
-  #        # then destroy the account user
-  #        old_administrator.destroy! 
-  #      end
-  #    end
-  #  #rescue
-  #  #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-  #  #  puts 'ERROR: Unable to find and destroy the old administrator'
-  #  #  puts 'In Account#reassign_administrator'
-  #  #  puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-  #  #end
-  #  
-  #  user = User.cached_find(administrator_id)
-  #  new_administrator = AccountUser.where(user_id: user.id, account_id: self.id)
-  #                                  .first_or_create(user_id: user.id, account_id: self.id)
-  #  
-  #  new_administrator.grand_all_permissions
-  #
-  #end
+  
   
   def atached_ipi_codes
     IpiCode.where(account_id: self.id, ipiable_type: 'Account')
   end
   
-  
-
-  
-  # remove a user from an account
-  #def remove_user user_id
-  #  if account_user = AccountUser.where(account_id: self.id, user_id: user_id).first
-  #    # remove user
-  #    account_user.destroy!
-  #  else
-  #    puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-  #    puts 'ERROR: Unable to find account_user'
-  #    puts 'In Account#remove_user'
-  #    puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-  #  end
-  #end
-
   
   # add a use to an account
   def add_user user_id
@@ -300,20 +244,6 @@ class Account < ActiveRecord::Base
     console.log 'not supported emailer broken'
     console.log '+++++++++++++++++++++++++++++++++++++++++++++++++'
     
-    #if user = User.where(email: administrator_email).first
-    #  user.invite_existing_user_to_account @account
-    #else
-    #  user = User.create( name: administrator_email.downcase, 
-    #                      email: administrator_email.downcase, 
-    #                      role: 'Administrator', 
-    #                      password: 'rOUhPgxQYzWtMvIsby3kET5aKcLSmd0w', 
-    #                      password_confirmation: 'rOUhPgxQYzWtMvIsby3kET5aKcLSmd0w',
-    #                      current_account_id: self.id)
-    #  user.new_account_and_user_confirmation( @account )
-    #end
-    #
-    #self.administrator_id = user.id
-    #self.save!
   end
   
   # !!! might be obsolete
@@ -361,8 +291,9 @@ class Account < ActiveRecord::Base
     Rails.cache.fetch([name, id]) { find(id) }
   end
   
+  # !!! not needed anymore
   def count_users
-    self.user_count = self.account_users.where.not(role: 'Super User').count
+    self.user_count = self.account_users.count
     self.save!
   end
 
@@ -430,15 +361,8 @@ class Account < ActiveRecord::Base
         # if the old administrator is the Account Owner
         # then downgrade premissions to the basic
         old_administrator.remove_admin_features
-        
-      elsif old_administrator.user && old_administrator.user.super?
-        # if the old administrator is 'Super'
-        # then grand all permissions
-        old_administrator.role = 'Super User'
-        old_administrator.save!
       else
-        # if none of the above
-        # then destroy the account user
+        # else destroy the account user
         old_administrator.destroy! 
       end
     end
@@ -459,20 +383,15 @@ class Account < ActiveRecord::Base
 
 
   def get_account_users
-    
-    #- @account.account_users.non_catalog_users.each do |account_user|
-    valid_user_ids = self.account_users.where.not(role:  'Super User' ).pluck(:user_id)
-    #user_ids << self.user_id
-    User.where(id: valid_user_ids).pluck(:user_name, :id)
-    # why noy
-    # users ?
+    User.where(id: self.account_user_ids).pluck(:user_name, :id)
   end
   
+  # !!! something strange here
   def get_users_and_supers
-    users_and_supers = self.users + User.supers
-    users_and_supers.uniq!
-    users_and_supers
-    
+    #users_and_supers = self.users + User.supers
+    #users_and_supers.uniq!
+    #users_and_supers
+    self.users
     # why noy
     # users ?
   end

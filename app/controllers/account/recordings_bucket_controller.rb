@@ -4,7 +4,7 @@ class Account::RecordingsBucketController < ApplicationController
   before_action :access_account
   
   def index
-    forbidden unless current_account_user.read_recording?
+    forbidden unless super? || current_account_user.read_recording?
     @recordings     = Recording.bucket.account_bucket_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     @user           = current_user
     @authorized     = true
@@ -15,14 +15,14 @@ class Account::RecordingsBucketController < ApplicationController
   end
   
   def show
-    forbidden unless current_account_user.read_recording?
+    forbidden unless super? || current_account_user.read_recording?
     @user           = current_user
     @authorized     = true
     @recording = Recording.cached_find(params[:id])
   end
   
   def edit_multiple
-    forbidden unless current_account_user.update_recording?
+    forbidden unless super? || current_account_user.update_recording?
     @user           = current_user
     @authorized     = true
     
@@ -43,7 +43,7 @@ class Account::RecordingsBucketController < ApplicationController
   
   def edit_shared
 
-    forbidden unless current_account_user.update_recording?
+    forbidden unless super? || current_account_user.update_recording?
     @user           = current_user
     @authorized     = true
     @recordings = Recording.find(params[:ids] )
@@ -69,7 +69,7 @@ class Account::RecordingsBucketController < ApplicationController
   
   def add_to_common_work
 
-    forbidden unless current_account_user.update_recording?
+    forbidden unless super? || current_account_user.update_recording?
     @user           = current_user
     @authorized     = true
     @recording_ids = params[:ids].each { |x| x.to_s} #Recording.where(id: params[:recording_ids]).pluck(:id)
@@ -103,7 +103,7 @@ class Account::RecordingsBucketController < ApplicationController
   end
   
   def create_common_work
-    forbidden unless current_account_user.create_common_work
+    forbidden unless super? || current_account_user.create_common_work
     
     artwork_url = TransloaditImageParser.get_image_url params[:transloadit]
 
@@ -145,7 +145,7 @@ class Account::RecordingsBucketController < ApplicationController
   
   
   def create_catalog
-    forbidden unless current_account_user.createx_catalog?
+    forbidden unless super? || current_account_user.createx_catalog?
 
     recording_ids    = params[:catalog][:ids]
     @recordings      = Recording.find( recording_ids )

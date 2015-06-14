@@ -202,6 +202,11 @@ def visit_page page
     
     
     
+    #account user
+
+  when "User account accounts page"
+    user = User.first
+    visit "/user/users/#{user.slug}/accounts"
     
   
   # public pages
@@ -236,4 +241,6 @@ def visit_page page
   else
     visit "page not found"
   end
+  
+  
 end

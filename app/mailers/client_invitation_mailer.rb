@@ -1,11 +1,7 @@
 require 'uri'
 
-class ClientInvitationMailer < ActionMailer::Base
-  
-  def mandril_client
-    @mandrill_client ||= Mandrill::API.new Rails.application.secrets.email_provider_password
-  end
-  
+class ClientInvitationMailer < ApplicationMailer
+
   def send_one_with_avatar client_invitation_id
     client_invitation = ClientInvitation.cached_find(client_invitation_id)
     email                  = client_invitation.email

@@ -1,41 +1,37 @@
-/= debug current_account_user
 - session[:return_url]         = request.url
 - session[:go_to_after_update] = request.url
-- blog      = Blog.cached_find('Account')
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
   
-  .container
-    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                           dashboard: account_account_path(@account)}, current:  'ipi codes'}
-    /==render 'admin/shared/messages'
+  
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'ipi'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), \
+                                                              crm: account_account_crm_index_path(@account)\
+                                                             },current:  ''}
+      .row
+        .col-sm-6
+          h2 ADD IPI CODE
+        .col-sm-6
+          
 
-    /- insert = 'accounts/shared/leave_account'
-    
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('IPI Codes'), blog_post: 'Add IPI Code'}
-    .row
-      - if current_account_user.create_common_work
+      .sexy_line
+      
+      - if super? || current_account_user.create_common_work
         .row
           .col-sm-3
-          
           .col-sm-6
-            .panel.panel-primary
-              .panel-heading
-                'ADD IPI CODE
-              .panel-body
-                == render 'form'
-                
-          .col-sm-3
-    
-
-                                          
-
-
-
+            .digi-box
+              == render 'form'
         
-  
-    == render 'shared/back', locals: {link: account_account_account_ipis_path(@account)}    
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
+                 
+              
+  == render 'shared/site_footer'    
+ 
+

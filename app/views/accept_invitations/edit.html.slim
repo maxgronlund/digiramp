@@ -8,44 +8,55 @@
       
     
       .col-sm-6
-        - if @status    == 'logged in'
-          h2 = @error
-          .sexy_line
-          .pull-right
-            = link_to 'OK', current_user, class: 'btn btn-primary'
-        - elsif @status == 'logged in on other account'
-          h2 = @error
-          .sexy_line
-          .pull-right
-            = link_to 'Log out', logout_path(params: params), class: 'btn btn-primary'
-        - elsif @status == 'This invitation is no longer valid'
-          h3 = @error
-          .sexy_line
-          .pull-right
-            = link_to 'OK', current_user ? current_user : root_path , class: 'btn btn-primary'
-        -else
-
-          h2 Create pasword
-          .sexy_line
-          br
-          = simple_form_for(  @user, :url => accept_invitation_path(params[:id]) ), turboboost: true do |f|
-            
-            .input-group
-              span class="input-group-addon"
-                i class= 'fa fa-key'
-              = f.hidden_field :name, value: @user.email
-              = f.input_field :password, placeholder: 'Password', autocomplete: :off
+        .digi-box
+          - if @status    == 'logged in'
+            .alert.alert-danger
+               b = @error
             br
-          
-            .input-group
-              span class="input-group-addon"
-                i class= 'fa fa-key'
-              = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
-          
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to 'OK', current_user, class: 'btn btn-primary'
+          - elsif @status == 'logged in on other account'
+            .alert.alert-danger
+               b = @error
+            br
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to 'Log out', logout_path(params: params), class: 'btn btn-primary'
+          - elsif @status == 'This invitation is no longer valid'
+            h3 = @error
+            .sexy_line
             .pull-right
-              br
-              = f.submit 'OK', class: 'btn btn-primary'
+              = link_to 'OK', current_user ? current_user : root_path , class: 'btn btn-primary'
+          -else
           
+            h2 Welcome to DigiRAMP
+            
+            .sexy_line
+            
+            h4 Please create a password
+            
+            = simple_form_for( @user, :url => accept_invitation_path(params[:id]) ) do |f|
+              
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-key'
+                = f.hidden_field :name, value: @user.email
+                = f.input_field :password, placeholder: 'Password', autocomplete: :off
+              br
+            
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-key'
+                = f.input_field :password_confirmation, placeholder: 'Password Confirmation', autocomplete: :off
+            
+              .row
+                .col-sm-12.pull-down-12
+                  .pull-right
+                    = f.submit 'OK', class: 'btn btn-primary'
+            
           
           
           

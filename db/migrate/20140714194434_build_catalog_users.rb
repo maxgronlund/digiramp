@@ -3,10 +3,7 @@ class BuildCatalogUsers < ActiveRecord::Migration
     
     # update role on super users
     AccountUser.all.each do |account_user|
-      if account_user.role == 'Super'
-        account_user.role = 'Super User'
-        account_user.save!
-      elsif account_user.role == 'Client'
+      if account_user.role == 'Client'
         account_user.role = 'Client User'
         account_user.save!
       end
@@ -38,7 +35,7 @@ class BuildCatalogUsers < ActiveRecord::Migration
       catalog.account.account_users.each do |account_user|
         puts "#{account_user.role} : #{account_user.user.email}"
         
-        if account_user.role == 'Super User' || account_user.role == 'Account Owner' || account_user.role == 'Administrator'
+        if account_user.role == 'Account Owner' || account_user.role == 'Administrator'
 
           catalog_user = CatalogUser.create(user_id: account_user.user_id,
                                             catalog_id: catalog.id,

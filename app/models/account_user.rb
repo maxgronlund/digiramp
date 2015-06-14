@@ -17,7 +17,6 @@ class AccountUser < ActiveRecord::Base
   ROLES            = [  "Account Owner", 
                         "Administrator", 
                         "Client User", 
-                        "Super User",
                         "Catalog User",
                         "Account User"
                       ]
@@ -36,7 +35,6 @@ class AccountUser < ActiveRecord::Base
   #after_update    :update_catalog_users
 
   
-  scope :supers,            ->  { where( role: 'Super User')  }
   scope :clients,           ->  { where( role: 'Client User') }
   scope :administrators,    ->  { where( role: 'Administrator') }
   scope :owners,            ->  { where( role: 'Account Owner')  }
@@ -49,13 +47,6 @@ class AccountUser < ActiveRecord::Base
     self.user.uuid
   end
   
-  def update_to_super
-    unless self.role == 'Account Owner'
-      self.role     = 'Super User' 
-      grand_all_permissions
-    end
-  end
-  
   def downgrade
     unless self.role == 'Account Owner'
       self.destroy!
@@ -66,8 +57,6 @@ class AccountUser < ActiveRecord::Base
   # refrech memcach and force the segment cache to rerender
   def update_cache
     flush_cache
-    # update uuid on the account
-    # self.account.save!
   end
   
   def own_account? account
@@ -111,17 +100,12 @@ class AccountUser < ActiveRecord::Base
     #puts account_user.user.email
     # always edit account users
     return true if account_user.role        == 'Account User'
-                                            
-    # never edit a super user               
-    return false if account_user.role       == 'Super User'
-    
-  
+
     # only administrators and supers can edit the account owner
     if account_user.role  == 'Account Owner'
       
       if account_user.account.administrator_id != account_user.account.user_id
         # the account is administrated
-        return true if self.role == 'Super'
         return true if self.role == 'Administrator'
       end
       return false    
@@ -194,17 +178,12 @@ class AccountUser < ActiveRecord::Base
   end
   
   def remove_pro_permissions
-    return if self.role == 'Super User'
     set_pro_permissions false
     self.save!
   end
   
   def grand_pro_permissions
-    if self.role == 'Super User'
-      grand_all_permissions
-    else
-      set_pro_permissions true
-    end
+    set_pro_permissions true
     self.save!
   end
   
@@ -242,7 +221,6 @@ class AccountUser < ActiveRecord::Base
   end
   
   def remove_admin_features
-    return if self.role == 'Super User'
     self.createx_user          = false
       self.read_user           = false
     self.update_user           = false  

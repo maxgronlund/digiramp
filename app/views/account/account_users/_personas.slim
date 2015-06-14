@@ -148,7 +148,7 @@
                       .pull-right
                         
                         = link_to edit_account_account_account_user_path(@account, account_user) do
-                          - if current_account_user.can_update_account_user account_user
+                          - if super? || current_account_user.can_update_account_user( account_user )
                             .btn.btn-xs.btn-default
                               i.fa.fa-pencil
                               '&nbsp;Edit Permissions
@@ -164,7 +164,7 @@
                                                                               data: {:confirm => 'Are you sure?'}, 
                                                                               turboboost: true, 
                                                                               method: :delete do
-                          - if current_account_user.can_delete_account_user account_user
+                          - if super? || current_account_user.can_delete_account_user( account_user )
                             .btn.btn-xs.btn-danger
                               i.fa.fa-times
                               '&nbsp;Remove

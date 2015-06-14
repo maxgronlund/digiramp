@@ -53,29 +53,17 @@ class ApplicationController < ActionController::Base
   helper_method :current_account
   
   def current_account_user
-    account_user = AccountUser.cached_where( current_account.id, current_user.id)
-    # this is a fix should be fixed by a migration
-    return account_user if account_user
-    if super?
-      account_user = AccountUser.create(user_id: current_user.id, account_id: current_account.id)
-      account_user.grand_all_permissions
-    end
-    account_user
+    @current_account_user ||= AccountUser.cached_where( current_account.id, current_user.id)
   end
   helper_method :current_account_user
   
   def current_catalog_user
-    catalog_user = @catalog.catalog_users.where(user_id: current_user.id ).first
-    return catalog_user if catalog_user
-    if super?
-      catalog_user = CatalogUser.create(user_id: current_user.id, catalog_id: @catalog.id)
-      catalog_user.update_to_super
-    end
+    @catalog_users ||= @catalog.catalog_users.find_by(user_id: current_user.id )
   end
   helper_method :current_catalog_user 
   
   def super?
-    current_user && current_user.super?
+    @super ||= current_user && current_user.super?
   end
   helper_method :super?
   
