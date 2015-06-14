@@ -7,7 +7,6 @@ Digiramp::Application.routes.draw do
   #  get 'mandrill_hook/update'
   #end
 
-  resources :mandrill_testers
   resources :playlist_emails
 
 

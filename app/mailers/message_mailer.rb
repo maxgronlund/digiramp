@@ -27,14 +27,13 @@ class MessageMailer < ActionMailer::Base
         template_content = []
         message = {
           to: [{email: rcpt_email , name: receiver.user_name }],
-          from: {email: "no-reply@dirigamp.com"},
+          from: {email: "noreply@digiramp.com"},
           subject: message.title,
           tags: ["personal-message"],
           track_clicks: true,
           track_opens: true,
           subaccount: sender.mandrill_account_id,
           recipient_metadata: [{rcpt: rcpt_email, values: {message_id: message.id}}],
-          #subaccount: sender.id.to_s,
           merge_vars: [
             {
              rcpt: rcpt_email,

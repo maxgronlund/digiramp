@@ -26,34 +26,7 @@
           .pull-right.pull-down-10
             => link_to 'Add contacts', user_user_contact_group_add_contacts_path(@user, @contact_group), class: 'btn btn-primary'
             => link_to 'Edit', edit_user_user_contact_group_path(@user, @contact_group), class: 'btn btn-default'
-      .row
-        .col-sm-12
-          .table-responsive
-            table class="table table-hover"
-              thead
-                tr
-                  th Send
-                  th Pending
-                  th Delivered
-                  th Opened
-                  th Clicked
-                  th Bounced
-                  th Dropped
-              tbody
-                tr
-                  td = @contact_group.client_invitations.count
-                  td = @contact_group.client_invitations.pending.count
-                  td = @contact_group.client_invitations.delivered.count
-                  td = @contact_group.client_invitations.opened.count
-                  td = @contact_group.client_invitations.clicked.count
-                  td = @contact_group.client_invitations.bounced.count
-                  td = @contact_group.client_invitations.dropped.count
-          
-            
-            
-      /.row
-      /  .col-sm-6
-      /    h2 = @contact_group.title
+
       .sexy_line
       .row
         .col-sm-6
@@ -63,21 +36,31 @@
           /  == render 'invited'
           .group_invited 
           .pull-right
-            - unless  @contact_group.invited
-              .invite_group
-                = simple_form_for [:user, @user, @contact_group] , :url => url_for(:action => 'update', :controller => 'invite_client_groups'), :method => 'put' do |f|
-                  = f.submit 'Invite', class: 'btn btn-default'
-            - else
+            = simple_form_for [:user, @user, @contact_group] , :url => url_for(:action => 'update', :controller => 'invite_client_groups'), :method => 'put' do |f|
+              = f.submit "Send invitations", class: 'btn btn-default'
+
               
                 
       
       .digi-box
-        
-
-        br
-        - @contacts.each do |contact|
-          div id="delete_contact_#{contact.id.to_s}"
-            == render 'user/contact_groups/contact', contact: contact
+        .row
+          .col-sm-12
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th
+                    th Member
+                    th Opens
+                    th Cliks
+                    th Status
+                    th Capacity
+                    th
+                      .pull-right
+                        'Info
+                tbody
+                  - @contacts.each do |contact|
+                    == render 'user/contact_groups/contact', contact: contact
         
                  
               

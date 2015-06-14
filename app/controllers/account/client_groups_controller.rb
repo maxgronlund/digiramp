@@ -10,7 +10,7 @@ class Account::ClientGroupsController < ApplicationController
     
     @client_groups = ClientGroup.all
     @user = @account.user
-    @authorized = true
+    #@authorized = true
   end
 
   # GET /client_groups/1
@@ -18,7 +18,7 @@ class Account::ClientGroupsController < ApplicationController
   def show
     
     @user = @account.user
-    @authorized = true
+    #@authorized = true
   end
 
   # GET /client_groups/new
@@ -26,14 +26,13 @@ class Account::ClientGroupsController < ApplicationController
     
     @client_group = ClientGroup.new
     @user = @account.user
-    @authorized = true
+    #@authorized = true
   end
 
   # GET /client_groups/1/edit
   def edit
-    
     @user = @account.user
-    @authorized = true
+    #@authorized = true
   end
 
   # POST /client_groups

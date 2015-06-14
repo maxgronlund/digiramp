@@ -1,39 +1,28 @@
 require 'json'
 require 'uri'
-#require 'sendgrid-ruby'
+
 
 class ClientInvitationMailer < ActionMailer::Base
-  default from: "noreply@digiramp.com"
-
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.client_invitation_mailer.send_with_avatar.subject
-  #
   
-  
-  def import_form_linkedin client_import_id
-    
-    #client_import = ClientImport.cached_find(client_import_id)
-    
-    #clients = []
-    
-    #client_import.clients.each do |client|
-    #  #ap client
-    #end
-
+  def mandril_client
+    @mandrill_client ||= Mandrill::API.new Rails.application.secrets.email_provider_password
   end
   
-  # notice max 1000 at a time
+  def send_one_with_avatar client_invitation_id
+    client_invitation = ClientInvitation.cached_find(client_invitation_id)
+    inviter       = client_group.user
+    avatar_url    = ( URI.parse(root_url) + inviter.image_url(:avatar_92x92) ).to_s
+    sender_url    = url_for( controller: '/users', action: 'show', id: inviter.id )
+    accept_url    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  client_invitation.uuid )
+    
+  end
+  
+  # send in batches
   def invite_all_from_group client_group_id
     ap '+++++++++++++++++++++++++++++++ invite_all_from_group 8 +++++++++++++++++++++++++++++++++++++++++++'
     client_group    = ClientGroup.find(client_group_id)
-    clients = 
-    
     client_group.clients.in_groups_of(128) do |client_batch|
       invite_batch( client_group, client_batch)
-      # take a break
-      sleep 3
     end
     ap '+++++++++++++++++++++++++++++++++++++++ done ++++++++++++++++++++++++++++++++++++++++++++++++++++++'
   end
@@ -42,118 +31,104 @@ class ClientInvitationMailer < ActionMailer::Base
     
   def invite_batch client_group, client_batch
     
+    ## collect data
+    inviter       = client_group.user
+    avatar_url    = ( URI.parse(root_url) + inviter.image_url(:avatar_92x92) ).to_s
+    sender_url    = url_for( controller: '/users', action: 'show', id: inviter.id )
 
-    @inviter        = client_group.user
-    user_name       = @inviter.user_name
-    
-    @avatar_url     = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
-    
     invitations   = []
     emails        = []
     accept_urls   = []
-    decline_urls  = []
-    user_names    = []
-    uniq_ids      = []
-    index         = 0
-    index         = 0
+    receipients_with_names   = []
+    #recipient_metadata       = []
+    merge_vars               = []
     
-    
-    # pack info into arays
+    # pack info
     client_batch.each do |client|
       if client && email = client.email
         # Don't invite clients two times
         if client_has_received_email( client )
           ap "client: #{client.email} has received email"
         elsif invitation        = get_client_invitation( client, client_group.id )
-          uniq_ids[index]       = invitation.id
-          emails[index]         = invitation.email
-          accept_urls[index]    = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
-          decline_urls[index]   = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
-          user_names[index]     = user_name    
-          index += 1
+          accept_url = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
+          
+          receipients_with_names << {email: invitation.email, name: client.name}
+          #recipient_metadata     << {rcpt:  invitation.email, values: {invitation_id: invitation.id}}
+
+          invitations << invitation
+
+          merge_vars << {
+                         rcpt: invitation.email,
+                         vars: [
+                                 #{name: "TITLE",       content: message.title},
+                                 #{name: "BODY",        content: message.body},
+                                 {name: "USER_NAME",            content: inviter.user_name},
+                                 {name: "PROFESION",            content: inviter.profession},
+                                 {name: "SHORT_DESCRIPTION",    content: inviter.short_description},
+                                 {name: "WRITER",               content: inviter.writer},
+                                 {name: "AUTHOR",               content: inviter.author},
+                                 {name: "PRODUCER",             content: inviter.producer},
+                                 {name: "COMPOSER",             content: inviter.composer},
+                                 {name: "REMIXER",              content: inviter.remixer},
+                                 {name: "MUSICIAN",             content: inviter.musician},
+                                 {name: "DJ",                   content: inviter.dj},
+                                 {name: "ARTIST",               content: inviter.artist},
+                                 {name: "ACCEPT_URL",           content: accept_url},
+                                 {name: "AVATAR_URL",           content: avatar_url},
+                                 {name: "SENDER_URL",           content: sender_url}
+                                 #{name: "MESAGE_ID",            content: message.id.to_s}
+                                 ]
+                        }
+          
+          
         end
       end
-      
     end
     
     
     
-    # prepare JSON
-    x_smtpapi = { 
-                  to: emails,
-                  filters: { templates: {
-                                       settings: {
-                                                     enabled: 1,
-                                                     template_id: template_id
-                                                   }
-                                      }
-                           }, 
-                   sub: {  
-                           "--user_name--".to_sym =>    user_names,
-                           "--accept_url--".to_sym =>   accept_urls,
-                           "--decline_url--".to_sym =>  decline_urls,
-                           "--avatar_url--".to_sym =>   @avatar_url,
-                           "--uniq_ids--".to_sym =>     uniq_ids,
-                       
-                        } ,
-                   unique_args: 
-                       {
-                         uniq_ids: "--uniq_ids--"
-                       }
-                }
-    #
-    #
-    #
-    if emails.empty?
-      #Opbeat.capture_message("ClientInvitationMailer: no emails")
+    # send batch
+    unless merge_vars.empty?
+      begin
+        template_name = "user-invitation"
+        template_content = []
+        message = {
+          to: receipients_with_names ,
+          from: {email: "noreply@digiramp.com"},
+          subject: "Please join my network at DigiRAMP",
+          tags: ["user-invitation"],
+          track_clicks: true,
+          track_opens: true,
+          subaccount: inviter.mandrill_account_id,
+          #recipient_metadata: recipient_metadata,
+          merge_vars: merge_vars
+          
+        }
+        
+        resoults =  mandril_client.messages.send_template template_name, template_content, message
+        # stamp ids
+        resoults.each_with_index do |resoult, index|
+          invitations[index].mandrill_id = resoult["_id"]
+          invitations[index].sent!
+          invitations[index].save
+        end
+          
+          
+      rescue Mandrill::Error => e
+        Opbeat.capture_message("#{e.class} - #{e.message}")
+      end
     else
-      ap '============================================== emails ===================================================='
-      ap x_smtpapi
-      ap '=========================================================================================================='
-      headder = JSON.generate(x_smtpapi)
-      headers['X-SMTPAPI'] = headder
-      mail to: "info@digiramp.com", subject: "I'd like to add you my DigiRAMP music network"
+      ap "ClientInvitationMailer: client_group_id: #{client_group.id}"
+      Opbeat.capture_message("ClientInvitationMailer: client_group_id: #{client_group.id}")
     end
-    
-    
-    
-    
-    
-    
-    
-    #client = SendGrid::Client.new(api_user: 'info-digiramp', api_key: 'Back-Minister-Distinguish-Engineer-6')
-    #
-    #mail = SendGrid::Mail.new do |m|
-    #  m.to = 'max@synthmax.dk'
-    #  m.from = 'noreply@digiramp.com'
-    #  m.subject = "I'd like to add you my DigiRAMP music network"
-    #end
-    #html =  render_to_string "client_invitation_mailer/invite_all_from_group", :layout => false
-    #
-    #mail.html = '<html><body>Stuff in here, yo!</body></html>'
-    ##mail.html = "<html><body>#{html}</body></html>"
-    #
-    #header = Smtpapi::Header.new
-    #header.add_to(emails)
-    #header.add_substitution('--user_name--', user_names)      
-    #header.add_substitution('--accept_url--', accept_urls)  
-    #header.add_substitution('--decline_url--', decline_urls)  
-    #header.add_substitution('--avatar_url--', @avatar_url)  
-    #header.add_substitution('--uniq_ids--', uniq_ids)  
-    #
-    #header.add_unique_arg("uniq_ids", "--uniq_ids--")
-    #header.add_category("Newsletter")
-    #header.add_filter('templates', 'enable', 1)    # necessary for each time the template engine is used
-    #header.add_filter('templates', 'template_id', '9117870a-825a-4c81-8c04-8ff68d422ff7')
-    #
-    #mail.smtpapi = header
-    #client.send(mail)
-    
   end
   
+  
+
   def client_has_received_email client
-    invitation = ClientInvitation.where( user_id: client.user_id, email: client.email ).first
-    invitation && !invitation.pending?
+    client_invitation = ClientInvitation.where( user_id: client.user_id, email: client.email ).first
+    client_invitation && !client_invitation.pending?
+    
   end
   
   
@@ -171,58 +146,12 @@ class ClientInvitationMailer < ActionMailer::Base
   
 
   
-  def send_one_with_avatar client_invitation_id
-    @client_invitation    = ClientInvitation.cached_find(client_invitation_id)
-    
-    @client               = @client_invitation.client
-    @inviter              = @client_invitation.user
-    @accept_url           = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id: @client_invitation.uuid )
-    @decline_url          = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: @client_invitation.uuid )
-    @avatar_url           = ( URI.parse(root_url) + @inviter.image_url(:avatar_92x92) ).to_s
-    @uniq_ids             = @client_invitation.id
-                
-    x_smtpapi = { 
-                  to: [@client.email],
-                  filters: { templates: {
-                                       settings: {
-                                                     enabled: 1,
-                                                     template_id: template_id
-                                                   }
-                                      }
-                           }, 
-                   sub: {  
-                           "--user_name--".to_sym =>    [ @inviter.user_name.to_s ],
-                           "--accept_url--".to_sym =>   [ @accept_url],
-                           "--decline_url--".to_sym =>  [ @decline_url],
-                           "--uniq_ids--".to_sym =>     [ @uniq_ids]
-                        }, 
-                  unique_args: 
-                       {
-                         uniq_ids: "--uniq_ids--"
-
-                       }
-    
-                }
-    
-    headers['X-SMTPAPI'] = JSON.generate(x_smtpapi)
-
-    mail to: "info@digiramp.com", subject: "I'd like to add you to my network of music professionals"
-    
-    #headers['X-SMTPAPI'] = '{ "to": ["max@digiramp.com", "max@pixelsonrails.com"]}'
-    #
-    #mail to: 'max@digiramp.com'
-    
-    
-  end
+  
+  #ClientInvitationMailer.send_one_with_avatar
     
   private
   
   def template_id
-    #if Rails.env.production?
-    #  return "9117870a-825a-4c81-8c04-8ff68d422ff7"
-    #else
-    #  return "1db1d5b2-d6d8-4f93-b1ff-9a8fa43457e8"
-    #end
     "9117870a-825a-4c81-8c04-8ff68d422ff7"
   end
   

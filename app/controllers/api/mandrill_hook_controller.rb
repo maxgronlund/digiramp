@@ -7,52 +7,96 @@ class Api::MandrillHookController < ApplicationController
   ignore_unhandled_events!
   
   def handle_inbound(event)
-    'event_payload'
+    ap 'event_payload'
     ap event
   end
   
   def handle_send(event)
-    message = get_message_from( event ) and message.sent!
+    ap 'handle sent'
+    if message = get_by_id( event )
+      message.delivered!
+    end
+
   end
   
-  def handle_open(event)
-    message = get_message_from( event ) and message.opened!
+  def get_by_id event
+    ap event["tags"]
+    if _id = event["_id"]
+      return ClientInvitation.find_by(mandrill_id: _id)
+    end
   end
   
-  def handle_click(event)
-    message = get_message_from( event ) and message.clicked!
+  def handle_open event
+    '---- handle open ----'
+    handle_clicks_and_opens event
+
+ 
   end
   
-  def handle_hard_bounce(event)
-    message = get_message_from( event ) and message.hard_bounce!
+  def handle_click event
+    '--- handle click ----'
+    handle_clicks_and_opens event
   end
   
-  def handle_soft_bounce(event)
-    message = get_message_from( event ) and message.soft_bounce!
-  end
-  
-  def handle_spam(event)
-    message = get_message_from( event ) and message.spam!
-  end
-  
-  def handle_reject(event)
-    message = get_message_from( event ) and message.reject!
-  end
-  
-  def handle_unsub(event)
-    message = get_message_from( event ) and message.unsub!
-  end
-  
-  def get_message_from event
-    if msg = event["msg"]
-      if metadata = msg["metadata"]
-        if message_id = metadata["message_id"]
-          return Message.find(message_id)
+  def handle_clicks_and_opens event
+    
+    '--- handle handle_clicks_and_opens  ----'
+    if message = get_by_id( event )
+      ap message
+      if msg = event["msg"]
+        if opens =  msg["opens"]
+          message.opens   = opens.count
         end
+        if clicks = msg["clicks"]
+          message.clicks = clicks.count
+        end
+        message.save
+        ap message
       end
     end
-    nil
   end
+  
+  #def handle_hard_bounce(event)
+  #  message = get_message_from( event ) and message.hard_bounce!
+  #end
+  #
+  #def handle_soft_bounce(event)
+  #  message = get_message_from( event ) and message.soft_bounce!
+  #end
+  #
+  #def handle_spam(event)
+  #  message = get_message_from( event ) and message.spam!
+  #end
+  #
+  #def handle_reject(event)
+  #  message = get_message_from( event ) and message.reject!
+  #end
+  #
+  #def handle_unsub(event)
+  #  message = get_message_from( event ) and message.unsub!
+  #end
+  
+
+  #def get_message_from event
+  #  if metadata = get_metadata( event )
+  #    ap '-- metadata --'
+  #    if message_id = metadata["message_id"]
+  #      return Message.find_by(id: message_id)
+  #    elsif invitation_id = metadata["invitation_id"]
+  #      return ClientInvitation.find_by(id: invitation_id)
+  #    end
+  #  end
+  #  nil
+  #end
+  #
+  #def get_metadata event
+  #  if msg = event["msg"]
+  #    ap '-- msg --'
+  #    ap msg
+  #    return msg["metadata"]
+  #  end
+  #  nil
+  #end
   
   #def create
   #  ap params

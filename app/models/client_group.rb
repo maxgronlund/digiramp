@@ -12,7 +12,11 @@ class ClientGroup < ActiveRecord::Base
   
   after_commit :flush_cache
   
-  
+  def sent
+    count = 0
+    
+    count
+  end
   
   def invite_clients
     ap 'invite clients'

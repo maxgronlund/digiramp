@@ -1,25 +1,65 @@
-h1 Listing mandrill_accounts
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      .row
+        .col-sm-5
 
-/table
-/  thead
-/    tr
-/      th Account
-/      th Notes
-/      th Custom quota
-/      th
-/      th
-/      th
-/
-/  tbody
-/    - @admin_mandrill_accounts.each do |admin_mandrill_account|
-/      tr
-/        td = admin_mandrill_account.account
-/        td = admin_mandrill_account.notes
-/        td = admin_mandrill_account.custom_quota
-/        td = link_to 'Show', admin_mandrill_account
-/        td = link_to 'Edit', edit_admin_mandrill_account_path(admin_mandrill_account)
-/        td = link_to 'Destroy', admin_mandrill_account, data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
-
-= link_to 'New Mandrill account', new_admin_mandrill_account_path
+          h2 Mandrill Email
+      
+        .col-sm-7
+          .pull-down-10
+            = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                          :controller => 'mandrill_accounts'), \
+                                                          :method => 'get',
+                                                          turboboost: true do |f|
+            
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search for user', \
+                                              value: params[:query]
+                .input-group-btn
+                  = f.submit 'Search', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Clear', admin_mandrill_accounts_path, class: 'btn btn-default'        
+            
+                 
+      .sexy_line
+      .users.digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Id
+                th User
+                th 
+                  .pull-right
+                    'Mandrill customer id
+                
+            tbody
+              - @users.each do |user|
+               tr
+                 td = user.id
+                 td = user.user_name
+                 td 
+                   .pull-right
+                     = link_to user.mandrill_account_id, 
+                               "https://mandrillapp.com/subaccounts/view?id=#{user.mandrill_account_id}",
+                               :target => "_blank",
+                               class: 'btn btn-default btn-xs'
+                     
+      .sexy_line
+      == paginate(@users)        
+  == render 'shared/site_footer'    
+ 

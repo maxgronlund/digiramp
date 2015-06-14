@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613082938) do
+ActiveRecord::Schema.define(version: 20150614120831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -740,6 +740,8 @@ ActiveRecord::Schema.define(version: 20150613082938) do
     t.integer  "user_id"
     t.boolean  "invited",                      default: false
     t.integer  "invitation_count",             default: 0
+    t.integer  "sents",                        default: 0
+    t.integer  "opens",                        default: 0
   end
 
   add_index "client_groups", ["account_id"], name: "index_client_groups_on_account_id", using: :btree
@@ -791,6 +793,10 @@ ActiveRecord::Schema.define(version: 20150613082938) do
     t.string   "sendgrid_msg",                default: ""
     t.string   "email",                       default: ""
     t.integer  "client_group_id"
+    t.integer  "state",                       default: 0
+    t.integer  "opens",                       default: 0
+    t.integer  "clicks",                      default: 0
+    t.string   "mandrill_id"
   end
 
   add_index "client_invitations", ["account_id"], name: "index_client_invitations_on_account_id", using: :btree
@@ -1983,24 +1989,6 @@ ActiveRecord::Schema.define(version: 20150613082938) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "mandrill_accounts", force: :cascade do |t|
-    t.integer  "account_id"
-    t.string   "notes"
-    t.integer  "custom_quota"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "mandrill_accounts", ["account_id"], name: "index_mandrill_accounts_on_account_id", using: :btree
-
-  create_table "mandrill_testers", force: :cascade do |t|
-    t.string   "email"
-    t.string   "subject"
-    t.text     "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "messages", force: :cascade do |t|
     t.integer  "recipient_id"
     t.integer  "sender_id"
@@ -2015,6 +2003,9 @@ ActiveRecord::Schema.define(version: 20150613082938) do
     t.boolean  "read",                          default: false
     t.integer  "connection_id"
     t.integer  "state",                         default: 0
+    t.integer  "opens",                         default: 0
+    t.integer  "clicks",                        default: 0
+    t.string   "mandrill_id"
   end
 
   add_index "messages", ["recipient_id"], name: "index_messages_on_recipient_id", using: :btree
@@ -3341,7 +3332,6 @@ ActiveRecord::Schema.define(version: 20150613082938) do
   add_foreign_key "coupons", "sales_coupon_batches"
   add_foreign_key "invoices", "accounts"
   add_foreign_key "invoices", "users"
-  add_foreign_key "mandrill_accounts", "accounts"
   add_foreign_key "payment_sources", "subscriptions"
   add_foreign_key "payment_sources", "users"
   add_foreign_key "playlist_emails", "accounts"

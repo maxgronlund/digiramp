@@ -1,31 +1,36 @@
-.row
-   
-  .col-sm-3
+tr id="delete_contact_#{contact.id.to_s}"
+  td
+    => link_to user_user_contact_group_add_contact_path(@user,  @contact_group, contact), data: { confirm: 'Are you sure?' }, remote: true , :method => :delete do
+      .btn.btn-danger.btn-xs
+        i.fa.fa-times
+        
+  td
     - if contact.member_id
       i.fa.fa-check
-      '&nbsp; Member
-    - elsif client_invitation = ClientInvitation.where(client_id: contact.id, user_id: contact.user_id).first
-        => client_invitation.sendgrid_status.capitalize
-        - if client_invitation.dropped?
-          => client_invitation.sendgrid_msg
-        /= client_invitation.id
-        /= client_invitation.id
-        /'&nbsp;
-    - else
-      => link_to user_user_contact_group_add_contact_path(@user,  @contact_group, contact), data: { confirm: 'Are you sure?' }, remote: true , :method => :delete do
-        .btn.btn-danger.btn-xs
-          i.fa.fa-times
-  .col-sm-3
-    .ellipsis
-      = contact.full_name
-      br
-      = contact.company
-    
-  .col-sm-3
-    .ellipsis
-      = link_to contact.email, user_user_contact_path(@user, contact), class: 'btn btn-default btn-xs'
-    
-  .col-sm-3
+  
+  
+  - if client_invitation = ClientInvitation.where(client_id: contact.id, user_id: contact.user_id).first
+    td = client_invitation.opens
+    td = client_invitation.clicks
+    td = client_invitation.state.to_s.capitalize
+  - else
+    td 
+    td
+    td
+  
+  /td
+  /  
+  /.col-sm-3
+  /  .ellipsis
+  /    = contact.full_name
+  /    br
+  /    = contact.company
+  / 
+  td
     .ellipsis
       = contact.capacity
-.sexy_line
+  td
+    .pull-right
+      .ellipsis
+        = link_to contact.email, user_user_contact_path(@user, contact), class: 'btn btn-default btn-xs'
+    
