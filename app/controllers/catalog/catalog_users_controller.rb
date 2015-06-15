@@ -53,15 +53,13 @@ class Catalog::CatalogUsersController < ApplicationController
       
       
       # if the user already is in the system
-      if user    = User.where(email: email).first
-      
+      if user    = User.find_by(email: email)
         flash[:info] = "You have invited a DigiRAMP member with the email #{email} to the #{catalog.title} catalog" 
                        
         # send email
         UserMailer.delay.invite_user_to_catalog( email,
                                                  title, 
-                                                 body,  
-                                                 current_user.id,  
+                                                 body,    
                                                  user.id,
                                                  @account.id,
                                                  catalog.id,   
@@ -73,8 +71,7 @@ class Catalog::CatalogUsersController < ApplicationController
           # send email
           UserMailer.delay.invite_user_to_catalog( email,
                                                    title, 
-                                                   body,  
-                                                   current_user.id, 
+                                                   body,   
                                                    user.id, 
                                                    @account.id,
                                                    catalog.id,   

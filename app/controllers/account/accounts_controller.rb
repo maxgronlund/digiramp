@@ -1,28 +1,30 @@
 class Account::AccountsController < ApplicationController
   
   include AccountsHelper
-  #before_action :access_account
-  before_action :get_account_account
+  before_action :access_account
   
   
   def show
+    forbidden unless super? || current_account_user 
     session[:account_id] = params[:id]
-    @user = current_user
-    forbidden unless current_account_user 
+    @user = @account.user
+    
   end
   
   def edit
+    forbidden unless super? || current_account_user.user_id == @account.user_id
     @account = Account.cached_find(params[:id])
     @user = @account.user
   end
   
-  #def update
-  #  @account  = Account.cached_find(params[:id])
-  #  @account.update_attributes(account_params)
-  #
-  #  redirect_to account_account_path(  @account)
-  #
-  #end
+  def update
+    forbidden unless super? || current_account_user.user_id == @account.user_id
+    @account  = Account.cached_find(params[:id])
+    @account.update_attributes(account_params)
+  
+    redirect_to account_account_path(  @account)
+  
+  end
   
   def find_recording_in_bucket
     
@@ -89,10 +91,10 @@ class Account::AccountsController < ApplicationController
   end
 
 
-#private
-#  
-#  def account_params
-#    params.require(:account).permit!
-#  end
+  private
+    
+  def account_params
+    params.require(:account).permit(AccountParams::PUBLIC_PARAMS)
+  end
 
 end

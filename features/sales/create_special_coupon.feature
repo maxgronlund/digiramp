@@ -9,17 +9,17 @@ As an salesperson I can make special offers to customers and sell them coupons
 
 
     
-  @javascript  
+  #@javascript  
   Scenario: As a salesperson I can se the sales section
     When I'm on the "Sales board"
     Then I can see "Sales"
     
-  @javascript  
+  #@javascript  
   Scenario: As a salesperson I can se the coustom coupons
     When I'm on the "Custom coupons board"
     Then I can see "Coupon batches"
     
-  @javascript  
+  #@javascript  
   Scenario: As an salesperson I can create a new coupon and send an offer to a customer
     When I'm on the "Custom coupons board"
     Then I clik on the link with the id "new-coupon-batch"

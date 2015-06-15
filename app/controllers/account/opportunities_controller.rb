@@ -2,9 +2,7 @@ class Account::OpportunitiesController < ApplicationController
   before_action :set_opportunity, only: [:show, :edit, :update, :destroy, :music_submissions]
   
   include AccountsHelper
-  before_action :get_account_account
-  #before_action :current_user_authorized, only: [:index, :show, :new, :edit]
-  #before_action :get_account
+  before_action :access_account
 
   
   def index

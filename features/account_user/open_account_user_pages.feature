@@ -19,9 +19,45 @@ As an member I can create custom pages and add content to them
    
    When I'm on the "User account accounts page"
    Then I can see "Account you have access to"
+
    
    When I'm on the account page for user with the email "user@digiramp.com"
-   Then I can see "Account you have access to"
+   Then I can see "0 Recordings"
+   Then I can see "0 Opportunities"
+   Then I can see "1 User"
+   Then I can see "0 Works"
+   Then I can see "0 Catalogs"
+   Then I can see "CRM"
+   Then I can see "IPI Codes"
+   Then I can see "Documents"
+   
+   When I'm on the recordings page for user with the email "user@digiramp.com"
+   Then I can see "Add recordings"
+   
+   When I'm on the opportunities page for user with the email "user@digiramp.com"
+   Then I can see "Create opportunity"
+   
+   When I'm on the users page for user with the email "user@digiramp.com"
+   Then I can see "Invite user"
+   
+   When I'm on the works page for user with the email "user@digiramp.com"
+   Then I can see "New common work"
+   
+   When I'm on the catalogs page for user with the email "user@digiramp.com"
+   Then I can see "Create catalog"
+   
+   When I'm on the CRM page for user with the email "user@digiramp.com"
+   Then I can see "Customer Relation Management"
+   
+   When I'm on the IPI codes page for user with the email "user@digiramp.com"
+   Then I can see "Add IPI code"
+   
+   When I'm on the documents page for user with the email "user@digiramp.com"
+   Then I can see "Artwork"
+   Then I can see "Legal"
+   Then I can see "Financial"
+   Then I can see "Recording bucket"
+
    
   
     

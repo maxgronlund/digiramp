@@ -26,10 +26,10 @@
             .pull_down_10
               - if super? || current_account_user.create_common_work
                 = link_to new_account_account_common_work_path(@account) do
-                  .btn.btn-default
+                  .btn.btn-primary
                     i.fa.fa-plus-circle
                     '&nbsp;
-                    'New Common work
+                    'New common work
                     
                       
               /= link_to new_account_account_opportunity_path(@user.account) do

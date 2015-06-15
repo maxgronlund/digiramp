@@ -1,9 +1,8 @@
 class Account::AccountUsersController < ApplicationController
 
   include AccountsHelper
-  include UsersHelper
-  #before_action :access_account
-  before_action :get_account_account
+  before_action :access_account
+
 
   def index
     forbidden unless super? || current_account_user.read_user

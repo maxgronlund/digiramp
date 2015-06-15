@@ -18,6 +18,7 @@ module AccountsHelper
   end
   
   # v2 used in the account name space to find the account
+  # !!! broken
   def get_account_account
     return forbidden if current_user.nil?
     @user = current_user

@@ -1,9 +1,7 @@
 class Account::CommonWorksController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include AccountsHelper
-  #before_action :access_account
-  before_action :get_account_account
-  # show list or export as cvs
+  before_action :access_account
   
   def index
     forbidden unless super? || current_account_user 

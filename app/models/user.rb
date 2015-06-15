@@ -545,7 +545,7 @@ class User < ActiveRecord::Base
     # super user can access all profiles 
     return true if current_user.role == 'Super'
     # no access
-    return false
+    false
   end
   
   def full_name
@@ -583,7 +583,7 @@ class User < ActiveRecord::Base
   
 
   
-  def self.search(  query)
+  def self.search query 
     if query.present?
       return User.search_user(query)
     else
@@ -764,7 +764,7 @@ class User < ActiveRecord::Base
     if found_user       = User.where(email: sanitized_email).first
       
       # invite found user to account
-      UserMailer.delay.invite_existing_user_to_account found_user.id, account_id, body, current_user_id
+      UserMailer.delay.invite_existing_user_to_account found_user.id, title, body
 
     else
       # create user
@@ -809,17 +809,21 @@ class User < ActiveRecord::Base
   
   
   def self.cached_find(id)
+
     begin
-      return Rails.cache.fetch([name, id]) { find(id) }
-    rescue
+      case id.class.name
+      when "String"
+        return User.friendly.find(id)
+      #when "User"
+      #  return User.friendly.find(id.id)
+      when "Fixnum"
+        return Rails.cache.fetch([name, id]) { find(id) }
+      end
+    rescue => e
+      Opbeat.capture_message(e.inspect)
+      ap e.inspect
     end
-    
-    begin
-      #return Rails.cache.fetch([name, id]) { find(id) }
-      return User.friendly.find(id)
-    rescue
-      return nil
-    end
+    nil
   end
   
   

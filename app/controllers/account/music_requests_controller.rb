@@ -3,8 +3,7 @@ class Account::MusicRequestsController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   include ActionView::Helpers::TextHelper
   include AccountsHelper
-  #before_action :access_account
-  before_action :get_account_account
+  before_action :access_account
 
   # GET /opportunities
   # GET /opportunities.json
