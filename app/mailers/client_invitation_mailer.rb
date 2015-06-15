@@ -40,7 +40,7 @@ class ClientInvitationMailer < ApplicationMailer
   # send in batches
   def invite_all_from_group client_group_id
     client_group    = ClientGroup.find(client_group_id)
-    client_group.clients.in_groups_of(128) do |client_batch|
+    client_group.clients.in_groups_of(256) do |client_batch|
       invite_batch( client_group, client_batch)
     end
   end

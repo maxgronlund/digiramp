@@ -1,13 +1,13 @@
 class EmailSanitizer
   
   def self.validate email
-    return /^\S+@\S+\.\S+$/.match(email).nil? ? false : true
+    /\A([^@\s]+)@((?:(?!-)[-a-z0-9]+(?<!-)\.)+[a-z]{2,})\z/.match(email).nil? ? false : true
   end
   
   def self.saintize email
    
     if email.instance_of? String 
-      email = email.strip.gsub(/\s+/, ' ').downcase.gsub(' ', '')
+      email = email.strip.gsub(/\s+/, ' ').downcase.gsub(' ', '').gsub(',', '')
       return email if validate email
     end
     false
@@ -16,7 +16,7 @@ class EmailSanitizer
 end
 
 # usage
-#  EmailValidator.validate "olivergale@gmail.com"
-# EmailValidator.saintize email
+#  EmailSanitizer.validate "olivergale@gmail.com"
+# EmailSanitizer.saintize "olivergale@gmail.com"
 
 # .strip.gsub(/\s+/, ' ')
