@@ -16,13 +16,15 @@ class DigirampEmail < ActiveRecord::Base
   
   
   def send_news_emails
-    self.email_group.users.in_groups_of(50) do |users|
+    self.email_group.users.in_groups_of(100) do |users|
       DigirampEmailMailer.delay.news_email( users, self.id )
     end
   end
   
   def send_opportunity_emails
-    self.email_group.users.in_groups_of(50) do |users|
+    #users = [User.first]
+    #DigirampEmailMailer.delay.opportunity_created( users, self.id )
+    self.email_group.users.in_groups_of(100) do |users|
       DigirampEmailMailer.delay.opportunity_created( users, self.id )
     end
   end
