@@ -4,8 +4,8 @@ class Account::OpportunityReviewersController < ApplicationController
   
   def index
     
-    if current_account_user.update_opportunity
-      @user = current_account_user.user
+    if super? || current_account_user.update_opportunity
+      @user = super? ? current_user : current_account_user.user
       @opportunity = Opportunity.cached_find(params[:opportunity_id])
     else
       forbidden
@@ -14,8 +14,8 @@ class Account::OpportunityReviewersController < ApplicationController
   end
 
   def new
-    if current_account_user.update_opportunity
-      @user                   = current_account_user.user
+    if super? || current_account_user.update_opportunity
+      @user                   = super? ? current_user : current_account_user.user
       @opportunity            = Opportunity.cached_find(params[:opportunity_id])
       @opportunity_evaluation = OpportunityEvaluation.new
     else
@@ -26,7 +26,7 @@ class Account::OpportunityReviewersController < ApplicationController
   end
   
   def create
-    if current_account_user.update_opportunity
+    if super? || current_account_user.update_opportunity
       @opportunity_evaluation = OpportunityEvaluation.create(opportunity_evaluation_params)
       @opportunity            = Opportunity.cached_find(params[:opportunity_id])
       redirect_to account_account_opportunity_opportunity_reviewers_path( @account, @opportunity)
@@ -39,7 +39,7 @@ class Account::OpportunityReviewersController < ApplicationController
   end
 
   def destroy
-    if current_account_user.update_opportunity
+    if super? || current_account_user.update_opportunity
       redirect_to account_account_opportunity_opportunity_reviewers_path( @account, @opportunity)
     else
       forbidden
