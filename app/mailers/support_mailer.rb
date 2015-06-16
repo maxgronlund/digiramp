@@ -13,9 +13,7 @@ class SupportMailer < ApplicationMailer
     title     = issue.title
     body      = issue.body
     link      = url_for( controller: 'issues', action: 'show', user_id: user_id, id: issue_id)
-    
-    
-    
+
     begin
       template_name = "support-ticket-received"
       template_content = []
@@ -44,19 +42,7 @@ class SupportMailer < ApplicationMailer
     rescue Mandrill::Error => e
       Opbeat.capture_message("#{e.class} - #{e.message}")
     end
-    
-    
-    
-    
-    
-    
-    
-    #http://localhost:3000/users/delete-me/issues/194
-    
-    #@blog_post = BlogPost.find( blog_post_id )
-    #@body      = @blog_post.body.gsub( '--user--', @user.name)
-
-    #mail to: @user.email,  subject: @issue.title
+   
   end
   
   def ticket_created
@@ -83,9 +69,43 @@ class SupportMailer < ApplicationMailer
   #
   def issue_resolved user_id,  issue_id
 
-    @user       = User.cached_find user_id
-    @issue      = Issue.cached_find issue_id
-    #mail to: @user.email,  subject: @issue.title
+    
+    user      = User.cached_find user_id
+    email     = user.email
+    issue     = Issue.cached_find issue_id
+    title     = issue.title
+    body      = issue.body
+    link      = url_for( controller: 'issues', action: 'show', user_id: user_id, id: issue_id)
+
+    begin
+      template_name = "support-ticket-resolved"
+      template_content = []
+      message = {
+        to: [{email: email, name: user.user_name }],
+        from: {email: "noreply@digiramp.com"},
+        subject: title,
+        tags: ["support", "ticket-received"],
+        track_clicks: true,
+        track_opens: true,
+        subaccount: user.mandrill_account_id,
+        recipient_metadata: [{rcpt: email, values: {issue_id: issue_id}}],
+        merge_vars: [
+          {
+           rcpt: email,
+           vars: [
+                   {name: "TITLE",        content: title},
+                   {name: "BODY",         content: body},
+                   {name: "LINK",         content: link}
+                  ]
+          }
+        ]
+      }
+      mandril_client.messages.send_template template_name, template_content, message
+    rescue Mandrill::Error => e
+      Opbeat.capture_message("#{e.class} - #{e.message}")
+    end
+
+    
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml

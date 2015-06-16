@@ -62,8 +62,7 @@ class Issue < ActiveRecord::Base
   end
   
   def resolved
-    #blog      = Blog.cached_find('Support')
-    #blog_post = BlogPost.cached_find('ISSUE RESOLVED' , blog)
+    
     SupportMailer.delay.issue_resolved( self.user_id, self.id)
     
   end
