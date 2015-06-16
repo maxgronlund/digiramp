@@ -280,7 +280,7 @@ class TransloaditParser
     if comment
       return '' if comment.include? '(iTunSMPB)'
     end
-    return ''
+    return comment
   end
   
   def self.sanitize_lyrics lyrics
