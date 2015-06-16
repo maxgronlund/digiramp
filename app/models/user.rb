@@ -819,7 +819,7 @@ class User < ActiveRecord::Base
       when "Fixnum"
         return Rails.cache.fetch([name, id]) { find(id) }
       end
-    rescue => e
+    rescue ActiveRecord::RecordNotFound => e
       Opbeat.capture_message(e.inspect)
       ap e.inspect
     end
