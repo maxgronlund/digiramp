@@ -9,7 +9,7 @@ class MandrillAccountService
       mandrill_account_id         = "cus-" + user.id.to_s 
       notes                       = "Free social account, signed up on " + user.created_at.to_formatted_s(:short)
       custom_quota                = 45
-      #result                      = mandril_client.subaccounts.add mandrill_account_id, name, notes, custom_quota
+      result                      = mandril_client.subaccounts.add mandrill_account_id, name, notes, custom_quota
       user.mandrill_account_id    = mandrill_account_id
       user.save(validate: false)
       #ap result
@@ -27,7 +27,7 @@ class MandrillAccountService
         id                          = user.mandrill_account_id
         custom_quota                = 45
         result = mandril_client.subaccounts.update id, nil, nil, custom_quota
-        ap result
+        #ap result
     
     rescue Mandrill::Error => e
         # Mandrill errors are thrown as exceptions

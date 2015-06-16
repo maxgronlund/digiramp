@@ -27,7 +27,7 @@ class PlaylistEmailMailer < ApplicationMailer
     
     playlist_email.email_list.split(',').each do |email|
       if user && email = EmailSanitizer.saintize( user.email )
-        receipients_with_names  << {email: user.email, name: user.user_name}
+        receipients_with_names  << {email: email, name: user.user_name}
         merge_vars              << { rcpt: email,
                                      vars: [ {name: "USER_NAME",                  content: user.user_name},
                                              {name: "TITLE",                      content: playlist_email.title},
