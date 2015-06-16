@@ -33,9 +33,6 @@ class Account::OpportunityInvitationsController < ApplicationController
 
 
   def create
-    
-
-
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_invitation = OpportunityInvitation.create(opportunity_invitation_params)
     
@@ -65,10 +62,10 @@ class Account::OpportunityInvitationsController < ApplicationController
                                                 )
         
         if user.account_activated
-          OpportunityMailer.delay.invite(email, @opportunity_invitation.id, user.id, current_user.id)
+          OpportunityMailer.delay.invite(sanitized_email, @opportunity_invitation.id, user.id)
         else
           user.add_token
-          OpportunityMailer.delay.invite_to_account(sanitized_email, @opportunity_invitation.id, user.id, current_user.id)
+          OpportunityMailer.delay.invite_to_account(sanitized_email, @opportunity_invitation.id, user.id)
         end
         
         
@@ -76,12 +73,9 @@ class Account::OpportunityInvitationsController < ApplicationController
           #send_message( user, @opportunity.account.user, @opportunity_invitation.title, @opportunity_invitation.body  ) 
           send_message( user, current_user, @opportunity_invitation.title, @opportunity_invitation.body  ) 
         rescue Exception => e 
+          Opbeat.capture_message(e.message)
           ap e.message
-          puts '-----------------------------'
-          ap e.backtrace.inspect  
-        end                             
-                                          
-        
+        end                
         @opportunity_user.create_activity(   :created, 
                                        owner: current_user,
                                    recipient: @opportunity_user,
@@ -108,8 +102,13 @@ class Account::OpportunityInvitationsController < ApplicationController
   
   def send_message recipient, sender, title, body
     
-    message = Message.create(recipient_id: recipient.id, sender_id: sender.id, title: title, body: body, subjectable_id: @opportunity.id, subjectable_type: @opportunity.class.name)
-    ap message
+    message = Message.create(recipient_id: recipient.id, 
+                              sender_id: sender.id, 
+                              title: title, 
+                              body: body, 
+                              subjectable_id: @opportunity.id, 
+                              subjectable_type: @opportunity.class.name)
+    
 
     channel = 'digiramp_radio_' + recipient.email
     Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
@@ -122,8 +121,6 @@ class Account::OpportunityInvitationsController < ApplicationController
                                       
                                       
   end
-  
-
 
   # PATCH/PUT /opportunity_invitations/1
   # PATCH/PUT /opportunity_invitations/1.json

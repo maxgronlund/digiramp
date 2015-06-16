@@ -19,7 +19,11 @@ class UserMailer < ApplicationMailer
     send_with_mandrill( [{email: user.email, name: user.user_name }], 
                         "password-reset", 
                         'Passeword reset from DigiRAMP', 
-                        ["reset-password"], merge_vars )
+                        ["reset-password"], 
+                        merge_vars,
+                        false,
+                        false,
+                        "02-digiramp-password-reset" )
   end
 
   def invite_new_user_to_account user_id, title, body
@@ -36,8 +40,11 @@ class UserMailer < ApplicationMailer
      send_with_mandrill( [{email: user.email, name: user.user_name }], 
                          "invite-new-user-to-account", 
                          'You have been invitet to a DigiRAMP account', 
-                         ["account_invitation"], 
-                         merge_vars 
+                         ["account_invitation", "new_user"], 
+                         merge_vars,
+                         true,
+                         true,
+                         user.mandrill_account_id 
                         )
   end
   
@@ -54,8 +61,11 @@ class UserMailer < ApplicationMailer
     send_with_mandrill( [{email: user.email, name: user.user_name }], 
                         "invite-existing-user-to-account", 
                         'You have been invitet to a DigiRAMP account', 
-                        ["account_invitation"], 
-                        merge_vars
+                        ["account_invitation", "existing_user"], 
+                        merge_vars,
+                        true,
+                        true,
+                        user.mandrill_account_id
                       )
   end
   
@@ -101,7 +111,10 @@ class UserMailer < ApplicationMailer
                         "invite-user-to-catalog", 
                         title, 
                         ["catalog_invitation"], 
-                        merge_vars 
+                        merge_vars,
+                        true,
+                        true,
+                        user.mandrill_account_id 
                       )
   end
 end

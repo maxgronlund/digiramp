@@ -1,10 +1,6 @@
-require 'uri'
+class MessageMailer < ApplicationMailer
 
-class MessageMailer < ActionMailer::Base
 
-  def mandril_client
-    @mandrill_client ||= Mandrill::API.new Rails.application.secrets.email_provider_password
-  end
 
   def send_message message_id
     # extract data

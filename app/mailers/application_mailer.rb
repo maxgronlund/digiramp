@@ -1,12 +1,17 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "info@digiramp.com"
-  layout 'mailer'
   
   def mandril_client
     @mandrill_client ||= Mandrill::API.new Rails.application.secrets.email_provider_password
   end
   
-  def send_with_mandrill receipients_with_names, template_name, subject, tags, merge_vars
+  def send_with_mandrill receipients_with_names, 
+                         template_name, 
+                         subject, 
+                         tags, 
+                         merge_vars, 
+                         track_clicks, 
+                         track_opens, 
+                         subaccount
     begin
       template_name = template_name
       template_content = []
@@ -14,8 +19,9 @@ class ApplicationMailer < ActionMailer::Base
                   from: {email: "noreply@digiramp.com"},
                   subject: subject,
                   tags: tags,
-                  track_clicks: true,
-                  track_opens: true,
+                  track_clicks: track_clicks,
+                  track_opens: track_opens,
+                  subaccount: subaccount,
                   merge_vars: merge_vars
                 }
       mandril_client.messages.send_template template_name, template_content, message
@@ -27,3 +33,6 @@ class ApplicationMailer < ActionMailer::Base
   end
   
 end
+
+
+

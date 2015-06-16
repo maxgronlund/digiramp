@@ -45,7 +45,10 @@ class DigirampEmailMailer < ApplicationMailer
                           "news-email", 
                           'DigiRAMP news', 
                           ["news", "digiramp"], 
-                          merge_vars
+                          merge_vars,
+                          true, 
+                          true, 
+                          "00-digiramp-news"
                         )
     end
   end
@@ -81,7 +84,10 @@ class DigirampEmailMailer < ApplicationMailer
                           "opportunity-email", 
                           'New opportunity on DigiRAMP', 
                           ["digiramp", "opportunity"], 
-                          merge_vars
+                          merge_vars,
+                          true, 
+                          true, 
+                          "01-digiramp-opportunity-created"
                         )
     end
   end

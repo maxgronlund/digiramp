@@ -1,84 +1,91 @@
-class OpportunityMailer < ActionMailer::Base
-  default from: "noreply@digiramp.com"
+class OpportunityMailer < ApplicationMailer
+  #default from: "noreply@digiramp.com"
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.opportunity_mailer.invite.subject
-  #
-  def invite email, opportunity_invitation_id, user_id, current_user_id
+
+  def invite email, opportunity_invitation_id, user_id
    
-    @user                    = User.cached_find(user_id)
-    @current_user_id         = current_user_id
-    @opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
-    @opportunity             = @opportunity_invitation.opportunity
+    user                    = User.cached_find(user_id)
+    opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
+    opportunity             = opportunity_invitation.opportunity
+    blog                    = Blog.cached_find('Support')
+    blog_post               = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
+    opportunity_link        = url_for( controller: 'opportunity/opportunities', action: 'show', id: opportunity.id, opportunity_invitation: 'true', user_id: user_id)
+    fotter_link             = url_for( controller: 'contacts', action: 'new')
+    
+  
+
+    begin
+      template_name = "opportunity-invitation"
+      template_content = []
+      message = {
+        to: [{email: email , name: user.user_name }],
+        from: {email: "noreply@digiramp.com"},
+        subject: opportunity_invitation.title,
+        tags: ["opportunity", "invitation"],
+        track_clicks: true,
+        track_opens: true,
+        subaccount: user.mandrill_account_id,
+        recipient_metadata: [{rcpt: rcpt_email, values: {message_id: message.id}}],
+        merge_vars: [
+          {
+           rcpt: rcpt_email,
+           vars: [
+                   {name: "BLOG_POST_TITLE",       content: blog_post.title},
+                   {name: "BLOG_POST_BODY",        content: blog_post.body},
+                   {name: "TITLE",                 content: opportunity_invitation.title},
+                   {name: "BODY",                  content: opportunity_invitation.body},
+                   {name: "OPPORTUNITY_LINK",      content: opportunity_link},
+                   {name: "FOOTER_LINK",           content: fotter_link}
+                   ]
+          }
+        ]
+      }
+      mandril_client.messages.send_template template_name, template_content, message
+    rescue Mandrill::Error => e
+      Opbeat.capture_message("#{e.class} - #{e.message}")
+    end
+  end
+  
+  def invite_to_account email, opportunity_invitation_id, user_id
+
+    user                    = User.cached_find(user_id)
+    opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
+    opportunity             = opportunity_invitation.opportunity
     blog                     = Blog.cached_find('Support')
-    @blog_post               = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
-    @opportunity_link        = url_for( controller: 'opportunity/opportunities', action: 'show', id: @opportunity.id, opportunity_invitation: 'true', user_id: user_id)
-    @fotter_link             = url_for( controller: 'contacts', action: 'new')
+    blog_post               = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
+    opportunity_link        = url_for( controller: 'activate_account', action: 'edit', id: user.password_reset_token, opportunity_id: opportunity.id  )
+    fotter_link             = url_for( controller: 'contacts', action: 'new')
     
-  
-    
-    
-    
-    
-    mail to: email, subject: @opportunity_invitation.title
-
-    
-    
-    store_mail 'opportunity invitation'
-    #puts '----------------------- SUCCESS 33 -----------------------------'
+    begin
+      template_name = "opportunity-invitation"
+      template_content = []
+      message = {
+        to: [{email: email , name: user.user_name }],
+        from: {email: "noreply@digiramp.com"},
+        subject: opportunity_invitation.title,
+        tags: ["opportunity", "invitation"],
+        track_clicks: true,
+        track_opens: true,
+        subaccount: user.mandrill_account_id,
+        recipient_metadata: [{rcpt: rcpt_email, values: {message_id: message.id}}],
+        merge_vars: [
+          {
+           rcpt: rcpt_email,
+           vars: [
+                   {name: "BLOG_POST_TITLE",       content: blog_post.title},
+                   {name: "BLOG_POST_BODY",        content: blog_post.body},
+                   {name: "TITLE",                 content: opportunity_invitation.title},
+                   {name: "BODY",                  content: opportunity_invitation.body},
+                   {name: "OPPORTUNITY_LINK",      content: opportunity_link},
+                   {name: "FOOTER_LINK",           content: fotter_link}
+                   ]
+          }
+        ]
+      }
+      mandril_client.messages.send_template template_name, template_content, message
+    rescue Mandrill::Error => e
+      Opbeat.capture_message("#{e.class} - #{e.message}")
+    end
   end
-  
-  def invite_to_account email, opportunity_invitation_id, user_id, current_user_id
 
-    @user                    = User.cached_find(user_id)
-    @current_user_id         = current_user_id 
-    @opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
-    @opportunity             = @opportunity_invitation.opportunity
-    blog                     = Blog.cached_find('Support')
-    @blog_post               = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
-    @opportunity_link        = url_for( controller: 'activate_account', action: 'edit', id: @user.password_reset_token, opportunity_id: @opportunity.id  )
-    @fotter_link             = url_for( controller: 'contacts', action: 'new')
-
-    mail to: email, subject: @opportunity_invitation.title
-    store_mail 'account and opportunity invitation'
-   
-  end
-  
-  def store_mail email_type
-
-    email = Email.create(      email: @user.email, 
-                          email_type: email_type,
-                             user_id: @current_user_id,
-                     send_to_user_id: @user.id,
-                          account_id: @opportunity.account_id,
-                        content_type: @opportunity_invitation.class.name,
-                             content: @opportunity_invitation.attributes
-                )
-    
-    email.create_activity(:created, 
-                              owner: User.cached_find(@current_user_id),
-                          recipient: @user,
-                     recipient_type: @user.class.name,
-                         account_id: @user.account_id,
-                                    params: { opportunity_id: @opportunity.id}) 
-                                    
-    
-  end
-  
-  
 end
-
-
-
-    
-
-    
-
-#X-SMTPAPI": {
-#  "to": [
-#    "ben@example.com",
-#    "Joe Smith <joe@example.com>"
-#  ]
-#}

@@ -41,11 +41,6 @@ class SupportMailer < ActionMailer::Base
 
     @user       = User.cached_find user_id
     @issue      = Issue.cached_find issue_id
-    #@blog_post  = BlogPost.find( blog_post_id )
-    #@body       = @blog_post.body.gsub( '--user--', @user.name)
-    #@body       = @body.gsub('--issue--', @issue.title)
-    
-  
     mail to: @user.email,  subject: @issue.title
   end
 

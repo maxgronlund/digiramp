@@ -23,20 +23,8 @@ class OpportunityEvaluation < ActiveRecord::Base
           OpportunityEvaluationMailer.delay.invite(user.id, self.id)
         else
           user.add_token
-          OpportunityEvaluationMailer.delay.invite_to_account(user.id, self.id)
-        end
-        
-       
-        #@opportunity_user.create_activity(   :created, 
-        #                               owner: current_user,
-        #                           recipient: @opportunity_user,
-        #                      recipient_type: @opportunity_user.class.name,
-        #                          account_id: @account.id,
-        #                              params: {         opportunity_id: @opportunity.id,
-        #                                        opportunity_user_email: sanitized_email
-        #                                      }
-        #                                  ) 
-                              
+          OpportunityEvaluationMailer.delay.invite_to_account(user.id, self.id )
+        end                  
       end  
     end                
   end
