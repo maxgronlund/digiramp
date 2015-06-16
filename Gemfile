@@ -68,6 +68,7 @@ gem 'headless'
 gem 'levenshtein'
 #gem 'chosen-rails', '0.12.0'
 #gem 'soundmanager-rails'
+#gem 'soundmanager-rails', github: 'glaszig/soundmanager-rails'
 #
 
 #gem 'mailcheckjs-rails'

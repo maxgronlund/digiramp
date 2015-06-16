@@ -78,7 +78,7 @@
                 'Show credit on recording:
               .panel-body
                 b = @recording_ipi.show_credit_on_recording ? 'Yes' : 'No'
-      = debug @recording_ipi
+      /= debug @recording_ipi
       /- if @ipi.confirmation == 'Confirmed'
       /  .alert.alert-info
       /    b Request confirmed

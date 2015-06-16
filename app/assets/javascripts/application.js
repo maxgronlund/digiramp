@@ -31,7 +31,7 @@
 //= require start_fancybox
 //= require digiramp_pusher
 //= require gritter
-//= require jquery.raty
+// require jquery.raty
 //= require mindmup-editabletable.js
 //= require ipis_table.js
 //= require common_works_table.js

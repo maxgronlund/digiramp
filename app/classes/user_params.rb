@@ -2,7 +2,9 @@ class UserParams
   
   PUBLIC_PARAMS = [
                     :name,                       
-                    :email,        
+                    :email,  
+                    :password,
+                    :password_confirmation,      
                     :profile,
                     :first_name,                 
                     :last_name,                  

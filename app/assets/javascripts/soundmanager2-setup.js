@@ -5,7 +5,7 @@ soundManager.setup({
   preferFlash: false,
   useFlashBlock: true,
   // path to directory containing SM2 SWF
-  url: '../../swf/',
+  url: '/assets/',
   // optional: enable MPEG-4/AAC support (requires flash 9)
   flashVersion: 9,
   html5PollingInterval: 100

@@ -78,7 +78,8 @@ class RecordingParams
      :featured_date,
      :default_cover_art,    
      :sounds_like,          
-     :uniq_position ]
+     :uniq_position,
+     :recording_ipis_attributes]
 
   
 end

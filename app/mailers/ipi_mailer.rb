@@ -22,11 +22,13 @@ class IpiMailer < ApplicationMailer
   def common_work_ipi_confirmation_email ipi_id
     ipi          = Ipi.cached_find(ipi_id)
     email        =  ipi.email
-    link         = url_for( controller: 'confirmation/ipi_confirmations', action: 'show', id: @ipi.uuid )
+    link         = url_for( controller: 'confirmation/ipi_confirmations', action: 'show', id: ipi.uuid )
     subject      = "You are mentioned as an IPI on DigiRAMP"
     title        = "Confirm IPI"
     body         = "You have been mentioned as an IP on DigiRAMP Please confirm"
-
+    common_work  = ipi.common_work
+    account      = common_work.account
+    user         = account.user
     
 
     begin
@@ -39,7 +41,7 @@ class IpiMailer < ApplicationMailer
         tags: ["ipi", "confirmation", "common-work"],
         track_clicks: true,
         track_opens: true,
-        subaccount: "04-digiramp-ipi-confirmation",
+        subaccount: user.mandrill_account_id,
         recipient_metadata: [{rcpt: email, values: {coupon_batch_id: coupon_batch_id}}],
         merge_vars: [
           {

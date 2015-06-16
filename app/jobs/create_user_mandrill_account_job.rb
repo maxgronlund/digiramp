@@ -3,8 +3,7 @@ class CreateUserMandrillAccountJob < ActiveJob::Base
 
   def perform(user_id)
     begin
-      user = User.cached_find(user_id)
-      MandrillAccountService.create_account_for_user self
+      MandrillAccountService.create_account_for_user user_id
     rescue => e
       Opbeat.capture_message("Create Mandrill Subaccount #{e.inspect}")
     end
