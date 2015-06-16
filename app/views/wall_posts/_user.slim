@@ -82,8 +82,5 @@
                   span class="label label-default"
                     'DJ
                   '&nbsp;
-    /.row
-    /  .col-sm-12
-    /    br
-    /    = debug user
-    /    .sexy_line
+- else
+  - follower_event.destroy
