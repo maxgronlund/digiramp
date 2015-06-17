@@ -35,7 +35,7 @@
               /= f.label      :artwork, 'Thumbnail will be scaled to 184x184 pixels' 
               /= f.file_field :artwork, multiple: false
               /= f.input :artwork
-              = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
+              = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}, autofocus: true
               = f.input :alternative_titles, :input_html => {  style: "height: 120px;", placeholder: "Alternative Titles"}
               = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "ISWC Code"}
 

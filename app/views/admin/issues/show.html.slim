@@ -60,7 +60,7 @@
               = f.hidden_field :commentable_id, value: @issue.id
               = f.hidden_field :commentable_type, value: @issue.class.name
               = f.hidden_field :user_id, value: current_user.id
-              = f.input :title
+              = f.input :title, autofocus: true
               = f.input :body
               = f.input :image
               .row

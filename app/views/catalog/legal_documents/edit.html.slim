@@ -41,7 +41,7 @@
                                             :method => 'put',  \
                                             :html => { :id => 'legal_documents' },\
                                             turboboost: true do |f|
-              = f.input :title
+              = f.input :title, autofocus: true
               b Description
               br
               div id="toolbar" class="wysihtml5-toolbar"

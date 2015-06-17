@@ -5,7 +5,7 @@
         .panel-body
           b DigiRAMP
           hr
-          = f.input :title, label: 'Genre'
+          = f.input :title, label: 'Genre', autofocus: true
           = f.input :category,  collection: Genre::GENRE_CATEGORY,  as: :radio_buttons, label: false
           = f.input :user_tag,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
     .col-sm-4

@@ -3,7 +3,7 @@
     .digi-box
       = simple_form_for [ :admin, @pro_affiliation] do |f|
       
-        = f.input :territory
+        = f.input :territory, autofocus: true
         = f.input :web
         = f.input :title
         .row

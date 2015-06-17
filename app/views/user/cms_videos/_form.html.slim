@@ -2,7 +2,7 @@
 
   .form-inputs
     = f.hidden_field :position, as: :integer ,  input_html: { value: @cms_video.cms_section.position }
-    = f.input :snippet
+    = f.input :snippet, autofocus: true
 
   .row
     .col-sm-12

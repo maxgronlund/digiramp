@@ -394,37 +394,12 @@ section.contact-page.whitetext id="contact-page"
             = simple_format @content.page_8_body
 
 
-      /!-- begin contact form
-      /= simple_form_for Contact.new do |f|
-      /  .row
-      /    .col-sm-3
-      /    .col-sm-6
-      /      .panel.panel-primary
-      /        .panel-heading
-      /          i class= 'fa fa-envelope'
-      /          '&nbsp;
-      /          'CONTACT US
-      /        .panel-body
-      /  
-      /          = f.input :email, placeholder: 'you@email.com'
-      /          /.field
-      /          = f.input :title, placeholder: 'Subject', label: 'Subject'
-      /          /.field
-      /          div id="toolbar" class="wysihtml5-toolbar"
-      /            a data-wysihtml5-command="bold" Bold
-      /            '&nbsp; 
-      /            a data-wysihtml5-command="italic" Italic
-      /    
-      /          = f.input :body, label: 'Message', :input_html => {  style: "height: 284px;", placeholder: "Write your message here", id: 'wysihtml5_editor'}
-      /      .pull-right
-      /        = f.submit 'Send', class: 'btn btn-primary btn-lg'
-      /        
-      /form id="contact" name="contact" method="post"
+      
       = simple_form_for Contact.new , html: { id: 'contact' } do |f|
         fieldset
           .row
             .col-md-4.wow.fadeIn.animated data-wow-delay="0.1s" data-wow-duration="2s"
-              = f.input :email, placeholder: 'you@email.com'
+              = f.input :email, placeholder: 'you@email.com', autofocus: true
               
             .col-md-4.wow.fadeIn.animated data-wow-delay="0.1s" data-wow-duration="2s"
                = f.input :title, placeholder: 'Subject', label: 'Subject'
@@ -439,16 +414,6 @@ section.contact-page.whitetext id="contact-page"
           = f.submit 'Send', id: "submit"
 
 
-
-      /.success	
-      /  p style="margin-top:20px;"
-      /    button type="button" class="close" data-dismiss="alert" aria-hidden="true" 
-      /      '&times;
-      /    'Your message was sent succssfully! I will be in touch as soon as I can.
-      /
-      /
-      /.error	
-      /  p Something went wrong, try refreshing and submitting the form again.
 
 
 				

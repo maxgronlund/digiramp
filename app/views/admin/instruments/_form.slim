@@ -1,5 +1,5 @@
 = simple_form_for [:admin, @instrument], turboboost: true do |f|
-  = f.input :title, label: 'Instrument'
+  = f.input :title, label: 'Instrument', autofocus: true
   = f.input :category,  collection: Instrument::INSTRUMENT_CLASSIFICATION,  as: :radio_buttons, label: false
   = f.input :user_tag,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
   .row

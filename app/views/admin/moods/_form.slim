@@ -1,6 +1,6 @@
 = simple_form_for [:admin, @mood], turboboost: true do |f|
 
-  = f.input :title, label: 'Mood'
+  = f.input :title, label: 'Mood', autofocus: true
   = f.input :category,  collection: Mood::MOOD_CLASSIFICATION,  as: :radio_buttons, label: false
   = f.input :user_tag,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
   .row

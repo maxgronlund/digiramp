@@ -20,7 +20,7 @@
               = f.error_notification
   
           .form-inputs
-            = f.input :user_name
+            = f.input :user_name, autofocus: true
             = f.input :email
             = f.input :password
             = f.input :password_confirmation
@@ -93,7 +93,7 @@
     = simple_form_for(  :sessions, :url => sessions_path, turboboost: true ) do |f|
       .input-group
         span class="input-group-addon" @
-        = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+        = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off, autofocus: true
       br
       .input-group
         span class="input-group-addon" 

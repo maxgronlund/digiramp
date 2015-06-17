@@ -41,7 +41,7 @@
                   = f.hidden_field :common_work_id, value: @common_work.id
                   = f.hidden_field :recording_id, value: @recording.id
 
-                  = f.input :title, value: @image_file.title
+                  = f.input :title, value: @image_file.title, autofocus: true
                   
                   div id="toolbar" class="wysihtml5-toolbar"
                     a data-wysihtml5-command="bold" Bold

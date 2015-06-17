@@ -36,7 +36,7 @@
               = f.hidden_field :campaign_id, value: @campaign.id
               = f.hidden_field :user_id, value: @user.id
               = f.hidden_field :account_id, value: @user.account_id
-              = f.input :title
+              = f.input :title, autofocus: true
               b Event type
               br
               = f.input :campaign_event_type, collection: CampaignEvent::EVENT_TYPE, include_blank: false, label: false

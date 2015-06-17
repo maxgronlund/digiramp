@@ -21,7 +21,7 @@
         = f.hidden_field :email_group_id, value: @email_group.id
         .row
           .col-sm-6
-            = f.input :recipients, input_html: {style: "height: 640px;"}    
+            = f.input :recipients, input_html: {style: "height: 640px;"}, autofocus:  true    
           
           .col-sm-6
             = f.input :freeze_emails

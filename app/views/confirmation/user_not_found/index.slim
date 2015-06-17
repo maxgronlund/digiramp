@@ -18,9 +18,7 @@
             .col-sm-12
               .pull-down-34
               .pull-right
-                /= simple_form_for [:confirmation, UserEmail.new(email: @ipi.email, user_id: current_user.id) ], :url => url_for(:action => 'create', :controller => 'confirmation/add_emails'), turboboost: true  do |f|
-                /  
-                /  = f.submit 'Add email', class: 'btn btn-default'
+
                 = link_to new_confirmation_add_email_path( uuid: @ipi.uuid )
                   .btn.btn-success
                     'Confirm and add email

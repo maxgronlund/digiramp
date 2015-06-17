@@ -26,9 +26,9 @@
               .row
                 .col-sm-6
                   - if @user.user_name == User.create_uniq_user_name_from_email(@user.email)  
-                    = f.input :user_name, label: 'Name', placeholder: 'This name will be displayed on your profile.', hint: 'Change to improve completeness'
+                    = f.input :user_name, label: 'Name', placeholder: 'This name will be displayed on your profile.', hint: 'Change to improve completeness', autofocus: true
                   - else
-                    = f.input :user_name, label: 'Name',  placeholder: 'This name will be displayed on your profile.'
+                    = f.input :user_name, label: 'Name',  placeholder: 'This name will be displayed on your profile.', autofocus: true
 
                   = f.input :email
                   = f.input :profession

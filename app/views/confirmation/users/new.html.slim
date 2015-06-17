@@ -23,7 +23,7 @@
             .input-group
               span class="input-group-addon" 
                 i.fa.fa-user
-              = f.input_field :user_name, input_html: {autocomplete: :off}, placeholder: 'Name', autocomplete: :off
+              = f.input_field :user_name, input_html: {autocomplete: :off}, placeholder: 'Name', autocomplete: :off, autofocus: true
             br
             .input-group
               span class="input-group-addon" @
@@ -75,7 +75,7 @@
           = simple_form_for(  :sessions, :url => sessions_path, turboboost: true ) do |f|
             .input-group
               span class="input-group-addon" @
-              = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+              = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off, autofocus: true
             br
             .input-group
               span class="input-group-addon" 

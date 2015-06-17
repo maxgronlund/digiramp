@@ -4,7 +4,7 @@
   = f.hidden_field :account_id, value: @user.account_id
 
 
-  = f.input :title
+  = f.input :title, autofocus: true
   = f.input :status, collection: Campaign::STATUS, include_blank: false
   
   b Notes

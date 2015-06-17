@@ -21,7 +21,7 @@
           .panel-body
             = simple_form_for [@account, @import_batch] do |f|
             
-              = f.input :title
+              = f.input :title, autofocus: true
               = f.input :csv_file, label: 'Recordings CSV File'
               hr
               .pull-right

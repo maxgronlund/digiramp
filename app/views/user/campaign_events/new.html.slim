@@ -39,7 +39,7 @@
                 = f.hidden_field :campaign_id, value: @campaign.id
                 = f.hidden_field :user_id, value: @user.id
                 = f.hidden_field :account_id, value: @user.account_id
-                = f.input :title
+                = f.input :title, autofocus: true
                 = f.input :body, label: 'Notes'
                 b Event type
                 br

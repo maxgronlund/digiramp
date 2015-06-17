@@ -24,7 +24,7 @@
           .panel-heading
             'EDIT
           .panel-body
-            /= simple_form_for [ @account, @recording ],  :html => { :id => 'recording' } do |f| 
+
             = simple_form_for [ :catalog, @account, @catalog, @document ], \
                                 :url => url_for(:action => 'update', :controller => 'catalog/financial_documents'), \
                                 :method => 'put',  \
@@ -36,7 +36,7 @@
               /= f.file_field :file, multiple: true
               /hr
               /= f.input :document_type, collection: Document::TYPES, include_blank: false
-              = f.input :title
+              = f.input :title, autofocus: true
               b Description
               br
               div id="toolbar" class="wysihtml5-toolbar"

@@ -18,7 +18,7 @@
           .digi-box
             = simple_form_for [:admin, @email_group] do |f|
 
-              = f.input :title
+              = f.input :title, autofocus:  true
               /= f.input :identifier
               = f.input :body, label: 'Description'
               = f.input :subscripeable, label: 'Users can subscripe to this mail',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  

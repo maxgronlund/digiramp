@@ -1,12 +1,14 @@
 div id="old_create_playlist_form_#{@recording.id.to_s}"
   
-  = simple_form_for  [Playlist.new] , :url => url_for(:action => 'create', :controller => 'create_playlists'), :method => 'post', remote: true do |f|
+  = simple_form_for  [Playlist.new] , :url => url_for(:action => 'create', :controller => 'create_playlists'), 
+                                                      :method => 'post', 
+                                                      remote: true do |f|
     .modal-body
       h4 Create Playlist
       = f.hidden_field :account_id, value:  @recording.account_id
       = f.hidden_field :recording_id, value: @recording.id
       = f.hidden_field :user_id, value:  current_user.id
-      = f.input :title, label: 'Title'
+      = f.input :title, autofocus: true
       /= f.input :playlist_image
       = f.input :body, label: 'Description'
 

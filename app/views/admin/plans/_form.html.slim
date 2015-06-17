@@ -5,7 +5,7 @@
     .row
       .col-sm-6
         /= f.hidden_field :stripe_id, value: 'DigiRAMP plan-' + (Plan.count + 123  ).to_s
-        = f.input :name
+        = f.input :name, autofocus: true
         = f.input :description
         = f.input :amount, label: 'Price in cents'
         = f.input :interval, collection: Plan::INTERVALS , include_blank: false

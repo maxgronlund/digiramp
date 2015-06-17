@@ -5,7 +5,7 @@
 
   .form-inputs
 
-    = f.input :email, label: 'Send to', placeholder: 'someone@special.com'
+    = f.input :email, label: 'Send to', placeholder: 'someone@special.com', autofocus: true
     = f.input :subject, label: 'Subject', placeholder: 'You received an offer'
     = f.input :body, label: 'Message',  :input_html => {  style: "height: 180px;", placeholder: "A message that goes in the email"}
     /= f.hidden_field :discount, value: @sales_coupon_batch.discount

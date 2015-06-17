@@ -31,7 +31,7 @@
               = f.hidden_field :commentable_id, value: @feature.id
               = f.hidden_field :commentable_type, value: @feature.class.name
               = f.hidden_field :user_id, value: current_user.id
-              = f.input :title
+              = f.input :title, autofocus: true
               div id="toolbar" class="wysihtml5-toolbar"
                 a data-wysihtml5-command="bold" Bold
                 '&nbsp; 

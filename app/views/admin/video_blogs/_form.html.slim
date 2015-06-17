@@ -3,7 +3,7 @@
     .col-sm-6.col-sm-offset-3 
       .panel
         .panel-body  
-          = f.input :title, :input_html => { class: 'span4', placeholder: "Title"}
+          = f.input :title, :input_html => { class: 'span4', placeholder: "Title"}, autofocus: true
           
           - if @video_blog.identifier.to_s == ''
             = f.input :identifier , :input_html => { placeholder: "Identifier"}, hint: 'can not be updated'

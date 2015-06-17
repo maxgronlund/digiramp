@@ -44,7 +44,7 @@
           .forum
             .forum-head
               .title
-                = f.input :title
+                = f.input :title, autofocus: true
               .posts-count  
                 /= pluralize(@forum_post.count, 'Tread')  
             .sexy_line

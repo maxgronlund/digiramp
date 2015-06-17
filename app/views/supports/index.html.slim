@@ -32,7 +32,7 @@
           .digi-box
             = simple_form_for [ @contact ], :url => url_for(:action => 'create', :controller => 'supports'), :method => 'post' do |f|
               
-              = f.input :email, placeholder: 'you@email.com'
+              = f.input :email, placeholder: 'you@email.com', autofocus: true
               
               = f.input :title, placeholder: 'Subject', label: 'Subject'
               = f.input :body, label: 'Message', :input_html => {  style: "height: 284px;", placeholder: "Write your message here"}

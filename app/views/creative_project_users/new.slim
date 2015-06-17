@@ -29,7 +29,7 @@
           = f.error_notification
 
           .form-inputs
-            = f.input :message, :input_html => {  style: "height: 260px;", placeholder: "Write message"}
+            = f.input :message, :input_html => {  style: "height: 260px;", placeholder: "Write message"}, autofocus: true
             = f.hidden_field :creative_project_id,        value: @creative_project.id
             /= f.hidden_field :creative_project_user_id,   value: @creative_project_user.id
             = f.hidden_field :user_id,                    value: current_user.id

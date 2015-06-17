@@ -19,7 +19,7 @@
               .pull-right
                 a data-wysihtml5-action="change_view"  Html 
             
-            =f.input :body, label: false, :input_html => {  style: "height: 240px;", placeholder: "Description", id: 'wysihtml5_editor'}
+            =f.input :body, label: false, :input_html => {  style: "height: 240px;", placeholder: "Description", id: 'wysihtml5_editor'}, autofocus: true
             /= f.input :image
             = f.hidden_field :user_id, value: current_user.id
             = f.hidden_field :replyable_id, value: forum_post.id

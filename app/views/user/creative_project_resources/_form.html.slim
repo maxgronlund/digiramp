@@ -5,7 +5,7 @@
     = f.hidden_field :creative_project_id, value: @creative_project.id
     = f.hidden_field :user_id, value: current_user.id
     = f.hidden_field :creative_project_user_id, value: @creative_project_user.id
-    = f.input :title
+    = f.input :title, autofocus: true
     
     b Description
     br

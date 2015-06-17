@@ -16,7 +16,7 @@
             .modal-body
               = f.hidden_field :connection_id,  value: recipient.id
               = f.hidden_field :user_id,        value: sender.id
-              = f.input :message, :input_html => {  style: "height: 280px;"}
+              = f.input :message, :input_html => {  style: "height: 280px;"}, autofocus: true
 
               
             .modal-footer

@@ -9,7 +9,7 @@
         /  = render 'shared/errors', errors: @user.errors
           
         .form-inputs
-          = f.input :email
+          = f.input :email, autofocus: true
           = f.hidden_field :user_id, value: @user.id
       
         .form-actions

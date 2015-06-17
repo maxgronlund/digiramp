@@ -15,7 +15,7 @@
     = simple_form_for [ @account, @recording ], :url => url_for(:action => 'update', :controller => 'recording_meta_data'), :method => 'put',  :html => { :id => 'recording' } do |f| 
       .row
         .col-sm-6
-          = f.input :title
+          = f.input :title, autofocus: true
           = f.input :artist
           = f.input :band
           = f.input :year

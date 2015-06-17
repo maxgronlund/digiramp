@@ -1,5 +1,5 @@
 = simple_form_for [ @user, recording ], remote: true, url: url_for(action: 'update', controller: 'descriptions'), method: 'put'  do |f|
   /= f.input :title
-  = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
+  = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}, autofocus: true
   .pull-right  
     = f.submit 'Save', class: 'btn btn-primary button-xs'

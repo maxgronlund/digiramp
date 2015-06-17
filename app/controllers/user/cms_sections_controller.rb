@@ -193,7 +193,7 @@ class User::CmsSectionsController < ApplicationController
   
   def profile
     @cms_profile = create_section( CmsProfile.create)
-    redirect_to edit_user_user_cms_profile_path(@user, @cms_profile)
+    redirect_to edit_user_user_cms_page_path(@user, @cms_profile.cms_section.cms_page)
   end
   
   def social_links

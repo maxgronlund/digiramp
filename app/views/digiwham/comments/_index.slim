@@ -9,7 +9,7 @@
       - if current_user
         = f.hidden_field  :user_id,  value: current_user.id
         /= f.hidden_field :authenticity_token
-      = f.input :title, placeholder: 'Post a Comment', label: false, class: 'comment', input_html: {id: "#{recording.id}"}
+      = f.input :title, placeholder: 'Post a Comment', label: false, class: 'comment', input_html: {id: "#{recording.id}"}, autofocus: true
   - else
     - if Rails.env == 'development'
       - link_to_digiramp = "http://localhost:3000/login/new?login_from_widget=true"

@@ -19,7 +19,7 @@
             = f.hidden_field :subjectable_id, value: subjectable.id
             = f.hidden_field :subjectable_type, value: subjectable.class.name
             
-            = f.input :title, label: 'Subject', :input_html => {  id: "title_#{modal_id}",  placeholder: 'Required'}
+            = f.input :title, label: 'Subject', :input_html => {  id: "title_#{modal_id}",  placeholder: 'Required'}, autofocus: true
             = f.input :body, :input_html => {  style: "height: 280px;", placeholder: "Message", id: "body_#{modal_id}" }
             
           .modal-footer

@@ -8,7 +8,7 @@
   h4 Add composer                  
   .digi-box
     = simple_form_for [:user, common_work, Ipi.new] , :url => url_for(:action => 'create', :controller => 'work_rights'), :method => 'post' do |f|
-      = f.input :full_name
+      = f.input :full_name, autofocus: true
   
   /h4 Stakeholders
   /.digi-box
