@@ -1,20 +1,14 @@
-- if follower_event.postable_id.to_s == ''
-  h1 = follower_event
-  = follower_event.destroy
-- else
-  - user = follower_event.user
-  - recording = Recording.cached_find(follower_event.postable_id)
-  
+- if (user = wall_post.user)  && ( recording = wall_post.get_recording )
   
 
-  
+ 
   .comments-content
     .row
       .col-sm-12
-        - if current_user && current_user.id == @user.id
-          .pull-right
-            = link_to follower_event_path(follower_event.id), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
-              i.fa.fa-times
+        /- if current_user && current_user.id == @user.id
+        /  .pull-right
+        /    = link_to follower_event_path(wall_post.id), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
+        /      i.fa.fa-times
         .pull-left
           .avatar
             .thumbnail
@@ -24,8 +18,8 @@
           h5
             = link_to user.user_name, user_path( user)
             '&nbsp;
-            = "#{time_ago_in_words(follower_event.created_at) } ago"
-            br = follower_event.body
+            = "#{time_ago_in_words(wall_post.created_at) } ago"
+            br = wall_post.body
          
   
   #digiWhams  class="/recordings/#{recording.id.to_s}"
@@ -41,3 +35,94 @@
                                                  music_request_link: false,
                                                  remove_from_request: false
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/- if follower_event.postable_id.to_s == ''
+/  h1 = follower_event.id
+/  /= follower_event.destroy
+/- else
+/  - user = follower_event.user
+/  - recording = Recording.cached_find(follower_event.postable_id)
+/  
+/  
+/
+/  
+/  .comments-content
+/    .row
+/      .col-sm-12
+/        - if current_user && current_user.id == @user.id
+/          .pull-right
+/            = link_to follower_event_path(follower_event.id), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
+/              i.fa.fa-times
+/        .pull-left
+/          .avatar
+/            .thumbnail
+/              = link_to image_tag( user.image_url :avatar_48x48),  user_path( user)
+/  
+/        .comment-content
+/          h5
+/            = link_to user.user_name, user_path( user)
+/            '&nbsp;
+/            = "#{time_ago_in_words(follower_event.created_at) } ago"
+/            br = follower_event.body
+/         
+/  
+/  #digiWhams  class="/recordings/#{recording.id.to_s}"
+/    == render 'recordings/recording_with_icons', recording: recording,
+/                                                 info: true,
+/                                                 add_to_playlist: true, 
+/                                                 remove_from_playlist: false, 
+/                                                 edit: false, 
+/                                                 delete: false,
+/                                                 description: true,
+/                                                 share: true,
+/                                                 target: "",
+/                                                 music_request_link: false,
+/                                                 remove_from_request: false
+/  

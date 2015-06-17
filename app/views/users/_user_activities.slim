@@ -1,3 +1,7 @@
-- @user.user_activities.to_a.each do |user_activitiy|
-  div id="delete_wall_post_#{user_activitiy.id.to_s}"
-    == render "wall_posts/" + user_activitiy.postable_type.downcase , follower_event: user_activitiy
+/- @user.user_activities.to_a.each do |user_activitiy|
+/  div id="delete_wall_post_#{user_activitiy.id.to_s}"
+/    == render "wall_posts/" + user_activitiy.postable_type.downcase , follower_event: user_activitiy
+    
+- @wall_posts.each do |wall_post|
+  div id="delete_wall_post_#{wall_post.id.to_s}"
+    == render "wall_posts/" + wall_post.postable_type.downcase , wall_post: wall_post

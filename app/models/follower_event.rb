@@ -16,6 +16,26 @@ class FollowerEvent < ActiveRecord::Base
     FollowerEventUser.create(follower_event_id: self.id, user_id: self.user.id) 
   end
   
+  def get_recording
+    begin
+      return Recording.cached_find(self.postable_id)
+    rescue
+      ap msg = "Recording not found #{self.postable_id}"
+      Opbeat.capture_message(msg)
+    end
+  end
+  
+  # this is the user the followed user did something woth
+  def get_user_on_user
+    begin
+      return User.cached_find(self.postable_id)
+    rescue
+      ap msg = "User not found #{self.postable_id}"
+      Opbeat.capture_message(msg)
+    end
+    
+  end
+  
 
   
 

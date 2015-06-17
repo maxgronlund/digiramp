@@ -33,7 +33,7 @@ $(document).on('page:load', ready)
     
     if $('.pagination').length
       $(window).scroll ->
-        console.log 'endless-activities'
+        
         url = $('.pagination .next a').attr('href')
         if url &&  $(window).scrollTop() > $(document).height() - $(window).height() - 200
           $('.pagination').text('...')

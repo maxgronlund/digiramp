@@ -98,7 +98,8 @@ class UsersController < ApplicationController
       @playlists  = current_user.playlists
 
     end
-    @user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
+    @wall_posts = @user.wall_posts.order('id desc').page(params[:page]).per(4)
+    #@user_activities = @user.user_activities.order('id desc').page(params[:page]).per(4)
     unless @user.page_style
       @user.save!
     end

@@ -1,86 +1,177 @@
-- if follower_event.postable_type == 'User' && user = User.cached_find(follower_event.postable_id)
-  -if follower = follower_event.user
-    .following
-      - if follower_event.postable_id.to_s == ''
-        h1 = follower_event
-        = follower_event.destroy
-      - else
+- if (user = wall_post.user)  && ( user_on_user = wall_post.get_user_on_user )
+
+  .comments-content
+    .row
+      .col-sm-12
+        / delete the user_follower_event
+        /- if current_user && current_user.id == @user.id
+        /  .pull-right
+        /    = link_to follower_event_path(follower_event.id), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
+        /      i.fa.fa-times
+        .pull-left
+          .avatar
+            .thumbnail
+              = link_to image_tag( user.image_url :avatar_48x48),  user_path( user)
         
+        .comment-content
+          h5
+            = link_to user.user_name, user_path( user)
+            '&nbsp;
+            = "#{time_ago_in_words(wall_post.created_at) } ago"
+            br = wall_post.body
+  
+  .row
+    .col-sm-12  
+      .following
+        .following-container
+          .following-avatar
+            = link_to image_tag( user_on_user.image_url :avatar_92x92),  user_path( user_on_user)
+            
+          .following-content
+            h4 = user_on_user.user_name
+            .following-profile
+              .ellipsis_text
+                = simple_format strip_tags( user_on_user.profile)
+            
+          .fotter
+            h5  
+              - if user_on_user.composer
+                span class="label label-default"
+                  'Composer  
+                '&nbsp;
         
-        .comments-content
-          .row
-            .col-sm-12
-              
-              - if current_user && current_user.id == @user.id
-                .pull-right
-                  = link_to follower_event_path(follower_event.id), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
-                    i.fa.fa-times
-              .pull-left
-                .avatar
-                  .thumbnail
-                    = link_to image_tag( follower.image_url :avatar_48x48),  user_path( follower)
-              
-              .comment-content
-                h5
-                  = link_to follower.user_name, user_path( follower)
-                  '&nbsp;
-                  = "#{time_ago_in_words(follower_event.created_at) } ago"
-                  br = follower_event.body
-              
-                  
+              - if user_on_user.writer
+                span class="label label-default"
+                  'Writer
+                '&nbsp;
+        
+              - if user_on_user.artist
+                span class="label label-default"
+                  'Artist
+                '&nbsp;
+        
+              - if user_on_user.author
+                span class="label label-default"
+                  'Author
+                '&nbsp;
+        
+              - if user_on_user.producer
+                span class="label label-default"
+                  'Producer
+                '&nbsp;
+        
+              - if user_on_user.musician
+                span class="label label-default"
+                  'Musician
+                '&nbsp;
+        
+              - if user_on_user.remixer
+                span class="label label-default"
+                  'Remixer
+                '&nbsp;
+        
+              - if user_on_user.dj
+                span class="label label-default"
+                  'DJ
+                '&nbsp;
+  
+  
+  
     
-        .row
-          .col-sm-12  
-            .following-container
-              .following-avatar
-                = link_to image_tag( user.image_url :avatar_92x92),  user_path( user)
-                
-              .following-content
-                h4 = user.user_name
-                .following-profile
-                  .ellipsis_text
-                    = simple_format strip_tags( user.profile)
-                
-              .fotter
-                h5  
-                  - if user.composer
-                    span class="label label-default"
-                      'Composer  
-                    '&nbsp;
-        
-                  - if user.writer
-                    span class="label label-default"
-                      'Writer
-                    '&nbsp;
-        
-                  - if user.artist
-                    span class="label label-default"
-                      'Artist
-                    '&nbsp;
-        
-                  - if user.author
-                    span class="label label-default"
-                      'Author
-                    '&nbsp;
-        
-                  - if user.producer
-                    span class="label label-default"
-                      'Producer
-                    '&nbsp;
-        
-                  - if user.musician
-                    span class="label label-default"
-                      'Musician
-                    '&nbsp;
-        
-                  - if user.remixer
-                    span class="label label-default"
-                      'Remixer
-                    '&nbsp;
-        
-                  - if user.dj
-                    span class="label label-default"
-                      'DJ
-                    '&nbsp;
-- else
-  - follower_event.destroy
+    
+    
+    
+    
+
+
+
+
+
+
+
+/- if user = User.cached_find(follower_event.postable_id)
+/  -if follower = follower_event.user
+/    .following
+/      - if follower_event.postable_id.to_s == ''
+/        h1 = follower_event.id
+/        /= follower_event.destroy
+/      - else
+/        
+/        
+/        .comments-content
+/          .row
+/            .col-sm-12
+/              
+/              - if current_user && current_user.id == @user.id
+/                .pull-right
+/                  = link_to follower_event_path(follower_event.id), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do
+/                    i.fa.fa-times
+/              .pull-left
+/                .avatar
+/                  .thumbnail
+/                    = link_to image_tag( follower.image_url :avatar_48x48),  user_path( follower)
+/              
+/              .comment-content
+/                h5
+/                  = link_to follower.user_name, user_path( follower)
+/                  '&nbsp;
+/                  = "#{time_ago_in_words(follower_event.created_at) } ago"
+/                  br = follower_event.body
+/              
+/                  
+/    
+/        .row
+/          .col-sm-12  
+/            .following-container
+/              .following-avatar
+/                = link_to image_tag( user.image_url :avatar_92x92),  user_path( user)
+/                
+/              .following-content
+/                h4 = user.user_name
+/                .following-profile
+/                  .ellipsis_text
+/                    = simple_format strip_tags( user.profile)
+/                
+/              .fotter
+/                h5  
+/                  - if user.composer
+/                    span class="label label-default"
+/                      'Composer  
+/                    '&nbsp;
+/        
+/                  - if user.writer
+/                    span class="label label-default"
+/                      'Writer
+/                    '&nbsp;
+/        
+/                  - if user.artist
+/                    span class="label label-default"
+/                      'Artist
+/                    '&nbsp;
+/        
+/                  - if user.author
+/                    span class="label label-default"
+/                      'Author
+/                    '&nbsp;
+/        
+/                  - if user.producer
+/                    span class="label label-default"
+/                      'Producer
+/                    '&nbsp;
+/        
+/                  - if user.musician
+/                    span class="label label-default"
+/                      'Musician
+/                    '&nbsp;
+/        
+/                  - if user.remixer
+/                    span class="label label-default"
+/                      'Remixer
+/                    '&nbsp;
+/        
+/                  - if user.dj
+/                    span class="label label-default"
+/                      'DJ
+/                    '&nbsp;
+/- else
+/  - follower_event.destroy
