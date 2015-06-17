@@ -36,7 +36,22 @@ Then(/^I can send the offer to an email$/) do
   pending # express the regexp above with the code you wish you had
 end
 
+Then(/^I fill in the address form and save$/) do
+  fill_in 'address_first_name', with: 'James'
+  fill_in 'address_last_name', with: 'Watt'
+  fill_in 'address_address_line_1', with: 'Some street 123'
+  fill_in 'address_address_line_2', with: 'Top suite'
+  fill_in 'address_city', with: 'Boston'
+  fill_in 'address_state', with: 'CA'
+  fill_in 'address_country', with: 'United States'
+  
+  find_by_id('save-address').click
+  
+end
 
 Then(/^I fill in the payment form with wrong data and save$/) do
   pending # express the regexp above with the code you wish you had
 end
+
+
+

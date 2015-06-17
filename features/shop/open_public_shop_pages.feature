@@ -13,7 +13,7 @@ As an guest I can se the public shop pages
     
     
     
-  #@javascript  
+  @javascript  
   Scenario: As guest i can go to the shop and buy a product
     When I'm on the "Public shop page"
     Then I can see "Chunky beacon"
@@ -32,5 +32,7 @@ As an guest I can se the public shop pages
     Then I clik on the link with the id "sidebar-basket"
     Then I can see "Happy coder"
     Then I can see "Chunky beacon"
-    Then I clik on the link with the id "payment_form"
+    Then I clik on the link with the id "checkout-button"
+    #Then Does it look right
+    Then I fill in the address form and save
     #Then I fill in the payment form with wrong data and save

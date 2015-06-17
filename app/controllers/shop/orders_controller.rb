@@ -18,7 +18,7 @@ class Shop::OrdersController < ApplicationController
   # GET /shop/orders/1/edit
   def edit
     @user         = current_user
-    @shop_order   = Shop::Order.find_by(uuid: params[:id])
+    @shop_order   = current_order
     
     @shop_order.reset!
     #ap @shop_order
