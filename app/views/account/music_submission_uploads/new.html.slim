@@ -18,8 +18,6 @@
       == render 'shared/flash_message'
       .sexy_line
       br
-      /= simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
-      / :music_requests
       = simple_form_for  [ @music_request, @recording ],  url:        url_for(:action => 'create', \
                                                           controller: 'account/music_submission_uploads'), \
                                                           method:     'post', \

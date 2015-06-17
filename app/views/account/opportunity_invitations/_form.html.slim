@@ -4,7 +4,9 @@
   = f.hidden_field :opportunity_id, value: @opportunity.id
   .row
     .col-sm-6
-      = f.input :invitees, placeholder: 'e.g. john@doe.com, elvis@presley.com', hint: 'Only valid emails will be accepted', :input_html => {  style: "height: 244px;"}
+      = f.input :invitees, placeholder: 'e.g. john@doe.com, elvis@presley.com', 
+                hint: 'Only valid emails will be accepted', 
+                :input_html => {  style: "height: 244px;"}, autofocus:  true
       
       
       

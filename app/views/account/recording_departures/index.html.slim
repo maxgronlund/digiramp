@@ -27,7 +27,7 @@
         .col-sm-6
           .digi-box
             = simple_form_for [ @account ], :url => url_for(:action => 'create', :controller => 'recording_departures'), :method => 'post' do |f| 
-              = f.input :transfer_codes, as: :text , :input_html => {  style: "height: 244px;"}, placeholder: 'Comma seperated values'
+              = f.input :transfer_codes, as: :text , :input_html => {  style: "height: 244px;"}, placeholder: 'Comma seperated values', autofocus:  true
               .row
                 .col-sm-12
                   .pull-right

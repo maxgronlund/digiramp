@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616073106) do
+ActiveRecord::Schema.define(version: 20150617162054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -231,6 +231,7 @@ ActiveRecord::Schema.define(version: 20150616073106) do
     t.string   "addressable_type"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "zip_code"
   end
 
   add_index "addresses", ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
@@ -3117,7 +3118,7 @@ ActiveRecord::Schema.define(version: 20150616073106) do
     t.string   "link_to_tumblr",             limit: 255, default: ""
     t.string   "link_to_instagram",          limit: 255, default: ""
     t.string   "link_to_youtube",            limit: 255, default: ""
-    t.text     "address",                                default: ""
+    t.text     "address_line_1",                         default: ""
     t.string   "zip_code",                   limit: 255, default: ""
     t.string   "phone_number",               limit: 255, default: ""
     t.string   "stripe_customer_id"
@@ -3131,6 +3132,7 @@ ActiveRecord::Schema.define(version: 20150616073106) do
     t.string   "stripe_refresh_token"
     t.string   "account_type",                           default: "Social"
     t.string   "mandrill_account_id"
+    t.text     "address_line_2"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

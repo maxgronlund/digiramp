@@ -28,9 +28,9 @@
             .col-sm-12
               .pull-right.pull-down-12
                 => link_to shop_order_path(@shop_order.uuid), id: 'basket' do
-                  .btn.btn-default.btn-lg
+                  .btn.btn-default
                     'Basket
-                = f.submit 'Add to basket', class: 'btn btn-orange btn-lg'
+                = f.submit 'Add to basket', class: 'btn btn-orange'
         
         .sexy_line
           /= link_to 'Basket', shop_order_path(@shop_order.uuid), id: 'data-no-turbolink'
@@ -40,6 +40,6 @@
       .col-sm-12        
         .pull-right 
           <div data-no-turbolink>
-            = link_to 'Checkout', edit_shop_order_path(@shop_order.uuid), class: 'btn btn-success btn-lg', id: 'checkout'
+            = link_to 'Checkout', edit_shop_order_path(@shop_order.uuid), class: 'btn btn-success', id: 'checkout'
           </div>
     

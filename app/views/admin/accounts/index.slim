@@ -26,9 +26,9 @@
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-search'
-                = text_field_tag "query", "", :class => 'search-query form-control', \
-                                              :placeholder => 'Search for account', \
-                                              value: params[:query]
+                = text_field_tag "query", "", :class => 'search-query form-control', 
+                                              :placeholder => 'Search for account', 
+                                              value: params[:query], autofocus: true
                 .input-group-btn
                   = f.submit 'Search', class: "btn btn-primary"
                   '&nbsp;
@@ -51,9 +51,12 @@
                   /th = account.title
                     
                   td
+                    = link_to account_account_path(account) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-eye
 
                     
-                    = link_to admin_account_path( account ), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do 
+                    =< link_to admin_account_path( account ), data: { confirm: 'Are you sure?' } , :method => :delete, remote: true do 
                       - unless account.user && account.user.role == 'Super'
                         .btn.btn-danger.btn-xs
                           i class="fa fa-times"

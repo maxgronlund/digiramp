@@ -44,6 +44,9 @@
             = f.hidden_field :addressable_id    , value: @shop_order.id
             = f.hidden_field :addressable_type  , value: @shop_order.class.name
             /= f.association :addressable
-        
-          .form-actions
-            = f.button :submit
+          
+          .row
+            .col-sm-12
+              .pull-right
+                .form-actions
+                  = f.submit 'Continue', class: 'btn btn-primary'

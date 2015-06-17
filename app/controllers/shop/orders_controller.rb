@@ -18,15 +18,23 @@ class Shop::OrdersController < ApplicationController
   # GET /shop/orders/1/edit
   def edit
     @user         = current_user
-    @shop_order   = current_order
-    @total_price  = @shop_order.total_price
-    @years        = CreditCard.years
-    @months       = CreditCard.months
+    @shop_order   = Shop::Order.find_by(uuid: params[:id])
     
     @shop_order.reset!
     #ap @shop_order
     
-
+    if @shop_order.require_shipping_address
+      
+      if @shop_order.shipping_address
+        redirect_to edit_shop_order_shipping_address_path(@shop_order.uuid, @shop_order.shipping_address)
+      else
+        redirect_to new_shop_order_shipping_address_path(@shop_order.uuid)
+      end
+    else
+      @total_price  = @shop_order.total_price
+      @years        = CreditCard.years
+      @months       = CreditCard.months
+    end
   end
 
   # PATCH/PUT /shop/orders/1

@@ -4,7 +4,7 @@
     .col-sm-12
       = f.hidden_field :recording_id, value: @recording.id
 
-      = f.input :name
+      = f.input :name, autofocus:  true
       = f.input :role  , collection: RecordingIpi::ROLES, :include_blank => true
       = f.input :email
       

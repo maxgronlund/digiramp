@@ -1,18 +1,4 @@
 
-/  = f.input :title
-/  = f.input :account_id
-/  = f.input :user_id
-/  = f.input :title
-/  = f.input :from_email
-/  = f.input :from_title
-/  = f.input :mail_layout
-/  = f.input :subscribtion_message
-/  
-/  = f.input :send_date
-/  = f.submit 'Save'
-
-
-
 = simple_form_for [:account, @account, @project, @mail_campaign]  do |f|
   .row
     .col-sm-3

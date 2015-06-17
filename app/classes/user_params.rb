@@ -35,7 +35,8 @@ class UserParams
                     :link_to_tumblr,             
                     :link_to_instagram,          
                     :link_to_youtube,            
-                    :address,                    
+                    :address_line_1,            
+                    :address_line_2,                     
                     :zip_code,                   
                     :phone_number
                   ]
@@ -94,8 +95,9 @@ class UserParams
                       :betatester,
                       :link_to_tumblr,             
                       :link_to_instagram,          
-                      :link_to_youtube,            
-                      :address,                    
+                      :link_to_youtube,               
+                      :address_line_1,            
+                      :address_line_2,         
                       :zip_code,                   
                       :phone_number,      
                       :salesperson,                

@@ -67,33 +67,10 @@
         /=  image_tag @user.image_url(:avatar_184x184) 
         .pull-down-10
       
-        /.user-buttons 
-        /  - if current_user 
-        /    
-        /    - if current_user.id == @user.id
-        /      / Edit profile
-        /      = link_to edit_user_path(current_user) do
-        /        .btn.btn-default.btn-xs
-        /          i class="fa fa-pencil"
-        /          '&nbsp;
-        /          'Edit profile
-        /    - else
-        /      / Follow / unfollow
-        /      div id="follow_user_#{@user.id.to_s}"
-        /        -if current_user.following?(@user)
-        /          == render 'users/unfollow', user: @user
-        /        - else 
-        /          == render 'users/follow', user: @user
-        /
-        /      .connect-container
-        /        .connect-buttons
-        /        == render 'users/connect', user: @user
-        /
-        /
+       
+
       .col-sm-8
-        /.user-profile
-        
-        
+
         - if @user.country.to_s != '' || @user.city.to_s != ''
           .location
             = @user.city
@@ -233,6 +210,7 @@
         .user-buttons 
           - if current_user 
             .inline-button
+              / only the user and supers can edit and add pages
               - if current_user.id == @user.id || super?
                 / Edit profile
                 => link_to edit_user_path(@user) do
@@ -248,29 +226,30 @@
                     'Add page
                     
                     
-                cms_pages
-              - else
-                / Follow / unfollow
-                div id="follow_user_#{@user.id.to_s}"
-                  -if current_user.following?(@user)
-                    == render 'users/unfollow', user: @user, size: ''
-                  - else 
-                    == render 'users/follow',   user: @user, size: ''
-            - if current_user.id != @user.id
-              .inline-button
-                .connect-container
-                  .connect-buttons
-                  == render 'users/connect',    user: @user, size: ''
+                /cms_pages
+              - if current_user.id != @user.id || super? 
+                /  Others can Follow / unfollow / connect and so can the super
+                .inline-button
+                  div id="follow_user_#{@user.id.to_s}"
+                    -if current_user.following?(@user)
+                      == render 'users/unfollow', user: @user, size: ''
+                    - else 
+                      == render 'users/follow',   user: @user, size: ''
                   
+                .inline-button
+                  .connect-container
+                    .connect-buttons
+                    == render 'users/connect',    user: @user, size: ''
+                    
 
-              .inline-button
-                / Follow / unfollow
-                div id="follow_user_#{@user.id.to_s}"
-                  -if current_user.following?(@user)
-                    == render 'users/unfollow', user: @user
-                  - else 
-                    == render 'users/follow', user: @user
-
+              /.inline-button
+              /  / Follow / unfollow
+              /  div id="follow_user_#{@user.id.to_s}"
+              /    -if current_user.following?(@user)
+              /      == render 'users/unfollow', user: @user
+              /    - else 
+              /      == render 'users/follow', user: @user
+              /
           - else
             / connect when not logged in
             = link_to new_become_member_path(user: @user, bounce_back: request.url), remote: true do

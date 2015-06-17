@@ -27,6 +27,9 @@ class Account::OpportunityReviewersController < ApplicationController
   
   def create
     if super? || current_account_user.update_opportunity
+      
+      ap 
+      
       @opportunity_evaluation = OpportunityEvaluation.create(opportunity_evaluation_params)
       @opportunity            = Opportunity.cached_find(params[:opportunity_id])
       redirect_to account_account_opportunity_opportunity_reviewers_path( @account, @opportunity)
@@ -48,6 +51,16 @@ class Account::OpportunityReviewersController < ApplicationController
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def opportunity_evaluation_params
-    params.require(:opportunity_evaluation).permit!
+    params.require(:opportunity_evaluation).permit(:opportunity_id,
+                                                   :user_id,
+                                                   :uuid,       
+                                                   :email,     
+                                                   :emails,
+                                                   :subject,      
+                                                   :body
+                                                  )
+                                                 
   end
 end
+
+

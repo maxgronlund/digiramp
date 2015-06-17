@@ -96,9 +96,9 @@
         .col-sm-6
         .col-sm-6
           .search-recording
-            = simple_form_for :recording, :url => url_for(:action => 'index', \
-                                                        :controller => 'songs'), \
-                                                        :method => 'get',\
+            = simple_form_for :recording, :url => url_for(:action => 'index', 
+                                                        :controller => 'songs'), 
+                                                        :method => 'get',
                                                         remote: true do |f|
             
               
@@ -108,8 +108,9 @@
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-search'
-                = text_field_tag "query", "", :class => 'search-query form-control', \
-                                              :placeholder => 'Search', \
+                = text_field_tag "query", "", :class => 'search-query form-control',
+                                              :placeholder => 'Search',
+                                              autofocus:    true,
                                               value: params[:query]
                                               
 

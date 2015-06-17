@@ -78,9 +78,10 @@
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-search'
-                = text_field_tag "query", "", :class => 'search-query form-control', \
-                                              :placeholder => 'Search for users', \
-                                              value: params[:query]
+                = text_field_tag "query", "", class:        'search-query form-control', 
+                                              placeholder:  'Search for users', 
+                                              autofocus:    true,
+                                              value:        params[:query]
                 .input-group-btn
                   => submit_tag 'Go', class: "btn btn-primary"
                   = link_to 'Clear', users_path( clear: 'clear'), class: 'btn btn-default'

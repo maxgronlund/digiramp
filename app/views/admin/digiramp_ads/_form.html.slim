@@ -7,7 +7,7 @@
         = @digiramp_ad.identifier
       .row
         .col-sm-4
-          = f.input :title
+          = f.input :title, autofocus: true
           .fileinput.fileinput-new data-provides="fileinput"
             .fileinput-new.thumbnail style="width: 180px; height: 180px;"
               - if @digiramp_ad.image

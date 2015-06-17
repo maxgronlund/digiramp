@@ -9,7 +9,7 @@
       .panel
         .panel-body 
           = f.hidden_field :playlist_key_id, value: @playlist_key.id
-          = f.input :password
+          = f.input :password, autofocus:  true
           
       .pull-right
         = f.submit 'Authorize', class: 'btn btn-primary btn-lg'

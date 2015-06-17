@@ -3,5 +3,5 @@
 =simple_form_for @account.user do |f|
   .row
     .col-sm-6
-      =f.input :user_name
+      =f.input :user_name, autofocus: true
       = f.submit 'Save', class: 'btn btn-primary btn-lg'

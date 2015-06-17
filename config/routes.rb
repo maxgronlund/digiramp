@@ -39,12 +39,13 @@ Digiramp::Application.routes.draw do
     #get 'buy_coupon/show'
     resources :buy_coupons
     resources :invoices, only: [:show]
-    resources :orders 
+    resources :orders do
+      resources :shipping_address
+    end
     match '/orders/payment_status/:uuid'   => 'orders#payment_status',    via: :get,  as: :payment_status
     resources :physical_products
     resources :products 
     resources :shop_order_items
-    resources :shipping_address
     get 'shop/index'
   end
 
@@ -526,7 +527,7 @@ Digiramp::Application.routes.draw do
       
 
       resources :opportunities do
-        
+        resources :opportunity_evaluations
         resources :opportunity_reviewers
         resources :opportunity_users, only: [:destroy, :show]
         resources :opportunity_providers, only: [:index]

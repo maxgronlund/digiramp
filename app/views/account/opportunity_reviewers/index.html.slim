@@ -36,13 +36,14 @@
             = link_to new_account_account_opportunity_opportunity_reviewer_path(@account, @opportunity) do
                 .btn.btn-primary
                   i.fa.fa-user
-                  '&nbsp;Invite members
+                  '&nbsp;Invite reviewers
             
                   
       = @opportunity.title
       .sexy_line
-      h4 Project group
-      == render 'account/opportunities/reviewers'
+        .digi-box
+          h4 Opportunity reviewers
+          == render 'account/opportunities/reviewers'
       /= debug @opportunity.opportunity_evaluations
             
                  

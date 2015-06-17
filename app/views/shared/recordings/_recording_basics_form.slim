@@ -3,7 +3,7 @@
   .col-sm-6
     - if super?
       = f.input :featured,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
-    = f.input :title
+    = f.input :title, autofocus:  true
     b Original file:
     =< recording.original_file_name
     br

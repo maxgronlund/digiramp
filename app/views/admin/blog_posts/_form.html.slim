@@ -5,7 +5,7 @@
   .row
     .col-sm-6
       
-      = f.input :title, :input_html => { placeholder: "Title"}
+      = f.input :title, :input_html => { placeholder: "Title"}, autofocus: true
       /-if current_user.email == 'max@synthmax.dk'
       /  = f.input :identifier, :input_html => { class: 'span12', placeholder: "identifier"}
       = f.input :author, :input_html => {  placeholder: "Author"}

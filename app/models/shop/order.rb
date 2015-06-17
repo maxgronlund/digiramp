@@ -128,8 +128,13 @@ class Shop::Order < ActiveRecord::Base
     save!
   end
 
-  def require_shippint_address
-    return true if self.order_items.where(require_shipping: true).first
+  def require_shipping_address
+    self.order_items.each do |order_item|
+      if product = order_item.product
+        return true if product.category == "Physical product"
+      end
+    end
+    false
   end
   
   def payment_source

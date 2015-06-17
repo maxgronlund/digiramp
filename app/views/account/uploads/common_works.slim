@@ -32,7 +32,7 @@
               'SELECT FILE
             .panel-body                  
               = f.hidden_field :account_id, value: @account.id
-              = f.input :title, placeholder: 'title'
+              = f.input :title, placeholder: 'title', autofocus: true
               = transloadit :recording_with_thumbs 
               
               = f.file_field :file, multiple: false

@@ -8,7 +8,7 @@
       .col-sm-6
         .panel.panel-default
           .panel-body
-            = f.input :stripe_id, label: 'Stripe id', placeholder: 'Unique name'
+            = f.input :stripe_id, label: 'Stripe id', placeholder: 'Unique name', autofocus: true
             'Unique string of your choice that will be used to identify this coupon when applying it a customer. This is often a specific code you’ll give to your customer to use when signing up (e.g. FALL25OFF). If you don’t want to specify a particular code, you can leave the ID blank and Stripe will generate a random code.
         
         

@@ -4,7 +4,7 @@
       .panel
         .panel-body
           = f.error_notification
-          = f.input :title, placeholder: 'Blog Title'
+          = f.input :title, placeholder: 'Blog Title', autofocus: true
           
           = f.input :body, :input_html => { style: " height: 120px;", placeholder: "Short description of the subject for the blog"}
       .pull-right

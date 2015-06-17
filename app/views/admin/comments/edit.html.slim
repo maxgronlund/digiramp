@@ -24,7 +24,7 @@
           .panel-body   
             == simple_form_for [ @comment.user, @comment.commentable, @comment] do |f|
               /= f.hidden_field :user_id, value: @comment.user_id
-              = f.input :title
+              = f.input :title, autofocus: true
               = f.input :body
               = f.input :image
               hr

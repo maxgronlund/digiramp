@@ -215,6 +215,11 @@ class User < ActiveRecord::Base
     @shop_order
   end
   
+  def is_stripe_connected
+    return true if self.authorization_providers.find_by(provider: 'stripe_connect')
+    false
+  end
+  
   def merge_order order_uuid
     if old_shop_order = Shop::Order.find_by(uuid: order_uuid)
       get_order.merge_with_and_delete old_shop_order

@@ -27,24 +27,37 @@
 
       .sexy_line
       = simple_form_for @user do |f|
-        .row
-          .col-sm-6
-            .digi-box
-            
-              = f.error_notification
-              -if @user.errors.any?
-                = render 'shared/errors', errors: @user.errors
-              = f.input :country, as: :country, priority: ['US'] 
+        .digi-box
+        
+          = f.error_notification
+          -if @user.errors.any?
+            = render 'shared/errors', errors: @user.errors
+          .row
+            .col-sm-6
+              = f.input :first_name, autofocus: true
+            .col-sm-6
+              = f.input :last_name
+          .row
+            .col-sm-6
+              = f.input :address_line_1
+            .col-sm-6
+              = f.input :address_line_2
+          .row
+            .col-sm-6
               = f.input :city
-              = f.input :zip_code
-              = f.input :address
+            .col-sm-8
+          = f.input :zip_code
+          .row
+            .col-sm-6
+              = f.input :country
+            .col-sm-6
               = f.input :phone_number 
         
-              .row
-                .col-sm-12
-                  .pull-right
-                    => link_to 'Cancel', user_user_control_panel_index_path(@user), class: 'btn btn-default'
-                    = f.submit 'Save info', class: 'btn btn-primary'
+          .row
+            .col-sm-12
+              .pull-right
+                => link_to 'Cancel', user_user_control_panel_index_path(@user), class: 'btn btn-default'
+                = f.submit 'Save info', class: 'btn btn-primary'
                     
   == render 'shared/site_footer'  
 

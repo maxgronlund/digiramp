@@ -11,9 +11,9 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), \
-                                                              documents: account_account_documents_path(@account) \
-                                                             }, \
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), 
+                                                              documents: account_account_documents_path(@account) 
+                                                             }, 
                                                       current:  ''}
       .row
         .col-sm-6
@@ -39,17 +39,18 @@
         .col-sm-8
           .pull-right
 
-            = simple_form_for  [ @account ], :url => url_for(:action => 'index', \
-                                                          :controller => '/account/recordings_bucket'), \
-                                                          turboboost: true, \
+            = simple_form_for  [ @account ], :url => url_for(:action => 'index', 
+                                                          :controller => '/account/recordings_bucket'), 
+                                                          turboboost: true, 
                                                           :method => 'get' do |f|
             
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-search'
-                = text_field_tag "query", "", :class => 'search-query form-control', \
-                                              :placeholder => 'Search', \
-                                              value: params[:query]
+                = text_field_tag "query", "", :class => 'search-query form-control', 
+                                              :placeholder => 'Search', 
+                                              value: params[:query],
+                                              autofocus: true
                 .input-group-btn
                   = f.submit 'Search', class: "btn btn-primary"
                   '&nbsp;

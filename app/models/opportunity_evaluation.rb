@@ -18,7 +18,6 @@ class OpportunityEvaluation < ActiveRecord::Base
       sanitized_email =  EmailSanitizer.saintize email
 
       if user  = User.find_or_invite_from_email( sanitized_email )
-
         if user.account_activated
           OpportunityEvaluationMailer.delay.invite(user.id, self.id)
         else
@@ -27,6 +26,10 @@ class OpportunityEvaluation < ActiveRecord::Base
         end                  
       end  
     end                
+  end
+  
+  def create_opportunity_users
+    
   end
   
   def self.cached_find(id)

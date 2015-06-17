@@ -2,7 +2,7 @@
   = f.hidden_field :account_id,   value: @account.id
   = f.hidden_field :ipiable_type, value: 'Account'
   = f.hidden_field :ipiable_id,   value: @account.id
-  = f.input :title
+  = f.input :title, autofocus: true
   = f.input :ipi_code, label: 'IPI Code'
   /= f.input :role, label: 'Capacity'
   = f.input :pro, collection: CommonWorksImport::PROS, include_blank: false, label: 'Performance Rights Organization'

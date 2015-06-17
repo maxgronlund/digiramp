@@ -172,7 +172,7 @@
                       'Your DigiRAMP plan
                       
               .control-panel-badge
-                - shop_link = @user.has_enabled_shop ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
+                - shop_link = @user.is_stripe_connected ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
                 = link_to  shop_link, id: 'shop-administration' do
                   .content
                     .icon.icon-red

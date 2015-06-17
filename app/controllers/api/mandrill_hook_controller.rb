@@ -12,7 +12,7 @@ class Api::MandrillHookController < ApplicationController
   end
   
   def handle_send(event)
-    ap 'handle sent'
+    #ap 'handle sent'
     if message = get_by_id( event )
       message.delivered!
     end
@@ -20,21 +20,19 @@ class Api::MandrillHookController < ApplicationController
   end
   
   def get_by_id event
-    ap event["tags"]
+    #ap event["tags"]
     if _id = event["_id"]
       return ClientInvitation.find_by(mandrill_id: _id)
     end
   end
   
   def handle_open event
-    '---- handle open ----'
+    #'---- handle open ----'
     handle_clicks_and_opens event
-
- 
   end
   
   def handle_click event
-    '--- handle click ----'
+    #'--- handle click ----'
     handle_clicks_and_opens event
   end
   

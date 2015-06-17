@@ -3,7 +3,7 @@
   .digi-box
     .row
       .col-sm-6
-        = f.input :title
+        = f.input :title, autofocus:  true
         = f.input :public_opportunity,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
         .row
           .col-sm-6
@@ -34,10 +34,6 @@
             a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
               'Remove
               
-              
-              
-              
-        
         br
         .row
           .col-sm-6
@@ -46,13 +42,6 @@
           .col-sm-6
             = f.input :territory
         
-        
-        
-    
-    
-        		
-    
-    
         
     
   .row

@@ -1,7 +1,7 @@
 .row
   .col-sm-6
     /= f.hidden_field :next_step, value: 'next_step', id: 'next_step'
-    = f.input :artist, :input_html => {  style: "height: 80px;", placeholder: "Artist"}
+    = f.input :artist, :input_html => {  style: "height: 80px;", placeholder: "Artist"}, autofocus:  true
   .col-sm-6
     = f.input :performer, :input_html => {  style: "height: 80px;", placeholder: "Performer"}
 .row

@@ -3,7 +3,7 @@
   = f.hidden_field :commentable_id,   value: @comment_able.id
   = f.hidden_field :commentable_type, value: @comment_able.class.name
   = f.hidden_field :user_id, value: current_user.id
-  = f.input :title
+  = f.input :title, autofocus: true
   = f.input :body
   /= f.input :image
   hr
