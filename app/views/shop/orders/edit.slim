@@ -17,7 +17,6 @@
     .container-fluid
       .digi-box
         h4 = number_to_currency(@shop_order.total_price * 0.01, locale: :en, pression: 2)
-        'fobar
         .row
           .col-sm-12
               #payment-errors.alert.payment-alert style=("#{ @shop_order.errors.any? ? '' : 'display: none;' } margin-bottom: 0px;") 

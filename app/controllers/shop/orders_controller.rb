@@ -23,24 +23,23 @@ class Shop::OrdersController < ApplicationController
     @shop_order.reset!
     #ap @shop_order
     
-    if @shop_order.require_shipping_address
-      
-      if @shop_order.shipping_address
-        redirect_to edit_shop_order_shipping_address_path(@shop_order.uuid, @shop_order.shipping_address)
-      else
-        redirect_to new_shop_order_shipping_address_path(@shop_order.uuid)
-      end
-    else
-      @total_price  = @shop_order.total_price
-      @years        = CreditCard.years
-      @months       = CreditCard.months
-    end
+    #if @shop_order.require_shipping_address
+    #  if @shop_order.shipping_address
+    #    redirect_to edit_shop_order_shipping_address_path(@shop_order.uuid, @shop_order.shipping_address)
+    #  else
+    #    redirect_to new_shop_order_shipping_address_path(@shop_order.uuid)
+    #  end
+    #else
+    @total_price  = @shop_order.total_price
+    @years        = CreditCard.years
+    @months       = CreditCard.months
+    #end
   end
 
   # PATCH/PUT /shop/orders/1
   # PATCH/PUT /shop/orders/1.json
   def update
-    #ap params
+    ap params
     params[:shop_order][:email]           = params[:email]
     params[:shop_order][:stripe_token]    = params[:stripeToken]
     params[:stripeToken]                  = nil
@@ -90,10 +89,10 @@ class Shop::OrdersController < ApplicationController
                                          :uuid, 
                                          :coupon_id,
                                          :email,
-                                         #:address_line_1,
-                                         #:address_line_2,
-                                         #:address_city,
-                                         #:address_country
+                                         :address_line_1,
+                                         :address_line_2,
+                                         :address_city,
+                                         :address_country
                                          )
     end
 end

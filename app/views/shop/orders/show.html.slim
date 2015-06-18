@@ -79,6 +79,12 @@
         .row
           .col-sm-12
             .pull-right
-              => link_to edit_shop_order_path(@shop_order.uuid), id: 'checkout-button' , 'data-no-turbolink'=>'true' do
-                .btn.btn-success
-                  'Checkout
+              - if @shop_order.require_shipping_address
+                => link_to new_shop_order_shipping_address_path(@shop_order.uuid), id: 'checkout-button' do
+                  .btn.btn-success
+                    'Checkout
+              
+              - else
+                => link_to edit_shop_order_path(@shop_order.uuid), id: 'checkout-button' , 'data-no-turbolink'=>'true' do
+                  .btn.btn-success
+                    'Checkout

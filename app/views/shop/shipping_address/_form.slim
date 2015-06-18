@@ -1,0 +1,31 @@
+= simple_form_for [:shop, @address], :url => url_for(:action => 'create', :controller => '/shop/shipping_address'), :method => 'post' do |f|
+  = f.error_notification
+
+  .form-inputs
+    .row
+      .col-sm-6
+        = f.input :first_name, autofocus: true
+      .col-sm-6
+        = f.input :last_name
+    .row
+      .col-sm-6
+        = f.input :address_line_1
+      .col-sm-6
+        = f.input :address_line_2
+    .row
+      .col-sm-6
+        = f.input :city
+      .col-sm-6
+        = f.input :state
+    .row
+      .col-sm-6
+        = f.input :country
+    = f.hidden_field :addressable_id    , value: @shop_order.id
+    = f.hidden_field :addressable_type  , value: @shop_order.class.name
+    /= f.association :addressable
+  
+  .row
+    .col-sm-12
+      .pull-right
+        .form-actions
+          = f.submit 'Continue', class: 'btn btn-primary', id: 'save-address'

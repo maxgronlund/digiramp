@@ -29,11 +29,12 @@ class StripeChargeService
             errored = false
             
             if stripe_payment_source = stripe_object.source
-              #ap stripe_payment_source
+              ap stripe_payment_source
               shop_order.order_content[:payment_source] = JSON.parse(stripe_payment_source.to_json).deep_symbolize_keys 
               shop_order.order_content[:total_price]    = shop_order.total_price
               shop_order.create_transfers stripe_object.id, stripe_object.amount
-              shop_order.save
+              OrderPayment.set_address_fields_from_payment_source( shop_order)
+              shop_order.save(validate: false)
             end
           elsif subscription  = Subscription.find_by(stripe_id: stripe_object.id)
             #subscription.finish!

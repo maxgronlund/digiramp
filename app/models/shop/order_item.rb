@@ -25,6 +25,10 @@ class Shop::OrderItem < ActiveRecord::Base
     self.sold = true
     self.save
   end
+  
+  def seller_info
+    product.seller_info
+  end
 
   private 
   

@@ -39,7 +39,10 @@
     .row
       .col-sm-12        
         .pull-right 
-          <div data-no-turbolink>
-            = link_to 'Checkout', edit_shop_order_path(@shop_order.uuid), class: 'btn btn-success', id: 'checkout'
-          </div>
+          - if @shop_order.require_shipping_address
+            = link_to 'Checkout', new_shop_order_shipping_address_path(@shop_order.uuid), class: 'btn btn-success', id: 'checkout'
+          - else
+            <div data-no-turbolink>
+              = link_to 'Checkout', edit_shop_order_path(@shop_order.uuid), class: 'btn btn-success', id: 'checkout'
+            </div>
     

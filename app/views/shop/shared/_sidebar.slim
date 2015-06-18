@@ -7,16 +7,27 @@
       '&nbsp;
       'Basket
   li class="#{'sidebar-selected' if selected == 'payment'}"
-    <div data-no-turbolink>
-      = link_to  edit_shop_order_path(@shop_order.uuid), id: 'checkout' do
-        i.fa.fa-gift
-        '&nbsp;
-        = pluralize(@shop_order.items_count, 'Item')
-        div
-          i.fa.fa-credit-card
+    - if @shop_order.require_shipping_address
+        = link_to  new_shop_order_shipping_address_path(@shop_order.uuid), id: 'checkout' do
+          i.fa.fa-gift
           '&nbsp;
-          = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
-    </div>
+          = pluralize(@shop_order.items_count, 'Item')
+          div
+            i.fa.fa-credit-card
+            '&nbsp;
+            = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
+
+    - else
+      <div data-no-turbolink>
+        = link_to  edit_shop_order_path(@shop_order.uuid), id: 'checkout' do
+          i.fa.fa-gift
+          '&nbsp;
+          = pluralize(@shop_order.items_count, 'Item')
+          div
+            i.fa.fa-credit-card
+            '&nbsp;
+            = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
+      </div>
           
 
         

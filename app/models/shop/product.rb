@@ -21,6 +21,10 @@ class Shop::Product < ActiveRecord::Base
   #has_and_belongs_to_many :orders, :class_name => "Shop::Order"
   has_many :order_items, :class_name => "Shop::OrderItem"
   
+  def seller_info
+    user.seller_info
+  end
+  
   after_commit :flush_cache
 
   def self.cached_find(uuid)

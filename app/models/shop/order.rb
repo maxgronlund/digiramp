@@ -5,7 +5,7 @@ class Shop::Order < ActiveRecord::Base
   include AASM
   
   belongs_to :user
-  belongs_to :stripe_customer
+  #belongs_to :stripe_customer
   belongs_to :coupon
   
   serialize :invoice_object, Hash
@@ -118,9 +118,10 @@ class Shop::Order < ActiveRecord::Base
     self.order_lines = []
     self.order_items.each_with_index do |order_item, index|
       if product = order_item.product
-        self.order_lines[index] = product.as_json.merge("total_price" => (order_item.quantity * product.price),
+        self.order_lines[index] = product.as_json.merge( "total_price" => (order_item.quantity * product.price),
                                                          "quantity" => order_item.quantity,
-                                                        "shop_order_item_id" => order_item.id)
+                                                         "shop_order_item_id" => order_item.id,
+                                                         "seller_info"        => order_item.seller_info)
                                                          
         product.update_stock
       end
@@ -136,6 +137,12 @@ class Shop::Order < ActiveRecord::Base
     end
     false
   end
+  
+  def shipping_address
+    Address.find_by(addressable_id: self.id, addressable_type: self.class.name)
+  end
+  
+ 
   
   def payment_source
     self.order_content[:payment_source]

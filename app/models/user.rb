@@ -220,6 +220,12 @@ class User < ActiveRecord::Base
     false
   end
   
+  def seller_info
+    if is_stripe_connected
+      StripeAccount.info(self)
+    end
+  end
+  
   def merge_order order_uuid
     if old_shop_order = Shop::Order.find_by(uuid: order_uuid)
       get_order.merge_with_and_delete old_shop_order
