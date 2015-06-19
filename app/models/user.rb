@@ -871,37 +871,65 @@ class User < ActiveRecord::Base
     
   end
   
-
+  def get_img url
+    ap url
+    img = open(url)
+    if img.is_a?(StringIO)
+      ext   = File.extname(url)
+      name  = File.basename(url, ext)
+      Tempfile.new([name, ext])
+    else
+      img
+    end
+  end
 
   def tweet share_on_twitter_id
-    
+    ap 'share_on_twitter_id'
     if share_on_twitter = ShareOnTwitter.cached_find(share_on_twitter_id)
       # get twitter provider
       if provider_twitter = self.authorization_providers.where(provider: 'twitter').first
       
-        client = Twitter::REST::Client.new do |config|
-          #config.consumer_key        = TWITTER_KEY
-          #config.consumer_secret     = TWITTER_SECRET
+        begin
+          client = Twitter::REST::Client.new do |config|
+            #config.consumer_key        = TWITTER_KEY
+            #config.consumer_secret     = TWITTER_SECRET
+            
+            config.consumer_key        = Rails.application.secrets.twitter_app_id
+            config.consumer_secret     = Rails.application.secrets.twitter_secret_key
+            
           
-          config.consumer_key        = Rails.application.secrets.twitter_app_id
-          config.consumer_secret     = Rails.application.secrets.twitter_secret_key
+            config.access_token        = provider_twitter[:oauth_token]
+            config.access_token_secret = provider_twitter[:oauth_secret]
           
-
-          config.access_token        = provider_twitter[:oauth_token]
-          config.access_token_secret = provider_twitter[:oauth_secret]
-        
+          end
+          
+          img =  get_img(share_on_twitter.recording.get_artwork)
+          
+          ap img.inspect
+          
+          client.update_with_media( share_on_twitter.message, img );
+          
+          # 1* Getting error here
+          #open( share_on_twitter.recording.get_artwork) do |file|
+          #open( get_img(share_on_twitter.recording.get_artwork) ) do |file|
+          #  
+          #  client.update_with_media( share_on_twitter.message, file );
+          #end
+          
+          # 2* Replace with
+          #media_id = client.upload File.new share_on_twitter.recording.get_artwork
+          #client.update share_on_twitter.message, {media_ids: media_id }
+          
+        rescue => e#Twitter::Error => e
+          ap 'error'
+          ap e.inspect
+          
+          #message = "A twitter error occurred: #{e.class} - #{e.message}"
+          #ap message
+          #Opbeat.capture_message(message)
         end
         
         
-        # 1* Getting error here
-        open( share_on_twitter.recording.get_artwork) do |file|
-          client.update_with_media( share_on_twitter.message, file );
-        end
-        
-        # 2* Replace with
-        
-        #media_id = client.upload File.new share_on_twitter.recording.get_artwork
-        #client.update share_on_twitter.message, {media_ids: media_id }
       else
         ap '----------- twitter provider not found. Link account now ----------------------'
       end

@@ -3,7 +3,7 @@
 class ClientInvitationMailer < ApplicationMailer
 
   def send_one_with_avatar client_invitation_id
-    client_invitation = ClientInvitation.cached_find(client_invitation_id)
+    client_invitation      = ClientInvitation.cached_find(client_invitation_id)
     email                  = client_invitation.email
     inviter                = client_invitation.user
     avatar_url             = ( URI.parse(root_url) + inviter.image_url(:avatar_92x92) ).to_s

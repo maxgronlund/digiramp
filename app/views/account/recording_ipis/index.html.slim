@@ -79,7 +79,7 @@
                   td = recording_ipi.email.to_s
                   td
                     .pull-right
-                      - total_share += recording_ipi.share
+                      - total_share += recording_ipi.share.to_i
                       = number_to_percentage(recording_ipi.share, precision: 0)   
               tr
                 td  
