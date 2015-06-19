@@ -13,14 +13,19 @@ class User::InviteFriendsController < ApplicationController
     already_invited           = []
     
     params[:emails].split(',').each do |raw_email|
-      raw_email.split(' ').each do |email|
-        if email = EmailSanitizer.saintize( email )
-          client = Client.where(email: email, user_id: @user.id).first_or_create(email: email, user_id: @user.id, account_id: @user.account_id)
-          
-          if client.full_name == ' '
-            client.name =  User.create_uniq_user_name_from_email( email )  
-            client.save!
-          end
+      #raw_email.split(' ').each do |email|
+        if email = EmailSanitizer.saintize( raw_email )
+          ap email
+          client = Client.where(email: email, 
+                                user_id: @user.id)
+                        .first_or_create(email: email, 
+                                         user_id: @user.id, 
+                                         account_id: @user.account_id)
+          ap client
+          #if client.
+          #  client.name =  User.create_uniq_user_name_from_email( email )  
+          #  client.save!
+          #end
           
           unless @client_invitation = ClientInvitation.where( account_id: @user.account_id, client_id: client.id).first
                  client_invitation = ClientInvitation.create( account_id: @user.account_id, 
@@ -37,7 +42,7 @@ class User::InviteFriendsController < ApplicationController
           end
 
         end
-      end
+        #end
     end
     @invitations_send_to  = invitations_send_to
     @already_invited      = already_invited

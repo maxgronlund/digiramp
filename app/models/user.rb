@@ -829,8 +829,9 @@ class User < ActiveRecord::Base
         return Rails.cache.fetch([name, id]) { find(id) }
       end
     rescue ActiveRecord::RecordNotFound => e
-      Opbeat.capture_message(e.inspect)
-      ap e.inspect
+      message = "User: #{id} not found"
+      Opbeat.capture_message(message)
+      ap message
     end
     nil
   end

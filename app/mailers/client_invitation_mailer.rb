@@ -82,6 +82,7 @@ class ClientInvitationMailer < ApplicationMailer
   end
   
   def send_to_mandrill receipients_with_names, inviter, merge_vars, invitations
+    ap receipients_with_names
     begin
       template_name = "user-invitation"
       template_content = []
