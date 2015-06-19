@@ -15,13 +15,13 @@ class User::InviteFriendsController < ApplicationController
     params[:emails].split(',').each do |raw_email|
       #raw_email.split(' ').each do |email|
         if email = EmailSanitizer.saintize( raw_email )
-          ap email
+          
           client = Client.where(email: email, 
                                 user_id: @user.id)
                         .first_or_create(email: email, 
                                          user_id: @user.id, 
                                          account_id: @user.account_id)
-          ap client
+          
           #if client.
           #  client.name =  User.create_uniq_user_name_from_email( email )  
           #  client.save!

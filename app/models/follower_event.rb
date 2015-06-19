@@ -27,17 +27,8 @@ class FollowerEvent < ActiveRecord::Base
   
   # this is the user the followed user did something woth
   def get_user_on_user
-    begin
-      return User.cached_find(self.postable_id)
-    rescue
-      ap msg = "User not found #{self.postable_id}"
-      Opbeat.capture_message(msg)
-    end
-    
+    User.cached_find(self.postable_id)
   end
-  
-
-  
 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
