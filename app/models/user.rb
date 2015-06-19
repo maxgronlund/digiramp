@@ -917,28 +917,18 @@ class User < ActiveRecord::Base
           if media.is_a?(StringIO)
             ext  = File.extname(media_url)
             name = File.basename(media_url, ext)
-
             tf = Tempfile.new([name, ext], Rails.root.join('tmp'))
-            #tf   = Tempfile.open([name, ext])
+
             tf.binmode
             tf.write(media.read)
-            sleep(10)
+            tf.rewind
             client.update_with_media(share_on_twitter.message, tf)
             tf.close
+            tf.unlink
           else
             client.update_with_media(share_on_twitter.message, media)
-            #media.close
+            media.close
           end
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
           #img =  get_img(share_on_twitter.recording.get_artwork)
 
           
