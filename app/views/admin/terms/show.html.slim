@@ -1,12 +1,69 @@
-p#notice = notice
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,
+                                                              terms: admin_terms_path}, current: ''}
+      .row
+        .col-sm-5
+          /h2 Terms
+      
+        .col-sm-7
+          .pull-right.pull-down-10
+            = link_to 'Edit', edit_admin_term_path(@admin_term), class: 'btn btn-primary'
+      
+      .sexy_line
+      .row
+        .col-lg-8
+          .digi-box
+            h4 = @admin_term.title
+            = simple_format @admin_term.body
+ 
 
-p
-  strong Title:
-  = @admin_term.title
-p
-  strong Body:
-  = @admin_term.body
 
-= link_to 'Edit', edit_admin_term_path(@admin_term)
-'|
-= link_to 'Back', admin_terms_path
+  == render 'shared/site_footer'  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/p#notice = notice
+/
+/p
+/  strong Title:
+/  = @admin_term.title
+/p
+/  strong Body:
+/  = @admin_term.body
+/
+/= link_to 'Edit', edit_admin_term_path(@admin_term)
+/'|
+/= link_to 'Back', admin_terms_path

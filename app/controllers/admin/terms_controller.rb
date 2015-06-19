@@ -30,7 +30,7 @@ class Admin::TermsController < ApplicationController
 
     respond_to do |format|
       if @admin_term.save
-        format.html { redirect_to admin_terms_path, notice: 'Term was successfully created.' }
+        format.html { redirect_to @admin_term, notice: 'Term was successfully created.' }
         format.json { render :show, status: :created, location: @admin_term }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class Admin::TermsController < ApplicationController
   def update
     respond_to do |format|
       if @admin_term.update(admin_term_params)
-        format.html { redirect_to admin_terms_path, notice: 'Term was successfully updated.' }
+        format.html { redirect_to @admin_term, notice: 'Term was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin_term }
       else
         format.html { render :edit }

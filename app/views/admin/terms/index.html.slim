@@ -50,7 +50,8 @@
             tbody
               - @admin_terms.each do |admin_term|
                 tr
-                  td = admin_term.title
+                  td 
+                    =link_to admin_term.title, admin_term
                   td
                     .pull-right
                       => link_to 'Edit', edit_admin_term_path(admin_term), class: 'btn btn-default btn-xs'
