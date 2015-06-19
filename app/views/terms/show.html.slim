@@ -13,12 +13,9 @@
       /== render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
       .row
         .col-sm-5
-          h2 Vocabulary
+          
         
-        - if super?
-          .col-sm-7
-            .pull-right.pull-down-10
-              = link_to 'Admin terms', admin_terms_path, class: 'btn btn-default'
+
       .row
         .col-sm-5
         .col-sm-7
@@ -39,25 +36,15 @@
 
                  
       .sexy_line
-      .digi-box
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th Title
-                
-            tbody
-              - @terms.each do |admin_term|
-                tr
-                  td 
-                    = link_to term_path(admin_term) do
-                      = admin_term.title
-                      .pull-right
-                        .btn.btn-default.btn-xs
-                          'Show
-                      
-        
-              
+      
+      .row
+        .col-lg-8
+          .digi-box
+            h4 = @term.title
+            = simple_format @term.body
+                    
+      
+            
                       
                  
  
