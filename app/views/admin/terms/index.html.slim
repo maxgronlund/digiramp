@@ -54,6 +54,7 @@
                     =link_to admin_term.title, admin_term
                   td
                     .pull-right
+                      => link_to 'Show', admin_term, class: 'btn btn-default btn-xs'
                       => link_to 'Edit', edit_admin_term_path(admin_term), class: 'btn btn-default btn-xs'
                       = link_to  admin_term, data: {:confirm => 'Are you sure?'}, 
                                                       :method => :delete,
