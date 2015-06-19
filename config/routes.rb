@@ -1,6 +1,6 @@
 Digiramp::Application.routes.draw do
 
-  get 'help/index'
+
 
   resources :playlist_emails
 
@@ -413,6 +413,8 @@ Digiramp::Application.routes.draw do
 
 
   get "admin"        => "admin#index",      :as => :admin_index
+  get "help"         => "help#index",       :as => :help_index
+  
   get "vocabulary"   => "vocabulary#index", :as => :vocabulary_index
 
   get "support" => "supports#index",        :as => :support_index

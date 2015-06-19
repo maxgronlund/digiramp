@@ -1,5 +1,7 @@
 class Admin::Term < ActiveRecord::Base
   
+  validates :title, :body, presence: true
+  
   include PgSearch
   pg_search_scope :search_term, against: [:title, :body], :using => [:tsearch]
   
