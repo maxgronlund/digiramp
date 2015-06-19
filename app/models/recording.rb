@@ -167,9 +167,7 @@ class Recording < ActiveRecord::Base
   end
   
   def get_artwork
-    ap self.cover_art
     self.cover_art.blank? ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art
-    
   end
   
   # for some reason this is not working

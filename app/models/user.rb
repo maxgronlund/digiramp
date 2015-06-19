@@ -803,7 +803,6 @@ class User < ActiveRecord::Base
     found_user
   end
 
-  
   def add_token
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
@@ -817,7 +816,6 @@ class User < ActiveRecord::Base
   def has_access_to_cattalogs_on account
     !CatalogUser.where(catalog_id: account.catalog_ids, user_id: self.id).nil?
   end
-  
   
   def self.cached_find(id)
 
@@ -838,8 +836,7 @@ class User < ActiveRecord::Base
   end
   
   
-  
-  
+
   def facebook
     if provider = authorization_providers.where(provider: 'facebook').first
       @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
@@ -864,97 +861,11 @@ class User < ActiveRecord::Base
       rescue
         return false
       end
-
     else
       return false
     end
-    
   end
   
-  def get_img url
-    img = open(url)
-    if img.is_a?(StringIO)
-      ext   = File.extname(url)
-      name  = File.basename(url, ext)
-      Tempfile.new([name, ext])
-    else
-      img
-    end
-  end
-  
-  #def tmp_folder
-  #    # If we're using Rails:
-  #    Rails.root.join('tmp')
-  #    # Otherwise:
-  #    # '/wherever/you/want'
-  #  end
-
-  def tweet share_on_twitter_id
-    
-    if share_on_twitter = ShareOnTwitter.cached_find(share_on_twitter_id)
-      # get twitter provider
-      if provider_twitter = self.authorization_providers.where(provider: 'twitter').first
-      
-        begin
-          client = Twitter::REST::Client.new do |config|
-
-            config.consumer_key        = Rails.application.secrets.twitter_app_id
-            config.consumer_secret     = Rails.application.secrets.twitter_secret_key
-            
-          
-            config.access_token        = provider_twitter[:oauth_token]
-            config.access_token_secret = provider_twitter[:oauth_secret]
-          
-          end
-          
-          
-          
-          
-          
-          media_url = share_on_twitter.recording.get_artwork
-          media     = open(media_url)
- 
-          if media.is_a?(StringIO)
-            ext  = File.extname(media_url)
-            name = File.basename(media_url, ext)
-            tf = Tempfile.new([name, ext], Rails.root.join('tmp'))
-
-            tf.binmode
-            tf.write(media.read)
-            tf.rewind
-            client.update_with_media(share_on_twitter.message, tf)
-            tf.close
-            tf.unlink
-          else
-            client.update_with_media(share_on_twitter.message, media)
-            media.close
-          end
-          #img =  get_img(share_on_twitter.recording.get_artwork)
-
-          
-          # 1* Getting error here if image is less than 10k
-          # http://stackoverflow.com/questions/25033848/sinatra-twitter-and-stringio
-          #open( share_on_twitter.recording.get_artwork) do |file|
-          #  client.update_with_media( share_on_twitter.message, file );
-          #end
-          
-          # 2* Replace with
-          #open(share_on_twitter.recording.get_artwork) do |media|
-          #  media_id = client.upload(media)
-          #  ap client.update(share_on_twitter.message, :media_ids => [media_id])
-          #end
-          
-        rescue => e #Twitter::Error => e
-          ap e.inspect
-          Opbeat.capture_message(e.inspect)
-        end
-      else
-        ap '----------- twitter provider not found. Link account now ----------------------'
-      end
-    else
-      ap '----------- share_on_twitter model not found ----------------------'
-    end
-  end
 
 
 private
