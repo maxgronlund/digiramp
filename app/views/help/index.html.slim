@@ -1,2 +1,26 @@
-h1 Help#index
-p Find me in app/views/help/index.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      /ul class="sidebar-nav"
+      /  == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Help
+                 
+      .sexy_line
+      .digi-box
+        = link_to 'Vocabulary', vocabulary_index_path, class: 'btn btn-default'
+                
+      
+            
+                      
+                 
+ 
+
+
+  == render 'shared/site_footer'

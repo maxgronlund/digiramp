@@ -17,7 +17,13 @@
         
 
       .row
-        .col-sm-5
+        .col-sm-5.pull-down-10
+          = link_to  vocabulary_index_path do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+                
+
         .col-sm-7
           .pull-down-10
             = form_tag("/vocabulary", method: "get") do |f|
