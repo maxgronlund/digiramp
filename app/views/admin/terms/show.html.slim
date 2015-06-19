@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @admin_term.title
+p
+  strong Body:
+  = @admin_term.body
+
+= link_to 'Edit', edit_admin_term_path(@admin_term)
+'|
+= link_to 'Back', admin_terms_path

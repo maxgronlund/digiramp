@@ -1,14 +1,5 @@
 Digiramp::Application.routes.draw do
 
-  
-
-  namespace :admin do
-    resources :mandrill_accounts
-  end
-  #namespace :api do
-  #  get 'mandrill_hook/update'
-  #end
-
   resources :playlist_emails
 
 
@@ -155,6 +146,7 @@ Digiramp::Application.routes.draw do
     resources :instruments
     resources :instruments_imports
     resources :legal_documents
+    resources :mandrill_accounts
     resources :moods
     resources :moods_imports
     resources :pro_affiliations
@@ -168,6 +160,7 @@ Digiramp::Application.routes.draw do
       resources :accounts, only: [:new]
     end
     resources :subscriptions, only: [:index, :show]
+    resources :terms
     resources :tutorials
     
     resources :user_genres, only: [:index]
@@ -417,7 +410,9 @@ Digiramp::Application.routes.draw do
   resources :single_work_steps
 
 
-  get "admin"         => "admin#index",     :as => :admin_index
+  get "admin"        => "admin#index",      :as => :admin_index
+  get "vocabulary"   => "vocabulary#index", :as => :vocabulary_index
+
   get "support" => "supports#index",        :as => :support_index
   get "flush_cache" => "admin#flush_cache", :as => :admin_flush_cache
   

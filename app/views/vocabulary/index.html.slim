@@ -1,0 +1,53 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      /ul class="sidebar-nav"
+      /  == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      .row
+        .col-sm-5
+          h2 Vocabulary
+        
+        - if super?
+          .col-sm-7
+            .pull-right.pull-down-10
+              = link_to 'Admin terms', admin_terms_path, class: 'btn btn-default'
+      .row
+        .col-sm-5
+        .col-sm-7
+          .pull-down-10
+            = form_tag("/vocabulary", method: "get") do |f|
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", class:        'search-query form-control', 
+                                              placeholder:  'Search for term', 
+                                              autofocus:    true,
+                                              turboboost:   true,
+                                              value:        params[:query]
+                .input-group-btn
+                  => submit_tag 'Go', class: "btn btn-primary"
+                  = link_to 'Clear', vocabulary_index_path(), class: 'btn btn-default'
+                  
+
+                 
+      .sexy_line
+      .digi-box
+        - @terms.each do |admin_term|
+          h4 = admin_term.title
+          = simple_format admin_term.body
+          .sexy_line
+              
+                      
+                 
+ 
+
+
+  == render 'shared/site_footer'   

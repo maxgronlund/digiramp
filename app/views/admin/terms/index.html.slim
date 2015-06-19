@@ -1,0 +1,67 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      .row
+        .col-sm-5
+          h2 Terms
+      
+        .col-sm-7
+          .pull-right.pull-down-10
+            = link_to 'New Term', new_admin_term_path, class: 'btn btn-primary'
+      .row
+        .col-sm-5
+        .col-sm-7
+          .pull-down-10
+            = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                          :controller => 'admin/terms'), \
+                                                          :method => 'get',
+                                                          turboboost: true do |f|
+            
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control', \
+                                              :placeholder => 'Search for term', \
+                                              value: params[:query], autofocus: true
+                .input-group-btn
+                  = f.submit 'Search', class: "btn btn-primary"
+                  '&nbsp;
+                  = link_to 'Clear', admin_terms_path, class: 'btn btn-default'        
+            
+                 
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th
+            tbody
+              - @admin_terms.each do |admin_term|
+                tr
+                  td = admin_term.title
+                  td
+                    .pull-right
+                      => link_to 'Edit', edit_admin_term_path(admin_term), class: 'btn btn-default btn-xs'
+                      = link_to  admin_term, data: {:confirm => 'Are you sure?'}, 
+                                                      :method => :delete,
+                                                      turboboost: true do
+                            .btn.btn-danger.btn-xs
+                              i.fa.fa-times
+                      
+                 
+ 
+
+
+  == render 'shared/site_footer'   

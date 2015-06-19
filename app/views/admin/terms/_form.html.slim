@@ -1,0 +1,26 @@
+= simple_form_for(@admin_term) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title, autofocus: true
+
+    
+    
+    div id="toolbar" class="wysihtml5-toolbar"
+      a data-wysihtml5-command="bold" Bold
+      '&nbsp; 
+      a data-wysihtml5-command="italic" Italic
+      .pull-right
+        a data-wysihtml5-action="change_view"  Html 
+    
+    = f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Definition of the term used in the particular music sphere", id: 'wysihtml5_editor'}
+
+
+  .row
+    .col-sm-12
+      .pull-right
+        .form-actions
+          = f.submit 'Save', class: 'btn btn-primary'
+
+
+== render 'shared/init_wysiwyg5'
