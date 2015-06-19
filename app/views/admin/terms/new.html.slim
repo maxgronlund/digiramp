@@ -1,5 +1,24 @@
-h1 New admin_term
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path,
+                                                              terms: admin_terms_path}, current: ''}
+      h2 New term     
+      .sexy_line
+      .digi-box
+        == render 'form'
+                      
+                 
+ 
 
-== render 'form'
 
-= link_to 'Back', admin_terms_path
+  == render 'shared/site_footer'  

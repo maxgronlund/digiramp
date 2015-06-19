@@ -1,5 +1,7 @@
 Digiramp::Application.routes.draw do
 
+  get 'help/index'
+
   resources :playlist_emails
 
 
