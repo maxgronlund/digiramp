@@ -2,7 +2,7 @@ class CmsSection < ActiveRecord::Base
   belongs_to :cms_page
   belongs_to :cms_module, polymorphic: true
   
-  MODULE_TYPES = [ 'Activities',
+  MODULE_TYPES = [ #'Activities',
                    'Banner',
                    'Contact',
                    'Comment', 

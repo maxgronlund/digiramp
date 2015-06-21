@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619202532) do
+ActiveRecord::Schema.define(version: 20150620190559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1381,24 +1381,6 @@ ActiveRecord::Schema.define(version: 20150619202532) do
   add_index "emails", ["account_id"], name: "index_emails_on_account_id", using: :btree
   add_index "emails", ["send_to_user_id"], name: "index_emails_on_send_to_user_id", using: :btree
   add_index "emails", ["user_id"], name: "index_emails_on_user_id", using: :btree
-
-  create_table "features", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.text     "body"
-    t.integer  "video1_id"
-    t.integer  "video2_id"
-    t.integer  "video3_id"
-    t.integer  "video4_id"
-    t.integer  "video5_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "fobars", force: :cascade do |t|
-    t.string   "index",      limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "follower_event_users", force: :cascade do |t|
     t.integer  "follower_event_id"

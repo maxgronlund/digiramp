@@ -200,6 +200,11 @@ class User < ActiveRecord::Base
   has_many :products, class_name: 'Shop::Product'
   #has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
 
+  def self.say_hello
+    ap '========================================= say hello ========================================='
+    ap '...'
+    ap '...'
+  end
   def get_order
 
     # lock if there is a order in the process of being paid

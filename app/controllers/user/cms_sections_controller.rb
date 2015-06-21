@@ -60,8 +60,8 @@ class User::CmsSectionsController < ApplicationController
       social_links
     when 'Text'
       text
-    when 'Activities'
-       activities
+    #when 'Activities'
+    #   activities
     when 'Vertical links'
       vertical_links
     when 'Video snippet'

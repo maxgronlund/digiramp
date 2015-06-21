@@ -410,7 +410,6 @@ Digiramp::Application.routes.draw do
   end
 
   
-  resources :features
   resources :single_work_steps
 
 
@@ -955,14 +954,6 @@ Digiramp::Application.routes.draw do
     end
     resources :issue_images, only: [:show]
     
-    resources :feature_requests do
-      resources :features do
-        member do
-          post 'create_comment'
-        end
-        
-      end
-    end
     
   end
 

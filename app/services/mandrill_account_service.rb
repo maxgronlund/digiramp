@@ -1,7 +1,7 @@
 class MandrillAccountService
   
   def self.create_account_for_user user_id
-    user    = User.cached_find(user_id)
+    return unless user  = User.cached_find(user_id)
     return unless user.mandrill_account_id.blank?
     begin
       
