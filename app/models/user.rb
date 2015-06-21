@@ -201,9 +201,9 @@ class User < ActiveRecord::Base
   #has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
 
   def self.say_hello
-    Rails.logger.info '========================================= say hello ========================================='
-    Rails.logger.info '...'
-    Rails.logger.info '...'
+    ap '========================================= say hello ========================================='
+    ap '...'
+    ap '...'
   end
   def get_order
 
