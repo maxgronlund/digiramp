@@ -14,7 +14,7 @@ set :repo_url, 'git@github.com:maxgronlund/digiramp.git'
 
 # setup rvm.
 set :rbenv_type, :system
-set :rbenv_ruby, '2.1.2'
+set :rbenv_ruby, '2.2.2'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
@@ -23,7 +23,7 @@ set :keep_releases, 5
 
 # files we want symlinking to specific entries in shared
 #set :linked_files, %w{config/database.yml config/application.yml config/sidekiq.yml}
-set :linked_files, %w{config/database.yml config/application.yml config/facebook.yml config/twitter.yml config/linkedin.yml config/gplus.yml  config/transloadit.yml config/paypal.yml config/secrets.yml}
+set :linked_files, %w{config/database.yml config/application.yml  config/transloadit.yml config/secrets.yml}
 
 # dirs we want symlinking to shared
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
