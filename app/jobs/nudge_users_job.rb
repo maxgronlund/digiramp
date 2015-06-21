@@ -4,7 +4,12 @@ class NudgeUsersJob < ActiveJob::Base
   def perform()
     #error = false
     ActiveRecord::Base.connection_pool.with_connection do
-      Rails.logger.info 'Say hello from sidekiq'
+      Rails.logger.info '=================================== Say hello from sidekiq =========================================='
+      Rails.logger.info '=================================== Say hello from sidekiq =========================================='
+      Rails.logger.info '=================================== Say hello from sidekiq =========================================='
+      Rails.logger.info '=================================== Say hello from sidekiq =========================================='
+      Rails.logger.info '=================================== Say hello from sidekiq =========================================='
+      Rails.logger.info '=================================== Say hello from sidekiq =========================================='
     end
   end
 end

@@ -17,8 +17,8 @@ every :reboot do
   runner "User.say_hello"
 end
 
-#every 2.minutes do
-#  runner 'Digiramp::NudgeUsersJob.perform_later'
-#end
+every 2.minutes do
+  runner 'Digiramp::NudgeUsersJob.perform_later'
+end
 
 # Learn more: http://github.com/javan/whenever
