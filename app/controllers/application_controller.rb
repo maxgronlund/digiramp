@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   
   def ssl_configured?
     #!Rails.env.development?
-    Rails.env.production?
+    Rails.env.production? || Rails.env.staging?
   end
   
   def current_account

@@ -21,7 +21,7 @@ end
 
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :developer unless  Rails.env.production?
+  provider :developer unless  (Rails.env.production? || Rails.env.staging?)
   
   # twitter
   provider :twitter,          Rails.application.secrets.twitter_app_id,     
