@@ -9,9 +9,8 @@ class Shop::StripeTransfer < ActiveRecord::Base
   
 
  #stakeholder = User.cached_find(user_id)
- stakeholder = User.last
- 
- stripe_account_id = stakeholder.stripe_id
+ #stakeholder = User.last
+ #stripe_account_id = stakeholder.stripe_id
  
  
  #aasm column: 'state', whiny_transitions: false do
