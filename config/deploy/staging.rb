@@ -4,7 +4,7 @@ set :branch, "staging"
 # This is used in the Nginx VirtualHost to specify which domains
 # the app should appear on. If you don't yet have DNS setup, you'll
 # need to create entries in your local Hosts file for testing.
-set :server_name, "www.digiramp.com digiramp.com"
+set :server_name, "www.staging.digiramp.com staging.digiramp.com"
 #set :server_name, "www.digiramp.com digiramp.com .digiramp.org .digiramp.net .assets-manager.com"
 
 # used in case we're deploying multiple versions of the same
@@ -12,7 +12,7 @@ set :server_name, "www.digiramp.com digiramp.com"
 # at filepaths
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 
-server '45.55.26.25', user: 'deploy', roles: %w{web app db}, primary: true
+server '104.131.32.246', user: 'deploy', roles: %w{web app db}, primary: true
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/#{fetch(:full_app_name)}"
 

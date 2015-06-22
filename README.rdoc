@@ -150,3 +150,7 @@ m7moud.said@gmail.com
 https://28ef8081.ngrok.io/user/checking_accounts/max-groenlund/edit
 
 RAILS_ENV=production bundle exec db:rollback
+
+
+cap staging "logs:tail[staging]"
+cap staging "logs:tail[unicorn]"

@@ -81,7 +81,7 @@ Digiramp::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
   
-  Rails.application.routes.default_url_options[:host] = 'digiramp.com'
+  Rails.application.routes.default_url_options[:host] = 'staging.digiramp.com'
   
   config.action_mailer.smtp_settings = {
     address: Rails.application.secrets.email_provider_address,
