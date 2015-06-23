@@ -30,4 +30,6 @@ set :enable_ssl, false
 
 set :ssh_options, { :forward_agent => true }
 
+set :rbenv_ruby, '2.2.2'
+
 
