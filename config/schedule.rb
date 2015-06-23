@@ -13,16 +13,21 @@
 #   rake "some:great:rake:task"
 # end
 #
-every :reboot do
-  runner "User.say_hello"
-end
+#every :reboot do
+#  runner "User.say_hello"
+#end
+#
+#every 2.minutes do
+#  runner 'Digiramp::NudgeUsersJob.perform_later'
+#end
+#
+#every 2.minutes do
+#  runner "User.say_hello"
+#end
 
-every 2.minutes do
-  runner 'Digiramp::NudgeUsersJob.perform_later'
-end
-
-every 2.minutes do
-  runner "User.say_hello"
+every :day, at: '10pm' do
+  # specify the task name as a string
+  rake 'send_digest_email'
 end
 
 # Learn more: http://github.com/javan/whenever
