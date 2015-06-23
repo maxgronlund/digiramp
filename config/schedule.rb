@@ -25,7 +25,8 @@
 #  runner "User.say_hello"
 #end
 
-every :day, at: '10pm' do
+#every :day, at: '10pm' do
+every 20.minutes do
   # specify the task name as a string
   rake 'send_digest_email'
 end
