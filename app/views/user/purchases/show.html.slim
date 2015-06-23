@@ -13,7 +13,7 @@
 
   #page-content-wrapper
     .container-fluid 
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { settings: user_user_control_panel_index_path(@user),
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym =>user_user_control_panel_index_path(@user),
                                                               purchases: user_user_purchases_path(@user)}, current: ''}
       .row
         .col-sm-8
