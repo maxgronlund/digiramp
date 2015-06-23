@@ -201,7 +201,7 @@ class User < ActiveRecord::Base
   #has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
 
   def self.say_hello
-    TestMailer.delay.send_message() 
+    #TestMailer.delay.send_message() 
     #if Rails.env == 'development'
     #  TestMailer.delay.send_message() 
     #  #ap '========================================= say hello ========================================='
