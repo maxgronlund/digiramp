@@ -74,7 +74,9 @@ nav.navbar.nav-user
           /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
           = link_to '#', class: "dropdown-toggle navigation-avatar", 'data-toggle'.to_sym => "dropdown" do
               = image_tag current_user.image_url(:avatar_32x32)
-
+              .visible-xs-inline
+                =< current_user.user_name
+              
           ul class="dropdown-menu" role="menu"
             li  class="#{page == 'contacts' ? 'active' : ''}"
               = link_to user_path(current_user ) do
