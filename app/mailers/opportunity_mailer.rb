@@ -4,9 +4,9 @@ class OpportunityMailer < ApplicationMailer
 
   def invite email, opportunity_invitation_id, user_id
    
-    if user                    = User.cached_find(user_id)
-      if opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
-        if opportunity             = opportunity_invitation.opportunity
+    if user                       = User.cached_find(user_id)
+      if opportunity_invitation   = OpportunityInvitation.cached_find(opportunity_invitation_id)
+        if opportunity            = opportunity_invitation.opportunity
           blog                    = Blog.cached_find('Support')
           blog_post               = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
           opportunity_link        = url_for( controller: 'opportunity/opportunities', action: 'show', id: opportunity.id, opportunity_invitation: 'true', user_id: user_id)

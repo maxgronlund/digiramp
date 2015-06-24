@@ -63,16 +63,13 @@ class RecordingsController < ApplicationController
         if recording.title.blank?
           recording.title = File.basename(recording.original_file_name, ".*") 
         end
-        
-        
-        
-        
-        
+
         recording.save
         recording.check_default_image
         recording.common_work.update_completeness
         @recording = recording
       end
+      
       redirect_to edit_user_recording_basic_path(@user, @recording)
     else
       flash[:danger]      = "Please check it's a real audio file you are uploading"
