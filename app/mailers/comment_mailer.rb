@@ -18,15 +18,15 @@ class CommentMailer < ApplicationMailer
     when 'User'
       @title            = "#{@commenter.user_name} posted a comment on your profile"
       @recipient        = User.cached_find( @comment.commentable_id )
-      @commenter_url    = url_for( controller: 'users', action: 'show', id: @commenter.slug)
-      @commenter_url    = ( URI.parse(root_url) + @commenter_url ).to_s
+      @comment_url      = url_for( controller: 'users', action: 'show', id: @commenter.slug)
+      @comment_url      = ( URI.parse(root_url) + @commenter_url ).to_s
       send_to_user
     when 'Recording'
       @recording        = Recording.cached_find( @comment.commentable_id )
       @title            = "#{@commenter.user_name} posted a comment on #{@recording.title}"
       @recipient        = @recording.user
-      @commenter_url    = url_for( controller: 'recordings', action: 'show', user_id: @commenter.slug, id: @recording.id)
-      @commenter_url    = ( URI.parse(root_url) + @commenter_url ).to_s
+      @comment_url      = url_for( controller: 'recordings', action: 'show', user_id: @commenter.slug, id: @recording.id)
+      @comment_url      = ( URI.parse(root_url) + @commenter_url ).to_s
       send_to_user
     end
     
