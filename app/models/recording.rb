@@ -135,7 +135,7 @@ class Recording < ActiveRecord::Base
   
   def notify_followers
     
-    FollowerMailer.delay.recording_uploaded self.id
+    FollowerMailer.delay_for(10.minutes).recording_uploaded( self.id )
     #.delay_for(1.day)
   end
   
