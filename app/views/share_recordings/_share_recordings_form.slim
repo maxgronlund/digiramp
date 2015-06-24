@@ -69,10 +69,32 @@
                 .form-inputs
                   = f.hidden_field :user_id, value: current_user.id
                   = f.hidden_field :recording_id, value: recording.id
-                  = f.input :message, :input_html => {  style: "height: 110px;", class: "init_twitter_#{recording.id.to_s}"}
+                  /= f.input :message, :input_html => {  style: "height: 110px;", class: "init_twitter_#{recording.id.to_s}"}
+                  =f.input :message, placeholder: "Max 139 chars" , 
+                                               :input_html => {  style: "height: 64px;", 
+                                                                 maxlength: "100", 
+                                                                 class: "init_twitter_#{recording.id.to_s}"}
+                  #textarea_feedback
+                    div id="textarea_feedback_#{recording.id.to_s}"
+                      'Max 140 Characters
+                  br
+                  javascript:
+                    $(document).ready(function() {
+                      
+                        var text_max = 100;
+                        $(".init_twitter_#{recording.id.to_s}").html(text_max + ' characters remaining');
+                  
+                        $('#share_on_twitter_message').keyup(function() {
+                            var text_length = $(".init_twitter_#{recording.id.to_s}").val().length;
+                            var text_remaining = text_max - text_length;
+                  
+                            $("#textarea_feedback_#{recording.id.to_s}").html(text_remaining + ' characters remaining');
+                        });
+                    });
+                  
               
                 .modal-footer
-                  button type="button" class="btn btn-default"
+                  button type="button" class="btn btn-default" data-dismiss="modal"
                     'Close
                   '&nbsp;
                   = f.submit 'Share', class: 'btn btn-primary'

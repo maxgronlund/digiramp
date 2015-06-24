@@ -82,7 +82,7 @@ nav.navbar.nav-user
           
           li class=" dropdown #{page == 'settings' ? 'active' : ''}"
             /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-            = link_to '#', class: "dropdown-toggle navigation-avatar", 'data-toggle'.to_sym => "dropdown", 'data-hover'.to_sym => "dropdown" do
+            = link_to '#', class: "dropdown-toggle navigation-avatar", 'data-toggle'.to_sym => "dropdown" do
                 = image_tag current_user.image_url(:avatar_32x32)
 
 
