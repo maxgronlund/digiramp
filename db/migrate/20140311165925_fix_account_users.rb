@@ -38,7 +38,7 @@ class FixAccountUsers < ActiveRecord::Migration
           new_account.save(validate: false)                     
           AccountUser.create(user_id: user.id, account_id: new_account.id, role: 'Account Owner')
         
-          user.account_id          = new_account.id
+          user.account.id          = new_account.id
           user.current_account_id  = new_account.id
           user.save
           

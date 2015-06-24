@@ -1,7 +1,7 @@
 .opportunity-container
   .opportunity-badge id="opportunity_#{opportunity.id.to_s}"
     = link_to opportunity_link do
-      div class="#{@user.account_id == opportunity.account_id ? 'opportunity-title' : 'opportunity-title opportunity-external-title'}"
+      div class="#{@user.account.id == opportunity.account_id ? 'opportunity-title' : 'opportunity-title opportunity-external-title'}"
 
         h4 = opportunity.title
       .opportunity-body

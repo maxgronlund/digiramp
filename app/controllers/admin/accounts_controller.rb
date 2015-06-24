@@ -18,8 +18,8 @@ class Admin::AccountsController < ApplicationController
   
   def new
     
-    user = User.cached_find(params[:user_id])
-    User.create_a_new_account_for_the user
+    #user = User.cached_find(params[:user_id])
+    #User.create_a_new_account_for_the user
     redirect_to :back
   end
   
@@ -69,30 +69,25 @@ class Admin::AccountsController < ApplicationController
   
   
   def destroy
-    begin
-      @account = Account.cached_find(params[:id])
+
+      @account    = Account.cached_find(params[:id])
       @account_id = @account.id
-      @account.create_activity(  :destroyed, 
-                            owner: current_user,
-                        recipient: @account,
-                   recipient_type: @account.class.name)
-                
+     
       
-      
-      if @account.user
-        user = @account.user
-        user.create_activity(  :destroyed, 
-                              owner: current_user,
-                          recipient: user,
-                     recipient_type: user.class.name,
-                         account_id: @account.id)
-                     
-        user.destroy! 
-      end 
+      #if @account.user
+      #  user = @account.user
+      #  user.create_activity(  :destroyed, 
+      #                        owner: current_user,
+      #                    recipient: user,
+      #               recipient_type: user.class.name,
+      #                   account_id: @account.id)
+      #               
+      #  user.destroy! 
+      #end 
       @account.destroy!   
-    rescue
-      flash[:danger] = "Unable to delete #{@account.title}" 
-    end        
+
+
+      
     #redirect_to admin_accounts_path
   end
   

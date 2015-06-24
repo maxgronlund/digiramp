@@ -125,7 +125,7 @@ class Catalog::CatalogUsersController < ApplicationController
     
     account       = @catalog_user.account
     user          = @catalog_user.user
-    account_user  = AccountUser.where(account_id: @catalog_user.account_id, user_id: @catalog_user.user_id).first
+    account_user  = AccountUser.where(account_id: @catalog_user.account.id, user_id: @catalog_user.user_id).first
     
 
 

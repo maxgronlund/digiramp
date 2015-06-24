@@ -33,7 +33,7 @@ class Opportunity::MusicSubmissionsController < ApplicationController
     opportunity   =  @music_request.opportunity
     account_id    =  opportunity.account_id
     
-    if account_id == current_user.account_id
+    if account_id == current_user.account.id
       # !!! optimize
       recording_ids = []
       account_users.each do |account_user|

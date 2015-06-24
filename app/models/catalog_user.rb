@@ -176,8 +176,8 @@ private
     
     Rails.cache.delete([self.class.name, id])
     Rails.cache.delete(['catalog_user', catalog_id, user_id])
-    self.catalog.count_users
-    self.catalog.save!
+    #self.catalog.count_users
+    #self.catalog.save!
   end
   
 end

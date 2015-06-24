@@ -8,7 +8,7 @@ class MoveCatalogUserToAccountUser < ActiveRecord::Migration
     
     # create an account user for all catalog users
     CatalogUser.all.each do |catalog_user|
-      if Catalog.exists?(catalog_user.catalog_id) && Account.exists?(catalog_user.account_id)
+      if Catalog.exists?(catalog_user.catalog_id) && Account.exists?(catalog_user.account.id)
         catalog_user.attach_to_account_user
       else
         catalog_user.destroy! 

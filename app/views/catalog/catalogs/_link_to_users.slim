@@ -2,4 +2,4 @@ li class="old-link-to-common-works #{'sidebar-selected' if selected == 'users'}"
   = link_to catalog_account_catalog_catalog_users_path(account, catalog) do
     i class="fa fa-music"
     '&nbsp;
-    = pluralize(catalog.nr_users, 'User')
+    = pluralize(catalog.catalog_users.count, 'User')

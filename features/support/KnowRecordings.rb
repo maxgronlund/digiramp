@@ -3,7 +3,7 @@ module KnowRecordingsHelper
   def find_or_create_recording  user, title
     return @recording if @recording = recording_with_title( title )
 
-    @recording       = FactoryGirl.create(:recording, title: title, user_id: user.id, account_id: user.account_id)
+    @recording       = FactoryGirl.create(:recording, title: title, user_id: user.id, account_id: user.account.id)
     
     common_work = CommonWork.create(account_id: @recording.account_id, 
                                     title:      @recording.title, 

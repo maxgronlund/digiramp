@@ -16,7 +16,7 @@ class RecordingUploadsController < ApplicationController
   def update
     
     result = TransloaditRecordingsParser.update params[:transloadit], params[:id]
-    #result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account_id, false, @user.id)
+    #result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account.id, false, @user.id)
 
     title = params[:recording][:title]
 
@@ -30,7 +30,7 @@ class RecordingUploadsController < ApplicationController
         #                           owner: recording,
         #                       recipient: @user,
         #                  recipient_type: 'Recording',
-        #                      account_id: current_user.account_id) 
+        #                      account_id: current_user.account.id) 
         #                      
         #
         #common_work = CommonWork.create(account_id: recording.account_id, 

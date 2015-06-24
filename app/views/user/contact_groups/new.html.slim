@@ -28,7 +28,7 @@
             = simple_form_for [:user, @user, ClientGroup.new], :url => url_for(:action => 'create', :controller => 'contact_groups'), :method => 'post' do |f|
             
               
-              = f.hidden_field :account_id, value: @user.account_id
+              = f.hidden_field :account_id, value: @user.account.id
               = f.hidden_field :user_uuid, value: @user.uuid
               = f.hidden_field :user_id, value: @user.id
               = f.input :title, autofocus: true

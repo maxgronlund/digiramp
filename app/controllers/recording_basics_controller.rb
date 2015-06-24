@@ -43,7 +43,7 @@ class RecordingBasicsController < ApplicationController
 
       # artwork
       if params[:transloadit]
-        if artworks = TransloaditImageParser.artwork( params[:transloadit], @user.account_id)
+        if artworks = TransloaditImageParser.artwork( params[:transloadit], @user.account.id)
           # if there is no artwork file
           if artworks == []
             # if a drop down item is selected

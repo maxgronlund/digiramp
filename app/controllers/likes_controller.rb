@@ -25,7 +25,7 @@ class LikesController < ApplicationController
                 .first_or_create(
                         user_id: user.id,
                         recording_id: params[:recording_id],
-                        account_id: user.account_id
+                        account_id: user.account.id
                         )
     recording             = Recording.cached_find(params[:recording_id])
     

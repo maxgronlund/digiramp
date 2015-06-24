@@ -1,6 +1,6 @@
 Given(/^I am logged in as a salesperson with the email "(.*?)"$/) do |email|
   user = FactoryGirl.create(:user, email: email , password: 'salesale', role: 'Customer', salesperson: true)
-
+  User.create_a_new_account_for_the(user)
   visit "/"
   visit "/login/new"
   fill_in 'sessions_email', with: email

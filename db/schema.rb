@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624134912) do
+ActiveRecord::Schema.define(version: 20150624185327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3055,7 +3055,6 @@ ActiveRecord::Schema.define(version: 20150624134912) do
     t.string   "first_name",                 limit: 255
     t.string   "last_name",                  limit: 255
     t.string   "avatar_url",                 limit: 255
-    t.integer  "account_id"
     t.boolean  "show_welcome_message",                   default: true
     t.boolean  "activated",                              default: true
     t.string   "uuid",                       limit: 255, default: ""
@@ -3130,7 +3129,6 @@ ActiveRecord::Schema.define(version: 20150624134912) do
     t.text     "address_line_2"
   end
 
-  add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
   add_index "users", ["default_playlist_id"], name: "index_users_on_default_playlist_id", using: :btree
   add_index "users", ["default_widget_key"], name: "index_users_on_default_widget_key", using: :btree
@@ -3339,7 +3337,6 @@ ActiveRecord::Schema.define(version: 20150624134912) do
   add_foreign_key "shop_orders", "users"
   add_foreign_key "shop_products", "accounts"
   add_foreign_key "shop_products", "users"
-  add_foreign_key "shop_stripe_transfers", "accounts"
   add_foreign_key "shop_stripe_transfers", "shop_order_items", column: "order_item_id"
   add_foreign_key "shop_stripe_transfers", "shop_orders", column: "order_id"
   add_foreign_key "shop_stripe_transfers", "users"

@@ -2,7 +2,7 @@ class UpdateRolesOnAccountUsers < ActiveRecord::Migration
   def change
     
     AccountUser.all.each do |account_user|
-      if Account.exists?(account_user.account_id)
+      if Account.exists?(account_user.account.id)
         unless account_user.role == 'Administrator'
           account_user.role = 'Client'
           account_user.save!

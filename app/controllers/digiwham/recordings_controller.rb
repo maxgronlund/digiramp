@@ -39,7 +39,7 @@ class Digiwham::RecordingsController < ApplicationController
                                    owner: playback, # the recording has many playbacks
                                recipient: @recording,
                           recipient_type: 'Recording',
-                              account_id: @recording.user.account_id) 
+                              account_id: @recording.user.account.id) 
       
       
       

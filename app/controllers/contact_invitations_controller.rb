@@ -244,7 +244,7 @@ private
                          owner: @user,
                      recipient: @user,
                 recipient_type: @user.class.name,
-                    account_id: @user.account_id) 
+                    account_id: @user.account.id) 
       
       
       session[:show_profile_completeness] = false

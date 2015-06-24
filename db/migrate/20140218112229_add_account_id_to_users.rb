@@ -4,7 +4,7 @@ class AddAccountIdToUsers < ActiveRecord::Migration
     
     User.all.each do |user|
       
-      user.account_id = user.current_account_id
+      user.account.id = user.current_account_id
       user.save!
     end
   end

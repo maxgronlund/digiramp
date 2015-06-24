@@ -1,4 +1,4 @@
-- user_account                  = Account.cached_find(@user.account_id)
+- user_account                  = Account.cached_find(@user.account.id)
 - session[:go_to_after_update]  = request.url
 #wrap
   .profile
@@ -7,7 +7,7 @@
   .container                                                 
     == render 'shared/page_title', locals: {blog: Blog.cached_find('User Account'), blog_post: 'Dashboard'}
     
-    - account_user = AccountUser.where(account_id: @user.account_id, user_id: @user.id).first
+    - account_user = AccountUser.where(account_id: @user.account.id, user_id: @user.id).first
     .row
       .col-sm-6
         .panel.panel-primary
@@ -24,11 +24,11 @@
             
             
             .pull-right
-              = link_to account_path( @user.account_id) do
+              = link_to account_path( @user.account.id) do
                 .btn.btn-default.btn-lg
                   i class="fa fa-eye"
               '&nbsp;
-              = link_to edit_user_account_path(@user, @user.account_id) do
+              = link_to edit_user_account_path(@user, @user.account.id) do
                 .btn.btn-primary.btn-lg
                   i class="fa fa-pencil"
               

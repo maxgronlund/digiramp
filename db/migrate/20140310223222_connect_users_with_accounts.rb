@@ -2,7 +2,7 @@ class ConnectUsersWithAccounts < ActiveRecord::Migration
   def change
     User.all.each do |user|
       if account = Account.where(user_id: user.id).first
-        user.account_id = account.id
+        user.account.id = account.id
         user.save!
       else
         account = Account.create( title: user.email, 
@@ -14,7 +14,7 @@ class ConnectUsersWithAccounts < ActiveRecord::Migration
                                   
         AccountUser.where(user_id: user.id, account_id: account.id, role: 'Account Owner').first_or_create(user_id: user.id, account_id: account.id, role: 'Account Owner')
         
-        user.account_id          = account.id
+        user.account.id          = account.id
         user.current_account_id  = account.id
         user.save!
         

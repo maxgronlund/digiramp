@@ -61,6 +61,11 @@ class User < ActiveRecord::Base
   
   #validates_presence_of :name, :on => :update
   #before_create :set_uuid
+  has_one  :account
+  #has_one :account_users
+  #has_many :account_users
+  has_many :account_users#,    dependent: :destroy
+  has_many :accounts,         :through => :account_users  
   
   has_many :comments,        as: :commentable,          dependent: :destroy
   
@@ -70,16 +75,16 @@ class User < ActiveRecord::Base
   has_many :subscriptions
   
   
-  has_many :stripe_transfers, class_name: "Shop::StripeTransfer", dependent: :destroy
+  #has_many :stripe_transfers, class_name: "Shop::StripeTransfer", dependent: :destroy
 
   
   serialize :crop_params, Hash
   mount_uploader :image, AvatarUploader
   #include ImageCrop
   
-  has_one :account_users
+  
   belongs_to :page_style
-  has_many :account_users
+  
   has_many :recordings
   has_many :client_imports
   
@@ -87,18 +92,18 @@ class User < ActiveRecord::Base
   has_many :widgets, dependent: :destroy
   
   # omniauth
-  has_many :authorization_providers, dependent: :destroy
+  has_many :authorization_providers,    dependent: :destroy
   
-  has_many :catalog_users, dependent: :destroy
+  has_many :catalog_users,              dependent: :destroy
   has_many :catalogs, through: :catalog_users
-  has_many :opportunity_users, dependent: :destroy
+  has_many :opportunity_users,          dependent: :destroy
   has_many :opportunities, through: :opportunity_users
   
   #################################
   # not sure if in use
   has_one :dashboard
-  has_many :work_users,       dependent: :destroy
-  has_many :works, through: :work_users
+  has_many :work_users,               dependent: :destroy
+  has_many :works,                    through: :work_users
   has_many :invites
   
   # account_catalog a user administrates
@@ -106,9 +111,7 @@ class User < ActiveRecord::Base
   has_many :account_catalogs, through: :administrations
   #################################
   
-  has_one  :account
-  has_many :account_users,    dependent: :destroy
-  has_many :accounts, :through => :account_users  
+  
   
   # for the crm
   has_many :project_tasks
@@ -117,7 +120,7 @@ class User < ActiveRecord::Base
   
   has_many :ipis
   has_many :user_credits, dependent: :destroy
-  has_many :issues, dependent: :destroy
+  has_many :issues,       dependent: :destroy
   
   #has_many :permissions
   #has_many :permitted_models, dependent: :destroy #!!! moving to account_user
@@ -125,7 +128,7 @@ class User < ActiveRecord::Base
   has_many :activity_events, as: :activity_eventable
   
   has_many :share_on_facebooks, dependent: :destroy
-  has_many :share_on_twitters, dependent: :destroy
+  has_many :share_on_twitters,  dependent: :destroy
   
 
   after_commit :set_propperties
@@ -193,11 +196,13 @@ class User < ActiveRecord::Base
   
   has_many :creative_projects, dependent: :destroy
   has_many :payment_sources, dependent: :destroy
+  has_many :playlist_emails, dependent: :destroy
   
   #has_one :default_cms_page
   
-  has_many :orders, class_name: 'Shop::Order'
-  has_many :products, class_name: 'Shop::Product'
+  has_many :orders, class_name:           'Shop::Order'
+  has_many :products, class_name:         'Shop::Product'
+  has_many :stripe_transfers, class_name: 'Shop::StripeTransfer'
   #has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
 
   def self.say_hello
@@ -483,7 +488,7 @@ class User < ActiveRecord::Base
     Playlist.where( uuid: self.uuid)
             .first_or_create( uuid:       self.uuid,
                               user_id:    self.id,
-                              account_id: self.account_id,
+                              account_id: self.account.id,
                               title:      self.full_name,
                               #body:       self.body,
                               url:        UUIDTools::UUID.timestamp_create().to_s,
@@ -597,10 +602,10 @@ class User < ActiveRecord::Base
     end
   end
   
-  def can_administrate account
-    return true if account.administrator_id == self.id
+  def can_administrate acct
+    return true if acct.administrator_id == self.id
     return true if self.super?
-    return true if self.account_id == account.id
+    return true if self.account.id == acct.id
     false
   end
   
@@ -650,9 +655,6 @@ class User < ActiveRecord::Base
 
     AccessManager.add_users_to_new_account @account
     
-    # set the account owned by the user
-    user.account_id          = @account.id
-    
     # store the account
     user.current_account_id  = @account.id
     
@@ -674,7 +676,7 @@ class User < ActiveRecord::Base
                   user.email,
                   user.role,
                   #user.profile.to_s.squish,
-                  user.account_id.to_s,
+                  user.account.id.to_s,
                   user.activated.to_s
                 ]
       end
@@ -696,7 +698,7 @@ class User < ActiveRecord::Base
                                        user_id: user.id,
                                        expiration_date: Date.current()>>1
                                     )
-    user.account_id = account.id
+    user.account.id = account.id
     user.save!
     
     #AccountUser.create( account_id: account.id, 
@@ -800,7 +802,7 @@ class User < ActiveRecord::Base
       # create user
       #user_name = User.create_uniq_user_name_from_email(email)
       secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-      found_user = User.create( email:                  sanitized_email, 
+      new_user = User.create( email:                  sanitized_email, 
                                 name:                   create_uniq_user_name_from_email(sanitized_email),
                                 user_name:              create_uniq_user_name_from_email(sanitized_email),
                                 invited:                true, 
@@ -811,13 +813,14 @@ class User < ActiveRecord::Base
                               )
       
       # apply a password reset token
-      found_user.add_token
+      new_user.add_token
       
       # create account
-      create_a_new_account_for_the found_user
+      create_a_new_account_for_the new_user
 
       # invite to existing new to catalog
-      UserMailer.delay.invite_new_user_to_account( found_user.id , title, body )
+      UserMailer.delay.invite_new_user_to_account( new_user.id , title, body )
+      found_user = new_user
     end
     found_user
   end

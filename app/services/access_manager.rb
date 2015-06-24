@@ -66,7 +66,7 @@ class AccessManager
     #account_owner.grand_basic_permissions
     account_owner.grand_all_permissions
     
-    account.count_users
+    #account.count_users
     #make_zebulon_admin account
 
   end

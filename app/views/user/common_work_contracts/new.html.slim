@@ -31,7 +31,7 @@
           = f.hidden_field :contractable_id,    value: @common_work.id
           = f.hidden_field :contractable_type,  value: 'CommonWork'
           = f.hidden_field :user_id,            value: @user.id
-          = f.hidden_field :account_id,         value: @user.account_id
+          = f.hidden_field :account_id,         value: @user.account.id
           
           = f.input :contract_type, collection: Contract::TYPES, include_blank: false
           = f.input :title, placeholder: 'Document name'

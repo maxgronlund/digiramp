@@ -27,7 +27,7 @@
       = link_to account_account_account_users_path(@account) do
         i class="fa fa-users"
         '&nbsp;
-        = pluralize(@account.user_count, 'User')
+        = pluralize(@account.account_users.non_catalog_users.count, 'User')
     
   - if super? || current_account_user.read_common_work 
     li class="#{'sidebar-selected' if selected == 'common_work'}"

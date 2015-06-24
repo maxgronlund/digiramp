@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
       #                           owner: @comment, # the recording has many comments
       #                       recipient: @comment.commentable,
       #                  recipient_type: @comment.commentable_type,
-      #                      account_id: @comment.user.account_id) 
+      #                      account_id: @comment.user.account.id) 
       #                      
       #              
       case @comment.commentable_type
@@ -65,7 +65,7 @@ class CommentsController < ApplicationController
                                    owner: @comment, # the recording has many comments
                                recipient: @recording,
                           recipient_type: 'Recording',
-                              account_id: @recording.user.account_id) 
+                              account_id: @recording.user.account.id) 
         
         Activity.notify_followers(  'Posted a comment on', current_user.id, 'Recording', @recording.id )
         CommentMailer.delay.notify_user( @comment.id )
@@ -76,7 +76,7 @@ class CommentsController < ApplicationController
                                    owner: @comment, # the recording has many comments
                                recipient: @user,
                           recipient_type: 'User',
-                              account_id: @user.account_id) 
+                              account_id: @user.account.id) 
         
         Activity.notify_followers(  'Posted a comment on', current_user.id, 'User', @user.id )
         CommentMailer.delay.notify_user( @comment.id )

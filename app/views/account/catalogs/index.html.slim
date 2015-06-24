@@ -73,7 +73,7 @@
                             = link_to catalog_account_catalog_catalog_users_path(@account, catalog) do
                               .btn.btn-default.btn-xs
                                 i.fa.fa-users
-                                =< pluralize(catalog.nr_users, 'User')
+                                =< pluralize(catalog.catalog_users.count, 'User')
                                 /=< pluralize( catalog.catalog_users.count, 'User')
                           
                           =
@@ -181,7 +181,7 @@
 /                                div class="btn btn-default btn-lg #{'disabled' unless catalog_user.read_user}"
 /                                   i class='fa fa-group'
 /                                   '&nbsp;
-/                                   =catalog.nr_users
+/                                   =catalog.catalog_users.count
 /                                          
 /                          td
 /                            .pull-right

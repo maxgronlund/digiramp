@@ -28,7 +28,7 @@
             = simple_form_for [:user, @user, @contact_group], :url => url_for(:action => 'update', :controller => 'contact_groups'), :method => 'put' do |f|
             
               
-              = f.hidden_field :account_id, value: @user.account_id
+              = f.hidden_field :account_id, value: @user.account.id
               = f.hidden_field :user_uuid, value: @user.uuid
               = f.input :title, autofocus: true
               =f.input :description, :input_html => {  style: "height: 120px;"}

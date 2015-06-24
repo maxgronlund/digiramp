@@ -21,7 +21,7 @@
           
           
           = f.hidden_field :user_id, value: @user.id
-          = f.hidden_field :account_id, value: @user.account_id
+          = f.hidden_field :account_id, value: @user.account.id
           = f.input :public_project,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
           /= f.input :deadline
           b Deadline

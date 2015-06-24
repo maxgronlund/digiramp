@@ -18,7 +18,7 @@ class Account::MusicSubmissionUploadsController < ApplicationController
     
     @user = current_user
     
-    result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account_id, false, @user.id)
+    result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account.id, false, @user.id)
     title = params[:recording][:title]
 
     if result[:recordings].size != 0
@@ -30,7 +30,7 @@ class Account::MusicSubmissionUploadsController < ApplicationController
                                    owner: recording,
                                recipient: @user,
                           recipient_type: 'Recording',
-                              account_id: current_user.account_id) 
+                              account_id: current_user.account.id) 
                               
         
         common_work = CommonWork.create(account_id: recording.account_id, 
