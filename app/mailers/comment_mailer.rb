@@ -26,7 +26,8 @@ class CommentMailer < ApplicationMailer
       @title            = "#{@commenter.user_name} posted a comment on #{@recording.title}"
       @recipient        = @recording.user
       @comment_page_url = url_for( controller: 'recordings', action: 'show', user_id: @commenter.slug, id: @recording.id)
-      @comment_page_url = ( URI.parse(root_url) + @commenter_url ).to_s
+      @comment_page_url = ( URI.parse(root_url) + @comment_page_url ).to_s
+
       send_to_user
       
     when 'Playlist'
@@ -42,7 +43,7 @@ class CommentMailer < ApplicationMailer
   
   
   def send_to_user
-    
+
     # perform 
     begin
       template_name = "comment-notification"
