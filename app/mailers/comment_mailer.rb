@@ -18,16 +18,21 @@ class CommentMailer < ApplicationMailer
     when 'User'
       @title            = "#{@commenter.user_name} posted a comment on your profile"
       @recipient        = User.cached_find( @comment.commentable_id )
-      @comment_url      = url_for( controller: 'users', action: 'show', id: @commenter.slug)
-      @comment_url      = ( URI.parse(root_url) + @commenter_url ).to_s
+      @comment_page_url = url_for( controller: 'users', action: 'show', id: @commenter.slug)
+      @comment_page_url = ( URI.parse(root_url) + @commenter_url ).to_s
       send_to_user
     when 'Recording'
       @recording        = Recording.cached_find( @comment.commentable_id )
       @title            = "#{@commenter.user_name} posted a comment on #{@recording.title}"
       @recipient        = @recording.user
-      @comment_url      = url_for( controller: 'recordings', action: 'show', user_id: @commenter.slug, id: @recording.id)
-      @comment_url      = ( URI.parse(root_url) + @commenter_url ).to_s
+      @comment_page_url = url_for( controller: 'recordings', action: 'show', user_id: @commenter.slug, id: @recording.id)
+      @comment_page_url = ( URI.parse(root_url) + @commenter_url ).to_s
       send_to_user
+      
+    when 'Playlist'
+      @playlist        = Playlist.cached_find( @comment.commentable_id )
+      
+      
     end
     
     
@@ -57,7 +62,7 @@ class CommentMailer < ApplicationMailer
            vars: [
                    {name: "SENDER_NAME",        content: @commenter.user_name},
                    {name: "TITLE",              content: @title},
-                   {name: "COMMENT_URL",        content: @comment_url},
+                   {name: "COMMENT__PAGE_URL",  content: @comment_page_url},
                    {name: "AVATAR_URL",         content: @commenter_avatar},
                    {name: "SENDER_URL",         content: @commenter_url},
                    {name: "PROFESION",          content: @commenter.profession},

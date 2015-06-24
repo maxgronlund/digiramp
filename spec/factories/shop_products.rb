@@ -5,7 +5,7 @@ FactoryGirl.define do
     body            Faker::Lorem.sentence
     additional_info Faker::Lorem.sentence
     image           { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'support', 'products', 'logos', 'logo_image.jpg')) }
-    price           Faker::Commerce.price.to_i * 100
+    price           (Faker::Commerce.price.to_i * 100) + 100
     user            nil
     account         nil
     download_link   "MyString"

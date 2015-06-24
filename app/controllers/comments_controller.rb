@@ -81,6 +81,9 @@ class CommentsController < ApplicationController
         Activity.notify_followers(  'Posted a comment on', current_user.id, 'User', @user.id )
         CommentMailer.delay.notify_user( @comment.id )
 
+      when 'Playlist'
+        #@playlist = Playlist.cached_find(@comment.commentable_id)
+        CommentMailer.delay.notify_user( @comment.id )
       else
         
       
