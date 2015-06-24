@@ -63,7 +63,7 @@ class CommentMailer < ApplicationMailer
            vars: [
                    {name: "SENDER_NAME",        content: @commenter.user_name},
                    {name: "TITLE",              content: @title},
-                   {name: "COMMENT__PAGE_URL",  content: @comment_page_url},
+                   {name: "COMMENT_PAGE_URL",   content: @comment_page_url},
                    {name: "AVATAR_URL",         content: @commenter_avatar},
                    {name: "SENDER_URL",         content: @commenter_url},
                    {name: "PROFESION",          content: @commenter.profession},
