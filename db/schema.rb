@@ -3337,6 +3337,7 @@ ActiveRecord::Schema.define(version: 20150624185327) do
   add_foreign_key "shop_orders", "users"
   add_foreign_key "shop_products", "accounts"
   add_foreign_key "shop_products", "users"
+  add_foreign_key "shop_stripe_transfers", "accounts"
   add_foreign_key "shop_stripe_transfers", "shop_order_items", column: "order_item_id"
   add_foreign_key "shop_stripe_transfers", "shop_orders", column: "order_id"
   add_foreign_key "shop_stripe_transfers", "users"

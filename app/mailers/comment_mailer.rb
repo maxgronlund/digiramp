@@ -20,21 +20,25 @@ class CommentMailer < ApplicationMailer
       @recipient        = User.cached_find( @comment.commentable_id )
       @comment_page_url = url_for( controller: 'users', action: 'show', id: @commenter.slug)
       @comment_page_url = ( URI.parse(root_url) + @commenter_url ).to_s
-      send_to_user
+      
     when 'Recording'
       @recording        = Recording.cached_find( @comment.commentable_id )
       @title            = "#{@commenter.user_name} posted a comment on #{@recording.title}"
       @recipient        = @recording.user
       @comment_page_url = url_for( controller: 'recordings', action: 'show', user_id: @commenter.slug, id: @recording.id)
       @comment_page_url = ( URI.parse(root_url) + @comment_page_url ).to_s
-
-      send_to_user
+      
       
     when 'Playlist'
       @playlist        = Playlist.cached_find( @comment.commentable_id )
-      
+      @title            = "#{@commenter.user_name} posted a comment on #{@playlist.title}"
+      @recipient        = @playlist.user
+      @comment_page_url = url_for( controller: 'playlists', action: 'show', user_id: @commenter.slug, id: @playlist.id)
+      @comment_page_url = ( URI.parse(root_url) + @comment_page_url ).to_s
       
     end
+    
+    send_to_user if @title
     
     
   end
