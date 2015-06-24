@@ -90,6 +90,12 @@ nav.navbar.nav-user
             ul class="dropdown-menu" role="menu"
               
               li  class="#{page == 'contacts' ? 'active' : ''}"
+                = link_to user_path(current_user ) do
+                  i class="fa fa-user"
+                  '&nbsp;
+                  'Profile
+              
+              li  class="#{page == 'contacts' ? 'active' : ''}"
                 = link_to user_user_control_panel_index_path(current_user ) do
                   i class="fa fa-tachometer"
                   '&nbsp;
