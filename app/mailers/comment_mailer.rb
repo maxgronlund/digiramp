@@ -16,9 +16,10 @@ class CommentMailer < ApplicationMailer
     case @comment.commentable_type
     
     when 'User'
+      @user             = User.cached_find( @comment.commentable_id )
       @title            = "#{@commenter.user_name} posted a comment on your profile"
       @recipient        = User.cached_find( @comment.commentable_id )
-      @comment_page_url = url_for( controller: 'users', action: 'show', id: @commenter.slug)
+      @comment_page_url = url_for( controller: 'users', action: 'show', id: @user.slug)
       @comment_page_url = ( URI.parse(root_url) + @commenter_url ).to_s
       
     when 'Recording'
