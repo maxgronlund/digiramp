@@ -1,6 +1,6 @@
 #require 'opportunity_mailer'
 
 Sidekiq.configure_server do |config|
-  config.poll_interval = 1
+  config.average_scheduled_poll_interval = 1
 end
 

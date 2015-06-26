@@ -39,6 +39,9 @@ class StripeChargeService
               shop_order.save(validate: false)
             end
           elsif subscription  = Subscription.find_by(stripe_id: stripe_object.id)
+            
+            ap subscription
+            
             #subscription.finish!
             #errored           = false
             #account_type
