@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.3'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
@@ -52,7 +52,8 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 #gem 'bootsy'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'sidekiq'
+#gem 'sidekiq'
+gem 'sidekiq', github: 'mperham/sidekiq'
 gem 'responders', '~> 2.0'
 gem 'whenever', require: false
 

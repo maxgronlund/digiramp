@@ -10,10 +10,10 @@
                         
         
       
-
+  /'Streaming', 'download', 'Service', 'Physical product', 'Coupon'
   #page-content-wrapper
     .container-fluid 
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { settings: user_user_control_panel_index_path(@user),
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym =>user_user_control_panel_index_path(@user),
                                                               'Shop admin'.to_sym => user_user_shop_admin_index_path(@user)}, current: ''}
       .row
         .col-sm-8
@@ -23,38 +23,38 @@
         /    = link_to 'New Product', new_user_user_product_path(@user), class: 'btn btn-primary', id: 'new-product'
       .sexy_line 
       .row
-        = link_to new_user_user_product_path(@user) , id: 'new-physical-product'
+        = link_to new_user_user_product_path(@user, category: 'physical-product') , id: 'new-physical-product'
           .col-sm-6
             .digi-box
               'New physical product
               
-        = link_to new_user_user_product_path(@user) , id: 'new-download-product'
+        = link_to new_user_user_product_path(@user, category: 'download') , id: 'new-download-product'
           .col-sm-6
             .digi-box
               'New download product
       
       .row
-        = link_to new_user_user_product_path(@user) , id: 'new-servic-product'
+        = link_to new_user_user_product_path(@user, category: 'service') , id: 'new-servic-product'
           .col-sm-6
             .digi-box
               'New service
               
-        = link_to new_user_user_product_path(@user) , id: 'new-strieaming-product'
+        = link_to new_user_user_product_path(@user, category: 'streaming') , id: 'new-streaming-product'
           .col-sm-6
             .digi-box
               'New streaming service
       
-      .row
-        = link_to new_user_user_product_path(@user) , id: 'new-coupon-product'
-          .col-sm-6
-            .digi-box
-              'New coupon
-              
-        = link_to new_user_user_product_path(@user) , id: 'new-coupon-batch-product'
-          .col-sm-6
-            .digi-box
-              'New coupon batch
-      
+      /.row
+      /  = link_to new_user_user_product_path(@user, product_type: 'coupon) , id: 'new-coupon-product'
+      /    .col-sm-6
+      /      .digi-box
+      /        'New coupon
+      /        
+      /  = link_to new_user_user_product_path(@user, product_type: 'coupon-batch) , id: 'new-coupon-batch-product'
+      /    .col-sm-6
+      /      .digi-box
+      /        'New coupon batch
+      /
      
             
 

@@ -26,9 +26,9 @@
 /           td Account Owner
 /    
 /       - @user.account_users.each do |account_user|
-/         -unless account_user.account_id == @user.account_id
+/         -unless account_user.account.id == @user.account.id
 /          tr
-/            -account = Account.cached_find(account_user.account_id)
+/            -account = Account.cached_find(account_user.account.id)
 /            td =link_to account.title, account_path(account), id: "#{account.title}"
 /            td = account_user.role
 /            td 

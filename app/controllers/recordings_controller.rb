@@ -33,7 +33,7 @@ class RecordingsController < ApplicationController
 
   def create
     
-    result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account_id, false, @user.id)
+    result = TransloaditRecordingsParser.parse( params[:transloadit],  @user.account.id, false, @user.id)
     title = params[:recording][:title]
     
     if result[:recordings].size != 0
@@ -43,7 +43,7 @@ class RecordingsController < ApplicationController
                                    owner: recording,
                                recipient: @user,
                           recipient_type: 'Recording',
-                              account_id: current_user.account_id) 
+                              account_id: current_user.account.id) 
                               
         
         common_work = CommonWork.create(account_id: recording.account_id, 
@@ -63,16 +63,13 @@ class RecordingsController < ApplicationController
         if recording.title.blank?
           recording.title = File.basename(recording.original_file_name, ".*") 
         end
-        
-        
-        
-        
-        
+
         recording.save
         recording.check_default_image
         recording.common_work.update_completeness
         @recording = recording
       end
+      
       redirect_to edit_user_recording_basic_path(@user, @recording)
     else
       flash[:danger]      = "Please check it's a real audio file you are uploading"
@@ -152,7 +149,7 @@ class RecordingsController < ApplicationController
 
       # artwork
       if params[:transloadit]
-        if artworks = TransloaditImageParser.artwork( params[:transloadit], @user.account_id)
+        if artworks = TransloaditImageParser.artwork( params[:transloadit], @user.account.id)
           # if there is no artwork file
           if artworks == []
             # if a drop down item is selected

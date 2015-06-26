@@ -1,0 +1,106 @@
+.container
+  .row
+    .col-xs-6
+      h1 DigiRAMP
+      /a href="https://digiramp.com/" 
+      /  img src="logo.png" 
+      /  | DigiRAMP
+    .col-xs-6.text-right
+      h1
+        small Invoice ##{@shop_order.id}
+  .row
+    .col-xs-5
+      - if @shop_order.shipping_address
+        .panel.panel-default
+          .panel-heading
+            h4 Shipping address
+          .panel-body
+            p
+              = @shop_order.shipping_address.first_name
+              br
+              = @shop_order.shipping_address.last_name
+              br
+              = @shop_order.shipping_address.address_line_1
+              br
+              = @shop_order.shipping_address.address_line_2
+              br
+              = @shop_order.shipping_address.city
+              br
+              = @shop_order.shipping_address.state
+              br
+              = @shop_order.shipping_address.country
+    .col-xs-5.col-xs-offset-2.text-right
+      .panel.panel-default
+        .panel-heading
+          h4 Billing address
+        .panel-body
+          - unless @shop_order.card_address_name.blank?
+            = @shop_order.card_address_name
+            br
+          - unless @shop_order.card_address_line_1.blank?
+            = @shop_order.card_address_line_1
+            br
+          - unless @shop_order.card_address_line_2.blank?
+            = @shop_order.card_address_line_2
+            br
+          - unless @shop_order.card_address_city.blank?
+            = @shop_order.card_address_city
+            br
+          - unless @shop_order.card_address_zip.blank?
+            = @shop_order.card_address_zip
+            br
+          - unless @shop_order.card_address_country.blank?
+            = @shop_order.card_address_country
+            br
+          
+          
+          
+
+  /! / end client details section
+  table.table.table-bordered
+    thead
+      tr
+        th Service
+        th Details
+        th Qty
+        th Price
+        th Sub Total
+    tbody
+      - @shop_order.order_lines.each do |order_line|
+        tr
+          td =order_line["title"]
+          td 
+            /= order_line["additional_info"]
+            - if seller_info = order_line["seller_info"]
+              b Sold by:&nbsp;
+              = seller_info[:statement_descriptor]
+              br
+              b Support phone:&nbsp;
+              = seller_info[:support_phone]
+              br
+              b Email:&nbsp;
+              = seller_info[:email]
+            
+          td.text-right =order_line["quantity"]
+          td.text-right =number_to_currency(order_line["price"].to_i * 0.01, locale: :en, precision: 2)
+          td.text-right =number_to_currency(order_line["total_price"].to_i * 0.01 , locale: :en, precision: 2)
+
+  .row.text-right
+    .col-xs-2.col-xs-offset-8
+      p
+        strong
+          /| Sub Total :
+          /br
+          /| TAX :
+          /br
+          | Total :
+          br
+    .col-xs-2
+      strong
+        /= number_to_currency(@shop_order.price_total.to_i * 0.01 , locale: :en, precision: 2)
+        /br/
+        /| N/A
+        /br/
+        = number_to_currency(@shop_order.price_total.to_i * 0.01 , locale: :en, precision: 2)
+        br
+  

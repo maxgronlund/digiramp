@@ -10,7 +10,7 @@ class EmailSanitizer
       email = email.strip.gsub(/\s+/, ' ').downcase.gsub(' ', '').gsub(',', '')
       return email if validate email
     end
-    false
+    nil
   end
   
 end

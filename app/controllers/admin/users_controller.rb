@@ -38,7 +38,7 @@ class Admin::UsersController < ApplicationController
                          owner: current_user,
                      recipient: @user,
                 recipient_type: @user.class.name,
-                    account_id: @user.account_id)
+                    account_id: @user.account.id)
       
       
       
@@ -61,7 +61,7 @@ class Admin::UsersController < ApplicationController
                          owner: current_user,
                      recipient: @user,
                 recipient_type: @user.class.name,
-                    account_id: @user.account_id)
+                    account_id: @user.account.id)
       
       @user_id = @user.id
       @user.destroy!

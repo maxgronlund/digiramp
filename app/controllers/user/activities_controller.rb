@@ -14,7 +14,7 @@ class User::ActivitiesController < ApplicationController
     else
       @users               = User.where(id: user_ids).first(16)
     end
-    #session[:account_id] = @user.account_id 
+    #session[:account_id] = @user.account.id 
     
     #if current_user 
     #  if current_user.current_account_id != current_user.account.id

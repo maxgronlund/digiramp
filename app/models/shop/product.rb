@@ -10,7 +10,7 @@ class Shop::Product < ActiveRecord::Base
   validates_with ProductValidator
   mount_uploader :image,    ProductImageUploader
   
-  CATEGORIES = ['Streaming', 'download', 'Service', 'Physical product', 'Coupon']
+  CATEGORIES = ['Streaming', 'Download', 'Service', 'Physical product', 'Coupon']
   
   
   

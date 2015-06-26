@@ -188,7 +188,7 @@
                 '&nbsp;
                 'Users:
                 '&nbsp;
-                = @catalog.nr_users
+                = @catalog.catalog_users.count
 
                 - if @catalog.account.administrator_id == current_user.id
                   .pull-right

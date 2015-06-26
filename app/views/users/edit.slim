@@ -106,7 +106,23 @@
                           a data-wysihtml5-action="change_view"  Html 
 
                       =f.input :profile, label: false, :input_html => {  style: "height: 180px;", placeholder: "Profile", id: 'wysihtml5_editor'}
-                  
+                      
+                      =f.input :short_description, placeholder: "Max 100 chars" , 
+                                                   :input_html => {  style: "height: 64px;", maxlength: "100"}
+                      div id="textarea_feedback"
+                      br
+                      javascript:
+                        $(document).ready(function() {
+                            var text_max = 100;
+                            $('#textarea_feedback').html(text_max + ' characters remaining');
+
+                            $('#user_short_description').keyup(function() {
+                                var text_length = $('#user_short_description').val().length;
+                                var text_remaining = text_max - text_length;
+
+                                $('#textarea_feedback').html(text_remaining + ' characters remaining');
+                            });
+                        });
                   b Tags
                   .row
                     .col-sm-6

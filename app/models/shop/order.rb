@@ -64,7 +64,6 @@ class Shop::Order < ActiveRecord::Base
                                     )
       
       #ap charge 
-      
       #balance = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
       #ap '----------------- balance ----------------------------'
       #ap balance
@@ -94,10 +93,18 @@ class Shop::Order < ActiveRecord::Base
   
   def total_price
     tp  = 0.0
-    self.order_items.to_a.each do |shop_item|
-      tp += shop_item.product.price * shop_item.quantity
+
+    self.order_items.each do |shop_item|
+      ap shop_item.quantity
+      if product = shop_item.product
+        tp += product.price * shop_item.quantity
+      end
     end
     tp
+  end
+  
+  def invalid?
+    OrderValidator.check_validity_on( self )
   end
   
   def items_count
@@ -132,7 +139,7 @@ class Shop::Order < ActiveRecord::Base
   def require_shipping_address
     self.order_items.each do |order_item|
       if product = order_item.product
-        return true if product.category == "Physical product"
+        return true if product.category == "physical-product"
       end
     end
     false
@@ -141,9 +148,7 @@ class Shop::Order < ActiveRecord::Base
   def shipping_address
     Address.find_by(addressable_id: self.id, addressable_type: self.class.name)
   end
-  
- 
-  
+
   def payment_source
     self.order_content[:payment_source]
   end

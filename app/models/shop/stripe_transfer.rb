@@ -4,12 +4,14 @@ class Shop::StripeTransfer < ActiveRecord::Base
   belongs_to :user
   belongs_to :account
   
+  
   has_paper_trail
   include AASM
   
 
  #stakeholder = User.cached_find(user_id)
  #stakeholder = User.last
+
  #stripe_account_id = stakeholder.stripe_id
  
  

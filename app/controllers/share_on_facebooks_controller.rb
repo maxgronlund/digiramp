@@ -66,7 +66,7 @@ class ShareOnFacebooksController < ApplicationController
                           owner: @comment,
                       recipient: @comment.commentable,
                  recipient_type: @comment.commentable.class.name,
-                     account_id: @comment.user.account_id)
+                     account_id: @comment.user.account.id)
         
         Activity.notify_followers(  'Posted a comment on', @user.id, 'Recording', @recording.id )
       end 
@@ -122,7 +122,7 @@ class ShareOnFacebooksController < ApplicationController
                           owner: @comment,
                       recipient: @comment.commentable,
                  recipient_type: @comment.commentable.class.name,
-                     account_id: @comment.user.account_id)
+                     account_id: @comment.user.account.id)
         Activity.notify_followers(  'Posted a comment on', user.id, 'Recording', recording.id )
       end 
       

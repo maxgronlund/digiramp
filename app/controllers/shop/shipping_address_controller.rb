@@ -1,17 +1,21 @@
 class Shop::ShippingAddressController < ApplicationController
   
   def new
-    #if current_order.shipping_address
-    #redirect_to edit_shop_order_shipping_address_path(params[:id])
-    @user                         = current_user
-    @shop_order                   = current_order
+
+    @user         = current_user
+    @shop_order   = current_order
+    
+    
+    if error_message = OrderValidator.check_validity_on( @shop_order )
+      ap error_message
+      flash[:danger] = error_message
+    end
+    #redirect_to shop_order_path( @shop_order.uuid )
+    
+      
     if @shop_order.shipping_address
       redirect_to edit_shop_order_shipping_address_path(@shop_order.uuid,@shop_order.shipping_address.id )
     end
-      #else
-      
-      
-      
     @address                      = Address.new
     if current_user
       @address.first_name           = current_user.first_name
@@ -22,6 +26,7 @@ class Shop::ShippingAddressController < ApplicationController
       @address.address_line_2       = current_user.address_line_2
     end
     
+
   end
   
   def create
@@ -42,8 +47,14 @@ class Shop::ShippingAddressController < ApplicationController
   def edit
     @user         = current_user
     @shop_order   = current_order
-    @address      = @shop_order.shipping_address
-    #@address      = Address.find_by(addressable_id: @shop_order.id, addressable_type: @shop_order.class.name)
+
+    if error_message = OrderValidator.check_validity_on( @shop_order )
+      flash[:danger] = error_message
+      redirect_to shop_order_path( @shop_order )
+    else
+      @address      = @shop_order.shipping_address
+    end
+    
   end
 
   def update
@@ -63,4 +74,5 @@ class Shop::ShippingAddressController < ApplicationController
                                       :addressable_id, 
                                       :addressable_type)
     end
+    
 end

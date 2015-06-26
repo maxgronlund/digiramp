@@ -66,4 +66,4 @@ class User::OpportunitiesController < ApplicationController
 end
 
 
-#- opportunity_link = @user.account_id == opportunity.account_id ? account_account_opportunity_path(@user.account, opportunity)  : opportunity_opportunity_path(opportunity)
+#- opportunity_link = @user.account.id == opportunity.account_id ? account_account_opportunity_path(@user.account, opportunity)  : opportunity_opportunity_path(opportunity)

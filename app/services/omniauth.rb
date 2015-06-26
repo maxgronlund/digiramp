@@ -157,14 +157,14 @@ private
         account_user.grand_basic_permissions                  
         user.name       = info["name"] + '_' + ( User.last.id + 1 ).to_s if user.name.to_s == ''
         user.user_name  = user.name if user.user_name.to_s == ''
-        user.account_id = account.id
+        user.account.id = account.id
         user.save!
         
         user.create_activity(  :created, 
                            owner: user,
                        recipient: user,
                   recipient_type: user.class.name,
-                      account_id: user.account_id) 
+                      account_id: user.account.id) 
         
         
         return true

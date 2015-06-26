@@ -65,6 +65,7 @@
 //= require cms_module
 //= require jquery.slimscroll  
 //= require slimscroll  
+// require bootstrap-hover-dropdown  
 // require inlineplayer
 // require inlineplayer-init  
 // require facebook

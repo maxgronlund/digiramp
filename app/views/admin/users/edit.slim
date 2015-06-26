@@ -18,16 +18,16 @@
         .digi-box
           .row
             .col-sm-6
-              /= debug Account.cached_find(@user.account_id)
+              /= debug Account.cached_find(@user.account.id)
               
               - if super?
-                - if Account.exists?(@edit_user.account_id)
-                  = f.input :account_id , :include_blank => false, :collection => Account.all , label: 'Account'
-                - else
-                  .alert.alert-danger
-                    '! Account missing
-                    .pull-right
-                      = link_to 'Create missing account', new_admin_user_account_path(@edit_user), class: 'btn btn-xs btn-default'
+                /- if Account.exists?(@edit_user.account.id)
+                /  = f.input :account_id , :include_blank => false, :collection => Account.all , label: 'Account'
+                /- else
+                /  .alert.alert-danger
+                /    '! Account missing
+                /    .pull-right
+                /      = link_to 'Create missing account', new_admin_user_account_path(@edit_user), class: 'btn btn-xs btn-default'
                 -unless (@edit_user.email == 'max@synthmax.dk') || (@edit_user.email == 'peter@digiramp.org')
                   = f.input :role, collection: User::ROLES, :include_blank => false
               = f.input :administrator, label: 'Administrator', hint: 'User can administrate other accounts',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  

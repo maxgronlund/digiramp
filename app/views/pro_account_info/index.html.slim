@@ -11,7 +11,11 @@
         .row
           .col-sm-12
             .pull-right.pull-down-10
-              =< link_to 'Signup for a Pro account', 'http://digiramp.biz/', class: 'btn btn-warning'
+              - if current_user
+                =< link_to 'Signup for a Pro account', user_user_subscriptions_path(current_user), class: 'btn btn-warning'
+              - else
+                =< link_to 'Signup for a Pro account', signup_index_path, class: 'btn btn-warning'
+              /=< link_to 'Signup for a Pro account', 'http://digiramp.biz/', class: 'btn btn-warning'
               - if super?
                 =< link_to 'edit', edit_admin_blog_blog_post_path(@info_1.blog, @info_1), class: 'btn btn-default'
     /.sexy_line
@@ -35,7 +39,7 @@
           .row.pull-down-8
             .col-sm-12
               .pull-right.pull-down-10
-                => link_to 'Register', new_registration_path( account_id: current_user.account_id, account_type: 'pro'), class: 'btn btn-warning'
+                /=> link_to 'Register', new_registration_path( account_id: current_user.account.id, account_type: 'pro'), class: 'btn btn-warning'
                 = link_to 'edit', edit_admin_blog_blog_post_path(@info_3.blog, @info_3), class: 'btn btn-default'
 .pull-down-48
 == render 'shared/site_footer'    

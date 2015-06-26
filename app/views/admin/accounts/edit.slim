@@ -93,7 +93,19 @@
                   =f.input :postal_code
               br
               .sexy_line
-              =f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES  
+              
+              - if Subscription.find_by(account_id: @account.id).nil? && @account.account_type != 'Social'
+                .alert.alert-danger
+                  'This &nbsp;
+                  b = @account.account_type
+                  ' &nbsp account has no subscription, Please downgrade it and give the account owner a coupon
+                  br
+                  br
+                  =f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES , label: false
+              - else
+                .alert.alert-info
+                  'Please change account type using coupons
+              /=f.input :account_type , :include_blank => false, :collection => Account::ACCOUNT_TYPES  
               /b Expiration date ( Not used for Social accounts)
               /= f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
               /= f.input :create_opportunities

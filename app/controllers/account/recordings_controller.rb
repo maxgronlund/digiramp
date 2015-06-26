@@ -76,7 +76,7 @@ class Account::RecordingsController < ApplicationController
                                    owner: recording,
                                recipient: @user,
                           recipient_type: 'Recording',
-                              account_id: current_user.account_id) 
+                              account_id: current_user.account.id) 
                               
         
         @common_work = CommonWork.create(account_id: recording.account_id, 

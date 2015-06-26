@@ -9,7 +9,7 @@ class WelcomeController < ApplicationController
     @opportunities        = Opportunity.where(public_opportunity: true).first(4)
     @playlists            = current_user.playlists if current_user
     @hide_sidebar_toggle  = true
-     
+    @user                 = current_user
     #end
   end
 end

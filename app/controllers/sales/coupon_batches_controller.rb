@@ -26,7 +26,7 @@ class Sales::CouponBatchesController < Sales::SalesController
   def create
     
     params[:sales_coupon_batch][:user_id]     = current_user.id
-    params[:sales_coupon_batch][:account_id]  = current_user.account_id
+    params[:sales_coupon_batch][:account_id]  = current_user.account.id
     params[:sales_coupon_batch][:created_by]  = current_user.email
     
     

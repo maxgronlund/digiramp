@@ -97,7 +97,7 @@ class Catalog< ActiveRecord::Base
     self.count_recordings
     self.count_common_works
     self.count_assets
-    self.count_users
+    #self.count_users
     self.save!
   end
   
@@ -119,9 +119,9 @@ class Catalog< ActiveRecord::Base
   end
   
   # counter cache
-  def count_users
-    self.nr_users = self.catalog_users.where(role: ['Catalog User', 'Account Owner']).count
-  end
+  #def count_users
+  #  self.nr_users = self.catalog_users.where(role: ['Catalog User', 'Account Owner']).count
+  #end
   
 
   

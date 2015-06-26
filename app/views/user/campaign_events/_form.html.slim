@@ -4,7 +4,7 @@
   .form-inputs
     = f.hidden_field :campaign, value: @campaign.id
     = f.hidden_field :user, value: @user.id
-    = f.hidden_field :account, value: @user.account_id
+    = f.hidden_field :account, value: @user.account.id
     = f.input :title, autofocus: true
     = f.input :body, label: 'Notes'
     = f.input :campaign_event_type, collection: CampaignEvent::EVENT_TYPE, include_blank: false

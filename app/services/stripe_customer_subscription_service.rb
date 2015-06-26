@@ -78,8 +78,10 @@ class StripeCustomerSubscriptionService
                 subscription.save! 
                 
                 if user = subscription.user
-                  user.account_type = plan.account_type
+                  user.account_type         = plan.account_type
                   user.save(validate: false)
+                  user.account.account_type plan.account_type
+                  user.account.save(validate: false)
                 end
               end
             else

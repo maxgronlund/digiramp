@@ -146,7 +146,7 @@ module UsersHelper
   
   def account_owner?
     begin
-      return true if current_user && current_user.account_id == @account.id
+      return true if current_user && current_user.account.id == @account.id
     rescue
       cookies.delete(:auth_token)
       current_user = nil
@@ -156,7 +156,7 @@ module UsersHelper
   
   def can_edit_account?
     if @account
-      return true if current_user && current_user.account_id == @account.id
+      return true if current_user && current_user.account.id == @account.id
       return true if current_user.super?
     end
     return false

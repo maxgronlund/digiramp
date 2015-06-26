@@ -1,6 +1,8 @@
 = f.error_notification
 = f.hidden_field :user_id   , value: @user.id
-= f.hidden_field :account_id, value: @user.account_id
+= f.hidden_field :account_id, value: @user.account.id
+- if @category
+  = f.hidden_field :category,   value:  @category 
 .form-inputs
   = f.input :title, autofocus: true
   .row
@@ -12,20 +14,38 @@
           = f.input :for_sale,  :input_html => { class: 'icheck-me', 
                                                         'data-skin'.to_sym => "square", 
                                                         'data-color'.to_sym => "blue" }
+          = f.input :show_in_shop, label: 'Shop in public shop',
+                                   :input_html => { class: 'icheck-me', 
+                                                     'data-skin'.to_sym => "square", 
+                                                     'data-color'.to_sym => "blue" }
           
       = f.input :image
-      .row
-        .col-sm-6
-          = f.input :category, :include_blank => false, :collection => Shop::Product::CATEGORIES
-        .col-sm-6
-          = f.input :units_on_stock, placeholder: 'Leave blank for unlimmited'
+      = f.input :units_on_stock, placeholder: 'Leave blank for unlimmited'
           
-      = f.input :download_link
+      /= f.input :download_link
       = f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
       
       
     .col-sm-6
-      = f.input :additional_info, :input_html => {  style: "height: 80px;", placeholder: "Text for small badges and invoice statements"}, label: 'Product info'
+      = f.input :additional_info, :input_html => {  style: "height: 80px;", 
+                                                    placeholder: "Text for small badges and invoice statements",
+                                                    maxlength: "150"}, 
+                                                    label: 'Info on badges'
+      
+      div id="textarea_feedback"
+      br
+      javascript:
+        $(document).ready(function() {
+            var text_max = 150;
+            $('#textarea_feedback').html(text_max + ' characters remaining');
+
+            $('#shop_product_additional_info').keyup(function() {
+                var text_length = $('#shop_product_additional_info').val().length;
+                var text_remaining = text_max - text_length;
+
+                $('#textarea_feedback').html(text_remaining + ' characters remaining');
+            });
+        });
       b Description
       br
       div id="toolbar" class="wysihtml5-toolbar"

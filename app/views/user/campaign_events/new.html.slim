@@ -9,7 +9,7 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'settings'.to_sym => user_user_control_panel_index_path(@user),\
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym => user_user_control_panel_index_path(@user),\
                                                                campaigns: user_user_campaigns_path(@user)}, current: ''}
       .row
         .col-sm-6
@@ -38,7 +38,7 @@
               .form-inputs
                 = f.hidden_field :campaign_id, value: @campaign.id
                 = f.hidden_field :user_id, value: @user.id
-                = f.hidden_field :account_id, value: @user.account_id
+                = f.hidden_field :account_id, value: @user.account.id
                 = f.input :title, autofocus: true
                 = f.input :body, label: 'Notes'
                 b Event type

@@ -36,7 +36,6 @@ class User::SubscriptionsController < ApplicationController
     @plan           = Plan.find(params[:plan_id])
     
     if @user.email.blank?
-      # sugger
       @user.email = params[:email]
       @user.save!
     end
@@ -45,7 +44,7 @@ class User::SubscriptionsController < ApplicationController
     # use strong parameters
     subscription    = Subscription.new( plan_id:          @plan.id, 
                                         user_id:          @user.id,
-                                        account_id:       @user.account_id,
+                                        account_id:       @user.account.id,
                                         email:            params[:email],
                                         stripe_token:     params[:stripeToken],
                                         guid:             UUIDTools::UUID.timestamp_create().to_s,

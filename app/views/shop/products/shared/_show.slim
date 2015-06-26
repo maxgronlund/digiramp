@@ -4,8 +4,10 @@
     .col-sm-12
       h3 = product.title
     .col-sm-6
-      
-      = image_tag product.image_url(:thumb_470x470)
+      .product-image-big
+        = image_tag product.image_url(:thumb_470x470)
+        .product-category-big
+          = product.category.gsub('-', ' ').capitalize
     .col-sm-6
       h4 = number_to_currency(product.price * 0.01, locale: :en, procision: 2)
       = simple_format product.body

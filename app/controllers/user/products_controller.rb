@@ -19,11 +19,15 @@ class User::ProductsController < ApplicationController
 
   # GET /shop/products/new
   def new
+    #'Streaming', 'download', 'Service', 'Physical product', 'Coupon'
     @shop_product = Shop::Product.new
+    @category     = params[:category]
+
   end
 
   # GET /shop/products/1/edit
   def edit
+    @category = @shop_product.category
   end
 
   # POST /shop/products

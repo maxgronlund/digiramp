@@ -20,15 +20,15 @@ class User::InviteFriendsController < ApplicationController
                                 user_id: @user.id)
                         .first_or_create(email: email, 
                                          user_id: @user.id, 
-                                         account_id: @user.account_id)
+                                         account_id: @user.account.id)
           
           #if client.
           #  client.name =  User.create_uniq_user_name_from_email( email )  
           #  client.save!
           #end
           
-          unless @client_invitation = ClientInvitation.where( account_id: @user.account_id, client_id: client.id).first
-                 client_invitation = ClientInvitation.create( account_id: @user.account_id, 
+          unless @client_invitation = ClientInvitation.where( account_id: @user.account.id, client_id: client.id).first
+                 client_invitation = ClientInvitation.create( account_id: @user.account.id, 
                                                               client_id:  client.id,
                                                               user_id:    @user.id,
                                                               uuid:       UUIDTools::UUID.timestamp_create().to_s,

@@ -125,7 +125,7 @@ class Account::CommonWorksController < ApplicationController
             #                           owner: recording,
             #                       recipient: current_account_user.user,
             #                  recipient_type: 'Recording',
-            #                      account_id: current_user.account_id) 
+            #                      account_id: current_user.account.id) 
             #                  
             #
             

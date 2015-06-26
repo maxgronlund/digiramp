@@ -1,7 +1,7 @@
 = simple_form_for [ :user, @user, @campaign] do |f|
 
   = f.hidden_field :user_id, value:  @user.id
-  = f.hidden_field :account_id, value: @user.account_id
+  = f.hidden_field :account_id, value: @user.account.id
 
 
   = f.input :title, autofocus: true

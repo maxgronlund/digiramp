@@ -1,35 +1,47 @@
 class Account < ActiveRecord::Base
   include PublicActivity::Common
+  has_paper_trail
   # dont destroy user if account is deleted
   # the user might be active on another account
+  #belongs_to :user
+  
   belongs_to :user
+  validates :user_id, uniqueness: true
 
   # used to contact
-  has_many :clients
+  has_many :clients,                dependent: :destroy
   
   # used as the basis for the CRM
-  has_many :projects
-  has_many :mail_campaigns
-  has_many :client_groups
+  has_many :projects,                dependent: :destroy
+  has_many :mail_campaigns,          dependent: :destroy
+  has_many :client_groups,           dependent: :destroy
   
   # csv imports
-  has_many :client_imports
-  has_many :client_groups
+  has_many :client_imports,          dependent: :destroy
+  has_many :client_groups,           dependent: :destroy
+  
+  has_many :coupons,                dependent: :destroy
+  has_many :invoices,               dependent: :destroy
+  has_many :playlist_emails,        dependent: :destroy
+  #has_many :products,               class_name: 'Shop::Product', dependent: :destroy
+  #has_many :shop_stripe_transfers,  dependent: :destroy
+
+  
   
   # image files uploaded
-  has_many :artworks, dependent: :destroy
+  has_many :artworks,     dependent: :destroy
   
   # documents attached to the account
-  has_many :documents, dependent: :destroy
+  has_many :documents,    dependent: :destroy
   
   # !!! might be obsolete
-  has_many :attachments, dependent: :destroy
+  has_many :attachments,  dependent: :destroy
   
   # Imported common works
   has_many :common_works_imports, dependent: :destroy
   
   # delete playlists when account is deleted
-  has_many :playlists, dependent: :destroy
+  has_many :playlists,    dependent: :destroy
   
   # playlist keys
   has_many :playlist_keys
@@ -41,52 +53,54 @@ class Account < ActiveRecord::Base
   has_many :ipi_codes, as: :ipiable
   
   # !!! might be obsolete
-  has_many :customer_event
+  has_many :customer_event,                dependent: :destroy
   
-  # delete recordings  when account is deleted
-  has_many :recordings, dependent: :destroy
+  # don't delete recordings  when account is deleted
+  has_many :recordings
+  
   has_many :import_batches, dependent: :destroy
-  has_many :catalogs, dependent: :destroy
+  has_many :catalogs,       dependent: :destroy
   
   # permissions keys for catalogs
-  has_many :catalog_users
+  has_many :catalog_users,       dependent: :destroy
 
   #belongs_to :user
   #accepts_nested_attributes_for :user
-  has_many :account_users, dependent: :destroy
-  has_many :users, :through => :account_users
+  has_many :account_users,  dependent: :destroy
+  #has_many :users, :through => :account_users
   
-  has_many :opportunities, dependent: :destroy
+  has_many :opportunities,  dependent: :destroy
   
   # access to playlists
-  has_many :playlist_key_users
+  has_many :playlist_key_users,       dependent: :destroy
   
-  has_many :emails
+  has_many :emails,       dependent: :destroy
   
   # widgets
-  has_many :widgets
+  has_many :widgets,       dependent: :destroy
   
   # statistick on playbacks
-  has_many :playbacks
-  has_many :recording_views
+  has_many :playbacks,       dependent: :destroy
+  has_many :recording_views,       dependent: :destroy
   
   # statistick on likes
-  has_many :likes
+  has_many :likes,       dependent: :destroy
   
-  has_many :campaigns, dependent: :destroy
-  has_many :campaign_events
-  has_many :client_invitation, dependent: :destroy
-  has_many :contracts, dependent: :destroy
+  has_many :campaigns,          dependent: :destroy
+  has_many :campaign_events,       dependent: :destroy
+  has_many :client_invitation,  dependent: :destroy
+  has_many :contracts,          dependent: :destroy
   
   has_many :comments,    as: :commentable,     dependent: :destroy
   
-  has_many :creative_projects
+  has_many :creative_projects,  dependent: :destroy
   
-  has_many :subscriptions
+  has_many :subscriptions,  dependent: :destroy
   
   belongs_to :account_feature
   
-  has_many :products, class_name: 'Shop::Product'
+  has_many :products,         class_name: 'Shop::Product', dependent: :destroy
+  has_many :stripe_transfers, class_name: 'Shop::StripeTransfer', dependent: :destroy
   
   #has_many :registrations
                 
@@ -136,7 +150,16 @@ class Account < ActiveRecord::Base
   # update the uuid so all cached segments expires
   before_save :set_uuid
   
-  before_destroy :destroy_unlocked_creative_projects
+  before_destroy :cleanup_migrations
+  
+  def cleanup_migrations
+    unlocked_creative_projects           = self.creative_projects.where(locked: false)
+    unlocked_creative_projects.destroy_all
+    
+    self.products.update_all(account_id: nil)
+    #self.recordings.update_all(account_id: nil)
+    #self.stripe_transfers.update_all(account_id: nil)
+  end
   
   def update_expiration_date
     if last_registration = self.registrations.last
@@ -155,6 +178,10 @@ class Account < ActiveRecord::Base
     subscription = subscriptions.last
   end
   
+  
+  
+  
+  
   #def subscribtion_price
   #  
   #  ap self.account_type
@@ -167,10 +194,7 @@ class Account < ActiveRecord::Base
   #  
   #end
   
-  def destroy_unlocked_creative_projects
-    creative_projects = self.creative_projects.where(locked: false)
-    creative_projects.destroy_all
-  end
+  
   
   def transfer_codes=(uuids)
     
@@ -292,10 +316,10 @@ class Account < ActiveRecord::Base
   end
   
   # !!! not needed anymore
-  def count_users
-    self.user_count = self.account_users.count
-    self.save!
-  end
+  #def count_users
+  #  self.user_count = self.account_users.count
+  #  self.save!
+  #end
 
   
 

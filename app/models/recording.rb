@@ -6,7 +6,7 @@ class Recording < ActiveRecord::Base
   # virtual parameter for CommonWorksController#new_recording form
   
   attr_accessor :add_to_catalogs
-  
+  mount_uploader :default_cover_art, ArtworkUploader
   
   
   serialize :audio_upload, Hash
@@ -130,7 +130,14 @@ class Recording < ActiveRecord::Base
     self.uniq_likes_count        = self.likes_count.to_uniq
   end
   
-  mount_uploader :default_cover_art, ArtworkUploader
+  after_create :notify_followers
+  
+  
+  def notify_followers
+    
+    FollowerMailer.delay_for(10.minutes).recording_uploaded( self.id )
+    #.delay_for(1.day)
+  end
   
   
 
@@ -145,11 +152,6 @@ class Recording < ActiveRecord::Base
   VOCAL.each do |k|
     VOCAL_HASH << [k,k]
   end
-  
-
-
-  
-
   
   def check_default_image
     #unless File.exist?(Rails.root.join('public' +  self.default_cover_art.to_s))
@@ -558,9 +560,6 @@ class Recording < ActiveRecord::Base
     
     self.common_work_id = common_work_copy.id
     self.save!
-    
-    
-
     end
     
   end 
@@ -582,13 +581,10 @@ private
   end
   
   def count_stats_up
-
   end
   
   def count_stats_down
-
   end
-  
   
   
   def remove_from_collections

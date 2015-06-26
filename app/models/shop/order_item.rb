@@ -16,6 +16,7 @@ class Shop::OrderItem < ActiveRecord::Base
   end
   
   # transfer payment to all stakeholders
+  # called when payments success
   def send_transfer_to_stakeholders( amount, stripe_charge_id)
     if product = self.product
       product.stakeholders.each do |stakeholder|

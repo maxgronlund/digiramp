@@ -1,14 +1,14 @@
-/ - user_account = Account.cached_find(@user.account_id)
+/ - user_account = Account.cached_find(@user.account.id)
 /  - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
 /  - unless @user.has_a_collection
-/    - account_ids -= [@user.account_id]
+/    - account_ids -= [@user.account.id]
 /  - accounts    = Account.order('title asc').where(id: account_ids)
 
 ruby: 
-   user_account = Account.cached_find(@user.account_id)
+   user_account = Account.cached_find(@user.account.id)
    account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
    
-   account_ids -= [@user.account_id] 
+   account_ids -= [@user.account.id] 
    accounts    = Account.order('title asc').where(id: account_ids)
   
 #wrapper
@@ -55,7 +55,7 @@ ruby:
 
 
 
-/- user_account = Account.cached_find(@user.account_id)
+/- user_account = Account.cached_find(@user.account.id)
 /#wrap
 /  .profile
 /    .full-width-top
@@ -72,7 +72,7 @@ ruby:
 /        .col-sm-12
 /          - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
 /          - unless @user.has_a_collection
-/            - account_ids -= [@user.account_id]
+/            - account_ids -= [@user.account.id]
 /          - accounts    = Account.order('title asc').where(id: account_ids)
 /          
 /          .panel.panel-primary

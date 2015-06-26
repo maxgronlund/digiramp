@@ -53,7 +53,7 @@ class Account::OpportunityUsersController < ApplicationController
                                    owner: current_user,
                                recipient: @opportunity_user.user,
                           recipient_type: @opportunity_user.user.class.name,
-                              account_id: @opportunity_user.user.account_id,
+                              account_id: @opportunity_user.user.account.id,
                                   params: {    
                                             opportunity_id: @opportunity.id,
                                     opportunity_user_email: @opportunity_user.user.email

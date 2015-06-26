@@ -7,8 +7,8 @@ class AccountUser < ActiveRecord::Base
   belongs_to :account
   belongs_to :user
   belongs_to :administrator
-  has_many :customer_events
-  has_many :catalog_users, dependent: :destroy
+  has_many   :customer_events, dependent: :destroy
+  has_many   :catalog_users, dependent: :destroy
   
 
   validates_uniqueness_of :user_id, :scope => :account_id
@@ -28,11 +28,6 @@ class AccountUser < ActiveRecord::Base
   
   # 
   after_commit    :update_cache
-  
-  before_save     :update_propperties
-  before_destroy  :update_propperties
-  #after_create    :update_catalog_users
-  #after_update    :update_catalog_users
 
   
   scope :clients,           ->  { where( role: 'Client User') }
@@ -61,7 +56,7 @@ class AccountUser < ActiveRecord::Base
   
   def own_account? account
     begin 
-      self.user.account_id == account.user.account_id
+      self.user.account.id == account.user.account.id
     rescue
       false
     end
@@ -413,13 +408,13 @@ private
     Rails.cache.delete([self.class.name, self.account_id, self.user_id])
   end
   
-  def update_propperties
-    update_uuids
-  end
+  #def update_propperties
+  #  update_uuids
+  #end
   
   def update_uuids
     # !!! what is account cache
-    AccountCache.update_users_uuid self.account
+    #AccountCache.update_users_uuid self.account
     # force segment cache for account user to rerender
     #self.uuid = UUIDTools::UUID.timestamp_create().to_s
     # force update of the users cache

@@ -44,8 +44,8 @@ class ApplicationController < ActionController::Base
   def current_account
     begin
       return  Account.cached_find( session[:account_id]) if session[:account_id]
-      session[:account_id]    = current_user.account_id
-      return  Account.cached_find( current_user.account_id ) 
+      session[:account_id]    = current_user.account.id
+      return  Account.cached_find( current_user.account.id ) 
     rescue
       return nil
     end
@@ -230,11 +230,11 @@ private
   
   def set_account
     #@user = current_user if @user.nil
-    if @user.account_id.nil?
-       @user.account_id = Account.where(user_id: @user.id).first.id
+    if @user.account.id.nil?
+       @user.account.id = Account.where(user_id: @user.id).first.id
        @user.save!
     end
-    session[:account_id] = @user.account_id 
+    session[:account_id] = @user.account.id 
     
     if current_user 
       if current_user.current_account_id != current_user.account.id
@@ -249,7 +249,7 @@ private
 
   # get the order
   def current_order
-    #session[:order_uuid] = nil
+
     if current_user 
       @order = current_user.get_order
     else

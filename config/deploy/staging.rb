@@ -12,7 +12,7 @@ set :server_name, "www.staging.digiramp.com staging.digiramp.com"
 # at filepaths
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 
-server '104.131.32.246', user: 'deploy', roles: %w{web app db}, primary: true
+server '104.236.45.151', user: 'deploy', roles: %w{web app db}, primary: true
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/#{fetch(:full_app_name)}"
 
@@ -30,6 +30,6 @@ set :enable_ssl, false
 
 set :ssh_options, { :forward_agent => true }
 
-set :rbenv_ruby, '2.2.2'
+set :rbenv_ruby, '2.1.2'
 
 

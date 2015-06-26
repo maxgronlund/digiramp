@@ -21,7 +21,7 @@
               == render 'admin/helps/help', identifier: 'pro account'
         .col-sm-4.pull-down-10
           .pull-right
-            - if super? || (current_user.account_id == @account.id)
+            - if super? || (current_user.account.id == @account.id)
               = link_to edit_account_account_path(@account) do
                 .btn.btn-primary
                   i.fa.fa-pencil

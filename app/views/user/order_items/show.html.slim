@@ -15,7 +15,7 @@
 
   #page-content-wrapper
     .container-fluid 
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { settings: user_user_control_panel_index_path(@user),
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym =>user_user_control_panel_index_path(@user),
                                                               'shop admin'.to_sym => user_user_shop_admin_index_path(@user)}, current: ''}
       .row
         .col-sm-8
@@ -49,15 +49,25 @@
                 .row
                   td
                     b = l stripe_transfer.created_at, format: :date
+                    /= debug stripe_transfer
                   td
                     - if user = stripe_transfer.user
-                      = user.email
-                  td 
+                      - if member = User.find_by(email: user.email)
+                        = link_to user.email, member
+                      - else
+                        = user.email
+                  td  
                     b = number_to_currency(stripe_transfer.amount * 0.01, locale: 'en', precision: 2)
                   td 
                     
                     - if stripe_transfer.stripe_errors.blank?
-                      = stripe_transfer.state
+                      - case stripe_transfer.state
+                      
+                      - when 'pending'
+                        'Payment is accepted by gateway
+                      
+                      - when 'finished'
+                        'Payment is transfered to your account
                     - else
                       .alert.alert-danger
                         = stripe_transfer.stripe_errors

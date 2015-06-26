@@ -26,6 +26,22 @@
 //  text-indent: 0px
 //  margin-left: 10px
 //  margin-right: 10px
+
+.product-image-big
+  position: relative
+  .product-category-big
+    position: absolute
+    top: 0px
+    padding: 0px
+    color: #EEE
+    background: #202020
+    background: rgba(32, 32, 32, 0.5)
+    height: 28px
+    font-size: 22px
+    padding-left: 4px
+    padding-right: 4px
+    margin-bottom: 2px
+    
 .show-product
   img
     width: 100%
@@ -43,7 +59,7 @@
   .product
     overflow: hidden
     width: 300px
-    height: 464px
+    height: 444px
     background-color: #FFF
     +box-shadow(#CACACA 1px 2px 1px)
     border-top: solid 1px #C1C2C3
@@ -58,14 +74,36 @@
         border-bottom: solid 1px #C1C2C3
       position: relative
       height: 300px
-      
-    .product-category
-      height: 20px
-      padding: 4px
-      font-style: italic
+
+      .product-category
+        position: absolute
+        top: 0px
+        padding: 0px
+        color: #EEE
+        background: #202020
+        background: rgba(32, 32, 32, 0.5)
+        height: 24px
+        font-size: 18px
+        padding-left: 4px
+        padding-right: 4px
+        margin-bottom: 2px
+
+      .units-on-stock
+        position: absolute
+        top: 276px
+        padding: 0px
+        color: #EEE
+        background: #202020
+        background: rgba(32, 32, 32, 0.5)
+        height: 24px
+        font-size: 18px
+        padding-left: 4px
+        padding-right: 4px
+        margin-bottom: 2px
+
     .product-title
       margin-top: 8px
-      height: 24px
+      height: 44px
       padding: 4px
       //@include truncate
       font-size: 14px
@@ -73,7 +111,7 @@
       
     .product-info
       margin-top: 0px
-      height: 98px
+      height: 58px
       padding: 4px
       font-size: 12px
       //@include truncate

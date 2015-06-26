@@ -84,15 +84,15 @@ class UsersController < ApplicationController
                                   owner: current_user,
                               recipient: @user,
                          recipient_type: @user.class.name,
-                             account_id: @user.account_id)
+                             account_id: @user.account.id)
                              
       end
     end 
-    session[:account_id] = @user.account_id 
+    session[:account_id] = @user.account.id 
     
     if current_user 
-      if current_user.current_account_id != current_user.account_id
-        current_user.current_account_id  = current_user.account_id
+      if current_user.current_account_id != current_user.account.id
+        current_user.current_account_id  = current_user.account.id
         current_user.save!
       end
       @playlists  = current_user.playlists
@@ -153,7 +153,7 @@ class UsersController < ApplicationController
                          owner: @user,
                      recipient: @user,
                 recipient_type: @user.class.name,
-                    account_id: @user.account_id) 
+                    account_id: @user.account.id) 
 
       @user.confirm_ips
       redirect_to edit_user_path(@user)
@@ -172,7 +172,7 @@ class UsersController < ApplicationController
                          owner: @user,
                      recipient: @user,
                 recipient_type: @user.class.name,
-                    account_id: @user.account_id) 
+                    account_id: @user.account.id) 
                 
                 
     end
@@ -193,7 +193,7 @@ class UsersController < ApplicationController
                          owner: @user,
                      recipient: @user,
                 recipient_type: @user.class.name,
-                    account_id: @user.account_id)
+                    account_id: @user.account.id)
                     
                     
                     
@@ -218,7 +218,7 @@ class UsersController < ApplicationController
                        owner: @user,
                    recipient: @user,
               recipient_type: @user.class.name,
-                  account_id: @user.account_id)
+                  account_id: @user.account.id)
     
     @user.destroy
 
