@@ -5,6 +5,8 @@ class Shop::ShopController < ApplicationController
   def index
     @user         = current_user
     @shop_order   = current_order
+    
+    
     @products     = Shop::Product.where(show_in_shop: true)
   end
   

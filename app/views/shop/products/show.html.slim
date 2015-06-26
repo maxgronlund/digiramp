@@ -15,3 +15,14 @@
     .container-fluid
       .digi-box
         == render 'shop/products/shared/show' , product: @shop_product, buy: true
+      
+      /.row
+      /  .col-sm-12
+      /    .digi-box
+      /      h3 Other items sole by
+      /      .seller-avatar
+      /      
+      /      .seller-name
+      /      
+      /      .
+      /      = @shop_product.user.user_name

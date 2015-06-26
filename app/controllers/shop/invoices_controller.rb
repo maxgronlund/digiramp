@@ -1,8 +1,10 @@
 class Shop::InvoicesController < ApplicationController
   
-  layout 'invoices'
+  #layout 'invoices'
   
   def show
+    @user = current_user
+    @shop_order   = current_order
     if @shop_order = Shop::Order.find_by(uuid: params[:id])
       session[:order_uuid] = nil
       respond_to do |format|

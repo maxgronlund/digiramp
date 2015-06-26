@@ -1,8 +1,11 @@
 class MandrillAccountService
   
   def self.create_account_for_user user_id
-    return unless user  = User.cached_find(user_id)
+    ap '----------------------- MandrillAccountService -------------------------'
+    return unless user  = User.find_by(id: user_id)
     return unless user.mandrill_account_id.blank?
+    
+    ap '----------------------- user found without a  mandrill_account_id  -------------------------'
     begin
       
       mandril_client              = Mandrill::API.new Rails.application.secrets.email_provider_password                       
@@ -14,8 +17,9 @@ class MandrillAccountService
       user.save(validate: false)
       #ap result
     rescue Mandrill::Error => e
-      ap "A mandrill error occurred: #{e.class} - #{e.message}"
-      Opbeat.capture_message("#{e.class} - #{e.message}")
+      message = "A mandrill error occurred: #{e.class} - #{e.message}"
+      ap message
+      Opbeat.capture_message(message)
     end
   end
   

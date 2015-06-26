@@ -4,8 +4,15 @@
 
   = link_to link_to_product, id: "#{product.title.gsub(' ','_').downcase}" do
     .product-image
-      = image_tag( product.image_url :thumb_300x300) 
-      .user-tags
+      = image_tag( product.image_url :thumb_300x300)
+
+      .product-category
+        = product.category.gsub('-', ' ').capitalize
+
+      - if product.category == 'physical-product'
+        .units-on-stock
+          'Units on stock:&nbsp#{product.units_on_stock}
+
 
     
     /.product-category
@@ -18,29 +25,7 @@
     .product-price
       'PRICE&nbsp;
       => number_to_currency(product.price * 0.01, locale: :en, procision: 2)
-      /= user.profession
-      
-    
 
-  /.small-symbols
-  /  = link_to link_to_product do
-  /    i class="fa fa-headphones"
-  /    '&nbsp;
-  /    '12
-  /    /= user.recordings.count
-  /  '&nbsp;|&nbsp;
-  /  = link_to link_to_product do
-  /    i class="fa fa-heart"
-  /    '&nbsp;
-  /    110
-  /    /= user.likes.count
-  /  '&nbsp;|&nbsp;
-    
-    /= link_to user_likes_path(user) do
-    /  i class="fa fa-heart red-heart"
-    /  '&nbsp;
-    /  = user.likes.count
-    /'&nbsp;|&nbsp;
     = link_to link_to_product do
       i class="fa fa-users"
       '&nbsp;

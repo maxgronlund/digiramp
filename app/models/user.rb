@@ -225,11 +225,11 @@ class User < ActiveRecord::Base
     #end
   end
   def get_order
-
+    
     # lock if there is a order in the process of being paid
     #return nil if Shop::Order.find_by(state: 'pending', user_id: self.id)
     
-    @shop_order  = Shop::Order.where(state: 'pending', 
+    @shop_order  = Shop::Order.where( state: 'pending', 
                                       user_id: self.id,
                                       email: self.email )
                               .first_or_create!( user_id: self.id, 

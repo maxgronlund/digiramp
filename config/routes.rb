@@ -1,7 +1,8 @@
 Digiramp::Application.routes.draw do
 
+  
 
-
+  
   get 'terms/show'
 
   resources :playlist_emails

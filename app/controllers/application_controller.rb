@@ -249,7 +249,7 @@ private
 
   # get the order
   def current_order
-    #session[:order_uuid] = nil
+
     if current_user 
       @order = current_user.get_order
     else

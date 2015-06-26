@@ -30,10 +30,8 @@ class Shop::ShopOrderItemsController < ApplicationController
 
   def update
 
-    order_item = Shop::OrderItem.cached_find(params[:id])
-    order_item.quantity = params[:shop_order_item][:quantity].to_i
-    order_item.save
-    
+    order_item          = Shop::OrderItem.cached_find(params[:id])
+    OrderValidator.set_units_on_order_item(order_item, params[:shop_order_item][:quantity].to_i)
 
     go_to = session[:return_url]
     session[:return_url] = nil

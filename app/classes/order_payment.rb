@@ -1,6 +1,7 @@
 class OrderPayment
 
   def self.set_address_fields_from_payment_source( order )
+    
     if order_content = order.order_content
       if payment_source      = order_content[:payment_source]
          order.card_address_name      =  payment_source[:name]

@@ -1,13 +1,9 @@
 class ProductValidator < ActiveModel::Validator
   def validate(record)
-    
-
 
     if record.price.blank?
       record.errors[:price] << "Price can't be blank"
-    end
-    
-    if record.price < 50
+    elsif record.price < 50
       record.errors[:price] << "Price can't be less than 50 cent"
     end
     

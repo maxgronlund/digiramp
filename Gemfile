@@ -52,7 +52,8 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 #gem 'bootsy'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'sidekiq'
+#gem 'sidekiq'
+gem 'sidekiq', github: 'mperham/sidekiq'
 gem 'responders', '~> 2.0'
 gem 'whenever', require: false
 

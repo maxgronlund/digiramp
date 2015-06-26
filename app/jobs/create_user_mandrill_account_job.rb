@@ -3,9 +3,14 @@ class CreateUserMandrillAccountJob < ActiveJob::Base
 
   def perform(user_id)
     begin
-      MandrillAccountService.create_account_for_user user_id
+      MandrillAccountService.create_account_for_user( user_id )
     rescue => e
-      Opbeat.capture_message("Create Mandrill Subaccount #{e.inspect}")
+      message = "Error create Mandrill subaccount for #{user_id} #{e.inspect}"
+      ap message
+      Opbeat.capture_message(message)
     end
   end
 end
+
+
+# CreateUserMandrillAccountJob.perform_later(User.last)

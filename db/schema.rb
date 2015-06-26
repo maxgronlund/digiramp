@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624185327) do
+ActiveRecord::Schema.define(version: 20150626092948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2822,6 +2822,7 @@ ActiveRecord::Schema.define(version: 20150624185327) do
     t.string   "card_address_state"
     t.string   "card_address_zip"
     t.string   "card_address_country"
+    t.boolean  "checked_out",          default: false
   end
 
   add_index "shop_orders", ["coupon_id"], name: "index_shop_orders_on_coupon_id", using: :btree
