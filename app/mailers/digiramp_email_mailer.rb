@@ -63,8 +63,9 @@ class DigirampEmailMailer < ApplicationMailer
         link                    = url_for unsubscribes_path(uuid: digiramp_email.email_group.uuid)
         unsibscribe_link        = (URI.parse(root_url) + link).to_s
     
-        begin
-          users.each do |user|
+        
+        users.each do |user|
+          begin
             if user && email = EmailSanitizer.saintize( user.email )
               receipients_with_names  << {email: email, name: user.user_name}
               merge_vars              << { rcpt: email,
@@ -76,9 +77,9 @@ class DigirampEmailMailer < ApplicationMailer
                                                  ]
                               }
             end
+          rescue
+            Opbeat.capture_message( "#{user.email} : #{user.user_name}" )
           end
-        rescue
-          Opbeat.capture_message( "opportunity_created" )
         end
       end
     end
