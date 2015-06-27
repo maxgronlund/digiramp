@@ -261,14 +261,18 @@ group :development do
   gem 'rb-readline'
   # Use Capistrano for deployment
   gem 'capistrano'
-
-  gem 'capistrano-rbenv'
-
+  
   # rails specific capistrano functions
   gem 'capistrano-rails'
-
+  
   # integrate bundler with capistrano
   gem 'capistrano-bundler'
+  
+  # if you are using Rbenv
+  gem 'capistrano-rbenv'
+
+  # include helper tasks
+  gem 'capistrano-cookbook', require: false
 
   gem 'capistrano-sidekiq'
 

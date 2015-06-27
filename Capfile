@@ -23,9 +23,9 @@ require "whenever/capistrano"
 # require 'capistrano/chruby'
  require 'capistrano/bundler'
 # require "sidekiq/capistrano"
-# require 'capistrano/rails/assets'
+ require 'capistrano/rails/assets'
  require 'capistrano/rails/migrations'
- #require 'capistrano/sidekiq'
+ require 'capistrano/cookbook'
  require 'capistrano/sidekiq'
  require 'capistrano/sidekiq/monit'
 
