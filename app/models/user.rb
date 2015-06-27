@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   #friendly_id :user_name, use: :slugged
   
   scope :public_profiles,  ->  { where( private_profile: false)  }
+  scope :supers,            ->    { where( role: 'Super' ).order("email asc")  }
+  scope :administrators,    ->    { where( administrator: true ).order("email asc")  }
+  scope :customers,         ->    { where( role: 'Customer' ).order("email asc")  }
+  scope :with_a_collection, ->    { where( has_a_collection: true)}
   
   has_paper_trail 
   has_secure_password
@@ -134,7 +138,7 @@ class User < ActiveRecord::Base
   after_commit :set_propperties
   
   before_save   :validate_info
-  before_create :set_token
+  #before_create :set_token
   before_create :validate_info
   before_destroy :sanitize_relations
   after_create :set_relations
@@ -358,9 +362,7 @@ class User < ActiveRecord::Base
     UserSearchField.process self
   end
   
-  def set_token
-    generate_token(:auth_token)
-  end
+  
   
   def unread_messages
     self.received_massages.where(read: false, recipient_removed: false).count
@@ -368,11 +370,10 @@ class User < ActiveRecord::Base
   
   
   def validate_info
+    set_token
 
-    # always start as a customer
     self.role = 'Customer' if self.role.to_s == ''
     self.uuid      = UUIDTools::UUID.timestamp_create().to_s                if self.uuid.to_s       == ''
-    
     update_completeness
     update_search_field
     set_top_tag
@@ -381,6 +382,9 @@ class User < ActiveRecord::Base
     
   end
 
+  def set_token
+    generate_token(:auth_token)
+  end
   
   def set_page_style
     unless self.page_style
@@ -441,10 +445,7 @@ class User < ActiveRecord::Base
   ROLES       = ["Super", "Customer"]
   SECRET_NAME = "RGeiHK8yUB6a"
   
-  scope :supers,            ->    { where( role: 'Super' ).order("email asc")  }
-  scope :administrators,    ->    { where( administrator: true ).order("email asc")  }
-  scope :customers,         ->    { where( role: 'Customer' ).order("email asc")  }
-  scope :with_a_collection, ->    { where( has_a_collection: true)}
+
   
   
   def following?(other_user)

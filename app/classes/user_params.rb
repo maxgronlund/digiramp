@@ -103,6 +103,9 @@ class UserParams
                       :phone_number,      
                       :salesperson,                
                       :has_an_approved_shop,
+                      :super_catalog_user_id,
+                      :password, 
+                      :password_confirmation
                     ]
   
   

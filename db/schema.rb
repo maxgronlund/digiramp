@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626092948) do
+ActiveRecord::Schema.define(version: 20150627170623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3128,12 +3128,14 @@ ActiveRecord::Schema.define(version: 20150626092948) do
     t.string   "account_type",                           default: "Social"
     t.string   "mandrill_account_id"
     t.text     "address_line_2"
+    t.integer  "super_catalog_user_id"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
   add_index "users", ["default_playlist_id"], name: "index_users_on_default_playlist_id", using: :btree
   add_index "users", ["default_widget_key"], name: "index_users_on_default_widget_key", using: :btree
   add_index "users", ["page_style_id"], name: "index_users_on_page_style_id", using: :btree
+  add_index "users", ["super_catalog_user_id"], name: "index_users_on_super_catalog_user_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false
