@@ -108,7 +108,7 @@ cd apps/digiramp_production/current
 bundle exec rails c -e production
 
 
-ssh deploy@http://104.236.45.151/
+ssh deploy@104.236.45.151
 cd apps/digiramp_staging/current
 bundle exec rails c -e staging
 
@@ -143,9 +143,7 @@ http://2542d042.ngrok.com/irons
 
 finished
 
-*********************************
-codeship
---skip-c in deploy message to skip test
+
 
 
 brew install icu4c
