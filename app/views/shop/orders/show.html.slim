@@ -37,25 +37,26 @@
                       b = product.title
                     td = number_to_currency(product.price * 0.01, locale: :en, precision: 2)
                     td 
-                      - if product.units_on_stock == 1
-                        '1
-                      - else
-                        = simple_form_for  [ :shop, order_item], turboboost: true do |f|
-                          - unless f.error_notification.blank?
-                            .alert.alert-danger
-                              = f.error_notification
-                        
-                          .form-inputs
-                        
-                            = f.hidden_field :shop_order_id,   value: @shop_order.uuid
-                            = f.hidden_field :shop_product_id, value: order_item.product_id
-                            /= f.hidden_field :user_id, value: @user.id
-                            = f.input :quantity, label: false
-                            
-                            = f.submit 'update', class: 'btn btn-primary'
+                      - if product.category == 'physical-product'
+                        - if product.units_on_stock == 1
+                          '1
+                        - else
+                          = simple_form_for  [ :shop, order_item], turboboost: true do |f|
+                            - unless f.error_notification.blank?
+                              .alert.alert-danger
+                                = f.error_notification
                           
-                      
-                      
+                            .form-inputs
+                          
+                              = f.hidden_field :shop_order_id,   value: @shop_order.uuid
+                              = f.hidden_field :shop_product_id, value: order_item.product_id
+                              /= f.hidden_field :user_id, value: @user.id
+                              = f.input :quantity, label: false
+                              
+                              = f.submit 'update', class: 'btn btn-primary'
+                            
+                      - else
+                        '1
                     
                     
                      

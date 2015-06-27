@@ -90,12 +90,21 @@ class Shop::Order < ActiveRecord::Base
     old_shop_order.destroy!
   end
   
+  def units_of_product product_id
+    cnt = 0
+    if items = self.order_items.where(product_id: product_id)
+      items.each do |order_item|
+        cnt += order_item.quantity
+      end
+    end
+    cnt
+  end
+  
   
   def total_price
     tp  = 0.0
 
     self.order_items.each do |shop_item|
-      ap shop_item.quantity
       if product = shop_item.product
         tp += product.price * shop_item.quantity
       end

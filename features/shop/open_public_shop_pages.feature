@@ -1,4 +1,4 @@
-# cucumber features/shop/open_public_shop_pages.feature -r features
+# cucumber features/shop/open_public_shop_pages.feature:16 -r features
 
 Feature:
 As an guest I can se the public shop pages

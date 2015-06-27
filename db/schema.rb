@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150627170623) do
+ActiveRecord::Schema.define(version: 20150627205009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2850,7 +2850,7 @@ ActiveRecord::Schema.define(version: 20150627170623) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.string   "category"
-    t.integer  "units_on_stock"
+    t.integer  "units_on_stock",             default: 0
     t.string   "exclusive_offered_to_email"
     t.string   "uuid"
     t.boolean  "show_in_shop",               default: false
