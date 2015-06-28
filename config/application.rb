@@ -4,6 +4,8 @@ require 'csv'
 require 'rails/all'
 require "awesome_print"
 require 'charlock_holmes'
+#require 'aws-sdk'
+#require 'aws-sdk-resources'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

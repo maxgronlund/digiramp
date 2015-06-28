@@ -38,6 +38,8 @@ class StripeCustomerSubscriptionService
               if plan = subscription.plan
                 user.account_type = plan.account_type
                 user.save(validate: false)
+                user.account.account_type = user.account_type
+                user.account.save(validate: false)
                 ap 'user updated'
               end
             end

@@ -12,11 +12,14 @@ Aws.config.update({
 })
 
 
+#
+## this workd
+#resp = s3.list_buckets
+#ap resp.buckets.map(&:name)
 
 
-
-#endpoint = sns.create_platform_endpoint(
-#    platform_application_arn:'arn:aws:sns:us-east-1:arn:aws:sns:us-east-1:656201664836:my_topic:app/APNS_SANDBOX/Neighborly-iOS', 
-#    token:'ABCDEF1234567890ABCDEF1234567890ABCDEF1234567890ABCDEF1234567890', 
-#    attributes: { "UserId" => "14" }
-#)
+# list the first two objects in a bucket
+#resp = AWS_S3.list_objects(bucket: Rails.application.secrets.aws_s3_bucket, max_keys: 2)
+#resp.contents.each do |object|
+#  puts "#{object.key} => #{object.etag}"
+#end

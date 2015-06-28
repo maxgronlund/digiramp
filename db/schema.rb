@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150627205009) do
+ActiveRecord::Schema.define(version: 20150628203235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2847,8 +2847,8 @@ ActiveRecord::Schema.define(version: 20150627205009) do
     t.integer  "account_id"
     t.string   "download_link"
     t.boolean  "for_sale"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
     t.string   "category"
     t.integer  "units_on_stock",             default: 0
     t.string   "exclusive_offered_to_email"
@@ -2857,10 +2857,22 @@ ActiveRecord::Schema.define(version: 20150627205009) do
     t.integer  "productable_id"
     t.string   "productable_type"
     t.integer  "views",                      default: 0
+    t.string   "delivery_time",              default: "Two to four days"
+    t.integer  "shipping_cost"
+    t.text     "disclaimer",                 default: ""
+    t.text     "tems_of_usage",              default: ""
+    t.integer  "vat",                        default: 0
+    t.boolean  "vat_included",               default: true
+    t.string   "sub_category",               default: ""
+    t.string   "zip_file"
+    t.integer  "recording_id"
+    t.integer  "playlist_id"
   end
 
   add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
+  add_index "shop_products", ["playlist_id"], name: "index_shop_products_on_playlist_id", using: :btree
   add_index "shop_products", ["productable_type", "productable_id"], name: "index_shop_products_on_productable_type_and_productable_id", using: :btree
+  add_index "shop_products", ["recording_id"], name: "index_shop_products_on_recording_id", using: :btree
   add_index "shop_products", ["user_id"], name: "index_shop_products_on_user_id", using: :btree
 
   create_table "shop_stripe_transfers", force: :cascade do |t|

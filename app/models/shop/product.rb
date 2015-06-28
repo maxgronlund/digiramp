@@ -1,6 +1,8 @@
 class Shop::Product < ActiveRecord::Base
   belongs_to :user
   belongs_to :account
+  belongs_to :recording
+  belongs_to :playlist
   
   
   validates :title, :body, :additional_info, presence: true
@@ -11,7 +13,7 @@ class Shop::Product < ActiveRecord::Base
   mount_uploader :image,    ProductImageUploader
   
   CATEGORIES = ['Streaming', 'Download', 'Service', 'Physical product', 'Coupon']
-  
+  DOWNLOAD_CATEGORIES = ["Recording", "Playlist", "Project zip"]
   
   
   

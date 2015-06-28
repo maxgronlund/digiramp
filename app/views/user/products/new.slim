@@ -32,7 +32,7 @@
       .sexy_line
       .digi-box  
         = simple_form_for [:user, @user, @shop_product], :url => url_for(:action => 'create', :controller => 'products') do |f|
-          == render 'form', f: f
+          == render  @category.gsub('-', '_'), f: f
                                                         
 
       

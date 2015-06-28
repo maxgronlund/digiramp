@@ -4,9 +4,10 @@
 - if @category
   = f.hidden_field :category,   value:  @category 
 .form-inputs
-  = f.input :title, autofocus: true
+  
   .row
     .col-sm-6
+      = f.input :title, autofocus: true
       .row
         .col-sm-6
           = f.input :price, label: 'Price in cent'

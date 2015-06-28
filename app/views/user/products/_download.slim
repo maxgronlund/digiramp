@@ -20,11 +20,23 @@
                                                      'data-color'.to_sym => "blue" }
           
       = f.input :image, hint: 'Ratio 1:1'
-      = f.input :units_on_stock
+      /= f.input :units_on_stock
           
-      /= f.input :download_link
-      = f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
       
+      /= f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
+      = f.input :sub_category, collection: Shop::Product::DOWNLOAD_CATEGORIES, :include_blank => false
+      .chosen-label
+        = f.input :recording_id, 
+                  collection: @user.recordings,
+                  include_blank: true,
+                  input_html: { class: 'chosen-select' }
+        
+        = f.input :playlist_id, 
+                  collection: @user.playlists,
+                  include_blank: true,
+                  input_html: { class: 'chosen-select' }
+        
+
       
     .col-sm-6
       = f.input :additional_info, :input_html => {  style: "height: 80px;", 

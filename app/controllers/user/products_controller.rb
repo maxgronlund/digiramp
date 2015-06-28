@@ -1,6 +1,8 @@
 class User::ProductsController < ApplicationController
   before_action :access_user
   before_action :set_shop_product, only: [:show, :edit, :update, :destroy]
+  
+  
 
   # GET /shop/products
   # GET /shop/products.json
@@ -23,6 +25,7 @@ class User::ProductsController < ApplicationController
     @shop_product = Shop::Product.new
     @category     = params[:category]
 
+
   end
 
   # GET /shop/products/1/edit
@@ -37,7 +40,7 @@ class User::ProductsController < ApplicationController
 
     respond_to do |format|
       if @shop_product.save
-        format.html { redirect_to user_user_product_path(@user, @shop_product.uuid), notice: 'Product was successfully created.' }
+        format.html { redirect_to user_user_product_path(@user, @shop_product.uuid) }
         format.json { render :show, status: :created, location: @shop_product }
       else
         format.html { render :new }
@@ -49,11 +52,12 @@ class User::ProductsController < ApplicationController
   # PATCH/PUT /shop/products/1
   # PATCH/PUT /shop/products/1.json
   def update
-    
+    ap shop_product_params
     respond_to do |format|
       if @shop_product.update!(shop_product_params)
+        ap @shop_product
         update_show_in_shop
-        format.html { redirect_to user_user_product_path(@user, @shop_product.uuid), notice: 'Product was successfully updated.' }
+        format.html { redirect_to user_user_product_path(@user, @shop_product.uuid) }
         format.json { render :show, status: :ok, location: @shop_product }
       else
         format.html { render :edit }
@@ -73,49 +77,62 @@ class User::ProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_shop_product
-      @shop_product = Shop::Product.cached_find(params[:id])
-    end
+  
+   # Use callbacks to share common setup or constraints between actions.
+  def set_shop_product
+    @shop_product = Shop::Product.cached_find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def shop_product_params
-      if super? || current_user.id == @user.id
-      params.require(:shop_product).permit( :title,
-                                            :body,
-                                            :additional_info,
-                                            :image,
-                                            :price,
-                                            :user_id,
-                                            :account_id,
-                                            :download_link,
-                                            :for_sale,
-                                            :created_at,       
-                                            :updated_at,       
-                                            :category,
-                                            :units_on_stock,
-                                            :exclusive_offered_to_email,
-                                            :uuid,
-                                            :show_in_shop)
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def shop_product_params
+    if super? || current_user.id == @user.id
+    params.require(:shop_product).permit( :title,
+                                         :body,
+                                         :additional_info,
+                                         :image,
+                                         :price,
+                                         :user_id,
+                                         :account_id,
+                                         :download_link,
+                                         :for_sale,
+                                         :created_at,       
+                                         :updated_at,       
+                                         :category,
+                                         :units_on_stock,
+                                         :exclusive_offered_to_email,
+                                         :uuid,
+                                         :show_in_shop,
+                                         :delivery_time,
+                                         :shipping_cost,
+                                         :vat,
+                                         :vat_included,
+                                         :tems_of_usage,
+                                         :sub_category,
+                                         :recording_id,
+                                         :playlist_id,
+                                         :zip_file)
+    end
+  end
+  
+    
+
+    
+    
+  def update_show_in_shop
+    # only make additional checks if the product is for sale
+    if @shop_product.show_in_shop = @shop_product.for_sale
+      # don't show exclucive offers in the shop
+      unless @shop_product.exclusive_offered_to_email.blank?
+        # this is a exclucive offer
+        @shop_product.show_in_shop = false
+      end
+      # don't show the product if the units is limited and there is nothing left
+      if @shop_product.units_on_stock &&  @shop_product.units_on_stock < 1
+        # out of stock
+        @shop_product.show_in_shop = false
       end
     end
-    
-    
-    def update_show_in_shop
-      # only make additional checks if the product is for sale
-      if @shop_product.show_in_shop = @shop_product.for_sale
-        # don't show exclucive offers in the shop
-        unless @shop_product.exclusive_offered_to_email.blank?
-          # this is a exclucive offer
-          @shop_product.show_in_shop = false
-        end
-        # don't show the product if the units is limited and there is nothing left
-        if @shop_product.units_on_stock &&  @shop_product.units_on_stock < 1
-          # out of stock
-          @shop_product.show_in_shop = false
-        end
-      end
-      @shop_product.save
-    end
-    
+    @shop_product.save
+  end
+  
 end

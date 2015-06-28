@@ -81,6 +81,7 @@ class Recording < ActiveRecord::Base
   belongs_to :common_work
   belongs_to :import_batch
   belongs_to :user
+  has_many :products, class_name: "Shop::Product"
   
   has_many :comments,        as: :commentable,          dependent: :destroy
   has_many :share_on_facebooks
@@ -455,33 +456,53 @@ class Recording < ActiveRecord::Base
   # add this to environment variables
   # read from yaml file
   def download_url(style = nil, expires_in = 90.minutes)
-    self.mp3
-    #begin
-    #  ap Rails.application.secrets.aws_s3_bucket
-    #  #Aws.config(access_key_id: Rails.application.secrets.s3_key_id,  secret_access_key: Rails.application.secrets.s3_access_key ) 
-    #  #s3 = Aws::S3::Client.new
-    #  s3 = Aws::S3::Resource.new
-    #  
-    #  #ap s3.operation_names
-    #  #ap s3.list_buckets
-    #  
-    #  bucket = s3.bucket(Rails.application.secrets.aws_s3_bucket)
-    #  ap bucket
-    #  
-    #  #ap s3.list_buckets
-    #  
-    #  #bucket = s3.bucket(bucket: Rails.application.secrets.aws_s3_bucket) 
-    #  #ap bucket
-    #  #bucket = s3.bucket(Rails.application.secrets.aws_s3_bucket) # makes no request
-    #  #if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
-    #  #  bucket.objects[self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')].url_for(:read, :secure => true, :expires => expires_in)
-    #  #else
-    #  #  bucket.objects[self.mp3.gsub('https://digiramp.s3.amazonaws.com/', '')].url_for(:read, :secure => true, :expires => expires_in)
-    #  #end
-    #rescue Aws::S3::Errors => e
-    #  ap 'autch'
-    #  ap e.inspect
-    #end
+    
+    s3 = Aws::S3::Resource.new
+
+    secure_url = self.mp3
+    
+    begin
+      if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
+        secure_url = self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')
+      else
+        secure_url = self.mp3.gsub('https://digiramp.s3.amazonaws.com/', '')
+      end
+      
+      bucket = s3.bucket(Rails.application.secrets.aws_s3_bucket)
+      s3_obj =  bucket.object(secure_url)
+      secure_url = s3_obj.presigned_url(:get, expires_in: 600)
+    rescue => e
+      
+      ap '================== autch snap =========================='
+      ap e.inspect
+      secure_url = self.mp3
+    end
+    secure_url
+  end
+  
+  # example from http://docs.aws.amazon.com/sdkforruby/api/index.html
+  def download_url2
+
+    s3 = Aws::S3::Resource.new
+
+    secure_url = self.mp3
+    
+    begin
+      if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
+        secure_url = self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')
+      else
+        secure_url = self.mp3.gsub('https://digiramp.s3.amazonaws.com/', '')
+      end
+      bucket      = s3.bucket(Rails.application.secrets.aws_s3_bucket)
+      s3_obj      =  bucket.object(secure_url)
+      filename    = self.title.downcase.gsub(' ', '-') + '.mp3'
+      secure_url  = s3_obj.presigned_url(:get, expires_in: 600,response_content_disposition: "attachment; filename='#{filename}'")
+    rescue => e
+      ap e.inspect
+      secure_url = self.mp3
+    end
+    secure_url
+
   end
   
   def widget_snippet widget_url
