@@ -72,6 +72,7 @@ class User < ActiveRecord::Base
   has_many :accounts,         :through => :account_users  
   
   has_many :comments,        as: :commentable,          dependent: :destroy
+  has_many :recording_downloads, dependent: :destroy
   
 
   has_many :selected_opportunities

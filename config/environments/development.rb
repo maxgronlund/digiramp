@@ -2,7 +2,7 @@ Digiramp::Application.configure do
   
   # working with stripe
   # config.action_dispatch.perform_deep_munge = false
-  #config.cache_classes = true
+  # config.cache_classes = true
   
   
   # Settings specified here will take precedence over those in config/application.rb.

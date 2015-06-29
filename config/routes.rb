@@ -1,8 +1,7 @@
 Digiramp::Application.routes.draw do
 
-  
 
-  
+
   get 'terms/show'
 
   resources :playlist_emails
@@ -727,6 +726,7 @@ Digiramp::Application.routes.draw do
       
       resources :accounts, only: [:index]
       
+      resources :downloads, only: [:index]
       
       match '/subsctiption_status/:guid'   => 'subscriptions#status',    via: :get,  as: :subscription_status
       match '/payment_method_status/:guid' => 'payment_methods#status',  via: :get,  as: :payment_method_status

@@ -3,28 +3,68 @@
 = f.hidden_field :account_id, value: @user.account.id
 - if @category
   = f.hidden_field :category,   value:  @category 
+  = f.hidden_field :units_on_stock, value: 100_000_000
 .form-inputs
   = f.input :title, autofocus: true
   .row
     .col-sm-6
       .row
         .col-sm-6
-          = f.input :price, label: 'Price in cent'
+          = f.input :price, label: 'Price in cent (min 50)'
         .col-sm-6.pull-down-12
           = f.input :for_sale,  :input_html => { class: 'icheck-me', 
                                                         'data-skin'.to_sym => "square", 
                                                         'data-color'.to_sym => "blue" }
+                                                        
           = f.input :show_in_shop, label: 'Show in public shop',
                                    :input_html => { class: 'icheck-me', 
                                                      'data-skin'.to_sym => "square", 
                                                      'data-color'.to_sym => "blue" }
           
-      = f.input :image, hint: 'Ratio 1:1'
-      = f.input :units_on_stock
-          
-      /= f.input :download_link
-      = f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
+      = f.input :image, hint: 'Ratio 1:1', label: 'Image for the shop'
+      /= f.input :units_on_stock
       
+      /b Additional files
+      /br
+      /.fileinput.fileinput-new.input-group data-provides="fileinput"
+      /  .form-control data-trigger="fileinput"
+      /    i.glyphicon.glyphicon-file.fileinput-exists
+      /    span.fileinput-filename
+      /
+      /  span.input-group-addon.btn.btn-default.btn-file
+      /    span.fileinput-new
+      /      'Select zip file
+      /    span.fileinput-exists
+      /      'Change
+      /
+      /    
+      /    = f.file_field :zip_file, multiple: false, label: 'Select zip File'
+      /  a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+      /    'Remove
+      /  
+      /
+      /span class="help-block"
+      /  'Artwork, lyrics, funn stuff
+      
+      
+      
+      
+      
+      
+      = f.input :zip_file, hint: 'Art work, lyrics, funn stuff', label: 'Additional files(zip)'
+          
+      
+      /= f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
+      = f.input :sub_category, collection: Shop::Product::DOWNLOAD_CATEGORIES, :include_blank => false
+      .chosen-label
+        = f.input :recording_id, 
+                  collection: @user.recordings,
+                  include_blank: true,
+                  input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select recording..." }
+        
+        /<select data-placeholder="Choose a country..." style="width:350px;" multiple class="chosen-select">
+        
+
       
     .col-sm-6
       = f.input :additional_info, :input_html => {  style: "height: 80px;", 

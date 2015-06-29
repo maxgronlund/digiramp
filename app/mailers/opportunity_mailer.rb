@@ -46,7 +46,7 @@ class OpportunityMailer < ApplicationMailer
           ]
         }
         mandril_client.messages.send_template template_name, template_content, message
-      rescue Mandrill::Error => e
+       rescue Mandrill::Error => e
         Opbeat.capture_message("#{e.class} - #{e.message}")
       end
     end
@@ -73,7 +73,7 @@ class OpportunityMailer < ApplicationMailer
         track_clicks: true,
         track_opens: true,
         subaccount: user.mandrill_account_id,
-        recipient_metadata: [{rcpt: rcpt_email, values: {message_id: message.id}}],
+        recipient_metadata: [{rcpt: email, values: {message_id: message.id}}],
         merge_vars: [
           {
            rcpt: rcpt_email,

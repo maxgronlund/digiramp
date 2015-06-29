@@ -5,14 +5,14 @@ class Shop::Product < ActiveRecord::Base
   belongs_to :playlist
   
   
-  validates :title, :body, :additional_info, presence: true
+  validates :price, :title, :body, :additional_info, presence: true
   
-  #validates_numericality_of :price, greater_than: 49, message: "must be at least 50 cents"
-                            
+    
   validates_with ProductValidator
   mount_uploader :image,    ProductImageUploader
+  mount_uploader :zip_file,     ZipUploader
   
-  CATEGORIES = ['Streaming', 'Download', 'Service', 'Physical product', 'Coupon']
+  CATEGORIES = ['Product', 'Playlist', 'Streaming', 'Download', 'Service', 'Physical product', 'Coupon']
   DOWNLOAD_CATEGORIES = ["Recording", "Playlist", "Project zip"]
   
   
@@ -63,6 +63,27 @@ class Shop::Product < ActiveRecord::Base
                                   )
 
     
+  end
+  
+  def additional_download_url
+    s3 = Aws::S3::Resource.new
+    secure_url = ''
+    return '' if self.zip_file.nil?
+    begin
+      secure_url = self.zip_file_url.gsub("https://digiramp.s3.amazonaws.com/", '')
+      
+      file_name = File.basename(self.zip_file_url)
+      
+      
+      bucket      = s3.bucket(Rails.application.secrets.aws_s3_bucket)
+      s3_obj      = bucket.object(secure_url)
+      filename    = file_name.downcase.gsub(' ', '-')
+      secure_url  = s3_obj.presigned_url(:get, expires_in: 600,response_content_disposition: "attachment; filename='#{filename}'")
+    rescue => e
+      ap e.inspect
+      secure_url = ''
+    end
+    secure_url
   end
   
   def stakeholders

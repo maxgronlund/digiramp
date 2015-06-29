@@ -7,7 +7,9 @@ class AddDeliveryTimeToShopProducts < ActiveRecord::Migration
     add_column :shop_products, :vat, :integer               , default: 0
     add_column :shop_products, :vat_included, :boolean      , default: true
     add_column :shop_products, :sub_category, :string           , default: ''
-    add_column :shop_products, :zip_file, :string           
+    add_column :shop_products, :zip_file, :string    
+    #add_column :shop_products, :content_type, :string    
+    #add_column :shop_products, :file_size, :string           
     add_reference :shop_products, :recording, index: true
     add_reference :shop_products, :playlist, index: true
     

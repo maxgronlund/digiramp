@@ -23,6 +23,28 @@
             = link_to 'Edit language', admin_blog_path(@blog), class: 'btn btn-default', id: 'edit-language'
       .sexy_line
       .digi-box 
+        
+        .row
+          = link_to new_user_user_product_path(@user, category: 'recording') , id: 'new-recording-download'
+            .col-sm-6
+              .panel.panel-default
+                .panel-body
+                  h4 = @recording_product.title
+                  = simple_format @recording_product.body
+                  .pull-right
+                    .btn.btn-default
+                      'Create
+                
+          = link_to new_user_user_product_path(@user, category: 'playlist') , id: 'new-playlist-download'
+            .col-sm-6
+              .panel.panel-default
+                .panel-body
+                  h4 = @playlist_product.title
+                  = simple_format @playlist_product.body
+                  .pull-right
+                    .btn.btn-default
+                      'Create
+                      
         .row
           = link_to new_user_user_product_path(@user, category: 'physical-product') , id: 'new-physical-product'
             .col-sm-6

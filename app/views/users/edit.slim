@@ -18,7 +18,7 @@
           h2 Edit Profile
           .sexy_line
           .digi-box
-            = simple_form_for @user do |f|
+            = simple_form_for [@user], html: { :id => 'user_avatar' } do |f|
               = f.error_notification
               -if @user.errors.any?
                 = render 'shared/errors', errors: @user.errors
@@ -115,13 +115,17 @@
                         $(document).ready(function() {
                             var text_max = 100;
                             $('#textarea_feedback').html(text_max + ' characters remaining');
-
+                            update_textarea_feedback();
                             $('#user_short_description').keyup(function() {
-                                var text_length = $('#user_short_description').val().length;
-                                var text_remaining = text_max - text_length;
-
-                                $('#textarea_feedback').html(text_remaining + ' characters remaining');
+                               update_textarea_feedback();
                             });
+          
+                            function update_textarea_feedback(){
+                              var text_length = $('#user_short_description').val().length;
+                              var text_remaining = text_max - text_length;
+
+                              $('#textarea_feedback').html(text_remaining + ' characters remaining');
+                            }
                         });
                   b Tags
                   .row
@@ -143,6 +147,10 @@
                     
                     => link_to 'Cancel', user_path(@user), class: 'btn btn-default'
                     = f.submit 'Save', class: 'btn btn-primary'
+                    coffee:
+                      $("form#user_avatar").submit ->
+                        $(this).find('input[type=submit]').attr('disabled', 'disabled')
+                        $(this).find('input[type=submit]').val "Uploading, please wait ..."
 
       
   == render 'shared/site_footer'    

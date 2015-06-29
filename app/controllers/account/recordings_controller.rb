@@ -200,7 +200,12 @@ class Account::RecordingsController < ApplicationController
                            
                            
                            
-      @recording.destroy!
+      #@recording.destroy!
+      @recording.user_id    = User.system_user
+      @recording.account_id = User.system_user.account_id
+      @recording.privacy    = 'Only me'
+      @recording.save(validate: false)
+      
       common_work.update_completeness if common_work
     end
     # jump back to recordings or common work

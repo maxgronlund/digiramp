@@ -482,9 +482,7 @@ class Recording < ActiveRecord::Base
   
   # example from http://docs.aws.amazon.com/sdkforruby/api/index.html
   def download_url2
-
     s3 = Aws::S3::Resource.new
-
     secure_url = self.mp3
     
     begin
@@ -502,8 +500,15 @@ class Recording < ActiveRecord::Base
       secure_url = self.mp3
     end
     secure_url
-
   end
+  
+  #def self.purchased_rec_url recording_download_uuid
+  #  if recording_download = RecordingDownload.find_by(uuid: recording_download_uuid)
+  #    recording = Recording.find(recording_download.recording_id)
+  #    return recording.download_url2
+  #  end
+  #  
+  #end
   
   def widget_snippet widget_url
     "<iframe width='100%' height='166' src='#{widget_url}' frameborder='0' allowfullscreen></iframe>"

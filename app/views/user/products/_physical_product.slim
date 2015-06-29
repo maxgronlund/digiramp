@@ -39,13 +39,17 @@
         $(document).ready(function() {
             var text_max = 150;
             $('#textarea_feedback').html(text_max + ' characters remaining');
-
+            update_textarea_feedback();
             $('#shop_product_additional_info').keyup(function() {
-                var text_length = $('#shop_product_additional_info').val().length;
-                var text_remaining = text_max - text_length;
-
-                $('#textarea_feedback').html(text_remaining + ' characters remaining');
+              update_textarea_feedback();
             });
+          
+            function update_textarea_feedback(){
+              var text_length = $('#shop_product_additional_info').val().length;
+              var text_remaining = text_max - text_length;
+
+              $('#textarea_feedback').html(text_remaining + ' characters remaining');
+            }
         });
       b Description
       br

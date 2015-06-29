@@ -43,7 +43,8 @@ class User::ProductsController < ApplicationController
         format.html { redirect_to user_user_product_path(@user, @shop_product.uuid) }
         format.json { render :show, status: :created, location: @shop_product }
       else
-        format.html { render :new }
+        ap '=========================== do what you have to do here ============================='
+        format.html { render :new, category: 'recording' }
         format.json { render json: @shop_product.errors, status: :unprocessable_entity }
       end
     end
@@ -53,8 +54,9 @@ class User::ProductsController < ApplicationController
   # PATCH/PUT /shop/products/1.json
   def update
     ap shop_product_params
+    @category     = @shop_product.category
     respond_to do |format|
-      if @shop_product.update!(shop_product_params)
+      if @shop_product.update(shop_product_params)
         ap @shop_product
         update_show_in_shop
         format.html { redirect_to user_user_product_path(@user, @shop_product.uuid) }
@@ -68,8 +70,17 @@ class User::ProductsController < ApplicationController
 
   # DELETE /shop/products/1
   # DELETE /shop/products/1.json
+  # Never destroy, just put it aside
   def destroy
-    @shop_product.destroy
+    #@shop_product.destroy
+    
+    # 
+    @shop_product.user_id       = User.system_user
+    @shop_product.account_id    = User.system_user.account_id
+    @shop_product.for_sale      = false
+    @shop_product.show_in_shop  = false
+    @shop_product.save
+    
     respond_to do |format|
       format.html { redirect_to user_user_shop_admin_index_path(@user) }
       format.json { head :no_content }
@@ -110,7 +121,9 @@ class User::ProductsController < ApplicationController
                                          :sub_category,
                                          :recording_id,
                                          :playlist_id,
-                                         :zip_file)
+                                         :zip_file,
+                                         :content_type,
+                                         :file_size)
     end
   end
   

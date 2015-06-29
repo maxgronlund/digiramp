@@ -9,6 +9,3 @@ class LinkValidator
     return link.downcase.sub('www.', 'http://') if link.downcase.start_with?('www.') 
     link
   end
-end
-
-

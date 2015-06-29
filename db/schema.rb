@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628203235) do
+ActiveRecord::Schema.define(version: 20150629141409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2466,6 +2466,22 @@ ActiveRecord::Schema.define(version: 20150628203235) do
     t.datetime "updated_at"
   end
 
+  create_table "recording_downloads", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "recording_id"
+    t.integer  "downloads"
+    t.string   "uuid"
+    t.integer  "shop_order_item_id"
+    t.integer  "shop_product_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "recording_downloads", ["recording_id"], name: "index_recording_downloads_on_recording_id", using: :btree
+  add_index "recording_downloads", ["shop_order_item_id"], name: "index_recording_downloads_on_shop_order_item_id", using: :btree
+  add_index "recording_downloads", ["shop_product_id"], name: "index_recording_downloads_on_shop_product_id", using: :btree
+  add_index "recording_downloads", ["user_id"], name: "index_recording_downloads_on_user_id", using: :btree
+
   create_table "recording_ipis", force: :cascade do |t|
     t.string   "role",                     limit: 255
     t.string   "name",                     limit: 255
@@ -2867,6 +2883,8 @@ ActiveRecord::Schema.define(version: 20150628203235) do
     t.string   "zip_file"
     t.integer  "recording_id"
     t.integer  "playlist_id"
+    t.string   "content_type"
+    t.integer  "file_size"
   end
 
   add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
@@ -3333,6 +3351,7 @@ ActiveRecord::Schema.define(version: 20150628203235) do
     t.string   "zip_file",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "file_size"
   end
 
   add_foreign_key "account_features", "plans"
@@ -3347,6 +3366,10 @@ ActiveRecord::Schema.define(version: 20150628203235) do
   add_foreign_key "playlist_emails", "accounts"
   add_foreign_key "playlist_emails", "playlists"
   add_foreign_key "playlist_emails", "users"
+  add_foreign_key "recording_downloads", "recordings"
+  add_foreign_key "recording_downloads", "shop_order_items"
+  add_foreign_key "recording_downloads", "shop_products"
+  add_foreign_key "recording_downloads", "users"
   add_foreign_key "sales_coupon_batches", "users"
   add_foreign_key "shop_orders", "coupons"
   add_foreign_key "shop_orders", "users"

@@ -19,12 +19,53 @@
                                                      'data-skin'.to_sym => "square", 
                                                      'data-color'.to_sym => "blue" }
           
-      = f.input :image, hint: 'Ratio 1:1'
-      = f.input :units_on_stock
-          
-      /= f.input :download_link
-      = f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
+      = f.input :image, hint: 'Ratio 1:1', label: 'Image for the shop'
+      /= f.input :units_on_stock
       
+      /b Additional files
+      /br
+      /.fileinput.fileinput-new.input-group data-provides="fileinput"
+      /  .form-control data-trigger="fileinput"
+      /    i.glyphicon.glyphicon-file.fileinput-exists
+      /    span.fileinput-filename
+      /
+      /  span.input-group-addon.btn.btn-default.btn-file
+      /    span.fileinput-new
+      /      'Select zip file
+      /    span.fileinput-exists
+      /      'Change
+      /
+      /    
+      /    = f.file_field :zip_file, multiple: false, label: 'Select zip File'
+      /  a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
+      /    'Remove
+      /  
+      /
+      /span class="help-block"
+      /  'Artwork, lyrics, funn stuff
+      
+      
+      
+      
+      
+      
+      = f.input :zip_file, hint: 'Art work, lyrics, funn stuff', label: 'Additional files(zip)'
+          
+      
+      /= f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
+      = f.input :sub_category, collection: Shop::Product::DOWNLOAD_CATEGORIES, :include_blank => false
+      .chosen-label
+        = f.input :recording_id, 
+                  collection: @user.recordings,
+                  include_blank: true,
+                  input_html: { class: 'chosen-select' }
+        
+        = f.input :playlist_id, 
+                  collection: @user.playlists,
+                  include_blank: true,
+                  input_html: { class: 'chosen-select' }
+        
+
       
     .col-sm-6
       = f.input :additional_info, :input_html => {  style: "height: 80px;", 
@@ -40,13 +81,12 @@
             $('#textarea_feedback').html(text_max + ' characters remaining');
             update_textarea_feedback();
             $('#shop_product_additional_info').keyup(function() {
-                update_textarea_feedback();
+              update_textarea_feedback();
             });
           
             function update_textarea_feedback(){
               var text_length = $('#shop_product_additional_info').val().length;
               var text_remaining = text_max - text_length;
-
               $('#textarea_feedback').html(text_remaining + ' characters remaining');
             }
         });

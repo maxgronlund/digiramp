@@ -1,0 +1,50 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      h2 Purchases
+      
+      .sexy_line
+      h4 Recordings
+ 
+      - @recording_downloads.each do |recording_download|
+        - if recording = recording_download.recording
+          .download
+            .download-cover-art
+              = image_tag recording.get_artwork
+
+            
+            .download-content
+              h4 = recording.title
+              = recording.comment
+            .download-footer
+              / make javascript to download from recording_download.uuid
+              = link_to recording.download_url2 do
+                i.fa.fa-download&nbsp;
+                'Download
+              .pull-right
+                - if product = recording_download.product
+                  - unless product.additional_download_url.blank?
+                    = link_to product.additional_download_url do
+                      i.fa.fa-download&nbsp;
+                      'Additional content
+              /- if 
+              
+              
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

@@ -43,7 +43,7 @@
                   - else
                     = f.submit 'Add to basket', class: 'btn btn-orange'
                 
-                - when 'streaming', 'service'
+                - when 'streaming', 'service', 'recording', 'playlist'
                   - if   @shop_order.units_of_product( product.id ) == 0
                     = f.submit 'Add to basket', class: 'btn btn-orange'
                   - else
