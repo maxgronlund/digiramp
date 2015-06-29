@@ -67,7 +67,7 @@ gem 'nokogiri', '~> 1.6.3.1'
 gem 'headless'
 #gem 'linguistics'
 gem 'levenshtein'
-gem 'chosen-rails'
+#gem 'chosen-rails'
 #gem 'soundmanager-rails'
 #gem 'soundmanager-rails', github: 'glaszig/soundmanager-rails'
 #
