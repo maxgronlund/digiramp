@@ -81,7 +81,7 @@ class OpportunityMailer < ApplicationMailer
         recipient_metadata: [{rcpt: email, values: {opportunity_invitation_id: opportunity_invitation.id}}],
         merge_vars: [
           {
-           rcpt: rcpt_email,
+           rcpt: email,
            vars: [
                    {name: "BLOG_POST_TITLE",       content: blog_post.title},
                    {name: "BLOG_POST_BODY",        content: blog_post.body},
