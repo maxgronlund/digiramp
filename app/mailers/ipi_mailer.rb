@@ -61,11 +61,7 @@ class IpiMailer < ApplicationMailer
 
   end
   
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.ipi.confirm_common_work.subject
-  #
+
   def common_work_ipi_confirmation_email_to_non_member ipi_id
     #@greeting = "Hi"
     #
