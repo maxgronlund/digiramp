@@ -116,10 +116,12 @@ class RecordingsController < ApplicationController
     
     
     #@recording.destroy
-    @recording.user_id    = User.system_user
-    @recording.account_id = User.system_user.account_id
+    @recording.user_id    = User.system_user.id
+    @recording.account_id = User.system_user.account.id
     @recording.privacy    = 'Only me'
+    @recording.remove_from_collections
     @recording.save(validate: false)
+    
     
     
     common_work.update_completeness if common_work

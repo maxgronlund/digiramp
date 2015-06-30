@@ -589,6 +589,17 @@ class Recording < ActiveRecord::Base
     end
     
   end 
+  
+  def remove_from_collections
+    update_uuids
+    remove_from_catalogs
+    remove_from_albums
+    count_stats_down
+    remove_from_submissions
+    remove_from_playlists
+    remove_share_on_facebooks
+    remove_from_follower_events
+  end
 
 private
   #def update_counter_cache
@@ -613,15 +624,7 @@ private
   end
   
   
-  def remove_from_collections
-    update_uuids
-    remove_from_catalogs
-    remove_from_albums
-    count_stats_down
-    remove_from_submissions
-    remove_from_playlists
-    remove_share_on_facebooks
-  end
+  
   
   
   
@@ -662,6 +665,12 @@ private
   
   def remove_from_playlists
     PlaylistRecordings.where(recording_id: self.id).destroy_all
+  end
+  
+  def remove_from_follower_events
+    if followed_events = FollowerEvent.where(postable_type: 'Recording', postable_id: self.id)
+      followed_events.destroy_all
+    end
   end
   
   

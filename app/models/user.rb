@@ -340,6 +340,11 @@ class User < ActiveRecord::Base
     unless self.mandrill_account_id.blank?
       DeleteUserMandrillAccountJob.perform_later(self.mandrill_account_id)
     end
+
+    # other users following this user
+    if followed_events = FollowerEvent.where(postable_type: 'User', postable_id: self.id)
+      followed_events.destroy_all
+    end
   end
   
   def self.system_user
@@ -838,7 +843,7 @@ class User < ActiveRecord::Base
   end
   
   def has_access_to_cattalogs_on account
-    !CatalogUser.where(catalog_id: account.catalog_ids, user_id: self.id).nil?
+    CatalogUser.find_by(catalog_id: account.catalog_ids, user_id: self.id).first
   end
   
   def self.cached_find(id)

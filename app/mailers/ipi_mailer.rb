@@ -42,7 +42,7 @@ class IpiMailer < ApplicationMailer
         track_clicks: true,
         track_opens: true,
         subaccount: user.mandrill_account_id,
-        recipient_metadata: [{rcpt: email, values: {coupon_batch_id: coupon_batch_id}}],
+        recipient_metadata: [{rcpt: email, values: {ipi_id: ipi_id}}],
         merge_vars: [
           {
            rcpt: email,

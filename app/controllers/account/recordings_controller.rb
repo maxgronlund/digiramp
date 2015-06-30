@@ -204,7 +204,9 @@ class Account::RecordingsController < ApplicationController
       @recording.user_id    = User.system_user
       @recording.account_id = User.system_user.account_id
       @recording.privacy    = 'Only me'
+      @recording.remove_from_collections
       @recording.save(validate: false)
+      
       
       common_work.update_completeness if common_work
     end

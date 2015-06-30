@@ -25,7 +25,7 @@ class FollowerEvent < ActiveRecord::Base
     end
   end
   
-  # this is the user the followed user did something woth
+  # The user the followed user did something with
   def get_user_on_user
     User.cached_find(self.postable_id)
   end
