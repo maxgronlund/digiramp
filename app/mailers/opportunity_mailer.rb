@@ -54,12 +54,17 @@ class OpportunityMailer < ApplicationMailer
   
   def invite_to_account email, opportunity_invitation_id, user_id
 
-    user                    = User.cached_find(user_id)
-    opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
-    opportunity             = opportunity_invitation.opportunity
-    blog                     = Blog.cached_find('Support')
-    blog_post               = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
-    opportunity_link        = url_for( controller: 'activate_account', action: 'edit', id: user.password_reset_token, opportunity_id: opportunity.id  )
+    return unless user                    = User.cached_find(user_id)
+    return unless opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
+    return unless opportunity             = opportunity_invitation.opportunity
+    return unless blog                    = Blog.cached_find('Support')
+    return unless blog_post               = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
+    
+    opportunity_link        = url_for( controller: 'activate_account', 
+                                       action: 'edit', 
+                                       id: user.password_reset_token, 
+                                       opportunity_id: opportunity.id  )
+                                       
     fotter_link             = url_for( controller: 'contacts', action: 'new')
     
     begin
@@ -73,7 +78,7 @@ class OpportunityMailer < ApplicationMailer
         track_clicks: true,
         track_opens: true,
         subaccount: user.mandrill_account_id,
-        recipient_metadata: [{rcpt: email, values: {message_id: message.id}}],
+        recipient_metadata: [{rcpt: email, values: {opportunity_invitation_id: opportunity_invitation.id}}],
         merge_vars: [
           {
            rcpt: rcpt_email,
