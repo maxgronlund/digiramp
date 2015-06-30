@@ -78,7 +78,7 @@ class DigirampEmailMailer < ApplicationMailer
                               }
             end
           rescue
-            Opbeat.capture_message( "#{user.email} : #{user.user_name}" )
+            Opbeat.capture_message( "DigirampEmailMailer#opportunity_created #{opportunity.id}" )
           end
         end
       end
