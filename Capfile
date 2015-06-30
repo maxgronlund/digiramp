@@ -5,7 +5,7 @@ require 'capistrano/setup'
 require 'capistrano/deploy'
 
 # whenever
-require "whenever/capistrano"
+# require "whenever/capistrano"
 
 # Includes tasks from other gems included in your Gemfile
 #
