@@ -66,18 +66,18 @@ class DigirampEmailMailer < ApplicationMailer
         
         users.each do |user|
           begin
-            if user && email = EmailSanitizer.saintize( user.email )
-              receipients_with_names  << {email: email, name: user.user_name}
+            if email = EmailSanitizer.saintize( user.email )
+              receipients_with_names  << { email: email, name: user.user_name}
               merge_vars              << { rcpt: email,
-                                           vars: [ {name: "USER_NAME",              content: user.user_name},
-                                                   {name: "OPPORTUNITY_TITLE",      content: opportunity.title},
-                                                   {name: "OPPORTUNITY_BODY",       content: opportunity.body},
-                                                   {name: "OPPORTUNITY_LINK",       content: opportunity_link},
-                                                   {name: "UNSUBSCRIBE_LINK",           content: unsibscribe_link}
+                                           vars: [ {name: "USER_NAME",              content:     user.user_name},
+                                                   {name: "OPPORTUNITY_TITLE",      content:     opportunity.title},
+                                                   {name: "OPPORTUNITY_BODY",       content:     opportunity.body},
+                                                   {name: "OPPORTUNITY_LINK",       content:     opportunity_link},
+                                                   {name: "UNSUBSCRIBE_LINK",       content:     unsibscribe_link}
                                                  ]
                               }
             end
-          rescue
+          rescue => e
             Opbeat.capture_message( "DigirampEmailMailer#opportunity_created #{opportunity.id}" )
           end
         end
