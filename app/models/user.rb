@@ -376,6 +376,7 @@ class User < ActiveRecord::Base
   
   
   def validate_info
+    ap 'validate_info'
     set_token
 
     self.role = 'Customer' if self.role.to_s == ''
@@ -404,7 +405,7 @@ class User < ActiveRecord::Base
   
 
   def set_relations
-    
+    ap 'set_relations'
     EmailGroup.find_each do |email_group|
 
       if email_group.subscription_by_default?
@@ -415,7 +416,7 @@ class User < ActiveRecord::Base
         
     end
     Client.where(email: self.email).update_all(member_id: self.id)
-    set_default_avatar
+    #set_default_avatar
     
     CreateUserMandrillAccountJob.perform_later(self.id)
   end

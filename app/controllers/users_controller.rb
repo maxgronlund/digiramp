@@ -133,16 +133,17 @@ class UsersController < ApplicationController
   end
 
   def create
-
+    ap 'create'
     session[:show_profile_completeness] = true
     #params[:user][:role]                = 'Customer'
     params[:user][:show_introduction]   = true
     params[:user][:email].downcase! if params[:user][:email]
     
     
-    @user                     = User.new(user_params)
+    @user                = User.new(user_params)
       
     if @user.save
+      ap '@user.save'
       @account          = User.create_a_new_account_for_the @user
 
       # signout if you was signed in as another user

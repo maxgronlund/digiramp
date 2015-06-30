@@ -55,6 +55,10 @@ class DigirampEmailMailer < ApplicationMailer
   
   def opportunity_created users, digiramp_email_id
     
+    #error_msg("DigirampEmail:85:#{digiramp_email_id}")
+    #    unless digiramp_email   = DigirampEmail.cached_find(digiramp_email_id)
+          
+          
     if digiramp_email           = DigirampEmail.cached_find(digiramp_email_id)
       if opportunity            = Opportunity.cached_find(digiramp_email.opportunity_id)
         opportunity_link        = url_for( controller: '/public_opportunities', action: 'show', id: opportunity.id)
@@ -62,8 +66,7 @@ class DigirampEmailMailer < ApplicationMailer
         merge_vars              = []
         link                    = url_for unsubscribes_path(uuid: digiramp_email.email_group.uuid)
         unsibscribe_link        = (URI.parse(root_url) + link).to_s
-    
-        
+
         users.each do |user|
           begin
             if email = EmailSanitizer.saintize( user.email )
