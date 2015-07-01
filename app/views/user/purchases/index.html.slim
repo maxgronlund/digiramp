@@ -20,60 +20,63 @@
         .
       .sexy_line
       .digi-box  
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th Order #ID
-                th Date
-                th Amount
-                th
-                /th Additionl info
-                /th Image
-                /th Price
-                //th User
-                //th Account
-                //th Download link
-                /th For sale
-                /th Category
-                /th
-                /th
-                /th
-
-            tbody
-              - @shop_orders.each do |order|
-                tr
-                  td = order.id
-                  td = l order.updated_at, format: :date
-                  td = number_to_currency(order.total_price * 0.01, locale: :en, precision: 2)
-                  td
-                    .pull-right
-                      => link_to 'Invoice', user_user_invoice_path(@user, order.uuid), class: 'btn btn-default btn-xs'
-                      = link_to 'Show', user_user_purchase_path(@user, order.uuid), class: 'btn btn-default btn-xs'
-                  /td = product.body
-                  /td = product.additional_info
-                  /td = product.image
-                  /td = number_to_currency(product.price * 0.01, locale: :en, precision: 2)
-                  //td = product.user
-                  //td = product.account
-                  //td = product.download_link
-                  /td = product.for_sale
-                  /td = product.category
-                  /td 
-                  /  .pull-right
-                  /    => link_to 'Status', user_user_product_path(@user, product.uuid), class: 'btn btn-default btn-xs'
-                  /    => link_to 'Edit',  edit_user_user_product_path(@user, product.uuid), class: 'btn btn-default btn-xs'
-                  /    = link_to user_user_product_path(@user, product.uuid), 
-                  /                                      class: 'btn btn-danger btn-xs', 
-                  /                                      data: {:confirm => 'Are you sure?'}, 
-                  /                                      turboboost: true,
-                  /                                      :method => :delete do
-                  /        i.fa.fa-times
-                  /                                      
-                  /
-                  /
-     
-            
+        = link_to  user_user_downloads_path( @user ) do
+            .btn.btn-default
+              i.fa.fa-download&nbsp;Downloads
+        /.table-responsive
+        /  table class="table table-hover"
+        /    thead
+        /      tr
+        /        th Order #ID
+        /        th Date
+        /        th Amount
+        /        th
+        /        /th Additionl info
+        /        /th Image
+        /        /th Price
+        /        //th User
+        /        //th Account
+        /        //th Download link
+        /        /th For sale
+        /        /th Category
+        /        /th
+        /        /th
+        /        /th
+        /
+        /    tbody
+        /      - @shop_orders.each do |order|
+        /        tr
+        /          td = order.id
+        /          td = l order.updated_at, format: :date
+        /          td = number_to_currency(order.total_price * 0.01, locale: :en, precision: 2)
+        /          td
+        /            .pull-right
+        /              => link_to 'Invoice', user_user_invoice_path(@user, order.uuid), class: 'btn btn-default btn-xs'
+        /              = link_to 'Show', user_user_purchase_path(@user, order.uuid), class: 'btn btn-default btn-xs'
+        /          /td = product.body
+        /          /td = product.additional_info
+        /          /td = product.image
+        /          /td = number_to_currency(product.price * 0.01, locale: :en, precision: 2)
+        /          //td = product.user
+        /          //td = product.account
+        /          //td = product.download_link
+        /          /td = product.for_sale
+        /          /td = product.category
+        /          /td 
+        /          /  .pull-right
+        /          /    => link_to 'Status', user_user_product_path(@user, product.uuid), class: 'btn btn-default btn-xs'
+        /          /    => link_to 'Edit',  edit_user_user_product_path(@user, product.uuid), class: 'btn btn-default btn-xs'
+        /          /    = link_to user_user_product_path(@user, product.uuid), 
+        /          /                                      class: 'btn btn-danger btn-xs', 
+        /          /                                      data: {:confirm => 'Are you sure?'}, 
+        /          /                                      turboboost: true,
+        /          /                                      :method => :delete do
+        /          /        i.fa.fa-times
+        /          /                                      
+        /          /
+        /          /
+        /
+        /    
 
   == render 'shared/site_footer'     
   

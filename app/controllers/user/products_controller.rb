@@ -76,7 +76,7 @@ class User::ProductsController < ApplicationController
     
     # 
     @shop_product.user_id       = User.system_user
-    @shop_product.account_id    = User.system_user.account_id
+    @shop_product.account_id    = User.system_user.account.id
     @shop_product.for_sale      = false
     @shop_product.show_in_shop  = false
     @shop_product.save

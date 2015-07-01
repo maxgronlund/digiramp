@@ -2,6 +2,10 @@ Digiramp::Application.routes.draw do
 
 
 
+  get 'recording_rights/edit'
+
+  get 'recording_rights/new'
+
   get 'terms/show'
 
   resources :playlist_emails

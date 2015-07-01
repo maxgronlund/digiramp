@@ -2,6 +2,8 @@ class RecordingIpi < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :recording
+  validates :email, :role, :share, presence: true
+  validates_formatting_of :email
   
   ROLES  = [ "Administrator",
              "Owner",
@@ -52,6 +54,18 @@ class RecordingIpi < ActiveRecord::Base
   #  end
   #end
   
+  def full_name
+    if self.user
+      user.full_name
+    else
+      self.name
+    end
+  end
+  
+  def document_count
+    0
+  end
+  
   def add_uuid
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
   end
@@ -77,7 +91,6 @@ class RecordingIpi < ActiveRecord::Base
 private
 
   def send_confirmation_email
-    ap 'send_confirmation_email'
     RecordingIpiMailer.delay.recording_ipi_confirmation_email self.id
   end
   

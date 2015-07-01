@@ -133,7 +133,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    ap 'create'
+    
     session[:show_profile_completeness] = true
     #params[:user][:role]                = 'Customer'
     params[:user][:show_introduction]   = true
@@ -143,7 +143,7 @@ class UsersController < ApplicationController
     @user                = User.new(user_params)
       
     if @user.save
-      ap '@user.save'
+      
       @account          = User.create_a_new_account_for_the @user
 
       # signout if you was signed in as another user
@@ -186,6 +186,7 @@ class UsersController < ApplicationController
     params[:user][:email_missing] = false
     params[:user][:initialized]   = true
     if @user.update(user_params)
+      @user.update_meta
       # show completeness 
       session[:show_profile_completeness] = true
       @user.flush_auth_token_cache(cookies[:auth_token])

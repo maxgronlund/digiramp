@@ -1,7 +1,7 @@
 class UpdateNamesOnUsers < ActiveRecord::Migration
   def change
     User.find_each do |user|
-      user.validate_info
+      user.update_meta
       if user.user_name.to_s == ''
         user.user_name = user.name
       end

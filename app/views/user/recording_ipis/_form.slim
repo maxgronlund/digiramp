@@ -1,0 +1,45 @@
+= simple_form_for [ :user, @user, @recording, @recording_ipi ] do |f|
+  - if error = f.error_notification
+    .alert.alert-danger
+      = error
+      
+  = f.hidden_field :recording_id, value: @recording.id
+  .row
+    .col-sm-6
+      h4 IP Info
+      = f.input :name,    autofocus:  true, 
+                          label: 'Full name', 
+                          placeholder: 'Optional',
+                          hint: 'If the IP is in the system it will be filled automatic'
+      /= f.input :phone_number
+
+      .row
+        .col-sm-6
+          = f.input :role  ,  collection: RecordingIpi::ROLES, :include_blank => true
+        .col-sm-6
+          = f.input :share, label: 'Share in %', :input_html => {  style: "width: 100px;"}
+      = f.input :notes,
+                label: 'Credits for',
+                input_html: {  style: "height: 182px;", placeholder: "I.E. Playing the Fender guitar"}, 
+                hint: 'Can be shown on recordings'
+      = f.input :show_credit_on_recording,  hint: 'Should be enabled by the IP', 
+                                        input_html: { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue" } 
+
+    .col-sm-6
+      h4 Confirmation message
+      = f.input :email, hint: 'If you are the IP add the email you are using for DigiRAMP', placeholder: "IP's email"
+      = f.input :title
+      = f.input :message, :input_html => {  style: "height: 182px;", placeholder: "Message send to Ip"},
+                hint: 'Leave blank if you are the IP'
+  .row
+    .col-sm-12
+      .pull-right
+        /=> link_to 'Cancel', account_account_recording_recording_ipis_path(@account, @recording), class: 'btn btn-default'
+        => f.submit 'Save', class: 'btn btn-default'   
+        = f.submit 'Save and send message', class: 'btn btn-primary'   
+  
+/= debug @user.user_name
+/= debug @recording.title
+/= debug @recording_ipi
+
+

@@ -4,7 +4,6 @@
 /      == render 'admin/shared/navbar', page: 'account'         
 /  .container
 /    /==render 'admin/shared/messages'
-/    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
 /    .do
 /      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
 /                                                              catalogs: catalog_account_catalogs_path(@account), \

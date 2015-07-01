@@ -22,23 +22,25 @@
               = f.input :email
               = f.input :password
               = f.input :password_confirmation
-              /- unless Rails.env.test?
-              /  = recaptcha_tags
+              - unless Rails.env.test?
+                = recaptcha_tags
     
             .form-actions
               .row.pull-down-10
                 .col-sm-12
                   .pull-right
                     = f.submit 'Save', class: 'btn btn-primary', id: 'commit-form'
+                    coffee:
+                      $("form#new_user").submit ->
+                        $(this).find('input[type=submit]').attr('disabled', 'disabled')
+                        $(this).find('input[type=submit]').val "Updating, please wait ..."
             
             .row
               .col-sm-12
                 .sexy_line
                 == render 'users/shared/social_signup'
                 
-            
-        /.col-sm-6
-        /  == render 'shared/sign_up'
+
       
   == render 'shared/site_footer'
 

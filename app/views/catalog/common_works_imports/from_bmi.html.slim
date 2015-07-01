@@ -4,39 +4,37 @@
       == render 'admin/shared/navbar', page: 'account'         
   .container
     /==render 'admin/shared/messages'
-    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
-    .do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              }, current: 'add common work'}
-      
-      - blog = Blog.cached_find('Add Catalog Common Works')
-      == render 'shared/page_title', locals: {blog: blog, blog_post: 'IMPORT FROM BMI'}
-      .row
-        /-if current_user.can_manage 'access recordings', @account
-        - if current_account_user.create_common_work
-          .row
-            .col-sm-3
-            
-            .col-sm-6
-              .panel.panel-primary
-                .panel-heading
-                  'IMPORT FROM BMI
-                .panel-body
-                  = simple_form_for  [ :catalog, @account, @catalog, @common_work_import ], url: url_for(action: 'bmi_import', controller: 'common_works_imports'), method: 'post' do |f|
-                    = f.input :user_name, autofocus: true
-                    = f.input :password
-                   
-                    
-                    .pull-right
-                      
-                      = f.submit 'Start', class: 'btn btn-primary btn-lg'
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            catalogs: catalog_account_catalogs_path(@account), \
+                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                            }, current: 'add common work'}
+    
+    - blog = Blog.cached_find('Add Catalog Common Works')
+    == render 'shared/page_title', locals: {blog: blog, blog_post: 'IMPORT FROM BMI'}
+    .row
+      /-if current_user.can_manage 'access recordings', @account
+      - if current_account_user.create_common_work
+        .row
+          .col-sm-3
+          
+          .col-sm-6
+            .panel.panel-primary
+              .panel-heading
+                'IMPORT FROM BMI
+              .panel-body
+                = simple_form_for  [ :catalog, @account, @catalog, @common_work_import ], url: url_for(action: 'bmi_import', controller: 'common_works_imports'), method: 'post' do |f|
+                  = f.input :user_name, autofocus: true
+                  = f.input :password
+                 
                   
-            .col-sm-3
-                                              
+                  .pull-right
+                    
+                    = f.submit 'Start', class: 'btn btn-primary btn-lg'
+                
+          .col-sm-3
+                                            
   
-            
+          
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

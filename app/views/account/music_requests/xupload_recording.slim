@@ -5,33 +5,23 @@
     .full-width-top
       == render 'admin/shared/navbar', page: 'account'         
   .container
-    /==render 'admin/shared/messages'
-    // update cach remember :touch on recording childs
-    /-cache ([Admin.cached_find(1).version, request.url, @account.recordings_uuid, current_user.uuid  ]) do
-    .do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
-                                                             dashboard: account_account_path(@account), \
-                                                             crm: account_account_crm_index_path(@account),\
-                                                             opportunities: account_account_opportunities_path(@account),\
-                                                             @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity)\
-                                                             }, current: 'Find' }
-                                                             
-                                                                 
-      == render 'shared/page_title', locals: {blog: Blog.cached_find('Music Submissions'), \
-                                      blog_post: 'Upload Recordings'}
-                                      
-                                      
-      .row
-        .col-sm-4
-          h2 Under Construction
-        .col-sm-3
-          = image_tag '1405559647_Under-construction.png'
-                                      
-              
-      
+
+    == render 'shared/breadcrumbs', breadcrumbs: { links: {@account.title.to_sym => account_path(@account),
+                                                           dashboard: account_account_path(@account), \
+                                                           crm: account_account_crm_index_path(@account),\
+                                                           opportunities: account_account_opportunities_path(@account),\
+                                                           @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity)\
+                                                           }, current: 'Find' }
+                                                           
+                                                               
+    == render 'shared/page_title', locals: {blog: Blog.cached_find('Music Submissions'), \
+                                    blog_post: 'Upload Recordings'}
+                                    
+                                    
+    .row
+      .col-sm-4
+        h2 Under Construction
+      .col-sm-3
+        = image_tag '1405559647_Under-construction.png'
+                                    
             
-            
-  
-  == render 'shared/back', locals: { link: new_account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request) }
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'

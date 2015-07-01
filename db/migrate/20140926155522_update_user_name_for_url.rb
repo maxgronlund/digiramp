@@ -8,7 +8,7 @@ class UpdateUserNameForUrl < ActiveRecord::Migration
       
       
       
-      user.validate_info
+      user.update_meta
       if user.user_name.to_s == ''
         
         begin

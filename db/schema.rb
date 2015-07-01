@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630092040) do
+ActiveRecord::Schema.define(version: 20150701203511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2502,8 +2502,10 @@ ActiveRecord::Schema.define(version: 20150630092040) do
     t.string   "uuid",                     limit: 255, default: ""
     t.text     "address",                              default: ""
     t.string   "phone_number",             limit: 255, default: ""
+    t.integer  "account_id"
   end
 
+  add_index "recording_ipis", ["account_id"], name: "index_recording_ipis_on_account_id", using: :btree
   add_index "recording_ipis", ["recording_id"], name: "index_recording_ipis_on_recording_id", using: :btree
   add_index "recording_ipis", ["user_id"], name: "index_recording_ipis_on_user_id", using: :btree
 
@@ -2611,6 +2613,7 @@ ActiveRecord::Schema.define(version: 20150630092040) do
     t.string   "default_cover_art",    limit: 255, default: ""
     t.text     "sounds_like",                      default: ""
     t.string   "uniq_position"
+    t.boolean  "all_ipis_confirmed",               default: false
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -2923,6 +2926,31 @@ ActiveRecord::Schema.define(version: 20150630092040) do
   end
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
+
+  create_table "stakes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.integer  "asset_id"
+    t.string   "asset_type"
+    t.decimal  "split_in_percent"
+    t.integer  "flat_rate_in_cent"
+    t.string   "currency",               default: "usd"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "recording_id"
+    t.integer  "common_work_id"
+    t.string   "email_for_missing_user"
+    t.boolean  "unassigned",             default: false
+    t.integer  "ipiable_id"
+    t.string   "ipiable_type"
+  end
+
+  add_index "stakes", ["account_id"], name: "index_stakes_on_account_id", using: :btree
+  add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree
+  add_index "stakes", ["common_work_id"], name: "index_stakes_on_common_work_id", using: :btree
+  add_index "stakes", ["ipiable_type", "ipiable_id"], name: "index_stakes_on_ipiable_type_and_ipiable_id", using: :btree
+  add_index "stakes", ["recording_id"], name: "index_stakes_on_recording_id", using: :btree
+  add_index "stakes", ["user_id"], name: "index_stakes_on_user_id", using: :btree
 
   create_table "stripe_customers", force: :cascade do |t|
     t.string   "stripe_object"
@@ -3370,6 +3398,7 @@ ActiveRecord::Schema.define(version: 20150630092040) do
   add_foreign_key "recording_downloads", "shop_order_items"
   add_foreign_key "recording_downloads", "shop_products"
   add_foreign_key "recording_downloads", "users"
+  add_foreign_key "recording_ipis", "accounts"
   add_foreign_key "sales_coupon_batches", "users"
   add_foreign_key "shop_orders", "coupons"
   add_foreign_key "shop_orders", "users"
@@ -3379,6 +3408,10 @@ ActiveRecord::Schema.define(version: 20150630092040) do
   add_foreign_key "shop_stripe_transfers", "shop_order_items", column: "order_item_id"
   add_foreign_key "shop_stripe_transfers", "shop_orders", column: "order_id"
   add_foreign_key "shop_stripe_transfers", "users"
+  add_foreign_key "stakes", "accounts"
+  add_foreign_key "stakes", "common_works"
+  add_foreign_key "stakes", "recordings"
+  add_foreign_key "stakes", "users"
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
 end

@@ -78,7 +78,8 @@ class User < ActiveRecord::Base
   has_many :selected_opportunities
   has_many :client_invitation
   has_many :subscriptions
-  
+  has_many :stakes
+  has_many :recording_ipis
   
   #has_many :stripe_transfers, class_name: "Shop::StripeTransfer", dependent: :destroy
 
@@ -138,11 +139,13 @@ class User < ActiveRecord::Base
 
   after_commit :set_propperties
   
-  before_save   :validate_info
+  #before_save   :update_meta
   #before_create :set_token
-  before_create :validate_info
-  before_destroy :sanitize_relations
-  after_create :set_relations
+  #before_create   :update_meta
+  before_create   :setup_basics
+  after_create    :set_default_relations
+  before_destroy  :sanitize_relations
+  
   
   has_many :emails, dependent: :destroy
   
@@ -375,37 +378,26 @@ class User < ActiveRecord::Base
   end
   
   
-  def validate_info
-    ap 'validate_info'
+  def setup_basics
     set_token
-
-    self.role = 'Customer' if self.role.to_s == ''
-    self.uuid      = UUIDTools::UUID.timestamp_create().to_s                if self.uuid.to_s       == ''
+    self.uuid                  = UUIDTools::UUID.timestamp_create().to_s
+    self.uniq_followers_count  = "0".to_uniq
+    self.page_style_id         = PageStyle.deep_blue.id
+  end
+  
+  
+  def update_meta
     update_completeness
     update_search_field
-    set_top_tag
-    set_page_style
-    self.uniq_followers_count = self.followers_count.to_uniq
-    
+    SetUserTopTag.process self
   end
 
   def set_token
     generate_token(:auth_token)
   end
-  
-  def set_page_style
-    unless self.page_style
-      self.page_style_id = PageStyle.deep_blue.id
-    end
-  end
-  
-  def set_top_tag
-    SetUserTopTag.process self
-  end
-  
 
-  def set_relations
-    ap 'set_relations'
+  def set_default_relations
+    
     EmailGroup.find_each do |email_group|
 
       if email_group.subscription_by_default?
@@ -416,27 +408,35 @@ class User < ActiveRecord::Base
         
     end
     Client.where(email: self.email).update_all(member_id: self.id)
-    #set_default_avatar
+    set_default_avatar
     
-    CreateUserMandrillAccountJob.perform_later(self.id)
+    
+    CreateUserMandrillAccountJob.perform_later(self.id) if Rails.env.production?
+    
+    Stake.where(  email_for_missing_user: self.email, 
+                  unassigned: true)
+         .update_all( unassigned: false,
+                      email_for_missing_user: false,
+                      user_id: self.id
+                     )
   end
   
   def set_default_avatar
     
-    #unless File.exist?(Rails.root.join('public' +  self.image_url.to_s))
-    if self.image_url.include?("/assets/fallback/default" )  
-      prng       = Random.new
-      random_id =  prng.rand(85)
+    DefaultAvararJob.perform_later self.id
 
-      if random_id < 10
-        random_id = '0' + random_id.to_s 
-      end
-      
-      self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-avatars/5GA3Zk1C_avatar_#{random_id.to_s}.jpg"))
-      self.image.recreate_versions!
-      self.save!
+    #prng       = Random.new
+    #random_id =  prng.rand(85)
+    #
+    #if random_id < 10
+    #  random_id = '0' + random_id.to_s 
+    #end
+    #
+    #
+    #self.remote_image_url = "https://s3-us-west-1.amazonaws.com/digiramp/uploads/default-avatars/5GA3Zk1C_avatar_#{random_id.to_s}.jpg"
+    #self.save!
 
-    end
+
   end
   
   def stripe_customers

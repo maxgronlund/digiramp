@@ -25,7 +25,9 @@ class Account < ActiveRecord::Base
   has_many :playlist_emails,        dependent: :destroy
   #has_many :products,               class_name: 'Shop::Product', dependent: :destroy
   #has_many :shop_stripe_transfers,  dependent: :destroy
-
+  
+  has_many :stakes,                 dependent: :destroy
+  has_many :recording_ipis,         dependent: :destroy
   
   
   # image files uploaded
