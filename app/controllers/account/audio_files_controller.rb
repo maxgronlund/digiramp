@@ -6,7 +6,7 @@ class Account::AudioFilesController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   
   def index
-    forbidden current_account_user.read_recording?
+    forbidden unless current_account_user && current_account_user.read_recording?
     @recordings = @account.recordings.where(in_bucket: true)
     
   end
@@ -16,7 +16,7 @@ class Account::AudioFilesController < ApplicationController
   end
   
   def new
-    forbidden current_account_user.create_recording?
+    forbidden unless current_account_user && current_account_user.create_recording?
   end
   
   def create

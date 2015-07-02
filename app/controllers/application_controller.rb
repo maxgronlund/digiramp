@@ -52,8 +52,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_account
   
+  # update within a month 02/06/2015
   def current_account_user
-    @current_account_user ||= get_account_user
+    get_account_user
+    #@current_account_user ||= get_account_user
   end
   helper_method :current_account_user
   

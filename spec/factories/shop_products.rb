@@ -12,6 +12,9 @@ FactoryGirl.define do
     for_sale        true
     show_in_shop    true
     user_id         1
+    account_id      1
+    category        'physical-product'
+    units_on_stock  50
     
   end
 

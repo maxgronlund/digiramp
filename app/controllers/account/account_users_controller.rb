@@ -5,7 +5,7 @@ class Account::AccountUsersController < ApplicationController
 
 
   def index
-    forbidden current_account_user.read_user
+    forbidden unless current_account_user && current_account_user.read_user
     
     @user       = current_user
     #@authorized = true
@@ -138,7 +138,7 @@ class Account::AccountUsersController < ApplicationController
   
 
   def edit
-    forbidden current_account_user.update_user
+    forbidden unless current_account_user && current_account_user.update_user
     @account_user = AccountUser.cached_find(params[:id])
     @user         = current_user
   end
