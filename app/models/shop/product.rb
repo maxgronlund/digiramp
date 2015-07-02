@@ -87,6 +87,21 @@ class Shop::Product < ActiveRecord::Base
   end
   
   def stakeholders
+    stk_hldrs = []
+    
+    case self.category
+      
+    when 'recording'
+
+      StakeholdersService.assign_recording_stakes ({master_split: 0.5, recording_id: self.recording.id, user_id: self.user_id} )
+      
+    end
+    
+    
+    
+    
+    
+    
     # populate with more here
     sh = []
     sh << {user_id: self.user_id, split: 1.0 , account_id: self.account_id }

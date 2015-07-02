@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701203511) do
+ActiveRecord::Schema.define(version: 20150702135721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2614,6 +2614,7 @@ ActiveRecord::Schema.define(version: 20150701203511) do
     t.text     "sounds_like",                      default: ""
     t.string   "uniq_position"
     t.boolean  "all_ipis_confirmed",               default: false
+    t.boolean  "pre_cleared",                      default: false
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -2937,8 +2938,6 @@ ActiveRecord::Schema.define(version: 20150701203511) do
     t.string   "currency",               default: "usd"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.integer  "recording_id"
-    t.integer  "common_work_id"
     t.string   "email_for_missing_user"
     t.boolean  "unassigned",             default: false
     t.integer  "ipiable_id"
@@ -2947,9 +2946,7 @@ ActiveRecord::Schema.define(version: 20150701203511) do
 
   add_index "stakes", ["account_id"], name: "index_stakes_on_account_id", using: :btree
   add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree
-  add_index "stakes", ["common_work_id"], name: "index_stakes_on_common_work_id", using: :btree
   add_index "stakes", ["ipiable_type", "ipiable_id"], name: "index_stakes_on_ipiable_type_and_ipiable_id", using: :btree
-  add_index "stakes", ["recording_id"], name: "index_stakes_on_recording_id", using: :btree
   add_index "stakes", ["user_id"], name: "index_stakes_on_user_id", using: :btree
 
   create_table "stripe_customers", force: :cascade do |t|
@@ -3187,12 +3184,14 @@ ActiveRecord::Schema.define(version: 20150701203511) do
     t.string   "mandrill_account_id"
     t.text     "address_line_2"
     t.integer  "super_catalog_user_id"
+    t.integer  "super_account_user_id"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
   add_index "users", ["default_playlist_id"], name: "index_users_on_default_playlist_id", using: :btree
   add_index "users", ["default_widget_key"], name: "index_users_on_default_widget_key", using: :btree
   add_index "users", ["page_style_id"], name: "index_users_on_page_style_id", using: :btree
+  add_index "users", ["super_account_user_id"], name: "index_users_on_super_account_user_id", using: :btree
   add_index "users", ["super_catalog_user_id"], name: "index_users_on_super_catalog_user_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
@@ -3382,36 +3381,44 @@ ActiveRecord::Schema.define(version: 20150701203511) do
     t.integer  "file_size"
   end
 
-  add_foreign_key "account_features", "plans"
-  add_foreign_key "client_invitations", "client_groups"
-  add_foreign_key "coupons", "accounts"
-  add_foreign_key "coupons", "plans"
-  add_foreign_key "coupons", "sales_coupon_batches"
-  add_foreign_key "invoices", "accounts"
-  add_foreign_key "invoices", "users"
-  add_foreign_key "payment_sources", "subscriptions"
-  add_foreign_key "payment_sources", "users"
-  add_foreign_key "playlist_emails", "accounts"
-  add_foreign_key "playlist_emails", "playlists"
+  add_foreign_key "account_features", "plans", on_delete: :cascade
+  add_foreign_key "account_users", "accounts", on_delete: :cascade
+  add_foreign_key "attachments", "accounts", on_delete: :cascade
+  add_foreign_key "campaign_events", "accounts", on_delete: :cascade
+  add_foreign_key "campaigns", "accounts", on_delete: :cascade
+  add_foreign_key "catalog_users", "accounts", on_delete: :cascade
+  add_foreign_key "client_groups", "accounts", on_delete: :cascade
+  add_foreign_key "client_imports", "accounts", on_delete: :cascade
+  add_foreign_key "client_invitations", "accounts", on_delete: :cascade
+  add_foreign_key "client_invitations", "client_groups", on_delete: :cascade
+  add_foreign_key "clients", "accounts", on_delete: :cascade
+  add_foreign_key "common_works_imports", "accounts", on_delete: :cascade
+  add_foreign_key "contracts", "accounts", on_delete: :cascade
+  add_foreign_key "creative_projects", "accounts", on_delete: :cascade
+  add_foreign_key "customer_events", "accounts", on_delete: :cascade
+  add_foreign_key "documents", "accounts", on_delete: :cascade
+  add_foreign_key "import_batches", "accounts", on_delete: :cascade
+  add_foreign_key "invoices", "accounts", on_delete: :cascade
+  add_foreign_key "likes", "accounts", on_delete: :cascade
+  add_foreign_key "mail_campaigns", "accounts", on_delete: :cascade
+  add_foreign_key "opportunities", "accounts", on_delete: :cascade
+  add_foreign_key "playbacks", "accounts", on_delete: :cascade
+  add_foreign_key "playlist_emails", "accounts", on_delete: :cascade
+  add_foreign_key "playlist_emails", "playlists", on_delete: :cascade
   add_foreign_key "playlist_emails", "users"
-  add_foreign_key "recording_downloads", "recordings"
-  add_foreign_key "recording_downloads", "shop_order_items"
-  add_foreign_key "recording_downloads", "shop_products"
-  add_foreign_key "recording_downloads", "users"
-  add_foreign_key "recording_ipis", "accounts"
+  add_foreign_key "playlist_key_users", "accounts", on_delete: :cascade
+  add_foreign_key "playlists", "accounts", on_delete: :cascade
+  add_foreign_key "projects", "accounts", on_delete: :cascade
+  add_foreign_key "recording_downloads", "users", on_delete: :cascade
+  add_foreign_key "recording_ipis", "accounts", on_delete: :cascade
+  add_foreign_key "recording_views", "accounts", on_delete: :cascade
   add_foreign_key "sales_coupon_batches", "users"
   add_foreign_key "shop_orders", "coupons"
-  add_foreign_key "shop_orders", "users"
-  add_foreign_key "shop_products", "accounts"
-  add_foreign_key "shop_products", "users"
-  add_foreign_key "shop_stripe_transfers", "accounts"
+  add_foreign_key "shop_stripe_transfers", "accounts", on_delete: :cascade
   add_foreign_key "shop_stripe_transfers", "shop_order_items", column: "order_item_id"
   add_foreign_key "shop_stripe_transfers", "shop_orders", column: "order_id"
-  add_foreign_key "shop_stripe_transfers", "users"
-  add_foreign_key "stakes", "accounts"
-  add_foreign_key "stakes", "common_works"
-  add_foreign_key "stakes", "recordings"
-  add_foreign_key "stakes", "users"
+  add_foreign_key "stakes", "accounts", on_delete: :cascade
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
+  add_foreign_key "widgets", "accounts", on_delete: :cascade
 end

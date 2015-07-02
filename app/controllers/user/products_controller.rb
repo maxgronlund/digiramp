@@ -21,10 +21,10 @@ class User::ProductsController < ApplicationController
 
   # GET /shop/products/new
   def new
-    #'Streaming', 'download', 'Service', 'Physical product', 'Coupon'
+    
     @shop_product = Shop::Product.new
     @category     = params[:category]
-
+    
 
   end
 

@@ -121,6 +121,24 @@ class Recording < ActiveRecord::Base
 
   before_save :uniqify_fields
   
+  def stakes
+    stks =  Stake.where( asset_id: self.id,             asset_type: 'Recording' )
+    stks += Stake.where( asset_id: self.common_work_id, asset_type: 'CommonWork')
+  end
+  
+  def validate_splits
+    total = 0.0
+    self.stakes.each do |stake|
+      total += stake.split_in_percent
+    end
+    return total == 1.0
+  end
+  
+  def clear_rights
+    RecordingStakeholdersService.assign_recording_stakes( recording_id: self.id,  account_id: self.account.id  )
+    self.update(pre_cleared: validate_splits)
+  end
+  
   def uniqify_fields
     self.uniq_title              = self.title.to_uniq
     begin
@@ -133,15 +151,9 @@ class Recording < ActiveRecord::Base
   
   after_create :notify_followers
   
-  
   def notify_followers
-    
     FollowerMailer.delay_for(10.minutes).recording_uploaded( self.id )
-    #.delay_for(1.day)
   end
-  
-  
-
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
   TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
@@ -614,6 +626,7 @@ private
   end
   
   def flush_cache
+
     Rails.cache.delete([self.class.name, id])
   end
   

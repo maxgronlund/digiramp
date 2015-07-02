@@ -105,7 +105,8 @@ class UserParams
                       :has_an_approved_shop,
                       :super_catalog_user_id,
                       :password, 
-                      :password_confirmation
+                      :password_confirmation,
+                      :super_account_user_id
                     ]
   
   

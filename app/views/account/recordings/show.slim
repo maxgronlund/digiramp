@@ -73,7 +73,7 @@
           h4 Info
           .digi-box
             == render 'recordings/shared/metadata'
-          - if current_account_user.read_recording_ipi
+          - if current_account_user && current_account_user.read_recording_ipi
             == render 'ipis'
       
   == render 'shared/site_footer'  

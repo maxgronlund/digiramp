@@ -1,4 +1,5 @@
 class Contract < ActiveRecord::Base
+  has_paper_trail
   belongs_to :account
   belongs_to :user
   after_commit :flush_cache

@@ -32,10 +32,20 @@ class Admin::UsersController < ApplicationController
       catalog_user = CatalogUser.create(user_id: @user.id)
       catalog_user.grand_all_permissions
       params[:user][:super_catalog_user_id] = catalog_user.id
+      
+      account_user = AccountUser.create(user_id: user.id)
+      account_user.grand_all_permissions
+      params[:user][:super_account_user_id] = catalog_user.id
+      
+      
     else
       if catalog_user = CatalogUser.find_by(id: @user.super_catalog_user_id)
         catalog_user.destroy
         params[:user][:super_catalog_user_id] = nil
+      end
+      if account_user = AccountUser.find_by(id: @user.super_account_user_id)
+        account_user.destroy
+        params[:user][:super_account_user_id] = nil
       end
     end
     

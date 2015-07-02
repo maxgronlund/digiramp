@@ -1,31 +1,35 @@
-class StakeholdersService
+class RecordingStakeholdersService
   
-  
-  def self.assign_recording_stakes master_split, recording_id, representative_id
-    ap '------------ assign_recording_stakes -------------'
-    return 0 unless recording       = Recording.cached_find(recording_id)
-    return 1 unless representative  = User.cached_find(representative_id) 
-    return 2 unless common_work     = recording.common_work
+  # assign the rep stakes to the account's user
+  def self.assign_recording_stakes options = {}
+
+    return 0 unless account         = Account.cached_find(options[:account_id])
+    return 1 unless recording       = Recording.cached_find(options[:recording_id])
+    return 2 unless representative  = account.user 
+    return 3 unless common_work     = recording.common_work
+    digiramp_split                  = 0.2
+    representative_split            = 0.2
     
-    digiramp_split       = 0.2
-    representative_split = 0.2
-    
-    work_split           = 1.0 - master_split
+    # what the ips on the master should share( typical 50/50)
+    master_split                    = 0.5
+    # what the ips on the work should share( typical 50/50)
+    work_split                      = 1.0 - master_split
 
     # take away digiramps part
-    digiramp_part         =  1.0 * digiramp_split
+    digiramp_part                   =  1.0 * digiramp_split
     
     # take away the rep's part
-    representatives_part  =  (1.0 - digiramp_split) * representative_split
+    representatives_part            =  (1.0 - digiramp_split) * representative_split
     
-    # the remaining
-    work_and_master_part  =  ( 1.0 - representatives_part - digiramp_part )
+    # the remaining to share between the master and the copyright
+    work_and_master_part            =  ( 1.0 - representatives_part - digiramp_part )
 
-    
-    
+    # digiramp and the rep is not IP's so the ipi parameter is nil
     update_stake(  recording, digiramp_part,        nil, User.system_user )
     update_stake(  recording, representatives_part, nil, representative )
-  
+    
+    # hence there can be many IP's for the master and the copyright
+    # it's layed out in functions
     masters_split(   recording,   work_and_master_part * master_split)
     copyright_split( common_work, work_and_master_part * work_split)
     
@@ -33,20 +37,20 @@ class StakeholdersService
     # test
     #if Rails.env.development?
     #  total = 0.0
-    #  Stake.find_each do |stake|
+    #  recording.stakes.each do |stake|
     #    ap stake
     #    total += stake.split_in_percent
     #  end
     #  ap '------------------------------'
     #  ap total
     #  ap '------------------------------'
-    #  Stake.destroy_all
     #end
   end
   
+  
   private
 
-  # master part
+  # make the split for the master owners
   def self.masters_split( recording, split)
     
     recording.recording_ipis.each do |ipi|
@@ -54,8 +58,8 @@ class StakeholdersService
     end
   end
 
+  # make the split for the copyright owners
   def self.copyright_split( common_work, split)
-    ap 'copyright_parts'
     common_work.ipis.each do |ipi|
       update_stake(  common_work, ipi.share * split * 0.01, ipi, ipi.user )
     end
@@ -72,7 +76,7 @@ class StakeholdersService
       user  = User.system_user 
     elsif ipi && ipi.user
       # remove the system user assigned above
-      # if the ip has been assigned a user
+      # if the ip user has sigened up since last
       remove_system_user( asset, ipi )
     end
     
@@ -91,6 +95,7 @@ class StakeholdersService
                               ipiable_type:       ipi_type
                            )
     
+    # update informations of importance
     stake.currency                  = 'usd'
     stake.split_in_percent          = split
     stake.flat_rate_in_cent         = 0
@@ -100,8 +105,8 @@ class StakeholdersService
 
   end
   
-  # if the system user temporarely was assigned to the ip and asset
-  # then remove it
+  # find and remove the system user that temporarely was assigned 
+  # to the ip and the asset
   def self.remove_system_user asset, ipi
     
     if stake = Stake.where( asset_id:       asset.id,
@@ -117,5 +122,9 @@ class StakeholdersService
 
 end
 
+# StakeholdersService.assign_recording_stakes( recording_id: 1355,  account_id: 6  )
 
-#StakeholdersService.assign_recording_stakes( 1355, 1 )
+
+
+
+

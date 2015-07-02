@@ -4,7 +4,7 @@ class AddAccountRefToRecordingIpi < ActiveRecord::Migration
     
     RecordingIpi.find_each do |recording_ipi|
       recording_ipi.account_id = recording_ipi.recording.account_id
-      recording_ipi.save!
+      recording_ipi.save(validate: false)
     end
   end
 end
