@@ -39,8 +39,8 @@ As an member I can create custom pages and add content to them
    When I'm on the "New user pages page"
    Then I can see "New page"
    
-   When I'm on the "User creative rights page"
-   Then I can see "Creative rights"
+   #When I'm on the "User creative rights page"
+   #Then I can see "Creative rights"
    
    When I'm on the "User IPIs & Credits page"
    Then I can see "IPI's & Credits"

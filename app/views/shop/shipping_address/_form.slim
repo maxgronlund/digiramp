@@ -26,7 +26,7 @@
         = f.input :country
     = f.hidden_field :addressable_id    , value: @shop_order.id
     = f.hidden_field :addressable_type  , value: @shop_order.class.name
-    /= f.association :addressable
+
   
   .row
     .col-sm-12
@@ -34,8 +34,13 @@
         .form-actions
           = f.submit 'Continue', class: 'btn btn-primary', id: 'save-address'
           coffee:
-            $("form#edit_address_#{params[:id]s}").submit ->
+            $("form#new_address").submit ->
               $(this).find('input[type=submit]').attr('disabled', 'disabled')
               $(this).find('input[type=submit]').val "Updating, please wait ..."
           
+          /coffee:
+          /  $("form#edit_address_#{params[:id]s}").submit ->
+          /    $(this).find('input[type=submit]').attr('disabled', 'disabled')
+          /    $(this).find('input[type=submit]').val "Updating, please wait ..."
+          /
           
