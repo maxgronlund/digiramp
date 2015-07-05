@@ -42,6 +42,7 @@ cap production "logs:tail[unicorn]"  <<< IMPORTANT if there is problems
 cap production "logs:tail[sidekiq]"
 
 * ...
+ssh deploy@78.46.19.136
 cd apps/digiramp_production/current
 bundle exec rails c -e production
 
