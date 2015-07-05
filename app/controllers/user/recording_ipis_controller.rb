@@ -27,7 +27,7 @@ class User::RecordingIpisController < ApplicationController
     
     if @recording_ipi = RecordingIpi.create(recording_ipi_params)
       redirect_to user_user_common_work_path(@user, @common_work)
-      @recording_ipi.send_confirmation_request
+      @recording_ipi.send_confirmation_request if  params[:commit] == 'Save and send message'
     else
       render :new
     end
@@ -44,30 +44,31 @@ class User::RecordingIpisController < ApplicationController
   
   
   def update    
-    
-    if user   = User.find_by(email: params[:recording_ipi][:email])
-      params[:recording_ipi][:user_id]                    = user.id
-      params[:recording_ipi][:account_id]                 = user.account.id
-                                                          
-      params[:recording_ipi][:confirmation]               = 'Pending'
-      params[:recording_ipi][:show_credit_on_recording]   = false
-      params[:recording_ipi][:confirmed]                  = false
-      params[:recording_ipi][:user_uuid]                  = user.uuid  
-    end
 
-    
-    @recording_ipi    = RecordingIpi.cached_find(params[:id])
     @recording        = Recording.cached_find(params[:recording_id])
+    @recording_ipi    = RecordingIpi.cached_find(params[:id])
     @common_work      = @recording.common_work
-    
-    if @recording_ipi.update(recording_ipi_params)
+    if params[:commit] == 'Update'
+      @recording_ipi.update(recording_ipi_params)
       redirect_to user_user_common_work_path(@user, @common_work)
-      
-      
-      
-      @recording_ipi.send_confirmation_request if  params[:commit] == 'Save and send message'
     else
-      render :edit
+
+      if user   = User.find_by(email: params[:recording_ipi][:email])
+        params[:recording_ipi][:user_id]                    = user.id
+        params[:recording_ipi][:account_id]                 = user.account.id
+                                                            
+        params[:recording_ipi][:confirmation]               = 'Pending'
+        params[:recording_ipi][:show_credit_on_recording]   = false
+        params[:recording_ipi][:confirmed]                  = false
+        params[:recording_ipi][:user_uuid]                  = user.uuid  
+      end
+
+      if @recording_ipi.update(recording_ipi_params)
+        redirect_to user_user_common_work_path(@user, @common_work)
+        @recording_ipi.send_confirmation_request if  params[:commit] == 'Save and send message'
+      else
+        render :edit
+      end
     end
 
   end

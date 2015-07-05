@@ -135,6 +135,7 @@ class Subscription < ActiveRecord::Base
     rescue Stripe::StripeError => e
       #self.fail!
       self.error = e.message
+      ap e.message
       return 'An error occurred. You will be contacted by support'
     end
     self.save!
@@ -149,7 +150,7 @@ private
 
   
   def charge_card
-    #ap 'charge_card'
+    ap 'charge_card'
     #ap params
     
     
@@ -170,6 +171,7 @@ private
       rescue Stripe::StripeError => e
         self.user.stripe_customer_id = nil
         self.user.save!
+        ap e.message
       end 
     end
     
@@ -207,6 +209,7 @@ private
       self.update_attributes(error: e.message, stripe_id: nil)
       self.fail!
       Opbeat.capture_message(e.message)
+      ap e.error
     end
 
     

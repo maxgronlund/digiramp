@@ -15,11 +15,11 @@
               tr
                 th
                 th Capacity
-                th Name
+                th Name / Email
                 //th Email
                 /th Show credits
                 th Share
-                th Documents
+                /th Documents
                 th 
                   .pull-right
                     'Confirmation
@@ -43,13 +43,24 @@
                         
                   
                   td = recording_ipi.role
-                  td = recording_ipi.full_name
-                  //td = recording_ipi.email
+                  td 
+                    = recording_ipi.full_name
+                    br = recording_ipi.email
                   /td
                   /  - if recording_ipi.show_credit_on_recording
                   /    i.fa.fa-check
-                  td = number_to_percentage(recording_ipi.share, precision: 1) 
-                  td = recording_ipi.document_count
+                  td 
+                    .small-input
+                      .width-120
+                        = simple_form_for [:user, @user, recording, recording_ipi], turboboost: true do |f|
+                          = f.hidden_field :recording_id, value: recording.id
+                          .input-group
+                            = f.input :share, label: false, class: 'form-control'
+                            .input-group-btn
+                              = f.submit 'Ok', class: 'btn btn-default'
+                              
+                    /= number_to_percentage(recording_ipi.share, precision: 1) 
+                  /td = recording_ipi.document_count
                   td
                     .pull-right
                       div class="recording-confirmation-button-#{recording_ipi.id.to_s}"
@@ -63,14 +74,18 @@
                 td
                 td
                 td
-                  b = number_to_percentage(recording.total_share, precision: 1)  
-                td
+                  - total_share = recording.total_share
+                  span class="#{ total_share == 100.0 ? '' : 'alert alert-danger' }"
+                    b = number_to_percentage(total_share, precision: 1)
+                    
+                  
                 td 
-                  .pull-right
-                    = link_to 'Add IP', new_user_user_recording_recording_ipi_path(@user, recording), class: 'btn btn-default btn-xs'
+                  
+                    
                 
           .pull-right
-            = link_to 'Legal documents', '#', class: 'btn btn-default'
+            => link_to 'Legal documents', '#', class: 'btn btn-default'
+            = link_to 'Add IP', new_user_user_recording_recording_ipi_path(@user, recording), class: 'btn btn-default'
       
 
           

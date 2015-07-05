@@ -64,6 +64,7 @@ class Shop::StripeTransfersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shop_stripe_transfer
+      ap '=============================   NEVER USED ================================================'
       @shop_stripe_transfer = Shop::StripeTransfer.find(params[:id])
     end
 

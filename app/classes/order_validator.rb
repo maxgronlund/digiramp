@@ -26,8 +26,8 @@ class OrderValidator < ActiveModel::Validator
   end
   
   def self.update_units_on_order_item( product, order_item )
-    
-    return false if product.units_on_stock.nil?
+    return false unless product.category == 'physical-product'
+    return false if     product.units_on_stock.nil?
 
     if product.units_on_stock < 0
       return 'Sorry a product on your order just went out of stock'

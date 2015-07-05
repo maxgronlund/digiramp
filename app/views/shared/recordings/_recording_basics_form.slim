@@ -45,22 +45,7 @@
   .col-sm-6
     = f.input :position
     = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //= f.input :comment, label: 'Short description' :input_html => {  style: "height: 180px;",  maxlength: "150"}
-    
-    
-    
-    
+
     = f.input :comment, :input_html => {  style: "height: 80px;", 
                                                   placeholder: "Text for small badges and invoice statements",
                                                   maxlength: "150"}, 
@@ -86,18 +71,7 @@
           }
       });
       
-      
-      
-      
-      
-      
-      
-      
-      
-    
-    
-    
-    
+
     
     
     /= f.input :sounds_like, label: 'Description', :input_html => {  style: "height: 180px;"}
@@ -114,7 +88,7 @@
     .pull-right  
       
       /=> f.submit 'Close', class: 'btn btn-default', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
-      => link_to 'Close', user_recording_path(@user, @recording), class: 'btn btn-default', data: { confirm: "Your changes will not be saved and the wizard will close. Are you sure that's what you want?"  }
+      /=> link_to 'Close', user_recording_path(@user, @recording), class: 'btn btn-default', data: { confirm: "Your changes will not be saved and the wizard will close. Are you sure that's what you want?"  }
       = f.submit  'Save', class: 'btn btn-primary'
       coffee:
         $("form#recording_artwork").submit ->

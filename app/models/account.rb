@@ -29,6 +29,8 @@ class Account < ActiveRecord::Base
   # image files uploaded
   has_many :artworks
   
+  has_many :digital_signatures 
+  
   # documents attached to the account
   has_many :documents
   

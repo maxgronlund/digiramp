@@ -1,7 +1,6 @@
 Digiramp::Application.routes.draw do
 
 
-
   get 'recording_rights/edit'
 
   get 'recording_rights/new'
@@ -15,9 +14,9 @@ Digiramp::Application.routes.draw do
   namespace :shop do
     resources :stripe_transfers
   end
-  namespace :user do
-  get 'create_shop/index'
-  end
+  #namespace :user do
+  #get 'create_shop/index'
+  #end
 
   resources :addresses
 
@@ -729,7 +728,7 @@ Digiramp::Application.routes.draw do
       
       
       resources :accounts, only: [:index]
-      
+      resources :digital_signatures
       resources :downloads, only: [:index]
       
       match '/subsctiption_status/:guid'   => 'subscriptions#status',    via: :get,  as: :subscription_status
@@ -762,8 +761,10 @@ Digiramp::Application.routes.draw do
       resources :common_works do
         resources :common_work_contracts
         resources :creative_rights
-        resources :ipis, only: [:new, :update]
+        resources :ipis
         resources :accept_ipis, only: [:update]
+        resources :request_ipi_confirmations
+        #resources :please_clear_rights, only: [:index]
       end
       resources :common_work_lyrics, only: [:edit, :update]
       resources :common_work_credits, only: [:edit, :update]

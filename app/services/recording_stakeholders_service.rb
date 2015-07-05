@@ -1,8 +1,11 @@
+# RecordingStakeholdersService.assign_recording_stakes(recording_id: self.id,  account_id: self.account.id )
+
+
 class RecordingStakeholdersService
   
   # assign the rep stakes to the account's user
   def self.assign_recording_stakes options = {}
-
+    
     return 0 unless account         = Account.cached_find(options[:account_id])
     return 1 unless recording       = Recording.cached_find(options[:recording_id])
     return 2 unless representative  = account.user 
@@ -49,10 +52,10 @@ class RecordingStakeholdersService
   
   
   private
+  
 
   # make the split for the master owners
-  def self.masters_split( recording, split)
-    
+  def self.masters_split( recording, split )
     recording.recording_ipis.each do |ipi|
       update_stake( recording, ipi.share * split * 0.01, ipi, ipi.user )
     end
@@ -80,15 +83,13 @@ class RecordingStakeholdersService
       remove_system_user( asset, ipi )
     end
     
-    stake = Stake.where(   user_id:            user.id, 
-                           account_id:         user.account.id,
+    stake = Stake.where(   account_id:         user.account.id,
                            asset_id:           asset.id,
                            asset_type:         asset.class.name,
                            ipiable_id:         ipi_id,
                            ipiable_type:       ipi_type
                          )
-          .first_or_create(   user_id:            user.id, 
-                              account_id:         user.account.id,
+          .first_or_create(   account_id:         user.account.id,
                               asset_id:           asset.id,
                               asset_type:         asset.class.name,
                               ipiable_id:         ipi_id,
@@ -97,9 +98,9 @@ class RecordingStakeholdersService
     
     # update informations of importance
     stake.currency                  = 'usd'
-    stake.split_in_percent          = split
+    stake.split                     = split
     stake.flat_rate_in_cent         = 0
-    stake.email_for_missing_user    = ipi && ipi.user.nil? ? ipi.email : nil
+    stake.email    = ipi && ipi.user.nil? ? ipi.email : nil
     stake.unassigned                = ipi && ipi.user.nil? ? true      : false
     stake.save!
 

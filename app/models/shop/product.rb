@@ -87,24 +87,23 @@ class Shop::Product < ActiveRecord::Base
   end
   
   def stakeholders
-    stk_hldrs = []
+    stakes = []
     
     case self.category
       
     when 'recording'
-
-      StakeholdersService.assign_recording_stakes ({master_split: 0.5, recording_id: self.recording.id, user_id: self.user_id} )
-      
+      recording.stakes.each do |stake|
+        stakes << {user_id: stake.user_id, split: stake.split_in_percent, account_id: stake.account_id}
+        ap stakes
+      end
+    else
+      #RecordingStakeholdersService.assign_recording_stakes ({recording_id: self.recording.id, user_id: self.account_id} )
+      stakes << {user_id: self.user_id, split: 1.0 , account_id: self.account_id }
     end
     
     
-    
-    
-    
-    
-    # populate with more here
-    sh = []
-    sh << {user_id: self.user_id, split: 1.0 , account_id: self.account_id }
+    stakes
+
   end
   
   def update_stock

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702135721) do
+ActiveRecord::Schema.define(version: 20150705104746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1336,6 +1336,21 @@ ActiveRecord::Schema.define(version: 20150702135721) do
 
   add_index "digiramp_emails", ["email_group_id"], name: "index_digiramp_emails_on_email_group_id", using: :btree
   add_index "digiramp_emails", ["opportunity_id"], name: "index_digiramp_emails_on_opportunity_id", using: :btree
+
+  create_table "digital_signatures", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.integer  "document_id"
+    t.string   "document_type"
+    t.string   "image"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "digital_signatures", ["account_id"], name: "index_digital_signatures_on_account_id", using: :btree
+  add_index "digital_signatures", ["document_type", "document_id"], name: "index_digital_signatures_on_document_type_and_document_id", using: :btree
+  add_index "digital_signatures", ["user_id"], name: "index_digital_signatures_on_user_id", using: :btree
 
   create_table "documents", force: :cascade do |t|
     t.string   "title",         limit: 255
@@ -2678,6 +2693,18 @@ ActiveRecord::Schema.define(version: 20150702135721) do
   add_index "replies", ["replyable_id", "replyable_type"], name: "index_replies_on_replyable_id_and_replyable_type", using: :btree
   add_index "replies", ["user_id"], name: "index_replies_on_user_id", using: :btree
 
+  create_table "representative_splits", force: :cascade do |t|
+    t.integer  "work_split"
+    t.integer  "recording_split"
+    t.integer  "account_id"
+    t.integer  "common_work_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "representative_splits", ["account_id"], name: "index_representative_splits_on_account_id", using: :btree
+  add_index "representative_splits", ["common_work_id"], name: "index_representative_splits_on_common_work_id", using: :btree
+
   create_table "representatives", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "account_id"
@@ -2929,17 +2956,16 @@ ActiveRecord::Schema.define(version: 20150702135721) do
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
 
   create_table "stakes", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "account_id"
     t.integer  "asset_id"
     t.string   "asset_type"
-    t.decimal  "split_in_percent"
+    t.decimal  "split"
     t.integer  "flat_rate_in_cent"
-    t.string   "currency",               default: "usd"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.string   "email_for_missing_user"
-    t.boolean  "unassigned",             default: false
+    t.string   "currency",          default: "usd"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "email"
+    t.boolean  "unassigned",        default: false
     t.integer  "ipiable_id"
     t.string   "ipiable_type"
   end
@@ -2947,7 +2973,6 @@ ActiveRecord::Schema.define(version: 20150702135721) do
   add_index "stakes", ["account_id"], name: "index_stakes_on_account_id", using: :btree
   add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree
   add_index "stakes", ["ipiable_type", "ipiable_id"], name: "index_stakes_on_ipiable_type_and_ipiable_id", using: :btree
-  add_index "stakes", ["user_id"], name: "index_stakes_on_user_id", using: :btree
 
   create_table "stripe_customers", force: :cascade do |t|
     t.string   "stripe_object"
@@ -3396,6 +3421,7 @@ ActiveRecord::Schema.define(version: 20150702135721) do
   add_foreign_key "contracts", "accounts", on_delete: :cascade
   add_foreign_key "creative_projects", "accounts", on_delete: :cascade
   add_foreign_key "customer_events", "accounts", on_delete: :cascade
+  add_foreign_key "digital_signatures", "accounts"
   add_foreign_key "documents", "accounts", on_delete: :cascade
   add_foreign_key "import_batches", "accounts", on_delete: :cascade
   add_foreign_key "invoices", "accounts", on_delete: :cascade
@@ -3412,6 +3438,8 @@ ActiveRecord::Schema.define(version: 20150702135721) do
   add_foreign_key "recording_downloads", "users", on_delete: :cascade
   add_foreign_key "recording_ipis", "accounts", on_delete: :cascade
   add_foreign_key "recording_views", "accounts", on_delete: :cascade
+  add_foreign_key "representative_splits", "accounts"
+  add_foreign_key "representative_splits", "common_works"
   add_foreign_key "sales_coupon_batches", "users"
   add_foreign_key "shop_orders", "coupons"
   add_foreign_key "shop_stripe_transfers", "accounts", on_delete: :cascade

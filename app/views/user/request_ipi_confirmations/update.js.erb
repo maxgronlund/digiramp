@@ -1,0 +1,12 @@
+$(".open-dialog").append("<%= j render 'user/ipis/confirmation_dialog', user: @user, common_work: @common_work, ipi: @ipi %>");
+
+$('#digirampDialog').modal('show')
+
+
+
+javascript:
+
+  $("#digirampDialog").on('hidden.bs.modal', function (event) {
+    $(".old-dialog").remove()
+  });
+  

@@ -35,44 +35,48 @@
       .sexy_line
 
       .digi-box
-        h4 Transfers
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th Date
-                th User
-                th Amount
-                th state
-            tbody
-              - @stripe_transfers.to_a.each do |stripe_transfer|
-                .row
-                  td
-                    b = l stripe_transfer.created_at, format: :date
-                    /= debug stripe_transfer
-                  td
-                    - if user = stripe_transfer.user
-                      - if member = User.find_by(email: user.email)
-                        = link_to user.email, member
-                      - else
-                        = user.email
-                  td  
-                    b = number_to_currency(stripe_transfer.amount * 0.01, locale: 'en', precision: 2)
-                  td 
-                    
-                    - if stripe_transfer.stripe_errors.blank?
-                      - case stripe_transfer.state
-                      
-                      - when 'pending'
-                        'Payment is accepted by gateway
-                      
-                      - when 'finished'
-                        'Payment is transfered to your account
-                    - else
-                      .alert.alert-danger
-                        = stripe_transfer.stripe_errors
-                
-                
+        = debug @shop_product.stakes
+        
+        /h4 Transfers
+        /.table-responsive
+        /  table class="table table-hover"
+        /    thead
+        /      tr
+        /        th Date
+        /        th User
+        /        th Amount
+        /        th state
+        /    tbody
+        /      - @stripe_transfers.to_a.each do |stripe_transfer|
+        /        tr
+        /          td = l stripe_transfer.created_at, format: :date
+        /            /= debug stripe_transfer
+        /          td
+        /            - if user = stripe_transfer.user
+        /              - if member = User.find_by(email: user.email)
+        /                - if user.email == 'digiramp_system_default_957@digiramp.com'
+        /                  'DigiRAMP fee
+        /                - else
+        /                  = link_to user.email, member
+        /              - else
+        /                = user.email
+        /          td  
+        /            b = number_to_currency(stripe_transfer.amount * 0.01, locale: 'en', precision: 2)
+        /          td 
+        /            
+        /            - if stripe_transfer.stripe_errors.blank?
+        /              - case stripe_transfer.state
+        /              
+        /              - when 'pending'
+        /                'Payment is accepted by gateway
+        /              
+        /              - when 'finished'
+        /                'Payment is transfered to your account
+        /            - else
+        /              .alert.alert-danger
+        /                = stripe_transfer.stripe_errors
+        /        
+        /        
               
         
      

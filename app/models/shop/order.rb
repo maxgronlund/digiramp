@@ -52,7 +52,7 @@ class Shop::Order < ActiveRecord::Base
   end
   
   def charge_card
-
+    
     save!
     begin
       charge = Stripe::Charge.create( amount: self.total_price.to_i.to_s,
@@ -75,11 +75,11 @@ class Shop::Order < ActiveRecord::Base
     rescue Stripe::StripeError => e
       self.update_attributes(error: e.message)
       self.fail!
+      ap error: e.message
     end
   end
   
   def merge_with_and_delete old_shop_order
-
     
     old_shop_order.order_items.to_a.each do |order_item|
       new_order_item          = order_item.dup

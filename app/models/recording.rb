@@ -99,27 +99,27 @@ class Recording < ActiveRecord::Base
   has_many :image_files,                                dependent: :destroy
   has_many :recording_items,                            dependent: :destroy
   has_many :recording_ipis,                             dependent: :destroy
-  accepts_nested_attributes_for :recording_ipis, :reject_if => :all_blank, :allow_destroy => true
+  #accepts_nested_attributes_for :recording_ipis, :reject_if => :all_blank, :allow_destroy => true
   has_many :playbacks,                                  dependent: :destroy
   has_many :recording_views,                            dependent: :destroy
   has_many :likes,                                      dependent: :destroy
-  #has_and_belongs_to_many :recordings,                  dependent: :destroy
-  
-  #before_save :update_uuids
+
+  before_save :uniqify_fields
   after_commit :flush_cache
+  after_create :notify_followers
   before_destroy :remove_from_collections
   #before_create :check_default_image
   #before_save :check_default_image
 
   
   # owners followers gets a new post on their dashboard
-  has_many      :follower_events, as: :postable,    dependent: :destroy
+  has_many :follower_events, as: :postable,    dependent: :destroy
 
   has_many :playlists_recordings
   has_many :catalogs, :through => :playlists_recordings
   
 
-  before_save :uniqify_fields
+  
   
   def stakes
     stks =  Stake.where( asset_id: self.id,             asset_type: 'Recording' )
@@ -127,29 +127,30 @@ class Recording < ActiveRecord::Base
   end
   
   def validate_splits
-    total = 0.0
-    self.stakes.each do |stake|
-      total += stake.split_in_percent
-    end
-    return total == 1.0
+    #total = 0.0
+    #self.stakes.each do |stake|
+    #  total += stake.split_in_percent
+    #end
+    #return total == 1.0
   end
-  
+
   def clear_rights
-    RecordingStakeholdersService.assign_recording_stakes( recording_id: self.id,  account_id: self.account.id  )
-    self.update(pre_cleared: validate_splits)
+    #RecordingStakeholdersService.assign_recording_stakes( recording_id: self.id,  account_id: self.account.id  )
+    #self.update(pre_cleared: validate_splits)
+    #self.save
   end
   
   def uniqify_fields
     self.uniq_title              = self.title.to_uniq
     begin
-      self.uniq_position           = self.position.to_uniq
+      self.uniq_position         = self.position.to_uniq
     rescue
     end
     self.uniq_playbacks_count    = self.playbacks_count.to_uniq
     self.uniq_likes_count        = self.likes_count.to_uniq
   end
   
-  after_create :notify_followers
+  
   
   def notify_followers
     FollowerMailer.delay_for(10.minutes).recording_uploaded( self.id )
@@ -231,7 +232,10 @@ class Recording < ActiveRecord::Base
   
   def user_credits
     begin
-      self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, ipiable_type: 'RecordingIpi', show_credit_on_recordings: true, confirmation: "Accepted")
+      self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, 
+                                                       ipiable_type: 'RecordingIpi', 
+                                                       show_credit_on_recordings: true, 
+                                                       confirmation: "Accepted")
     rescue
     end
   end

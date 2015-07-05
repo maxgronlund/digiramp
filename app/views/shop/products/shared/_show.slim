@@ -1,8 +1,11 @@
 - session[:return_url] = request.url
 .show-product
   .row
-    .col-sm-12
-      h3 = product.title
+    - if buy
+      .col-sm-12
+        h3 = product.title
+        - if product.category == 'recording'
+          = product.recording.pre_cleared
     .col-sm-6
       .product-image-big
         = image_tag product.image_url(:thumb_470x470)
@@ -28,7 +31,6 @@
           .row
             .col-sm-12
               .pull-right.pull-down-12
-
                 
                 => link_to shop_order_path(@shop_order.uuid), id: 'basket' do
                   .btn.btn-default
@@ -43,7 +45,7 @@
                   - else
                     = f.submit 'Add to basket', class: 'btn btn-orange'
                 
-                - when 'streaming', 'service', 'recording', 'playlist'
+                - when 'streaming', 'service', 'recording', 'playlist', 'download'
                   - if   @shop_order.units_of_product( product.id ) == 0
                     = f.submit 'Add to basket', class: 'btn btn-orange'
                   - else
@@ -56,7 +58,7 @@
           /= link_to 'Basket', shop_order_path(@shop_order.uuid), id: 'data-no-turbolink'
           == render 'admin/shared/messages'
   - if buy
-    .row
+    .row.pull-down-10
       .col-sm-12        
         .pull-right 
           - if @shop_order.require_shipping_address
@@ -65,4 +67,9 @@
             <div data-no-turbolink>
               = link_to 'Checkout', edit_shop_order_path(@shop_order.uuid), class: 'btn btn-success', id: 'checkout'
             </div>
-    
+
+            /coffee:
+            /  $("form#edit_address_#{params[:id]s}").submit ->
+            /    $(this).find('input[type=submit]').attr('disabled', 'disabled')
+            /    $(this).find('input[type=submit]').val "Updating, please wait ..."
+            /

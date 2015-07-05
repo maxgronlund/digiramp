@@ -1,26 +1,26 @@
-div id="remove_email_group_#{email_group.id}"
-  .row
-    .col-sm-12
-      = email_group.title
-      .pull-right
-        = simple_form_for [user, MailListSubscriber.new ], :url => url_for(:action => 'create', :controller => 'mail_subscribtions'), :method => 'post', remote: true do |f|
-          = f.hidden_field :user_id, value: user.id
-          = f.hidden_field :email_group_id, value: email_group.id
-          
-          = button_tag(type: 'submit', class: "btn btn-default") do 
-            i.fa.fa-check
-            '&nbsp;Subscribe
-
-            
-          /= f.submit 'Subscripe', class: 'btn btn-default'
-          /.btn.btn-default
-          /  i.fa.fa-check
-          /  '&nbsp;
-          /  input name="commit" type="submit" value="Subscripe"
-        /= link_to user_user_mail_subscription_path( user, email_group), method: :post, remote: true
-        /  .btn.btn-default
-        /    i.fa.fa-check
-        /    '&nbsp;Subscripe
-  .row
-    .col-sm-12
-      .sexy_line
+/div id="remove_email_group_#{email_group.id}"
+/  .row
+/    .col-sm-12
+/      = email_group.title
+/      .pull-right
+/        = simple_form_for [user, MailListSubscriber.new ], :url => url_for(:action => 'create', :controller => 'mail_subscribtions'), :method => 'post', remote: true do |f|
+/          = f.hidden_field :user_id, value: user.id
+/          = f.hidden_field :email_group_id, value: email_group.id
+/          
+/          = button_tag(type: 'submit', class: "btn btn-default") do 
+/            i.fa.fa-check
+/            '&nbsp;Subscribe
+/
+/            
+/          /= f.submit 'Subscripe', class: 'btn btn-default'
+/          /.btn.btn-default
+/          /  i.fa.fa-check
+/          /  '&nbsp;
+/          /  input name="commit" type="submit" value="Subscripe"
+/        /= link_to user_user_mail_subscription_path( user, email_group), method: :post, remote: true
+/        /  .btn.btn-default
+/        /    i.fa.fa-check
+/        /    '&nbsp;Subscripe
+/  .row
+/    .col-sm-12
+/      .sexy_line

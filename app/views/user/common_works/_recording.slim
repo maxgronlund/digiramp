@@ -1,0 +1,98 @@
+
+
+.row
+  .col-sm-12
+
+    #digiWhams  class="/recordings/#{recording.id.to_s}"
+      == render 'audio_player/show', recording: recording , description: true, target: ""
+      .recording-credits
+        - if recording.total_share.to_i != 100.0
+          .alert.alert-danger
+            'Total share should add up to 100%
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th
+                th Capacity
+                th Name / Email
+                //th Email
+                /th Show credits
+                th Share
+                /th Documents
+                th 
+                  .pull-right
+                    'Confirmation
+            tbody
+              - recording.recording_ipis.order(:id).each do |recording_ipi|
+                tr
+                  td 
+                    div class="recording-ipi-info-dialog-#{recording_ipi.id.to_s}"
+                    => link_to user_user_recording_recording_ipi_path( @user, recording, recording_ipi), 
+                        data: {:confirm => 'Are you sure?'}, 
+                        turboboost: true,
+                        method: :delete do
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+                    => link_to edit_user_user_recording_recording_ipi_path( @user, recording, recording_ipi) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                    => link_to user_user_recording_ipi_info_path(@user, recording_ipi), remote: true do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-info-circle
+                        
+                  
+                  td = recording_ipi.role
+                  td 
+                    = recording_ipi.name
+                    br = recording_ipi.email
+                  /td
+                  /  - if recording_ipi.show_credit_on_recording
+                  /    i.fa.fa-check
+                  td 
+                    .small-input
+                      .width-150
+                        = simple_form_for [:user, @user, recording, recording_ipi], turboboost: true do |f|
+                          = f.hidden_field :recording_id, value: recording.id
+                          .input-group
+                            = f.input :share, label: false, class: 'form-control'
+                            .input-group-btn
+                              = f.submit 'Update', class: 'btn btn-default'
+                              
+                    /= number_to_percentage(recording_ipi.share, precision: 1) 
+                  /td = recording_ipi.document_count
+                  td
+                    .pull-right
+                      div class="recording-confirmation-button-#{recording_ipi.id.to_s}"
+                        == render 'user/recording_ipis/confirmation_button', user: @user, recording: recording, recording_ipi: recording_ipi
+                    /.pull-right
+                    /  div id="confirmation_status_#{recording_ipi.id.to_s}"
+                    /  /== render "user/recording_confirmations/#{recording_ipi.confirmation}", recording_ipi: recording_ipi
+              tr
+                td
+                  b Total share
+                td
+                td
+                td
+                  - total_share = recording.total_share
+                  span class="#{ total_share == 100.0 ? '' : 'alert alert-danger' }"
+                    b = number_to_percentage(total_share, precision: 1)
+                    
+                  
+                td 
+                  
+                    
+                
+          .pull-right
+            /=> link_to 'Legal documents', '#', class: 'btn btn-default'
+            => link_to edit_user_recording_basic_path(@user, recording)
+              .btn.btn-default
+                i.fa.fa-pencil&nbsp;Edit
+            = link_to 'Add IP', new_user_user_recording_recording_ipi_path(@user, recording), class: 'btn btn-default'
+      
+
+          
+                /=> link_to 'Edit recording', edit_user_recording_basic_path(recording.user, recording), class: 'btn btn-default'
+                /= link_to 'Edit credits', edit_user_user_recording_credit_path(@user, recording), class: 'btn btn-default'
+      
+    .open-dialog

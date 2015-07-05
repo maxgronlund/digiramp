@@ -2,16 +2,16 @@
 class ShopOrderService
   
   def self.handle_downloabels shop_order
-
+    ap 'sh'
     shop_order.order_items.each do |order_item|
-
+      ap 'oi'
       if product = order_item.product
-
+        ap 'pr'
         case product.category
           
         when 'recording'
           recording = Recording.cached_find(product.recording_id)
-          RecordingDownload.where(user_id: shop_order.user_id, 
+          ap RecordingDownload.where(user_id: shop_order.user_id, 
                                   recording_id: product.recording_id)
                            .first_or_create(user_id: shop_order.user_id, 
                                             recording_id: product.recording_id,

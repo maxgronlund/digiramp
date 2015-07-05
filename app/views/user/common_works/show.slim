@@ -9,144 +9,30 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym => user_user_control_panel_index_path(@user),
-                                                              'creative rights'.to_sym => user_user_creative_rights_path(@user)}, current: ''}
-      
-      
-      
-      .row
-        .col-sm-6
-          .help
-            .help-text
-              h2 = @common_work.title
-              
-            .help-button
-              == render 'admin/helps/help', identifier: 'common work credits'
-        .col-sm-6
-          .pull-right.pull-down-10
-            => link_to edit_user_user_common_work_path( @user, @common_work ) do
-              .btn.btn-primary
-                i.fa.fa-pencil
-                '&nbsp;Edit
-          /.pull-right.pull-down-10
-          /  => link_to edit_user_user_recording_common_work_lyric_path( @user, @recording, @common_work ) do
-          /    .btn.btn-default
-          /      i.fa.fa-chevron-left
-          /      '&nbsp;Back
-                  
+      - if return_path = session[:user_product_path]
+        = render 'product_rights'
+      - else
+        = render 'common_work_rights'
 
-            
-      
-      .sexy_line
-      .row
-        .col-sm-6
-          == render 'info'
-              
-        .col-sm-6
-          - if @common_work.description.to_s != ''
-            h4 Description
-            .digi-box
-              = @common_work.description
-              
-          - if @common_work.lyrics.to_s != ''
-            = link_to show_lyric_path(@common_work.id, work: true), remote: true do
-              .btn.btn-default
-                i.fa.fa-eye
-                '&nbsp;Show lyrics
-            div class="lyrics-dialog-#{@common_work.id.to_s}"
-              
-            /h4 
-            /  a aria-controls="collapseExample" aria-expanded="false" data-toggle="collapse" href="#collapseExample" 
-            /    | Show lyrics
-            /
-            /#collapseExample.collapse
-            /  .digi-box
-            /    = simple_format @common_work.lyrics
 
-              
       
-      h4 Creative credits & rights
-      .digi-box
-        - if @common_work.total_share.to_i != 100
-          .alert.alert-danger
-            'Total share should add up to 100%
-        .row
-          .col-sm-12
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr
-                    th Capacity
-                    th Name
-                    th Email
-                    th Share
-                    th 
-                      .pull-right
-                        'Confirmation
-                tbody
-                  - @common_work.ipis.each do |ipi|
-                    tr
-                      td
-                        div class="ipi-info-dialog-#{ipi.id.to_s}"
-                        => link_to user_user_ipi_info_path(@user, ipi), remote: true do
-                          .btn.btn-default.btn-xs
-                            i.fa.fa-info-circle
-                            '&nbsp;
-                            - if ipi.composer
-                              'Composer
-                              br
-                            - if ipi.writer
-                              'Writer
-                              br
-                              
-                            - if ipi.administrator
-                              'Administrator
-                              br
-                              
-                            - if ipi.original_publisher
-                              'Original publisher
-                              
-                      td = ipi.full_name
-                      td = ipi.email
-                      /td 
-                      /  - if ipi.show_credit_on_recordings
-                      /    i.fa.fa-check
-                      td 
-                        = number_to_percentage(ipi.share, precision: 1) 
-                        /= ipi.share
-                      td 
-                        .pull-right
-                          div class="confirmation-button-#{ipi.id.to_s}"
-                            == render 'user/ipis/confirmation_button', user: @user, common_work: @common_work, ipi: ipi
-
-                          
-                  tr
-                    td
-                      b Total share
-                    td
-                    td
-                    td 
-                      b = number_to_percentage(@common_work.total_share, precision: 1) 
-
-                    td
-                          
-                    
-        .row
-          .col-sm-12
-            .pull-right
-              = link_to 'Contracts', user_user_common_work_common_work_contracts_path(@user, @common_work), class: 'btn btn-default'
-              - if @common_work.recordings
-                =< link_to 'Edit credits', edit_user_user_common_work_credit_path(@user, @common_work), class: 'btn btn-default'
-      
-      
-      
-      
-      h4 Master credits & rights
-      - @common_work.recordings.each do |recording|
-        == render 'user/recordings/show', recording: recording
-              
-      /= debug @common_work
+      - if @no_ips
+        == render 'no_ips'
+      - else
+        h4 Common work / © Copyright      
+        == render 'common_work'
         
+        h4 Master / Recording
+        - @common_work.recordings.each do |recording|
+          == render 'recording', recording: recording
+      
+      - if return_path
+        .digi-box
+          .row
+            .col-sm-12
+              .pull-right
+                = link_to 'Back to product', return_path, class: 'btn btn-primary'
+            
             
         
   == render 'shared/site_footer'  

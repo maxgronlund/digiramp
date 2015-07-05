@@ -68,6 +68,10 @@ class CommonWork < ActiveRecord::Base
 
   #before_save :check_title
   
+  def clear_rights
+    
+  end
+  
   def recording_id 
   end
   

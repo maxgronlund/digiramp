@@ -12,8 +12,8 @@
   #page-content-wrapper
     .container-fluid
   
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ) }, current:'' }
-      == render 'recordings/wizard_step', step: 1
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ) }, current:'' }
+      == render 'account/recordings/shared/wizard_step', step: 1
       .row
         .col-sm-6
           .help

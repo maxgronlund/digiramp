@@ -1,0 +1,40 @@
+.alert.alert-info
+  h4 = @no_ipis_text.title
+  .row
+    .col-sm-12
+      = simple_format @no_ipis_text.body
+  - if super?
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to 'edit', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @no_ipis_text), class: 'btn btn-default'
+
+.digi-box
+  h4 = @im_the_only_ip.title  
+  = simple_format @im_the_only_ip.body  
+  - if super?
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to 'edit', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @im_the_only_ip), class: 'btn btn-default'
+
+.digi-box
+  h4 = @add_ipis.title  
+  = simple_format @add_ipis.body  
+  - if super?
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to 'edit', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @no_ipis_text), class: 'btn btn-default'
+
+
+.digi-box
+  h4 = @upload_existing_contracts.title  
+  = simple_format @upload_existing_contracts.body  
+  - if super?
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to 'edit', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @no_ipis_text), class: 'btn btn-default'
+
+

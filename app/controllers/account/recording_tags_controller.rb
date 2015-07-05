@@ -7,6 +7,7 @@ class Account::RecordingTagsController < ApplicationController
   
   def edit
     forbidden unless current_account_user.update_recording?
+    @user = current_user
   end
   
 

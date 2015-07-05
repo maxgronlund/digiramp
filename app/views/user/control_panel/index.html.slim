@@ -80,29 +80,29 @@
                     'Build you own custom pages
                   
               
-            .control-panel-badge
-              = link_to  user_user_creative_rights_path(@user) do
-                .content
-                  .icon.icon-red
-                    i.fa.fa-gavel
-                    
-                  .title
-                    h4 Creative rights
-                  .body
-                    'Manage rights for your assets
-                  
-              
-            .control-panel-badge
-              = link_to  user_user_ipis_path(@user) do
-                .content
-                  .icon.icon-green
-                    i.fa.fa-tags
-                    
-                  .title
-                    h4 IPI' & Credits
-                  .body
-                    'Manage IPI's and credits
-                  
+            /.control-panel-badge
+            /  = link_to  user_user_creative_rights_path(@user) do
+            /    .content
+            /      .icon.icon-red
+            /        i.fa.fa-gavel
+            /        
+            /      .title
+            /        h4 Creative rights
+            /      .body
+            /        'Manage rights for your assets
+            /      
+            /  
+            /.control-panel-badge
+            /  = link_to  user_user_ipis_path(@user) do
+            /    .content
+            /      .icon.icon-green
+            /        i.fa.fa-tags
+            /        
+            /      .title
+            /        h4 IPI' & Credits
+            /      .body
+            /        'Manage IPI's and credits
+            /      
             
             - if current_user.betatester  
               .control-panel-badge
@@ -255,28 +255,7 @@
                      = email_group.body
                 .sexy_line
 
-            /- @mail_subscribtions.each do | mail_subscribtion |
-            /  = render 'user/mail_subscribtions/mail_subscribtion', mail_subscribtion: mail_subscribtion, user: @user
-            /
-            /.add_mail_subscribtion        
-            /
-            /- if @email_groups
-            /  - @email_groups.each do | email_group |
-            /    == render 'user/mail_subscribtions/email_group', email_group: email_group, user: @user
-            /.add_email_groups
-        
-        
-          /.digi-box.pull-down-12
-          /  h4 Account settings
-          /  .sexy_line
-          /  b Show recordings as default
-          /  .pull-right
-          /    .show-recordings.toggle-light
-          /  .row
-          /    .col-sm-12.pull-down-8
-          /      'When others click on your Profile, display your catalog recordings:
-          /  .sexy_line
-          /
+
         
         .col-sm-6
           

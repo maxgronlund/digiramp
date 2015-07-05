@@ -72,13 +72,13 @@ class User < ActiveRecord::Base
   has_many :accounts,         :through => :account_users  
   
   has_many :comments,        as: :commentable,          dependent: :destroy
+  has_many :digital_signatures 
   has_many :recording_downloads, dependent: :destroy
   
 
   has_many :selected_opportunities
   has_many :client_invitation
   has_many :subscriptions
-  has_many :stakes
   has_many :recording_ipis
   
   #has_many :stripe_transfers, class_name: "Shop::StripeTransfer", dependent: :destroy
@@ -252,10 +252,22 @@ class User < ActiveRecord::Base
     false
   end
   
+  
   def seller_info
     if is_stripe_connected
       StripeAccount.info(self)
     end
+  end
+  
+  def remove_stripe_credentials
+    
+    self.stripe_id              = nil
+    self.stripe_access_key      = nil
+    self.stripe_publishable_key = nil
+    self.stripe_refresh_token   = nil
+    self.stripe_customer_id     = nil
+    self.save
+    
   end
   
   def merge_order order_uuid
@@ -412,13 +424,7 @@ class User < ActiveRecord::Base
     
     
     CreateUserMandrillAccountJob.perform_later(self.id) if Rails.env.production?
-    
-    Stake.where(  email_for_missing_user: self.email, 
-                  unassigned: true)
-         .update_all( unassigned: false,
-                      email_for_missing_user: false,
-                      user_id: self.id
-                     )
+    Stake.where(  email: self.email ).update_all( unassigned: false)
   end
   
   def set_default_avatar
@@ -848,11 +854,10 @@ class User < ActiveRecord::Base
   end
   
   def self.cached_find(id)
-
     begin
       case id.class.name
       when "String"
-        return User.friendly.find(id)
+        return Rails.cache.fetch([name, id]) { friendly.find(id) }
       #when "User"
       #  return User.friendly.find(id.id)
       when "Fixnum"
@@ -905,6 +910,7 @@ private
   def flush_cache
     #logger.info 'OBSOLETE: user / flush_cache'
     Rails.cache.delete([self.class.name, id])
+    Rails.cache.delete([self.class.name, self.slug])
   end
 
   
