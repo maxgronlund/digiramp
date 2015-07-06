@@ -387,20 +387,35 @@ select, textarea
   transition:  border-color ease-in-out .15s,box-shadow ease-in-out .15s 
 
  
-.pull-down-4 
-  margin-top:  4px 
+//.pull-down-4 
+//  margin-top:  4px 
+//
+//.pull-down-6 
+//  margin-top:  6px 
+//
+//.pull-down-8 
+//  margin-top:  8px 
+// 
+//.pull-down-10 
+//  margin-top:  10px 
+// 
+//.pull-down-12
+//  margin-top:  12px 
 
-.pull-down-6 
-  margin-top:  6px 
+$class-slug: pull-down !default
 
-.pull-down-8 
-  margin-top:  8px 
- 
-.pull-down-10 
-  margin-top:  10px 
- 
-.pull-down-12
-  margin-top:  12px 
+@for $i from 4 through 20
+  .#{$class-slug}-#{$i}
+    margin-top: 0px + $i
+    
+
+$class-pull: pull-left !default
+
+@for $i from 4 through 20
+  .#{$class-pull}-#{$i}
+    padding-left: 0px + $i
+    
+    
 
 .pull-down-34
   margin-top:  34px 
@@ -434,7 +449,7 @@ td
   width: 140px
   
 .width-150
-  width: 140px
+  width: 150px
 
 
 .box-content 

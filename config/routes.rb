@@ -1,6 +1,8 @@
 Digiramp::Application.routes.draw do
 
 
+
+
   get 'recording_rights/edit'
 
   get 'recording_rights/new'
@@ -14,9 +16,7 @@ Digiramp::Application.routes.draw do
   namespace :shop do
     resources :stripe_transfers
   end
-  #namespace :user do
-  #get 'create_shop/index'
-  #end
+
 
   resources :addresses
 
@@ -105,6 +105,7 @@ Digiramp::Application.routes.draw do
     resources :front_end_contents, only: [:edit, :update]
     resources :helps
     resources :issue_events
+    resources :legal_templates
     resources :page_styles
     resources :plans
     get 'repair_permissions'
@@ -723,6 +724,7 @@ Digiramp::Application.routes.draw do
     resources :shop, only: [:index, :show]
     resources :checking_accounts
     resources :social_links, only: [:edit, :update]
+    
     #resources :common_work_lyrics
     resources :users do
       
@@ -840,6 +842,10 @@ Digiramp::Application.routes.draw do
       resources :invite_client_groups, only: [:update]
       resources :invite_friends, only: [:new, :create]
       resources :ipis
+      resources :legal_documents
+      resources :legal_informations, only: [:edit, :update, :index]
+      
+      get "legal"        => "legal#index",      :as => :legal_index
       resources :mail_subscribtions, only: [:index, :show, :destroy, :create]
       resources :new_opportunities, only: [:index, :show, :destroy]
       resources :opportunities, only: [:index, :show, :destroy] do

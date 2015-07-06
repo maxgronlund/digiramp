@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe User::DigitalSignaturesController, type: :controller do
+RSpec.describe User::DigitalsignaturesController, type: :controller do
 
 end

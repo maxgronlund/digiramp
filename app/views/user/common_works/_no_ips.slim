@@ -7,8 +7,10 @@
     .row
       .col-sm-12
         .pull-right
-          = link_to 'edit', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @no_ipis_text), class: 'btn btn-default'
+          - if super?
+            =< link_to 'edit text', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @no_ipis_text), class: 'btn btn-default'
 
+= link_to '#' do
 .digi-box
   h4 = @im_the_only_ip.title  
   = simple_format @im_the_only_ip.body  
@@ -16,7 +18,11 @@
     .row
       .col-sm-12
         .pull-right
-          = link_to 'edit', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @im_the_only_ip), class: 'btn btn-default'
+          = link_to '#' do
+            .btn.btn-default
+              = @im_the_only_ip.teaser
+          - if super?
+            =< link_to 'edit text', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @im_the_only_ip), class: 'btn btn-default'
 
 .digi-box
   h4 = @add_ipis.title  
@@ -25,7 +31,11 @@
     .row
       .col-sm-12
         .pull-right
-          = link_to 'edit', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @no_ipis_text), class: 'btn btn-default'
+          = link_to '#' do
+            .btn.btn-default
+              = @add_ipis.teaser
+          - if super?
+            =< link_to 'edit text', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @add_ipis), class: 'btn btn-default'
 
 
 .digi-box
@@ -35,6 +45,10 @@
     .row
       .col-sm-12
         .pull-right
-          = link_to 'edit', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @no_ipis_text), class: 'btn btn-default'
+          = link_to '#' do
+            .btn.btn-default
+              = @upload_existing_contracts.teaser
+          - if super?
+            =< link_to 'edit text', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @upload_existing_contracts), class: 'btn btn-default'
 
 

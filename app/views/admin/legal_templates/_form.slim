@@ -1,0 +1,11 @@
+
+
+= f.hidden_field :account_id, value: @account.id
+= f.input :title
+= f.input :body
+= f.input :text_content
+
+.row
+  .col-sm-12
+    .pull-right
+      = f.submit 'Save', class: 'btn btn-primary'

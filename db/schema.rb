@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150705122606) do
+ActiveRecord::Schema.define(version: 20150706220320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1339,18 +1339,25 @@ ActiveRecord::Schema.define(version: 20150705122606) do
 
   create_table "digital_signatures", force: :cascade do |t|
     t.string   "uuid"
+    t.boolean  "hidden",     default: false
     t.integer  "user_id"
-    t.integer  "account_id"
-    t.integer  "document_id"
-    t.string   "document_type"
     t.string   "image"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  add_index "digital_signatures", ["account_id"], name: "index_digital_signatures_on_account_id", using: :btree
-  add_index "digital_signatures", ["document_type", "document_id"], name: "index_digital_signatures_on_document_type_and_document_id", using: :btree
   add_index "digital_signatures", ["user_id"], name: "index_digital_signatures_on_user_id", using: :btree
+
+  create_table "document_users", force: :cascade do |t|
+    t.integer  "document_id"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "document_users", ["document_id"], name: "index_document_users_on_document_id", using: :btree
+  add_index "document_users", ["user_type", "user_id"], name: "index_document_users_on_user_type_and_user_id", using: :btree
 
   create_table "documents", force: :cascade do |t|
     t.string   "title",         limit: 255
@@ -3421,7 +3428,7 @@ ActiveRecord::Schema.define(version: 20150705122606) do
   add_foreign_key "contracts", "accounts", on_delete: :cascade
   add_foreign_key "creative_projects", "accounts", on_delete: :cascade
   add_foreign_key "customer_events", "accounts", on_delete: :cascade
-  add_foreign_key "digital_signatures", "accounts"
+  add_foreign_key "document_users", "documents", on_delete: :cascade
   add_foreign_key "documents", "accounts", on_delete: :cascade
   add_foreign_key "import_batches", "accounts", on_delete: :cascade
   add_foreign_key "invoices", "accounts", on_delete: :cascade

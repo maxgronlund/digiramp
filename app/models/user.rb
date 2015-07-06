@@ -139,7 +139,7 @@ class User < ActiveRecord::Base
 
   after_commit :set_propperties
   
-  #before_save   :update_meta
+  before_save   :update_meta
   #before_create :set_token
   #before_create   :update_meta
   before_create   :setup_basics
@@ -360,6 +360,8 @@ class User < ActiveRecord::Base
     if followed_events = FollowerEvent.where(postable_type: 'User', postable_id: self.id)
       followed_events.destroy_all
     end
+    
+    self.account_users.destroy_all
   end
   
   def self.system_user

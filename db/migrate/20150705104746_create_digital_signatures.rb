@@ -1,4 +1,4 @@
-class CreateDigitalSignatures < ActiveRecord::Migration
+class CreateDigitalsignatures < ActiveRecord::Migration
   def change
     create_table :digital_signatures do |t|
       t.string :uuid

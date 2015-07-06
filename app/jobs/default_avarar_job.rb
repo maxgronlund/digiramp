@@ -4,6 +4,8 @@ class DefaultAvararJob < ActiveJob::Base
   # add a default avatar to the user
   def perform user_id
     
+    return unless Rails.env.production?
+    
     user = User.cached_find(user_id)
     ActiveRecord::Base.connection_pool.with_connection do
     

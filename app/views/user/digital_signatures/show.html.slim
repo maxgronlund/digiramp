@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Uuid:
+  = @digital_signature.uuid
+p
+  strong User:
+  = @digital_signature.user
+p
+  strong Account:
+  = @digital_signature.account
+p
+  strong Document:
+  = @digital_signature.document
+p
+  strong Image:
+  = @digital_signature.image
+
+= link_to 'Edit', edit_digital_signature_path(@digital_signature)
+'|
+= link_to 'Back', digital_signatures_path

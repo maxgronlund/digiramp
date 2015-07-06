@@ -1,0 +1,61 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 Legal documents
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'legal documents'
+        .col-sm-4
+          .pull-right.pull-down-10
+
+            => link_to new_user_user_legal_document_path(@user) do
+              .btn.btn-default
+                'Upload document
+            = link_to new_user_user_legal_document_path(@user) do
+              .btn.btn-default
+                'New document
+
+      = render 'user/shared/legal_navigation'
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th
+                th Title
+            tbody
+              - @documents.each do |document|
+                tr
+                  td
+                    => link_to edit_user_user_legal_document_path( @user, document) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                        
+                  td = document.title
+                
+              
+
+      
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

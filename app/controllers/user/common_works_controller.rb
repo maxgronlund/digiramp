@@ -21,7 +21,7 @@ class User::CommonWorksController < ApplicationController
       blog        = Blog.cached_find('Common Work Ipi')
       @no_ipis_text = BlogPost.cached_find('No Ipis' , blog)
       
-      @upload_existing_contracts  = BlogPost.cached_find('Upload existing contracte' , blog)
+      @upload_existing_contracts  = BlogPost.cached_find('Upload existing documents' , blog)
       @add_ipis                   = BlogPost.cached_find("Add IPI's" , blog)
       @im_the_only_ip             = BlogPost.cached_find("I'm the only IP" , blog)
       

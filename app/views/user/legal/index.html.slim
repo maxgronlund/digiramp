@@ -1,0 +1,108 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Legal
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'common work credits'
+
+      = render 'user/shared/legal_navigation'
+      .digi-box
+        
+        .table-responsive
+          table.table.table-bordered
+            tr
+              td
+                .row
+                  .col-sm-6 
+                    b First name
+                    br = @user.first_name
+                  .col-sm-6
+                    b Last name
+                    br = @user.last_name
+                .row.pull-down-10
+                  .col-sm-6 
+                    b IP Number
+                    '123 456
+                
+                    
+
+              td
+                b Address
+                - unless @user.address_line_1.blank?
+                  br
+                  = @user.address_line_1
+
+                - unless @user.address_line_2.blank?
+                  br
+                  = @user.address_line_2
+
+                - unless @user.city.blank?
+                  br
+                  = @user.city
+
+                - unless @user.zip_code.blank?
+                  br
+                  = @user.zip_code
+
+                - unless @user.country.blank?
+                  br
+                  = @user.country
+            tr
+              td
+                table
+                  tr
+                    td
+                      b Email
+                  tr
+                    td
+                      = @user.email
+              
+              td
+                table
+                  tr
+                    td
+                      b Phone number
+                  tr
+                    td
+                      = @user.phone_number
+            tr
+              td
+                .row
+                  .col-sm-12
+                    b Publishing company
+                    br Universal
+                .row.pull-down-10
+                  .col-sm-12
+                    b IP Number
+                    br 123 456 789
+                
+                
+              
+
+
+
+      
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

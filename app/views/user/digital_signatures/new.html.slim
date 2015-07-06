@@ -1,0 +1,44 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 New digital signatures
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'digital signatures'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to  user_user_digital_signatures_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+      .sexy_line
+      .digi-box
+        h4 Upload image 600x400 is a good size
+        == render 'form'
+        
+
+      
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+
+

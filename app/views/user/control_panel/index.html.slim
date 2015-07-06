@@ -10,8 +10,8 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
-      h2 Account  settings
-      - recording = Recording.last
+      h2 Control panel
+      
       .sexy_line
       
       .row
@@ -138,17 +138,17 @@
                   .body
                     'Links to your social accounts will be shown on your profile page
             
-            .control-panel-badge
-              = link_to  edit_user_user_address_path(@user) do
-                .content
-                  .icon.icon-orange
-                    i.fa.fa-link
-                    
-                  .title
-                    h4 Contact info
-                  .body
-                    'Use this to update your IPI's and find people in your array
-            
+            /.control-panel-badge
+            /  = link_to  edit_user_user_address_path(@user) do
+            /    .content
+            /      .icon.icon-orange
+            /        i.fa.fa-link
+            /        
+            /      .title
+            /        h4 Contact info
+            /      .body
+            /        'Use this to update your IPI's and find people in your array
+            /
             .control-panel-badge
               = link_to  user_user_accounts_path(@user) do
                 .content
@@ -216,6 +216,17 @@
                       h4 Projects
                     .body
                       'Collaboration projects you administrates
+                      
+              .control-panel-badge
+                = link_to  user_user_legal_index_path(@user) do
+                  .content
+                    .icon.icon-red
+                      i.fa.fa-gavel
+                      
+                    .title
+                      h4 Legal
+                    .body
+                      'Legal informations, Rights, Splits, Licences, and more
                       
               /.control-panel-badge
               /  = link_to  user_user_registrations_path(@user) do
