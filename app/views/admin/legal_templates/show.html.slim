@@ -19,6 +19,11 @@
           h3 = @document.title
         .col-sm-4
           .pull-right.pull-down-10
+            => link_to admin_legal_template_path(@document, :format => 'pdf') do 
+              .btn.btn-default
+                i.fa.fa-file-pdf-o &nbsp;Show PDF
+                
+                
             = link_to 'Edit', edit_admin_legal_template_path, class: 'btn btn-default'
       .sexy_line
       .digi-box

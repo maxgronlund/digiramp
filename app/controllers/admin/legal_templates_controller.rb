@@ -9,6 +9,12 @@ class Admin::LegalTemplatesController < ApplicationController
 
   def show
     @document = Document.cached_find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => @document.title.gsub(' ', '_').downcase, layout: "contracts"
+      end
+    end
   end
 
   def new
@@ -18,6 +24,8 @@ class Admin::LegalTemplatesController < ApplicationController
   end
   
   def create
+    params[:document][:title] = saintize_title params[:document][:title]
+    params[:document][:text_content] = sanitize_content params[:document][:text_content]
     @document = Document.create(document_params)
     redirect_to admin_legal_template_path @document
   end
@@ -29,9 +37,11 @@ class Admin::LegalTemplatesController < ApplicationController
   end
   
   def update
-     @document    = Document.cached_find(params[:id])
-     @document.update(document_params)
-     redirect_to admin_legal_template_path @document
+    params[:document][:title] = saintize_title params[:document][:title]
+    params[:document][:text_content] = sanitize_content params[:document][:text_content]
+    @document    = Document.cached_find(params[:id])
+    @document.update(document_params)
+    redirect_to admin_legal_template_path @document
   end
   
   private 
@@ -45,5 +55,13 @@ class Admin::LegalTemplatesController < ApplicationController
                                      :account_id, 
                                      :text_content) 
     
+  end
+  
+  def saintize_title title
+    title.downcase.capitalize
+  end
+  
+  def sanitize_content content
+    content.gsub('&nbsp;', ' ')
   end
 end

@@ -32,7 +32,11 @@
               - @documents.each do |document|
                 tr
                   td
-                    => link_to edit_admin_legal_document_path( document) do
+                    => link_to admin_legal_template_path(document, :format => 'pdf') do 
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-file-pdf-o
+                      
+                    => link_to edit_admin_legal_template_path( document) do
                       .btn.btn-default.btn-xs
                         i.fa.fa-pencil
                         
