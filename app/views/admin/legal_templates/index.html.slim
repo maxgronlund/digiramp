@@ -10,7 +10,8 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path}, current: 'content'}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path,
+                                                              content: admin_content_index_path}, current: ''}
       == render 'admin/shared/messages'
       .row
         .col-sm-8
@@ -26,6 +27,7 @@
               tr
                 th
                 th Title
+                th Description
             tbody
               - @documents.each do |document|
                 tr
@@ -35,6 +37,7 @@
                         i.fa.fa-pencil
                         
                   td = document.title
+                  td = simple_format document.body
 
           
           

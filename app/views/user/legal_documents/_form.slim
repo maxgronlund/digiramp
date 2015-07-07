@@ -1,58 +1,70 @@
+div style="max-width: 840px"
 
-
-= f.hidden_field :account_id, value: @account.id
-= f.input :title
-= f.input :body
-= f.input :text_content
-
-= f.submit 'Save', class: 'btn btn-primary'
-
+  = f.hidden_field :account_id, value: @account.id
+  = f.hidden_field :document_type, value: 'Template'
+  = f.input :title
+  = f.input :body, label: 'Description'
 
 
 
 
+  div id="toolbar" class="wysihtml5-toolbar"
+    a data-wysihtml5-command="bold" Bold
+    '&nbsp; 
+    a data-wysihtml5-command="italic" Italic
+    .pull-right
+      a data-wysihtml5-action="change_view"  Html
+  =f.input :text_content, label: 'Content', :input_html => {  style: "height: 800px;", placeholder: "Invitation message", id: 'wysihtml5_editor'}
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-primary'
+
+
+
+== render 'shared/init_wysiwyg5'
 
 
 
 
-    /t.string   "title",         limit: 255
-    /t.string   "document_type", limit: 255
-    /t.text     "body"
-    /t.string   "file",          limit: 255
-    /t.string   "image_thumb",   limit: 255
-    /t.integer  "usage"
-    /t.text     "text_content"
-    /t.string   "mime",          limit: 255
-    /t.string   "file_type",     limit: 255
-    /t.integer  "account_id"
-    /t.datetime "created_at"
-    /t.datetime "updated_at"
-    /t.integer  "file_size",                 default: 0
+/t.string   "title",         limit: 255
+/t.string   "document_type", limit: 255
+/t.text     "body"
+/t.string   "file",          limit: 255
+/t.string   "image_thumb",   limit: 255
+/t.integer  "usage"
+/t.text     "text_content"
+/t.string   "mime",          limit: 255
+/t.string   "file_type",     limit: 255
+/t.integer  "account_id"
+/t.datetime "created_at"
+/t.datetime "updated_at"
+/t.integer  "file_size",                 default: 0
 
 
 
-  /- if @document.errors.any?
-  /  #error_explanation
-  /    h2 = "#{pluralize(@document.errors.count, "error")} prohibited this document from being saved:"
-  /    ul
-  /      - @document.errors.full_messages.each do |message|
-  /        li = message
-  /
-  /.field
-  /  = f.label :title
-  /  = f.text_field :title
-  /.field
-  /  = f.label :body
-  /  = f.text_field :body
-  /.field
-  /  = f.label :file
-  /  = f.text_field :file
-  /.field
-  /  = f.label :transloadit
-  /  = f.text_area :transloadit
-  /.field
-  /  = f.label :account
-  /  = f.text_field :account
-  /.actions = f.submit 'Save'
+/- if @document.errors.any?
+/  #error_explanation
+/    h2 = "#{pluralize(@document.errors.count, "error")} prohibited this document from being saved:"
+/    ul
+/      - @document.errors.full_messages.each do |message|
+/        li = message
+/
+/.field
+/  = f.label :title
+/  = f.text_field :title
+/.field
+/  = f.label :body
+/  = f.text_field :body
+/.field
+/  = f.label :file
+/  = f.text_field :file
+/.field
+/  = f.label :transloadit
+/  = f.text_area :transloadit
+/.field
+/  = f.label :account
+/  = f.text_field :account
+/.actions = f.submit 'Save'
 
 

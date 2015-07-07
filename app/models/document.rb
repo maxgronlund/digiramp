@@ -1,4 +1,7 @@
 class Document < ActiveRecord::Base
+  
+  validates :title, :body, :text_content, presence: true
+  
   belongs_to :account
   has_and_belongs_to_many :catalogs
   

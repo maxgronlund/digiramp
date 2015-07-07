@@ -10,7 +10,9 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path}, current: 'content'}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path,
+                                                              content: admin_content_index_path,
+                                                              'legal templates'.to_sym => admin_legal_templates_path}, current: ''}
       == render 'admin/shared/messages'
       .row
         .col-sm-8
