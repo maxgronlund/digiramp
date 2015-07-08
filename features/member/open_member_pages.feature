@@ -12,8 +12,8 @@ As an member I can create custom pages and add content to them
   #@javascript  
   Scenario: As a member can open pages from my controll panel
   
-   When I'm on the "User account settings page"
-   Then I can see "Account settings"
+   #When I'm on the "User account settings page"
+   #Then I can see "Account settings"
    
    When I'm on the "User contacts page"
    Then I can see "Contacts"
