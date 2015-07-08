@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706220320) do
+
+
+ActiveRecord::Schema.define(version: 20150621172700) do
 
 
   # These are extensions that must be enabled in order to support this database
@@ -172,9 +174,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
   add_index "accounts", ["default_catalog_id"], name: "index_accounts_on_default_catalog_id", using: :btree
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
 
-<<<<<<< Local Changes
-<<<<<<< Local Changes
-=======
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
     t.string   "trackable_type", limit: 255
@@ -376,10 +375,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
 
   add_index "ascap_imports", ["account_id"], name: "index_ascap_imports_on_account_id", using: :btree
 
-<<<<<<< Local Changes
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "ascap_search_writer_results", force: :cascade do |t|
     t.string   "party_id",               limit: 255
     t.string   "party_name",             limit: 255
@@ -649,9 +644,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
   add_index "catalog_users", ["catalog_id"], name: "index_catalog_users_on_catalog_id", using: :btree
   add_index "catalog_users", ["user_id"], name: "index_catalog_users_on_user_id", using: :btree
 
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "catalogable_permissions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "catalog_item_id"
@@ -865,11 +857,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
   add_index "clients", ["member_id"], name: "index_clients_on_member_id", using: :btree
   add_index "clients", ["user_id"], name: "index_clients_on_user_id", using: :btree
 
-<<<<<<< Local Changes
-<<<<<<< Local Changes
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "cms_banners", force: :cascade do |t|
     t.string   "image",      limit: 255
     t.string   "size",       limit: 255
@@ -1097,10 +1084,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
   add_index "common_works_imports", ["account_id"], name: "index_common_works_imports_on_account_id", using: :btree
   add_index "common_works_imports", ["catalog_id"], name: "index_common_works_imports_on_catalog_id", using: :btree
 
-<<<<<<< Local Changes
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "connections", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "connection_id"
@@ -1323,9 +1306,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
     t.boolean  "show_banner",              default: false
   end
 
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "digiramp_emails", force: :cascade do |t|
     t.integer  "email_group_id"
     t.string   "subject",        limit: 255, default: ""
@@ -1618,9 +1598,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
     t.datetime "updated_at"
   end
 
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "galleries", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.datetime "created_at",             null: false
@@ -1805,9 +1782,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
     t.integer  "recordings_count",             default: 0
   end
 
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "instruments_imports", force: :cascade do |t|
     t.string   "csv_file",   limit: 255
     t.datetime "created_at"
@@ -2012,9 +1986,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
   add_index "mail_campaigns", ["project_id"], name: "index_mail_campaigns_on_project_id", using: :btree
   add_index "mail_campaigns", ["user_id"], name: "index_mail_campaigns_on_user_id", using: :btree
 
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "mail_list_subscribers", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "email_group_id"
@@ -2202,12 +2173,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
 
   add_index "opportunity_invitations", ["opportunity_id"], name: "index_opportunity_invitations_on_opportunity_id", using: :btree
 
-<<<<<<< Local Changes
-<<<<<<< Local Changes
-<<<<<<< Local Changes
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "opportunity_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "opportunity_id"
@@ -2421,10 +2386,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
   add_index "playlist_keys", ["playlist_id"], name: "index_playlist_keys_on_playlist_id", using: :btree
   add_index "playlist_keys", ["user_id"], name: "index_playlist_keys_on_user_id", using: :btree
 
-<<<<<<< Local Changes
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "playlist_recordings", force: :cascade do |t|
     t.integer  "playlist_id"
     t.integer  "recording_id"
@@ -2687,11 +2648,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
   add_index "recordings", ["import_batch_id"], name: "index_recordings_on_import_batch_id", using: :btree
   add_index "recordings", ["user_id"], name: "index_recordings_on_user_id", using: :btree
 
-<<<<<<< Local Changes
-<<<<<<< Local Changes
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "registrations", force: :cascade do |t|
     t.integer  "order_id"
     t.string   "full_name",           limit: 255
@@ -2901,10 +2857,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
   add_index "shop_order_items", ["order_id"], name: "index_shop_order_items_on_order_id", using: :btree
   add_index "shop_order_items", ["product_id"], name: "index_shop_order_items_on_product_id", using: :btree
 
-<<<<<<< Local Changes
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "shop_orders", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at",                                null: false
@@ -3132,10 +3084,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
     t.string   "duration",    limit: 255
   end
 
-<<<<<<< Local Changes
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "upload_csvs", force: :cascade do |t|
     t.string   "file",               limit: 255
     t.string   "title",              limit: 255
@@ -3293,10 +3241,6 @@ ActiveRecord::Schema.define(version: 20150706220320) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
-<<<<<<< Local Changes
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
   create_table "video_blogs", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.text     "body"
@@ -3472,38 +3416,47 @@ ActiveRecord::Schema.define(version: 20150706220320) do
     t.integer  "file_size"
   end
 
-<<<<<<< Local Changes
-<<<<<<< Local Changes
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
-=======
->>>>>>> External Changes
+  add_foreign_key "account_features", "plans", on_delete: :cascade
+  add_foreign_key "account_users", "accounts", on_delete: :cascade
+  add_foreign_key "attachments", "accounts", on_delete: :cascade
+  add_foreign_key "campaign_events", "accounts", on_delete: :cascade
+  add_foreign_key "campaigns", "accounts", on_delete: :cascade
+  add_foreign_key "catalog_users", "accounts", on_delete: :cascade
+  add_foreign_key "client_groups", "accounts", on_delete: :cascade
+  add_foreign_key "client_imports", "accounts", on_delete: :cascade
+  add_foreign_key "client_invitations", "accounts", on_delete: :cascade
+  add_foreign_key "client_invitations", "client_groups", on_delete: :cascade
+  add_foreign_key "clients", "accounts", on_delete: :cascade
+  add_foreign_key "common_works_imports", "accounts", on_delete: :cascade
+  add_foreign_key "contracts", "accounts", on_delete: :cascade
+  add_foreign_key "creative_projects", "accounts", on_delete: :cascade
+  add_foreign_key "customer_events", "accounts", on_delete: :cascade
+  add_foreign_key "document_users", "documents", on_delete: :cascade
+  add_foreign_key "documents", "accounts", on_delete: :cascade
+  add_foreign_key "import_batches", "accounts", on_delete: :cascade
+  add_foreign_key "invoices", "accounts", on_delete: :cascade
+  add_foreign_key "likes", "accounts", on_delete: :cascade
+  add_foreign_key "mail_campaigns", "accounts", on_delete: :cascade
+  add_foreign_key "opportunities", "accounts", on_delete: :cascade
+  add_foreign_key "playbacks", "accounts", on_delete: :cascade
+  add_foreign_key "playlist_emails", "accounts", on_delete: :cascade
+  add_foreign_key "playlist_emails", "playlists", on_delete: :cascade
+  add_foreign_key "playlist_emails", "users"
+  add_foreign_key "playlist_key_users", "accounts", on_delete: :cascade
+  add_foreign_key "playlists", "accounts", on_delete: :cascade
+  add_foreign_key "projects", "accounts", on_delete: :cascade
+  add_foreign_key "recording_downloads", "users", on_delete: :cascade
+  add_foreign_key "recording_ipis", "accounts", on_delete: :cascade
+  add_foreign_key "recording_views", "accounts", on_delete: :cascade
+  add_foreign_key "representative_splits", "accounts"
+  add_foreign_key "representative_splits", "common_works"
+  add_foreign_key "sales_coupon_batches", "users"
+  add_foreign_key "shop_orders", "coupons"
+  add_foreign_key "shop_stripe_transfers", "accounts", on_delete: :cascade
+  add_foreign_key "shop_stripe_transfers", "shop_order_items", column: "order_item_id"
+  add_foreign_key "shop_stripe_transfers", "shop_orders", column: "order_id"
+  add_foreign_key "stakes", "accounts", on_delete: :cascade
+  add_foreign_key "subscriptions", "coupons"
+  add_foreign_key "subscriptions", "plans"
+  add_foreign_key "widgets", "accounts", on_delete: :cascade
+end
