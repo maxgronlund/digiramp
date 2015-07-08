@@ -44,6 +44,12 @@ class Admin::LegalTemplatesController < ApplicationController
     redirect_to admin_legal_template_path @document
   end
   
+  def destroy
+    @document    = Document.cached_find(params[:id])
+    @document.destroy
+    redirect_to admin_legal_templates_path
+  end
+  
   private 
   
   def document_params

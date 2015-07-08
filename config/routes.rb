@@ -2,7 +2,6 @@ Digiramp::Application.routes.draw do
 
 
 
-
   get 'recording_rights/edit'
 
   get 'recording_rights/new'
@@ -87,7 +86,7 @@ Digiramp::Application.routes.draw do
       resources :activities
     resources :activity_counter
     get 'business/index'
-    resources :contracts
+    #resources :contracts
     resources :coupons
     resources :client_events
     resources :client_groups
@@ -882,6 +881,7 @@ Digiramp::Application.routes.draw do
       resources :recording_ipi_infos, only: [:show]
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]
+      resources :select_templates
       resources :user_emails
       resources :user_positions, only: [:index]
       resources :user_ipis, only: [:index]

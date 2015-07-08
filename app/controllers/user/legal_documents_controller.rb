@@ -6,8 +6,17 @@ class User::LegalDocumentsController < ApplicationController
   end
   
   def new
+    if params[:id]
+      document = Document.cached_find(params[:id])
+      
+      @document = Document.new(title: document.title, 
+                                body: document.body, 
+                                text_content: document.text_content)
+    else
+      @document = Document.new
+    end
     @account = @user.account
-    @document = Document.new
+    
     
   end
   

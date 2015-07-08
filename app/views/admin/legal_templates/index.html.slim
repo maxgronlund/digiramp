@@ -18,20 +18,30 @@
           h3 Templates for legal documents
         .col-sm-4
           .pull-right.pull-down-10
-            = link_to 'New template', new_admin_legal_template_path, class: 'btn btn-default'
+            = link_to '#' do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
       .sexy_line
-      .admin
+
+      .digi-box
         .table-responsive
           table class="table table-hover"
             thead
               tr
                 th
-                th Title
-                th Description
+                th Title/ Description
             tbody
               - @documents.each do |document|
                 tr
-                  td
+                  td style="min-width: 100px"
+                    => link_to admin_legal_template_path(document), 
+                          data: {:confirm => 'Are you sure?'}, 
+                          turboboost: true, 
+                          :method => :delete do
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+                        
                     => link_to admin_legal_template_path(document, :format => 'pdf') do 
                       .btn.btn-default.btn-xs
                         i.fa.fa-file-pdf-o
@@ -40,8 +50,9 @@
                       .btn.btn-default.btn-xs
                         i.fa.fa-pencil
                         
-                  td = document.title
-                  td = simple_format document.body
+                  td  
+                    b = simple_format  document.title
+                    br = simple_format document.body
 
           
           
