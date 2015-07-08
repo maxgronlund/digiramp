@@ -34,10 +34,10 @@ class Shop::OrdersController < ApplicationController
   # PATCH/PUT /shop/orders/1
   # PATCH/PUT /shop/orders/1.json
   def update
-    
     params[:shop_order][:email]           = params[:email]
     params[:shop_order][:stripe_token]    = params[:stripeToken]
     params[:stripeToken]                  = nil
+    
     if @shop_order = Shop::Order.find_by(uuid: params[:id])
 
       if @shop_order.update(shop_order_params)
@@ -78,16 +78,16 @@ class Shop::OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shop_order_params
-      params.require(:shop_order).permit(:user_id, 
-                                         :stripe_customer_id, 
-                                         :stripe_token, 
-                                         :uuid, 
-                                         :coupon_id,
-                                         :email,
-                                         :address_line_1,
-                                         :address_line_2,
-                                         :address_city,
-                                         :address_country
-                                         )
+      params.require(:shop_order).permit!#(:user_id, 
+                                        # :stripe_customer_id, 
+                                        # :stripe_token, 
+                                        # :uuid, 
+                                        # :coupon_id,
+                                        # :email,
+                                        # :address_line_1,
+                                        # :address_line_2,
+                                        # :address_city,
+                                        # :address_country
+                                        # )
     end
 end

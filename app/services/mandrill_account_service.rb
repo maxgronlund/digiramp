@@ -11,7 +11,7 @@ class MandrillAccountService
       mandril_client              = Mandrill::API.new Rails.application.secrets.email_provider_password                       
       mandrill_account_id         = "cus-" + user.id.to_s 
       notes                       = "Free social account, signed up on " + user.created_at.to_formatted_s(:short)
-      custom_quota                = 45
+      custom_quota                = 1000
       result                      = mandril_client.subaccounts.add mandrill_account_id, name, notes, custom_quota
       user.mandrill_account_id    = mandrill_account_id
       user.save(validate: false)
@@ -29,7 +29,7 @@ class MandrillAccountService
         user                        = User.cached_find(user_id)
         mandril_client              = Mandrill::API.new Rails.application.secrets.email_provider_password
         id                          = user.mandrill_account_id
-        custom_quota                = 45
+        custom_quota                = 1000
         result = mandril_client.subaccounts.update id, nil, nil, custom_quota
         #ap result
     

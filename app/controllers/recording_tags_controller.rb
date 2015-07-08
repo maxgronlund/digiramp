@@ -5,8 +5,9 @@ class RecordingTagsController < ApplicationController
   before_action :update_user_recording, only: [ :edit, :update]
   
   def edit
+    forbidden unless (current_user && @recording.user_id == current_user.id) || super?
+    @common_work = @recording.common_work
     
-    not_found( params ) unless @recording
   end
 
   def update

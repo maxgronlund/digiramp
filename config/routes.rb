@@ -1,8 +1,11 @@
 Digiramp::Application.routes.draw do
 
-  
 
-  
+
+  get 'recording_rights/edit'
+
+  get 'recording_rights/new'
+
   get 'terms/show'
 
   resources :playlist_emails
@@ -12,9 +15,7 @@ Digiramp::Application.routes.draw do
   namespace :shop do
     resources :stripe_transfers
   end
-  namespace :user do
-  get 'create_shop/index'
-  end
+
 
   resources :addresses
 
@@ -85,7 +86,7 @@ Digiramp::Application.routes.draw do
       resources :activities
     resources :activity_counter
     get 'business/index'
-    resources :contracts
+    #resources :contracts
     resources :coupons
     resources :client_events
     resources :client_groups
@@ -103,6 +104,7 @@ Digiramp::Application.routes.draw do
     resources :front_end_contents, only: [:edit, :update]
     resources :helps
     resources :issue_events
+    resources :legal_templates
     resources :page_styles
     resources :plans
     get 'repair_permissions'
@@ -721,12 +723,14 @@ Digiramp::Application.routes.draw do
     resources :shop, only: [:index, :show]
     resources :checking_accounts
     resources :social_links, only: [:edit, :update]
+    
     #resources :common_work_lyrics
     resources :users do
       
       
       resources :accounts, only: [:index]
-      
+      resources :digital_signatures
+      resources :downloads, only: [:index]
       
       match '/subsctiption_status/:guid'   => 'subscriptions#status',    via: :get,  as: :subscription_status
       match '/payment_method_status/:guid' => 'payment_methods#status',  via: :get,  as: :payment_method_status
@@ -758,8 +762,10 @@ Digiramp::Application.routes.draw do
       resources :common_works do
         resources :common_work_contracts
         resources :creative_rights
-        resources :ipis, only: [:new, :update]
+        resources :ipis
         resources :accept_ipis, only: [:update]
+        resources :request_ipi_confirmations
+        #resources :please_clear_rights, only: [:index]
       end
       resources :common_work_lyrics, only: [:edit, :update]
       resources :common_work_credits, only: [:edit, :update]
@@ -835,6 +841,10 @@ Digiramp::Application.routes.draw do
       resources :invite_client_groups, only: [:update]
       resources :invite_friends, only: [:new, :create]
       resources :ipis
+      resources :legal_documents
+      resources :legal_informations, only: [:edit, :update, :index]
+      
+      get "legal"        => "legal#index",      :as => :legal_index
       resources :mail_subscribtions, only: [:index, :show, :destroy, :create]
       resources :new_opportunities, only: [:index, :show, :destroy]
       resources :opportunities, only: [:index, :show, :destroy] do
@@ -871,6 +881,7 @@ Digiramp::Application.routes.draw do
       resources :recording_ipi_infos, only: [:show]
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]
+      resources :select_templates
       resources :user_emails
       resources :user_positions, only: [:index]
       resources :user_ipis, only: [:index]

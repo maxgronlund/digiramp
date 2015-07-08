@@ -5,102 +5,93 @@ class Account < ActiveRecord::Base
   # the user might be active on another account
   #belongs_to :user
   
+  
+  #!!! notice its save to let postgres handle deletment of child models
+  # as long as critical date has_paper_trails
+  
   belongs_to :user
   validates :user_id, uniqueness: true
-
-  # used to contact
-  has_many :clients,                dependent: :destroy
-  
-  # used as the basis for the CRM
-  has_many :projects,                dependent: :destroy
-  has_many :mail_campaigns,          dependent: :destroy
-  has_many :client_groups,           dependent: :destroy
-  
-  # csv imports
-  has_many :client_imports,          dependent: :destroy
-  has_many :client_groups,           dependent: :destroy
-  
-  has_many :coupons,                dependent: :destroy
-  has_many :invoices,               dependent: :destroy
-  has_many :playlist_emails,        dependent: :destroy
-  #has_many :products,               class_name: 'Shop::Product', dependent: :destroy
-  #has_many :shop_stripe_transfers,  dependent: :destroy
-
+  has_many :clients
+  has_many :client_invitations
+  has_many :projects
+  has_many :mail_campaigns
+  has_many :client_groups
+  has_many :client_imports
+  has_many :coupons
+  has_many :invoices
+  has_many :playlist_emails
+  has_many :shop_stripe_transfers
+  has_many :stakes
+  has_many :recording_ipis
+  has_many :shop_products
   
   
   # image files uploaded
-  has_many :artworks,     dependent: :destroy
+  has_many :artworks
+  
+  has_many :digital_signatures 
   
   # documents attached to the account
-  has_many :documents,    dependent: :destroy
+  has_many :documents
   
   # !!! might be obsolete
-  has_many :attachments,  dependent: :destroy
+  has_many :attachments
   
   # Imported common works
-  has_many :common_works_imports, dependent: :destroy
+  has_many :common_works_imports
   
   # delete playlists when account is deleted
-  has_many :playlists,    dependent: :destroy
+  has_many :playlists
   
   # playlist keys
   has_many :playlist_keys
-  
-  # delete common_works when account is deleted
-  has_many :common_works, dependent: :destroy
+  has_many :common_works
   
   # ipi codes connected to the account
   has_many :ipi_codes, as: :ipiable
   
   # !!! might be obsolete
-  has_many :customer_event,                dependent: :destroy
+  has_many :customer_event
   
   # don't delete recordings  when account is deleted
   has_many :recordings
   
-  has_many :import_batches, dependent: :destroy
-  has_many :catalogs,       dependent: :destroy
+  has_many :import_batches
+  has_many :catalogs
   
   # permissions keys for catalogs
-  has_many :catalog_users,       dependent: :destroy
+  has_many :catalog_users
 
   #belongs_to :user
   #accepts_nested_attributes_for :user
-  has_many :account_users,  dependent: :destroy
-  #has_many :users, :through => :account_users
+  has_many :account_users
   
-  has_many :opportunities,  dependent: :destroy
+  has_many :opportunities
   
   # access to playlists
-  has_many :playlist_key_users,       dependent: :destroy
-  
-  has_many :emails,       dependent: :destroy
+  has_many :playlist_key_users
   
   # widgets
-  has_many :widgets,       dependent: :destroy
+  has_many :widgets
   
   # statistick on playbacks
-  has_many :playbacks,       dependent: :destroy
-  has_many :recording_views,       dependent: :destroy
+  has_many :playbacks
+  has_many :recording_views
   
   # statistick on likes
-  has_many :likes,       dependent: :destroy
-  
-  has_many :campaigns,          dependent: :destroy
-  has_many :campaign_events,       dependent: :destroy
-  has_many :client_invitation,  dependent: :destroy
-  has_many :contracts,          dependent: :destroy
-  
+  has_many :likes
+  has_many :campaigns
+  has_many :campaign_events
+  has_many :contracts
   has_many :comments,    as: :commentable,     dependent: :destroy
-  
-  has_many :creative_projects,  dependent: :destroy
-  
+  has_many :creative_projects
   has_many :subscriptions,  dependent: :destroy
+  has_many :products,         class_name: 'Shop::Product'
+  has_many :stripe_transfers, class_name: 'Shop::StripeTransfer'
   
   belongs_to :account_feature
   
-  has_many :products,         class_name: 'Shop::Product', dependent: :destroy
-  has_many :stripe_transfers, class_name: 'Shop::StripeTransfer', dependent: :destroy
+  
   
   #has_many :registrations
                 
@@ -312,7 +303,7 @@ class Account < ActiveRecord::Base
   end
   
   def self.cached_find(id)
-    Rails.cache.fetch([name, id]) { find(id) }
+    Rails.cache.fetch([name, id]) { find_by(id: id) }
   end
   
   # !!! not needed anymore

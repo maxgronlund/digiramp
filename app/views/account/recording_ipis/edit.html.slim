@@ -11,9 +11,11 @@
   #page-content-wrapper
     .container-fluid
   
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { recordings: account_account_recordings_path(@account),\
-                                                              @recording.title.to_sym => account_account_recording_path(@account, @recording),\
-                                                              ipis: account_account_recording_recording_ipis_path(@account, @recording) }, current:'' }
+      == render 'shared/breadcrumbs', 
+          breadcrumbs: { links: { recordings: account_account_recordings_path(@account),\
+                                  @recording.title.to_sym => account_account_recording_path(@account, @recording),\
+                                  ipis: account_account_recording_recording_ipis_path(@account, @recording) }, 
+                                  current:'' }
       .sexy_line
       .row
         .col-sm-6

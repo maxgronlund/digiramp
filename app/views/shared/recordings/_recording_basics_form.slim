@@ -45,7 +45,35 @@
   .col-sm-6
     = f.input :position
     = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
-    = f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
+
+    = f.input :comment, :input_html => {  style: "height: 80px;", 
+                                                  placeholder: "Text for small badges and invoice statements",
+                                                  maxlength: "150"}, 
+                                                  label: 'Info on badges'
+    
+    div id="textarea_feedback"
+    br
+    javascript:
+      $(document).ready(function() {
+          
+          var text_max = 150;
+          $('#textarea_feedback').html(text_max + ' characters remaining');
+          update_textarea_feedback();
+          $('#recording_comment').keyup(function() {
+              update_textarea_feedback();
+          });
+          
+          function update_textarea_feedback(){
+            var text_length = $('#recording_comment').val().length;
+            var text_remaining = text_max - text_length;
+
+            $('#textarea_feedback').html(text_remaining + ' characters remaining');
+          }
+      });
+      
+
+    
+    
     /= f.input :sounds_like, label: 'Description', :input_html => {  style: "height: 180px;"}
     = f.input :sounds_like, :input_html => {  style: "height: 80px;", placeholder: "Beethoven, Elvis, Louis Armstrong"}
     /= f.input :sounds_like, label: 'Sounds like', placeholder: 'Beethoven, Elvis, Louis Armstrong'
@@ -60,7 +88,7 @@
     .pull-right  
       
       /=> f.submit 'Close', class: 'btn btn-default', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
-      => link_to 'Close', user_recording_path(@user, @recording), class: 'btn btn-default', data: { confirm: "Your changes will not be saved and the wizard will close. Are you sure that's what you want?"  }
+      /=> link_to 'Close', user_recording_path(@user, @recording), class: 'btn btn-default', data: { confirm: "Your changes will not be saved and the wizard will close. Are you sure that's what you want?"  }
       = f.submit  'Save', class: 'btn btn-primary'
       coffee:
         $("form#recording_artwork").submit ->

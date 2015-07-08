@@ -1,0 +1,48 @@
+.row
+  .col-sm-12.hidden-xs
+    .btn-group.btn-group-justified
+    
+      = link_to user_user_legal_index_path(@user), :class => "btn btn-default"
+        i.fa.fa-gavel
+        '&nbsp;Legal
+    
+      = link_to user_user_digital_signatures_path(@user), :class => "btn btn-default"
+        i.fa.fa-pencil
+        '&nbsp;Signatures
+    
+      = link_to user_user_legal_documents_path(@user), :class => "btn btn-default"
+        i.fa.fa-file-pdf-o
+        '&nbsp;Documents
+        
+      = link_to user_user_legal_informations_path(@user), :class => "btn btn-default"
+        i.fa.fa-user
+        '&nbsp;Edit
+  .col-sm-12.visible-xs
+    .btn-group.btn-group-justified
+    
+      = link_to user_user_legal_index_path(@user), :class => "btn btn-default"
+        i.fa.fa-gavel
+
+    
+      = link_to user_user_digital_signatures_path(@user), :class => "btn btn-default"
+        i.fa.fa-pencil
+
+    
+      = link_to user_user_legal_documents_path(@user), :class => "btn btn-default"
+        i.fa.fa-file-pdf-o
+
+      = link_to user_user_legal_informations_path(@user), :class => "btn btn-default"
+        i.fa.fa-user
+
+    
+/  
+/  
+/  = link_to catalog_account_catalog_financial_documents_path(@account, @catalog), :class => "btn btn-default"
+/    i.fa.fa-money
+/    '&nbsp;Financial documents
+
+
+
+  
+
+

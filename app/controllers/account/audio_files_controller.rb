@@ -6,7 +6,7 @@ class Account::AudioFilesController < ApplicationController
   include Transloadit::Rails::ParamsDecoder
   
   def index
-    forbidden unless super? || current_account_user.read_recording?
+    forbidden unless current_account_user && current_account_user.read_recording?
     @recordings = @account.recordings.where(in_bucket: true)
     
   end
@@ -16,12 +16,12 @@ class Account::AudioFilesController < ApplicationController
   end
   
   def new
-    forbidden unless super? || current_account_user.create_recording?
+    forbidden unless current_account_user && current_account_user.create_recording?
   end
   
   def create
    
-    forbidden unless super? || urrent_account_user.create_recording?
+    forbidden urrent_account_user.create_recording?
     
     begin
       result = TransloaditRecordingsParser.parse params[:transloadit],  @account.id, true, current_account_user.user_id
@@ -53,7 +53,7 @@ class Account::AudioFilesController < ApplicationController
   end
   
   def edit
-    forbidden unless super? || urrent_account_user.edit_recording?
+    forbidden urrent_account_user.edit_recording?
     @recording            = Recording.cached_find(params[:id])
   end
 

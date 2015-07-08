@@ -45,6 +45,7 @@ cap staging "logs:tail[staging]"
 cap staging "logs:tail[unicorn]"
 
 * ...
+ssh deploy@78.46.19.136
 cd apps/digiramp_production/current
 bundle exec rails c -e production
 

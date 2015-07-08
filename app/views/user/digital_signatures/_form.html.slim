@@ -1,0 +1,35 @@
+= simple_form_for [:user, @user, @digital_signature] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.hidden_field :user_id    , value: @user.id
+    /= f.hidden_field :account_id , value: @user.account.id
+
+    /= f.input :image, hint: 'will be scaled to 360 X 100 pixels'
+    .fileinput.fileinput-new data-provides="fileinput"
+      .fileinput-new.thumbnail style="width: 600px; height: 100px;"
+        - if @digital_signature.image
+          = image_tag @digital_signature.image_url(:image_600x100), size: '600x100'
+        - else
+          = image_tag 'default-cover.jpg'
+
+      div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 600px; max-height: 100px;"
+      div
+        span.btn.btn-default.btn-file
+          span class="fileinput-new"
+            'Select Image
+          '&nbsp;
+          span class="fileinput-exists"
+            'Change
+          = f.file_field :image
+
+        '&nbsp;
+        a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+          'Remove
+    
+  
+  .row
+    .col-sm-12
+      .pull-right
+        .form-actions
+          = f.submit 'Save', class: 'btn btn-primary'

@@ -30,7 +30,7 @@ class Account::CatalogsController < ApplicationController
   end
 
   def new
-    forbidden unless super? || current_account_user.createx_catalog
+    forbidden unless current_account_user && current_account_user.createx_catalog
     @catalog = Catalog.new
   end
   

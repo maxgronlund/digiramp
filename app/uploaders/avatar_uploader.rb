@@ -3,12 +3,14 @@
 class AvatarUploader < CarrierWave::Uploader::Base
 
   include CarrierWave::MiniMagick
-
-
-
+  
+  # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
+  #include Sprockets::Helpers::RailsHelper
+  #include Sprockets::Helpers::IsolatedHelper
+  
   # Choose what kind of storage to use for this uploader:
-  storage :file
-  #storage :fog
+  #storage :file
+  storage :fog
 
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
@@ -47,32 +49,15 @@ class AvatarUploader < CarrierWave::Uploader::Base
   version :avatar_184x184  do process :resize_to_fill => [184, 184, 'Center']      end
   version :avatar_220x220  do process :resize_to_fill => [220, 220, 'Center']      end
   version :avatar_270x270  do process :resize_to_fill => [270, 270, 'Center']      end
-  #version :avatar_370x370  do process :resize_to_fill => [370, 370, 'Center']      end
-    
-  #version :avatar_32x32    do 
-  #  process :convert => 'png'  
-  #  resize_and_pad(32, 32,:transparent,'Center')
-  #end
-  #version :avatar_64x64    do   
-  #  process :convert => 'png'  
-  #  resize_and_pad(64,64,:transparent,'Center')
-  #end
-  #version :avatar_120x120  do  
-  #  process :convert => 'png'  
-  #  resize_and_pad(120,120,:transparent,'Center') 
-  #end
-  #version :avatar_170x170  do 
-  #  process :convert => 'png'  
-  #  resize_and_pad(170,170,:transparent,'Center')  
-  #end
-  #version :avatar_270x270  do 
-  #  process :convert => 'png'  
-  #  resize_and_pad(270,270,:transparent,'Center')  
-  #end
-  #version :avatar_370x370  do
-  #  process :convert => 'png'  
-  #  resize_and_pad(370,370,:transparent,'Center')   
-  #end
+
+
+
+
+
+
+
+
+
 
 #  RESIZE_GRAVITY = 'NorthWest'
 #

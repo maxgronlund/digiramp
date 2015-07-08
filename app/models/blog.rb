@@ -25,8 +25,8 @@ class Blog < ActiveRecord::Base
   
 
   def self.cached_find(idnf)
-    Rails.cache.fetch([name, idnf ]) {  Blog.where(identifier: idnf)\
-                                                .first_or_create(identifier: idnf, title: idnf, body: '') }
+    Rails.cache.fetch([name, idnf ]) {  Blog.where(identifier: idnf)
+                                            .first_or_create(identifier: idnf, title: idnf, body: '') }
   end 
   
   def self.news_count

@@ -1,0 +1,57 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 Select template
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'legal documents'
+        .col-sm-4
+          .pull-right.pull-down-10
+
+            => link_to new_user_user_legal_document_path(@user) do
+              .btn.btn-default
+                'New blank document
+
+
+
+      = render 'user/shared/legal_navigation'
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th
+                th style="min-width: 200px;"
+                  'Title
+            tbody
+              - @documents.each do |document|
+                tr
+                  td
+                    => link_to user_user_select_template_path( @user, document) do
+                      .btn.btn-default.btn-xs
+                        'Select
+                        
+                  td = document.title
+                  td = simple_format document.body
+              
+
+      
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    

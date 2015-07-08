@@ -30,6 +30,15 @@ class Shop::OrderItem < ActiveRecord::Base
   def seller_info
     product.seller_info
   end
+  
+  def stakes
+    case product.category
+      
+    when 'recording'
+      recording = product.recording
+      ap recording.stakes
+    end
+  end
 
   private 
   
@@ -56,6 +65,8 @@ class Shop::OrderItem < ActiveRecord::Base
                     
     end
   end
+  
+  
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])

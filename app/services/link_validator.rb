@@ -10,5 +10,3 @@ class LinkValidator
     link
   end
 end
-
-

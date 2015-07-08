@@ -4,7 +4,7 @@ class Account::CommonWorksController < ApplicationController
   before_action :access_account
   
   def index
-    forbidden unless super? || current_account_user 
+    forbidden unless current_account_user && current_account_user 
     
     @user = @account.user
     @common_works  = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
@@ -15,7 +15,7 @@ class Account::CommonWorksController < ApplicationController
   end
 
   def show
-    forbidden unless super? || current_account_user.read_common_work
+    forbidden unless current_account_user && current_account_user.read_common_work
     @user = @account.user
     @common_work    = CommonWork.cached_find(params[:id])
     
@@ -32,7 +32,7 @@ class Account::CommonWorksController < ApplicationController
   end
   
   def create
-    forbidden unless super? || current_account_user.create_common_work
+    forbidden unless current_account_user && current_account_user.create_common_work
     artwork_url = TransloaditImageParser.get_image_url params[:transloadit]
 
     # extract  parameters
@@ -63,12 +63,12 @@ class Account::CommonWorksController < ApplicationController
   
   
   def edit
-    forbidden unless super? || current_account_user.update_common_work
+    forbidden unless current_account_user && current_account_user.update_common_work
     @common_work    = CommonWork.find(params[:id])
   end
   
   def update
-    forbidden unless super? || current_account_user.update_common_work
+    forbidden unless current_account_user && current_account_user.update_common_work
     artwork_url = TransloaditImageParser.get_image_url params[:transloadit]
 
     # extract  parameters
@@ -96,19 +96,19 @@ class Account::CommonWorksController < ApplicationController
   end
   
   def recordings
-    forbidden unless super? || current_account_user.read_common_work
+    forbidden unless current_account_user && current_account_user.read_common_work
     @common_work    = CommonWork.cached_find(params[:id])
   end
   
   def recordings_new
-    forbidden unless super? || current_account_user.update_common_work
-    forbidden unless super? || current_account_user.create_recording
+    forbidden unless current_account_user && current_account_user.update_common_work
+    forbidden unless current_account_user && current_account_user.create_recording
     @common_work    = CommonWork.cached_find(params[:id])
   end
   
   def recordings_create
-    forbidden unless super? || current_account_user.update_common_work
-    forbidden unless super? || current_account_user.create_recording?
+    forbidden unless current_account_user && current_account_user.update_common_work
+    forbidden unless current_account_user && current_account_user.create_recording?
     
     @common_work           = CommonWork.cached_find(params[:id])
     
@@ -140,7 +140,7 @@ class Account::CommonWorksController < ApplicationController
   end
   
   def destroy
-    forbidden unless super? || current_account_user.delete_common_work
+    forbidden unless current_account_user && current_account_user.delete_common_work
     @common_work    = CommonWork.cached_find(params[:id])
     @common_work.destroy
     redirect_to account_account_common_works_path @account

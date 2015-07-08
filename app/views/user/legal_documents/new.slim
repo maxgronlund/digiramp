@@ -1,0 +1,45 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 New documents
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'new legal document'
+        .col-sm-4
+          .pull-right.pull-down-10
+            => link_to user_user_select_templates_path(@user) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back      
+
+
+      = render 'user/shared/legal_navigation'
+      .digi-box
+        = simple_form_for [ @account, @document] , :url => url_for(:action => 'create', :controller => 'legal_documents'), turboboost: true, :method => 'post' do |f|
+          == render 'form', f: f
+      
+
+      
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   #friendly_id :user_name, use: :slugged
   
   scope :public_profiles,  ->  { where( private_profile: false)  }
+  scope :supers,            ->    { where( role: 'Super' ).order("email asc")  }
+  scope :administrators,    ->    { where( administrator: true ).order("email asc")  }
+  scope :customers,         ->    { where( role: 'Customer' ).order("email asc")  }
+  scope :with_a_collection, ->    { where( has_a_collection: true)}
   
   has_paper_trail 
   has_secure_password
@@ -68,12 +72,14 @@ class User < ActiveRecord::Base
   has_many :accounts,         :through => :account_users  
   
   has_many :comments,        as: :commentable,          dependent: :destroy
+  has_many :digital_signatures 
+  has_many :recording_downloads, dependent: :destroy
   
 
   has_many :selected_opportunities
   has_many :client_invitation
   has_many :subscriptions
-  
+  has_many :recording_ipis
   
   #has_many :stripe_transfers, class_name: "Shop::StripeTransfer", dependent: :destroy
 
@@ -133,11 +139,13 @@ class User < ActiveRecord::Base
 
   after_commit :set_propperties
   
-  before_save   :validate_info
-  before_create :set_token
-  before_create :validate_info
-  before_destroy :sanitize_relations
-  after_create :set_relations
+  before_save   :update_meta
+  #before_create :set_token
+  #before_create   :update_meta
+  before_create   :setup_basics
+  after_create    :set_default_relations
+  before_destroy  :sanitize_relations
+  
   
   has_many :emails, dependent: :destroy
   
@@ -244,10 +252,22 @@ class User < ActiveRecord::Base
     false
   end
   
+  
   def seller_info
     if is_stripe_connected
       StripeAccount.info(self)
     end
+  end
+  
+  def remove_stripe_credentials
+    
+    self.stripe_id              = nil
+    self.stripe_access_key      = nil
+    self.stripe_publishable_key = nil
+    self.stripe_refresh_token   = nil
+    self.stripe_customer_id     = nil
+    self.save
+    
   end
   
   def merge_order order_uuid
@@ -335,6 +355,13 @@ class User < ActiveRecord::Base
     unless self.mandrill_account_id.blank?
       DeleteUserMandrillAccountJob.perform_later(self.mandrill_account_id)
     end
+
+    # other users following this user
+    if followed_events = FollowerEvent.where(postable_type: 'User', postable_id: self.id)
+      followed_events.destroy_all
+    end
+    
+    self.account_users.destroy_all
   end
   
   def self.system_user
@@ -358,42 +385,32 @@ class User < ActiveRecord::Base
     UserSearchField.process self
   end
   
-  def set_token
-    generate_token(:auth_token)
-  end
+  
   
   def unread_messages
     self.received_massages.where(read: false, recipient_removed: false).count
   end
   
   
-  def validate_info
-
-    # always start as a customer
-    self.role = 'Customer' if self.role.to_s == ''
-    self.uuid      = UUIDTools::UUID.timestamp_create().to_s                if self.uuid.to_s       == ''
-    
+  def setup_basics
+    set_token
+    self.uuid                  = UUIDTools::UUID.timestamp_create().to_s
+    self.uniq_followers_count  = "0".to_uniq
+    self.page_style_id         = PageStyle.deep_blue.id
+  end
+  
+  
+  def update_meta
     update_completeness
     update_search_field
-    set_top_tag
-    set_page_style
-    self.uniq_followers_count = self.followers_count.to_uniq
-    
-  end
-
-  
-  def set_page_style
-    unless self.page_style
-      self.page_style_id = PageStyle.deep_blue.id
-    end
-  end
-  
-  def set_top_tag
     SetUserTopTag.process self
   end
-  
 
-  def set_relations
+  def set_token
+    generate_token(:auth_token)
+  end
+
+  def set_default_relations
     
     EmailGroup.find_each do |email_group|
 
@@ -407,25 +424,27 @@ class User < ActiveRecord::Base
     Client.where(email: self.email).update_all(member_id: self.id)
     set_default_avatar
     
-    CreateUserMandrillAccountJob.perform_later(self.id)
+    
+    CreateUserMandrillAccountJob.perform_later(self.id) if Rails.env.production?
+    Stake.where(  email: self.email ).update_all( unassigned: false)
   end
   
   def set_default_avatar
     
-    #unless File.exist?(Rails.root.join('public' +  self.image_url.to_s))
-    if self.image_url.include?("/assets/fallback/default" )  
-      prng       = Random.new
-      random_id =  prng.rand(85)
+    DefaultAvararJob.perform_later self.id
 
-      if random_id < 10
-        random_id = '0' + random_id.to_s 
-      end
-      
-      self.image = File.open(Rails.root.join('app', 'assets', 'images', "default-avatars/5GA3Zk1C_avatar_#{random_id.to_s}.jpg"))
-      self.image.recreate_versions!
-      self.save!
+    #prng       = Random.new
+    #random_id =  prng.rand(85)
+    #
+    #if random_id < 10
+    #  random_id = '0' + random_id.to_s 
+    #end
+    #
+    #
+    #self.remote_image_url = "https://s3-us-west-1.amazonaws.com/digiramp/uploads/default-avatars/5GA3Zk1C_avatar_#{random_id.to_s}.jpg"
+    #self.save!
 
-    end
+
   end
   
   def stripe_customers
@@ -441,10 +460,7 @@ class User < ActiveRecord::Base
   ROLES       = ["Super", "Customer"]
   SECRET_NAME = "RGeiHK8yUB6a"
   
-  scope :supers,            ->    { where( role: 'Super' ).order("email asc")  }
-  scope :administrators,    ->    { where( administrator: true ).order("email asc")  }
-  scope :customers,         ->    { where( role: 'Customer' ).order("email asc")  }
-  scope :with_a_collection, ->    { where( has_a_collection: true)}
+
   
   
   def following?(other_user)
@@ -836,15 +852,14 @@ class User < ActiveRecord::Base
   end
   
   def has_access_to_cattalogs_on account
-    !CatalogUser.where(catalog_id: account.catalog_ids, user_id: self.id).nil?
+    CatalogUser.find_by(catalog_id: account.catalog_ids, user_id: self.id).first
   end
   
   def self.cached_find(id)
-
     begin
       case id.class.name
       when "String"
-        return User.friendly.find(id)
+        return Rails.cache.fetch([name, id]) { friendly.find(id) }
       #when "User"
       #  return User.friendly.find(id.id)
       when "Fixnum"
@@ -897,6 +912,7 @@ private
   def flush_cache
     #logger.info 'OBSOLETE: user / flush_cache'
     Rails.cache.delete([self.class.name, id])
+    Rails.cache.delete([self.class.name, self.slug])
   end
 
   

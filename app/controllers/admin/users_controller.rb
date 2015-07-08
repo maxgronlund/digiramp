@@ -23,29 +23,35 @@ class Admin::UsersController < ApplicationController
   
   def update
 
-    
     if params[:user][:featured] == '1' && @user.featured == false
-      # only update featured date when featured is turned on
       params[:user][:featured_date] = DateTime.now
     end
+    #params[:user][:old_role] = @user.role
     
-    old_role  = @user.role
-    
-    if @user.update!(user_params)
-   
+    if params[:user][:role] == 'Super'
+      catalog_user = CatalogUser.create(user_id: @user.id)
+      catalog_user.grand_all_permissions
+      params[:user][:super_catalog_user_id] = catalog_user.id
       
-      @user.create_activity(  :updated, 
-                         owner: current_user,
-                     recipient: @user,
-                recipient_type: @user.class.name,
-                    account_id: @user.account.id)
-      
-      
-      
+      account_user = AccountUser.create(user_id: user.id)
+      account_user.grand_all_permissions
+      params[:user][:super_account_user_id] = catalog_user.id
       
       
     else
+      if catalog_user = CatalogUser.find_by(id: @user.super_catalog_user_id)
+        catalog_user.destroy
+        params[:user][:super_catalog_user_id] = nil
+      end
+      if account_user = AccountUser.find_by(id: @user.super_account_user_id)
+        account_user.destroy
+        params[:user][:super_account_user_id] = nil
+      end
+    end
+    
+    if @user.update!(user_params)
       
+    else
       render :edit
     end
 

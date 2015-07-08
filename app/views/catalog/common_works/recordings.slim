@@ -4,41 +4,40 @@
       == render 'admin/shared/navbar', page: 'account'         
   .container
     /==render 'admin/shared/messages'
-    /-cache ([Admin.cached_find(1).version, request.url,@account.recordings_uuid, current_user.uuid  ]) do
-    .do
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                              catalogs: catalog_account_catalogs_path(@account), \
-                                                              @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                              'common works'.to_sym => catalog_account_catalog_common_works_path(@account, @catalog), \
-                                                              @common_work.title.to_sym => catalog_account_catalog_common_work_path(@account, @catalog, @common_work), \
-                                                              }, current: 'recordings'}
-                                                                 
-      
-      == render 'shared/page_title_text', locals: {title: @common_work.title, body: 'Recordings', insert: 'catalog/common_works/add_recording'}
-      /== render 'shared/page_title', locals: {blog: Blog.cached_find('Recordings'), \
-      /                                blog_post: 'Manage Recordings'}
-      
-      / bounce back to this pabe after deleting a recording
-      - session[:after_delete_recording] = request.url
-      #wrap
-      .row
-        .col-sm-12
-          .digiramp_player
-            div class="panel-group" id="accordion"
-              div class="permissions" value="catalog_common_work_recordings" id="#{@catalog.id}"
-              - @recordings.each do |recording|
-                == render 'recordings/recording', recording: recording
-                       
-                  
-                 
-            
-            /-if current_user.can_administrate @account
-            /  hr
-            /  .row
-            /    .col-sm-12
-            /      .pull-right
-            /        = link_to 'Export All to CSV', account_export_recordings_path(@account, format: "csv"), \
-            /                                      class: 'btn btn-primary btn-lg'
+
+    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+                                                            catalogs: catalog_account_catalogs_path(@account), \
+                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+                                                            'common works'.to_sym => catalog_account_catalog_common_works_path(@account, @catalog), \
+                                                            @common_work.title.to_sym => catalog_account_catalog_common_work_path(@account, @catalog, @common_work), \
+                                                            }, current: 'recordings'}
+                                                               
+    
+    == render 'shared/page_title_text', locals: {title: @common_work.title, body: 'Recordings', insert: 'catalog/common_works/add_recording'}
+    /== render 'shared/page_title', locals: {blog: Blog.cached_find('Recordings'), \
+    /                                blog_post: 'Manage Recordings'}
+    
+    / bounce back to this pabe after deleting a recording
+    - session[:after_delete_recording] = request.url
+    #wrap
+    .row
+      .col-sm-12
+        .digiramp_player
+          div class="panel-group" id="accordion"
+            div class="permissions" value="catalog_common_work_recordings" id="#{@catalog.id}"
+            - @recordings.each do |recording|
+              == render 'recordings/recording', recording: recording
+                     
+                
+               
+          
+          /-if current_user.can_administrate @account
+          /  hr
+          /  .row
+          /    .col-sm-12
+          /      .pull-right
+          /        = link_to 'Export All to CSV', account_export_recordings_path(@account, format: "csv"), \
+          /                                      class: 'btn btn-primary btn-lg'
     
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

@@ -16,40 +16,62 @@ class User::IpisController < ApplicationController
   end
   
   def new
+    @ipi          = Ipi.new
     @common_work  = CommonWork.cached_find(params[:common_work_id])
-    @ipi          = Ipi.cached_find(params[:ipi])
+    
     @ipi.title    = "Please confirm your rights on #{@common_work.title}"
     @ipi.message  = "Hi \nI would like you to confirm you share and rights on #{@common_work.title} as:\n#{@ipi.roles_as_string} \n\n--#{@user.user_name}"
     #render nothing: true
   end
   
-  def update
+  def create
     
+    @common_work = CommonWork.cached_find(params[:common_work_id])
+    @ipi = Ipi.new(ipi_params)
     
-    @ipi          = Ipi.cached_find(params[:id])
-    @common_work = CommonWork.cached_find(@ipi.common_work_id)
-    if @ipi.update(ipi_params)
-      if params[:commit] == 'Send'
-        @ipi.send_confirmation_request 
+    respond_to do |format|
+      if @ipi.save
+        format.html { redirect_to user_user_common_work_path(@user, @common_work) }
+        format.json { render :show, status: :created, location: @ipi }
       else
-        redirect_to user_user_ipi_path(@user, @ipi)
+        format.html { render :new }
+        format.json { render json: @ipi.errors, status: :unprocessable_entity }
       end
-    else
-      render :edit
     end
-
   end
+    
   
-  
-
   
   def edit
      @ipi         = Ipi.cached_find(params[:id])
      @common_work = CommonWork.cached_find(@ipi.common_work_id)
   end
   
-
+  def update
+    @ipi          = Ipi.cached_find(params[:id])
+    @common_work = CommonWork.cached_find(@ipi.common_work_id)
+    if @ipi.update(ipi_params)
+      if params[:commit] == 'Send'
+        @ipi.send_confirmation_request 
+      else
+        if params[:commit] == 'Update'
+          redirect_to user_user_common_work_path(@user, @common_work)
+        else
+          redirect_to user_user_ipi_path(@user, @ipi)
+        end
+      end
+    else
+      render :edit
+    end
+  end
   
+  def destroy
+    @ipi         = Ipi.cached_find(params[:id])
+    @ipi.destroy
+    @common_work = CommonWork.cached_find(@ipi.common_work_id)
+    redirect_to user_user_common_work_path(@user, @common_work)
+  end
+
  
 private
 

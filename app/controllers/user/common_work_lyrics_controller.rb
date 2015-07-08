@@ -28,7 +28,7 @@ class User::CommonWorkLyricsController < ApplicationController
     @common_work  = CommonWork.cached_find(params[:id])
     @common_work.update(common_work_params)
 
-    redirect_to edit_user_user_common_work_credit_path(@user, @common_work)
+    redirect_to user_user_common_work_path( @user, @common_work)
     
   end
 

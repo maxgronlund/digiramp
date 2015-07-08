@@ -1,0 +1,38 @@
+/ this view is rendered when the user and current_user and ipi is valid
+/= debug @user_credits
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'settings'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'ipis'.to_sym => user_user_ipis_path(@user) }, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 New IPI
+            .help-button
+              == render 'admin/helps/help', identifier: 'ipi credits on recording'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to user_user_common_work_path(@user, @common_work ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+      .sexy_line
+      .digi-box
+        == render 'form'
+        
+   
+  == render 'shared/site_footer'   
+  
+
+
+

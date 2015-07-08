@@ -8,7 +8,7 @@
       .pull-right
         a data-wysihtml5-action="change_view"  Html 
     
-    =f.input :lyrics, label: false, :input_html => {  style: "height: 280px;", placeholder: "Invitation message", id: 'wysihtml5_editor'}, autofocus:  true
+    =f.input :lyrics, label: false, :input_html => {  style: "height: 280px;", placeholder: "Lytics", id: 'wysihtml5_editor'}, autofocus:  true
     
     /.toolbar class="wysihtml5-toolbar"
     /  a data-wysihtml5-command="bold" Bold
@@ -28,6 +28,6 @@
   .col-sm-12
     .pull-right   
       /=> f.button :submit, 'Close', class: 'btn btn-default', id: 'done', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
-      => link_to 'Close', user_recording_path(@user, @recording), class: 'btn btn-default', data: { confirm: "Your changes will not be saved and the wizard will close. Are you sure that's what you want?"  }
+      /=> link_to 'Close', user_recording_path(@user, @recording), class: 'btn btn-default', data: { confirm: "Your changes will not be saved and the wizard will close. Are you sure that's what you want?"  }
 
       = f.submit 'Save', class: 'btn btn-primary'

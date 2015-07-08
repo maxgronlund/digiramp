@@ -10,9 +10,7 @@
   
   #page-content-wrapper
     .container-fluid
-  
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ) }, current:'' }
-      == render 'recordings/wizard_step', step: 2
+      == render 'account/recordings/shared/wizard_step', step: 2
       .row
         .col-sm-6
           .help

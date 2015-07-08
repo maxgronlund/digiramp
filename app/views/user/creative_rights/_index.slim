@@ -10,19 +10,16 @@
           thead
             tr
               th Title
-              th 
-                i.fa.fa-music
-                '&nbsp;Work 
-                .pull-right
-                  'CLEARANCE
+              th Clearance
+
               th 
                 i.fa.fa-headphones
                 '&nbsp;Master
               
               th 
                 .pull-right
-                  'CLEARANCE
-              th
+                  'Clearance
+              /th
       
           tbody
             
@@ -32,27 +29,20 @@
                   = link_to  user_user_common_work_path(@user, common_work) do
                                         .btn.btn-default.btn-xs
                                           = common_work.title
-                td
-                  = link_to edit_user_user_common_work_credit_path(@user, common_work) do
-                    .btn.btn-default.btn-xs
-                        i.fa.fa-tags
-                        =< common_work.ipis.count
-                    .pull-right
-                      .btn.btn-default.btn-xs disabled='disabled'
-                        = common_work.total_share
-                        '&nbsp;%
-                      
+                td = number_to_percentage(common_work.total_share, precision: 1) 
+
                 td
                   .master
                     table
                       - common_work.recordings.each do |recording|
                         tr
-                          td
-                            = link_to edit_user_user_recording_credit_path(@user, recording) do 
-                              .btn.btn-default.btn-xs
-                                i.fa.fa-headphones
-                                  =< recording.title
-                    
+                          td = recording.title
+                            
+                            /= link_to edit_user_user_recording_credit_path(@user, recording) do 
+                            /  .btn.btn-default.btn-xs
+                            /    i.fa.fa-headphones
+                            /      =< recording.title
+                            /
                             
                       
                    
@@ -65,11 +55,11 @@
                         '&nbsp;%
 
                     
-                td
-                  .pull-right
-                    - if common_work
-                      = link_to user_user_creative_right_path(@user, common_work), data: { confirm: 'Are you sure?' } , 
-                                                                                            turboboost: true, 
-                                                                                            :method => :delete do
-                            .btn.btn-danger.btn-xs
-                              i class="fa fa-times"
+                /td
+                /  .pull-right
+                /    - if common_work
+                /      = link_to user_user_creative_right_path(@user, common_work), data: { confirm: 'Are you sure?' } , 
+                /                                                                            turboboost: true, 
+                /                                                                            :method => :delete do
+                /            .btn.btn-danger.btn-xs
+                /              i class="fa fa-times"

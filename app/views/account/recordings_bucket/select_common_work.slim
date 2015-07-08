@@ -9,52 +9,47 @@
     /
     - blog      = Blog.cached_find('Recording Bucket')
     == render 'shared/page_title', locals: {blog: blog, blog_post: 'Select Common Work'}
-    /-cache([ Admin.cached_find(1).version, request.url, @account.works_uuid, current_user.uuid ]) do 
-    .do
-      .row
-          = form_tag select_common_work_account_account_recordings_bucket_index_path(@account), turboboost: true, :method => 'get' do
-            .col-sm-6
-              br
-              = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
-            .col-sm-6
-              br
-              = submit_tag 'Search', class: 'btn btn-primary btn-lg'
-              '&nbsp;
-              = link_to 'Show All', select_common_work_account_account_recordings_bucket_index_path(@account), class: 'btn btn-default btn-lg'
-              
-              
-          
-              
-      br
-      br
-      .row
-        .col-sm-12
-          .hidden-xs
-            == paginate(@common_works)
-          .visible-xs
+    .row
+        = form_tag select_common_work_account_account_recordings_bucket_index_path(@account), turboboost: true, :method => 'get' do
+          .col-sm-6
             br
-            .btn-group.btn-group-sm
-              = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination'
-              = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
+            = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
+          .col-sm-6
             br
-            br
-          .panel.panel-primary
-            .panel-heading
-              'Common Works
-            .panel-body
+            = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+            '&nbsp;
+            = link_to 'Show All', select_common_work_account_account_recordings_bucket_index_path(@account), class: 'btn btn-default btn-lg'
             
-              
-              == render 'common_works'
-           
-              .hidden-xs
-                == paginate(@common_works)
-              .visible-xs
-                .btn-group
-                  = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination '
-                  = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
-              
+            
+        
+            
+    br
+    br
+    .row
+      .col-sm-12
+        .hidden-xs
+          == paginate(@common_works)
+        .visible-xs
+          br
+          .btn-group.btn-group-sm
+            = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination'
+            = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
+          br
+          br
+        .panel.panel-primary
+          .panel-heading
+            'Common Works
+          .panel-body
+          
+            
+            == render 'common_works'
+         
+            .hidden-xs
+              == paginate(@common_works)
+            .visible-xs
+              .btn-group
+                = link_to_previous_page @common_works, '« Prev Page', class: 'btn btn-default mobile_pagination '
+                = link_to_next_page @common_works, 'Next Page »', class: 'btn btn-default mobile_pagination'
+            
 
   
-  /== render 'shared/back', locals: {link: account_account_path(@account)}
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'

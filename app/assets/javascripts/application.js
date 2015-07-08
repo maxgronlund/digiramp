@@ -71,9 +71,9 @@
 // require facebook
 // require bootstrapValidator.min
 // require bootstrap-tokenfield
-// require chosen-jquery
 // require jquery.tokeninput
 //= require chosen-jquery
+//= require chosen-init
 // require opengraph
 
 

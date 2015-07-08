@@ -10,7 +10,8 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
-      h2 Account  settings
+      h2 Control panel
+      
       .sexy_line
       
       .row
@@ -79,29 +80,29 @@
                     'Build you own custom pages
                   
               
-            .control-panel-badge
-              = link_to  user_user_creative_rights_path(@user) do
-                .content
-                  .icon.icon-red
-                    i.fa.fa-gavel
-                    
-                  .title
-                    h4 Creative rights
-                  .body
-                    'Manage rights for your assets
-                  
-              
-            .control-panel-badge
-              = link_to  user_user_ipis_path(@user) do
-                .content
-                  .icon.icon-green
-                    i.fa.fa-tags
-                    
-                  .title
-                    h4 IPI' & Credits
-                  .body
-                    'Manage IPI's and credits
-                  
+            /.control-panel-badge
+            /  = link_to  user_user_creative_rights_path(@user) do
+            /    .content
+            /      .icon.icon-red
+            /        i.fa.fa-gavel
+            /        
+            /      .title
+            /        h4 Creative rights
+            /      .body
+            /        'Manage rights for your assets
+            /      
+            /  
+            /.control-panel-badge
+            /  = link_to  user_user_ipis_path(@user) do
+            /    .content
+            /      .icon.icon-green
+            /        i.fa.fa-tags
+            /        
+            /      .title
+            /        h4 IPI' & Credits
+            /      .body
+            /        'Manage IPI's and credits
+            /      
             
             - if current_user.betatester  
               .control-panel-badge
@@ -137,17 +138,17 @@
                   .body
                     'Links to your social accounts will be shown on your profile page
             
-            .control-panel-badge
-              = link_to  edit_user_user_address_path(@user) do
-                .content
-                  .icon.icon-orange
-                    i.fa.fa-link
-                    
-                  .title
-                    h4 Contact info
-                  .body
-                    'Use this to update your IPI's and find people in your array
-            
+            /.control-panel-badge
+            /  = link_to  edit_user_user_address_path(@user) do
+            /    .content
+            /      .icon.icon-orange
+            /        i.fa.fa-link
+            /        
+            /      .title
+            /        h4 Contact info
+            /      .body
+            /        'Use this to update your IPI's and find people in your array
+            /
             .control-panel-badge
               = link_to  user_user_accounts_path(@user) do
                 .content
@@ -216,6 +217,17 @@
                     .body
                       'Collaboration projects you administrates
                       
+              .control-panel-badge
+                = link_to  user_user_legal_index_path(@user) do
+                  .content
+                    .icon.icon-red
+                      i.fa.fa-gavel
+                      
+                    .title
+                      h4 Legal
+                    .body
+                      'Legal informations, Rights, Splits, Licences, and more
+                      
               /.control-panel-badge
               /  = link_to  user_user_registrations_path(@user) do
               /    .content
@@ -254,28 +266,7 @@
                      = email_group.body
                 .sexy_line
 
-            /- @mail_subscribtions.each do | mail_subscribtion |
-            /  = render 'user/mail_subscribtions/mail_subscribtion', mail_subscribtion: mail_subscribtion, user: @user
-            /
-            /.add_mail_subscribtion        
-            /
-            /- if @email_groups
-            /  - @email_groups.each do | email_group |
-            /    == render 'user/mail_subscribtions/email_group', email_group: email_group, user: @user
-            /.add_email_groups
-        
-        
-          /.digi-box.pull-down-12
-          /  h4 Account settings
-          /  .sexy_line
-          /  b Show recordings as default
-          /  .pull-right
-          /    .show-recordings.toggle-light
-          /  .row
-          /    .col-sm-12.pull-down-8
-          /      'When others click on your Profile, display your catalog recordings:
-          /  .sexy_line
-          /
+
         
         .col-sm-6
           

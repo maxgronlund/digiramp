@@ -1,0 +1,93 @@
+== render 'recordings/wizard_step', step: 4
+
+
+.row
+  .col-sm-8
+    .help
+      .help-text
+        /h2 = @common_work.title
+        h2 Rights
+      .help-button
+        == render 'admin/helps/help', identifier: 'common work credits'
+        
+        
+        
+        
+        
+        
+        
+        
+  .col-sm-4
+    .pull-right
+      .pull-down-10
+        => link_to edit_user_recording_tag_path(@user, @recording) do
+          .btn.btn-default
+            i.fa.fa-chevron-left
+            '&nbsp;
+            'Back
+            
+        /= link_to edit_user_recording_social_path(@user, @recording) do
+        /= link_to user_user_common_work_path(@user, @recording.common_work) do
+        /  .btn.btn-default
+        /    'Skip
+        /    '&nbsp;
+        /    i.fa.fa-chevron-right
+        /
+        
+        
+
+.sexy_line
+h4 = @common_work.title
+
+
+
+
+
+
+
+
+
+/== render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym => user_user_control_panel_index_path(@user),
+/                                                        'creative rights'.to_sym => user_user_creative_rights_path(@user)}, current: ''}
+/
+/
+/
+/.row
+/  .col-sm-12
+/    .help
+/      .help-text
+/        h2 = @common_work.title
+/        
+/      .help-button
+/        == render 'admin/helps/help', identifier: 'common work credits'
+/  /.col-sm-6
+/  /  .pull-right.pull-down-10
+/  /    => link_to edit_user_user_common_work_path( @user, @common_work ) do
+/  /      .btn.btn-primary
+/  /        i.fa.fa-pencil
+/  /        '&nbsp;Edit
+/.sexy_line
+/.row
+/  .col-sm-6
+/    == render 'info'
+/        
+/  .col-sm-6
+/    - if @common_work.description.to_s != ''
+/      h4 Description
+/      .digi-box
+/        = @common_work.description
+/        
+/    - if @common_work.lyrics.to_s != ''
+/      = link_to show_lyric_path(@common_work.id, work: true), remote: true do
+/        .btn.btn-default
+/          i.fa.fa-eye
+/          '&nbsp;Show lyrics
+/      div class="lyrics-dialog-#{@common_work.id.to_s}"
+        
+      /h4 
+      /  a aria-controls="collapseExample" aria-expanded="false" data-toggle="collapse" href="#collapseExample" 
+      /    | Show lyrics
+      /
+      /#collapseExample.collapse
+      /  .digi-box
+      /    = simple_format @common_work.lyrics

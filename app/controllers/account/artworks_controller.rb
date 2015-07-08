@@ -18,19 +18,20 @@ class Account::ArtworksController < ApplicationController
 
   # GET /artworks/new
   def new
-    forbidden unless current_account_user.create_artwork
+    forbidden unless current_account_user && current_account_user.create_artwork
     @artwork = Artwork.new
   end
 
   # GET /artworks/1/edit
   def edit
+    forbidden unless current_account_user && current_account_user.update_artwork
   end
 
   # POST /artworks
   # POST /artworks.json
   def create
     #forbidden unless current_catalog_user.create_artwork
-    forbidden unless current_account_user.create_artwork
+    forbidden unless current_account_user && current_account_user.create_artwork
     artworks = TransloaditImageParser.artwork( params[:transloadit], @account.id)
 
     redirect_to  account_account_artworks_path(@account)
@@ -40,6 +41,7 @@ class Account::ArtworksController < ApplicationController
   # PATCH/PUT /artworks/1
   # PATCH/PUT /artworks/1.json
   def update
+    forbidden unless current_account_user && current_account_user.update_artwork
     respond_to do |format|
       if @artwork.update(artwork_params)
         format.html { redirect_to @artwork, notice: 'Artwork was successfully updated.' }
@@ -54,6 +56,7 @@ class Account::ArtworksController < ApplicationController
   # DELETE /artworks/1
   # DELETE /artworks/1.json
   def destroy
+    forbidden unless current_account_user && current_account_user.delete_artwork
     @artwork.destroy
     respond_to do |format|
       format.html { redirect_to artworks_url }

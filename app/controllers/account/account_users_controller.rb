@@ -5,7 +5,7 @@ class Account::AccountUsersController < ApplicationController
 
 
   def index
-    forbidden unless super? || current_account_user.read_user
+    forbidden unless current_account_user && current_account_user.read_user
     
     @user       = current_user
     #@authorized = true
@@ -24,7 +24,7 @@ class Account::AccountUsersController < ApplicationController
   
   def new
     
-    forbidden unless super? || current_account_user.createx_user
+    forbidden unless current_account_user.createx_user
     
     @account_user = @account.account_users.new( role: "Associate", 
                                                 invitation_title: "You have been invited to a DigiRAMP Account by #{current_user.name}",
@@ -38,7 +38,7 @@ class Account::AccountUsersController < ApplicationController
   
   def create_user
 
-    forbidden unless super? || current_account_user.createx_user
+    forbidden unless current_account_user.createx_user
     
     activated = params[:account_user][:role] == 'Client' ? false : true
     # make a temporary password
@@ -57,7 +57,7 @@ class Account::AccountUsersController < ApplicationController
   
   # create an account user and send an invitation email
   def create
-    forbidden unless super? || current_account_user.createx_user
+    forbidden unless current_account_user.createx_user
     
     sanitized_email = EmailSanitizer.saintize params[:account_user][:email]
 
@@ -138,7 +138,7 @@ class Account::AccountUsersController < ApplicationController
   
 
   def edit
-    forbidden unless super? || current_account_user.update_user
+    forbidden unless current_account_user && current_account_user.update_user
     @account_user = AccountUser.cached_find(params[:id])
     @user         = current_user
   end

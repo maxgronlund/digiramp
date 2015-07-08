@@ -9,7 +9,7 @@
       .product-category
         = product.category.gsub('-', ' ').capitalize
 
-      - if product.category == 'physical-product'
+      - if product.category == 'physical-product' && product.units_on_stock.to_i < 99
         .units-on-stock
           'Units on stock:&nbsp#{product.units_on_stock}
 

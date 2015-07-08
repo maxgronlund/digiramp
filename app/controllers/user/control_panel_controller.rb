@@ -6,5 +6,6 @@ class User::ControlPanelController < ApplicationController
   
   
   def index
+    @email_groups = EmailGroup.all
   end
 end

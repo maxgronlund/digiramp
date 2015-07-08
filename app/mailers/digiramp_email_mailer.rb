@@ -55,6 +55,10 @@ class DigirampEmailMailer < ApplicationMailer
   
   def opportunity_created users, digiramp_email_id
     
+    #error_msg("DigirampEmail:85:#{digiramp_email_id}")
+    #    unless digiramp_email   = DigirampEmail.cached_find(digiramp_email_id)
+          
+          
     if digiramp_email           = DigirampEmail.cached_find(digiramp_email_id)
       if opportunity            = Opportunity.cached_find(digiramp_email.opportunity_id)
         opportunity_link        = url_for( controller: '/public_opportunities', action: 'show', id: opportunity.id)
@@ -62,23 +66,22 @@ class DigirampEmailMailer < ApplicationMailer
         merge_vars              = []
         link                    = url_for unsubscribes_path(uuid: digiramp_email.email_group.uuid)
         unsibscribe_link        = (URI.parse(root_url) + link).to_s
-    
-        
+
         users.each do |user|
           begin
-            if user && email = EmailSanitizer.saintize( user.email )
-              receipients_with_names  << {email: email, name: user.user_name}
+            if email = EmailSanitizer.saintize( user.email )
+              receipients_with_names  << { email: email, name: user.user_name}
               merge_vars              << { rcpt: email,
-                                           vars: [ {name: "USER_NAME",              content: user.user_name},
-                                                   {name: "OPPORTUNITY_TITLE",      content: opportunity.title},
-                                                   {name: "OPPORTUNITY_BODY",       content: opportunity.body},
-                                                   {name: "OPPORTUNITY_LINK",       content: opportunity_link},
-                                                   {name: "UNSUBSCRIBE_LINK",           content: unsibscribe_link}
+                                           vars: [ {name: "USER_NAME",              content:     user.user_name},
+                                                   {name: "OPPORTUNITY_TITLE",      content:     opportunity.title},
+                                                   {name: "OPPORTUNITY_BODY",       content:     opportunity.body},
+                                                   {name: "OPPORTUNITY_LINK",       content:     opportunity_link},
+                                                   {name: "UNSUBSCRIBE_LINK",       content:     unsibscribe_link}
                                                  ]
                               }
             end
-          rescue
-            Opbeat.capture_message( "#{user.email} : #{user.user_name}" )
+          rescue => e
+            Opbeat.capture_message( "DigirampEmailMailer#opportunity_created #{opportunity.id}" )
           end
         end
       end

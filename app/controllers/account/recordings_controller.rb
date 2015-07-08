@@ -12,7 +12,7 @@ class Account::RecordingsController < ApplicationController
                                       ]
   
   def index
-    forbidden unless super? || current_account_user.read_recording?
+    forbidden unless current_account_user && current_account_user.read_recording?
     @recordings     = Recording.not_in_bucket.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(48)
     @show_more      = true
     @user           = current_user
@@ -20,7 +20,7 @@ class Account::RecordingsController < ApplicationController
 
   def show
     
-    forbidden unless super? || current_account_user.read_recording
+    forbidden unless current_account_user && current_account_user.read_recording
     @user           = current_user
     begin
       
@@ -39,7 +39,7 @@ class Account::RecordingsController < ApplicationController
   end
   
   def edit
-    forbidden unless super? || current_account_user.update_recording?
+    forbidden unless current_account_user && current_account_user.update_recording?
     @user           = current_user
     #@common_work    = CommonWork.find(params[:common_work_id])
     @recording              = Recording.find(params[:id])
@@ -55,7 +55,7 @@ class Account::RecordingsController < ApplicationController
   end
   
   def new
-    forbidden unless super? || current_account_user.create_recording?
+    forbidden unless current_account_user && current_account_user.create_recording?
     @user           = current_user
     #@common_work    = CommonWork.cached_find(params[:common_work_id])
     @recording      = Recording.new
@@ -64,7 +64,7 @@ class Account::RecordingsController < ApplicationController
   def create
     
 
-    forbidden unless super? || current_account_user.create_recording?
+    forbidden unless current_account_user && current_account_user.create_recording?
 
     result = TransloaditRecordingsParser.parse( params[:transloadit],  @account.id, false, @account.user_id)
     title = params[:recording][:title]
@@ -111,7 +111,7 @@ class Account::RecordingsController < ApplicationController
   end
   
   def update
-    forbidden unless super? || current_account_user.update_recording?
+    forbidden unless current_account_user && current_account_user.update_recording?
     #@common_work    = CommonWork.find(params[:common_work_id])
     @recording      = Recording.find(params[:id])
     
@@ -188,7 +188,7 @@ class Account::RecordingsController < ApplicationController
 
   
   def destroy
-    forbidden unless super? || current_account_user.delete_recording?
+    forbidden unless current_account_user && current_account_user.delete_recording?
     if @recording  = Recording.cached_find(params[:id])
       common_work = @recording.common_work
       
@@ -200,7 +200,14 @@ class Account::RecordingsController < ApplicationController
                            
                            
                            
-      @recording.destroy!
+      #@recording.destroy!
+      @recording.user_id    = User.system_user
+      @recording.account_id = User.system_user.account_id
+      @recording.privacy    = 'Only me'
+      @recording.remove_from_collections
+      @recording.save(validate: false)
+      
+      
       common_work.update_completeness if common_work
     end
     # jump back to recordings or common work

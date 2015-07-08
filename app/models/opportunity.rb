@@ -1,4 +1,5 @@
 class Opportunity < ActiveRecord::Base
+  has_paper_trail
   include PublicActivity::Common
   has_many  :opportunity_invitations
   has_many  :music_requests, dependent: :destroy

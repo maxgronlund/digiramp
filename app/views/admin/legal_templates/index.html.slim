@@ -1,0 +1,68 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path,
+                                                              content: admin_content_index_path}, current: ''}
+      == render 'admin/shared/messages'
+      .row
+        .col-sm-8
+          h3 Templates for legal documents
+        .col-sm-4
+          .pull-right.pull-down-10
+            = link_to '#' do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+      .sexy_line
+
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th
+                th Title/ Description
+            tbody
+              - @documents.each do |document|
+                tr
+                  td style="min-width: 100px"
+                    => link_to admin_legal_template_path(document), 
+                          data: {:confirm => 'Are you sure?'}, 
+                          turboboost: true, 
+                          :method => :delete do
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+                        
+                    => link_to admin_legal_template_path(document, :format => 'pdf') do 
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-file-pdf-o
+                      
+                    => link_to edit_admin_legal_template_path( document) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                        
+                  td  
+                    b = simple_format  document.title
+                    br = simple_format document.body
+
+          
+          
+          
+          
+            
+          
+
+  == render 'shared/site_footer'    
+ 
+
+
+  

@@ -1,5 +1,6 @@
 create a polymopphic association
 rails g scaffold issue_events title data:text subject:references{polymorphic}
+rails g model document_user document:belongs_to user:references{polymorphic}
 
 -------------
 Associations

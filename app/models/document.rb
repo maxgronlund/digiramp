@@ -1,13 +1,19 @@
 class Document < ActiveRecord::Base
+  
+  validates :title, :body, :text_content, presence: true
+  
   belongs_to :account
   has_and_belongs_to_many :catalogs
   
-  TYPES = ['File', 'Financial', 'Legal']
+  has_many :document_users
   
-  scope :files,     ->  { where( document_type: 'File')  }
-  scope :financial, ->  { where( document_type: 'Financial')  }
-  scope :legal,     ->  { where( document_type: 'Legal')  }
-  scope :csv,       ->  { where( document_type: 'Csv')  }
+  TYPES = ['File', 'Financial', 'Legal', 'Template']
+  
+  scope :files,      ->  { where( document_type: 'File')  }
+  scope :financial,  ->  { where( document_type: 'Financial')  }
+  scope :templates,  ->  { where( document_type: 'Template')  }
+  scope :legal,      ->  { where( document_type: 'Legal')  }
+  scope :csv,        ->  { where( document_type: 'Csv')  }
 
   after_commit :flush_cache
 

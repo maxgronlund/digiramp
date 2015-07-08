@@ -254,7 +254,7 @@ class AccountUser < ActiveRecord::Base
     #self.read_opportunity   = account.read_opportunities
     #self.update_opportunity = account.create_opportunities
     #self.delete_opportunity = account.create_opportunities
-
+    self.access_account      =  true
     begin
       self.save!
       

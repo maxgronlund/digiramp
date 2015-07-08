@@ -18,32 +18,75 @@
       .row
         .col-sm-8
           h2 Select product type
-        /.col-sm-4
-        /  .pull-down-10.pull-right
-        /    = link_to 'New Product', new_user_user_product_path(@user), class: 'btn btn-primary', id: 'new-product'
-      .sexy_line 
-      .row
-        = link_to new_user_user_product_path(@user, category: 'physical-product') , id: 'new-physical-product'
-          .col-sm-6
-            .digi-box
-              'New physical product
-              
-        = link_to new_user_user_product_path(@user, category: 'download') , id: 'new-download-product'
-          .col-sm-6
-            .digi-box
-              'New download product
-      
-      .row
-        = link_to new_user_user_product_path(@user, category: 'service') , id: 'new-servic-product'
-          .col-sm-6
-            .digi-box
-              'New service
-              
-        = link_to new_user_user_product_path(@user, category: 'streaming') , id: 'new-streaming-product'
-          .col-sm-6
-            .digi-box
-              'New streaming service
-      
+        .col-sm-4
+          .pull-down-10.pull-right
+            = link_to 'Edit language', admin_blog_path(@blog), class: 'btn btn-default', id: 'edit-language'
+      .sexy_line
+      .digi-box 
+        
+        .row
+          = link_to new_user_user_product_path(@user, category: 'recording') , id: 'new-recording-download'
+            .col-sm-6
+              .panel.panel-default
+                .panel-body
+                  h4 = @recording_product.title
+                  = simple_format @recording_product.body
+                  .pull-right
+                    .btn.btn-default
+                      'Create
+                
+          = link_to new_user_user_product_path(@user, category: 'playlist') , id: 'new-playlist-download'
+            .col-sm-6
+              .panel.panel-default
+                .panel-body
+                  h4 = @playlist_product.title
+                  = simple_format @playlist_product.body
+                  .pull-right
+                    .btn.btn-default
+                      'Create
+                      
+        .row
+          = link_to new_user_user_product_path(@user, category: 'physical-product') , id: 'new-physical-product'
+            .col-sm-6
+              .panel.panel-default
+                .panel-body
+                  h4 = @physical_product.title
+                  = simple_format @physical_product.body
+                  .pull-right
+                    .btn.btn-default
+                      'Create
+                
+          = link_to new_user_user_product_path(@user, category: 'download') , id: 'new-download-product'
+            .col-sm-6
+              .panel.panel-default
+                .panel-body
+                  h4 = @download_product.title
+                  = simple_format @download_product.body
+                  .pull-right
+                    .btn.btn-default
+                      'Create
+        
+        .row
+          = link_to new_user_user_product_path(@user, category: 'service') , id: 'new-servic-product'
+            .col-sm-6
+              .panel.panel-default
+                .panel-body
+                  h4 = @service_product.title
+                  = simple_format @service_product.body
+                  .pull-right
+                    .btn.btn-default
+                      'Create
+                
+          = link_to new_user_user_product_path(@user, category: 'streaming') , id: 'new-streaming-product'
+            .col-sm-6
+              .panel.panel-default
+                .panel-body
+                  h4 = @streaming_product.title
+                  = simple_format @streaming_product.body
+                  .pull-right
+                    .btn.btn-default
+                      'Create
+        
       /.row
       /  = link_to new_user_user_product_path(@user, product_type: 'coupon) , id: 'new-coupon-product'
       /    .col-sm-6

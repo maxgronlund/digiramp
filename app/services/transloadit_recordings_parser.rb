@@ -162,8 +162,9 @@ class TransloaditRecordingsParser
             recording.update_completeness
           end
           recordings << recording
-        rescue
+        rescue => e
           errors << "!Unable to import: #{transloaded[:name]}"
+          errors << "<br/>#{e}"
         end
       
       
@@ -194,23 +195,24 @@ class TransloaditRecordingsParser
 
   def self.extract_title_from transloaded
     title = transloaded[:title].to_s
-    title = transloaded[:original_name]   if title.to_s == ''
+    title = transloaded[:original_file_name]  if title.blank?
     sanitize_title( title )
   end
   
   def self.sanitize_title title
     title.gsub(/(^\d{2}\s)/, '').gsub( '.mp3', '').gsub( '.MP3', '')
-    File.basename(title, ".*") 
+    title = File.basename(title, ".*")
+    URI.decode(title) unless title.blank?
   end
   
   def self.sanitize_comment comment
-    comment.to_s.include?('iTun') ? '' : comment
+    comments = comment.to_s.include?('iTun') ? '' : comment
+    URI.decode(comments) unless comments.blank?
   end
   
   def self.sanitize_lyrics lyrics
     lyrics = URI.unescape(lyrics)
     lyrics.to_s.gsub('/', '<br/>') 
-    
   end
   
   def self.write_recording recording, transloadet

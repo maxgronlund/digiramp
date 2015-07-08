@@ -20,15 +20,15 @@ class IpiMailer < ApplicationMailer
   #   en.ipi.confirm_common_work.subject
   #
   def common_work_ipi_confirmation_email ipi_id
-    ipi          = Ipi.cached_find(ipi_id)
-    email        =  ipi.email
-    link         = url_for( controller: 'confirmation/ipi_confirmations', action: 'show', id: ipi.uuid )
-    subject      = "You are mentioned as an IPI on DigiRAMP"
-    title        = "Confirm IPI"
-    body         = "You have been mentioned as an IP on DigiRAMP Please confirm"
-    common_work  = ipi.common_work
-    account      = common_work.account
-    user         = account.user
+    return ipi          = Ipi.cached_find(ipi_id)
+    return email        = ipi.email
+    return link         = url_for( controller: 'confirmation/ipi_confirmations', action: 'show', id: ipi.uuid )
+    return subject      = "You are mentioned as an IPI on DigiRAMP"
+    return title        = "Confirm IPI"
+    return body         = "You have been mentioned as an IP on DigiRAMP Please confirm"
+    return common_work  = ipi.common_work
+    return account      = common_work.account
+    return user         = account.user
     
 
     begin
@@ -42,7 +42,7 @@ class IpiMailer < ApplicationMailer
         track_clicks: true,
         track_opens: true,
         subaccount: user.mandrill_account_id,
-        recipient_metadata: [{rcpt: email, values: {coupon_batch_id: coupon_batch_id}}],
+        recipient_metadata: [{rcpt: email, values: {ipi_id: ipi_id}}],
         merge_vars: [
           {
            rcpt: email,
@@ -58,18 +58,10 @@ class IpiMailer < ApplicationMailer
     rescue Mandrill::Error => e
       Opbeat.capture_message("#{e.class} - #{e.message}")
     end
-    
-    
- 
-    
-    mail to: @ipi.email, subject: @ipi.title
+
   end
   
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.ipi.confirm_common_work.subject
-  #
+
   def common_work_ipi_confirmation_email_to_non_member ipi_id
     #@greeting = "Hi"
     #

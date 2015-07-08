@@ -81,6 +81,7 @@ class Recording < ActiveRecord::Base
   belongs_to :common_work
   belongs_to :import_batch
   belongs_to :user
+  has_many :products, class_name: "Shop::Product"
   
   has_many :comments,        as: :commentable,          dependent: :destroy
   has_many :share_on_facebooks
@@ -98,49 +99,62 @@ class Recording < ActiveRecord::Base
   has_many :image_files,                                dependent: :destroy
   has_many :recording_items,                            dependent: :destroy
   has_many :recording_ipis,                             dependent: :destroy
-  accepts_nested_attributes_for :recording_ipis, :reject_if => :all_blank, :allow_destroy => true
+  #accepts_nested_attributes_for :recording_ipis, :reject_if => :all_blank, :allow_destroy => true
   has_many :playbacks,                                  dependent: :destroy
   has_many :recording_views,                            dependent: :destroy
   has_many :likes,                                      dependent: :destroy
-  #has_and_belongs_to_many :recordings,                  dependent: :destroy
-  
-  #before_save :update_uuids
+
+  before_save :uniqify_fields
   after_commit :flush_cache
+  after_create :notify_followers
   before_destroy :remove_from_collections
   #before_create :check_default_image
   #before_save :check_default_image
 
   
   # owners followers gets a new post on their dashboard
-  has_many      :follower_events, as: :postable,    dependent: :destroy
+  has_many :follower_events, as: :postable,    dependent: :destroy
 
   has_many :playlists_recordings
   has_many :catalogs, :through => :playlists_recordings
   
 
-  before_save :uniqify_fields
+  
+  
+  def stakes
+    stks =  Stake.where( asset_id: self.id,             asset_type: 'Recording' )
+    stks += Stake.where( asset_id: self.common_work_id, asset_type: 'CommonWork')
+  end
+  
+  def validate_splits
+    #total = 0.0
+    #self.stakes.each do |stake|
+    #  total += stake.split_in_percent
+    #end
+    #return total == 1.0
+  end
+
+  def clear_rights
+    #RecordingStakeholdersService.assign_recording_stakes( recording_id: self.id,  account_id: self.account.id  )
+    #self.update(pre_cleared: validate_splits)
+    #self.save
+  end
   
   def uniqify_fields
     self.uniq_title              = self.title.to_uniq
     begin
-      self.uniq_position           = self.position.to_uniq
+      self.uniq_position         = self.position.to_uniq
     rescue
     end
     self.uniq_playbacks_count    = self.playbacks_count.to_uniq
     self.uniq_likes_count        = self.likes_count.to_uniq
   end
   
-  after_create :notify_followers
   
   
   def notify_followers
-    
     FollowerMailer.delay_for(10.minutes).recording_uploaded( self.id )
-    #.delay_for(1.day)
   end
-  
-  
-
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
   TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
@@ -218,7 +232,10 @@ class Recording < ActiveRecord::Base
   
   def user_credits
     begin
-      self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, ipiable_type: 'RecordingIpi', show_credit_on_recordings: true, confirmation: "Accepted")
+      self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, 
+                                                       ipiable_type: 'RecordingIpi', 
+                                                       show_credit_on_recordings: true, 
+                                                       confirmation: "Accepted")
     rescue
     end
   end
@@ -455,34 +472,61 @@ class Recording < ActiveRecord::Base
   # add this to environment variables
   # read from yaml file
   def download_url(style = nil, expires_in = 90.minutes)
-    self.mp3
-    #begin
-    #  ap Rails.application.secrets.aws_s3_bucket
-    #  #Aws.config(access_key_id: Rails.application.secrets.s3_key_id,  secret_access_key: Rails.application.secrets.s3_access_key ) 
-    #  #s3 = Aws::S3::Client.new
-    #  s3 = Aws::S3::Resource.new
-    #  
-    #  #ap s3.operation_names
-    #  #ap s3.list_buckets
-    #  
-    #  bucket = s3.bucket(Rails.application.secrets.aws_s3_bucket)
-    #  ap bucket
-    #  
-    #  #ap s3.list_buckets
-    #  
-    #  #bucket = s3.bucket(bucket: Rails.application.secrets.aws_s3_bucket) 
-    #  #ap bucket
-    #  #bucket = s3.bucket(Rails.application.secrets.aws_s3_bucket) # makes no request
-    #  #if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
-    #  #  bucket.objects[self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')].url_for(:read, :secure => true, :expires => expires_in)
-    #  #else
-    #  #  bucket.objects[self.mp3.gsub('https://digiramp.s3.amazonaws.com/', '')].url_for(:read, :secure => true, :expires => expires_in)
-    #  #end
-    #rescue Aws::S3::Errors => e
-    #  ap 'autch'
-    #  ap e.inspect
-    #end
+    
+    s3 = Aws::S3::Resource.new
+
+    secure_url = self.mp3
+    
+    unless Rails.env.test?
+      begin
+        if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
+          secure_url = self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')
+        else
+          secure_url = self.mp3.gsub('https://digiramp.s3.amazonaws.com/', '')
+        end
+        
+        bucket      = s3.bucket(Rails.application.secrets.aws_s3_bucket)
+        s3_obj      = bucket.object(secure_url)
+        secure_url  = s3_obj.presigned_url(:get, expires_in: 600)
+      rescue => e
+        
+        ap '================== autch snap =========================='
+        ap e.inspect
+        secure_url = self.mp3
+      end
+    end
+    secure_url
   end
+  
+  # example from http://docs.aws.amazon.com/sdkforruby/api/index.html
+  def download_url2
+    s3 = Aws::S3::Resource.new
+    secure_url = self.mp3
+    
+    begin
+      if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
+        secure_url = self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')
+      else
+        secure_url = self.mp3.gsub('https://digiramp.s3.amazonaws.com/', '')
+      end
+      bucket      = s3.bucket(Rails.application.secrets.aws_s3_bucket)
+      s3_obj      =  bucket.object(secure_url)
+      filename    = self.title.downcase.gsub(' ', '-') + '.mp3'
+      secure_url  = s3_obj.presigned_url(:get, expires_in: 600,response_content_disposition: "attachment; filename='#{filename}'")
+    rescue => e
+      ap e.inspect
+      secure_url = self.mp3
+    end
+    secure_url
+  end
+  
+  #def self.purchased_rec_url recording_download_uuid
+  #  if recording_download = RecordingDownload.find_by(uuid: recording_download_uuid)
+  #    recording = Recording.find(recording_download.recording_id)
+  #    return recording.download_url2
+  #  end
+  #  
+  #end
   
   def widget_snippet widget_url
     "<iframe width='100%' height='166' src='#{widget_url}' frameborder='0' allowfullscreen></iframe>"
@@ -563,6 +607,17 @@ class Recording < ActiveRecord::Base
     end
     
   end 
+  
+  def remove_from_collections
+    update_uuids
+    remove_from_catalogs
+    remove_from_albums
+    count_stats_down
+    remove_from_submissions
+    remove_from_playlists
+    remove_share_on_facebooks
+    remove_from_follower_events
+  end
 
 private
   #def update_counter_cache
@@ -577,6 +632,7 @@ private
   end
   
   def flush_cache
+
     Rails.cache.delete([self.class.name, id])
   end
   
@@ -587,15 +643,7 @@ private
   end
   
   
-  def remove_from_collections
-    update_uuids
-    remove_from_catalogs
-    remove_from_albums
-    count_stats_down
-    remove_from_submissions
-    remove_from_playlists
-    remove_share_on_facebooks
-  end
+  
   
   
   
@@ -636,6 +684,12 @@ private
   
   def remove_from_playlists
     PlaylistRecordings.where(recording_id: self.id).destroy_all
+  end
+  
+  def remove_from_follower_events
+    if followed_events = FollowerEvent.where(postable_type: 'Recording', postable_id: self.id)
+      followed_events.destroy_all
+    end
   end
   
   

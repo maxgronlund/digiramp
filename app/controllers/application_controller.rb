@@ -52,15 +52,36 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_account
   
+  # update within a month 02/06/2015
   def current_account_user
-    @current_account_user ||= AccountUser.cached_where( current_account.id, current_user.id)
+    get_account_user
+    #@current_account_user ||= get_account_user
   end
   helper_method :current_account_user
   
+  
+  # update within a month 02/06/2015
   def current_catalog_user
-    @catalog_users ||= @catalog.catalog_users.find_by(user_id: current_user.id )
+    #@catalog_users ||= get_catalog_user
+    get_catalog_user
   end
   helper_method :current_catalog_user 
+  
+  def get_account_user
+    if super? 
+      AccountUser.find_by(id: current_user.super_account_user_id)
+    else 
+      AccountUser.cached_where( current_account.id, current_user.id)
+    end
+  end
+  
+  def get_catalog_user
+    if super? 
+      CatalogUser.find_by(id: current_user.super_catalog_user_id)
+    else 
+      @catalog.catalog_users.find_by(user_id: current_user.id )
+    end
+  end
   
   def super?
     @super ||= current_user && current_user.super?

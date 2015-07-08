@@ -35,27 +35,36 @@
                   = link_to 'Clear', admin_blogs_path, class: 'btn btn-default'           
       .sexy_line
       .digi-box
-        - @blogs.order(:title).each do |blog|
-          .row
-            .col-sm-6
-              =link_to blog.title, admin_blog_path(blog), class: "btn btn-default btn-xs"
-
-            .col-sm-2
-               = blog.blog_posts.count
-            .col-sm-4
-              .pull-right
-                => link_to admin_blog_path(blog) do
-                  .btn.btn-default.btn-xs
-                    i class='fa fa-eye'
-
-                => link_to edit_admin_blog_path(blog) do
-                  .btn.btn-default.btn-xs
-                    i class='fa fa-pencil'
-
-                = link_to  admin_blog_path(blog, page: params[:page]), data: { confirm: 'Are you sure?' },turboboost: true , :method => :delete do
-                  .btn.btn-danger.btn-xs
-                    i class="fa fa-times"
-          .sexy_line
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Identifier
+                th Posts
+                th 
+                
+            tbody
+            
+              - @blogs.order(:title).each do |blog|
+                tr
+                  td =link_to blog.title, admin_blog_path(blog), class: "btn btn-default btn-xs"
+                  td = blog.identifier
+                  td = blog.blog_posts.count
+                  td
+                    .pull-right
+                      => link_to admin_blog_path(blog) do
+                        .btn.btn-default.btn-xs
+                          i class='fa fa-eye'
+              
+                      => link_to edit_admin_blog_path(blog) do
+                        .btn.btn-default.btn-xs
+                          i class='fa fa-pencil'
+              
+                      = link_to  admin_blog_path(blog, page: params[:page]), data: { confirm: 'Are you sure?' },turboboost: true , :method => :delete do
+                        .btn.btn-danger.btn-xs
+                          i class="fa fa-times"
+          
                
         .row            
           .col-sm-12

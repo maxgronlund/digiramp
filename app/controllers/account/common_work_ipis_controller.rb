@@ -12,7 +12,7 @@ class Account::CommonWorkIpisController < ApplicationController
                                         
                                         
   def index
-    forbidden unless super? || current_account_user.read_common_work_ipi?
+    forbidden unless current_account_user && current_account_user.read_common_work_ipi?
    
   end
 
@@ -20,18 +20,18 @@ class Account::CommonWorkIpisController < ApplicationController
   end
   
   def new
-    forbidden unless super? || current_account_user.update_common_work_ipi?
+    forbidden unless current_account_user && current_account_user.update_common_work_ipi?
     @common_work_ip = Ipi.new
   end
   
   def create
-    forbidden unless super? || current_account_user.create_common_work_ipi?
+    forbidden unless current_account_user && current_account_user.create_common_work_ipi?
     @ipi = Ipi.create(ipi_params)
     redirect_to account_account_common_work_common_work_ipis_path(@account, @common_work)
   end
   
   def update
-    forbidden unless super? || current_account_user.update_common_work_ipi?
+    forbidden unless current_account_user && current_account_user.update_common_work_ipi?
     @ipi = Ipi.cached_find(params[:id])
     @ipi.update_attributes(ipi_params)
     redirect_to account_account_common_work_common_work_ipis_path(@account, @common_work)
@@ -40,7 +40,7 @@ class Account::CommonWorkIpisController < ApplicationController
   
 
   def edit
-    forbidden unless super? || current_account_user.update_common_work_ipi?
+    forbidden unless current_account_user && current_account_user.update_common_work_ipi?
     @common_work_ip     = Ipi.cached_find(params[:id])
     @common_work_ip
     #redirect_to edit_catalog_account_catalog_common_work_common_work_ipi_path(@account, @catalog, @common_work, @common_work_ip)

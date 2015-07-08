@@ -12,6 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 
+
 ActiveRecord::Schema.define(version: 20150621172700) do
 
 
@@ -1339,6 +1340,28 @@ ActiveRecord::Schema.define(version: 20150621172700) do
   add_index "digiramp_emails", ["email_group_id"], name: "index_digiramp_emails_on_email_group_id", using: :btree
   add_index "digiramp_emails", ["opportunity_id"], name: "index_digiramp_emails_on_opportunity_id", using: :btree
 
+  create_table "digital_signatures", force: :cascade do |t|
+    t.string   "uuid"
+    t.boolean  "hidden",     default: false
+    t.integer  "user_id"
+    t.string   "image"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "digital_signatures", ["user_id"], name: "index_digital_signatures_on_user_id", using: :btree
+
+  create_table "document_users", force: :cascade do |t|
+    t.integer  "document_id"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "document_users", ["document_id"], name: "index_document_users_on_document_id", using: :btree
+  add_index "document_users", ["user_type", "user_id"], name: "index_document_users_on_user_type_and_user_id", using: :btree
+
   create_table "documents", force: :cascade do |t|
     t.string   "title",         limit: 255
     t.string   "document_type", limit: 255
@@ -2468,6 +2491,22 @@ ActiveRecord::Schema.define(version: 20150621172700) do
     t.datetime "updated_at"
   end
 
+  create_table "recording_downloads", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "recording_id"
+    t.integer  "downloads"
+    t.string   "uuid"
+    t.integer  "shop_order_item_id"
+    t.integer  "shop_product_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "recording_downloads", ["recording_id"], name: "index_recording_downloads_on_recording_id", using: :btree
+  add_index "recording_downloads", ["shop_order_item_id"], name: "index_recording_downloads_on_shop_order_item_id", using: :btree
+  add_index "recording_downloads", ["shop_product_id"], name: "index_recording_downloads_on_shop_product_id", using: :btree
+  add_index "recording_downloads", ["user_id"], name: "index_recording_downloads_on_user_id", using: :btree
+
   create_table "recording_ipis", force: :cascade do |t|
     t.string   "role",                     limit: 255
     t.string   "name",                     limit: 255
@@ -2488,8 +2527,10 @@ ActiveRecord::Schema.define(version: 20150621172700) do
     t.string   "uuid",                     limit: 255, default: ""
     t.text     "address",                              default: ""
     t.string   "phone_number",             limit: 255, default: ""
+    t.integer  "account_id"
   end
 
+  add_index "recording_ipis", ["account_id"], name: "index_recording_ipis_on_account_id", using: :btree
   add_index "recording_ipis", ["recording_id"], name: "index_recording_ipis_on_recording_id", using: :btree
   add_index "recording_ipis", ["user_id"], name: "index_recording_ipis_on_user_id", using: :btree
 
@@ -2597,6 +2638,8 @@ ActiveRecord::Schema.define(version: 20150621172700) do
     t.string   "default_cover_art",    limit: 255, default: ""
     t.text     "sounds_like",                      default: ""
     t.string   "uniq_position"
+    t.boolean  "all_ipis_confirmed",               default: false
+    t.boolean  "pre_cleared",                      default: false
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -2659,6 +2702,18 @@ ActiveRecord::Schema.define(version: 20150621172700) do
   add_index "replies", ["qoute_id"], name: "index_replies_on_qoute_id", using: :btree
   add_index "replies", ["replyable_id", "replyable_type"], name: "index_replies_on_replyable_id_and_replyable_type", using: :btree
   add_index "replies", ["user_id"], name: "index_replies_on_user_id", using: :btree
+
+  create_table "representative_splits", force: :cascade do |t|
+    t.integer  "work_split"
+    t.integer  "recording_split"
+    t.integer  "account_id"
+    t.integer  "common_work_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "representative_splits", ["account_id"], name: "index_representative_splits_on_account_id", using: :btree
+  add_index "representative_splits", ["common_work_id"], name: "index_representative_splits_on_common_work_id", using: :btree
 
   create_table "representatives", force: :cascade do |t|
     t.integer  "user_id"
@@ -2849,20 +2904,34 @@ ActiveRecord::Schema.define(version: 20150621172700) do
     t.integer  "account_id"
     t.string   "download_link"
     t.boolean  "for_sale"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
     t.string   "category"
-    t.integer  "units_on_stock"
+    t.integer  "units_on_stock",             default: 0
     t.string   "exclusive_offered_to_email"
     t.string   "uuid"
     t.boolean  "show_in_shop",               default: false
     t.integer  "productable_id"
     t.string   "productable_type"
     t.integer  "views",                      default: 0
+    t.string   "delivery_time",              default: "Two to four days"
+    t.integer  "shipping_cost"
+    t.text     "disclaimer",                 default: ""
+    t.text     "tems_of_usage",              default: ""
+    t.integer  "vat",                        default: 0
+    t.boolean  "vat_included",               default: true
+    t.string   "sub_category",               default: ""
+    t.string   "zip_file"
+    t.integer  "recording_id"
+    t.integer  "playlist_id"
+    t.string   "content_type"
+    t.integer  "file_size"
   end
 
   add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
+  add_index "shop_products", ["playlist_id"], name: "index_shop_products_on_playlist_id", using: :btree
   add_index "shop_products", ["productable_type", "productable_id"], name: "index_shop_products_on_productable_type_and_productable_id", using: :btree
+  add_index "shop_products", ["recording_id"], name: "index_shop_products_on_recording_id", using: :btree
   add_index "shop_products", ["user_id"], name: "index_shop_products_on_user_id", using: :btree
 
   create_table "shop_stripe_transfers", force: :cascade do |t|
@@ -2895,6 +2964,25 @@ ActiveRecord::Schema.define(version: 20150621172700) do
   end
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
+
+  create_table "stakes", force: :cascade do |t|
+    t.integer  "account_id"
+    t.integer  "asset_id"
+    t.string   "asset_type"
+    t.decimal  "split"
+    t.integer  "flat_rate_in_cent"
+    t.string   "currency",          default: "usd"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "email"
+    t.boolean  "unassigned",        default: false
+    t.integer  "ipiable_id"
+    t.string   "ipiable_type"
+  end
+
+  add_index "stakes", ["account_id"], name: "index_stakes_on_account_id", using: :btree
+  add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree
+  add_index "stakes", ["ipiable_type", "ipiable_id"], name: "index_stakes_on_ipiable_type_and_ipiable_id", using: :btree
 
   create_table "stripe_customers", force: :cascade do |t|
     t.string   "stripe_object"
@@ -3130,12 +3218,16 @@ ActiveRecord::Schema.define(version: 20150621172700) do
     t.string   "account_type",                           default: "Social"
     t.string   "mandrill_account_id"
     t.text     "address_line_2"
+    t.integer  "super_catalog_user_id"
+    t.integer  "super_account_user_id"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
   add_index "users", ["default_playlist_id"], name: "index_users_on_default_playlist_id", using: :btree
   add_index "users", ["default_widget_key"], name: "index_users_on_default_widget_key", using: :btree
   add_index "users", ["page_style_id"], name: "index_users_on_page_style_id", using: :btree
+  add_index "users", ["super_account_user_id"], name: "index_users_on_super_account_user_id", using: :btree
+  add_index "users", ["super_catalog_user_id"], name: "index_users_on_super_catalog_user_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false
@@ -3321,29 +3413,50 @@ ActiveRecord::Schema.define(version: 20150621172700) do
     t.string   "zip_file",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "file_size"
   end
 
-  add_foreign_key "account_features", "plans"
-  add_foreign_key "client_invitations", "client_groups"
-  add_foreign_key "coupons", "accounts"
-  add_foreign_key "coupons", "plans"
-  add_foreign_key "coupons", "sales_coupon_batches"
-  add_foreign_key "invoices", "accounts"
-  add_foreign_key "invoices", "users"
-  add_foreign_key "payment_sources", "subscriptions"
-  add_foreign_key "payment_sources", "users"
-  add_foreign_key "playlist_emails", "accounts"
-  add_foreign_key "playlist_emails", "playlists"
+  add_foreign_key "account_features", "plans", on_delete: :cascade
+  add_foreign_key "account_users", "accounts", on_delete: :cascade
+  add_foreign_key "attachments", "accounts", on_delete: :cascade
+  add_foreign_key "campaign_events", "accounts", on_delete: :cascade
+  add_foreign_key "campaigns", "accounts", on_delete: :cascade
+  add_foreign_key "catalog_users", "accounts", on_delete: :cascade
+  add_foreign_key "client_groups", "accounts", on_delete: :cascade
+  add_foreign_key "client_imports", "accounts", on_delete: :cascade
+  add_foreign_key "client_invitations", "accounts", on_delete: :cascade
+  add_foreign_key "client_invitations", "client_groups", on_delete: :cascade
+  add_foreign_key "clients", "accounts", on_delete: :cascade
+  add_foreign_key "common_works_imports", "accounts", on_delete: :cascade
+  add_foreign_key "contracts", "accounts", on_delete: :cascade
+  add_foreign_key "creative_projects", "accounts", on_delete: :cascade
+  add_foreign_key "customer_events", "accounts", on_delete: :cascade
+  add_foreign_key "document_users", "documents", on_delete: :cascade
+  add_foreign_key "documents", "accounts", on_delete: :cascade
+  add_foreign_key "import_batches", "accounts", on_delete: :cascade
+  add_foreign_key "invoices", "accounts", on_delete: :cascade
+  add_foreign_key "likes", "accounts", on_delete: :cascade
+  add_foreign_key "mail_campaigns", "accounts", on_delete: :cascade
+  add_foreign_key "opportunities", "accounts", on_delete: :cascade
+  add_foreign_key "playbacks", "accounts", on_delete: :cascade
+  add_foreign_key "playlist_emails", "accounts", on_delete: :cascade
+  add_foreign_key "playlist_emails", "playlists", on_delete: :cascade
   add_foreign_key "playlist_emails", "users"
+  add_foreign_key "playlist_key_users", "accounts", on_delete: :cascade
+  add_foreign_key "playlists", "accounts", on_delete: :cascade
+  add_foreign_key "projects", "accounts", on_delete: :cascade
+  add_foreign_key "recording_downloads", "users", on_delete: :cascade
+  add_foreign_key "recording_ipis", "accounts", on_delete: :cascade
+  add_foreign_key "recording_views", "accounts", on_delete: :cascade
+  add_foreign_key "representative_splits", "accounts"
+  add_foreign_key "representative_splits", "common_works"
   add_foreign_key "sales_coupon_batches", "users"
   add_foreign_key "shop_orders", "coupons"
-  add_foreign_key "shop_orders", "users"
-  add_foreign_key "shop_products", "accounts"
-  add_foreign_key "shop_products", "users"
-  add_foreign_key "shop_stripe_transfers", "accounts"
+  add_foreign_key "shop_stripe_transfers", "accounts", on_delete: :cascade
   add_foreign_key "shop_stripe_transfers", "shop_order_items", column: "order_item_id"
   add_foreign_key "shop_stripe_transfers", "shop_orders", column: "order_id"
-  add_foreign_key "shop_stripe_transfers", "users"
+  add_foreign_key "stakes", "accounts", on_delete: :cascade
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
+  add_foreign_key "widgets", "accounts", on_delete: :cascade
 end

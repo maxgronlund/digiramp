@@ -1,4 +1,4 @@
-class UserSettingsService
+class XUserSettingsService
   
   def self.init user
     
@@ -56,15 +56,5 @@ class UserSettingsService
     
     
   end
-
-
-
-
-
-
-
-
-
-
 
 end

@@ -1,8 +1,11 @@
 - session[:return_url] = request.url
 .show-product
   .row
-    .col-sm-12
-      h3 = product.title
+    - if buy
+      .col-sm-12
+        h3 = product.title
+        - if product.category == 'recording'
+          = product.recording.pre_cleared
     .col-sm-6
       .product-image-big
         = image_tag product.image_url(:thumb_470x470)
@@ -17,28 +20,45 @@
         = simple_form_for  [ :shop, @shop_order_item], turboboost: true do |f|
 
           = f.hidden_field :shop_order_id,   value: @shop_order.uuid
-          = f.hidden_field :shop_product_id, value: product.id
+          = f.hidden_field :shop_product_id, value: product.uuid
           
           .row
             .col-sm-12
-
-              - if product.units_on_stock == 1
+              - if product.units_on_stock == 1 || product.category != 'physical-product'
                 = f.hidden_field :quantity, value: 1
               - else
                 = f.input :quantity, input_html: {style: "width: 120px;"}
           .row
             .col-sm-12
               .pull-right.pull-down-12
+                
                 => link_to shop_order_path(@shop_order.uuid), id: 'basket' do
                   .btn.btn-default
                     'Basket
-                = f.submit 'Add to basket', class: 'btn btn-orange'
-        
+                    
+                - case product.category.downcase
+                
+                - when 'physical-product'
+                  - if  product.units_on_stock.to_i - @shop_order.units_of_product( product.id ) < 1
+                    .btn.btn-orange disabled="disabled"
+                      'No more on stock
+                  - else
+                    = f.submit 'Add to basket', class: 'btn btn-orange'
+                
+                - when 'streaming', 'service', 'recording', 'playlist', 'download'
+                  - if   @shop_order.units_of_product( product.id ) == 0
+                    = f.submit 'Add to basket', class: 'btn btn-orange'
+                  - else
+                    .btn.btn-orange disabled="disabled"
+                      'In basket
+                
+            
+                    
         .sexy_line
           /= link_to 'Basket', shop_order_path(@shop_order.uuid), id: 'data-no-turbolink'
           == render 'admin/shared/messages'
   - if buy
-    .row
+    .row.pull-down-10
       .col-sm-12        
         .pull-right 
           - if @shop_order.require_shipping_address
@@ -47,4 +67,9 @@
             <div data-no-turbolink>
               = link_to 'Checkout', edit_shop_order_path(@shop_order.uuid), class: 'btn btn-success', id: 'checkout'
             </div>
-    
+
+            /coffee:
+            /  $("form#edit_address_#{params[:id]s}").submit ->
+            /    $(this).find('input[type=submit]').attr('disabled', 'disabled')
+            /    $(this).find('input[type=submit]').val "Updating, please wait ..."
+            /

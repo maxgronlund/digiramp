@@ -32,6 +32,10 @@ class ApplicationMailer < ActionMailer::Base
     end
   end
   
+  def error_msg msg
+    Opbeat.capture_message( msg )
+  end
+  
 end
 
 

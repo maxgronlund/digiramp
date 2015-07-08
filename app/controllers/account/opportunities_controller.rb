@@ -7,7 +7,7 @@ class Account::OpportunitiesController < ApplicationController
   
   def index
 
-    forbidden unless super? || current_account_user && current_account_user.read_opportunity
+    forbidden unless current_account_user && current_account_user.read_opportunity
 
     @opportunities = @account.opportunities.order('created_at desc')
     @user = @account.user
@@ -17,7 +17,7 @@ class Account::OpportunitiesController < ApplicationController
 
 
   def show
-    forbidden unless super? || current_account_user.read_opportunity
+    forbidden unless current_account_user && current_account_user.read_opportunity
     
     @opportunity.create_activity(  :show, 
                               owner: current_user,
@@ -29,7 +29,7 @@ class Account::OpportunitiesController < ApplicationController
 
   # GET /opportunities/new
   def new
-    forbidden unless super? || current_account_user.create_opportunity
+    forbidden unless current_account_user && current_account_user.create_opportunity
     @opportunity          = Opportunity.new
     @opportunity.deadline = Date.today + 4.weeks
     @user = current_user
@@ -45,7 +45,7 @@ class Account::OpportunitiesController < ApplicationController
   # POST /opportunities.json
   def create
     
-    forbidden unless super? || current_account_user.create_opportunity
+    forbidden unless current_account_user && current_account_user.create_opportunity
     @opportunity = Opportunity.create(opportunity_params)
     redirect_to account_account_opportunity_path(@account, @opportunity)
     @opportunity.check_default_image
@@ -58,7 +58,7 @@ class Account::OpportunitiesController < ApplicationController
   def update
     #params[:opportunity][:deadline] = Date.strptime("#{params[:opportunity][:deadline]}", "%m/%d/%Y")
     # params[:opportunity][:deadline].gsub('/','-')
-    forbidden unless super? || current_account_user.update_opportunity
+    forbidden unless current_account_user && current_account_user.update_opportunity
     if @opportunity.update(opportunity_params)
       @opportunity.check_default_image
       
@@ -70,7 +70,7 @@ class Account::OpportunitiesController < ApplicationController
   end
   
   def music_submissions
-    forbidden unless super? || current_account_user.read_opportunity
+    forbidden unless current_account_user && current_account_user.read_opportunity
   end
   
   def invite_provider_by_email
@@ -82,7 +82,7 @@ class Account::OpportunitiesController < ApplicationController
 
 
   def destroy
-    forbidden unless super? || current_account_user.delete_opportunity
+    forbidden unless current_account_user && current_account_user.delete_opportunity
     @opportunity_id = @opportunity.id
     @opportunity.destroy
     #redirect_to account_account_opportunities_path(@account)

@@ -32,10 +32,11 @@
                   'Back
                   
               /= link_to edit_user_recording_social_path(@user, @recording) do
-              /  .btn.btn-default
-              /    'Skip
-              /    '&nbsp;
-              /    i.fa.fa-chevron-right
+              = link_to user_user_common_work_path(@user, @recording.common_work) do
+                .btn.btn-default
+                  'Skip
+                  '&nbsp;
+                  i.fa.fa-chevron-right
                   
                   
 

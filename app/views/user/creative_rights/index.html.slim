@@ -11,14 +11,16 @@
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
       .row
-        .col-sm-5
+        .col-sm-12
           .help
             .help-text
-              h2 Creative rights
+              h3 Common works / © Copyrights
             .help-button
               == render 'admin/helps/help', identifier: 'user creative rights'
-        .col-sm-7
-          .search-recording
+      .row
+        .col-sm-6
+        .col-sm-6
+          .pull-right
             = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
                                                           :controller => 'user/creative_rights'), \
                                                           :method => 'get',\

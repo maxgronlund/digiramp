@@ -43,3 +43,4 @@ private
     Rails.cache.delete([self.class.name, id])
   end
 end
+
