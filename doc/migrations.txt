@@ -5,9 +5,13 @@ rails g model document_user document:belongs_to user:references{polymorphic}
 -------------
 Associations
 rails g migration AddUserRefToSalesCouponBatches user:references
+rails g migration AddDocumentableRefToDocuments documentable:references{polymorphic}
+
+rails g migration AddSignableRefToDigitalSignatures signable:references{polymorphic}
 
 add_reference :shop_products, :productable, index: true, polymorphic: true
 
+rails g controller admin/digital_signatures -no-helper --no-assets --no-controller-specs --no-view-specs
 
 -------------
 reset the db !DONT
@@ -33,7 +37,7 @@ rename_column :table_name, :old_column_name, :new_column_name
 
 
 
-
+rails g controller -no-helper --no-assets --no-controller-specs --no-view-specs
 
 
 #has_many :entries_media, class_name: 'Join::EntryMedia', foreign_key: :media_item_id

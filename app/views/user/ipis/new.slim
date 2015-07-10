@@ -1,5 +1,6 @@
 / this view is rendered when the user and current_user and ipi is valid
 /= debug @user_credits
+- session
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'settings' 
@@ -100,10 +101,13 @@
             .col-sm-12
               .pull-right
                 /=> link_to 'Auto fill address', user_user_auto_fill_ipi_path(@user, @ipi), method: 'put', class: 'btn btn-default'
-                = f.submit 'Save', class: 'btn btn-primary'
+                => link_to 'Cancel', user_user_common_work_path(@user, @common_work), class: 'btn btn-default'
+                => f.submit 'Save and add next', class: 'btn btn-default'
+                = f.submit 'Save and exit', class: 'btn btn-default'
 
     
-         
+      .digi-box
+        == render 'user/common_works/common_work'
     
   
                   

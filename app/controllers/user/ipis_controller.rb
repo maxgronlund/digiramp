@@ -31,7 +31,14 @@ class User::IpisController < ApplicationController
     
     respond_to do |format|
       if @ipi.save
-        format.html { redirect_to user_user_common_work_path(@user, @common_work) }
+        
+        format.html { 
+          if params[:commit] == "Save and add next"
+            redirect_to new_user_user_common_work_ipi_path(@user, @common_work) 
+          else
+            redirect_to user_user_common_work_path(@user, @common_work) 
+          end
+        }
         format.json { render :show, status: :created, location: @ipi }
       else
         format.html { render :new }
@@ -50,16 +57,20 @@ class User::IpisController < ApplicationController
   def update
     @ipi          = Ipi.cached_find(params[:id])
     @common_work = CommonWork.cached_find(@ipi.common_work_id)
+    
     if @ipi.update(ipi_params)
       if params[:commit] == 'Send'
         @ipi.send_confirmation_request 
-      else
-        if params[:commit] == 'Update'
-          redirect_to user_user_common_work_path(@user, @common_work)
-        else
-          redirect_to user_user_ipi_path(@user, @ipi)
-        end
       end
+      redirect_to session[:go_to_after_update_ipi]
+      
+        #if params[:commit] == 'Update'
+        #  redirect_to session[:go_to_after_update_ipi]
+        #  #redirect_to user_user_common_work_path(@user, @common_work)
+        #else
+        #  redirect_to user_user_ipi_path(@user, @ipi)
+        #end
+        #end
     else
       render :edit
     end

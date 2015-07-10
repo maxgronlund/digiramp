@@ -10,29 +10,56 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
-      .row
-        .col-sm-8
-          .help
-            .help-text
-              h2 Legal documents
-              
-            .help-button
-              == render 'admin/helps/help', identifier: 'common work credits'
+      h2 = @document.title
+
         .col-sm-4
           .pull-right.pull-down-10
 
-            => link_to new_user_user_legal_document_path(@user.account) do
-              .btn.btn-default
-                'Upload document
-            = link_to new_user_user_legal_document_path(@user.account) do
-              .btn.btn-default
-                'New document
+            /=> link_to new_user_user_legal_document_path(@user.account) do
+            /  .btn.btn-default
+            /    'Upload document
+            /= link_to new_user_user_legal_document_path(@user.account) do
+            /  .btn.btn-default
+            /    'New document
 
       = render 'user/shared/legal_navigation'
-      .digi-box
+      .digi-box.pull-down-6
+        .row
+          .col-sm-6
+            .media
+              .pull-left
+                .thumbnail
+                  = image_tag @document.image_thumb || 'digiramp-document.jpg'
+              .media-body
+                .media-heading
+                  h3 = @document.title
+                i Document type: 
+                b = @document.file_type
+                br
+                i Size: 
+                = number_to_human_size @document.file_size
+                = simple_format @document.body
+      
+          .col-sm-6
+            .pull-right
+              /- if current_catalog_user.update_file
+              /  = link_to edit_catalog_account_catalog_document_path(@account, @catalog, @document) do
+              /    .btn.btn-default.btn
+              /      i class="fa fa-pencil"
+              /  '&nbsp;
+              = link_to download_document_path(document: @document.id) do
+                .btn.btn-default.btn
+                  i class='fa fa-cloud-download'
+                  '&nbsp;Download
+              '&nbsp;
+              = link_to @document.file do
+                .btn.btn-default.btn
+                  'Read File
+        .row
+          .col-sm-12
+            = simple_format @document.text_content
       
 
-      
       
                   
 

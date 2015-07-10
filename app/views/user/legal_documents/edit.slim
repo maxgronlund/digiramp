@@ -24,7 +24,7 @@
 
       = render 'user/shared/legal_navigation'
       .digi-box
-        = simple_form_for [ @account, @document] , :url => url_for(:action => 'create', :controller => 'legal_documents'), turboboost: true, :method => 'put' do |f|
+        = simple_form_for [ @user, @document] , :url => url_for(:action => 'update', :controller => 'legal_documents'), turboboost: true, :method => 'PUT' do |f|
           == render 'form', f: f
        
       

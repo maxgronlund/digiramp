@@ -20,7 +20,10 @@
           .pull-right.pull-down-10
             -if current_catalog_user.create_common_work
               .pull-right
-                => link_to catalog_account_catalog_common_works_export_common_works_path(@account, @catalog, format: "csv", query: params[:query], page: params[:page]) do
+                => link_to catalog_account_catalog_common_works_export_common_works_path(@account, @catalog, 
+                                                                                        format: "csv", 
+                                                                                        query: params[:query], 
+                                                                                        page: params[:page]) do
                   .btn.btn-default
                     i class="fa fa-cloud-download"
                     '&nbsp;

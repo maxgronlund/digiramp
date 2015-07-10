@@ -1,0 +1,3 @@
+$(".old_signature_<%= @digital_signature.id.to_s %>").remove();
+$(".signature_<%= @digital_signature.id.to_s %>").append("<%= j render 'user/digital_signatures/check' %>");
+

@@ -1,100 +1,101 @@
-.digi-box
-  - if @common_work.total_share.to_i != 100
-    .alert.alert-danger
-      'Total share should add up to 100%
-  .row
-    .col-sm-12
-      .table-responsive
-        table class="table table-hover"
-          thead
-            tr
-              th
-              th Capacity
-              th Name / Email
-              /th Email
-              th Share
-              th 
-                .pull-right
-                  'Confirmation
-          tbody
-            - @common_work.ipis.each do |ipi|
-              div class="ipi-info-dialog-#{ipi.id.to_s}"
-              tr
-                td
-                  => link_to user_user_common_work_ipi_path(@user, @common_work, ipi),
-                                                              turboboost: true,
-                                                              data: { confirm: 'Are you sure?' }, 
-                                                              method: :delete do
-                    .btn.btn-danger.btn-xs
-                      i.fa.fa-times
-                      
-                  => link_to edit_user_user_common_work_ipi_path(@user, @common_work, ipi) do
-                    .btn.btn-default.btn-xs
-                      i.fa.fa-pencil
-                      
-                  => link_to user_user_ipi_info_path(@user, ipi), remote: true do
-                    .btn.btn-default.btn-xs
-                      i.fa.fa-info-circle
-                
-                td
-                  /'&nbsp;
-                  - if ipi.composer
-                    'Composer
-                    br
-                  - if ipi.writer
-                    'Writer
-                    br
-                    
-                  - if ipi.administrator
-                    'Administrator
-                    br
-                    
-                  - if ipi.original_publisher
-                    'Original publisher
-                td 
-                  = ipi.full_name
-                  br
-                  = ipi.email
-  
-                td 
-  
-                  .small-input
-                    .width-150
-                      = simple_form_for [:user, @user, @common_work, ipi], turboboost: true do |f|
-                        .input-group
-                          = f.input :share, label: false, class: 'form-control'
-                          .input-group-btn
-                            = f.submit 'Update', class: 'btn btn-default'
-                td 
-                  .pull-right
-                    div class="confirmation-button-#{ipi.id.to_s}"
-                      == render 'user/ipis/confirmation_button', user: @user, common_work: @common_work, ipi: ipi
-                      
-                    
+
+- if @common_work.total_share.to_i != 100
+  .alert.alert-danger
+    'Total share should add up to 100%
+.row
+  .col-sm-12
+    .table-responsive
+      table class="table table-hover"
+        thead
+          tr
+            th
+            th Capacity
+            th Name / Email
+            /th Email
+            th Share
+            th 
+              .pull-right
+                'Confirmation
+        tbody
+          - @common_work.ipis.each do |ipi|
+            div class="ipi-info-dialog-#{ipi.id.to_s}"
             tr
               td
-                b Total share
-              td
-              td
-              td 
-                - total_share = @common_work.total_share
-                span class="#{ total_share == 100.0 ? '' : 'alert alert-danger' }"
-                  b = number_to_percentage(total_share, precision: 1) 
-                  
-              td
+                => link_to user_user_common_work_ipi_path(@user, @common_work, ipi),
+                                                            turboboost: true,
+                                                            data: { confirm: 'Are you sure?' }, 
+                                                            method: :delete do
+                  .btn.btn-danger.btn-xs
+                    i.fa.fa-times
                     
+                => link_to edit_user_user_common_work_ipi_path(@user, @common_work, ipi) do
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-pencil
+                    
+                => link_to user_user_ipi_info_path(@user, ipi), remote: true do
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-info-circle
               
-  .row
-    .col-sm-12
-      .pull-right
-        => link_to edit_user_user_common_work_path( @user, @common_work ) do
-          .btn.btn-default
-            i.fa.fa-pencil
-            '&nbsp;Edit
-        /=> link_to 'Contracts', user_user_common_work_common_work_contracts_path(@user, @common_work), class: 'btn btn-default'
-        = link_to 'Add IP', new_user_user_common_work_ipi_path(@user, @common_work), class: 'btn btn-default'
-        /- if @common_work.recordings
-        /  =< link_to 'Edit credits', edit_user_user_common_work_credit_path(@user, @common_work), class: 'btn btn-default'
+              td
+                /'&nbsp;
+                - if ipi.composer
+                  'Composer
+                  br
+                - if ipi.writer
+                  'Writer
+                  br
+                  
+                - if ipi.administrator
+                  'Administrator
+                  br
+                  
+                - if ipi.original_publisher
+                  'Original publisher
+              td 
+                = ipi.full_name
+                br
+                = ipi.email
+
+              td 
+
+                .small-input
+                  .width-150
+                    - session[:go_to_after_update_ipi] = request.url
+                    = simple_form_for [:user, @user, @common_work, ipi], turboboost: true do |f|
+                      .input-group
+                        = f.input :share, label: false, class: 'form-control'
+                        .input-group-btn
+                          = f.submit 'Update', class: 'btn btn-default'
+              td 
+                .pull-right
+                  div class="confirmation-button-#{ipi.id.to_s}"
+                    == render 'user/ipis/confirmation_button', user: @user, common_work: @common_work, ipi: ipi
+                    
+                  
+          tr
+            td
+              b Total share
+            td
+            td
+            td 
+              - total_share = @common_work.total_share
+              span class="#{ total_share == 100.0 ? '' : 'alert alert-danger' }"
+                b = number_to_percentage(total_share, precision: 1) 
+                
+            td
+                  
+            
+/.row
+/  .col-sm-12
+/    .pull-right
+/      => link_to edit_user_user_common_work_path( @user, @common_work ) do
+/        .btn.btn-default
+/          i.fa.fa-pencil
+/          '&nbsp;Edit
+/      /=> link_to 'Contracts', user_user_common_work_common_work_contracts_path(@user, @common_work), class: 'btn btn-default'
+/      = link_to 'Add IP', new_user_user_common_work_ipi_path(@user, @common_work), class: 'btn btn-default'
+/      /- if @common_work.recordings
+/      /  =< link_to 'Edit credits', edit_user_user_common_work_credit_path(@user, @common_work), class: 'btn btn-default'
 
 
       

@@ -12,6 +12,18 @@ class User::DigitalSignaturesController < ApplicationController
   def new
     @digital_signature = DigitalSignature.new
   end
+  
+  def update
+    ap params[:digital_signature][:email]
+    @digital_signature = DigitalSignature.cached_find(params[:id])
+    @digital_signature.email = params[:digital_signature][:email]
+    @digital_signature.role  = params[:digital_signature][:role]
+    if user = User.find_by(email: @digital_signature.email)
+      @digital_signature.user_id = user.id
+    end
+    @digital_signature.save validate: false         #.update!(digital_signature_params)
+    ap @digital_signature
+  end
 
 
   # POST /digital_signatures
@@ -49,6 +61,6 @@ class User::DigitalSignaturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def digital_signature_params
-      params.require(:digital_signature).permit(:uuid, :user_id, :image)
+      params.require(:digital_signature).permit(:uuid, :user_id, :image, :email, :role)
     end
 end

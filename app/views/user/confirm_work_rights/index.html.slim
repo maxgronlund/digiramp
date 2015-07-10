@@ -1,0 +1,76 @@
+- session[:return_url]         = request.url
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+  
+  #page-content-wrapper
+    .container-fluid
+      .alert.alert-info
+        h4 = @no_ipis_text.title
+        = simple_format @no_ipis_text.body
+        .row
+          .col-sm-12
+            .pull-right
+              - if super?
+                =< link_to 'Edit text', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @no_ipis_text), class: 'btn btn-default'
+      .digi-box
+        h4 = @im_the_only_ip.title  
+        = simple_format @im_the_only_ip.body  
+        .row
+          .col-sm-12
+            .pull-right.pull-down-10
+               = link_to user_user_select_templates_path(@user, common_work_id: @common_work.id, selection: 'im the only owner') do
+                 .btn.btn-default
+                   = @im_the_only_ip.teaser
+               - if super?
+                 =< link_to 'Edit text', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @im_the_only_ip), class: 'btn btn-default'
+               
+      .digi-box
+        h4 = @add_ipis.title  
+        = simple_format @add_ipis.body  
+        - if super?
+          .row
+            .col-sm-12
+              .pull-right.pull-down-10
+                = link_to '#' do
+                  .btn.btn-default
+                    = @add_ipis.teaser
+                - if super?
+                  =< link_to 'Edit text', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @add_ipis), class: 'btn btn-default'
+
+
+      .digi-box
+        h4 = @upload_existing_contracts.title  
+        = simple_format @upload_existing_contracts.body  
+        - if super?
+          .row
+            .col-sm-12
+              .pull-right.pull-down-10
+                = link_to '#' do
+                  .btn.btn-default
+                    = @upload_existing_contracts.teaser
+                - if super?
+                  =< link_to 'Edit text', edit_admin_blog_blog_post_path(@no_ipis_text.blog, @upload_existing_contracts), class: 'btn btn-default'
+
+
+      
+      
+      
+      /- if return_path
+      /  .digi-box
+      /    .row
+      /      .col-sm-12
+      /        .pull-right
+      /          = link_to 'Back to product', return_path, class: 'btn btn-primary'
+      /      
+      /      
+        
+  == render 'shared/site_footer'  
+  
+  
+ 

@@ -1,6 +1,9 @@
 Digiramp::Application.routes.draw do
 
 
+  # user namespace arount line 730
+
+
 
   get 'recording_rights/edit'
 
@@ -92,6 +95,8 @@ Digiramp::Application.routes.draw do
     resources :client_groups
     resources :contacts
     resources :default_images
+    resources :digital_signatures
+    
     resources :digiramp_ads
     resources :email_group_recipients, only: [:edit, :update]
     resources :email_groups do
@@ -732,6 +737,8 @@ Digiramp::Application.routes.draw do
       resources :digital_signatures
       resources :downloads, only: [:index]
       
+      resources :export_work_and_masters, only: [:show]
+      
       match '/subsctiption_status/:guid'   => 'subscriptions#status',    via: :get,  as: :subscription_status
       match '/payment_method_status/:guid' => 'payment_methods#status',  via: :get,  as: :payment_method_status
       match '/payment_method_fail/:guid' => 'payment_methods#fail',    via: :get,  as: :payment_method_fail
@@ -761,6 +768,7 @@ Digiramp::Application.routes.draw do
       resources :creative_rights, only: [:index, :show, :destroy]
       resources :common_works do
         resources :common_work_contracts
+        resources :confirm_work_rights, only: [:index]
         resources :creative_rights
         resources :ipis
         resources :accept_ipis, only: [:update]
@@ -841,7 +849,9 @@ Digiramp::Application.routes.draw do
       resources :invite_client_groups, only: [:update]
       resources :invite_friends, only: [:new, :create]
       resources :ipis
-      resources :legal_documents
+      resources :legal_documents do
+        resources :document_signatures
+      end
       resources :legal_informations, only: [:edit, :update, :index]
       
       get "legal"        => "legal#index",      :as => :legal_index

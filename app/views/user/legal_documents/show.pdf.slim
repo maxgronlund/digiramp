@@ -1,0 +1,16 @@
+= simple_format @document.text_content
+br
+- @document.digital_signatures.each do |digital_signature|
+  .div style="text-transform: uppercase; width: 300px; height: 70px; display: inline-block; margin-right: 32px;" 
+    = digital_signature.role
+    br
+    
+    
+    - if user = digital_signature.user and signature = user.digital_signatures.first
+      = image_tag signature.image_url(:image_300x50)
+    - else
+      .div style="height: 50px"
+    
+    
+  hr
+  br

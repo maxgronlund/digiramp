@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150708075412) do
+ActiveRecord::Schema.define(version: 20150709152941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1339,13 +1339,18 @@ ActiveRecord::Schema.define(version: 20150708075412) do
 
   create_table "digital_signatures", force: :cascade do |t|
     t.string   "uuid"
-    t.boolean  "hidden",     default: false
+    t.boolean  "hidden",        default: false
     t.integer  "user_id"
     t.string   "image"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "signable_id"
+    t.string   "signable_type"
+    t.string   "role",          default: ""
+    t.string   "email"
   end
 
+  add_index "digital_signatures", ["signable_type", "signable_id"], name: "index_digital_signatures_on_signable_type_and_signable_id", using: :btree
   add_index "digital_signatures", ["user_id"], name: "index_digital_signatures_on_user_id", using: :btree
 
   create_table "document_users", force: :cascade do |t|
@@ -1373,6 +1378,7 @@ ActiveRecord::Schema.define(version: 20150708075412) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "file_size",                 default: 0
+    t.integer  "template_id"
   end
 
   add_index "documents", ["account_id"], name: "index_documents_on_account_id", using: :btree

@@ -33,9 +33,10 @@
           table class="table table-hover"
             thead
               tr
-                th
-                th style="min-width: 200px;"
-                  'Title
+                th style="width: 76px;"
+                th 
+                  'Title/ Description
+                th Signatures
             tbody
               - @documents.each do |document|
                 tr
@@ -43,13 +44,21 @@
                     => link_to user_user_select_template_path( @user, document) do
                       .btn.btn-default.btn-xs
                         'Select
-                        
-                  td = document.title
-                  td = simple_format document.body
+                         
+                  td  
+                    .div style="max-width: 480px;"
+                      b = document.title
+                      br = simple_format document.body
+                  td 
+                    - document.digital_signatures.each do |digital_signature|
+                      b style="text-transform: uppercase;" 
+                        = digital_signature.role
+                        br
+                    
               
 
       
-      
+    == render 'shared/site_footer'
                   
 
          

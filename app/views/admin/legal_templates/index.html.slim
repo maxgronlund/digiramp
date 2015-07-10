@@ -31,6 +31,7 @@
               tr
                 th
                 th Title/ Description
+                th Default signatures
             tbody
               - @documents.each do |document|
                 tr
@@ -46,13 +47,26 @@
                       .btn.btn-default.btn-xs
                         i.fa.fa-file-pdf-o
                       
-                    => link_to edit_admin_legal_template_path( document) do
+                    = link_to edit_admin_legal_template_path( document) do
                       .btn.btn-default.btn-xs
                         i.fa.fa-pencil
+                    
                         
-                  td  
-                    b = simple_format  document.title
-                    br = simple_format document.body
+                  td 
+                    .div style="max-width: 480px"
+                      b = simple_format  document.title
+                      br = simple_format document.body
+                    
+                  td 
+                    - document.digital_signatures.each do |digital_signature|
+                      b style="text-transform: uppercase;" 
+                        = digital_signature.role
+                      br
+   
+                    .pull-right
+                      => link_to admin_legal_template_path(document) do 
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil&nbsp;Signatures
 
           
           

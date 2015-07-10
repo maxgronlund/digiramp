@@ -16,22 +16,51 @@
       == render 'admin/shared/messages'
       .row
         .col-sm-8
-          h3 = @document.title
+          h3 Create default signature
         .col-sm-4
           .pull-right.pull-down-10
-            => link_to admin_legal_template_path(@document, :format => 'pdf') do 
-              .btn.btn-default
-                i.fa.fa-file-pdf-o &nbsp;Show PDF
-                
-                
-            = link_to 'Edit', edit_admin_legal_template_path, class: 'btn btn-default'
+            = link_to admin_legal_templates_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
       .sexy_line
+      
+
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [:admin, DigitalSignature.new], turboboost: true do |f|
+              = f.hidden_field :signable_type, value: @document.class.name
+              = f.hidden_field :signable_id, value: @document.id
+              = f.input :role, placeholder: 'i.e. Artist'
+              .row
+                .col-sm-12
+                  .pull-right
+                    => link_to 'Cancel', admin_legal_templates_path, class: 'btn btn-default'
+                    => f.submit 'Save and exit', class: 'btn btn-default'
+                    => f.submit 'Save and add next', class: 'btn btn-default'
+        .col-sm-6
+          .digi-box
+            b = @document.title
+            br = @document.body
+      
+      h4 Default signatures
       .digi-box
-        h4 Description
-        = @document.body
-      .digi-box
-        
-        = simple_format @document.text_content
+        .row
+          - @document.digital_signatures.each do |digital_signature|
+            .col-sm-6
+              b = digital_signature.role.upcase
+              br
+              = image_tag digital_signature.image_url(:image_300x50)
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to admin_digital_signature_path(digital_signature, document_id: @document.id), data: { confirm: 'Are you sure?' } , 
+                                                            :method => :delete, 
+                                                            turboboost: true do
+                      .btn.btn-default.btn-xs
+                        'Delete
+              .sexy_line
 
           
           
