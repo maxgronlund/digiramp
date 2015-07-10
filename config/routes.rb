@@ -1,6 +1,8 @@
 Digiramp::Application.routes.draw do
 
 
+  resources :accepting_signatures
+
   # user namespace arount line 730
 
 

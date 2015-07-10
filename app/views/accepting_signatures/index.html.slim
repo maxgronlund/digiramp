@@ -1,0 +1,114 @@
+#wrapper
+  .full-width-top
+    /== render 'shared/navigationbar', page: 'opportunities'
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      /== render 'user/opportunities/sidebar', selected: 'creative projects'
+   
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Create signature
+            .help-button
+              == render 'admin/helps/help', identifier: 'Create signature'
+
+        .col-sm-6
+          /.pull-right.pull-down-10
+          /  => link_to creative_projects_path do
+          /    .btn.btn-default
+          /      i.fa.fa-chevron-left
+          /      '&nbsp;Back
+          / 
+
+      .sexy_line
+      .digi-box
+        .la_elle_aurore 
+          p Grumpy wizards make toxic brew for the evil Queen and Jack.
+          
+        .swanky_and_moo_moo
+          p Grumpy wizards make toxic brew for the evil Queen and Jack.
+          
+        .over_the_rainbow
+          p Grumpy wizards make toxic brew for the evil Queen and Jack.
+          
+        .cedarville_ursive
+          p Grumpy wizards make toxic brew for the evil Queen and Jack.
+        /= simple_form_for [ :user, User.first,DigitalSignature.new] ,class: "sigPad" do |f|
+        /  = f.input :name
+          
+          
+        /<form method="post" action="" class="sigPad">
+        /  <label for="name">Print your name</label>
+        /  <input type="text" name="name" id="name" class="name">
+        /  <p class="typeItDesc">Review your signature</p>
+        /  <p class="drawItDesc">Draw your signature</p>
+        /  <ul class="sigNav">
+        /    <li class="typeIt"><a href="#type-it" class="current">Type It</a></li>
+        /    <li class="drawIt"><a href="#draw-it">Draw It</a></li>
+        /    <li class="clearButton"><a href="#clear">Clear</a></li>
+        /  </ul>
+        /  <div class="sig sigWrapper">
+        /    <div class="typed"></div>
+        /    <canvas class="pad" width="600" height="100"></canvas>
+        /    <input type="hidden" name="output" class="output">
+        /  </div>
+        /  <button type="submit">I accept the terms of this agreement.</button>
+        /</form>
+        /
+  
+  == render 'shared/site_footer'
+  
+
+
+/css:
+/  .sigPad {
+/    margin: 0;
+/    padding: 0;
+/    width: 600px; 
+/  }
+/
+/  .sigWrapper {
+/    clear: both;
+/    height: 100px; 
+/
+/    border: 1px solid #999;
+/  }
+/  
+/  canvas .pad{
+/    font-size: 62px;
+/  }
+  
+
+
+/javascript:
+/  $(document).ready(function () {
+/    $('.sigPad').signaturePad();
+/    
+/    var options = {
+/      bgColour : '#FFF'
+/      , drawOnly : true
+/    };
+/    $('.sigPad').signaturePad(options);
+/  });
+
+javascript:
+  WebFontConfig = {
+    google: { families: [ 'La+Belle+Aurore::latin', 'Swanky+and+Moo+Moo::latin', 'Over+the+Rainbow::latin', 'Cedarville+Cursive::latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); 
+
+  
+  

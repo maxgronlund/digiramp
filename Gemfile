@@ -162,6 +162,8 @@ gem 'yomu'
 # for nice logging
 gem "awesome_print"
 
+#gem 'signature-pad-rails'
+
 #gem 'jquery_file_download-rails'
 
 #gem "sendgrid-ruby"

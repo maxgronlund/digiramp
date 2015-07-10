@@ -26,7 +26,7 @@ class InvoiceMailer < ApplicationMailer
           order_item_url  = url_for( controller: 'user/order_items', action: 'show', user_id: seller.slug, id: order_item.id)                           
           order_item_url = ( URI.parse(root_url) + order_item_url ).to_s
           
-          ap order_item_url
+          #ap order_item_url
           begin
             template_name = "order-received"
             template_content = []

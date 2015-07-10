@@ -137,11 +137,12 @@ class User < ActiveRecord::Base
   has_many :share_on_twitters,  dependent: :destroy
   
 
-  after_commit :set_propperties
+  after_commit    :set_propperties
   
-  before_save   :update_meta
+  before_save     :update_meta
+  before_create   :update_meta
   #before_create :set_token
-  #before_create   :update_meta
+  
   before_create   :setup_basics
   after_create    :set_default_relations
   before_destroy  :sanitize_relations

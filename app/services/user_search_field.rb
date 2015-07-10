@@ -6,9 +6,9 @@ class UserSearchField
     search_field_content = ''
     search_field_content <<   user.profession  if user.profession
     search_field_content <<  ' '
-    #search_field_content <<   user.profile     if user.profile
+    search_field_content <<   user.profile     if user.profile
     search_field_content <<  ' '
-    #search_field_content <<   user.name        if user.name
+    search_field_content <<   user.name        if user.name
     search_field_content <<  ' '
     
     search_field_content <<   user.email       if user.email
@@ -31,3 +31,4 @@ class UserSearchField
   end
   
 end
+
