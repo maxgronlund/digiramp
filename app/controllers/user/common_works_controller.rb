@@ -11,27 +11,27 @@ class User::CommonWorksController < ApplicationController
     #@recording    = Recording.cached_find(params[:recording_id])
     @common_work  = CommonWork.cached_find(params[:id])
     
-    if @common_work.ipis.count == 0
-      ap '============== no ips =============='
-      redirect_to user_user_common_work_confirm_work_rights_path(@user, @common_work)
-    else
+    #if @common_work.ipis.count == 0
+    #  
+    #  redirect_to user_user_common_work_confirm_work_rights_path(@user, @common_work)
+    #else
     
-      if params[:recording_id]
-        @recording  = Recording.cached_find(params[:recording_id])
-      else
-        @recording  = @common_work.recordings.first
-      end
-      
-      if @no_ips    = @common_work.ipis.count + @recording.recording_ipis.count == 0
-        blog        = Blog.cached_find('Common Work Ipi')
-        @no_ipis_text = BlogPost.cached_find('No Ipis' , blog)
-        
-        @upload_existing_contracts  = BlogPost.cached_find('Upload existing documents' , blog)
-        @add_ipis                   = BlogPost.cached_find("Add IPI's" , blog)
-        @im_the_only_ip             = BlogPost.cached_find("I'm the only IP" , blog)
-        
-      end
+    if params[:recording_id]
+      @recording  = Recording.cached_find(params[:recording_id])
+    else
+      @recording  = @common_work.recordings.first
     end
+    
+    if @no_ips    = @common_work.ipis.count + @recording.recording_ipis.count == 0
+      blog        = Blog.cached_find('Common Work Ipi')
+      @no_ipis_text = BlogPost.cached_find('No Ipis' , blog)
+      
+      @upload_existing_contracts  = BlogPost.cached_find('Upload existing documents' , blog)
+      @add_ipis                   = BlogPost.cached_find("Add IPI's" , blog)
+      @im_the_only_ip             = BlogPost.cached_find("I'm the only IP" , blog)
+      
+    end
+      #end
   end
 
   #def new
