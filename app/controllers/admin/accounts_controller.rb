@@ -60,7 +60,7 @@ class Admin::AccountsController < ApplicationController
                    )
       
       # go to the account
-      @account.user.update(account_type: self.account_type)
+      @account.user.update(account_type: @account.account_type)
       redirect_to admin_account_path( @account)
     else
       render :edit
