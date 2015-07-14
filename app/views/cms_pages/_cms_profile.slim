@@ -54,7 +54,19 @@
     .row
       .col-sm-4
         /.user-avatar
-        = render 'shared/lightbox', locals: {image_url: @user.image_url , thumb_url: @user.image_url(:avatar_184x184) , id: @user.id, caption: @user.user_name}
+        = render 'shared/lightbox', locals: { \
+                                    image_url: @user.image_url , 
+                                    thumb_url: @user.image_url(:avatar_184x184) , 
+                                    id: @user.id, 
+                                    caption: @user.user_name}
+        
+        - if current_user
+          .row
+            .col-sm-12.pull-down-8
+              .new_like_btn
+                == render 'users/shared/like'
+              
+              
 
         /- if @user.settings.has_a_subscription
         /= debug @user.account_type
@@ -133,8 +145,8 @@
             .user-stat-row
               .user-stat-title
                 h4 
-                  i.fa.fa-heart
-                  '&nbsp;Likes
+                  i.fa.fa-thumbs-up
+                  '&nbsp;Liking
                 
               .user-stat-data
                 h4 = @user.likes.count

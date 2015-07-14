@@ -1,73 +1,97 @@
-= f.error_notification
-= f.hidden_field :user_id   , value: @user.id
-= f.hidden_field :account_id, value: @user.account.id
-- if @category
-  = f.hidden_field :category,   value:  @category 
-.form-inputs
-  = f.input :title, autofocus: true
-  .row
-    .col-sm-6
+.row
+  .col-sm-8
+    .help
+      .help-text
+        h2 Edit #{@category.capitalize.gsub('-', ' ')}
+  
+      .help-button
+        == render 'admin/helps/help', identifier: 'edit shop recording'
+
+  .col-sm-4
+    .pull-right.pull-down-10
+      /=> link_to  user_user_product_path(@user, @shop_product.uuid) do
+      /    .btn.btn-default
+      /      i.fa.fa-chevron-left
+      /      '&nbsp;Back
+      
+      
+.sexy_line
+.digi-box  
+  = simple_form_for [:user, @user, @shop_product], 
+                    :url => url_for(:action => action, 
+                                    :controller => 'products'),
+                    html: { :id => 'shop_product' }  do |f|
+    = f.error_notification
+    = f.hidden_field :user_id   , value: @user.id
+    = f.hidden_field :account_id, value: @user.account.id
+    - if @category
+      = f.hidden_field :category,   value:  @category 
+    .form-inputs
+      = f.input :title, autofocus: true
       .row
         .col-sm-6
-          = f.input :price, label: 'Price in cent'
-        .col-sm-6.pull-down-12
-          = f.input :for_sale,  :input_html => { class: 'icheck-me', 
-                                                        'data-skin'.to_sym => "square", 
-                                                        'data-color'.to_sym => "blue" }
-          = f.input :show_in_shop, label: 'Show in public shop',
-                                   :input_html => { class: 'icheck-me', 
-                                                     'data-skin'.to_sym => "square", 
-                                                     'data-color'.to_sym => "blue" }
+          .row
+            .col-sm-6
+              = f.input :price, label: 'Price in cent'
+            .col-sm-6.pull-down-12
+              = f.input :for_sale,  :input_html => { class: 'icheck-me', 
+                                                            'data-skin'.to_sym => "square", 
+                                                            'data-color'.to_sym => "blue" }
+              = f.input :show_in_shop, label: 'Show in public shop',
+                                       :input_html => { class: 'icheck-me', 
+                                                         'data-skin'.to_sym => "square", 
+                                                         'data-color'.to_sym => "blue" }
+              
+          = f.input :image, hint: 'Ratio 1:1'
+          = f.input :units_on_stock
+              
+          /= f.input :download_link
+          = f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
           
-      = f.input :image, hint: 'Ratio 1:1'
-      = f.input :units_on_stock
           
-      /= f.input :download_link
-      = f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
-      
-      
-    .col-sm-6
-      = f.input :additional_info, :input_html => {  style: "height: 80px;", 
-                                                    placeholder: "Text for small badges and invoice statements",
-                                                    maxlength: "150"}, 
-                                                    label: 'Info on badges'
-      
-      div id="textarea_feedback"
-      br
-      javascript:
-        $(document).ready(function() {
-            var text_max = 150;
-            $('#textarea_feedback').html(text_max + ' characters remaining');
-            update_textarea_feedback();
-            $('#shop_product_additional_info').keyup(function() {
-              update_textarea_feedback();
+        .col-sm-6
+          = f.input :additional_info, :input_html => {  style: "height: 80px;", 
+                                                        placeholder: "Text for small badges and invoice statements",
+                                                        maxlength: "150"}, 
+                                                        label: 'Info on badges'
+          
+          div id="textarea_feedback"
+          br
+          javascript:
+            $(document).ready(function() {
+                var text_max = 150;
+                $('#textarea_feedback').html(text_max + ' characters remaining');
+                update_textarea_feedback();
+                $('#shop_product_additional_info').keyup(function() {
+                  update_textarea_feedback();
+                });
+              
+                function update_textarea_feedback(){
+                  var text_length = $('#shop_product_additional_info').val().length;
+                  var text_remaining = text_max - text_length;
+    
+                  $('#textarea_feedback').html(text_remaining + ' characters remaining');
+                }
             });
-          
-            function update_textarea_feedback(){
-              var text_length = $('#shop_product_additional_info').val().length;
-              var text_remaining = text_max - text_length;
-
-              $('#textarea_feedback').html(text_remaining + ' characters remaining');
-            }
-        });
-      b Description
-      br
-      div id="toolbar" class="wysihtml5-toolbar"
-        a data-wysihtml5-command="bold" Bold
-        '&nbsp; 
-        a data-wysihtml5-command="italic" Italic
-        .pull-right
-          a data-wysihtml5-action="change_view"  Html 
-      = f.input :body, label: false, :input_html => {  style: "height: 180px;", placeholder: "Detailed text about the product", id: 'wysihtml5_editor'}
-  /=f.input :invitation_message, label: false, :input_html => {  style: "height: 280px;", placeholder: "Invitation message", id: 'wysihtml5_editor'}
-  
-  
-  
-  
-  
-  
-.form-actions  
-  .row
-    .col-sm-12
-      .pull-right
-        = f.submit 'Save', class: 'btn btn-primary'
+          b Description
+          br
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
+            .pull-right
+              a data-wysihtml5-action="change_view"  Html 
+          = f.input :body, label: false, :input_html => {  style: "height: 180px;", placeholder: "Detailed text about the product", id: 'wysihtml5_editor'}
+      /=f.input :invitation_message, label: false, :input_html => {  style: "height: 280px;", placeholder: "Invitation message", id: 'wysihtml5_editor'}
+      
+      
+      
+      
+      
+      
+    .form-actions  
+      .row
+        .col-sm-12
+          .pull-right
+            = f.submit 'Save', class: 'btn btn-primary'
+    

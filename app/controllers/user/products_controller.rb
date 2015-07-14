@@ -31,6 +31,7 @@ class User::ProductsController < ApplicationController
   # GET /shop/products/1/edit
   def edit
     @category = @shop_product.category
+    @documents = Document.all 
   end
 
   # POST /shop/products

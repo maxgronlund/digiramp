@@ -120,28 +120,6 @@
   == render 'shared/site_footer'   
   
 
-/        /= Recording.where(zipp: nil).count
-/        -if recordings = Recording.where(zipp: nil).first(20)
-/          -recordings.each do |recording|
-/            
-/            b = recording.id
-/            =< recording.title
-/            '&nbsp;.&nbsp;
-/            = link_to 'show', user_recording_path( recording.user, recording) rescue[]
-/            br
-/            =< recording.zipp.nil? ? 'zip missing' : 'zip is ok'
-/            '&nbsp;.&nbsp;
-/            =< recording.mp3.nil? ? 'mp3 missing' : 'mp3 is ok'
-/            br
-/            =< link_to 'Zip now', recording_zip_export_path(recording), remote: true
-/            
-/            
-/            .sexy_line
-
-
-
-
-
 
 
 

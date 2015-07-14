@@ -43,10 +43,9 @@ div class="account_id" id="#{recording.account_id}"
        
 
     .pull-right
-      -if music_submission.recording.zipp
-        = link_to music_submission.recording.zipp do
-          .btn.btn-info.btn-lg
-            i class="fa fa-cloud-download"
+      = link_to music_submission.recording.download_url2 do
+        .btn.btn-info.btn-lg
+          i class="fa fa-cloud-download"
       - comments = music_submission.comments.size
       - if comments > 0
         = link_to account_account_opportunity_music_request_music_submission_path(@account, @opportunity, music_submission.music_request, music_submission) do

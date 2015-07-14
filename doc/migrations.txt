@@ -11,7 +11,8 @@ rails g migration AddSignableRefToDigitalSignatures signable:references{polymorp
 
 add_reference :shop_products, :productable, index: true, polymorphic: true
 
-rails g controller admin/digital_signatures -no-helper --no-assets --no-controller-specs --no-view-specs
+add_foreign_key "account_features", "plans", on_delete: :cascade
+              
 
 -------------
 reset the db !DONT

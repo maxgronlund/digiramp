@@ -196,8 +196,13 @@ class Recording < ActiveRecord::Base
     end
   end
   
+
+  
+  def get_shop_art
+    self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art 
+  end
+  
   def get_cover_art
-    
     self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art 
   end
   

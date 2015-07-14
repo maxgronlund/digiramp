@@ -197,6 +197,7 @@ class Account < ActiveRecord::Base
   def set_uuid
     self.title = self.title.strip
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
+    
   end
   
 
@@ -431,6 +432,7 @@ class Account < ActiveRecord::Base
 private
 
   def flush_cache
+    
     Rails.cache.delete([self.class.name, id])
     #Admin.cached_find(1).raise_accounts_version
   end

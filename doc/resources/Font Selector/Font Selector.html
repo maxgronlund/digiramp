@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)http://s3.amazonaws.com/jquery-font-chooser/examples/example.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>Font Selector</title>
+
+	<link rel="stylesheet" href="http://s3.amazonaws.com/jquery-font-chooser/examples/fontselector.css">
+
+	<script type="text/javascript" src="./Font Selector_files/jquery.min.js"></script>
+	<script type="text/javascript" src="./Font Selector_files/jquery.fontselector.js"></script>
+
+	<script type="text/javascript">
+
+	$(function() {
+		$('#fontSelect').fontSelector({
+			'hide_fallbacks' : true,
+			'initial' : 'Courier New,Courier New,Courier,monospace',
+			'selected' : function(style) { alert("S1: " + style); },
+			'fonts' : [
+				'Arial,Arial,Helvetica,sans-serif',
+				'Arial Black,Arial Black,Gadget,sans-serif',
+				'Comic Sans MS,Comic Sans MS,cursive',
+				'Courier New,Courier New,Courier,monospace',
+				'Georgia,Georgia,serif',
+				'Impact,Charcoal,sans-serif',
+				'Lucida Console,Monaco,monospace',
+				'Lucida Sans Unicode,Lucida Grande,sans-serif',
+				'Palatino Linotype,Book Antiqua,Palatino,serif',
+				'Tahoma,Geneva,sans-serif',
+				'Times New Roman,Times,serif',
+				'Trebuchet MS,Helvetica,sans-serif',
+				'Verdana,Geneva,sans-serif',
+				'Gill Sans,Geneva,sans-serif'
+				]
+		});
+
+		$('#fontSelect2').fontSelector({
+			'hide_fallbacks' : true,
+			'initial' : 'Courier New,Courier New,Courier,monospace',
+			'selected' : function(style) { alert("S2:" + style); },
+			'fonts' : [
+				'Arial,Arial,Helvetica,sans-serif',
+				'Arial Black,Arial Black,Gadget,sans-serif',
+				'Comic Sans MS,Comic Sans MS,cursive',
+				'Courier New,Courier New,Courier,monospace',
+				'Georgia,Georgia,serif'
+				]
+		});
+	});
+
+	</script>
+</head>
+<body data-pinterest-extension-installed="cr1.37">
+
+	<div style="width:300px;margin:100px auto;">
+
+		<div id="fontSelect" class="fontSelect" style="font-family: &#39;Arial Black&#39;, &#39;Arial Black&#39;, Gadget, sans-serif;"><span>Arial Black</span>
+			<div class="arrow-down"></div>
+		</div>
+
+		<div id="fontSelect2" class="fontSelect" style="font-family: &#39;Comic Sans MS&#39;, &#39;Comic Sans MS&#39;, cursive;"><span>Comic Sans MS</span>
+			<div class="arrow-down"></div>
+		</div>
+
+	</div>
+
+
+
+<ul class="fontSelectUl" style="display: none; position: absolute; left: 650px; top: 136px;"><li style="font-family: Arial, Arial, Helvetica, sans-serif;">Arial</li><li style="font-family: &#39;Arial Black&#39;, &#39;Arial Black&#39;, Gadget, sans-serif;">Arial Black</li><li style="font-family: &#39;Comic Sans MS&#39;, &#39;Comic Sans MS&#39;, cursive;">Comic Sans MS</li><li style="font-family: &#39;Courier New&#39;, &#39;Courier New&#39;, Courier, monospace;">Courier New</li><li style="font-family: Georgia, Georgia, serif;">Georgia</li><li style="font-family: Impact, Charcoal, sans-serif;">Impact</li><li style="font-family: &#39;Lucida Console&#39;, Monaco, monospace;">Lucida Console</li><li style="font-family: &#39;Lucida Sans Unicode&#39;, &#39;Lucida Grande&#39;, sans-serif;">Lucida Sans Unicode</li><li style="font-family: &#39;Palatino Linotype&#39;, &#39;Book Antiqua&#39;, Palatino, serif;">Palatino Linotype</li><li style="font-family: Tahoma, Geneva, sans-serif;">Tahoma</li><li style="font-family: &#39;Times New Roman&#39;, Times, serif;">Times New Roman</li><li style="font-family: &#39;Trebuchet MS&#39;, Helvetica, sans-serif;">Trebuchet MS</li><li style="font-family: Verdana, Geneva, sans-serif;">Verdana</li><li style="font-family: &#39;Gill Sans&#39;, Geneva, sans-serif;">Gill Sans</li></ul><ul class="fontSelectUl" style="display: none; position: absolute; left: 650px; top: 175px;"><li style="font-family: Arial, Arial, Helvetica, sans-serif;">Arial</li><li style="font-family: &#39;Arial Black&#39;, &#39;Arial Black&#39;, Gadget, sans-serif;">Arial Black</li><li style="font-family: &#39;Comic Sans MS&#39;, &#39;Comic Sans MS&#39;, cursive;">Comic Sans MS</li><li style="font-family: &#39;Courier New&#39;, &#39;Courier New&#39;, Courier, monospace;">Courier New</li><li style="font-family: Georgia, Georgia, serif;">Georgia</li></ul></body></html>

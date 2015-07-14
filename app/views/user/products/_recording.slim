@@ -1,115 +1,135 @@
-= f.error_notification
-= f.hidden_field :user_id   , value: @user.id
-= f.hidden_field :account_id, value: @user.account.id
-- if @category
-  = f.hidden_field :category,   value:  @category 
-  = f.hidden_field :units_on_stock, value: 100_000_000
-.form-inputs
-  = f.input :title, autofocus: true
-  .row
-    .col-sm-6
+.row
+  .col-sm-8
+    .help
+      .help-text
+        h2 Edit #{@category.capitalize.gsub('-', ' ')}
+  
+      .help-button
+        == render 'admin/helps/help', identifier: 'edit shop recording'
+
+  .col-sm-4
+    .pull-right.pull-down-10
+      /=> link_to  user_user_product_path(@user, @shop_product.uuid) do
+      /    .btn.btn-default
+      /      i.fa.fa-chevron-left
+      /      '&nbsp;Back
+      
+      
+.sexy_line
+.digi-box  
+  = simple_form_for [:user, @user, @shop_product], 
+                    :url => url_for(:action => action, 
+                                    :controller => 'products'),
+                    html: { :id => 'shop_product' }  do |f|
+    
+
+    
+  
+    = f.error_notification
+    = f.hidden_field :user_id   , value: @user.id
+    = f.hidden_field :account_id, value: @user.account.id
+    - if @category
+      = f.hidden_field :category,   value:  @category 
+      = f.hidden_field :units_on_stock, value: 100_000_000
+    .form-inputs
+      
       .row
         .col-sm-6
-          = f.input :price, label: 'Price in cent (min 50)'
-        .col-sm-6.pull-down-12
-          = f.input :for_sale,  :input_html => { class: 'icheck-me', 
-                                                        'data-skin'.to_sym => "square", 
-                                                        'data-color'.to_sym => "blue" }
-                                                        
-          = f.input :show_in_shop, label: 'Show in public shop',
-                                   :input_html => { class: 'icheck-me', 
-                                                     'data-skin'.to_sym => "square", 
-                                                     'data-color'.to_sym => "blue" }
-          
-      = f.input :image, hint: 'Ratio 1:1', label: 'Image for the shop'
-      /= f.input :units_on_stock
-      
-      /b Additional files
-      /br
-      /.fileinput.fileinput-new.input-group data-provides="fileinput"
-      /  .form-control data-trigger="fileinput"
-      /    i.glyphicon.glyphicon-file.fileinput-exists
-      /    span.fileinput-filename
-      /
-      /  span.input-group-addon.btn.btn-default.btn-file
-      /    span.fileinput-new
-      /      'Select zip file
-      /    span.fileinput-exists
-      /      'Change
-      /
-      /    
-      /    = f.file_field :zip_file, multiple: false, label: 'Select zip File'
-      /  a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"
-      /    'Remove
-      /  
-      /
-      /span class="help-block"
-      /  'Artwork, lyrics, funn stuff
-      
-      
-      
-      
-      
-      
-      = f.input :zip_file, hint: 'Art work, lyrics, funn stuff', label: 'Additional files(zip)'
-          
-      
-      /= f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
-      = f.input :sub_category, collection: Shop::Product::DOWNLOAD_CATEGORIES, :include_blank => false
-      .chosen-label
-        = f.input :recording_id, 
-                  collection: @user.recordings,
-                  include_blank: true,
-                  input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select recording..." }
-        
-        /<select data-placeholder="Choose a country..." style="width:350px;" multiple class="chosen-select">
-        
+          = f.input :title, autofocus: true
+          = f.input :sub_category, collection: Shop::Product::DOWNLOAD_CATEGORIES, :include_blank => false, label: 'Category'
+          .row
+            .col-sm-6
+              = f.input :price, label: 'Price in cent (min 50)'
+            .col-sm-6.pull-down-12
+              = f.input :for_sale,  :input_html => { class: 'icheck-me', 
+                                                            'data-skin'.to_sym => "square", 
+                                                            'data-color'.to_sym => "blue" }
+                                                            
+              = f.input :show_in_shop, label: 'Show in public shop',
+                                       :input_html => { class: 'icheck-me', 
+                                                         'data-skin'.to_sym => "square", 
+                                                         'data-color'.to_sym => "blue" }
 
-      
-    .col-sm-6
-      = f.input :additional_info, :input_html => {  style: "height: 80px;", 
-                                                    placeholder: "Text for small badges and invoice statements",
-                                                    maxlength: "150"}, 
-                                                    label: 'Info on badges'
-      
-      div id="textarea_feedback"
-      br
-      javascript:
-        $(document).ready(function() {
-            var text_max = 150;
-            $('#textarea_feedback').html(text_max + ' characters remaining');
-            update_textarea_feedback();
-            $('#shop_product_additional_info').keyup(function() {
+          b 
+            '*Select recording
+          == render 'shared/popover', id: 'recording', body: 'Please select a recording from your collection.'
+          .chosen-label
+            = f.input :recording_id, 
+                      collection: @user.recordings,
+                      include_blank: true,
+                      label: false,
+                      input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select recording..." }
+            
+          
+
+          br
+          b 
+            '*Term of usage
+          == render 'shared/popover', id: 'term-of-usage', body: 'Please select a document, you can edit create them from your dashboard'
+          .chosen-label
+            = f.input :document_id, 
+                      collection: @documents,
+                      include_blank: true,
+                      label: false,
+                      input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select from legal documents..." }
+                
+          br
+
+          b 
+            'Additional zip file (optional)
+          == render 'shared/popover', id: 'additional-zip', body: 'A zip file that buyers can download'
+          = f.input :zip_file, hint: 'Art work, lyrics, funn stuff', label: false
+              
+        .col-sm-6
+          = f.input :additional_info, :input_html => {  style: "height: 80px;", 
+                                                        label: ".zip file for download",
+                                                        placeholder: "Text for small badges and invoice statements",
+                                                        maxlength: "150"}, 
+                                                        label: 'Info on badges'
+          
+          div id="textarea_feedback"
+          br
+          javascript:
+            $(document).ready(function() {
+                var text_max = 150;
+                $('#textarea_feedback').html(text_max + ' characters remaining');
                 update_textarea_feedback();
+                $('#shop_product_additional_info').keyup(function() {
+                    update_textarea_feedback();
+                });
+              
+                function update_textarea_feedback(){
+                  var text_length = $('#shop_product_additional_info').val().length;
+                  var text_remaining = text_max - text_length;
+    
+                  $('#textarea_feedback').html(text_remaining + ' characters remaining');
+                }
             });
+          b Description
+          br
+          div id="toolbar" class="wysihtml5-toolbar"
+            a data-wysihtml5-command="bold" Bold
+            '&nbsp; 
+            a data-wysihtml5-command="italic" Italic
+            .pull-right
+              a data-wysihtml5-action="change_view"  Html 
+          = f.input :body, label: false, :input_html => {  style: "height: 180px;", placeholder: "Detailed text about the product", id: 'wysihtml5_editor'}
           
-            function update_textarea_feedback(){
-              var text_length = $('#shop_product_additional_info').val().length;
-              var text_remaining = text_max - text_length;
-
-              $('#textarea_feedback').html(text_remaining + ' characters remaining');
-            }
-        });
-      b Description
-      br
-      div id="toolbar" class="wysihtml5-toolbar"
-        a data-wysihtml5-command="bold" Bold
-        '&nbsp; 
-        a data-wysihtml5-command="italic" Italic
-        .pull-right
-          a data-wysihtml5-action="change_view"  Html 
-      = f.input :body, label: false, :input_html => {  style: "height: 180px;", placeholder: "Detailed text about the product", id: 'wysihtml5_editor'}
-  /=f.input :invitation_message, label: false, :input_html => {  style: "height: 280px;", placeholder: "Invitation message", id: 'wysihtml5_editor'}
+      /=f.input :invitation_message, label: false, :input_html => {  style: "height: 280px;", placeholder: "Invitation message", id: 'wysihtml5_editor'}
+      
+      
+      
+      
+      
+      
+    .form-actions  
+      .row
+        .col-sm-12
+          .pull-right
+            = f.submit 'Save', class: 'btn btn-primary'
+      coffee:
+        $("form#shop_product").submit ->
+          $(this).find('input[type=submit]').attr('disabled', 'disabled')
+          $(this).find('input[type=submit]').val "Updating, please wait ..."
+    
   
-  
-  
-  
-  
-  
-.form-actions  
-  .row
-    .col-sm-12
-      .pull-right
-        = f.submit 'Save', class: 'btn btn-primary'
-
-        

@@ -1,3 +1,4 @@
+- session[:return_url]         = request.url
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
@@ -14,7 +15,17 @@
                  
       .sexy_line
       .digi-box
-        = link_to 'Vocabulary', vocabulary_index_path, class: 'btn btn-default'
+        .div style="max-width: 800px;"
+          h4= @vocabalory.title
+          = simple_format @vocabalory.body
+        .row 
+          .col-sm-12
+            .pull-right
+              - if super?
+                => link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @vocabalory), class: 'btn btn-default'
+              = link_to 'Show', vocabulary_index_path, class: 'btn btn-default'
+          
+          
                 
       
             

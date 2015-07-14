@@ -1,6 +1,7 @@
 Digiramp::Application.routes.draw do
 
 
+
   resources :accepting_signatures
 
   # user namespace arount line 730
@@ -282,6 +283,7 @@ Digiramp::Application.routes.draw do
   
   
   get 'account/embed/:id', to: 'embed#show'
+ 
   
   resources :accounts, only: [:show, :edit, :update] do
     
@@ -743,11 +745,12 @@ Digiramp::Application.routes.draw do
       
       match '/subsctiption_status/:guid'   => 'subscriptions#status',    via: :get,  as: :subscription_status
       match '/payment_method_status/:guid' => 'payment_methods#status',  via: :get,  as: :payment_method_status
-      match '/payment_method_fail/:guid' => 'payment_methods#fail',    via: :get,  as: :payment_method_fail
+      match '/payment_method_fail/:guid' => 'payment_methods#fail',      via: :get,  as: :payment_method_fail
      
-      resources :subscriptions
-      resources :products
-      resources :registrations
+      resources :subscriptions,
+                :products,
+                :registrations
+                
       post "/hook" => "registrations#hook"
       post "/registrations/:id" => "registrations#show"
       
@@ -897,9 +900,9 @@ Digiramp::Application.routes.draw do
       resources :user_emails
       resources :user_positions, only: [:index]
       resources :user_ipis, only: [:index]
+
     end
     resources :user_addresses
-    
   end
   
   resources :users do
@@ -958,6 +961,8 @@ Digiramp::Application.routes.draw do
       resources :recording_playbacks, only: [:index]
     end
     resources :likes, only: [:index, :destroy]
+    resources :user_likes, only: [:new]
+    resources :user_unlikes, only: [:new]
     # forms on the recording page
     resources :lyrics, only: [:update, :edit]
     resources :descriptions, only: [:update, :edit]

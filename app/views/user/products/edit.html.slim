@@ -1,13 +1,3 @@
-/- session[:return_url] = request.url
-/h1 Editing shop_product
-/= simple_form_for [:user, @user, @shop_product], :url => url_for(:action => 'update', :controller => 'products') do |f|
-/  == render 'form', f: f
-/
-/= link_to 'Show', user_user_product_path(@user, @shop_product)
-/'|
-/= link_to 'Back', user_user_products_path(@user, @shop_product)
-
-
 - session[:return_url] = request.url
 
 #wrapper
@@ -27,32 +17,10 @@
     .container-fluid 
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym =>user_user_control_panel_index_path(@user),
                                                               'shop admin'.to_sym => user_user_shop_admin_index_path(@user)}, current: ''}
-      .row
-        .col-sm-8
-          h3 Edit #{@category.capitalize.gsub('-', ' ')}
-        .col-sm-4
-          .pull-right.pull-down-10
-            => link_to  user_user_product_path(@user, @shop_product.uuid) do
-                .btn.btn-default
-                  i.fa.fa-chevron-left
-                  '&nbsp;Back
-            
-            
-      .sexy_line
-      .digi-box  
-        = simple_form_for [:user, @user, @shop_product], 
-                          :url => url_for(:action => 'update', 
-                                          :controller => 'products'),
-                          html: { :id => 'shop_product' }  do |f|
-          == render  @category.gsub('-', '_'), f: f
-                                                        
-
-          coffee:
-            $("form#shop_product").submit ->
-              $(this).find('input[type=submit]').attr('disabled', 'disabled')
-              $(this).find('input[type=submit]').val "Updating, please wait ..."
-        
-            
+      
+      
+      
+      == render  @category.gsub('-', '_').downcase , action: 'update'
 
   == render 'shared/site_footer' 
 == render 'shared/init_wysiwyg5'

@@ -1,0 +1,10 @@
+=< link_to '(?)', '#', id: "#{id}",
+                'data-content'.to_sym => "#{body}"
+
+
+javascript:
+  $("##{id}").popover({container: 'body',
+                        toggle: 'popover',
+                        placement: 'top',
+                        trigger: 'hover'})
+br

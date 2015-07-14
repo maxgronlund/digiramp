@@ -13,7 +13,7 @@ class Shop::Product < ActiveRecord::Base
   mount_uploader :zip_file,     ZipUploader
   
   CATEGORIES = ['Product', 'Playlist', 'Streaming', 'Download', 'Service', 'Physical product', 'Coupon']
-  DOWNLOAD_CATEGORIES = ["Recording", "Playlist", "Project zip"]
+  DOWNLOAD_CATEGORIES = ["Recording", "Protools project", "Logic project", "Individual tracks (remix pack)", "Sample pack", "Graphics"]
   
   
   
@@ -41,6 +41,14 @@ class Shop::Product < ActiveRecord::Base
   def add_productable type, id
     self.productable_type = type
     self.productable_type = type
+  end
+  
+  def shop_image size
+    if self.category == 'recording'
+      return self.recording.get_shop_art
+    end
+    self.image_url(size)
+    
   end
   
   

@@ -5,7 +5,7 @@ class User::SelectTemplatesController < ApplicationController
     case params[:selection]
       
     when 'im the only owner'
-      #@documents   = Document.templates.where()
+    
       @documents   = Document.templates
       
       

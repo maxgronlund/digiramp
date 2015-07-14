@@ -1,6 +1,7 @@
 class CommonWork < ActiveRecord::Base
   include PublicActivity::Common
   include PgSearch
+  include WizardHelper
   pg_search_scope :search_common_work, against: [:title, :lyrics, :alternative_titles, :iswc_code, :description ], :using => [:tsearch],  :associated_against => {
       :recordings => [ :title, 
                        :lyrics, 
@@ -32,9 +33,7 @@ class CommonWork < ActiveRecord::Base
   #accepts_nested_attributes_for  :recordings, allow_destroy: true
   
   has_many :attachments, as: :attachable,       dependent: :destroy
-  
-  
-  
+
   has_many :ipis,       dependent: :destroy
   #has_many :user_credits, as: :ipiable
   #accepts_nested_attributes_for :ipis, allow_destroy: true
@@ -56,9 +55,11 @@ class CommonWork < ActiveRecord::Base
   before_save :update_uuids
   
   after_commit :flush_cache
-  after_create :count_statistics_up
+  #after_create :add_childs
   
   has_and_belongs_to_many :catalogs
+  
+  #has_many :work_registrations , class_name: "Rights::WorkRegistration"
   
   
   
@@ -68,6 +69,10 @@ class CommonWork < ActiveRecord::Base
 
   #before_save :check_title
   
+  #def registration
+  #  self.work_registrations.first
+  #end
+
   def clear_rights
     
   end
@@ -803,9 +808,10 @@ private
     end
   end
   
-  def count_statistics_up
-
-  end
+  #def add_childs
+  #  work_registration     = Rights::WorkRegistration.create( common_work_id: self.id,
+  #                                                           account_id:    self.account_id)
+  #end
 
   
 

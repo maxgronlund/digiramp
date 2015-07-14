@@ -8,7 +8,8 @@
           = product.recording.pre_cleared
     .col-sm-6
       .product-image-big
-        = image_tag product.image_url(:thumb_470x470)
+        = image_tag product.shop_image('thumb_470x470')
+        /= image_tag product.image_url(:thumb_470x470)
         .product-category-big
           = product.category.gsub('-', ' ').capitalize
     .col-sm-6

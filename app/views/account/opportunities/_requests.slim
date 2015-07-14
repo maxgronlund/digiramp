@@ -18,13 +18,9 @@
               
             
           .music_submission_selection  
-            '&nbsp; 
-            - if  music_submission.recording.zipp.to_s == '' 
-              =< link_to 'zip', recording_zip_export_path( music_submission.recording ), class: 'btn btn-default btn-xs', remote: true
-            - else
-              =< link_to root_path +  music_submission.recording.zipp do
-                .btn.btn-default.btn-xs
-                  i class="fa fa-download"
+             =< link_to music_submission.recording.download_url2 do
+               .btn.btn-default.btn-xs
+                 i class="fa fa-download"
             
 
 

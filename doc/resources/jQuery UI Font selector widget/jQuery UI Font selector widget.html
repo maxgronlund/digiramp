@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://lindekleiv.bitbucket.org/fontselector/# -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>jQuery UI Font selector widget</title>
+    <link rel="stylesheet" href="http://lindekleiv.bitbucket.org/fontselector/jquery.ui.fontSelector.css">
+    <script type="text/javascript" async="" src="./jQuery UI Font selector widget_files/ga.js"></script><script src="./jQuery UI Font selector widget_files/jquery.min.js" type="text/javascript"></script>
+    <script src="./jQuery UI Font selector widget_files/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="./jQuery UI Font selector widget_files/jquery.ui.fontSelector.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('select#fonts').fontSelector({
+          fontChange: function(e, ui) {
+            // Update page title according to the font that's set in the widget options:
+            $('h1').css({
+              fontFamily: ui.font,
+            });
+          },
+          styleChange: function(e, ui) {
+            // Update page title according to what's set in the widget options:
+            if(ui.value == true) {
+              if(ui.style == 'bold') $('h1').css({fontWeight: 'bold'});
+              if(ui.style == 'italic') $('h1').css({fontStyle: 'italic'});
+              if(ui.style == 'underline') $('h1').css({textDecoration: 'underline'});
+            } else {
+              if(ui.style == 'bold') $('h1').css({fontWeight: 'normal'});
+              if(ui.style == 'italic') $('h1').css({fontStyle: 'normal'});
+              if(ui.style == 'underline') $('h1').css({textDecoration: 'none'});
+            }
+          }
+        });
+
+        $('p a.style').click(function(){
+          var style = $(this).attr('id'); // This will be bold, italic or underline.
+          var current = $('select#fonts').fontSelector('option', style);
+          var setTo = true;
+          if(current == true) setTo = false;
+          $('select#fonts').fontSelector('option', style, setTo);
+        });
+      });
+    </script>
+
+    <style type="text/css" media="screen">
+      html {
+        background-color: #fafafa;
+      }
+
+      body {
+        font-family: 'Droid Serif', Georgia, serif;
+        font-size: 14px;
+        color: #333;
+        width: 600px;
+        margin: 25px auto;
+      }
+
+      h1 {
+        font-weight: normal;
+      }
+
+      a {
+        color: #25A4FF;
+        text-decoration: none;
+      }
+
+      p {
+        line-height: 150%;
+      }
+
+      pre {
+        color: #888;
+      }
+    </style>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-25086355-4']);
+      _gaq.push(['_setDomainName', 'bitbucket.org']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+  </head>
+  <body data-pinterest-extension-installed="cr1.37">
+    <h1 style="font-style: normal; text-decoration: none; font-family: Esteban; font-weight: bold;">jQuery UI Font selector widget</h1>
+    <p>This is a font selector widget which uses the Google Web Fonts library. It was made by <a href="http://lindekleiv.com/">Olav Andreas Lindekleiv</a>, and is available on <a href="https://bitbucket.org/lindekleiv/jquery-ui-fontselector">BitBucket</a>.</p>
+
+    <h3>Example</h3>
+
+    <link rel="stylesheet" type="text/css" href="./jQuery UI Font selector widget_files/css"><link rel="stylesheet" type="text/css" href="./jQuery UI Font selector widget_files/css(1)"><link rel="stylesheet" type="text/css" href="./jQuery UI Font selector widget_files/css(2)"><link rel="stylesheet" type="text/css" href="./jQuery UI Font selector widget_files/css(3)"><link rel="stylesheet" type="text/css" href="./jQuery UI Font selector widget_files/css(4)"><link rel="stylesheet" type="text/css" href="./jQuery UI Font selector widget_files/css(5)"><link rel="stylesheet" type="text/css" href="./jQuery UI Font selector widget_files/css(6)"><link rel="stylesheet" type="text/css" href="./jQuery UI Font selector widget_files/css(7)"><select id="fonts" style="display: none;">
+      <option value="Chelsea Market">Chelsea Market</option>
+      <option value="Droid Serif" selected="selected">Droid Serif</option>
+      <option value="Ruluko" selected="selected">Ruluko</option>
+      <option value="Ruda" selected="selected">Ruda</option>
+      <option value="Magra" selected="selected">Magra</option>
+      <option value="Esteban" selected="selected">Esteban</option>
+      <option value="Lora">Lora</option>
+      <option value="Jura">Jura</option>
+    </select><div class="fontSelector ui-widget"><h4 style="font-family: Esteban; font-style: normal; text-decoration: none; font-weight: bold;" class="selected handle">Esteban</h4><span class="handle">&#9660;</span><ul class="fonts" style="font-style: normal; text-decoration: none; display: none; font-weight: bold;"><li style="font-family: &#39;Chelsea Market&#39;">Chelsea Market</li><li style="font-family: &#39;Droid Serif&#39;" class="">Droid Serif</li><li style="font-family: &#39;Ruluko&#39;" class="">Ruluko</li><li style="font-family: &#39;Ruda&#39;" class="">Ruda</li><li style="font-family: &#39;Magra&#39;" class="">Magra</li><li style="font-family: &#39;Esteban&#39;" class="selected">Esteban</li><li style="font-family: &#39;Lora&#39;">Lora</li><li style="font-family: &#39;Jura&#39;">Jura</li></ul></div>
+
+    <p>
+      <a class="style" id="bold" href="./jQuery UI Font selector widget_files/jQuery UI Font selector widget.html" title="Bold">Bold</a> |
+      <a class="style" id="italic" href="./jQuery UI Font selector widget_files/jQuery UI Font selector widget.html" title="Italic">Italic</a> |
+      <a class="style" id="underline" href="./jQuery UI Font selector widget_files/jQuery UI Font selector widget.html" title="Underline">Underline</a>
+    </p>
+
+    <h3>Usage</h3>
+    <p>To use the widget, simply create a select element with the fonts you want to use (make sure they're available from the Google Web Fonts library first!), and enable it.</p>
+    <pre>      &lt;select id="fonts"&gt;
+        &lt;option value="Chelsea Market"&gt;Chelsea Market&lt;/option&gt;
+        &lt;option value="Droid Serif" selected="selected"&gt;Droid Serif&lt;/option&gt;
+        &lt;option value="Ruluko"&gt;Ruluko&lt;/option&gt;
+        &lt;option value="Ruda"&gt;Ruda&lt;/option&gt;
+        &lt;option value="Magra"&gt;Magra&lt;/option&gt;
+        &lt;option value="Esteban"&gt;Esteban&lt;/option&gt;
+        &lt;option value="Lora"&gt;Lora&lt;/option&gt;
+        &lt;option value="Jura"&gt;Jura&lt;/option&gt;
+      &lt;/select&gt;
+    </pre>
+
+    <p>To enable it, do:</p>
+    <pre>      $('select#fonts').fontSelector({
+        options: {
+          inSpeed: 250,
+          outSpeed: "slow",
+        }
+        fontChange: function(e, ui) {
+          alert("The font is set to "+ui.font+" (was "+ui.oldFont+" before)");
+        }
+        styleChange: function(e, ui) {
+          alert("The value of "+ui.style+" was set to "+ui.value);
+        }
+      });
+    </pre>
+
+    <p>The options are optional. Default values are 500 ms for inSpeed and 250 ms for outSpeed.</p>
+
+    <h3>License</h3>
+    <p>The jQuery UI Font selector widget is available under the BSD License. Please read it (see the LICENSE file). It's only a few lines.</p>
+  
+</body></html>

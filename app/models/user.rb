@@ -157,6 +157,9 @@ class User < ActiveRecord::Base
   # statistic on likes
   has_many :likes
   
+  # stuff a user like used for users
+  has_many :item_likes
+  
   has_many :playlists
   
   # -----------------------------------------------------------------
@@ -213,6 +216,20 @@ class User < ActiveRecord::Base
   has_many :products, class_name:         'Shop::Product'
   has_many :stripe_transfers, class_name: 'Shop::StripeTransfer'
   #has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
+  
+  def liked_by user_id
+    ItemLike.find_by(user_id: user_id, like_id: self.id, like_type: self.class.name)
+  end
+  
+  def update_user_likes
+    #self.user_likes = ItemLike.where(like_id: self.id, like_type: self.class.name).count
+    self.update(user_likes: ItemLike.where(like_id: self.id, like_type: self.class.name).count)
+    #self.save(validate: false)
+  end
+  
+  #def user_likes 
+  #  ItemLike.where(like_id: self.id, like_type: self.class.name).count
+  #end
 
   def self.say_hello
     #TestMailer.delay.send_message() 

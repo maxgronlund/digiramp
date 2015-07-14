@@ -1,0 +1,15 @@
+h1 Wizard::Rights::WorkStart#edit
+p Find me in app/views/wizard/rights/work_start/edit.html.slim
+
+.row
+  .col-sm-6
+    .digi-box
+      = simple_form_for [ :wizard, :rights, @common_work, @wizard ], :url => url_for(:action => 'update', :controller => 'work_start'), turboboost: true, :method => 'patch' do |f|
+        = f.error_notification
+        
+
+        .form-inputs
+          'How many people contributed to the original work?
+          
+          = f.input :work_contributor_count, as: :integer, error: 'Username is mandatory, please specify one'
+          = f.submit 'Save', class: 'btn btn-default'

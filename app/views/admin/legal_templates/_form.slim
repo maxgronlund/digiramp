@@ -1,15 +1,13 @@
 
       
 div style="max-width: 840px"
-
+  /= debug @document
   = f.hidden_field :account_id, value: @account.id
   = f.hidden_field :document_type, value: 'Template'
-  = f.input :title
+  = f.input :tag, collection: Document::TAGS, include_blank: true
   = f.input :body, label: 'Description', input_html: {style: "height: 80px;"}
-
-
-
-
+  = f.input :title
+  
   div id="toolbar" class="wysihtml5-toolbar"
     a data-wysihtml5-command="bold" Bold
     '&nbsp; 

@@ -30,11 +30,11 @@
         
     li class="#{'sidebar-selected' if selected == 'likes'}"
       = link_to user_likes_path(@user) do
-        i class="fa fa-heart"
+        i.fa.fa-thumbs-up
         '&nbsp;
         = @user.likes.count
         '&nbsp;
-        'Likes  
+        'Liking  
         
     li class="#{'sidebar-selected' if selected == 'followers'}"
       = link_to user_followers_path(@user, clear: 'clear') do

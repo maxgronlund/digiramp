@@ -5,6 +5,7 @@
   = link_to profile_path do
     .avatar
       = image_tag( user.image_url :avatar_220x220) 
+
       .user-tags
         /- if user.profession.to_s != ''
         /  .user-tag
@@ -58,12 +59,18 @@
       '&nbsp;
       = user.recordings.count
     '&nbsp;|&nbsp;
-    = link_to user_likes_path(user) do
-      i class="fa fa-heart"
-      '&nbsp;
-      = user.likes.count
-    '&nbsp;|&nbsp;
+    - if likes = user.likings and likes > 0
+      = link_to user_likes_path(user) do
+        i.fa.fa-thumbs-up&nbsp;
+        = likes
+      '&nbsp;|&nbsp;
     
+    - if user_likes = user.user_likes and user_likes > 0
+      = link_to user do
+        i class="fa fa-heart"
+        '&nbsp;
+        = user_likes
+      '&nbsp;|&nbsp;
     /= link_to user_likes_path(user) do
     /  i class="fa fa-heart red-heart"
     /  '&nbsp;

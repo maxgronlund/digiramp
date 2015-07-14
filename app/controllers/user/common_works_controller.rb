@@ -1,7 +1,6 @@
 class User::CommonWorksController < ApplicationController
   before_action :access_user
 
-
   
   def index
     

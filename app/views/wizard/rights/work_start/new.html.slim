@@ -1,0 +1,29 @@
+h1 Wizard::Rights::WorkStart#new
+br
+
+
+
+
+/= link_to 'Wizard', edit_wizard_rights_common_work_work_contributor_path( @common_work, @wizard, user_id: params[:user_id]), class: 'btn btn-default'
+
+
+
+
+
+/.row
+/  .col-sm-6
+/    .digi-box
+/      = simple_form_for [ @wizard ], :url => url_for(:action => 'create', :controller => 'work_start'), :method => 'post' do |f|
+/        = f.error_notification
+/        = f.hidden_field :user_id,      value: params[:user_id]
+/        = f.hidden_field :wizard_id,    value: @common_work.id
+/        = f.hidden_field :wizard_type,  value:  @common_work.class.name
+/        
+/       
+/        
+/        /= debug @wizard.errors
+/        .form-inputs
+/          'How many people contributed to the original work?
+/          
+/          = f.input :work_contributor_count, as: :integer
+/          = f.submit 'Save', class: 'btn btn-default'

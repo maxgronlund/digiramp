@@ -8,6 +8,13 @@ class Document < ActiveRecord::Base
   has_many :document_users
   
   TYPES = ['File', 'Financial', 'Legal', 'Template']
+  TAGS  = [ 'Music licence', 
+            'Music download', 
+            'Product', 
+            'Service', 
+            'Template',
+            'Other'
+          ]
   
   scope :files,           ->  { where( document_type: 'File')  }
   scope :financial,       ->  { where( document_type: 'Financial')  }
@@ -16,7 +23,28 @@ class Document < ActiveRecord::Base
   scope :csv,             ->  { where( document_type: 'Csv')  }
   
   
-
+  def self.recording__download
+    
+    #Document.where(document_type: 'Template',
+    #               tag: )
+    #:title => :string,
+    #    :document_type => :string,
+    #             :body => :text,
+    #             :file => :string,
+    #      :image_thumb => :string,
+    #            :usage => :integer,
+    #     :text_content => :text,
+    #             :mime => :string,
+    #        :file_type => :string,
+    #       :account_id => :integer,
+    #       :created_at => :datetime,
+    #       :updated_at => :datetime,
+    #        :file_size => :integer,
+    #      :template_id => :integer,
+    #              :tag => :string
+  end
+  
+  
   after_commit :flush_cache
 
   include PgSearch
@@ -30,6 +58,7 @@ class Document < ActiveRecord::Base
     end
     documents
   end
+  
   
   
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710171524) do
+ActiveRecord::Schema.define(version: 20150714003900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1379,6 +1379,7 @@ ActiveRecord::Schema.define(version: 20150710171524) do
     t.datetime "updated_at"
     t.integer  "file_size",                 default: 0
     t.integer  "template_id"
+    t.string   "tag",                       default: ""
   end
 
   add_index "documents", ["account_id"], name: "index_documents_on_account_id", using: :btree
@@ -1952,6 +1953,17 @@ ActiveRecord::Schema.define(version: 20150710171524) do
   end
 
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
+
+  create_table "item_likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "like_id"
+    t.string   "like_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "item_likes", ["like_type", "like_id"], name: "index_item_likes_on_like_type_and_like_id", using: :btree
+  add_index "item_likes", ["user_id"], name: "index_item_likes_on_user_id", using: :btree
 
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
@@ -2929,9 +2941,11 @@ ActiveRecord::Schema.define(version: 20150710171524) do
     t.integer  "playlist_id"
     t.string   "content_type"
     t.integer  "file_size"
+    t.integer  "document_id"
   end
 
   add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
+  add_index "shop_products", ["document_id"], name: "index_shop_products_on_document_id", using: :btree
   add_index "shop_products", ["playlist_id"], name: "index_shop_products_on_playlist_id", using: :btree
   add_index "shop_products", ["productable_type", "productable_id"], name: "index_shop_products_on_productable_type_and_productable_id", using: :btree
   add_index "shop_products", ["recording_id"], name: "index_shop_products_on_recording_id", using: :btree
@@ -3223,6 +3237,8 @@ ActiveRecord::Schema.define(version: 20150710171524) do
     t.text     "address_line_2"
     t.integer  "super_catalog_user_id"
     t.integer  "super_account_user_id"
+    t.integer  "user_likes",                             default: 0
+    t.integer  "likings",                                default: 0
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
@@ -3438,6 +3454,7 @@ ActiveRecord::Schema.define(version: 20150710171524) do
   add_foreign_key "documents", "accounts", on_delete: :cascade
   add_foreign_key "import_batches", "accounts", on_delete: :cascade
   add_foreign_key "invoices", "accounts", on_delete: :cascade
+  add_foreign_key "item_likes", "users", on_delete: :cascade
   add_foreign_key "likes", "accounts", on_delete: :cascade
   add_foreign_key "mail_campaigns", "accounts", on_delete: :cascade
   add_foreign_key "opportunities", "accounts", on_delete: :cascade
@@ -3455,6 +3472,7 @@ ActiveRecord::Schema.define(version: 20150710171524) do
   add_foreign_key "representative_splits", "common_works"
   add_foreign_key "sales_coupon_batches", "users"
   add_foreign_key "shop_orders", "coupons"
+  add_foreign_key "shop_products", "documents"
   add_foreign_key "shop_stripe_transfers", "accounts", on_delete: :cascade
   add_foreign_key "shop_stripe_transfers", "shop_order_items", column: "order_item_id"
   add_foreign_key "shop_stripe_transfers", "shop_orders", column: "order_id"

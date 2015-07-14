@@ -1,5 +1,76 @@
+address module
+
+include address
+user has one address
+
+rails g model wizards user:belongs_to wizard:references{polymorphic} content:text prev_url current_url next_url
+
+edit is current_url
+update go to next_url
+destroy go to prev_url
+
+wizards in namespace 
+rails d controller wizard/rights/work_start                    new edit update  --no-helper --no-helper-specs --no-assets --no-controller-specs --no-view-specs
+rails d controller wizard/rights/registraions                  new edit update destroy  --no-helper --no-helper-specs --no-assets --no-controller-specs --no-view-specs
+rails d controller wizard/rights/work_writers                  edit update destroy  --no-helper --no-helper-specs --no-assets --no-controller-specs --no-view-specs
+rails g controller wizard/rights/work_copy_from                edit update destroy  
+rails g controller wizard/rights/work_personas                 edit update destroy 
+rails g controller wizard/rights/work_number_publishers        edit update destroy 
+rails g controller wizard/rights/work_publishers               edit update destroy 
+rails g controller wizard/rights/work_administrators           edit update destroy 
+rails g controller wizard/rights/work_splits                   edit update destroy 
+rails g controller wizard/rights/work_reviews                  edit update destroy 
+rails g controller wizard/rights/work_confirmations            edit update destroy show
+
+
+store wizarl url/position in user model
+
+remove on cancel /  login / logout
+set on start
+update on next
+
+
+wizard/user/:user_id/model/:model_id/start
+wizard/user/:user_id/model/:model_id/step_two
+
 Rights wizard
 
+rails d scaffold rights/work_registration
+rails g scaffold \
+              rights/work_registration \
+              common_work:belongs_to \
+              account:belongs_to \
+              original_music:boolean \
+              public_domain_music:boolean \
+              copyrighted_music:boolean \
+              
+              music_license:integer \
+              music_contract \
+              original_lyrics:boolean \
+              public_domain_lyrics:boolean \
+              copyrighted_lyrics:boolean \
+              pre_existing_lyrics:boolean \
+              lyric_license:integer \
+              lyrics_contract \
+              ascap_work_id \
+              pro \
+              registration_date:date \
+              last_distribution:date \
+              first_broadcast:date \
+              work_for_hire:boolean \
+              work_type \
+              movements:integer \
+              composite_type \
+              genre \
+              ascap_award_winner \
+              iswc_code \
+              ascap_work_id \
+              bmi_work_id \
+              bmi_catalog \
+              registration_origin \
+              pro_work_id \
+              pro_catalog \
+              -no-helper --no-assets --no-controller-specs --no-view-specs 
 
 
 =================================== wizard ===============================
@@ -8,6 +79,7 @@ Copyright
 ===========================================================================
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+wizard/work_rights/start
 Writers and publishers [?]
 
 Option 1
@@ -21,7 +93,6 @@ I want to use DigiRAMP to confirm and manage rights and payments
 bla bla mony send to IP's accounts
 
                                                     [Yes]
-
 
 
 
