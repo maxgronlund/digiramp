@@ -14,14 +14,17 @@
                                                               content: admin_content_index_path}, current: ''}
       == render 'admin/shared/messages'
       .row
-        .col-sm-8
+        .col-sm-6
           h3 Templates for legal documents
-        .col-sm-4
+        .col-sm-6
           .pull-right.pull-down-10
-            = link_to '#' do
+            
+            => link_to admin_content_index_path do
               .btn.btn-default
                 i.fa.fa-chevron-left
                 '&nbsp;Back
+            => link_to 'New document template', new_admin_legal_template_path, class: 'btn btn-default', id: 'new-document-template'
+            = link_to 'Legal tags', admin_legal_tags_path, class: 'btn btn-default'
       .sexy_line
 
       .digi-box
@@ -37,6 +40,7 @@
                 tr
                   td style="min-width: 100px"
                     => link_to admin_legal_template_path(document), 
+                          id: "delete-#{document.title.downcase.gsub(' ', '-')}" , 
                           data: {:confirm => 'Are you sure?'}, 
                           turboboost: true, 
                           :method => :delete do
@@ -47,7 +51,7 @@
                       .btn.btn-default.btn-xs
                         i.fa.fa-file-pdf-o
                       
-                    = link_to edit_admin_legal_template_path( document) do
+                    = link_to edit_admin_legal_template_path( document), id: "edit-#{document.title.downcase.gsub(' ', '-')}" do
                       .btn.btn-default.btn-xs
                         i.fa.fa-pencil
                     

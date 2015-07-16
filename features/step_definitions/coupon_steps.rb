@@ -10,6 +10,6 @@ Then(/^I create a new coupon named "(.*?)"$/) do |name|
   select 'DigiRAMP Pro', :from => 'coupon_plan_id'
   find_by_id('commit-form').click
 
-  find('.table-responsive')
+  
   
 end

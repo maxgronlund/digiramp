@@ -2,10 +2,10 @@ class FollowerMailer < ApplicationMailer
   
   def recording_uploaded recording_id
     
-    @recording = Recording.cached_find(recording_id)
+    return errors("Recording id: #{recording_id} not found")  unless @recording = Recording.cached_find(recording_id)
     return unless @recording.privacy == 'Anyone'
+    return errors("User not found")  unless @user      = @recording.user
     
-    @user      = @recording.user
     @user_avatar  = ( URI.parse(root_url) + @user.image_url(:avatar_92x92) ).to_s
     @user_url     = url_for( controller: 'users', action: 'show', id: @user.slug)
     @user_url     = ( URI.parse(root_url) + @user_url ).to_s
@@ -54,4 +54,10 @@ class FollowerMailer < ApplicationMailer
     end
 
   end
+  
+  def errors err
+    ap err
+    Opbeat.capture_message("FollowerMailer: #{err}" )
+  end
+  
 end

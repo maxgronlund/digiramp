@@ -1,0 +1,12 @@
+= simple_form_for [@admin_legal_tag], turboboost: true do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :body
+
+  .form-actions
+    .row
+      .col-sm-12
+        .pull-right
+          = f.submit 'Save', class: 'btn btn-primary'

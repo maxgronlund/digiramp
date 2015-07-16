@@ -387,13 +387,14 @@ class User < ActiveRecord::Base
     
     else
       user = User.create( email: 'digiramp_system_default_957@digiramp.com', 
-                           name:  'digiramp_system_default_957', 
-                           #current_account_id: @account.id, 
-                           password: '5GA3Zk1C', 
-                           password_confirmation: '5GA3Zk1C',
-                           activated: true,
-                           private_profile: true)
-                           
+                          name:  'digiramp_system_default_957', 
+                          user_name: 'digiramp_system_default_957', 
+                          #current_account_id: @account.id, 
+                          password: '5GA3Zk1C', 
+                          password_confirmation: '5GA3Zk1C',
+                          activated: true,
+                          private_profile: true)
+                                              
       create_account_for user
     end
     user
@@ -709,7 +710,6 @@ class User < ActiveRecord::Base
                   user.name, 
                   user.email,
                   user.role,
-                  #user.profile.to_s.squish,
                   user.account.id.to_s,
                   user.activated.to_s
                 ]
@@ -720,29 +720,19 @@ class User < ActiveRecord::Base
   
   
   def self.create_account_for user
-    # forget about the expiration date
     
-    account = Account.where(
-                              contact_email: user.email,
-                              title: user.email
+    Account.where(
+                    contact_email: user.email,
+                    title: user.email,
+                    user_id: user.id
+                  )
+            .first_or_create(  title: user.email, 
+                               account_type: 'Social', 
+                               contact_email: user.email, 
+                               user_id: user.id,
+                               expiration_date: Date.current()>>1
                             )
-                    .first_or_create(  title: user.email, 
-                                       account_type: 'Social', 
-                                       contact_email: user.email, 
-                                       user_id: user.id,
-                                       expiration_date: Date.current()>>1
-                                    )
-    user.account.id = account.id
-    user.save!
-    
-    #AccountUser.create( account_id: account.id, 
-    #                    user_id: user.id, 
-    #                    role: 'Account Owner', 
-    #                    email: user.email,
-    #                    name:  user.name
-    #                   )
-    #
-    account
+
   end
   
   

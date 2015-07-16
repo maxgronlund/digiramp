@@ -1,8 +1,8 @@
 class User::OpportunitiesController < ApplicationController
   
   before_action :access_user
-  include AccountsHelper
-  before_action :access_account
+  #include AccountsHelper
+  #before_action :access_account
 
   
   def index

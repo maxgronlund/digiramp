@@ -2,6 +2,9 @@ Digiramp::Application.routes.draw do
 
 
 
+  namespace :admin do
+    resources :legal_tags
+  end
   resources :accepting_signatures
 
   # user namespace arount line 730

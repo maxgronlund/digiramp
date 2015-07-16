@@ -1,0 +1,67 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
+                                                              content: admin_content_index_path,
+                                                              'legal templates'.to_sym => admin_legal_templates_path }, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Legal tags
+            .help-button
+              == render 'admin/helps/help', identifier: 'Legal tags'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to  admin_legal_templates_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            = link_to 'New legal tag', new_admin_legal_tag_path, class: 'btn btn-default'
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+       
+            thead
+              tr
+                th
+                th Title
+                th Body
+            
+            tbody
+              - @admin_legal_tags.order(:title).each do |admin_legal_tag|
+                tr
+                  td 
+
+                    = link_to edit_admin_legal_tag_path( admin_legal_tag )
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                    = link_to admin_legal_tag_path(admin_legal_tag), data: {:confirm => 'Are you sure?'}, 
+                        :method => :delete,
+                        turboboost: true do
+                          .btn.btn-danger.btn-xs
+                            i.fa.fa-times
+                        
+                  td = admin_legal_tag.title
+                  td = simple_format admin_legal_tag.body
+            
+        
+
+        
+        
+            
+          
+
+  == render 'shared/site_footer'    
+
+

@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @admin_legal_tag.title
+p
+  strong Body:
+  = @admin_legal_tag.body
+
+= link_to 'Edit', edit_admin_legal_tag_path(@admin_legal_tag)
+'|
+= link_to 'Back', admin_legal_tags_path

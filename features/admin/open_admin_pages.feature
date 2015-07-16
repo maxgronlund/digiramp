@@ -1,7 +1,7 @@
 # cucumber features/admin/open_admin_pages.feature -r features
 
 Feature:
-As an administrator i can se all the pages
+As an administrator i can se all the admin pages
 
   Background:
     Given I am logged in as administrator
@@ -35,7 +35,7 @@ As an administrator i can se all the pages
     When I'm on the "Admin users page"
     Then I can edit the first user
     Then I can see "Edit user"
-
+    
     # content
     When I'm on the "Content page"
     Then I can see "Content"
@@ -104,7 +104,19 @@ As an administrator i can se all the pages
     When I'm on the edit account type feature page for the "DigiRAMP-Pro" account type 
     Then I can see "Edit account type feature"
     
-  @javascript  
+    When I'm on the "Templates for legal documents page"
+    Then I can see "Templates for legal documents"
+    
+    When I'm on the "New template for a legal document page"
+    Then I can see "New template for a legal document"
+    
+    When I'm on the "Legal tags page"
+    Then I can see "Legal tags"
+    
+    When I'm on the "New legal tag page"
+    Then I can see "New legal tag"
+    
+  #@javascript  
   Scenario: As an administrator i can open the sales pages
     When I'm on the "Sales page"
     Then I can see "Sales"

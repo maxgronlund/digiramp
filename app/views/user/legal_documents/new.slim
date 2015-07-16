@@ -28,8 +28,12 @@
 
       = render 'user/shared/legal_navigation'
       .digi-box
-        = simple_form_for [ @account, @document] , :url => url_for(:action => 'create', :controller => 'legal_documents'), :method => 'post' do |f|
-          = f.hidden_field :template_id, value: @template.id
+        = simple_form_for [ @account, @document] ,
+               :url => url_for(:action => 'create', 
+                               :controller => 'legal_documents'), 
+                               :method => 'post',
+                               :turboboost => true do |f|
+          = f.hidden_field :template_id, value: @template.id if @template
           == render 'form', f: f
       
 

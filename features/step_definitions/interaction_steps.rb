@@ -56,6 +56,13 @@ end
 #end
 #
 #
+
+Then(/^I'm filling the "(.*?)" in the wysiwyg5 with "(.*?)"$/) do |input_id, content|
+  browser = page.driver.browser
+  browser.execute_script("editor.setValue('#{text}')")
+end
+
+
 Then(/^Does it look right\?$/) do
   ask('does that look right?')
 end
@@ -97,9 +104,9 @@ end
 #  find_by_id(id).click
 #end
 #
-#Then /^I confirm popup$/ do
-#  page.driver.browser.switch_to.alert.accept
-#end
+Then /^I confirm popup$/ do
+  page.driver.browser.switch_to.alert.accept
+end
 #
 #Then /^I dismiss popup$/ do
 #  page.driver.browser.switch_to.alert.dismiss

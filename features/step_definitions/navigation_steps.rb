@@ -1,6 +1,10 @@
 #require 'test/unit'
 #include Test::Unit::Assertions
 
+When(/^I'm on the "(.*?)"$/) do |page|
+  visit_page page
+end
+
 def visit_page page
   #sleep(3)
   case page
@@ -63,6 +67,18 @@ def visit_page page
   
   when "New pro affiliations page"
     visit "/admin/pro_affiliations/new"
+  
+  when "Templates for legal documents page"
+    visit "/admin/legal_templates"
+  
+  when "New template for a legal document page"
+    visit "/admin/legal_templates/new"
+  
+  when "Legal tags page"
+    visit "/admin/legal_tags"
+  
+  when "New legal tag page"
+    visit "/admin/legal_tags/new"
     
     
   #business
@@ -239,7 +255,8 @@ def visit_page page
   when "Admin coupons page"
     visit "/admin/coupons"
   else
-    visit "page not found"
+    # page not found
+    visit "users/123456789"
   end
   
   

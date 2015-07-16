@@ -1,5 +1,5 @@
 class Document < ActiveRecord::Base
-  
+  has_paper_trail
   validates :title, :body, :text_content, presence: true
   
   belongs_to :account

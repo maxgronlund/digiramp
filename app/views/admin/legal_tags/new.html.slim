@@ -1,0 +1,49 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'content'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, \
+                                                              content: admin_content_index_path,
+                                                              'legal tags'.to_sym => admin_legal_tags_path}, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 New legal tag
+            .help-button
+              == render 'admin/helps/help', identifier: 'Legal tags'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to  admin_legal_tags_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+          
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            == render 'form'
+
+
+        
+
+        
+        
+            
+          
+
+  == render 'shared/site_footer'    
+
+
+
+
+

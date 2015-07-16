@@ -21,17 +21,28 @@ class User::ProductsController < ApplicationController
 
   # GET /shop/products/new
   def new
-    
     @shop_product = Shop::Product.new
     @category     = params[:category]
-    
-
+    document_templates
   end
 
   # GET /shop/products/1/edit
   def edit
     @category = @shop_product.category
-    @documents = Document.all 
+    document_templates
+  end
+  
+  # secure the latest contract templates for a given 
+  # product category is copied to the account
+  def document_templates
+    
+
+    if account = @user.account
+      
+      @documents = account.documents
+    end
+    #@category
+    
   end
 
   # POST /shop/products

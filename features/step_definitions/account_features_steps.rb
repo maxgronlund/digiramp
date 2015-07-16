@@ -19,16 +19,3 @@ Given(/^there is an account type named "(.*?)"$/) do |account_type|
   account_feature = find_or_create_account_feature(account_type)
 end
 
-
-
-
-
-#Then(/^I create a new coupon named "(.*?)"$/) do |arg1|
-#  find_by_id('new-coupon').click
-#  fill_in 'coupon_stripe_id', with: arg1
-#
-#  find_by_id('commit-form').click
-#  #sleep(4)
-#  find('.table-responsive')
-#  
-#end

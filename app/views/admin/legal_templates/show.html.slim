@@ -16,10 +16,10 @@
       == render 'admin/shared/messages'
       .row
         .col-sm-8
-          h3 Add default signature placeholders
+          h3 Add default signatures
         .col-sm-4
           .pull-right.pull-down-10
-            = link_to admin_legal_templates_path do
+            = link_to admin_legal_templates_path, id: 'back' do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back
