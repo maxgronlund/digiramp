@@ -31,8 +31,20 @@ class Account::MusicSubmissionsController < ApplicationController
     @music_request       = MusicRequest.cached_find(params[:music_request_id])
     @opportunity         = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_user    = OpportunityUser.where( opportunity_id: params[:opportunity_id], user_id: current_user.id ).first
-    opportunity_user_id  = @opportunity_user ? @opportunity_user.id : nil
     
+    if @opportunity.takes_more_submissions_from_the( current_user )
+      do_submit_recording params
+    else
+      redirect_to account_account_opportunity_music_request_max_submissions_reached_path(
+                                  @account, 
+                                  @opportunity,
+                                  @music_request)
+    end
+  end
+  
+  def do_submit_recording params
+    
+    opportunity_user_id  = @opportunity_user ? @opportunity_user.id : nil
 
     
     if current_user && (@opportunity.public_opportunity || @opportunity_user)
@@ -58,28 +70,27 @@ class Account::MusicSubmissionsController < ApplicationController
                        recipient_type: 'MusicRequest',
                            account_id: @account.id)
        
-                    
-      channel = 'digiramp_radio_' + current_user.email
-      Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SUBMITTED', 
+        
+      if Rails.env.production?              
+        channel = 'digiramp_radio_' + current_user.email
+        Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SUBMITTED', 
                                             "message" => "#{@recording.title} is submitted to #{@music_submission.music_request.title}", 
                                             "time"    => '4500', 
                                             "sticky"  => 'false', 
                                             "image"   => 'success'
                                             })
-                                            
-                                            
-                                            
-                                            
-      if user = @opportunity.user
-        message                    = Message.new
-        message.recipient_id       = user.id
-        message.sender_id          = current_user.id
-        message.title              = 'I have submitted a recording'
-        message.body               = "Thank's for the opportunity. I have submitted " + @opportunity.title + '. Please listen to it and see if you like it'
-        message.subjectable_id     = @music_submission.id
-        message.subjectable_type   = 'MusicSubmission'
-        message.save!
-        message.send_as_email
+                                                
+        if user = @opportunity.user
+          message                    = Message.new
+          message.recipient_id       = user.id
+          message.sender_id          = current_user.id
+          message.title              = 'I have submitted a recording'
+          message.body               = "Thank's for the opportunity. I have submitted " + @opportunity.title + '. Please listen to it and see if you like it'
+          message.subjectable_id     = @music_submission.id
+          message.subjectable_type   = 'MusicSubmission'
+          message.save!
+          message.send_as_email
+        end
       end
         
       
@@ -93,6 +104,8 @@ class Account::MusicSubmissionsController < ApplicationController
                                             "image"   => 'error'
                                             })
     end
+    
+    @takes_more_submissions = @opportunity.takes_more_submissions_from_the( current_user )
 
   end
 

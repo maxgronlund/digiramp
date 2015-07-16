@@ -2,10 +2,15 @@ class Admin::LegalTemplatesController < ApplicationController
   before_action :admins_only
   
   def index
-    @documents   = Document.templates
+    # secure default content exists
+    DefaultContent.build_default_legal_templates
+    DefaultContent.build_default_tags
+    
+    @documents   = Document.templates.order(:title)
     @system_user = User.system_user
     @account     = @system_user.account
-    Admin::LegalTag.build_default_tags
+    
+    
   end
 
   def show
@@ -20,7 +25,7 @@ class Admin::LegalTemplatesController < ApplicationController
 
   def new
     if Rails.env.test?
-      @document      = Document.new(text_content: 'fobar')
+      @document      = Document.new(text_content: 'test document needed to make validation work untill js for wysiwyg5html editor is fixed')
     else
       @document      = Document.new
     end
@@ -30,6 +35,7 @@ class Admin::LegalTemplatesController < ApplicationController
   end
   
   def create
+
     params[:document][:title] = saintize_title params[:document][:title]
     params[:document][:text_content] = sanitize_content params[:document][:text_content]
     @document = Document.create(document_params)
@@ -64,7 +70,8 @@ class Admin::LegalTemplatesController < ApplicationController
                                      :document_type, 
                                      :body, 
                                      :file, 
-                                     :usage, 
+                                     :usage,
+                                     :tag, 
                                      :account_id, 
                                      :text_content) 
     

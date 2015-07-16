@@ -1,5 +1,8 @@
 class Document < ActiveRecord::Base
   has_paper_trail
+  include PgSearch
+  pg_search_scope :search_in_documents, against: [:title, :body, :text_content], :using => [:tsearch]
+  
   validates :title, :body, :text_content, presence: true
   
   belongs_to :account
@@ -8,13 +11,7 @@ class Document < ActiveRecord::Base
   has_many :document_users
   
   TYPES = ['File', 'Financial', 'Legal', 'Template']
-  TAGS  = [ 'Music licence', 
-            'Music download', 
-            'Product', 
-            'Service', 
-            'Template',
-            'Other'
-          ]
+
   
   scope :files,           ->  { where( document_type: 'File')  }
   scope :financial,       ->  { where( document_type: 'Financial')  }
@@ -22,35 +19,8 @@ class Document < ActiveRecord::Base
   scope :legal,           ->  { where( document_type: 'Legal')  }
   scope :csv,             ->  { where( document_type: 'Csv')  }
   
-  
-  def self.recording__download
-    
-    #Document.where(document_type: 'Template',
-    #               tag: )
-    #:title => :string,
-    #    :document_type => :string,
-    #             :body => :text,
-    #             :file => :string,
-    #      :image_thumb => :string,
-    #            :usage => :integer,
-    #     :text_content => :text,
-    #             :mime => :string,
-    #        :file_type => :string,
-    #       :account_id => :integer,
-    #       :created_at => :datetime,
-    #       :updated_at => :datetime,
-    #        :file_size => :integer,
-    #      :template_id => :integer,
-    #              :tag => :string
-  end
-  
-  
-  after_commit :flush_cache
 
-  include PgSearch
-  pg_search_scope :search_in_documents, against: [:title, :body, :text_content], :using => [:tsearch]
-  
- 
+  after_commit :flush_cache
 
   def self.catalogs_search(documents, query)
     if query.present?
@@ -59,8 +29,24 @@ class Document < ActiveRecord::Base
     documents
   end
   
-  
-  
+  def self.clone_templates account_id, tag, document_type
+    documents = []
+    Document.where(tag: 'Recording', document_type: 'Template').each do |template|
+      document = Document.create( title:          template.title, 
+                                  body:           template.body, 
+                                  text_content:   template.text_content,
+                                  tag:            tag,
+                                  document_type:  document_type,
+                                  account_id:     account_id,
+                                  template_id:    template.id).id
+                                    
+      
+      DigitalSignature.clone_signatures_from template, document
+      documents << document
+    end
+    documents
+  end
+
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
@@ -68,6 +54,10 @@ class Document < ActiveRecord::Base
   
   def digital_signatures
     DigitalSignature.where(signable_type: self.class.name, signable_id: self.id)
+  end
+  
+  def used_on
+    
   end
   
   #def copy_signatures_from_template
@@ -85,6 +75,8 @@ class Document < ActiveRecord::Base
   #    end
   #  end
   #end
+  
+
   
 private
   

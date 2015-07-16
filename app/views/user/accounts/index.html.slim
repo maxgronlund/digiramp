@@ -12,7 +12,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user) }, current: ''}
       h2 Account you have access to
       .sexy_line
       .digi-box

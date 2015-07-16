@@ -557,9 +557,11 @@ Digiramp::Application.routes.draw do
           #  get :find_recording
           #  get :upload_recording
           #end
+          get 'max_submissions_reached'
           resources :music_submissions do
             member do
               get 'submit_recording'
+              
               post 'create_comment'
               get 'download'
             end

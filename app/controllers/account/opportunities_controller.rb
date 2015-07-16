@@ -106,6 +106,7 @@ class Account::OpportunitiesController < ApplicationController
                                           :territory,
                                           :public_opportunity,
                                           :image,
+                                          :max_submisions_pr_user,
                                           music_requests_attributes: [:id, 
                                                                       :title, 
                                                                       :body,

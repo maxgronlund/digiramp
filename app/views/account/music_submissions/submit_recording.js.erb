@@ -1,4 +1,8 @@
 $("#delete_recording_<%= @recording.id %>").fadeOut( "slow" );
 
+<% if @takes_more_submissions %>
+  alert('Thanks for your submissions. You have reached the maximum of submissions');
+<% end %>
+
 
 

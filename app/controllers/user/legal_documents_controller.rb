@@ -26,26 +26,26 @@ class User::LegalDocumentsController < ApplicationController
     if params[:id]
       @template = Document.cached_find(params[:id])
       
-      @document = Document.new(title: @template.title, 
+      @document = Document.new( title: @template.title, 
                                 body: @template.body, 
                                 text_content: @template.text_content,
-                                template_id: @template.id)
+                                template_id: @template.id,
+                                tag: @template.tag)
                                 
                                 
     else
       @document = Document.new
     end
     @account = @user.account
-    
+    @legal_tags = Admin::LegalTag.order(:title)
     
   end
   
   def create
-    ap params
+    
     @document = Document.new(document_params)
     @document.save!
-    
-    #@document.copy_signatures_from_template
+
     
     if @document.template_id 
       if template = Document.find_by(id: @document.template_id)
@@ -87,8 +87,12 @@ class User::LegalDocumentsController < ApplicationController
   end
   
   def destroy
-    document = Document.cached_find(params[:id])
-    document.destroy!
+    begin
+      document = Document.cached_find(params[:id])
+      document.destroy!
+    rescue
+      flash[:danger] = "You can't delete a document used" 
+    end
     redirect_to user_user_legal_documents_path(@user)
   end
   
@@ -102,7 +106,8 @@ class User::LegalDocumentsController < ApplicationController
                                       :usage, 
                                       :account_id, 
                                       :text_content,
-                                      :template_id) 
+                                      :template_id,
+                                      :tag) 
     
   end
   

@@ -13,7 +13,7 @@
   /'Streaming', 'download', 'Service', 'Physical product', 'Coupon'
   #page-content-wrapper
     .container-fluid 
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym =>user_user_control_panel_index_path(@user),
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user),
                                                               'Shop admin'.to_sym => user_user_shop_admin_index_path(@user)}, current: ''}
       .row
         .col-sm-8

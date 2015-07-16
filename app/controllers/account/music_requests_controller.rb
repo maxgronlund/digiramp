@@ -79,10 +79,6 @@ class Account::MusicRequestsController < ApplicationController
     forbidden unless current_account_user.update_opportunity
     @opportunity    = Opportunity.cached_find(params[:opportunity_id])
     
-    
-
-    
-    
     #begin
      result = TransloaditRecordingsParser.parse params[:transloadit],  current_account_user.account.id , true, current_account_user.user_id
      # success mesage
@@ -108,6 +104,12 @@ class Account::MusicRequestsController < ApplicationController
     opportunity = @music_request.opportunity
     @music_request.destroy
     redirect_to account_account_opportunity_path(@account, opportunity)
+  end
+  
+
+  
+  def max_submissions_reached 
+    
   end
 
   

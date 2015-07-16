@@ -23,27 +23,27 @@ class User::ProductsController < ApplicationController
   def new
     @shop_product = Shop::Product.new
     @category     = params[:category]
-    document_templates
+   get_documents
   end
 
   # GET /shop/products/1/edit
   def edit
     @category = @shop_product.category
-    document_templates
+    get_documents
+    
   end
   
-  # secure the latest contract templates for a given 
-  # product category is copied to the account
-  def document_templates
-    
-
-    if account = @user.account
-      
-      @documents = account.documents
+  def get_documents
+    case @category
+    when 'recording'
+      @documents = @user.account.documents.where(tag: 'Recording', document_type: 'Legal')
+    when 'physical-product'
+      @documents = @user.account.documents.where(tag: 'Physical product', document_type: 'Legal')
     end
-    #@category
-    
+
   end
+  
+  
 
   # POST /shop/products
   # POST /shop/products.json

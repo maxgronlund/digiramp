@@ -4,7 +4,6 @@ class User::CreateShopController < ApplicationController
     
     if @user.is_stripe_connected
       redirect_to user_user_shop_admin_index_path(@user)
-      #@user.has_enabled_shop 
     else
       
     end

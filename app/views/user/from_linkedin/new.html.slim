@@ -9,7 +9,7 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Control panel'.to_sym => user_user_control_panel_index_path(@user), \ 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user), \ 
                                                               'New contacts'.to_sym => new_user_user_contact_path( @user)}, current: ''}
       .row
         .col-sm-8

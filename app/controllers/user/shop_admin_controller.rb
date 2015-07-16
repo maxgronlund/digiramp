@@ -2,6 +2,7 @@ class User::ShopAdminController < ApplicationController
   before_action :access_user
   def index
     if @user.has_enabled_shop 
+      #document_templates
       @email_groups = EmailGroup.where(subscripeable: true)
       @shop_products = @user.products
       #redirect_to user_user_controll_panel_index_path( @user )
@@ -10,4 +11,34 @@ class User::ShopAdminController < ApplicationController
     end
     
   end
+  
+  
+  private
+    # secure the latest contract templates for a given 
+    # product category is copied to the account
+    #def document_templates
+    #  if account = @user.account
+    #    
+    #    documents = account.documents.where(tag: 'Recording', document_type: 'Legal')
+    #    if documents.empty?
+    #      documents = Document.clone_templates( @user.account.id,   'Recording', 'Legal' ) 
+    #    end
+    #    
+    #    documents = account.documents.where(tag: 'Physical product', document_type: 'Legal')
+    #    if documents.empty?
+    #      documents = Document.clone_templates( @user.account.id,   'Physical product', 'Legal' )                     
+    #    end  
+    #    
+    #    documents = account.documents.where(tag: 'Service', document_type: 'Legal')
+    #    if documents.empty?
+    #      documents = Document.clone_templates( @user.account.id,   'Service', 'Legal' )                     
+    #    end   
+    #    
+    #    documents = account.documents.where(tag: 'Streaming', document_type: 'Legal')
+    #    if documents.empty?
+    #      documents = Document.clone_templates( @user.account.id,   'Streaming', 'Legal' )                     
+    #    end                        
+    #    
+    #  end
+    #end
 end

@@ -66,9 +66,15 @@ nav.navbar.nav-user
           = link_to user_unread_messages_path(current_user) do
             div id="message_count"
             == render 'messages/count'
-            i.fa.fa-envelope
+            i.fa.fa-tachometer
             '&nbsp;
             'Msg.
+            
+        li class="#{page == 'dashboard' ? 'active' : ''}"
+          = link_to user_user_control_panel_index_path(current_user) do
+            i.fa.fa-tachometer
+
+
             
         li class=" dropdown #{page == 'settings' ? 'active' : ''}"
           /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -84,12 +90,12 @@ nav.navbar.nav-user
                 '&nbsp;
                 'Profile
             
-            li  class="#{page == 'contacts' ? 'active' : ''}"
-              = link_to user_user_control_panel_index_path(current_user ) do
-                i class="fa fa-tachometer"
-                '&nbsp;
-                'Control panel
-            
+            /li  class="#{page == 'contacts' ? 'active' : ''}"
+            /  = link_to user_user_control_panel_index_path(current_user ) do
+            /    i class="fa fa-tachometer"
+            /    '&nbsp;
+            /    'Dashboard
+            /
             
             - unless current_user.account_type  == "Social"    
               li  class="#{page == 'account' ? 'active' : ''}"

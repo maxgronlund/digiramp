@@ -34,6 +34,7 @@
               tr
                 th
                 th Title/ Description
+                th Tag
                 th Default signatures
             tbody
               - @documents.each do |document|
@@ -58,9 +59,10 @@
                         
                   td 
                     .div style="max-width: 480px"
-                      b = simple_format  document.title
-                      br = simple_format document.body
-                    
+                      h5 =  document.title
+                      = simple_format document.body
+                   
+                  td =  document.tag
                   td 
                     - document.digital_signatures.each do |digital_signature|
                       b style="text-transform: uppercase;" 

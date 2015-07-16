@@ -63,11 +63,11 @@
           = pluralize(@user.user_credits.count, 'Credit') 
     
     - if super?
-      li class="#{'sidebar-selected' if selected == 'control panel'}"
+      li class="#{'sidebar-selected' if selected == 'dashboard'}"
         = link_to user_user_control_panel_index_path(@user) do
           i class="fa fa-tachometer"
           '&nbsp;
-          'Settings
+          'Dashboard
 
           
  

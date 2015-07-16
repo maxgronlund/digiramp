@@ -1,4 +1,4 @@
-.digi-box.digi-box-dark
+.digi-box
   .row
     .col-sm-6
       h4 = music_request.title
@@ -22,12 +22,15 @@
   .row
     .col-sm-12
       .pull-right
-        = link_to user_user_opportunity_music_request_request_recordings_path(@user, @opportunity, music_request.id ) do
-          .btn.btn-success
-            i.fa.fa-plus
-            '&nbsp;
-            'Submit recordings
-          
+        - if @opportunity.takes_more_submissions_from_the(@user)
+          = link_to user_user_opportunity_music_request_request_recordings_path(@user, @opportunity, music_request.id ) do
+            .btn.btn-success
+              i.fa.fa-plus
+              '&nbsp;
+              'Submit recordings
+        - else
+          .btn.btn-default.disabled
+            'Max submissions reached
   
 - music_request.music_submissions.where(user_id: @user.id).each do |music_submission|
   - if recording =  music_submission.recording

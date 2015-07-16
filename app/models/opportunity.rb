@@ -44,7 +44,13 @@ class Opportunity < ActiveRecord::Base
   
   before_create :init_fields
 
-
+  def takes_more_submissions_from_the( user )
+    count = 0
+    self.music_requests.each do |music_request|
+      count += music_request.music_submissions.where(user_id: user.id).count
+    end
+    count <= self.max_submisions_pr_user
+  end
   
   def check_default_image
     if self.image_url == "/assets/fallback/artwork.jpg" || self.image.nil?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150715091731) do
+ActiveRecord::Schema.define(version: 20150716143836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2165,6 +2165,7 @@ ActiveRecord::Schema.define(version: 20150715091731) do
     t.string   "image",                  limit: 255
     t.string   "uuid",                   limit: 255
     t.boolean  "opportunity_email_send",             default: false
+    t.integer  "max_submisions_pr_user",             default: 10
   end
 
   add_index "opportunities", ["account_id"], name: "index_opportunities_on_account_id", using: :btree

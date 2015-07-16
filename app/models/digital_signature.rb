@@ -8,6 +8,18 @@ class DigitalSignature < ActiveRecord::Base
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
+  
+  def self.clone_signatures_from source, destination
+    source.digital_signatures.to_a.each do |signature|
+      
+      DigitalSignature.create( uuid: UUIDTools::UUID.timestamp_create().to_s,
+                               signable_id:   destination,
+                               signable_type: destination.class.name,
+                               role:         source.role
+                              )
+
+    end
+  end
 
   private 
 

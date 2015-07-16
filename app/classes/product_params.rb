@@ -28,6 +28,7 @@ class ProductParams
                     :zip_file,
                     :recording_id,
                     :playlist_id,
+                    :document_id
                   ]
     
     
