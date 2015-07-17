@@ -196,6 +196,17 @@ class Recording < ActiveRecord::Base
     end
   end
   
+  def mount_common_work
+    
+    if self.common_work_id.nil?
+      common_work = CommonWork.create( account_id: self.account_id, 
+                                       title:      self.title, 
+                                       lyrics:     self.lyrics)
+              
+      self.common_work_id = common_work.id
+      self.save(validate: false)
+    end
+  end
 
   
   def get_shop_art

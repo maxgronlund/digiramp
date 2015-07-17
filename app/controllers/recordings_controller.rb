@@ -61,7 +61,7 @@ class RecordingsController < ApplicationController
         end
         
 
-        recording.save
+        recording.save(validate: false)
         recording.check_default_image
         recording.common_work.update_completeness
         @recording = recording
