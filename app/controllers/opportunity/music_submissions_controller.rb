@@ -16,9 +16,8 @@ class Opportunity::MusicSubmissionsController < ApplicationController
   # a user can submitt from all accounts where he is granded access?
   def new
     @music_request   = MusicRequest.cached_find(params[:music_request_id])
-    
-    opportunity   =  @music_request.opportunity
-    account_id    =  opportunity.account_id
+    opportunity      = @music_request.opportunity
+    account_id       = opportunity.account_id
     
     submitted_recording_ids = MusicSubmission.where(music_request_id: @music_request.id).pluck(:recording_id)
     
@@ -34,13 +33,9 @@ class Opportunity::MusicSubmissionsController < ApplicationController
     account_id    =  opportunity.account_id
     
     if account_id == current_user.account.id
-      # !!! optimize
       recording_ids = []
       account_users.each do |account_user|
-        # add some permissions here
-        # if account user can submit to requests
         recording_ids   += account_user.account.recording_ids
-        
       end
       recording_ids   -= submitted_recording_ids
     else  
@@ -59,8 +54,8 @@ class Opportunity::MusicSubmissionsController < ApplicationController
   end
   
   def destroy
-    @music_request   = MusicRequest.cached_find(params[:music_request_id])
-    @music_submission  = MusicSubmission.cached_find(params[:id])
+    @music_request      = MusicRequest.cached_find(params[:music_request_id])
+    @music_submission   = MusicSubmission.cached_find(params[:id])
     @music_submission.destroy!
     redirect_to opportunity_opportunity_music_request_path(@opportunity, @music_request)
   end
