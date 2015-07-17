@@ -118,16 +118,18 @@ class Client < ActiveRecord::Base
     content              = File.read(client_import.file.path)
     detection            = CharlockHolmes::EncodingDetector.detect(client_import.file.path)
     utf8_encoded_content = CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
-    
-    CSV.foreach(client_import.file.path, headers: true, :encoding => 'ISO-8859-1') do |row|
-      begin
+    tempfile = Tempfile.new("linked_in_client_import#{client_import_id}")
+    begin
+      tempfile.write(utf8_encoded_content.gsub(/\r/,"").gsub(/\n/,""))
+      CSV.foreach(tempfile.path, headers: true, :encoding => 'ISO-8859-1') do |row|  
+
         #Product.create! row.to_hash
         client_info                 =  row.to_hash
         if client_info["E-mail Address"].to_s != ''
           client  = Client.where( email: client_info["E-mail Address"], 
                                   account_id:  client_import.account_id )
                           .first_or_create(email: client_info["E-mail Address"])
-
+      
           client.client_import_id    = client_import_id
           client.name                = client_info["First Name"]            if client_info["First Name"].to_s                            != ""            
           client.last_name           = client_info["Last Name"]             if client_info["Last Name"].to_s                             != ""   
@@ -156,30 +158,27 @@ class Client < ActiveRecord::Base
           client.user_id             = client_import.user_id
           client.save!
         end
-      rescue
-        Opbeat.capture_message("CSV File error: #{client_import_id} : #{client_info}")
-      end
-    end
 
+      end
+    ensure
+      tempfile.close
+      tempfile.unlink
+    end
   end
   
   # called from a worker
   def self.import_clients_from client_import_id
-    client_import                = ClientImport.find(client_import_id)
+    client_import           = ClientImport.find(client_import_id)
+    content                 = File.read(client_import.file.path)
+    detection               = CharlockHolmes::EncodingDetector.detect(client_import.file.path)
+    utf8_encoded_content    = CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
+    tempfile = Tempfile.new("linked_in_client_import#{client_import_id}")
     begin
+      tempfile.write(utf8_encoded_content.gsub(/\r/,"").gsub(/\n/,""))
+      CSV.foreach(tempfile.path, headers: true, :encoding => 'ISO-8859-1') do |row|  
       
-      content              = File.read(client_import.file.path)
-      detection            = CharlockHolmes::EncodingDetector.detect(client_import.file.path)
-      utf8_encoded_content = CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
-      
-      File.open(client_import.file.path, 'w:UTF-8') { |file| file << utf8_encoded_content }
-      
-      #CSV.foreach(utf8_encoded_content, headers: true ) do |row|
-      
-      CSV.foreach(client_import.file.path, headers: true) do |row|
-
         client_info                 =  row.to_hash
-
+      
         if client_info["Email"].nil?
           client_info["Email"] = client_info["E-mail Address"] unless client_info["E-mail Address"].nil?
         end 
@@ -187,14 +186,10 @@ class Client < ActiveRecord::Base
         if client_info["Email"].nil?
           client_info["Email"] = client_info["Bus. Email"] unless client_info["Bus. Email"].nil?
         end 
-         
-        ap client_info["Email"]
+
         
         if client_info["Email"].to_s != ''
           client   = Client.where(email: client_info["Email"], account_id:  client_import.account_id ).first_or_create(email: client_info["Email"])
-          
-          
-          
           client.name                = client_info["Name"]             if client_info["Name"]              
           client.last_name           = client_info["Last Name"]        if client_info["Last Name"]
           client.company             = client_info["Company"]          if client_info["Company"]
@@ -216,13 +211,11 @@ class Client < ActiveRecord::Base
           client.account_id          = client_import.account_id
           client.save!
         end
-      
-        
       end
-    rescue
-       Opbeat.capture_message("CSV File error: #{client_import_id} : #{client_import.user.email}")
+    ensure
+      tempfile.close
+      tempfile.unlink
     end
-
   end
   
   
