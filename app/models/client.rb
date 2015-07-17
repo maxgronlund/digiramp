@@ -168,8 +168,8 @@ class Client < ActiveRecord::Base
   
   # called from a worker
   def self.import_clients_from client_import_id
-    client_import           = ClientImport.find(client_import_id)
-    content                 = File.read(client_import.file.path)
+    return unless client_import   = ClientImport.find(client_import_id)
+    return unless content         = File.read(client_import.file.path)
     detection               = CharlockHolmes::EncodingDetector.detect(client_import.file.path)
     utf8_encoded_content    = CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
     tempfile = Tempfile.new("linked_in_client_import#{client_import_id}")
