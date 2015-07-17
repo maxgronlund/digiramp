@@ -130,8 +130,6 @@ class RecordingsController < ApplicationController
   
   def edit
     @recording = Recording.cached_find(params[:id])
-    
-    
   end
   
 
