@@ -79,11 +79,7 @@ class Account::RecordingsController < ApplicationController
                               account_id: current_user.account.id) 
                               
         
-        #@common_work = CommonWork.create(account_id: recording.account_id, 
-        #                                title: recording.title, 
-        #                                lyrics: recording.lyrics)
-        #        
-        #recording.common_work_id = @common_work.id
+        
         recording.mount_common_work
         recording.title = title unless title == 'no title'
         

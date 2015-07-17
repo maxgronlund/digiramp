@@ -79,15 +79,16 @@ class UserMailer < ApplicationMailer
                               )
                               
     blog        = Blog.cached_find('Support')
-    blog_post  = BlogPost.cached_find( "INVITE TO CATALOG" , blog )
-    
+    blog_post   = BlogPost.cached_find( "INVITE TO CATALOG" , blog )
+    account     = Account.cached_find(account_id)
+    inviter     = account.user
     if user_exists
       invitation_link  = url_for( controller: 'catalog/catalogs', 
                                        action: 'show', 
                                    account_id: account_id, 
                                            id: catalog_id)
     else 
-      user = User.cached_find(invited_user_id)               
+      user             = User.cached_find(invited_user_id)               
       invitation_link  = url_for( controller: 'activate_catalog_user', 
                                        action: 'edit', 
                                            id: user.password_reset_token, 
@@ -114,7 +115,7 @@ class UserMailer < ApplicationMailer
                         merge_vars,
                         true,
                         true,
-                        user.mandrill_account_id 
+                        inviter.mandrill_account_id 
                       )
   end
 end

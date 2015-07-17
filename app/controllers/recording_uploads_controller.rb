@@ -24,27 +24,7 @@ class RecordingUploadsController < ApplicationController
     if result[:recordings].size != 0
       
       result[:recordings].each do |recording|
-        
-                  
-        #current_user.create_activity(  :created, 
-        #                           owner: recording,
-        #                       recipient: @user,
-        #                  recipient_type: 'Recording',
-        #                      account_id: current_user.account.id) 
-        #                      
-        #
-        #common_work = CommonWork.create(account_id: recording.account_id, 
-        #                                title: recording.title, 
-        #                                lyrics: recording.lyrics)
-        #
-        #           
-        #recording.common_work_id = common_work.id
-        #recording.title = title unless title == 'no title'
-        #recording.save
-        #recording.common_work.update_completeness
-        #recording.title = File.basename(recording.original_file_name, ".*") 
         @recording = recording
-
       end
       redirect_to edit_user_recording_basic_path(@user, @recording)
     else
