@@ -21,7 +21,7 @@
                     :url => url_for(:action => action, 
                                     :controller => 'products'),
                     html: { :id => 'shop_product' }  do |f|
-= f.error_notification
+    = f.error_notification
     = f.hidden_field :user_id   , value: @user.id
     = f.hidden_field :account_id, value: @user.account.id
     - if @category
