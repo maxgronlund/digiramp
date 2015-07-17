@@ -1,6 +1,6 @@
 class Admin::BlogPostsController < ApplicationController
   
-  before_action :admins_only
+  before_action :editor_only
   before_action :find_blog_post, only: [ :edit, :update, :destroy, :crop, :crop_update, :show]
 
   
@@ -78,7 +78,7 @@ private
   end
   
   def blog_post_params
-    params.require(:blog_post).permit! if super?
+    params.require(:blog_post).permit! if editor?
   end
 
 

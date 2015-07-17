@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   friendly_id :user_name, :use => :history
   #friendly_id :user_name, use: :slugged
   
-  scope :public_profiles,  ->  { where( private_profile: false)  }
+  scope :public_profiles,   ->  { where( private_profile: false)  }
   scope :supers,            ->    { where( role: 'Super' ).order("email asc")  }
   scope :administrators,    ->    { where( administrator: true ).order("email asc")  }
   scope :customers,         ->    { where( role: 'Customer' ).order("email asc")  }
@@ -476,7 +476,7 @@ class User < ActiveRecord::Base
   
 
   
-  ROLES       = ["Super", "Customer"]
+  ROLES       = ["Super", "Customer", "Backend Editor"]
   SECRET_NAME = "RGeiHK8yUB6a"
   
 
@@ -594,6 +594,10 @@ class User < ActiveRecord::Base
   
   def super?
     self.role == 'Super'
+  end
+  
+  def editor?
+    self.role == 'Backend Editor'
   end
   
   def can_edit?

@@ -24,7 +24,7 @@
               
         .modal-footer
 
-          - if current_user && current_user.super?
+          - if editor?
             => link_to 'Edit',  edit_admin_help_path(help), class: 'btn btn-default'
             
           button type="button" class="btn btn-primary" data-dismiss="modal"

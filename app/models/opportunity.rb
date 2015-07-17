@@ -49,7 +49,7 @@ class Opportunity < ActiveRecord::Base
     self.music_requests.each do |music_request|
       count += music_request.music_submissions.where(user_id: user.id).count
     end
-    count <= self.max_submisions_pr_user
+    count < self.max_submisions_pr_user
   end
   
   def check_default_image

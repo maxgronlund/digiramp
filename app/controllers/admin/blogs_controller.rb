@@ -1,6 +1,6 @@
 class Admin::BlogsController < ApplicationController
   #respond_to :html, :xml, :json
-  before_action :admin_only
+  before_action :editor_only
   before_action :find_blog, only: [:edit, :update, :destroy, :show]
   #skip_before_action :verify_authenticity_token, :only => [:destroy]
   #layout "core_admin"
@@ -64,7 +64,7 @@ private
   end
 
   def blog_params
-    params.require(:blog).permit!  if super?
+    params.require(:blog).permit!  if editor?
 
   end
 

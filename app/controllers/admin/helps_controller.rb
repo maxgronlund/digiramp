@@ -2,7 +2,7 @@ class Admin::HelpsController < ApplicationController
   before_action :set_help, only: [:show, :edit, :update, :destroy]
   
   include UsersHelper
-  before_action :admin_only
+  before_action :editor_only
 
   # GET /helps
   # GET /helps.json
@@ -59,6 +59,6 @@ class Admin::HelpsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def help_params
-      params.require(:help).permit(:identifier, :button, :title, :body, :snippet)
+      params.require(:help).permit(:identifier, :button, :title, :body, :snippet) if editor?
     end
 end

@@ -1,5 +1,5 @@
 class Admin::LegalTemplatesController < ApplicationController
-  before_action :admins_only
+  before_action :editor_only
   
   def index
     # secure default content exists
@@ -66,15 +66,16 @@ class Admin::LegalTemplatesController < ApplicationController
   private 
   
   def document_params
-    params.require(:document).permit(:title, 
-                                     :document_type, 
-                                     :body, 
-                                     :file, 
-                                     :usage,
-                                     :tag, 
-                                     :account_id, 
-                                     :text_content) 
-    
+    if editor?
+      params.require(:document).permit(:title, 
+                                       :document_type, 
+                                       :body, 
+                                       :file, 
+                                       :usage,
+                                       :tag, 
+                                       :account_id, 
+                                       :text_content) 
+    end 
   end
   
   def saintize_title title

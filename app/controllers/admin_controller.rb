@@ -1,18 +1,19 @@
 class AdminController < ApplicationController
   
-  include ActionController::Live
-
-  def stream
-    response.headers['Content-Type'] = 'text/event-stream'
-    10.times {
-      response.stream.write "hello world\n"
-      sleep 1
-    }
-  ensure
-    response.stream.close
-  end
+  #include ActionController::Live
+  #
+  #def stream
+  #  response.headers['Content-Type'] = 'text/event-stream'
+  #  10.times {
+  #    response.stream.write "hello world\n"
+  #    sleep 1
+  #  }
+  #ensure
+  #  response.stream.close
+  #end
   
-  before_action :admin_only
+  before_action :editor_only
+  
   def index
     @users      = User.where(role: 'super')
     @user       = current_user
@@ -21,7 +22,6 @@ class AdminController < ApplicationController
   end
   
   def repair_permissions
-    
     RepairPermissionsWorker.perform_async()
     redirect_to :back
   end

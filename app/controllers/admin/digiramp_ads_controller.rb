@@ -1,8 +1,8 @@
 class Admin::DigirampAdsController < ApplicationController
   before_action :set_digiramp_ad, only: [:show, :edit, :update, :destroy]
   
-  include UsersHelper
-  before_action :admin_only
+  #include UsersHelper
+  before_action :editor_only
 
   # GET /digiramp_ads
   # GET /digiramp_ads.json
@@ -54,6 +54,6 @@ class Admin::DigirampAdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def digiramp_ad_params
-      params.require(:digiramp_ad).permit!
+      params.require(:digiramp_ad).permit! if editor?
     end
 end

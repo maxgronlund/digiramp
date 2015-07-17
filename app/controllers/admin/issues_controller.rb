@@ -1,5 +1,5 @@
 class Admin::IssuesController < ApplicationController
-  before_action :admin_only
+  before_action :editor_only
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
   # GET /issues
@@ -65,6 +65,6 @@ class Admin::IssuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def issue_params
-      params.require(:issue).permit!
+      params.require(:issue).permit! if editor?
     end
 end

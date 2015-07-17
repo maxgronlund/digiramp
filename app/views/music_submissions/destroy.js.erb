@@ -1,1 +1,5 @@
 $("#delete_music_submission_" + "<%= @music_submission_id.to_s %>").fadeOut( "slow" );
+
+<% unless @takes_more_submissions %>
+  window.location = "/user/users/<%= @user.slug %>/selected_opportunities/<%= @opportunity.id %>";
+<% end %>

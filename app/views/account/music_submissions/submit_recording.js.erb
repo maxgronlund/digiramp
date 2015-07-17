@@ -1,8 +1,12 @@
-$("#delete_recording_<%= @recording.id %>").fadeOut( "slow" );
+$("#delete_recording_<%= @recording.id %>").fadeOut( "slow", function() {
+    // Animation complete.
+  <% unless @takes_more_submissions %>
+    alert('Thanks for your submissions. You have reached the maximum of submissions');
+    window.location = "/user/users/<%= @user.slug %>/selected_opportunities/<%= @opportunity.id %>";
+  <% end %>
+});
 
-<% if @takes_more_submissions %>
-  alert('Thanks for your submissions. You have reached the maximum of submissions');
-<% end %>
+
 
 
 

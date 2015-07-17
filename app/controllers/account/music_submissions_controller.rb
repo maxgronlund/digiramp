@@ -104,7 +104,7 @@ class Account::MusicSubmissionsController < ApplicationController
                                             "image"   => 'error'
                                             })
     end
-    
+    @user = current_user
     @takes_more_submissions = @opportunity.takes_more_submissions_from_the( current_user )
 
   end

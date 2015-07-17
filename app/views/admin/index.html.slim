@@ -15,26 +15,6 @@
       .admin
         .admin-badges
           .admin-badge-container
-            = link_to admin_accounts_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-list-alt
-                    '&nbsp;Accounts
-                .body
-                  'Access DigiRAMP accounts 
-          
-          .admin-badge-container
-            = link_to admin_users_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-group
-                    '&nbsp;Users
-                .body
-                  'Access DigiRAMP users 
-          
-          .admin-badge-container
             = link_to admin_content_index_path do
               .admin-badge
                 .title
@@ -47,36 +27,6 @@
                     li Genre 
                     li More...
           
-          /.admin-badge-container
-          /  = link_to admin_activities_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-clock-o
-          /          '&nbsp;Activities
-          /      .body
-          /        'Watch what happens on DigiRAMP 
-          /
-          .admin-badge-container
-            = link_to admin_engine_room_index_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-cogs
-                    '&nbsp;Engine room
-                .body
-                  'Clear cache, inspect robots and more
-          
-          /.admin-badge-container
-          /  = link_to admin_development_log_index_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-bullhorn
-          /          '&nbsp;Dev. log
-          /      .body
-          /        'Latest news and progress from the development HQ
-          /
           .admin-badge-container
             = link_to admin_issues_path do
               .admin-badge
@@ -86,166 +36,219 @@
                     '&nbsp;Issues
                 .body
                   'Bugs and glitches
-          
-          .admin-badge-container
-            = link_to admin_statistics_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-bar-chart-o
-                    '&nbsp;Statistics
-                .body
-                  'Numbers and usage
-          
-          .admin-badge-container
-            = link_to admin_mandrill_accounts_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-bar-chart-o
-                    '&nbsp;Emails
-                .body
-                  'Mandrill accounts
-          
-          /.admin-badge-container
-          /  = link_to admin_system_settings_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-cogs
-          /          '&nbsp;System settings
-          /      .body
-          /        'Default badges
-          
-          /.admin-badge-container
-          /  = link_to admin_account_prices_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-money
-          /          '&nbsp;Prices
-          /      .body
-          /        'Subscription fees for account types
-          /
-          /.admin-badge-container
-          /  = link_to admin_account_features_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-money
-          /          '&nbsp;Account types
-          /      .body
-          /        'Set features and price on account types
-          /
-          /
-          .admin-badge-container
-            = link_to admin_opportunities_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-money
-                    '&nbsp;Opportunities
-                .body
-                  'Opportunities
-          
-          .admin-badge-container
-            = link_to admin_email_groups_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-envelope
-                    '&nbsp;Emails
-                .body
-                  ul
-                    li News mails
-                    li Campaigns
-          
-          /.admin-badge-container
-          /  = link_to admin_features_and_values_index_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-envelope
-          /          '&nbsp;Roadmap
-          /      .body
-          /        ul
-          /          li Features
-          /          li User value
-          /          li Dev. status
-          /
-          .admin-badge-container
-            = link_to admin_issue_events_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-envelope
-                    '&nbsp;Event logging
-                .body
-                  ul
-                    li Mail blasts
-                    li Dev only
-                    li 
-          
-          .admin-badge-container
-            = link_to admin_client_groups_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-envelope
-                    '&nbsp;Client groups
-                .body
-                  ul
-                    li Users contact groups
-                    li Dev only
-                    li 
-          
-          /.admin-badge-container
-          /  = link_to admin_sales_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-shopping-cart
-          /          '&nbsp;Sales
-          /      .body
-          /        ul
-          /          li Papertrail of sales
-          /
-          /.admin-badge-container
-          /  = link_to admin_plans_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-cc-stripe
-          /          '&nbsp;Plans
-          /      .body
-          /        ul
-          /          li Management of Stripe plans
-          /
-          .admin-badge-container
-            = link_to admin_business_index_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-money
-                    '&nbsp;Business
-                .body
-                  ul
-                    li Stripe
-                    li Plans
-                    ll Paper trails
                     
-          /.admin-badge-container
-          /  = link_to admin_account_features_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-cogs
-          /          '&nbsp;Account types
-          /      .body
-          /        ul
-          /          li Connect to plans
-          /          li Limit features
-          /           
+          - if super?
+            .admin-badge-container
+              = link_to admin_accounts_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-list-alt
+                      '&nbsp;Accounts
+                  .body
+                    'Access DigiRAMP accounts 
+            
+            .admin-badge-container
+              = link_to admin_users_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-group
+                      '&nbsp;Users
+                  .body
+                    'Access DigiRAMP users 
+          
+          
+          
+            /.admin-badge-container
+            /  = link_to admin_activities_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-clock-o
+            /          '&nbsp;Activities
+            /      .body
+            /        'Watch what happens on DigiRAMP 
+            /
+            .admin-badge-container
+              = link_to admin_engine_room_index_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-cogs
+                      '&nbsp;Engine room
+                  .body
+                    'Clear cache, inspect robots and more
+            
+            /.admin-badge-container
+            /  = link_to admin_development_log_index_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-bullhorn
+            /          '&nbsp;Dev. log
+            /      .body
+            /        'Latest news and progress from the development HQ
+            
+            .admin-badge-container
+              = link_to admin_statistics_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-bar-chart-o
+                      '&nbsp;Statistics
+                  .body
+                    'Numbers and usage
+            
+            .admin-badge-container
+              = link_to admin_mandrill_accounts_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-bar-chart-o
+                      '&nbsp;Emails
+                  .body
+                    'Mandrill accounts
+            
+            /.admin-badge-container
+            /  = link_to admin_system_settings_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-cogs
+            /          '&nbsp;System settings
+            /      .body
+            /        'Default badges
+            
+            /.admin-badge-container
+            /  = link_to admin_account_prices_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-money
+            /          '&nbsp;Prices
+            /      .body
+            /        'Subscription fees for account types
+            /
+            /.admin-badge-container
+            /  = link_to admin_account_features_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-money
+            /          '&nbsp;Account types
+            /      .body
+            /        'Set features and price on account types
+            /
+            /
+            .admin-badge-container
+              = link_to admin_opportunities_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-money
+                      '&nbsp;Opportunities
+                  .body
+                    'Opportunities
+            
+            .admin-badge-container
+              = link_to admin_email_groups_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-envelope
+                      '&nbsp;Emails
+                  .body
+                    ul
+                      li News mails
+                      li Campaigns
+            
+            /.admin-badge-container
+            /  = link_to admin_features_and_values_index_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-envelope
+            /          '&nbsp;Roadmap
+            /      .body
+            /        ul
+            /          li Features
+            /          li User value
+            /          li Dev. status
+            /
+            .admin-badge-container
+              = link_to admin_issue_events_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-envelope
+                      '&nbsp;Event logging
+                  .body
+                    ul
+                      li What is happening
+                      li Dev only
+                      li 
+            
+            .admin-badge-container
+              = link_to admin_client_groups_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-envelope
+                      '&nbsp;Client groups
+                  .body
+                    ul
+                      li Users contact groups
+                      li Dev only
+                      li 
+            
+            /.admin-badge-container
+            /  = link_to admin_sales_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-shopping-cart
+            /          '&nbsp;Sales
+            /      .body
+            /        ul
+            /          li Papertrail of sales
+            /
+            /.admin-badge-container
+            /  = link_to admin_plans_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-cc-stripe
+            /          '&nbsp;Plans
+            /      .body
+            /        ul
+            /          li Management of Stripe plans
+            /
+            .admin-badge-container
+              = link_to admin_business_index_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-money
+                      '&nbsp;Business
+                  .body
+                    ul
+                      li Stripe
+                      li Plans
+                      ll Paper trails
+                      
+            /.admin-badge-container
+            /  = link_to admin_account_features_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-cogs
+            /          '&nbsp;Account types
+            /      .body
+            /        ul
+            /          li Connect to plans
+            /          li Limit features
+            /           
                   
             
           

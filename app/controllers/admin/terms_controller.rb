@@ -1,5 +1,5 @@
 class Admin::TermsController < ApplicationController
-  before_action :admin_only
+  before_action :editor_only
   before_action :set_admin_term, only: [:show, :edit, :update, :destroy]
 
   # GET /admin/terms
@@ -71,6 +71,6 @@ class Admin::TermsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_term_params
-      params.require(:admin_term).permit(:title, :body)
+      params.require(:admin_term).permit(:title, :body) if editor?
     end
 end

@@ -88,6 +88,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :super?
   
+  def editor?
+    @editor ||= super? || (current_user && current_user.editor?)
+  end
+  helper_method :editor?
+  
   def can_sell?
     super? || (current_user && current_user.salesperson?)
   end
@@ -105,8 +110,17 @@ class ApplicationController < ActionController::Base
     current_user.current_account_id == current_account.id
   end
   
+  
   def admin_only
-    unless  user_signed_in?  && current_user.super?
+    unless  super?
+      forbidden
+    end
+    @user       = current_user
+    @authorized = true
+  end
+  
+  def editor_only
+    unless  super? || editor?
       forbidden
     end
     @user       = current_user

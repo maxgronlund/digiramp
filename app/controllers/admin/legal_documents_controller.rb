@@ -1,5 +1,5 @@
 class Admin::LegalDocumentsController < ApplicationController
-  before_action :admin_only
+  before_action :editor_only
   def index
   end
 end

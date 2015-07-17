@@ -17,15 +17,6 @@
       .sexy_line
       .admin
         .admin-badges
-          .admin-badge-container
-            = link_to admin_export_users_path(format: "csv") do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-cloud-download
-                    '&nbsp;Export users
-                .body
-                  'Download a full list of all DigiRAMP users in csv format 
                   
           .admin-badge-container
             = link_to admin_blogs_path do
@@ -36,138 +27,7 @@
                     '&nbsp;Blogs
                 .body
                   'Edit content used on the site 
-                  
-          .admin-badge-container
-            = link_to admin_tags_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-tags
-                    '&nbsp;Tags
-                .body
-                  'Genre, Instruments and Moods in iTunes and INgrooves format 
-                  
-          /.admin-badge-container
-          /  = link_to admin_system_emails_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-envelope
-          /          '&nbsp;Emails
-          /      .body
-          /        'Emails automaticaly send by the system 
-          /        
-          .admin-badge-container
-            = link_to admin_pro_affiliations_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-university
-                    '&nbsp;Pro affiliations
-                .body
-                  'BMI, ASCAP and many more 
-                  
-          .admin-badge-container
-            = link_to admin_legal_documents_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-gavel
-                    '&nbsp;Terms of usage
-                .body
-                  'Terms and condtions
-                  'for DigiRAMP
-                  
-          /.admin-badge-container
-          /  = link_to admin_video_blogs_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-film
-          /          '&nbsp;Video blogs
-          /      .body
-          /        'Terms and condtions and othere legal stuff
-          /        
-          .admin-badge-container
-            = link_to edit_admin_front_end_content_path(1) do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-home
-                    '&nbsp;Front page
-                .body
-                  'Text and images on the front page
-                  
-          /.admin-badge-container
-          /  = link_to admin_default_images_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-picture-o
-          /          '&nbsp;Default images
-          /      .body
-          /        'User avatars, company logos and more
-          /        
-          .admin-badge-container
-            = link_to admin_helps_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-picture-o
-                    '&nbsp;Help
-                .body
-                  'Dropdowns with help informations
-                  
-          .admin-badge-container
-            = link_to admin_digiramp_ads_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-picture-o
-                    '&nbsp;Digiramp Ads
-                .body
-                  'small ads placed around the site
-          
-          .admin-badge-container
-            = link_to admin_zip_files_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-file
-                    '&nbsp;Zip files
-                .body
-                  'Example files for download
-          
-          .admin-badge-container
-            = link_to admin_raw_images_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-file
-                    '&nbsp;Raw images
-                .body
-                  'Used by emails and more
-          
-          /.admin-badge-container
-          /  = link_to admin_contracts_path do
-          /    .admin-badge
-          /      .title
-          /        h4
-          /          i.fa.fa-gavel
-          /          '&nbsp;Contracts
-          /      .body
-          /        'Templates
-          /
-          .admin-badge-container
-            = link_to admin_page_styles_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-gavel
-                    '&nbsp;Page styles
-                .body
-                  'CSS selectabel by users
-          
+            
           .admin-badge-container
             = link_to admin_terms_path do
               .admin-badge
@@ -187,6 +47,164 @@
                     '&nbsp;Legal
                 .body
                   'Templates for legal documents
+                  
+          .admin-badge-container
+            = link_to admin_tags_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-tags
+                    '&nbsp;Tags
+                .body
+                  'Genre, Instruments and Moods in iTunes and INgrooves format 
+                  
+          .admin-badge-container
+            = link_to admin_legal_documents_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-gavel
+                    '&nbsp;Terms of usage
+                .body
+                  'Terms and condtions
+                  'for DigiRAMP
+                  
+          .admin-badge-container
+            = link_to admin_helps_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-picture-o
+                    '&nbsp;Help
+                .body
+                  'Dropdowns with help informations
+                  
+          .admin-badge-container
+            = link_to admin_digiramp_ads_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-picture-o
+                    '&nbsp;Digiramp Ads
+                .body
+                  'small ads placed around the site
+                  
+                  
+                  
+                  
+                  
+                  
+          - if super?
+            .admin-badge-container
+              = link_to admin_export_users_path(format: "csv") do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-cloud-download
+                      '&nbsp;Export users
+                  .body
+                    'Download a full list of all DigiRAMP users in csv format 
+                    
+            .admin-badge-container
+              = link_to admin_tags_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-tags
+                      '&nbsp;Tags
+                  .body
+                    'Genre, Instruments and Moods in iTunes and INgrooves format 
+                    
+            /.admin-badge-container
+            /  = link_to admin_system_emails_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-envelope
+            /          '&nbsp;Emails
+            /      .body
+            /        'Emails automaticaly send by the system 
+            /        
+            .admin-badge-container
+              = link_to admin_pro_affiliations_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-university
+                      '&nbsp;Pro affiliations
+                  .body
+                    'BMI, ASCAP and many more 
+                    
+            /.admin-badge-container
+            /  = link_to admin_video_blogs_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-film
+            /          '&nbsp;Video blogs
+            /      .body
+            /        'Terms and condtions and othere legal stuff
+            /        
+            .admin-badge-container
+              = link_to edit_admin_front_end_content_path(1) do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-home
+                      '&nbsp;Front page
+                  .body
+                    'Text and images on the front page
+                    
+            /.admin-badge-container
+            /  = link_to admin_default_images_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-picture-o
+            /          '&nbsp;Default images
+            /      .body
+            /        'User avatars, company logos and more
+            /        
+            
+            .admin-badge-container
+              = link_to admin_zip_files_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-file
+                      '&nbsp;Zip files
+                  .body
+                    'Example files for download
+            
+            .admin-badge-container
+              = link_to admin_raw_images_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-file
+                      '&nbsp;Raw images
+                  .body
+                    'Used by emails and more
+            
+            /.admin-badge-container
+            /  = link_to admin_contracts_path do
+            /    .admin-badge
+            /      .title
+            /        h4
+            /          i.fa.fa-gavel
+            /          '&nbsp;Contracts
+            /      .body
+            /        'Templates
+            /
+            .admin-badge-container
+              = link_to admin_page_styles_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-gavel
+                      '&nbsp;Page styles
+                  .body
+                    'CSS selectabel by users
           
           
           
