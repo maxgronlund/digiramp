@@ -113,9 +113,8 @@ class Client < ActiveRecord::Base
   
   
   def self.import_clients_from_linkedin client_import_id
-    count = 0
-    client_import        = ClientImport.cached_find(client_import_id)
-    content              = File.read(client_import.file.path)
+    return unless client_import  = ClientImport.find(client_import_id)
+    return unless content        = File.read(client_import.file.path)
     detection            = CharlockHolmes::EncodingDetector.detect(client_import.file.path)
     utf8_encoded_content = CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
     tempfile = Tempfile.new("linked_in_client_import#{client_import_id}")
