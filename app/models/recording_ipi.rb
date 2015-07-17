@@ -83,7 +83,11 @@ class RecordingIpi < ActiveRecord::Base
   end
   
   def self.cached_find(id)
-    Rails.cache.fetch([name, id]) { find(id) }
+    begin
+      return Rails.cache.fetch([name, id]) { find(id) }
+    rescue 
+      return nil
+    end
   end
   
   

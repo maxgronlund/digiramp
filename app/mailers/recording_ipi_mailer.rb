@@ -3,7 +3,7 @@ class RecordingIpiMailer < ApplicationMailer
 
 
   def recording_ipi_confirmation_email recording_ipi_id
-    recording_ipi    = RecordingIpi.cached_find(recording_ipi_id)
+    return unless recording_ipi  = RecordingIpi.cached_find(recording_ipi_id)
     link             = url_for( controller: 'confirmation/recording_ipi_confirmations', action: 'show', id: recording_ipi.uuid )
     email            = recording_ipi.email
     recording        = recording_ipi.recording
