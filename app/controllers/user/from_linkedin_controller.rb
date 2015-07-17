@@ -10,6 +10,7 @@ class User::FromLinkedinController < ApplicationController
     params[:client_import][:source] = 'linkedin'
     if @client_import = ClientImport.create(client_import_params)
       ClientLinkedinImportWorker.perform_async( @client_import.id, current_user.email )
+      flash[:info] = "Import started, this might take a few moments" 
       redirect_to user_user_control_panel_index_path(@user)
     else
       
