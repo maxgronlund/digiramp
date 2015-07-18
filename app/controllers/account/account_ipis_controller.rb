@@ -10,11 +10,13 @@ class Account::AccountIpisController < ApplicationController
   end
   
   def show
+    
     @ipi_code = IpiCode.cached_find(params[:id])
     @ipis     = Ipi.where(ipi_code: @ipi_code.ipi_code)
   end
 
   def new
+    
     @ipi_code = IpiCode.new
   end
   
@@ -39,6 +41,7 @@ class Account::AccountIpisController < ApplicationController
   end
 
   def edit
+    
     @ipi_code = IpiCode.cached_find(params[:id])
   end
   

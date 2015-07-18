@@ -9,11 +9,9 @@ class Account::OpportunityProvidersController < ApplicationController
 
   
   def index
-
-    forbidden (current_account_user && current_account_user.update_opportunity)
+    forbidden unless current_account_user && current_account_user.update_opportunity
     @opportunity = Opportunity.cached_find(params[:opportunity_id])
     @user        = current_user
     @authorized  = true
-    
   end
 end

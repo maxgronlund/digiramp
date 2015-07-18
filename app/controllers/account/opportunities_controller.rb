@@ -6,7 +6,6 @@ class Account::OpportunitiesController < ApplicationController
 
   
   def index
-
     forbidden unless current_account_user && current_account_user.read_opportunity
 
     @opportunities = @account.opportunities.order('created_at desc')
