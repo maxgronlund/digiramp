@@ -1,0 +1,76 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'profile'
+  
+  #page-content-wrapper
+    .container-fluid 
+      == render 'recordings/wizard_step', step: 2
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Invited users
+            .help-button
+              == render 'admin/helps/help', identifier: 'recording users'
+        .col-sm-6
+          .pull-right
+            .recording-navigation
+              => link_to edit_user_recording_basic_path(@user, @recording) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Back
+                  
+              = link_to edit_user_recording_lyric_path(@user, @recording) do
+                .btn.btn-default
+                  'Skip
+                  '&nbsp;
+                  i.fa.fa-chevron-right
+      .sexy_line
+      h4 = @recording.title
+      .row
+        .col-sm-6
+           .digi-box
+            = simple_form_for [:user, @user, @recording, @recording_user ], turboboost: true do |f|
+              = f.error_notification
+            
+              .form-inputs
+                = f.hidden_field :recording_id, value: @recording.id
+                = f.input :email
+            
+              .form-actions
+                .row
+                  .col-sm-12
+                    .pull-right
+                      
+                      = f.submit "Add user", class: 'btn btn-default'
+        .col-sm-6
+          .digi-box
+            .table-responsive
+              table class="table table-hover"
+                tbody
+                  - @recording.recording_users.each do |recording_user|
+                    tr
+                      td 
+                        => link_to user_user_recording_recording_user_path( @user, @recording, recording_user), 
+                                        data: {:confirm => 'Are you sure?'}, 
+                                        turboboost: true,
+                                        :method => :delete do
+                                .btn.btn-danger.btn-xs
+                                  i.fa.fa-times
+                        = recording_user.email
+
+                        
+          
+            br
+              
+  == render 'shared/site_footer'  
+
+
+
+/= link_to 'New Recording user', new_recording_user_path

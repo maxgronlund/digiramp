@@ -18,10 +18,6 @@ class RecordingBasicsController < ApplicationController
 
   def update
 
-    #go_to = params[:recording][:next_step]
-    #
-    #params[:recording].delete :next_step
-
     @recording      = Recording.find(params[:id])
     
     if params[:recording][:featured] == '1' && @recording.featured == false
@@ -72,12 +68,13 @@ class RecordingBasicsController < ApplicationController
       @recording.common_work.update_completeness if @recording.common_work
       
     end
-    redirect_to edit_user_recording_lyric_path( @user, @recording )
-    #if go_to == 'next_step'
-    #  redirect_to edit_user_recording_lyric_path( @user, @recording )
-    #else
-    #  redirect_to user_recording_path( @recording.user, @recording )
-    #end
+
+    if @recording.privacy == 'Only people I choose'
+      redirect_to user_user_recording_recording_users_path(@user, @recording)
+    else
+      redirect_to edit_user_recording_lyric_path( @user, @recording )
+    end
+
   end
   
   

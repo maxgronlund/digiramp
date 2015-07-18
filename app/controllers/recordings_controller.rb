@@ -17,9 +17,14 @@ class RecordingsController < ApplicationController
     params[:query]  = session[:query]
 
     if current_user && current_user.id == @user.id
-      @recordings =  Recording.recordings_search(@user.recordings, params[:query]).order('uniq_position desc').page(params[:page]).per(4)
+      @recordings =  Recording.recordings_search(@user.recordings, params[:query])
+                              .order('uniq_position desc')
+                              .page(params[:page]).per(4)
     else
-      @recordings =  Recording.public_access.recordings_search(@user.recordings, params[:query]).order('uniq_position desc').page(params[:page]).per(4)
+      @recordings =  Recording.recordings_search(@user.recordings, params[:query])
+                              .public_access
+                              .order('uniq_position desc')
+                              .page(params[:page]).per(4)
     end
     @playlists  = current_user.playlists if current_user
   end
@@ -70,33 +75,39 @@ class RecordingsController < ApplicationController
   
   # also called from the play button
   def show
-    #ap 'rec contrl'
-    #ap params 
-    #ap '-'
-    #ap request.original_fullpath
-    #ap '-'
 
-    if @recording = Recording.cached_find(params[:id]) 
-      @playlists  = current_user.playlists if current_user
-      @user_credits = @recording.user_credits
+    return not_found unless  @recording = Recording.cached_find(params[:id])
       
-      unless request.xhr?
-        user_id = current_user ? current_user.id : nil
-      
-        RecordingView.create( recording_id: @recording.id, 
-                               user_id: user_id, 
-                               account_id: @recording.account_id 
-                             )
-      end
-      respond_to do |format|
-        format.html
-        format.js
-        format.json { render :json => @this.to_json }
-      end
-    else
-      not_found params
+    @common_work  = @recording.common_work
+    @playlists    = current_user.playlists if current_user
+    @user_credits = @recording.user_credits
+    
+    unless request.xhr?
+      user_id = current_user ? current_user.id : nil
+      RecordingView.create( recording_id: @recording.id, 
+                             user_id: user_id, 
+                             account_id: @recording.account_id 
+                           )
     end
-      
+    respond_to do |format|
+      format.html{ 
+        unless  (@recording.privacy == 'Anyone') 
+          # there has to ba a user
+          forbidden unless current_user
+          
+          case @recording.privacy
+          when 'Only people I choose'
+            forbidden unless RecordingUser.find_by(user_id: current_user.id, recording_id: @recording.id) ||
+                                                @recording.user_id == current_user.id
+          else
+            # handle other  cases here
+            forbidden unless  @recording.user_id == current_user.id
+          end
+        end
+      }
+      format.js
+      format.json { render :json => @this.to_json }
+    end
   end
   
   def destroy

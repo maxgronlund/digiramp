@@ -1,0 +1,25 @@
+h1 Listing recording_users
+
+table
+  thead
+    tr
+      th User
+      th Recording
+      th Email
+      th
+      th
+      th
+
+  tbody
+    - @recording_users.each do |recording_user|
+      tr
+        td = recording_user.user
+        td = recording_user.recording
+        td = recording_user.email
+        td = link_to 'Show', recording_user
+        td = link_to 'Edit', edit_recording_user_path(recording_user)
+        td = link_to 'Destroy', recording_user, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Recording user', new_recording_user_path

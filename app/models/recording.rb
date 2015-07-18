@@ -103,6 +103,7 @@ class Recording < ActiveRecord::Base
   has_many :playbacks,                                  dependent: :destroy
   has_many :recording_views,                            dependent: :destroy
   has_many :likes,                                      dependent: :destroy
+  has_many :recording_users
 
   before_save :uniqify_fields
   after_commit :flush_cache
@@ -159,8 +160,8 @@ class Recording < ActiveRecord::Base
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
   TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
   
-  #PRIVACY = [ "Anyone", "Only me", "Only people I choose", 'Only people I invite to my account']
-  PRIVACY = [ "Anyone", "Only me"]
+  PRIVACY = [ "Anyone", "Only me", "Only people I choose", 'Only people I invite to my account']
+  #PRIVACY = [ "Anyone", "Only me"]
   
   VOCAL_HASH = []
   
@@ -254,6 +255,7 @@ class Recording < ActiveRecord::Base
                                                        show_credit_on_recordings: true, 
                                                        confirmation: "Accepted")
     rescue
+      ap 'outch'
     end
   end
   

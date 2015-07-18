@@ -1,0 +1,10 @@
+= simple_form_for(@recording_user) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :user
+    = f.association :recording
+    = f.input :email
+
+  .form-actions
+    = f.button :submit

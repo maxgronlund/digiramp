@@ -1,10 +1,6 @@
 Digiramp::Application.routes.draw do
 
 
-
-  namespace :admin do
-    resources :legal_tags
-  end
   resources :accepting_signatures
 
   # user namespace arount line 730
@@ -91,6 +87,7 @@ Digiramp::Application.routes.draw do
   
   # Example resource route within a namespace:
   namespace :admin do
+    resources :legal_tags
     resources :account_features
       resources :activities
     resources :activity_counter
@@ -886,6 +883,7 @@ Digiramp::Application.routes.draw do
       resources :recordings do
         resources :work_rights
         resources :recording_ipis
+        resources :recording_users
         resources :recording_confirmations, only: [:new, :update]
       end
       

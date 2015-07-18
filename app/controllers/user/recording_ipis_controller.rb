@@ -44,7 +44,7 @@ class User::RecordingIpisController < ApplicationController
   
   
   def update    
-
+    ap params
     @recording        = Recording.cached_find(params[:recording_id])
     @recording_ipi    = RecordingIpi.cached_find(params[:id])
     @common_work      = @recording.common_work
@@ -58,7 +58,7 @@ class User::RecordingIpisController < ApplicationController
         params[:recording_ipi][:account_id]                 = user.account.id
                                                             
         params[:recording_ipi][:confirmation]               = 'Pending'
-        params[:recording_ipi][:show_credit_on_recording]   = false
+        #params[:recording_ipi][:show_credit_on_recording]   = false
         params[:recording_ipi][:confirmed]                  = false
         params[:recording_ipi][:user_uuid]                  = user.uuid  
       end

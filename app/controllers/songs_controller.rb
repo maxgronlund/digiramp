@@ -24,12 +24,9 @@ class SongsController < ApplicationController
       order = params[:recording][:order] + ' ' + params[:recording][:direction] 
     end  
     
-    ap params[:genre]
+
     if params[:genre]
-      
       if genre      = Genre.where(title: params[:genre]).first
-        ap 'genre found'
-        ap genre
         recordings  = genre.ordered_recordings_with_public_access order
       else
         recordings = Recording.public_access.order(order)

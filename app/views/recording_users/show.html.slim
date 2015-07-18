@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong User:
+  = @recording_user.user
+p
+  strong Recording:
+  = @recording_user.recording
+p
+  strong Email:
+  = @recording_user.email
+
+= link_to 'Edit', edit_recording_user_path(@recording_user)
+'|
+= link_to 'Back', recording_users_path

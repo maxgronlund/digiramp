@@ -1,0 +1,67 @@
+.row  
+  .col-sm-12
+    .wizard-steps
+      ul class="wizard-steps"
+      	li data-target="#step1" class="#{'active' if step == 1 } #{'complete' if step > 1 }" style="min-width: 20%; max-width: 20%;"
+          span
+            .step  
+              -if step == 1 
+                '1
+              -else
+                i.fa.fa-check
+          span.title 
+            = link_to edit_user_recording_basic_path(@user, @recording) do
+              i.fa.fa-pencil &nbsp;Basic
+    
+      
+      	li data-target="#step2" class="#{'active' if step == 2 } #{'complete' if step > 2 }"  style="min-width: 20%; max-width: 20%;"
+      		span
+            .step  
+              -if step <= 2 
+                '3
+              -else
+                i.fa.fa-check
+      		span.title 
+            = link_to user_user_recording_recording_users_path(@user, @recording) do
+              i.fa.fa-users &nbsp;Users
+    
+      
+      	li data-target="#step3" class="#{'active' if step == 3 } #{'complete' if step > 3 }"  style="min-width: 20%; max-width: 20%;"
+      		span
+            .step  
+              -if step <= 3 
+                '3
+              -else
+                i.fa.fa-check
+      		span.title 
+            = link_to edit_user_recording_lyric_path(@user, @recording) do
+              i.fa.fa-comment &nbsp;Lyrics
+    
+      
+      	li data-target="#step3" class="#{'active' if step == 3 } #{'complete' if step > 3 }"  style="min-width: 20%; max-width: 20%;"
+      		span
+            .step  
+              -if step <= 4 
+                '4
+              -else
+                i.fa.fa-check
+      		span.title 
+            = link_to edit_user_recording_tag_path(@user, @recording) do
+              i.fa.fa-tag &nbsp;Tags
+    
+      
+      	li data-target="#step4" class="#{'active' if step == 4 } #{'complete' if step > 4 }"  style="min-width: 20%; max-width: 20%;"
+      		span
+            .step  
+              -if step <= 4 
+                '5
+              -else
+                i.fa.fa-share-alt
+      		span.title 
+            - if @recording.common_work
+              = link_to user_user_common_work_path(@recording.user, @recording.common_work, recording_id: @recording.id) do
+                '&nbsp;© Copyright
+        
+            
+            
+            

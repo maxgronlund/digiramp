@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150718075448) do
+ActiveRecord::Schema.define(version: 20150718081711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2568,6 +2568,17 @@ ActiveRecord::Schema.define(version: 20150718075448) do
   add_index "recording_items", ["itemable_id", "itemable_type"], name: "index_recording_items_on_itemable_id_and_itemable_type", using: :btree
   add_index "recording_items", ["recording_id"], name: "index_recording_items_on_recording_id", using: :btree
 
+  create_table "recording_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "recording_id"
+    t.string   "email"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "recording_users", ["recording_id"], name: "index_recording_users_on_recording_id", using: :btree
+  add_index "recording_users", ["user_id"], name: "index_recording_users_on_user_id", using: :btree
+
   create_table "recording_views", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "recording_id"
@@ -3475,6 +3486,7 @@ ActiveRecord::Schema.define(version: 20150718075448) do
   add_foreign_key "projects", "accounts", on_delete: :cascade
   add_foreign_key "recording_downloads", "users", on_delete: :cascade
   add_foreign_key "recording_ipis", "accounts", on_delete: :cascade
+  add_foreign_key "recording_users", "recordings", on_delete: :cascade
   add_foreign_key "recording_views", "accounts", on_delete: :cascade
   add_foreign_key "representative_splits", "accounts"
   add_foreign_key "representative_splits", "common_works"
