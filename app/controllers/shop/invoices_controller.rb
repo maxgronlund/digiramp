@@ -10,7 +10,8 @@ class Shop::InvoicesController < ApplicationController
       respond_to do |format|
         format.html
         format.pdf do
-          render :pdf => @shop_order.id.to_s
+          render pdf: @shop_order.id.to_s,
+                 encoding: "UTF-8"
         end
       end
     else

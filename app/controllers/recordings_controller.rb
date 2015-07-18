@@ -77,7 +77,7 @@ class RecordingsController < ApplicationController
   def show
 
     return not_found unless  @recording = Recording.cached_find(params[:id])
-      
+
     @common_work  = @recording.common_work
     @playlists    = current_user.playlists if current_user
     @user_credits = @recording.user_credits
@@ -93,15 +93,16 @@ class RecordingsController < ApplicationController
       format.html{ 
         unless  (@recording.privacy == 'Anyone') 
           # there has to ba a user
-          forbidden unless current_user
+          forbidden unless current_user 
           
           case @recording.privacy
           when 'Only people I choose'
             forbidden unless RecordingUser.find_by(user_id: current_user.id, recording_id: @recording.id) ||
-                                                @recording.user_id == current_user.id
+                                                @recording.user_id == current_user.id ||
+                                                super?
           else
             # handle other  cases here
-            forbidden unless  @recording.user_id == current_user.id
+            forbidden unless  @recording.user_id == current_user.id || super?
           end
         end
       }

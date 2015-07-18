@@ -5,7 +5,23 @@
       .col-sm-12
         h3 = product.title
         - if product.category == 'recording'
-          = product.recording.pre_cleared
+          /= product.recording.pre_cleared
+          #digiWhams  class="/recordings/#{product.recording.id.to_s}"
+            == render 'recordings/recording_with_icons', recording: product.recording, 
+                                                         info: false,
+                                                         add_to_playlist: false, 
+                                                         remove_from_playlist: false, 
+                                                         edit: false, 
+                                                         delete: false,
+                                                         description: false,
+                                                         share: true,
+                                                         target: "",
+                                                         music_request_link: false,
+                                                         remove_from_request: false
+          
+          
+          
+          
     .col-sm-6
       .product-image-big
         = image_tag product.shop_image('thumb_470x470')
