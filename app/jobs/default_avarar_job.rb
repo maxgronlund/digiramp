@@ -5,8 +5,7 @@ class DefaultAvararJob < ActiveJob::Base
   def perform user_id
     
     return unless Rails.env.production?
-    
-    user = User.cached_find(user_id)
+    return unless user = User.cached_find(user_id)
     ActiveRecord::Base.connection_pool.with_connection do
     
       prng       = Random.new

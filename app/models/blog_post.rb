@@ -1,6 +1,5 @@
 class BlogPost < ActiveRecord::Base
-  
-
+  has_paper_trail
   
   belongs_to :user, dependent: :destroy
   belongs_to :blog

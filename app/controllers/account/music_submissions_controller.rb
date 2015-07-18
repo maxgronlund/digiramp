@@ -45,7 +45,6 @@ class Account::MusicSubmissionsController < ApplicationController
   def do_submit_recording params
     
     opportunity_user_id  = @opportunity_user ? @opportunity_user.id : nil
-
     
     if current_user && (@opportunity.public_opportunity || @opportunity_user)
       @recording        = Recording.cached_find(params[:id])
@@ -60,8 +59,6 @@ class Account::MusicSubmissionsController < ApplicationController
                                                             user_id:              current_user.id,
                                                             account_id:           @account.id,
                                                             opportunity_user_id:  opportunity_user_id
-                                                            
-                                                            
                                                           ) 
                           
       current_user.create_activity(  :created, 
@@ -70,26 +67,37 @@ class Account::MusicSubmissionsController < ApplicationController
                        recipient_type: 'MusicRequest',
                            account_id: @account.id)
        
+      if Rails.env.production?  
         
-      if Rails.env.production?              
+        message_title =   "#{@recording.title} is submitted to #{@music_submission.music_request.title}"
         channel = 'digiramp_radio_' + current_user.email
         Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SUBMITTED', 
-                                            "message" => "#{@recording.title} is submitted to #{@music_submission.music_request.title}", 
+                                            "message" => message_title, 
                                             "time"    => '4500', 
                                             "sticky"  => 'false', 
                                             "image"   => 'success'
-                                            })
+                                            })  
                                                 
-        if user = @opportunity.user
+        if user  = @opportunity.user
+          message_text               = "A submission from #{current_user.user_name} has been made for the opportunity: #{@opportunity.title}/ request: #{@music_request.title}"
           message                    = Message.new
           message.recipient_id       = user.id
           message.sender_id          = current_user.id
-          message.title              = "A recording has been submitted to #{@opportunity.title}"
-          message.body               = "A submission from #{user.user_name} has been made for the opportunity: #{@opportunity.title}/ request: #{@music_request.title}"
+          message.title              = message_title
+          message.body               = message_text
           message.subjectable_id     = @music_submission.id
           message.subjectable_type   = 'MusicSubmission'
           message.save!
           message.send_as_email
+          
+           
+          channel = 'digiramp_radio_' + user.email
+          Pusher.trigger(channel, 'digiramp_event', {"title" => 'RECORDING SUBMITTED', 
+                                              "message" => message_title, 
+                                              "time"    => '4500', 
+                                              "sticky"  => 'false', 
+                                              "image"   => 'success'
+                                              })
         end
       end
         

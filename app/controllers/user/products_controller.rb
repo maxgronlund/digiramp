@@ -7,8 +7,7 @@ class User::ProductsController < ApplicationController
   # GET /shop/products
   # GET /shop/products.json
   def index
-    @shop_products = Shop::Product.all
-    
+    redirect_to @user.is_stripe_connected ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
   end
 
   # GET /shop/products/1
@@ -47,20 +46,20 @@ class User::ProductsController < ApplicationController
 
   # POST /shop/products
   # POST /shop/products.json
-  def create
-    @shop_product = Shop::Product.new(shop_product_params)
-
-    respond_to do |format|
-      if @shop_product.save
-        format.html { redirect_to user_user_product_path(@user, @shop_product.uuid) }
-        format.json { render :show, status: :created, location: @shop_product }
-      else
-        ap '=========================== do what you have to do here ============================='
-        format.html { render :new, category: 'recording' }
-        format.json { render json: @shop_product.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #def create
+  #  @shop_product = Shop::Product.new(shop_product_params)
+  #
+  #  respond_to do |format|
+  #    if @shop_product.save
+  #      format.html { redirect_to user_user_product_path(@user, @shop_product.uuid) }
+  #      format.json { render :show, status: :created, location: @shop_product }
+  #    else
+  #      ap '=========================== do what you have to do here ============================='
+  #      format.html { render :new, category: 'recording' }
+  #      format.json { render json: @shop_product.errors, status: :unprocessable_entity }
+  #    end
+  #  end
+  #end
 
   # PATCH/PUT /shop/products/1
   # PATCH/PUT /shop/products/1.json
