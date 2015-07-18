@@ -32,9 +32,7 @@ class Digiwham::RecordingsController < ApplicationController
                       )
       
       
-      if current_user  
-        
-                      
+      if current_user  && @recording.privacy == "Anyone"            
         current_user.create_activity(  :created, 
                                    owner: playback, # the recording has many playbacks
                                recipient: @recording,
