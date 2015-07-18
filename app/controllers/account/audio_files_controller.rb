@@ -21,7 +21,7 @@ class Account::AudioFilesController < ApplicationController
   
   def create
    
-    forbidden urrent_account_user.create_recording?
+    forbidden unless current_account_user.create_recording?
     
     begin
       result = TransloaditRecordingsParser.parse params[:transloadit],  @account.id, true, current_account_user.user_id

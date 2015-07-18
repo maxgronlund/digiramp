@@ -12,9 +12,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), 
-                                                              documents: account_account_documents_path(@account) 
-                                                             }, 
-                                                      current:  ''}
+                                                              documents: account_account_documents_path(@account) }, current: ''}
       .row
         .col-sm-6
           .help
