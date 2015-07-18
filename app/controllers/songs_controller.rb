@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
   
   def index
-    
+    # statistic
     PageView.create(url: '/recordings' ) if request.format.to_s == 'text/html'
     
     if params[:commit] == 'Go'
@@ -24,10 +24,13 @@ class SongsController < ApplicationController
       order = params[:recording][:order] + ' ' + params[:recording][:direction] 
     end  
     
-
+    ap params[:genre]
     if params[:genre]
-      if genre = Genre.where(title: params[:genre]).first
-        recordings = genre.ordered_recordings_with_public_access order
+      
+      if genre      = Genre.where(title: params[:genre]).first
+        ap 'genre found'
+        ap genre
+        recordings  = genre.ordered_recordings_with_public_access order
       else
         recordings = Recording.public_access.order(order)
       end

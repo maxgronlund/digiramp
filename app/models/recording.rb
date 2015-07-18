@@ -159,7 +159,8 @@ class Recording < ActiveRecord::Base
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
   TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
   
-  PRIVACY = [ "Anyone", "Only me", "Only people I choose", 'Only people I invite to my account']
+  #PRIVACY = [ "Anyone", "Only me", "Only people I choose", 'Only people I invite to my account']
+  PRIVACY = [ "Anyone", "Only me"]
   
   VOCAL_HASH = []
   
