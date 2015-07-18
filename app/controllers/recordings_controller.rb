@@ -16,7 +16,7 @@ class RecordingsController < ApplicationController
     session[:query] = nil if params[:clear] == 'clear'
     params[:query]  = session[:query]
 
-    if current_user && current_user.id == @user.id
+    if (current_user && current_user.id == @user.id) || super?
       @recordings =  Recording.recordings_search(@user.recordings, params[:query])
                               .order('uniq_position desc')
                               .page(params[:page]).per(4)
