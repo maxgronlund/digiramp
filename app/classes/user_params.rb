@@ -39,7 +39,9 @@ class UserParams
                     :address_line_1,            
                     :address_line_2,                     
                     :zip_code,                   
-                    :phone_number
+                    :phone_number,
+                    :default_cms_page_id
+                    
                   ]
     
     ADMIN_PARAMS = [
