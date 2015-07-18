@@ -52,48 +52,8 @@
       
       .row
         .col-md-8
-          - ipis      =  @common_work.ipis.where(show_credit_on_recordings: true)
-          - rec_ipis  = RecordingIpi.where(show_credit_on_recording: true, recording_id: @recording.id)
-          - if rec_ipis || ipis
-            .digi-box
-              - ipis.each do |ipi|
-                b = ipi.role
-                br
-                i
-                  - if user = ipi.user
-                    = link_to user.user_name, user_ipis_path(user)
-                  - else
-                    = ipi.full_name
-                .sexy_line
-                
-              - rec_ipis.each do |rec_ipi|
-                b = rec_ipi.role
-                br
-                i
-                  - if user = rec_ipi.user
-                    = link_to user.user_name, user_ipis_path(user)
-                  - else
-                    = rec_ipi.name
-                p = rec_ipi.credit_for
-                .sexy_line
-            /= debug @user_credits
-            /- unless @user_credits.blank?
-            /  .digi-box
-            /    - @user_credits.each do |user_credit|
-            /      == render "recordings/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
-            /      .sexy_line
-            //.digi-box
-            /  - @recording.recording_ipis.each do |recording_ipi|
-            /    = link_to recording_ipi.user do
-            /      .row
-            /        .col-sm-6
-            /          b = recording_ipi.user.user_name
-            /          br
-            /          i = recording_ipi.credit_for
-            /      
-            /        .col-sm-6
-            /          = simple_format recording_ipi.notes
-            /    .sexy_line
+          == render 'credits'
+            
           .digi-box
             / description can be updated with AJAX
             .tags    
