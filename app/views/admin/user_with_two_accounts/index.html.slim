@@ -39,12 +39,12 @@
                     - user[:accounts].each do |account|
                       .row
                         .col-sm-12.pull-down-6
-                          => link_to admin_account_path(account, double_accounts: true),
+                          => link_to admin_user_with_two_account_path(account),
                                     data: {:confirm => 'Are you sure?'}, 
                                     turboboost: true, 
                                     method: :delete do
-                                     .btn.btn-danger.btn-xs
-                                       .i.fa.fa-times
+                                     .btn.btn-default.btn-xs
+                                       'Select
                           => link_to account.id, account_account_path(account), class: 'btn btn-default btn-xs'
                           
                           = l account.created_at, format: :date

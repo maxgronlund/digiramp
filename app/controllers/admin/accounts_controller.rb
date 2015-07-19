@@ -70,26 +70,9 @@ class Admin::AccountsController < ApplicationController
   
   
   def destroy
-
       @account    = Account.cached_find(params[:id])
       @account_id = @account.id
-     
-      
-      #if @account.user
-      #  user = @account.user
-      #  user.create_activity(  :destroyed, 
-      #                        owner: current_user,
-      #                    recipient: user,
-      #               recipient_type: user.class.name,
-      #                   account_id: @account.id)
-      #               
-      #  user.destroy! 
-      #end 
       @account.destroy!   
-
-
-      
-    #redirect_to admin_accounts_path
   end
   
   def delete_common_works

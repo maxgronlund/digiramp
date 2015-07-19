@@ -181,7 +181,7 @@ Digiramp::Application.routes.draw do
     resources :user_genres, only: [:index]
     resources :user_instruments, only: [:index]
     resources :user_moods, only: [:index]
-    resources :user_with_two_accounts, only: [:index]
+    resources :user_with_two_accounts, only: [:index, :destroy]
     resources :video_blogs do
       resources :videos
     end
