@@ -62,6 +62,7 @@ class SessionsController < ApplicationController
   
   
   def log_in_with_email params
+    
     # '-------------- SessionsController#log_in_with_email -----------'
      
     params[:sessions][:email]  = params[:sessions][:email].downcase
@@ -152,16 +153,14 @@ private
     
     user.merge_order(session[:order_uuid])
     session[:order_uuid] = nil
-    
-    # hmm.. some error handling should not be needed   
-    #unless account        = Account.where(user_id: user.id).first
-    #  account             = User.create_a_new_account_for_the user
-    #end
-    
+
     
     user.account.visits        += 1
+    ap '1'
+    ap user.account
+    ap Account.where(user_id: user.id)
     user.account.save!
-
+    ap '2'
     user.create_activity(  :signed_in, 
                        owner: current_user,
                    recipient: current_user,

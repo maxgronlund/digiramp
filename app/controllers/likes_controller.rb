@@ -27,14 +27,11 @@ class LikesController < ApplicationController
                         recording_id: params[:recording_id],
                         account_id: user.account.id
                         )
-    recording             = Recording.cached_find(params[:recording_id])
+    recording    = Recording.cached_find(params[:recording_id])
+    recording.update(uniq_likes_count:  recording.likes.count.to_uniq)
+   
     
-    # !!! optimization counter cache ?
-    recording.likes_count += 1
-    #recording.likes_count = recording.likes.count
-    
-    recording.uniq_likes_count = recording.likes_count.to_uniq
-    recording.save!
+    ap recording.uniq_likes_count
              
     @unlike = '.unlike_recording_' + params[:recording_id].to_s   
     @like   = '.like_recording_'   + params[:recording_id].to_s 
@@ -50,29 +47,20 @@ class LikesController < ApplicationController
   end
   
   def destroy
-    user = User.friendly.find(params[:user_id])
-    like = Like.where(user_id: user.id, recording_id: params[:id]).first   
-    
-    recording = Recording.cached_find(params[:id])
-    recording.likes_count -= 1
-    recording.uniq_likes_count = recording.likes_count.to_uniq
-    recording.save
-    
-    
+    user          = User.friendly.find(params[:user_id])
+    like          = Like.where(user_id: user.id, recording_id: params[:id]).first   
+    like.destroy 
+    recording     = Recording.cached_find(params[:id])
+    recording.update(uniq_likes_count:  recording.likes.count.to_uniq)
+    ap recording.uniq_likes_count
     @unlike = '.unlike_recording_'  + params[:id].to_s   
     @like   = '.like_recording_'    + params[:id].to_s  
-  
-    like.destroy 
-    #render nothing: true
+
   end
+  
+  private
+  
+
 end
 
 
-
-#create_table "likes", force: true do |t|
-#  t.integer  "user_id"
-#  t.integer  "recording_id"
-#  t.integer  "account_id"
-#  t.datetime "created_at"
-#  t.datetime "updated_at"
-#end

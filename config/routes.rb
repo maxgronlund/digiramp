@@ -4,7 +4,7 @@ Digiramp::Application.routes.draw do
   resources :accepting_signatures
 
   # user namespace arount line 730
-
+  # admin namespace line 89
 
 
   get 'recording_rights/edit'
@@ -181,6 +181,7 @@ Digiramp::Application.routes.draw do
     resources :user_genres, only: [:index]
     resources :user_instruments, only: [:index]
     resources :user_moods, only: [:index]
+    resources :user_with_two_accounts, only: [:index]
     resources :video_blogs do
       resources :videos
     end

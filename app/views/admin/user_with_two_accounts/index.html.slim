@@ -1,0 +1,68 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'engine'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
+
+      .row
+        .col-sm-12
+          h2 Users with two accounts
+      
+
+          
+      .sexy_line
+      .digi-box  
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Name
+                th Accounts
+
+  
+            tbody
+              - @users.each do |user|
+                tr
+                  td
+                    = link_to user[:user].user_name, user[:user], class: 'btn btn-default btn-xs'
+                    br
+                    = "Current account id #{user[:user].current_account_id}"
+                  td
+                    - user[:accounts].each do |account|
+                      .row
+                        .col-sm-12.pull-down-6
+                          => link_to admin_account_path(account, double_accounts: true),
+                                    data: {:confirm => 'Are you sure?'}, 
+                                    turboboost: true, 
+                                    method: :delete do
+                                     .btn.btn-danger.btn-xs
+                                       .i.fa.fa-times
+                          => link_to account.id, account_account_path(account), class: 'btn btn-default btn-xs'
+                          
+                          = l account.created_at, format: :date
+                          
+
+
+                  
+                  
+     
+
+  
+  == render 'shared/site_footer'   
+  
+
+
+
+
+
+
+
+

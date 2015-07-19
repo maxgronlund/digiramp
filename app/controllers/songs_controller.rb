@@ -1,6 +1,7 @@
 class SongsController < ApplicationController
   
   def index
+    ap params
     # statistic
     PageView.create(url: '/recordings' ) if request.format.to_s == 'text/html'
     
@@ -15,7 +16,7 @@ class SongsController < ApplicationController
     
     if params[:recording].nil?
       params[:recording] = {order: 'created_at', direction: 'desc'}
-      #params[:recording][:featured] = true
+     
     end
     
     if params[:query]

@@ -76,6 +76,21 @@
                 .body
                   '!Only for development
                   
+        .admin-badges
+          / remove with
+          / rails d controller admin/user_with_two_accounts
+          .admin-badge-container
+            = link_to admin_user_with_two_accounts_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.fa-file-image-o
+                    '&nbsp;Double accounts
+                .body
+                  '!Only for fixing april apr 2015 bug
+                  
+                  
+                  
       /.row
       /  .col-sm-12
       /    'fo
