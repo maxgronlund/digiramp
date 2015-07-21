@@ -46,29 +46,29 @@ class User::ProductsController < ApplicationController
 
   # POST /shop/products
   # POST /shop/products.json
-  #def create
-  #  @shop_product = Shop::Product.new(shop_product_params)
-  #
-  #  respond_to do |format|
-  #    if @shop_product.save
-  #      format.html { redirect_to user_user_product_path(@user, @shop_product.uuid) }
-  #      format.json { render :show, status: :created, location: @shop_product }
-  #    else
-  #      ap '=========================== do what you have to do here ============================='
-  #      format.html { render :new, category: 'recording' }
-  #      format.json { render json: @shop_product.errors, status: :unprocessable_entity }
-  #    end
-  #  end
-  #end
+  def create
+    set_productable params
+    
+    @shop_product = Shop::Product.new(shop_product_params)
+ 
+    respond_to do |format|
+      if @shop_product.save
+        format.html { redirect_to user_user_product_path(@user, @shop_product.uuid) }
+        format.json { render :show, status: :created, location: @shop_product }
+      else
+        ap '=========================== do what you have to do here ============================='
+        format.html { render :new, category: 'recording' }
+        format.json { render json: @shop_product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # PATCH/PUT /shop/products/1
   # PATCH/PUT /shop/products/1.json
   def update
     @category     = @shop_product.category
-    
-    
-    
-    
+    set_productable params
+
     respond_to do |format|
       if @shop_product.update(shop_product_params)
         #ap @shop_product
@@ -123,6 +123,13 @@ class User::ProductsController < ApplicationController
   end
 
   private
+  
+  def set_productable params
+    if recording_id = params[:shop_product][:recording_id]
+      params[:shop_product][:productable_id]    = recording_id
+      params[:shop_product][:productable_type]  = 'Recording'
+    end
+  end
   
    # Use callbacks to share common setup or constraints between actions.
   def set_shop_product

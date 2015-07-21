@@ -1,0 +1,105 @@
+- session[:return_url] = request.url
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'edit_profile' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'user'
+      
+                        
+        
+      
+
+  #page-content-wrapper
+    .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user),
+                                                              'shop admin'.to_sym => user_user_shop_admin_index_path(@user)}, current: ''}
+      .row
+        .col-sm-8
+          h3 = @shop_product.title
+          
+        .col-sm-4
+          .pull-right.pull-down-10
+            => link_to  user_user_shop_admin_index_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
+            /-if recording = @shop_product.recording
+            /  => link_to "IP's", user_user_common_work_path(@user, recording.common_work) , class: 'btn btn-default'
+            = link_to 'Edit', edit_user_user_product_path(@user, @shop_product.uuid), class: 'btn btn-primary'
+            /'|
+            /= link_to 'Back', user_user_shop_admin_index_path(@user)
+            
+            /-if @shop_product.recording
+            /  'Recording
+            
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box 
+            h4 Create stakeholdes  
+            = simple_form_for [:user, @user, @shop_product, Stake.new(split: 10)], url: url_for( action: 'create', 
+                                                                                      controller: 'user/stakes'), 
+                                                                        turboboost: true, 
+                                                                        :method => 'post' do |f|
+                = f.hidden_field :account_id, value: @user.account.id
+                = f.hidden_field :asset_id, value:   @shop_product.id
+                = f.hidden_field :asset_type, value: @shop_product.class.name
+                = f.hidden_field :flat_rate_in_cent, value: 0
+                = f.hidden_field :currency, value: 'usd'
+                = f.hidden_field :unassigned, value: true
+                = f.input :email
+                = f.input :split, input_html: {min: "1", max: "100"}
+                .row
+                  .col-sm-12
+                    .pull-right
+                      = f.submit 'Save', class: 'btn btn-default'
+        .col-sm-6
+
+      .row
+        .col-sm-12
+          .digi-box
+            h4 Stakeholders
+            
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th
+                    th Email
+                    th Split
+                    th Connected
+                    th Channel
+                tbody
+                  - @shop_product.stakeholders.each do |stake|
+                    tr
+                      td = link_to user_user_product_stake_path(@user, @shop_product.uuid, stake), 
+                                                    data: { confirm: 'Are you sure?' } , 
+                                                    turboboost: true, 
+                                                    :method => :delete do
+                              .btn.btn-danger.btn-xs
+                                i.fa.fa-times
+                      td = stake.email
+                      td = stake.split
+                      td = stake.account_id ? 'Yes': 'No'
+                      td = stake.channel_uuid
+              
+
+
+  == render 'shared/site_footer' 
+
+
+
+
+
+
+/input type="number" name="quantity" min="1" max="5"
+/, input_html: { value: '1' } %>
+
+
+
+

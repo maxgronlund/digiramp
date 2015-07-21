@@ -1,0 +1,51 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      h2 Income channels
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                /th
+                th Type
+                th Source
+                th Stream ID
+                th
+            tbody
+              - @stakes.each do |stake|
+                tr
+                  /td = link_to user_user_product_stake_path(@user, @shop_product.uuid, stakeholder), 
+                  /                              data: { confirm: 'Are you sure?' } , 
+                  /                              turboboost: true, 
+                  /                              :method => :delete do
+                  /        .btn.btn-danger.btn-xs
+                  /          i.fa.fa-times
+                  td = stake.asset_type
+                  td = stake.income_source
+                  td = stake.channel_uuid
+                  td
+                    .pull-right
+                      = link_to user_user_income_channel_path(@user, stake) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-share&nbsp;Share
+        
+      
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

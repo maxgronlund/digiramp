@@ -32,18 +32,18 @@ class StripeChargeService
       errored("Payment source", stripe_object.source)   unless stripe_payment_source  = stripe_object.source
       
       begin
-        if shop_order = Shop::Order.find_by(charge_id: stripe_object.id)
-          OrderPayment.set_address_fields_from_payment_source( shop_order, stripe_payment_source)
-          shop_order.finish!
-          InvoiceMailer.delay.send_confirmations( shop_order.id )
+        if order = Shop::Order.find_by(charge_id: stripe_object.id)
           
-          shop_order.order_content[:payment_source] = JSON.parse(stripe_payment_source.to_json).deep_symbolize_keys 
-          shop_order.order_content[:total_price]    = shop_order.total_price
-          shop_order.create_transfers( stripe_object.id, stripe_object.amount )
-
+          order.finish!
+          OrderPayment.set_address_fields_from_payment_source( order, stripe_payment_source)
+          ShopOrderService.handle_downloabels(order)
+          InvoiceMailer.delay.send_confirmations( order.id )
           
-          ShopOrderService.handle_downloabels(shop_order)
-          shop_order.save(validate: false)
+          order.order_content[:payment_source] = JSON.parse(stripe_payment_source.to_json).deep_symbolize_keys 
+          order.order_content[:total_price]    = order.total_price
+          order.save(validate: false)
+          
+          order.charge_succeeded( stripe_object.id, stripe_object.amount )
         else
           raise 'No order found'  
         end

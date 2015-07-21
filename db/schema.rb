@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719101209) do
+ActiveRecord::Schema.define(version: 20150721081726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "account_catalogs", force: :cascade do |t|
     t.string   "title",        limit: 255
@@ -1918,10 +1919,12 @@ ActiveRecord::Schema.define(version: 20150719101209) do
     t.string   "confirmation",              limit: 255, default: "Missing"
     t.string   "title",                     limit: 255, default: ""
     t.text     "message",                               default: ""
+    t.integer  "ipi_id"
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
   add_index "ipis", ["import_ipi_id"], name: "index_ipis_on_import_ipi_id", using: :btree
+  add_index "ipis", ["ipi_id"], name: "index_ipis_on_ipi_id", using: :btree
   add_index "ipis", ["pro_affiliation_id"], name: "index_ipis_on_pro_affiliation_id", using: :btree
   add_index "ipis", ["user_id"], name: "index_ipis_on_user_id", using: :btree
 
@@ -2986,6 +2989,7 @@ ActiveRecord::Schema.define(version: 20150719101209) do
     t.string   "stripe_errors"
     t.integer  "account_id"
     t.string   "description"
+    t.uuid     "stake_uuid"
   end
 
   add_index "shop_stripe_transfers", ["account_id"], name: "index_shop_stripe_transfers_on_account_id", using: :btree
@@ -3001,12 +3005,12 @@ ActiveRecord::Schema.define(version: 20150719101209) do
 
   add_index "songs", ["account_id"], name: "index_songs_on_account_id", using: :btree
 
-  create_table "stakes", force: :cascade do |t|
+  create_table "stakes", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer  "account_id"
     t.integer  "asset_id"
     t.string   "asset_type"
-    t.decimal  "split"
-    t.integer  "flat_rate_in_cent"
+    t.decimal  "split",             default: 0.01
+    t.integer  "flat_rate_in_cent", default: 10
     t.string   "currency",          default: "usd"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
@@ -3014,11 +3018,8 @@ ActiveRecord::Schema.define(version: 20150719101209) do
     t.boolean  "unassigned",        default: false
     t.integer  "ipiable_id"
     t.string   "ipiable_type"
+    t.uuid     "channel_uuid"
   end
-
-  add_index "stakes", ["account_id"], name: "index_stakes_on_account_id", using: :btree
-  add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree
-  add_index "stakes", ["ipiable_type", "ipiable_id"], name: "index_stakes_on_ipiable_type_and_ipiable_id", using: :btree
 
   create_table "stripe_customers", force: :cascade do |t|
     t.string   "stripe_object"
@@ -3473,6 +3474,7 @@ ActiveRecord::Schema.define(version: 20150719101209) do
   add_foreign_key "documents", "accounts", on_delete: :cascade
   add_foreign_key "import_batches", "accounts", on_delete: :cascade
   add_foreign_key "invoices", "accounts", on_delete: :cascade
+  add_foreign_key "ipis", "ipis", on_delete: :cascade
   add_foreign_key "item_likes", "users", on_delete: :cascade
   add_foreign_key "likes", "accounts", on_delete: :cascade
   add_foreign_key "mail_campaigns", "accounts", on_delete: :cascade
@@ -3496,7 +3498,6 @@ ActiveRecord::Schema.define(version: 20150719101209) do
   add_foreign_key "shop_stripe_transfers", "accounts", on_delete: :cascade
   add_foreign_key "shop_stripe_transfers", "shop_order_items", column: "order_item_id"
   add_foreign_key "shop_stripe_transfers", "shop_orders", column: "order_id"
-  add_foreign_key "stakes", "accounts", on_delete: :cascade
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
   add_foreign_key "widgets", "accounts", on_delete: :cascade

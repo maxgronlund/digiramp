@@ -17,10 +17,14 @@ class Shop::OrderItem < ActiveRecord::Base
   
   # transfer payment to all stakeholders
   # called when payments success
-  def send_transfer_to_stakeholders( amount, stripe_charge_id)
+  def charge_succeeded( amount, stripe_charge_id)
     if product = self.product
       product.stakeholders.each do |stakeholder|
-        send_transfer_to_stakeholder( stakeholder, amount, stripe_charge_id)
+         # Don't make a transfer from an account to itself
+        unless self.order.user_id == stakeholder[:user_id]
+          stakeholder.charge_succeeded self.id,  amount, stripe_charge_id 
+        end
+        #send_transfer_to_stakeholder( stakeholder, amount, stripe_charge_id)
       end
     end
     self.sold = true
@@ -43,28 +47,28 @@ class Shop::OrderItem < ActiveRecord::Base
   private 
   
   # transfer to one stakeholder
-  def send_transfer_to_stakeholder( stakeholder, amount, stripe_charge_id)
-    # Don't make a transfer from an account to itself
-    unless self.order.user_id == stakeholder[:user_id]
-      Shop::StripeTransfer
-        .where( 
-                order_item_id:   self.id,
-                order_id:        self.order_id, 
-                user_id:         stakeholder[:user_id]
-               )
-        .first_or_create(
-                order_item_id:      self.id,
-                order_id:           self.order_id, 
-                user_id:            stakeholder[:user_id], 
-                account_id:         stakeholder[:account_id],
-                split:              stakeholder[:split],
-                amount:             (amount * stakeholder[:split]).to_i,
-                source_transaction: stripe_charge_id,
-                currency:           'usd'
-               )
-                    
-    end
-  end
+  #def send_transfer_to_stakeholder( stakeholder, amount, stripe_charge_id)
+  #  # Don't make a transfer from an account to itself
+  #  unless self.order.user_id == stakeholder[:user_id]
+  #    Shop::StripeTransfer
+  #      .where( 
+  #              order_item_id:   self.id,
+  #              order_id:        self.order_id, 
+  #              user_id:         stakeholder[:user_id]
+  #             )
+  #      .first_or_create(
+  #              order_item_id:      self.id,
+  #              order_id:           self.order_id, 
+  #              user_id:            stakeholder[:user_id], 
+  #              account_id:         stakeholder[:account_id],
+  #              split:              stakeholder[:split],
+  #              amount:             (amount * stakeholder[:split]).to_i,
+  #              source_transaction: stripe_charge_id,
+  #              currency:           'usd'
+  #             )
+  #                  
+  #  end
+  #end
   
   
 

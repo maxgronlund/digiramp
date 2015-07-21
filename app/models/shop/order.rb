@@ -167,10 +167,10 @@ class Shop::Order < ActiveRecord::Base
   end
   
   # the order is paid for, time to pay the stakeholders
-  def create_transfers stripe_charge_id, amount
+  def charge_succeeded stripe_charge_id, amount
     begin
       self.order_items.each do |order_item|
-        order_item.send_transfer_to_stakeholders( amount, stripe_charge_id) 
+        order_item.charge_succeeded( amount, stripe_charge_id) 
       end
     rescue => error
       Opbeat.capture_message("create_transfers: #{error.inspect}")

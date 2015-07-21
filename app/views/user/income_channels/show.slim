@@ -1,0 +1,100 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      h2 Income channel
+      = "Channel id: #{@stake.channel_uuid}"
+      .sexy_line
+      .digi-box
+        h4 Redistribute income stream  
+        = simple_form_for [:user, @user, @stake, Stake.new(split: 10)], url: url_for( action: 'create', 
+                                                                                  controller: 'user/income_channels'), 
+                                                                    turboboost: true, 
+                                                                    :method => 'post' do |f|
+            = f.hidden_field :account_id, value: @user.account.id
+            = f.hidden_field :asset_id, value:   @stake.id
+            = f.hidden_field :asset_type, value: @stake.class.name
+            = f.hidden_field :flat_rate_in_cent, value: 0
+            = f.hidden_field :currency, value: 'usd'
+            = f.hidden_field :unassigned, value: true
+            .row
+              .col-sm-6
+                = f.input :email
+              
+              .col-sm-6
+                = f.input :split, input_html: {min: "1", max: "100"}
+            .row
+              .col-sm-12
+                .pull-right
+                    = f.submit 'Save', class: 'btn btn-default'
+      .digi-box
+        h4 Recipients
+      
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th
+                th Email
+                th Split
+                th Connected
+            tbody
+              - @stake.stakeholders.each do |stakeholder|
+                tr
+                  td = link_to user_user_income_channel_path(@user, stakeholder), 
+                                                data: { confirm: 'Are you sure?' } , 
+                                                turboboost: true, 
+                                                :method => :delete do
+                          .btn.btn-danger.btn-xs
+                            i.fa.fa-times
+                  td = stakeholder.email
+                  td = stakeholder.split
+                  td = stakeholder.account_id ? 'Yes': 'No'
+                  
+                  
+                    
+                    
+                    
+        /.table-responsive
+        /  table class="table table-hover"
+        /    thead
+        /      tr
+        /        /th
+        /        th Type
+        /        th Source
+        /        th Stream ID
+        /        th
+        /    tbody
+        /      - @stakes.each do |stake|
+        /        tr
+        /          /td = link_to user_user_product_stake_path(@user, @shop_product.uuid, stakeholder), 
+        /          /                              data: { confirm: 'Are you sure?' } , 
+        /          /                              turboboost: true, 
+        /          /                              :method => :delete do
+        /          /        .btn.btn-danger.btn-xs
+        /          /          i.fa.fa-times
+        /          td = stake.asset_type
+        /          td = stake.income_source
+        /          td = stake.channel_uuid
+        /          td
+        /            .pull-right
+        /              .btn.btn-default.btn-xs
+        /                i.fa.fa-share&nbsp;Share
+        /
+        /
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

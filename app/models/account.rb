@@ -104,7 +104,7 @@ class Account < ActiveRecord::Base
   scope :activated,  ->  { where( activated: true).order("title asc")  }
   
   # all accounts has to have a name
-  validates_presence_of :title, :on => :update
+  validates :title, :contact_email, presence: true
   validates_with AccountValidator, fields: [:stripe_flat_transfer_fee, :stripe_percent_transfer_fee]
   validates_formatting_of :contact_email, :using => :email
   

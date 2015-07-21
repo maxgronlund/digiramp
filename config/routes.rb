@@ -1,6 +1,10 @@
 Digiramp::Application.routes.draw do
 
 
+  #namespace :user do
+  #get 'income_channels/index'
+  #end
+
   resources :accepting_signatures
 
   # user namespace arount line 730
@@ -750,12 +754,13 @@ Digiramp::Application.routes.draw do
       match '/payment_method_status/:guid' => 'payment_methods#status',  via: :get,  as: :payment_method_status
       match '/payment_method_fail/:guid' => 'payment_methods#fail',      via: :get,  as: :payment_method_fail
      
-      resources :subscriptions,
-                :products,
+      resources :activities,
+                :subscriptions,
                 :registrations
                 
       post "/hook" => "registrations#hook"
       post "/registrations/:id" => "registrations#show"
+      
       
       #get "shop"         => "shop#index",     :as => :user_user_shop_index
       #resources :shop, only: [:index]
@@ -769,7 +774,6 @@ Digiramp::Application.routes.draw do
       resources :coupon_batches, only: [:show]
       
       resources :accept_recording_ipis
-      resources :activities
       resources :authorization_providers
       resources :auto_fill_ipis, only: [:update]
       resources :confirm_ipis
@@ -857,6 +861,7 @@ Digiramp::Application.routes.draw do
       resources :invite_client_groups, only: [:update]
       resources :invite_friends, only: [:new, :create]
       resources :ipis
+      resources :income_channels
       resources :legal_documents do
         resources :document_signatures
       end
@@ -878,6 +883,9 @@ Digiramp::Application.routes.draw do
       resources :playlists, only: [:edit, :update] 
       resources :playlists do
         resources :playlist_emails
+      end
+      resources :products do
+        resources :stakes
       end
       resources :recording_transfers
       resources :recording_credits
