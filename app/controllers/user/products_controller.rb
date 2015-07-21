@@ -14,7 +14,8 @@ class User::ProductsController < ApplicationController
   # GET /shop/products/1.json
   def show
     not_found unless @shop_product
-    @order_items = @shop_product.order_items.order('created_at desc').where(sold: true)
+    @order_items   = @shop_product.order_items.order('created_at desc').where(sold: true)
+    #ap @order_items
     #@shop_order = current_order
   end
 
@@ -53,7 +54,7 @@ class User::ProductsController < ApplicationController
  
     respond_to do |format|
       if @shop_product.save
-        format.html { redirect_to user_user_product_path(@user, @shop_product.uuid) }
+        format.html { redirect_to user_user_product_path(@user, @shop_product) }
         format.json { render :show, status: :created, location: @shop_product }
       else
         ap '=========================== do what you have to do here ============================='
@@ -76,20 +77,20 @@ class User::ProductsController < ApplicationController
         format.html do 
         case @category
         when 'recording'
-          @recording = @shop_product.recording
+          @recording = @shop_product.get_item
           
           if @recording.pre_cleared?
             after_update_path
             #session[:user_product_path] = nil
-            #redirect_to user_user_product_path(@user, @shop_product.uuid)
+            #redirect_to user_user_product_path(@user, @shop_product)
           else
-            session[:user_product_path] = user_user_product_path(@user, @shop_product.uuid)
+            session[:user_product_path] = user_user_product_path(@user, @shop_product)
             redirect_to user_user_common_work_path(@user, @recording.common_work) 
           end
         else
           after_update_path
           #session[:user_product_path] = nil
-          #redirect_to user_user_product_path(@user, @shop_product.uuid) 
+          #redirect_to user_user_product_path(@user, @shop_product) 
         end
         end
         format.json { render :show, status: :ok, location: @shop_product }
@@ -102,7 +103,7 @@ class User::ProductsController < ApplicationController
   
   def after_update_path
     session[:user_product_path] = nil
-    redirect_to user_user_product_path(@user, @shop_product.uuid)
+    redirect_to user_user_product_path(@user, @shop_product)
   end
 
   # DELETE /shop/products/1
@@ -133,6 +134,7 @@ class User::ProductsController < ApplicationController
   
    # Use callbacks to share common setup or constraints between actions.
   def set_shop_product
+    
     @shop_product = Shop::Product.cached_find(params[:id])
   end
 

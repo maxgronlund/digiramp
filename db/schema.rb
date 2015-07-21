@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721081726) do
+ActiveRecord::Schema.define(version: 20150721124834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2881,25 +2881,24 @@ ActiveRecord::Schema.define(version: 20150721081726) do
   add_index "share_recording_with_emails", ["recording_id"], name: "index_share_recording_with_emails_on_recording_id", using: :btree
   add_index "share_recording_with_emails", ["user_id"], name: "index_share_recording_with_emails_on_user_id", using: :btree
 
-  create_table "shop_order_items", force: :cascade do |t|
+  create_table "shop_order_items", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer  "quantity",         default: 1
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
-    t.integer  "order_id"
-    t.integer  "product_id"
+    t.uuid     "shop_order_id"
+    t.uuid     "shop_product_id"
     t.boolean  "require_shipping", default: false
     t.boolean  "sold",             default: false
   end
 
-  add_index "shop_order_items", ["order_id"], name: "index_shop_order_items_on_order_id", using: :btree
-  add_index "shop_order_items", ["product_id"], name: "index_shop_order_items_on_product_id", using: :btree
+  add_index "shop_order_items", ["shop_order_id"], name: "index_shop_order_items_on_shop_order_id", using: :btree
+  add_index "shop_order_items", ["shop_product_id"], name: "index_shop_order_items_on_shop_product_id", using: :btree
 
-  create_table "shop_orders", force: :cascade do |t|
+  create_table "shop_orders", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.string   "state"
-    t.string   "uuid"
     t.string   "stripe_token"
     t.integer  "coupon_id"
     t.string   "email"
@@ -2919,19 +2918,9 @@ ActiveRecord::Schema.define(version: 20150721081726) do
     t.boolean  "checked_out",          default: false
   end
 
-  add_index "shop_orders", ["coupon_id"], name: "index_shop_orders_on_coupon_id", using: :btree
   add_index "shop_orders", ["user_id"], name: "index_shop_orders_on_user_id", using: :btree
 
-  create_table "shop_physical_products", force: :cascade do |t|
-    t.string   "dimensions"
-    t.string   "waight"
-    t.integer  "shipping_cost"
-    t.integer  "units_on_stock"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  create_table "shop_products", force: :cascade do |t|
+  create_table "shop_products", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
     t.text     "additional_info"
@@ -2959,8 +2948,6 @@ ActiveRecord::Schema.define(version: 20150721081726) do
     t.boolean  "vat_included",               default: true
     t.string   "sub_category",               default: ""
     t.string   "zip_file"
-    t.integer  "recording_id"
-    t.integer  "playlist_id"
     t.string   "content_type"
     t.integer  "file_size"
     t.integer  "document_id"
@@ -2968,15 +2955,15 @@ ActiveRecord::Schema.define(version: 20150721081726) do
 
   add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
   add_index "shop_products", ["document_id"], name: "index_shop_products_on_document_id", using: :btree
-  add_index "shop_products", ["playlist_id"], name: "index_shop_products_on_playlist_id", using: :btree
   add_index "shop_products", ["productable_type", "productable_id"], name: "index_shop_products_on_productable_type_and_productable_id", using: :btree
-  add_index "shop_products", ["recording_id"], name: "index_shop_products_on_recording_id", using: :btree
   add_index "shop_products", ["user_id"], name: "index_shop_products_on_user_id", using: :btree
 
-  create_table "shop_stripe_transfers", force: :cascade do |t|
-    t.integer  "order_item_id"
-    t.integer  "order_id"
+  create_table "shop_stripe_transfers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "shop_order_id"
+    t.uuid     "shop_order_item_id"
     t.integer  "user_id"
+    t.integer  "account_id"
+    t.uuid     "stake_id"
     t.decimal  "split"
     t.date     "due_date"
     t.integer  "amount"
@@ -2987,14 +2974,13 @@ ActiveRecord::Schema.define(version: 20150721081726) do
     t.string   "currency",           default: "usd"
     t.string   "state",              default: "pending"
     t.string   "stripe_errors"
-    t.integer  "account_id"
     t.string   "description"
-    t.uuid     "stake_uuid"
   end
 
   add_index "shop_stripe_transfers", ["account_id"], name: "index_shop_stripe_transfers_on_account_id", using: :btree
-  add_index "shop_stripe_transfers", ["order_id"], name: "index_shop_stripe_transfers_on_order_id", using: :btree
-  add_index "shop_stripe_transfers", ["order_item_id"], name: "index_shop_stripe_transfers_on_order_item_id", using: :btree
+  add_index "shop_stripe_transfers", ["shop_order_id"], name: "index_shop_stripe_transfers_on_shop_order_id", using: :btree
+  add_index "shop_stripe_transfers", ["shop_order_item_id"], name: "index_shop_stripe_transfers_on_shop_order_item_id", using: :btree
+  add_index "shop_stripe_transfers", ["stake_id"], name: "index_shop_stripe_transfers_on_stake_id", using: :btree
   add_index "shop_stripe_transfers", ["user_id"], name: "index_shop_stripe_transfers_on_user_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
@@ -3007,8 +2993,6 @@ ActiveRecord::Schema.define(version: 20150721081726) do
 
   create_table "stakes", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer  "account_id"
-    t.integer  "asset_id"
-    t.string   "asset_type"
     t.decimal  "split",             default: 0.01
     t.integer  "flat_rate_in_cent", default: 10
     t.string   "currency",          default: "usd"
@@ -3019,7 +3003,11 @@ ActiveRecord::Schema.define(version: 20150721081726) do
     t.integer  "ipiable_id"
     t.string   "ipiable_type"
     t.uuid     "channel_uuid"
+    t.uuid     "asset_id"
+    t.string   "asset_type"
   end
+
+  add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree
 
   create_table "stripe_customers", force: :cascade do |t|
     t.string   "stripe_object"
@@ -3038,12 +3026,6 @@ ActiveRecord::Schema.define(version: 20150721081726) do
     t.string   "default_source"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-  end
-
-  create_table "stripe_webhooks", force: :cascade do |t|
-    t.string   "stripe_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -3493,11 +3475,17 @@ ActiveRecord::Schema.define(version: 20150721081726) do
   add_foreign_key "representative_splits", "accounts"
   add_foreign_key "representative_splits", "common_works"
   add_foreign_key "sales_coupon_batches", "users"
-  add_foreign_key "shop_orders", "coupons"
+  add_foreign_key "shop_order_items", "shop_orders"
+  add_foreign_key "shop_order_items", "shop_products"
+  add_foreign_key "shop_orders", "users"
+  add_foreign_key "shop_products", "accounts"
   add_foreign_key "shop_products", "documents"
-  add_foreign_key "shop_stripe_transfers", "accounts", on_delete: :cascade
-  add_foreign_key "shop_stripe_transfers", "shop_order_items", column: "order_item_id"
-  add_foreign_key "shop_stripe_transfers", "shop_orders", column: "order_id"
+  add_foreign_key "shop_products", "users"
+  add_foreign_key "shop_stripe_transfers", "accounts"
+  add_foreign_key "shop_stripe_transfers", "shop_order_items"
+  add_foreign_key "shop_stripe_transfers", "shop_orders"
+  add_foreign_key "shop_stripe_transfers", "stakes"
+  add_foreign_key "shop_stripe_transfers", "users"
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
   add_foreign_key "widgets", "accounts", on_delete: :cascade

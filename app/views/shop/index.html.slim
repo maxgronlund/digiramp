@@ -28,14 +28,14 @@
   #page-content-wrapper
     .container-fluid
       
-      h2 Shop
+      h2 Marketplace
       b 
-        'Public shop for: 
+        'Public marketplace: 
         = @user.user_name
       .sexy_line
       .products
         - @products.each do |product|
-          == render 'shop/products/shared/badge', product: product, link_to_product: user_product_path(@user, product.uuid)
+          == render 'shop/products/shared/badge', product: product, link_to_product: user_product_path(@user, product)
       / ----------------------------------------
       / this is a public shop that belongs to a user
       /-----------------------------------------

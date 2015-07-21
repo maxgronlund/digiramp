@@ -13,7 +13,7 @@ class OrderValidator < ActiveModel::Validator
 
     order.order_items.each do |order_item|
       
-      product = order_item.product
+      product = order_item.shop_product
       
       if product.nil?
         order_item.destroy
@@ -46,7 +46,7 @@ class OrderValidator < ActiveModel::Validator
   
   def self.set_units_on_order_item(order_item, quantity)
 
-    if product = order_item.product
+    if product = order_item.shop_product
       
       test = product.units_on_stock - quantity
       ap test

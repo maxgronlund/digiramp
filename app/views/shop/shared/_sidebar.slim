@@ -2,13 +2,13 @@
 .sidebar 
 
   li class="#{'sidebar-selected' if selected == 'basket'}"
-    = link_to  shop_order_path(@shop_order.uuid), id: 'sidebar-basket' do
+    = link_to  shop_order_path(@shop_order), id: 'sidebar-basket' do
       i.fa.fa-shopping-cart
       '&nbsp;
       'Basket
   li class="#{'sidebar-selected' if selected == 'payment'}"
     - if @shop_order.require_shipping_address
-        = link_to  new_shop_order_shipping_address_path(@shop_order.uuid), id: 'checkout' do
+        = link_to  new_shop_order_shipping_address_path(@shop_order), id: 'checkout' do
           i.fa.fa-gift
           '&nbsp;
           = pluralize(@shop_order.items_count, 'Item')
@@ -19,7 +19,7 @@
 
     - else
       <div data-no-turbolink>
-        = link_to  edit_shop_order_path(@shop_order.uuid), id: 'checkout' do
+        = link_to  edit_shop_order_path(@shop_order), id: 'checkout' do
           i.fa.fa-gift
           '&nbsp;
           = pluralize(@shop_order.items_count, 'Item')

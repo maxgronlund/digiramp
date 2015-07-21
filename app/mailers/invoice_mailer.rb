@@ -16,7 +16,7 @@ class InvoiceMailer < ApplicationMailer
     
 
     @shop_order.order_items.each do |order_item|
-      if product = order_item.product
+      if product = order_item.shop_product
         if seller = product.user
           
           # http://localhost:3000/user/users/test03/order_items/8

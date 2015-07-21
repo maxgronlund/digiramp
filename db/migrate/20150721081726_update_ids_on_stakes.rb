@@ -1,7 +1,6 @@
 class UpdateIdsOnStakes < ActiveRecord::Migration
   def change
-    
-    
+
     drop_table :stakes
     create_table "stakes", id: :uuid, force: :cascade do |t|
       t.integer  "account_id"
@@ -18,9 +17,6 @@ class UpdateIdsOnStakes < ActiveRecord::Migration
       t.string   "ipiable_type"
       t.uuid   "channel_uuid"
     end
-    
 
-    
-    
   end
 end

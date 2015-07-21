@@ -11,15 +11,17 @@ class Shop::ShopOrderItemsController < ApplicationController
     product           = Shop::Product.cached_find(order_item_params[:shop_product_id])
     quantity          = set_quantity( current_order, product, order_item_params[:quantity].to_i)
     
-    if order_item = current_order.order_items.find_by(product_id: product.id)
+    if order_item = current_order.order_items.find_by(shop_product_id: product.id)
       # add quantity 
       order_item.quantity += quantity
       order_item.save
     else
       # create new with the right quantity
-      order_item = current_order.order_items.create(quantity: quantity, product_id: product.id)
+      order_item = current_order.order_items.create(quantity: quantity, shop_product_id: product.id)
     end
-    flash[:info] = "#{order_item.product.title} is added to your basket" 
+    
+    ap order_item
+    flash[:info] = "#{order_item.shop_product.title} is added to your basket" 
 
     
 

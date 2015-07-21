@@ -30,9 +30,9 @@
                 th
             tbody    
               - @shop_order.order_items.order('created_at asc').each do |order_item|
-                - if product = order_item.product
+                - if product = order_item.shop_product
                   tr
-                    td = link_to image_tag(product.image_url(:thumb_120x120)), user_product_path(product.user_id, product.uuid)
+                    td = link_to image_tag(product.image_url(:thumb_120x120)), user_product_path(product.user_id, product)
                     td 
                       b = product.title
                     td = number_to_currency(product.price * 0.01, locale: :en, precision: 2)
@@ -48,8 +48,8 @@
                           
                             .form-inputs
                           
-                              = f.hidden_field :shop_order_id,   value: @shop_order.uuid
-                              = f.hidden_field :shop_product_id, value: order_item.product_id
+                              = f.hidden_field :shop_order_id,   value: @shop_order.id
+                              = f.hidden_field :shop_product_id, value: order_item.shop_product_id
                               /= f.hidden_field :user_id, value: @user.id
                               = f.input :quantity, label: false
                               
@@ -81,11 +81,11 @@
           .col-sm-12
             .pull-right
               - if @shop_order.require_shipping_address
-                => link_to new_shop_order_shipping_address_path(@shop_order.uuid), id: 'checkout-button' do
+                => link_to new_shop_order_shipping_address_path(@shop_order), id: 'checkout-button' do
                   .btn.btn-success
                     'Checkout
               
               - else
-                => link_to edit_shop_order_path(@shop_order.uuid), id: 'checkout-button' , 'data-no-turbolink'=>'true' do
+                => link_to edit_shop_order_path(@shop_order), id: 'checkout-button' , 'data-no-turbolink'=>'true' do
                   .btn.btn-success
                     'Checkout

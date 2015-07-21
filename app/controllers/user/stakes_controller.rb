@@ -4,14 +4,16 @@ class User::StakesController < ApplicationController
   before_action :access_user
   
   def index
+    not_found unless @shop_product
   end
 
   def new
   end
 
   def create
+    ap params
     Stake.create!(stake_params)
-    redirect_to user_user_product_stakes_path(@user, @shop_product.uuid)
+    redirect_to user_user_product_stakes_path(@user, @shop_product)
   end
 
   def edit
@@ -22,13 +24,13 @@ class User::StakesController < ApplicationController
 
   def destroy
     @stake.destroy
-    redirect_to user_user_product_stakes_path(@user, @shop_product.uuid)
+    redirect_to user_user_product_stakes_path(@user, @shop_product)
   end
   
   private
   
     def set_shop_product
-      @shop_product = Shop::Product.find_by(uuid: params[:product_id])
+      @shop_product = Shop::Product.cached_find(params[:product_id])
     end
   
     def set_stake

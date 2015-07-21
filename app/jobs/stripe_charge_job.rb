@@ -1,10 +1,10 @@
 class StripeChargeJob < ActiveJob::Base
   queue_as :default
 
-  def perform(uuid)
+  def perform(shop_order_id)
     
     ActiveRecord::Base.connection_pool.with_connection do
-      order = Shop::Order.find_by(uuid: uuid)
+      order = Shop::Order.cached_find(shop_order_id)
       #order.reset
       begin
         order.process!

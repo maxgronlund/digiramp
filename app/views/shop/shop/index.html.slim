@@ -16,11 +16,11 @@
   
   #page-content-wrapper
     .container-fluid
-      h2 DigiRAMP shop
+      h2 Marketplace
       .sexy_line
       .products
         - @products.each do |product|
-          == render 'shop/products/shared/badge', product: product, link_to_product: shop_product_path(product.uuid)
+          == render 'shop/products/shared/badge', product: product, link_to_product: shop_product_path(product)
       /.digi-box
       /  table
       /    thead

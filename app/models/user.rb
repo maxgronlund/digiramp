@@ -259,8 +259,8 @@ class User < ActiveRecord::Base
                                       user_id: self.id,
                                       email: self.email )
                               .first_or_create!( user_id: self.id, 
-                                                 email: self.email,
-                                                 uuid: UUIDTools::UUID.timestamp_create().to_s)
+                                                 email: self.email
+                                                )
     @shop_order.errors.clear
     @shop_order
   end

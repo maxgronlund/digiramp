@@ -288,11 +288,11 @@ private
     if current_user 
       @order = current_user.get_order
     else
-      if session[:order_uuid] && (@order = Shop::Order.find_by(uuid: session[:order_uuid]) )
+      if session[:order_id] && (@order = Shop::Order.cached_find(session[:order_id]) )
       else 
-        @order = Shop::Order.new(uuid: UUIDTools::UUID.timestamp_create().to_s)
+        @order = Shop::Order.new()
         @order.save(validate: false)
-        session[:order_uuid] = @order.uuid
+        session[:order_id] = @order.id
       end
     end
     @order

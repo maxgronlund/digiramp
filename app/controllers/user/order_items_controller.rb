@@ -3,7 +3,7 @@ class User::OrderItemsController < ApplicationController
   
   def show
     @order_item       = Shop::OrderItem.cached_find(params[:id])
-    @shop_product     = @order_item.product
+    @shop_product     = @order_item.shop_product
     @stripe_transfers = @order_item.stripe_transfers
   end
   

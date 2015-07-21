@@ -69,7 +69,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
  
  def get_description
    
-   if product = order_item.product
+   if product = order_item.shop_product
      self.description = order_item.quantity.to_s
      self.description << ' x '
      self.description << product.title

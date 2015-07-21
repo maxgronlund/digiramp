@@ -60,9 +60,9 @@
                   td = product.category.gsub('-', ' ').capitalize
                   td 
                     .pull-right
-                      => link_to 'Status', user_user_product_path(@user, product.uuid), class: 'btn btn-default btn-xs'
-                      => link_to 'Edit',  edit_user_user_product_path(@user, product.uuid), class: 'btn btn-default btn-xs'
-                      => link_to 'Stakeholders',  user_user_product_stakes_path(@user, product.uuid), class: 'btn btn-default btn-xs'
+                      => link_to 'Status', user_user_product_path(@user, product), class: 'btn btn-default btn-xs'
+                      => link_to 'Edit',  edit_user_user_product_path(@user, product), class: 'btn btn-default btn-xs'
+                      => link_to 'Stakeholders',  user_user_product_stakes_path(@user, product), class: 'btn btn-default btn-xs'
                       = link_to user_user_product_path(@user, product.uuid), 
                                                         class: 'btn btn-danger btn-xs', 
                                                         data: {:confirm => 'Are you sure?'}, 

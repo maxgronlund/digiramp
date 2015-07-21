@@ -10,7 +10,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
-      h2 Income channels
+      h2 Revenue streams
       .sexy_line
       .digi-box
         .table-responsive
@@ -25,7 +25,7 @@
             tbody
               - @stakes.each do |stake|
                 tr
-                  /td = link_to user_user_product_stake_path(@user, @shop_product.uuid, stakeholder), 
+                  /td = link_to user_user_product_stake_path(@user, @shop_product, stakeholder), 
                   /                              data: { confirm: 'Are you sure?' } , 
                   /                              turboboost: true, 
                   /                              :method => :delete do
@@ -36,7 +36,7 @@
                   td = stake.channel_uuid
                   td
                     .pull-right
-                      = link_to user_user_income_channel_path(@user, stake) do
+                      = link_to user_user_revenue_stream_path(@user, stake) do
                         .btn.btn-default.btn-xs
                           i.fa.fa-share&nbsp;Share
         

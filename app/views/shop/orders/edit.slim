@@ -25,7 +25,7 @@
                   span = msg
         = simple_form_for [ @shop_order], html: { id: 'payment-form', class: 'form-horizontal'} do |f| 
           /input name="shop_order" type="hidden" value="#{@shop_order.id}"
-          = f.hidden_field :uuid, value: @shop_order.uuid
+          = f.hidden_field :id, value: @shop_order.id
           == render 'form', f: f, show_coupon_code: false
           
         /.row

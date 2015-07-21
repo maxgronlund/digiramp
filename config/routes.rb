@@ -1,9 +1,6 @@
 Digiramp::Application.routes.draw do
 
 
-  #namespace :user do
-  #get 'income_channels/index'
-  #end
 
   resources :accepting_signatures
 
@@ -861,7 +858,7 @@ Digiramp::Application.routes.draw do
       resources :invite_client_groups, only: [:update]
       resources :invite_friends, only: [:new, :create]
       resources :ipis
-      resources :income_channels
+      resources :revenue_streams
       resources :legal_documents do
         resources :document_signatures
       end

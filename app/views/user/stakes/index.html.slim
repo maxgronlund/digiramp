@@ -20,7 +20,6 @@
       .row
         .col-sm-8
           h3 = @shop_product.title
-          
         .col-sm-4
           .pull-right.pull-down-10
             => link_to  user_user_shop_admin_index_path(@user) do
@@ -30,7 +29,7 @@
             
             /-if recording = @shop_product.recording
             /  => link_to "IP's", user_user_common_work_path(@user, recording.common_work) , class: 'btn btn-default'
-            = link_to 'Edit', edit_user_user_product_path(@user, @shop_product.uuid), class: 'btn btn-primary'
+            = link_to 'Edit', edit_user_user_product_path(@user, @shop_product), class: 'btn btn-primary'
             /'|
             /= link_to 'Back', user_user_shop_admin_index_path(@user)
             
@@ -42,6 +41,7 @@
         .col-sm-6
           .digi-box 
             h4 Create stakeholdes  
+            /= debug @shop_product.id
             = simple_form_for [:user, @user, @shop_product, Stake.new(split: 10)], url: url_for( action: 'create', 
                                                                                       controller: 'user/stakes'), 
                                                                         turboboost: true, 
@@ -77,7 +77,7 @@
                 tbody
                   - @shop_product.stakeholders.each do |stake|
                     tr
-                      td = link_to user_user_product_stake_path(@user, @shop_product.uuid, stake), 
+                      td = link_to user_user_product_stake_path(@user, @shop_product, stake), 
                                                     data: { confirm: 'Are you sure?' } , 
                                                     turboboost: true, 
                                                     :method => :delete do

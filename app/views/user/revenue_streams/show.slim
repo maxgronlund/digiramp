@@ -10,13 +10,13 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
-      h2 Income channel
-      = "Channel id: #{@stake.channel_uuid}"
+      h2 Revenue stream
+      = "Source id: #{@stake.channel_uuid}"
       .sexy_line
       .digi-box
         h4 Redistribute income stream  
         = simple_form_for [:user, @user, @stake, Stake.new(split: 10)], url: url_for( action: 'create', 
-                                                                                  controller: 'user/income_channels'), 
+                                                                                  controller: 'user/revenue_streams'), 
                                                                     turboboost: true, 
                                                                     :method => 'post' do |f|
             = f.hidden_field :account_id, value: @user.account.id
@@ -49,7 +49,7 @@
             tbody
               - @stake.stakeholders.each do |stakeholder|
                 tr
-                  td = link_to user_user_income_channel_path(@user, stakeholder), 
+                  td = link_to user_user_revenue_stream_path(@user, stakeholder, stake_id: @stake.id), 
                                                 data: { confirm: 'Are you sure?' } , 
                                                 turboboost: true, 
                                                 :method => :delete do
@@ -75,7 +75,7 @@
         /    tbody
         /      - @stakes.each do |stake|
         /        tr
-        /          /td = link_to user_user_product_stake_path(@user, @shop_product.uuid, stakeholder), 
+        /          /td = link_to user_user_product_stake_path(@user, @shop_product, stakeholder), 
         /          /                              data: { confirm: 'Are you sure?' } , 
         /          /                              turboboost: true, 
         /          /                              :method => :delete do

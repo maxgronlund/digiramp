@@ -34,15 +34,16 @@ class Shop::OrdersController < ApplicationController
   # PATCH/PUT /shop/orders/1
   # PATCH/PUT /shop/orders/1.json
   def update
+    ap params
     params[:shop_order][:email]           = params[:email]
     params[:shop_order][:stripe_token]    = params[:stripeToken]
     params[:stripeToken]                  = nil
     
-    if @shop_order = Shop::Order.find_by(uuid: params[:id])
+    if @shop_order = Shop::Order.cached_find(params[:id])
 
       if @shop_order.update(shop_order_params)
-        StripeChargeJob.perform_later(@shop_order.uuid)
-        render json: { uuid: @shop_order.uuid }
+        StripeChargeJob.perform_later(@shop_order.id)
+        render json: { uuid: @shop_order.id }
       else
         errors = @shop_order.errors.full_messages
         render json: {
@@ -59,9 +60,9 @@ class Shop::OrdersController < ApplicationController
   
   # pulling status from _stripe_integration
   def payment_status
-    @shop_order = Shop::Order.find_by(uuid: params[:uuid])
+    @shop_order = Shop::Order.cached_find(params[:uuid])
     render nothing: true, status: 404 and return unless @shop_order
-    render json: {guid: @shop_order.uuid, status: @shop_order.state, error: @shop_order.error}
+    render json: {guid: @shop_order.id, status: @shop_order.state, error: @shop_order.error}
   end
 
   # DELETE /shop/orders/1

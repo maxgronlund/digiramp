@@ -30,7 +30,7 @@
             
             -if recording = @shop_product.recording
               => link_to "IP's", user_user_common_work_path(@user, recording.common_work) , class: 'btn btn-default'
-            = link_to 'Edit', edit_user_user_product_path(@user, @shop_product.uuid), class: 'btn btn-primary'
+            = link_to 'Edit', edit_user_user_product_path(@user, @shop_product), class: 'btn btn-primary'
             /'|
             /= link_to 'Back', user_user_shop_admin_index_path(@user)
             
@@ -60,10 +60,10 @@
                 th Order Id
                 th Quantity
                 th Date
-                th Stakeholders
+                th Stakes
                 th 
             tbody
-              - @order_items.to_a.each do |order_item|
+              - @order_items.each do |order_item|
                 tr
                   th = order_item.order_id
                   td = order_item.quantity

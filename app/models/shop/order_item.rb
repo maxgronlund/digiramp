@@ -1,13 +1,10 @@
 class Shop::OrderItem < ActiveRecord::Base
-  belongs_to :order,    class_name: "Shop::Order"
-  belongs_to :product,  class_name: "Shop::Product"
+  belongs_to :shop_order,    class_name: "Shop::Order"
+  belongs_to :shop_product,  class_name: "Shop::Product"
   has_many   :stripe_transfers, class_name: "Shop::StripeTransfer"
   
   validates_with OrderItemValidator
 
-  def product
-    Shop::Product.find_by(id: self.product_id)
-  end
 
   after_commit :flush_cache
 

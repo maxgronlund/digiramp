@@ -1,4 +1,4 @@
-class User::IncomeChannelsController < ApplicationController
+class User::RevenueStreamsController < ApplicationController
   before_action :access_user
   before_action :set_stake, only: [:update, :destroy, :show]
 
@@ -11,8 +11,15 @@ class User::IncomeChannelsController < ApplicationController
   end
   
   def create
-    Stake.create!(stake_params)
-    redirect_to user_user_income_channel_path(@user, @stake)
+    stake = Stake.create!(stake_params)
+    redirect_to user_user_revenue_stream_path(@user, stake.asset_id)
+  end
+  
+  def destroy
+    ap params
+    ap params[:stake_id]
+    @stake.destroy!
+    redirect_to user_user_revenue_stream_path(@user, params[:stake_id])
   end
   
   private

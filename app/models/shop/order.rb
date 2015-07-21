@@ -14,7 +14,8 @@ class Shop::Order < ActiveRecord::Base
   #has_and_belongs_to_many :products, :class_name => "Shop::Product"
   #has_many :shop_products, through: :order_items, :class_name => "Shop::OrderItem"
   
-  has_many :order_items,      class_name: "Shop::OrderItem"
+  
+  has_many :order_items,      class_name: "Shop::OrderItem" ,    foreign_key: 'shop_order_id'
   has_many :stripe_transfers, class_name: "Shop::StripeTransfer"
   
   before_destroy :remove_order_items
@@ -92,7 +93,7 @@ class Shop::Order < ActiveRecord::Base
   
   def units_of_product product_id
     cnt = 0
-    if items = self.order_items.where(product_id: product_id)
+    if items = self.order_items.where(shop_product_id: product_id)
       items.each do |order_item|
         cnt += order_item.quantity
       end
@@ -104,9 +105,9 @@ class Shop::Order < ActiveRecord::Base
   def total_price
     tp  = 0.0
 
-    self.order_items.each do |shop_item|
-      if product = shop_item.product
-        tp += product.price * shop_item.quantity
+    self.order_items.each do |order_item|
+      if product = order_item.shop_product
+        tp += product.price * order_item.quantity
       end
     end
     tp
@@ -133,7 +134,7 @@ class Shop::Order < ActiveRecord::Base
   def store_order_lines
     self.order_lines = []
     self.order_items.each_with_index do |order_item, index|
-      if product = order_item.product
+      if product = order_item.shop_product
         self.order_lines[index] = product.as_json.merge( "total_price" => (order_item.quantity * product.price),
                                                          "quantity" => order_item.quantity,
                                                          "shop_order_item_id" => order_item.id,
@@ -147,7 +148,7 @@ class Shop::Order < ActiveRecord::Base
 
   def require_shipping_address
     self.order_items.each do |order_item|
-      if product = order_item.product
+      if product = order_item.shop_product
         return true if product.category == "physical-product"
       end
     end

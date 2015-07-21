@@ -5,6 +5,7 @@ class Stake < ActiveRecord::Base
   
   validates :email, :split, presence: true
   validates_formatting_of :email, :using => :email, :allow_nil => false
+  validates_with StakeValidator
   
   after_create :attach_to_user
   before_destroy :remove_streams
@@ -19,12 +20,9 @@ class Stake < ActiveRecord::Base
     case self.asset_type
       
     when 'Shop::Product'
-      shop_product = Shop::Product.find_by(id: self.asset_id)
-      case shop_product.productable_type
-      when 'Recording'
-        recording = Recording.cached_find(shop_product.productable_id)
-        title = "Recording:#{recording.title}"
-      end
+      shop_product = Shop::Product.cached_find(self.asset_id)
+      return shop_product.title
+
       
     end
     title
@@ -60,8 +58,8 @@ class Stake < ActiveRecord::Base
   end
 
   def charge_succeeded order_item_id, amount, stripe_charge_id
-    
-    
+    distribute_to_childs order_item_id, amount, stripe_charge_id
+    transfer_to_stripe order_item_id, amount, stripe_charge_id
   end
   
   def self.cached_find(id)
@@ -69,6 +67,16 @@ class Stake < ActiveRecord::Base
   end
   
   private 
+  
+    def distribute_to_childs order_item_id, amount, stripe_charge_id
+      
+      percentage_distributed = 0
+      self.stakeholders.each do |stakeholder|
+        stakeholder.charge_succeeded order_item_id, amount, stripe_charge_id
+      end
+      
+      
+    end
 
     def flush_cache
       Rails.cache.delete([self.class.name, id])
@@ -92,6 +100,7 @@ class Stake < ActiveRecord::Base
         self.unassigned   = false
       end 
       self.save!
+      ap self
   end
   
   

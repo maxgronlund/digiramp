@@ -4,22 +4,24 @@
     - if buy
       .col-sm-12
         h3 = product.title
-        - if product.category == 'recording'
-          /= product.recording.pre_cleared
-          #digiWhams  class="/recordings/#{product.recording.id.to_s}"
-            == render 'recordings/recording_with_icons', recording: product.recording, 
-                                                         info: false,
-                                                         add_to_playlist: false, 
-                                                         remove_from_playlist: false, 
-                                                         edit: false, 
-                                                         delete: false,
-                                                         description: false,
-                                                         share: true,
-                                                         target: "",
-                                                         music_request_link: false,
-                                                         remove_from_request: false
-          
-          
+        - case product.productable_type
+        -when 'Recording'
+          -if recording = product.get_item
+            /= product.recording.pre_cleared
+            #digiWhams  class="/recordings/#{recording.id.to_s}"
+              == render 'recordings/recording_with_icons', recording: recording, 
+                                                           info: false,
+                                                           add_to_playlist: false, 
+                                                           remove_from_playlist: false, 
+                                                           edit: false, 
+                                                           delete: false,
+                                                           description: false,
+                                                           share: true,
+                                                           target: "",
+                                                           music_request_link: false,
+                                                           remove_from_request: false
+            
+            
           
           
     .col-sm-6
@@ -36,8 +38,8 @@
       - if buy
         = simple_form_for  [ :shop, @shop_order_item], turboboost: true do |f|
 
-          = f.hidden_field :shop_order_id,   value: @shop_order.uuid
-          = f.hidden_field :shop_product_id, value: product.uuid
+          = f.hidden_field :shop_order_id,   value: @shop_order.id
+          = f.hidden_field :shop_product_id, value: product.id
           
           .row
             .col-sm-12
@@ -49,7 +51,7 @@
             .col-sm-12
               .pull-right.pull-down-12
                 
-                => link_to shop_order_path(@shop_order.uuid), id: 'basket' do
+                => link_to shop_order_path(@shop_order), id: 'basket' do
                   .btn.btn-default
                     'Basket
                     
@@ -72,17 +74,17 @@
             
                     
         .sexy_line
-          /= link_to 'Basket', shop_order_path(@shop_order.uuid), id: 'data-no-turbolink'
+          /= link_to 'Basket', shop_order_path(@shop_order), id: 'data-no-turbolink'
           == render 'admin/shared/messages'
   - if buy
     .row.pull-down-10
       .col-sm-12        
         .pull-right 
           - if @shop_order.require_shipping_address
-            = link_to 'Checkout', new_shop_order_shipping_address_path(@shop_order.uuid), class: 'btn btn-success', id: 'checkout'
+            = link_to 'Checkout', new_shop_order_shipping_address_path(@shop_order), class: 'btn btn-success', id: 'checkout'
           - else
             <div data-no-turbolink>
-              = link_to 'Checkout', edit_shop_order_path(@shop_order.uuid), class: 'btn btn-success', id: 'checkout'
+              = link_to 'Checkout', edit_shop_order_path(@shop_order), class: 'btn btn-success', id: 'checkout'
             </div>
 
             /coffee:

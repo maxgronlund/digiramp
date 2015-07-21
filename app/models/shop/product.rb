@@ -3,6 +3,7 @@ class Shop::Product < ActiveRecord::Base
   belongs_to :account
   belongs_to :recording
   belongs_to :playlist
+
   
   
   validates :price, :title, :body, :additional_info, presence: true
@@ -21,7 +22,7 @@ class Shop::Product < ActiveRecord::Base
   
   #has_and_belongs_to_many :order_items, :class_name => "Shop::OrderItem"
   #has_and_belongs_to_many :orders, :class_name => "Shop::Order"
-  has_many :order_items, :class_name => "Shop::OrderItem"
+  has_many :order_items, :class_name => "Shop::OrderItem", foreign_key: "shop_product_id" 
   
   def seller_info
     user.seller_info
@@ -29,8 +30,8 @@ class Shop::Product < ActiveRecord::Base
   
   after_commit :flush_cache
 
-  def self.cached_find(uuid)
-    Rails.cache.fetch([name, uuid]) { find_by(uuid: uuid) }
+  def self.cached_find(id)
+    Rails.cache.fetch([name, id]) { find(id) }
   end
   
   def exclusive_offer?
@@ -43,10 +44,24 @@ class Shop::Product < ActiveRecord::Base
     self.productable_type = type
   end
   
-  def shop_image size
-    if self.category == 'recording'
-      return self.recording.get_shop_art
+  def get_item
+    case self.productable_type
+    when 'Recording'
+      return Recording.cached_find(self.productable_id)
     end
+    nil
+  end
+  
+  def shop_image size
+    case self.productable_type
+      
+    when 'Recording'
+      recording = Recording.cached_find(self.productable_id)
+      return recording.get_shop_art
+    end
+    #if self.category == 'recording'
+    #  return self.recording.get_shop_art
+    #end
     self.image_url(size)
     
   end

@@ -5,7 +5,7 @@ class ShopOrderService
     ap 'sh'
     shop_order.order_items.each do |order_item|
       ap 'oi'
-      if product = order_item.product
+      if product = order_item.shop_product
         ap 'pr'
         case product.category
           
