@@ -742,6 +742,7 @@ Digiramp::Application.routes.draw do
       
       
       resources :accounts, only: [:index]
+      #resources :deleted_messages, only: [:index, :update, :destroy]
       resources :digital_signatures
       resources :downloads, only: [:index]
       
@@ -884,6 +885,7 @@ Digiramp::Application.routes.draw do
       resources :products do
         resources :stakes
       end
+      resources :stakes, only: [:update]
       resources :recording_transfers
       resources :recording_credits
       resources :recordings do

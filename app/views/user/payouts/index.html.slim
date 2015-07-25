@@ -1,2 +1,62 @@
-h1 User::Payouts#index
-p Find me in app/views/user/payouts/index.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      h2 Payments
+      .sexy_line
+      .digi-box
+        .table-responsive
+          /= debug @stripe_transfers
+          table class="table table-hover"
+            thead
+              tr
+                /th
+                /th Type
+                th Source
+                th Amount
+                th Status
+                /th Amount
+                /th Income
+                /th
+            tbody
+              - @stripe_transfers.each do |stripe_transfer|
+                
+                tr
+                  td = stripe_transfer.stake.original_source
+                  td = number_to_currency( stripe_transfer.amount * 0.01, precision: 4, locale: 'en')
+                  td 
+                    - case stripe_transfer.state
+                    - when 'pending'
+                      'Pending
+                    - when 'finished'
+                      'Paied
+                    - when 'errored'
+                      '! Error
+                    - when 'processing'
+                      'Processing
+                  /td = number_to_percentage(stake.split, precision: 0) 
+                  /td = number_to_currency( stake.unit_price, precision: 4, locale: 'en')
+                  /th = number_to_currency( stake.generated_income, precision: 4, locale: 'en')
+                  /td
+                  /  .pull-right
+                  /    = link_to user_user_revenue_stream_path(@user, stake) do
+                  /      .btn.btn-default.btn-xs
+                  /        i.fa.fa-share&nbsp;Share
+          
+      
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

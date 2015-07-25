@@ -3,6 +3,7 @@ require 'fileutils'
 
 class Recording < ActiveRecord::Base
   include PublicActivity::Common
+  include ErrorNotification
   # virtual parameter for CommonWorksController#new_recording form
   
   attr_accessor :add_to_catalogs
@@ -109,6 +110,7 @@ class Recording < ActiveRecord::Base
   after_commit :flush_cache
   after_create :notify_followers
   before_destroy :remove_from_collections
+  
   #before_create :check_default_image
   #before_save :check_default_image
 
@@ -125,6 +127,20 @@ class Recording < ActiveRecord::Base
   def stakes
     stks =  Stake.where( asset_id: self.id,             asset_type: 'Recording' )
     stks += Stake.where( asset_id: self.common_work_id, asset_type: 'CommonWork')
+  end
+  
+  def update_stakes
+    begin
+      
+      if shop_products = Shop::Product.where(productable_id: self.id,  productable_type: self.class.name)
+         shop_products.update_all(title: self.title)
+         shop_products.each do |shop_product|
+           shop_product.update_title_on_stakes
+         end
+      end
+    rescue => e
+      post_error "Recording#update_stakes #{e.message}"
+    end
   end
   
   def validate_splits
@@ -213,15 +229,15 @@ class Recording < ActiveRecord::Base
 
   
   def get_shop_art
-    self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art 
+    self.cover_art.blank? ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art 
   end
   
   def get_cover_art
-    self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art 
+    self.cover_art.blank? ?  self.default_cover_art_url(:size_184x184 ) : self.cover_art 
   end
   
   def get_cover_thumb
-    self.cover_art.to_s == '' ?  self.default_cover_art_url(:size_62x62 ) : self.cover_art 
+    self.cover_art.blank? ?  self.default_cover_art_url(:size_62x62 ) : self.cover_art 
   end
   
   

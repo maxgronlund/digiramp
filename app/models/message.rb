@@ -45,6 +45,14 @@ class Message < ActiveRecord::Base
     
   end
   
+  #def self.user_messages user
+  #  Message.order(created_at: :desc).where("recipient_id = ? AND recipient_removed = ? AND moved_to_trash = ? 
+  #                                          OR sender_id = ? AND sender_removed = ?  AND moved_to_trash = ? " , 
+  #                                          user.id, false, false ,  user.id, false, false
+  #                                          )
+  #  
+  #end
+  
   def user_can_reply user 
     
     if Connection.exists?( self.connection_id)

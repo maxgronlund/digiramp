@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721124834) do
+ActiveRecord::Schema.define(version: 20150725185212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -270,6 +270,7 @@ ActiveRecord::Schema.define(version: 20150721124834) do
     t.datetime "updated_at"
     t.integer  "accounts_version",                   default: 0
     t.string   "pro_affilications_uuid", limit: 255, default: "koda"
+    t.integer  "orders_count",                       default: 1321
   end
 
   create_table "album_items", force: :cascade do |t|
@@ -2916,6 +2917,7 @@ ActiveRecord::Schema.define(version: 20150721124834) do
     t.string   "card_address_zip"
     t.string   "card_address_country"
     t.boolean  "checked_out",          default: false
+    t.integer  "invoice_nr",           default: 0
   end
 
   add_index "shop_orders", ["user_id"], name: "index_shop_orders_on_user_id", using: :btree
@@ -2951,6 +2953,7 @@ ActiveRecord::Schema.define(version: 20150721124834) do
     t.string   "content_type"
     t.integer  "file_size"
     t.integer  "document_id"
+    t.boolean  "connected_to_stripe",        default: false
   end
 
   add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
@@ -3005,6 +3008,7 @@ ActiveRecord::Schema.define(version: 20150721124834) do
     t.uuid     "channel_uuid"
     t.uuid     "asset_id"
     t.string   "asset_type"
+    t.string   "original_source"
   end
 
   add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree
@@ -3026,6 +3030,12 @@ ActiveRecord::Schema.define(version: 20150721124834) do
     t.string   "default_source"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "stripe_webhooks", force: :cascade do |t|
+    t.string   "stripe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -3241,6 +3251,7 @@ ActiveRecord::Schema.define(version: 20150721124834) do
     t.integer  "super_account_user_id"
     t.integer  "user_likes",                             default: 0
     t.integer  "likings",                                default: 0
+    t.json     "seller_info",                            default: {}
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree

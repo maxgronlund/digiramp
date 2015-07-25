@@ -7,7 +7,7 @@ class Shop::ShopController < ApplicationController
     @shop_order   = current_order
     
     
-    @products     = Shop::Product.where(show_in_shop: true)
+    @products     = Shop::Product.on_sale.where(show_in_shop: true)
   end
   
   #def show

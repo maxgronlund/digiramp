@@ -30,6 +30,12 @@
         '&nbsp;
         'All 
     
+    /li class="#{'sidebar-selected' if selected == 'deleted'}"
+    /  = link_to user_user_deleted_messages_path(@user) do
+    /    i class="fa fa-trash"
+    /    '&nbsp;
+    /    'Trash 
+    
     li class="#{'sidebar-selected' if selected == 'connections'}"
       = link_to user_user_connections_path(@user) do
         i class="fa fa-users"
@@ -38,29 +44,4 @@
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-/pull-down-10
-/  .pull-right
-/    ul.nav.nav-pills
-/      li  class="#{ selected == 'connections' ? 'active' : ''}"
-/        = link_to 'Connections', user_user_connections_path(@user)
-/      li  class="#{ selected == 'received' ? 'active' : ''}"
-/        = link_to 'Received', user_received_messages_path(@user)
-/      li  class="#{ selected == 'send' ? 'active' : ''}"
-/        = link_to 'Sent', user_send_messages_path(@user)
-/      li  class="#{ selected == 'all' ? 'active' : ''}"
-/        = link_to 'All', user_messages_path(@user)
-/      li  class="#{ selected == 'new' ? 'active' : ''}"
-/        = link_to 'New', user_unread_messages_path(@user)
+    

@@ -52,6 +52,7 @@
                 = f.hidden_field :flat_rate_in_cent, value: 0
                 = f.hidden_field :currency, value: 'usd'
                 = f.hidden_field :unassigned, value: true
+                = f.hidden_field :original_source, value: @shop_product.title
                 = f.input :email
                 = f.input :split, input_html: {min: "1", max: "100"}
                 .row
@@ -63,6 +64,9 @@
       .row
         .col-sm-12
           .digi-box
+            -  if @shop_product.total_stakes != 100
+              .alert.alert-danger
+                = "Total share is #{@shop_product.total_stakes}"
             h4 Stakeholders
             
             .table-responsive
@@ -72,10 +76,10 @@
                     th
                     th Email
                     th Split
-                    th Connected
+                    th Collected
                     th Channel
                 tbody
-                  - @shop_product.stakeholders.each do |stake|
+                  - @shop_product.stakeholders.order(:created_at).each do |stake|
                     tr
                       td = link_to user_user_product_stake_path(@user, @shop_product, stake), 
                                                     data: { confirm: 'Are you sure?' } , 
@@ -84,7 +88,17 @@
                               .btn.btn-danger.btn-xs
                                 i.fa.fa-times
                       td = stake.email
-                      td = stake.split
+                      td
+                        .small-input
+                          .width-150
+                            
+                            = simple_form_for [:user, @user, stake], turboboost: true, :method => 'put' do |f|
+                                                                                          
+                              .input-group
+                                = f.input :split, label: false, class: 'form-control'
+                                .input-group-btn
+                                  = f.submit 'Update', class: 'btn btn-default'
+
                       td = stake.account_id ? 'Yes': 'No'
                       td = stake.channel_uuid
               

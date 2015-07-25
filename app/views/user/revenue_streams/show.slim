@@ -11,7 +11,7 @@
     .container-fluid
       == render 'shared/flash_message'
       h2 Revenue stream
-      = "Source id: #{@stake.channel_uuid}"
+      = "Source id: #{@stake.channel_uuid} | Source title: #{@stake.original_source}"
       .sexy_line
       .digi-box
         h4 Redistribute income stream  
@@ -25,6 +25,7 @@
             = f.hidden_field :flat_rate_in_cent, value: 0
             = f.hidden_field :currency, value: 'usd'
             = f.hidden_field :unassigned, value: true
+            = f.hidden_field :original_source, value: @stake.original_source
             .row
               .col-sm-6
                 = f.input :email

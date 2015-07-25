@@ -32,6 +32,7 @@ class Omniauth
         user.stripe_publishable_key = auth_hash['info']['stripe_publishable_key']
         user.stripe_refresh_token   = auth_hash['credentials']['refresh_token']
         user.has_enabled_shop       = true
+        user.update_shop
         user.save!
       end
 

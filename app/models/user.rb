@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true, uniqueness: true
   validates_formatting_of :email
+  validates_with UserValidator
   
   #validates_uniqueness_of :user_name
   validates_presence_of :user_name
@@ -230,6 +231,12 @@ class User < ActiveRecord::Base
   #def user_likes 
   #  ItemLike.where(like_id: self.id, like_type: self.class.name).count
   #end
+  
+  def update_shop
+    conneted_to_stripe    = !authorization_providers.where(provider: 'stripe_connect').empty?
+    self.update(has_enabled_shop: conneted_to_stripe)
+    self.products.update_all(connected_to_stripe: conneted_to_stripe)
+  end
 
   def self.say_hello
     #TestMailer.delay.send_message() 
@@ -253,13 +260,14 @@ class User < ActiveRecord::Base
   def get_order
     
     # lock if there is a order in the process of being paid
-    #return nil if Shop::Order.find_by(state: 'pending', user_id: self.id)
+
     
     @shop_order  = Shop::Order.where( state: 'pending', 
                                       user_id: self.id,
                                       email: self.email )
                               .first_or_create!( user_id: self.id, 
-                                                 email: self.email
+                                                 email: self.email,
+                                                 invoice_nr: Admin.get_invoice_nr
                                                 )
     @shop_order.errors.clear
     @shop_order
@@ -270,10 +278,30 @@ class User < ActiveRecord::Base
     false
   end
   
-  
   def seller_info
+    @seller_info ||= get_seller_info
+  end
+  
+  def get_seller_info
     if is_stripe_connected
       StripeAccount.info(self)
+    else
+      message = "User#seller_info: #{self.email} not connected to stripe"
+      ap message
+      Opbeat.capture_message( message )
+      {
+                            :id => "error",
+                         :email => "peter@digiramp.com",
+          :statement_descriptor => "DIGIRAMP.COM",
+                  :display_name => "DigiRAMP",
+                      :timezone => "America/Los_Angeles",
+                       :country => "DK",
+                 :business_name => "DigiRAMP",
+                  :business_url => "digiramp.com",
+                 :support_phone => "+13236540591",
+               :payment_gateway => "stripe",
+                       :user_id => 1
+      }
     end
   end
   
@@ -288,8 +316,8 @@ class User < ActiveRecord::Base
     
   end
   
-  def merge_order order_uuid
-    if old_shop_order = Shop::Order.find_by(uuid: order_uuid)
+  def merge_order order_id
+    if old_shop_order = Shop::Order.cached_find( order_id)
       get_order.merge_with_and_delete old_shop_order
     end
   end
@@ -421,7 +449,7 @@ class User < ActiveRecord::Base
   
   def update_meta
     update_completeness
-    update_search_field
+    update_meta
     SetUserTopTag.process self
   end
 

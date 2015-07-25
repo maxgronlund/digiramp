@@ -1,4 +1,6 @@
 class Shop::OrderItem < ActiveRecord::Base
+  include ErrorNotification
+  
   belongs_to :shop_order,    class_name: "Shop::Order"
   belongs_to :shop_product,  class_name: "Shop::Product"
   has_many   :stripe_transfers, class_name: "Shop::StripeTransfer"
@@ -15,59 +17,38 @@ class Shop::OrderItem < ActiveRecord::Base
   # transfer payment to all stakeholders
   # called when payments success
   def charge_succeeded( amount, stripe_charge_id)
-    if product = self.product
+    if product = self.shop_product
       product.stakeholders.each do |stakeholder|
-         # Don't make a transfer from an account to itself
-        unless self.order.user_id == stakeholder[:user_id]
-          stakeholder.charge_succeeded self.id,  amount, stripe_charge_id 
-        end
-        #send_transfer_to_stakeholder( stakeholder, amount, stripe_charge_id)
+        stakeholder.charge_succeeded self.id,  amount, stripe_charge_id 
       end
+    else
+      post_error "OrderItem#charge_succeeded: product not found"
     end
     self.sold = true
     self.save
   end
   
   def seller_info
-    product.seller_info
+    seller = self.shop_product.seller_info
+    if seller[:id] == 'error'
+      post_error "Shop::OrderItem id: #{self.id} is not for sale "
+    end
+    seller
   end
   
-  def stakes
-    case product.category
-      
-    when 'recording'
-      recording = product.recording
-      ap recording.stakes
-    end
+  def last
+    Shop::OrderItem.order(:created_at).last
   end
+  
+  def first
+    Shop::OrderItem.order(:created_at).first
+  end
+  
+
 
   private 
   
-  # transfer to one stakeholder
-  #def send_transfer_to_stakeholder( stakeholder, amount, stripe_charge_id)
-  #  # Don't make a transfer from an account to itself
-  #  unless self.order.user_id == stakeholder[:user_id]
-  #    Shop::StripeTransfer
-  #      .where( 
-  #              order_item_id:   self.id,
-  #              order_id:        self.order_id, 
-  #              user_id:         stakeholder[:user_id]
-  #             )
-  #      .first_or_create(
-  #              order_item_id:      self.id,
-  #              order_id:           self.order_id, 
-  #              user_id:            stakeholder[:user_id], 
-  #              account_id:         stakeholder[:account_id],
-  #              split:              stakeholder[:split],
-  #              amount:             (amount * stakeholder[:split]).to_i,
-  #              source_transaction: stripe_charge_id,
-  #              currency:           'usd'
-  #             )
-  #                  
-  #  end
-  #end
-  
-  
+
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])

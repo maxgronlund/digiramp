@@ -64,9 +64,8 @@ class RecordingBasicsController < ApplicationController
         end
       end
       @recording.check_default_image
-
       @recording.common_work.update_completeness if @recording.common_work
-      
+      @recording.update_stakes
     end
 
     if @recording.privacy == 'Only people I choose'

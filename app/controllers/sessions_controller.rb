@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
     else
       flash[:info] = "#{env['omniauth.auth'][:provider].upcase} is linked to your account" 
     end
-
+    user.update_shop
     redirect_to session[:current_page]
   end
   
@@ -48,9 +48,7 @@ class SessionsController < ApplicationController
     
     user = Omniauth.authorize_with_omniauth( env['omniauth.auth'] )
     if user[:user]
-      
       initialize_session_for user[:user]
-      
     else
       flash[:danger] =  user[:message]
       redirect_to login_new_path
@@ -152,7 +150,7 @@ private
     session[:account_id]        = user.account.id
     
     user.merge_order(session[:order_uuid])
-    session[:order_uuid] = nil
+    session[:order_id] = nil
 
     
     user.account.visits        += 1

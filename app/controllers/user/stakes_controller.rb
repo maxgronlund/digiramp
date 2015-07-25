@@ -1,10 +1,10 @@
 class User::StakesController < ApplicationController
   before_action :set_stake, only: [:show, :edit, :update, :destroy]
-  before_action :set_shop_product
+  before_action :set_shop_product, only: [:show, :edit, :destroy, :index, :create]
   before_action :access_user
   
   def index
-    not_found unless @shop_product
+    #not_found unless @shop_product
   end
 
   def new
@@ -20,6 +20,8 @@ class User::StakesController < ApplicationController
   end
 
   def update
+    @stake.update(stake_params)
+    redirect_to_return_url :back
   end
 
   def destroy
@@ -39,6 +41,22 @@ class User::StakesController < ApplicationController
     
     # Never trust parameters from the scary internet, only allow the white list through.
     def stake_params
-      params.require(:stake).permit!
+      params.require(:stake).permit(:account_id,
+                                    :split,
+                                    :flat_rate_in_cent,
+                                    :currency,
+                                    :email,
+                                    :unassigned,
+                                    :ipiable_id,
+                                    :ipiable_type,
+                                    :channel_uuid,
+                                    :asset_id,
+                                    :asset_type,
+                                    :original_source
+                                    )
     end
 end
+
+
+
+               

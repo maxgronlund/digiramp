@@ -4,12 +4,12 @@
 
 class StripeChargeService
   
-  def errored(error, obj)
-    ap '-----------------------------'
-    ap error
-    ap obj
-    
-  end
+  include ErrorNotification
+  #def errored(error, obj)
+  #  message = "StripeChargeService #{error}: #{obj.inspect}"
+  #  ap message
+  #  Opbeat.capture_message( message )
+  #end
   
   def subscribe events
     
@@ -33,17 +33,21 @@ class StripeChargeService
       
       begin
         if order = Shop::Order.find_by(charge_id: stripe_object.id)
-          
-          order.finish!
           OrderPayment.set_address_fields_from_payment_source( order, stripe_payment_source)
-          ShopOrderService.handle_downloabels(order)
-          InvoiceMailer.delay.send_confirmations( order.id )
           
           order.order_content[:payment_source] = JSON.parse(stripe_payment_source.to_json).deep_symbolize_keys 
           order.order_content[:total_price]    = order.total_price
-          order.save(validate: false)
           
+          
+
           order.charge_succeeded( stripe_object.id, stripe_object.amount )
+          order.save(validate: false)
+          order.finish!
+          
+          
+          ShopOrderService.handle_downloabels(order)
+          InvoiceMailer.delay.send_confirmations( order.id )
+          
         else
           raise 'No order found'  
         end
@@ -52,44 +56,6 @@ class StripeChargeService
       end
       
       
-      
-      
-      
-      #errored = true
-      #if stripe_data = event.data
-      #  if stripe_object = stripe_data.object
-      #    if shop_order = Shop::Order.find_by(charge_id: stripe_object.id)
-      #      # finish transaction
-      #      shop_order.finish!
-      #      errored = false
-      #      
-      #      InvoiceMailer.delay.send_confirmations( shop_order.id )
-      #     
-      #      if stripe_payment_source = stripe_object.source
-      #        
-      #        
-      #        
-      #        ap stripe_payment_source
-      #        shop_order.order_content[:payment_source] = JSON.parse(stripe_payment_source.to_json).deep_symbolize_keys 
-      #        shop_order.order_content[:total_price]    = shop_order.total_price
-      #        shop_order.create_transfers( stripe_object.id, stripe_object.amount )
-      #        #OrderPayment.set_address_fields_from_payment_source( stripe_payment_source)
-      #        ShopOrderService.handle_downloabels(shop_order)
-      #        shop_order.save(validate: false)
-      #      end
-      #    elsif subscription  = Subscription.find_by(stripe_id: stripe_object.id)
-      #      
-      #      ap subscription
-      #      
-      #      #subscription.finish!
-      #      #errored           = false
-      #      #account_type
-      #    end
-      #  end
-      #end
-      #if errored
-      #  Opbeat.capture_message("charge.succeeded: #{event}")
-      #end
     end
   
     events.subscribe 'charge.failed' do |event|

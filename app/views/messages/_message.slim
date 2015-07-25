@@ -6,7 +6,8 @@
     
   tr id="delete_message_#{message.id.to_s}"
     td
-      => link_to user_message_path(@user, message), data:  { confirm: 'Are you sure?' }, method: :delete, remote: true  do
+      /=> link_to user_message_path(@user, message), data:  { confirm: 'Are you sure?' }, method: :delete, remote: true  do
+      => link_to user_message_path(@user, message), method: :delete, remote: true  do
         .btn.btn-danger.btn-xs
           i.fa.fa-times
     td  

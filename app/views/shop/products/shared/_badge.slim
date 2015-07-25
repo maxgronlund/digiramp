@@ -4,8 +4,8 @@
 
   = link_to link_to_product, id: "#{product.title.gsub(' ','_').downcase}" do
     .product-image
-      = image_tag( product.image_url :thumb_300x300)
-
+      /= image_tag( product.image_url :thumb_300x300)
+      = image_tag product.productable.get_shop_art
       .product-category
         = product.category.gsub('-', ' ').capitalize
 

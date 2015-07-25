@@ -290,9 +290,10 @@ private
     else
       if session[:order_id] && (@order = Shop::Order.cached_find(session[:order_id]) )
       else 
-        @order = Shop::Order.new()
+        @order = Shop::Order.new( invoice_nr: Admin.get_invoice_nr)
         @order.save(validate: false)
         session[:order_id] = @order.id
+        ap @order
       end
     end
     @order

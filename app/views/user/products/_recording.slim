@@ -35,7 +35,7 @@
       
       .row
         .col-sm-6
-          = f.input :title, autofocus: true
+          /= f.input :title, autofocus: true
           = f.input :sub_category, collection: Shop::Product::DOWNLOAD_CATEGORIES, :include_blank => false, label: 'Category'
           .row
             .col-sm-6

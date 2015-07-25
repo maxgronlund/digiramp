@@ -60,7 +60,9 @@ class MessagesController < ApplicationController
   # and only remove from users account
   def destroy
     @message = Message.cached_find(params[:id])
+   
     # remove messages send and resived by owner
+    # !!! will this never evaluate to true??
     if @message.recipient_id == @user.id && @message.sender_id == @user.id
       @message.recipient_removed  = true
       @message.sender_removed     = true
@@ -75,7 +77,6 @@ class MessagesController < ApplicationController
     @message.read = true
     @message.save
     Connection.decrease_messages_count( @message )
-
 
   end
   

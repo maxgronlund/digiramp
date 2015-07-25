@@ -7,6 +7,11 @@ class ProductValidator < ActiveModel::Validator
       record.errors[:price] << "Price can't be less than 50 cent"
     end
     
+    if record.productable_type == 'Recording'
+      recording     = Recording.cached_find(record.productable_id)
+      record.title  = recording.title 
+    end
+    
     
     
     #if record.amount_off && record.amount_off.to_i < 0

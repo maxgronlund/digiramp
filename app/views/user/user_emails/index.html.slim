@@ -41,14 +41,13 @@
                 td 
                 - @user_emails.each do |user_email|
                   tr
-                    td = user_email.email
                     
-                    td 
-                      .pull-right
-                        => link_to 'Edit', edit_user_user_user_email_path(@user, user_email), class: 'btn btn-default'
-                        = link_to user_user_user_email_path(@user, user_email), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete
-                          .btn.btn-danger
-                            i.fa.fa-times
+                    td
+                      => link_to user_user_user_email_path(@user, user_email), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+                      => link_to 'Edit', edit_user_user_user_email_path(@user, user_email), class: 'btn btn-default btn-xs'
+                    td = user_email.email
                 
             
             

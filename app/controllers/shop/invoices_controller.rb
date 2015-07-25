@@ -5,8 +5,8 @@ class Shop::InvoicesController < ApplicationController
   def show
     @user = current_user
     @shop_order   = current_order
-    if @shop_order = Shop::Order.find_by(uuid: params[:id])
-      session[:order_uuid] = nil
+    if @shop_order = Shop::Order.cached_find(params[:id])
+      session[:order_id] = nil
       respond_to do |format|
         format.html
         format.pdf do

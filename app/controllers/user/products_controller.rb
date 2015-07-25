@@ -49,9 +49,10 @@ class User::ProductsController < ApplicationController
   # POST /shop/products.json
   def create
     set_productable params
+    params[:shop_product][:connected_to_stripe] = @user.is_stripe_connected
     
     @shop_product = Shop::Product.new(shop_product_params)
- 
+    ap @shop_product
     respond_to do |format|
       if @shop_product.save
         format.html { redirect_to user_user_product_path(@user, @shop_product) }
@@ -111,11 +112,16 @@ class User::ProductsController < ApplicationController
   # Never destroy, just put it aside
   def destroy
 
-    @shop_product.user_id       = User.system_user
-    @shop_product.account_id    = User.system_user.account.id
-    @shop_product.for_sale      = false
-    @shop_product.show_in_shop  = false
+    @shop_product.user_id              = User.system_user.id
+    @shop_product.account_id           = User.system_user.account.id
+    @shop_product.for_sale             = false
+    @shop_product.show_in_shop         = false
+    @shop_product.connected_to_stripe  = false
     @shop_product.save
+    
+    @shop_product.stakeholders.destroy_all
+    
+    Shop::OrderItem.where(sold: false, shop_product_id: @shop_product.id).destroy_all
     
     respond_to do |format|
       format.html { redirect_to user_user_shop_admin_index_path(@user) }

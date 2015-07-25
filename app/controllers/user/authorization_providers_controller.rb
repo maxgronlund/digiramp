@@ -8,15 +8,15 @@ class User::AuthorizationProvidersController < ApplicationController
   end
   
   def show
-    
+    #ap "AuthorizationProvidersController#show #{params}"
     if params[:submit] == '0'
       authorization_provider = AuthorizationProvider.find(params[:id])
+      
       authorization_provider.destroy
-      @user.has_enabled_shop = false
-      @user.save
+
+      @user.update_shop
       render nothing: true
     else
-      
       redirect_to root_url format: "html"
     end
     
@@ -25,8 +25,12 @@ class User::AuthorizationProvidersController < ApplicationController
 
 
   def destroy
+    #ap "AuthorizationProvidersController#destroy #{params}"
     authorization_provider = AuthorizationProvider.find(params[:id])
     authorization_provider.destroy
+    user.update_shop
     redirect_to user_user_authorization_providers_path(@user)
   end
+  
+  
 end

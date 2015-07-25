@@ -1,11 +1,15 @@
 class Shop::StripeTransfer < ActiveRecord::Base
+  include ErrorNotification
+  has_paper_trail
+  
   belongs_to :order_item,    class_name: "Shop::OrderItem"
   belongs_to :order,         class_name: "Shop::Order"
   belongs_to :user
   belongs_to :account
+  belongs_to :stake       
   
   
-  has_paper_trail
+  
   include AASM
   
 
@@ -41,13 +45,13 @@ class Shop::StripeTransfer < ActiveRecord::Base
  end
  
  def pay
+   
+  
   self.process!
-  
- 
-  
+
   begin
    Stripe::Transfer.create(
-     amount:                 (self.amount - get_fees).to_i,
+     amount:                 self.amount,
      destination:            self.user.stripe_id,
      source_transaction:     self.source_transaction,
      currency:               self.currency,
@@ -59,8 +63,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
   rescue Stripe::StripeError => e
     self.fail!
     self.stripe_errors = e.message
-    Opbeat.capture_message("StripeTransfer #{e.message}")
-    ap e.message
+    errored('Shop::StripeTransfer#pay', e )
   end
   self.save
  end
@@ -69,7 +72,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
  
  def get_description
    
-   if product = order_item.shop_product
+   if order_item && product = order_item.shop_product
      self.description = order_item.quantity.to_s
      self.description << ' x '
      self.description << product.title
@@ -90,8 +93,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
     @fees += self.amount.to_f * account.stripe_percent_transfer_fee
     @fees *= self.split
   rescue => error
-    Opbeat.capture_message("StripeTransfer #{error.inspect}")
-    ap error.inspect
+    errored('Shop::StripeTransfer#split_fees', e )
   end
   (@fees + 0.5).to_i
  end

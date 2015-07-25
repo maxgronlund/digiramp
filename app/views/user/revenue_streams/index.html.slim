@@ -18,12 +18,16 @@
             thead
               tr
                 /th
-                th Type
+                /th Type
                 th Source
-                th Stream ID
+                th Units sold
+                th Split
+                th Amount
+                th Income
                 th
             tbody
               - @stakes.each do |stake|
+                
                 tr
                   /td = link_to user_user_product_stake_path(@user, @shop_product, stakeholder), 
                   /                              data: { confirm: 'Are you sure?' } , 
@@ -31,9 +35,12 @@
                   /                              :method => :delete do
                   /        .btn.btn-danger.btn-xs
                   /          i.fa.fa-times
-                  td = stake.asset_type
-                  td = stake.income_source
-                  td = stake.channel_uuid
+                  /td = stake.asset_type
+                  td = stake.original_source
+                  td = stake.units_sold
+                  td = number_to_percentage(stake.split, precision: 0) 
+                  td = number_to_currency( stake.unit_price, precision: 4, locale: 'en')
+                  th = number_to_currency( stake.generated_income, precision: 4, locale: 'en')
                   td
                     .pull-right
                       = link_to user_user_revenue_stream_path(@user, stake) do

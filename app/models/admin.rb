@@ -14,4 +14,13 @@ class Admin < ActiveRecord::Base
     save!
   end
   
+  def self.get_invoice_nr
+    admin = Admin.first_or_create
+    admin.update(orders_count: admin.orders_count + 1)
+    admin.orders_count
+  end
+  
 end
+
+
+# Admin.get_invoice_nr

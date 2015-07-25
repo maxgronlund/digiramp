@@ -3,6 +3,7 @@ class Shop::Order < ActiveRecord::Base
   
   has_paper_trail
   include AASM
+  include ErrorNotification
   
   belongs_to :user
   #belongs_to :stripe_customer
@@ -71,12 +72,14 @@ class Shop::Order < ActiveRecord::Base
       #ap '======================================================'
 
       self.update(charge_id: charge.id)
-
+      #ap '----------------- charge_id ----------------------------'
+      #ap self.charge_id
+      #ap '--------------------------------------------------------'
       
     rescue Stripe::StripeError => e
       self.update_attributes(error: e.message)
       self.fail!
-      ap error: e.message
+      post_error "Order#charte_card: #{e.message}"
     end
   end
   
@@ -132,6 +135,8 @@ class Shop::Order < ActiveRecord::Base
   end
   
   def store_order_lines
+    ap 'store_order_lines'
+    begin
     self.order_lines = []
     self.order_items.each_with_index do |order_item, index|
       if product = order_item.shop_product
@@ -140,10 +145,14 @@ class Shop::Order < ActiveRecord::Base
                                                          "shop_order_item_id" => order_item.id,
                                                          "seller_info"        => order_item.seller_info)
                                                          
+                                                         
         product.update_stock
       end
     end
     save!
+  rescue => e
+    post_error "Order#store_order_lines #{e.message}"
+  end
   end
 
   def require_shipping_address
@@ -174,8 +183,7 @@ class Shop::Order < ActiveRecord::Base
         order_item.charge_succeeded( amount, stripe_charge_id) 
       end
     rescue => error
-      Opbeat.capture_message("create_transfers: #{error.inspect}")
-      ap error.inspect
+      post_error "Order#create_transfers: #{error.inspect}"
     end
   end
 

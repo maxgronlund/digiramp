@@ -23,6 +23,8 @@ class User::UserEmailsController < ApplicationController
   def create
     @user_email = UserEmail.new(user_email_params)
     if @user_email.save
+      Stake.where(email: @user_email.email).update_all(unassigned: false, account_id: @user.account.id)
+      @user.save 
       redirect_to user_user_user_emails_path(@user, @user_email)
     else
       render :new
@@ -40,7 +42,9 @@ class User::UserEmailsController < ApplicationController
 
 
   def destroy
+    Stake.where(email: @user_email.email).update_all(unassigned: true, account_id: nil)
     @user_email.destroy
+    @user.save
     redirect_to user_user_user_emails_path(@user)
    
   end

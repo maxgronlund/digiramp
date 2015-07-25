@@ -3,29 +3,38 @@ class Shop::Product < ActiveRecord::Base
   belongs_to :account
   belongs_to :recording
   belongs_to :playlist
-
-  
-  
+  belongs_to :productable, polymorphic: true
+  validates_with   ProductValidator
   validates :price, :title, :body, :additional_info, presence: true
   
     
-  validates_with ProductValidator
-  mount_uploader :image,    ProductImageUploader
-  mount_uploader :zip_file,     ZipUploader
+  
+  mount_uploader :image,          ProductImageUploader
+  mount_uploader :zip_file,       ZipUploader
   
   CATEGORIES = ['Product', 'Playlist', 'Streaming', 'Download', 'Service', 'Physical product', 'Coupon']
   DOWNLOAD_CATEGORIES = ["Recording", "Protools project", "Logic project", "Individual tracks (remix pack)", "Sample pack", "Graphics"]
   
-  
-  
-  before_save :populate_uuid
+
+  after_create :initialize_defaults
   
   #has_and_belongs_to_many :order_items, :class_name => "Shop::OrderItem"
   #has_and_belongs_to_many :orders, :class_name => "Shop::Order"
   has_many :order_items, :class_name => "Shop::OrderItem", foreign_key: "shop_product_id" 
   
+
+  scope :on_sale,  ->  { where( connected_to_stripe: true).order("title asc")  }
+
   def seller_info
-    user.seller_info
+    account.user.seller_info
+  end
+  
+  def product_image
+    if self.productable_type == 'Recording'
+      return sels.productable.get_shop_art
+    else
+      return self.image
+    end
   end
   
   after_commit :flush_cache
@@ -110,43 +119,57 @@ class Shop::Product < ActiveRecord::Base
   end
   
   def stakeholders
-    
     Stake.where(asset_type: self.class.name, asset_id: self.id)
-    #stakes = []
-    #
-    #case self.category
-    #  
-    #when 'recording'
-    #  recording.stakes.each do |stake|
-    #    stakes << {user_id: stake.user_id, split: stake.split_in_percent, account_id: stake.account_id}
-    #    ap stakes
-    #  end
-    #else
-    #  #RecordingStakeholdersService.assign_recording_stakes ({recording_id: self.recording.id, user_id: self.account_id} )
-    #  stakes << {user_id: self.user_id, split: 1.0 , account_id: self.account_id }
-    #end
-    #
-    #
-    #stakes
-
+  end
+  
+  def update_title_on_stakes
+    stakeholders.update_all(original_source: self.title)
   end
   
   def update_stock
     if self.units_on_stock 
       self.units_on_stock -= 1 
-      save
+      self.save
     end
+  end
+  
+  def total_stakes
+    @total_share ||= get_total_share
+  end
+  
+  def get_total_share
+    total = 0.0
+    self.stakeholders.each do |stakeholder|
+      total += stakeholder.split
+    end
+    total
   end
   
 
   private 
   
+  #def asset_uuid
+  #  case self.productable_type
+  #  when 'Recording'
+  #    if recording =  Recording.cached_find(self.productable_id)
+  #      return recording.uuid
+  #    end
+  #  end
+  #  nil
+  #end
 
   
-  def populate_uuid
-    if new_record?
-      self.uuid = UUIDTools::UUID.timestamp_create().to_s
-    end
+  def initialize_defaults
+    Stake.create(account_id:          self.account_id, 
+                    split:               100,
+                    flat_rate_in_cent:   0,
+                    currency:            'usd',
+                    email:               self.account.user.email,
+                    unassigned:          false,
+                    asset_id:            self.id,
+                    asset_type:          self.class.name,
+                    original_source:     self.title
+                   )
   end
   
 
