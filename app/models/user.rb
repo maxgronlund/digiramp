@@ -318,8 +318,11 @@ class User < ActiveRecord::Base
   end
   
   def merge_order order_id
-    if old_shop_order = Shop::Order.cached_find( order_id)
-      get_order.merge_with_and_delete old_shop_order
+    begin
+      if old_shop_order = Shop::Order.cached_find( order_id )
+        get_order.merge_with_and_delete old_shop_order
+      end
+    rescue
     end
   end
   
