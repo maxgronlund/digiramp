@@ -56,7 +56,7 @@ class IpiMailer < ApplicationMailer
       }
       mandril_client.messages.send_template template_name, template_content, message
     rescue Mandrill::Error => e
-      ErrorNotifications.post "IpiMailer #{e.class} - #{e.message}"
+      ErrorNotification.post "IpiMailer #{e.class} - #{e.message}"
     end
   end
   

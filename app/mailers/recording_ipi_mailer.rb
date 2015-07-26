@@ -40,11 +40,11 @@ class RecordingIpiMailer < ApplicationMailer
         }
         mandril_client.messages.send_template template_name, template_content, message
       rescue Mandrill::Error => e
-        ErrorNotifications.post "RecordingIpiMailer #{e.class} - #{e.message}"
+        ErrorNotification.post "RecordingIpiMailer #{e.class} - #{e.message}"
       end
     # handle error  
     else
-      ErrorNotifications.post "RecordingIpiMailer: user not found"
+      ErrorNotification.post "RecordingIpiMailer: user not found"
     end
     
   end

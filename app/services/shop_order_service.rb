@@ -20,14 +20,14 @@ class ShopOrderService
                                               shop_order_item_id: order_item.id,
                                               shop_product_id: product.id)
           #else
-          #  ErrorNotifications.post "ShopOrderService#handle_downloabels: #{product.productable_type} type not found"
+          #  ErrorNotification.post "ShopOrderService#handle_downloabels: #{product.productable_type} type not found"
           end
         else
-          ErrorNotifications.post "ShopOrderService#handle_downloabels: shop_product not found"
+          ErrorNotification.post "ShopOrderService#handle_downloabels: shop_product not found"
         end
       end
     rescue => e
-      ErrorNotifications.post "ShopOrderService#handle_downloabels: #{e.inspect}"
+      ErrorNotification.post "ShopOrderService#handle_downloabels: #{e.inspect}"
     end
   end
 end

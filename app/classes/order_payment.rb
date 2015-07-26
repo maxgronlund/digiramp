@@ -14,7 +14,7 @@ class OrderPayment
       return false
     rescue
       message = "OrderPayment#set_address_fields_from_payment_source: {order.id}"
-      ErrorNotifications.post( message )
+      ErrorNotification.post( message )
       return message
     end
   end

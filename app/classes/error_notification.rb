@@ -24,5 +24,5 @@ module ErrorNotification
   
 end
 
-# ErrorNotifications.post 'some message'
-# ErrorNotifications.post_object 'some message', some_object
+# ErrorNotification.post 'some message'
+# ErrorNotification.post_object 'some message', some_object
