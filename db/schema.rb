@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726120408) do
+ActiveRecord::Schema.define(version: 20150726155707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3255,7 +3255,7 @@ ActiveRecord::Schema.define(version: 20150726120408) do
     t.integer  "super_account_user_id"
     t.integer  "user_likes",                             default: 0
     t.integer  "likings",                                default: 0
-    t.json     "seller_info",                            default: {}
+    t.text     "seller_info",                            default: "{}"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree

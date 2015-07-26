@@ -86,6 +86,7 @@ class User < ActiveRecord::Base
 
   
   serialize :crop_params, Hash
+  serialize :seller_info,  JSON
   mount_uploader :image, AvatarUploader
   #include ImageCrop
   

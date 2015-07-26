@@ -740,7 +740,7 @@ Digiramp::Application.routes.draw do
     #resources :common_work_lyrics
     resources :users do
       
-      
+      resources :withdraw, only:[:index]
       resources :accounts, only: [:index]
       #resources :deleted_messages, only: [:index, :update, :destroy]
       resources :digital_signatures
