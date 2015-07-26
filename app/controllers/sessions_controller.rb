@@ -149,7 +149,7 @@ private
     cookies.permanent[:user_id] = user.id
     session[:account_id]        = user.account.id
     
-    user.merge_order(session[:order_uuid])
+    user.merge_order(session[:order_id]) unless session[:order_id].nil?
     session[:order_id] = nil
 
     
