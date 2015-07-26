@@ -10,7 +10,15 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
-      h2 Dashboard
+      .container-fluid
+        .row
+          .col-sm-12
+            .help
+              .help-text
+                h2 Dashboard
+              .help-button
+                == render 'admin/helps/help', identifier: 'user dashboard'
+      
       
       .sexy_line
       

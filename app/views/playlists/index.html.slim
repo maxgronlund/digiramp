@@ -10,9 +10,15 @@
   
   #page-content-wrapper
     .container-fluid
-
       == render 'admin/shared/messages'
-      h2 Playlists
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Playlists
+            .help-button
+              == render 'admin/helps/help', identifier: 'user playlists'
+
       .sexy_line
       .playlist-badges
         - if @authorized  
