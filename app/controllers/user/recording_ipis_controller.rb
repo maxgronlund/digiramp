@@ -26,7 +26,8 @@ class User::RecordingIpisController < ApplicationController
     @recording        = Recording.cached_find(params[:recording_id])
     @common_work      = @recording.common_work
     
-    if @recording_ipi = RecordingIpi.create(recording_ipi_params)
+    begin
+      @recording_ipi = RecordingIpi.create!(recording_ipi_params)
       logger.info '==================== created ================================='
       logger.info '==================== created ================================='
       logger.info '==================== created ================================='
@@ -35,7 +36,8 @@ class User::RecordingIpisController < ApplicationController
       logger.info '==================== created ================================='
       @recording_ipi.send_confirmation_request if  params[:commit] == 'Save and send message'
       redirect_to user_user_common_work_path(@user, @common_work)
-    else
+    rescue => e
+      ErrorNotification.post_object( "RecordingIpisController#create", e )
       render :new
     end
     

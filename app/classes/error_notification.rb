@@ -12,7 +12,7 @@ module ErrorNotification
   end
   
   def self.post_object error, obj
-    message = "StripeChargeService #{error}: #{obj.inspect}"
+    message = "#{error}: #{obj.inspect}"
     ap message
     Opbeat.capture_message( message )
   end
