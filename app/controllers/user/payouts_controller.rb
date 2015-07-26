@@ -8,6 +8,5 @@ class User::PayoutsController < ApplicationController
     #redirect_to :back
   end
 
-  def update
-  end
+  
 end

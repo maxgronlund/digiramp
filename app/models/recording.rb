@@ -123,6 +123,9 @@ class Recording < ActiveRecord::Base
   
 
   
+  def product
+    Shop::Product.find_by(productable_id: self.id, productable_type: 'Recording')
+  end
   
   def stakes
     stks =  Stake.where( asset_id: self.id,             asset_type: 'Recording' )

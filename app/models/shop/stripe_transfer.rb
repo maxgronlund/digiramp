@@ -31,7 +31,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
    end
 
    event :finis do
-     transitions from: :processing, to: :finished
+     transitions from: [:processing, :pending], to: :finished
    end
 
    event :fail do
@@ -41,6 +41,8 @@ class Shop::StripeTransfer < ActiveRecord::Base
    event :reset do
      transitions from: [:errored, :processing], to: :pending
    end
+   
+   
 
  end
  
@@ -56,7 +58,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
      source_transaction:     self.source_transaction,
      currency:               self.currency,
      description:            get_description,
-     metadata:               {'fees' => get_fees.to_s},
+     #metadata:               {'fees' => get_fees.to_s},
      statement_descriptor:   'DigiRAMP Payment'
    )
    self.finis!
@@ -82,21 +84,21 @@ class Shop::StripeTransfer < ActiveRecord::Base
    self.description
  end
 
- def get_fees
-   @fees || split_fees
- end
- 
- def split_fees
-   @fees = 0
-   begin
-    @fees =  self.account.stripe_flat_transfer_fee
-    @fees += self.amount.to_f * account.stripe_percent_transfer_fee
-    @fees *= self.split
-  rescue => error
-    errored('Shop::StripeTransfer#split_fees', e )
-  end
-  (@fees + 0.5).to_i
- end
+ #def get_fees
+ #  @fees || split_fees
+ #end
+ #
+ #def split_fees
+ #  @fees = 0
+ #  begin
+ #   @fees =  self.account.stripe_flat_transfer_fee
+ #   @fees += self.amount.to_f * account.stripe_percent_transfer_fee
+ #   @fees *= self.split
+ # rescue => error
+ #   errored('Shop::StripeTransfer#split_fees', e )
+ # end
+ # (@fees + 0.5).to_i
+ #end
  
 
  #ap Stripe::Transfer.create(

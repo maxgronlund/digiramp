@@ -17,13 +17,10 @@ class Shop::ShopOrderItemsController < ApplicationController
       order_item.save
     else
       # create new with the right quantity
-      order_item = current_order.order_items.create(quantity: quantity, shop_product_id: product.id)
+      order_item = current_order.order_items.create(quantity: quantity, shop_product_id: product.id, account_id: product.account_id)
     end
     
-    ap order_item
     flash[:info] = "#{order_item.shop_product.title} is added to your basket" 
-
-    
 
     #shop_order.order_items
     go_to = session[:return_url]

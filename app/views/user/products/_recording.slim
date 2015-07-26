@@ -2,7 +2,7 @@
   .col-sm-8
     .help
       .help-text
-        h2 Edit #{@category.capitalize.gsub('-', ' ')}
+        h2 Product #{@category.capitalize.gsub('-', ' ')}
   
       .help-button
         == render 'admin/helps/help', identifier: 'edit shop recording'
@@ -14,29 +14,36 @@
       /      i.fa.fa-chevron-left
       /      '&nbsp;Back
       
-      
 .sexy_line
-.digi-box  
-  = simple_form_for [:user, @user, @shop_product], 
-                    :url => url_for(:action => action, 
-                                    :controller => 'products'),
-                    html: { :id => 'shop_product' }  do |f|
-    
+/= debug @documents
 
-    
+- recordings = @user.recordings.where(in_shop: false)
+- unless recordings.empty?
+  .digi-box  
+    - if @recording
+      h3 = @recording.title
   
-    = f.error_notification
-    = f.hidden_field :user_id   , value: @user.id
-    = f.hidden_field :account_id, value: @user.account.id
-    - if @category
-      = f.hidden_field :category,   value:  @category 
+    = simple_form_for [:user, @user, @shop_product], 
+                      :url => url_for(:action => action, 
+                                      :controller => 'products'),
+                      html: { :id => 'shop_product' }  do |f|
+      
+    
+      
+    
+      = f.error_notification
+      = f.hidden_field :user_id   ,       value: @user.id
+      = f.hidden_field :account_id,       value: @user.account.id
+      /= f.hidden_field :in_shop,        value: true
+      = f.hidden_field :category,       value:  @category 
       = f.hidden_field :units_on_stock, value: 100_000_000
-    .form-inputs
+      = f.hidden_field :sub_category, value: 'Recording'
+      orm-inputs
       
       .row
         .col-sm-6
           /= f.input :title, autofocus: true
-          = f.input :sub_category, collection: Shop::Product::DOWNLOAD_CATEGORIES, :include_blank => false, label: 'Category'
+          /= f.input :sub_category, collection: Shop::Product::DOWNLOAD_CATEGORIES, :include_blank => false, label: 'Category'
           .row
             .col-sm-6
               = f.input :price, label: 'Price in cent (min 50)'
@@ -49,20 +56,23 @@
                                        :input_html => { class: 'icheck-me', 
                                                          'data-skin'.to_sym => "square", 
                                                          'data-color'.to_sym => "blue" }
-
-          b 
-            '*Select recording
-          == render 'shared/popover', id: 'recording', body: 'Please select a recording from your collection.'
-          .chosen-label
-            = f.hidden_field :productable_type,   value:  'Recording' 
-            = f.input :productable_id, 
-                      collection: @user.recordings,
-                      include_blank: true,
-                      label: false,
-                      input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select recording..." }
+    
+          = f.hidden_field :productable_type,   value:  'Recording'
+          - if @recording
+            = f.hidden_field :productable_id, value: @recording.id
+          - else
+            b 
+              '*Select recording
+            == render 'shared/popover', id: 'recording', body: 'Please select a recording from your collection.'
+            .chosen-label
+              = f.input :productable_id, 
+                        collection: recordings,
+                        include_blank: false,
+                        label: false,
+                        input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select recording..." }
+              
             
-          
-
+            
           br
           b 
             '*Term of usage
@@ -70,12 +80,12 @@
           .chosen-label
             = f.input :document_id, 
                       collection: @documents,
-                      include_blank: true,
+                      include_blank: false,
                       label: false,
                       input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select from legal documents..." }
                 
           br
-
+    
           b 
             'Additional zip file (optional)
           == render 'shared/popover', id: 'additional-zip', body: 'A zip file that buyers can download'
@@ -102,7 +112,7 @@
                 function update_textarea_feedback(){
                   var text_length = $('#shop_product_additional_info').val().length;
                   var text_remaining = text_max - text_length;
-    
+          
                   $('#textarea_feedback').html(text_remaining + ' characters remaining');
                 }
             });
@@ -123,14 +133,23 @@
       
       
       
-    .form-actions  
-      .row
-        .col-sm-12
-          .pull-right
-            = f.submit 'Save', class: 'btn btn-primary'
-      coffee:
-        $("form#shop_product").submit ->
-          $(this).find('input[type=submit]').attr('disabled', 'disabled')
-          $(this).find('input[type=submit]').val "Updating, please wait ..."
-    
+      .form-actions  
+        .row
+          .col-sm-12
+            .pull-right
+              = f.submit 'Save', class: 'btn btn-primary'
+              
+- else
+  .alert.alert-info
+    - if @user.recordings.empty?
+      'You have no recordings uploaded yet
+    - else
+      'All your recordings are in the shop
+  
+
+coffee:
+  $("form#shop_product").submit ->
+    $(this).find('input[type=submit]').attr('disabled', 'disabled')
+    $(this).find('input[type=submit]').val "Updating, please wait ..."
+
   

@@ -94,12 +94,12 @@ class Stake < ActiveRecord::Base
   
   # create a stripe transfer 
   def take_a_cut order_item_id, amount, stripe_charge_id
-    errored('Stake#transfer_to_stripe', amount )
+    
     begin
       order_item = Shop::OrderItem.cached_find( order_item_id )
-      
+
       # tripy way to prevent the same transfer to run two times
-      Shop::StripeTransfer
+      stripe_transfer = Shop::StripeTransfer
           .where( shop_order_id:        order_item.shop_order_id,
                   shop_order_item_id:   order_item_id, 
                   account_id:           self.account_id,
@@ -118,6 +118,7 @@ class Stake < ActiveRecord::Base
                             currency:             'usd',
                             stake_id:             self.id
                            )
+      stripe_transfer.finis! if self.account_id == order_item.account_id
     rescue => e
       errored('Stake#transfer_to_stripe', e )
     end         

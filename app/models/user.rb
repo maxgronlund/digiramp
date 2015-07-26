@@ -449,7 +449,6 @@ class User < ActiveRecord::Base
   
   def update_meta
     update_completeness
-    update_meta
     SetUserTopTag.process self
   end
 
@@ -470,8 +469,6 @@ class User < ActiveRecord::Base
     end
     Client.where(email: self.email).update_all(member_id: self.id)
     set_default_avatar
-    
-    
     CreateUserMandrillAccountJob.perform_later(self.id) if Rails.env.production?
     Stake.where(  email: self.email ).update_all( unassigned: false)
   end

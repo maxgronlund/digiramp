@@ -64,8 +64,12 @@ class User::RecordingIpisController < ApplicationController
       end
 
       if @recording_ipi.update(recording_ipi_params)
-        redirect_to user_user_common_work_path(@user, @common_work)
-        @recording_ipi.send_confirmation_request if  params[:commit] == 'Save and send message'
+        if  params[:commit] == 'Save and send message' || params[:commit] == "Send"
+          @recording_ipi.send_confirmation_request 
+        else
+          redirect_to user_user_common_work_path(@user, @common_work)
+        end
+        
       else
         render :edit
       end

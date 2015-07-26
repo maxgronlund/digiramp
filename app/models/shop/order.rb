@@ -135,7 +135,7 @@ class Shop::Order < ActiveRecord::Base
   end
   
   def store_order_lines
-    ap 'store_order_lines'
+    
     begin
     self.order_lines = []
     self.order_items.each_with_index do |order_item, index|

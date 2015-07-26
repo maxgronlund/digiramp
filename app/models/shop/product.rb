@@ -5,7 +5,7 @@ class Shop::Product < ActiveRecord::Base
   belongs_to :playlist
   belongs_to :productable, polymorphic: true
   validates_with   ProductValidator
-  validates :price, :title, :body, :additional_info, presence: true
+  validates :price, :title, :additional_info, presence: true
   
     
   
@@ -17,6 +17,7 @@ class Shop::Product < ActiveRecord::Base
   
 
   after_create :initialize_defaults
+  after_commit :flush_cache
   
   #has_and_belongs_to_many :order_items, :class_name => "Shop::OrderItem"
   #has_and_belongs_to_many :orders, :class_name => "Shop::Order"
@@ -37,7 +38,7 @@ class Shop::Product < ActiveRecord::Base
     end
   end
   
-  after_commit :flush_cache
+  
 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
@@ -112,7 +113,7 @@ class Shop::Product < ActiveRecord::Base
       filename    = file_name.downcase.gsub(' ', '-')
       secure_url  = s3_obj.presigned_url(:get, expires_in: 600,response_content_disposition: "attachment; filename='#{filename}'")
     rescue => e
-      ap e.inspect
+      post_error "Product::additional_download_url id: #{e.inspect}  "
       secure_url = ''
     end
     secure_url
@@ -174,6 +175,6 @@ class Shop::Product < ActiveRecord::Base
   
 
   def flush_cache
-    Rails.cache.delete([self.class.name, uuid])
+    Rails.cache.delete([self.class.name, id])
   end
 end

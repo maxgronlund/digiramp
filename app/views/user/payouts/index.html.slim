@@ -20,6 +20,7 @@
               tr
                 /th
                 /th Type
+                th Date
                 th Source
                 th Amount
                 th Status
@@ -30,6 +31,7 @@
               - @stripe_transfers.each do |stripe_transfer|
                 
                 tr
+                  td = l stripe_transfer.created_at, format: :date
                   td = stripe_transfer.stake.original_source
                   td = number_to_currency( stripe_transfer.amount * 0.01, precision: 4, locale: 'en')
                   td 

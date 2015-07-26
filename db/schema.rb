@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150725185212) do
+ActiveRecord::Schema.define(version: 20150726120408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2678,6 +2678,8 @@ ActiveRecord::Schema.define(version: 20150725185212) do
     t.string   "uniq_position"
     t.boolean  "all_ipis_confirmed",               default: false
     t.boolean  "pre_cleared",                      default: false
+    t.boolean  "in_shop",                          default: false
+    t.boolean  "valid_for_sale",                   default: false
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -2890,6 +2892,7 @@ ActiveRecord::Schema.define(version: 20150725185212) do
     t.uuid     "shop_product_id"
     t.boolean  "require_shipping", default: false
     t.boolean  "sold",             default: false
+    t.integer  "account_id"
   end
 
   add_index "shop_order_items", ["shop_order_id"], name: "index_shop_order_items_on_shop_order_id", using: :btree
@@ -2954,6 +2957,7 @@ ActiveRecord::Schema.define(version: 20150725185212) do
     t.integer  "file_size"
     t.integer  "document_id"
     t.boolean  "connected_to_stripe",        default: false
+    t.boolean  "valid_for_sale",             default: false
   end
 
   add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
@@ -3493,7 +3497,7 @@ ActiveRecord::Schema.define(version: 20150725185212) do
   add_foreign_key "shop_products", "documents"
   add_foreign_key "shop_products", "users"
   add_foreign_key "shop_stripe_transfers", "accounts"
-  add_foreign_key "shop_stripe_transfers", "shop_order_items"
+  add_foreign_key "shop_stripe_transfers", "shop_order_items", on_delete: :cascade
   add_foreign_key "shop_stripe_transfers", "shop_orders"
   add_foreign_key "shop_stripe_transfers", "stakes"
   add_foreign_key "shop_stripe_transfers", "users"

@@ -34,7 +34,7 @@ class Shop::OrdersController < ApplicationController
   # PATCH/PUT /shop/orders/1
   # PATCH/PUT /shop/orders/1.json
   def update
-    ap params
+   
     params[:shop_order][:email]           = params[:email]
     params[:shop_order][:stripe_token]    = params[:stripeToken]
     params[:stripeToken]                  = nil

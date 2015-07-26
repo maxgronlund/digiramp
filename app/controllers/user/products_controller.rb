@@ -2,7 +2,6 @@ class User::ProductsController < ApplicationController
   before_action :access_user
   before_action :set_shop_product, only: [:show, :edit, :update, :destroy]
   
-  
 
   # GET /shop/products
   # GET /shop/products.json
@@ -21,16 +20,42 @@ class User::ProductsController < ApplicationController
 
   # GET /shop/products/new
   def new
-    @shop_product = Shop::Product.new
-    @category     = params[:category]
-   get_documents
+    if params[:category].blank?
+      redirect_to user_user_select_product_type_index_path(@user)
+    else 
+      @category     = params[:category]
+      case params[:category] 
+      when 'recording'
+        additional_info = nil
+        @recording      = nil
+        begin
+          @recording  = Recording.cached_find(params[:recording_id]) if params[:recording_id] 
+          additional_info        = @recording.comment
+        rescue
+          ErrorNotifications.post("User::ProductsController#new recording_id: #{params[:recording_id]} not found")
+        end
+        @shop_product = Shop::Product.new(price: 98, 
+                                          additional_info: additional_info,
+                                          for_sale: true,
+                                          show_in_shop: true)
+        
+        get_documents
+        
+      when 'physical-product'
+        get_documents
+      else
+        redirect_to user_user_select_product_type_index_path(@user)
+      end
+    end
   end
 
   # GET /shop/products/1/edit
   def edit
-    @category = @shop_product.category
+    @category  = @shop_product.category
+    @recording = @shop_product.productable_type == 'Recording' ?
+                 @shop_product.productable :
+                 nil
     get_documents
-    
   end
   
   def get_documents
@@ -40,7 +65,6 @@ class User::ProductsController < ApplicationController
     when 'physical-product'
       @documents = @user.account.documents.where(tag: 'Physical product', document_type: 'Legal')
     end
-
   end
   
   
@@ -50,12 +74,12 @@ class User::ProductsController < ApplicationController
   def create
     set_productable params
     params[:shop_product][:connected_to_stripe] = @user.is_stripe_connected
-    
+
     @shop_product = Shop::Product.new(shop_product_params)
-    ap @shop_product
+
     respond_to do |format|
       if @shop_product.save
-        format.html { redirect_to user_user_product_path(@user, @shop_product) }
+        format.html { redirect_to user_user_product_stakes_path(@user, @shop_product) }
         format.json { render :show, status: :created, location: @shop_product }
       else
         ap '=========================== do what you have to do here ============================='
@@ -70,30 +94,33 @@ class User::ProductsController < ApplicationController
   def update
     @category     = @shop_product.category
     set_productable params
-
+    
+    ap params
+    
     respond_to do |format|
-      if @shop_product.update(shop_product_params)
-        #ap @shop_product
+      if @shop_product.update!(shop_product_params)
+        ap @shop_product
         #update_show_in_shop
-        format.html do 
-        case @category
-        when 'recording'
-          @recording = @shop_product.get_item
-          
-          if @recording.pre_cleared?
-            after_update_path
-            #session[:user_product_path] = nil
-            #redirect_to user_user_product_path(@user, @shop_product)
-          else
-            session[:user_product_path] = user_user_product_path(@user, @shop_product)
-            redirect_to user_user_common_work_path(@user, @recording.common_work) 
-          end
-        else
-          after_update_path
-          #session[:user_product_path] = nil
-          #redirect_to user_user_product_path(@user, @shop_product) 
-        end
-        end
+        format.html { redirect_to user_user_product_path(@user, @shop_product) }
+
+        #case @category
+        #when 'recording'
+        #  @recording = @shop_product.get_item
+        #  
+        #  if @recording.pre_cleared?
+        #    after_update_path
+        #    #session[:user_product_path] = nil
+        #    #redirect_to user_user_product_path(@user, @shop_product)
+        #  else
+        #    session[:user_product_path] = user_user_product_path(@user, @shop_product)
+        #    redirect_to user_user_common_work_path(@user, @recording.common_work) 
+        #  end
+        #else
+        #  after_update_path
+        #  #session[:user_product_path] = nil
+        #  #redirect_to user_user_product_path(@user, @shop_product) 
+        #end
+        #end
         format.json { render :show, status: :ok, location: @shop_product }
       else
         format.html { render :edit }
@@ -101,6 +128,7 @@ class User::ProductsController < ApplicationController
       end
     end
   end
+  
   
   def after_update_path
     session[:user_product_path] = nil
@@ -118,9 +146,9 @@ class User::ProductsController < ApplicationController
     @shop_product.show_in_shop         = false
     @shop_product.connected_to_stripe  = false
     @shop_product.save
-    
     @shop_product.stakeholders.destroy_all
-    
+    @shop_product.productable.update(in_shop: false) 
+
     Shop::OrderItem.where(sold: false, shop_product_id: @shop_product.id).destroy_all
     
     respond_to do |format|
@@ -135,9 +163,11 @@ class User::ProductsController < ApplicationController
     if recording_id = params[:shop_product][:recording_id]
       params[:shop_product][:productable_id]    = recording_id
       params[:shop_product][:productable_type]  = 'Recording'
+      params[:shop_product][:recording_id]
     end
   end
   
+
    # Use callbacks to share common setup or constraints between actions.
   def set_shop_product
     

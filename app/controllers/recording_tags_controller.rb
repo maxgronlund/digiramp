@@ -21,7 +21,8 @@ class RecordingTagsController < ApplicationController
     @recording.save!
     
     #redirect_to edit_user_recording_social_path( @user, @recording )
-    redirect_to user_recording_path( @recording.user, @recording )
+    # redirect_to user_recording_path( @recording.user, @recording )
+    redirect_to user_user_common_work_path( @recording.user, @recording.common_work )
     
     
     

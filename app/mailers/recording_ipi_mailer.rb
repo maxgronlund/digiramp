@@ -1,6 +1,6 @@
 class RecordingIpiMailer < ApplicationMailer
 
-
+  
 
   def recording_ipi_confirmation_email recording_ipi_id
     return unless recording_ipi  = RecordingIpi.cached_find(recording_ipi_id)
@@ -40,11 +40,11 @@ class RecordingIpiMailer < ApplicationMailer
         }
         mandril_client.messages.send_template template_name, template_content, message
       rescue Mandrill::Error => e
-        Opbeat.capture_message("#{e.class} - #{e.message}")
+        ErrorNotifications.post "RecordingIpiMailer #{e.class} - #{e.message}"
       end
     # handle error  
     else
-      Opbeat.capture_message("recording_ipi_id: #{recording_ipi_id}")
+      ErrorNotifications.post "RecordingIpiMailer: user not found"
     end
     
   end

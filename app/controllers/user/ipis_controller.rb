@@ -59,10 +59,12 @@ class User::IpisController < ApplicationController
     @common_work = CommonWork.cached_find(@ipi.common_work_id)
     
     if @ipi.update(ipi_params)
-      if params[:commit] == 'Send'
+      if params[:commit] == 'Save and send message'
         @ipi.send_confirmation_request 
+        redirect_to session[:go_to_after_update_ipi]
+      elsif params[:commit] == "Update"
+        redirect_to session[:go_to_after_update_ipi]
       end
-      redirect_to session[:go_to_after_update_ipi]
       
         #if params[:commit] == 'Update'
         #  redirect_to session[:go_to_after_update_ipi]

@@ -2,9 +2,7 @@
   .col-sm-6
     h4 Master / Recording
   .col-sm-6 
-    .pull-right.pull-down-6
-      => link_to 'Show in shop', '#', class: 'btn btn-default'
-      => link_to 'Add to shop', '#', class: 'btn btn-default'
+    
 .row
   .col-sm-12
     #digiWhams  class="/recordings/#{recording.id.to_s}"
@@ -88,6 +86,11 @@
                     
                 
           .pull-right
+            - if recording.in_shop
+              => link_to 'Edit shop', edit_user_user_product_path(@user, recording.product), class: 'btn btn-default'
+            - else
+              => link_to 'Add to shop', new_user_user_product_path(@user, category: 'recording', recording_id: recording.id), class: 'btn btn-default'
+            
             /=> link_to 'Legal documents', '#', class: 'btn btn-default'
             => link_to edit_user_recording_basic_path(@user, recording)
               .btn.btn-default

@@ -6,8 +6,6 @@ class Shop::OrderItem < ActiveRecord::Base
   has_many   :stripe_transfers, class_name: "Shop::StripeTransfer"
   
   validates_with OrderItemValidator
-
-
   after_commit :flush_cache
 
   def self.cached_find(id)
