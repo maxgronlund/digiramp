@@ -22,12 +22,13 @@ class User::RecordingIpisController < ApplicationController
     end
     
     params[:recording_ipi][:confirmation]                 = 'Pending'
+    params[:recording_ipi][:uuid]                         =  UUIDTools::UUID.timestamp_create().to_s
 
     @recording        = Recording.cached_find(params[:recording_id])
     @common_work      = @recording.common_work
     
-    begin
-      @recording_ipi = RecordingIpi.create!(recording_ipi_params)
+    
+    if @recording_ipi = RecordingIpi.create!(recording_ipi_params)
       logger.info '==================== created ================================='
       logger.info '==================== created ================================='
       logger.info '==================== created ================================='
@@ -36,8 +37,8 @@ class User::RecordingIpisController < ApplicationController
       logger.info '==================== created ================================='
       @recording_ipi.send_confirmation_request if  params[:commit] == 'Save and send message'
       redirect_to user_user_common_work_path(@user, @common_work)
-    rescue => e
-      ErrorNotification.post_object( "RecordingIpisController#create", e )
+    else
+      ErrorNotification.post_object( "RecordingIpisController#create", @recording_ipi )
       render :new
     end
     

@@ -27,13 +27,14 @@ class RecordingIpi < ActiveRecord::Base
            ]
 
   after_commit :flush_cache
-  before_save :flush_cache
+
   has_many :user_credits, as: :ipiable, dependent: :destroy
-  before_create :add_uuid
+  #before_create :add_uuid
   after_create :attach_user_credits
-  after_update :attach_user_credits
+  #after_update :attach_user_credits
   #before_destroy :remove_user_credits
   
+  # !!! self.recording.title is not a good ide
   def attach_user_credits
     if self.user
       UserCredit
@@ -66,16 +67,16 @@ class RecordingIpi < ActiveRecord::Base
     0
   end
   
-  def add_uuid
-    self.uuid = UUIDTools::UUID.timestamp_create().to_s
-  end
-  
-  def attach_user
-    if user         = User.where(email: self.email).first
-      self.user_id = user.id
-      self.name    = user.user_name
-    end
-  end
+  #def add_uuid
+  #  self.uuid = UUIDTools::UUID.timestamp_create().to_s
+  #end
+  #
+  #def attach_user
+  #  if user         = User.where(email: self.email).first
+  #    self.user_id = user.id
+  #    self.name    = user.user_name
+  #  end
+  #end
   
   def send_confirmation_request
     send_confirmation_email
