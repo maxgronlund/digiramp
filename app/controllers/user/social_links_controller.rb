@@ -14,7 +14,8 @@ class User::SocialLinksController < ApplicationController
     params[:user][:link_to_homepage]      = LinkValidator.sanitize( params[:user][:link_to_homepage   ] )
 
     if @user.update(user_params)
-      redirect_to user_user_control_panel_index_path(@user)
+      redirect_to_return_url user_user_control_panel_index_path(@user)
+      #redirect_to user_user_control_panel_index_path(@user)
     else
       render :edit
     end

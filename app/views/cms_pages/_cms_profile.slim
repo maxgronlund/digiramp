@@ -266,6 +266,7 @@
     .row
       .col-sm-12.pull-down-8
         ul.social-icons2.icon-flat.list-unstyled.list-inline
+          
           - if @user.link_to_facebook != ''
             li
               => link_to @user.link_to_facebook , target: "_blank" do
@@ -298,6 +299,12 @@
             li
               => link_to @user.link_to_homepage , target: "_blank" do
                 i.fa.fa-home
+    - if current_user && (current_user.id == @user.id || super?)
+      .row
+        .col-sm-12
+          = link_to  edit_user_social_link_path(@user) do
+            .btn.btn-default
+              'Add/edit links to you socials media
               
           /li
           /  a href="#" 

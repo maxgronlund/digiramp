@@ -10,7 +10,7 @@ class User::RecordingIpisController < ApplicationController
   end
   
   def create
-    logger.info '==================== create ================================='
+    
     if user   = User.find_by(email: params[:recording_ipi][:email])
       params[:recording_ipi][:user_id]                    = user.id
       params[:recording_ipi][:account_id]                 = user.account.id
@@ -29,12 +29,6 @@ class User::RecordingIpisController < ApplicationController
     
     
     if @recording_ipi = RecordingIpi.create!(recording_ipi_params)
-      logger.info '==================== created ================================='
-      logger.info '==================== created ================================='
-      logger.info '==================== created ================================='
-      logger.info @recording_ipi.inspect
-      logger.info '==================== created ================================='
-      logger.info '==================== created ================================='
       @recording_ipi.send_confirmation_request if  params[:commit] == 'Save and send message'
       redirect_to user_user_common_work_path(@user, @common_work)
     else
