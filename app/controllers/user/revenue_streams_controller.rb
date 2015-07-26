@@ -11,8 +11,6 @@ class User::RevenueStreamsController < ApplicationController
   end
   
   def create
-    
-    
     stake = Stake.create!(stake_params)
     redirect_to user_user_revenue_stream_path(@user, stake.asset_id)
   end
