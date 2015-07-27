@@ -16,6 +16,49 @@
       h2 Edit help
       .sexy_line
       == render 'form'
-       
+        
+      .collapse id="collapseExample"
+        .digi-box
+          - if user = User.cached_find(@help.paper_trail_originator)
+            h4 = "Last edited by: #{user.user_name}"
+          .table-responsive
+            table class="table table-hover"
+              tbody 
+                - if versions = @help.versions.reverse
+                  - versions.each do |version|
+                    tr
+                      /td = debug version
+                      td  style="width: 250px;"
+                        = l version.created_at, format: :date
+                        - if user = User.cached_find(version.whodunnit)
+                          br ="Edit by: #{ user.user_name }"
+                          
+                        
+                        br = "Version: #{version.id}"
+                      td
+                        - if changeset = version.changeset
+                          - changeset.sort.each do |key, value| 
+                            b = key 
+                            br From:
+                            = simple_format value[0] rescue ''
+                            'To:
+                            = simple_format value[1]  rescue ''
+                          
   == render 'shared/site_footer'    
 == render 'shared/init_wysiwyg5'
+
+
+/- if versions = @shop_order.versions
+/  - versions.each do |version| 
+/    tr
+/      td  = version.created_at.to_formatted_s(:short)
+/      td  = version.event
+/      td 
+/        - if changeset = version.changeset
+/          - changeset.sort.each do |key, value| 
+/            b = key 
+/            ':
+/            = value[0] 
+/            '&nbsp;to&nbsp;
+/            = value[1] 
+/            .sexy_line

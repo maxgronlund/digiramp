@@ -35,6 +35,7 @@ class Admin::HelpsController < ApplicationController
   # PATCH/PUT /helps/1
   # PATCH/PUT /helps/1.json
   def update
+    params[:help][:user_id] = current_user.email
      @help.update(help_params)
      if go_to = session[:return_url]
        session[:return_url] = nil
@@ -59,6 +60,6 @@ class Admin::HelpsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def help_params
-      params.require(:help).permit(:identifier, :button, :title, :body, :snippet) if editor?
+      params.require(:help).permit(:identifier, :button, :title, :body, :snippet, :email) if editor?
     end
 end

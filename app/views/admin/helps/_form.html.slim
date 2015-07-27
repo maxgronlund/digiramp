@@ -1,6 +1,8 @@
+
+            
 .digi-box
   = simple_form_for [:admin, @help ], turboboost: true do |f|
-    /= f.error_notification
+    = f.error_notification
     .form-inputs
       .row
         .col-sm-6
@@ -26,5 +28,7 @@
       .row
         .col-sm-12
           .pull-right
-            = f.submit 'Save', class: 'btn btn-primary'
+            .btn.btn-default role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+              'History
+            =< f.submit 'Save', class: 'btn btn-primary'
   
