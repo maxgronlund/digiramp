@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   force_ssl if: :ssl_configured?
   helper_method :sort_column, :sort_direction
-  use_vanity :current_user
+
     
   
   
