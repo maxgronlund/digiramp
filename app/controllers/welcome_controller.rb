@@ -10,6 +10,8 @@ class WelcomeController < ApplicationController
     @playlists            = current_user.playlists if current_user
     @hide_sidebar_toggle  = true
     @user                 = current_user
+    
+    
     #end
   end
 end

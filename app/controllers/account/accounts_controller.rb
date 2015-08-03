@@ -1,7 +1,7 @@
 class Account::AccountsController < ApplicationController
   
   include AccountsHelper
-  before_action :access_account
+  before_action :access_account, except: [:destroy]
   
   
   def show
@@ -52,38 +52,35 @@ class Account::AccountsController < ApplicationController
   end
   
   def destroy
-    ap '============================================='
-    ap "destroy"
-    ap '============================================='
-    @account = Account.cached_find(params[:id])
-    @account.create_activity(  :destroyed, 
-                          owner: current_user,
-                      recipient: @account,
-                 recipient_type: @account.class.name)
-              
-    
-    if user = @account.user
-      
-      user.create_activity(  :destroyed, 
-                            owner: current_user,
-                        recipient: user,
-                   recipient_type: user.class.name,
-                       account_id: @account.id)
-    
-      user.flush_auth_token_cache(cookies[:auth_token])
-      cookies.delete(:auth_token)
-      cookies.delete(:user_id)
-    
-      user.destroy! 
-      #ap user
-      
-    end 
-    
-    #@account.destroy!   
-    #user.destroy!
-    
-    redirect_to root_path   
-    
+
+    #@account = Account.cached_find(params[:id])
+    #@account.create_activity(  :destroyed, 
+    #                      owner: current_user,
+    #                  recipient: @account,
+    #             recipient_type: @account.class.name)
+    #          
+    #
+    #if user = @account.user
+    #  
+    #  user.create_activity(  :destroyed, 
+    #                        owner: current_user,
+    #                    recipient: user,
+    #               recipient_type: user.class.name,
+    #                   account_id: @account.id)
+    #
+    #  user.flush_auth_token_cache(cookies[:auth_token])
+    #  cookies.delete(:auth_token)
+    #  cookies.delete(:user_id)
+    #
+    #  ap user
+    #  #user.destroy!
+    #end 
+    #
+    ##@account.destroy!   
+    #
+    #
+    #redirect_to root_path   
+    redirect_to :back
     
   end
   

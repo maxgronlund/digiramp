@@ -142,7 +142,7 @@
 
               .row
                 .col-sm-12.pull-down-8
-                  = link_to 'Delete account', account_account_path(@user.account), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-default'
+                  = link_to 'Delete account', user_path(@user), data: { confirm: 'Are you sure?' } , :method => :delete, class: 'btn btn-default'
                   .pull-right
                     
                     => link_to 'Cancel', user_path(@user), class: 'btn btn-default'

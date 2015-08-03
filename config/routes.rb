@@ -1,5 +1,6 @@
 Digiramp::Application.routes.draw do
   
+  mount Split::Dashboard, :at => 'split'
 
   resources :accepting_signatures
 

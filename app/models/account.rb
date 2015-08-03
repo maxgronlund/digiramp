@@ -141,17 +141,16 @@ class Account < ActiveRecord::Base
   # update the uuid so all cached segments expires
   before_save :set_uuid
   
-  before_destroy :cleanup_migrations
+  before_destroy :cleanup_relations
   
-  def cleanup_migrations
-    unlocked_creative_projects           = self.creative_projects.where(locked: false)
-    unlocked_creative_projects.destroy_all
+  def cleanup_relations
+    if unlocked_creative_projects    = self.creative_projects.where(locked: false)
+      unlocked_creative_projects.destroy_all
+    end
     
     self.products.update_all(account_id: nil)
     
-
-    #self.recordings.update_all(account_id: nil)
-    #self.stripe_transfers.update_all(account_id: nil)
+    
   end
   
   def update_expiration_date
