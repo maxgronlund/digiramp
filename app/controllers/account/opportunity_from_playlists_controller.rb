@@ -20,7 +20,9 @@ class Account::OpportunityFromPlaylistsController < ApplicationController
       
     end
     
-    redirect_to opportunity_opportunity_reviewer_path(@opportunity, opportunity_user.uuid )
+    #redirect_to opportunity_opportunity_reviewer_path(@opportunity, opportunity_user.uuid )
+    #account/accounts/6/opportunities/147/opportunity_users
+    redirect_to account_account_opportunity_opportunity_users_path(@user.account, @opportunity )
     
   end
   

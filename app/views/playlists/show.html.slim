@@ -34,7 +34,7 @@
             .row
               .col-sm-12  
                 .pull-right
-                  - if current_user.manage? @user
+                  - if current_user && current_user.manage?( @user )&& @user.account_type == 'Pro'
                     => link_to new_account_account_opportunity_from_playlist_path( @user.account, playlist_id: @playlist.id) do
                       .btn.btn-default.btn-xs
                         i.fa.fa-envelope
