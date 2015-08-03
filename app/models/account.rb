@@ -168,25 +168,7 @@ class Account < ActiveRecord::Base
     # latest subscription not expired
     subscription = subscriptions.last
   end
-  
-  
-  
-  
-  
-  #def subscribtion_price
-  #  
-  #  ap self.account_type
-  #  
-  #  if account_feature = AccountFeature.where(account_type: self.account_type).first
-  #    return account_feature.subscription_fee
-  #  else
-  #    return 0
-  #  end
-  #  
-  #end
-  
-  
-  
+
   def transfer_codes=(uuids)
     
   end

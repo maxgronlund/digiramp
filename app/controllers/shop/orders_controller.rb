@@ -48,16 +48,16 @@ class Shop::OrdersController < ApplicationController
         
         errors = @shop_order.errors.full_messages
         message = "Shop::OrdersController#update: #{errors}"
-        ap message
-        Opbeat.capture_message( message )
+        ErrorNotification.post message
+
         render json: {
                       error: errors.join(" ")
                       }, status: 400
       end
     else
       message = "Shop::OrdersController#update: Session expired, please reload page and try again"
-      ap message
-      Opbeat.capture_message( message )
+
+      ErrorNotification.post message
       render json: {
                     error: 'Session expired, please reload page and try again'
                     }, status: 400

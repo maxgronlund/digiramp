@@ -38,4 +38,5 @@ after_fork do |server, worker|
   system("echo #{Process.pid} > #{child_pid}")
    defined?(ActiveRecord::Base) and
     ActiveRecord::Base.establish_connection
+    Vanity.playground.establish_connection
 end

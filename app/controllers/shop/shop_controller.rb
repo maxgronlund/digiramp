@@ -10,7 +10,5 @@ class Shop::ShopController < ApplicationController
     @products     = Shop::Product.on_sale.where(show_in_shop: true)
   end
   
-  #def show
-  #  ap 'show'
-  #end
+
 end

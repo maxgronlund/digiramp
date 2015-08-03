@@ -33,7 +33,6 @@ class RegistrationsController < ApplicationController
           redirect_to @registration.paypal_url(registration_path(@registration))
         when "card"
           if @registration.card.purchase
-            #ap registration_path(@registration)
             redirect_to registration_path(@registration), notice: @registration.card.card_transaction.message
           else
             registration_path(@registration)
@@ -47,7 +46,7 @@ class RegistrationsController < ApplicationController
 
   protect_from_forgery except: [:hook]
   def hook
-    puts 'hook'
+
     params.permit! # Permit all Paypal input params
     status = params[:payment_status]
     if status == "Completed"

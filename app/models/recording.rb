@@ -249,7 +249,7 @@ class Recording < ActiveRecord::Base
 
   
   def confirm_ipis
-    #ap '======================= confirm_ipis ============================'
+
     self.recording_ipis.where(confirmed: false).each do |recording_ipi|
       unless recording_ipi.email  == ''
         confirm_ipi recording_ipi
@@ -258,13 +258,7 @@ class Recording < ActiveRecord::Base
   end
   
   def confirm_ipi recording_ipi
-    #if user = User.where(email: recording_ipi.email)
-    #  #ap '======================= send email to existing  user ============================'
-    #  #IpiMailer.delay.confirm_recording(recording_ipi.id)
-    #elsif
-    #  #ap '========================== create account for new user =========================='
-    #  
-    #end
+
   end
   
   def user_credits
@@ -528,9 +522,7 @@ class Recording < ActiveRecord::Base
         s3_obj      = bucket.object(secure_url)
         secure_url  = s3_obj.presigned_url(:get, expires_in: 600)
       rescue => e
-        
-        ap '================== autch snap =========================='
-        ap e.inspect
+
         secure_url = self.mp3
       end
     end

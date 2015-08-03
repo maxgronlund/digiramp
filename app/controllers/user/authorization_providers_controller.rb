@@ -8,7 +8,7 @@ class User::AuthorizationProvidersController < ApplicationController
   end
   
   def show
-    #ap "AuthorizationProvidersController#show #{params}"
+    ##"AuthorizationProvidersController#show #{params}"
     if params[:submit] == '0'
       authorization_provider = AuthorizationProvider.find(params[:id])
       
@@ -25,7 +25,7 @@ class User::AuthorizationProvidersController < ApplicationController
 
 
   def destroy
-    #ap "AuthorizationProvidersController#destroy #{params}"
+    # "AuthorizationProvidersController#destroy #{params}"
     authorization_provider = AuthorizationProvider.find(params[:id])
     authorization_provider.destroy
     user.update_shop

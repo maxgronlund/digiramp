@@ -52,8 +52,8 @@ class Shop::StripeTransfer < ActiveRecord::Base
  end
  
  def pay
-   ap '===================================================================================='
-   ap '--- pay ---'
+   # '===================================================================================='
+   # '--- pay ---'
    self.process!
    
    begin
@@ -90,30 +90,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
    self.description
  end
 
- #def get_fees
- #  @fees || split_fees
- #end
- #
- #def split_fees
- #  @fees = 0
- #  begin
- #   @fees =  self.account.stripe_flat_transfer_fee
- #   @fees += self.amount.to_f * account.stripe_percent_transfer_fee
- #   @fees *= self.split
- # rescue => error
- #   errored('Shop::StripeTransfer#split_fees', e )
- # end
- # (@fees + 0.5).to_i
- #end
- 
 
- #ap Stripe::Transfer.create(
- #  :amount => 400,
- #  :destination => stripe_account_id,
- #  :source_transaction => 'ch_16B0xCE9gjydUcHEWu1GG93s',
- #  :currency => "usd"
- #)
-    
     
 
 end

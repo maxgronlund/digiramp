@@ -1,6 +1,5 @@
 class User::RequestIpiConfirmationsController < ApplicationController
   def update
-    ap params
     @user         = User.cached_find(params[:user_id])
     @common_work  = CommonWork.cached_find(params[:common_work_id])
     @ipi          = Ipi.cached_find(params[:id])

@@ -2,7 +2,6 @@ class OrderPayment
   include ErrorNotification
   
   def self.set_address_fields_from_payment_source( order, payment_source )
-    ap "payment source #{payment_source}"
     begin
       order.card_address_name      =  payment_source[:name]
       order.card_address_line_1    =  payment_source[:address_line1]

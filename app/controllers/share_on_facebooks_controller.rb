@@ -2,7 +2,7 @@ class ShareOnFacebooksController < ApplicationController
 
   # the user is sharing from the dialog
   def create
-    #ap '-------------- ShareOnFacebooksController#create -----------'
+    # '-------------- ShareOnFacebooksController#create -----------'
     
     if current_user
       share_when_logged_in params
@@ -15,7 +15,7 @@ class ShareOnFacebooksController < ApplicationController
       
       
       else
-        #ap 'no user, no user_id we are not logged in/ signed up'
+        ##'no user, no user_id we are not logged in/ signed up'
         session[:share_recording_id] = params[:share_on_facebook][:recording_id]
         session[:message]            = params[:share_on_facebook][:message]
         @authorize_facebook = true
@@ -94,7 +94,7 @@ class ShareOnFacebooksController < ApplicationController
   
   # used when there is a full page reload after signing in / up with facebook
   def show
-    #ap params
+    # params
     # '-------------- ShareOnFacebooksController#show called after authorizing facebook -----------'
 
     

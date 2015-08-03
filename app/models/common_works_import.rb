@@ -19,7 +19,6 @@ class CommonWorksImport < ActiveRecord::Base
     self.imported_works = 0
     
     self.params.each do |param|
-      ap param
       
       begin
         common_work = CommonWork.where( ascap_work_id:  param[:ascap_work_id].to_i,
@@ -74,17 +73,9 @@ class CommonWorksImport < ActiveRecord::Base
         
         # add to catalog
         add_to_catalog common_work, self.catalog_id
-        ap common_work
+
       rescue => e
-        
-        puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-        puts 'ERROR: Unable to parse ascap common work:' 
-        puts 'In CommonWorksImport#parse_common_works'
-        puts e.message
-        puts '.'
-        puts e.backtrace.inspect  
-        puts '.'
-        puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+        ErrorNotification.post_object "CommonWorksImport#parse_common_works", e
       end
     end
     # not in progress any more
@@ -110,11 +101,7 @@ class CommonWorksImport < ActiveRecord::Base
                          
 
     else
-      puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
-      puts 'ERROR: Unable to add common work to catalog:' 
-      puts 'In CommonWork#add_to_catalog'
-      puts 'catalog_id cant be nil'
-      puts '+++++++++++++++++++++++++++++++++++++++++++++++++'
+      ErrorNotification.post "CommonWorksImport#add_to_catalog: ERROR: Unable to add common work to catalog"
     end
     
     
@@ -122,7 +109,7 @@ class CommonWorksImport < ActiveRecord::Base
   end
   
   def parse_ipis common_work_id, ipis, ascap_work_id
-    #puts '+++++++++++++++++++++  PARSE IPIS ++++++++++++++++++++++++++++'
+
     ipis.each do |ipi_scrape|
       if ipi = Ipi.where(common_work_id: common_work_id, 
                          ipi_code: ipi_scrape[:ipi_number] ).first
@@ -133,7 +120,7 @@ class CommonWorksImport < ActiveRecord::Base
       ap ipi
       ipi.full_name                 = ipi_scrape[:full_name]
       ipi.role                      = ipi_scrape[:role]
-      ap '++++++++++++++++++++++++++++ 123 ++++++++++++++++++++++++++++++++'
+      
       pro_affiliation = ProAffiliation.where(title: ipi_scrape[:society]).first_or_create(title: ipi_scrape[:society])
       
       ipi.pro_affiliation_id        = pro_affiliation.id
@@ -144,9 +131,7 @@ class CommonWorksImport < ActiveRecord::Base
       ipi.controlled_by_submitter   = ipi_scrape[:controlled_by_submitter]
       ipi.ascap_work_id             = ascap_work_id
       ipi.save!(:validate => false)
-      #puts '+++++++++++++++++++++++ LOGGING IPI ++++++++++++++++++++++++++'
-      #ap ipi
-      #puts '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+
     end
     
   end

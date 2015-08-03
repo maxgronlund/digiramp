@@ -1,4 +1,4 @@
-module KnowAccountFeaturesHelper
+module KnowAccountHelper
 
   def find_or_create_account_feature  account_type
     return @account_feature if @account_feature = account_feature_with_name( account_type )
@@ -11,4 +11,4 @@ module KnowAccountFeaturesHelper
 
 end
 
-World(KnowAccountFeaturesHelper)
+World(KnowAccountHelper)

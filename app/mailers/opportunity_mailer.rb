@@ -13,8 +13,6 @@ class OpportunityMailer < ApplicationMailer
           fotter_link             = url_for( controller: 'contacts', action: 'new')
         end
       end
-      ap 'no user'
-      ap user_id
     end
     
   

@@ -61,8 +61,7 @@ class Admin::PlansController < ApplicationController
         redirect_to admin_plans_path
       rescue Stripe::StripeError => e
         flash[:danger] = e.message 
-        ap e.message
-        #@plan.errors[:base] << e.message
+        ErrorNotification.post e.message 
         redirect_to edit_admin_plan_path
       end
     else

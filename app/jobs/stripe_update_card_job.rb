@@ -32,7 +32,6 @@ class StripeUpdateCardJob < ActiveJob::Base
           subscription.error << 'User not found'
         end
         subscription.save
-        ap subscription
       end
       #subscription.fail! if error
     end

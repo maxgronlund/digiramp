@@ -11,13 +11,12 @@ class Wizard::Rights::WorkStartController < Wizard::Rights::CommonWorksControlle
   end
   
   def create
-    ap params
-    
-    if Wizard.create(wizard_params)
-      redirect_to :back
-    else
-      render :new
-    end
+
+    #if Wizard.create(wizard_params)
+    #  redirect_to :back
+    #else
+    #  render :new
+    #end
   end
 
   def edit

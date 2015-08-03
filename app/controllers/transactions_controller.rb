@@ -56,9 +56,9 @@ class TransactionsController < ApplicationController
   end
   
   def status
-    #ap '----- status ---------------'
+    ##'----- status ---------------'
     @sale = Sale.where(guid: params[:guid]).first
-    #ap @sale
+    # @sale
     render nothing: true, status: 404 and return unless @sale
     render json: {guid: @sale.guid, status: @sale.state, error: @sale.error}
   end

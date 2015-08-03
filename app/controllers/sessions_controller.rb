@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
     #elsif params[:provider] == 'facebook'
     #  @facebook_cookies ||= Koala::Facebook::OAuth.new(FACEBOOK_CONFIG['app_id'], FACEBOOK_CONFIG['secret_key']).get_user_info_from_cookie(cookies)
     #  @graph = Koala::Facebook::API.new(@facebook_cookies['access_token'])
-    #  ap @graph.get_object("me")
+    #  # @graph.get_object("me")
     else
       log_in_with_email params
     end
@@ -152,13 +152,9 @@ private
     user.merge_order(session[:order_id]) unless session[:order_id].nil?
     session[:order_id] = nil
 
-    
     user.account.visits        += 1
-    ap '1'
-    ap user.account
-    ap Account.where(user_id: user.id)
     user.account.save!
-    ap '2'
+
     user.create_activity(  :signed_in, 
                        owner: current_user,
                    recipient: current_user,

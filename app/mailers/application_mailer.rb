@@ -27,8 +27,8 @@ class ApplicationMailer < ActionMailer::Base
       mandril_client.messages.send_template template_name, template_content, message
 
     rescue Mandrill::Error => e
-      ap "#{e.class} - #{e.message}"
-      Opbeat.capture_message("#{e.class} - #{e.message}")
+      message = "#{e.class} - #{e.message}"
+      ErrorNotification.post message
     end
   end
   

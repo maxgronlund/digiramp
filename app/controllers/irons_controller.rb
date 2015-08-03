@@ -10,7 +10,7 @@ class IronsController < ApplicationController
   # GET /irons/1
   # GET /irons/1.json
   def show
-    ap params
+    # params
     
     render nothing: true
   end
@@ -27,7 +27,7 @@ class IronsController < ApplicationController
   # POST /irons
   # POST /irons.json
   def create
-    ap params
+    # params
     
     render nothing: true
     #@iron = Iron.new(iron_params)

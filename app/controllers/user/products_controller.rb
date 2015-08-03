@@ -14,8 +14,7 @@ class User::ProductsController < ApplicationController
   def show
     not_found unless @shop_product
     @order_items   = @shop_product.order_items.order('created_at desc').where(sold: true)
-    #ap @order_items
-    #@shop_order = current_order
+
   end
 
   # GET /shop/products/new
@@ -82,7 +81,7 @@ class User::ProductsController < ApplicationController
         format.html { redirect_to user_user_product_stakes_path(@user, @shop_product) }
         format.json { render :show, status: :created, location: @shop_product }
       else
-        ap '=========================== do what you have to do here ============================='
+        # '=========================== do what you have to do here ============================='
         format.html { render :new, category: 'recording' }
         format.json { render json: @shop_product.errors, status: :unprocessable_entity }
       end
@@ -95,11 +94,9 @@ class User::ProductsController < ApplicationController
     @category     = @shop_product.category
     set_productable params
     
-    ap params
-    
     respond_to do |format|
       if @shop_product.update!(shop_product_params)
-        ap @shop_product
+        
         #update_show_in_shop
         format.html { redirect_to user_user_product_path(@user, @shop_product) }
 

@@ -14,7 +14,7 @@ class User::DigitalSignaturesController < ApplicationController
   end
   
   def update
-    ap params[:digital_signature][:email]
+
     @digital_signature = DigitalSignature.cached_find(params[:id])
     @digital_signature.email = params[:digital_signature][:email]
     @digital_signature.role  = params[:digital_signature][:role]
@@ -22,7 +22,7 @@ class User::DigitalSignaturesController < ApplicationController
       @digital_signature.user_id = user.id
     end
     @digital_signature.save validate: false         #.update!(digital_signature_params)
-    ap @digital_signature
+    
   end
 
 

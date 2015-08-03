@@ -4,7 +4,7 @@ class Confirmation::RecordingIpiConfirmationsController < ApplicationController
       @user   = User.get_by_email( @recording_ipi.email )
     end
     
-    #ap @user
+    ##@user
     
     # things that can happen if the ipi the current_user ore the user is missing
     if current_user.nil?

@@ -16,10 +16,8 @@ class User::SelectedOpportunitiesController < ApplicationController
 
 
   def show
-    ap '=================================='
-    
+
     @opportunity         = Opportunity.cached_find(params[:id])
-    ap @opportunity
     
     selected_opportunity = SelectedOpportunity.where(user_id: @user.id, opportunity_id: @opportunity.id)
                                               .first_or_create(user_id: @user.id, opportunity_id: @opportunity.id)

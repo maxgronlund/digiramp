@@ -112,10 +112,10 @@ class Stake < ActiveRecord::Base
                             application_fee:      application_fee.to_i
                            )
       
-      ap stripe_transfer
-      ap '=============================================='
-      ap order_item
-      ap '=============================================='
+      # stripe_transfer
+      # '=============================================='
+      # order_item
+      # '=============================================='
       # mark as paid if the money already is on the right account
       stripe_transfer.finis! if stripe_transfer.seller_account_id == order_item.seller_account_id
 

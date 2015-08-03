@@ -1,5 +1,5 @@
 class UserIpisController < ApplicationController
   def index
-    ap params
+    #params
   end
 end

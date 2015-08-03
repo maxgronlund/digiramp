@@ -55,7 +55,7 @@ class Account::MusicRequestsController < ApplicationController
   end
 
   def update
-    ap '============================= update =================================='
+    # '============================= update =================================='
     forbidden unless current_account_user.update_opportunity
     @opportunity         = Opportunity.cached_find(params[:opportunity_id])
     initialize_recording  TransloaditRecordingsParser.parse( params[:transloadit], 
@@ -63,8 +63,8 @@ class Account::MusicRequestsController < ApplicationController
                                                               true, 
                                                               current_account_user.user_id)
     
-    #ap params
-    #ap music_request_params
+    # params
+    # music_request_params
     if @music_request.update(music_request_params)
       redirect_to account_account_opportunity_path(@account, @opportunity)
     else
@@ -74,8 +74,8 @@ class Account::MusicRequestsController < ApplicationController
   end
   
   def initialize_recording result
-    ap '==============================================================='
-    ap result[:recordings][0]
+    # '==============================================================='
+    # result[:recordings][0]
     begin
       
      # success mesage
@@ -117,11 +117,11 @@ class Account::MusicRequestsController < ApplicationController
       recording.valid_for_sale      = false
       recording.privacy             = 'Only me'
       recording.save!
-      ap recording
+      
     else
-      ap '=========================================================='
-      ap "============= #{recording_id} ============================"
-      ap '=========================================================='
+      # '=========================================================='
+      # "============= #{recording_id} ============================"
+      # '=========================================================='
     end
     
   end

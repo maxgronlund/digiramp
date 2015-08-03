@@ -65,16 +65,16 @@ class Shop::Order < ActiveRecord::Base
                                       shipping: {}
                                     )
       
-      #ap charge 
+      # charge 
       #balance = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
-      #ap '----------------- balance ----------------------------'
-      #ap balance
-      #ap '======================================================'
+      # '----------------- balance ----------------------------'
+      # balance
+      # '======================================================'
 
       self.update(charge_id: charge.id)
-      #ap '----------------- charge_id ----------------------------'
-      #ap self.charge_id
-      #ap '--------------------------------------------------------'
+      # '----------------- charge_id ----------------------------'
+      # self.charge_id
+      # '--------------------------------------------------------'
       
     rescue Stripe::StripeError => e
       self.update_attributes(error: e.message)

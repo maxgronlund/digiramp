@@ -16,7 +16,7 @@ class User::CreativeProjectUsersController < ApplicationController
   end
 
   def new
-    #ap params
+    
     #
     #@user                     = User.cached_find(params[:user_id])
     #@creative_project         = CreativeProject.cached_find(params[:creative_project_id])

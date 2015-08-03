@@ -19,8 +19,7 @@ class StripeAccount
               }
 
     rescue Stripe::StripeError => e
-      ap e.message
-      Opbeat.capture_message( e.message )
+      ErrorNotification.post_object 'StripeAccount', e
     end
     nil
   end

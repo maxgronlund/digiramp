@@ -4,12 +4,11 @@ class User::CheckingAccountsController < ApplicationController
   end
   
   def new
-    ap params
     @user = User.first
   end
   
   def create
-    ap params
+    
     @user = User.first
     
     recipient = Stripe::Recipient.create(

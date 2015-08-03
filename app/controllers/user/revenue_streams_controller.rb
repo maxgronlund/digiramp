@@ -16,8 +16,7 @@ class User::RevenueStreamsController < ApplicationController
   end
   
   def destroy
-    ap params
-    ap params[:stake_id]
+
     @stake.destroy!
     redirect_to user_user_revenue_stream_path(@user, params[:stake_id])
   end

@@ -9,7 +9,6 @@ class PublicOpportunitiesController < ApplicationController
     
     begin
       @opportunity = Opportunity.cached_find(params[:id])
-      ap @opportunity
       if current_user
         redirect_to user_user_opportunity_path( current_user, @opportunity) if current_user
       else

@@ -1,7 +1,7 @@
 class StripeConnectController < ApplicationController
   def create
-    ap '====================================================================='
-    ap params
+    # '====================================================================='
+    # params
     auth_hash = request.env['omniauth.auth']
     current_user.stripe_id              = auth_hash['uid']
     current_user.stripe_access_key      = auth_hash['credentials']['token']

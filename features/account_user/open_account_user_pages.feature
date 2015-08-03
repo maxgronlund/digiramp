@@ -35,7 +35,7 @@ As an member I can create custom pages and add content to them
    Then I can see "Add recordings"
    
    When I'm on the opportunities page for user with the email "user@digiramp.com"
-   Then I can see "Create opportunity"
+   Then I can see "New opportunity"
    
    When I'm on the users page for user with the email "user@digiramp.com"
    Then I can see "Invite user"

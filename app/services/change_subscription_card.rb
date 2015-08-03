@@ -13,7 +13,6 @@ class ChangeSubscriptionCard
           subscription.fail!
         end
       rescue Stripe::StripeError => e
-        ap e.message
         subscription.error << e.message
         subscription.save
         subscription.fail!

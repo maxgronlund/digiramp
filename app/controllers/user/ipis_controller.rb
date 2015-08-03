@@ -10,7 +10,7 @@ class User::IpisController < ApplicationController
   end
   
   def show
-     ap params
+     
     @ipi          = Ipi.cached_find(params[:id])
     not_found( params )  unless ( @common_work = @ipi.common_work ) && ( account = @common_work.account ) && ( @requester = account.user )
   end

@@ -150,12 +150,7 @@ private
 
   
   def charge_card
-    ap 'charge_card'
-    #ap params
-    
-    
-    
-    
+
     
     stripe_sub      = nil
     coupon_object   = nil
@@ -171,7 +166,7 @@ private
       rescue Stripe::StripeError => e
         self.user.stripe_customer_id = nil
         self.user.save!
-        ap e.message
+        ErrorNotification.post_object 'Subscription#charge_card', e
       end 
     end
     

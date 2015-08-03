@@ -162,7 +162,6 @@ class Client < ActiveRecord::Base
           end
         end
       rescue
-        ap 'so far so good'
         return
       end
     ensure
@@ -219,7 +218,6 @@ class Client < ActiveRecord::Base
           end
         end
       rescue
-        ap 'so far so good'
         return
       end
     ensure

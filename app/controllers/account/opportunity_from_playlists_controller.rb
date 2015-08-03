@@ -2,8 +2,7 @@ class Account::OpportunityFromPlaylistsController < ApplicationController
   include AccountsHelper
   before_action :access_account
   def create
-    ap params
-    ap current_user.id
+
     if playlist_id = params[:opportunity][:playlist_id]
       @playlist = Playlist.cached_find(playlist_id)
       
@@ -36,7 +35,7 @@ class Account::OpportunityFromPlaylistsController < ApplicationController
       end
     end
     @opportunity = Opportunity.new if @opportunity.nil? 
-    
+    @user = current_user
   end
   
   private
@@ -53,7 +52,7 @@ class Account::OpportunityFromPlaylistsController < ApplicationController
   
   def populate_musicrequest
     @playlist.recordings.each do |recording|
-      ap recording
+      
       begin
         MusicSubmission.create(
             recording_id:     recording.id,

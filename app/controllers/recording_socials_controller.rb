@@ -9,7 +9,7 @@ class RecordingSocialsController < ApplicationController
   end
 
   def update
-    ap params
+
     #go_to = params[:recording][:next_step]
     #params[:recording].delete :next_step
 

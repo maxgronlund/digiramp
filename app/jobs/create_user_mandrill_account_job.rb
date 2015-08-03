@@ -6,8 +6,7 @@ class CreateUserMandrillAccountJob < ActiveJob::Base
       MandrillAccountService.create_account_for_user( user_id )
     rescue => e
       message = "Error create Mandrill subaccount for #{user_id} #{e.inspect}"
-      ap message
-      Opbeat.capture_message(message)
+      ErrorNotification.post message
     end
   end
 end

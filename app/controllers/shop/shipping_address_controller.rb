@@ -7,7 +7,6 @@ class Shop::ShippingAddressController < ApplicationController
     
     
     if error_message = OrderValidator.check_validity_on( @shop_order )
-      ap error_message
       flash[:danger] = error_message
     end
     #redirect_to shop_order_path( @shop_order.uuid )

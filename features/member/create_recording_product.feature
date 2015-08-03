@@ -12,8 +12,8 @@ As an member i can put recordings on sale
     
     
     
-  Scenario: As a member I select a recording and put it in the shop
-    When I look edit the rights for the "play me softly" recording
-    Then I can see "Add to shop"
+  #Scenario: As a member I select a recording and put it in the shop
+  #  When I look edit the rights for the "play me softly" recording
+  #  Then I can see "Add to shop"
  
 

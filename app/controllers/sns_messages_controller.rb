@@ -2,7 +2,7 @@ class SnsMessagesController < ApplicationController
   
   protect_from_forgery only: :receive
   def receive
-    ap params
+    # params
     render nothing: true
   end
 end

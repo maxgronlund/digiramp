@@ -4,7 +4,7 @@ class OrderValidator < ActiveModel::Validator
 
     return 'Your basket is empty' if order.order_items.count == 0
     msg = check_shop_items_on( order )
-    ap msg
+    
     return msg if msg 
 
   end
@@ -49,7 +49,7 @@ class OrderValidator < ActiveModel::Validator
     if product = order_item.shop_product
       
       test = product.units_on_stock - quantity
-      ap test
+      
       if test < 0
         quantity =  quantity + test
       end

@@ -104,8 +104,9 @@ class ClientInvitationMailer < ApplicationMailer
       end
 
     rescue Mandrill::Error => e
-      ap "#{e.class} - #{e.message}"
-      Opbeat.capture_message("#{e.class} - #{e.message}")
+      
+      message = "#{e.class} - #{e.message}"
+      ErrorNotification.post message
     end
   end
   

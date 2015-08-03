@@ -2,7 +2,6 @@ class ReceiptMailer < ActionMailer::Base
   default from: 'max@pixelsonrails.com'
   
   def receipt(sale)
-    ap sale
     #@sale = sale
     #html = render_to_string('receipt_mailer/receipt.html')
     #pdf = Docverter::Conversion.run do |c|

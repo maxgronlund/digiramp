@@ -165,15 +165,15 @@ class Shop::Product < ActiveRecord::Base
 
   
   def initialize_defaults
-    Stake.create(account_id:          self.account_id, 
+    Stake.create(account_id:            self.account_id, 
                     split:               100,
                     flat_rate_in_cent:   0,
                     currency:            'usd',
                     email:               self.account.user.email,
                     unassigned:          false,
                     asset_id:            self.id,
-                    asset_type:          self.class.name,
-                    original_source:     self.title
+                    asset_type:          self.class.name
+                    #original_source:     self.title
                    )
   end
   

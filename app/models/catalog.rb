@@ -131,8 +131,6 @@ class Catalog< ActiveRecord::Base
   end
   
   def attach_recordings recordings_to_attach
-    ap recordings_to_attach
-    ap recordings_to_attach.class.name
     recordings_to_attach.each do |recording|
       attach_recording recording
     end

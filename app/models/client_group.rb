@@ -19,7 +19,6 @@ class ClientGroup < ActiveRecord::Base
   end
   
   def invite_clients
-    ap 'invite clients'
     ClientInvitationMailer.delay.invite_all_from_group( self.id )
 
   end

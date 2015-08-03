@@ -18,15 +18,7 @@ class User::PaymentMethodsController < ApplicationController
   end
   
   def status
-    
-    ap 'PaymentMethodsController#status'
     @subscription = Subscription.where(guid: params[:guid]).first
-    puts '-------------------'
-    ap @subscription.error
-    ap @subscription.state
-    puts '-------------------'
-    
-    #ap @sale
     render nothing: true, status: 404 and return unless @subscription
     render json: {guid: @subscription.guid, status: @subscription.state, error: @subscription.error}
   end

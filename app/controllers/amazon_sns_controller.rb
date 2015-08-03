@@ -7,7 +7,6 @@ class AmazonSnsController < ApplicationController
     @amazon_sns = AmazonSn.all
     #
     #sns_info = Aws::SNS::Client.new(region: 'us-east-1')
-    #ap sns_info.operation_names
     #
     #
     #
@@ -43,18 +42,18 @@ class AmazonSnsController < ApplicationController
   # GET /amazon_sns/1
   # GET /amazon_sns/1.json
   def show
-    ap params
-    ap request.headers
+    # params
+    # request.headers
   end
   
   
   # https://050595f0.ngrok.io/sns_hook/1
   #protect_from_forgery except: [:sns_hook]
   def sns_hook
-    #ap params
-    #ap request.headers["HTTP_X_AMZ_SNS_MESSAGE_TYPE"]
-    #ap '======================================================='
-    #ap request.headers
+    # params
+    # request.headers["HTTP_X_AMZ_SNS_MESSAGE_TYPE"]
+    # '======================================================='
+    # request.headers
     #render nothing: true
   end
 
@@ -75,7 +74,7 @@ class AmazonSnsController < ApplicationController
     amz_message_type                    = request.headers['HTTP_X_AMZ_SNS_MESSAGE_TYPE']
     amz_sns_topic                       = request.headers['HTTP_X_AMZ_SNS_TOPIC_ARN']
     
-    #ap amz_sns_topic.to_s.downcase
+    #amz_sns_topic.to_s.downcase
     return unless !amz_sns_topic.nil? && amz_sns_topic.to_s.downcase == 'arn:aws:sns:us-east-1:656201664836:user_data_updates'
     
 
@@ -83,15 +82,15 @@ class AmazonSnsController < ApplicationController
     
     # if this is the first time confirmation of subscription, then confirm it
     if amz_message_type.to_s.downcase   == 'subscriptionconfirmation'
-      #ap 'subscriptionconfirmation'
+      #'subscriptionconfirmation'
       send_subscription_confirmation request_body
       return
     end
     
     if amz_message_type.to_s.downcase   == 'notification'
-      #ap 'notification'
+      #'notification'
       #DO WORK HERE
-      ap request_body
+      # request_body
     end
     
     return
@@ -113,7 +112,7 @@ class AmazonSnsController < ApplicationController
   def send_subscription_confirmation(request_body)
 
     subscribe_url = request_body['SubscribeURL']
-    ap subscribe_url
+    # subscribe_url
     return nil unless !subscribe_url.to_s.empty? && !subscribe_url.nil?
     subscribe_confirm = HTTParty.get subscribe_url
 

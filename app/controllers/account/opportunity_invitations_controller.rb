@@ -33,10 +33,10 @@ class Account::OpportunityInvitationsController < ApplicationController
 
 
   def create
-    ap params
+    
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_invitation = OpportunityInvitation.create(opportunity_invitation_params)
-    ap @opportunity_invitation
+
 
     params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
       

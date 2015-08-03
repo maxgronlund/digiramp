@@ -3,7 +3,7 @@ class Opportunity::ReviewersController < ApplicationController
   #before_action :access_opportunity
   #
   def show
-    ap params
+    
     unless current_user.nil?
       if params[:opportunity_id ]  && params[:id]
         if @opportunity  = Opportunity.cached_find(params[:opportunity_id])

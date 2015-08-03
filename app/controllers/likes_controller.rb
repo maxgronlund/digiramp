@@ -31,7 +31,7 @@ class LikesController < ApplicationController
     recording.update(uniq_likes_count:  recording.likes.count.to_uniq)
    
     
-    ap recording.uniq_likes_count
+
              
     @unlike = '.unlike_recording_' + params[:recording_id].to_s   
     @like   = '.like_recording_'   + params[:recording_id].to_s 
@@ -52,7 +52,7 @@ class LikesController < ApplicationController
     like.destroy 
     recording     = Recording.cached_find(params[:id])
     recording.update(uniq_likes_count:  recording.likes.count.to_uniq)
-    ap recording.uniq_likes_count
+
     @unlike = '.unlike_recording_'  + params[:id].to_s   
     @like   = '.like_recording_'    + params[:id].to_s  
 

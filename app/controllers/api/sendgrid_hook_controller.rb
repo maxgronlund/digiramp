@@ -5,7 +5,7 @@ class Api::SendgridHookController < ApplicationController
     #params.each do |p|
     #  
     #  p.each do | params|
-    #    #ap params.class.name
+    #    ##params.class.name
     #    if params.class.name == "ActionController::Parameters"
     #      params["_json"].to_a.each do |event|
     #        case event["event"]

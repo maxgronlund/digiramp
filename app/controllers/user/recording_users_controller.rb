@@ -43,7 +43,7 @@ class User::RecordingUsersController < ApplicationController
   # DELETE /recording_users/1
   # DELETE /recording_users/1.json
   def destroy
-    ap params
+    
     @recording_user = RecordingUser.cached_find(params[:id])
     @recording_user.destroy
     respond_to do |format|

@@ -23,8 +23,7 @@ class Admin::ClientGroupsController < ApplicationController
       @clint_group.save!
       @clint_group.invite_clients
     rescue
-      ap 'not found'
-      Opbeat.capture_message("ClientGroupsController: unable to resend invitations")
+      ErrorNotification.post 'ClientGroupsController: unable to resend invitations'
     end
     #ClientInvitationMailer.delay.invite_all_from_group( params[:id])
     #@clint_group.update(client_group_params)

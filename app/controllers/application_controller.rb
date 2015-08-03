@@ -293,7 +293,6 @@ private
         @order = Shop::Order.new( invoice_nr: Admin.get_invoice_nr)
         @order.save(validate: false)
         session[:order_id] = @order.id
-        ap @order
       end
     end
     @order

@@ -6,7 +6,7 @@ class InvoiceMailer < ApplicationMailer
       send_to_sellers
       send_to_buyer
     rescue => e
-      ap e.inspect
+      ErrorNotification.post_object 'InvoiceMailer#send_confirmations', e
     end
 
   end
@@ -26,7 +26,7 @@ class InvoiceMailer < ApplicationMailer
           order_item_url  = url_for( controller: 'user/order_items', action: 'show', user_id: seller.slug, id: order_item.id)                           
           order_item_url = ( URI.parse(root_url) + order_item_url ).to_s
           
-          #ap order_item_url
+
           begin
             template_name = "order-received"
             template_content = []
@@ -52,7 +52,7 @@ class InvoiceMailer < ApplicationMailer
             }
             mandril_client.messages.send_template template_name, template_content, message
           rescue Mandrill::Error => e
-            Opbeat.capture_message("#{e.class} - #{e.message}")
+            ErrorNotification.post("#{e.class} - #{e.message}")
           end                    
                                     
         end
@@ -66,7 +66,7 @@ class InvoiceMailer < ApplicationMailer
   def send_to_buyer
     
     invoice = render_to_string('shop/invoices/notify_buyer_email', layout: 'invoices')
-    #ap invoice
+
 
     begin
       template_name = "invoice"

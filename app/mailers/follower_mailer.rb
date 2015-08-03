@@ -57,7 +57,7 @@ class FollowerMailer < ApplicationMailer
   
   def errors err
     ap err
-    Opbeat.capture_message("FollowerMailer: #{err}" )
+    ErrorNotification.post err
   end
   
 end
