@@ -350,7 +350,7 @@ class AccountUser < ActiveRecord::Base
   end
   
   def self.cached_where(account_id, user_id)
-    Rails.cache.fetch([ name, account_id, user_id]) { where( account_id: account_id, user_id: user_id ).first }
+    Rails.cache.fetch([ name, account_id, user_id]) { find_by( account_id: account_id, user_id: user_id ) }
   end
   
   def can_add_content?

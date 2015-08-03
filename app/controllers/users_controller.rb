@@ -142,7 +142,7 @@ class UsersController < ApplicationController
     @user                = User.new(user_params)
       
     if @user.save
-      
+      track! :signups      # track successful sign up
       @account          = User.create_a_new_account_for_the @user
 
       # signout if you was signed in as another user

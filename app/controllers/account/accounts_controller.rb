@@ -52,7 +52,9 @@ class Account::AccountsController < ApplicationController
   end
   
   def destroy
-    
+    ap '============================================='
+    ap "destroy"
+    ap '============================================='
     @account = Account.cached_find(params[:id])
     @account.create_activity(  :destroyed, 
                           owner: current_user,
@@ -60,35 +62,31 @@ class Account::AccountsController < ApplicationController
                  recipient_type: @account.class.name)
               
     
-    
-    if @account.user
-      user = @account.user
+    if user = @account.user
+      
       user.create_activity(  :destroyed, 
                             owner: current_user,
                         recipient: user,
                    recipient_type: user.class.name,
                        account_id: @account.id)
-                   
-      
-      
+    
       user.flush_auth_token_cache(cookies[:auth_token])
       cookies.delete(:auth_token)
       cookies.delete(:user_id)
-      
-      
+    
       user.destroy! 
-      
-      
+      #ap user
       
     end 
-    @account.destroy!   
     
+    #@account.destroy!   
+    #user.destroy!
     
     redirect_to root_path   
     
     
   end
-
+  
 
   private
     

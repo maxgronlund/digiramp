@@ -72,7 +72,9 @@ class ApplicationController < ActionController::Base
     if super? 
       AccountUser.find_by(id: current_user.super_account_user_id)
     else 
-      AccountUser.cached_where( current_account.id, current_user.id)
+      if current_account && current_user
+        AccountUser.cached_where( current_account.id, current_user.id)
+      end
     end
   end
   

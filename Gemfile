@@ -6,6 +6,7 @@ gem 'rails', '4.2.3'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 
+
 # Use SCSS for stylesheets
 #gem 'sass-rails', '~> 4.0.3'
 #gem 'bootstrap-sass', '~> 3.3.1'
@@ -56,7 +57,7 @@ gem 'mini_magick'
 gem 'sidekiq', github: 'mperham/sidekiq'
 gem 'responders', '~> 2.0'
 gem 'whenever', require: false
-gem "vanity"
+gem 'vanity', :git => 'git@github.com:assaf/vanity', :branch => 'master'
 
 # not in use
 #gem 'celluloid'

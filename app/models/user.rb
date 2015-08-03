@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   
   #validates_presence_of :name, :on => :update
   #before_create :set_uuid
-  has_one  :account
+  has_one  :account, dependent: :destroy
   #has_one :account_users
   #has_many :account_users
   has_many :account_users#,    dependent: :destroy

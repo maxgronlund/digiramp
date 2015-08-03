@@ -148,6 +148,8 @@ class Account < ActiveRecord::Base
     unlocked_creative_projects.destroy_all
     
     self.products.update_all(account_id: nil)
+    
+
     #self.recordings.update_all(account_id: nil)
     #self.stripe_transfers.update_all(account_id: nil)
   end
