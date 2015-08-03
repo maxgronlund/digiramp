@@ -145,7 +145,7 @@ class Stake < ActiveRecord::Base
 
     if user
       self.account_id   = user.account.id
-      elsewel
+    else
       self.unassigned   = false
     end 
     self.save!
