@@ -101,7 +101,7 @@ private
   
   def send_confirmation_notification
     # if self.user
-    ap 'send_confirmation_notification'
+    #'send_confirmation_notification'
   end
 
 

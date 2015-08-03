@@ -1,11 +1,11 @@
 class MandrillAccountService
   
   def self.create_account_for_user user_id
-    ap '----------------------- MandrillAccountService -------------------------'
+    #'----------------------- MandrillAccountService -------------------------'
     return unless user  = User.find_by(id: user_id)
     return unless user.mandrill_account_id.blank?
     
-    ap '----------------------- user found without a  mandrill_account_id  -------------------------'
+    #'----------------------- user found without a  mandrill_account_id  -------------------------'
     begin
       
       mandril_client              = Mandrill::API.new Rails.application.secrets.email_provider_password                       
@@ -15,10 +15,10 @@ class MandrillAccountService
       result                      = mandril_client.subaccounts.add mandrill_account_id, name, notes, custom_quota
       user.mandrill_account_id    = mandrill_account_id
       user.save(validate: false)
-      #ap result
+      #result
     rescue Mandrill::Error => e
       message = "A mandrill error occurred: #{e.class} - #{e.message}"
-      ap message
+      #message
       Opbeat.capture_message(message)
     end
   end
@@ -31,7 +31,7 @@ class MandrillAccountService
         id                          = user.mandrill_account_id
         custom_quota                = 1000
         result = mandril_client.subaccounts.update id, nil, nil, custom_quota
-        #ap result
+        #result
     
     rescue Mandrill::Error => e
         # Mandrill errors are thrown as exceptions

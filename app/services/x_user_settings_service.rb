@@ -50,7 +50,7 @@ class XUserSettingsService
       begin
         user.save!
       rescue 
-        ap user.email
+        #user.email
         user.save(validate: false)
       end
     

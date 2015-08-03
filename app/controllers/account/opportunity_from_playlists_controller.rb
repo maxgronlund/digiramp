@@ -4,6 +4,7 @@ class Account::OpportunityFromPlaylistsController < ApplicationController
   def create
 
     if playlist_id = params[:opportunity][:playlist_id]
+      params[:opportunity][:playlist_id] = nil
       @playlist = Playlist.cached_find(playlist_id)
       
       @opportunity = Opportunity.create(opportunity_params)
@@ -22,7 +23,7 @@ class Account::OpportunityFromPlaylistsController < ApplicationController
     
     #redirect_to opportunity_opportunity_reviewer_path(@opportunity, opportunity_user.uuid )
     #account/accounts/6/opportunities/147/opportunity_users
-    redirect_to account_account_opportunity_opportunity_users_path(@user.account, @opportunity )
+    redirect_to account_account_opportunity_opportunity_users_path(@account, @opportunity )
     
   end
   
@@ -81,7 +82,8 @@ class Account::OpportunityFromPlaylistsController < ApplicationController
                                         :territory,
                                         :public_opportunity,
                                         :image,
-                                        :max_submisions_pr_user
+                                        :max_submisions_pr_user,
+                                        :playlist_id
                                         )
   end
   

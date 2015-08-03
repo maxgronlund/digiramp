@@ -43,7 +43,7 @@ class Omniauth
   # authorize or create an new account
   def self.authorize_with_omniauth env
     
-    #ap  env
+    #  env
     
     
     #authorization_provider = AuthorizationProvider.where( env.slice("provider", "uid")).first
@@ -55,7 +55,7 @@ class Omniauth
       authorization_provider.oauth_expires       = credentials["expires"] 
       #authorization_provider.info                = env['omniauth.auth']["info"]
       authorization_provider.save! 
-      #ap authorization_provider
+      #authorization_provider
       return {user: authorization_provider.user}
     else
       user = create_from_omniauth(env)
@@ -67,7 +67,7 @@ class Omniauth
 private
 
   def self.create_from_omniauth(env)
-    #ap env
+    #env
     #raise env.to_yaml
     # create a user
     user = create_user( env )
@@ -114,9 +114,9 @@ private
     end
     
     unless user
-      #ap '------------ info --------------'
-      #ap env["info"]
-      #ap '---------- update provider --------'
+      #'------------ info --------------'
+      #env["info"]
+      #'---------- update provider --------'
       user = User.create(  name:           env["info"]["nickname"], 
                            password:       UUIDTools::UUID.timestamp_create().to_s, 
                            social_avatar:  env[:info][:image],

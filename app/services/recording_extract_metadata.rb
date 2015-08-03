@@ -19,7 +19,7 @@ class RecordingExtractMetadata
         recording.disc         = meta[:disc].to_s                            
         recording.track        = meta[:track].to_s                        
         recording.save!(validate: false)  
-        ap recording
+        #recording
       end
     end      
   end

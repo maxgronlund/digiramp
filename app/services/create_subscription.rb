@@ -18,7 +18,7 @@ class CreateSubscription
     #  subscription.save!
     #
     #rescue Stripe::StripeError => e
-    #  ap e.message
+    #  e.message
     #  Rails.flash[:danger] = e.message
     #  subscription.errors[:base] << e.message
     #end

@@ -28,7 +28,7 @@ class Subscription < ActiveRecord::Base
   #      self.stripe_coupon_object = coupon.stripe_object 
   #    end
   #  end
-  #  ap self
+  #  #self
   #end
 
   
@@ -114,7 +114,7 @@ class Subscription < ActiveRecord::Base
   end
   
   def cancel_when_plan_expires
-    ap 'cancel_when_plan_expires'
+    #'cancel_when_plan_expires'
     self.reset!
     self.update!
     self.cancel_at_period_end = true
@@ -130,12 +130,12 @@ class Subscription < ActiveRecord::Base
       
       # send subscription canceled email
       
-      #ap self
+      #self
       return "You have cancled your current plan, it will continue until the period you have paied for expires" 
     rescue Stripe::StripeError => e
       #self.fail!
       self.error = e.message
-      ap e.message
+      #e.message
       return 'An error occurred. You will be contacted by support'
     end
     self.save!
@@ -176,16 +176,16 @@ private
         stripe_params[:source]        = self.stripe_token
         stripe_params[:email]         = self.email 
         stripe_customer               = Stripe::Customer.create( stripe_params )
-        #ap '======================= stripe customer ================================'
-        #ap stripe_customer
-        #ap '========================================================================'
+        #'======================= stripe customer ================================'
+        #stripe_customer
+        #'========================================================================'
         self.user.stripe_customer_id  = stripe_customer.id
         self.user.save!
       rescue Stripe::StripeError => e
         self.update_attributes(error: e.message)
         self.fail!
         Opbeat.capture_message(e.message)
-        ap e.message
+        #e.message
         return 
       end
     end
@@ -204,11 +204,11 @@ private
       self.update_attributes(error: e.message, stripe_id: nil)
       self.fail!
       Opbeat.capture_message(e.message)
-      ap e.error
+      #e.error
     end
 
     
-    #ap self.stripe_coupon_object.class.name
+    #self.stripe_coupon_object.class.name
     self.save!
     
   end

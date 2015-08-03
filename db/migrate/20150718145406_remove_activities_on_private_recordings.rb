@@ -9,7 +9,7 @@ class RemoveActivitiesOnPrivateRecordings < ActiveRecord::Migration
         end
       end
     end
-    ap '================================'
-    ap count
+    # '================================'
+    # count
   end
 end

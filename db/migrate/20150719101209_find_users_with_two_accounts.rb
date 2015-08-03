@@ -5,17 +5,17 @@ class FindUsersWithTwoAccounts < ActiveRecord::Migration
       accounts = Account.where(user_id: user.id)
       if accounts.count > 1
         count += 1
-        ap '----------------------------------------'
-        ap "#{user.user_name} has two accounts:"
+        # '----------------------------------------'
+        # "#{user.user_name} has two accounts:"
         accounts.each do |account|
-          ap "#{account.id}   |  created: #{account.created_at}"
+          # "#{account.id}   |  created: #{account.created_at}"
         end
       end
     end
-    ap '========================================'
-    ap " out of #{Account.count} accounts"
-    ap "#{count} users with two accounts found"
-    ap "last account is #{Account.last.id}"
-    ap '________________________________________' 
+    # '========================================'
+    # " out of #{Account.count} accounts"
+    # "#{count} users with two accounts found"
+    # "last account is #{Account.last.id}"
+    # '________________________________________' 
   end
 end

@@ -7,7 +7,7 @@ class Superuserservice
       account_user.grand_all_permissions
       user.super_account_user_id = account_user.id
       user.save!
-      ap user.super_account_user_id
+      #user.super_account_user_id
 
     end
     

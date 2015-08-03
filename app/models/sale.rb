@@ -43,7 +43,7 @@ class Sale < ActiveRecord::Base
     end
     
     def charge_card
-      ap ' Sale#charge_card'
+      #' Sale#charge_card'
       save!
       begin
         

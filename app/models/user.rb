@@ -343,7 +343,7 @@ class User < ActiveRecord::Base
   end
   
   def confirm_ips
-    #ap self
+    #self
     if ipis = Ipi.where(email: self.email, confirmation: 'Missing')
       
       ipis.update_all(user_id: self.id)

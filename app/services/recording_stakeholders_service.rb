@@ -41,12 +41,9 @@ class RecordingStakeholdersService
     #if Rails.env.development?
     #  total = 0.0
     #  recording.stakes.each do |stake|
-    #    ap stake
+    #    #stake
     #    total += stake.split_in_percent
     #  end
-    #  ap '------------------------------'
-    #  ap total
-    #  ap '------------------------------'
     #end
   end
   
@@ -113,7 +110,7 @@ class RecordingStakeholdersService
                             #ipiable_id:     ipi.id,
                             #ipiable_type:   ipi.class.name
                            )
-       ap stake
+       
      end
   end
 

@@ -5,11 +5,12 @@ class PlaylistEmailMailer < ApplicationMailer
     playlist_email          = PlaylistEmail.cached_find(playlist_email_id)
     playlist                = playlist_email.playlist
     body                    = playlist_email.body
-    @recordings              = playlist.recordings
+    @recordings             = playlist.recordings
     user                    = User.cached_find(playlist_email.user_id)
-    
     playlist_recordings     = render_to_string('playlist_emails/index', layout: false)
     
+    playlist_url            = url_for( controller: '/playlists', action: 'show', user_id: user.slug, id:  playlist.id )
+    user_url                = url_for( controller: '/users', action: 'show', id: user.slug)
     receipients_with_names  = []
     merge_vars              = []
     
@@ -20,7 +21,9 @@ class PlaylistEmailMailer < ApplicationMailer
                                      vars: [ {name: "USER_NAME",                  content: user.user_name},
                                              {name: "TITLE",                      content: playlist_email.title},
                                              {name: "BODY",                       content: playlist_email.body},
-                                             {name: "PLAYLIST_RECORDINGS",        content: playlist_recordings}
+                                             {name: "PLAYLIST_RECORDINGS",        content: playlist_recordings},
+                                             {name: "PLAYLIST_URL",               content: playlist_url},
+                                             {name: "USER_URL",                   content: user_url}
                                            ]
                                     }
       end

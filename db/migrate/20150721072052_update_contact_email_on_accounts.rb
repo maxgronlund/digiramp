@@ -30,9 +30,9 @@ class UpdateContactEmailOnAccounts < ActiveRecord::Migration
       begin
         account.save!
       rescue
-        ap "unable to save account id: #{account.id}"
-        ap "account contact mail: #{account.contact_email}"
-        ap "user slug: #{account.user.slug}"
+        # "unable to save account id: #{account.id}"
+        # "account contact mail: #{account.contact_email}"
+        # "user slug: #{account.user.slug}"
       end
     end
   end

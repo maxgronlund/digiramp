@@ -17,11 +17,14 @@ class Account::AccountsController < ApplicationController
   end
   
   def update
-    forbidden unless current_account_user && current_account_user.user_id == @account.user_id
-    @account  = Account.cached_find(params[:id])
-    @account.update_attributes(account_params)
-  
-    redirect_to account_account_path(  @account)
+    if (current_account_user && current_account_user.user_id == @account.user_id) || super?
+      @account  = Account.cached_find(params[:id])
+      @account.update_attributes(account_params)
+      
+      redirect_to account_account_path(@account)
+    else
+      forbidden
+    end
   
   end
   
@@ -72,7 +75,7 @@ class Account::AccountsController < ApplicationController
     #  cookies.delete(:auth_token)
     #  cookies.delete(:user_id)
     #
-    #  ap user
+    #  
     #  #user.destroy!
     #end 
     #

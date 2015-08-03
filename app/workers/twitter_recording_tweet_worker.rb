@@ -36,12 +36,12 @@ class TwitterRecordingTweetWorker
         end
        
       rescue => e #Twitter::Error => e
-        ap e.inspect
+        #e.inspect
         Opbeat.capture_message(e.inspect)
       end
     else
       # link user here
-      ap 'no provider'
+      # 'no provider'
     end
     
   end
