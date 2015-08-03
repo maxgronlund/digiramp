@@ -56,6 +56,7 @@ gem 'mini_magick'
 gem 'sidekiq', github: 'mperham/sidekiq'
 gem 'responders', '~> 2.0'
 gem 'whenever', require: false
+gem "vanity"
 
 # not in use
 #gem 'celluloid'
