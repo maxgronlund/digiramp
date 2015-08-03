@@ -182,6 +182,8 @@ gem 'mandrill-rails'
 
 #gem 'iron_mq'
 
+gem 'high_voltage', '~> 2.4.0'
+
 gem 'charlock_holmes'
 gem 'cloudsponge', github: 'cloudsponge/cloudsponge-lib-ruby'
 

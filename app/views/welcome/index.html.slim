@@ -146,6 +146,7 @@
           .col-sm-8
             h4 Featured recordings
             == render 'recordings/index', recordings: @recordings
+            = link_to 'About', page_path('down_for_maintenance')
                 
           
 == render 'shared/site_footer'
