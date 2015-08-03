@@ -1,6 +1,8 @@
 Digiramp::Application.routes.draw do
   
   get 'landing_page/index'
+  
+  get "/pages/*id" => 'pages#show', as: :page, format: false
 
   mount Split::Dashboard, :at => 'split'
 
