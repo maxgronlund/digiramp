@@ -1,4 +1,4 @@
-# cucumber features/member/member_populate_shop.feature:12 -r features
+# cucumber features/member/member_populate_shop.feature -r features
 
 Feature:
 As an member I can create a shop and add products to it

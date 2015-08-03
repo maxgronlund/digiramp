@@ -1,5 +1,7 @@
 Digiramp::Application.routes.draw do
   
+  get 'landing_page/index'
+
   mount Split::Dashboard, :at => 'split'
 
   resources :accepting_signatures

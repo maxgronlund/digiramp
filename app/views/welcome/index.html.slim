@@ -3,8 +3,10 @@
   .full-width-top
     /== render 'shared/navigationbar', page: '' 
     == render 'shared/navigationbar', page: 'settings' 
-  .welcome-carusel
-    .pull-down-68
+
+  .welcome-carusel.all-users
+    - if current_user
+      .pull-down-68
     - ab_test :landing_page, "carusel", "users", "nothing" do |page|
       - case page
       - when 'carusel'
@@ -147,4 +149,5 @@
                 
           
 == render 'shared/site_footer'
+
 

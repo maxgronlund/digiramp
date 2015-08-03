@@ -13,22 +13,9 @@
       .row
         .col-sm-6
           h2 = @playlist.title
-        - if (current_user && current_user.id == @user.id) || super?
+        - if current_user.manage? @user
           .col-sm-6
             .pull-right.pull-down-10
-
-
-              = link_to new_account_account_opportunity_from_playlist_path( @user.account, playlist_id: @playlist.id) do
-                .btn.btn-default
-                  i.fa.fa-envelope
-                  '&nbsp;
-                  'Create opportunity
-                  
-                  
-              => link_to new_user_user_playlist_playlist_email_path(@user, @playlist) do
-                .btn.btn-default
-                  i.fa.fa-envelope &nbsp; Email playlist
-                    
               = link_to edit_user_user_playlist_path(@user, @playlist) do
                 .btn.btn-primary
                   i.fa.fa-pencil
@@ -43,7 +30,22 @@
                 = image_tag( @playlist.playlist_image_url :image_270x270)
               .playlist-info
                 = simple_format @playlist.body
-               
+              
+            .row
+              .col-sm-12  
+                .pull-right
+                  - if current_user.manage? @user
+                    => link_to new_account_account_opportunity_from_playlist_path( @user.account, playlist_id: @playlist.id) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-envelope
+                        '&nbsp;
+                        'Create opportunity
+                        
+                        
+                  = link_to new_user_user_playlist_playlist_email_path(@user, @playlist) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-envelope &nbsp; Email playlist
+                 
 
           
           
